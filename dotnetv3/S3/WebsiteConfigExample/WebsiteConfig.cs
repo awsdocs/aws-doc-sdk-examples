@@ -1,4 +1,4 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
@@ -67,6 +67,7 @@ namespace WebsiteConfigExample
                     },
                 };
                 PutBucketWebsiteResponse response = await client.PutBucketWebsiteAsync(putRequest);
+
                 // snippet-end:[S3.dotnetv3.PutWebsiteConfigExample]
 
                 // snippet-start:[S3.dotnetv3.GetWebsiteConfigExample]
@@ -78,6 +79,7 @@ namespace WebsiteConfigExample
                 GetBucketWebsiteResponse getResponse = await client.GetBucketWebsiteAsync(getRequest);
                 Console.WriteLine($"Index document: {getResponse.WebsiteConfiguration.IndexDocumentSuffix}");
                 Console.WriteLine($"Error document: {getResponse.WebsiteConfiguration.ErrorDocument}");
+
                 // snippet-end:[S3.dotnetv3.GetWebsiteConfigExample]
             }
             catch (AmazonS3Exception ex)

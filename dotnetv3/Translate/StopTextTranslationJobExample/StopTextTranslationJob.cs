@@ -14,7 +14,7 @@ namespace StopTextTranslationJobExample
     using Amazon.Translate;
     using Amazon.Translate.Model;
 
-    class StopTextTranslationJob
+    public class StopTextTranslationJob
     {
         public static async Task Main()
         {

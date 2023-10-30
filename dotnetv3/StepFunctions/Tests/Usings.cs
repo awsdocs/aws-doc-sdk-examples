@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-global using StepFunctionsActions;
 global using Amazon.StepFunctions;
 global using Microsoft.Extensions.Configuration;
+global using StepFunctionsActions;
 global using Xunit;
 global using Xunit.Extensions.Ordering;
 

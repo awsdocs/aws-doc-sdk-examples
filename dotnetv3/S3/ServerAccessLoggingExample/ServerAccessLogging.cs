@@ -16,9 +16,9 @@ namespace ServerAccessLoggingExample
     using System;
     using System.IO;
     using System.Threading.Tasks;
-    using Microsoft.Extensions.Configuration;
     using Amazon.S3;
     using Amazon.S3.Model;
+    using Microsoft.Extensions.Configuration;
 
     public class ServerAccessLogging
     {
@@ -42,11 +42,18 @@ namespace ServerAccessLoggingExample
             try
             {
                 // Update bucket policy for target bucket to allow delivery of logs to it.
-                await SetBucketPolicyToAllowLogDelivery(client, bucketName, logBucketName,
-                    logObjectKeyPrefix, accountId);
+                await SetBucketPolicyToAllowLogDelivery(
+                    client,
+                    bucketName,
+                    logBucketName,
+                    logObjectKeyPrefix,
+                    accountId);
 
                 // Enable logging on the source bucket.
-                await EnableLoggingAsync(client, bucketName, logBucketName,
+                await EnableLoggingAsync(
+                    client,
+                    bucketName,
+                    logBucketName,
                     logObjectKeyPrefix);
             }
             catch (AmazonS3Exception e)

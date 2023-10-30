@@ -32,7 +32,7 @@ public class AuroraScenario
         using the ModifyDBClusterParameterGroupAsync method.
     7.  Get and display the updated parameters using the DescribeDBClusterParametersAsync method with a source of "user".
     8.  Get a list of allowed engine versions using the DescribeDBEngineVersionsAsync method.
-    9.  Create an Aurora DB cluster that contains a MySql database and uses the parameter group 
+    9.  Create an Aurora DB cluster that contains a MySql database and uses the parameter group.
         using the CreateDBClusterAsync method.
     10. Wait for the DB cluster to be ready using the DescribeDBClustersAsync method.
     11. Display and select from a list of instance classes available for the selected engine and version
@@ -127,6 +127,7 @@ public class AuroraScenario
             Console.WriteLine(sepBar);
         }
         catch (Exception ex)
+
         {
             await CleanupResources(newInstance, newCluster, parameterGroup);
             logger.LogError(ex, "There was a problem executing the scenario.");

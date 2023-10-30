@@ -18,6 +18,7 @@ namespace GetSecretValueExampleTests
     public class GetSecretValueTests
     {
         [Fact]
+        [Trait("Category", "Unit")]
         public void TestGetSecretValueAsync()
         {
             var mockClient = new Mock<IAmazonSecretsManager>();
@@ -46,6 +47,7 @@ namespace GetSecretValueExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void TestDecodeStringNullSecretValue()
         {
             var secretValue = new GetSecretValueResponse();
@@ -55,6 +57,7 @@ namespace GetSecretValueExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void TestDecodeStringStringValue()
         {
             var secretValue = new GetSecretValueResponse
@@ -68,6 +71,7 @@ namespace GetSecretValueExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void TestDecodeStringBinaryValue()
         {
             var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes("SecretExample"));

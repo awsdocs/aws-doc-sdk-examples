@@ -3,9 +3,7 @@
 
 using Amazon.Polly;
 using Amazon.Polly.Model;
-using Amazon.Runtime.Internal;
 using Amazon.S3;
-using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using FsaServices.Models;
 

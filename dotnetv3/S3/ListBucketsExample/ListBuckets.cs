@@ -16,20 +16,9 @@ namespace ListBucketsExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
-    class ListBuckets
+    public class ListBuckets
     {
         private static IAmazonS3 _s3Client;
-
-        static async Task Main()
-        {
-            // The client uses the AWS Region of the default user.
-            // If the Region where the buckets were created is different,
-            // pass the Region to the client constructor. For example:
-            // _s3Client = new AmazonS3Client(RegionEndpoint.USEast1);
-            _s3Client = new AmazonS3Client();
-            var response = await GetBuckets(_s3Client);
-            DisplayBucketList(response.Buckets);
-        }
 
         /// <summary>
         /// Get a list of the buckets owned by the default user.
@@ -52,6 +41,18 @@ namespace ListBucketsExample
             bucketList
                 .ForEach(b => Console.WriteLine($"Bucket name: {b.BucketName}, created on: {b.CreationDate}"));
         }
+
+        public static async Task Main()
+        {
+            // The client uses the AWS Region of the default user.
+            // If the Region where the buckets were created is different,
+            // pass the Region to the client constructor. For example:
+            // _s3Client = new AmazonS3Client(RegionEndpoint.USEast1);
+            _s3Client = new AmazonS3Client();
+            var response = await GetBuckets(_s3Client);
+            DisplayBucketList(response.Buckets);
+        }
     }
 }
+
 // snippet-end:[S3.dotnetv3.ListBuckets]

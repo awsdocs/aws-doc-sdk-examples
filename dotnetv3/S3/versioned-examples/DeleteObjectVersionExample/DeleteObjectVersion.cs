@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
 /// This example creates an object in an Amazon Simple Storage Service
@@ -48,7 +48,7 @@ namespace DeleteObjectVersionExample
                 string versionID = await PutAnObject(client, bucketName, keyName);
 
                 // Delete the object by specifying an object key and a version ID.
-                DeleteObjectRequest request = new()
+                DeleteObjectRequest request = new DeleteObjectRequest()
                 {
                     BucketName = bucketName,
                     Key = keyName,
@@ -75,7 +75,7 @@ namespace DeleteObjectVersionExample
         /// <returns>The Version ID of the created object.</returns>
         public static async Task<string> PutAnObject(IAmazonS3 client, string bucketName, string objectKey)
         {
-            PutObjectRequest request = new()
+            PutObjectRequest request = new PutObjectRequest()
             {
                 BucketName = bucketName,
                 Key = objectKey,

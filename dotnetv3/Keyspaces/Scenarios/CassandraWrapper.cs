@@ -2,7 +2,6 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[Keyspaces.dotnetv3.CassandraWrapper]
-using System.CodeDom;
 using System.Net;
 using Cassandra;
 

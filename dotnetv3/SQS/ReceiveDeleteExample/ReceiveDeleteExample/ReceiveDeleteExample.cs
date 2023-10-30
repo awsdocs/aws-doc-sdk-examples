@@ -4,14 +4,11 @@
 /// <summary>
 /// This example retrieves a single message from an Amazon Simple
 /// Queue Service (Amazon SQS) queue and then deletes the message.
-/// This example was created using the AWS SDK for .NET version 3.x
-/// and .NET 5.0.
 /// </summary>
 namespace ReceiveDeleteExample
 {
     using System;
     using System.Threading.Tasks;
-    using Amazon;
     using Amazon.SQS;
     using Amazon.SQS.Model;
 

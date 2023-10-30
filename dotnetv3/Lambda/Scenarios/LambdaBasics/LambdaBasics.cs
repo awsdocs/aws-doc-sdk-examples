@@ -2,7 +2,6 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[Lambda.dotnetv3.LambdaBasics]
-using Amazon.IdentityManagement;
 using Amazon.Lambda.Model;
 using Microsoft.Extensions.Configuration;
 

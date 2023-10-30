@@ -3,7 +3,6 @@
 
 // snippet-start:[S3.dotnetv3.TransferUtilityBasics.GlobalUsings]
 global using System.Text;
-global using Amazon;
 global using Amazon.S3;
 global using Amazon.S3.Model;
 global using Amazon.S3.Transfer;

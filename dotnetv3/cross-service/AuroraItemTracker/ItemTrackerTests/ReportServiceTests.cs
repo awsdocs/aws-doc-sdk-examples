@@ -2,7 +2,6 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 using System.Globalization;
-using Amazon.RDSDataService.Model;
 using Amazon.SimpleEmailV2;
 using AuroraItemTracker;
 using CsvHelper;

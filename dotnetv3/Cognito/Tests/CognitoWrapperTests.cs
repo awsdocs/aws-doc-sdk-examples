@@ -119,7 +119,7 @@ namespace CognitoWrapperTests
         [Trait("Category", "Integration")]
         public async Task AssociateSoftwareTokenAsyncTest()
         {
-            var newSession = _wrapper.AssociateSoftwareTokenAsync(_session);
+            var newSession = await _wrapper.AssociateSoftwareTokenAsync(_session);
             Assert.NotNull(newSession);
         }
 

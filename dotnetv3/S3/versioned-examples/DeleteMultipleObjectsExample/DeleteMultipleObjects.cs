@@ -12,7 +12,6 @@ namespace DeleteMultipleObjectsExample
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Amazon;
     using Amazon.S3;
     using Amazon.S3.Model;
 
@@ -71,7 +70,7 @@ namespace DeleteMultipleObjectsExample
             // Upload the sample objects.
             var keysAndVersions2 = await PutObjectsAsync(client, bucketName, 3);
 
-            // Delete objects using only keys. Amazon S3 creates a delete marker and 
+            // Delete objects using only keys. Amazon S3 creates a delete marker and
             // returns its version ID in the response.
             List<DeletedObject> deletedObjects = await NonVersionedDeleteAsync(client, bucketName, keysAndVersions2);
             return deletedObjects;
@@ -80,6 +79,9 @@ namespace DeleteMultipleObjectsExample
         /// <summary>
         /// This method creates several temporary objects and then deletes them.
         /// </summary>
+        /// <param name="client">The S3 client.</param>
+        /// <param name="bucketName">Name of the bucket.</param>
+        /// <returns>Async task.</returns>
         public static async Task DeleteObjectVersionsAsync(IAmazonS3 client, string bucketName)
         {
             // Upload the sample objects.
@@ -114,7 +116,7 @@ namespace DeleteMultipleObjectsExample
         /// <param name="bucketName">The name of the bucket from which to delete
         /// objects.</param>
         /// <param name="keys">A list of key names for the objects to delete.</param>
-        static async Task VersionedDeleteAsync(IAmazonS3 client, string bucketName, List<KeyVersion> keys)
+        private static async Task VersionedDeleteAsync(IAmazonS3 client, string bucketName, List<KeyVersion> keys)
         {
             var multiObjectDeleteRequest = new DeleteObjectsRequest
             {
@@ -144,7 +146,7 @@ namespace DeleteMultipleObjectsExample
         /// objects.</param>
         /// <param name="keys">A list of key names for the objects to delete.</param>
         /// <returns>A list of the deleted objects.</returns>
-        static async Task<List<DeletedObject>> NonVersionedDeleteAsync(IAmazonS3 client, string bucketName, List<KeyVersion> keys)
+        private static async Task<List<DeletedObject>> NonVersionedDeleteAsync(IAmazonS3 client, string bucketName, List<KeyVersion> keys)
         {
             // Create a request that includes only the object key names.
             DeleteObjectsRequest multiObjectDeleteRequest = new DeleteObjectsRequest();
@@ -229,7 +231,7 @@ namespace DeleteMultipleObjectsExample
         /// bucket where we will create the temporary objects.</param>
         /// <param name="number">The number of temporary objects to create.</param>
         /// <returns>A list of the KeyVersion objects.</returns>
-        static async Task<List<KeyVersion>> PutObjectsAsync(IAmazonS3 client, string bucketName, int number)
+        private static async Task<List<KeyVersion>> PutObjectsAsync(IAmazonS3 client, string bucketName, int number)
         {
             var keys = new List<KeyVersion>();
 

@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
 /// Amazon Simple Storage Service (Amazon S3) Transfer Acceleration is a
@@ -16,7 +16,7 @@ namespace TransferAccelerationExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
-    class TransferAcceleration
+    public class TransferAcceleration
     {
         /// <summary>
         /// The main method initializes the client object and sets the
@@ -39,7 +39,7 @@ namespace TransferAccelerationExample
         /// acceleration on an Amazon S3 bucket.</param>
         /// <param name="bucketName">The name of the Amazon S3 bucket for which the
         /// method will be enabling acceleration.</param>
-        static async Task EnableAccelerationAsync(AmazonS3Client client, string bucketName)
+        private static async Task EnableAccelerationAsync(AmazonS3Client client, string bucketName)
         {
             try
             {

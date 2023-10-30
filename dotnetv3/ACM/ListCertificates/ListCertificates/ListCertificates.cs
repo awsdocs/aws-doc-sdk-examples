@@ -1,5 +1,5 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[ACM.dotnetv3.ListCertificates]
 
@@ -13,8 +13,7 @@ namespace ListCertificates
 {
     // The following example retrieves and displays a list of the
     // certificates defined for the default account using the AWS
-    // Certificate Manager (ACM) service. It was created using
-    // AWS SDK for .NET 3.5 and .NET 5.0.
+    // Certificate Manager (ACM) service. 
     class ListCertificates
     {
         // Specify your AWS Region (an example Region is shown).

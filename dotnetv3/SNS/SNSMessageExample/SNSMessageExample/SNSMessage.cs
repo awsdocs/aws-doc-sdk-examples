@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[SNS.dotnetv3.SNSMessageExample]
 namespace SNSMessageExample
@@ -10,7 +10,7 @@ namespace SNSMessageExample
     using Amazon.SimpleNotificationService;
     using Amazon.SimpleNotificationService.Model;
 
-    class SNSMessage
+    public class SNSMessage
     {
         private AmazonSimpleNotificationServiceClient snsClient;
 
@@ -60,4 +60,5 @@ namespace SNSMessageExample
         }
     }
 }
+
 // snippet-end:[SNS.dotnetv3.SNSMessageExample]
