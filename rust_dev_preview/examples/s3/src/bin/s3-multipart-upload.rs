@@ -102,7 +102,7 @@ async fn run_example() -> Result<(), Error> {
         } else {
             CHUNK_SIZE
         };
-        let stream = ByteStream::read_from()
+        let stream = ByteStream::read_with_body_0_4_from()
             .path(path)
             .offset(chunk_index * CHUNK_SIZE)
             .length(Length::Exact(this_chunk))
