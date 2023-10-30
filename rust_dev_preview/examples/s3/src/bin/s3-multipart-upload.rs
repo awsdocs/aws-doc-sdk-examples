@@ -18,7 +18,7 @@ use aws_sdk_s3::operation::{
 };
 use aws_sdk_s3::types::{CompletedMultipartUpload, CompletedPart};
 use aws_sdk_s3::{config::Region, Client as S3Client};
-use aws_smithy_http::byte_stream::{ByteStream, Length};
+use aws_smithy_types::byte_stream::{ByteStream, Length};
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
 use s3_service::error::Error;
@@ -102,7 +102,7 @@ async fn run_example() -> Result<(), Error> {
         } else {
             CHUNK_SIZE
         };
-        let stream = ByteStream::read_from()
+        let stream = ByteStream::read_with_body_0_4_from()
             .path(path)
             .offset(chunk_index * CHUNK_SIZE)
             .length(Length::Exact(this_chunk))

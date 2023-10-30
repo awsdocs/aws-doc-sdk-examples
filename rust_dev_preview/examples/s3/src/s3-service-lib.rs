@@ -127,7 +127,7 @@ pub async fn upload_object(
     file_name: &str,
     key: &str,
 ) -> Result<PutObjectOutput, SdkError<PutObjectError>> {
-    let body = ByteStream::from_path(Path::new(file_name)).await;
+    let body = ByteStream::from_path_body_0_4(Path::new(file_name)).await;
     client
         .put_object()
         .bucket(bucket_name)

@@ -15,8 +15,9 @@ ACTIONS=(
   test
 )
 
-# Clean Cargo.log
-rm **/Cargo.lock
+if [[ "$1" -eq "--clean" ]] ; then 
+  rm **/Cargo.lock
+fi
 
 export RUSTFLAGS="-D warnings" ;
 export APP_ENVIRONMENT="test"
@@ -30,6 +31,6 @@ for f in "${DIRS[@]}" ; do
   done
 done
 
-echo ${FAIL[@]}
+echo "${FAIL[@]}"
 exit ${#FAIL[@]}
 

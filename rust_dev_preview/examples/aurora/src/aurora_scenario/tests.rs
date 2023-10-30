@@ -39,8 +39,8 @@ use aws_sdk_rds::{
         OrderableDbInstanceOption,
     },
 };
-use aws_smithy_http::body::SdkBody;
 use aws_smithy_runtime_api::client::orchestrator::HttpResponse;
+use aws_smithy_types::body::SdkBody;
 use mockall::predicate::eq;
 use secrecy::ExposeSecret;
 

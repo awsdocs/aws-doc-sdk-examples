@@ -51,7 +51,7 @@ async fn upload_object(
 
     println!();
 
-    let body = ByteStream::from_path(Path::new(filename)).await;
+    let body = ByteStream::from_path_body_0_4(Path::new(filename)).await;
 
     match body {
         Ok(b) => {

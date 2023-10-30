@@ -1,6 +1,5 @@
 use std::{
     convert::Infallible,
-    mem,
     path::PathBuf,
     pin::Pin,
     process::exit,
@@ -12,7 +11,6 @@ use aws_sdk_s3::{
     primitives::{ByteStream, SdkBody},
     Client,
 };
-use aws_smithy_http::body::BoxBody;
 use aws_smithy_runtime_api::client::http::request::Request;
 use bytes::Bytes;
 use clap::Parser;
@@ -64,7 +62,7 @@ impl ProgressBody<SdkBody> {
         let value = value.map(|body| {
             let len = body.content_length().expect("upload body sized"); // TODO - panics
             let body = ProgressBody::new(body, len);
-            SdkBody::from_dyn(BoxBody::new(body))
+            SdkBody::from_body_0_4(body)
         });
         Ok(value)
     }
@@ -72,7 +70,7 @@ impl ProgressBody<SdkBody> {
 
 impl<InnerBody> ProgressBody<InnerBody>
 where
-    InnerBody: Body<Data = Bytes, Error = aws_smithy_http::body::Error>,
+    InnerBody: Body<Data = Bytes, Error = aws_smithy_types::body::Error>,
 {
     pub fn new(body: InnerBody, content_length: u64) -> Self {
         Self {
@@ -87,11 +85,11 @@ where
 
 impl<InnerBody> Body for ProgressBody<InnerBody>
 where
-    InnerBody: Body<Data = Bytes, Error = aws_smithy_http::body::Error>,
+    InnerBody: Body<Data = Bytes, Error = aws_smithy_types::body::Error>,
 {
     type Data = Bytes;
 
-    type Error = aws_smithy_http::body::Error;
+    type Error = aws_smithy_types::body::Error;
 
     // Our poll_data delegates to the inner poll_data, but needs a project() to
     // get there. When the poll has data, it updates the progress_tracker.
@@ -137,7 +135,7 @@ async fn put_object(client: &Client, opts: &Opt) -> Result<(), anyhow::Error> {
     debug!("object: {}", opts.object);
     debug!("source: {}", opts.source.display());
 
-    let body = ByteStream::read_from()
+    let body = ByteStream::read_with_body_0_4_from()
         .path(opts.source.clone())
         // Artificially limit the buffer size to ensure the file has multiple
         // progress steps.

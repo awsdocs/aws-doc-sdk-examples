@@ -31,8 +31,8 @@ async fn show_envs(client: &Client) -> Result<(), Error> {
         let arn = env.compute_environment_arn();
         let name = env.compute_environment_name();
 
-        println!("  Name : {}", name);
-        println!("  ARN:   {}", arn);
+        println!("  Name: {}", name.unwrap_or("Unknown"));
+        println!("  ARN:  {}", arn.unwrap_or("Unknown"));
         println!();
     }
 

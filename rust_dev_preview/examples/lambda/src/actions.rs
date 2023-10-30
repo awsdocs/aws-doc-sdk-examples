@@ -209,7 +209,10 @@ impl LambdaManager {
         zip_file: PathBuf,
         key: Option<String>,
     ) -> Result<FunctionCode, anyhow::Error> {
-        let body = ByteStream::read_from().path(zip_file).build().await?;
+        let body = ByteStream::read_with_body_0_4_from()
+            .path(zip_file)
+            .build()
+            .await?;
 
         let key = key.unwrap_or_else(|| format!("{}_code", self.lambda_name));
 

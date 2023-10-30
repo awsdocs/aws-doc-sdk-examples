@@ -1,6 +1,6 @@
 use aws_sdk_dynamodb::error::SdkError;
 use aws_sdk_dynamodb::types::{AttributeValue, PutRequest};
-use aws_smithy_http::operation::error::BuildError;
+use aws_smithy_types::error::operation::BuildError;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;

@@ -30,7 +30,10 @@ async fn list_groups(client: &Client) -> Result<(), Error> {
     let groups = resp.auto_scaling_groups();
 
     for group in groups {
-        println!("Name:  {}", group.auto_scaling_group_name(),);
+        println!(
+            "Name:  {}",
+            group.auto_scaling_group_name().unwrap_or("Unknown")
+        );
         println!(
             "Arn:   {}",
             group.auto_scaling_group_arn().unwrap_or("unknown"),
