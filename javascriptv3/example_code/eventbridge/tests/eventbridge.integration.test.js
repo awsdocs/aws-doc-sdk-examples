@@ -20,7 +20,7 @@ import {
   SetQueueAttributesCommand,
 } from "@aws-sdk/client-sqs";
 
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { retry, wait } from "@aws-sdk-examples/libs/utils/util-timers.js";
 
 import { putEvents } from "../actions/put-events.js";
 import { putRule } from "../actions/put-rule.js";
@@ -77,9 +77,11 @@ test("target should receive message", async () => {
 
   // Ensure the queue allows the rule to send messages.
   await addQueuePolicy(Clients.SQSClient, queueArn, RuleArn, queueUrl);
+  await wait(15);
 
   // Put the target.
   await putTarget(ruleName, queueArn, targetId);
+  await wait(15);
 
   // Put the event.
   await putEvents("eventbridge.integration.test", "greeting", []);
@@ -162,14 +164,20 @@ async function addQueuePolicy(sqsClient, queueArn, ruleArn, queueUrl) {
  * @param {SQSClient} sqsClient
  * @param {string} queueUrl
  */
-async function getMessagesFromQueue(sqsClient, queueUrl) {
-  const { Messages } = await sqsClient.send(
-    new ReceiveMessageCommand({
-      QueueUrl: queueUrl,
-      MaxNumberOfMessages: 1,
-      WaitTimeSeconds: 20,
-    }),
-  );
+function getMessagesFromQueue(sqsClient, queueUrl) {
+  return retry({ intervalInMs: 0, maxRetries: 3 }, async () => {
+    const { Messages } = await sqsClient.send(
+      new ReceiveMessageCommand({
+        QueueUrl: queueUrl,
+        MaxNumberOfMessages: 1,
+        WaitTimeSeconds: 20,
+      }),
+    );
 
-  return Messages;
+    if (!Messages || Messages.length === 0) {
+      throw new Error("No messages received.");
+    }
+
+    return Messages;
+  });
 }

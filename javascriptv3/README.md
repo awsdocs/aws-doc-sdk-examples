@@ -39,17 +39,13 @@ Cross-service examples are located in the [_cross-services folder_](./example_co
 
 You can run tests for a specific service, or for every service in this repository. Choose whether to run unit tests, integration tests, or both.
 
-- To run both unit and integration tests for all services, run the following from this directory:
+- To run unit tests, use the following command:
 
   `npm test`
 
-- To run only unit tests, use the "unit" argument:
+- To run integration tests, use the following command:
 
-  `npm test unit`
-
-- To run only integration tests, use the "integration" argument:
-
-  `npm test integration`
+  `npm run integration-test`
 
 - To run tests for a specific service, follow the instructions in the service's README.
 
@@ -59,27 +55,20 @@ If you run tests using the preceding commands, output will be stored in `unit_te
 
 ## Docker image (Beta)
 
-This example is available in a container image
-hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
-with all JavaScript v3 examples with dependencies pre-resolved, allowing you to explore
-these examples in an isolated environment.
+This example is available in a container image hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded with all JavaScript v3 examples with dependencies pre-resolved. It is used for running tests.
 
 - [SDK for JavaScript v3 image](https://gallery.ecr.aws/b4v4v1s0/javascriptv3)
 
 ### Build the Docker image
 
 1. Install and run Docker on your machine.
-2. Navigate to the same directory as this readme.
-3. Run `docker build -t <image_name> .` and replace `image_name` with a name for the image.
+2. Navigate to the root directory of this repository.
+3. Run `docker build -t <image_name> -f javascriptv3/Dockerfile .` and replace `<image_name>` with a name for the image.
 
 ### Launch the Docker container
 
-1. Run `docker run -it -v ~/.aws/credentials:/root/.aws/credentials <image_name>`. `-it` launches an
-   interactive terminal. `-v ~/.aws...` is optional but recommended. It will mount your local credentials
-   file to the container.
-2. The terminal initiates a bash instance at the root of the container. Run `cd javascriptv3` and then you
-   can run tests from here by following the steps in the [Tests](#tests) section. Run examples by navigating
-   to a service folder and following the README instructions there.
+1. Run `docker run -it -v /Users/corepyle/.aws/credentials:/home/automation/.aws/credentials <image_name>`. `-it` launches an interactive terminal. `-v ~/.aws...` is optional but recommended. It will mount your local credentials file to the container.
+2. The Dockerfile is configured to automatically run integration tests when the container is run.
 
 ## Contribute
 
