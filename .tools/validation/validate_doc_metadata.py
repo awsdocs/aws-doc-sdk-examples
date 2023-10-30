@@ -7,12 +7,12 @@ against YAML files stored in the metadata folder and runs as a GitHub action.
 
 import argparse
 import datetime
-import glob
 import os
 import re
 import yaml
 import yamale
 from pathlib import Path
+from typing import Iterable
 from yamale import YamaleError
 from yamale.validators import DefaultValidators, Validator, String
 
@@ -151,7 +151,7 @@ class StringExtension(String):
         return valid
 
 
-def validate_files(schema_name, meta_names, validators):
+def validate_files(schema_name: Path, meta_names: Iterable[Path], validators):
     """Iterate a list of files and validate each one against a schema."""
     success = True
 
@@ -160,7 +160,7 @@ def validate_files(schema_name, meta_names, validators):
         try:
             data = yamale.make_data(meta_name)
             yamale.validate(schema, data)
-            print(f"{meta_name} validation success! 👍")
+            print(f"{meta_name.resolve()} validation success! 👍")
         except YamaleError as e:
             print(e.message)
             success = False
@@ -168,22 +168,23 @@ def validate_files(schema_name, meta_names, validators):
 
 
 def validate_all(doc_gen: Path):
-    # with open(os.path.join(args.doc_gen, "metadata/sdks.yaml")) as sdks_file:
+    # with open(doc_gen / "metadata" / "sdks.yaml") as sdks_file:
     #     sdks_yaml: dict[str, any] = yaml.safe_load(sdks_file)
 
-    with open(os.path.join(doc_gen, "metadata/services.yaml")) as services_file:
+    with open(doc_gen / "metadata" / "services.yaml") as services_file:
         services_yaml = yaml.safe_load(services_file)
 
     with open(
-        os.path.join(doc_gen, "metadata/curated/sources.yaml")
+        doc_gen / "metadata" / "curated" / "sources.yaml"
     ) as curated_sources_file:
         curated_sources_yaml = yaml.safe_load(curated_sources_file)
 
-    validators = DefaultValidators.copy()
     ServiceName.services = services_yaml
     SourceKey.curated_sources = curated_sources_yaml
     ExampleId.services = services_yaml
-    BlockContent.block_names = os.listdir(os.path.join(doc_gen, "cross-content"))
+    BlockContent.block_names = os.listdir(doc_gen / "cross-content")
+
+    validators = DefaultValidators.copy()
     validators[ServiceName.tag] = ServiceName
     validators[ServiceVersion.tag] = ServiceVersion
     validators[SourceKey.tag] = SourceKey
@@ -193,31 +194,20 @@ def validate_all(doc_gen: Path):
 
     schema_root = Path(__file__).parent / "schema"
 
-    # Validate sdks.yaml file.
-    schema_name = schema_root / "sdks_schema.yaml"
-    meta_names = glob.glob(os.path.join(doc_gen, "metadata/sdks.yaml"))
-    success = validate_files(schema_name, meta_names, validators)
-
-    # Validate services.yaml file.
-    schema_name = schema_root / "services_schema.yaml"
-    meta_names = glob.glob(os.path.join(doc_gen, "metadata/services.yaml"))
-    success &= validate_files(schema_name, meta_names, validators)
-
-    # Validate example (*_metadata.yaml in metadata folder) files.
-    # TODO: Switch between strict schema for aws-doc-sdk-examples and loose schema for tributaries
-    schema_name = schema_root / "example_strict_schema.yaml"
-    meta_names = glob.glob(os.path.join(doc_gen, "metadata/*_metadata.yaml"))
-    success &= validate_files(schema_name, meta_names, validators)
-
-    # Validate curated/sources.yaml file.
-    schema_name = schema_root / "curated_sources_schema.yaml"
-    meta_names = glob.glob(os.path.join(doc_gen, "metadata/curated/sources.yaml"))
-    success &= validate_files(schema_name, meta_names, validators)
-
-    # Validate curated example (*_metadata.yaml in metadata/curated folder) files.
-    schema_name = schema_root / "curated_example_schema.yaml"
-    meta_names = glob.glob(os.path.join(doc_gen, "metadata/curated/*_metadata.yaml"))
-    success &= validate_files(schema_name, meta_names, validators)
+    to_validate = [
+        # (schema, metadata_glob)
+        ("sdks_schema.yaml", "sdks.yaml"),
+        ("services_schema.yaml", "services.yaml"),
+        # TODO: Switch between strict schema for aws-doc-sdk-examples and loose schema for tributaries
+        ("example_strict_schema.yaml", "*_metadata.yaml"),
+        ("curated_sources_schema.yaml", "curated/sources.yaml"),
+        ("curated_example_schema.yaml", "curated/*_metadata.yaml"),
+    ]
+    success = True
+    for schema, metadata in to_validate:
+        success &= validate_files(
+            schema_root / schema, (doc_gen / "metadata").glob(metadata), validators
+        )
 
     return success
 
@@ -232,7 +222,7 @@ def main():
     )
     args = parser.parse_args()
 
-    success = validate_all(args.doc_gen)
+    success = validate_all(Path(args.doc_gen))
 
     if success:
         print("Validation succeeded! 👍👍👍")
