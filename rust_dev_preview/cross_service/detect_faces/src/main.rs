@@ -217,7 +217,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .await;
     let rek_client = aws_sdk_rekognition::Client::new(&rek_shared_config);
 
-    let body = aws_sdk_s3::primitives::ByteStream::from_path_body_0_4(path).await;
+    let body = aws_sdk_s3::primitives::ByteStream::from_path(path).await;
 
     let key: String = String::from("uploads/") + &filename;
 

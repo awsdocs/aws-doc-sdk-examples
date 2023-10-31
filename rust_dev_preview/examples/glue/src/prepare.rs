@@ -216,7 +216,7 @@ impl GlueScenario {
             .bucket(self.bucket())
             .key("job.py")
             .body(
-                ByteStream::from_path_body_0_4(self.script.clone())
+                ByteStream::from_path(self.script.clone())
                     .await
                     .map_err(|err| GlueMvpError::Unknown(format!("{err:?}")))?,
             )
@@ -229,7 +229,7 @@ impl GlueScenario {
             .bucket(self.bucket.as_str())
             .key("setup_scenario_getting_started.yaml")
             .body(
-                ByteStream::from_path_body_0_4(self.config.clone())
+                ByteStream::from_path(self.config.clone())
                     .await
                     .map_err(|err| GlueMvpError::Unknown(format!("{err:?}")))?,
             )
