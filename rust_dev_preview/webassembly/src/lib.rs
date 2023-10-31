@@ -9,8 +9,8 @@ use aws_sdk_lambda::config::{AsyncSleep, Region, Sleep};
 use aws_sdk_lambda::primitives::SdkBody;
 use aws_sdk_lambda::{meta::PKG_VERSION, Client};
 use aws_smithy_async::time::TimeSource;
-use aws_smithy_http::result::ConnectorError;
 use aws_smithy_runtime_api::client::http::request::Request;
+use aws_smithy_runtime_api::client::result::ConnectorError;
 use aws_smithy_runtime_api::{
     client::{
         http::{
