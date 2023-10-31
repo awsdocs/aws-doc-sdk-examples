@@ -14,9 +14,9 @@ WORKDIR /php
 # Perform build steps
 RUN find . -name "composer.json" -not -path "*vendor*" -exec bash -c "dirname {} | xargs -I % composer install --working-dir=%" \;
 
-# Set non-root user
-RUN addgroup -S automation \
-    adduser -S -G automation automation \
+# Set non-root user w/ ownership of /php
+RUN addgroup -S automation && \
+    adduser -S -G automation automation && \
     chown -R automation:automation /php/
 
 USER automation:automation
