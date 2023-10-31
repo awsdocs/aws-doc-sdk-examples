@@ -37,8 +37,8 @@ async fn show_metrics(
 
         if let Some(dimension) = metric.dimensions.as_ref() {
             for d in dimension {
-                println!("  Name:  {}", d.name());
-                println!("  Value: {}", d.value());
+                println!("  Name:  {}", d.name().unwrap_or("Unknown"));
+                println!("  Value: {}", d.value().unwrap_or("Unknown"));
                 println!();
             }
         }

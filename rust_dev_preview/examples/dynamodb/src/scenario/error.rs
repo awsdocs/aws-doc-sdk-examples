@@ -5,7 +5,7 @@
 
 use std::error::Error as StdError;
 
-use aws_smithy_http::operation::error::BuildError;
+use aws_smithy_types::error::operation::BuildError;
 
 #[derive(thiserror::Error, Debug)]
 pub enum Error {

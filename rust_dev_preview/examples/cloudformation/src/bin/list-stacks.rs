@@ -26,7 +26,7 @@ async fn list_stacks(client: &Client) -> Result<(), Error> {
     let stacks = client.list_stacks().send().await?;
 
     for stack in stacks.stack_summaries() {
-        println!("{}", stack.stack_name());
+        println!("{}", stack.stack_name().unwrap_or("Unknown"));
         println!("  Status: {:?}", stack.stack_status());
         println!();
     }

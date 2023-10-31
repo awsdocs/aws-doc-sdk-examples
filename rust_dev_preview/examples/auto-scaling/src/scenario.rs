@@ -107,8 +107,8 @@ impl Display for AutoScalingScenarioDescription {
                     writeln!(
                         f,
                         "\t\t- {} Progress: {}% Status: {:?} End: {:?}",
-                        activity.cause(),
-                        activity.progress(),
+                        activity.cause().unwrap_or("Unknown"),
+                        activity.progress.unwrap_or(-1),
                         activity.status_code(),
                         // activity.status_message().unwrap_or_default()
                         activity.end_time(),
@@ -413,8 +413,8 @@ impl AutoScalingScenario {
                     .map(|s| {
                         format!(
                             "{}: {}",
-                            s.auto_scaling_group_name(),
-                            s.status().unwrap_or_default()
+                            s.auto_scaling_group_name().unwrap_or("Unknown"),
+                            s.status().unwrap_or("Unknown")
                         )
                     })
                     .collect::<Vec<String>>()
@@ -510,7 +510,7 @@ impl AutoScalingScenario {
                 "Waiting for no scaling found {} activities",
                 activities.len()
             );
-            scaling = activities.iter().any(|a| a.progress < 100);
+            scaling = activities.iter().any(|a| a.progress() < Some(100));
         }
         Ok(())
     }
@@ -548,8 +548,11 @@ impl AutoScalingScenario {
             .map(|items| {
                 items
                     .into_iter()
-                    .filter(|i| i.auto_scaling_group_name == self.auto_scaling_group_name)
-                    .map(|i| i.instance_id)
+                    .filter(|i| {
+                        i.auto_scaling_group_name.as_deref()
+                            == Some(self.auto_scaling_group_name.as_str())
+                    })
+                    .map(|i| i.instance_id.unwrap_or_default())
                     .filter(|id| !id.is_empty())
                     .collect::<Vec<String>>()
             })
@@ -659,10 +662,15 @@ impl AutoScalingScenario {
         // Or use other logic to find an instance to terminate.
         let instance = instances.first();
         if let Some(instance) = instance {
+            let instance_id = if let Some(instance_id) = instance.instance_id() {
+                instance_id
+            } else {
+                return Err(ScenarioError::with("Missing instance id"));
+            };
             let termination = self
                 .ec2
                 .terminate_instances()
-                .instance_ids(instance.instance_id())
+                .instance_ids(instance_id)
                 .send()
                 .await;
             if let Err(err) = termination {

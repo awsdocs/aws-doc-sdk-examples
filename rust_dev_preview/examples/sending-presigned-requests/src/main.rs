@@ -130,7 +130,7 @@ fn print_as_curl_request(presigned_req: &PresignedRequest, body: Option<&str>) {
 async fn send_presigned_request_with_hyper(req: PresignedRequest, body: hyper::Body) {
     let conn = hyper_tls::HttpsConnector::new();
     let client = hyper::Client::builder().build(conn);
-    let req = req.to_http_02x_request(body).unwrap();
+    let req = req.into_http_02x_request(body);
 
     let res = client.request(req).await;
 

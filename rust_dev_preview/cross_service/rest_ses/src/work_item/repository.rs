@@ -208,10 +208,11 @@ fn parse_rds_output(
 
 #[cfg(test)]
 mod test {
+    use sdk_examples_test_utils::test_event;
+
     use crate::{client::RdsClient, work_item::WorkItem};
 
     use super::create;
-    use sdk_examples_test_utils::test_event;
 
     #[tokio::test]
     async fn test_create_failed() {

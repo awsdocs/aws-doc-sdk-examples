@@ -7,7 +7,7 @@ pub mod prepare;
 pub mod run;
 
 use aws_sdk_glue::types::Table;
-use aws_smithy_http::operation::error::BuildError;
+use aws_smithy_types::error::operation::BuildError;
 use clap::Parser;
 use secrecy::Secret;
 use std::time::Duration;

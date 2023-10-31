@@ -32,7 +32,7 @@ async fn show_instances(client: &Client) -> Result<(), Error> {
         let n_status = n.notebook_instance_status().unwrap();
         let n_name = n.notebook_instance_name();
 
-        println!("  Name :          {}", n_name);
+        println!("  Name :          {}", n_name.unwrap_or("Unknown"));
         println!("  Status :        {}", n_status.as_ref());
         println!("  Instance Type : {}", n_instance_type.as_ref());
         println!();

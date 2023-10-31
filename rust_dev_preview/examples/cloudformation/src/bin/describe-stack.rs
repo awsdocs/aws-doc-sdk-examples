@@ -34,7 +34,7 @@ async fn describe_stack(client: &Client, name: &str) -> Result<(), Error> {
     // The array should only have one item, so just access it via first().
     let status = resp.stacks().first().unwrap().stack_status();
 
-    println!("Stack status: {}", status.as_str());
+    println!("Stack status: {:?}", status);
 
     println!();
 

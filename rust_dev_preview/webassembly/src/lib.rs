@@ -9,8 +9,8 @@ use aws_sdk_lambda::config::{AsyncSleep, Region, Sleep};
 use aws_sdk_lambda::primitives::SdkBody;
 use aws_sdk_lambda::{meta::PKG_VERSION, Client};
 use aws_smithy_async::time::TimeSource;
-use aws_smithy_http::result::ConnectorError;
 use aws_smithy_runtime_api::client::http::request::Request;
+use aws_smithy_runtime_api::client::result::ConnectorError;
 use aws_smithy_runtime_api::{
     client::{
         http::{
@@ -163,7 +163,7 @@ impl MakeRequestBrowser for BrowserHttpClient {
             opts.body(Some(&uint_8_array));
         }
 
-        let request = web_sys::Request::new_with_str_and_init(&req.uri().to_string(), &opts)?;
+        let request = web_sys::Request::new_with_str_and_init(req.uri(), &opts)?;
 
         for (name, value) in req.headers() {
             request.headers().set(name, value)?;
@@ -259,7 +259,7 @@ impl HttpConnector for Adapter {
             };
             tx.send(
                 fut.await
-                    .expect(format!("sending request to {uri}").as_str()),
+                    .unwrap_or_else(|_| panic!("sending request to {uri}")),
             )
             .expect("sent request to channel");
         });

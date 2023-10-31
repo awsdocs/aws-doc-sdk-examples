@@ -1,4 +1,4 @@
-use aws_smithy_http::body::SdkBody;
+use aws_smithy_types::body::SdkBody;
 
 pub mod macros;
 pub mod waiter;

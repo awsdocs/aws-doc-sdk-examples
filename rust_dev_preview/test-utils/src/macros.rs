@@ -22,11 +22,11 @@ macro_rules! test_event {
     ) => {{
         aws_smithy_runtime::client::http::test_util::ReplayEvent::new(
             http::Request::builder()
-                .body(aws_smithy_http::body::SdkBody::from($req))
+                .body(aws_smithy_types::body::SdkBody::from($req))
                 .unwrap(),
             http::Response::builder()
                 .status($status)
-                .body(aws_smithy_http::body::SdkBody::from($res))
+                .body(aws_smithy_types::body::SdkBody::from($res))
                 .unwrap(),
         )
     }};
@@ -40,7 +40,7 @@ macro_rules! test_event {
     ) => {{
         aws_smithy_runtime::client::http::test_util::ReplayEvent::new(
             http::Request::builder()
-                .body(aws_smithy_http::body::SdkBody::from($req))
+                .body(aws_smithy_types::body::SdkBody::from($req))
                 .unwrap(),
             {
                 let mut builder = http::Response::builder().status($status);
@@ -48,7 +48,7 @@ macro_rules! test_event {
                     builder = builder.header(k, v);
                 }
                 builder
-                    .body(aws_smithy_http::body::SdkBody::from($res))
+                    .body(aws_smithy_types::body::SdkBody::from($res))
                     .unwrap()
             },
         )
