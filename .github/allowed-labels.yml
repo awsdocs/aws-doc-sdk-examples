@@ -103,9 +103,6 @@
 - name: CloudFormation
   description: "Relates to CloudFormation templates"
   color: "f5f7f9"
-- name: Testing
-  description: "Relates to integration testing"
-  color: "f5f7f9"
 - name: GitHub settings
   color: "f5f7f9"
   description: "This affects GitHub settings"
