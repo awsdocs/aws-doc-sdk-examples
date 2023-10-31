@@ -98,7 +98,7 @@ async fn save_mp3_file(
         println!();
     }
 
-    let body = aws_sdk_s3::primitives::ByteStream::from_path_body_0_4(Path::new(filename)).await?;
+    let body = aws_sdk_s3::primitives::ByteStream::from_path(Path::new(filename)).await?;
 
     client
         .put_object()
