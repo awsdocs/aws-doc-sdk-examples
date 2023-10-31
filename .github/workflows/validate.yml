@@ -27,6 +27,12 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.8 #install the python needed
-      - name: Run Python script to vet code examples # Runs a single command using the runners shell
-        run: |
-          python3 .tools/pre_validate/pre_validate.py --q
+      - name: Install dependencies
+        run: >-
+          python3 -m pip install -r .tools/base_requirements.txt
+      - name: Lint with yamllint
+        run: >-
+          yamllint --format standard -c .tools/validation/.yamllint.yaml .doc_gen/metadata .doc_gen/metadata/curated
+      - name: Validate metadata with yamale
+        run: >-
+          python3 .tools/validate/validate.py --q --doc-gen .doc_gen
