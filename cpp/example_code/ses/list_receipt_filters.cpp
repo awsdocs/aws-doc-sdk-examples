@@ -28,22 +28,24 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SES::listReceiptFilters(Aws::Vector<Aws::SES::Model::ReceiptFilter> &filters,
-                        const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool
+AwsDoc::SES::listReceiptFilters(Aws::Vector<Aws::SES::Model::ReceiptFilter> &filters,
+                                const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SES::SESClient sesClient(clientConfiguration);
-    Aws::SES::Model::ListReceiptFiltersRequest  listReceiptFiltersRequest;
+    Aws::SES::Model::ListReceiptFiltersRequest listReceiptFiltersRequest;
 
-    Aws::SES::Model::ListReceiptFiltersOutcome outcome = sesClient.ListReceiptFilters(listReceiptFiltersRequest);
-    if (outcome.IsSuccess())
-    {
-        auto& retrievedFilters = outcome.GetResult().GetFilters();
-        if (!retrievedFilters.empty())
-        {
-            filters.insert(filters.cend(), retrievedFilters.cbegin(), retrievedFilters.cend());
+    Aws::SES::Model::ListReceiptFiltersOutcome outcome = sesClient.ListReceiptFilters(
+            listReceiptFiltersRequest);
+    if (outcome.IsSuccess()) {
+        auto &retrievedFilters = outcome.GetResult().GetFilters();
+        if (!retrievedFilters.empty()) {
+            filters.insert(filters.cend(), retrievedFilters.cbegin(),
+                           retrievedFilters.cend());
         }
-    } else{
-        std::cerr << "Error retrieving IP address filters: " << outcome.GetError().GetMessage() << std::endl;
+    }
+    else {
+        std::cerr << "Error retrieving IP address filters: "
+                  << outcome.GetError().GetMessage() << std::endl;
     }
 
     return outcome.IsSuccess();

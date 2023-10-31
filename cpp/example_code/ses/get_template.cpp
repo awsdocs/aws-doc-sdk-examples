@@ -29,23 +29,21 @@
   \return bool: Function succeeded.
  */
 bool AwsDoc::SES::getTemplate(const Aws::String &templateName,
-                 const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+                              const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SES::SESClient sesClient(clientConfiguration);
 
     Aws::SES::Model::GetTemplateRequest getTemplateRequest;
 
     getTemplateRequest.SetTemplateName(templateName);
 
-    Aws::SES::Model::GetTemplateOutcome outcome = sesClient.GetTemplate(getTemplateRequest);
+    Aws::SES::Model::GetTemplateOutcome outcome = sesClient.GetTemplate(
+            getTemplateRequest);
 
-    if (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         std::cout << "Successfully got template." << std::endl;
     }
 
-    else
-    {
+    else {
         std::cerr << "Error getting template. " << outcome.GetError().GetMessage()
                   << std::endl;
     }

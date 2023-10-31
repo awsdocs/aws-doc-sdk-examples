@@ -22,13 +22,14 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool createReceiptFilter(const Aws::String &receiptFilterName, const Aws::String &cidr,
+        bool createReceiptFilter(const Aws::String &receiptFilterName,
+                                 const Aws::String &cidr,
                                  Aws::SES::Model::ReceiptFilterPolicy policy,
                                  const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Create an Amazon SES receipt rule.
         /*!
-          \param receiptRuleName: The nane for the receipt rule.
+          \param receiptRuleName: The name for the receipt rule.
           \param s3BucketName: The name of the S3 bucket for incoming mail.
           \param s3ObjectKeyPrefix: The prefix for the objects in the S3 bucket.
           \param ruleSetName: The name of the rule set where the receipt rule is added.
@@ -36,8 +37,10 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool createReceiptRule(const Aws::String &receiptRuleName, const Aws::String &s3BucketName,
-                               const Aws::String &s3ObjectKeyPrefix, const Aws::String &ruleSetName,
+        bool createReceiptRule(const Aws::String &receiptRuleName,
+                               const Aws::String &s3BucketName,
+                               const Aws::String &s3ObjectKeyPrefix,
+                               const Aws::String &ruleSetName,
                                const Aws::Vector<Aws::String> &recipients,
                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
@@ -72,7 +75,7 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool deleteIdentity(const Aws::String &identity,
-                                 const Aws::Client::ClientConfiguration &clientConfiguration);
+                            const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete an Amazon SES receipt filter.
         /*!
@@ -90,7 +93,8 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool deleteReceiptRule(const Aws::String &receiptRuleName, const Aws::String &receiptRuleSetName,
+        bool deleteReceiptRule(const Aws::String &receiptRuleName,
+                               const Aws::String &receiptRuleSetName,
                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete an Amazon SES receipt rule set.
@@ -118,7 +122,7 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool getTemplate(const Aws::String &templateName,
-                            const Aws::Client::ClientConfiguration &clientConfiguration);
+                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! List the identities associated with this account.
         /*!
@@ -129,7 +133,7 @@ namespace AwsDoc {
          */
         bool listIdentities(Aws::SES::Model::IdentityType identityType,
                             Aws::Vector<Aws::String> &identities,
-                         const Aws::Client::ClientConfiguration &clientConfiguration);
+                            const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! List the receipt filters associated with this account.
         /*!
@@ -138,7 +142,7 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool listReceiptFilters(Aws::Vector<Aws::SES::Model::ReceiptFilter> &filters,
-                            const Aws::Client::ClientConfiguration &clientConfiguration);
+                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Send an email to a list of recipients.
         /*!
@@ -153,13 +157,13 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool sendEmail(const Aws::Vector<Aws::String> &recipients,
-                                 const Aws::String &subject,
-                                 const Aws::String &htmlBody,
-                                 const Aws::String &textBody,
-                                 const Aws::String &senderEmailAddress,
-                                 const Aws::Vector<Aws::String> &ccAddresses,
-                                 const Aws::String &replyToAddress,
-                                 const Aws::Client::ClientConfiguration &clientConfiguration);
+                       const Aws::String &subject,
+                       const Aws::String &htmlBody,
+                       const Aws::String &textBody,
+                       const Aws::String &senderEmailAddress,
+                       const Aws::Vector<Aws::String> &ccAddresses,
+                       const Aws::String &replyToAddress,
+                       const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Send a templated email to a list of recipients.
         /*!
@@ -173,12 +177,12 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool sendTemplatedEmail(const Aws::Vector<Aws::String> &recipients,
-                       const Aws::String &templateName,
-                       const Aws::Map<Aws::String, Aws::String> &templateData,
-                       const Aws::String &senderEmailAddress,
-                       const Aws::Vector<Aws::String> &ccAddresses,
-                       const Aws::String &replyToAddress,
-                       const Aws::Client::ClientConfiguration &clientConfiguration);
+                                const Aws::String &templateName,
+                                const Aws::Map<Aws::String, Aws::String> &templateData,
+                                const Aws::String &senderEmailAddress,
+                                const Aws::Vector<Aws::String> &ccAddresses,
+                                const Aws::String &replyToAddress,
+                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
 
         //! Update an Amazon SES template.
@@ -204,7 +208,7 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool verifyEmailIdentity(const Aws::String &emailAddress,
-                                const Aws::Client::ClientConfiguration &clientConfiguration);
+                                 const Aws::Client::ClientConfiguration &clientConfiguration);
     } // namespace SES
 } // namespace AwsDoc
 #endif //SES_EXAMPLES_SES_SAMPLES_H

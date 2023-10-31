@@ -58,16 +58,19 @@ bool AwsDoc::SES::sendEmail(const Aws::Vector<Aws::String> &recipients,
 
     Aws::SES::Model::Body message_body;
     if (!htmlBody.empty()) {
-        message_body.SetHtml(Aws::SES::Model::Content().WithCharset("UTF-8").WithData(htmlBody));
+        message_body.SetHtml(
+                Aws::SES::Model::Content().WithCharset("UTF-8").WithData(htmlBody));
     }
 
     if (!textBody.empty()) {
-        message_body.SetText(Aws::SES::Model::Content().WithCharset("UTF-8").WithData(textBody));
+        message_body.SetText(
+                Aws::SES::Model::Content().WithCharset("UTF-8").WithData(textBody));
     }
 
     Aws::SES::Model::Message message;
     message.SetBody(message_body);
-    message.SetSubject(Aws::SES::Model::Content().WithCharset("UTF-8").WithData(subject));
+    message.SetSubject(
+            Aws::SES::Model::Content().WithCharset("UTF-8").WithData(subject));
 
     Aws::SES::Model::SendEmailRequest sendEmailRequest;
     sendEmailRequest.SetDestination(destination);
@@ -82,9 +85,11 @@ bool AwsDoc::SES::sendEmail(const Aws::Vector<Aws::String> &recipients,
     auto outcome = sesClient.SendEmail(sendEmailRequest);
 
     if (outcome.IsSuccess()) {
-        std::cout << "Successfully sent message with ID " << outcome.GetResult().GetMessageId()
+        std::cout << "Successfully sent message with ID "
+                  << outcome.GetResult().GetMessageId()
                   << "." << std::endl;
-    } else {
+    }
+    else {
         std::cerr << "Error sending message. " << outcome.GetError().GetMessage()
                   << std::endl;
     }

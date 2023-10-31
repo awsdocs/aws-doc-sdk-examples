@@ -48,12 +48,16 @@ bool AwsDoc::SES::createTemplate(const Aws::String &templateName,
 
     createTemplateRequest.SetTemplate(aTemplate);
 
-    Aws::SES::Model::CreateTemplateOutcome outcome = sesClient.CreateTemplate(createTemplateRequest);
+    Aws::SES::Model::CreateTemplateOutcome outcome = sesClient.CreateTemplate(
+            createTemplateRequest);
 
     if (outcome.IsSuccess()) {
-        std::cout << "Successfully created template." << templateName << "." << std::endl;
-    } else {
-        std::cerr << "Error creating template. " << outcome.GetError().GetMessage() << std::endl;
+        std::cout << "Successfully created template." << templateName << "."
+                  << std::endl;
+    }
+    else {
+        std::cerr << "Error creating template. " << outcome.GetError().GetMessage()
+                  << std::endl;
     }
 
     return outcome.IsSuccess();

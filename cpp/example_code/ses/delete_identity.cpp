@@ -35,11 +35,13 @@ bool AwsDoc::SES::deleteIdentity(const Aws::String &identity,
 
     deleteIdentityRequest.SetIdentity(identity);
 
-    Aws::SES::Model::DeleteIdentityOutcome outcome = sesClient.DeleteIdentity(deleteIdentityRequest);
+    Aws::SES::Model::DeleteIdentityOutcome outcome = sesClient.DeleteIdentity(
+            deleteIdentityRequest);
 
     if (outcome.IsSuccess()) {
         std::cout << "Successfully deleted identity." << std::endl;
-    } else {
+    }
+    else {
         std::cerr << "Error deleting identity. " << outcome.GetError().GetMessage()
                   << std::endl;
     }

@@ -23,7 +23,7 @@
 // snippet-start:[cpp.example_code.ses.DeleteTemplate]
 //! Delete an Amazon Simple Email Service (Amazon SES) template.
 /*!
-  \param templateName: The nane for the template.
+  \param templateName: The name for the template.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -35,11 +35,13 @@ bool AwsDoc::SES::deleteTemplate(const Aws::String &templateName,
 
     deleteTemplateRequest.SetTemplateName(templateName);
 
-    Aws::SES::Model::DeleteTemplateOutcome outcome = sesClient.DeleteTemplate(deleteTemplateRequest);
+    Aws::SES::Model::DeleteTemplateOutcome outcome = sesClient.DeleteTemplate(
+            deleteTemplateRequest);
 
     if (outcome.IsSuccess()) {
         std::cout << "Successfully deleted template." << std::endl;
-    } else {
+    }
+    else {
         std::cerr << "Error deleting template. " << outcome.GetError().GetMessage()
                   << std::endl;
     }

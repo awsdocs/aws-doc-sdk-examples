@@ -79,10 +79,13 @@ bool AwsDoc::SES::sendTemplatedEmail(const Aws::Vector<Aws::String> &recipients,
     auto outcome = sesClient.SendTemplatedEmail(sendTemplatedEmailRequest);
 
     if (outcome.IsSuccess()) {
-        std::cout << "Successfully sent templated message with ID " << outcome.GetResult().GetMessageId()
+        std::cout << "Successfully sent templated message with ID "
+                  << outcome.GetResult().GetMessageId()
                   << "." << std::endl;
-    } else {
-        std::cerr << "Error sending templated message. " << outcome.GetError().GetMessage()
+    }
+    else {
+        std::cerr << "Error sending templated message. "
+                  << outcome.GetError().GetMessage()
                   << std::endl;
     }
 

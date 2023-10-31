@@ -23,12 +23,13 @@
 // snippet-start:[cpp.example_code.ses.DeleteReceiptRule]
 //! Delete an Amazon Simple Email Service (Amazon SES) receipt rule.
 /*!
-  \param receiptRuleName: The nane for the receipt rule.
-  \param receiptRuleSetName: The nane for the receipt rule set.
+  \param receiptRuleName: The name for the receipt rule.
+  \param receiptRuleSetName: The name for the receipt rule set.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SES::deleteReceiptRule(const Aws::String &receiptRuleName, const Aws::String &receiptRuleSetName,
+bool AwsDoc::SES::deleteReceiptRule(const Aws::String &receiptRuleName,
+                                    const Aws::String &receiptRuleSetName,
                                     const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SES::SESClient sesClient(clientConfiguration);
 
@@ -37,11 +38,13 @@ bool AwsDoc::SES::deleteReceiptRule(const Aws::String &receiptRuleName, const Aw
     deleteReceiptRuleRequest.SetRuleName(receiptRuleName);
     deleteReceiptRuleRequest.SetRuleSetName(receiptRuleSetName);
 
-    Aws::SES::Model::DeleteReceiptRuleOutcome outcome = sesClient.DeleteReceiptRule(deleteReceiptRuleRequest);
+    Aws::SES::Model::DeleteReceiptRuleOutcome outcome = sesClient.DeleteReceiptRule(
+            deleteReceiptRuleRequest);
 
     if (outcome.IsSuccess()) {
         std::cout << "Successfully deleted receipt rule." << std::endl;
-    } else {
+    }
+    else {
         std::cout << "Error deleting receipt rule. " << outcome.GetError().GetMessage()
                   << std::endl;
     }

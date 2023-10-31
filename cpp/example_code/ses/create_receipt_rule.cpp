@@ -27,7 +27,7 @@
 // snippet-start:[cpp.example_code.ses.CreateReceiptRule]
 //! Create an Amazon Simple Email Service (Amazon SES) receipt rule.
 /*!
-  \param receiptRuleName: The nane for the receipt rule.
+  \param receiptRuleName: The name for the receipt rule.
   \param s3BucketName: The name of the S3 bucket for incoming mail.
   \param s3ObjectKeyPrefix: The prefix for the objects in the S3 bucket.
   \param ruleSetName: The name of the rule set where the receipt rule is added.
@@ -35,8 +35,10 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SES::createReceiptRule(const Aws::String &receiptRuleName, const Aws::String &s3BucketName,
-                                    const Aws::String &s3ObjectKeyPrefix, const Aws::String &ruleSetName,
+bool AwsDoc::SES::createReceiptRule(const Aws::String &receiptRuleName,
+                                    const Aws::String &s3BucketName,
+                                    const Aws::String &s3ObjectKeyPrefix,
+                                    const Aws::String &ruleSetName,
                                     const Aws::Vector<Aws::String> &recipients,
                                     const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SES::SESClient sesClient(clientConfiguration);
@@ -65,7 +67,8 @@ bool AwsDoc::SES::createReceiptRule(const Aws::String &receiptRuleName, const Aw
 
     if (outcome.IsSuccess()) {
         std::cout << "Successfully created receipt rule." << std::endl;
-    } else {
+    }
+    else {
         std::cerr << "Error creating receipt rule. " << outcome.GetError().GetMessage()
                   << std::endl;
     }

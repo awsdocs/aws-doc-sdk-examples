@@ -23,7 +23,7 @@
 // snippet-start:[cpp.example_code.ses.DeleteReceiptFilter]
 //! Delete an Amazon Simple Email Service (Amazon SES) receipt filter.
 /*!
-  \param receiptFilterName: The nane for the receipt filter.
+  \param receiptFilterName: The name for the receipt filter.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -35,12 +35,15 @@ bool AwsDoc::SES::deleteReceiptFilter(const Aws::String &receiptFilterName,
 
     deleteReceiptFilterRequest.SetFilterName(receiptFilterName);
 
-    Aws::SES::Model::DeleteReceiptFilterOutcome outcome = sesClient.DeleteReceiptFilter(deleteReceiptFilterRequest);
+    Aws::SES::Model::DeleteReceiptFilterOutcome outcome = sesClient.DeleteReceiptFilter(
+            deleteReceiptFilterRequest);
 
     if (outcome.IsSuccess()) {
         std::cout << "Successfully deleted receipt filter." << std::endl;
-    } else {
-        std::cerr << "Error deleting receipt filter. " << outcome.GetError().GetMessage()
+    }
+    else {
+        std::cerr << "Error deleting receipt filter. "
+                  << outcome.GetError().GetMessage()
                   << std::endl;
     }
 

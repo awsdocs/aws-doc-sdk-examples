@@ -35,12 +35,15 @@ bool AwsDoc::SES::createReceiptRuleSet(const Aws::String &ruleSetName,
 
     createReceiptRuleSetRequest.SetRuleSetName(ruleSetName);
 
-    Aws::SES::Model::CreateReceiptRuleSetOutcome outcome = sesClient.CreateReceiptRuleSet(createReceiptRuleSetRequest);
+    Aws::SES::Model::CreateReceiptRuleSetOutcome outcome = sesClient.CreateReceiptRuleSet(
+            createReceiptRuleSetRequest);
 
     if (outcome.IsSuccess()) {
         std::cout << "Successfully created receipt rule set." << std::endl;
-    } else {
-        std::cerr << "Error creating receipt rule set. " << outcome.GetError().GetMessage()
+    }
+    else {
+        std::cerr << "Error creating receipt rule set. "
+                  << outcome.GetError().GetMessage()
                   << std::endl;
     }
 

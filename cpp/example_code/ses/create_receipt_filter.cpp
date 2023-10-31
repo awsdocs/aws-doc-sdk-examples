@@ -32,7 +32,8 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SES::createReceiptFilter(const Aws::String &receiptFilterName, const Aws::String &cidr,
+bool AwsDoc::SES::createReceiptFilter(const Aws::String &receiptFilterName,
+                                      const Aws::String &cidr,
                                       Aws::SES::Model::ReceiptFilterPolicy policy,
                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SES::SESClient sesClient(clientConfiguration);
@@ -48,7 +49,8 @@ bool AwsDoc::SES::createReceiptFilter(const Aws::String &receiptFilterName, cons
             createReceiptFilterRequest);
     if (createReceiptFilterOutcome.IsSuccess()) {
         std::cout << "Successfully created receipt filter." << std::endl;
-    } else {
+    }
+    else {
         std::cerr << "Error creating receipt filter: " <<
                   createReceiptFilterOutcome.GetError().GetMessage() << std::endl;
     }

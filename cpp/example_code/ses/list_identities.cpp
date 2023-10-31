@@ -29,9 +29,8 @@
   \return bool: Function succeeded.
  */
 bool AwsDoc::SES::listIdentities(Aws::SES::Model::IdentityType identityType,
-                    Aws::Vector<Aws::String> &identities,
-                    const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+                                 Aws::Vector<Aws::String> &identities,
+                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SES::SESClient sesClient(clientConfiguration);
 
     Aws::SES::Model::ListIdentitiesRequest listIdentitiesRequest;
@@ -42,19 +41,21 @@ bool AwsDoc::SES::listIdentities(Aws::SES::Model::IdentityType identityType,
 
     Aws::String nextToken; // Used for paginated results.
     do {
-        if (!nextToken.empty())
-        {
+        if (!nextToken.empty()) {
             listIdentitiesRequest.SetNextToken(nextToken);
         }
-        Aws::SES::Model::ListIdentitiesOutcome outcome = sesClient.ListIdentities(listIdentitiesRequest);
+        Aws::SES::Model::ListIdentitiesOutcome outcome = sesClient.ListIdentities(
+                listIdentitiesRequest);
 
         if (outcome.IsSuccess()) {
-            const auto& retrievedIdentities = outcome.GetResult().GetIdentities();
+            const auto &retrievedIdentities = outcome.GetResult().GetIdentities();
             if (!retrievedIdentities.empty()) {
-                identities.insert(identities.cend(), retrievedIdentities.cbegin(), retrievedIdentities.cend());
+                identities.insert(identities.cend(), retrievedIdentities.cbegin(),
+                                  retrievedIdentities.cend());
             }
             nextToken = outcome.GetResult().GetNextToken();
-        } else {
+        }
+        else {
             std::cout << "Error listing identities. " << outcome.GetError().GetMessage()
                       << std::endl;
             return false;
