@@ -1,6 +1,6 @@
 # Yamale Schema for services metadata, which is the services.yaml file in the metadata folder.
 
-map(include('service'), key=regex('^[\da-z-]+$', name='service slug'))
+map(include('service'), key=regex('^[-a-z0-9]+$', name='service slug'))
 ---
 service:
   long: include('long_entity_regex')
@@ -22,9 +22,9 @@ service:
   tags: map(key=enum('product_categories'))
 
 chapter_override:
-    title: str(end_punc=False)
-    title_abbrev: str(end_punc=False)
+  title: str(end_punc=False)
+  title_abbrev: str(end_punc=False)
 
-long_entity_regex: regex('^[&]([\dA-Za-z-_])+[;]( \(&([\dA-Za-z-_])+;\))?$', name='valid entity')
-entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$', name='valid entity')
+long_entity_regex: regex('^&[-_a-zA-Z0-9]+;( \(&[-_a-zA-Z0-9]+;\))?$', name='valid entity')
+entity_regex: regex('^&[-_a-zA-Z0-9]+;$', name='valid entity')
 doc_url: regex('^(?!https://docs.aws.amazon.com/).+', name="relative documentation URL")

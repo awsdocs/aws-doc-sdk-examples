@@ -29,5 +29,5 @@ title_override:
   title_abbrev: str()
 
 syntax_enum: enum('bash', 'cpp', 'go', 'java', 'javascript', 'kotlin', 'csharp', 'php', 'python', 'ruby', 'rust', 'sap-abap', 'sh', 'swift')
-entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$', name='valid entity')
-entity_with_version_regex: regex('^[&]([\dA-Za-z-_])+;', name='valid entity with version')
+entity_regex: regex('^&[-_a-zA-Z0-9]+;$', name='valid entity')
+entity_with_version_regex: regex('^&[-_a-zA-Z0-9]+;', name='valid entity with version')
