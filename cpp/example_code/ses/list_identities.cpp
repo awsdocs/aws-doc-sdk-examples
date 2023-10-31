@@ -80,7 +80,6 @@ bool AwsDoc::SES::listIdentities(Aws::SES::Model::IdentityType identityType,
 int main(int argc, char **argv)
 {
   Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
   {
     Aws::SES::SESClient ses;

@@ -69,7 +69,6 @@ int main(int argc, char **argv) {
         return 1;
     }
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         Aws::String filter_name(argv[1]);
