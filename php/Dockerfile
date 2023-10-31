@@ -15,8 +15,9 @@ WORKDIR /php
 RUN find . -name "composer.json" -not -path "*vendor*" -exec bash -c "dirname {} | xargs -I % composer install --working-dir=%" \;
 
 # Set non-root user
-RUN useradd -m automation && \
-    chown -R automation:automation /php/
+RUN addgroup -S automation
+RUN adduser -S -G automation automation
+RUN chown -R automation:automation /php/
 USER automation:automation
 
 CMD ["./php/testing", "--integ"]
