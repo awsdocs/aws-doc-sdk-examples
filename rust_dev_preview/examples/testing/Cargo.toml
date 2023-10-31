@@ -10,19 +10,21 @@ edition = "2021"
 # snippet-start:[testing.rust.Cargo.toml]
 [dependencies]
 async-trait = "0.1.51"
-# snippet-end:[testing.rust.Cargo.toml]
 aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-credential-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = [ "hardcoded-credentials", ] }
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-runtime = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["test-util"] }
+aws-smithy-runtime-api = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["test-util"] }
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-credential-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = [
-  "hardcoded-credentials",
-] }
-tokio = { version = "1.20.1", features = ["full"] }
-serde_json = "1"
 clap = { version = "~4.4", features = ["derive"] }
+http = "0.2.9"
+mockall = "0.11.4"
+serde_json = "1"
+tokio = { version = "1.20.1", features = ["full"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
+# snippet-end:[testing.rust.Cargo.toml]
 
 [[bin]]
-name = "intro"
-path = "src/intro.rs"
+name = "main"
+path = "src/main.rs"
