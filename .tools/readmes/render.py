@@ -17,7 +17,9 @@ class MissingMetadataError(Exception):
 
 
 class Renderer:
-    def __init__(self, scanner, sdk_ver, safe, svc_folder=None):
+    def __init__(
+        self, scanner, sdk_ver, safe, svc_folder=None, add_to_prettierignore=[]
+    ):
         env = Environment(
             autoescape=select_autoescape(
                 disabled_extensions=("jinja2",), default_for_string=True
@@ -31,6 +33,7 @@ class Renderer:
         self.scanner = scanner
         self.sdk_ver = int(sdk_ver)
         self.lang_config = config.language[self.scanner.lang_name][self.sdk_ver].copy()
+        self.add_to_prettierignore = add_to_prettierignore
         service_info = {
             "name": self.scanner.svc_name,
             "sort": self.scanner.service()["sort"].replace(" ", ""),
@@ -261,4 +264,6 @@ class Renderer:
 
         with open(readme_filename, "w", encoding="utf-8") as f:
             f.write(readme_text)
-        print(f"Updated {readme_filename}.")
+
+        print(f"Updated {readme_filename}")
+        self.add_to_prettierignore.append(readme_filename)

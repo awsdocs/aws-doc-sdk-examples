@@ -5,6 +5,7 @@
 import argparse
 import config
 import logging
+from pathlib import Path
 from scanner import Scanner
 from render import Renderer
 
@@ -50,6 +51,13 @@ def main():
         default=True,  # Change this to default false when we're ready to use this generally.
     )
     parser.add_argument("--no-dry-run", dest="dry_run", action="store_false")
+    parser.add_argument(
+        "--update-prettierignore",
+        default=False,
+        action="store_true",
+        dest="update_prettierignore",
+        help="When true, add the generated service READMEs to the root .prettierignore",
+    )
     args = parser.parse_args()
 
     if "all" in args.languages:
@@ -67,6 +75,7 @@ def main():
         logging.info("Dry run, no changes will be made.")
 
     skipped = []
+    add_to_prettierignore = []
 
     for language_and_version in args.languages:
         (language, version) = language_and_version.split(":")
@@ -78,7 +87,12 @@ def main():
                     scanner.set_example(language, service)
                     logging.debug(f"Rendering {language}:{version}:{service}")
                     if not args.dry_run:
-                        Renderer(scanner, int(version), args.safe).render()
+                        Renderer(
+                            scanner,
+                            int(version),
+                            args.safe,
+                            add_to_prettierignore=add_to_prettierignore,
+                        ).render()
                 except Exception as err:
                     skip = f"{language}:{version}:{service}"
                     logging.error(
@@ -88,6 +102,19 @@ def main():
 
     skip_list = "\n\t".join(skipped)
     logging.info(f"Run complete. Skipped: {skip_list}")
+
+    if args.update_prettierignore:
+        dot = Path(".prettierignore")
+        prettierignore = []
+        if dot.exists():
+            with dot.open("r", encoding="utf-8") as file:
+                prettierignore = [line.strip() for line in file]
+        prettierignore.extend(add_to_prettierignore)
+        prettierignore = list(set(prettierignore))
+        prettierignore.sort()
+        with dot.open("w", encoding="utf-8") as file:
+            file.writelines("\n".join(prettierignore))
+            file.write("\n")
 
 
 if __name__ == "__main__":
