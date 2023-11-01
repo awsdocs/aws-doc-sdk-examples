@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 
 import { main } from "../hello.js";
 import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
@@ -10,10 +10,8 @@ describe("hello test", () => {
   tableSetupTeardown(tableName, [{ AttributeName: "Id", AttributeType: "N" }]);
 
   it("should list tables", async () => {
-    const spy = vi.spyOn(console, "log");
+    const { TableNames } = await main();
 
-    await main();
-
-    expect(spy).toHaveBeenCalledWith(`${tableName}`);
+    expect(TableNames.includes(tableName)).toBe(true);
   });
 });

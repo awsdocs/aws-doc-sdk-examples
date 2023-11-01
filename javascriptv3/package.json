@@ -2,7 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "scripts/run_tests.sh",
+    "test": "npm run test --workspaces --if-present -- --reporter verbose",
+    "integration-test": "npm run integration-test --workspaces --if-present -- --reporter verbose",
     "lint": "lint-staged",
     "ci-lint": "eslint"
   },
