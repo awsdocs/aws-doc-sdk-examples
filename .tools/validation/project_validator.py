@@ -225,8 +225,7 @@ def walk_with_gitignore(
             if entry.is_dir():
                 yield from walk_with_gitignore(path, specs)
             else:
-                if path.parts[-1] not in IGNORE_FILES:
-                    yield path
+                yield path
 
 
 def get_files(root: Path) -> Generator[Path, None, None]:
@@ -238,9 +237,7 @@ def get_files(root: Path) -> Generator[Path, None, None]:
     for path in walk_with_gitignore(root):
         filename = path.parts[-1]
         ext = os.path.splitext(filename)[1].lstrip(".")
-        if ext.lower() in EXT_LOOKUP:
-            if filename in IGNORE_FILES:
-                logger.info("\nSkipped File: %s", path)
+        if ext.lower() in EXT_LOOKUP and filename not in IGNORE_FILES:
             yield path
 
 
