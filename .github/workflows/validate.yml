@@ -26,13 +26,13 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v3
         with:
-          python-version: 3.8 #install the python needed
+          python-version: 3.11 #install the python needed
       - name: Install dependencies
         run: >-
           python3 -m pip install -r .tools/base_requirements.txt
-      - name: Lint with yamllint
+      - name: Lint metadata files
         run: >-
           yamllint --format standard -c .tools/validation/.yamllint.yaml .doc_gen/metadata .doc_gen/metadata/curated
-      - name: Validate metadata with yamale
+      - name: Validate metadata and repo
         run: >-
           python3 .tools/validation/validate.py --q --doc-gen .doc_gen
