@@ -34,5 +34,5 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           yaml-file: .github/allowed-labels.yml
-          skip-delete: false
+          skip-delete: true
           dry-run: false
