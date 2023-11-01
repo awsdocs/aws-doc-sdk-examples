@@ -8,7 +8,7 @@ import { resolve, join } from "node:path";
 export const PROJECT_ROOT_PATH = resolve("../../../../");
 export const RESOURCES_PATH = join(
   PROJECT_ROOT_PATH,
-  "workflows/resilient_service/resources/"
+  "workflows/resilient_service/resources/",
 );
 export const ROOT = resolve("./");
 
@@ -20,6 +20,7 @@ Some of the resources create by this demo are:
   - An EC2 launch template that defines EC2 instances that each contain a Python web server.
   - An EC2 Auto Scaling group that manages EC2 instances across several Availability Zones.
   - An Elastic Load Balancing (ELB) load balancer that targets the Auto Scaling group to distribute requests.`,
+  confirmContinue: "Continue?",
   confirmDeployment: "Are you ready to deploy resources?",
   creatingTable: "Creating table: ${TABLE_NAME}.",
   createdTable: "Created table: ${TABLE_NAME}.",
@@ -47,17 +48,12 @@ Some of the resources create by this demo are:
     "Adding role ${INSTANCE_ROLE_NAME} to profile ${INSTANCE_PROFILE_NAME}.",
   addedRoleToInstanceProfile:
     "Added role ${INSTANCE_ROLE_NAME} to profile ${INSTANCE_PROFILE_NAME}.",
-  creatingLaunchTemplate: `Creating launch template. The launch template is 
-  configured with the instance profile, an instance type, an image id, a key pair, and a startup script.
-  This script starts a Python web server defined in the "server.py" script. The web server
-  listens to HTTP requests on port 80 and responds to requests to '/' and to '/healthcheck'.
-  For demo purposes, this server is run as the root user. In production, the best practice is to
-  run a web server, such as Apache, with least-privileged credentials.
-  
-  The template also defines an IAM policy that each instance uses to assume a role that grants
-  permissions to access the DynamoDB recommendation table and Systems Manager parameters
-  that control the flow of the demo.`,
+  creatingLaunchTemplate: `Creating launch template. The launch template is configured with the instance profile, an instance type, an image id, a key pair, and a startup script. This script starts a Python web server defined in the "server.py" script. The web server listens to HTTP requests on port 80 and responds to requests to '/' and to '/healthcheck'. For demo purposes, this server is run as the root user. In production, the best practice is to run a web server, such as Apache, with least-privileged credentials. The template also defines an IAM policy that each instance uses to assume a role that grants permissions to access the DynamoDB recommendation table and Systems Manager parameters that control the flow of the demo.`,
   createdLaunchTemplate: "Created launch template: ${LAUNCH_TEMPLATE_NAME}.",
+  creatingAutoScalingGroup:
+    "Creating an EC2 Auto Scaling group, ${AUTO_SCALING_GROUP_NAME}, that maintains three EC2 instances, each in a different Availability Zone.",
+  createdAutoScalingGroup:
+    "Created EC2 Auto Scaling group ${AUTO_SCALING_GROUP_NAME} with availability zones: ${AVAILABILITY_ZONE_NAMES}. At this point, you have EC2 instances created. After each instance starts, it listens for HTTP requests. You can see these instances in the console or continue with the demo.",
   destroy: "Destroy resources?",
   deletedTable: "Deleted table: ${TABLE_NAME}.",
   deleteTableError: "Error deleting table: ${TABLE_NAME}.",
@@ -81,11 +77,16 @@ Some of the resources create by this demo are:
   deletedLaunchTemplate: "Deleted launch template ${LAUNCH_TEMPLATE_NAME}.",
   deleteLaunchTemplateError:
     "Error deleting launch template ${LAUNCH_TEMPLATE_NAME}.",
+  deletedAutoScalingGroup:
+    "Deleted Auto Scaling group ${AUTO_SCALING_GROUP_NAME}.",
+  deleteAutoScalingGroupError:
+    "Error deleting Auto Scaling group ${AUTO_SCALING_GROUP_NAME}.",
 };
 
 export const PREFIX = "resilient-wkflw-";
 
 export const NAMES = {
+  autoScalingGroupName: `${PREFIX}auto-scaling-group`,
   tableName: `${PREFIX}table`,
   keyPairName: `${PREFIX}key-pair`,
   instancePolicyName: `${PREFIX}instance-policy`,

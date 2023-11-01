@@ -9,6 +9,7 @@
     "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
+    "@aws-sdk/client-auto-scaling": "^3.438.0",
     "@aws-sdk/client-dynamodb": "^3.431.0",
     "@aws-sdk/client-ec2": "^3.433.0",
     "@aws-sdk/client-iam": "^3.433.0",

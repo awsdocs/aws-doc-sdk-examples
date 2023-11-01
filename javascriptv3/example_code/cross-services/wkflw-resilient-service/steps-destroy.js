@@ -25,8 +25,16 @@ import {
   ScenarioInput,
   ScenarioAction,
 } from "@aws-sdk-examples/libs/scenario/index.js";
+import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
 
 import { MESSAGES, NAMES } from "./constants.js";
+import {
+  AutoScalingClient,
+  DeleteAutoScalingGroupCommand,
+  TerminateInstanceInAutoScalingGroupCommand,
+  UpdateAutoScalingGroupCommand,
+  paginateDescribeAutoScalingGroups,
+} from "@aws-sdk/client-auto-scaling";
 
 /**
  * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
@@ -47,7 +55,7 @@ export const destroySteps = [
       console.error(c.deleteTableError);
       return MESSAGES.deleteTableError.replace(
         "${TABLE_NAME}",
-        NAMES.tableName
+        NAMES.tableName,
       );
     } else {
       return MESSAGES.deletedTable.replace("${TABLE_NAME}", NAMES.tableName);
@@ -57,7 +65,7 @@ export const destroySteps = [
     try {
       const client = new EC2Client({});
       await client.send(
-        new DeleteKeyPairCommand({ KeyName: NAMES.keyPairName })
+        new DeleteKeyPairCommand({ KeyName: NAMES.keyPairName }),
       );
       unlinkSync(`${NAMES.keyPairName}.pem`);
     } catch (e) {
@@ -69,12 +77,12 @@ export const destroySteps = [
       console.error(c.deleteKeyPairError);
       return MESSAGES.deleteKeyPairError.replace(
         "${KEY_PAIR_NAME}",
-        NAMES.keyPairName
+        NAMES.keyPairName,
       );
     } else {
       return MESSAGES.deletedKeyPair.replace(
         "${KEY_PAIR_NAME}",
-        NAMES.keyPairName
+        NAMES.keyPairName,
       );
     }
   }),
@@ -85,14 +93,14 @@ export const destroySteps = [
 
       if (!policy) {
         c.detachPolicyFromRoleError = new Error(
-          `Policy ${NAMES.instancePolicyName} not found.`
+          `Policy ${NAMES.instancePolicyName} not found.`,
         );
       } else {
         await client.send(
           new DetachRolePolicyCommand({
             RoleName: NAMES.instanceRoleName,
             PolicyArn: policy.Arn,
-          })
+          }),
         );
       }
     } catch (e) {
@@ -117,13 +125,13 @@ export const destroySteps = [
 
     if (!policy) {
       c.deletePolicyError = new Error(
-        `Policy ${NAMES.instancePolicyName} not found.`
+        `Policy ${NAMES.instancePolicyName} not found.`,
       );
     } else {
       return client.send(
         new DeletePolicyCommand({
           PolicyArn: policy.Arn,
-        })
+        }),
       );
     }
   }),
@@ -132,12 +140,12 @@ export const destroySteps = [
       console.error(c.deletePolicyError);
       return MESSAGES.deletePolicyError.replace(
         "${INSTANCE_POLICY_NAME}",
-        NAMES.instancePolicyName
+        NAMES.instancePolicyName,
       );
     } else {
       return MESSAGES.deletedPolicy.replace(
         "${INSTANCE_POLICY_NAME}",
-        NAMES.instancePolicyName
+        NAMES.instancePolicyName,
       );
     }
   }),
@@ -148,7 +156,7 @@ export const destroySteps = [
         new RemoveRoleFromInstanceProfileCommand({
           RoleName: NAMES.instanceRoleName,
           InstanceProfileName: NAMES.instanceProfileName,
-        })
+        }),
       );
     } catch (e) {
       c.removeRoleFromInstanceProfileError = e;
@@ -172,7 +180,7 @@ export const destroySteps = [
       await client.send(
         new DeleteRoleCommand({
           RoleName: NAMES.instanceRoleName,
-        })
+        }),
       );
     } catch (e) {
       c.deleteInstanceRoleError = e;
@@ -183,12 +191,12 @@ export const destroySteps = [
       console.error(c.deleteInstanceRoleError);
       return MESSAGES.deleteInstanceRoleError.replace(
         "${INSTANCE_ROLE_NAME}",
-        NAMES.instanceRoleName
+        NAMES.instanceRoleName,
       );
     } else {
       return MESSAGES.deletedInstanceRole.replace(
         "${INSTANCE_ROLE_NAME}",
-        NAMES.instanceRoleName
+        NAMES.instanceRoleName,
       );
     }
   }),
@@ -198,7 +206,7 @@ export const destroySteps = [
       await client.send(
         new DeleteInstanceProfileCommand({
           InstanceProfileName: NAMES.instanceProfileName,
-        })
+        }),
       );
     } catch (e) {
       c.deleteInstanceProfileError = e;
@@ -209,12 +217,12 @@ export const destroySteps = [
       console.error(c.deleteInstanceProfileError);
       return MESSAGES.deleteInstanceProfileError.replace(
         "${INSTANCE_PROFILE_NAME}",
-        NAMES.instanceProfileName
+        NAMES.instanceProfileName,
       );
     } else {
       return MESSAGES.deletedInstanceProfile.replace(
         "${INSTANCE_PROFILE_NAME}",
-        NAMES.instanceProfileName
+        NAMES.instanceProfileName,
       );
     }
   }),
@@ -224,7 +232,7 @@ export const destroySteps = [
       await client.send(
         new DeleteLaunchTemplateCommand({
           LaunchTemplateName: NAMES.launchTemplateName,
-        })
+        }),
       );
     } catch (e) {
       c.deleteLaunchTemplateError = e;
@@ -235,12 +243,36 @@ export const destroySteps = [
       console.error(c.deleteLaunchTemplateError);
       return MESSAGES.deleteLaunchTemplateError.replace(
         "${LAUNCH_TEMPLATE_NAME}",
-        NAMES.launchTemplateName
+        NAMES.launchTemplateName,
       );
     } else {
       return MESSAGES.deletedLaunchTemplate.replace(
         "${LAUNCH_TEMPLATE_NAME}",
-        NAMES.launchTemplateName
+        NAMES.launchTemplateName,
+      );
+    }
+  }),
+  new ScenarioAction("deleteAutoScalingGroup", async (c) => {
+    try {
+      await terminateGroupInstances(NAMES.autoScalingGroupName);
+      await retry({ intervalInMs: 10000, maxRetries: 60 }, async () => {
+        await deleteAutoScalingGroup(NAMES.autoScalingGroupName);
+      });
+    } catch (e) {
+      c.deleteAutoScalingGroupError = e;
+    }
+  }),
+  new ScenarioOutput("deleteAutoScalingGroupResult", (c) => {
+    if (c.deleteAutoScalingGroupError) {
+      console.error(c.deleteAutoScalingGroupError);
+      return MESSAGES.deleteAutoScalingGroupError.replace(
+        "${AUTO_SCALING_GROUP_NAME}",
+        NAMES.autoScalingGroupName,
+      );
+    } else {
+      return MESSAGES.deletedAutoScalingGroup.replace(
+        "${AUTO_SCALING_GROUP_NAME}",
+        NAMES.autoScalingGroupName,
       );
     }
   }),
@@ -252,11 +284,69 @@ export const destroySteps = [
 async function findPolicy(policyName) {
   const client = new IAMClient({});
   const paginatedPolicies = paginateListPolicies({ client }, {});
-  let policy;
   for await (const page of paginatedPolicies) {
-    policy = page.Policies.find((p) => p.PolicyName === policyName);
+    const policy = page.Policies.find((p) => p.PolicyName === policyName);
     if (policy) {
       return policy;
     }
   }
+}
+
+/**
+ * @param {string} groupName
+ */
+async function deleteAutoScalingGroup(groupName) {
+  const client = new AutoScalingClient({});
+  try {
+    await client.send(
+      new DeleteAutoScalingGroupCommand({
+        AutoScalingGroupName: groupName,
+      }),
+    );
+  } catch (err) {
+    if (!(err instanceof Error)) {
+      throw err;
+    } else {
+      console.log(err.name);
+      throw err;
+    }
+  }
+}
+
+/**
+ * @param {string} groupName
+ */
+async function terminateGroupInstances(groupName) {
+  const autoScalingClient = new AutoScalingClient({});
+  const group = await findAutoScalingGroup(groupName);
+  await autoScalingClient.send(
+    new UpdateAutoScalingGroupCommand({
+      AutoScalingGroupName: group.AutoScalingGroupName,
+      MinSize: 0,
+    }),
+  );
+  for (const i of group.Instances) {
+    await retry({ intervalInMs: 1000, maxRetries: 30 }, () =>
+      autoScalingClient.send(
+        new TerminateInstanceInAutoScalingGroupCommand({
+          InstanceId: i.InstanceId,
+          ShouldDecrementDesiredCapacity: true,
+        }),
+      ),
+    );
+  }
+}
+
+async function findAutoScalingGroup(groupName) {
+  const client = new AutoScalingClient({});
+  const paginatedGroups = paginateDescribeAutoScalingGroups({ client }, {});
+  for await (const page of paginatedGroups) {
+    const group = page.AutoScalingGroups.find(
+      (g) => g.AutoScalingGroupName === groupName,
+    );
+    if (group) {
+      return group;
+    }
+  }
+  throw new Error(`Auto scaling group ${groupName} not found.`);
 }
