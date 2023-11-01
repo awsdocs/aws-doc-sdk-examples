@@ -167,7 +167,7 @@ def validate_files(schema_name: Path, meta_names: Iterable[Path], validators):
     return success
 
 
-def validate_all(doc_gen: Path):
+def validate_metadata(doc_gen: Path):
     # with open(doc_gen / "metadata" / "sdks.yaml") as sdks_file:
     #     sdks_yaml: dict[str, any] = yaml.safe_load(sdks_file)
 
@@ -222,7 +222,7 @@ def main():
     )
     args = parser.parse_args()
 
-    success = validate_all(Path(args.doc_gen))
+    success = validate_metadata(Path(args.doc_gen))
 
     if success == 0:
         print("Validation succeeded! 👍👍👍")

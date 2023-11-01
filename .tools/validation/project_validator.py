@@ -209,6 +209,12 @@ def match_path_to_specs(path: Path, specs: list[GitIgnoreSpec]) -> bool:
 def walk_with_gitignore(
     root: Path, specs: list[GitIgnoreSpec] = []
 ) -> Generator[Path, None, None]:
+    """
+    Starting from a root directory, walk the file system yielding a path for each file.
+    However, it also reads `.gitignore` files, so that it behaves like `git ls-files`.
+    It does not actively use `git ls-files` because it wouldn't catch new files without
+    fiddling with a number of flags.
+    """
     gitignore = root / ".gitignore"
     if gitignore.exists():
         with open(root / ".gitignore", "r", encoding="utf-8") as gitignore:
@@ -223,7 +229,12 @@ def walk_with_gitignore(
                     yield path
 
 
-def get_files(root: Path):
+def get_files(root: Path) -> Generator[Path, None, None]:
+    """
+    Yield non-skipped files, that is, anything not matching git ls-files and not
+    in the "to skip" files that are in git but are machine generated, so we don't
+    want to validate them.
+    """
     for path in walk_with_gitignore(root):
         filename = path.parts[-1]
         ext = os.path.splitext(filename)[1].lstrip(".")
@@ -239,7 +250,6 @@ def check_files(root: Path):
     Errors are logged and counted and the count of errors is returned.
 
     :param root: The root folder to start the walk.
-    :param quiet: When True, suppress most output.
     :return: The number of errors found in the scanned files.
     """
     file_count = 0
@@ -270,7 +280,7 @@ def verify_no_deny_list_words(file_contents: str, file_location: Path):
     return error_count
 
 
-def verify_sample_files(root_path: Path):
+def verify_sample_files(root_path: Path) -> int:
     """Verify sample files meet the requirements and have not moved."""
     sample_files_folder = os.path.join(root_path, "resources/sample_files")
     media_folder = ".sample_media"
@@ -319,7 +329,7 @@ def verify_sample_files(root_path: Path):
     return error_count
 
 
-def verify_no_secret_keys(file_contents: str, file_location: Path):
+def verify_no_secret_keys(file_contents: str, file_location: Path) -> int:
     """Verify the file does not contain 20- or 40- length character strings,
     which might be secret keys. Allow strings in the allowlist in
     https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py.
@@ -356,7 +366,7 @@ def verify_no_secret_keys(file_contents: str, file_location: Path):
     return error_count
 
 
-def verify_snippet_start_end(file_contents: str, file_location: Path):
+def verify_snippet_start_end(file_contents: str, file_location: Path) -> int:
     """Scan the file contents for snippet-start and snippet-end tags and verify
     that they are in matched pairs. Log errors and return the count of errors."""
     error_count = 0

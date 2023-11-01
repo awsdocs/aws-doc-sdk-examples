@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 from sys import exit
-from metadata_validator import validate_all
+from metadata_validator import validate_metadata
 from project_validator import check_files, verify_sample_files
 
 
@@ -30,7 +30,7 @@ def main():
 
     error_count = check_files(root_path)
     error_count += verify_sample_files(root_path)
-    error_count += validate_all(Path(args.doc_gen))
+    error_count += validate_metadata(Path(args.doc_gen))
 
     if error_count > 0:
         print(f"{error_count} errors found, please fix them.")
