@@ -19,28 +19,27 @@ def handler(event, context):
     logger.debug(f"BUCKET_NAME: {os.environ['BUCKET_NAME']}")
     logger.debug(f"INCOMING EVENT: {event}")
 
-    status = event["detail"]["status"]
-
     if "Batch Job State Change" not in event["detail-type"]:
         logger.info(f"Non-triggering Batch event: {event['detail-type']}")
         return
-    if "TIMED_OUT" in status:
+    if "TIMED_OUT" in event["detail"]["status"]:
         raise Exception(
             "Job timed out. Contact application owner or increase time out threshold"
         )
-    if status not in ["FAILED", "SUCCEEDED"]:
-        logger.info(f"Non-triggering Batch status: STATUS: {status}")
+    if event["detail"]["status"] not in ["FAILED", "SUCCEEDED"]:
+        logger.info(f"Non-triggering Batch status: STATUS: {event['detail']['status']}")
         return
 
     try:
-        get_and_put_logs()
+        job_id = event["detail"]["jobId"]
+        get_and_put_logs(job_id)
     except Exception as e:
         logger.error(json.dumps(f"Error: {str(e)}"))
         raise e
 
 
-def get_and_put_logs():
-    # Get most recent stream
+def get_and_put_logs(job_id):
+    # Get most recent log stream
     log_streams = logs_client.describe_log_streams(
         logGroupName=log_group_name,
         orderBy="LastEventTime",
@@ -55,17 +54,24 @@ def get_and_put_logs():
         startFromHead=True,
     )
 
+    log_file_name = f"{job_id}.log"
+
     log_file = "\n".join(
         [f"{e['timestamp']}, {e['message']}" for e in log_events["events"]]
     )
-    file_identifier = str(random.randint(10**7, 10**8 - 1))
 
-    s3_client.upload_fileobj(
-        log_file,
-        os.environ["PRODUCER_BUCKET_NAME"],
-        f"{os.environ['LANGUAGE_NAME']}/{file_identifier}",
+    # Put logs to cross-account bucket
+    s3_client.put_object(
+        Body=log_file,
+        Bucket=os.environ["PRODUCER_BUCKET_NAME"],
+        Key=f"{os.environ['LANGUAGE_NAME']}/{log_file_name}",
+    )
+
+    # Back up logs to local bucket
+    s3_client.put_object(
+        Body=log_file, Bucket=os.environ["BUCKET_NAME"], Key=f"{log_file_name}"
     )
 
     logger.info(
-        f"Log data saved successfully: {os.environ['LANGUAGE_NAME']}/{file_identifier}"
+        f"Log data saved successfully: {os.environ['LANGUAGE_NAME']}/{log_file_name}"
     )

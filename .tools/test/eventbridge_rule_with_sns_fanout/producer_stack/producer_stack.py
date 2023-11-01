@@ -14,8 +14,8 @@ from constructs import Construct
 class ProducerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
-        acct_config = self.get_yaml_config("../../config/targets.yaml")
-        resource_config = self.get_yaml_config("../../config/resources.yaml")
+        acct_config = self.get_yaml_config("../config/targets.yaml")
+        resource_config = self.get_yaml_config("../config/resources.yaml")
         topic_name = resource_config["topic_name"]
         bucket_name = resource_config["bucket_name"]
         topic = self.init_get_topic(topic_name)
@@ -112,4 +112,5 @@ class ProducerStack(Stack):
                     statement.add_arn_principal(
                         f"arn:aws:iam::{str(target_accts[language]['account_id'])}:role/LogsLambdaExecutionRole"
                     )
+            statement.add_arn_principal(f"arn:aws:iam::{Aws.ACCOUNT_ID}:root")
             bucket.add_to_resource_policy(statement)

@@ -3,3 +3,4 @@ constructs>=10.0.0
 types-boto3
 types-setuptools
 aws_cdk.aws_batch_alpha
+pyyaml
