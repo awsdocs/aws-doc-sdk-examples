@@ -1,65 +1,88 @@
-//snippet-sourcedescription:[delete_template.cpp demonstrates how to delete an Amazon SES email template.]
-//snippet-service:[ses]
-//snippet-keyword:[Amazon Simple Email Service]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
 
 #include <aws/core/Aws.h>
 #include <aws/email/SESClient.h>
 #include <aws/email/model/DeleteTemplateRequest.h>
-#include <aws/email/model/DeleteTemplateResult.h>
 #include <iostream>
+#include "ses_samples.h"
 
-int main(int argc, char **argv)
-{
-  if (argc != 2)
-  {
-    std::cout << "Usage: delete_template_request <template_name>";
-    return 1;
-  }
-  Aws::SDKOptions options;
-  Aws::InitAPI(options);
-  {
-    Aws::String template_name(argv[1]);
+// snippet-start:[cpp.example_code.ses.DeleteTemplate]
+//! Delete an Amazon Simple Email Service (Amazon SES) template.
+/*!
+  \param templateName: The name for the template.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::SES::deleteTemplate(const Aws::String &templateName,
+                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::SES::SESClient sesClient(clientConfiguration);
 
-    Aws::SES::SESClient ses;
+    Aws::SES::Model::DeleteTemplateRequest deleteTemplateRequest;
 
-    Aws::SES::Model::DeleteTemplateRequest dt_req;
+    deleteTemplateRequest.SetTemplateName(templateName);
 
-    dt_req.SetTemplateName(template_name);
+    Aws::SES::Model::DeleteTemplateOutcome outcome = sesClient.DeleteTemplate(
+            deleteTemplateRequest);
 
-    auto dt_out = ses.DeleteTemplate(dt_req);
-
-    if (dt_out.IsSuccess())
-    {
-      std::cout << "Successfully deleted template" << std::endl;
+    if (outcome.IsSuccess()) {
+        std::cout << "Successfully deleted template." << std::endl;
+    }
+    else {
+        std::cerr << "Error deleting template. " << outcome.GetError().GetMessage()
+                  << std::endl;
     }
 
-    else
-    {
-      std::cout << "Error deleting template" << dt_out.GetError().GetMessage()
-        << std::endl;
-    }
-  }
-
-  Aws::ShutdownAPI(options);
-  return 0;
+    return outcome.IsSuccess();
 }
+
+// snippet-end:[cpp.example_code.ses.DeleteTemplate]
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'Usage: Usage: run_delete_template_request <template_name>'
+ *
+ *  Prerequisites: An existing SES template to delete.
+ *
+ */
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        std::cout << "Usage: run_delete_template_request <template_name>";
+        return 1;
+    }
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+    {
+        Aws::String templateName(argv[1]);
+
+
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::SES::deleteTemplate(templateName, clientConfig);
+    }
+
+    Aws::ShutdownAPI(options);
+    return 0;
+}
+
+#endif // TESTING_BUILD

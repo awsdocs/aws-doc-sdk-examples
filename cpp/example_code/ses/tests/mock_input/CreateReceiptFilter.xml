@@ -1,0 +1,6 @@
+<CreateReceiptFilterResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">   <CreateReceiptFilterResult/>
+   <ResponseMetadata>
+     <RequestId>d54daf11-98ae-4fce-a6f7-c1674c537db1</RequestId>
+   </ResponseMetadata>
+ </CreateReceiptFilterResponse>
+ 

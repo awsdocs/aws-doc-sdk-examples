@@ -1,69 +1,84 @@
-//snippet-sourcedescription:[create_receipt_rule_set.cpp demonstrates how to create an empty Amazon SES rule set.]
-//snippet-service:[ses]
-//snippet-keyword:[Amazon Simple Email Service]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
 
 #include <aws/core/Aws.h>
 #include <aws/email/SESClient.h>
 #include <aws/email/model/CreateReceiptRuleSetRequest.h>
-#include <aws/email/model/CreateReceiptRuleSetResult.h>
 #include <iostream>
+#include "ses_samples.h"
 
-/**
- * Creates an ses receipt filter based on command line input
+// snippet-start:[cpp.example_code.ses.CreateReceiptRuleSet]
+//! Create an Amazon Simple Email Service (Amazon SES) receipt rule set.
+/*!
+  \param ruleSetName: The name of the rule set.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::SES::createReceiptRuleSet(const Aws::String &ruleSetName,
+                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::SES::SESClient sesClient(clientConfiguration);
+
+    Aws::SES::Model::CreateReceiptRuleSetRequest createReceiptRuleSetRequest;
+
+    createReceiptRuleSetRequest.SetRuleSetName(ruleSetName);
+
+    Aws::SES::Model::CreateReceiptRuleSetOutcome outcome = sesClient.CreateReceiptRuleSet(
+            createReceiptRuleSetRequest);
+
+    if (outcome.IsSuccess()) {
+        std::cout << "Successfully created receipt rule set." << std::endl;
+    }
+    else {
+        std::cerr << "Error creating receipt rule set. "
+                  << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+// snippet-end:[cpp.example_code.ses.CreateReceiptRuleSet]
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'Usage: run_create_receipt_rule_set <rule_set_name>'
+ *
  */
 
-int main(int argc, char **argv)
-{
-  if (argc != 2)
-  {
-    std::cout << "Usage: create_receipt_rule_set <rule_set_name>";
-    return 1;
-  }
-  Aws::SDKOptions options;
-  Aws::InitAPI(options);
-  {
-    Aws::String rule_set_name(argv[1]);
+#ifndef TESTING_BUILD
 
-    Aws::SES::SESClient ses;
-
-    Aws::SES::Model::CreateReceiptRuleSetRequest crrs_req;
-
-    crrs_req.SetRuleSetName(rule_set_name);
-
-    auto crrs_out = ses.CreateReceiptRuleSet(crrs_req);
-
-    if (crrs_out.IsSuccess())
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        std::cout << "Usage: run_create_receipt_rule_set <rule_set_name>";
+        return 1;
+    }
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
     {
-      std::cout << "Successfully created receipt rule set" << std::endl;
+        Aws::String ruleSetName(argv[1]);
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::SES::createReceiptRuleSet(ruleSetName, clientConfig);
     }
 
-    else
-    {
-      std::cout << "Error creating receipt rule set" << crrs_out.GetError().GetMessage()
-        << std::endl;
-    }
-  }
-
-  Aws::ShutdownAPI(options);
-  return 0;
+    Aws::ShutdownAPI(options);
+    return 0;
 }
+
+#endif // TESTING_BUILD

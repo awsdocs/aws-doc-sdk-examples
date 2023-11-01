@@ -1,0 +1,6 @@
+<DeleteReceiptFilterResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">   <DeleteReceiptFilterResult/>
+   <ResponseMetadata>
+     <RequestId>e334c1ce-1fe4-45e8-b2b8-0b18b3701003</RequestId>
+   </ResponseMetadata>
+ </DeleteReceiptFilterResponse>
+ 

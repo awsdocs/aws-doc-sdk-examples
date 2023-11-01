@@ -1,0 +1,8 @@
+<SendEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">   <SendEmailResult>
+     <MessageId>0100018b81588ee5-1dbe20d2-f13b-4def-ad1c-ae05365b54e6-000000</MessageId>
+   </SendEmailResult>
+   <ResponseMetadata>
+     <RequestId>70819981-5f17-4a04-b070-9b31b7921fab</RequestId>
+   </ResponseMetadata>
+ </SendEmailResponse>
+ 

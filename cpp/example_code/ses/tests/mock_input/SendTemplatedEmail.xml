@@ -1,0 +1,8 @@
+<SendTemplatedEmailResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">   <SendTemplatedEmailResult>
+     <MessageId>0100018b8158aca6-942ef0af-fdf7-4bd9-96c9-a6e6ce47ddc9-000000</MessageId>
+   </SendTemplatedEmailResult>
+   <ResponseMetadata>
+     <RequestId>96a77846-9526-40e5-9709-b52a6a787910</RequestId>
+   </ResponseMetadata>
+ </SendTemplatedEmailResponse>
+ 

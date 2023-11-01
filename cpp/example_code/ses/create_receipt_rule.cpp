@@ -1,115 +1,126 @@
-//snippet-sourcedescription:[create_receipt_rule.cpp demonstrates how to create an Amazon SES receipt rule.]
-//snippet-service:[ses]
-//snippet-keyword:[Amazon Simple Email Service]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[tapasweni-pathak]
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
 
 #include <aws/core/Aws.h>
 #include <aws/email/SESClient.h>
 #include <aws/email/model/CreateReceiptRuleRequest.h>
-#include <aws/email/model/CreateReceiptRuleResult.h>
 #include <aws/email/model/ReceiptRule.h>
 #include <aws/email/model/ReceiptAction.h>
 #include <aws/email/model/TlsPolicy.h>
 #include <aws/email/model/S3Action.h>
 #include <iostream>
+#include "ses_samples.h"
 
-/**
- * Creates an ses receipt filter based on command line input
+// snippet-start:[cpp.example_code.ses.CreateReceiptRule]
+//! Create an Amazon Simple Email Service (Amazon SES) receipt rule.
+/*!
+  \param receiptRuleName: The name for the receipt rule.
+  \param s3BucketName: The name of the S3 bucket for incoming mail.
+  \param s3ObjectKeyPrefix: The prefix for the objects in the S3 bucket.
+  \param ruleSetName: The name of the rule set where the receipt rule is added.
+  \param recipients: Aws::Vector of recipients.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::SES::createReceiptRule(const Aws::String &receiptRuleName,
+                                    const Aws::String &s3BucketName,
+                                    const Aws::String &s3ObjectKeyPrefix,
+                                    const Aws::String &ruleSetName,
+                                    const Aws::Vector<Aws::String> &recipients,
+                                    const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::SES::SESClient sesClient(clientConfiguration);
+
+    Aws::SES::Model::CreateReceiptRuleRequest createReceiptRuleRequest;
+
+    Aws::SES::Model::S3Action s3Action;
+    s3Action.SetBucketName(s3BucketName);
+    s3Action.SetObjectKeyPrefix(s3ObjectKeyPrefix);
+
+    Aws::SES::Model::ReceiptAction receiptAction;
+    receiptAction.SetS3Action(s3Action);
+
+    Aws::SES::Model::ReceiptRule receiptRule;
+    receiptRule.SetName(receiptRuleName);
+    receiptRule.WithRecipients(recipients);
+
+    Aws::Vector<Aws::SES::Model::ReceiptAction> receiptActionList;
+    receiptActionList.emplace_back(receiptAction);
+    receiptRule.SetActions(receiptActionList);
+
+    createReceiptRuleRequest.SetRuleSetName(ruleSetName);
+    createReceiptRuleRequest.SetRule(receiptRule);
+
+    auto outcome = sesClient.CreateReceiptRule(createReceiptRuleRequest);
+
+    if (outcome.IsSuccess()) {
+        std::cout << "Successfully created receipt rule." << std::endl;
+    }
+    else {
+        std::cerr << "Error creating receipt rule. " << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+
+// snippet-end:[cpp.example_code.ses.CreateReceiptRule]
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'Usage: run_create_receipt_filter <receipt_filter_name> <cidr_value> <receipt_filter_policy_val>'
+ *
+ *  Prerequisites: An S3 bucket for incoming mail.
+ *
  */
 
-int main(int argc, char **argv)
-{
-  if (argc != 7)
-  {
-    std::cout << "Usage: create_receipt_rule <s3_bucket_name> <s3_object_key_prefix>"
-      "<rule_name> <rule_set_name> <tls_policy_val> <recipients_value>";
-    return 1;
-  }
-  Aws::SDKOptions options;
-  Aws::InitAPI(options);
-  {
-    Aws::String s3_bucket_name(argv[1]);
-    Aws::String s3_object_key_prefix(argv[2]);
+#ifndef TESTING_BUILD
 
-    for (int i = 6; i < argc; ++i)
-    {
-      const Aws::String arg(argv[i]);
+
+int main(int argc, char **argv) {
+    if (argc < 5) {
+        std::cout << "Usage: run_create_receipt_rule <s3_bucket_name> <s3_object_key_prefix>"
+                     "<rule_name> <rule_set_name> <recipients_value>";
+        return 1;
     }
-    Aws::String rule_name(argv[3]);
-    Aws::String rule_set_name(argv[4]);
-    Aws::String tls_policy_val(argv[5]);
-
-    Aws::SES::SESClient ses;
-
-    Aws::SES::Model::CreateReceiptRuleRequest crr_req;
-    Aws::SES::Model::ReceiptRule receipt_rule;
-    Aws::SES::Model::ReceiptAction receipt_actions;
-    Aws::SES::Model::S3Action s3_action;
-
-    if (tls_policy_val == "Require")
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
     {
-      receipt_rule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::Require);
-    }
-    else if (tls_policy_val == "Optional")
-    {
-      receipt_rule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::Optional);
-    }
-    else
-    {
-      receipt_rule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::NOT_SET);
+        Aws::String s3BucketName(argv[1]);
+        Aws::String s3ObjectKeyPrefix(argv[2]);
+
+        Aws::String ruleName(argv[3]);
+        Aws::String ruleSetName(argv[4]);
+
+        Aws::Vector<Aws::String> recipients;
+        for (int i = 5; i < argc; ++i) {
+            recipients.emplace_back(argv[i]);
+        }
+
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::SES::createReceiptRule(ruleName, s3BucketName, s3ObjectKeyPrefix, ruleSetName, recipients,
+                                       clientConfig);
     }
 
-    s3_action.SetBucketName(s3_bucket_name);
-    s3_action.SetObjectKeyPrefix(s3_object_key_prefix);
-
-    receipt_actions.SetS3Action(s3_action);
-
-    receipt_rule.SetName(rule_name);
-
-    for (int i = 6; i < argc; ++i)
-    {
-      receipt_rule.AddRecipients(argv[i]);
-    }
-    Aws::Vector<Aws::SES::Model::ReceiptAction> receiptActionList;
-    receiptActionList.emplace_back(receipt_actions);
-    receipt_rule.SetActions(receiptActionList);
-
-    crr_req.SetRuleSetName(rule_set_name);
-    crr_req.SetRule(receipt_rule);
-
-    auto crr_out = ses.CreateReceiptRule(crr_req);
-
-    if (crr_out.IsSuccess())
-    {
-      std::cout << "Successfully created receipt rule" << std::endl;
-    }
-
-    else
-    {
-      std::cout << "Error creating receipt rule" << crr_out.GetError().GetMessage()
-        << std::endl;
-    }
-  }
-
-  Aws::ShutdownAPI(options);
-  return 0;
+    Aws::ShutdownAPI(options);
+    return 0;
 }
+
+#endif // TESTING_BUILD

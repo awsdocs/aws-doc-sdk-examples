@@ -1,0 +1,11 @@
+<ListIdentitiesResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">   <ListIdentitiesResult>
+     <Identities>
+       <member>mock1@email.com</member>
+       <member>mock2@email.com</member>
+     </Identities>
+   </ListIdentitiesResult>
+   <ResponseMetadata>
+     <RequestId>86a79c81-ec03-4255-aced-441802526f4a</RequestId>
+   </ResponseMetadata>
+ </ListIdentitiesResponse>
+ 

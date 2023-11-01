@@ -1,0 +1,16 @@
+<ListReceiptFiltersResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">   <ListReceiptFiltersResult>
+     <Filters>
+       <member>
+         <Name>cpp_func_test</Name>
+         <IpFilter>
+           <Cidr>10.0.0.1/24</Cidr>
+           <Policy>Allow</Policy>
+         </IpFilter>
+       </member>
+     </Filters>
+   </ListReceiptFiltersResult>
+   <ResponseMetadata>
+     <RequestId>74a55731-25fa-4d57-9e93-b679e419ddae</RequestId>
+   </ResponseMetadata>
+ </ListReceiptFiltersResponse>
+ 

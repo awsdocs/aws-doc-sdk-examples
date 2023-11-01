@@ -1,0 +1,6 @@
+<DeleteReceiptRuleSetResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">   <DeleteReceiptRuleSetResult/>
+   <ResponseMetadata>
+     <RequestId>2f7080b0-f148-4965-811d-fa1db22b848a</RequestId>
+   </ResponseMetadata>
+ </DeleteReceiptRuleSetResponse>
+ 
