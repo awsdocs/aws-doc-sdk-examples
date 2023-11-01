@@ -1,5 +1,5 @@
 # Run Python checkin script on push or pull request
-name: Miscellaneous pre-validation checks
+name: Snippet & Repo Validation Checks
 
 # Controls when the action will run.
 on:
@@ -35,4 +35,4 @@ jobs:
           yamllint --format standard -c .tools/validation/.yamllint.yaml .doc_gen/metadata .doc_gen/metadata/curated
       - name: Validate metadata with yamale
         run: >-
-          python3 .tools/validate/validate.py --q --doc-gen .doc_gen
+          python3 .tools/validation/validate.py --q --doc-gen .doc_gen
