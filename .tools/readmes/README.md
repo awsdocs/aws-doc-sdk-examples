@@ -37,7 +37,7 @@ authored for the SOS project. After you have authored metadata and snippet tags
 for your examples, run the following command in the root folder of the repo:
 
 ```
-python .doc_gen/readmes/writeme.py <language> <version> <service>
+python .tools/readmes/writeme.py <language> <version> <service>
 ```
 
 WRITME reads metadata and config data and generates a README in the service
