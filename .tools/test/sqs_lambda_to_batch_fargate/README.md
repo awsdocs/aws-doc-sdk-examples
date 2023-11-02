@@ -24,18 +24,6 @@ For example, if your language is Java, use:
 ```
 export LANGUAGE_NAME=javav2
 ```
-
-Also, save the AWS account ID of the AWS account that is currently emitting 
-events for this stack to process.
-```
-export PRODUCER_ACCOUNT_ID=12345678901
-```
-
-Lastly, save the name of the SNS topic that will be producing the previously mentioned events.
-If created using [this Producer CDK code](../eventbridge_rule_with_sns_fanout/README.md), it will look something like this:
-```
-export FANOUT_TOPIC_NAME=ProducerStack-fanouttopic6EFF7954-pYvxBdNPbEWM
-```
 ---
 
 ## AWS CDK setup and deployment
