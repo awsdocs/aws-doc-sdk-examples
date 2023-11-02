@@ -56,32 +56,30 @@ fn make_s3_test_credentials() -> s3::config::Credentials {
 mod test {
     use super::*;
     use aws_sdk_s3 as s3;
-    use aws_smithy_http::body::SdkBody;
     use aws_smithy_runtime::client::http::test_util::{ReplayEvent, StaticReplayClient};
+    use aws_smithy_types::body::SdkBody;
 
     #[tokio::test]
     async fn test_single_page() {
-        let client: s3::Client = s3::Client::from_conf(
-        s3::Config::builder()
-            .credentials_provider(make_s3_test_credentials())
-            .region(s3::config::Region::new("us-east-1"))
-            .http_client(StaticReplayClient::new(vec![
-              ReplayEvent::new(
+        let page_1 = ReplayEvent::new(
                 http::Request::builder()
                     .method("GET")
-                    .uri("https://test-bucket-us-east-1.s3.us-east-1.amazonaws.com/?list-type=2&prefix=test-prefix")
-                    .header("user-agent", "aws-sdk-rust/0.56.1 os/macos lang/rust/1.70.0")
-                    .header("x-amz-user-agent", "aws-sdk-rust/0.56.1 api/s3/0.0.0-local os/macos lang/rust/1.70.0")
+                    .uri("https://test-bucket.s3.us-east-1.amazonaws.com/?list-type=2&prefix=test-prefix")
                     .body(SdkBody::empty())
                     .unwrap(),
                 http::Response::builder()
                     .status(200)
                     .body(SdkBody::from(include_str!("./testing/response_1.xml")))
                     .unwrap(),
-            )
-            ]))
-            .build(),
-    );
+            );
+        let replay_client = StaticReplayClient::new(vec![page_1]);
+        let client: s3::Client = s3::Client::from_conf(
+            s3::Config::builder()
+                .credentials_provider(make_s3_test_credentials())
+                .region(s3::config::Region::new("us-east-1"))
+                .http_client(replay_client.clone())
+                .build(),
+        );
 
         // Run the code we want to test with it
         let size = determine_prefix_file_size(client, "test-bucket", "test-prefix")
@@ -90,44 +88,41 @@ mod test {
 
         // Verify we got the correct total size back
         assert_eq!(7, size);
+        replay_client.assert_requests_match(&[]);
     }
 
     #[tokio::test]
     async fn test_multiple_pages() {
-        let client: s3::Client = s3::Client::from_conf(
-        s3::Config::builder()
-            .credentials_provider(make_s3_test_credentials())
-            .region(s3::config::Region::new("us-east-1"))
-            .http_client(StaticReplayClient::new(vec![
-              ReplayEvent::new(
+        let page_1 = ReplayEvent::new(
                 http::Request::builder()
                     .method("GET")
-                    .uri("https://test-bucket-us-east-1.s3.us-east-1.amazonaws.com/?list-type=2&prefix=test-prefix")
-                    .header("user-agent", "aws-sdk-rust/0.56.1 os/macos lang/rust/1.70.0")
-                    .header("x-amz-user-agent", "aws-sdk-rust/0.56.1 api/s3/0.0.0-local os/macos lang/rust/1.70.0")
+                    .uri("https://test-bucket.s3.us-east-1.amazonaws.com/?list-type=2&prefix=test-prefix")
                     .body(SdkBody::empty())
                     .unwrap(),
                 http::Response::builder()
                     .status(200)
                     .body(SdkBody::from(include_str!("./testing/response_multi_1.xml")))
                     .unwrap(),
-            ),
-              ReplayEvent::new(
+            );
+        let page_2 = ReplayEvent::new(
                 http::Request::builder()
                     .method("GET")
-                    .uri("https://test-bucket-us-east-1.s3.us-east-1.amazonaws.com/?list-type=2&prefix=test-prefix&continuation-token=next")
-                    .header("user-agent", "aws-sdk-rust/0.56.1 os/macos lang/rust/1.70.0")
-                    .header("x-amz-user-agent", "aws-sdk-rust/0.56.1 api/s3/0.0.0-local os/macos lang/rust/1.70.0")
+                    .uri("https://test-bucket.s3.us-east-1.amazonaws.com/?list-type=2&prefix=test-prefix&continuation-token=next")
                     .body(SdkBody::empty())
                     .unwrap(),
                 http::Response::builder()
                     .status(200)
                     .body(SdkBody::from(include_str!("./testing/response_multi_2.xml")))
                     .unwrap(),
-            )
-            ]))
-            .build(),
-    );
+            );
+        let replay_client = StaticReplayClient::new(vec![page_1, page_2]);
+        let client: s3::Client = s3::Client::from_conf(
+            s3::Config::builder()
+                .credentials_provider(make_s3_test_credentials())
+                .region(s3::config::Region::new("us-east-1"))
+                .http_client(replay_client.clone())
+                .build(),
+        );
 
         // Run the code we want to test with it
         let size = determine_prefix_file_size(client, "test-bucket", "test-prefix")
@@ -135,6 +130,8 @@ mod test {
             .unwrap();
 
         assert_eq!(19, size);
+
+        replay_client.assert_requests_match(&[]);
     }
     // snippet-end:[testing.rust.replay-tests]
 }
