@@ -371,33 +371,28 @@ pub async fn list_policies(
     client: iamClient,
     path_prefix: String,
 ) -> Result<Vec<String>, SdkError<ListPoliciesError>> {
-    let mut list_policies = client
+    let list_policies = client
         .list_policies()
         .path_prefix(path_prefix)
         .scope(PolicyScopeType::Local)
         .into_paginator()
-        .send();
+        .items()
+        .send()
+        .try_collect()
+        .await?;
 
-    let mut v = Vec::new();
+    let policy_names = list_policies
+        .into_iter()
+        .map(|p| {
+            let name = p
+                .policy_name
+                .unwrap_or_else(|| "Missing Policy Name".to_string());
+            println!("{}", name);
+            name
+        })
+        .collect();
 
-    while let Some(list_policies_output) = list_policies.next().await {
-        match list_policies_output {
-            Ok(list_policies) => {
-                for policy in list_policies.policies() {
-                    let policy_name = policy
-                        .policy_name()
-                        .unwrap_or("Missing policy name.")
-                        .to_string();
-                    println!("{}", policy_name);
-                    v.push(policy_name);
-                }
-            }
-
-            Err(err) => return Err(err),
-        }
-    }
-
-    Ok(v)
+    Ok(policy_names)
 }
 // snippet-end:[rust.example_code.iam.hello_lib]
 // snippet-end:[rust.example_code.iam.service.list_policies]
