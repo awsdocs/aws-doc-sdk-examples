@@ -21,7 +21,6 @@ from constructs import Construct
 
 # Raises KeyError if environment variable doesn't exist.
 language_name = os.environ["LANGUAGE_NAME"]
-producer_account_id = os.environ["PRODUCER_ACCOUNT_ID"]
 
 
 class ConsumerStack(Stack):
@@ -30,6 +29,7 @@ class ConsumerStack(Stack):
         resource_config = self.get_yaml_config("../config/resources.yaml")
         topic_name = resource_config["topic_name"]
         producer_bucket_name = resource_config["bucket_name"]
+        self.producer_account_id = resource_config["admin_acct"]
         sns_topic = self.init_get_topic(topic_name)
         sqs_queue = sqs.Queue(self, f"BatchJobQueue-{language_name}")
         self.init_subscribe_sns(sqs_queue, sns_topic)
@@ -143,7 +143,7 @@ class ConsumerStack(Stack):
         statement = iam.PolicyStatement()
         statement.add_resources(sqs_queue.queue_arn)
         statement.add_actions("sqs:*")
-        statement.add_arn_principal(f"arn:aws:iam::{producer_account_id}:root")
+        statement.add_arn_principal(f"arn:aws:iam::{self.producer_account_id}:root")
         statement.add_arn_principal(f"arn:aws:iam::{Aws.ACCOUNT_ID}:root")
         statement.add_condition("ArnLike", {"aws:SourceArn": sns_topic.topic_arn})
         sqs_queue.add_to_resource_policy(statement)
