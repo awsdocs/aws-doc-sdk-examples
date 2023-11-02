@@ -40,9 +40,7 @@ aurora_Hello:
           github: rust_dev_preview/examples/aurora
           excerpts:
             - snippet_tags:
-                - rust.aurora.get_cluster.usage
-                - rust.aurora.describe_db_clusters.wrapper
-                - rust.aurora.get_cluster.test
+                - rust.aurora.hello-world
   services:
     aurora: {DescribeDBClusters}
 aurora_DescribeDBClusterParameterGroups:
