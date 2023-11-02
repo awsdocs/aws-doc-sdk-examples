@@ -74,15 +74,6 @@ pub async fn determine_prefix_file_size(
 }
 // snippet-end:[testing.rust.wrapper]
 
-#[allow(dead_code)]
-// This time, we add a helper function for making pages
-fn make_page(sizes: &[i64]) -> Vec<s3::types::Object> {
-    sizes
-        .iter()
-        .map(|size| s3::types::Object::builder().size(*size).build())
-        .collect()
-}
-
 #[cfg(test)]
 mod test {
     use super::*;
@@ -96,7 +87,11 @@ mod test {
             .with(eq("test-bucket"), eq("test-prefix"), eq(None))
             .return_once(|_, _, _| {
                 Ok(ListObjectsV2Output::builder()
-                    .set_contents(Some(make_page(&[5, 2])))
+                    .set_contents(Some(vec![
+                        // Mock content for ListObjectsV2 response
+                        s3::types::Object::builder().size(5).build(),
+                        s3::types::Object::builder().size(2).build(),
+                    ]))
                     .build())
             });
 
@@ -117,7 +112,11 @@ mod test {
             .with(eq("test-bucket"), eq("test-prefix"), eq(None))
             .return_once(|_, _, _| {
                 Ok(ListObjectsV2Output::builder()
-                    .set_contents(Some(make_page(&[5, 2])))
+                    .set_contents(Some(vec![
+                        // Mock content for ListObjectsV2 response
+                        s3::types::Object::builder().size(5).build(),
+                        s3::types::Object::builder().size(2).build(),
+                    ]))
                     .set_next_continuation_token(Some("next".to_string()))
                     .build())
             });
@@ -129,7 +128,11 @@ mod test {
             )
             .return_once(|_, _, _| {
                 Ok(ListObjectsV2Output::builder()
-                    .set_contents(Some(make_page(&[3, 9])))
+                    .set_contents(Some(vec![
+                        // Mock content for ListObjectsV2 response
+                        s3::types::Object::builder().size(3).build(),
+                        s3::types::Object::builder().size(9).build(),
+                    ]))
                     .build())
             });
 
