@@ -35,6 +35,14 @@ import {
   UpdateAutoScalingGroupCommand,
   paginateDescribeAutoScalingGroups,
 } from "@aws-sdk/client-auto-scaling";
+import {
+  DeleteLoadBalancerCommand,
+  DeleteTargetGroupCommand,
+  DescribeTargetGroupsCommand,
+  ElasticLoadBalancingV2Client,
+  paginateDescribeLoadBalancers,
+  waitUntilLoadBalancersDeleted,
+} from "@aws-sdk/client-elastic-load-balancing-v2";
 
 /**
  * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
@@ -276,6 +284,66 @@ export const destroySteps = [
       );
     }
   }),
+  new ScenarioAction("deleteLB", async (c) => {
+    try {
+      const client = new ElasticLoadBalancingV2Client({});
+      const loadBalancer = await findLoadBalancer(NAMES.loadBalancerName);
+      await client.send(
+        new DeleteLoadBalancerCommand({
+          LoadBalancerArn: loadBalancer.LoadBalancerArn,
+        }),
+      );
+      console.log("found load balancer", JSON.stringify(loadBalancer));
+      await waitUntilLoadBalancersDeleted(
+        { client },
+        { Names: [NAMES.loadBalancerName] },
+      );
+    } catch (e) {
+      c.deleteLBError = e;
+    }
+  }),
+  new ScenarioOutput("deleteLBResult", (c) => {
+    if (c.deleteLBError) {
+      console.error(c.deleteLBError);
+      return MESSAGES.deleteLBError.replace(
+        "${LB_NAME}",
+        NAMES.loadBalancerName,
+      );
+    } else {
+      return MESSAGES.deletedLB.replace("${LB_NAME}", NAMES.loadBalancerName);
+    }
+  }),
+  new ScenarioAction("deleteLBTargetGroup", async (c) => {
+    const client = new ElasticLoadBalancingV2Client({});
+    try {
+      const { TargetGroups } = await client.send(
+        new DescribeTargetGroupsCommand({
+          Names: [NAMES.loadBalancerTargetGroupName],
+        }),
+      );
+      await client.send(
+        new DeleteTargetGroupCommand({
+          TargetGroupArn: TargetGroups[0].TargetGroupArn,
+        }),
+      );
+    } catch (e) {
+      c.deleteLBTargetGroupError = e;
+    }
+  }),
+  new ScenarioOutput("deleteLBTargetGroupResult", (c) => {
+    if (c.deleteLBTargetGroupError) {
+      console.error(c.deleteLBTargetGroupError);
+      return MESSAGES.deleteLBTargetGroupError.replace(
+        "${TARGET_GROUP_NAME}",
+        NAMES.loadBalancerTargetGroupName,
+      );
+    } else {
+      return MESSAGES.deletedLBTargetGroup.replace(
+        "${TARGET_GROUP_NAME}",
+        NAMES.loadBalancerTargetGroupName,
+      );
+    }
+  }),
 ];
 
 /**
@@ -349,4 +417,23 @@ async function findAutoScalingGroup(groupName) {
     }
   }
   throw new Error(`Auto scaling group ${groupName} not found.`);
+}
+
+async function findLoadBalancer(loadBalancerName) {
+  const client = new ElasticLoadBalancingV2Client({});
+  const paginatedLoadBalancers = paginateDescribeLoadBalancers(
+    { client },
+    {
+      Names: [loadBalancerName],
+    },
+  );
+
+  for await (const page of paginatedLoadBalancers) {
+    const loadBalancer = page.LoadBalancers.find(
+      (l) => l.LoadBalancerName === loadBalancerName,
+    );
+    if (loadBalancer) {
+      return loadBalancer;
+    }
+  }
 }

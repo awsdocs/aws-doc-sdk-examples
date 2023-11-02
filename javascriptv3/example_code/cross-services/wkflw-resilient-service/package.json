@@ -12,9 +12,11 @@
     "@aws-sdk/client-auto-scaling": "^3.438.0",
     "@aws-sdk/client-dynamodb": "^3.431.0",
     "@aws-sdk/client-ec2": "^3.433.0",
+    "@aws-sdk/client-elastic-load-balancing-v2": "^3.441.0",
     "@aws-sdk/client-iam": "^3.433.0",
-    "@aws-sdk/client-ssm": "^3.435.0",
-    "@aws-sdk/lib-dynamodb": "^3.431.0"
+    "@aws-sdk/client-ssm": "^3.438.0",
+    "@aws-sdk/lib-dynamodb": "^3.431.0",
+    "axios": "^1.6.0"
   },
   "devDependencies": {
     "vitest": "^0.34.6"

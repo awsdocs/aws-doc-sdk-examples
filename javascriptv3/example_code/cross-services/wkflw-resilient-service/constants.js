@@ -54,6 +54,30 @@ Some of the resources create by this demo are:
     "Creating an EC2 Auto Scaling group, ${AUTO_SCALING_GROUP_NAME}, that maintains three EC2 instances, each in a different Availability Zone.",
   createdAutoScalingGroup:
     "Created EC2 Auto Scaling group ${AUTO_SCALING_GROUP_NAME} with availability zones: ${AVAILABILITY_ZONE_NAMES}. At this point, you have EC2 instances created. After each instance starts, it listens for HTTP requests. You can see these instances in the console or continue with the demo.",
+  loadBalancer:
+    "Creating an Elastic Load Balancing target group and load balancer. The target group defines how the load balancer connects to instances. The load balancer provides a single endpoint where clients connect and dispatches requests to instances in the group.",
+  gettingVpc: "Getting default VPC.",
+  gotVpc: "Got default VPC: ${VPC_ID}.",
+  gettingSubnets: "Getting subnets for default VPC.",
+  gotSubnets: "Subnets for default VPC: ${SUBNETS}",
+  creatingLBTargetGroup:
+    "Creating Elastic Load Balancer target group ${TARGET_GROUP_NAME}.",
+  createdLBTargetGroup:
+    "Created Elastic Load Balancer target group ${TARGET_GROUP_NAME}.",
+  creatingLoadBalancer: "Creating load balancer ${LB_NAME}.",
+  createdLoadBalancer:
+    "Created load balancer ${LB_NAME}. DNS name: ${DNS_NAME}.",
+  creatingLoadBalancerListener:
+    "Creating listener to forward traffic from load balancer ${LB_NAME} to target group ${TARGET_GROUP_NAME}.",
+  createdLoadBalancerListener:
+    "Created load balancer listener ${LB_LISTENER_ARN}.",
+  attachingLoadBalancerTargetGroup:
+    "Attaching load balancer target group ${TARGET_GROUP_NAME} to auto scaling group ${AUTO_SCALING_GROUP_NAME}.",
+  attachedLoadBalancerTargetGroup:
+    "Attached load balancer target group to autoscaling group.",
+  verifyingEndpoint:
+    "Verifying access to the load balancer endpoint ${DNS_NAME}.",
+  verifiedEndpoint: "Endpoint reached:\n${ENDPOINT_RESPONSE}.",
   destroy: "Destroy resources?",
   deletedTable: "Deleted table: ${TABLE_NAME}.",
   deleteTableError: "Error deleting table: ${TABLE_NAME}.",
@@ -81,6 +105,12 @@ Some of the resources create by this demo are:
     "Deleted Auto Scaling group ${AUTO_SCALING_GROUP_NAME}.",
   deleteAutoScalingGroupError:
     "Error deleting Auto Scaling group ${AUTO_SCALING_GROUP_NAME}.",
+  deletedLB: "Deleted load balancer ${LB_NAME}.",
+  deleteLBError: "Error deleting load balancer ${LB_NAME}.",
+  deletedLBTargetGroup:
+    "Deleted Load Balancer target group ${TARGET_GROUP_NAME}.",
+  deleteLBTargetGroupError:
+    "Error deleting Load Balancer target group ${TARGET_GROUP_NAME}.",
 };
 
 export const PREFIX = "resilient-wkflw-";
@@ -93,4 +123,9 @@ export const NAMES = {
   instanceProfileName: `${PREFIX}instance-profile`,
   instanceRoleName: `${PREFIX}instance-role`,
   launchTemplateName: `${PREFIX}launch-template`,
+  loadBalancerTargetGroupName: `${PREFIX}target-group`,
+  loadBalancerName: `${PREFIX}lb`,
+  ssmTableNameKey: "doc-example-resilient-architecture-table",
+  ssmFailureResponseKey: "doc-example-resilient-architecture-failure-response",
+  ssmHealthCheckKey: "doc-example-resilient-architecture-health-check",
 };

@@ -4,6 +4,7 @@
  */
 import { join } from "node:path";
 import { readFileSync, writeFileSync } from "node:fs";
+import axios from "axios";
 
 import {
   BatchWriteItemCommand,
@@ -16,6 +17,8 @@ import {
   CreateKeyPairCommand,
   CreateLaunchTemplateCommand,
   DescribeAvailabilityZonesCommand,
+  DescribeVpcsCommand,
+  DescribeSubnetsCommand,
 } from "@aws-sdk/client-ec2";
 import {
   IAMClient,
@@ -26,17 +29,30 @@ import {
   AttachRolePolicyCommand,
   waitUntilInstanceProfileExists,
 } from "@aws-sdk/client-iam";
-import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
+import {
+  SSMClient,
+  GetParameterCommand,
+  PutParameterCommand,
+} from "@aws-sdk/client-ssm";
 import {
   CreateAutoScalingGroupCommand,
   AutoScalingClient,
+  AttachLoadBalancerTargetGroupsCommand,
 } from "@aws-sdk/client-auto-scaling";
+import {
+  CreateListenerCommand,
+  CreateLoadBalancerCommand,
+  CreateTargetGroupCommand,
+  ElasticLoadBalancingV2Client,
+  waitUntilLoadBalancerAvailable,
+} from "@aws-sdk/client-elastic-load-balancing-v2";
 
 import {
   ScenarioOutput,
   ScenarioInput,
   ScenarioAction,
 } from "@aws-sdk-examples/libs/scenario/index.js";
+import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
 
 import { MESSAGES, NAMES, RESOURCES_PATH, ROOT } from "./constants.js";
 
@@ -259,6 +275,38 @@ export const deploySteps = [
       .replace("${INSTANCE_PROFILE_NAME}", NAMES.instanceProfileName)
       .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName),
   ),
+  new ScenarioAction("baselineSsmParams", async () => {
+    // These parameters are used by the python server on the EC2 instances.
+
+    const client = new SSMClient({});
+    /**
+     * @type {import("@aws-sdk/client-ssm").PutParameterCommandInput[]}
+     */
+    const putParameterInput = [
+      {
+        Name: NAMES.ssmTableNameKey,
+        Value: NAMES.tableName,
+        Overwrite: true,
+        Type: "String",
+      },
+      {
+        Name: NAMES.ssmFailureResponseKey,
+        Value: "none",
+        Overwrite: true,
+        Type: "String",
+      },
+      {
+        Name: NAMES.ssmHealthCheckKey,
+        Value: "shallow",
+        Overwrite: true,
+        Type: "String",
+      },
+    ];
+
+    for (const paramInput of putParameterInput) {
+      await client.send(new PutParameterCommand(paramInput));
+    }
+  }),
   new ScenarioOutput("creatingLaunchTemplate", MESSAGES.creatingLaunchTemplate),
   new ScenarioAction("createLaunchTemplate", async () => {
     const ssmClient = new SSMClient({});
@@ -305,17 +353,19 @@ export const deploySteps = [
     );
     c.availabilityZoneNames = AvailabilityZones.map((az) => az.ZoneName);
     const autoScalingClient = new AutoScalingClient({});
-    await autoScalingClient.send(
-      new CreateAutoScalingGroupCommand({
-        AvailabilityZones: c.availabilityZoneNames,
-        AutoScalingGroupName: NAMES.autoScalingGroupName,
-        LaunchTemplate: {
-          LaunchTemplateName: NAMES.launchTemplateName,
-          Version: "$Default",
-        },
-        MinSize: 3,
-        MaxSize: 3,
-      }),
+    await retry({ intervalInMs: 1000, maxRetries: 30 }, () =>
+      autoScalingClient.send(
+        new CreateAutoScalingGroupCommand({
+          AvailabilityZones: c.availabilityZoneNames,
+          AutoScalingGroupName: NAMES.autoScalingGroupName,
+          LaunchTemplate: {
+            LaunchTemplateName: NAMES.launchTemplateName,
+            Version: "$Default",
+          },
+          MinSize: 3,
+          MaxSize: 3,
+        }),
+      ),
     );
   }),
   new ScenarioOutput(
@@ -331,5 +381,166 @@ export const deploySteps = [
           c.availabilityZoneNames.join(", "),
         ),
   ),
-  new ScenarioInput("confirmContinue", MESSAGES.confirmContinue),
+  new ScenarioInput("confirmContinue", MESSAGES.confirmContinue, {
+    type: "confirm",
+  }),
+  new ScenarioOutput("loadBalancer", MESSAGES.loadBalancer),
+  new ScenarioOutput("gettingVpc", MESSAGES.gettingVpc),
+  new ScenarioAction("getVpc", async (c) => {
+    const client = new EC2Client({});
+    const { Vpcs } = await client.send(
+      new DescribeVpcsCommand({
+        Filters: [{ Name: "is-default", Values: ["true"] }],
+      }),
+    );
+    c.defaultVpc = Vpcs[0].VpcId;
+  }),
+  new ScenarioOutput("gotVpc", (c) =>
+    MESSAGES.gotVpc.replace("VPC_ID", c.defaultVpc),
+  ),
+  new ScenarioOutput("gettingSubnets", MESSAGES.gettingSubnets),
+  new ScenarioAction("getSubnets", async (c) => {
+    const client = new EC2Client({});
+    const { Subnets } = await client.send(
+      new DescribeSubnetsCommand({
+        Filters: [
+          { Name: "vpc-id", Values: [c.defaultVpc] },
+          { Name: "availability-zone", Values: c.availabilityZoneNames },
+          { Name: "default-for-az", Values: ["true"] },
+        ],
+      }),
+    );
+    c.subnets = Subnets.map((s) => s.SubnetId);
+  }),
+  new ScenarioOutput(
+    "gotSubnets",
+    /**
+     * @param {{ subnets: string[] }} c
+     */
+    (c) => MESSAGES.gotSubnets.replace("${SUBNETS}", c.subnets.join(", ")),
+  ),
+  new ScenarioOutput(
+    "creatingLBTargetGroup",
+    MESSAGES.creatingLBTargetGroup.replace(
+      "${TARGET_GROUP_NAME}",
+      NAMES.loadBalancerTargetGroupName,
+    ),
+  ),
+  new ScenarioAction("createLBTargetGroup", async (c) => {
+    const client = new ElasticLoadBalancingV2Client({});
+    const { TargetGroups } = await client.send(
+      new CreateTargetGroupCommand({
+        Name: NAMES.loadBalancerTargetGroupName,
+        Protocol: "HTTP",
+        Port: 80,
+        HealthCheckPath: "/healthcheck",
+        HealthCheckIntervalSeconds: 10,
+        HealthCheckTimeoutSeconds: 5,
+        HealthyThresholdCount: 2,
+        UnhealthyThresholdCount: 2,
+        VpcId: c.defaultVpc,
+      }),
+    );
+    const targetGroup = TargetGroups[0];
+    c.targetGroupArn = targetGroup.TargetGroupArn;
+    c.targetGroupProtocol = targetGroup.Protocol;
+    c.targetGroupPort = targetGroup.Port;
+  }),
+  new ScenarioOutput(
+    "createdLBTargetGroup",
+    MESSAGES.createdLBTargetGroup.replace(
+      "${TARGET_GROUP_NAME}",
+      NAMES.loadBalancerTargetGroupName,
+    ),
+  ),
+  new ScenarioOutput(
+    "creatingLoadBalancer",
+    MESSAGES.creatingLoadBalancer.replace("${LB_NAME}", NAMES.loadBalancerName),
+  ),
+  new ScenarioAction("createLoadBalancer", async (c) => {
+    const client = new ElasticLoadBalancingV2Client({});
+    const { LoadBalancers } = await client.send(
+      new CreateLoadBalancerCommand({
+        Name: NAMES.loadBalancerName,
+        Subnets: c.subnets,
+      }),
+    );
+    c.loadBalancerDns = LoadBalancers[0].DNSName;
+    c.loadBalancerArn = LoadBalancers[0].LoadBalancerArn;
+    await waitUntilLoadBalancerAvailable(
+      { client },
+      { Names: [NAMES.loadBalancerName] },
+    );
+  }),
+  new ScenarioOutput("createdLoadBalancer", (c) =>
+    MESSAGES.createdLoadBalancer
+      .replace("${LB_NAME}", NAMES.loadBalancerName)
+      .replace("${DNS_NAME}", c.loadBalancerDns),
+  ),
+  new ScenarioOutput(
+    "creatingListener",
+    MESSAGES.creatingLoadBalancerListener
+      .replace("${LB_NAME}", NAMES.loadBalancerName)
+      .replace("${TARGET_GROUP_NAME}", NAMES.loadBalancerTargetGroupName),
+  ),
+  new ScenarioAction("createListener", async (c) => {
+    const client = new ElasticLoadBalancingV2Client({});
+    const { Listeners } = await client.send(
+      new CreateListenerCommand({
+        LoadBalancerArn: c.loadBalancerArn,
+        Protocol: c.targetGroupProtocol,
+        Port: c.targetGroupPort,
+        DefaultActions: [{ Type: "forward", TargetGroupArn: c.targetGroupArn }],
+      }),
+    );
+    const listener = Listeners[0];
+    c.lbListenerArn = listener.ListenerArn;
+  }),
+  new ScenarioOutput("createdListener", (c) =>
+    MESSAGES.createdLoadBalancerListener.replace(
+      "${LB_LISTENER_ARN}",
+      c.lbListenerArn,
+    ),
+  ),
+  new ScenarioOutput(
+    "attachingLoadBalancerTargetGroup",
+    MESSAGES.attachingLoadBalancerTargetGroup
+      .replace("${TARGET_GROUP_NAME}", NAMES.loadBalancerTargetGroupName)
+      .replace("${AUTO_SCALING_GROUP_NAME}", NAMES.autoScalingGroupName),
+  ),
+  new ScenarioAction("attachLoadBalancerTargetGroup", async (c) => {
+    const client = new AutoScalingClient({});
+    await client.send(
+      new AttachLoadBalancerTargetGroupsCommand({
+        AutoScalingGroupName: NAMES.autoScalingGroupName,
+        TargetGroupARNs: [c.targetGroupArn],
+      }),
+    );
+  }),
+  new ScenarioOutput(
+    "attachedLoadBalancerTargetGroup",
+    MESSAGES.attachedLoadBalancerTargetGroup,
+  ),
+  new ScenarioOutput("verifyingEndpoint", (c) =>
+    MESSAGES.verifyingEndpoint.replace("${DNS_NAME}", c.loadBalancerDns),
+  ),
+  new ScenarioAction("verifyEndpoint", async (c) => {
+    try {
+      const response = await axios.get(`http://${c.loadBalancerDns}`);
+      console.log(response);
+      c.endpointResponse = JSON.stringify(response.data, null, 2);
+    } catch (e) {
+      c.verifyEndpointError = e;
+    }
+  }),
+  new ScenarioOutput("verifiedEndpoint", (c) => {
+    if (c.verifyEndpointError) {
+      console.error(c.verifyEndpointError);
+    } else {
+      return MESSAGES.verifiedEndpoint.replace(
+        "${ENDPOINT_RESPONSE}",
+        c.endpointResponse,
+      );
+    }
+  }),
 ];

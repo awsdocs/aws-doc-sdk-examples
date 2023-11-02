@@ -17,10 +17,10 @@ export class Step {
 
   /**
    * @param {Record<string, any>} context,
-   * @param {{ verbose: boolean }} options
+   * @param {{ verbose: boolean }} [options]
    */
-  handle(context, { verbose }) {
-    if (verbose) {
+  handle(context, options) {
+    if (options?.verbose) {
       console.log(
         `[DEBUG ${new Date().toISOString()}] Handling step: ${
           this.constructor.name
@@ -39,7 +39,7 @@ export class ScenarioOutput extends Step {
   /**
    * @param {string} name
    * @param {string | (context: Record<string, any>) => string} value
-   * @param {{ slow: boolean, header: boolean }} options
+   * @param {{ slow: boolean, header: boolean }} [options]
    */
   constructor(name, value, options = { slow: true }) {
     super(name);
@@ -51,7 +51,7 @@ export class ScenarioOutput extends Step {
 
   /**
    * @param {Record<string, any>} context
-   * @param {{ verbose: boolean }} options
+   * @param {{ verbose: boolean, confirmAll: boolean }} [options]
    */
   async handle(context, options) {
     super.handle(context, options);
@@ -60,11 +60,14 @@ export class ScenarioOutput extends Step {
       typeof this.value === "function" ? this.value(context) : this.value;
     const paddingTop = "\n";
     const paddingBottom = "\n";
-    const logger = this.options.slow ? this.slowLogger : this.logger;
+    const logger =
+      this.options?.slow && !options?.confirmAll
+        ? this.slowLogger
+        : this.logger;
     const message = paddingTop + output + paddingBottom;
 
-    if (this.options.header) {
-      this.logger.logSeparator(message);
+    if (this.options?.header) {
+      await this.logger.log(this.logger.box(message));
     } else {
       await logger.log(message);
     }
@@ -75,7 +78,7 @@ export class ScenarioInput extends Step {
   /**
    * @param {string} name
    * @param {string} prompt
-   * @param {{ type: "confirm" | "input" | "multi-select" | "select", choices: (string | { name: string, value: string })[] } options
+   * @param {{ type: "confirm" | "input" | "multi-select" | "select", choices: (string | { name: string, value: string })[] }} [options]
    */
   constructor(name, prompt, options) {
     super(name);
@@ -86,30 +89,30 @@ export class ScenarioInput extends Step {
 
   /**
    * @param {Record<string, any>} context
-   * @param {{ confirmAll: boolean, verbose: boolean }} options
+   * @param {{ confirmAll: boolean, verbose: boolean }} [options]
    */
   async handle(context, options) {
     super.handle(context, options);
 
     const choices =
-      this.options.choices && typeof this.options.choices[0] === "string"
-        ? this.options.choices.map((s) => ({ name: s, value: s }))
-        : this.options.choices;
+      this.options?.choices && typeof this.options?.choices[0] === "string"
+        ? this.options?.choices.map((s) => ({ name: s, value: s }))
+        : this.options?.choices;
 
-    if (this.options.type === "multi-select") {
+    if (this.options?.type === "multi-select") {
       context[this.name] = await this.prompter.checkbox({
         message: this.prompt,
         choices,
       });
-    } else if (this.options.type === "select") {
+    } else if (this.options?.type === "select") {
       context[this.name] = await this.prompter.select({
         message: this.prompt,
         choices,
       });
-    } else if (this.options.type === "input") {
+    } else if (this.options?.type === "input") {
       context[this.name] = await this.prompter.input({ message: this.prompt });
-    } else if (this.options.type === "confirm") {
-      if (options.confirmAll) {
+    } else if (this.options?.type === "confirm") {
+      if (options?.confirmAll) {
         return;
       }
 
@@ -118,7 +121,7 @@ export class ScenarioInput extends Step {
       });
     } else {
       throw new Error(
-        `Error handling ScenarioInput, ${this.options.type} is not supported.`,
+        `Error handling ScenarioInput, ${this.options?.type} is not supported.`,
       );
     }
   }

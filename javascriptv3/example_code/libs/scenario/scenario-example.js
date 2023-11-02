@@ -13,6 +13,7 @@ import {
 const greet = new ScenarioOutput(
   "greet",
   "Hi! This is a scenario. It can handle your inputs and outputs.",
+  { header: true },
 );
 
 const describeInput = new ScenarioOutput(
