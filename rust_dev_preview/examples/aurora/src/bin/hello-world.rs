@@ -1,17 +1,14 @@
-use std::fmt::Display;
-
 use aws_sdk_rds::Client;
 
 #[derive(Debug)]
 struct Error(String);
-impl Display for Error {
+impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.0)
     }
 }
 impl std::error::Error for Error {}
 
-// snippet-start:[rust.aurora.hello-world]
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
@@ -40,5 +37,3 @@ async fn main() -> Result<(), Error> {
 
     Ok(())
 }
-
-// snippet-end:[rust.aurora.hello-world]
