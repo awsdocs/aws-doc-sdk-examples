@@ -695,7 +695,7 @@ cross_ResilientService:
       CreateLoadBalancer, CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
     iam: {CreateInstanceProfile, DeleteInstanceProfile}
 cross_FMPlayground:
-  title: Create a Foundation Model (FM) Playground application that offers different playgrounds to interact with foundation models via &BR; API
+  title: Create a sample application that offers playgrounds to interact with &BR; foundation models using an &AWS; SDK
   title_abbrev: Create a playground application to invoke foundation models via &BR;
   synopsis: create playgrounds to interact with foundation models via &BR; API through different modalities.
   languages:
