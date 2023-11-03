@@ -153,7 +153,7 @@ class StringExtension(String):
 
 def validate_files(schema_name: Path, meta_names: Iterable[Path], validators):
     """Iterate a list of files and validate each one against a schema."""
-    success = True
+    errors = 0
 
     schema = yamale.make_schema(schema_name, validators=validators)
     for meta_name in meta_names:
@@ -163,11 +163,11 @@ def validate_files(schema_name: Path, meta_names: Iterable[Path], validators):
             print(f"{meta_name.resolve()} validation success! 👍")
         except YamaleError as e:
             print(e.message)
-            success = False
-    return success
+            errors += 1
+    return errors
 
 
-def validate_all(doc_gen: Path):
+def validate_metadata(doc_gen: Path):
     # with open(doc_gen / "metadata" / "sdks.yaml") as sdks_file:
     #     sdks_yaml: dict[str, any] = yaml.safe_load(sdks_file)
 
@@ -203,13 +203,13 @@ def validate_all(doc_gen: Path):
         ("curated_sources_schema.yaml", "curated/sources.yaml"),
         ("curated_example_schema.yaml", "curated/*_metadata.yaml"),
     ]
-    success = True
+    errors = 0
     for schema, metadata in to_validate:
-        success &= validate_files(
+        errors += validate_files(
             schema_root / schema, (doc_gen / "metadata").glob(metadata), validators
         )
 
-    return success
+    return errors
 
 
 def main():
@@ -222,9 +222,9 @@ def main():
     )
     args = parser.parse_args()
 
-    success = validate_all(Path(args.doc_gen))
+    errors = validate_metadata(Path(args.doc_gen))
 
-    if success:
+    if errors == 0:
         print("Validation succeeded! 👍👍👍")
     else:
         print("\n********************************************")
