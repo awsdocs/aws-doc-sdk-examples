@@ -13,7 +13,7 @@ async-trait = "0.1.51"
 aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-credential-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = [ "hardcoded-credentials", ] }
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-smithy-runtime = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["test-util"] }
 aws-smithy-runtime-api = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["test-util"] }
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
