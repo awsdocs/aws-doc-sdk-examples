@@ -20,7 +20,7 @@
       <para>A voice chat playground.</para>
     </listitem>
     <listitem>
-      <para>An image playground</para>
+      <para>An image playground.</para>
     </listitem>
   </itemizedlist>
   <para>In addition, it also lists and displays the foundation models you have access to and their characteristics. For source code and deployment
