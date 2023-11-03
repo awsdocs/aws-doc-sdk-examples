@@ -57,9 +57,10 @@ impl<'a> ZipUpload<'a> {
 
         let mut byte_count = 0_usize;
         while let Some(bytes) = object.body.try_next().await? {
-            let bytes = self.zip.write(&bytes)?;
-            byte_count += bytes;
-            tracing::trace!("Intermediate read of {bytes} (total {byte_count})");
+            let bytes_len = bytes.len();
+            self.zip.write_all(&bytes)?;
+            byte_count += bytes_len;
+            tracing::trace!("Intermediate read of {bytes_len} (total {byte_count})");
         }
 
         Ok(())
