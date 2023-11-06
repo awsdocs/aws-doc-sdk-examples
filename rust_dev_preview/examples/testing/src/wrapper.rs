@@ -3,18 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+// snippet-start:[testing.rust.wrapper]
 use aws_sdk_s3 as s3;
 #[allow(unused_imports)]
 use mockall::automock;
 
 use s3::operation::list_objects_v2::{ListObjectsV2Error, ListObjectsV2Output};
 
-// snippet-start:[testing.rust.wrapper]
+// snippet-start:[testing.rust.wrapper-which-impl]
 #[cfg(test)]
 pub use MockS3Impl as S3;
 #[cfg(not(test))]
 pub use S3Impl as S3;
+// snippet-end:[testing.rust.wrapper-which-impl]
 
+// snippet-start:[testing.rust.wrapper-impl]
 #[allow(dead_code)]
 pub struct S3Impl {
     inner: s3::Client,
@@ -43,8 +46,10 @@ impl S3Impl {
             .await
     }
 }
+// snippet-end:[testing.rust.wrapper-impl]
 
 #[allow(dead_code)]
+// snippet-start:[testing.rust.wrapper-func]
 pub async fn determine_prefix_file_size(
     // Now we take a reference to our trait object instead of the S3 client
     // s3_list: ListObjectsService,
@@ -72,23 +77,28 @@ pub async fn determine_prefix_file_size(
     }
     Ok(total_size_bytes)
 }
+// snippet-start:[testing.rust.wrapper-func]
 // snippet-end:[testing.rust.wrapper]
 
 #[allow(dead_code)]
 // This time, we add a helper function for making pages
+// snippet-start:[testing.rust.wrapper-make-page]
 fn make_page(sizes: &[i64]) -> Vec<s3::types::Object> {
     sizes
         .iter()
         .map(|size| s3::types::Object::builder().size(*size).build())
         .collect()
 }
+// snippet-end:[testing.rust.wrapper-make-page]
 
+// snippet-start:[testing.rust.wrapper-test-mod]
 #[cfg(test)]
 mod test {
+    // snippet-start:[testing.rust.wrapper-tests]
     use super::*;
     use mockall::predicate::eq;
 
-    // snippet-start:[testing.rust.wrapper-tests]
+    // snippet-start:[testing.rust.wrapper-test-single]
     #[tokio::test]
     async fn test_single_page() {
         let mut mock = MockS3Impl::default();
@@ -108,7 +118,9 @@ mod test {
         // Verify we got the correct total size back
         assert_eq!(7, size);
     }
+    // snippet-end:[testing.rust.wrapper-test-single]
 
+    // snippet-start:[testing.rust.wrapper-test-multiple]
     #[tokio::test]
     async fn test_multiple_pages() {
         // Create the Mock instance with two pages of objects now
@@ -140,5 +152,7 @@ mod test {
 
         assert_eq!(19, size);
     }
+    // snippet-end:[testing.rust.wrapper-test-multiple]
     // snippet-end:[testing.rust.wrapper-tests]
 }
+// snippet-start:[testing.rust.wrapper-test-mod]

@@ -42,6 +42,7 @@ pub async fn determine_prefix_file_size(
 
 #[allow(dead_code)]
 // snippet-start:[testing.rust.replay-tests]
+// snippet-start:[testing.rust.replay-make-credentials]
 fn make_s3_test_credentials() -> s3::config::Credentials {
     s3::config::Credentials::new(
         "ATESTCLIENT",
@@ -51,9 +52,12 @@ fn make_s3_test_credentials() -> s3::config::Credentials {
         "",
     )
 }
+// snippet-end:[testing.rust.replay-make-credentials]
 
+// snippet-start:[testing.rust.replay-test-module]
 #[cfg(test)]
 mod test {
+    // snippet-start:[testing.rust.replay-test-single]
     use super::*;
     use aws_sdk_s3 as s3;
     use aws_smithy_runtime::client::http::test_util::{ReplayEvent, StaticReplayClient};
@@ -90,7 +94,9 @@ mod test {
         assert_eq!(7, size);
         replay_client.assert_requests_match(&[]);
     }
+    // snippet-end:[testing.rust.replay-test-single]
 
+    // snippet-start:[testing.rust.replay-test-multiple]
     #[tokio::test]
     async fn test_multiple_pages() {
         let page_1 = ReplayEvent::new(
@@ -133,5 +139,7 @@ mod test {
 
         replay_client.assert_requests_match(&[]);
     }
-    // snippet-end:[testing.rust.replay-tests]
+    // snippet-end:[testing.rust.replay-test-multiple]
 }
+// snippet-end:[testing.rust.replay-tests]
+// snippet-end:[testing.rust.replay-test-module]
