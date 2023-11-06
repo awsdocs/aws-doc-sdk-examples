@@ -38,7 +38,7 @@ export class Step {
 export class ScenarioOutput extends Step {
   /**
    * @param {string} name
-   * @param {string | (context: Record<string, any>) => string} value
+   * @param {string | (context: Record<string, any>) => string | false} value
    * @param {{ slow: boolean, header: boolean }} [options]
    */
   constructor(name, value, options = { slow: true }) {
@@ -58,6 +58,9 @@ export class ScenarioOutput extends Step {
 
     const output =
       typeof this.value === "function" ? this.value(context) : this.value;
+    if (!output) {
+      return;
+    }
     const paddingTop = "\n";
     const paddingBottom = "\n";
     const logger =
@@ -77,7 +80,7 @@ export class ScenarioOutput extends Step {
 export class ScenarioInput extends Step {
   /**
    * @param {string} name
-   * @param {string} prompt
+   * @param {string | (c: Record<string, any>) => string | false } prompt
    * @param {{ type: "confirm" | "input" | "multi-select" | "select", choices: (string | { name: string, value: string })[] }} [options]
    */
   constructor(name, prompt, options) {
@@ -93,6 +96,11 @@ export class ScenarioInput extends Step {
    */
   async handle(context, options) {
     super.handle(context, options);
+    const message =
+      typeof this.prompt === "function" ? this.prompt(context) : this.prompt;
+    if (!message) {
+      return;
+    }
 
     const choices =
       this.options?.choices && typeof this.options?.choices[0] === "string"
@@ -101,23 +109,23 @@ export class ScenarioInput extends Step {
 
     if (this.options?.type === "multi-select") {
       context[this.name] = await this.prompter.checkbox({
-        message: this.prompt,
+        message,
         choices,
       });
     } else if (this.options?.type === "select") {
       context[this.name] = await this.prompter.select({
-        message: this.prompt,
+        message,
         choices,
       });
     } else if (this.options?.type === "input") {
-      context[this.name] = await this.prompter.input({ message: this.prompt });
+      context[this.name] = await this.prompter.input({ message });
     } else if (this.options?.type === "confirm") {
       if (options?.confirmAll) {
         return;
       }
 
       context[this.name] = await this.prompter.confirm({
-        message: this.prompt,
+        message,
       });
     } else {
       throw new Error(

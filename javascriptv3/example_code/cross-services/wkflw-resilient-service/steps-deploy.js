@@ -19,6 +19,8 @@ import {
   DescribeAvailabilityZonesCommand,
   DescribeVpcsCommand,
   DescribeSubnetsCommand,
+  DescribeSecurityGroupsCommand,
+  AuthorizeSecurityGroupIngressCommand,
 } from "@aws-sdk/client-ec2";
 import {
   IAMClient,
@@ -521,6 +523,100 @@ export const deploySteps = [
     "attachedLoadBalancerTargetGroup",
     MESSAGES.attachedLoadBalancerTargetGroup,
   ),
+  new ScenarioOutput("verifyingInboundPort", MESSAGES.verifyingInboundPort),
+  new ScenarioAction(
+    "verifyInboundPort",
+    /**
+     *
+     * @param {{ defaultSecurityGroup: import('@aws-sdk/client-ec2').SecurityGroup}} c
+     */
+    async (c) => {
+      const client = new EC2Client({});
+      const { SecurityGroups } = await client.send(
+        new DescribeSecurityGroupsCommand({
+          Filters: [{ Name: "group-name", Values: ["default"] }],
+        }),
+      );
+      if (!SecurityGroups) {
+        c.verifyInboundPortError = new Error(MESSAGES.noSecurityGroups);
+      }
+      c.defaultSecurityGroup = SecurityGroups[0];
+
+      /**
+       * @type {string}
+       */
+      const ipResponse = (await axios.get("http://checkip.amazonaws.com")).data;
+      c.myIp = ipResponse.trim();
+      const myIpRules = c.defaultSecurityGroup.IpPermissions.filter((p) =>
+        p.IpRanges.some(
+          (r) => r.CidrIp.startsWith(c.myIp) || r.CidrIp === "0.0.0.0/0",
+        ),
+      )
+        .filter((p) => p.IpProtocol === "tcp")
+        .filter((p) => p.FromPort === 80);
+
+      c.myIpRules = myIpRules;
+    },
+  ),
+  new ScenarioOutput(
+    "verifiedInboundPort",
+    /**
+     * @param {{ myIpRules: any[] }} c
+     */
+    (c) => {
+      if (c.myIpRules.length > 0) {
+        return MESSAGES.foundIpRules.replace(
+          "${IP_RULES}",
+          JSON.stringify(c.myIpRules, null, 2),
+        );
+      } else {
+        return MESSAGES.noIpRules;
+      }
+    },
+  ),
+  new ScenarioInput(
+    "shouldAddInboundRule",
+    /**
+     * @param {{ myIpRules: any[] }} c
+     */
+    (c) => {
+      if (c.myIpRules.length > 0) {
+        return false;
+      } else {
+        return MESSAGES.noIpRules;
+      }
+    },
+    { type: "confirm" },
+  ),
+  new ScenarioAction(
+    "addInboundRule",
+    /**
+     * @param {{ defaultSecurityGroup: import('@aws-sdk/client-ec2').SecurityGroup }} c
+     */
+    async (c) => {
+      if (!c.shouldAddInboundRule) {
+        return;
+      }
+
+      const client = new EC2Client({});
+      await client.send(
+        new AuthorizeSecurityGroupIngressCommand({
+          GroupId: c.defaultSecurityGroup.GroupId,
+          CidrIp: `${c.myIp}/32`,
+          FromPort: 80,
+          ToPort: 80,
+          IpProtocol: "tcp",
+        }),
+      );
+    },
+  ),
+  new ScenarioOutput("addedInboundRule", (c) => {
+    if (c.shouldAddInboundRule) {
+      return MESSAGES.addedInboundRule.replace("${IP_ADDRESS}", c.myIp);
+    } else {
+      return false;
+    }
+  }),
   new ScenarioOutput("verifyingEndpoint", (c) =>
     MESSAGES.verifyingEndpoint.replace("${DNS_NAME}", c.loadBalancerDns),
   ),
