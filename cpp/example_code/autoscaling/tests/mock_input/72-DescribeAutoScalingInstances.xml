@@ -1,0 +1,37 @@
+<DescribeAutoScalingInstancesResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">   <DescribeAutoScalingInstancesResult>
+     <AutoScalingInstances>
+       <member>
+         <LifecycleState>InService</LifecycleState>
+         <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+         <InstanceId>i-09513149875f57017</InstanceId>
+         <HealthStatus>HEALTHY</HealthStatus>
+         <InstanceType>t1.micro</InstanceType>
+         <LaunchTemplate>
+           <LaunchTemplateId>lt-02b49ee89dd48f1a9</LaunchTemplateId>
+           <Version>1</Version>
+           <LaunchTemplateName>integration_tests_template</LaunchTemplateName>
+         </LaunchTemplate>
+         <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
+         <AvailabilityZone>us-east-1a</AvailabilityZone>
+       </member>
+       <member>
+         <LifecycleState>InService</LifecycleState>
+         <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+         <InstanceId>i-0a23fc0e38f39ca25</InstanceId>
+         <HealthStatus>HEALTHY</HealthStatus>
+         <InstanceType>t1.micro</InstanceType>
+         <LaunchTemplate>
+           <LaunchTemplateId>lt-02b49ee89dd48f1a9</LaunchTemplateId>
+           <Version>1</Version>
+           <LaunchTemplateName>integration_tests_template</LaunchTemplateName>
+         </LaunchTemplate>
+         <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
+         <AvailabilityZone>us-east-1a</AvailabilityZone>
+       </member>
+     </AutoScalingInstances>
+   </DescribeAutoScalingInstancesResult>
+   <ResponseMetadata>
+     <RequestId>3d27c24e-034d-4999-a0e2-bd99aaea3439</RequestId>
+   </ResponseMetadata>
+ </DescribeAutoScalingInstancesResponse>
+ 

@@ -1,0 +1,96 @@
+<DescribeScalingActivitiesResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">   <DescribeScalingActivitiesResult>
+     <Activities>
+       <member>
+         <Description>Launching a new EC2 instance: i-0a23fc0e38f39ca25</Description>
+         <AutoScalingGroupARN>arn:aws:autoscaling:us-east-1:123502194722:autoScalingGroup:a8ea22f2-1b4e-4f44-a15e-34b8415f1270:autoScalingGroupName/integration_tests_group</AutoScalingGroupARN>
+         <Cause>At 2023-11-06T19:46:45Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 1 to 2.</Cause>
+         <ActivityId>8ce62e98-b171-d705-5671-490fa7226bb6</ActivityId>
+         <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+         <Progress>100</Progress>
+         <StartTime>2023-11-06T19:46:47.029Z</StartTime>
+         <Details>{&quot;Availability Zone&quot;:&quot;us-east-1a&quot;}</Details>
+         <EndTime>2023-11-06T19:47:18Z</EndTime>
+         <StatusCode>Successful</StatusCode>
+       </member>
+       <member>
+         <Description>Terminating EC2 instance: i-0893468e046aaf009</Description>
+         <AutoScalingGroupARN>arn:aws:autoscaling:us-east-1:123502194722:autoScalingGroup:a8ea22f2-1b4e-4f44-a15e-34b8415f1270:autoScalingGroupName/integration_tests_group</AutoScalingGroupARN>
+         <Cause>At 2023-11-06T19:46:34Z instance i-0893468e046aaf009 was taken out of service in response to a user request.</Cause>
+         <ActivityId>74162e98-b0ac-9071-a3fb-0047abb80234</ActivityId>
+         <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+         <Progress>100</Progress>
+         <StartTime>2023-11-06T19:46:34.404Z</StartTime>
+         <Details>{&quot;Availability Zone&quot;:&quot;us-east-1a&quot;}</Details>
+         <EndTime>2023-11-06T19:47:16Z</EndTime>
+         <StatusCode>Successful</StatusCode>
+       </member>
+       <member>
+         <Description>Launching a new EC2 instance: i-09513149875f57017</Description>
+         <AutoScalingGroupARN>arn:aws:autoscaling:us-east-1:123502194722:autoScalingGroup:a8ea22f2-1b4e-4f44-a15e-34b8415f1270:autoScalingGroupName/integration_tests_group</AutoScalingGroupARN>
+         <Cause>At 2023-11-06T19:26:04Z a user request explicitly set group desired capacity changing the desired capacity from 1 to 2.  At 2023-11-06T19:26:12Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 1 to 2.</Cause>
+         <ActivityId>9e962e98-6639-264e-9dc0-fd30c651b2e6</ActivityId>
+         <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+         <Progress>100</Progress>
+         <StartTime>2023-11-06T19:26:14.601Z</StartTime>
+         <Details>{&quot;Availability Zone&quot;:&quot;us-east-1a&quot;}</Details>
+         <EndTime>2023-11-06T19:28:21Z</EndTime>
+         <StatusCode>Successful</StatusCode>
+       </member>
+       <member>
+         <Description>Launching a new EC2 instance: i-0893468e046aaf009</Description>
+         <AutoScalingGroupARN>arn:aws:autoscaling:us-east-1:123502194722:autoScalingGroup:a8ea22f2-1b4e-4f44-a15e-34b8415f1270:autoScalingGroupName/integration_tests_group</AutoScalingGroupARN>
+         <Cause>At 2023-11-06T19:25:29Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 1.</Cause>
+         <ActivityId>65a62e98-6398-1e2b-2a58-6801272ceeb6</ActivityId>
+         <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+         <Progress>100</Progress>
+         <StartTime>2023-11-06T19:25:31.527Z</StartTime>
+         <Details>{&quot;Availability Zone&quot;:&quot;us-east-1a&quot;}</Details>
+         <EndTime>2023-11-06T19:26:03Z</EndTime>
+         <StatusCode>Successful</StatusCode>
+       </member>
+       <member>
+         <Description>Launching a new EC2 instance.  Status Reason: We currently do not have sufficient t1.micro capacity in the Availability Zone you requested (us-east-1a). Our system will be working on provisioning additional capacity. You can currently get t1.micro capacity by not specifying an Availability Zone in your request or choosing us-east-1b, us-east-1c, us-east-1d, us-east-1f. Launching EC2 instance failed.</Description>
+         <AutoScalingGroupARN>arn:aws:autoscaling:us-east-1:123502194722:autoScalingGroup:a8ea22f2-1b4e-4f44-a15e-34b8415f1270:autoScalingGroupName/integration_tests_group</AutoScalingGroupARN>
+         <Cause>At 2023-11-06T19:25:18Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 1.</Cause>
+         <StatusMessage>We currently do not have sufficient t1.micro capacity in the Availability Zone you requested (us-east-1a). Our system will be working on provisioning additional capacity. You can currently get t1.micro capacity by not specifying an Availability Zone in your request or choosing us-east-1b, us-east-1c, us-east-1d, us-east-1f. Launching EC2 instance failed.</StatusMessage>
+         <ActivityId>47262e98-6323-f996-33de-a7547ae3fcdb</ActivityId>
+         <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+         <Progress>100</Progress>
+         <StartTime>2023-11-06T19:25:24.094Z</StartTime>
+         <Details>{&quot;Availability Zone&quot;:&quot;us-east-1a&quot;}</Details>
+         <EndTime>2023-11-06T19:25:24Z</EndTime>
+         <StatusCode>Failed</StatusCode>
+       </member>
+       <member>
+         <Description>Launching a new EC2 instance.  Status Reason: We currently do not have sufficient t1.micro capacity in the Availability Zone you requested (us-east-1a). Our system will be working on provisioning additional capacity. You can currently get t1.micro capacity by not specifying an Availability Zone in your request or choosing us-east-1b, us-east-1c, us-east-1d, us-east-1f. Launching EC2 instance failed.</Description>
+         <AutoScalingGroupARN>arn:aws:autoscaling:us-east-1:123502194722:autoScalingGroup:a8ea22f2-1b4e-4f44-a15e-34b8415f1270:autoScalingGroupName/integration_tests_group</AutoScalingGroupARN>
+         <Cause>At 2023-11-06T19:25:07Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 1.</Cause>
+         <StatusMessage>We currently do not have sufficient t1.micro capacity in the Availability Zone you requested (us-east-1a). Our system will be working on provisioning additional capacity. You can currently get t1.micro capacity by not specifying an Availability Zone in your request or choosing us-east-1b, us-east-1c, us-east-1d, us-east-1f. Launching EC2 instance failed.</StatusMessage>
+         <ActivityId>0cc62e98-626d-5cf4-d552-f744a73f31e1</ActivityId>
+         <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+         <Progress>100</Progress>
+         <StartTime>2023-11-06T19:25:12.407Z</StartTime>
+         <Details>{&quot;Availability Zone&quot;:&quot;us-east-1a&quot;}</Details>
+         <EndTime>2023-11-06T19:25:12Z</EndTime>
+         <StatusCode>Failed</StatusCode>
+       </member>
+       <member>
+         <Description>Launching a new EC2 instance.  Status Reason: We currently do not have sufficient t1.micro capacity in the Availability Zone you requested (us-east-1a). Our system will be working on provisioning additional capacity. You can currently get t1.micro capacity by not specifying an Availability Zone in your request or choosing us-east-1b, us-east-1c, us-east-1d, us-east-1f. Launching EC2 instance failed.</Description>
+         <AutoScalingGroupARN>arn:aws:autoscaling:us-east-1:123502194722:autoScalingGroup:a8ea22f2-1b4e-4f44-a15e-34b8415f1270:autoScalingGroupName/integration_tests_group</AutoScalingGroupARN>
+         <Cause>At 2023-11-06T19:24:53Z a user request created an AutoScalingGroup changing the desired capacity from 0 to 1.  At 2023-11-06T19:24:56Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 1.</Cause>
+         <StatusMessage>We currently do not have sufficient t1.micro capacity in the Availability Zone you requested (us-east-1a). Our system will be working on provisioning additional capacity. You can currently get t1.micro capacity by not specifying an Availability Zone in your request or choosing us-east-1b, us-east-1c, us-east-1d, us-east-1f. Launching EC2 instance failed.</StatusMessage>
+         <ActivityId>5da62e98-61bc-44bd-645a-40b4c9069ed1</ActivityId>
+         <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+         <Progress>100</Progress>
+         <StartTime>2023-11-06T19:25:01.073Z</StartTime>
+         <Details>{&quot;Availability Zone&quot;:&quot;us-east-1a&quot;}</Details>
+         <EndTime>2023-11-06T19:25:01Z</EndTime>
+         <StatusCode>Failed</StatusCode>
+       </member>
+     </Activities>
+   </DescribeScalingActivitiesResult>
+   <ResponseMetadata>
+     <RequestId>9155b0e8-6a67-47a8-8e31-70cd6cff1b64</RequestId>
+   </ResponseMetadata>
+ </DescribeScalingActivitiesResponse>
+ 

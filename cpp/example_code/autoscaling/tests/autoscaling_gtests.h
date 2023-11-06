@@ -11,6 +11,10 @@
 #include <memory>
 #include <gtest/gtest.h>
 
+class MockHttpClient;
+
+class MockHttpClientFactory;
+
 namespace AwsDocTest {
 
     class MyStringBuffer : public std::stringbuf {
@@ -38,7 +42,7 @@ namespace AwsDocTest {
 
     private:
 
-        bool suppressStdOut();
+        static bool suppressStdOut();
 
         static Aws::SDKOptions s_options;
 
@@ -48,6 +52,23 @@ namespace AwsDocTest {
         MyStringBuffer m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
     };
+
+    class MockHTTP {
+    public:
+        MockHTTP();
+
+        virtual ~MockHTTP();
+
+        bool addResponseWithBody(const std::string &fileName,
+                                 Aws::Http::HttpResponseCode httpResponseCode = Aws::Http::HttpResponseCode::OK);
+
+    private:
+
+        std::shared_ptr<MockHttpClient> mockHttpClient;
+        std::shared_ptr<MockHttpClientFactory> mockHttpClientFactory;
+        std::shared_ptr<Aws::Http::HttpRequest> requestTmp;
+    }; // MockHTTP
+
 } // AwsDocTest
 
 #endif // AUTOSCALING_EXAMPLES_AUTOSCALING_GTESTS_H
