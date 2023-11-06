@@ -79,7 +79,7 @@ pub async fn determine_prefix_file_size(
     }
     Ok(total_size_bytes)
 }
-// snippet-start:[testing.rust.wrapper-func]
+// snippet-end:[testing.rust.wrapper-func]
 // snippet-end:[testing.rust.wrapper]
 
 #[allow(dead_code)]
@@ -157,4 +157,4 @@ mod test {
     // snippet-end:[testing.rust.wrapper-test-multiple]
     // snippet-end:[testing.rust.wrapper-tests]
 }
-// snippet-start:[testing.rust.wrapper-test-mod]
+// snippet-end:[testing.rust.wrapper-test-mod]
