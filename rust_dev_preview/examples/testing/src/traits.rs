@@ -146,10 +146,10 @@ mod test {
         let fake = TestListObjects {
             expected_bucket: "test-bucket".into(),
             expected_prefix: "test-prefix".into(),
-            pages: vec![[5, 2i64]
-                .iter()
-                .map(|size| Object::builder().size(*size).build())
-                .collect()],
+            pages: vec![vec![
+                Object::builder().size(5).build(),
+                Object::builder().size(2).build(),
+            ]],
         };
 
         // Run the code we want to test with it
