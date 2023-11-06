@@ -14,7 +14,7 @@ permissions:
 jobs:
   check:
     name: Check
-    runs-on: temporary-sizing-testing_ubuntu-latest_4-core
+    runs-on: ubuntu-latest
     steps:
       - name: setup
         run: >
