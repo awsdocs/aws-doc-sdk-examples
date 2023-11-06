@@ -706,4 +706,3 @@ cross_FMPlayground:
   service_main: bedrock
   services:
     bedrock:
-
