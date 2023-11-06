@@ -117,7 +117,7 @@ export const PREFIX = "resilient-wkflw-";
 
 export const NAMES = {
   autoScalingGroupName: `${PREFIX}auto-scaling-group`,
-  tableName: `${PREFIX}table`,
+  tableName: `doc-example-recommendation-service`,
   keyPairName: `${PREFIX}key-pair`,
   instancePolicyName: `${PREFIX}instance-policy`,
   instanceProfileName: `${PREFIX}instance-profile`,

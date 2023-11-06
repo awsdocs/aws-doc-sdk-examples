@@ -41,7 +41,6 @@ import {
   DescribeTargetGroupsCommand,
   ElasticLoadBalancingV2Client,
   paginateDescribeLoadBalancers,
-  waitUntilLoadBalancersDeleted,
 } from "@aws-sdk/client-elastic-load-balancing-v2";
 
 /**
@@ -293,11 +292,12 @@ export const destroySteps = [
           LoadBalancerArn: loadBalancer.LoadBalancerArn,
         }),
       );
-      console.log("found load balancer", JSON.stringify(loadBalancer));
-      await waitUntilLoadBalancersDeleted(
-        { client },
-        { Names: [NAMES.loadBalancerName] },
-      );
+      await retry({ intervalInMs: 1000, maxRetries: 60 }, async () => {
+        const lb = await findLoadBalancer(NAMES.loadBalancerName);
+        if (lb) {
+          throw new Error("Load balancer still exists.");
+        }
+      });
     } catch (e) {
       c.deleteLBError = e;
     }
@@ -321,10 +321,13 @@ export const destroySteps = [
           Names: [NAMES.loadBalancerTargetGroupName],
         }),
       );
-      await client.send(
-        new DeleteTargetGroupCommand({
-          TargetGroupArn: TargetGroups[0].TargetGroupArn,
-        }),
+
+      await retry({ intervalInMs: 1000, maxRetries: 30 }, () =>
+        client.send(
+          new DeleteTargetGroupCommand({
+            TargetGroupArn: TargetGroups[0].TargetGroupArn,
+          }),
+        ),
       );
     } catch (e) {
       c.deleteLBTargetGroupError = e;
@@ -428,12 +431,20 @@ async function findLoadBalancer(loadBalancerName) {
     },
   );
 
-  for await (const page of paginatedLoadBalancers) {
-    const loadBalancer = page.LoadBalancers.find(
-      (l) => l.LoadBalancerName === loadBalancerName,
-    );
-    if (loadBalancer) {
-      return loadBalancer;
+  try {
+    for await (const page of paginatedLoadBalancers) {
+      const loadBalancer = page.LoadBalancers.find(
+        (l) => l.LoadBalancerName === loadBalancerName,
+      );
+      if (loadBalancer) {
+        return loadBalancer;
+      }
+    }
+  } catch (e) {
+    if (e.name === "LoadBalancerNotFoundException") {
+      return undefined;
+    } else {
+      throw e;
     }
   }
 }

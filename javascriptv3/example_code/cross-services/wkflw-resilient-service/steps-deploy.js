@@ -396,7 +396,7 @@ export const deploySteps = [
     c.defaultVpc = Vpcs[0].VpcId;
   }),
   new ScenarioOutput("gotVpc", (c) =>
-    MESSAGES.gotVpc.replace("VPC_ID", c.defaultVpc),
+    MESSAGES.gotVpc.replace("${VPC_ID}", c.defaultVpc),
   ),
   new ScenarioOutput("gettingSubnets", MESSAGES.gettingSubnets),
   new ScenarioAction("getSubnets", async (c) => {
@@ -526,8 +526,9 @@ export const deploySteps = [
   ),
   new ScenarioAction("verifyEndpoint", async (c) => {
     try {
-      const response = await axios.get(`http://${c.loadBalancerDns}`);
-      console.log(response);
+      const response = await retry({ intervalInMs: 2000, maxRetries: 30 }, () =>
+        axios.get(`http://${c.loadBalancerDns}`),
+      );
       c.endpointResponse = JSON.stringify(response.data, null, 2);
     } catch (e) {
       c.verifyEndpointError = e;
