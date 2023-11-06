@@ -1,11 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 """
-This script contains tests that verify the pre_validate script works as expected.
+This script contains tests that verify the project_validator script works as expected.
 """
 import pytest
 
-import pre_validate
+import project_validator
 
 
 @pytest.mark.parametrize(
@@ -24,7 +24,7 @@ import pre_validate
 )
 def test_verify_no_deny_list_words(file_contents, expected_error_count):
     """Test that file contents that contain disallowed words are counted as errors."""
-    error_count = pre_validate.verify_no_deny_list_words(file_contents, "location")
+    error_count = project_validator.verify_no_deny_list_words(file_contents, "location")
     assert error_count == expected_error_count
 
 
@@ -49,7 +49,7 @@ def test_verify_no_deny_list_words(file_contents, expected_error_count):
 def test_verify_no_secret_keys(file_contents, expected_error_count):
     """Test that file contents that contain 20- or 40-character strings and are
     not in the allowed list are counted as errors."""
-    error_count = pre_validate.verify_no_secret_keys(file_contents, "location")
+    error_count = project_validator.verify_no_secret_keys(file_contents, "location")
     assert error_count == expected_error_count
 
 
@@ -111,5 +111,5 @@ def test_verify_no_secret_keys(file_contents, expected_error_count):
 def test_verify_snippet_start_end(file_contents, expected_error_count):
     """Test that various kinds of mismatched snippet-start and -end tags are
     counted correctly as errors."""
-    error_count = pre_validate.verify_snippet_start_end(file_contents, "location")
+    error_count = project_validator.verify_snippet_start_end(file_contents, "location")
     assert error_count == expected_error_count
