@@ -39,10 +39,8 @@ aurora_Hello:
         - sdk_version: 1
           github: rust_dev_preview/examples/aurora
           excerpts:
-            - snippet_tags:
-                - rust.aurora.get_cluster.usage
-                - rust.aurora.describe_db_clusters.wrapper
-                - rust.aurora.get_cluster.test
+            - snippet_files:
+                - rust_dev_preview/examples/aurora/src/bin/hello-world.rs
   services:
     aurora: {DescribeDBClusters}
 aurora_DescribeDBClusterParameterGroups:
