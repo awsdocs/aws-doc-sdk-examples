@@ -150,7 +150,7 @@ mod test {
             expected_prefix: "test-prefix".into(),
             pages: vec![vec![
                 Object::builder().size(5).build(),
-                Object::builder().size(2).build()
+                Object::builder().size(2).build(),
             ]],
         };
 
