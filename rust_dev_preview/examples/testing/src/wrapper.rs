@@ -4,11 +4,13 @@
  */
 
 // snippet-start:[testing.rust.wrapper]
+// snippet-start:[testing.rust.wrapper-uses]
 use aws_sdk_s3 as s3;
 #[allow(unused_imports)]
 use mockall::automock;
 
 use s3::operation::list_objects_v2::{ListObjectsV2Error, ListObjectsV2Output};
+// snippet-end:[testing.rust.wrapper-uses]
 
 // snippet-start:[testing.rust.wrapper-which-impl]
 #[cfg(test)]

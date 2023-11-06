@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+// snippet-start:[testing.rust.replay-uses]
 use aws_sdk_s3 as s3;
+// snippet-end:[testing.rust.replay-uses]
 
 #[allow(dead_code)]
 // snippet-start:[testing.rust.replay]
