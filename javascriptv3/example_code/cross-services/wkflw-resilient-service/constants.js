@@ -91,6 +91,14 @@ Some of the resources create by this demo are:
   demoSanityCheck:
     "First, here's the output from the recommendation service and healthcheck endpoints.",
   demoFindLbError: "Load balancer not found. Did you deploy?",
+  demoBrokenDependencyConfirmation:
+    "The web service running on the EC2 instances gets recommendations by querying a DynamoDB table. The table name is contained in a Systems Manager parameter named 'doc-example-resilient-architecture-table'. To simulate a failure of the recommendation service, This parameter is replaced with the name of a non-existent table. Do you want to continue?",
+  demoTestBrokenDependency:
+    "Setting demo parameter doc-example-resilient-architecture-table to ${TABLE_NAME}. Now, sending a GET request to the load balancer endpoint returns a failure code. But, the service reports as healthy to the load balancer because shallow health checks don't check for failure of the recommendation service.",
+  demoStaticResponseConfirmation:
+    "Instead of failing when the recommendation service fails, the web service can return a static response. While this is not a perfect solution, it presents the customer with a somewhat better experience than failure. Do you want to continue?",
+  demoTestStaticResponse:
+    "Setting the parameter 'doc-example-resilient-architecture-failure-response' to 'static'. Now, sending a GET request to the load balancer endpoint returns a static response. The service still reports as healthy because health checks are still shallow.",
   destroy: "Destroy resources?",
   deletedTable: "Deleted table: ${TABLE_NAME}.",
   deleteTableError: "Error deleting table: ${TABLE_NAME}.",

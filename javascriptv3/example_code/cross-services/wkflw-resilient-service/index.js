@@ -37,12 +37,19 @@ export const scenarios = {
   deploy: new Scenario("Resilient Workflow - Deploy", deploySteps, context),
   // Demonstrates how a fragile web service can be made more resilient.
   demo: new Scenario("Resilient Workflow - Demo", demoSteps, context),
+  // Resets the demo parameters.
+  reset: new Scenario(
+    "Resilient Workflow - Reset",
+    resetParametersSteps,
+    context,
+  ),
   // Destroys the resources created for the workflow.
   destroy: new Scenario("Resilient Workflow - Destroy", destroySteps, context),
 };
 
 // Call function if run directly
 import { fileURLToPath } from "url";
+import { resetParametersSteps } from "./steps-reset-params.js";
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   parseScenarioArgs(scenarios);

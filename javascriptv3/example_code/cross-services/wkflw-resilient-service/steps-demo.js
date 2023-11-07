@@ -5,23 +5,30 @@
 import axios from "axios";
 
 import {
+  DescribeTargetGroupsCommand,
+  DescribeTargetHealthCommand,
+  ElasticLoadBalancingV2Client,
+} from "@aws-sdk/client-elastic-load-balancing-v2";
+import { PutParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
+
+import {
   ScenarioAction,
+  ScenarioInput,
   ScenarioOutput,
 } from "@aws-sdk-examples/libs/scenario/scenario.js";
 
 import { MESSAGES, NAMES } from "./constants.js";
 import { findLoadBalancer } from "./shared.js";
-import {
-  DescribeTargetGroupsCommand,
-  DescribeTargetHealthCommand,
-  ElasticLoadBalancingV2Client,
-} from "@aws-sdk/client-elastic-load-balancing-v2";
 
 const getRecommendation = new ScenarioAction("getRecommendation", async (c) => {
   const lb = await findLoadBalancer(NAMES.loadBalancerName);
   if (lb) {
     c.lbDnsName = lb.DNSName;
-    c.recommendation = (await axios.get(`http://${c.lbDnsName}`)).data;
+    try {
+      c.recommendation = (await axios.get(`http://${c.lbDnsName}`)).data;
+    } catch (e) {
+      c.recommendation = e instanceof Error ? e.message : e;
+    }
   } else {
     throw new Error(MESSAGES.demoFindLbError);
   }
@@ -64,18 +71,67 @@ const getHealthCheckResult = new ScenarioOutput(
   { preformatted: true },
 );
 
-/**
- * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
- */
-export const demoSteps = [
-  new ScenarioOutput("demoHeader", MESSAGES.demoHeader, { header: true }),
-  new ScenarioOutput("sanityCheck", MESSAGES.demoSanityCheck),
+const statusSteps = [
   getRecommendation,
   getRecommendationResult,
   getHealthCheck,
   getHealthCheckResult,
-  new ScenarioAction("brokenDependency", () => {}),
-  new ScenarioAction("staticResponse", () => {}),
+];
+
+/**
+ * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
+ */
+export const demoSteps = [
+  new ScenarioOutput("header", MESSAGES.demoHeader, { header: true }),
+  new ScenarioOutput("sanityCheck", MESSAGES.demoSanityCheck),
+  ...statusSteps,
+  new ScenarioInput(
+    "brokenDependencyConfirmation",
+    MESSAGES.demoBrokenDependencyConfirmation,
+    { type: "confirm" },
+  ),
+  new ScenarioAction("brokenDependency", async (c) => {
+    if (!c.brokenDependencyConfirmation) {
+      process.exit();
+    } else {
+      const client = new SSMClient({});
+      c.badTableName = `fake-table-${Date.now()}`;
+      await client.send(
+        new PutParameterCommand({
+          Name: NAMES.ssmTableNameKey,
+          Value: c.badTableName,
+          Overwrite: true,
+          Type: "String",
+        }),
+      );
+    }
+  }),
+  new ScenarioOutput("testBrokenDependency", (c) =>
+    MESSAGES.demoTestBrokenDependency.replace("${TABLE_NAME}", c.badTableName),
+  ),
+  ...statusSteps,
+  new ScenarioInput(
+    "staticResponseConfirmation",
+    MESSAGES.demoStaticResponseConfirmation,
+    { type: "confirm" },
+  ),
+  new ScenarioAction("staticResponse", async (c) => {
+    if (!c.staticResponseConfirmation) {
+      process.exit();
+    } else {
+      const client = new SSMClient({});
+      await client.send(
+        new PutParameterCommand({
+          Name: NAMES.ssmFailureResponseKey,
+          Value: "static",
+          Overwrite: true,
+          Type: "String",
+        }),
+      );
+    }
+  }),
+  new ScenarioOutput("testStaticResponse", MESSAGES.demoTestStaticResponse),
+  ...statusSteps,
   new ScenarioAction("badCredentials", () => {}),
   new ScenarioAction("deepHealthcheck", () => {}),
   new ScenarioAction("killInstance", () => {}),

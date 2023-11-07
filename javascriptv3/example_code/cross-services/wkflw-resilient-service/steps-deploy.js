@@ -31,11 +31,7 @@ import {
   AttachRolePolicyCommand,
   waitUntilInstanceProfileExists,
 } from "@aws-sdk/client-iam";
-import {
-  SSMClient,
-  GetParameterCommand,
-  PutParameterCommand,
-} from "@aws-sdk/client-ssm";
+import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
 import {
   CreateAutoScalingGroupCommand,
   AutoScalingClient,
@@ -57,6 +53,7 @@ import {
 import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
 
 import { MESSAGES, NAMES, RESOURCES_PATH, ROOT } from "./constants.js";
+import { resetParametersSteps } from "./steps-reset-params.js";
 
 /**
  * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
@@ -277,38 +274,7 @@ export const deploySteps = [
       .replace("${INSTANCE_PROFILE_NAME}", NAMES.instanceProfileName)
       .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName),
   ),
-  new ScenarioAction("baselineSsmParams", async () => {
-    // These parameters are used by the python server on the EC2 instances.
-
-    const client = new SSMClient({});
-    /**
-     * @type {import("@aws-sdk/client-ssm").PutParameterCommandInput[]}
-     */
-    const putParameterInput = [
-      {
-        Name: NAMES.ssmTableNameKey,
-        Value: NAMES.tableName,
-        Overwrite: true,
-        Type: "String",
-      },
-      {
-        Name: NAMES.ssmFailureResponseKey,
-        Value: "none",
-        Overwrite: true,
-        Type: "String",
-      },
-      {
-        Name: NAMES.ssmHealthCheckKey,
-        Value: "shallow",
-        Overwrite: true,
-        Type: "String",
-      },
-    ];
-
-    for (const paramInput of putParameterInput) {
-      await client.send(new PutParameterCommand(paramInput));
-    }
-  }),
+  ...resetParametersSteps,
   new ScenarioOutput("creatingLaunchTemplate", MESSAGES.creatingLaunchTemplate),
   new ScenarioAction("createLaunchTemplate", async () => {
     const ssmClient = new SSMClient({});
