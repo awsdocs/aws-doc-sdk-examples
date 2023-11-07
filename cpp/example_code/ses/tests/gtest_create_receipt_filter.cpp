@@ -17,7 +17,7 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SES_GTests, create_receipt_filter_1_) {
+    TEST_F(SES_GTests, create_receipt_filter_3_) {
         MockHTTP mockHttp;
         bool result = mockHttp.addResponseWithBody("mock_input/CreateReceiptFilter.xml");
         ASSERT_TRUE(result) << preconditionError() << std::endl;

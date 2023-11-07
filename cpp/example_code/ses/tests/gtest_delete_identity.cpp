@@ -17,7 +17,7 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SES_GTests, delete_identity_1_) {
+    TEST_F(SES_GTests, delete_identity_3_) {
         MockHTTP mockHttp;
         bool result = mockHttp.addResponseWithBody("mock_input/DeleteIdentity.xml");
         ASSERT_TRUE(result) << preconditionError() << std::endl;

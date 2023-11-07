@@ -31,7 +31,7 @@ namespace AwsDocTest {
     }
 
     // NOLINTNEXTLINE (readability-named-parameter)
-    TEST_F(AutoScaling_GTests, groups_and_instances_scenario_1_) {
+    TEST_F(AutoScaling_GTests, groups_and_instances_scenario_3_) {
         AddCommandLineResponses(RESPONSES);
         MockHTTP mockHttp;
         bool result = addHttpResponses(mockHttp);
