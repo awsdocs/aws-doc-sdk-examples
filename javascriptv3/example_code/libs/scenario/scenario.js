@@ -39,7 +39,7 @@ export class ScenarioOutput extends Step {
   /**
    * @param {string} name
    * @param {string | (context: Record<string, any>) => string | false} value
-   * @param {{ slow: boolean, header: boolean }} [options]
+   * @param {{ slow: boolean, header: boolean, preformatted: boolean }} [options]
    */
   constructor(name, value, options = { slow: true }) {
     super(name);
@@ -72,7 +72,7 @@ export class ScenarioOutput extends Step {
     if (this.options?.header) {
       await this.logger.log(this.logger.box(message));
     } else {
-      await logger.log(message);
+      await logger.log(message, this.options.preformatted);
     }
   }
 }

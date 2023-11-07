@@ -19,15 +19,6 @@ import {
   DetachRolePolicyCommand,
   paginateListPolicies,
 } from "@aws-sdk/client-iam";
-
-import {
-  ScenarioOutput,
-  ScenarioInput,
-  ScenarioAction,
-} from "@aws-sdk-examples/libs/scenario/index.js";
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
-
-import { MESSAGES, NAMES } from "./constants.js";
 import {
   AutoScalingClient,
   DeleteAutoScalingGroupCommand,
@@ -40,8 +31,17 @@ import {
   DeleteTargetGroupCommand,
   DescribeTargetGroupsCommand,
   ElasticLoadBalancingV2Client,
-  paginateDescribeLoadBalancers,
 } from "@aws-sdk/client-elastic-load-balancing-v2";
+
+import {
+  ScenarioOutput,
+  ScenarioInput,
+  ScenarioAction,
+} from "@aws-sdk-examples/libs/scenario/index.js";
+import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+
+import { MESSAGES, NAMES } from "./constants.js";
+import { findLoadBalancer } from "./shared.js";
 
 /**
  * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
@@ -420,31 +420,4 @@ async function findAutoScalingGroup(groupName) {
     }
   }
   throw new Error(`Auto scaling group ${groupName} not found.`);
-}
-
-async function findLoadBalancer(loadBalancerName) {
-  const client = new ElasticLoadBalancingV2Client({});
-  const paginatedLoadBalancers = paginateDescribeLoadBalancers(
-    { client },
-    {
-      Names: [loadBalancerName],
-    },
-  );
-
-  try {
-    for await (const page of paginatedLoadBalancers) {
-      const loadBalancer = page.LoadBalancers.find(
-        (l) => l.LoadBalancerName === loadBalancerName,
-      );
-      if (loadBalancer) {
-        return loadBalancer;
-      }
-    }
-  } catch (e) {
-    if (e.name === "LoadBalancerNotFoundException") {
-      return undefined;
-    } else {
-      throw e;
-    }
-  }
 }

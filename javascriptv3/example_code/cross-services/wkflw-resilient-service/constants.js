@@ -78,6 +78,19 @@ Some of the resources create by this demo are:
   verifyingEndpoint:
     "Verifying access to the load balancer endpoint ${DNS_NAME}.",
   verifiedEndpoint: "Endpoint reached:\n${ENDPOINT_RESPONSE}.",
+  verifyingInboundPort:
+    "Verifying that the default security group of the specified VPC allows ingress from this computer. This can be done by allowing ingress from this computer's IP address. In some situations, such as connecting from a corporate network, you must instead specify a prefix list ID. You can also temporarily open the port to any IP address while running this example. If you do, be sure to remove public access when you're done",
+  noSecurityGroups: "No security groups found.",
+  foundIpRules:
+    "Found the following inbound rules for the security group: ${IP_RULES}.",
+  noIpRules:
+    "No inbound rules matching your IP address were found. Would you like to add one?",
+  addedInboundRule: "Added rule allowing inbound requests from ${IP_ADDRESS}.",
+  demoHeader:
+    "The demo phase of this example cycles through several stages, setting Systems Manager parameters along the way to simulate failures and instruct the web server to take increasingly resilient actions.",
+  demoSanityCheck:
+    "First, here's the output from the recommendation service and healthcheck endpoints.",
+  demoFindLbError: "Load balancer not found. Did you deploy?",
   destroy: "Destroy resources?",
   deletedTable: "Deleted table: ${TABLE_NAME}.",
   deleteTableError: "Error deleting table: ${TABLE_NAME}.",
@@ -98,14 +111,6 @@ Some of the resources create by this demo are:
     "Removed role ${INSTANCE_ROLE_NAME} from instance profile ${INSTANCE_PROFILE_NAME}.",
   removeRoleFromInstanceProfileError:
     "Error removing role ${INSTANCE_ROLE_NAME} from instance profile ${INSTANCE_PROFILE_NAME}.",
-  verifyingInboundPort:
-    "Verifying that the default security group of the specified VPC allows ingress from this computer. This can be done by allowing ingress from this computer's IP address. In some situations, such as connecting from a corporate network, you must instead specify a prefix list ID. You can also temporarily open the port to any IP address while running this example. If you do, be sure to remove public access when you're done",
-  noSecurityGroups: "No security groups found.",
-  foundIpRules:
-    "Found the following inbound rules for the security group: ${IP_RULES}.",
-  noIpRules:
-    "No inbound rules matching your IP address were found. Would you like to add one?",
-  addedInboundRule: "Added rule allowing inbound requests from ${IP_ADDRESS}.",
   deletedLaunchTemplate: "Deleted launch template ${LAUNCH_TEMPLATE_NAME}.",
   deleteLaunchTemplateError:
     "Error deleting launch template ${LAUNCH_TEMPLATE_NAME}.",
