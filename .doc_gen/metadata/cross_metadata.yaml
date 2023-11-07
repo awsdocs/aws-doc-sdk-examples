@@ -438,7 +438,7 @@ cross_TranscriptionApp:
     cognito-identity:
     s3:
     transcribe:
-cross_TranscriptionStreamingAppfbe:
+cross_TranscriptionStreamingApp:
   title: Build an &TSC; streaming app
   title_abbrev: Build an &TSC; streaming app
   synopsis:
