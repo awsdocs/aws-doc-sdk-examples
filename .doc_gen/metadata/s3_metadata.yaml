@@ -136,7 +136,7 @@ s3_CreateBucket:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -268,7 +268,7 @@ s3_CopyObject:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -417,7 +417,7 @@ s3_DeleteObject:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -550,7 +550,7 @@ s3_DeleteObjects:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -857,7 +857,7 @@ s3_GetObject:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -902,7 +902,7 @@ s3_GetObject_IfModifiedSince:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1041,7 +1041,7 @@ s3_CompleteMultipartUpload:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1057,7 +1057,7 @@ s3_CreateMultipartUpload:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1159,7 +1159,7 @@ s3_ListObjects:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1228,7 +1228,7 @@ s3_ListObjectVersions:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1327,7 +1327,7 @@ s3_PutObject:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1492,7 +1492,7 @@ s3_DeleteBucket:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -2002,7 +2002,7 @@ s3_ListBuckets:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -2070,7 +2070,7 @@ s3_UploadPart:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -2253,7 +2253,7 @@ s3_Scenario_UsingLargeFiles:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -2385,7 +2385,7 @@ s3_Scenario_PresignedUrl:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description: Create presigning requests to GET and PUT S3 objects.
               snippet_tags:
@@ -2432,7 +2432,7 @@ s3_GetBucketLocation:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -2570,7 +2570,7 @@ s3_Scenario_GettingStarted:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/s3
+          github: rustv1/examples/s3
           excerpts:
             - description: Code for the binary crate which runs the scenario.
               snippet_tags:

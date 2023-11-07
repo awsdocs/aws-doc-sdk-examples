@@ -8,7 +8,7 @@ application-autoscaling_DescribeScalingPolicies:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/applicationautoscaling
+          github: rustv1/examples/applicationautoscaling
           sdkguide:
           excerpts:
             - description:

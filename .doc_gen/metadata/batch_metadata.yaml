@@ -8,7 +8,7 @@ batch_DescribeComputeEnvironments:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/batch
+          github: rustv1/examples/batch
           excerpts:
             - description:
               snippet_tags:

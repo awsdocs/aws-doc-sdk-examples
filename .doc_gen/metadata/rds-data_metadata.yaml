@@ -8,7 +8,7 @@ rds-data_ExecuteStatement:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/rdsdata
+          github: rustv1/examples/rdsdata
           excerpts:
             - description:
               snippet_tags:

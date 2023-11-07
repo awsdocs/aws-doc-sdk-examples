@@ -178,7 +178,6 @@ Rust:
     1:
       long: "&Rustlong;"
       short: "&Rust;"
-      caveat: "This documentation is for an SDK in preview release. The SDK is subject to change and should not be used in production."
       expanded:
         long: "AWS SDK for Rust"
         short: "SDK for Rust"

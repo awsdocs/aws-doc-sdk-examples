@@ -170,7 +170,7 @@ api-gateway_GetRestApis:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/apigateway
+          github: rustv1/examples/apigateway
           sdkguide:
           excerpts:
             - description: Displays the Amazon API Gateway REST APIs in the Region.

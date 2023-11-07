@@ -8,7 +8,7 @@ cognito-sync_ListIdentityPoolUsage:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/cognitosync
+          github: rustv1/examples/cognitosync
           excerpts:
             - description:
               snippet_tags:

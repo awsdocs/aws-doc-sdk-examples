@@ -25,7 +25,7 @@ python:
 ruby:
   account_id: "616362385685"
   status: "enabled"
-rust_dev_preview:
+rustv1:
   account_id: "050288538048"
   status: "enabled"
 sap-abap:

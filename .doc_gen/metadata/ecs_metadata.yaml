@@ -25,7 +25,7 @@ ecs_CreateCluster:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ecs
+          github: rustv1/examples/ecs
           sdkguide:
           excerpts:
             - description:
@@ -51,7 +51,7 @@ ecs_DeleteCluster:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ecs
+          github: rustv1/examples/ecs
           sdkguide:
           excerpts:
             - description:
@@ -68,7 +68,7 @@ ecs_DescribeClusters:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ecs
+          github: rustv1/examples/ecs
           sdkguide:
           excerpts:
             - description:

@@ -2,12 +2,12 @@ name: Rust
 on:
   push:
     paths:
-      - "rust_dev_preview/**"
+      - "rustv1/**"
     branches:
       - main
   pull_request:
     paths:
-      - "rust_dev_preview/**"
+      - "rustv1/**"
   workflow_dispatch:
 permissions:
   contents: read
@@ -41,20 +41,20 @@ jobs:
           export APP_ENVIRONMENT="test"
       - name: Rust format
         run: >
-          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/cross_service/Cargo.toml --all --check &&
-          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/examples/Cargo.toml --all --check &&
-          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/lambda/Cargo.toml --all --check &&
-          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/webassembly/Cargo.toml --all --check
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/cross_service/Cargo.toml --all --check &&
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/examples/Cargo.toml --all --check &&
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/lambda/Cargo.toml --all --check &&
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/webassembly/Cargo.toml --all --check
       - name: Rust lint
         if: success() || failure()
         run: >
-          "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/cross_service/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/examples/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/lambda/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/webassembly/Cargo.toml --all
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/cross_service/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/examples/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/lambda/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/webassembly/Cargo.toml --all
       - name: Rust test
         run: >
-          "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/cross_service/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/examples/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/lambda/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/webassembly/Cargo.toml --all
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/cross_service/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/examples/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/lambda/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/webassembly/Cargo.toml --all
