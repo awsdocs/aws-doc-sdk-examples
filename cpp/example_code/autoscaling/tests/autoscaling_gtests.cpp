@@ -100,7 +100,8 @@ AwsDocTest::MockHTTP::~MockHTTP() {
 bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
                                                Aws::Http::HttpResponseCode httpResponseCode) {
 
-    std::ifstream inStream(std::string(SRC_DIR) + "/" + fileName);
+    std::string fullPath = std::string(SRC_DIR) + "/" + fileName;
+    std::ifstream inStream(fullPath);
     if (inStream) {
         std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
                 ALLOCATION_TAG, requestTmp);
@@ -111,7 +112,7 @@ bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
         return true;
     }
 
-    std::cerr << "MockHTTP::addResponseWithBody open file error '" << fileName << "'."
+    std::cerr << "MockHTTP::addResponseWithBody open file error '" << fullPath << "'."
               << std::endl;
 
     return false;
