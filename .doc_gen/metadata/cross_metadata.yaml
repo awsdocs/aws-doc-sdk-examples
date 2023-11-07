@@ -708,7 +708,7 @@ cross_FMPlayground:
   services:
     bedrock-runtime:
 cross_Testing:
-  title: Example approaches for unit and integration testing an &AWS; SDK
+  title: Example approaches for unit and integration testing with an &AWS; SDK
   title_abbrev: Unit and integration test with an SDK
   synopsis: examples for best-practice techniques when writing unit and integration tests using an &AWS; SDK.
   languages:
