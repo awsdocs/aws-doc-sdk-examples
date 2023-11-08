@@ -42,6 +42,6 @@ tasks.test {
     }
 
     // Define the test source set
-    testClassesDirs += files("build/classes/kotlin/test") 
+    testClassesDirs += files("build/classes/kotlin/test")
     classpath += files("build/classes/kotlin/main", "build/resources/main")
 }
