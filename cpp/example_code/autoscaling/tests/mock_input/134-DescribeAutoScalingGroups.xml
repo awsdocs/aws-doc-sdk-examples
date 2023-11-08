@@ -7,7 +7,7 @@
            <member>Default</member>
          </TerminationPolicies>
          <DefaultCooldown>300</DefaultCooldown>
-         <AutoScalingGroupARN>arn:aws:autoscaling:us-east-1:123502194722:autoScalingGroup:a8ea22f2-1b4e-4f44-a15e-34b8415f1270:autoScalingGroupName/integration_tests_group</AutoScalingGroupARN>
+         <AutoScalingGroupARN>arn:aws:autoscaling:us-test:123456789012:autoScalingGroup:a234567-89ab-cdef-0123-4567890abcd:autoScalingGroupName/integration_tests_group</AutoScalingGroupARN>
          <EnabledMetrics/>
          <MaxSize>3</MaxSize>
          <AvailabilityZones>
@@ -22,7 +22,7 @@
          <TrafficSources/>
          <LoadBalancerNames/>
          <Tags/>
-         <ServiceLinkedRoleARN>arn:aws:iam::123502194722:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling</ServiceLinkedRoleARN>
+         <ServiceLinkedRoleARN>arn:aws:iam::123456789012:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling</ServiceLinkedRoleARN>
          <LaunchTemplate>
            <LaunchTemplateId>lt-02b49ee89dd48f1a9</LaunchTemplateId>
            <LaunchTemplateName>integration_tests_template</LaunchTemplateName>

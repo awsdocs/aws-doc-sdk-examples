@@ -5,67 +5,12 @@
              <zoneName>us-east-1a</zoneName>
              <zoneId>use1-az2</zoneId>
              <zoneState>available</zoneState>
-             <regionName>us-east-1</regionName>
-             <groupName>us-east-1</groupName>
+             <regionName>us-test</regionName>
+             <groupName>us-test</groupName>
              <optInStatus>opt-in-not-required</optInStatus>
-             <networkBorderGroup>us-east-1</networkBorderGroup>
+             <networkBorderGroup>us-test</networkBorderGroup>
              <zoneType>availability-zone</zoneType>
              <messageSet/>
          </item>
-         <item>
-             <zoneName>us-east-1b</zoneName>
-             <zoneId>use1-az4</zoneId>
-             <zoneState>available</zoneState>
-             <regionName>us-east-1</regionName>
-             <groupName>us-east-1</groupName>
-             <optInStatus>opt-in-not-required</optInStatus>
-             <networkBorderGroup>us-east-1</networkBorderGroup>
-             <zoneType>availability-zone</zoneType>
-             <messageSet/>
-         </item>
-         <item>
-             <zoneName>us-east-1c</zoneName>
-             <zoneId>use1-az6</zoneId>
-             <zoneState>available</zoneState>
-             <regionName>us-east-1</regionName>
-             <groupName>us-east-1</groupName>
-             <optInStatus>opt-in-not-required</optInStatus>
-             <networkBorderGroup>us-east-1</networkBorderGroup>
-             <zoneType>availability-zone</zoneType>
-             <messageSet/>
-         </item>
-         <item>
-             <zoneName>us-east-1d</zoneName>
-             <zoneId>use1-az1</zoneId>
-             <zoneState>available</zoneState>
-             <regionName>us-east-1</regionName>
-             <groupName>us-east-1</groupName>
-             <optInStatus>opt-in-not-required</optInStatus>
-             <networkBorderGroup>us-east-1</networkBorderGroup>
-             <zoneType>availability-zone</zoneType>
-             <messageSet/>
-         </item>
-         <item>
-             <zoneName>us-east-1e</zoneName>
-             <zoneId>use1-az3</zoneId>
-             <zoneState>available</zoneState>
-             <regionName>us-east-1</regionName>
-             <groupName>us-east-1</groupName>
-             <optInStatus>opt-in-not-required</optInStatus>
-             <networkBorderGroup>us-east-1</networkBorderGroup>
-             <zoneType>availability-zone</zoneType>
-             <messageSet/>
-         </item>
-         <item>
-             <zoneName>us-east-1f</zoneName>
-             <zoneId>use1-az5</zoneId>
-             <zoneState>available</zoneState>
-             <regionName>us-east-1</regionName>
-             <groupName>us-east-1</groupName>
-             <optInStatus>opt-in-not-required</optInStatus>
-             <networkBorderGroup>us-east-1</networkBorderGroup>
-             <zoneType>availability-zone</zoneType>
-             <messageSet/>
-         </item>
-     </availabilityZoneInfo>
+    </availabilityZoneInfo>
  </DescribeAvailabilityZonesResponse>

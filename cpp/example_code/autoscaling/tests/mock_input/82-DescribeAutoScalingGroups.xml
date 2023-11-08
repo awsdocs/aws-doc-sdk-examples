@@ -16,25 +16,11 @@
              <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
              <AvailabilityZone>us-east-1a</AvailabilityZone>
            </member>
-           <member>
-             <LifecycleState>Terminating</LifecycleState>
-             <InstanceId>i-0a23fc0e38f39ca25</InstanceId>
-             <HealthStatus>Healthy</HealthStatus>
-             <InstanceType>t1.micro</InstanceType>
-             <LaunchTemplate>
-               <LaunchTemplateId>lt-02b49ee89dd48f1a9</LaunchTemplateId>
-               <Version>1</Version>
-               <LaunchTemplateName>integration_tests_template</LaunchTemplateName>
-             </LaunchTemplate>
-             <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
-             <AvailabilityZone>us-east-1a</AvailabilityZone>
-           </member>
          </Instances>
          <TerminationPolicies>
            <member>Default</member>
          </TerminationPolicies>
          <DefaultCooldown>300</DefaultCooldown>
-         <AutoScalingGroupARN>arn:aws:autoscaling:us-east-1:123502194722:autoScalingGroup:a8ea22f2-1b4e-4f44-a15e-34b8415f1270:autoScalingGroupName/integration_tests_group</AutoScalingGroupARN>
          <EnabledMetrics/>
          <MaxSize>3</MaxSize>
          <AvailabilityZones>
@@ -49,7 +35,7 @@
          <TrafficSources/>
          <LoadBalancerNames/>
          <Tags/>
-         <ServiceLinkedRoleARN>arn:aws:iam::123502194722:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling</ServiceLinkedRoleARN>
+         <ServiceLinkedRoleARN>arn:aws:iam::123456789012:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling</ServiceLinkedRoleARN>
          <LaunchTemplate>
            <LaunchTemplateId>lt-02b49ee89dd48f1a9</LaunchTemplateId>
            <LaunchTemplateName>integration_tests_template</LaunchTemplateName>

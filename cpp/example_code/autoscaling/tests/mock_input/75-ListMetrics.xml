@@ -10,46 +10,6 @@
            </member>
          </Dimensions>
        </member>
-       <member>
-         <MetricName>GroupMaxSize</MetricName>
-         <Namespace>AWS/AutoScaling</Namespace>
-         <Dimensions>
-           <member>
-             <Name>AutoScalingGroupName</Name>
-             <Value>integration_tests_group</Value>
-           </member>
-         </Dimensions>
-       </member>
-       <member>
-         <MetricName>GroupDesiredCapacity</MetricName>
-         <Namespace>AWS/AutoScaling</Namespace>
-         <Dimensions>
-           <member>
-             <Name>AutoScalingGroupName</Name>
-             <Value>integration_tests_group</Value>
-           </member>
-         </Dimensions>
-       </member>
-       <member>
-         <MetricName>GroupMinSize</MetricName>
-         <Namespace>AWS/AutoScaling</Namespace>
-         <Dimensions>
-           <member>
-             <Name>AutoScalingGroupName</Name>
-             <Value>integration_tests_group</Value>
-           </member>
-         </Dimensions>
-       </member>
-       <member>
-         <MetricName>GroupInServiceInstances</MetricName>
-         <Namespace>AWS/AutoScaling</Namespace>
-         <Dimensions>
-           <member>
-             <Name>AutoScalingGroupName</Name>
-             <Value>integration_tests_group</Value>
-           </member>
-         </Dimensions>
-       </member>
      </Metrics>
    </ListMetricsResult>
    <ResponseMetadata>
