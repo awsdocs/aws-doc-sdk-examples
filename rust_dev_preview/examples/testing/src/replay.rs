@@ -101,6 +101,7 @@ mod test {
     // snippet-start:[testing.rust.replay-test-multiple]
     #[tokio::test]
     async fn test_multiple_pages() {
+        // snippet-start:[testing.rust.replay-create-client]
         let page_1 = ReplayEvent::new(
                 http::Request::builder()
                     .method("GET")
@@ -124,6 +125,7 @@ mod test {
                     .unwrap(),
             );
         let replay_client = StaticReplayClient::new(vec![page_1, page_2]);
+        // snippet-start:[testing.rust.replay-create-client]
         let client: s3::Client = s3::Client::from_conf(
             s3::Config::builder()
                 .credentials_provider(make_s3_test_credentials())

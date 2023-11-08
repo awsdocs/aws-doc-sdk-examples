@@ -50,8 +50,8 @@ impl S3Impl {
 }
 // snippet-end:[testing.rust.wrapper-impl]
 
-#[allow(dead_code)]
 // snippet-start:[testing.rust.wrapper-func]
+#[allow(dead_code)]
 pub async fn determine_prefix_file_size(
     // Now we take a reference to our trait object instead of the S3 client
     // s3_list: ListObjectsService,
