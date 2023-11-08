@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <DeleteLaunchTemplateResponse xmlns="http://ec2.amazonaws.com/doc/2016-11-15/">
+     <requestId>fec10038-20f2-41e1-b7b5-3520d602b69f</requestId>
+     <launchTemplate>
+         <createTime>2023-11-06T19:24:51.000Z</createTime>
+         <createdBy>arn:aws:iam::123456789012:user/UnitTester</createdBy>
+         <defaultVersionNumber>1</defaultVersionNumber>
+         <latestVersionNumber>1</latestVersionNumber>
+         <launchTemplateId>lt-02b49ee89dd48f1a9</launchTemplateId>
+         <launchTemplateName>integration_tests_template</launchTemplateName>
+     </launchTemplate>
+ </DeleteLaunchTemplateResponse>
+ 

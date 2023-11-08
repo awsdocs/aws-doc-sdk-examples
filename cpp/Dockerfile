@@ -58,4 +58,4 @@ RUN useradd -ms /bin/bash tests && \
 
 USER tests
 
-CMD ["python3", "/src/cpp/run_automated_tests.py "]
+CMD ["python3", "/src/cpp/run_automated_tests.py", "-23"]

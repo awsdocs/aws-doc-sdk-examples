@@ -10,7 +10,7 @@
 
 Aws::SDKOptions AwsDocTest::Aurora_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::Aurora_GTests::s_clientConfig;
-static const char ALLOCATION_TAG[] = "RDS_GTEST";
+static const char ALLOCATION_TAG[] = "AURORA_GTEST";
 
 void AwsDocTest::Aurora_GTests::SetUpTestSuite() {
     InitAPI(s_options);

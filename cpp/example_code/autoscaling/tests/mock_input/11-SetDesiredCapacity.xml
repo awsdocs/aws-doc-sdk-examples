@@ -1,0 +1,5 @@
+<SetDesiredCapacityResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">   <ResponseMetadata>
+     <RequestId>f33a1816-02d5-44b9-bb31-6c9e99a5599c</RequestId>
+   </ResponseMetadata>
+ </SetDesiredCapacityResponse>
+ 

@@ -17,7 +17,7 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SES_GTests, send_email_1_) {
+    TEST_F(SES_GTests, send_email_3_) {
         MockHTTP mockHttp;
         bool result = mockHttp.addResponseWithBody("mock_input/SendEmail.xml");
         ASSERT_TRUE(result) << preconditionError() << std::endl;

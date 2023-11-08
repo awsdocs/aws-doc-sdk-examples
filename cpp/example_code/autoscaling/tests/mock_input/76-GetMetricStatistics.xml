@@ -1,0 +1,17 @@
+<GetMetricStatisticsResponse xmlns="http://monitoring.amazonaws.com/doc/2010-08-01/">   <GetMetricStatisticsResult>
+     <Datapoints>
+       <member>
+         <Average>2.0</Average>
+         <Unit>None</Unit>
+         <Maximum>3.0</Maximum>
+         <Minimum>1.0</Minimum>
+         <Timestamp>2023-11-06T15:47:00Z</Timestamp>
+       </member>
+      </Datapoints>
+     <Label>GroupTotalInstances</Label>
+   </GetMetricStatisticsResult>
+   <ResponseMetadata>
+     <RequestId>ed7c847c-13c6-4a7c-b1f9-6a0cadd84dc1</RequestId>
+   </ResponseMetadata>
+ </GetMetricStatisticsResponse>
+ 

@@ -1,0 +1,8 @@
+<ErrorResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">   <Error>
+     <Type>Sender</Type>
+     <Code>AlreadyExists</Code>
+     <Message>AutoScalingGroup by this name already exists - A group with the name integration_tests_group already exists</Message>
+   </Error>
+   <RequestId>8ded96d5-e4ba-4050-8c8c-acb9f2a84137</RequestId>
+ </ErrorResponse>
+ 

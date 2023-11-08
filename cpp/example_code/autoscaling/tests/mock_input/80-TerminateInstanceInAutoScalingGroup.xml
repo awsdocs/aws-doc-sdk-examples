@@ -1,0 +1,17 @@
+<TerminateInstanceInAutoScalingGroupResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">   <TerminateInstanceInAutoScalingGroupResult>
+     <Activity>
+       <Description>Terminating EC2 instance: i-09513149875f57017</Description>
+       <Cause>At 2023-11-06T19:47:21Z instance i-09513149875f57017 was taken out of service in response to a user request.</Cause>
+       <ActivityId>0d662e98-b385-6204-51e9-c809053b9286</ActivityId>
+       <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+       <Progress>0</Progress>
+       <StartTime>2023-11-06T19:47:21.048Z</StartTime>
+       <Details>{&quot;Availability Zone&quot;:&quot;us-east-1a&quot;}</Details>
+       <StatusCode>InProgress</StatusCode>
+     </Activity>
+   </TerminateInstanceInAutoScalingGroupResult>
+   <ResponseMetadata>
+     <RequestId>619a0ee0-da9c-4a48-8728-99b042ddaa9d</RequestId>
+   </ResponseMetadata>
+ </TerminateInstanceInAutoScalingGroupResponse>
+ 

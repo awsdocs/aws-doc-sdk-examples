@@ -17,8 +17,9 @@
 #include "dynamodb_samples.h"
 
 namespace AwsDocTest {
+    // Designated _2R_ because it requires resources.
     // NOLINTNEXTLINE (readability-named-parameter)
-    TEST_F(DynamoDB_GTests, getting_started_scenario_2_) {
+    TEST_F(DynamoDB_GTests, getting_started_scenario_2R_) {
         AddCommandLineResponses({"Jaws",
                                  "1972",
                                  "8",

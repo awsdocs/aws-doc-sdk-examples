@@ -17,7 +17,7 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SES_GTests, create_template_1_) {
+    TEST_F(SES_GTests, create_template_3_) {
         MockHTTP mockHttp;
         bool result = mockHttp.addResponseWithBody("mock_input/CreateTemplate.xml");
         ASSERT_TRUE(result) << preconditionError() << std::endl;

@@ -22,7 +22,7 @@ namespace AwsDocTest {
     TEST_F(DynamoDB_GTests, paritql_single_execute_scenario_2_
     ) {
         AddCommandLineResponses({
-                                        "Jaws",
+                                        "Unjaws",
                                         "1972",
                                         "8",
                                         "Sharks",

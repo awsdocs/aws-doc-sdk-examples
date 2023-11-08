@@ -16,7 +16,7 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(IAM_GTests, create_user_assume_role_scenario_2_ ) {
+    TEST_F(IAM_GTests, create_user_assume_role_scenario_2_) {
 
         auto result = AwsDoc::IAM::iamCreateUserAssumeRoleScenario(*s_clientConfig);
         EXPECT_TRUE(result);
