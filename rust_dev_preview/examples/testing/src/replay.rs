@@ -101,7 +101,7 @@ mod test {
     // snippet-start:[testing.rust.replay-test-multiple]
     #[tokio::test]
     async fn test_multiple_pages() {
-        // snippet-start:[testing.rust.replay-create-client]
+        // snippet-start:[testing.rust.replay-create-replay]
         let page_1 = ReplayEvent::new(
                 http::Request::builder()
                     .method("GET")
@@ -125,7 +125,8 @@ mod test {
                     .unwrap(),
             );
         let replay_client = StaticReplayClient::new(vec![page_1, page_2]);
-        // snippet-end:[testing.rust.replay-create-client]
+        // snippet-end:[testing.rust.replay-create-replay]
+        // snippet-start:[testing.rust.replay-create-client]
         let client: s3::Client = s3::Client::from_conf(
             s3::Config::builder()
                 .credentials_provider(make_s3_test_credentials())
@@ -133,8 +134,10 @@ mod test {
                 .http_client(replay_client.clone())
                 .build(),
         );
+        // snippet-end:[testing.rust.replay-create-client]
 
         // Run the code we want to test with it
+        // snippet-start:[testing.rust.replay-test-and-verify]
         let size = determine_prefix_file_size(client, "test-bucket", "test-prefix")
             .await
             .unwrap();
@@ -142,6 +145,7 @@ mod test {
         assert_eq!(19, size);
 
         replay_client.assert_requests_match(&[]);
+        // snippet-end:[testing.rust.replay-test-and-verify]
     }
     // snippet-end:[testing.rust.replay-test-multiple]
 }
