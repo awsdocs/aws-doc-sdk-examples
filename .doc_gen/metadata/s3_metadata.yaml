@@ -2373,15 +2373,15 @@ s3_Scenario_PresignedUrl:
           github: kotlin/services/s3
           sdkguide: sdk-for-kotlin/latest/developer-guide/presign-requests.html
           excerpts:
-            - description: Create a GetObject presigned request and use the URL to download an object.
+            - description: Create a <code>GetObject</code> presigned request and use the URL to download an object.
               snippet_tags:
                 - s3.kotlin.presign_getObject.main
-            - description: Create a GetObject presigned request with advanced options and use the URL to download an object.
-              snippet_tags:
-                - s3.kotlin.presign_putObject.main
-            - description: Create a PutObject presigned request and use it to upload an object.
+            - description: Create a <code>GetObject</code> presigned request with advanced options and use the URL to download an object.
               snippet_tags:
                 - s3.kotlin.presign_getObjectMoreOptions.main
+            - description: Create a <code>PutObject</code> presigned request and use it to upload an object.
+              snippet_tags:
+                - s3.kotlin.presign_putObject.main
     Rust:
       versions:
         - sdk_version: 1

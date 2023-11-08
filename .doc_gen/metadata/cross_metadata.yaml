@@ -694,3 +694,37 @@ cross_ResilientService:
       DescribeLoadBalancers, CreateTargetGroup, DescribeTargetGroups, DeleteTargetGroup,
       CreateLoadBalancer, CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
     iam: {CreateInstanceProfile, DeleteInstanceProfile}
+cross_FMPlayground:
+  title: Create a sample application that offers playgrounds to interact with &BR; foundation models using an &AWS; SDK
+  title_abbrev: Create a playground application to interact with &BR; foundation models
+  synopsis: create playgrounds to interact with &BR; foundation models through different modalities.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_FMPlayground_NetV3_block.xml
+  service_main: bedrock-runtime
+  services:
+    bedrock-runtime:
+cross_Testing:
+  title: Example approaches for unit and integration testing with an &AWS; SDK
+  title_abbrev: Unit and integration test with an SDK
+  synopsis: examples for best-practice techniques when writing unit and integration tests using an &AWS; SDK.
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/testing
+          excerpts:
+            - description: Cargo.toml for testing examples.
+              snippet_files:
+                - rust_dev_preview/examples/testing/Cargo.toml
+            - description: Unit testing example using automock and a service wrapper.
+              snippet_files:
+                - rust_dev_preview/examples/testing/src/wrapper.rs
+            - description: Integration testing example using StaticReplayClient.
+              snippet_files:
+                - rust_dev_preview/examples/testing/src/replay.rs
+  services:
+    s3:
