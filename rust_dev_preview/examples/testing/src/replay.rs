@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+// snippet-start:[testing.rust.replay-uses]
 use aws_sdk_s3 as s3;
+// snippet-end:[testing.rust.replay-uses]
 
 #[allow(dead_code)]
 // snippet-start:[testing.rust.replay]
@@ -42,6 +44,7 @@ pub async fn determine_prefix_file_size(
 
 #[allow(dead_code)]
 // snippet-start:[testing.rust.replay-tests]
+// snippet-start:[testing.rust.replay-make-credentials]
 fn make_s3_test_credentials() -> s3::config::Credentials {
     s3::config::Credentials::new(
         "ATESTCLIENT",
@@ -51,9 +54,12 @@ fn make_s3_test_credentials() -> s3::config::Credentials {
         "",
     )
 }
+// snippet-end:[testing.rust.replay-make-credentials]
 
+// snippet-start:[testing.rust.replay-test-module]
 #[cfg(test)]
 mod test {
+    // snippet-start:[testing.rust.replay-test-single]
     use super::*;
     use aws_sdk_s3 as s3;
     use aws_smithy_runtime::client::http::test_util::{ReplayEvent, StaticReplayClient};
@@ -90,9 +96,12 @@ mod test {
         assert_eq!(7, size);
         replay_client.assert_requests_match(&[]);
     }
+    // snippet-end:[testing.rust.replay-test-single]
 
+    // snippet-start:[testing.rust.replay-test-multiple]
     #[tokio::test]
     async fn test_multiple_pages() {
+        // snippet-start:[testing.rust.replay-create-replay]
         let page_1 = ReplayEvent::new(
                 http::Request::builder()
                     .method("GET")
@@ -116,6 +125,8 @@ mod test {
                     .unwrap(),
             );
         let replay_client = StaticReplayClient::new(vec![page_1, page_2]);
+        // snippet-end:[testing.rust.replay-create-replay]
+        // snippet-start:[testing.rust.replay-create-client]
         let client: s3::Client = s3::Client::from_conf(
             s3::Config::builder()
                 .credentials_provider(make_s3_test_credentials())
@@ -123,8 +134,10 @@ mod test {
                 .http_client(replay_client.clone())
                 .build(),
         );
+        // snippet-end:[testing.rust.replay-create-client]
 
         // Run the code we want to test with it
+        // snippet-start:[testing.rust.replay-test-and-verify]
         let size = determine_prefix_file_size(client, "test-bucket", "test-prefix")
             .await
             .unwrap();
@@ -132,6 +145,9 @@ mod test {
         assert_eq!(19, size);
 
         replay_client.assert_requests_match(&[]);
+        // snippet-end:[testing.rust.replay-test-and-verify]
     }
-    // snippet-end:[testing.rust.replay-tests]
+    // snippet-end:[testing.rust.replay-test-multiple]
 }
+// snippet-end:[testing.rust.replay-tests]
+// snippet-end:[testing.rust.replay-test-module]
