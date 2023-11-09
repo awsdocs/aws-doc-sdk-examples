@@ -1,7 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListFoundationModels.java demonstrates how to obtain information about the available foundation models.]
+// snippet-sourcedescription:[ListFoundationModels.java demonstrates how to obtain a list of the available foundation models.]
 // snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS Bedrock]
+// snippet-service:[Amazon Bedrock]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
