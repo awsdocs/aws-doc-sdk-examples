@@ -347,6 +347,161 @@ export const destroySteps = [
       );
     }
   }),
+  new ScenarioAction("detachSsmOnlyRoleFromProfile", async (c) => {
+    try {
+      const client = new IAMClient({});
+      await client.send(
+        new RemoveRoleFromInstanceProfileCommand({
+          InstanceProfileName: NAMES.ssmOnlyInstanceProfileName,
+          RoleName: NAMES.ssmOnlyRoleName,
+        }),
+      );
+    } catch (e) {
+      c.detachSsmOnlyRoleFromProfileError = e;
+    }
+  }),
+  new ScenarioOutput("detachSsmOnlyRoleFromProfileResult", (c) => {
+    if (c.detachSsmOnlyRoleFromProfileError) {
+      console.error(c.detachSsmOnlyRoleFromProfileError);
+      return MESSAGES.detachSsmOnlyRoleFromProfileError
+        .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
+        .replace("${PROFILE_NAME}", NAMES.ssmOnlyInstanceProfileName);
+    } else {
+      return MESSAGES.detachedSsmOnlyRoleFromProfile
+        .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
+        .replace("${PROFILE_NAME}", NAMES.ssmOnlyInstanceProfileName);
+    }
+  }),
+  new ScenarioAction("detachSsmOnlyCustomRolePolicy", async (c) => {
+    try {
+      const iamClient = new IAMClient({});
+      const ssmOnlyPolicy = await findPolicy(NAMES.ssmOnlyPolicyName);
+      await iamClient.send(
+        new DetachRolePolicyCommand({
+          RoleName: NAMES.ssmOnlyRoleName,
+          PolicyArn: ssmOnlyPolicy.Arn,
+        }),
+      );
+    } catch (e) {
+      c.detachSsmOnlyCustomRolePolicyError = e;
+    }
+  }),
+  new ScenarioOutput("detachSsmOnlyCustomRolePolicyResult", (c) => {
+    if (c.detachSsmOnlyCustomRolePolicyError) {
+      console.error(c.detachSsmOnlyCustomRolePolicyError);
+      return MESSAGES.detachSsmOnlyCustomRolePolicyError
+        .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
+        .replace("${POLICY_NAME}", NAMES.ssmOnlyPolicyName);
+    } else {
+      return MESSAGES.detachedSsmOnlyCustomRolePolicy
+        .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
+        .replace("${POLICY_NAME}", NAMES.ssmOnlyPolicyName);
+    }
+  }),
+  new ScenarioAction("detachSsmOnlyAWSRolePolicy", async (c) => {
+    try {
+      const iamClient = new IAMClient({});
+      await iamClient.send(
+        new DetachRolePolicyCommand({
+          RoleName: NAMES.ssmOnlyRoleName,
+          PolicyArn: "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+        }),
+      );
+    } catch (e) {
+      c.detachSsmOnlyAWSRolePolicyError = e;
+    }
+  }),
+  new ScenarioOutput("detachSsmOnlyAWSRolePolicyResult", (c) => {
+    if (c.detachSsmOnlyAWSRolePolicyError) {
+      console.error(c.detachSsmOnlyAWSRolePolicyError);
+      return MESSAGES.detachSsmOnlyAWSRolePolicyError
+        .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
+        .replace("${POLICY_NAME}", "AmazonSSMManagedInstanceCore");
+    } else {
+      return MESSAGES.detachedSsmOnlyAWSRolePolicy
+        .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
+        .replace("${POLICY_NAME}", "AmazonSSMManagedInstanceCore");
+    }
+  }),
+  new ScenarioAction("deleteSsmOnlyInstanceProfile", async (c) => {
+    try {
+      const iamClient = new IAMClient({});
+      await iamClient.send(
+        new DeleteInstanceProfileCommand({
+          InstanceProfileName: NAMES.ssmOnlyInstanceProfileName,
+        }),
+      );
+    } catch (e) {
+      c.deleteSsmOnlyInstanceProfileError = e;
+    }
+  }),
+  new ScenarioOutput("deleteSsmOnlyInstanceProfileResult", (c) => {
+    if (c.deleteSsmOnlyInstanceProfileError) {
+      console.error(c.deleteSsmOnlyInstanceProfileError);
+      return MESSAGES.deleteSsmOnlyInstanceProfileError.replace(
+        "${INSTANCE_PROFILE_NAME}",
+        NAMES.ssmOnlyInstanceProfileName,
+      );
+    } else {
+      return MESSAGES.deletedSsmOnlyInstanceProfile.replace(
+        "${INSTANCE_PROFILE_NAME}",
+        NAMES.ssmOnlyInstanceProfileName,
+      );
+    }
+  }),
+  new ScenarioAction("deleteSsmOnlyPolicy", async (c) => {
+    try {
+      const iamClient = new IAMClient({});
+      const ssmOnlyPolicy = await findPolicy(NAMES.ssmOnlyPolicyName);
+      await iamClient.send(
+        new DeletePolicyCommand({
+          PolicyArn: ssmOnlyPolicy.Arn,
+        }),
+      );
+    } catch (e) {
+      c.deleteSsmOnlyPolicyError = e;
+    }
+  }),
+  new ScenarioOutput("deleteSsmOnlyPolicyResult", (c) => {
+    if (c.deleteSsmOnlyPolicyError) {
+      console.error(c.deleteSsmOnlyPolicyError);
+      return MESSAGES.deleteSsmOnlyPolicyError.replace(
+        "${POLICY_NAME}",
+        NAMES.ssmOnlyPolicyName,
+      );
+    } else {
+      return MESSAGES.deletedSsmOnlyPolicy.replace(
+        "${POLICY_NAME}",
+        NAMES.ssmOnlyPolicyName,
+      );
+    }
+  }),
+  new ScenarioAction("deleteSsmOnlyRole", async (c) => {
+    try {
+      const iamClient = new IAMClient({});
+      await iamClient.send(
+        new DeleteRoleCommand({
+          RoleName: NAMES.ssmOnlyRoleName,
+        }),
+      );
+    } catch (e) {
+      c.deleteSsmOnlyRoleError = e;
+    }
+  }),
+  new ScenarioOutput("deleteSsmOnlyRoleResult", (c) => {
+    if (c.deleteSsmOnlyRoleError) {
+      console.error(c.deleteSsmOnlyRoleError);
+      return MESSAGES.deleteSsmOnlyRoleError.replace(
+        "${ROLE_NAME}",
+        NAMES.ssmOnlyRoleName,
+      );
+    } else {
+      return MESSAGES.deletedSsmOnlyRole.replace(
+        "${ROLE_NAME}",
+        NAMES.ssmOnlyRoleName,
+      );
+    }
+  }),
 ];
 
 /**

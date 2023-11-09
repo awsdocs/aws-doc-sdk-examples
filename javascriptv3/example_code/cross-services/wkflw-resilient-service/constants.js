@@ -99,6 +99,11 @@ Some of the resources create by this demo are:
     "Instead of failing when the recommendation service fails, the web service can return a static response. While this is not a perfect solution, it presents the customer with a somewhat better experience than failure. Do you want to continue?",
   demoTestStaticResponse:
     "Setting the parameter 'doc-example-resilient-architecture-failure-response' to 'static'. Now, sending a GET request to the load balancer endpoint returns a static response. The service still reports as healthy because health checks are still shallow.",
+  demoBadCredentialsConfirmation:
+    "The next step is to substitute bad credentials for one of the instances in the target group so that it can't access the DynamoDB recommendation table. The correct DynamoDB table name will be restored. A new instance profile with bad credentials will be created and attached to an instance. Do you want to continue?",
+  demoTestBadCredentials:
+    "A new IAM role and policy have been created and attached to a new instance profile. The new instance profile replaced the profile for ${INSTANCE_ID}. Now, when the load balancer hits the instance with bad credentials, the instance will return the static response.",
+  lbCheck: "Make a GET request to the load balancer?",
   destroy: "Destroy resources?",
   deletedTable: "Deleted table: ${TABLE_NAME}.",
   deleteTableError: "Error deleting table: ${TABLE_NAME}.",
@@ -132,6 +137,26 @@ Some of the resources create by this demo are:
     "Deleted Load Balancer target group ${TARGET_GROUP_NAME}.",
   deleteLBTargetGroupError:
     "Error deleting Load Balancer target group ${TARGET_GROUP_NAME}.",
+  detachedSsmOnlyCustomRolePolicy:
+    "Detached SSM only role ${ROLE_NAME} from policy ${POLICY_NAME}.",
+  detachSsmOnlyCustomRolePolicyError:
+    "Error detaching SSM only role ${ROLE_NAME} from policy ${POLICY_NAME}.",
+  detachedSsmOnlyAWSRolePolicy:
+    "Detached SSM only role ${ROLE_NAME} from policy ${POLICY_NAME}.",
+  detachSsmOnlyAWSRolePolicyError:
+    "Detached SSM only role ${ROLE_NAME} from policy ${POLICY_NAME}.",
+  deletedSsmOnlyInstanceProfile:
+    "Deleted SSM only instance profile ${INSTANCE_PROFILE_NAME}.",
+  deleteSsmOnlyInstanceProfileError:
+    "Error deleting SSM only instance profile ${INSTANCE_PROFILE_NAME}.",
+  deletedSsmOnlyPolicy: "Deleted SSM only policy ${POLICY_NAME}.",
+  deleteSsmOnlyPolicyError: "Error deleting SSM only policy ${POLICY_NAME}.",
+  deletedSsmOnlyRole: "Deleted SSM only role ${ROLE_NAME}.",
+  deleteSsmOnlyRoleError: "Error deleting SSM only role ${ROLE_NAME}.",
+  detachedSsmOnlyRoleFromProfile:
+    "Detached SSM only role ${ROLE_NAME} from profile ${PROFILE_NAME}.",
+  detachSsmOnlyRoleFromProfileError:
+    "Error detaching SSM only role ${ROLE_NAME} from profile ${PROFILE_NAME}.",
 };
 
 export const PREFIX = "resilient-wkflw-";
@@ -146,6 +171,9 @@ export const NAMES = {
   launchTemplateName: `${PREFIX}launch-template`,
   loadBalancerTargetGroupName: `${PREFIX}target-group`,
   loadBalancerName: `${PREFIX}lb`,
+  ssmOnlyPolicyName: `${PREFIX}ssm-only-instance-policy`,
+  ssmOnlyRoleName: `${PREFIX}ssm-only-role`,
+  ssmOnlyInstanceProfileName: `${PREFIX}ssm-i-profile`,
   ssmTableNameKey: "doc-example-resilient-architecture-table",
   ssmFailureResponseKey: "doc-example-resilient-architecture-failure-response",
   ssmHealthCheckKey: "doc-example-resilient-architecture-health-check",

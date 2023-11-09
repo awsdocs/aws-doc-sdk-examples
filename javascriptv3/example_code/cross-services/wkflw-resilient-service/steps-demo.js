@@ -2,6 +2,9 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import axios from "axios";
 
 import {
@@ -9,15 +12,40 @@ import {
   DescribeTargetHealthCommand,
   ElasticLoadBalancingV2Client,
 } from "@aws-sdk/client-elastic-load-balancing-v2";
-import { PutParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
+import {
+  DescribeInstanceInformationCommand,
+  PutParameterCommand,
+  SSMClient,
+  SendCommandCommand,
+} from "@aws-sdk/client-ssm";
+import {
+  IAMClient,
+  CreatePolicyCommand,
+  CreateRoleCommand,
+  AttachRolePolicyCommand,
+  CreateInstanceProfileCommand,
+  AddRoleToInstanceProfileCommand,
+  waitUntilInstanceProfileExists,
+} from "@aws-sdk/client-iam";
+import {
+  AutoScalingClient,
+  DescribeAutoScalingGroupsCommand,
+} from "@aws-sdk/client-auto-scaling";
+import {
+  DescribeIamInstanceProfileAssociationsCommand,
+  EC2Client,
+  RebootInstancesCommand,
+  ReplaceIamInstanceProfileAssociationCommand,
+} from "@aws-sdk/client-ec2";
 
 import {
   ScenarioAction,
   ScenarioInput,
   ScenarioOutput,
 } from "@aws-sdk-examples/libs/scenario/scenario.js";
+import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
 
-import { MESSAGES, NAMES } from "./constants.js";
+import { MESSAGES, NAMES, RESOURCES_PATH } from "./constants.js";
 import { findLoadBalancer } from "./shared.js";
 
 const getRecommendation = new ScenarioAction("getRecommendation", async (c) => {
@@ -69,6 +97,20 @@ const getHealthCheckResult = new ScenarioOutput(
     return `Health check:\n${status}`;
   },
   { preformatted: true },
+);
+
+const loadBalancerLoop = new ScenarioAction(
+  "lbLoop",
+  getRecommendation.action,
+  {
+    whileConfig: {
+      inputEquals: true,
+      input: new ScenarioInput("lbCheck", MESSAGES.lbCheck, {
+        type: "confirm",
+      }),
+      output: getRecommendationResult,
+    },
+  },
 );
 
 const statusSteps = [
@@ -132,8 +174,159 @@ export const demoSteps = [
   }),
   new ScenarioOutput("testStaticResponse", MESSAGES.demoTestStaticResponse),
   ...statusSteps,
-  new ScenarioAction("badCredentials", () => {}),
+  new ScenarioInput(
+    "badCredentialsConfirmation",
+    MESSAGES.demoBadCredentialsConfirmation,
+    { type: "confirm" },
+  ),
+  new ScenarioAction("badCredentialsExit", (c) => {
+    if (!c.badCredentialsConfirmation) {
+      process.exit();
+    }
+  }),
+  new ScenarioAction("fixDynamoDBName", async () => {
+    const client = new SSMClient({});
+    await client.send(
+      new PutParameterCommand({
+        Name: NAMES.ssmTableNameKey,
+        Value: NAMES.tableName,
+        Overwrite: true,
+        Type: "String",
+      }),
+    );
+  }),
+  new ScenarioAction(
+    "badCredentials",
+    /**
+     * @param {{ targetInstance: import('@aws-sdk/client-auto-scaling').Instance }} c
+     */
+    async (c) => {
+      await createSsmOnlyInstanceProfile();
+      const autoScalingClient = new AutoScalingClient({});
+      const { AutoScalingGroups } = await autoScalingClient.send(
+        new DescribeAutoScalingGroupsCommand({
+          AutoScalingGroupNames: [NAMES.autoScalingGroupName],
+        }),
+      );
+      c.targetInstance = AutoScalingGroups[0].Instances[0];
+      const ec2Client = new EC2Client({});
+      const { IamInstanceProfileAssociations } = await ec2Client.send(
+        new DescribeIamInstanceProfileAssociationsCommand({
+          Filters: [
+            { Name: "instance-id", Values: [c.targetInstance.InstanceId] },
+          ],
+        }),
+      );
+      c.instanceProfileAssociationId =
+        IamInstanceProfileAssociations[0].AssociationId;
+      await retry({ intervalInMs: 1000, maxRetries: 30 }, () =>
+        ec2Client.send(
+          new ReplaceIamInstanceProfileAssociationCommand({
+            AssociationId: c.instanceProfileAssociationId,
+            IamInstanceProfile: { Name: NAMES.ssmOnlyInstanceProfileName },
+          }),
+        ),
+      );
+
+      await ec2Client.send(
+        new RebootInstancesCommand({
+          InstanceIds: [c.targetInstance.InstanceId],
+        }),
+      );
+
+      const ssmClient = new SSMClient({});
+      await retry({ intervalInMs: 20000, maxRetries: 15 }, async () => {
+        const { InstanceInformationList } = await ssmClient.send(
+          new DescribeInstanceInformationCommand({}),
+        );
+
+        const instance = InstanceInformationList.find(
+          (info) => info.InstanceId === c.targetInstance.InstanceId,
+        );
+
+        if (!instance) {
+          throw new Error("Instance not found.");
+        }
+      });
+
+      await ssmClient.send(
+        new SendCommandCommand({
+          InstanceIds: [c.targetInstance.InstanceId],
+          DocumentName: "AWS-RunShellScript",
+          Parameters: { commands: ["cd / && sudo python3 server.py 80"] },
+        }),
+      );
+    },
+  ),
+  new ScenarioOutput(
+    "testBadCredentials",
+    /**
+     * @param {{ targetInstance: import('@aws-sdk/client-ssm').InstanceInformation}} c
+     */
+    (c) =>
+      MESSAGES.demoTestBadCredentials.replace(
+        "${INSTANCE_ID}",
+        c.targetInstance.InstanceId,
+      ),
+  ),
+  loadBalancerLoop,
   new ScenarioAction("deepHealthcheck", () => {}),
   new ScenarioAction("killInstance", () => {}),
   new ScenarioAction("failOpen", () => {}),
 ];
+
+async function createSsmOnlyInstanceProfile() {
+  const iamClient = new IAMClient({});
+  const { Policy } = await iamClient.send(
+    new CreatePolicyCommand({
+      PolicyName: NAMES.ssmOnlyPolicyName,
+      PolicyDocument: readFileSync(
+        join(RESOURCES_PATH, "ssm_only_policy.json"),
+      ),
+    }),
+  );
+  await iamClient.send(
+    new CreateRoleCommand({
+      RoleName: NAMES.ssmOnlyRoleName,
+      AssumeRolePolicyDocument: JSON.stringify({
+        Version: "2012-10-17",
+        Statement: [
+          {
+            Effect: "Allow",
+            Principal: { Service: "ec2.amazonaws.com" },
+            Action: "sts:AssumeRole",
+          },
+        ],
+      }),
+    }),
+  );
+  await iamClient.send(
+    new AttachRolePolicyCommand({
+      RoleName: NAMES.ssmOnlyRoleName,
+      PolicyArn: Policy.Arn,
+    }),
+  );
+  await iamClient.send(
+    new AttachRolePolicyCommand({
+      RoleName: NAMES.ssmOnlyRoleName,
+      PolicyArn: "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+    }),
+  );
+  const { InstanceProfile } = await iamClient.send(
+    new CreateInstanceProfileCommand({
+      InstanceProfileName: NAMES.ssmOnlyInstanceProfileName,
+    }),
+  );
+  await waitUntilInstanceProfileExists(
+    { client: iamClient },
+    { InstanceProfileName: NAMES.ssmOnlyInstanceProfileName },
+  );
+  await iamClient.send(
+    new AddRoleToInstanceProfileCommand({
+      InstanceProfileName: NAMES.ssmOnlyInstanceProfileName,
+      RoleName: NAMES.ssmOnlyRoleName,
+    }),
+  );
+
+  return InstanceProfile;
+}

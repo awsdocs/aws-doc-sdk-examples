@@ -121,7 +121,7 @@ export class ScenarioInput extends Step {
       context[this.name] = await this.prompter.input({ message });
     } else if (this.options?.type === "confirm") {
       if (options?.confirmAll) {
-        return;
+        return true;
       }
 
       context[this.name] = await this.prompter.confirm({
@@ -132,6 +132,8 @@ export class ScenarioInput extends Step {
         `Error handling ScenarioInput, ${this.options?.type} is not supported.`,
       );
     }
+
+    return context[this.name];
   }
 }
 
@@ -139,19 +141,39 @@ export class ScenarioAction extends Step {
   /**
    * @param {string} name
    * @param {(context: Record<string, any>) => Promise<void>} action
+   * @param {{ whileConfig: { inputEquals: any, input: ScenarioInput, output: ScenarioOutput }}} [options]
    */
-  constructor(name, action) {
+  constructor(name, action, options) {
     super(name);
     this.action = action;
+    this.options = options;
   }
 
   /**
    * @param {Record<string, any>} context
-   * @param {{ verbose: boolean }} options
+   * @param {{ verbose: boolean, confirmAll: boolean }} [options]
    */
   async handle(context, options) {
-    super.handle(context, options);
-    await this.action(context);
+    const _handle = async () => {
+      super.handle(context, options);
+      await this.action(context);
+    };
+
+    if (!options.confirmAll && this.options?.whileConfig) {
+      const whileFn = () =>
+        this.options.whileConfig.input.handle(context, options);
+
+      let actual = await whileFn();
+      let expected = this.options.whileConfig.inputEquals;
+
+      while (actual === expected) {
+        await _handle();
+        await this.options.whileConfig.output.handle(context, options);
+        actual = await whileFn();
+      }
+    } else {
+      await _handle();
+    }
   }
 }
 
