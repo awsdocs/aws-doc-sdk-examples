@@ -105,10 +105,24 @@ const loadBalancerLoop = new ScenarioAction(
   {
     whileConfig: {
       inputEquals: true,
-      input: new ScenarioInput("lbCheck", MESSAGES.lbCheck, {
+      input: new ScenarioInput("lbCheck", MESSAGES.demoLbCheck, {
         type: "confirm",
       }),
       output: getRecommendationResult,
+    },
+  },
+);
+
+const healthCheckLoop = new ScenarioAction(
+  "healthCheckLoop",
+  getHealthCheck.action,
+  {
+    whileConfig: {
+      inputEquals: true,
+      input: new ScenarioInput("healthCheck", MESSAGES.demoHealthCheck, {
+        type: "confirm",
+      }),
+      output: getHealthCheckResult,
     },
   },
 );
@@ -270,7 +284,29 @@ export const demoSteps = [
       ),
   ),
   loadBalancerLoop,
-  new ScenarioAction("deepHealthcheck", () => {}),
+  new ScenarioInput(
+    "deepHealthCheckConfirmation",
+    MESSAGES.demoDeepHealthCheckConfirmation,
+    { type: "confirm" },
+  ),
+  new ScenarioAction("deepHealthCheckExit", (c) => {
+    if (!c.deepHealthCheckConfirmation) {
+      process.exit();
+    }
+  }),
+  new ScenarioAction("deepHealthCheck", async () => {
+    const client = new SSMClient({});
+    await client.send(
+      new PutParameterCommand({
+        Name: NAMES.ssmHealthCheckKey,
+        Value: "deep",
+        Overwrite: true,
+        Type: "String",
+      }),
+    );
+  }),
+  new ScenarioOutput("testDeepHealthCheck", MESSAGES.demoTestDeepHealthCheck),
+  healthCheckLoop,
   new ScenarioAction("killInstance", () => {}),
   new ScenarioAction("failOpen", () => {}),
 ];

@@ -103,7 +103,12 @@ Some of the resources create by this demo are:
     "The next step is to substitute bad credentials for one of the instances in the target group so that it can't access the DynamoDB recommendation table. The correct DynamoDB table name will be restored. A new instance profile with bad credentials will be created and attached to an instance. Do you want to continue?",
   demoTestBadCredentials:
     "A new IAM role and policy have been created and attached to a new instance profile. The new instance profile replaced the profile for ${INSTANCE_ID}. Now, when the load balancer hits the instance with bad credentials, the instance will return the static response.",
-  lbCheck: "Make a GET request to the load balancer?",
+  demoLbCheck: "Make a GET request to the load balancer?",
+  demoHealthCheck: "Get instance health?",
+  demoDeepHealthCheckConfirmation:
+    "For this demo, a deep health check tests whether the web service can access the DynamoDB table that it depends on for recommendations. Note that the deep health check is only for ELB routing and not for Auto Scaling instance health. This kind of deep health check is not recommended for Auto Scaling instance health, because it risks accidental termination of all instances in the Auto Scaling group when a dependent service fails. By implementing deep health checks, the load balancer can detect when one of the instances is failing and take that instance out of rotation. Do you want to continue?",
+  demoTestDeepHealthCheck:
+    "Now, checking target health indicates that the instance with bad credentials is unhealthy. Note that it might take a minute or two for the load balancer to detect the unhealthy instance. Sending a GET request to the load balancer endpoint always returns a recommendation, because the load balancer takes unhealthy instances out of it rotation.",
   destroy: "Destroy resources?",
   deletedTable: "Deleted table: ${TABLE_NAME}.",
   deleteTableError: "Error deleting table: ${TABLE_NAME}.",
