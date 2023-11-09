@@ -24,11 +24,10 @@ Resources:
   docexampleauroraappclusterEB7E1241:
     Type: AWS::RDS::DBCluster
     Properties:
-      Engine: aurora-mysql
+      Engine: aurora-postgresql
       DatabaseName: auroraappdb
-      DBClusterParameterGroupName: default.aurora-mysql5.7
+      DBClusterParameterGroupName: default.aurora-postgresql15
       EnableHttpEndpoint: true
-      EngineMode: serverless
       MasterUsername: docexampleadmin
       MasterUserPassword:
         Fn::Join:
@@ -36,14 +35,22 @@ Resources:
           - - "{{resolve:secretsmanager:"
             - Ref: docexampleauroraappsecret8BAF8B56
             - :SecretString:password::}}
-      ScalingConfiguration:
-        AutoPause: false
+      ServerlessV2ScalingConfiguration:
+        MinCapacity: 0.5
+        MaxCapacity: 8
       StorageEncrypted: true
       VpcSecurityGroupIds: []
     UpdateReplacePolicy: Snapshot
     DeletionPolicy: Snapshot
     Metadata:
       aws:cdk:path: doc-example-aurora-app/doc-example-aurora-app-cluster/Resource
+  docexampleauroraappinstanceEB7E1241:
+    Type: AWS::RDS::DBInstance
+    DependsOn: docexampleauroraappclusterEB7E1241
+    Properties:
+      DBClusterIdentifier: !Ref docexampleauroraappclusterEB7E1241
+      Engine: aurora-postgresql
+      DBInstanceClass: db.serverless
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
