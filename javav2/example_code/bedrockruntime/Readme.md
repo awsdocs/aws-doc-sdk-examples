@@ -15,15 +15,19 @@ Amazon Bedrock is a fully managed service that offers a choice of high-performin
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
+For prerequisites, see the [README](../../README.md) in the `javav2` folder.
 
 The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
 ### Single actions
 
-The following example uses the **BedrockClient** object:
+The following example uses the **BedrockRuntimeClient**:
 
-- [Invoking a foundation model](./src/main/java/com/example/bedrockruntime/InvokeModel.java) (InvokeModel command)
+- [Invoking a model](./src/main/java/com/example/bedrockruntime/InvokeModel.java) (InvokeModel command)
+
+The following example uses the **BedrockRuntimeAsyncClient**:
+
+- [Invoking a model with response stream](./src/main/java/com/example/bedrockruntime/InvokeModelWithResponseStream.java) (InvokeModelWithResponseStream command)
 
 ## Run the examples
 
@@ -39,6 +43,7 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
 ### Command line
+
 To run the JUnit tests from the command line, you can use the following command:
 
 		mvn test
@@ -52,16 +57,18 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] Running BedrockRuntimeTest
     ...
 	Test 1 passed
+    ...
+    Test 2 passed.
 	...
 	[INFO] Results:
 	[INFO]
-	[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+	[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 	[INFO]
 	[INFO] --------------------------------------------------
 	[INFO] BUILD SUCCESS
 	[INFO] --------------------------------------------------
-	[INFO] Total time:  10.634 s
-	[INFO] Finished at: 2023-11-09T18:08:40+01:00
+	[INFO] Total time:  10.115 s
+	[INFO] Finished at: 2023-11-09T21:01:15+01:00
 	[INFO] --------------------------------------------------
 
 ## Additional resources
