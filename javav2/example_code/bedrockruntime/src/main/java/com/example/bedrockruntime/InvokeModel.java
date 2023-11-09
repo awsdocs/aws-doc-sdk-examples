@@ -1,7 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[InvokeModel.java demonstrates how to invoke Amazon Bedrock foundation models.]
+// snippet-sourcedescription:[InvokeModel.java demonstrates how to invoke a model with Amazon Bedrock.]
 // snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS Bedrock]
+// snippet-service:[Amazon Bedrock]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -31,22 +31,22 @@ import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
 public class InvokeModel {
 
     public static void main(String[] args) {
+
         Region region = Region.US_EAST_1;
-        BedrockRuntimeClient bedrockRuntime = BedrockRuntimeClient.builder()
+        BedrockRuntimeClient bedrockRuntimeClient = BedrockRuntimeClient.builder()
                 .region(region)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         String prompt = "In one sentence, what is a large-language model?";
 
-        invokeModel(bedrockRuntime, prompt);
+        invokeModel(bedrockRuntimeClient, prompt);
     }
 
     // snippet-start:[bedrockruntime.java2.invoke_model.main]
-    public static String invokeModel(BedrockRuntimeClient bedrockRuntime, String prompt) {
+    public static String invokeModel(BedrockRuntimeClient bedrockRuntimeClient, String prompt) {
 
         try {
-            String modelId = "anthropic.claude-v2";
 
             double temperature = 0.8;
             int maxTokensToSample = 300;
@@ -59,17 +59,17 @@ public class InvokeModel {
             SdkBytes body = SdkBytes.fromUtf8String(payload.toString());
 
             InvokeModelRequest request = InvokeModelRequest.builder()
-                    .modelId(modelId)
-                    .body(body)
+                    .modelId("anthropic.claude-v2")
                     .contentType("application/json")
                     .accept("application/json")
+                    .body(body)
                     .build();
 
-            InvokeModelResponse response = bedrockRuntime.invokeModel(request);
+            InvokeModelResponse response = bedrockRuntimeClient.invokeModel(request);
 
             JSONObject responseBody = new JSONObject(response.body().asUtf8String());
 
-            String completion = responseBody.getString("completion").trim();
+            String completion = responseBody.getString("completion");
 
             System.out.printf("The model's response to '%s' is:%n%n", prompt);
             System.out.println(completion);

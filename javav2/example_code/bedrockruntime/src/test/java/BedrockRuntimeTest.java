@@ -4,12 +4,12 @@
 */
 
 import com.example.bedrockruntime.InvokeModel;
+import com.example.bedrockruntime.InvokeModelWithResponseStream;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeAsyncClient;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
-
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,28 +17,42 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BedrockRuntimeTest {
 
-    private static BedrockRuntimeClient bedrockRuntime;
-
-    @BeforeAll
-    public static void setUp() throws IOException {
-        bedrockRuntime = BedrockRuntimeClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
-    }
-
     @Test
     @Order(1)
     @Tag("IntegrationTest")
     public void InvokeModel() {
 
-        String prompt = "In one sentence, what is a large-language model?";
+        try (BedrockRuntimeClient bedrockRuntime = BedrockRuntimeClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build()) {
 
-        String completion = InvokeModel.invokeModel(bedrockRuntime, prompt);
+            String prompt = "In one sentence, what is a large-language model?";
 
-        assertNotNull(completion, "The completion is null");
-        assertFalse(completion.trim().isEmpty(), "The completion is empty");
+            String completion = InvokeModel.invokeModel(bedrockRuntime, prompt);
 
-        System.out.println("Test 1 passed.");
+            assertNotNull(completion, "The completion is null");
+            assertFalse(completion.trim().isEmpty(), "The completion is empty");
+
+            System.out.println("Test 1 passed.");
+        }
+    }
+
+    @Test
+    @Order(2)
+    @Tag("IntegrationTest")
+    public void InvokeModelWithResponseStream() {
+
+        try (BedrockRuntimeAsyncClient bedrockRuntime = BedrockRuntimeAsyncClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build()) {
+
+            String prompt = "In one sentence, what is a large-language model?";
+
+            assertDoesNotThrow(() -> InvokeModelWithResponseStream.invokeModel(bedrockRuntime, prompt));
+
+            System.out.println("Test 2 passed.");
+        }
     }
 }
