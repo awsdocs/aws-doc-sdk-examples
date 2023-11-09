@@ -113,3 +113,7 @@ def test_verify_snippet_start_end(file_contents, expected_error_count):
     counted correctly as errors."""
     error_count = project_validator.verify_snippet_start_end(file_contents, "location")
     assert error_count == expected_error_count
+
+
+if __name__ == "__main__":
+    pytest.main([__file__])

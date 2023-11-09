@@ -1,0 +1,96 @@
+sqs_WrongServiceSlug:
+  title: Test title
+  title_abbrev: Title abbrev test
+  synopsis: |-
+    This synopsis is just fine.
+  languages:
+    Perl:
+      versions:
+        - sdk_version: 1
+          github: perl/example_code/sns
+          sdkguide: https://docs.aws.amazon.com/absolute/link-to-my-guide
+          add_services:
+            sqs:
+  services:
+    sns:
+sqs_TestExample:
+  title: Test title
+  title_abbrev: Test title abbrev
+  synopsis: |-
+    This synopsis is just fine.
+  languages:
+    Java:
+      versions:
+  services:
+    sns:
+    sqs:
+sns_TestExample:
+  title: Test title
+  title_abbrev: Test title abbrev
+  synopsis: |-
+    This synopsis could be better.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          sdkguide: http://sdk/guide/url
+  services:
+    sns:
+sns_TestExample2:
+  title: Test title
+  title_abbrev: Test title abbrev
+  synopsis: |-
+    This synopsis is okay.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: github/link/to/README.md
+          excerpts:
+            - snippet_tags:
+              - this.snippet.does.not.exist
+  services:
+    garbled:
+    sns:
+cross_TestExample_Versions:
+  title: Test title
+  title_abbrev: Test title abbrev
+  synopsis: |-
+    This synopsis is okay.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_block.xml
+          excerpts:
+            - description: Optional description.
+              snippet_tags:
+                - php.snippet.tag.1
+          add_services:
+            sqs:
+  services:
+    sns:
+cross_TestExample_Missing:
+  title: Test title
+  title_abbrev: Test title abbrev
+  synopsis: |-
+    This synopsis is okay.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: missing_block_content.xml
+  services:
+    sns:
+snsBadFormat:
+  title: Test title
+  title_abbrev: Test title abbrev
+  synopsis: |-
+    This synopsis is okay.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: github/link
+  services:
+    sns:

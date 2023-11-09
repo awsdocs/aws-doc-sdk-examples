@@ -1,0 +1,82 @@
+# Mapping data for unit tests
+C++:
+  property: cpp
+  sdk:
+    1:
+      long: "&CPPlong;"
+      short: "&CPP;"
+      bookmark: code-examples
+  guide: "&guide-cpp-dev;"
+Go:
+  property: go
+  sdk:
+    1:
+      long: "&Golong; V1"
+      short: "&Go; V1"
+    2:
+      long: "&Golong; V2"
+      short: "&Go; V2"
+  guide: "&guide-go-dev;"
+Java:
+  property: java
+  sdk:
+    1:
+      long: "&Javalong;"
+      short: "&Java;"
+    2:
+      long: "&JavaV2long;"
+      short: "&Java;"
+  guide: "&guide-javav2-dev;"
+JavaScript:
+  property: javascript
+  sdk:
+    2:
+      long: "&JSBlong; V2"
+      short: "&JSB; V2"
+    3:
+      long: "&JSBlong; V3"
+      short: "&JSB; V3"
+      api_ref:
+        uid: "AWSJavaScriptSDK"
+        name: "&guide-jsb-api;"
+        link_template: "AWSJavaScriptSDK/v3/latest/clients/client-{{.Service}}/classes/{{.OperationLower}}command.html"
+  guide: "&guide-jsb-dev;"
+Kotlin:
+  property: kotlin
+  sdk:
+    1:
+      long: "&AWS; SDK for Kotlin"
+      short: "SDK for Kotlin"
+      caveat: "This is prerelease documentation for a feature in preview release. It is subject to change."
+  guide: "&NO_GUIDE;"
+.NET:
+  property: csharp
+  sdk:
+    3:
+      long: "&NETlong;"
+      short: "&NET;"
+      title_override:
+        title: "Additional &NET; code examples"
+        title_abbrev: "Additional code examples"
+  guide: "&guide-net-dev;"
+PHP:
+  property: php
+  sdk:
+    3:
+      long: "&PHPlong;"
+      short: "&PHP;"
+  guide: "&guide-php-dev;"
+Python:
+  property: python
+  sdk:
+    3:
+      long: "&Python3long;"
+      short: "&Python3;"
+  guide: "&guide-python3-gsg;"
+Ruby:
+  property: ruby
+  sdk:
+    3:
+      long: "&Rubylong;"
+      short: "&Ruby;"
+  guide: "&guide-ruby-dev;"

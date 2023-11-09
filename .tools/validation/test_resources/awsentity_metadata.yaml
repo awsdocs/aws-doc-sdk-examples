@@ -1,0 +1,68 @@
+sns_TitleUsage:
+  title: Test title with AWS in it
+  title_abbrev: Title abbrev test
+  synopsis: |-
+    This synopsis is just fine.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/sns
+  services:
+    sns:
+sns_TitleAbbrevUsage:
+  title: Test title
+  title_abbrev: Title abbrev test with AWS in it
+  synopsis: |-
+    This synopsis is just fine.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/sns
+  services:
+    sns:
+sns_SynopsisUsage:
+  title: Test title
+  title_abbrev: Title abbrev test
+  synopsis: |-
+    This synopsis is just fine, except for containing non-entity version of AWS.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/sns
+  services:
+    sns:
+sns_ExcerptDescriptionUsage:
+  title: Test title
+  title_abbrev: Title abbrev test
+  synopsis: |-
+    This synopsis is just fine.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/sns
+          excerpts:
+            - description: This non-entity AWS is bad news.
+              snippet_tags:
+                - test.test
+  services:
+    sns:
+sns_ExcerptPartsUsage:
+  title: Test title
+  title_abbrev: Title abbrev test
+  synopsis: |-
+    This synopsis is just fine
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/sns
+          excerpts:
+            - description: This &AWS-Region; is an ok entity.
+              snippet_tags:
+                - test.test
+  services:
+    sns:
