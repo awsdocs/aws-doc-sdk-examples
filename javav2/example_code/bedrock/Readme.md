@@ -24,7 +24,7 @@ Shows how to use the AWS SDK for Java 2.x to work with Amazon Bedrock.
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
+For prerequisites, see the [README](../../README.md) in the `javav2` folder.
 
 
 <!--custom.prerequisites.start-->
