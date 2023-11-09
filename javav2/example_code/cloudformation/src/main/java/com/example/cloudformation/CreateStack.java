@@ -85,7 +85,6 @@ public class CreateStack {
                                     String value){
 
        try {
-           CloudFormationWaiter waiter = cfClient.waiter();
            Parameter myParameter = Parameter.builder()
                .parameterKey(key)
                .parameterValue(value)
@@ -100,12 +99,6 @@ public class CreateStack {
                .build();
 
            cfClient.createStack(stackRequest);
-           DescribeStacksRequest stacksRequest = DescribeStacksRequest.builder()
-               .stackName(stackName)
-               .build();
-
-           WaiterResponse<DescribeStacksResponse> waiterResponse = waiter.waitUntilStackCreateComplete(stacksRequest);
-           waiterResponse.matched().response().ifPresent(System.out::println);
            System.out.println(stackName +" is ready");
 
        } catch (CloudFormationException e) {
