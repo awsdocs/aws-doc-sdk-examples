@@ -23,12 +23,45 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 The following example uses the **BedrockClient** object:
 
-- [Listing the available Bedrock foundation models](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/bedrock/src/main/java/com/example/bedrock/ListFoundationModels.java) (ListFoundationModels command)
+- [Listing the available Bedrock foundation models](./src/main/java/com/example/bedrock/ListFoundationModels.java) (ListFoundationModels command)
 
 ## Run the examples
 
 To run these examples, set up your development environment. For more information,
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
+
+## Testing the Amazon Bedrock Java files
+
+You can test the Java code examples for Amazon Bedrock by running a test file named **APIGatewayTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+
+You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail.
+
+**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
+
+### Command line
+To run the JUnit tests from the command line, you can use the following command:
+
+		mvn test
+
+You will see output from the JUnit tests, as shown here.
+
+    [INFO] --------------------------------------------------
+	[INFO]  T E S T S
+    [INFO] --------------------------------------------------
+	[INFO] Running BedrockTest
+    ...
+	Test 1 passed
+	...
+	[INFO] Results:
+	[INFO]
+	[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+	[INFO]
+	[INFO] --------------------------------------------------
+	[INFO] BUILD SUCCESS
+	[INFO] --------------------------------------------------
+	[INFO] Total time:  3.589 s
+	[INFO] Finished at: 2023-11-09T15:41:02+01:00
+	[INFO] --------------------------------------------------
 
 ## Additional resources
 

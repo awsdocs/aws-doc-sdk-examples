@@ -18,7 +18,6 @@ import software.amazon.awssdk.services.bedrock.model.BedrockException;
 import software.amazon.awssdk.services.bedrock.model.FoundationModelSummary;
 import software.amazon.awssdk.services.bedrock.model.ListFoundationModelsRequest;
 import software.amazon.awssdk.services.bedrock.model.ListFoundationModelsResponse;
-
 import java.util.List;
 // snippet-end:[bedrock.java2.list_foundation_models.import]
 
@@ -37,11 +36,11 @@ public class ListFoundationModels {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        listAllFoundationModels(bedrockClient);
+        listFoundationModels(bedrockClient);
     }
 
     // snippet-start:[bedrock.java2.list_foundation_models.main]
-    public static int listAllFoundationModels(BedrockClient bedrockClient) {
+    public static void listFoundationModels(BedrockClient bedrockClient) {
 
         try {
             ListFoundationModelsRequest request = ListFoundationModelsRequest.builder().build();
@@ -57,13 +56,10 @@ public class ListFoundationModels {
                 System.out.println();
             }
 
-            return models.size();
-
         } catch (BedrockException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        return 0;
     }
     // snippet-end:[bedrock.java2.list_foundation_models.main]
 }
