@@ -14,7 +14,7 @@ dt=`date +%F-%T`
 if [ -z $region ] || [[ $reg != --region ]] || [ -z $file_name ]; then
 	echo "Please provide region/all, target volume-list/all, snapshot option and optional --profile for cross account action .."
 	echo ""
-	echo "To create list of all GP2, GP3, io1, io2 volumes in any single region or all regions ::  $0 --region <region_name>/all discover"
+	echo "To create list of all GP2, GP3, io1, io2 volumes in any single region or all regions ::  $0 --region <region_name>/all discover no-snapshot"
 	echo "To migrate listed GP2 volumes from a file w/o snapshot ::  $0 --region <region_name> <volume_list_file.txt> no-snapshot"
 	echo "To migrate listed GP2 volumes from a file with snapshot ::  $0 --region <region_name> <volume_list_file.txt> snapshot"
         echo "To migrate all GP2 volumes in a region w/o snapshot ::  $0 --region <region_name> migrate no-snapshot"
