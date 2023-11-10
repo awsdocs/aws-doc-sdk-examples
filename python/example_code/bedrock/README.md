@@ -23,7 +23,7 @@ Shows how to use the AWS SDK for Python (Boto3) to work with the Amazon Bedrock 
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md) in the `python` folder.
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `python` folder.
 
 Install the packages required by these examples by running the following in a virtual environment:
 
