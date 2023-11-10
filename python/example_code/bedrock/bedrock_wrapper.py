@@ -22,9 +22,9 @@ class BedrockWrapper:
 
     def __init__(self, bedrock_client):
         """
-        :param ec2_resource: A Boto3 Amazon Bedrock client, which is a low-level client that
-                             represents Amazon Bedrock and describes the API operations for
-                             creating and managing Bedrock models.
+        :param bedrock_client: A Boto3 Amazon Bedrock client, which is a low-level client that
+                               represents Amazon Bedrock and describes the API operations for
+                               creating and managing Bedrock models.
         """
         self.bedrock_client = bedrock_client
 
