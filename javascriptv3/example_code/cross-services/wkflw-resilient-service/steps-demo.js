@@ -30,6 +30,7 @@ import {
 import {
   AutoScalingClient,
   DescribeAutoScalingGroupsCommand,
+  TerminateInstanceInAutoScalingGroupCommand,
 } from "@aws-sdk/client-auto-scaling";
 import {
   DescribeIamInstanceProfileAssociationsCommand,
@@ -307,8 +308,88 @@ export const demoSteps = [
   }),
   new ScenarioOutput("testDeepHealthCheck", MESSAGES.demoTestDeepHealthCheck),
   healthCheckLoop,
-  new ScenarioAction("killInstance", () => {}),
-  new ScenarioAction("failOpen", () => {}),
+  loadBalancerLoop,
+  new ScenarioInput(
+    "killInstanceConfirmation",
+    /**
+     * @param {{ targetInstance: import('@aws-sdk/client-ssm').InstanceInformation }} c
+     */
+    (c) =>
+      MESSAGES.demoKillInstanceConfirmation.replace(
+        "${INSTANCE_ID}",
+        c.targetInstance.InstanceId,
+      ),
+    { type: "confirm" },
+  ),
+  new ScenarioAction("killInstanceExit", (c) => {
+    if (!c.killInstanceConfirmation) {
+      process.exit();
+    }
+  }),
+  new ScenarioAction(
+    "killInstance",
+    /**
+     * @param {{ targetInstance: import('@aws-sdk/client-ssm').InstanceInformation }} c
+     */
+    async (c) => {
+      const client = new AutoScalingClient({});
+      await client.send(
+        new TerminateInstanceInAutoScalingGroupCommand({
+          InstanceId: c.targetInstance.InstanceId,
+          ShouldDecrementDesiredCapacity: false,
+        }),
+      );
+    },
+  ),
+  new ScenarioOutput("testKillInstance", MESSAGES.demoTestKillInstance),
+  healthCheckLoop,
+  loadBalancerLoop,
+  new ScenarioInput("failOpenConfirmation", MESSAGES.demoFailOpenConfirmation, {
+    type: "confirm",
+  }),
+  new ScenarioAction("failOpenExit", (c) => {
+    if (!c.failOpenConfirmation) {
+      process.exit();
+    }
+  }),
+  new ScenarioAction("failOpen", () => {
+    const client = new SSMClient({});
+    return client.send(
+      new PutParameterCommand({
+        Name: NAMES.ssmTableNameKey,
+        Value: `fake-table-${Date.now()}`,
+        Overwrite: true,
+        Type: "String",
+      }),
+    );
+  }),
+  new ScenarioOutput("testFailOpen", MESSAGES.demoFailOpenTest),
+  healthCheckLoop,
+  loadBalancerLoop,
+  new ScenarioInput(
+    "resetTableConfirmation",
+    MESSAGES.demoResetTableConfirmation,
+    { type: "confirm" },
+  ),
+  new ScenarioAction("resetTableExit", (c) => {
+    if (!c.resetTableConfirmation) {
+      process.exit();
+    }
+  }),
+  new ScenarioAction("resetTable", async () => {
+    const client = new SSMClient({});
+    await client.send(
+      new PutParameterCommand({
+        Name: NAMES.ssmTableNameKey,
+        Value: NAMES.tableName,
+        Overwrite: true,
+        Type: "String",
+      }),
+    );
+  }),
+  new ScenarioOutput("testResetTable", MESSAGES.demoTestResetTable),
+  healthCheckLoop,
+  loadBalancerLoop,
 ];
 
 async function createSsmOnlyInstanceProfile() {

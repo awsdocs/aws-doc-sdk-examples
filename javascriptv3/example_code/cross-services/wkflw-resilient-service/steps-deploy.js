@@ -53,7 +53,7 @@ import {
 import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
 
 import { MESSAGES, NAMES, RESOURCES_PATH, ROOT } from "./constants.js";
-import { resetParametersSteps } from "./steps-reset-params.js";
+import { initParamsSteps } from "./steps-reset-params.js";
 
 /**
  * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
@@ -274,7 +274,7 @@ export const deploySteps = [
       .replace("${INSTANCE_PROFILE_NAME}", NAMES.instanceProfileName)
       .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName),
   ),
-  ...resetParametersSteps,
+  ...initParamsSteps,
   new ScenarioOutput("creatingLaunchTemplate", MESSAGES.creatingLaunchTemplate),
   new ScenarioAction("createLaunchTemplate", async () => {
     const ssmClient = new SSMClient({});
@@ -395,6 +395,7 @@ export const deploySteps = [
     ),
   ),
   new ScenarioAction("createLBTargetGroup", async (c) => {
+    // snippet-start:[javascript.v3.wkflw.resilient.CreateTargetGroup]
     const client = new ElasticLoadBalancingV2Client({});
     const { TargetGroups } = await client.send(
       new CreateTargetGroupCommand({
@@ -409,6 +410,7 @@ export const deploySteps = [
         VpcId: c.defaultVpc,
       }),
     );
+    // snippet-end:[javascript.v3.wkflw.resilient.CreateTargetGroup]
     const targetGroup = TargetGroups[0];
     c.targetGroupArn = targetGroup.TargetGroupArn;
     c.targetGroupProtocol = targetGroup.Protocol;
