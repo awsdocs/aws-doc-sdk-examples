@@ -128,13 +128,13 @@ suspend fun main(args: Array<String>) {
             fileInput -  the URL of an Amazon S3 bucket where the input file is located (for example s3://<bucket name>/<mp4 file name>).
         """
 
-   // if (args.size != 2) {
-   //     println(usage)
-   //     exitProcess(0)
-   // }
+    if (args.size != 2) {
+        println(usage)
+        exitProcess(0)
+    }
 
-    val mcRoleARN = "arn:aws:iam::814548047983:role/MediaConvert_Default_Role" //args[0]
-    val fileInput = "s3://bucketscottjune2/Sample.mp4" //args[1]
+    val mcRoleARN = args[0]
+    val fileInput = args[1]
     val mcClient = MediaConvertClient { region = "us-west-2" }
     val id = createMediaJob(mcClient, mcRoleARN, fileInput)
     println("MediaConvert job $id was successfully created!")
@@ -435,7 +435,7 @@ fun createOutput(
             }
             containerSettings = ContainerSettings {
                 container = ContainerType.M3U8
-                this.m3u8Settings  = M3u8Settings {
+                this.m3u8Settings = M3u8Settings {
                     audioFramesPerPes = 4
                     pcrControl = M3u8PcrControl.PcrEveryPesPacket
                     pmtPid = 480

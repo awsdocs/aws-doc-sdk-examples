@@ -11,11 +11,11 @@ package com.kotlin.mediaconvert
 
 // snippet-start:[mediaconvert.kotlin.list_jobs.import]
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
+import aws.sdk.kotlin.services.mediaconvert.endpoints.MediaConvertEndpointProvider
 import aws.sdk.kotlin.services.mediaconvert.model.DescribeEndpointsRequest
 import aws.sdk.kotlin.services.mediaconvert.model.JobStatus
 import aws.sdk.kotlin.services.mediaconvert.model.ListJobsRequest
 import aws.smithy.kotlin.runtime.client.endpoints.Endpoint
-import aws.sdk.kotlin.services.mediaconvert.endpoints.MediaConvertEndpointProvider
 import kotlin.system.exitProcess
 // snippet-end:[mediaconvert.kotlin.list_jobs.import]
 
