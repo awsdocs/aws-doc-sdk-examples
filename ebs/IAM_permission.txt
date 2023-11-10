@@ -1,0 +1,21 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:ModifyVolume",
+                "ec2:DescribeVolumes",
+                "ec2:DescribeVolumesModifications",
+                "ec2:DescribeVolumeStatus",
+                "ec2:DescribeTags",
+                "ec2:CreateTags",
+                "ec2:DescribeRegions",
+                "ec2:DescribeSnapshots",
+                "ec2:CreateSnapshot",
+            ],
+            "Resource": "*"
+        }
+    ]
+}
