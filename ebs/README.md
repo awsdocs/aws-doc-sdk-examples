@@ -1,4 +1,4 @@
-# Discover EBS volume type GP2 and modify them to type GP3 with/without snapshot
+# Discover EBS volumes type GP2 and modify them to type GP3 with/without snapshot
 
 This example demonstrates how to modify EBS volume type GP2 to GP3 across a given region or all regions where customer has workload. It can auto scan all GP2 volumes or read the volume_ids input from any .text file in case modification needed only on user provided volumes.
 Elastic volumes supports online modification of EBS volume type GP2 to GP3, it does not bring any outage to instance. 
