@@ -277,6 +277,7 @@ export const deploySteps = [
   ...initParamsSteps,
   new ScenarioOutput("creatingLaunchTemplate", MESSAGES.creatingLaunchTemplate),
   new ScenarioAction("createLaunchTemplate", async () => {
+    // snippet-start:[javascript.v3.wkflw.resilient.CreateLaunchTemplate]
     const ssmClient = new SSMClient({});
     const { Parameter } = await ssmClient.send(
       new GetParameterCommand({
@@ -297,6 +298,7 @@ export const deploySteps = [
           KeyName: NAMES.keyPairName,
         },
       }),
+      // snippet-end:[javascript.v3.wkflw.resilient.CreateLaunchTemplate]
     );
     console.log(LaunchTemplate);
   }),
@@ -355,12 +357,14 @@ export const deploySteps = [
   new ScenarioOutput("loadBalancer", MESSAGES.loadBalancer),
   new ScenarioOutput("gettingVpc", MESSAGES.gettingVpc),
   new ScenarioAction("getVpc", async (c) => {
+    // snippet-start:[javascript.v3.wkflw.resilient.DescribeVpcs]
     const client = new EC2Client({});
     const { Vpcs } = await client.send(
       new DescribeVpcsCommand({
         Filters: [{ Name: "is-default", Values: ["true"] }],
       }),
     );
+    // snippet-end:[javascript.v3.wkflw.resilient.DescribeVpcs]
     c.defaultVpc = Vpcs[0].VpcId;
   }),
   new ScenarioOutput("gotVpc", (c) =>
@@ -368,6 +372,7 @@ export const deploySteps = [
   ),
   new ScenarioOutput("gettingSubnets", MESSAGES.gettingSubnets),
   new ScenarioAction("getSubnets", async (c) => {
+    // snippet-start:[javascript.v3.wkflw.resilient.DescribeSubnets]
     const client = new EC2Client({});
     const { Subnets } = await client.send(
       new DescribeSubnetsCommand({
@@ -378,6 +383,7 @@ export const deploySteps = [
         ],
       }),
     );
+    // snippet-end:[javascript.v3.wkflw.resilient.DescribeSubnets]
     c.subnets = Subnets.map((s) => s.SubnetId);
   }),
   new ScenarioOutput(
@@ -428,6 +434,7 @@ export const deploySteps = [
     MESSAGES.creatingLoadBalancer.replace("${LB_NAME}", NAMES.loadBalancerName),
   ),
   new ScenarioAction("createLoadBalancer", async (c) => {
+    // snippet-start:[javascript.v3.wkflw.resilient.CreateLoadBalancer]
     const client = new ElasticLoadBalancingV2Client({});
     const { LoadBalancers } = await client.send(
       new CreateLoadBalancerCommand({
@@ -441,6 +448,7 @@ export const deploySteps = [
       { client },
       { Names: [NAMES.loadBalancerName] },
     );
+    // snippet-end:[javascript.v3.wkflw.resilient.CreateLoadBalancer]
   }),
   new ScenarioOutput("createdLoadBalancer", (c) =>
     MESSAGES.createdLoadBalancer
@@ -454,6 +462,7 @@ export const deploySteps = [
       .replace("${TARGET_GROUP_NAME}", NAMES.loadBalancerTargetGroupName),
   ),
   new ScenarioAction("createListener", async (c) => {
+    // snippet-start:[javascript.v3.wkflw.resilient.CreateListener]
     const client = new ElasticLoadBalancingV2Client({});
     const { Listeners } = await client.send(
       new CreateListenerCommand({
@@ -463,6 +472,7 @@ export const deploySteps = [
         DefaultActions: [{ Type: "forward", TargetGroupArn: c.targetGroupArn }],
       }),
     );
+    // snippet-end:[javascript.v3.wkflw.resilient.CreateListener]
     const listener = Listeners[0];
     c.lbListenerArn = listener.ListenerArn;
   }),
@@ -479,6 +489,7 @@ export const deploySteps = [
       .replace("${AUTO_SCALING_GROUP_NAME}", NAMES.autoScalingGroupName),
   ),
   new ScenarioAction("attachLoadBalancerTargetGroup", async (c) => {
+    // snippet-start:[javascript.v3.wkflw.resilient.AttachTargetGroup]
     const client = new AutoScalingClient({});
     await client.send(
       new AttachLoadBalancerTargetGroupsCommand({
@@ -486,6 +497,7 @@ export const deploySteps = [
         TargetGroupARNs: [c.targetGroupArn],
       }),
     );
+    // snippet-end:[javascript.v3.wkflw.resilient.AttachTargetGroup]
   }),
   new ScenarioOutput(
     "attachedLoadBalancerTargetGroup",

@@ -758,6 +758,15 @@ auto-scaling_AttachLoadBalancerTargetGroups:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.auto-scaling.AttachLoadBalancerTargetGroups
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.AttachTargetGroup
   services:
     auto-scaling: {AttachLoadBalancerTargetGroups}
 auto-scaling_Scenario_GroupsAndInstances:

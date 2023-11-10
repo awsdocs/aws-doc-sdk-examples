@@ -70,19 +70,22 @@ const getRecommendationResult = new ScenarioOutput(
 );
 
 const getHealthCheck = new ScenarioAction("getHealthCheck", async (c) => {
+  // snippet-start:[javascript.v3.wkflw.resilient.DescribeTargetGroups]
   const client = new ElasticLoadBalancingV2Client({});
   const { TargetGroups } = await client.send(
     new DescribeTargetGroupsCommand({
       Names: [NAMES.loadBalancerTargetGroupName],
     }),
   );
+  // snippet-end:[javascript.v3.wkflw.resilient.DescribeTargetGroups]
 
+  // snippet-start:[javascript.v3.wkflw.resilient.DescribeTargetHealth]
   const { TargetHealthDescriptions } = await client.send(
     new DescribeTargetHealthCommand({
       TargetGroupArn: TargetGroups[0].TargetGroupArn,
     }),
   );
-
+  // snippet-end:[javascript.v3.wkflw.resilient.DescribeTargetHealth]
   c.targetHealthDescriptions = TargetHealthDescriptions;
 });
 
@@ -224,6 +227,7 @@ export const demoSteps = [
         }),
       );
       c.targetInstance = AutoScalingGroups[0].Instances[0];
+      // snippet-start:[javascript.v3.wkflw.resilient.DescribeIamInstanceProfileAssociations]
       const ec2Client = new EC2Client({});
       const { IamInstanceProfileAssociations } = await ec2Client.send(
         new DescribeIamInstanceProfileAssociationsCommand({
@@ -232,8 +236,10 @@ export const demoSteps = [
           ],
         }),
       );
+      // snippet-end:[javascript.v3.wkflw.resilient.DescribeIamInstanceProfileAssociations]
       c.instanceProfileAssociationId =
         IamInstanceProfileAssociations[0].AssociationId;
+      // snippet-start:[javascript.v3.wkflw.resilient.ReplaceIamInstanceProfileAssociation]
       await retry({ intervalInMs: 1000, maxRetries: 30 }, () =>
         ec2Client.send(
           new ReplaceIamInstanceProfileAssociationCommand({
@@ -242,6 +248,7 @@ export const demoSteps = [
           }),
         ),
       );
+      // snippet-end:[javascript.v3.wkflw.resilient.ReplaceIamInstanceProfileAssociation]
 
       await ec2Client.send(
         new RebootInstancesCommand({
@@ -429,6 +436,7 @@ async function createSsmOnlyInstanceProfile() {
       PolicyArn: "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
     }),
   );
+  // snippet-start:[javascript.v3.wkflw.resilient.CreateInstanceProfile]
   const { InstanceProfile } = await iamClient.send(
     new CreateInstanceProfileCommand({
       InstanceProfileName: NAMES.ssmOnlyInstanceProfileName,
@@ -438,6 +446,7 @@ async function createSsmOnlyInstanceProfile() {
     { client: iamClient },
     { InstanceProfileName: NAMES.ssmOnlyInstanceProfileName },
   );
+  // snippet-end:[javascript.v3.wkflw.resilient.CreateInstanceProfile]
   await iamClient.send(
     new AddRoleToInstanceProfileCommand({
       InstanceProfileName: NAMES.ssmOnlyInstanceProfileName,

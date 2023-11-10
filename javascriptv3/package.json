@@ -17,6 +17,7 @@
     ]
   },
   "workspaces": [
+    "example_code/auto-scaling",
     "example_code/cloudwatch",
     "example_code/cloudwatch-events",
     "example_code/cloudwatch-logs",
@@ -33,6 +34,7 @@
     "example_code/cross-services/wkflw-resilient-service",
     "example_code/dynamodb",
     "example_code/ec2",
+    "example_code/elastic-load-balancing-v2",
     "example_code/eventbridge",
     "example_code/glue",
     "example_code/iam",

@@ -121,6 +121,7 @@ export class ScenarioInput extends Step {
       context[this.name] = await this.prompter.input({ message });
     } else if (this.options?.type === "confirm") {
       if (options?.confirmAll) {
+        context[this.name] = true;
         return true;
       }
 

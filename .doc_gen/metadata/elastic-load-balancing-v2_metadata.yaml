@@ -22,6 +22,15 @@ elastic-load-balancing-v2_Hello:
             - description:
               snippet_tags:
                 - python.example_code.elbv2.Hello
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/elastic-load-balancing-v2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/elastic-load-balancing-v2/hello.js
   services:
     elastic-load-balancing-v2: {DescribeLoadBalancers}
 elastic-load-balancing-v2_DescribeLoadBalancers:
@@ -40,8 +49,34 @@ elastic-load-balancing-v2_DescribeLoadBalancers:
               snippet_tags:
                 - python.cross_service.resilient_service.LoadBalancer.decl
                 - python.cross_service.resilient_service.elbv2.DescribeLoadBalancers
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/elastic-load-balancing-v2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/elastic-load-balancing-v2/hello.js
   services:
     elastic-load-balancing-v2: {DescribeLoadBalancers}
+elastic-load-balancing-v2_DescribeTargetGroups:
+  title: Describe the specified target groups or all of your target groups
+  title_abbrev: Describe target groups
+  synopsis: describe specific target groups.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/elastic-load-balancing-v2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.DescribeTargetGroups
+  services:
+    elastic-load-balancing-v2: {DescribeTargetGroups}
 elastic-load-balancing-v2_CreateTargetGroup:
   title: Create an ELB target group using an &AWS; SDK
   title_abbrev: Create a target group
@@ -57,6 +92,15 @@ elastic-load-balancing-v2_CreateTargetGroup:
             - description:
               snippet_tags:
                 - javav2.cross_service.resilient_service.elbv2.CreateTargetGroup
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.CreateTargetGroup
     Python:
       versions:
         - sdk_version: 3
@@ -94,6 +138,15 @@ elastic-load-balancing-v2_DeleteTargetGroup:
               snippet_tags:
                 - python.cross_service.resilient_service.LoadBalancer.decl
                 - python.cross_service.resilient_service.elbv2.DeleteTargetGroup
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.DeleteTargetGroup
   services:
     elastic-load-balancing-v2: {DeleteTargetGroup}
 elastic-load-balancing-v2_CreateLoadBalancer:
@@ -121,6 +174,15 @@ elastic-load-balancing-v2_CreateLoadBalancer:
               snippet_tags:
                 - python.cross_service.resilient_service.LoadBalancer.decl
                 - python.cross_service.resilient_service.elbv2.CreateLoadBalancer
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.CreateLoadBalancer
   services:
     elastic-load-balancing-v2: {CreateLoadBalancer}
 elastic-load-balancing-v2_CreateListener:
@@ -148,6 +210,15 @@ elastic-load-balancing-v2_CreateListener:
               snippet_tags:
                 - python.cross_service.resilient_service.LoadBalancer.decl
                 - python.cross_service.resilient_service.elbv2.CreateListener
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.CreateListener
   services:
     elastic-load-balancing-v2: {CreateListener}
 elastic-load-balancing-v2_DeleteLoadBalancer:
@@ -175,6 +246,15 @@ elastic-load-balancing-v2_DeleteLoadBalancer:
               snippet_tags:
                 - python.cross_service.resilient_service.LoadBalancer.decl
                 - python.cross_service.resilient_service.elbv2.DeleteLoadBalancer
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.DeleteLoadBalancer 
   services:
     elastic-load-balancing-v2: {DeleteLoadBalancer}
 elastic-load-balancing-v2_DescribeTargetHealth:
@@ -202,5 +282,14 @@ elastic-load-balancing-v2_DescribeTargetHealth:
               snippet_tags:
                 - python.cross_service.resilient_service.LoadBalancer.decl
                 - python.cross_service.resilient_service.elbv2.DescribeTargetHealth
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.DescribeTargetHealth
   services:
     elastic-load-balancing-v2: {DescribeTargetHealth}

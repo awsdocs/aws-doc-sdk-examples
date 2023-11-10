@@ -209,12 +209,14 @@ export const destroySteps = [
   }),
   new ScenarioAction("deleteInstanceProfile", async (c) => {
     try {
+      // snippet-start:[javascript.v3.wkflw.resilient.DeleteInstanceProfile]
       const client = new IAMClient({});
       await client.send(
         new DeleteInstanceProfileCommand({
           InstanceProfileName: NAMES.instanceProfileName,
         }),
       );
+      // snippet-end:[javascript.v3.wkflw.resilient.DeleteInstanceProfile]
     } catch (e) {
       c.deleteInstanceProfileError = e;
     }
@@ -236,11 +238,13 @@ export const destroySteps = [
   new ScenarioAction("deleteLaunchTemplate", async (c) => {
     const client = new EC2Client({});
     try {
+      // snippet-start:[javascript.v3.wkflw.resilient.DeleteLaunchTemplate]
       await client.send(
         new DeleteLaunchTemplateCommand({
           LaunchTemplateName: NAMES.launchTemplateName,
         }),
       );
+      // snippet-end:[javascript.v3.wkflw.resilient.DeleteLaunchTemplate]
     } catch (e) {
       c.deleteLaunchTemplateError = e;
     }
@@ -285,6 +289,7 @@ export const destroySteps = [
   }),
   new ScenarioAction("deleteLB", async (c) => {
     try {
+      // snippet-start:[javascript.v3.wkflw.resilient.DeleteLoadBalancer]
       const client = new ElasticLoadBalancingV2Client({});
       const loadBalancer = await findLoadBalancer(NAMES.loadBalancerName);
       await client.send(
@@ -298,6 +303,7 @@ export const destroySteps = [
           throw new Error("Load balancer still exists.");
         }
       });
+      // snippet-end:[javascript.v3.wkflw.resilient.DeleteLoadBalancer]
     } catch (e) {
       c.deleteLBError = e;
     }
@@ -314,6 +320,7 @@ export const destroySteps = [
     }
   }),
   new ScenarioAction("deleteLBTargetGroup", async (c) => {
+    // snippet-start:[javascript.v3.wkflw.resilient.DeleteTargetGroup]
     const client = new ElasticLoadBalancingV2Client({});
     try {
       const { TargetGroups } = await client.send(
@@ -332,6 +339,7 @@ export const destroySteps = [
     } catch (e) {
       c.deleteLBTargetGroupError = e;
     }
+    // snippet-end:[javascript.v3.wkflw.resilient.DeleteTargetGroup]
   }),
   new ScenarioOutput("deleteLBTargetGroupResult", (c) => {
     if (c.deleteLBTargetGroupError) {
