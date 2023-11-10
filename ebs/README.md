@@ -25,10 +25,10 @@ The main script file contains the several function that perform the following ta
 
 Prerequisites
 
-    An Amazon Web Services (AWS) account.
-    AWS CLI setup - http://docs.aws.amazon.com/cli/latest/userguide/installing.html 
-    IAM policy/role that allows to perform volume discovery, modification and snapshot creation - Refer: IAM_permission.txt).
-    Configuration profile for cross account access - refer second part of this README 'Scale the execution across accounts'
+- An Amazon Web Services (AWS) account.
+- AWS CLI setup - [Install AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+- IAM policy/role that allows to perform volume discovery, modification and snapshot creation - Refer: IAM_permission.txt).
+- Configuration profile for cross account access - refer second part of this README 'Scale the execution across accounts'
 
 
 Script execution
@@ -56,7 +56,7 @@ Note - snapshot created by this script will have description: "Pre GP3 migration
 
 # Scale the execution across accounts 
 
--- We can scale the execution of this script across accounts by setting the configuration and credentials for all member's account and trigger assume role by selecting the account's profile from one executer account .
+We can scale the execution of this script across accounts by setting the configuration and credentials for all member's account and trigger assume role by selecting the account's profile from one executer account .
  
 
 Install the AWS CLI if not already done preferably on an EC2 instance in any account that will trigger automation action on all member accounts. To set up your default CLI credentials, you should gather the AWS access key and secret key for your script runner user, create an IAM user and then run the aws configure command. You will be prompted for 4 inputs (replace the placeholder keys with your user’s keys).
@@ -82,11 +82,15 @@ The AWS CLI organizes configuration and credentials into two separate files foun
 
 As you can see, the CLI has created these two files and identified them with [default]. Now we will be using the CLI’s ability to assume a role as per named profiles of all member accounts. 
 
+Reference doc : [Configuration and Credential File Settings](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+
 Setup -
 
-1. Assuming a user created in above step in executer account is  ec2-ebs-modify-user, make note of its arn that will be used in next steps.
-2. Now create an IAM role in all member accounts with a trust policy to allow  sts:AssumeRole action to be assumed by our user ec2-ebs-modify-user from executer account. 
-3. This IAM role must have the following IAM policy to allow certain permissions in order to achieve the volume modification. 
+-- Assuming a user created in above step in executer account is  ec2-ebs-modify-user, make note of its arn that will be used in next steps.
+
+-- Now create an IAM role in all member accounts with a trust policy to allow  sts:AssumeRole action to be assumed by our user ec2-ebs-modify-user from executer account. 
+
+-- This IAM role must have the following IAM policy to allow certain permissions in order to achieve the volume modification. 
 
 IAM Role : cross-account-modify-vol
 
