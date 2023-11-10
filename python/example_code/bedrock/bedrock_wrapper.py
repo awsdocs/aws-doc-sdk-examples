@@ -15,7 +15,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-end:[python.example_code.bedrock.BedrockWrapper.class]
+# snippet-start:[python.example_code.bedrock.BedrockWrapper.class]
 # snippet-start:[python.example_code.bedrock.BedrockWrapper.decl]
 class BedrockWrapper:
     """Encapsulates Amazon Bedrock foundation model actions."""
