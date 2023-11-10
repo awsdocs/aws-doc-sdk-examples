@@ -15,7 +15,7 @@ import aws.sdk.kotlin.services.mediaconvert.model.DescribeEndpointsRequest
 import aws.sdk.kotlin.services.mediaconvert.model.JobStatus
 import aws.sdk.kotlin.services.mediaconvert.model.ListJobsRequest
 import aws.smithy.kotlin.runtime.client.endpoints.Endpoint
-import aws.smithy.kotlin.runtime.client.endpoints.EndpointProvider
+import aws.sdk.kotlin.services.mediaconvert.endpoints.MediaConvertEndpointProvider
 import kotlin.system.exitProcess
 // snippet-end:[mediaconvert.kotlin.list_jobs.import]
 
@@ -45,7 +45,7 @@ suspend fun listCompleteJobs(mcClient: MediaConvertClient) {
     val endpointURL = res.endpoints!![0].url!!
     val mediaConvert = MediaConvertClient.fromEnvironment {
         region = "us-west-2"
-        endpointProvider = EndpointProvider {
+        endpointProvider = MediaConvertEndpointProvider {
             Endpoint(endpointURL)
         }
     }
