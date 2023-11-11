@@ -10,7 +10,7 @@
 
 package com.example.bedrockruntime;
 
-// snippet-start:[bedrockruntime.java2.invoke_model.import]
+// snippet-start:[bedrock-runtime.java2.invoke_model.import]
 import org.json.JSONObject;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
@@ -19,7 +19,7 @@ import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 import software.amazon.awssdk.services.bedrockruntime.model.BedrockRuntimeException;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelRequest;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
-// snippet-end:[bedrockruntime.java2.invoke_model.import]
+// snippet-end:[bedrock-runtime.java2.invoke_model.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -43,7 +43,7 @@ public class InvokeModel {
         invokeModel(bedrockRuntimeClient, prompt);
     }
 
-    // snippet-start:[bedrockruntime.java2.invoke_model.main]
+    // snippet-start:[bedrock-runtime.java2.invoke_model.main]
     public static String invokeModel(BedrockRuntimeClient bedrockRuntimeClient, String prompt) {
 
         try {
@@ -82,5 +82,5 @@ public class InvokeModel {
         }
         return null;
     }
-    // snippet-end:[bedrockruntime.java2.invoke_model.main]
+    // snippet-end:[bedrock-runtime.java2.invoke_model.main]
 }
