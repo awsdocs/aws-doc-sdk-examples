@@ -31,71 +31,94 @@ class BedrockRuntimeWrapper:
 
     # snippet-end:[python.example_code.bedrock-runtime.BedrockRuntimeWrapper.decl]
 
-    # snippet-start:[python.example_code.bedrock-runtime.InvokeModel]
-    def invoke_model(self, modelId, prompt):
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeAnthropicClaude]
+    def invoke_claude(self, prompt):
         """
-        Invokes the specified Bedrock model to run inference using the input provided in the
-        request body. You can use InvokeModel to run inference for text models, image models,
-        and embedding models.
+        Invokes theAnthropic Claude large-language model to run an inference using
+        the input provided in the request body.
 
-        :param modelId: Identifier of the model.
-        :param prompt: The prompt to be sent to the model.
-        :return: The inferred response from the model.
+        :param prompt: The prompt that you want Claude to complete.
+        :return: Inference response from the model.
         """
-
 
         try:
-            prompt = "Human: " + prompt + "\n\nAssistant:"
 
-            global payload
+            # Claude requires you to format the prompt as follows:
+            formatted_prompt = "Human: " + prompt + "\n\nAssistant:"
 
-            # Models by different providers use their own respective input formats. To see the format
-            # and content for the individual models, refer to:
-            # - https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html
-            # - https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html
-
-            if "anthropic.claude" in modelId:
-                payload = {
-                    "prompt": prompt,
-                    "temperature": 0.5,
-                    "max_tokens_to_sample": 200,
-                    "stop_sequences": ["\n\nHuman:"]
-                }
-
-            elif "ai21.j2" in modelId:
-                payload = {
-                    "prompt": prompt,
-                    "temperature": 0.5,
-                    "maxTokens": 200,
-                    "stopSequences": ["\nHuman:"]
-                }
-
-            body = json.dumps(payload)
+            # To see the format, ranges, and default values for the model parameters refer to:
+            # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
+            body = json.dumps({
+                # Required parameters
+                "prompt": formatted_prompt,
+                "max_tokens_to_sample": 200,
+                # Optional parameters
+                "temperature": 0.5,
+                "top_p": 1,
+                "top_k": 250,
+                "stop_sequences": ["\n\nHuman:"]
+            })
 
             response = self.bedrock_runtime_client.invoke_model(
-                modelId=modelId,
+                modelId="anthropic.claude-v2",
                 body=body
             )
 
+            # To see the format and content of the response body, refer to:
+            # https://docs.anthropic.com/claude/reference/complete_post
             response_body = json.loads(response["body"].read())
+            completion = response_body["completion"]
+
+            return completion
 
         except ClientError:
-            logger.error("Couldn't invoke model %s", modelId)
+            logger.error("Couldn't invoke Anthropic Claude")
             raise
-        else:
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeAnthropicClaude]
 
-            # Models by different providers use their own respective output formats. To see the format
-            # and content for the individual models, refer to:
-            # - https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html
-            # - https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeAi21Jurassic2]
+    def invoke_jurassic2(self, prompt):
+        """
+        Invokes the AI21 Labs Jurassic-2 large-language model to run an inference
+        using the input provided in the request body.
 
-            if "anthropic.claude" in modelId:
-                return response_body["completion"]
-            elif "ai21.j2" in modelId:
-                return response_body["completions"][0]["data"]["text"]
+        :param prompt: The prompt that you want Jurassic-2 to complete.
+        :return: Inference response from the model.
+        """
 
+        try:
 
-# snippet-end:[python.example_code.bedrock-runtime.InvokeModel]
+            # To see the format, ranges, and default values for the model parameters refer to:
+            # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html
+            body = json.dumps({
+                # Required parameters
+                "prompt": prompt,
+                # Optional parameters
+                "temperature": 0.5,
+                "topP": 1,
+                "maxTokens": 200,
+                "stopSequences": [],
+                "countPenalty": {"scale": 0},
+                "presencePenalty": {"scale": 0},
+                "frequencyPenalty": {"scale": 0},
+            })
+
+            response = self.bedrock_runtime_client.invoke_model(
+                modelId="ai21.j2-mid-v1",
+                body=body
+            )
+
+            # To see the format and content of the response body, refer to:
+            # https://docs.ai21.com/reference/j2-complete-ref
+            response_body = json.loads(response["body"].read())
+            completion = response_body["completions"][0]["data"]["text"]
+
+            return completion
+
+        except ClientError:
+            logger.error("Couldn't invoke Anthropic Claude")
+            raise
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeAi21Jurassic2]
 
 
 # snippet-end:[python.example_code.bedrock-runtime.BedrockWrapper.class]
@@ -106,11 +129,14 @@ def invoke(wrapper, modelId, prompt):
     print("Prompt: " + prompt)
 
     try:
-        completion = wrapper.invoke_model(
-            modelId=modelId,
-            prompt=prompt
-        )
-        print("Completion: " + completion.strip())
+        if (modelId == "anthropic.claude-v2"):
+            completion = wrapper.invoke_claude(prompt)
+            print("Completion: " + completion.strip())
+
+        elif (modelId == "ai21.j2-mid-v1"):
+            completion = wrapper.invoke_jurassic2(prompt)
+            print("Completion: " + completion.strip())
+
     except ClientError:
         logger.exception("Couldn't invoke model %s", modelId)
         raise
@@ -142,4 +168,3 @@ def usage_demo():
 
 if __name__ == "__main__":
     usage_demo()
-

@@ -16,14 +16,42 @@ bedrock-runtime_InvokeModel:
             - description: Invoke a Stable Diffusion foundation model.
               snippet_tags:
                 - bdr.abapv1.invokemodel_stable_diffusion
+
+  services:
+    bedrock-runtime: {InvokeModel}
+
+bedrock-runtime_InvokeClaude:
+  title: Invoke the Anthropic Claude model to run an inference
+  title_abbrev: Invoke Anthropic Claude 2
+  synopsis: invoke the anthropic claude model to run inference.
+  category:
+  languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke a model
+            - description: Invoke an Anthropic Claude foundation model
               snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel
+                - python.example_code.bedrock-runtime.InvokeAnthropicClaude
 
   services:
-    bedrock-runtime: {InvokeModel}
+    bedrock-runtime: { InvokeModel }
+
+bedrock-runtime_InvokeJurassic2:
+  title: Invoke the AI21 Labs Jurassic-2 model to run an inference
+  title_abbrev: Invoke AI21 Labs Jurassic-2
+  synopsis: invoke the ai21 labs jurassic-2 model to run an inference
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+              - description: Invoke an AI 21 Labs Jurassic-2 foundation model
+                snippet_tags:
+                  - python.example_code.bedrock-runtime.InvokeAi21Jurassic2
+
+  services:
+    bedrock-runtime: { InvokeModel }
