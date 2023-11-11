@@ -2,29 +2,21 @@
 # Amazon Bedrock Runtime code examples for the SDK for Java 2.x
 
 ## Overview
+Shows how to use the AWS SDK for Java 2.x to work with the Amazon Bedrock Runtime client.
 
-Shows how to use the AWS SDK for Java 2.x to work with Amazon Bedrock Runtime.
+Amazon Bedrock is a fully managed service that offers a choice of high-performing foundation models (FMs) from leading AI companies like AI21 Labs, Anthropic, Cohere, Meta, Stability AI, and Amazon with a single API, along with a broad set of capabilities you need to build generative AI applications, simplifying development while maintaining privacy and security.
 
-<!--custom.overview.start-->
-<!--custom.overview.end-->
-
-*Amazon Bedrock Runtime is a fully managed service that makes it easy to use foundation models from third-party providers and Amazon.*
-
-## ⚠ Important
-
-* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+## ⚠️ Important
+* The SDK for Java examples performs AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-
-<!--custom.important.start-->
-<!--custom.important.end-->
 
 ## Code examples
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
+For prerequisites, see the [README](../../README.md) in the `javav2` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -33,7 +25,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Single actions
 
-Code excerpts that show you how to call individual service functions.
+The following example uses the **BedrockRuntimeClient**:
+
+- [Invoking a model](./src/main/java/com/example/bedrockruntime/InvokeModel.java) (InvokeModel command)
 
 * [Invoke AI21 Labs Jurassic-2 on Amazon Bedrock](src/main/java/com/example/bedrockruntime/InvokeModel.java#L101) (`InvokeModel`)
 * [Invoke Anthropic Claude 2 on Amazon Bedrock](src/main/java/com/example/bedrockruntime/InvokeModel.java#L51) (`InvokeModel`)
@@ -42,36 +36,52 @@ Code excerpts that show you how to call individual service functions.
 
 ## Run the examples
 
-### Instructions
+To run these examples, set up your development environment. For more information,
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
+## Testing the Amazon Bedrock Java files
 
+You can test the Java code examples for the Amazon Bedrock Runtime client by running the test file [BedrockRuntimeTest.java](./src/test/java/BedrockRuntimeTest.java). This file uses JUnit 5 to run the JUnit tests and is located in the `src/test/java` folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-<!--custom.instructions.start-->
-<!--custom.instructions.end-->
+You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail.
 
+**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
+### Command line
 
-### Tests
+To run the JUnit tests from the command line, you can use the following command:
 
-⚠ Running tests might result in charges to your AWS account.
+		mvn test
 
+You will see output from the JUnit tests, as shown here.
 
-To find instructions for running these tests, see the [README](../../README.md#Tests)
-in the `javav2` folder.
-
-
-
-<!--custom.tests.start-->
-<!--custom.tests.end-->
+    ...
+    [INFO] --------------------------------------------------
+	[INFO]  T E S T S
+    [INFO] --------------------------------------------------
+	[INFO] Running BedrockRuntimeTest
+    ...
+	Test 1 passed
+    ...
+    Test 2 passed.
+	...
+	[INFO] Results:
+	[INFO]
+	[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+	[INFO]
+	[INFO] --------------------------------------------------
+	[INFO] BUILD SUCCESS
+	[INFO] --------------------------------------------------
+	[INFO] Total time:  10.115 s
+	[INFO] Finished at: 2023-11-09T21:01:15+01:00
+	[INFO] --------------------------------------------------
 
 ## Additional resources
 
-* [Amazon Bedrock Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
-* [Amazon Bedrock Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
-* [SDK for Java 2.x Amazon Bedrock Runtime reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/bedrock-runtime/package-summary.html)
-
-<!--custom.resources.start-->
-<!--custom.resources.end-->
+* [Amazon Bedrock - User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide)
+* [Amazon Bedrock - API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference)
+* [AWS SDK for Java - Developer Guide](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html)
+* [AWS SDK for Java - Amazon Bedrock Runtime API reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/bedrockruntime/package-summary.html)
 
 ---
 
