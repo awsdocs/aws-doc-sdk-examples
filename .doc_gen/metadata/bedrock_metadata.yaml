@@ -1,0 +1,18 @@
+# zexi 0.4.0
+bedrock-ListFoundationModels:
+  title: List the available foundation models using an &AWS; SDK
+  title_abbrev: List available foundation models
+  synopsis: list available foundation models
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock
+          sdkguide:
+          excerpts:
+            - description: List the available Bedrock foundation models
+              snippet_tags:
+                - python.example_code.bedrock.ListFoundationModels
+  services:
+    bedrock: { ListFoundationModels }
