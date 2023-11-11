@@ -47,7 +47,8 @@ bedrock-runtime_InvokeJurassic2:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/bedrock-runtime
+          github: python/example_code/bedrockruntime
+          sdkguide:
           excerpts:
               - description: Invoke an AI 21 Labs Jurassic-2 foundation model
                 snippet_tags:
