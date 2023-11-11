@@ -36,9 +36,7 @@ class BedrockRuntimeStubber(ExampleStubber):
                 "prompt": f'Human: {prompt}\n\nAssistant:',
                 "max_tokens_to_sample": 200,
                 "temperature": 0.5,
-                "top_p": 1,
-                "top_k": 250,
-                "stop_sequences": ["\n\nHuman:"]
+                 "stop_sequences": ["\n\nHuman:"]
             })
         }
         response = {
@@ -55,19 +53,36 @@ class BedrockRuntimeStubber(ExampleStubber):
             "body": json.dumps({
                 "prompt": prompt,
                 "temperature": 0.5,
-                "topP": 1,
-                "maxTokens": 200,
-                "stopSequences": [],
-                "countPenalty": {"scale": 0},
-                "presencePenalty": {"scale": 0},
-                "frequencyPenalty": {"scale": 0},
+                "maxTokens": 200
             })
         }
 
         response_body = io.BytesIO(json.dumps(
-            {
-                "completions": [{"data": {"text": "A test completion."}}]
-            }
+            {"completions": [{"data": {"text": "A test completion."}}]}
+        ).encode("utf-8"))
+
+        response = {
+            "body": response_body,
+            "contentType": ""
+        }
+        self._stub_bifurcator(
+            "invoke_model", expected_params, response, error_code=error_code
+        )
+
+    def stub_invoke_stable_diffusion(self, prompt, style_preset, seed, error_code=None):
+        expected_params = {
+            "modelId": "stability.stable-diffusion-xl",
+            "body": json.dumps({
+                "text_prompts": [{"text": prompt}],
+                "seed": seed,
+                "cfg_scale": 10,
+                "steps": 30,
+                "style_preset": style_preset
+            })
+        }
+
+        response_body = io.BytesIO(json.dumps(
+            {"artifacts": [{"base64": "AnExampleBase64String=="}]}
         ).encode("utf-8"))
 
         response = {
