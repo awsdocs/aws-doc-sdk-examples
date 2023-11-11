@@ -203,7 +203,8 @@ Swift:
         link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x"
   guide: "&guide-swift-dev;"
 CLI:
-  property: sh
+  property: cli
+  syntax: none
   sdk:
     2:
       long: "&CLIlong;"
@@ -218,6 +219,51 @@ CLI:
       api_ref:
         uid: "aws-cli"
         name: "&guide-cli-ref;"
+        link_template: "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/{{.MappedService}}/{{.ActionKebab}}.html"
+        service_map:
+          api-gateway: apigateway
+          application-auto-scaling: application-autoscaling
+          app-mesh: appmesh
+          auto-scaling: autoscaling
+          auto-scaling-plans: autoscaling-plans
+          cost-explorer: ce
+          cloudsearch-domain: cloudsearchdomain
+          cognito-identity-provider: cognito-idp
+          config-service: configservice
+          cost-and-usage-report-service: cur
+          data-pipeline: datapipeline
+          codedeploy: deploy
+          device-farm: devicefarm
+          direct-connect: directconnect
+          application-discovery-service: discovery
+          database-migration-service: dms
+          directory-service: ds
+          dynamodb-streams: dynamodbstreams
+          elastic-beanstalk: elasticbeanstalk
+          elastic-transcoder: elastictranscoder
+          elastic-load-balancing: elb
+          elastic-load-balancing-v2: elbv2
+          elasticsearch-service: es
+          eventbridge: events
+          global-accelerator: globalaccelerator
+          iot-data-plane: iot-data
+          iot-jobs-data-plane: iot-jobs-data
+          iot-1click-devices-service: iot1click-devices
+          iot-1click-projects: iot1click-projects
+          iot-events: iotevents
+          iot-events-data: iotevents-data
+          iot-wireless: iotwireless
+          cloudwatch-logs: logs
+          resource-groups-tagging-api: resourcegroupstaggingapi
+          route-53: route53
+          route-53-domains: route53domains
+          s3: s3api
+          s3-control: s3control
+          secrets-manager: secretsmanager
+          serverlessapplicationrepository: serverlessrepo
+          service-catalog: servicecatalog
+          service-catalog-appregistry: servicecatalog-appregistry
+          storage-gateway: storagegateway
   guide: "&guide-cli-ug;"
 Bash:
   property: bash

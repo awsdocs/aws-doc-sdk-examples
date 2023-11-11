@@ -4,6 +4,7 @@ map(include('sdk'), key=enum('Bash', 'C++', 'CLI', 'Go', 'Java', 'JavaScript', '
 ---
 sdk:
   property: include('syntax_enum')
+  syntax: include('syntax_enum', required=False)
   sdk: map(include('version'), key=int(min=1))
   guide: include('entity_regex')
 
@@ -23,11 +24,12 @@ api_ref:
   uid: str(check_aws=False)
   name: include('entity_regex')
   link_template: str(required=False, check_aws=False)
+  service_map: map(str(), key=str(), required=False)
 
 title_override:
   title: str()
   title_abbrev: str()
 
-syntax_enum: enum('bash', 'cpp', 'go', 'java', 'javascript', 'kotlin', 'csharp', 'php', 'python', 'ruby', 'rust', 'sap-abap', 'sh', 'swift')
+syntax_enum: enum('bash', 'cli', 'none', 'cpp', 'go', 'java', 'javascript', 'kotlin', 'csharp', 'php', 'python', 'ruby', 'rust', 'sap-abap', 'sh', 'swift')
 entity_regex: regex('^&[-_a-zA-Z0-9]+;$', name='valid entity')
 entity_with_version_regex: regex('^&[-_a-zA-Z0-9]+;', name='valid entity with version')

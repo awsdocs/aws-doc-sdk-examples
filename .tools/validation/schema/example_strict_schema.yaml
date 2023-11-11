@@ -25,6 +25,7 @@ language:
 version:
   sdk_version: int(min=1)
   github: regex('^(?!http).+', name="relative URL", required=False)
+  github_note_at_bottom: bool(required=False)
   sdkguide: include('doc_url', required=False)
   excerpts: list(include('excerpt'), required=False)
   block_content: block_content(required=False)
