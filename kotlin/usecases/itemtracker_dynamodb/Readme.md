@@ -35,7 +35,7 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Kotlin IDE (this tutorial uses the IntelliJ IDE).
-+ Java 17 JDK..
++ Java 17 JDK.
 + Gradle 8.1 or higher.
 + You must also set up your development environment. For more information, 
 see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
