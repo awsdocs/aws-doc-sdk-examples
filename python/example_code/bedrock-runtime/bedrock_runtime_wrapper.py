@@ -120,16 +120,17 @@ class BedrockRuntimeWrapper:
         the input provided in the request body.
 
         :param prompt: The prompt that you want Stable Diffusion to complete.
-        :param seed:
-        :param style_preset:
+        :param seed: Random noise seed (omit this option or use 0 for a random seed)
+        :param style_preset: Pass in a style preset to guide the image model towards
+                             a particular style.
         :return: Base64-encoded inference response from the model.
         """
 
         try:
 
             # The different model providers have individual request and response formats.
-            # For the format, ranges, and default values for Stability.ai Diffusion models,
-            # refer to: https://platform.stability.ai/docs/api-reference#tag/v1generation
+            # For the format, ranges, available style_presets, and default values refer to:
+            # https://platform.stability.ai/docs/api-reference#tag/v1generation
 
             body = {
                 "text_prompts": [{"text": prompt}],
