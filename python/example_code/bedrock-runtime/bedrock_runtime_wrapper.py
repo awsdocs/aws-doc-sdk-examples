@@ -16,8 +16,8 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.bedrockruntime.BedrockRuntimeWrapper.class]
-# snippet-start:[python.example_code.bedrockruntime.BedrockRuntimeWrapper.decl]
+# snippet-start:[python.example_code.bedrock-runtime.BedrockRuntimeWrapper.class]
+# snippet-start:[python.example_code.bedrock-runtime.BedrockRuntimeWrapper.decl]
 class BedrockRuntimeWrapper:
     """Encapsulates Amazon Bedrock Runtime actions."""
 
@@ -29,9 +29,9 @@ class BedrockRuntimeWrapper:
         """
         self.bedrock_runtime_client = bedrock_runtime_client
 
-    # snippet-end:[python.example_code.bedrockruntime.BedrockRuntimeWrapper.decl]
+    # snippet-end:[python.example_code.bedrock-runtime.BedrockRuntimeWrapper.decl]
 
-    # snippet-start:[python.example_code.bedrockruntime.InvokeModel]
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeModel]
     def invoke_model(self, modelId, prompt):
         """
         Invokes the specified Bedrock model to run inference using the input provided in the
@@ -95,10 +95,10 @@ class BedrockRuntimeWrapper:
                 return response_body["completions"][0]["data"]["text"]
 
 
-# snippet-end:[python.example_code.bedrockruntime.InvokeModel]
+# snippet-end:[python.example_code.bedrock-runtime.InvokeModel]
 
 
-# snippet-end:[python.example_code.bedrockruntime.BedrockWrapper.class]
+# snippet-end:[python.example_code.bedrock-runtime.BedrockWrapper.class]
 
 
 def invoke(wrapper, modelId, prompt):
