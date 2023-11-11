@@ -29,7 +29,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `pytho
 Install the packages required by these examples by running the following in a virtual environment:
 
 ```
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 <!--custom.prerequisites.start-->
