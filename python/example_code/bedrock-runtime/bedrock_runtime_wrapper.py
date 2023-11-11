@@ -8,9 +8,13 @@ Shows how to use the AWS SDK for Python (Boto3) with the Amazon Bedrock Runtime 
 to run inference using Bedrock models.
 """
 
-import logging
-import boto3
+import base64
 import json
+import logging
+import os
+import random
+
+import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -34,8 +38,8 @@ class BedrockRuntimeWrapper:
     # snippet-start:[python.example_code.bedrock-runtime.InvokeAnthropicClaude]
     def invoke_claude(self, prompt):
         """
-        Invokes theAnthropic Claude large-language model to run an inference using
-        the input provided in the request body.
+        Invokes the Anthropic Claude 2 model to run an inference using the input
+        provided in the request body.
 
         :param prompt: The prompt that you want Claude to complete.
         :return: Inference response from the model.
@@ -43,29 +47,25 @@ class BedrockRuntimeWrapper:
 
         try:
 
-            # Claude requires you to format the prompt as follows:
-            formatted_prompt = "Human: " + prompt + "\n\nAssistant:"
+            # The different model providers have individual request and response formats.
+            # For the format, ranges, and default values for Anthropic Claude, refer to:
+            # https://docs.anthropic.com/claude/reference/complete_post
 
-            # To see the format, ranges, and default values for the model parameters refer to:
-            # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
-            body = json.dumps({
-                # Required parameters
-                "prompt": formatted_prompt,
+            # Claude requires you to enclose the prompt as follows:
+            enclosed_prompt = "Human: " + prompt + "\n\nAssistant:"
+
+            body = {
+                "prompt": enclosed_prompt,
                 "max_tokens_to_sample": 200,
-                # Optional parameters
                 "temperature": 0.5,
-                "top_p": 1,
-                "top_k": 250,
                 "stop_sequences": ["\n\nHuman:"]
-            })
+            }
 
             response = self.bedrock_runtime_client.invoke_model(
                 modelId="anthropic.claude-v2",
-                body=body
+                body=json.dumps(body)
             )
 
-            # To see the format and content of the response body, refer to:
-            # https://docs.anthropic.com/claude/reference/complete_post
             response_body = json.loads(response["body"].read())
             completion = response_body["completion"]
 
@@ -88,44 +88,98 @@ class BedrockRuntimeWrapper:
 
         try:
 
-            # To see the format, ranges, and default values for the model parameters refer to:
-            # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html
-            body = json.dumps({
-                # Required parameters
+            # The different model providers have individual request and response formats.
+            # For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
+            # https://docs.ai21.com/reference/j2-complete-ref
+
+            body = {
                 "prompt": prompt,
-                # Optional parameters
                 "temperature": 0.5,
-                "topP": 1,
                 "maxTokens": 200,
-                "stopSequences": [],
-                "countPenalty": {"scale": 0},
-                "presencePenalty": {"scale": 0},
-                "frequencyPenalty": {"scale": 0},
-            })
+            }
 
             response = self.bedrock_runtime_client.invoke_model(
                 modelId="ai21.j2-mid-v1",
-                body=body
+                body=json.dumps(body)
             )
 
-            # To see the format and content of the response body, refer to:
-            # https://docs.ai21.com/reference/j2-complete-ref
             response_body = json.loads(response["body"].read())
             completion = response_body["completions"][0]["data"]["text"]
 
             return completion
 
         except ClientError:
-            logger.error("Couldn't invoke Anthropic Claude")
+            logger.error("Couldn't invoke Anthropic Claude 2")
             raise
     # snippet-end:[python.example_code.bedrock-runtime.InvokeAi21Jurassic2]
+
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeStableDiffusion]
+    def invoke_stable_diffusion(self, prompt, seed, style_preset=None):
+        """
+        Invokes the Stability.ai Stable Diffusion XL model to create an image using
+        the input provided in the request body.
+
+        :param prompt: The prompt that you want Stable Diffusion to complete.
+        :param seed:
+        :param style_preset:
+        :return: Base64-encoded inference response from the model.
+        """
+
+        try:
+
+            # The different model providers have individual request and response formats.
+            # For the format, ranges, and default values for Stability.ai Diffusion models,
+            # refer to: https://platform.stability.ai/docs/api-reference#tag/v1generation
+
+            body = {
+                "text_prompts": [{"text": prompt}],
+                "seed": seed,
+                "cfg_scale": 10,
+                "steps": 30
+            }
+
+            if style_preset:
+                body["style_preset"] = style_preset
+
+            response = self.bedrock_runtime_client.invoke_model(
+                modelId="stability.stable-diffusion-xl",
+                body=json.dumps(body)
+            )
+
+            response_body = json.loads(response["body"].read())
+            base64_image_data = response_body["artifacts"][0]["base64"]
+
+            return base64_image_data
+
+        except ClientError:
+            logger.error("Couldn't invoke Stable Diffusion XL")
+            raise
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeStableDiffusion]
 
 
 # snippet-end:[python.example_code.bedrock-runtime.BedrockWrapper.class]
 
+def save_image(base64_image_data):
+    directory = "output"
 
-def invoke(wrapper, modelId, prompt):
-    print(f'\nInvoking: {modelId}')
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    i = 1
+    while os.path.exists(os.path.join(directory, f"image_{i}.png")):
+        i += 1
+
+    image_data = base64.b64decode(base64_image_data)
+
+    file_path = os.path.join(directory, f"image_{i}.png")
+    with open(file_path, 'wb') as file:
+        file.write(image_data)
+
+    return file_path
+
+def invoke(wrapper, modelId, prompt, style_preset=None):
+    print("-" * 88)
+    print(f'Invoking: {modelId}')
     print("Prompt: " + prompt)
 
     try:
@@ -136,6 +190,12 @@ def invoke(wrapper, modelId, prompt):
         elif (modelId == "ai21.j2-mid-v1"):
             completion = wrapper.invoke_jurassic2(prompt)
             print("Completion: " + completion.strip())
+
+        elif (modelId == "stability.stable-diffusion-xl"):
+            seed = random.randint(0, 4294967295)
+            base64_image_data = wrapper.invoke_stable_diffusion(prompt, seed, style_preset)
+            image_path = save_image(base64_image_data)
+            print(f'The generated image has been saved to {image_path}')
 
     except ClientError:
         logger.exception("Couldn't invoke model %s", modelId)
@@ -160,10 +220,13 @@ def usage_demo():
 
     wrapper = BedrockRuntimeWrapper(client)
 
-    prompt = "Hi, who are you?"
+    text_prompt = "Hi, who are you?"
+    invoke(wrapper, "anthropic.claude-v2", text_prompt)
+    invoke(wrapper, "ai21.j2-mid-v1", text_prompt)
 
-    invoke(wrapper, "anthropic.claude-v2", prompt)
-    invoke(wrapper, "ai21.j2-mid-v1", prompt)
+    image_prompt = "A sunset over the ocean"
+    style_preset = "photographic"
+    invoke(wrapper, "stability.stable-diffusion-xl", image_prompt, style_preset)
 
 
 if __name__ == "__main__":
