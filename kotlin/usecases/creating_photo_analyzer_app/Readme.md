@@ -75,10 +75,6 @@ You can also download a given image from the Amazon S3 bucket by using this appl
 
 ## Create an IntelliJ project named PhotoAnalyzerKotlin
 
-The following figure shows the project options.
-
-![AWS Photo Analyzer](images/project.png)
-
 Perform these steps.
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
@@ -151,7 +147,7 @@ tasks.withType<Test> {
 
 ## Create the Kotlin classes
 
-Create a package in the **main/java** folder named **com.aws.photo**. The Kotlin files go into this package.
+Create a package in the **main/kotlin** folder named **com.aws.photo**. The Kotlin files go into this package.
 
 ![AWS Photo Analyzer](images/project3.png)
 
