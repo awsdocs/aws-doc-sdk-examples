@@ -29,18 +29,49 @@ class BedrockRuntimeStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_invoke_model(self, model_id, prompt, error_code=None):
+    def stub_invoke_claude(self, prompt, error_code=None):
         expected_params = {
-            "modelId": model_id,
+            "modelId": "anthropic.claude-v2",
             "body": json.dumps({
                 "prompt": f'Human: {prompt}\n\nAssistant:',
-                "temperature": 0.5,
                 "max_tokens_to_sample": 200,
+                "temperature": 0.5,
+                "top_p": 1,
+                "top_k": 250,
                 "stop_sequences": ["\n\nHuman:"]
             })
         }
         response = {
             "body": io.BytesIO('{ "completion": "A test completion" }'.encode("utf-8")),
+            "contentType": ""
+        }
+        self._stub_bifurcator(
+            "invoke_model", expected_params, response, error_code=error_code
+        )
+
+    def stub_invoke_jurassic2(self, prompt, error_code=None):
+        expected_params = {
+            "modelId": "ai21.j2-mid-v1",
+            "body": json.dumps({
+                "prompt": prompt,
+                "temperature": 0.5,
+                "topP": 1,
+                "maxTokens": 200,
+                "stopSequences": [],
+                "countPenalty": {"scale": 0},
+                "presencePenalty": {"scale": 0},
+                "frequencyPenalty": {"scale": 0},
+            })
+        }
+
+        response_body = io.BytesIO(json.dumps(
+            {
+                "completions": [{"data": {"text": "A test completion."}}]
+            }
+        ).encode("utf-8"))
+
+        response = {
+            "body": response_body,
             "contentType": ""
         }
         self._stub_bifurcator(
