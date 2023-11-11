@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a Spring Boot application that queries Amazon Aurora Serverless data. The Spring Boot application uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).    |
 | Audience   |  Developer (intermediate)        |
-| Updated   | 11/14/2022        |
+| Updated   | 11/14/2023        |
 | Required skills   | Kotlin, Gradle, JavaScript  |
 
 ## Purpose
@@ -37,8 +37,8 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Kotlin IDE (this tutorial uses the IntelliJ IDE).
-+ Java 1.8 JDK.
-+ Gradle 6.8 or higher.
++ Java 17 JDK.
++ Gradle 8.1 or higher.
 + You must also set up your development environment. For more information, 
 see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
 
@@ -135,15 +135,20 @@ Perform these steps.
 At this point, you have a new project. Confirm that the **build.gradle.kts** file looks like the following.
 
 ```yaml
-  import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.0"
     application
 }
 
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 buildscript {
     repositories {
@@ -156,31 +161,33 @@ buildscript {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
+    implementation("aws.sdk.kotlin:rdsdata:0.33.1-beta")
+    implementation("aws.sdk.kotlin:ses:0.33.1-beta")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
+    implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
     implementation("org.springframework.boot:spring-boot-starter-web:2.7.5")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("com.sun.mail:javax.mail:1.6.2")
-    implementation("aws.sdk.kotlin:rdsdata:0.17.1-beta")
-    implementation("aws.sdk.kotlin:ses:0.17.1-beta")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.5")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
 
 ```
 
