@@ -16,6 +16,16 @@ bedrock-runtime_InvokeModel:
             - description: Invoke a Stable Diffusion foundation model.
               snippet_tags:
                 - bdr.abapv1.invokemodel_stable_diffusion
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrockruntime
+          sdkguide:
+          excerpts:
+            - description:
+              snippet-tags:
+                - python.example_code.bedrockruntime.InvokeModel
+
   services:
     bedrock-runtime: {InvokeModel}
 
