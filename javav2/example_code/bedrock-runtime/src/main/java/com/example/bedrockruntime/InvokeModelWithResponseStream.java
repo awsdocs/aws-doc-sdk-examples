@@ -10,7 +10,7 @@
 
 package com.example.bedrockruntime;
 
-// snippet-start:[bedrockruntime.java2.invoke_model_with_response_stream.import]
+// snippet-start:[bedrock-runtime.java2.invoke_model_with_response_stream.import]
 import org.json.JSONObject;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
@@ -22,7 +22,7 @@ import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelWithRespo
 import software.amazon.awssdk.services.bedrockruntime.model.ResponseStream;
 
 import java.util.concurrent.CompletableFuture;
-// snippet-end:[bedrockruntime.java2.invoke_model_with_response_stream.import]
+// snippet-end:[bedrock-runtime.java2.invoke_model_with_response_stream.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -46,7 +46,7 @@ public class InvokeModelWithResponseStream {
         invokeModel(bedrockRuntimeAsyncClient, prompt);
     }
 
-    // snippet-start:[bedrockruntime.java2.invoke_model_with_response_stream.main]
+    // snippet-start:[bedrock-runtime.java2.invoke_model_with_response_stream.main]
     public static String invokeModel(BedrockRuntimeAsyncClient bedrockRuntimeAsyncClient, String prompt) {
 
         try {
@@ -95,5 +95,5 @@ public class InvokeModelWithResponseStream {
         }
         return null;
     }
-    // snippet-end:[bedrockruntime.java2.invoke_model_with_response_stream.main]
+    // snippet-end:[bedrock-runtime.java2.invoke_model_with_response_stream.main]
 }

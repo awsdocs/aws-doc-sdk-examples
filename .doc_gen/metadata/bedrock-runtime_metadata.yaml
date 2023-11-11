@@ -16,5 +16,30 @@ bedrock-runtime_InvokeModel:
             - description: Invoke a Stable Diffusion foundation model.
               snippet_tags:
                 - bdr.abapv1.invokemodel_stable_diffusion
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke a large-language-model
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_model.main
   services:
     bedrock-runtime: {InvokeModel}
+
+bedrock-runtime_InvokeModelWithResponseStream:
+  title: Invoke the specified &BR; model to run an inference with a response stream
+  title_abbrev: Invoke a model with a response stream
+  synopsis: invoke an &BR; model to run an inference with a response stream
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke a model and process the response stream
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_model_with_response_stream.main
+  services:
+    bedrock-runtime: {InvokeModelWithResponseStream}
