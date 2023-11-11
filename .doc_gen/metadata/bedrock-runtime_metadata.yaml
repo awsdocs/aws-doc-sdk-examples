@@ -71,7 +71,7 @@ bedrock-runtime_InvokeStableDiffusion:
     bedrock-runtime: { InvokeModel }
 
 bedrock-runtime_InvokeModelWithResponseStream:
-  title: Invoke the specified &BR; model on &BR; to run an inference with a response stream
+  title: Invoke the specified model on &BR; to run an inference with a response stream
   title_abbrev: Invoke a model on $BR; with a response stream
   synopsis: invoke an model on $BR; to run an inference with a response stream
   category:
@@ -86,3 +86,4 @@ bedrock-runtime_InvokeModelWithResponseStream:
                 - bedrock-runtime.java2.invoke_model_with_response_stream.main
   services:
     bedrock-runtime: {InvokeModelWithResponseStream}
+
