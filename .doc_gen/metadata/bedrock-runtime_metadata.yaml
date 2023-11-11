@@ -1,8 +1,8 @@
 # zexi 0.4.0
 bedrock-runtime_InvokeModel:
-  title: Invoke the specified &BR; foundation model using an &AWS; SDK
+  title: Invoke the specified &BR; model to run inference
   title_abbrev: Invoke a model
-  synopsis: invoke an &BR; foundation model to run inference.
+  synopsis: invoke an &BR; model to run inference.
   category:
   languages:
     SAP ABAP:
