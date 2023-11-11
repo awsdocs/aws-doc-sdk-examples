@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a Spring Boot application that queries Amazon Redshift data. The Spring Boot application uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).    |
 | Audience   |  Developer (intermediate)        |
-| Updated   | 11/14/2022        |
+| Updated   | 11/14/2023        |
 | Required skills   | Kotlin, Gradle, JavaScript  |
 
 ## Purpose
@@ -35,8 +35,8 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Kotlin IDE (this tutorial uses the IntelliJ IDE).
-+ Java 1.8 JDK.
-+ Gradle 6.8 or higher.
++ Java 17 JDK.
++ Gradle 8.1 or higher.
 + You must also set up your development environment. For more information, 
 see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
 
@@ -123,12 +123,17 @@ At this point, you have a new project. Confirm that the **build.gradle.kts** fil
   import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.0"
     application
 }
 
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 buildscript {
     repositories {
@@ -138,34 +143,35 @@ buildscript {
         classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
     }
 }
-
 repositories {
     mavenCentral()
-    jcenter()
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web:2.7.5")
+    implementation("aws.sdk.kotlin:redshiftdata:0.33.1-beta")
+    implementation("aws.sdk.kotlin:ses:0.33.1-beta")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
+    implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.3")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("com.sun.mail:javax.mail:1.6.2")
-    implementation("aws.sdk.kotlin:redshiftdata:0.17.1-beta")
-    implementation("aws.sdk.kotlin:ses:0.17.1-beta")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.5")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
 
 ```
 
@@ -285,6 +291,11 @@ The following Kotlin code represents the **RedshiftService** class. You are requ
 Also notice the use of [SqlParameter](https://sdk.amazonaws.com/kotlin/api/latest/redshiftdata/aws.sdk.kotlin.services.redshiftdata.model/-sql-parameter/index.html) when using SQL statements. For example, in the **injestNewSubmission** method, you build a list of **SqlParameter** objects that are used to add a new record to the database.
 
 ```kotlin
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.aws.rest
 
 import aws.sdk.kotlin.services.redshiftdata.RedshiftDataClient
@@ -312,7 +323,7 @@ import kotlin.collections.ArrayList
 
 @Component
 class RedshiftService {
-
+    // Update these values to reflect your environment.
     private val databaseVal = "dev"
     private val dbUserVal = "awsuser"
     private val clusterId = "redshift-cluster-1"
@@ -425,7 +436,7 @@ class RedshiftService {
         return getResults(id)
     }
 
-    // Return items from the work table.
+    // Return items from the work table used for an email report.
     suspend fun getDataXML(): String? {
         val sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
             "FROM work WHERE archive = :arch ;"
@@ -444,125 +455,57 @@ class RedshiftService {
         return getResultsXML(id)
     }
 
-    // Returns items.
+    // Returns items from the Amazon Redshift table using the redshiftDataClient.
     suspend fun getResults(statementId: String?): MutableList<WorkItem> {
-        val records = mutableListOf<WorkItem>()
         val resultRequest = GetStatementResultRequest {
             id = statementId
         }
 
-        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
+        return RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
             val response = redshiftDataClient.getStatementResult(resultRequest)
-            var workItem: WorkItem
-            var index: Int
-
-            // Iterate through the List.
-            val dataList: List<List<Field>>? = response.records
-            var value: String
-            if (dataList != null) {
-                for (list in dataList) {
-                    workItem = WorkItem()
-                    index = 0
-                    for (field in list) {
+            response.records.map { fields ->
+                WorkItem().apply {
+                    fields.forEachIndexed { index, field ->
+                        val value = parseValue(field)
                         when (index) {
-                            0 -> {
-                                value = parseValue(field)
-                                workItem.id = value
-                            }
-                            1 -> {
-                                value = parseValue(field)
-                                workItem.date = value
-                            }
-                            2 -> {
-                                value = parseValue(field)
-                                workItem.description = value
-                            }
-                            3 -> {
-                                value = parseValue(field)
-                                workItem.guide = value
-                            }
-                            4 -> {
-                                value = parseValue(field)
-                                workItem.status = value
-                            }
-                            5 -> {
-                                value = parseValue(field)
-                                workItem.name = value
-                            }
-                            6 -> {
-                                value = parseBooleanValue(field)
-                                workItem.archived = value != "false"
-                            }
+                            0 -> id = value
+                            1 -> date = value
+                            2 -> description = value
+                            3 -> guide = value
+                            4 -> status = value
+                            5 -> name = value
+                            6 -> archived = parseBooleanValue(field) != "false"
                         }
-                        index++
                     }
-
-                    // Push the object to the List.
-                    records.add(workItem)
                 }
-            }
-            return records
+            }.toMutableList() ?: mutableListOf()
         }
     }
 
     // Returns open items within XML.
     suspend fun getResultsXML(statementId: String?): String? {
-        val records: MutableList<WorkItem> = ArrayList()
         val resultRequest = GetStatementResultRequest {
             id = statementId
         }
-        RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
+
+        return RedshiftDataClient { region = "us-west-2" }.use { redshiftDataClient ->
             val response = redshiftDataClient.getStatementResult(resultRequest)
-            var workItem: WorkItem
-            var index: Int
-
-            // Iterate through the List element where each element is a List object.
-            val dataList: List<List<Field>>? = response.records
-            var value: String
-            if (dataList != null) {
-                for (list in dataList) {
-                    workItem = WorkItem()
-                    index = 0
-                    for (field in list) {
+            response.records?.map { list ->
+                WorkItem().apply {
+                    list.forEachIndexed { index, field ->
                         when (index) {
-                            0 -> {
-                                value = parseValue(field)
-                                workItem.id = value
-                            }
-                            1 -> {
-                                value = parseValue(field)
-                                workItem.date = value
-                            }
-                            2 -> {
-                                value = parseValue(field)
-                                workItem.description = value
-                            }
-                            3 -> {
-                                value = parseValue(field)
-                                workItem.guide = value
-                            }
-                            4 -> {
-                                value = parseValue(field)
-                                workItem.status = value
-                            }
-                            5 -> {
-                                value = parseValue(field)
-                                workItem.name = value
-                            }
+                            0 -> id = parseValue(field)
+                            1 -> date = parseValue(field)
+                            2 -> description = parseValue(field)
+                            3 -> guide = parseValue(field)
+                            4 -> status = parseValue(field)
+                            5 -> name = parseValue(field)
                         }
-
-                        // Increment the index.
-                        index++
                     }
-
-                    // Push the object to the List.
-                    records.add(workItem)
                 }
-            }
-            return toXml(records)?.let { convertToString(it) }
+            }?.let { toXml(it) }?.let { convertToString(it) }
         }
     }
-
     // Update the work table.
     suspend fun flipItemArchive(id: String) {
         val arc = "1"
@@ -585,8 +528,8 @@ class RedshiftService {
         }
     }
 
-    // Convert Work Item data into XML.
-    private fun toXml(itemList: MutableList<WorkItem>): Document? {
+    // Convert Work item data into XML.
+    private fun toXml(itemList: List<WorkItem>): Document? {
         try {
             val factory = DocumentBuilderFactory.newInstance()
             val builder = factory.newDocumentBuilder()
@@ -698,7 +641,7 @@ class RedshiftService {
                 status = response.status.toString()
                 println("...$status")
 
-                if (status.compareTo("FINISHED") == 0) {
+                if (status.compareTo("Finished") == 0) {
                     finished = true
                 } else {
                     delay(500)
@@ -708,7 +651,6 @@ class RedshiftService {
         println("The statement is finished!")
     }
 }
-
 
 ```
 
