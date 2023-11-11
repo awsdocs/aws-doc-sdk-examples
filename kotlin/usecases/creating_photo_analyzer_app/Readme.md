@@ -41,8 +41,8 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java JDK 1.8
-+ Gradle 6.8 or higher
++ Java JDK 17
++ Gradle 8.1 or higher
 
 ### ⚠️ Important
 
@@ -97,47 +97,56 @@ At this point, you have a new project named **PhotoAnalyzerKotlin**.
 Add the following dependencies to your Gradle buidle file.
 
 ```yaml
-     import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-     plugins {
-      id("org.springframework.boot") version "2.5.2"
-      id("io.spring.dependency-management") version "1.0.11.RELEASE"
-      kotlin("jvm") version "1.5.20"
-      kotlin("plugin.spring") version "1.5.20"
-     }
+plugins {
+    kotlin("jvm") version "1.9.0"
+    application
+}
 
-    group = "com.example"
-    version = "0.0.1-SNAPSHOT"
-    java.sourceCompatibility = JavaVersion.VERSION_1_8
+group = "me.scmacdon"
+version = "1.0-SNAPSHOT"
 
+buildscript {
     repositories {
-      mavenCentral()
-      mavenLocal()
-     }
-
+        maven("https://plugins.gradle.org/m2/")
+    }
     dependencies {
-      implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-      implementation("org.springframework.boot:spring-boot-starter-web")
-      implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-      implementation("org.jetbrains.kotlin:kotlin-reflect")
-      implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-      implementation("net.sourceforge.jexcelapi:jxl:2.6.10")
-      implementation("aws.sdk.kotlin:s3:0.9.4-beta")
-      implementation("aws.sdk.kotlin:rekognition:0.9.4-beta")
-      implementation("commons-io:commons-io:2.10.0")
-      testImplementation("org.springframework.boot:spring-boot-starter-test")
-     }
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:11.5.1")
+    }
+}
 
-    tasks.withType<KotlinCompile> {
-      kotlinOptions {
+repositories {
+    mavenCentral()
+}
+apply(plugin = "org.jlleitschuh.gradle.ktlint")
+dependencies {
+    implementation("aws.sdk.kotlin:s3:0.33.1-beta")
+    implementation("aws.sdk.kotlin:rekognition:0.33.1-beta")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
+    implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.4")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.7.4")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("net.sourceforge.jexcelapi:jxl:2.6.10")
+    implementation("commons-io:commons-io:2.10.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
-     }
+        jvmTarget = "17"
     }
+}
 
-    tasks.withType<Test> {
-     useJUnitPlatform()
-    }
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 ```
 
 ## Create the Kotlin classes
@@ -471,7 +480,6 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
      private fun toXml(itemList: List<BucketItem>): Document {
         try {
             val factory = DocumentBuilderFactory.newInstance()
-            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
             val builder = factory.newDocumentBuilder()
             val doc = builder.newDocument()
 
@@ -517,30 +525,18 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
         }
      }
 
-    private fun convertToString(xml: Document?): String? {
+    private fun convertToString(xml: Document): String {
         try {
-            val transformerFactory = getSecureTransformerFactory()
-            val transformer = transformerFactory?.newTransformer()
+            val transformer = TransformerFactory.newInstance().newTransformer()
             val result = StreamResult(StringWriter())
             val source = DOMSource(xml)
-            if (transformer != null) {
-                transformer.transform(source, result)
-            }
+            transformer.transform(source, result)
             return result.writer.toString()
+
         } catch (ex: TransformerException) {
             ex.printStackTrace()
+            exitProcess(0)
         }
-        return null
-    }
-
-    private fun getSecureTransformerFactory(): TransformerFactory? {
-        val transformerFactory: TransformerFactory = TransformerFactory.newInstance()
-        try {
-            transformerFactory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true)
-        } catch (e: TransformerConfigurationException) {
-            e.printStackTrace()
-        }
-        return transformerFactory
      }
     }
 ```
