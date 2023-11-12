@@ -326,8 +326,8 @@ import javax.xml.transform.stream.StreamResult
 
 @Component
 class WorkItemRepository {
-    private val secretArnVal = "arn:aws:secretsmanager:us-east-1:814548047983:secret:sqlscott2-WEJX1b"
-    private val resourceArnVal = "arn:aws:rds:us-east-1:814548047983:cluster:database-4"
+    private val secretArnVal = "<Enter value>"
+    private val resourceArnVal = "<Enter value>
 
     fun param(nameVal: String, valueVal: String): SqlParameter {
         val myPar = SqlParameter {
