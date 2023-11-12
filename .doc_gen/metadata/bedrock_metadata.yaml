@@ -1,0 +1,35 @@
+# zexi 0.4.0
+bedrock_Hello:
+  title: Hello &BR;
+  title_abbrev: Hello &BR;
+  synopsis: get started using &BR;.
+  category: Hello
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.bedrock.Hello
+  services:
+    bedrock: { ListFoundationModels }
+
+bedrock-ListFoundationModels:
+  title: List the available foundation models using an &AWS; SDK
+  title_abbrev: List available foundation models
+  synopsis: list available foundation models
+  category:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock
+          excerpts:
+            - description: List the available Bedrock foundation models
+              snippet_tags:
+                - gov2.bedrock.FoundationModelWrapper.struct
+                - gov2.bedrock.ListFoundationModels
+  services:
+    bedrock: { ListFoundationModels }
