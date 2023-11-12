@@ -205,9 +205,8 @@ def invoke(wrapper, modelId, prompt, style_preset=None):
 
 def usage_demo():
     """
-    Shows how to invoke different large-language models.
-    This demonstration invokes Anthropic Claude 2 and AI21 Labs Jurassic-2 with
-    a prompt and prints the respective model's completion.
+    Demonstrates the invocation of various large-language and image generation models:
+    Anthropic Claude 2, AI21 Labs Jurassic-2, and Stability.ai Stable Diffusion XL.
     """
     logging.basicConfig(level=logging.INFO)
     print("-" * 88)
