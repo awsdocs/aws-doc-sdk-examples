@@ -73,3 +73,20 @@ bedrock-runtime_InvokeStableDiffusion:
                 - python.example_code.bedrock-runtime.InvokeStableDiffusion
   services:
     bedrock-runtime: { InvokeModel }
+
+bedrock-runtime_InvokeModelWithResponseStream:
+  title: Invoke Anthropic Claude 2 and process the response stream
+  title_abbrev: Invoke Anthropic Claude 2 and process the response stream
+  synopsis: invoke anthropic claude 2 and process the response stream
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke Anthropic Claude 2 and process the response stream
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream
+  services:
+    bedrock-runtime: { InvokeModelWithResponseStream }
