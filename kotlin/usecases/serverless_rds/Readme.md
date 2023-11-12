@@ -696,7 +696,19 @@ The following illustration shows the JSON data returned from the Spring REST API
 
 ![AWS Tracking Application](images/json2.png)
 
-You can also utilize cURL commands to invoke the functionality of this application. For instance, you can send a report by executing the following cURL command:
+
+### Using cURL Commands
+You can also utilize cURL commands to invoke the functionality of this application. 
+
+You can retrieve items by executing the following cURL command: 
+
+ ```kotlin
+ 
+    curl -X GET http://localhost:8080/api/items
+```
+
+
+Likewise, you can send a report by executing the following cURL command:
  
  ```kotlin
  
