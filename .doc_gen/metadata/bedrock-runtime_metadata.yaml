@@ -36,6 +36,40 @@ bedrock-runtime_InvokeClaude:
   services:
     bedrock-runtime: { InvokeModel }
 
+bedrock-runtime_InvokeJurassic2:
+  title: Invoke the AI21 Labs Jurassic-2 model to run an inference
+  title_abbrev: Invoke AI21 Labs Jurassic-2
+  synopsis: invoke the ai21 labs jurassic-2 model to run inference.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the AI21 Labs Jurassic-2 foundation model
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_jurassic2.main
+  services:
+    bedrock-runtime: { InvokeModel }
+
+bedrock-runtime_InvokeStableDiffusion:
+  title: Invoke the Stability.ai Stable Diffusion XL model to run an inference
+  title_abbrev: Invoke Stability.ai Stable Diffusion XL
+  synopsis: invoke the stability.ai stable diffusion xl model to run inference.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the Stability.ai Stable Diffusion XL foundation model
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_stable_diffusion.main
+  services:
+    bedrock-runtime: { InvokeModel }
+
 bedrock-runtime_InvokeModelWithResponseStream:
   title: Invoke the specified &BR; model to run an inference with a response stream
   title_abbrev: Invoke a model with a response stream
