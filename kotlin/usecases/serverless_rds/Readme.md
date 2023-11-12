@@ -328,7 +328,7 @@ import javax.xml.transform.stream.StreamResult
 @Component
 class WorkItemRepository {
     private val secretArnVal = "<Enter value>"
-    private val resourceArnVal = "<Enter value>
+    private val resourceArnVal = "<Enter value>"
 
     fun param(nameVal: String, valueVal: String): SqlParameter {
         val myPar = SqlParameter {
