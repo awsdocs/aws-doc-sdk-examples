@@ -5,7 +5,7 @@
 Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with the Amazon Bedrock Runtime client
-to run inference using Bedrock models.
+to run inferences using Bedrock models.
 """
 
 import base64
@@ -74,6 +74,7 @@ class BedrockRuntimeWrapper:
         except ClientError:
             logger.error("Couldn't invoke Anthropic Claude")
             raise
+
     # snippet-end:[python.example_code.bedrock-runtime.InvokeAnthropicClaude]
 
     # snippet-start:[python.example_code.bedrock-runtime.InvokeAi21Jurassic2]
@@ -111,6 +112,7 @@ class BedrockRuntimeWrapper:
         except ClientError:
             logger.error("Couldn't invoke Anthropic Claude 2")
             raise
+
     # snippet-end:[python.example_code.bedrock-runtime.InvokeAi21Jurassic2]
 
     # snippet-start:[python.example_code.bedrock-runtime.InvokeStableDiffusion]
@@ -129,7 +131,7 @@ class BedrockRuntimeWrapper:
         try:
 
             # The different model providers have individual request and response formats.
-            # For the format, ranges, available style_presets, and default values refer to:
+            # For the format, ranges, and available style_presets of Stable Diffusion models refer to:
             # https://platform.stability.ai/docs/api-reference#tag/v1generation
 
             body = {
@@ -155,7 +157,56 @@ class BedrockRuntimeWrapper:
         except ClientError:
             logger.error("Couldn't invoke Stable Diffusion XL")
             raise
+
     # snippet-end:[python.example_code.bedrock-runtime.InvokeStableDiffusion]
+
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream]
+    def invoke_model_with_response_stream(self, prompt):
+        """
+        Invokes the Anthropic Claude 2 model to run an inference and process the response stream.
+
+        :param prompt: The prompt that you want Claude to complete.
+        :return: Inference response from the model.
+        """
+
+        try:
+
+            # The different model providers have individual request and response formats.
+            # For the format, ranges, and default values for Anthropic Claude, refer to:
+            # https://docs.anthropic.com/claude/reference/complete_post
+
+            # Claude requires you to enclose the prompt as follows:
+            enclosed_prompt = "Human: " + prompt + "\n\nAssistant:"
+
+            body = {
+                "prompt": enclosed_prompt,
+                "max_tokens_to_sample": 1024,
+                "temperature": 0.5,
+                "stop_sequences": ["\n\nHuman:"]
+            }
+
+            response = self.bedrock_runtime_client.invoke_model_with_response_stream(
+                modelId="anthropic.claude-v2",
+                body=json.dumps(body)
+            )
+
+            stream = response.get('body')
+
+            if stream:
+                for event in stream:
+                    chunk = event.get("chunk")
+                    if chunk:
+                        chunk_obj = json.loads(chunk.get("bytes").decode())
+                        text = chunk_obj["completion"]
+                        print(text, end="")
+
+            print()
+
+        except ClientError:
+            logger.error("Couldn't invoke Anthropic Claude")
+            raise
+
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream]
 
 
 # snippet-end:[python.example_code.bedrock-runtime.BedrockWrapper.class]
@@ -177,6 +228,7 @@ def save_image(base64_image_data):
         file.write(image_data)
 
     return file_path
+
 
 def invoke(wrapper, modelId, prompt, style_preset=None):
     print("-" * 88)
@@ -203,6 +255,20 @@ def invoke(wrapper, modelId, prompt, style_preset=None):
         raise
 
 
+def invoke_with_response_stream(wrapper, modelId, prompt):
+    print("-" * 88)
+    print(f'Invoking: {modelId} with response stream')
+    print("Prompt: " + prompt)
+    print("\nResponse stream:")
+
+    try:
+        wrapper.invoke_model_with_response_stream(prompt)
+
+    except ClientError:
+        logger.exception("Couldn't invoke model %s", modelId)
+        raise
+
+
 def usage_demo():
     """
     Demonstrates the invocation of various large-language and image generation models:
@@ -220,13 +286,16 @@ def usage_demo():
 
     wrapper = BedrockRuntimeWrapper(client)
 
-    text_prompt = "Hi, who are you?"
-    invoke(wrapper, "anthropic.claude-v2", text_prompt)
-    invoke(wrapper, "ai21.j2-mid-v1", text_prompt)
+    prompt_for_text = "Hi, write one sentence about yourself"
+    invoke(wrapper, "anthropic.claude-v2", prompt_for_text)
+    invoke(wrapper, "ai21.j2-mid-v1", prompt_for_text)
 
-    image_prompt = "A sunset over the ocean"
+    prompt_for_stream = "Write a short story about yourself."
+    invoke_with_response_stream(wrapper, "anthropic.claude-v2", prompt_for_stream)
+
+    prompt_for_image = "A sunset over the ocean"
     style_preset = "photographic"
-    invoke(wrapper, "stability.stable-diffusion-xl", image_prompt, style_preset)
+    invoke(wrapper, "stability.stable-diffusion-xl", prompt_for_image, style_preset)
 
 
 if __name__ == "__main__":
