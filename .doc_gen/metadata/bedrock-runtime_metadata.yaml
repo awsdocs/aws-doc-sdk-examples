@@ -16,16 +16,25 @@ bedrock-runtime_InvokeModel:
             - description: Invoke a Stable Diffusion foundation model.
               snippet_tags:
                 - bdr.abapv1.invokemodel_stable_diffusion
+  services:
+    bedrock-runtime: {InvokeModel}
+
+bedrock-runtime_InvokeClaude:
+  title: Invoke the Anthropic Claude model to run an inference
+  title_abbrev: Invoke Anthropic Claude 2
+  synopsis: invoke the anthropic claude model to run inference.
+  category:
+  languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke a large-language-model
+            - description: Invoke the Anthropic Claude 2 foundation model
               snippet_tags:
-                - bedrock-runtime.java2.invoke_model.main
+                - bedrock-runtime.java2.invoke_claude.main
   services:
-    bedrock-runtime: {InvokeModel}
+    bedrock-runtime: { InvokeModel }
 
 bedrock-runtime_InvokeModelWithResponseStream:
   title: Invoke the specified &BR; model to run an inference with a response stream
