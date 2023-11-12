@@ -64,6 +64,29 @@ class BedrockRuntimeTest {
     @Test
     @Order(3)
     @Tag("IntegrationTest")
+    void InvokeStableDiffusion() {
+
+        try (BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build()) {
+
+            String prompt = "A sunset over the ocean";
+            String stylePreset = "cinematic";
+            long seed = (0);
+
+            String result = InvokeModel.invokeStableDiffusion(client, prompt, seed, stylePreset);
+
+            assertNotNull(result, "The result is null");
+            assertFalse(result.trim().isEmpty(), "The result is empty");
+
+            System.out.printf("Test %d passed.%n", getTestNumber(new Object(){}.getClass().getEnclosingMethod()));
+        }
+    }
+
+    @Test
+    @Order(4)
+    @Tag("IntegrationTest")
     void InvokeModelWithResponseStream() {
 
         try (BedrockRuntimeAsyncClient bedrockRuntime = BedrockRuntimeAsyncClient.builder()
