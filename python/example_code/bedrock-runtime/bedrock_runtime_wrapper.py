@@ -8,6 +8,7 @@ Shows how to use the AWS SDK for Python (Boto3) with the Amazon Bedrock Runtime 
 to run inferences using Bedrock models.
 """
 
+import asyncio
 import base64
 import json
 import logging
@@ -161,7 +162,7 @@ class BedrockRuntimeWrapper:
     # snippet-end:[python.example_code.bedrock-runtime.InvokeStableDiffusion]
 
     # snippet-start:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream]
-    def invoke_model_with_response_stream(self, prompt):
+    async def invoke_model_with_response_stream(self, prompt):
         """
         Invokes the Anthropic Claude 2 model to run an inference and process the response stream.
 
@@ -194,13 +195,11 @@ class BedrockRuntimeWrapper:
 
             if stream:
                 for event in stream:
-                    chunk = event.get("chunk")
+                    chunk = event.get('chunk')
                     if chunk:
-                        chunk_obj = json.loads(chunk.get("bytes").decode())
-                        text = chunk_obj["completion"]
-                        print(text, end="")
-
-            print()
+                        chunk_obj = json.loads(chunk.get('bytes').decode())
+                        text = chunk_obj['completion']
+                        yield text
 
         except ClientError:
             logger.error("Couldn't invoke Anthropic Claude")
@@ -255,18 +254,21 @@ def invoke(wrapper, modelId, prompt, style_preset=None):
         raise
 
 
-def invoke_with_response_stream(wrapper, modelId, prompt):
+async def invoke_with_response_stream(wrapper, modelId, prompt):
     print("-" * 88)
     print(f'Invoking: {modelId} with response stream')
     print("Prompt: " + prompt)
     print("\nResponse stream:")
 
     try:
-        wrapper.invoke_model_with_response_stream(prompt)
+        async for completion in wrapper.invoke_model_with_response_stream(prompt):
+            print(completion, end="")
 
     except ClientError:
         logger.exception("Couldn't invoke model %s", modelId)
         raise
+
+    print()
 
 
 def usage_demo():
@@ -286,16 +288,17 @@ def usage_demo():
 
     wrapper = BedrockRuntimeWrapper(client)
 
-    prompt_for_text = "Hi, write one sentence about yourself"
-    invoke(wrapper, "anthropic.claude-v2", prompt_for_text)
-    invoke(wrapper, "ai21.j2-mid-v1", prompt_for_text)
+    text_generation_prompt = "Hi, write a paragraph about yourself"
+    image_generation_prompt = "A sunset over the ocean"
+    image_style_preset = "photographic"
 
-    prompt_for_stream = "Write a short story about yourself."
-    invoke_with_response_stream(wrapper, "anthropic.claude-v2", prompt_for_stream)
+    invoke(wrapper, "anthropic.claude-v2", text_generation_prompt)
 
-    prompt_for_image = "A sunset over the ocean"
-    style_preset = "photographic"
-    invoke(wrapper, "stability.stable-diffusion-xl", prompt_for_image, style_preset)
+    invoke(wrapper, "ai21.j2-mid-v1", text_generation_prompt)
+
+    asyncio.run(invoke_with_response_stream(wrapper, "anthropic.claude-v2", text_generation_prompt))
+
+    invoke(wrapper, "stability.stable-diffusion-xl", image_generation_prompt, image_style_preset)
 
 
 if __name__ == "__main__":
