@@ -229,34 +229,34 @@ def save_image(base64_image_data):
     return file_path
 
 
-def invoke(wrapper, modelId, prompt, style_preset=None):
+def invoke(wrapper, model_id, prompt, style_preset=None):
     print("-" * 88)
-    print(f'Invoking: {modelId}')
+    print(f'Invoking: {model_id}')
     print("Prompt: " + prompt)
 
     try:
-        if (modelId == "anthropic.claude-v2"):
+        if model_id == "anthropic.claude-v2":
             completion = wrapper.invoke_claude(prompt)
             print("Completion: " + completion.strip())
 
-        elif (modelId == "ai21.j2-mid-v1"):
+        elif model_id == "ai21.j2-mid-v1":
             completion = wrapper.invoke_jurassic2(prompt)
             print("Completion: " + completion.strip())
 
-        elif (modelId == "stability.stable-diffusion-xl"):
+        elif model_id == "stability.stable-diffusion-xl":
             seed = random.randint(0, 4294967295)
             base64_image_data = wrapper.invoke_stable_diffusion(prompt, seed, style_preset)
             image_path = save_image(base64_image_data)
             print(f'The generated image has been saved to {image_path}')
 
     except ClientError:
-        logger.exception("Couldn't invoke model %s", modelId)
+        logger.exception("Couldn't invoke model %s", model_id)
         raise
 
 
-async def invoke_with_response_stream(wrapper, modelId, prompt):
+async def invoke_with_response_stream(wrapper, model_id, prompt):
     print("-" * 88)
-    print(f'Invoking: {modelId} with response stream')
+    print(f'Invoking: {model_id} with response stream')
     print("Prompt: " + prompt)
     print("\nResponse stream:")
 
@@ -265,7 +265,7 @@ async def invoke_with_response_stream(wrapper, modelId, prompt):
             print(completion, end="")
 
     except ClientError:
-        logger.exception("Couldn't invoke model %s", modelId)
+        logger.exception("Couldn't invoke model %s", model_id)
         raise
 
     print()
