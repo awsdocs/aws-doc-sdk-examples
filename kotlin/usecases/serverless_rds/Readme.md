@@ -1,4 +1,4 @@
-# Create a React and Spring REST application that queries Aurora Serverless data using the SDK for Kotlin
+# Create a Spring REST application that queries Aurora Serverless data using the SDK for Kotlin
 
 ## Overview
 
