@@ -11,37 +11,60 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeAsyncClient;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 
+import java.lang.reflect.Method;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class BedrockRuntimeTest {
+class BedrockRuntimeTest {
 
     @Test
     @Order(1)
     @Tag("IntegrationTest")
-    public void InvokeModel() {
+    void InvokeClaude() {
 
-        try (BedrockRuntimeClient bedrockRuntime = BedrockRuntimeClient.builder()
+        try (BedrockRuntimeClient client = BedrockRuntimeClient.builder()
                 .region(Region.US_EAST_1)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build()) {
 
             String prompt = "In one sentence, what is a large-language model?";
 
-            String completion = InvokeModel.invokeModel(bedrockRuntime, prompt);
+            String completion = InvokeModel.invokeClaude(client, prompt);
 
             assertNotNull(completion, "The completion is null");
             assertFalse(completion.trim().isEmpty(), "The completion is empty");
 
-            System.out.println("Test 1 passed.");
+            System.out.printf("Test %d passed.%n", getTestNumber(new Object(){}.getClass().getEnclosingMethod()));
         }
     }
 
     @Test
     @Order(2)
     @Tag("IntegrationTest")
-    public void InvokeModelWithResponseStream() {
+    void InvokeJurassic2() {
+
+        try (BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build()) {
+
+            String prompt = "In one sentence, what is a large-language model?";
+
+            String completion = InvokeModel.invokeJurassic2(client, prompt);
+
+            assertNotNull(completion, "The completion is null");
+            assertFalse(completion.trim().isEmpty(), "The completion is empty");
+
+            System.out.printf("Test %d passed.%n", getTestNumber(new Object(){}.getClass().getEnclosingMethod()));
+        }
+    }
+
+    @Test
+    @Order(3)
+    @Tag("IntegrationTest")
+    void InvokeModelWithResponseStream() {
 
         try (BedrockRuntimeAsyncClient bedrockRuntime = BedrockRuntimeAsyncClient.builder()
                 .region(Region.US_EAST_1)
@@ -52,7 +75,12 @@ public class BedrockRuntimeTest {
 
             assertDoesNotThrow(() -> InvokeModelWithResponseStream.invokeModel(bedrockRuntime, prompt));
 
-            System.out.println("Test 2 passed.");
+            System.out.printf("Test %d passed.%n", getTestNumber(new Object(){}.getClass().getEnclosingMethod()));
         }
+    }
+
+    private int getTestNumber(Method testMethod) {
+        Order order = testMethod.getAnnotation(Order.class);
+        return order != null ? order.value() : 0;
     }
 }
