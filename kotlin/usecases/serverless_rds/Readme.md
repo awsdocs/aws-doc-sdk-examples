@@ -303,6 +303,7 @@ The following Kotlin code represents the **WorkItemRepository** class. You are r
 Also notice the use of [SqlParameter](https://sdk.amazonaws.com/kotlin/api/latest/rdsdata/aws.sdk.kotlin.services.rdsdata.model/-sql-parameter/index.html) when using SQL statements. For example, in the **injestNewSubmission** method, you build a list of **SqlParameter** objects that are used to add a new record to the database.
 
 ```kotlin
+
 package com.example.demo
 
 import aws.sdk.kotlin.services.rdsdata.RdsDataClient
