@@ -766,6 +766,27 @@ The following illustration shows the JSON data returned from the Spring REST API
 
 ![AWS Tracking Application](images/json2.png)
 
+### Using cURL Commands
+You can also utilize cURL commands to invoke the functionality of this application. 
+
+You can retrieve items by executing the following cURL command: 
+
+ ```kotlin
+ 
+    curl -X GET http://localhost:8080/api/items
+```
+
+
+Likewise, you can send a report by executing the following cURL command:
+ 
+ ```kotlin
+ 
+    curl -X POST -H "Content-Type: application/json" -d "{\"email\":\"<email address>\"}" http://localhost:8080/api/items:report
+
+```
+
+**Note**: Make sure that you specify a valid email address. 
+
 ## Create the React front end
 
 You can create the React application that consumes the JSON data returned from the Spring REST API. To create the React application, download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. To access the GitHub location, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).  
