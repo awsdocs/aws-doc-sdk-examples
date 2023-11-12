@@ -309,6 +309,7 @@ import aws.sdk.kotlin.services.rdsdata.RdsDataClient
 import aws.sdk.kotlin.services.rdsdata.model.ExecuteStatementRequest
 import aws.sdk.kotlin.services.rdsdata.model.Field
 import aws.sdk.kotlin.services.rdsdata.model.SqlParameter
+import org.springframework.stereotype.Component
 import org.w3c.dom.Document
 import java.io.StringWriter
 import java.sql.Date
@@ -323,10 +324,10 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
+@Component
 class WorkItemRepository {
-
-    private val secretArnVal = "<Enter value>"
-    private val resourceArnVal = "<Enter value>"
+    private val secretArnVal = "arn:aws:secretsmanager:us-east-1:814548047983:secret:sqlscott2-WEJX1b"
+    private val resourceArnVal = "arn:aws:rds:us-east-1:814548047983:cluster:database-4"
 
     fun param(nameVal: String, valueVal: String): SqlParameter {
         val myPar = SqlParameter {
@@ -362,12 +363,12 @@ class WorkItemRepository {
     }
 
     // Get items from the database.
-    suspend fun getItemsDataSQL(status: String): MutableList<WorkItem> {
+    suspend fun getItemsDataSQL(statusVal: String): MutableList<WorkItem> {
         val records = mutableListOf<WorkItem>()
         val sqlStatement: String
         val sqlRequest: ExecuteStatementRequest
         val isArc: String
-        if (status.compareTo("true") == 0) {
+        if (statusVal.compareTo("true") == 0) {
             sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
                 "FROM work WHERE archive = :arch ;"
             isArc = "1"
@@ -379,7 +380,7 @@ class WorkItemRepository {
                 resourceArn = resourceArnVal
                 parameters = parametersVal
             }
-        } else if (status.compareTo("false") == 0) {
+        } else if (statusVal.compareTo("false") == 0) {
             sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
                 "FROM work WHERE archive = :arch ;"
             isArc = "0"
@@ -405,47 +406,20 @@ class WorkItemRepository {
         RdsDataClient { region = "us-east-1" }.use { rdsDataClient ->
             val response = rdsDataClient.executeStatement(sqlRequest)
             val dataList: List<List<Field>>? = response.records
-            var workItem: WorkItem
-            var index: Int
 
-            // Get the records.
-            if (dataList != null) {
-                for (list in dataList) {
-                    workItem = WorkItem()
-                    index = 0
-                    for (myField in list) {
-                        val field: Field = myField
-                        val result = field.toString()
-                        val value = result.substringAfter("=").substringBefore(')')
-                        when (index) {
-                            0 -> {
-                                workItem.id = value
-                            }
-                            1 -> {
-                                workItem.date = value
-                            }
-                            2 -> {
-                                workItem.description = value
-                            }
-                            3 -> {
-                                workItem.guide = value
-                            }
-                            4 -> {
-                                workItem.status = value
-                            }
-                            5 -> {
-                                workItem.name = value
-                            }
-                            6 -> {
-                                workItem.archived = value != "false"
-                            }
-                        }
-                       index++
-                    }
-
-                    // Push the object to the list.
-                    records.add(workItem)
+            // Process records using Kotlin collection operations.
+            dataList?.forEach { record ->
+                val workItem = WorkItem().apply {
+                    id = record[0].toString().substringAfter("=").substringBefore(')')
+                    date = record[1].toString().substringAfter("=").substringBefore(')')
+                    description = record[2].toString().substringAfter("=").substringBefore(')')
+                    guide = record[3].toString().substringAfter("=").substringBefore(')')
+                    status = record[4].toString().substringAfter("=").substringBefore(')')
+                    name = record[5].toString().substringAfter("=").substringBefore(')')
+                    archived = record[6].toString().substringAfter("=").substringBefore(')').toBoolean()
                 }
+
+                records.add(workItem)
             }
         }
         return records
@@ -503,9 +477,8 @@ class WorkItemRepository {
     // Get Items data for the content that is sent using Amazon SES.
     suspend fun getItemsDataSQLReport(arch: String): String? {
         val records = mutableListOf<WorkItem>()
-        val sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
-            "FROM work WHERE archive = :arch ;"
 
+        val sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work WHERE archive = :arch ;"
         val parametersVal = listOf(param("arch", arch))
         val sqlRequest = ExecuteStatementRequest {
             secretArn = secretArnVal
@@ -518,48 +491,25 @@ class WorkItemRepository {
         RdsDataClient { region = "us-east-1" }.use { rdsDataClient ->
             val response = rdsDataClient.executeStatement(sqlRequest)
             val dataList: List<List<Field>>? = response.records
-            var workItem: WorkItem
-            var index: Int
 
-            // Get the records.
-            if (dataList != null) {
-                for (list in dataList) {
-                    workItem = WorkItem()
-                    index = 0
-                    for (myField in list) {
-                        val field: Field = myField
-                        val result = field.toString()
-                        val value = result.substringAfter("=").substringBefore(')')
-                        when (index) {
-                            0 -> {
-                                workItem.id = value
-                            }
-                            1 -> {
-                                workItem.date = value
-                            }
-                            2 -> {
-                                workItem.description = value
-                            }
-                            3 -> {
-                                workItem.guide = value
-                            }
-                            4 -> {
-                                workItem.status = value
-                            }
-                            5 -> {
-                                workItem.name = value
-                            }
-                        }
-                        index++
-                    }
-
-                    // Push the object to the list.
-                    records.add(workItem)
+            // Process records using Kotlin collection operations.
+            dataList?.forEach { record ->
+                val workItem = WorkItem().apply {
+                    id = record[0].toString().substringAfter("=").substringBefore(')')
+                    date = record[1].toString().substringAfter("=").substringBefore(')')
+                    description = record[2].toString().substringAfter("=").substringBefore(')')
+                    guide = record[3].toString().substringAfter("=").substringBefore(')')
+                    status = record[4].toString().substringAfter("=").substringBefore(')')
+                    name = record[5].toString().substringAfter("=").substringBefore(')')
+                    archived = record[6].toString().substringAfter("=").substringBefore(')').toBoolean()
                 }
+
+                records.add(workItem)
             }
         }
         return convertToString(toXml(records))
     }
+
 
     // Convert Work data into XML to use in the report.
     fun toXml(itemList: List<WorkItem>): Document? {
@@ -575,7 +525,6 @@ class WorkItemRepository {
 
             // Iterate through the collection.
             for (index in 0 until custCount) {
-
                 // Get the WorkItem object from the collection.
                 val myItem = itemList[index]
                 val item = doc.createElement("Item")
@@ -631,7 +580,6 @@ class WorkItemRepository {
         return null
     }
 }
-
 
 
 ```
