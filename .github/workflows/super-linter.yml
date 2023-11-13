@@ -37,3 +37,4 @@ jobs:
           VALIDATE_RUBY: true
           VALIDATE_KOTLIN: true
           VALIDATE_EDITORCONFIG: true
+          VALIDATE_BASH: true

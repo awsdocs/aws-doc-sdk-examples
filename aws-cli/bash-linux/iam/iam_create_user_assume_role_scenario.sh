@@ -321,7 +321,7 @@ function sts_assume_role() {
 function iam_create_user_assume_role() {
   {
     if [ "$IAM_OPERATIONS_SOURCED" != "True" ]; then
-      # shellcheck disable=SC1091
+
       source ./iam_operations.sh
     fi
   }
