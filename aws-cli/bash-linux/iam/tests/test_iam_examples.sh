@@ -30,12 +30,15 @@ function main() {
   # bashsupport disable=BP2001
   export VERBOSE=false
 
+# shellcheck disable=SC1091
   source ./include_tests.sh
   {
     local current_directory
     current_directory=$(pwd)
     cd ..
+    # shellcheck disable=SC1091
     source ./iam_operations.sh
+    # shellcheck disable=SC1091
     source ./iam_create_user_assume_role_scenario.sh
     # shellcheck disable=SC2164
     cd "$current_directory"
@@ -107,6 +110,7 @@ function main() {
     "iam_create_user -u $user_name " \
     0
 
+# shellcheck disable=SC2154
   local user_arn="$test_command_response"
   test_count=$((test_count + 1))
 
