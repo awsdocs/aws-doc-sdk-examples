@@ -20,7 +20,7 @@ namespace AwsDocTest {
     extern const std::vector<std::string> RESPONSES;
     bool addHttpResponses(MockHTTP &mockHttp);
 
-#if 0
+
     // Only run the un-mocked test in special cases because of its long execution time.
     // NOLINTNEXTLINE (readability-named-parameter)
     TEST_F(AutoScaling_GTests, groups_and_instances_scenario_2L_) {
@@ -29,7 +29,7 @@ namespace AwsDocTest {
         bool result = AwsDoc::AutoScaling::groupsAndInstancesScenario(*s_clientConfig);
         ASSERT_TRUE(result);
     }
-#endif
+
     // NOLINTNEXTLINE (readability-named-parameter)
     TEST_F(AutoScaling_GTests, groups_and_instances_scenario_3_) {
         AddCommandLineResponses(RESPONSES);
