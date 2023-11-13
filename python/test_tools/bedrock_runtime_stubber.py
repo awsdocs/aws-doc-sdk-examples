@@ -32,17 +32,21 @@ class BedrockRuntimeStubber(ExampleStubber):
     def stub_invoke_claude(self, prompt, error_code=None):
         expected_params = {
             "modelId": "anthropic.claude-v2",
-            "body": json.dumps({
-                "prompt": f'Human: {prompt}\n\nAssistant:',
-                "max_tokens_to_sample": 200,
-                "temperature": 0.5,
-                "stop_sequences": ["\n\nHuman:"]
-            })
+            "body": json.dumps(
+                {
+                    "prompt": f"Human: {prompt}\n\nAssistant:",
+                    "max_tokens_to_sample": 200,
+                    "temperature": 0.5,
+                    "stop_sequences": ["\n\nHuman:"],
+                }
+            ),
         }
 
         response = {
-            "body": io.BytesIO('{ "completion": "Fake completion response" }'.encode("utf-8")),
-            "contentType": ""
+            "body": io.BytesIO(
+                '{ "completion": "Fake completion response" }'.encode("utf-8")
+            ),
+            "contentType": "",
         }
         self._stub_bifurcator(
             "invoke_model", expected_params, response, error_code=error_code
@@ -51,21 +55,18 @@ class BedrockRuntimeStubber(ExampleStubber):
     def stub_invoke_jurassic2(self, prompt, error_code=None):
         expected_params = {
             "modelId": "ai21.j2-mid-v1",
-            "body": json.dumps({
-                "prompt": prompt,
-                "temperature": 0.5,
-                "maxTokens": 200
-            })
+            "body": json.dumps(
+                {"prompt": prompt, "temperature": 0.5, "maxTokens": 200}
+            ),
         }
 
-        response_body = io.BytesIO(json.dumps(
-            {"completions": [{"data": {"text": "Fake completion response."}}]}
-        ).encode("utf-8"))
+        response_body = io.BytesIO(
+            json.dumps(
+                {"completions": [{"data": {"text": "Fake completion response."}}]}
+            ).encode("utf-8")
+        )
 
-        response = {
-            "body": response_body,
-            "contentType": ""
-        }
+        response = {"body": response_body, "contentType": ""}
 
         self._stub_bifurcator(
             "invoke_model", expected_params, response, error_code=error_code
@@ -74,38 +75,44 @@ class BedrockRuntimeStubber(ExampleStubber):
     def stub_invoke_model_with_response_stream(self, prompt, error_code=None):
         expected_params = {
             "modelId": "anthropic.claude-v2",
-            "body": json.dumps({
-                "prompt": f'Human: {prompt}\n\nAssistant:',
-                "max_tokens_to_sample": 1024,
-                "temperature": 0.5,
-                "stop_sequences": ["\n\nHuman:"]
-            })
+            "body": json.dumps(
+                {
+                    "prompt": f"Human: {prompt}\n\nAssistant:",
+                    "max_tokens_to_sample": 1024,
+                    "temperature": 0.5,
+                    "stop_sequences": ["\n\nHuman:"],
+                }
+            ),
         }
 
         self._stub_bifurcator(
-            "invoke_model_with_response_stream", expected_params, {}, error_code=error_code
+            "invoke_model_with_response_stream",
+            expected_params,
+            {},
+            error_code=error_code,
         )
 
     def stub_invoke_stable_diffusion(self, prompt, style_preset, seed, error_code=None):
         expected_params = {
             "modelId": "stability.stable-diffusion-xl",
-            "body": json.dumps({
-                "text_prompts": [{"text": prompt}],
-                "seed": seed,
-                "cfg_scale": 10,
-                "steps": 30,
-                "style_preset": style_preset
-            })
+            "body": json.dumps(
+                {
+                    "text_prompts": [{"text": prompt}],
+                    "seed": seed,
+                    "cfg_scale": 10,
+                    "steps": 30,
+                    "style_preset": style_preset,
+                }
+            ),
         }
 
-        response_body = io.BytesIO(json.dumps(
-            {"artifacts": [{"base64": "FakeBase64String=="}]}
-        ).encode("utf-8"))
+        response_body = io.BytesIO(
+            json.dumps({"artifacts": [{"base64": "FakeBase64String=="}]}).encode(
+                "utf-8"
+            )
+        )
 
-        response = {
-            "body": response_body,
-            "contentType": ""
-        }
+        response = {"body": response_body, "contentType": ""}
         self._stub_bifurcator(
             "invoke_model", expected_params, response, error_code=error_code
         )
