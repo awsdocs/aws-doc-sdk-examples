@@ -1,2 +1,3 @@
 # Look for 'source'd files relative to the checked script.
 source-path=SCRIPTDIR
+source-path=SCRIPTDIR/..
