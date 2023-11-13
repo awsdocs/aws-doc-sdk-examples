@@ -207,9 +207,6 @@ class BedrockRuntimeWrapper:
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream]
 
-
-# snippet-end:[python.example_code.bedrock-runtime.BedrockWrapper.class]
-
 def save_image(base64_image_data):
     directory = "output"
 
@@ -303,3 +300,5 @@ def usage_demo():
 
 if __name__ == "__main__":
     usage_demo()
+
+# snippet-end:[python.example_code.bedrock-runtime.BedrockRuntimeWrapper.class]
