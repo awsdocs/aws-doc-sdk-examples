@@ -1,8 +1,8 @@
 # zexi 0.4.0
-bedrock-ListFoundationModels:
-  title: List the available foundation models using an &AWS; SDK
-  title_abbrev: List available foundation models
-  synopsis: list available foundation models
+bedrock_ListFoundationModels:
+  title: List the available &BRlong; foundation models using an &AWS; SDK
+  title_abbrev: List available &BR; foundation models
+  synopsis: list available &BR; foundation models
   category:
   languages:
     Java:
@@ -10,7 +10,7 @@ bedrock-ListFoundationModels:
         - sdk_version: 2
           github: javav2/example_code/bedrock
           excerpts:
-            - description: List the available Bedrock foundation models
+            - description: List the available &BRlong; foundation models
               snippet_tags:
                 - bedrock.java2.list_foundation_models.main
   services:
