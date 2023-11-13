@@ -17,7 +17,6 @@
 #
 ###############################################################################
 
-# shellcheck disable=SC1091
 source ./awsdocs_general.sh
 
 # snippet-start:[aws-cli.bash-linux.medical-imaging.CreateDatastore]

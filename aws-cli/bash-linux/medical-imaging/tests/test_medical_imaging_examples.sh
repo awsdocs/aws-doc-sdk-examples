@@ -23,19 +23,18 @@
 # This function runs the IAM examples' tests.
 ###############################################################################
 function main() {
-# Set default values.
-# bashsupport disable=BP2001
-export INTERACTIVE=false
-# bashsupport disable=BP2001
-export VERBOSE=false
+  # Set default values.
+  # bashsupport disable=BP2001
+  export INTERACTIVE=false
+  # bashsupport disable=BP2001
+  export VERBOSE=false
 
-# shellcheck disable=SC1091
   source ./include_tests.sh
   {
     local current_directory
     current_directory=$(pwd)
     cd ..
-    # shellcheck disable=SC1091
+
     source ./medical_imaging_operations.sh
     # shellcheck disable=SC2164
     cd "$current_directory"
@@ -98,7 +97,7 @@ export VERBOSE=false
     0
   test_count=$((test_count + 1))
 
-# shellcheck disable=SC2154
+  # shellcheck disable=SC2154
   local datastore_id="$test_command_response"
 
   run_test "$test_count List datastores" \
@@ -109,7 +108,7 @@ export VERBOSE=false
   local data_store_found=false
   local line
   while IFS=$'\n' read -r line; do
-     IFS=$'\t' read -ra entries <<<"$line"
+    IFS=$'\t' read -ra entries <<<"$line"
     if [ "${entries[1]}" == "$datastore_id" ]; then
       data_store_found=true
     fi

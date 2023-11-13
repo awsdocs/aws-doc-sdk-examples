@@ -19,7 +19,7 @@
 ###############################################################################
 
 # snippet-start:[s3.bash.bucket-operations.complete]
-# shellcheck disable=SC1091
+
 source ./awsdocs_general.sh
 
 # snippet-start:[aws-cli.bash-linux.s3.HeadBucket]
@@ -42,12 +42,9 @@ function bucket_exists() {
   # Check whether the bucket already exists.
   # We suppress all output - we're interested only in the return code.
 
-  aws s3api head-bucket \
+  if aws s3api head-bucket \
     --bucket "$bucket_name" \
-    >/dev/null 2>&1
-
-# shellcheck disable=SC2181
-  if [[ ${?} -eq 0 ]]; then
+    >/dev/null 2>&1; then
     return 0 # 0 in Bash script means true.
   else
     return 1 # 1 in Bash script means false.
