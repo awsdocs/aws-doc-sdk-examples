@@ -30,12 +30,15 @@ function main() {
   # bashsupport disable=BP2001
   export VERBOSE=false
 
+# shellcheck disable=SC1091
   source ./include_tests.sh
   {
     local current_directory
     current_directory=$(pwd)
     cd ..
+    # shellcheck disable=SC1091
     source ./dynamodb_operations.sh
+    # shellcheck disable=SC1091
     source ./scenario_getting_started_movies.sh
     # shellcheck disable=SC2164
     cd "$current_directory"
@@ -127,6 +130,7 @@ function main() {
     "dynamodb_describe_table -n $test_table_name " \
     0
 
+   # shellcheck disable=SC2154
   if [[ "$test_command_response" != "ACTIVE" ]];  then
     test_failed "Table is not active."
     return 1
@@ -300,7 +304,7 @@ function main() {
     "dynamodb_batch_get_item -i $test_requested_values_json_file " \
     0
 
-  skip_tests=false
+  export skip_tests=false
   run_test " deleting table" \
     "dynamodb_delete_table -n $test_table_name " \
     0
@@ -363,6 +367,7 @@ function main() {
   rm "$test_attributes_values_json_file"
   rm "$test_requested_values_json_file"
 
+ # shellcheck disable=SC2154
   echo "$test_succeeded_count tests completed successfully."
   echo "$test_failed_count tests failed."
 }

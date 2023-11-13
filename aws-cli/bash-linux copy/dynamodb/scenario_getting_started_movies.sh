@@ -344,6 +344,7 @@ function echo_repeat() {
 #       1 - If an error occurred.
 ###############################################################################
 function dynamodb_getting_started_movies() {
+  # shellcheck disable=SC1091
   source ./dynamodb_operations.sh
 
   key_schema_json_file="dynamodb_key_schema.json"
