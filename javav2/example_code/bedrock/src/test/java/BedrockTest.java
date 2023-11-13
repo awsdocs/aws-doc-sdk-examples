@@ -29,7 +29,7 @@ public class BedrockTest {
 
     @Test
     @Tag("IntegrationTest")
-    void ListFoundationModels() {
+    void listFoundationModels() {
         assertDoesNotThrow(() -> ListFoundationModels.listFoundationModels(bedrock));
         System.out.println("Test 1 passed.");
     }
