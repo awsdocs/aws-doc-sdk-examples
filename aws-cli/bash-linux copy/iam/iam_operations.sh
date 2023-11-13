@@ -17,6 +17,7 @@
 #
 ###############################################################################
 
+# shellcheck disable=SC1091
 source ./awsdocs_general.sh
 
 # snippet-start:[aws-cli.bash-linux.iam.GetUser]
@@ -72,7 +73,7 @@ function iam_user_exists() {
 ###############################################################################
 function iam_list_users() {
   local option OPTARG # Required to use getopts command in a function.
-  local all_users error_code
+  local error_code
   # bashsupport disable=BP5008
   function usage() {
     echo "function iam_list_users"

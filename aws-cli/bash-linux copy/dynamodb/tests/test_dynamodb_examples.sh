@@ -268,9 +268,9 @@ function main() {
 
   test_count=$((test_count + 1))
   echo -n "Running test $test_count: Scanning table with projection expression..."
-  local response
-  response=$(dynamodb_scan -n "$test_table_name" -f "contains(#n,:v1)" -a "$test_attribute_names_json_file" \
-    -v "$test_attributes_values_json_file" -p "title,info.plot")
+
+  dynamodb_scan -n "$test_table_name" -f "contains(#n,:v1)" -a "$test_attribute_names_json_file" \
+    -v "$test_attributes_values_json_file" -p "title,info.plot"
   local error_code=${?}
 
   if [[ $error_code -ne 0 ]]; then
@@ -369,6 +369,7 @@ function main() {
 
  # shellcheck disable=SC2154
   echo "$test_succeeded_count tests completed successfully."
+  # shellcheck disable=SC2154
   echo "$test_failed_count tests failed."
 }
 
