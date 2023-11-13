@@ -206,6 +206,7 @@ function s3_getting_started() {
   local bucket_items
   bucket_items=$(list_items_in_bucket "$bucket_name")
 
+  # shellcheck disable=SC2181
   if [[ $? -ne 0 ]]; then
     result=1
   fi

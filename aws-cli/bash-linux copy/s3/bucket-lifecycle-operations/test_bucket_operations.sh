@@ -18,15 +18,18 @@
 ###############################################################################
 
 
+# shellcheck disable=SC1091
 source ./awsdocs_general.sh
+# shellcheck disable=SC1091
 source ./bucket_operations.sh
 {
   current_directory=$(pwd)
-  cd ..
+  cd .. || exit
+  # shellcheck disable=SC1091
   source ./s3_getting_started.sh
-  cd $current_directory
+  cd $current_directory || exit
 }
-source ../s3_getting_started.sh
+
 
 function usage() {
     echo "This script tests Amazon S3 bucket operations in the AWS CLI."
@@ -90,7 +93,7 @@ run_test "4. Creating bucket with duplicate name and region" \
          "ERROR: A bucket with that name already exists"
 
 run_test "5. Copying local file (copy of this script) to bucket" \
-         "copy_file_to_bucket $BUCKETNAME ./$0 $FILENAME1" \
+         "copy_file_to_bucket $BUCKETNAME $0 $FILENAME1" \
          0
 
 run_test "6. Duplicating existing file in bucket" \
@@ -113,8 +116,9 @@ run_test "10. Deleting bucket" \
          "delete_bucket $BUCKETNAME" \
          0
 
-mock_input="True"
-mock_input_array=("README.md" "y" "y" "y")
+
+export mock_input="True"
+export mock_input_array=("README.md" "y" "y" "y")
 
 run_test "11. s3 getting started scenario" \
           s3_getting_started \

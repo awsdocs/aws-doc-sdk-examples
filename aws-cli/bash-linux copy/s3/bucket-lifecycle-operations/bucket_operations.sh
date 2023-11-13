@@ -19,6 +19,7 @@
 ###############################################################################
 
 # snippet-start:[s3.bash.bucket-operations.complete]
+# shellcheck disable=SC1091
 source ./awsdocs_general.sh
 
 # snippet-start:[aws-cli.bash-linux.s3.HeadBucket]
@@ -45,7 +46,7 @@ function bucket_exists() {
     --bucket "$bucket_name" \
     >/dev/null 2>&1
 
-  # shellcheck disable=SC2181
+
   if [[ ${?} -eq 0 ]]; then
     return 0 # 0 in Bash script means true.
   else

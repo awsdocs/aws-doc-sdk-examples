@@ -255,8 +255,8 @@ function main() {
 
   test_count=$((test_count + 1))
   echo -n "Running test $test_count: Scanning table without projection expression..."
-  local response
-  response=$(dynamodb_scan -n "$test_table_name" -f "contains(#n,:v1)" -a "$test_attribute_names_json_file" -v "$test_attributes_values_json_file")
+
+  dynamodb_scan -n "$test_table_name" -f "contains(#n,:v1)" -a "$test_attribute_names_json_file" -v "$test_attributes_values_json_file"
   local error_code=${?}
 
   if [[ $error_code -ne 0 ]]; then
