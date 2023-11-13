@@ -33,6 +33,7 @@ python -m pip install -r requirements.txt
 ```
 
 <!--custom.prerequisites.start-->
+> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.prerequisites.end-->
 
 ### Single actions
@@ -51,6 +52,11 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
+Run the example by executing the following command inside the `example_code` folder:
+
+```
+python bedrock_runtime_wrapper.py
+```
 <!--custom.instructions.end-->
 
 
