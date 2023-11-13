@@ -21,9 +21,9 @@ bedrock-runtime_InvokeModel:
     bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeClaude:
-  title: Invoke the Anthropic Claude model to run an inference
-  title_abbrev: Invoke Anthropic Claude 2
-  synopsis: invoke the anthropic claude model to run inference.
+  title: Invoke the Anthropic Claude model on &BR; to run an inference
+  title_abbrev: Invoke Anthropic Claude 2 on &BR;
+  synopsis: invoke the anthropic claude model on &BR; to run inference.
   category:
   languages:
     Python:
@@ -39,9 +39,9 @@ bedrock-runtime_InvokeClaude:
     bedrock-runtime: { InvokeModel }
 
 bedrock-runtime_InvokeJurassic2:
-  title: Invoke the AI21 Labs Jurassic-2 model to run an inference
-  title_abbrev: Invoke AI21 Labs Jurassic-2
-  synopsis: invoke the ai21 labs jurassic-2 model to run an inference
+  title: Invoke the AI21 Labs Jurassic-2 model on &BR; to run an inference
+  title_abbrev: Invoke AI21 Labs Jurassic-2 on &BR;
+  synopsis: invoke the ai21 labs jurassic-2 model on &BR; to run inference.
   category:
   languages:
     Python:
@@ -50,17 +50,17 @@ bedrock-runtime_InvokeJurassic2:
           github: python/example_code/bedrockruntime
           sdkguide:
           excerpts:
-              - description: Invoke the AI 21 Labs Jurassic-2 foundation model
-                snippet_tags:
-                  - python.example_code.bedrock-runtime.InvokeAi21Jurassic2
+            - description: Invoke the AI 21 Labs Jurassic-2 foundation model
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeAi21Jurassic2
 
   services:
     bedrock-runtime: { InvokeModel }
 
 bedrock-runtime_InvokeStableDiffusion:
-  title: Invoke the Stability.ai Stable Diffusion model to run an inference
-  title_abbrev: Invoke Stable Diffusion XL
-  synopsis: invoke the stability.ai stable diffusion model to run an inference
+  title: Invoke the Stability.ai Stable Diffusion XL model on &BR; to run an inference
+  title_abbrev: Invoke Stability.ai Stable Diffusion XL on &BR;
+  synopsis: invoke the stability.ai stable diffusion xl on &BR; model to run inference.
   category:
   languages:
     Python:
@@ -75,9 +75,9 @@ bedrock-runtime_InvokeStableDiffusion:
     bedrock-runtime: { InvokeModel }
 
 bedrock-runtime_InvokeModelWithResponseStream:
-  title: Invoke Anthropic Claude 2 and process the response stream
-  title_abbrev: Invoke Anthropic Claude 2 and process the response stream
-  synopsis: invoke anthropic claude 2 and process the response stream
+  title: Invoke the specified &BR; model on &BR; to run an inference with a response stream
+  title_abbrev: Invoke a model on &BR; with a response stream
+  synopsis: invoke an model on &BR; to run an inference with a response stream
   category:
   languages:
     Python:
@@ -85,7 +85,7 @@ bedrock-runtime_InvokeModelWithResponseStream:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke Anthropic Claude 2 and process the response stream
+            - description: Invoke a model on &BR; and process the response stream
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeModelWithResponseStream
   services:
