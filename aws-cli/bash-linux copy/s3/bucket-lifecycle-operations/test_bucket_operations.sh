@@ -27,7 +27,7 @@ source ./bucket_operations.sh
   cd .. || exit
   # shellcheck disable=SC1091
   source ./s3_getting_started.sh
-  cd $current_directory || exit
+  cd "$current_directory" || exit
 }
 
 
