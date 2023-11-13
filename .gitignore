@@ -4,6 +4,7 @@
 .DS_Store
 ._*
 .idea
+*.iml
 .metadata
 .phpunit.result.cache
 .recommenders
