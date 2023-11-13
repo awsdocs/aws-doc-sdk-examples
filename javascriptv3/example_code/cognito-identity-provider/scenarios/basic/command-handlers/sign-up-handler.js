@@ -38,7 +38,7 @@ const signUpHandler = async (commands) => {
     validateClient(clientId);
     log(`Signing up.`);
     await signUp({ clientId, username, password, email });
-    log(`Signed up. An confirmation email has been sent to: ${email}.`);
+    log(`Signed up. A confirmation email has been sent to: ${email}.`);
     log(`Run 'confirm-sign-up ${username} <code>' to confirm your account.`);
   } catch (err) {
     log(err);
