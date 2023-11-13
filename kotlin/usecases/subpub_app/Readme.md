@@ -20,8 +20,8 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java JDK 1.8
-+ Gradle 6.8 or higher
++ Java JDK 17
++ Gradle 8.1 or higher
 + Setup your development environment. For more information, see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 
 **Note**: Make sure that you have installed the Kotlin plug-in for IntelliJ. 
@@ -60,10 +60,6 @@ This example application lets you view all of the subscribed email recipients by
 ![AWS Tracking Application](images/pic4.png)
 ## Create an IntelliJ project
 
-The following figure shows the project options.
-
-![AWS Tracking Application](images/project.png)
-
 Perform these steps. 
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
@@ -78,15 +74,20 @@ Perform these steps.
 At this point, you have a new project named **SpringKotlinSubPub**. Ensure that the gradle build  file resembles the following code.
 
 ```yaml
-   import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+  import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.0"
     application
 }
 
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 buildscript {
     repositories {
@@ -99,17 +100,18 @@ buildscript {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
+    implementation("aws.sdk.kotlin:sns:0.33.1-beta")
+    implementation("aws.sdk.kotlin:translate:0.33.1-beta")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
+    implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
     implementation("org.springframework.boot:spring-boot-starter-web:2.7.4")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.7.4")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("aws.sdk.kotlin:sns:0.19.0-beta")
-    implementation("aws.sdk.kotlin:translate:0.19.0-beta")
     implementation("net.sourceforge.jexcelapi:jxl:2.6.10")
     implementation("commons-io:commons-io:2.10.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
@@ -118,13 +120,14 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
  ```
      
  ## Create the Kotlin classes
