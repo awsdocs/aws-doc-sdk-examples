@@ -97,7 +97,6 @@ function main() {
     0
   test_count=$((test_count + 1))
 
-  # shellcheck disable=SC2154
   local datastore_id="$test_command_response"
 
   run_test "$test_count List datastores" \

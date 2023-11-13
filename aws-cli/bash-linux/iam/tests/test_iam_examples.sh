@@ -109,7 +109,6 @@ function main() {
     "iam_create_user -u $user_name " \
     0
 
-  # shellcheck disable=SC2154
   local user_arn="$test_command_response"
   test_count=$((test_count + 1))
 

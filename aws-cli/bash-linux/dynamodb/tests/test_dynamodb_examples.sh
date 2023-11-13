@@ -364,9 +364,8 @@ function main() {
   rm "$test_attributes_values_json_file"
   rm "$test_requested_values_json_file"
 
-  # shellcheck disable=SC2154
   echo "$test_succeeded_count tests completed successfully."
-  # shellcheck disable=SC2154
+
   echo "$test_failed_count tests failed."
 }
 
