@@ -42,7 +42,7 @@ bedrock-runtime_InvokeClaude:
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeAnthropicClaude
   services:
-    bedrock-runtime: { InvokeModel }
+    bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeJurassic2:
   title: Invoke the AI21 Labs Jurassic-2 model on &BR; to run an inference
@@ -68,7 +68,7 @@ bedrock-runtime_InvokeJurassic2:
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeAi21Jurassic2
   services:
-    bedrock-runtime: { InvokeModel }
+    bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeStableDiffusion:
   title: Invoke the Stability.ai Stable Diffusion XL model on &BR; to run an inference
@@ -93,7 +93,7 @@ bedrock-runtime_InvokeStableDiffusion:
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeStableDiffusion
   services:
-    bedrock-runtime: { InvokeModel }
+    bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeModelWithResponseStream:
   title: Invoke the specified model on &BR; to run an inference with a response stream
