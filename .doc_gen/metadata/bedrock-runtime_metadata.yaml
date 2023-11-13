@@ -30,7 +30,7 @@ bedrock-runtime_InvokeClaude:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke the Anthropic Claude 2 foundation model
+            - description: Invoke the Anthropic Claude 2 foundation model.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_claude.main
     Python:
@@ -38,7 +38,7 @@ bedrock-runtime_InvokeClaude:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke the Anthropic Claude 2 foundation model
+            - description: Invoke the Anthropic Claude 2 foundation model.
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeAnthropicClaude
   services:
@@ -55,7 +55,7 @@ bedrock-runtime_InvokeJurassic2:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke the AI21 Labs Jurassic-2 foundation model
+            - description: Invoke the AI21 Labs Jurassic-2 foundation model.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_jurassic2.main
     Python:
@@ -64,7 +64,7 @@ bedrock-runtime_InvokeJurassic2:
           github: python/example_code/bedrockruntime
           sdkguide:
           excerpts:
-            - description: Invoke the AI 21 Labs Jurassic-2 foundation model
+            - description: Invoke the AI 21 Labs Jurassic-2 foundation model.
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeAi21Jurassic2
   services:
@@ -81,7 +81,7 @@ bedrock-runtime_InvokeStableDiffusion:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke the Stability.ai Stable Diffusion XL foundation model
+            - description: Invoke the Stability.ai Stable Diffusion XL foundation model.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_stable_diffusion.main
     Python:
@@ -89,7 +89,7 @@ bedrock-runtime_InvokeStableDiffusion:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke the Stability.ai Stable Diffusion foundation model
+            - description: Invoke the Stability.ai Stable Diffusion foundation model.
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeStableDiffusion
   services:
@@ -98,7 +98,7 @@ bedrock-runtime_InvokeStableDiffusion:
 bedrock-runtime_InvokeModelWithResponseStream:
   title: Invoke the specified model on &BR; to run an inference with a response stream
   title_abbrev: Invoke a model on &BR; with a response stream
-  synopsis: invoke an model on &BR; to run an inference with a response stream
+  synopsis: invoke an model on &BR; to run an inference with a response stream.
   category:
   languages:
     Java:
@@ -106,7 +106,7 @@ bedrock-runtime_InvokeModelWithResponseStream:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke a model on &BR; and process the response stream
+            - description: Invoke a model on &BR; and process the response stream.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_model_with_response_stream.main
     Python:
@@ -114,7 +114,7 @@ bedrock-runtime_InvokeModelWithResponseStream:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke a model on &BR; and process the response stream
+            - description: Invoke a model on &BR; and process the response stream.
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeModelWithResponseStream
   services:
