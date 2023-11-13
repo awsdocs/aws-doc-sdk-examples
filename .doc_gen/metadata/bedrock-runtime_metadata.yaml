@@ -119,4 +119,3 @@ bedrock-runtime_InvokeModelWithResponseStream:
                 - python.example_code.bedrock-runtime.InvokeModelWithResponseStream
   services:
     bedrock-runtime: {InvokeModelWithResponseStream}
-

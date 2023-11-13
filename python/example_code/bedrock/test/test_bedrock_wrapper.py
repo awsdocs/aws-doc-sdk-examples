@@ -14,22 +14,20 @@ from bedrock_wrapper import BedrockWrapper
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_list_foundation_models(make_stubber, error_code):
-    bedrock_client = boto3.client(
-        service_name="bedrock", region_name="us-east-1"
-    )
+    bedrock_client = boto3.client(service_name="bedrock", region_name="us-east-1")
     bedrock_stubber = make_stubber(bedrock_client)
     wrapper = BedrockWrapper(bedrock_client)
     models = [
         {
-            'modelArn': "arn:aws:test:::test-resource",
-            'modelId': "testId",
-            'modelName': "testModelName",
-            'providerName': "testProviderName",
-            'inputModalities': ["TEXT"],
-            'outputModalities': ["TEXT"],
-            'responseStreamingSupported': False,
-            'customizationsSupported': ["FINE_TUNING"],
-            'inferenceTypesSupported': ["ON_DEMAND"]
+            "modelArn": "arn:aws:test:::test-resource",
+            "modelId": "testId",
+            "modelName": "testModelName",
+            "providerName": "testProviderName",
+            "inputModalities": ["TEXT"],
+            "outputModalities": ["TEXT"],
+            "responseStreamingSupported": False,
+            "customizationsSupported": ["FINE_TUNING"],
+            "inferenceTypesSupported": ["ON_DEMAND"],
         }
     ]
 

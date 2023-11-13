@@ -47,7 +47,6 @@ class BedrockRuntimeWrapper:
         """
 
         try:
-
             # The different model providers have individual request and response formats.
             # For the format, ranges, and default values for Anthropic Claude, refer to:
             # https://docs.anthropic.com/claude/reference/complete_post
@@ -59,12 +58,11 @@ class BedrockRuntimeWrapper:
                 "prompt": enclosed_prompt,
                 "max_tokens_to_sample": 200,
                 "temperature": 0.5,
-                "stop_sequences": ["\n\nHuman:"]
+                "stop_sequences": ["\n\nHuman:"],
             }
 
             response = self.bedrock_runtime_client.invoke_model(
-                modelId="anthropic.claude-v2",
-                body=json.dumps(body)
+                modelId="anthropic.claude-v2", body=json.dumps(body)
             )
 
             response_body = json.loads(response["body"].read())
@@ -89,7 +87,6 @@ class BedrockRuntimeWrapper:
         """
 
         try:
-
             # The different model providers have individual request and response formats.
             # For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
             # https://docs.ai21.com/reference/j2-complete-ref
@@ -101,8 +98,7 @@ class BedrockRuntimeWrapper:
             }
 
             response = self.bedrock_runtime_client.invoke_model(
-                modelId="ai21.j2-mid-v1",
-                body=json.dumps(body)
+                modelId="ai21.j2-mid-v1", body=json.dumps(body)
             )
 
             response_body = json.loads(response["body"].read())
@@ -130,7 +126,6 @@ class BedrockRuntimeWrapper:
         """
 
         try:
-
             # The different model providers have individual request and response formats.
             # For the format, ranges, and available style_presets of Stable Diffusion models refer to:
             # https://platform.stability.ai/docs/api-reference#tag/v1generation
@@ -139,15 +134,14 @@ class BedrockRuntimeWrapper:
                 "text_prompts": [{"text": prompt}],
                 "seed": seed,
                 "cfg_scale": 10,
-                "steps": 30
+                "steps": 30,
             }
 
             if style_preset:
                 body["style_preset"] = style_preset
 
             response = self.bedrock_runtime_client.invoke_model(
-                modelId="stability.stable-diffusion-xl",
-                body=json.dumps(body)
+                modelId="stability.stable-diffusion-xl", body=json.dumps(body)
             )
 
             response_body = json.loads(response["body"].read())
@@ -171,7 +165,6 @@ class BedrockRuntimeWrapper:
         """
 
         try:
-
             # The different model providers have individual request and response formats.
             # For the format, ranges, and default values for Anthropic Claude, refer to:
             # https://docs.anthropic.com/claude/reference/complete_post
@@ -183,22 +176,21 @@ class BedrockRuntimeWrapper:
                 "prompt": enclosed_prompt,
                 "max_tokens_to_sample": 1024,
                 "temperature": 0.5,
-                "stop_sequences": ["\n\nHuman:"]
+                "stop_sequences": ["\n\nHuman:"],
             }
 
             response = self.bedrock_runtime_client.invoke_model_with_response_stream(
-                modelId="anthropic.claude-v2",
-                body=json.dumps(body)
+                modelId="anthropic.claude-v2", body=json.dumps(body)
             )
 
-            stream = response.get('body')
+            stream = response.get("body")
 
             if stream:
                 for event in stream:
-                    chunk = event.get('chunk')
+                    chunk = event.get("chunk")
                     if chunk:
-                        chunk_obj = json.loads(chunk.get('bytes').decode())
-                        text = chunk_obj['completion']
+                        chunk_obj = json.loads(chunk.get("bytes").decode())
+                        text = chunk_obj["completion"]
                         yield text
 
         except ClientError:
@@ -206,6 +198,7 @@ class BedrockRuntimeWrapper:
             raise
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream]
+
 
 def save_image(base64_image_data):
     directory = "output"
@@ -220,7 +213,7 @@ def save_image(base64_image_data):
     image_data = base64.b64decode(base64_image_data)
 
     file_path = os.path.join(directory, f"image_{i}.png")
-    with open(file_path, 'wb') as file:
+    with open(file_path, "wb") as file:
         file.write(image_data)
 
     return file_path
@@ -228,7 +221,7 @@ def save_image(base64_image_data):
 
 def invoke(wrapper, model_id, prompt, style_preset=None):
     print("-" * 88)
-    print(f'Invoking: {model_id}')
+    print(f"Invoking: {model_id}")
     print("Prompt: " + prompt)
 
     try:
@@ -242,9 +235,11 @@ def invoke(wrapper, model_id, prompt, style_preset=None):
 
         elif model_id == "stability.stable-diffusion-xl":
             seed = random.randint(0, 4294967295)
-            base64_image_data = wrapper.invoke_stable_diffusion(prompt, seed, style_preset)
+            base64_image_data = wrapper.invoke_stable_diffusion(
+                prompt, seed, style_preset
+            )
             image_path = save_image(base64_image_data)
-            print(f'The generated image has been saved to {image_path}')
+            print(f"The generated image has been saved to {image_path}")
 
     except ClientError:
         logger.exception("Couldn't invoke model %s", model_id)
@@ -253,7 +248,7 @@ def invoke(wrapper, model_id, prompt, style_preset=None):
 
 async def invoke_with_response_stream(wrapper, model_id, prompt):
     print("-" * 88)
-    print(f'Invoking: {model_id} with response stream')
+    print(f"Invoking: {model_id} with response stream")
     print("Prompt: " + prompt)
     print("\nResponse stream:")
 
@@ -278,10 +273,7 @@ def usage_demo():
     print("Welcome to the Amazon Bedrock Runtime demo.")
     print("-" * 88)
 
-    client = boto3.client(
-        service_name="bedrock-runtime",
-        region_name="us-east-1"
-    )
+    client = boto3.client(service_name="bedrock-runtime", region_name="us-east-1")
 
     wrapper = BedrockRuntimeWrapper(client)
 
@@ -293,9 +285,18 @@ def usage_demo():
 
     invoke(wrapper, "ai21.j2-mid-v1", text_generation_prompt)
 
-    asyncio.run(invoke_with_response_stream(wrapper, "anthropic.claude-v2", text_generation_prompt))
+    asyncio.run(
+        invoke_with_response_stream(
+            wrapper, "anthropic.claude-v2", text_generation_prompt
+        )
+    )
 
-    invoke(wrapper, "stability.stable-diffusion-xl", image_generation_prompt, image_style_preset)
+    invoke(
+        wrapper,
+        "stability.stable-diffusion-xl",
+        image_generation_prompt,
+        image_style_preset,
+    )
 
 
 if __name__ == "__main__":

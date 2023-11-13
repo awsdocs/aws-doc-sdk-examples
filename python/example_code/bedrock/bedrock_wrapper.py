@@ -65,10 +65,7 @@ def usage_demo():
     print("Welcome to the Amazon Bedrock demo.")
     print("-" * 88)
 
-    bedrock_client = boto3.client(
-        service_name="bedrock",
-        region_name="us-east-1"
-    )
+    bedrock_client = boto3.client(service_name="bedrock", region_name="us-east-1")
 
     wrapper = BedrockWrapper(bedrock_client)
 

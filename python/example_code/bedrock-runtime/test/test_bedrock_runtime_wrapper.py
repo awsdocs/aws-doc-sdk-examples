@@ -17,8 +17,7 @@ from bedrock_runtime_wrapper import BedrockRuntimeWrapper
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_invoke_claude(make_stubber, error_code):
     bedrock_runtime = boto3.client(
-        service_name="bedrock-runtime",
-        region_name="us-east-1"
+        service_name="bedrock-runtime", region_name="us-east-1"
     )
     bedrock_runtime_stubber = make_stubber(bedrock_runtime)
     wrapper = BedrockRuntimeWrapper(bedrock_runtime)
@@ -39,8 +38,7 @@ def test_invoke_claude(make_stubber, error_code):
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_invoke_jurassic2(make_stubber, error_code):
     bedrock_runtime = boto3.client(
-        service_name="bedrock-runtime",
-        region_name="us-east-1"
+        service_name="bedrock-runtime", region_name="us-east-1"
     )
     bedrock_runtime_stubber = make_stubber(bedrock_runtime)
     wrapper = BedrockRuntimeWrapper(bedrock_runtime)
@@ -62,15 +60,16 @@ def test_invoke_jurassic2(make_stubber, error_code):
 @pytest.mark.parametrize("error_code", ["ClientError"])
 async def test_invoke_model_with_response_stream(make_stubber, error_code):
     bedrock_runtime = boto3.client(
-        service_name="bedrock-runtime",
-        region_name="us-east-1"
+        service_name="bedrock-runtime", region_name="us-east-1"
     )
     bedrock_runtime_stubber = make_stubber(bedrock_runtime)
     wrapper = BedrockRuntimeWrapper(bedrock_runtime)
 
     prompt = "Hey, how are you?"
 
-    bedrock_runtime_stubber.stub_invoke_model_with_response_stream(prompt, error_code=error_code)
+    bedrock_runtime_stubber.stub_invoke_model_with_response_stream(
+        prompt, error_code=error_code
+    )
 
     if error_code:
         with pytest.raises(ClientError):
@@ -81,8 +80,7 @@ async def test_invoke_model_with_response_stream(make_stubber, error_code):
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_invoke_stable_diffusion(make_stubber, error_code):
     bedrock_runtime = boto3.client(
-        service_name="bedrock-runtime",
-        region_name="us-east-1"
+        service_name="bedrock-runtime", region_name="us-east-1"
     )
     bedrock_runtime_stubber = make_stubber(bedrock_runtime)
     wrapper = BedrockRuntimeWrapper(bedrock_runtime)
@@ -91,7 +89,9 @@ def test_invoke_stable_diffusion(make_stubber, error_code):
     style_preset = "cinematic"
     seed = random.randint(0, 4294967295)
 
-    bedrock_runtime_stubber.stub_invoke_stable_diffusion(prompt, style_preset, seed, error_code=error_code)
+    bedrock_runtime_stubber.stub_invoke_stable_diffusion(
+        prompt, style_preset, seed, error_code=error_code
+    )
 
     if error_code is None:
         got_completion = wrapper.invoke_stable_diffusion(prompt, seed, style_preset)
