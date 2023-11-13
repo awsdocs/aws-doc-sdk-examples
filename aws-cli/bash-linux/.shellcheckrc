@@ -1,3 +1,4 @@
 # Look for 'source'd files relative to the checked script.
 source-path=SCRIPTDIR
 source-path=SCRIPTDIR/..
+source-path="s3/bucket-lifecycle-operations"
