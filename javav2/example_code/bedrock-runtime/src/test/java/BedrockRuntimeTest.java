@@ -11,6 +11,8 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeAsyncClient;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 
+import java.lang.reflect.Method;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -98,5 +100,10 @@ class BedrockRuntimeTest {
 
             System.out.println("Test 2 passed.");
         }
+    }
+
+    private int getTestNumber(Method testMethod) {
+        Order order = testMethod.getAnnotation(Order.class);
+        return order != null ? order.value() : 0;
     }
 }
