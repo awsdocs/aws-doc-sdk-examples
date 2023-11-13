@@ -32,7 +32,7 @@ The following example uses the **BedrockRuntimeClient**:
 * [Invoke AI21 Labs Jurassic-2 on Amazon Bedrock](src/main/java/com/example/bedrockruntime/InvokeModel.java#L101) (`InvokeModel`)
 * [Invoke Anthropic Claude 2 on Amazon Bedrock](src/main/java/com/example/bedrockruntime/InvokeModel.java#L51) (`InvokeModel`)
 * [Invoke Stability.ai Stable Diffusion XL on Amazon Bedrock](src/main/java/com/example/bedrockruntime/InvokeModel.java#L151) (`InvokeModel`)
-* [Invoke a model on $BR; with a response stream](src/main/java/com/example/bedrockruntime/InvokeModelWithResponseStream.java#L49) (`InvokeModelWithResponseStream`)
+* [Invoke a model on Amazon Bedrock with a response stream](src/main/java/com/example/bedrockruntime/InvokeModelWithResponseStream.java#L49) (`InvokeModelWithResponseStream`)
 
 ## Run the examples
 
