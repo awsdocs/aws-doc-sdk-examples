@@ -1,0 +1,552 @@
+[
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1985"
+                },
+                "title": {
+                    "S": "Back to the Future"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.5"
+                        },
+                        "plot": {
+                            "S": "A teenager is accidentally sent 30 years into the past in a time-traveling DeLorean invented by his friend, Dr. Emmett Brown, and must make sure his high-school-age parents unite in order to save his own existence."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1972"
+                },
+                "title": {
+                    "S": "The Godfather"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "9.2"
+                        },
+                        "plot": {
+                            "S": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1972"
+                },
+                "title": {
+                    "S": "Deliverance"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "7.8"
+                        },
+                        "plot": {
+                            "S": "Intent on seeing the Cahulawassee River before it's turned into one huge lake, outdoor fanatic Lewis Medlock takes his friends on a river-rafting trip they'll never forget into the dangerous American back-country."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1999"
+                },
+                "title": {
+                    "S": "Fight Club"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.8"
+                        },
+                        "plot": {
+                            "S": "An insomniac office worker looking for a way to change his life crosses paths with a devil-may-care soap maker and they form an underground fight club that evolves into something much, much more..."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1999"
+                },
+                "title": {
+                    "S": "American Beauty"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.5"
+                        },
+                        "plot": {
+                            "S": "Lester Burnham, a depressed suburban father in a mid-life crisis, decides to turn his hectic life around after developing an infatuation for his daughter's attractive friend."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1976"
+                },
+                "title": {
+                    "S": "Carrie"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "7.4"
+                        },
+                        "plot": {
+                            "S": "A young, abused and timid 17-year-old girl discovers she has telekinesis, and gets pushed to the limit on the night of her school's prom by a humiliating prank."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1976"
+                },
+                "title": {
+                    "S": "Rocky"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8"
+                        },
+                        "plot": {
+                            "S": "A small-time boxer gets a supremely rare chance to fight the heavy-weight champion in a bout in which he strives to go the distance for his self-respect."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2006"
+                },
+                "title": {
+                    "S": "The Departed"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.5"
+                        },
+                        "plot": {
+                            "S": "An undercover state cop who has infiltrated an Irish gang and a mole in the police force working for the same mob race to track down and identify each other before being exposed to the enemy, after both sides realize their outfit has a rat."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2006"
+                },
+                "title": {
+                    "S": "300"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "7.7"
+                        },
+                        "plot": {
+                            "S": "King Leonidas and a force of 300 men fight the Persians at Thermopylae in 480 B.C."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2001"
+                },
+                "title": {
+                    "S": "The Lord of the Rings: The Fellowship of the Ring"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.8"
+                        },
+                        "plot": {
+                            "S": "A meek hobbit of The Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2001"
+                },
+                "title": {
+                    "S": "Harry Potter and the Sorcerer's Stone"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "7.3"
+                        },
+                        "plot": {
+                            "S": "Rescued from the outrageous neglect of his aunt and uncle, a young boy with a great destiny proves his worth while attending Hogwarts School of Witchcraft and Wizardry."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1980"
+                },
+                "title": {
+                    "S": "The Shining"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.5"
+                        },
+                        "plot": {
+                            "S": "A family heads to an isolated hotel for the winter where an evil and spiritual presence influences the father into violence, while his psychic son sees horrific forebodings from the past and of the future."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1980"
+                },
+                "title": {
+                    "S": "Star Wars: Episode V - The Empire Strikes Back"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.8"
+                        },
+                        "plot": {
+                            "S": "After the rebels have been brutally overpowered by the Empire on their newly established base, Luke Skywalker takes advanced training with Master Yoda, while his friends are pursued by Darth Vader as part of his plan to capture Luke."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2000"
+                },
+                "title": {
+                    "S": "Requiem for a Dream"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.4"
+                        },
+                        "plot": {
+                            "S": "The drug-induced utopias of four Coney Island individuals are shattered when their addictions become stronger."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2000"
+                },
+                "title": {
+                    "S": "Pitch Black"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "7"
+                        },
+                        "plot": {
+                            "S": "A prisoner transport ship and its crew are marooned on a planet full of bloodthirsty creatures that only come out to feast at night. But then, they learn that a month-long eclipse is about to occur."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2003"
+                },
+                "title": {
+                    "S": "Love Actually"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "7.7"
+                        },
+                        "plot": {
+                            "S": "Follows the lives of eight very different couples in dealing with their love lives in various loosely and interrelated tales all set during a frantic month before Christmas in London, England."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2003"
+                },
+                "title": {
+                    "S": "Pirates of the Caribbean: The Curse of the Black Pearl"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8"
+                        },
+                        "plot": {
+                            "S": "Blacksmith Will Turner teams up with eccentric pirate \"Captain\" Jack Sparrow to save his love, the governor's daughter, from Jack's former pirate allies, who are now undead."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1977"
+                },
+                "title": {
+                    "S": "Annie Hall"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.2"
+                        },
+                        "plot": {
+                            "S": "Neurotic New York comedian Alvy Singer falls in love with the ditsy Annie Hall."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1977"
+                },
+                "title": {
+                    "S": "Saturday Night Fever"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "6.7"
+                        },
+                        "plot": {
+                            "S": "A Brooklyn youth feels his only chance to get somewhere is as the king of the disco floor."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2005"
+                },
+                "title": {
+                    "S": "Batman Begins"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.3"
+                        },
+                        "plot": {
+                            "S": "After training with his mentor, Batman begins his war on crime to free the crime-ridden Gotham City from corruption that the Scarecrow and the League of Shadows have cast upon it."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2005"
+                },
+                "title": {
+                    "S": "Sin City"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.2"
+                        },
+                        "plot": {
+                            "S": "A film that explores the dark and miserable town, Basin City, and tells the story of three different people, all caught up in violent corruption."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2007"
+                },
+                "title": {
+                    "S": "Into the Wild"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.1"
+                        },
+                        "plot": {
+                            "S": "After graduating from Emory University, top student and athlete Christopher McCandless abandons his possessions, gives his entire $24,000 savings account to charity and hitchhikes to Alaska to live in the wilderness. Along the way, Christopher encounters a series of characters that shape his life."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "2007"
+                },
+                "title": {
+                    "S": "Superbad"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "7.6"
+                        },
+                        "plot": {
+                            "S": "Two co-dependent high school seniors are forced to deal with separation anxiety after their plan to stage a booze-soaked party goes awry."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1991"
+                },
+                "title": {
+                    "S": "The Silence of the Lambs"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.7"
+                        },
+                        "plot": {
+                            "S": "A young F.B.I. cadet must confide in an incarcerated and manipulative killer to receive his help on catching another serial killer who skins his victims."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "year": {
+                    "N": "1991"
+                },
+                "title": {
+                    "S": "Terminator 2: Judgment Day"
+                },
+                "info": {
+                    "M": {
+                        "rating": {
+                            "N": "8.5"
+                        },
+                        "plot": {
+                            "S": "The cyborg who once tried to kill Sarah Connor is dead, and another T-101 must now protect her teenage son, John Connor, from an even more powerful and advanced Terminator, the T-1000."
+                        }
+                    }
+                }
+            }
+        }
+    }
+]
