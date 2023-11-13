@@ -20,9 +20,9 @@ bedrock-runtime_InvokeModel:
     bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeClaude:
-  title: Invoke the Anthropic Claude model to run an inference
-  title_abbrev: Invoke Anthropic Claude 2
-  synopsis: invoke the anthropic claude model to run inference.
+  title: Invoke the Anthropic Claude model on &BR; to run an inference
+  title_abbrev: Invoke Anthropic Claude 2 on &BR;
+  synopsis: invoke the anthropic claude model on &BR; to run inference.
   category:
   languages:
     Java:
@@ -37,9 +37,9 @@ bedrock-runtime_InvokeClaude:
     bedrock-runtime: { InvokeModel }
 
 bedrock-runtime_InvokeJurassic2:
-  title: Invoke the AI21 Labs Jurassic-2 model to run an inference
-  title_abbrev: Invoke AI21 Labs Jurassic-2
-  synopsis: invoke the ai21 labs jurassic-2 model to run inference.
+  title: Invoke the AI21 Labs Jurassic-2 model on &BR; to run an inference
+  title_abbrev: Invoke AI21 Labs Jurassic-2 on &BR;
+  synopsis: invoke the ai21 labs jurassic-2 model on &BR; to run inference.
   category:
   languages:
     Java:
@@ -54,9 +54,9 @@ bedrock-runtime_InvokeJurassic2:
     bedrock-runtime: { InvokeModel }
 
 bedrock-runtime_InvokeStableDiffusion:
-  title: Invoke the Stability.ai Stable Diffusion XL model to run an inference
-  title_abbrev: Invoke Stability.ai Stable Diffusion XL
-  synopsis: invoke the stability.ai stable diffusion xl model to run inference.
+  title: Invoke the Stability.ai Stable Diffusion XL model on &BR; to run an inference
+  title_abbrev: Invoke Stability.ai Stable Diffusion XL on &BR;
+  synopsis: invoke the stability.ai stable diffusion xl on &BR; model to run inference.
   category:
   languages:
     Java:
@@ -71,9 +71,9 @@ bedrock-runtime_InvokeStableDiffusion:
     bedrock-runtime: { InvokeModel }
 
 bedrock-runtime_InvokeModelWithResponseStream:
-  title: Invoke the specified &BR; model to run an inference with a response stream
-  title_abbrev: Invoke a model with a response stream
-  synopsis: invoke an &BR; model to run an inference with a response stream
+  title: Invoke the specified &BR; model on &BR; to run an inference with a response stream
+  title_abbrev: Invoke a model on $BR; with a response stream
+  synopsis: invoke an model on $BR; to run an inference with a response stream
   category:
   languages:
     Java:
@@ -81,7 +81,7 @@ bedrock-runtime_InvokeModelWithResponseStream:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke a model and process the response stream
+            - description: Invoke a model on $BR; and process the response stream
               snippet_tags:
                 - bedrock-runtime.java2.invoke_model_with_response_stream.main
   services:
