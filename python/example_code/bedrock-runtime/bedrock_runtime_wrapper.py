@@ -144,7 +144,7 @@ class BedrockRuntimeWrapper:
             return completion
 
         except ClientError:
-            logger.error("Couldn't invoke Anthropic Claude 2")
+            logger.error("Couldn't invoke Llama 2")
             raise
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeMetaLlama2]
