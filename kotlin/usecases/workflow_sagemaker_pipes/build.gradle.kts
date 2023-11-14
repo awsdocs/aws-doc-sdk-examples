@@ -1,12 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.0"
     application
 }
 
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 buildscript {
     repositories {
@@ -19,12 +24,15 @@ buildscript {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:sagemaker-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:sagemakergeospatial-jvm:0.21.3-beta")
+    implementation("aws.sdk.kotlin:sagemaker:0.33.1-beta")
+    implementation("aws.sdk.kotlin:sagemakergeospatial:0.33.1-beta")
+    implementation("aws.sdk.kotlin:sagemakergeospatial:0.33.1-beta")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
+    implementation("com.amazonaws:aws-java-sdk-lambda:1.12.429")
+    implementation("com.amazonaws:aws-lambda-java-core:1.2.2")
     implementation("aws.sdk.kotlin:iam-jvm:0.21.3-beta")
     implementation("aws.sdk.kotlin:sqs-jvm:0.21.3-beta")
     implementation("aws.sdk.kotlin:lambda-jvm:0.21.3-beta")
@@ -35,5 +43,5 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "17"
 }
