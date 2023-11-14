@@ -13,7 +13,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-
 buildscript {
     repositories {
         maven("https://plugins.gradle.org/m2/")
