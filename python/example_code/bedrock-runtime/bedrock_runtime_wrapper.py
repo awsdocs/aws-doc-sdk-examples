@@ -124,8 +124,8 @@ class BedrockRuntimeWrapper:
 
         try:
             # The different model providers have individual request and response formats.
-            # For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
-            # https://docs.ai21.com/reference/j2-complete-ref
+            # For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
+            # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
 
             body = {
                 "prompt": prompt,
