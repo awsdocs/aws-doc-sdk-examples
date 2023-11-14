@@ -9,6 +9,19 @@ import project_validator
 
 
 @pytest.mark.parametrize(
+    "contents,expected_parts",
+    [
+        (".Contents word WoRD file:", ["contents", "word", "word", "file"]),
+        ("https://adomain.com/foo", ["https", "", "adomain.com", "foo"]),
+    ],
+)
+def test(contents, expected_parts):
+    """Test that the word part stemmer finds the right pieces"""
+    actual_parts = [part for _, part in project_validator.word_parts(contents)]
+    assert expected_parts == actual_parts
+
+
+@pytest.mark.parametrize(
     "file_contents,expected_error_count",
     [
         (

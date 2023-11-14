@@ -26,7 +26,8 @@ import sys
 from pathlib import Path
 from pathspec import GitIgnoreSpec
 from typing import Generator
-from words import WORDS
+
+from validator_config import ALLOW_LIST, DENY_LIST
 
 logger = logging.getLogger(__name__)
 
@@ -86,115 +87,6 @@ EXPECTED_SAMPLE_FILES = {
 
 # Media file types.
 MEDIA_FILE_TYPES = {"mp3", "wav"}
-
-# List of words that should never be in code examples.
-DENY_LIST = {"alpha-docs-aws.amazon.com", "integ-docs-aws.amazon.com"}.union(WORDS)
-
-# Allowlist of 20- or 40-character strings to allow.
-ALLOW_LIST = {
-    "AGPAIFFQAVRFFEXAMPLE",
-    "AKIA111111111EXAMPLE",
-    "AKIA6OHTTRXXTEXAMPLE",
-    "AKIAEXAMPLEACCESSKEY",
-    "AKIAIOSFODNN7EXAMPLE",
-    "APKAEIBAERJR2EXAMPLE",
-    "AWSEC2/latest/APIReference/OperationList",
-    "AppStreamUsageReportsCFNGlueAthenaAccess",
-    "CancelExportTaskExample/CancelExportTask",
-    "CertificateTransparencyLoggingPreference",
-    "ChangeMessageVisibilityBatchRequestEntry",
-    "CreateCollectionExample/CreateCollection",
-    "CreateExportTaskExample/CreateExportTask",
-    "DeleteCollectionExample/DeleteCollection",
-    "DescribeDbClusterParameterGroupsResponse",
-    "DescribeOrderableDBInstanceOptionsOutput",
-    "DynamodbRubyExampleCreateUsersTableStack",
-    "GetIdentityVerificationAttributesRequest",
-    "KMSWithContextEncryptionMaterialsExample",
-    "KinesisStreamSourceConfiguration=kinesis",
-    "ListOrganizationalUnitsForParentResponse",
-    "ListTagsExample/ListTagsExample/ListTags",
-    "ListTagsForVaultExample/ListTagsForVault",
-    "SynthesizeSpeechExample/SynthesizeSpeech",
-    "TargetTrackingScalingPolicyConfiguration",
-    "TerminateInstanceInAutoScalingGroupAsync",
-    "VectorEnrichmentJobDataSourceConfigInput",
-    "amazondynamodb/latest/developerguide/DAX",
-    "apigateway/latest/developerguide/welcome",
-    "aws/acm/model/DescribeCertificateRequest",
-    "aws/cloudtrail/model/LookupEventsRequest",
-    "aws/codebuild/model/BatchGetBuildsResult",
-    "aws/codecommit/model/DeleteBranchRequest",
-    "aws/codecommit/model/ListBranchesRequest",
-    "aws/dynamodb/model/BatchWriteItemRequest",
-    "aws/dynamodb/model/ProvisionedThroughput",
-    "aws/ec2/model/CreateSecurityGroupRequest",
-    "aws/ec2/model/DeleteSecurityGroupRequest",
-    "aws/ec2/model/UnmonitorInstancesResponse",
-    "aws/email/model/CreateReceiptRuleRequest",
-    "aws/email/model/DeleteReceiptRuleRequest",
-    "aws/email/model/ListReceiptFiltersResult",
-    "aws/email/model/SendTemplatedEmailResult",
-    "aws/guardduty/model/ListDetectorsRequest",
-    "aws/iam/model/GetAccessKeyLastUsedResult",
-    "aws/iam/model/GetServerCertificateResult",
-    "aws/kinesis/model/GetShardIteratorResult",
-    "aws/kinesis/model/PutRecordsRequestEntry",
-    "aws/kms/model/ScheduleKeyDeletionRequest",
-    "aws/monitoring/model/DeleteAlarmsRequest",
-    "aws/neptune/model/CreateDBClusterRequest",
-    "aws/neptune/model/DeleteDBClusterRequest",
-    "aws/neptune/model/ModifyDBClusterRequest",
-    "aws/rds/model/DescribeDBInstancesRequest",
-    "aws/rds/model/DescribeDBSnapshotsRequest",
-    "cloudwatch/commands/PutMetricDataCommand",
-    "com/amazondynamodb/latest/developerguide",
-    "com/apigateway/latest/developerguide/set",
-    "com/autoscaling/ec2/APIReference/Welcome",
-    "com/awssupport/latest/APIReference/index",
-    "com/firehose/latest/APIReference/Welcome",
-    "com/greengrass/latest/developerguide/lra",
-    "com/greengrass/latest/developerguide/sns",
-    "com/kotlin/api/latest/mediaconvert/index",
-    "com/pinpoint/latest/apireference/welcome",
-    "com/redshift/latest/APIReference/Welcome",
-    "com/rekognition/latest/dg/considerations",
-    "com/samples/JobStatusNotificationsSample",
-    "com/transcribe/latest/APIReference/index",
-    "com/v1/documentation/api/latest/guide/s3",
-    "com/workdocs/latest/APIReference/Welcome",
-    "devicefarm/latest/developerguide/welcome",
-    "examples/blob/main/applications/feedback",
-    "generate_presigned_url_and_upload_object",
-    "iam/commands/GetAccessKeyLastUsedCommand",
-    "iam/commands/GetServerCertificateCommand",
-    "nFindProductsWithNegativePriceWithConfig",
-    "preview/examples/cognitoidentityprovider",
-    "preview/examples/cognitoidentityprovider",
-    "preview/examples/lambda/src/bin/scenario",
-    "role/AmazonSageMakerGeospatialFullAccess",
-    "s3_client_side_encryption_sym_master_key",
-    "serial/CORE_THING_NAME/write/dev/serial1",
-    "service/FeedbackSentimentAnalyzer/README",
-    "ses/commands/CreateReceiptRuleSetCommand",
-    "ses/commands/DeleteReceiptRuleSetCommand",
-    "ses/commands/VerifyDomainIdentityCommand",
-    "src/main/java/com/example/dynamodb/Query",
-    "src/main/java/com/example/iam/CreateRole",
-    "src/main/java/com/example/iam/CreateUser",
-    "src/main/java/com/example/iam/DeleteUser",
-    "src/main/java/com/example/iam/UpdateUser",
-    "src/main/java/com/example/kms/ListGrants",
-    "src/main/java/com/example/s3/ListObjects",
-    "src/main/java/com/example/s3/S3BucketOps",
-    "src/main/java/com/example/sns/ListOptOut",
-    "src/main/java/com/example/sns/ListTopics",
-    "src/main/java/com/example/sqs/SQSExample",
-    "targetTrackingScalingPolicyConfiguration",
-    "upload_files_using_managed_file_uploader",
-    "videoMetaData=celebrityRecognitionResult",
-    "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-}
 
 
 def match_path_to_specs(path: Path, specs: list[GitIgnoreSpec]) -> bool:
@@ -268,11 +160,19 @@ def check_files(root: Path):
     return error_count
 
 
+def word_parts(contents: str):
+    for word in contents.split():
+        # split on / for URLs, to find invalid Host names
+        for part in word.lower().split("/"):
+            part = re.sub(r"^[.:]", "", re.sub(r"[.:]$", "", part))
+            yield word, part
+
+
 def verify_no_deny_list_words(file_contents: str, file_location: Path):
     """Verify no words in the file are in the list of denied words."""
     error_count = 0
-    for word in file_contents.split():
-        if word.lower() in DENY_LIST:
+    for word, part in word_parts(file_contents):
+        if part in DENY_LIST:
             logger.error("Word '%s' in %s is not allowed.", word, file_location)
             error_count += 1
     return error_count
