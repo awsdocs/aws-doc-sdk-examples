@@ -83,7 +83,7 @@ bedrock-runtime_InvokeLlama2:
           excerpts:
             - description: Invoke the Meta Llama 2 foundation model.
               snippet_tags:
-                - bedrock-runtime.java2.invoke_jurassic2.main
+                - bedrock-runtime.java2.invoke_llama2.main
     Python:
       versions:
         - sdk_version: 3
