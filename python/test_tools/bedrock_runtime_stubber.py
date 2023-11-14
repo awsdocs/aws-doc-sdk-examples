@@ -72,6 +72,26 @@ class BedrockRuntimeStubber(ExampleStubber):
             "invoke_model", expected_params, response, error_code=error_code
         )
 
+    def stub_invoke_llama2(self, prompt, error_code=None):
+        expected_params = {
+            "modelId": "meta.llama2-13b-chat-v1",
+            "body": json.dumps(
+                {"prompt": prompt, "temperature": 0.5, "top_p": 0.9, "max_gen_len": 512}
+            ),
+        }
+
+        response_body = io.BytesIO(
+            json.dumps(
+                {"generation": "Fake completion response."}
+            ).encode("utf-8")
+        )
+
+        response = {"body": response_body, "contentType": ""}
+
+        self._stub_bifurcator(
+            "invoke_model", expected_params, response, error_code=error_code
+        )
+
     def stub_invoke_model_with_response_stream(self, prompt, error_code=None):
         expected_params = {
             "modelId": "anthropic.claude-v2",

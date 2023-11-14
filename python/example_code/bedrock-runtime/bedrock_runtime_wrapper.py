@@ -112,6 +112,43 @@ class BedrockRuntimeWrapper:
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeAi21Jurassic2]
 
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeMetaLlama2]
+    def invoke_llama2(self, prompt):
+        """
+        Invokes the Meta Llama 2 large-language model to run an inference
+        using the input provided in the request body.
+
+        :param prompt: The prompt that you want Jurassic-2 to complete.
+        :return: Inference response from the model.
+        """
+
+        try:
+            # The different model providers have individual request and response formats.
+            # For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
+            # https://docs.ai21.com/reference/j2-complete-ref
+
+            body = {
+                "prompt": prompt,
+                "temperature": 0.5,
+                "top_p": 0.9,
+                "max_gen_len": 512,
+            }
+
+            response = self.bedrock_runtime_client.invoke_model(
+                modelId="meta.llama2-13b-chat-v1", body=json.dumps(body)
+            )
+
+            response_body = json.loads(response["body"].read())
+            completion = response_body["generation"]
+
+            return completion
+
+        except ClientError:
+            logger.error("Couldn't invoke Anthropic Claude 2")
+            raise
+
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeMetaLlama2]
+
     # snippet-start:[python.example_code.bedrock-runtime.InvokeStableDiffusion]
     def invoke_stable_diffusion(self, prompt, seed, style_preset=None):
         """
@@ -227,11 +264,15 @@ def invoke(wrapper, model_id, prompt, style_preset=None):
     try:
         if model_id == "anthropic.claude-v2":
             completion = wrapper.invoke_claude(prompt)
-            print("Completion: " + completion.strip())
+            print("Completion: " + completion)
 
         elif model_id == "ai21.j2-mid-v1":
             completion = wrapper.invoke_jurassic2(prompt)
-            print("Completion: " + completion.strip())
+            print("Completion: " + completion)
+
+        elif model_id == "meta.llama2-13b-chat-v1":
+            completion = wrapper.invoke_llama2(prompt)
+            print("Completion: " + completion)
 
         elif model_id == "stability.stable-diffusion-xl":
             seed = random.randint(0, 4294967295)
@@ -277,13 +318,15 @@ def usage_demo():
 
     wrapper = BedrockRuntimeWrapper(client)
 
-    text_generation_prompt = "Hi, write a paragraph about yourself"
+    text_generation_prompt = "Hi, write a paragraph about yourself."
     image_generation_prompt = "A sunset over the ocean"
     image_style_preset = "photographic"
 
     invoke(wrapper, "anthropic.claude-v2", text_generation_prompt)
 
     invoke(wrapper, "ai21.j2-mid-v1", text_generation_prompt)
+
+    invoke(wrapper, "meta.llama2-13b-chat-v1", text_generation_prompt)
 
     asyncio.run(
         invoke_with_response_stream(
