@@ -10,7 +10,7 @@ The Amazon DynamoDB Kotlin API lets you perform the following tasks from within 
 * Perform various create, read, update, and delete (CRUD) operations
 * Execute queries
 
-The following shows the application you'll create.
+The following illustration shows the application you'll create.
 
 ![AWS Blog Application](images/app5.png)
 
