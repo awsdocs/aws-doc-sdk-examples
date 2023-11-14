@@ -6,7 +6,7 @@
 | -----------  | ----------- |
 | Description  | Discusses how to develop a photo asset management application for users to manage photos with labels. This application is developed by using the AWS SDK for Kotlin.     |
 | Audience     |  Developer (beginner / intermediate)        |
-| Updated      | 4/25/2023        |
+| Updated      | 11/14/2023        |
 | Required skills   | Kotlin, Gradle  |
 
 ## Purpose
@@ -42,8 +42,8 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Kotlin IDE. (This tutorial uses the IntelliJ IDE with the Kotlin plugin).
-+ Java JDK 11.
-+ Gradle 6.8 or higher.
++ Java JDK 17.
++ Gradle 8.1 or higher.
 + You must also set up your Kotlin development environment. For more information, see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 
 ### Important
@@ -204,16 +204,21 @@ At this point, you have a new project named **PhotoAssetKotlin**.
 Add the following dependencies to your Gradle build file.
 
 ```xml
-  import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.0"
     id("com.github.johnrengelman.shadow") version "7.1.0"
     application
 }
 
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 buildscript {
     repositories {
@@ -226,7 +231,6 @@ buildscript {
 
 repositories {
     mavenCentral()
-    jcenter()
     gradlePluginPortal()
 }
 
@@ -241,10 +245,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("com.sun.mail:javax.mail:1.6.2")
-    implementation("aws.sdk.kotlin:dynamodb-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:s3-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:sns-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:rekognition-jvm:0.21.3-beta")
+    implementation("aws.sdk.kotlin:dynamodb:0.33.1-beta")
+    implementation("aws.sdk.kotlin:s3:0.33.1-beta")
+    implementation("aws.sdk.kotlin:sns:0.33.1-beta")
+    implementation("aws.sdk.kotlin:rekognition:0.33.1-beta")
     implementation("com.google.code.gson:gson:2.10")
     implementation("org.json:json:20230227")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
@@ -258,13 +262,14 @@ application {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
 
 ```
 
