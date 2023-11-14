@@ -236,6 +236,12 @@ repositories {
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
+    implementation("aws.sdk.kotlin:dynamodb:1.0.0")
+    implementation("aws.sdk.kotlin:s3:1.0.0")
+    implementation("aws.sdk.kotlin:sns:1.0.0")
+    implementation("aws.sdk.kotlin:rekognition:1.0.0")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
+    implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
     implementation("org.springframework.boot:spring-boot-starter-web:2.7.5")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -245,10 +251,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("com.sun.mail:javax.mail:1.6.2")
-    implementation("aws.sdk.kotlin:dynamodb:0.33.1-beta")
-    implementation("aws.sdk.kotlin:s3:0.33.1-beta")
-    implementation("aws.sdk.kotlin:sns:0.33.1-beta")
-    implementation("aws.sdk.kotlin:rekognition:0.33.1-beta")
     implementation("com.google.code.gson:gson:2.10")
     implementation("org.json:json:20230227")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
