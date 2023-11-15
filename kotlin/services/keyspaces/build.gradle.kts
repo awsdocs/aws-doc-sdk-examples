@@ -1,12 +1,18 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.0"
     application
 }
 
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
 
 buildscript {
     repositories {
@@ -19,11 +25,10 @@ buildscript {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:keyspaces:0.30.1-beta")
+    implementation("aws.sdk.kotlin:keyspaces:1.0.0")
     implementation("com.datastax.oss:java-driver-core:4.15.0")
     implementation("software.aws.mcs:aws-sigv4-auth-cassandra-java-driver-plugin:4.0.8")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
@@ -32,5 +37,16 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
 }
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "17"
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+
+    // Define the test source set
+    testClassesDirs += files("build/classes/kotlin/test")
+    classpath += files("build/classes/kotlin/main", "build/resources/main")
 }
