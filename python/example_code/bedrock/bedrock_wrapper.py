@@ -80,6 +80,7 @@ def usage_demo():
             print(f' Provider: {model["providerName"]}')
             print(f' Input modalities: {model["inputModalities"]}')
             print(f' Output modalities: {model["outputModalities"]}')
+            print(f' Supported customizations: {model["customizationsSupported"]}')
             print(f' Supported inference types: {model["inferenceTypesSupported"]}')
             print("=" * 42)
     except ClientError:
