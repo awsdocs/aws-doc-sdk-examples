@@ -8,6 +8,11 @@ plugins {
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
 buildscript {
     repositories {
         maven("https://plugins.gradle.org/m2/")
