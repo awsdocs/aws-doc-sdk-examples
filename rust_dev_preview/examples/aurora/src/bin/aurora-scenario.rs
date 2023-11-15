@@ -10,7 +10,7 @@ use aurora_code_examples::{
     aurora_scenario::{AuroraScenario, ScenarioError},
     rds::Rds as RdsClient,
 };
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use aws_sdk_rds::Client;
 use inquire::{validator::StringValidator, CustomUserError};
 use secrecy::SecretString;
@@ -191,7 +191,7 @@ async fn run_instance(scenario: &mut AuroraScenario) -> Result<(), ScenarioError
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
     tracing_subscriber::fmt::init();
-    let sdk_config = aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await;
+    let sdk_config = aws_config::load_defaults(BehaviorVersion::latest()).await;
     let client = Client::new(&sdk_config);
     let rds = RdsClient::new(client);
     let mut scenario = prepare_scenario(rds).await?;

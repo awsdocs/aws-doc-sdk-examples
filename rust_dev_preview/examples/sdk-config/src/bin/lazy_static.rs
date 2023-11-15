@@ -11,7 +11,7 @@
 //! The requests then use clones of the globally initialized values.
 
 use async_once::AsyncOnce;
-use aws_config::{BehaviorMajorVersion, SdkConfig};
+use aws_config::{BehaviorVersion, SdkConfig};
 use aws_sdk_s3::Client;
 use lazy_static::lazy_static;
 use tracing::{error, info};
@@ -19,7 +19,7 @@ use tracing::{error, info};
 lazy_static! {
     static ref SDK_CONFIG: AsyncOnce<SdkConfig> = AsyncOnce::new(async {
         info!("Initializing SdkConfig");
-        aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await
+        aws_config::load_defaults(BehaviorVersion::latest()).await
     });
     static ref S3_CLIENT: AsyncOnce<Client> = AsyncOnce::new(async {
         info!("Initializing S3 Client");

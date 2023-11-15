@@ -5,7 +5,7 @@
 
 pub mod scenario;
 
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use aws_config::{meta::region::RegionProviderChain, SdkConfig};
 use aws_sdk_dynamodb::{config::Region, meta::PKG_VERSION, Error};
 use clap::Parser;
@@ -40,10 +40,8 @@ pub async fn make_config(opt: Opt) -> Result<SdkConfig, Error> {
         println!();
     }
 
-    Ok(
-        aws_config::from_env_with_version(BehaviorMajorVersion::latest())
-            .region(region_provider)
-            .load()
-            .await,
-    )
+    Ok(aws_config::defaults(BehaviorVersion::latest())
+        .region(region_provider)
+        .load()
+        .await)
 }

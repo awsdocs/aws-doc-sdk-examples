@@ -7,7 +7,7 @@ use std::{collections::BTreeSet, fmt::Display};
 
 use anyhow::anyhow;
 use autoscaling_code_examples::scenario::{AutoScalingScenario, ScenarioError};
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use tracing::{info, warn};
 
 async fn show_scenario_description(scenario: &AutoScalingScenario, event: &str) {
@@ -44,8 +44,7 @@ impl Display for Warnings {
 async fn main() -> Result<(), anyhow::Error> {
     tracing_subscriber::fmt::init();
 
-    let shared_config =
-        aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await;
+    let shared_config = aws_config::load_defaults(BehaviorVersion::latest()).await;
 
     let mut warnings = Warnings::default();
 

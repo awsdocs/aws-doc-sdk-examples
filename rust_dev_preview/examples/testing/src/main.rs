@@ -8,7 +8,7 @@ use aws_config::meta::region::RegionProviderChain;
 // So we can refer to the S3 package as s3 for the rest of the example.
 use aws_sdk_s3 as s3;
 // snippet-end:[testing.rust.intro-import]
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use clap::Parser;
 
 // The testing approaches imported as modules below
@@ -99,7 +99,7 @@ async fn main() -> Result<(), s3::Error> {
         println!();
     }
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;

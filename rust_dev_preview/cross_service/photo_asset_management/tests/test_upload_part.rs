@@ -1,10 +1,9 @@
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use aws_sdk_s3::Client;
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
-    let s3_client =
-        Client::new(&aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await);
+    let s3_client = Client::new(&aws_config::load_defaults(BehaviorVersion::latest()).await);
     let part = 0;
     let bucket: String = "bucket".to_string();
     let key: String = "key".to_string();

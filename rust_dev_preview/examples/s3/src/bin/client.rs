@@ -7,7 +7,7 @@
 
 // snippet-start:[s3.rust.client-use]
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use aws_sdk_s3::Client;
 // snippet-end:[s3.rust.client-use]
 
@@ -16,7 +16,7 @@ use aws_sdk_s3::Client;
 async fn main() -> Result<(), aws_sdk_s3::Error> {
     // snippet-start:[s3.rust.client-client]
     let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
-    let config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;

@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use aws_sdk_iam::{config::Region, Client as iamClient};
 use uuid::Uuid;
 
@@ -15,7 +15,7 @@ async fn test_create_role() {
 
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;
@@ -52,7 +52,7 @@ async fn test_create_role() {
 async fn test_create_service_linked_role() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;
@@ -75,7 +75,7 @@ async fn test_create_service_linked_role() {
 async fn test_get_account_password_policy() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;
@@ -92,7 +92,7 @@ async fn test_get_account_password_policy() {
 async fn test_list_and_get_roles() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;
@@ -146,7 +146,7 @@ async fn test_list_and_get_roles() {
 async fn test_list_attached_role_policies() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;
@@ -169,7 +169,7 @@ async fn test_list_attached_role_policies() {
 async fn test_list_groups() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;
@@ -188,7 +188,7 @@ async fn test_list_groups() {
 async fn test_list_policies() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;
@@ -204,7 +204,7 @@ async fn test_list_policies() {
 async fn test_list_roles() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;
@@ -221,7 +221,7 @@ async fn test_list_roles() {
 async fn test_list_saml_providers() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;
@@ -236,7 +236,7 @@ async fn test_list_saml_providers() {
 async fn test_list_users() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;

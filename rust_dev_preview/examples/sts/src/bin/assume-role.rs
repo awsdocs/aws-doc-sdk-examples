@@ -6,7 +6,7 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use aws_sdk_sts::{meta::PKG_VERSION, Client, Error};
 use aws_types::region::Region;
 use aws_types::sdk_config::SdkConfig;
@@ -40,7 +40,7 @@ async fn assume_role(config: &SdkConfig, role_name: String, session_name: Option
         .build()
         .await;
 
-    let local_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let local_config = aws_config::defaults(BehaviorVersion::latest())
         .credentials_provider(provider)
         .load()
         .await;
@@ -93,7 +93,7 @@ async fn main() -> Result<(), Error> {
         println!();
     }
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;

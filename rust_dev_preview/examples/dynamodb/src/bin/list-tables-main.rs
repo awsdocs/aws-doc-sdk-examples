@@ -7,14 +7,14 @@
 
 // snippet-start:[dynamodb.rust.list-tables-main]
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use aws_sdk_dynamodb::{Client, Error};
 
 /// Lists your DynamoDB tables in the default Region or us-east-1 if a default Region isn't set.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
-    let config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;

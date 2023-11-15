@@ -6,7 +6,7 @@ use std::{
     task::{Context, Poll},
 };
 
-use aws_config::{meta::region::RegionProviderChain, BehaviorMajorVersion};
+use aws_config::{meta::region::RegionProviderChain, BehaviorVersion};
 use aws_sdk_s3::{
     primitives::{ByteStream, SdkBody},
     Client,
@@ -168,7 +168,7 @@ async fn main() {
     tracing_subscriber::fmt::init();
 
     let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
-    let config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;

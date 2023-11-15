@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use aws_sdk_s3::{config::Region, Client};
 use s3_service::error::Error;
 use uuid::Uuid;
@@ -40,7 +40,7 @@ async fn setup() -> (Region, Client, String, String, String, String) {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
     let region = region_provider.region().await.unwrap();
 
-    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         .load()
         .await;

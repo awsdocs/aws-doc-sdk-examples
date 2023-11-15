@@ -5,14 +5,14 @@
 
 #![allow(clippy::result_large_err)]
 
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use aws_sdk_kms::{config::Region, Client};
 
 // snippet-start:[kms.rust.kms-helloworld]
 /// Creates a random byte string that is cryptographically secure in __us-east-1__.
 #[tokio::main]
 async fn main() -> Result<(), aws_sdk_kms::Error> {
-    let config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+    let config = aws_config::defaults(BehaviorVersion::latest())
         // region can also be loaded from AWS_DEFAULT_REGION, just remove this line.
         .region(Region::new("us-east-1"))
         .load()

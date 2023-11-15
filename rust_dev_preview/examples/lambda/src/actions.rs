@@ -4,7 +4,7 @@
  */
 
 use anyhow::anyhow;
-use aws_config::BehaviorMajorVersion;
+use aws_config::BehaviorVersion;
 use aws_sdk_iam::operation::delete_role::DeleteRoleOutput;
 use aws_sdk_lambda::{
     operation::{
@@ -153,8 +153,7 @@ impl LambdaManager {
      * If the bucket name is generated, it will be created.
      */
     pub async fn load_from_env(lambda_name: Option<String>, bucket: Option<String>) -> Self {
-        let sdk_config =
-            aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await;
+        let sdk_config = aws_config::load_defaults(BehaviorVersion::latest()).await;
         let lambda_name = LambdaName(lambda_name.unwrap_or_else(|| {
             std::env::var("LAMBDA_NAME").unwrap_or_else(|_| "rust_lambda_example".to_string())
         }));
