@@ -81,9 +81,7 @@ class BedrockRuntimeStubber(ExampleStubber):
         }
 
         response_body = io.BytesIO(
-            json.dumps(
-                {"generation": "Fake completion response."}
-            ).encode("utf-8")
+            json.dumps({"generation": "Fake completion response."}).encode("utf-8")
         )
 
         response = {"body": response_body, "contentType": ""}
