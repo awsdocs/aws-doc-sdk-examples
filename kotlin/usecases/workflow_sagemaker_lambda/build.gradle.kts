@@ -30,14 +30,14 @@ repositories {
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
+    implementation("aws.sdk.kotlin:sagemaker:1.0.0")
+    implementation("aws.sdk.kotlin:sagemakergeospatial:1.0.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.amazonaws:aws-java-sdk-lambda:1.12.429")
     implementation("com.amazonaws:aws-lambda-java-core:1.2.2")
     implementation("com.amazonaws:aws-lambda-java-events:3.11.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("aws.sdk.kotlin:sagemaker:0.33.1-beta")
-    implementation("aws.sdk.kotlin:sagemakergeospatial:0.33.1-beta")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
     implementation("com.google.code.gson:gson:2.10")

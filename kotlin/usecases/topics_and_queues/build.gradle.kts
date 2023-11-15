@@ -30,8 +30,8 @@ repositories {
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
 dependencies {
-    implementation("aws.sdk.kotlin:sns-jvm:0.33.1-beta")
-    implementation("aws.sdk.kotlin:sqs-jvm:0.33.1-beta")
+    implementation("aws.sdk.kotlin:sns:1.0.0")
+    implementation("aws.sdk.kotlin:sqs:1.0.0")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
     implementation("com.google.code.gson:gson:2.10.1")

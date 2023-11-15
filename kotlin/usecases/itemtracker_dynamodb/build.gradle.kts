@@ -27,14 +27,14 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
+    implementation("aws.sdk.kotlin:dynamodb:1.0.0")
+    implementation("aws.sdk.kotlin:ses:1.0.0")
     implementation("org.springframework.boot:spring-boot-starter-web:2.7.5")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("com.sun.mail:javax.mail:1.6.2")
-    implementation("aws.sdk.kotlin:dynamodb:0.33.1-beta")
-    implementation("aws.sdk.kotlin:ses:0.33.1-beta")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
