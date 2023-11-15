@@ -6,6 +6,7 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_cognitoidentity::error::DisplayErrorContext;
 use aws_sdk_cognitoidentity::{config::Region, meta::PKG_VERSION, Client};
 use aws_smithy_types_convert::date_time::DateTimeExt;
@@ -104,7 +105,10 @@ async fn run_example(
         println!();
     }
 
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+        .region(region_provider)
+        .load()
+        .await;
     let client = Client::new(&shared_config);
 
     list_identities(&client, &identity_pool_id).await?;

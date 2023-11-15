@@ -8,6 +8,7 @@
 //! Main that loads environments & prepares clients, and hands them to `startup`.
 use std::net::TcpListener;
 
+use aws_config::BehaviorMajorVersion;
 use rest_ses::client::{RdsClient, SesClient};
 use rest_ses::configuration::{get_settings, init_environment};
 use rest_ses::startup::run;
@@ -30,7 +31,7 @@ async fn main() -> std::io::Result<()> {
     init_subscriber(subscriber);
 
     // AWS Settings (Region & role) come from the environment.
-    let config = aws_config::from_env().load().await;
+    let config = aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await;
     let rds = RdsClient::new(&settings.rds, &config);
     let ses = SesClient::new(&settings.ses, &config);
 

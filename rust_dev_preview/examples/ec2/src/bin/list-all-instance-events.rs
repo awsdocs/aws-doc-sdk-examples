@@ -6,6 +6,7 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_ec2::{config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
 
@@ -28,7 +29,10 @@ async fn show_all_events(client: &Client) -> Result<(), Error> {
     for region in resp.regions.unwrap_or_default() {
         let reg: &'static str = Box::leak(Box::from(region.region_name().unwrap()));
         let region_provider = RegionProviderChain::default_provider().or_else(reg);
-        let config = aws_config::from_env().region(region_provider).load().await;
+        let config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+            .region(region_provider)
+            .load()
+            .await;
         let new_client = Client::new(&config);
 
         let resp = new_client.describe_instance_status().send().await;
@@ -80,7 +84,10 @@ async fn main() -> Result<(), Error> {
         println!();
     }
 
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+        .region(region_provider)
+        .load()
+        .await;
     let client = Client::new(&shared_config);
 
     show_all_events(&client).await

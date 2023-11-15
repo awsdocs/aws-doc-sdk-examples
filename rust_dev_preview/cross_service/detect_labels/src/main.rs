@@ -6,6 +6,7 @@
 extern crate exif;
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_dynamodb::config::Region;
 use aws_sdk_dynamodb::types::AttributeValue;
 use clap::Parser;
@@ -279,7 +280,7 @@ async fn main() -> Result<(), exif::Error> {
         println!();
     }
 
-    let s3_shared_config = aws_config::from_env()
+    let s3_shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
         .region(s3_region_provider)
         .load()
         .await;
@@ -289,7 +290,7 @@ async fn main() -> Result<(), exif::Error> {
 
     let edata = get_exif_data(&filename);
 
-    let rek_shared_config = aws_config::from_env()
+    let rek_shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
         .region(rek_region_provider)
         .load()
         .await;
@@ -297,7 +298,7 @@ async fn main() -> Result<(), exif::Error> {
 
     let labels = get_label_data(&rek_client, &bucket, &filename).await;
 
-    let dynamo_shared_config = aws_config::from_env()
+    let dynamo_shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
         .region(dynamo_region_provider)
         .load()
         .await;

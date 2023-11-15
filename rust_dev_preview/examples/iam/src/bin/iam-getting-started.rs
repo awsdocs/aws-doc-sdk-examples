@@ -24,6 +24,7 @@ cargo test
 // snippet-start:[rust.example_code.iam.iam_basics.scenario]
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_iam::Error as iamError;
 use aws_sdk_iam::{config::Credentials as iamCredentials, config::Region, Client as iamClient};
 use aws_sdk_s3::Client as s3Client;
@@ -54,7 +55,10 @@ async fn initialize_variables() -> (iamClient, String, String, String) {
     // snippet-start:[rust.example_code.iam.iam_basics.start_service]
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+        .region(region_provider)
+        .load()
+        .await;
     let client = iamClient::new(&shared_config);
     // snippet-end:[rust.example_code.iam.iam_basics.start_service]
     // snippet-start:[rust.example_code.iam.iam_basics.uuid]
@@ -156,7 +160,7 @@ async fn run_iam_operations(
 
     //First, fail to list the buckets with the user.
     let creds = iamCredentials::from_keys(key.access_key_id(), key.secret_access_key(), None);
-    let fail_config = aws_config::from_env()
+    let fail_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
         .credentials_provider(creds.clone())
         .load()
         .await;
@@ -171,7 +175,7 @@ async fn run_iam_operations(
         }
     }
 
-    let sts_config = aws_config::from_env()
+    let sts_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
         .credentials_provider(creds.clone())
         .load()
         .await;
@@ -213,7 +217,7 @@ async fn run_iam_operations(
         ),
     );
 
-    let succeed_config = aws_config::from_env()
+    let succeed_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
         .credentials_provider(assumed_credentials)
         .load()
         .await;

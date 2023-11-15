@@ -1,4 +1,4 @@
-use aws_config::SdkConfig;
+use aws_config::{BehaviorMajorVersion, SdkConfig};
 
 #[cfg(not(debug_assertions))]
 pub fn init_tracing_subscriber() {
@@ -62,7 +62,8 @@ impl Common {
     }
 
     pub async fn load_from_env() -> Self {
-        let sdk_config = aws_config::load_from_env().await;
+        let sdk_config =
+            aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await;
         // PAM environment is declared in the cdk, in lib/backend/lambdas.ts
         let storage_bucket =
             std::env::var("STORAGE_BUCKET_NAME").expect("storage bucket in environment");

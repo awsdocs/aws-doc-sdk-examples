@@ -6,12 +6,12 @@ use std::{
     task::{Context, Poll},
 };
 
-use aws_config::meta::region::RegionProviderChain;
+use aws_config::{meta::region::RegionProviderChain, BehaviorMajorVersion};
 use aws_sdk_s3::{
     primitives::{ByteStream, SdkBody},
     Client,
 };
-use aws_smithy_runtime_api::client::http::request::Request;
+use aws_smithy_runtime_api::http::Request;
 use bytes::Bytes;
 use clap::Parser;
 use http_body::{Body, SizeHint};
@@ -168,7 +168,10 @@ async fn main() {
     tracing_subscriber::fmt::init();
 
     let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
-    let config = aws_config::from_env().region(region_provider).load().await;
+    let config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+        .region(region_provider)
+        .load()
+        .await;
     let client = Client::new(&config);
 
     match put_object(&client, &Opt::parse()).await {

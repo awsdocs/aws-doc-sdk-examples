@@ -6,6 +6,7 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_cloudformation::{config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
 use std::fs;
@@ -88,7 +89,10 @@ async fn main() -> Result<(), Error> {
     let contents =
         fs::read_to_string(template_file).expect("Something went wrong reading the file");
 
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+        .region(region_provider)
+        .load()
+        .await;
     let client = Client::new(&shared_config);
 
     create_stack(&client, &stack_name, &contents).await

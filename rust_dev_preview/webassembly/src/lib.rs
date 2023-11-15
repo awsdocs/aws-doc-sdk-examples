@@ -71,7 +71,7 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
     let credentials = credentials_provider.provide_credentials().await.unwrap();
     let access_key = credentials.access_key_id();
 
-    let shared_config = aws_config::from_env()
+    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
         .sleep_impl(BrowserSleep)
         .region(Region::new(region))
         .time_source(BrowserNow)

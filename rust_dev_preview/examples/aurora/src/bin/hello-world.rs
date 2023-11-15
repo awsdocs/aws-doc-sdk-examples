@@ -1,3 +1,4 @@
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_rds::Client;
 
 #[derive(Debug)]
@@ -12,7 +13,7 @@ impl std::error::Error for Error {}
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
-    let sdk_config = aws_config::from_env().load().await;
+    let sdk_config = aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await;
     let client = Client::new(&sdk_config);
 
     let describe_db_clusters_output = client

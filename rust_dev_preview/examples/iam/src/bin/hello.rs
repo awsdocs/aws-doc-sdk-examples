@@ -1,5 +1,6 @@
 // snippet-start:[rust.example_code.iam.hello_bin]
 
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_iam::error::SdkError;
 use aws_sdk_iam::operation::list_policies::ListPoliciesError;
 use clap::Parser;
@@ -15,7 +16,7 @@ struct HelloScenarioArgs {
 
 #[tokio::main]
 async fn main() -> Result<(), SdkError<ListPoliciesError>> {
-    let sdk_config = aws_config::load_from_env().await;
+    let sdk_config = aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await;
     let client = aws_sdk_iam::Client::new(&sdk_config);
 
     let args = HelloScenarioArgs::parse();

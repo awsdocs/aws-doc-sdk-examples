@@ -4,6 +4,7 @@
 #![allow(clippy::result_large_err)]
 
 // snippet-start:[s3.rust.if-modified-since]
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_s3::{
     error::SdkError,
     operation::head_object::HeadObjectError,
@@ -21,7 +22,8 @@ const BODY: &str = "Hello, world!";
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
     let uuid = uuid::Uuid::new_v4();
-    let client = Client::new(&aws_config::load_from_env().await);
+    let client =
+        Client::new(&aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await);
 
     // Create bucket.
     // Put an object in the bucket.
@@ -85,21 +87,16 @@ async fn main() -> Result<(), Error> {
         Err(err) => match err {
             SdkError::ServiceError(err) => {
                 let http = err.raw();
-                match http.status() {
-                    StatusCode::NOT_MODIFIED => (
+                match http.status().as_u16() {
+                    status if status == StatusCode::NOT_MODIFIED => (
                         Ok(Some(
                             DateTime::from_str(
-                                http.headers()
-                                    .get("last-modified")
-                                    .map(|t| t.to_str().unwrap())
-                                    .unwrap(),
+                                http.headers().get("last-modified").unwrap(),
                                 DateTimeFormat::HttpDate,
                             )
                             .unwrap(),
                         )),
-                        http.headers()
-                            .get("etag")
-                            .map(|t| t.to_str().unwrap().into()),
+                        http.headers().get("etag").map(Into::into),
                     ),
                     _ => (Err(SdkError::ServiceError(err)), None),
                 }

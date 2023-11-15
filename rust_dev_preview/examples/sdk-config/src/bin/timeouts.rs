@@ -6,6 +6,7 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::timeout::TimeoutConfig;
+use aws_config::BehaviorMajorVersion;
 use std::time::Duration;
 
 /// The timeouts in this example are set to one second which may or may not be fast enough to
@@ -37,7 +38,7 @@ async fn main() -> Result<(), aws_sdk_s3::Error> {
         .connect_timeout(Duration::from_secs(2))
         .build();
 
-    let config = aws_config::from_env()
+    let config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
         .timeout_config(timeout_config.clone())
         .load()
         .await;

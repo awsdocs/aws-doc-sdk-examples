@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use aws_config::BehaviorMajorVersion;
 use once_cell::sync::Lazy;
 use rest_ses::{
     client::{RdsClient, SesClient},
@@ -27,14 +28,18 @@ static TRACING: Lazy<Environment> = Lazy::new(|| {
 /// Spawn the app against a MockServer resolved backend.
 pub async fn spawn_app_mocked() -> (String, MockServer) {
     let mock_server = MockServer::builder().start().await;
-    let config_loader = aws_config::from_env().endpoint_url(mock_server.uri());
+    let config_loader = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+        .endpoint_url(mock_server.uri());
     let (app, _) = prep_app(config_loader).await;
     (app, mock_server)
 }
 
 /// Spawn the app using production AWS credentials.
 pub async fn spawn_app() -> (String, RdsClient) {
-    prep_app(aws_config::from_env()).await
+    prep_app(aws_config::from_env_with_version(
+        BehaviorMajorVersion::latest(),
+    ))
+    .await
 }
 
 /// Prepare the application for testing.

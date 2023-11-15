@@ -127,7 +127,7 @@ pub async fn handler(
 #[cfg(test)]
 mod test {
     use super::prepare_update_expression;
-    use aws_config::SdkConfig;
+    use aws_config::{BehaviorMajorVersion, SdkConfig};
 
     #[tokio::test]
     async fn test_prepare_update_statement() {
@@ -136,7 +136,11 @@ mod test {
             .name("label")
             .build();
 
-        let client = aws_sdk_dynamodb::Client::new(&SdkConfig::builder().build());
+        let client = aws_sdk_dynamodb::Client::new(
+            &SdkConfig::builder()
+                .behavior_major_version(BehaviorMajorVersion::latest())
+                .build(),
+        );
         let update = client.update_item();
         let update = prepare_update_expression(update, &object, &label);
 

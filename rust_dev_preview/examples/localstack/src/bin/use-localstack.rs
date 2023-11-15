@@ -6,13 +6,15 @@
 #![allow(clippy::result_large_err)]
 
 // snippet-start:[localstack.rust.use-localstack]
+use aws_config::BehaviorMajorVersion;
 use std::error::Error;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     tracing_subscriber::fmt::init();
 
-    let shared_config = aws_config::from_env().load().await;
+    let shared_config =
+        aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await;
     let sqs_client = sqs_client(&shared_config);
     let s3_client = s3_client(&shared_config);
 

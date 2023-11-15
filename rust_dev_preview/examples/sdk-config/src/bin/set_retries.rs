@@ -6,6 +6,7 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_s3::config::retry::RetryConfig;
 use aws_sdk_s3::{config, config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
@@ -71,7 +72,10 @@ async fn main() -> Result<(), Error> {
     assert_ne!(tries, 0, "You cannot set zero retries.");
 
     // snippet-start:[custom_retries.rust.set_retries]
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+        .region(region_provider)
+        .load()
+        .await;
 
     // Construct an S3 client with customized retry configuration.
     let client = Client::from_conf(

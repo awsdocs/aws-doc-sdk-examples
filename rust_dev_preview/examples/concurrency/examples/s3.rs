@@ -5,6 +5,7 @@
 
 #![allow(clippy::result_large_err)]
 
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_s3::primitives::ByteStream;
 use aws_sdk_s3::Client;
 use clap::Parser;
@@ -64,7 +65,7 @@ fn main() {
 }
 
 async fn async_main(args: Args) {
-    let sdk_config = aws_config::load_from_env().await;
+    let sdk_config = aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await;
     let client = Client::new(&sdk_config);
 
     let send_message_futures = (0..args.task_count).map(|i| {

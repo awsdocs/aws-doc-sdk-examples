@@ -4,6 +4,7 @@
  */
 
 use anyhow::anyhow;
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_iam::operation::delete_role::DeleteRoleOutput;
 use aws_sdk_lambda::{
     operation::{
@@ -22,7 +23,7 @@ use aws_sdk_s3::{
 use aws_smithy_types::Blob;
 use serde::{ser::SerializeMap, Serialize};
 use std::{path::PathBuf, str::FromStr, time::Duration};
-use tracing::{debug, error, info, warn};
+use tracing::{debug, info, warn};
 
 /* Operation describes  */
 #[derive(Clone, Copy, Debug, Serialize)]
@@ -152,7 +153,8 @@ impl LambdaManager {
      * If the bucket name is generated, it will be created.
      */
     pub async fn load_from_env(lambda_name: Option<String>, bucket: Option<String>) -> Self {
-        let sdk_config = aws_config::load_from_env().await;
+        let sdk_config =
+            aws_config::load_from_env_with_version(BehaviorMajorVersion::latest()).await;
         let lambda_name = LambdaName(lambda_name.unwrap_or_else(|| {
             std::env::var("LAMBDA_NAME").unwrap_or_else(|_| "rust_lambda_example".to_string())
         }));
@@ -345,15 +347,11 @@ impl LambdaManager {
                                 LastUpdateStatus::Failed | LastUpdateStatus::InProgress => {
                                     return Ok(false);
                                 }
-                                LastUpdateStatus::Unknown(status_variant) => {
-                                    warn!(?status_variant, "LastUpdateStatus unknown");
+                                unknown => {
+                                    warn!(status_variant=?unknown.as_str(), "LastUpdateStatus unknown");
                                     return Err(anyhow!(
                                         "Unknown LastUpdateStatus, fn config is {config:?}"
                                     ));
-                                }
-                                _ => {
-                                    error!("Unmatched LastUpdateStatus");
-                                    return Err(anyhow!("Unmatched LastUpdateStatus"));
                                 }
                             }
                         }

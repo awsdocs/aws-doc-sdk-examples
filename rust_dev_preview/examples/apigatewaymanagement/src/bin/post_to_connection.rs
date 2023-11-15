@@ -6,6 +6,7 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_config::BehaviorMajorVersion;
 use aws_sdk_apigatewaymanagement::primitives::Blob;
 use aws_sdk_apigatewaymanagement::{config, config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
@@ -111,7 +112,10 @@ async fn main() -> Result<(), Error> {
         stage = stage
     );
 
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let shared_config = aws_config::from_env_with_version(BehaviorMajorVersion::latest())
+        .region(region_provider)
+        .load()
+        .await;
     let api_management_config = config::Builder::from(&shared_config)
         .endpoint_url(endpoint_url)
         .build();
