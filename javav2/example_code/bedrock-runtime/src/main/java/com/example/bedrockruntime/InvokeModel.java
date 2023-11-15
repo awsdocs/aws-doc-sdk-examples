@@ -148,6 +148,53 @@ public class InvokeModel {
     }
     // snippet-end:[bedrock-runtime.java2.invoke_jurassic2.main]
 
+    // snippet-start:[bedrock-runtime.java2.invoke_llama2.main]
+    /**
+     * Invokes the Meta Llama 2 Chat model to run an inference based on the provided input.
+     *
+     * @param client A Bedrock Runtime client
+     * @param prompt The prompt that you want Llama 2 to complete.
+     * @return Inference response from the model.
+     */
+    public static String invokeLlama2(BedrockRuntimeClient client, String prompt) {
+
+        try {
+
+            /*
+              For request/response formats, defaults, and value ranges of Meta Llama 2 Chat, see:
+              https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
+             */
+
+            JSONObject payload = new JSONObject()
+                    .put("prompt", prompt)
+                    .put("max_gen_len", 512)
+                    .put("temperature", 0.5)
+                    .put("top_p", 0.9);
+
+            SdkBytes body = SdkBytes.fromUtf8String(payload.toString());
+
+            InvokeModelRequest request = InvokeModelRequest.builder()
+                    .modelId("meta.llama2-13b-chat-v1")
+                    .body(body)
+                    .build();
+
+            InvokeModelResponse response = client.invokeModel(request);
+
+            JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+
+            String completion = responseBody.getString("generation");
+
+            return completion;
+
+        } catch (AwsServiceException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        return null;
+
+    }
+    // snippet-end:[bedrock-runtime.java2.invoke_llama2.main]
+
     // snippet-start:[bedrock-runtime.java2.invoke_stable_diffusion.main]
     /**
      * Invokes the Stability.ai Stable Diffusion XL model to create an image based on the provided input.
@@ -223,6 +270,7 @@ public class InvokeModel {
         String textPrompt = "In one sentence, what is a large-language model?";
         invoke(client, "anthropic.claude-v2", textPrompt);
         invoke(client, "ai21.j2-mid-v1", textPrompt);
+        invoke(client, "meta.llama2-13b-chat-v1", textPrompt);
 
         String imagePrompt = "A sunset over the ocean";
         String stylePreset = "photographic";
@@ -242,15 +290,18 @@ public class InvokeModel {
             String completion;
             if ("anthropic.claude-v2".equals(modelId)) {
                 completion = invokeClaude(client, prompt);
-                System.out.println("Completion: " + completion.trim());
+                System.out.printf("Completion: %s%n", completion);
             } else if ("ai21.j2-mid-v1".equals(modelId)) {
                 completion = invokeJurassic2(client, prompt);
-                System.out.println("Completion: " + completion.trim());
+                System.out.printf("Completion: %s%n", completion);
+            } else if ("meta.llama2-13b-chat-v1".equals(modelId)) {
+                completion = invokeLlama2(client, prompt);
+                System.out.printf("Completion: %s%n", completion);
             } else if ("stability.stable-diffusion-xl".equals(modelId)) {
                 long seed = (random.nextLong() & 0xFFFFFFFFL);
                 String base64ImageData = invokeStableDiffusion(client, prompt, seed, stylePreset);
                 String imagePath = saveImage(base64ImageData);
-                System.out.println("The generated image has been saved to " + imagePath);
+                System.out.printf("The generated image has been saved to %s%n", imagePath);
             }
         } catch (BedrockRuntimeException e) {
             System.out.println("Couldn't invoke model " + modelId + ": " + e.getMessage());

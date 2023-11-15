@@ -56,6 +56,27 @@ def test_invoke_jurassic2(make_stubber, error_code):
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
+@pytest.mark.parametrize("error_code", [None, "ClientError"])
+def test_invoke_llama2(make_stubber, error_code):
+    bedrock_runtime = boto3.client(
+        service_name="bedrock-runtime", region_name="us-east-1"
+    )
+    bedrock_runtime_stubber = make_stubber(bedrock_runtime)
+    wrapper = BedrockRuntimeWrapper(bedrock_runtime)
+
+    prompt = "Hey, how are you?"
+
+    bedrock_runtime_stubber.stub_invoke_llama2(prompt, error_code=error_code)
+
+    if error_code is None:
+        got_completion = wrapper.invoke_llama2(prompt)
+        assert len(got_completion) > 0
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.invoke_llama2(prompt)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize("error_code", ["ClientError"])
 async def test_invoke_model_with_response_stream(make_stubber, error_code):
