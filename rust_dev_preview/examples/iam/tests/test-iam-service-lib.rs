@@ -4,7 +4,6 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorVersion;
 use aws_sdk_iam::{config::Region, Client as iamClient};
 use uuid::Uuid;
 
@@ -15,10 +14,7 @@ async fn test_create_role() {
 
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
     let user = iam_service::create_user(&client, &format!("{}{}", "iam_test_user_", uuid))
@@ -52,10 +48,7 @@ async fn test_create_role() {
 async fn test_create_service_linked_role() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
     let uuid = Uuid::new_v4().to_string().replace('-', "");
@@ -75,10 +68,7 @@ async fn test_create_service_linked_role() {
 async fn test_get_account_password_policy() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
     let password_policy = iam_service::get_account_password_policy(&client)
@@ -92,10 +82,7 @@ async fn test_get_account_password_policy() {
 async fn test_list_and_get_roles() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
     let roles = iam_service::list_roles(&client, None, None, None)
@@ -146,10 +133,7 @@ async fn test_list_and_get_roles() {
 async fn test_list_attached_role_policies() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
     let attached_role_policies = iam_service::list_attached_role_policies(
@@ -169,10 +153,7 @@ async fn test_list_attached_role_policies() {
 async fn test_list_groups() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
     let groups = iam_service::list_groups(&client, None, None, None)
@@ -188,10 +169,7 @@ async fn test_list_groups() {
 async fn test_list_policies() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
     let result = iam_service::list_policies(client, "/".to_string()).await;
@@ -204,10 +182,7 @@ async fn test_list_policies() {
 async fn test_list_roles() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
     let roles = iam_service::list_roles(&client, None, None, None).await;
@@ -221,10 +196,7 @@ async fn test_list_roles() {
 async fn test_list_saml_providers() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
     let saml_providers = iam_service::list_saml_providers(&client).await.unwrap();
@@ -236,10 +208,7 @@ async fn test_list_saml_providers() {
 async fn test_list_users() {
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
     let users = iam_service::list_users(&client, None, None, None)

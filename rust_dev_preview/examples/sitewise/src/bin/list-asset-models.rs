@@ -6,7 +6,6 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorVersion;
 use aws_sdk_iotsitewise::error::DisplayErrorContext;
 use aws_sdk_iotsitewise::{config::Region, meta::PKG_VERSION, Client};
 use aws_smithy_types_convert::date_time::DateTimeExt;
@@ -93,10 +92,7 @@ async fn run_example(Opt { region, verbose }: Opt) -> Result<(), Error> {
         println!();
     }
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
     list_asset_models(&client).await

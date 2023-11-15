@@ -22,7 +22,6 @@ user guide.
 // snippet-start:[rust.example_code.s3.basics.imports]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorVersion;
 use aws_sdk_s3::{config::Region, Client};
 use s3_service::error::Error;
 use uuid::Uuid;
@@ -48,10 +47,7 @@ async fn initialize_variables() -> (Region, Client, String, String, String, Stri
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
     let region = region_provider.region().await.unwrap();
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
     let bucket_name = format!("doc-example-bucket-{}", Uuid::new_v4());

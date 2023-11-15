@@ -12,7 +12,6 @@ use std::io::prelude::*;
 use std::path::Path;
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorVersion;
 use aws_sdk_s3::error::DisplayErrorContext;
 use aws_sdk_s3::operation::{
     create_multipart_upload::CreateMultipartUploadOutput, get_object::GetObjectOutput,
@@ -39,7 +38,7 @@ pub async fn main() {
 }
 
 async fn run_example() -> Result<(), Error> {
-    let shared_config = aws_config::load_defaults(BehaviorVersion::latest()).await;
+    let shared_config = aws_config::load_from_env().await;
     let client = S3Client::new(&shared_config);
 
     let bucket_name = format!("doc-example-bucket-{}", Uuid::new_v4());

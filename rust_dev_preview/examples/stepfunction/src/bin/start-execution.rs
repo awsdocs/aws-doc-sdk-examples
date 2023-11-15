@@ -5,7 +5,6 @@
 
 #![allow(clippy::result_large_err)]
 
-use aws_config::BehaviorVersion;
 use aws_sdk_sfn::{Client, Error};
 use clap::Parser;
 
@@ -35,7 +34,7 @@ async fn main() -> Result<(), Error> {
         verbose,
     } = Opt::parse();
 
-    let shared_config = aws_config::load_defaults(BehaviorVersion::latest()).await;
+    let shared_config = aws_config::load_from_env().await;
     let client = Client::new(&shared_config);
 
     println!();

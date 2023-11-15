@@ -1,7 +1,6 @@
 use aws_config::meta::region::RegionProviderChain;
 use std::{fs::File, io::Write, path::PathBuf, process::exit};
 
-use aws_config::BehaviorVersion;
 use aws_sdk_s3::Client;
 use clap::Parser;
 use tracing::trace;
@@ -48,10 +47,7 @@ async fn main() {
     tracing_subscriber::fmt::init();
 
     let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
-    let config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&config);
 
     match get_object(client, Opt::parse()).await {

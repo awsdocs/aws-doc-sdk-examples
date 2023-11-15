@@ -6,7 +6,6 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorVersion;
 use aws_sdk_config::types::ResourceType;
 use aws_sdk_config::{config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
@@ -86,21 +85,18 @@ async fn main() -> Result<(), Error> {
         println!();
     }
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
     // parse resource type from user input
-    let parsed = match ResourceType::try_parse(resource_type.as_str()) {
-        Ok(parsed) => parsed,
-        Err(_) => panic!(
+    let parsed = ResourceType::from(resource_type.as_str());
+    if matches!(parsed, ResourceType::Unknown(_)) {
+        panic!(
             "unknown resource type: `{}`. Valid resource types: {:#?}",
             &resource_type,
             ResourceType::values()
-        ),
-    };
+        )
+    }
 
     get_history(&client, &resource_id, parsed).await
 }

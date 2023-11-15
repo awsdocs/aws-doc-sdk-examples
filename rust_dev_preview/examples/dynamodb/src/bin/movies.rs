@@ -7,7 +7,6 @@
 
 use std::net::{Ipv4Addr, SocketAddr};
 
-use aws_config::BehaviorVersion;
 use aws_sdk_dynamodb::{error::DisplayErrorContext, Client};
 use axum::extract::Extension;
 use dynamodb_code_examples::scenario::error::Error;
@@ -66,7 +65,7 @@ async fn main() {
 }
 
 async fn run_example() -> Result<(), Error> {
-    let config = aws_config::load_defaults(BehaviorVersion::latest()).await;
+    let config = aws_config::from_env().load().await;
     let client = Client::new(&config);
 
     initialize(&client, TABLE_NAME).await?;

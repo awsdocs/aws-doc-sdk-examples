@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::BehaviorVersion;
 use aws_config::{meta::region::RegionProviderChain, SdkConfig};
 use aws_sdk_lambda::{config::Region, meta::PKG_VERSION, Client};
 use clap::Parser;
@@ -51,10 +50,7 @@ pub async fn make_config(opt: Opt) -> SdkConfig {
         println!();
     }
 
-    aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await
+    aws_config::from_env().region(region_provider).load().await
 }
 
 pub async fn make_client(opt: Opt) -> Client {

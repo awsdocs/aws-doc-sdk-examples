@@ -6,7 +6,6 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorVersion;
 use aws_sdk_ebs::primitives::ByteStream;
 use aws_sdk_ebs::types::ChecksumAlgorithm;
 use aws_sdk_ebs::{config::Region, meta::PKG_VERSION, Client, Error};
@@ -122,10 +121,7 @@ async fn main() -> Result<(), Error> {
         println!();
     }
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
     let snapshot_id = start(&client, &description).await.unwrap();
@@ -133,10 +129,14 @@ async fn main() -> Result<(), Error> {
     let mut blocks = vec![];
 
     // Append a block of all 1s.
-    blocks.push(vec![1u8; EBS_BLOCK_SIZE]);
+    let mut block: Vec<u8> = Vec::new();
+    block.resize(EBS_BLOCK_SIZE, 1);
+    blocks.push(block);
 
     // Append a block of all 0s.
-    blocks.push(vec![0u8; EBS_BLOCK_SIZE]);
+    let mut block: Vec<u8> = Vec::new();
+    block.resize(EBS_BLOCK_SIZE, 0);
+    blocks.push(block);
 
     for (idx, block) in blocks.into_iter().enumerate() {
         let mut hasher = sha2::Sha256::new();

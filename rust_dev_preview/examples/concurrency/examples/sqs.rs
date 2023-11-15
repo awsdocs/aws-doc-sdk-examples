@@ -5,7 +5,6 @@
 
 #![allow(clippy::result_large_err)]
 
-use aws_config::BehaviorVersion;
 use aws_sdk_sqs::Client;
 use clap::Parser;
 use concurrency::Runtime;
@@ -48,7 +47,7 @@ fn main() {
 
 async fn async_main(args: Args) {
     // If you start encountering timeout errors, increase or disable the default timeouts.
-    let sdk_config = aws_config::load_defaults(BehaviorVersion::latest()).await;
+    let sdk_config = aws_config::load_from_env().await;
     let client = Client::new(&sdk_config);
 
     let send_message_futures = (0..args.task_count).map(|i| {

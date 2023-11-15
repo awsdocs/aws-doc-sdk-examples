@@ -6,7 +6,6 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorVersion;
 use aws_sdk_ecs::{config::Region, Error};
 use clap::Parser;
 
@@ -72,10 +71,7 @@ async fn main() -> Result<(), Error> {
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = aws_sdk_ecs::Client::new(&shared_config);
 
     make_cluster(&client, &name).await?;

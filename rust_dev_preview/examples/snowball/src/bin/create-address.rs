@@ -6,7 +6,6 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_config::BehaviorVersion;
 use aws_sdk_snowball::types::Address;
 use aws_sdk_snowball::{config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
@@ -154,10 +153,7 @@ async fn main() -> Result<(), Error> {
         .set_is_restricted(Some(false))
         .build();
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
     add_address(&client, new_address).await

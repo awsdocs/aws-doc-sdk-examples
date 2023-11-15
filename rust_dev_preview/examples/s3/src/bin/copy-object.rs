@@ -5,7 +5,7 @@
 
 #![allow(clippy::result_large_err)]
 
-use aws_config::{meta::region::RegionProviderChain, BehaviorVersion};
+use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::{
     config::Region,
     error::SdkError,
@@ -141,10 +141,7 @@ async fn main() -> Result<(), Error> {
         println!();
     }
 
-    let shared_config = aws_config::defaults(BehaviorVersion::latest())
-        .region(region_provider)
-        .load()
-        .await;
+    let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
     cp_object(&client, &source, &destination, &key, &new_name).await?;
