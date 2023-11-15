@@ -30,7 +30,7 @@ dependencies {
     implementation("aws.sdk.kotlin:appsync:1.0.0")
     implementation("aws.sdk.kotlin:sts:1.0.0")
     implementation("aws.sdk.kotlin:s3:1.0.0")
-    implementation("aws.sdk.kotlin:secretsmanager:0.33.1-beta")
+    implementation("aws.sdk.kotlin:secretsmanager:1.0.0")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
     implementation("com.google.code.gson:gson:2.10")
