@@ -64,6 +64,27 @@ class BedrockRuntimeTest {
     @Test
     @Order(3)
     @Tag("IntegrationTest")
+    void InvokeLlama2() {
+
+        try (BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build()) {
+
+            String prompt = "In one sentence, what is a large-language model?";
+
+            String completion = InvokeModel.invokeLlama2(client, prompt);
+
+            assertNotNull(completion, "The completion is null");
+            assertFalse(completion.trim().isEmpty(), "The completion is empty");
+
+            System.out.printf("Test %d passed.%n", getTestNumber(new Object(){}.getClass().getEnclosingMethod()));
+        }
+    }
+
+    @Test
+    @Order(4)
+    @Tag("IntegrationTest")
     void InvokeStableDiffusion() {
 
         try (BedrockRuntimeClient client = BedrockRuntimeClient.builder()
@@ -85,7 +106,7 @@ class BedrockRuntimeTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @Tag("IntegrationTest")
     void InvokeModelWithResponseStream() {
 
