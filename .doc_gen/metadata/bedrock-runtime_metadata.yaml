@@ -302,7 +302,7 @@ bedrock-runtime_Scenario_Invoke_models:
         - sdk_version: 2
           github: gov2/bedrock-runtime
           excerpts:
-            - description: Invoke multiple foundation models
+            - description: Invoke multiple foundation models.
               snippet_tags:
                 - gov2.bedrock-runtime.Scenario_InvokeModels
     PHP:
