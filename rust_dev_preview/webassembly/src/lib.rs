@@ -9,8 +9,8 @@ use aws_sdk_lambda::config::{AsyncSleep, Region, Sleep};
 use aws_sdk_lambda::primitives::SdkBody;
 use aws_sdk_lambda::{meta::PKG_VERSION, Client};
 use aws_smithy_async::time::TimeSource;
-use aws_smithy_runtime_api::client::http::request::Request;
 use aws_smithy_runtime_api::client::result::ConnectorError;
+use aws_smithy_runtime_api::http::{Request, Response};
 use aws_smithy_runtime_api::{
     client::{
         http::{
@@ -23,6 +23,7 @@ use aws_smithy_runtime_api::{
     shared::IntoShared,
 };
 
+use aws_config::BehaviorVersion;
 use serde::Deserialize;
 use std::time::SystemTime;
 use wasm_bindgen::{prelude::*, JsCast};
@@ -71,7 +72,7 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
     let credentials = credentials_provider.provide_credentials().await.unwrap();
     let access_key = credentials.access_key_id();
 
-    let shared_config = aws_config::from_env()
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .sleep_impl(BrowserSleep)
         .region(Region::new(region))
         .time_source(BrowserNow)
@@ -267,7 +268,7 @@ impl HttpConnector for Adapter {
         HttpConnectorFuture::new(async move {
             let response = rx.await.map_err(|e| ConnectorError::user(Box::new(e)))?;
             log!("response received");
-            Ok(response)
+            Ok(Response::try_from(response).unwrap())
         })
     }
 }

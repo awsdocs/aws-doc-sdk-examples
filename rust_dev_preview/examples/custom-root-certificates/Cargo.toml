@@ -7,7 +7,7 @@ edition = "2021"
 description = "An example demonstrating setting a custom root certificate with rustls"
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["behavior-version-latest"]}
 # bringing our own HTTPs so no need for the default features
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false }
 tokio = { version = "1.21.2", features = ["full"] }

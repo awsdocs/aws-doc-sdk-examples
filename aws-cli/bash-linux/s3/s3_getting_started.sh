@@ -138,7 +138,7 @@ function s3_getting_started() {
   {
     if [ "$BUCKET_OPERATIONS_SOURCED" != "True" ]; then
       cd bucket-lifecycle-operations || exit
-      # shellcheck disable=SC1091
+
       source ./bucket_operations.sh
       cd ..
     fi
@@ -206,6 +206,7 @@ function s3_getting_started() {
   local bucket_items
   bucket_items=$(list_items_in_bucket "$bucket_name")
 
+  # shellcheck disable=SC2181
   if [[ $? -ne 0 ]]; then
     result=1
   fi
@@ -247,4 +248,3 @@ function main() {
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   main
 fi
-

@@ -17,6 +17,7 @@
 #
 ###############################################################################
 
+
 source ./awsdocs_general.sh
 
 # snippet-start:[aws-cli.bash-linux.dynamodb.CreateTable]

@@ -39,7 +39,7 @@ use aws_sdk_rds::{
         OrderableDbInstanceOption,
     },
 };
-use aws_smithy_runtime_api::client::orchestrator::HttpResponse;
+use aws_smithy_runtime_api::http::{Response, StatusCode};
 use aws_smithy_types::body::SdkBody;
 use mockall::predicate::eq;
 use secrecy::ExposeSecret;
@@ -103,7 +103,7 @@ async fn test_scenario_set_engine_param_group_exists() {
                 CreateDBClusterParameterGroupError::DbParameterGroupAlreadyExistsFault(
                     DbParameterGroupAlreadyExistsFault::builder().build(),
                 ),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         });
 
@@ -173,7 +173,7 @@ async fn test_scenario_get_engines_failed() {
                     ErrorKind::Other,
                     "describe_db_engine_versions error",
                 ))),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         });
 
@@ -244,7 +244,7 @@ async fn test_scenario_get_instance_classes_error() {
                     ErrorKind::Other,
                     "describe_orderable_db_instance_options_error",
                 ))),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         });
 
@@ -327,7 +327,7 @@ async fn test_scenario_get_cluster_error() {
                     ErrorKind::Other,
                     "describe_db_clusters_error",
                 ))),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         });
 
@@ -419,7 +419,7 @@ async fn test_scenario_cluster_parameters_error() {
                     ErrorKind::Other,
                     "describe_db_cluster_parameters_error",
                 ))),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         });
 
@@ -478,7 +478,7 @@ async fn test_scenario_update_auto_increment_error() {
                     ErrorKind::Other,
                     "modify_db_cluster_parameter_group_error",
                 ))),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         });
 
@@ -602,7 +602,7 @@ async fn test_start_cluster_and_instance_cluster_create_error() {
                     ErrorKind::Other,
                     "create db cluster error",
                 ))),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         });
 
@@ -667,7 +667,7 @@ async fn test_start_cluster_and_instance_instance_create_error() {
                     ErrorKind::Other,
                     "create db instance error",
                 ))),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         });
 
@@ -733,7 +733,7 @@ async fn test_start_cluster_and_instance_wait_hiccup() {
                     ErrorKind::Other,
                     "describe cluster error",
                 ))),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         })
         .with(eq("RustSDKCodeExamplesDBCluster"))
@@ -892,7 +892,7 @@ async fn test_scenario_clean_up_errors() {
                     ErrorKind::Other,
                     "describe db instances error",
                 ))),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         });
 
@@ -923,7 +923,7 @@ async fn test_scenario_clean_up_errors() {
                     ErrorKind::Other,
                     "describe db clusters error",
                 ))),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         });
 
@@ -1000,7 +1000,7 @@ async fn test_scenario_snapshot_error() {
                     ErrorKind::Other,
                     "create snapshot error",
                 ))),
-                HttpResponse::new(SdkBody::empty()),
+                Response::new(StatusCode::try_from(400).unwrap(), SdkBody::empty()),
             ))
         });
 

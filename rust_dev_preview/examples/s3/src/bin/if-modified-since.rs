@@ -10,7 +10,6 @@ use aws_sdk_s3::{
     primitives::{ByteStream, DateTime, DateTimeFormat},
     Client, Error,
 };
-use http::StatusCode;
 use tracing::{error, warn};
 
 const KEY: &str = "key";
@@ -85,21 +84,17 @@ async fn main() -> Result<(), Error> {
         Err(err) => match err {
             SdkError::ServiceError(err) => {
                 let http = err.raw();
-                match http.status() {
-                    StatusCode::NOT_MODIFIED => (
+                match http.status().as_u16() {
+                    // HTTP 304: not modified
+                    304 => (
                         Ok(Some(
                             DateTime::from_str(
-                                http.headers()
-                                    .get("last-modified")
-                                    .map(|t| t.to_str().unwrap())
-                                    .unwrap(),
+                                http.headers().get("last-modified").unwrap(),
                                 DateTimeFormat::HttpDate,
                             )
                             .unwrap(),
                         )),
-                        http.headers()
-                            .get("etag")
-                            .map(|t| t.to_str().unwrap().into()),
+                        http.headers().get("etag").map(|t| t.into()),
                     ),
                     _ => (Err(SdkError::ServiceError(err)), None),
                 }

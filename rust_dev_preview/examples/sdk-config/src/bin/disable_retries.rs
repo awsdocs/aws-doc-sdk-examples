@@ -6,6 +6,7 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_config::BehaviorVersion;
 use aws_sdk_s3::config::retry::RetryConfig;
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
@@ -58,7 +59,7 @@ async fn main() -> Result<(), Error> {
     }
 
     // snippet-start:[custom_retries.rust.disable_retries]
-    let shared_config = aws_config::from_env()
+    let shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(region_provider)
         // Disable retries
         .retry_config(RetryConfig::disabled())

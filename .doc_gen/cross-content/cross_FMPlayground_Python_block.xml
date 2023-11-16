@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd" [
+  <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+  %phrases-shared;
+]>
+<block>
+  <para>
+	  The Python Foundation Model (FM) Playground is a Python/FastAPI sample application that showcases how to use &BRlong; with Python. This example shows how Python developers can use &BR; to build generative AI-enabled applications. You can test and interact with &BR; foundation models by using the following three playgrounds:
+  </para>
+  <itemizedlist>
+    <listitem>
+      <para>A text playground.</para>
+    </listitem>
+    <listitem>
+      <para>A chat playground.</para>
+    </listitem>
+    <listitem>
+      <para>An image playground.</para>
+    </listitem>
+  </itemizedlist>
+  <para>The example also lists and displays the foundation models you have access to, along with their characteristics. For source code and deployment instructions, see the project in <ulink url="https://github.com/build-on-aws/python-fm-playground">GitHub</ulink>.
+  </para>
+</block>

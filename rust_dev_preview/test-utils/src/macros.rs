@@ -90,6 +90,7 @@ macro_rules! client_config {
     ) => {
         /// TODO: remove after https://github.com/awslabs/smithy-rs/pull/2145
         $sdk_crate::Config::builder()
+            .behavior_version($sdk_crate::config::BehaviorVersion::latest())
             .credentials_provider($sdk_crate::config::Credentials::new(
                 "ATESTCLIENT",
                 "atestsecretkey",

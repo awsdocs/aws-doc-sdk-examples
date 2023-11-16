@@ -53,6 +53,7 @@ function run_test() {
 
   # Check to see if we got the expected error code.
   if [[ "$expected_err_code" -ne "$err" ]]; then
+    # shellcheck disable=SC2154
     test_failed "The test \"$description\" returned an unexpected error code: $err. $test_command_response"
   fi
 

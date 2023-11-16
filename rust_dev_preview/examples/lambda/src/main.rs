@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 // snippet-start:[lambda.rust.main]
+use aws_config::BehaviorVersion;
 use lambda_runtime::{service_fn, Error, LambdaEvent};
 use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
@@ -99,7 +100,7 @@ async fn main() -> Result<(), Error> {
     //
     // No extra configuration is needed as long as your Lambda has
     // the necessary permissions attached to its role.
-    let config = aws_config::load_from_env().await;
+    let config = aws_config::load_defaults(BehaviorVersion::latest()).await;
     let s3_client = aws_sdk_s3::Client::new(&config);
 
     lambda_runtime::run(service_fn(|event: LambdaEvent<Request>| async {
