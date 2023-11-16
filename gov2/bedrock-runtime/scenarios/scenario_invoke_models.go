@@ -100,4 +100,4 @@ func (scenario InvokeModelsScenario) InvokeWithResponseStream(prompt string) {
 	log.Println()
 }
 
-// snippet-start:[gov2.bedrock-runtime.Scenario_InvokeModels]
+// snippet-end:[gov2.bedrock-runtime.Scenario_InvokeModels]
