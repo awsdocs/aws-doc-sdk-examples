@@ -30,13 +30,9 @@ type InvokeModelWrapper struct {
 // https://docs.anthropic.com/claude/reference/complete_post
 
 type ClaudeRequest struct {
-	// Required request parameters
 	Prompt            string   `json:"prompt"`
 	MaxTokensToSample int      `json:"max_tokens_to_sample"`
-	// Optional request parameters
 	Temperature       float64  `json:"temperature,omitempty"`
-	TopP              float64  `json:"top_p,omitempty"`
-	TopK              int      `json:"top_k,omitempty"`
 	StopSequences     []string `json:"stop_sequences,omitempty"`
 }
 
@@ -84,5 +80,57 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 }
 
 // snippet-end:[gov2.bedrock-runtime.InvokeClaude]
+
+// snippet-start:[gov2.bedrock-runtime.InvokeJurassic2]
+
+// Each model provider has their own individual request and response formats.
+// For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
+// https://docs.ai21.com/reference/j2-complete-ref
+
+type Jurassic2Request struct {
+	Prompt            string   `json:"prompt"`
+	MaxTokens	 	  int      `json:"maxTokens,omitempty"`
+	Temperature       float64  `json:"temperature,omitempty"`
+}
+
+type Jurassic2Response struct { Completions []Completion `json:"completions"` }
+type Completion struct { Data Data `json:"data"` }
+type Data struct { Text string `json:"text"` }
+
+
+// Invokes AI21 Labs Jurassic-2 on Amazon Bedrock to run an inference using the input
+// provided in the request body.
+func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error) {
+
+	request := Jurassic2Request {
+		Prompt:            prompt,
+		MaxTokens: 		   200,
+		Temperature:       0.5,
+	}
+
+	body, err := json.Marshal(request)
+
+	result, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
+		ModelId: aws.String("ai21.j2-mid"),
+		ContentType: aws.String("application/json"),
+		Body: body,
+	})
+
+	if err != nil {
+		log.Printf("Couldn't invoke Jurassic-2. Here's why: %v\n", err)
+	}
+
+	var response Jurassic2Response
+
+	err = json.Unmarshal(result.Body, &response)
+
+	if err != nil {
+		log.Fatal("failed to unmarshal", err)
+	}
+
+	return response.Completions[0].Data.Text, nil
+}
+
+// snippet-end:[gov2.bedrock-runtime.InvokeJurassic2]
 
 // snippet-end:[gov2.bedrock-runtime.InvokeModelWrapper.complete]

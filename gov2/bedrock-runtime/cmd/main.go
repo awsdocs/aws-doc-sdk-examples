@@ -41,7 +41,7 @@ func main() {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+		sdkConfig, err := config.LoadDefaultConfig(context.Background(), config.WithRegion("us-east-1"))
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}

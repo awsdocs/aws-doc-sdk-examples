@@ -60,11 +60,23 @@ func (scenario InvokeModelsScenario) Run() {
 	log.Printf("Prompt: %v\n", prompt)
 	log.Println(strings.Repeat("-", 37))
 
-	completion, err := scenario.wrapper.InvokeClaude(prompt)
-	if err != nil { panic(err) }
-	log.Printf("Claude: %v", completion)
+	scenario.InvokeClaude(prompt)
+
+	scenario.InvokeJurassic2(prompt)
 
 	log.Println(strings.Repeat("-", 88))
 	log.Println("Thanks for watching!")
 	log.Println(strings.Repeat("-", 88))
+}
+
+func (scenario InvokeModelsScenario) InvokeClaude(prompt string) {
+	completion, err := scenario.wrapper.InvokeClaude(prompt)
+	if err != nil { panic(err) }
+	log.Printf("\nClaude     : %v\n", strings.TrimSpace(completion))
+}
+
+func (scenario InvokeModelsScenario) InvokeJurassic2(prompt string) {
+	completion, err := scenario.wrapper.InvokeJurassic2(prompt)
+	if err != nil { panic(err) }
+	log.Printf("\nJurassic-2 : %v\n\n", strings.TrimSpace(completion))
 }
