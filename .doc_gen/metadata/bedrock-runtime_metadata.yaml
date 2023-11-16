@@ -1,4 +1,21 @@
 # zexi 0.4.0
+bedrock-runtime_Hello:
+  title: Hello &BR;
+  title_abbrev: Hello &BR;
+  synopsis: get started using &BR;.
+  category: Hello
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.bedrock-runtime.Hello
+  services:
+    bedrock-runtime: {InvokeModel}
+
 bedrock-runtime_InvokeModel:
   title: Invoke the specified &BR; model to run an inference
   title_abbrev: Invoke a model
@@ -25,6 +42,14 @@ bedrock-runtime_InvokeClaude:
   synopsis: invoke the Anthropic Claude model on &BR; to run an inference.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.bedrock-runtime.InvokeClaude
     Java:
       versions:
         - sdk_version: 2

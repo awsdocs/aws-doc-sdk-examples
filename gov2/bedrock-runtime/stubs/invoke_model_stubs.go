@@ -19,6 +19,7 @@ func StubInvokeClaude(requestBytes []byte, raiseErr *testtools.StubError) testto
 		Input:		   &bedrockruntime.InvokeModelInput{
 			Body: requestBytes,
 			ModelId: aws.String("anthropic.claude-v2"),
+			ContentType: aws.String("application/json"),
 		},
 		Output:		   &bedrockruntime.InvokeModelOutput{Body: responseBytes},
 		Error:		   raiseErr,

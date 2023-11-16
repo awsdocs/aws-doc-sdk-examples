@@ -17,7 +17,7 @@ import (
 )
 
 const region ="us-east-1"
-const text_prompt = "a test prompt"
+const text_prompt = "A test prompt"
 
 func CallInvokeModelActions(sdkConfig aws.Config, ) {
     defer func() {
