@@ -1,8 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+   <properties>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
     </properties>
     <groupId>Route53RecoveryClusterProject</groupId>
     <artifactId>Route53RecoveryClusterProject</artifactId>
@@ -14,7 +15,7 @@
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.19.14</version>
+                <version>2.21.20</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
