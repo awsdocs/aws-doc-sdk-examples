@@ -13,12 +13,16 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
 )
 
+type ClaudeResponse struct {
+	Completion string `json:"completion"`
+}
+
 func StubInvokeClaude(requestBytes []byte, raiseErr *testtools.StubError) testtools.Stub {
-	data := map[string]string{
-		"completion": "A fake response", 
+	fakeClaudeResponse := ClaudeResponse{
+		Completion: "A fake response",
 	}
 
-	responseBytes, err := json.Marshal(data)
+	responseBytes, err := json.Marshal(fakeClaudeResponse)
 	if err != nil {
 		panic(err)
 	}
@@ -62,6 +66,34 @@ func StubInvokeJurassic2(requestBytes []byte, raiseErr *testtools.StubError) tes
 		Input:	&bedrockruntime.InvokeModelInput{
 			Body:        requestBytes,
 			ModelId:     aws.String("ai21.j2-mid-v1"),
+			ContentType: aws.String("application/json"),
+		},
+		Output:	&bedrockruntime.InvokeModelOutput{
+			Body:        responseBytes,
+		},
+		Error:	raiseErr,
+	}
+}
+
+type Llama2Response struct { 
+	Generation string `json:"generation"`
+}
+
+func StubInvokeLlama2(requestBytes []byte, raiseErr *testtools.StubError) testtools.Stub {
+	fakeLlamaResponse := Llama2Response{
+		Generation: "A fake response",
+	}
+	
+	responseBytes, err := json.Marshal(fakeLlamaResponse)
+	if err != nil {
+		panic(err)
+	}
+	
+	return testtools.Stub{
+		OperationName: "InvokeModel",
+		Input:	&bedrockruntime.InvokeModelInput{
+			Body:        requestBytes,
+			ModelId:     aws.String("meta.llama2-13b-chat-v1"),
 			ContentType: aws.String("application/json"),
 		},
 		Output:	&bedrockruntime.InvokeModelOutput{
