@@ -16,7 +16,6 @@
         <aws.java.sdk.version>2.21.20</aws.java.sdk.version>
         <junit5.version>5.4.2</junit5.version>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -30,14 +29,10 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/mq -->
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>mq</artifactId>
         </dependency>
-
-
-        <!-- Test Dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -45,7 +40,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
