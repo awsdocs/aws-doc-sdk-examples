@@ -35,6 +35,10 @@ func CallInvokeModelActions(sdkConfig aws.Config, ) {
 	jurassic2Completion, err := wrapper.InvokeJurassic2(prompt)
 	if err != nil {panic(err)}
 	log.Println(jurassic2Completion)
+
+	llama2Completion, err := wrapper.InvokeLlama2(prompt)
+	if err != nil {panic(err)}
+	log.Println(llama2Completion)
 	
     log.Printf("Thanks for watching!")
 }
@@ -50,6 +54,7 @@ func (scenTest *InvokeModelActionsTest) SetupDataAndStubs() []testtools.Stub {
     var stubList []testtools.Stub
     stubList = append(stubList, stubs.StubInvokeClaude(fakeClaudeRequest(), nil))
 	stubList = append(stubList, stubs.StubInvokeJurassic2(fakeJurassic2Request(), nil))
+	stubList = append(stubList, stubs.StubInvokeLlama2(fakeLlama2Request(), nil))
     return stubList
 }
 
@@ -74,6 +79,15 @@ func fakeJurassic2Request() ([]byte) {
 		Prompt:      prompt,
 		MaxTokens:   200,
 		Temperature: 0.5,
+	})
+	return requestBytes
+}
+
+func fakeLlama2Request() ([]byte) {
+	requestBytes, _ := json.Marshal(Llama2Request{ 
+		Prompt:       prompt,
+		MaxGenLength: 512,
+		Temperature:  0.5,
 	})
 	return requestBytes
 } 
