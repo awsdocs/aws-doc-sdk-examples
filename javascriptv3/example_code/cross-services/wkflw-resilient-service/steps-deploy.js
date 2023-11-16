@@ -124,8 +124,8 @@ export const deploySteps = [
     return client.send(
       new BatchWriteItemCommand({
         RequestItems: {
-          [NAMES.tableName]: recommendations.map((i) => ({
-            PutRequest: { Item: i },
+          [NAMES.tableName]: recommendations.map((item) => ({
+            PutRequest: { Item: item },
           })),
         },
       }),
@@ -160,7 +160,7 @@ export const deploySteps = [
       NAMES.instancePolicyName,
     ),
   ),
-  new ScenarioAction("createInstancePolicy", async (c) => {
+  new ScenarioAction("createInstancePolicy", async (state) => {
     const client = new IAMClient({});
     const {
       Policy: { Arn },
@@ -172,12 +172,12 @@ export const deploySteps = [
         ),
       }),
     );
-    c.instancePolicyArn = Arn;
+    state.instancePolicyArn = Arn;
   }),
-  new ScenarioOutput("createdInstancePolicy", (c) =>
+  new ScenarioOutput("createdInstancePolicy", (state) =>
     MESSAGES.createdInstancePolicy
       .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName)
-      .replace("${INSTANCE_POLICY_ARN}", c.instancePolicyArn),
+      .replace("${INSTANCE_POLICY_ARN}", state.instancePolicyArn),
   ),
   new ScenarioOutput(
     "creatingInstanceRole",
@@ -210,12 +210,12 @@ export const deploySteps = [
       .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName)
       .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName),
   ),
-  new ScenarioAction("attachPolicyToRole", async (c) => {
+  new ScenarioAction("attachPolicyToRole", async (state) => {
     const client = new IAMClient({});
     await client.send(
       new AttachRolePolicyCommand({
         RoleName: NAMES.instanceRoleName,
-        PolicyArn: c.instancePolicyArn,
+        PolicyArn: state.instancePolicyArn,
       }),
     );
   }),
@@ -232,7 +232,7 @@ export const deploySteps = [
       NAMES.instanceProfileName,
     ),
   ),
-  new ScenarioAction("createInstanceProfile", async (c) => {
+  new ScenarioAction("createInstanceProfile", async (state) => {
     const client = new IAMClient({});
     const {
       InstanceProfile: { Arn },
@@ -241,17 +241,17 @@ export const deploySteps = [
         InstanceProfileName: NAMES.instanceProfileName,
       }),
     );
-    c.instanceProfileArn = Arn;
+    state.instanceProfileArn = Arn;
 
     await waitUntilInstanceProfileExists(
       { client },
       { InstanceProfileName: NAMES.instanceProfileName },
     );
   }),
-  new ScenarioOutput("createdInstanceProfile", (c) =>
+  new ScenarioOutput("createdInstanceProfile", (state) =>
     MESSAGES.createdInstanceProfile
       .replace("${INSTANCE_PROFILE_NAME}", NAMES.instanceProfileName)
-      .replace("${INSTANCE_PROFILE_ARN}", c.instanceProfileArn),
+      .replace("${INSTANCE_PROFILE_ARN}", state.instanceProfileArn),
   ),
   new ScenarioOutput(
     "addingRoleToInstanceProfile",
@@ -285,7 +285,7 @@ export const deploySteps = [
       }),
     );
     const ec2Client = new EC2Client({});
-    const { LaunchTemplate } = await ec2Client.send(
+    await ec2Client.send(
       new CreateLaunchTemplateCommand({
         LaunchTemplateName: NAMES.launchTemplateName,
         LaunchTemplateData: {
@@ -300,7 +300,6 @@ export const deploySteps = [
       }),
       // snippet-end:[javascript.v3.wkflw.resilient.CreateLaunchTemplate]
     );
-    console.log(LaunchTemplate);
   }),
   new ScenarioOutput(
     "createdLaunchTemplate",
@@ -316,17 +315,17 @@ export const deploySteps = [
       NAMES.autoScalingGroupName,
     ),
   ),
-  new ScenarioAction("createAutoScalingGroup", async (c) => {
+  new ScenarioAction("createAutoScalingGroup", async (state) => {
     const ec2Client = new EC2Client({});
     const { AvailabilityZones } = await ec2Client.send(
       new DescribeAvailabilityZonesCommand({}),
     );
-    c.availabilityZoneNames = AvailabilityZones.map((az) => az.ZoneName);
+    state.availabilityZoneNames = AvailabilityZones.map((az) => az.ZoneName);
     const autoScalingClient = new AutoScalingClient({});
     await retry({ intervalInMs: 1000, maxRetries: 30 }, () =>
       autoScalingClient.send(
         new CreateAutoScalingGroupCommand({
-          AvailabilityZones: c.availabilityZoneNames,
+          AvailabilityZones: state.availabilityZoneNames,
           AutoScalingGroupName: NAMES.autoScalingGroupName,
           LaunchTemplate: {
             LaunchTemplateName: NAMES.launchTemplateName,
@@ -341,14 +340,14 @@ export const deploySteps = [
   new ScenarioOutput(
     "createdAutoScalingGroup",
     /**
-     * @param {{ availabilityZoneNames: string[] }} c
+     * @param {{ availabilityZoneNames: string[] }} state
      */
-    (c) =>
+    (state) =>
       MESSAGES.createdAutoScalingGroup
         .replace("${AUTO_SCALING_GROUP_NAME}", NAMES.autoScalingGroupName)
         .replace(
           "${AVAILABILITY_ZONE_NAMES}",
-          c.availabilityZoneNames.join(", "),
+          state.availabilityZoneNames.join(", "),
         ),
   ),
   new ScenarioInput("confirmContinue", MESSAGES.confirmContinue, {
@@ -356,7 +355,7 @@ export const deploySteps = [
   }),
   new ScenarioOutput("loadBalancer", MESSAGES.loadBalancer),
   new ScenarioOutput("gettingVpc", MESSAGES.gettingVpc),
-  new ScenarioAction("getVpc", async (c) => {
+  new ScenarioAction("getVpc", async (state) => {
     // snippet-start:[javascript.v3.wkflw.resilient.DescribeVpcs]
     const client = new EC2Client({});
     const { Vpcs } = await client.send(
@@ -365,42 +364,43 @@ export const deploySteps = [
       }),
     );
     // snippet-end:[javascript.v3.wkflw.resilient.DescribeVpcs]
-    c.defaultVpc = Vpcs[0].VpcId;
+    state.defaultVpc = Vpcs[0].VpcId;
   }),
-  new ScenarioOutput("gotVpc", (c) =>
-    MESSAGES.gotVpc.replace("${VPC_ID}", c.defaultVpc),
+  new ScenarioOutput("gotVpc", (state) =>
+    MESSAGES.gotVpc.replace("${VPC_ID}", state.defaultVpc),
   ),
   new ScenarioOutput("gettingSubnets", MESSAGES.gettingSubnets),
-  new ScenarioAction("getSubnets", async (c) => {
+  new ScenarioAction("getSubnets", async (state) => {
     // snippet-start:[javascript.v3.wkflw.resilient.DescribeSubnets]
     const client = new EC2Client({});
     const { Subnets } = await client.send(
       new DescribeSubnetsCommand({
         Filters: [
-          { Name: "vpc-id", Values: [c.defaultVpc] },
-          { Name: "availability-zone", Values: c.availabilityZoneNames },
+          { Name: "vpc-id", Values: [state.defaultVpc] },
+          { Name: "availability-zone", Values: state.availabilityZoneNames },
           { Name: "default-for-az", Values: ["true"] },
         ],
       }),
     );
     // snippet-end:[javascript.v3.wkflw.resilient.DescribeSubnets]
-    c.subnets = Subnets.map((s) => s.SubnetId);
+    state.subnets = Subnets.map((subnet) => subnet.SubnetId);
   }),
   new ScenarioOutput(
     "gotSubnets",
     /**
-     * @param {{ subnets: string[] }} c
+     * @param {{ subnets: string[] }} state
      */
-    (c) => MESSAGES.gotSubnets.replace("${SUBNETS}", c.subnets.join(", ")),
+    (state) =>
+      MESSAGES.gotSubnets.replace("${SUBNETS}", state.subnets.join(", ")),
   ),
   new ScenarioOutput(
-    "creatingLBTargetGroup",
-    MESSAGES.creatingLBTargetGroup.replace(
+    "creatingLoadBalancerTargetGroup",
+    MESSAGES.creatingLoadBalancerTargetGroup.replace(
       "${TARGET_GROUP_NAME}",
       NAMES.loadBalancerTargetGroupName,
     ),
   ),
-  new ScenarioAction("createLBTargetGroup", async (c) => {
+  new ScenarioAction("createLoadBalancerTargetGroup", async (state) => {
     // snippet-start:[javascript.v3.wkflw.resilient.CreateTargetGroup]
     const client = new ElasticLoadBalancingV2Client({});
     const { TargetGroups } = await client.send(
@@ -413,18 +413,18 @@ export const deploySteps = [
         HealthCheckTimeoutSeconds: 5,
         HealthyThresholdCount: 2,
         UnhealthyThresholdCount: 2,
-        VpcId: c.defaultVpc,
+        VpcId: state.defaultVpc,
       }),
     );
     // snippet-end:[javascript.v3.wkflw.resilient.CreateTargetGroup]
     const targetGroup = TargetGroups[0];
-    c.targetGroupArn = targetGroup.TargetGroupArn;
-    c.targetGroupProtocol = targetGroup.Protocol;
-    c.targetGroupPort = targetGroup.Port;
+    state.targetGroupArn = targetGroup.TargetGroupArn;
+    state.targetGroupProtocol = targetGroup.Protocol;
+    state.targetGroupPort = targetGroup.Port;
   }),
   new ScenarioOutput(
-    "createdLBTargetGroup",
-    MESSAGES.createdLBTargetGroup.replace(
+    "createdLoadBalancerTargetGroup",
+    MESSAGES.createdLoadBalancerTargetGroup.replace(
       "${TARGET_GROUP_NAME}",
       NAMES.loadBalancerTargetGroupName,
     ),
@@ -433,27 +433,27 @@ export const deploySteps = [
     "creatingLoadBalancer",
     MESSAGES.creatingLoadBalancer.replace("${LB_NAME}", NAMES.loadBalancerName),
   ),
-  new ScenarioAction("createLoadBalancer", async (c) => {
+  new ScenarioAction("createLoadBalancer", async (state) => {
     // snippet-start:[javascript.v3.wkflw.resilient.CreateLoadBalancer]
     const client = new ElasticLoadBalancingV2Client({});
     const { LoadBalancers } = await client.send(
       new CreateLoadBalancerCommand({
         Name: NAMES.loadBalancerName,
-        Subnets: c.subnets,
+        Subnets: state.subnets,
       }),
     );
-    c.loadBalancerDns = LoadBalancers[0].DNSName;
-    c.loadBalancerArn = LoadBalancers[0].LoadBalancerArn;
+    state.loadBalancerDns = LoadBalancers[0].DNSName;
+    state.loadBalancerArn = LoadBalancers[0].LoadBalancerArn;
     await waitUntilLoadBalancerAvailable(
       { client },
       { Names: [NAMES.loadBalancerName] },
     );
     // snippet-end:[javascript.v3.wkflw.resilient.CreateLoadBalancer]
   }),
-  new ScenarioOutput("createdLoadBalancer", (c) =>
+  new ScenarioOutput("createdLoadBalancer", (state) =>
     MESSAGES.createdLoadBalancer
       .replace("${LB_NAME}", NAMES.loadBalancerName)
-      .replace("${DNS_NAME}", c.loadBalancerDns),
+      .replace("${DNS_NAME}", state.loadBalancerDns),
   ),
   new ScenarioOutput(
     "creatingListener",
@@ -461,25 +461,27 @@ export const deploySteps = [
       .replace("${LB_NAME}", NAMES.loadBalancerName)
       .replace("${TARGET_GROUP_NAME}", NAMES.loadBalancerTargetGroupName),
   ),
-  new ScenarioAction("createListener", async (c) => {
+  new ScenarioAction("createListener", async (state) => {
     // snippet-start:[javascript.v3.wkflw.resilient.CreateListener]
     const client = new ElasticLoadBalancingV2Client({});
     const { Listeners } = await client.send(
       new CreateListenerCommand({
-        LoadBalancerArn: c.loadBalancerArn,
-        Protocol: c.targetGroupProtocol,
-        Port: c.targetGroupPort,
-        DefaultActions: [{ Type: "forward", TargetGroupArn: c.targetGroupArn }],
+        LoadBalancerArn: state.loadBalancerArn,
+        Protocol: state.targetGroupProtocol,
+        Port: state.targetGroupPort,
+        DefaultActions: [
+          { Type: "forward", TargetGroupArn: state.targetGroupArn },
+        ],
       }),
     );
     // snippet-end:[javascript.v3.wkflw.resilient.CreateListener]
     const listener = Listeners[0];
-    c.lbListenerArn = listener.ListenerArn;
+    state.loadBalancerListenerArn = listener.ListenerArn;
   }),
-  new ScenarioOutput("createdListener", (c) =>
+  new ScenarioOutput("createdListener", (state) =>
     MESSAGES.createdLoadBalancerListener.replace(
       "${LB_LISTENER_ARN}",
-      c.lbListenerArn,
+      state.loadBalancerListenerArn,
     ),
   ),
   new ScenarioOutput(
@@ -488,13 +490,13 @@ export const deploySteps = [
       .replace("${TARGET_GROUP_NAME}", NAMES.loadBalancerTargetGroupName)
       .replace("${AUTO_SCALING_GROUP_NAME}", NAMES.autoScalingGroupName),
   ),
-  new ScenarioAction("attachLoadBalancerTargetGroup", async (c) => {
+  new ScenarioAction("attachLoadBalancerTargetGroup", async (state) => {
     // snippet-start:[javascript.v3.wkflw.resilient.AttachTargetGroup]
     const client = new AutoScalingClient({});
     await client.send(
       new AttachLoadBalancerTargetGroupsCommand({
         AutoScalingGroupName: NAMES.autoScalingGroupName,
-        TargetGroupARNs: [c.targetGroupArn],
+        TargetGroupARNs: [state.targetGroupArn],
       }),
     );
     // snippet-end:[javascript.v3.wkflw.resilient.AttachTargetGroup]
@@ -508,9 +510,9 @@ export const deploySteps = [
     "verifyInboundPort",
     /**
      *
-     * @param {{ defaultSecurityGroup: import('@aws-sdk/client-ec2').SecurityGroup}} c
+     * @param {{ defaultSecurityGroup: import('@aws-sdk/client-ec2').SecurityGroup}} state
      */
-    async (c) => {
+    async (state) => {
       const client = new EC2Client({});
       const { SecurityGroups } = await client.send(
         new DescribeSecurityGroupsCommand({
@@ -518,36 +520,38 @@ export const deploySteps = [
         }),
       );
       if (!SecurityGroups) {
-        c.verifyInboundPortError = new Error(MESSAGES.noSecurityGroups);
+        state.verifyInboundPortError = new Error(MESSAGES.noSecurityGroups);
       }
-      c.defaultSecurityGroup = SecurityGroups[0];
+      state.defaultSecurityGroup = SecurityGroups[0];
 
       /**
        * @type {string}
        */
       const ipResponse = (await axios.get("http://checkip.amazonaws.com")).data;
-      c.myIp = ipResponse.trim();
-      const myIpRules = c.defaultSecurityGroup.IpPermissions.filter((p) =>
-        p.IpRanges.some(
-          (r) => r.CidrIp.startsWith(c.myIp) || r.CidrIp === "0.0.0.0/0",
-        ),
+      state.myIp = ipResponse.trim();
+      const myIpRules = state.defaultSecurityGroup.IpPermissions.filter(
+        ({ IpRanges }) =>
+          IpRanges.some(
+            ({ CidrIp }) =>
+              CidrIp.startsWith(state.myIp) || CidrIp === "0.0.0.0/0",
+          ),
       )
-        .filter((p) => p.IpProtocol === "tcp")
-        .filter((p) => p.FromPort === 80);
+        .filter(({ IpProtocol }) => IpProtocol === "tcp")
+        .filter(({ FromPort }) => FromPort === 80);
 
-      c.myIpRules = myIpRules;
+      state.myIpRules = myIpRules;
     },
   ),
   new ScenarioOutput(
     "verifiedInboundPort",
     /**
-     * @param {{ myIpRules: any[] }} c
+     * @param {{ myIpRules: any[] }} state
      */
-    (c) => {
-      if (c.myIpRules.length > 0) {
+    (state) => {
+      if (state.myIpRules.length > 0) {
         return MESSAGES.foundIpRules.replace(
           "${IP_RULES}",
-          JSON.stringify(c.myIpRules, null, 2),
+          JSON.stringify(state.myIpRules, null, 2),
         );
       } else {
         return MESSAGES.noIpRules;
@@ -557,10 +561,10 @@ export const deploySteps = [
   new ScenarioInput(
     "shouldAddInboundRule",
     /**
-     * @param {{ myIpRules: any[] }} c
+     * @param {{ myIpRules: any[] }} state
      */
-    (c) => {
-      if (c.myIpRules.length > 0) {
+    (state) => {
+      if (state.myIpRules.length > 0) {
         return false;
       } else {
         return MESSAGES.noIpRules;
@@ -571,18 +575,18 @@ export const deploySteps = [
   new ScenarioAction(
     "addInboundRule",
     /**
-     * @param {{ defaultSecurityGroup: import('@aws-sdk/client-ec2').SecurityGroup }} c
+     * @param {{ defaultSecurityGroup: import('@aws-sdk/client-ec2').SecurityGroup }} state
      */
-    async (c) => {
-      if (!c.shouldAddInboundRule) {
+    async (state) => {
+      if (!state.shouldAddInboundRule) {
         return;
       }
 
       const client = new EC2Client({});
       await client.send(
         new AuthorizeSecurityGroupIngressCommand({
-          GroupId: c.defaultSecurityGroup.GroupId,
-          CidrIp: `${c.myIp}/32`,
+          GroupId: state.defaultSecurityGroup.GroupId,
+          CidrIp: `${state.myIp}/32`,
           FromPort: 80,
           ToPort: 80,
           IpProtocol: "tcp",
@@ -590,33 +594,33 @@ export const deploySteps = [
       );
     },
   ),
-  new ScenarioOutput("addedInboundRule", (c) => {
-    if (c.shouldAddInboundRule) {
-      return MESSAGES.addedInboundRule.replace("${IP_ADDRESS}", c.myIp);
+  new ScenarioOutput("addedInboundRule", (state) => {
+    if (state.shouldAddInboundRule) {
+      return MESSAGES.addedInboundRule.replace("${IP_ADDRESS}", state.myIp);
     } else {
       return false;
     }
   }),
-  new ScenarioOutput("verifyingEndpoint", (c) =>
-    MESSAGES.verifyingEndpoint.replace("${DNS_NAME}", c.loadBalancerDns),
+  new ScenarioOutput("verifyingEndpoint", (state) =>
+    MESSAGES.verifyingEndpoint.replace("${DNS_NAME}", state.loadBalancerDns),
   ),
-  new ScenarioAction("verifyEndpoint", async (c) => {
+  new ScenarioAction("verifyEndpoint", async (state) => {
     try {
       const response = await retry({ intervalInMs: 2000, maxRetries: 30 }, () =>
-        axios.get(`http://${c.loadBalancerDns}`),
+        axios.get(`http://${state.loadBalancerDns}`),
       );
-      c.endpointResponse = JSON.stringify(response.data, null, 2);
+      state.endpointResponse = JSON.stringify(response.data, null, 2);
     } catch (e) {
-      c.verifyEndpointError = e;
+      state.verifyEndpointError = e;
     }
   }),
-  new ScenarioOutput("verifiedEndpoint", (c) => {
-    if (c.verifyEndpointError) {
-      console.error(c.verifyEndpointError);
+  new ScenarioOutput("verifiedEndpoint", (state) => {
+    if (state.verifyEndpointError) {
+      console.error(state.verifyEndpointError);
     } else {
       return MESSAGES.verifiedEndpoint.replace(
         "${ENDPOINT_RESPONSE}",
-        c.endpointResponse,
+        state.endpointResponse,
       );
     }
   }),

@@ -60,9 +60,9 @@ Some of the resources create by this demo are:
   gotVpc: "Got default VPC: ${VPC_ID}.",
   gettingSubnets: "Getting subnets for default VPC.",
   gotSubnets: "Subnets for default VPC: ${SUBNETS}",
-  creatingLBTargetGroup:
+  creatingLoadBalancerTargetGroup:
     "Creating Elastic Load Balancer target group ${TARGET_GROUP_NAME}.",
-  createdLBTargetGroup:
+  createdLoadBalancerTargetGroup:
     "Created Elastic Load Balancer target group ${TARGET_GROUP_NAME}.",
   creatingLoadBalancer: "Creating load balancer ${LB_NAME}.",
   createdLoadBalancer:
@@ -90,7 +90,7 @@ Some of the resources create by this demo are:
     "The demo phase of this example cycles through several stages, setting Systems Manager parameters along the way to simulate failures and instruct the web server to take increasingly resilient actions.",
   demoSanityCheck:
     "First, here's the output from the recommendation service and healthcheck endpoints.",
-  demoFindLbError: "Load balancer not found. Did you deploy?",
+  demoFindLoadBalancerError: "Load balancer not found. Did you deploy?",
   demoBrokenDependencyConfirmation:
     "The web service running on the EC2 instances gets recommendations by querying a DynamoDB table. The table name is contained in a Systems Manager parameter named 'doc-example-resilient-architecture-table'. To simulate a failure of the recommendation service, This parameter is replaced with the name of a non-existent table. Do you want to continue?",
   demoTestBrokenDependency:
@@ -103,7 +103,7 @@ Some of the resources create by this demo are:
     "The next step is to substitute bad credentials for one of the instances in the target group so that it can't access the DynamoDB recommendation table. The correct DynamoDB table name will be restored. A new instance profile with bad credentials will be created and attached to an instance. Do you want to continue?",
   demoTestBadCredentials:
     "A new IAM role and policy have been created and attached to a new instance profile. The new instance profile replaced the profile for ${INSTANCE_ID}. Now, when the load balancer hits the instance with bad credentials, the instance will return the static response.",
-  demoLbCheck: "Make a GET request to the load balancer?",
+  demoLoadBalancerCheck: "Make a GET request to the load balancer?",
   demoHealthCheck: "Get instance health?",
   demoDeepHealthCheckConfirmation:
     "For this demo, a deep health check tests whether the web service can access the DynamoDB table that it depends on for recommendations. Note that the deep health check is only for ELB routing and not for Auto Scaling instance health. This kind of deep health check is not recommended for Auto Scaling instance health, because it risks accidental termination of all instances in the Auto Scaling group when a dependent service fails. By implementing deep health checks, the load balancer can detect when one of the instances is failing and take that instance out of rotation. Do you want to continue?",
@@ -148,11 +148,11 @@ Some of the resources create by this demo are:
     "Deleted Auto Scaling group ${AUTO_SCALING_GROUP_NAME}.",
   deleteAutoScalingGroupError:
     "Error deleting Auto Scaling group ${AUTO_SCALING_GROUP_NAME}.",
-  deletedLB: "Deleted load balancer ${LB_NAME}.",
-  deleteLBError: "Error deleting load balancer ${LB_NAME}.",
-  deletedLBTargetGroup:
+  deletedLoadBalancer: "Deleted load balancer ${LB_NAME}.",
+  deleteLoadBalancerError: "Error deleting load balancer ${LB_NAME}.",
+  deletedLoadBalancerTargetGroup:
     "Deleted Load Balancer target group ${TARGET_GROUP_NAME}.",
-  deleteLBTargetGroupError:
+  deleteLoadBalancerTargetGroupError:
     "Error deleting Load Balancer target group ${TARGET_GROUP_NAME}.",
   detachedSsmOnlyCustomRolePolicy:
     "Detached SSM only role ${ROLE_NAME} from policy ${POLICY_NAME}.",

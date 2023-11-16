@@ -89,7 +89,7 @@ For general prerequisites, see the [README](../../../README.md) in the `javascri
 Run this example by running the following command in the folder that contains this README:
 
 ```
-node index.js --scenario <deploy | demo | destroy>
+node index.js --scenario <deploy | demo | destroy> [-h|--help] [-y|--yes] [-v|--verbose]
 ```
 
 This starts an interactive scenario that walks you through several aspects of creating a

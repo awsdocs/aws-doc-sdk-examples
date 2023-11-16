@@ -48,7 +48,10 @@ import { findLoadBalancer } from "./shared.js";
  */
 export const destroySteps = [
   new ScenarioInput("destroy", MESSAGES.destroy, { type: "confirm" }),
-  new ScenarioAction("abort", (c) => c.destroy === false && process.exit()),
+  new ScenarioAction(
+    "abort",
+    (state) => state.destroy === false && process.exit(),
+  ),
   new ScenarioAction("deleteTable", async (c) => {
     try {
       const client = new DynamoDBClient({});
@@ -57,9 +60,9 @@ export const destroySteps = [
       c.deleteTableError = e;
     }
   }),
-  new ScenarioOutput("deleteTableResult", (c) => {
-    if (c.deleteTableError) {
-      console.error(c.deleteTableError);
+  new ScenarioOutput("deleteTableResult", (state) => {
+    if (state.deleteTableError) {
+      console.error(state.deleteTableError);
       return MESSAGES.deleteTableError.replace(
         "${TABLE_NAME}",
         NAMES.tableName,
@@ -68,7 +71,7 @@ export const destroySteps = [
       return MESSAGES.deletedTable.replace("${TABLE_NAME}", NAMES.tableName);
     }
   }),
-  new ScenarioAction("deleteKeyPair", async (c) => {
+  new ScenarioAction("deleteKeyPair", async (state) => {
     try {
       const client = new EC2Client({});
       await client.send(
@@ -76,12 +79,12 @@ export const destroySteps = [
       );
       unlinkSync(`${NAMES.keyPairName}.pem`);
     } catch (e) {
-      c.deleteKeyPairError = e;
+      state.deleteKeyPairError = e;
     }
   }),
-  new ScenarioOutput("deleteKeyPairResult", (c) => {
-    if (c.deleteKeyPairError) {
-      console.error(c.deleteKeyPairError);
+  new ScenarioOutput("deleteKeyPairResult", (state) => {
+    if (state.deleteKeyPairError) {
+      console.error(state.deleteKeyPairError);
       return MESSAGES.deleteKeyPairError.replace(
         "${KEY_PAIR_NAME}",
         NAMES.keyPairName,
@@ -93,13 +96,13 @@ export const destroySteps = [
       );
     }
   }),
-  new ScenarioAction("detachPolicyFromRole", async (c) => {
+  new ScenarioAction("detachPolicyFromRole", async (state) => {
     try {
       const client = new IAMClient({});
       const policy = await findPolicy(NAMES.instancePolicyName);
 
       if (!policy) {
-        c.detachPolicyFromRoleError = new Error(
+        state.detachPolicyFromRoleError = new Error(
           `Policy ${NAMES.instancePolicyName} not found.`,
         );
       } else {
@@ -111,12 +114,12 @@ export const destroySteps = [
         );
       }
     } catch (e) {
-      c.detachPolicyFromRoleError = e;
+      state.detachPolicyFromRoleError = e;
     }
   }),
-  new ScenarioOutput("detachedPolicyFromRole", (c) => {
-    if (c.detachPolicyFromRoleError) {
-      console.error(c.detachPolicyFromRoleError);
+  new ScenarioOutput("detachedPolicyFromRole", (state) => {
+    if (state.detachPolicyFromRoleError) {
+      console.error(state.detachPolicyFromRoleError);
       return MESSAGES.detachPolicyFromRoleError
         .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName)
         .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
@@ -126,12 +129,12 @@ export const destroySteps = [
         .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
     }
   }),
-  new ScenarioAction("deleteInstancePolicy", async (c) => {
+  new ScenarioAction("deleteInstancePolicy", async (state) => {
     const client = new IAMClient({});
     const policy = await findPolicy(NAMES.instancePolicyName);
 
     if (!policy) {
-      c.deletePolicyError = new Error(
+      state.deletePolicyError = new Error(
         `Policy ${NAMES.instancePolicyName} not found.`,
       );
     } else {
@@ -142,9 +145,9 @@ export const destroySteps = [
       );
     }
   }),
-  new ScenarioOutput("deletePolicyResult", (c) => {
-    if (c.deletePolicyError) {
-      console.error(c.deletePolicyError);
+  new ScenarioOutput("deletePolicyResult", (state) => {
+    if (state.deletePolicyError) {
+      console.error(state.deletePolicyError);
       return MESSAGES.deletePolicyError.replace(
         "${INSTANCE_POLICY_NAME}",
         NAMES.instancePolicyName,
@@ -156,7 +159,7 @@ export const destroySteps = [
       );
     }
   }),
-  new ScenarioAction("removeRoleFromInstanceProfile", async (c) => {
+  new ScenarioAction("removeRoleFromInstanceProfile", async (state) => {
     try {
       const client = new IAMClient({});
       await client.send(
@@ -166,12 +169,12 @@ export const destroySteps = [
         }),
       );
     } catch (e) {
-      c.removeRoleFromInstanceProfileError = e;
+      state.removeRoleFromInstanceProfileError = e;
     }
   }),
-  new ScenarioOutput("removeRoleFromInstanceProfileResult", (c) => {
-    if (c.removeRoleFromInstanceProfile) {
-      console.error(c.removeRoleFromInstanceProfileError);
+  new ScenarioOutput("removeRoleFromInstanceProfileResult", (state) => {
+    if (state.removeRoleFromInstanceProfile) {
+      console.error(state.removeRoleFromInstanceProfileError);
       return MESSAGES.removeRoleFromInstanceProfileError
         .replace("${INSTANCE_PROFILE_NAME}", NAMES.instanceProfileName)
         .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
@@ -181,7 +184,7 @@ export const destroySteps = [
         .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
     }
   }),
-  new ScenarioAction("deleteInstanceRole", async (c) => {
+  new ScenarioAction("deleteInstanceRole", async (state) => {
     try {
       const client = new IAMClient({});
       await client.send(
@@ -190,12 +193,12 @@ export const destroySteps = [
         }),
       );
     } catch (e) {
-      c.deleteInstanceRoleError = e;
+      state.deleteInstanceRoleError = e;
     }
   }),
-  new ScenarioOutput("deleteInstanceRoleResult", (c) => {
-    if (c.deleteInstanceRoleError) {
-      console.error(c.deleteInstanceRoleError);
+  new ScenarioOutput("deleteInstanceRoleResult", (state) => {
+    if (state.deleteInstanceRoleError) {
+      console.error(state.deleteInstanceRoleError);
       return MESSAGES.deleteInstanceRoleError.replace(
         "${INSTANCE_ROLE_NAME}",
         NAMES.instanceRoleName,
@@ -207,7 +210,7 @@ export const destroySteps = [
       );
     }
   }),
-  new ScenarioAction("deleteInstanceProfile", async (c) => {
+  new ScenarioAction("deleteInstanceProfile", async (state) => {
     try {
       // snippet-start:[javascript.v3.wkflw.resilient.DeleteInstanceProfile]
       const client = new IAMClient({});
@@ -218,12 +221,12 @@ export const destroySteps = [
       );
       // snippet-end:[javascript.v3.wkflw.resilient.DeleteInstanceProfile]
     } catch (e) {
-      c.deleteInstanceProfileError = e;
+      state.deleteInstanceProfileError = e;
     }
   }),
-  new ScenarioOutput("deleteInstanceProfileResult", (c) => {
-    if (c.deleteInstanceProfileError) {
-      console.error(c.deleteInstanceProfileError);
+  new ScenarioOutput("deleteInstanceProfileResult", (state) => {
+    if (state.deleteInstanceProfileError) {
+      console.error(state.deleteInstanceProfileError);
       return MESSAGES.deleteInstanceProfileError.replace(
         "${INSTANCE_PROFILE_NAME}",
         NAMES.instanceProfileName,
@@ -235,7 +238,7 @@ export const destroySteps = [
       );
     }
   }),
-  new ScenarioAction("deleteLaunchTemplate", async (c) => {
+  new ScenarioAction("deleteLaunchTemplate", async (state) => {
     const client = new EC2Client({});
     try {
       // snippet-start:[javascript.v3.wkflw.resilient.DeleteLaunchTemplate]
@@ -246,12 +249,12 @@ export const destroySteps = [
       );
       // snippet-end:[javascript.v3.wkflw.resilient.DeleteLaunchTemplate]
     } catch (e) {
-      c.deleteLaunchTemplateError = e;
+      state.deleteLaunchTemplateError = e;
     }
   }),
-  new ScenarioOutput("deleteLaunchTemplateResult", (c) => {
-    if (c.deleteLaunchTemplateError) {
-      console.error(c.deleteLaunchTemplateError);
+  new ScenarioOutput("deleteLaunchTemplateResult", (state) => {
+    if (state.deleteLaunchTemplateError) {
+      console.error(state.deleteLaunchTemplateError);
       return MESSAGES.deleteLaunchTemplateError.replace(
         "${LAUNCH_TEMPLATE_NAME}",
         NAMES.launchTemplateName,
@@ -263,19 +266,19 @@ export const destroySteps = [
       );
     }
   }),
-  new ScenarioAction("deleteAutoScalingGroup", async (c) => {
+  new ScenarioAction("deleteAutoScalingGroup", async (state) => {
     try {
       await terminateGroupInstances(NAMES.autoScalingGroupName);
       await retry({ intervalInMs: 30000, maxRetries: 60 }, async () => {
         await deleteAutoScalingGroup(NAMES.autoScalingGroupName);
       });
     } catch (e) {
-      c.deleteAutoScalingGroupError = e;
+      state.deleteAutoScalingGroupError = e;
     }
   }),
-  new ScenarioOutput("deleteAutoScalingGroupResult", (c) => {
-    if (c.deleteAutoScalingGroupError) {
-      console.error(c.deleteAutoScalingGroupError);
+  new ScenarioOutput("deleteAutoScalingGroupResult", (state) => {
+    if (state.deleteAutoScalingGroupError) {
+      console.error(state.deleteAutoScalingGroupError);
       return MESSAGES.deleteAutoScalingGroupError.replace(
         "${AUTO_SCALING_GROUP_NAME}",
         NAMES.autoScalingGroupName,
@@ -287,7 +290,7 @@ export const destroySteps = [
       );
     }
   }),
-  new ScenarioAction("deleteLB", async (c) => {
+  new ScenarioAction("deleteLoadBalancer", async (state) => {
     try {
       // snippet-start:[javascript.v3.wkflw.resilient.DeleteLoadBalancer]
       const client = new ElasticLoadBalancingV2Client({});
@@ -305,21 +308,24 @@ export const destroySteps = [
       });
       // snippet-end:[javascript.v3.wkflw.resilient.DeleteLoadBalancer]
     } catch (e) {
-      c.deleteLBError = e;
+      state.deleteLoadBalancerError = e;
     }
   }),
-  new ScenarioOutput("deleteLBResult", (c) => {
-    if (c.deleteLBError) {
-      console.error(c.deleteLBError);
-      return MESSAGES.deleteLBError.replace(
+  new ScenarioOutput("deleteLoadBalancerResult", (state) => {
+    if (state.deleteLoadBalancerError) {
+      console.error(state.deleteLoadBalancerError);
+      return MESSAGES.deleteLoadBalancerError.replace(
         "${LB_NAME}",
         NAMES.loadBalancerName,
       );
     } else {
-      return MESSAGES.deletedLB.replace("${LB_NAME}", NAMES.loadBalancerName);
+      return MESSAGES.deletedLoadBalancer.replace(
+        "${LB_NAME}",
+        NAMES.loadBalancerName,
+      );
     }
   }),
-  new ScenarioAction("deleteLBTargetGroup", async (c) => {
+  new ScenarioAction("deleteLoadBalancerTargetGroup", async (state) => {
     // snippet-start:[javascript.v3.wkflw.resilient.DeleteTargetGroup]
     const client = new ElasticLoadBalancingV2Client({});
     try {
@@ -337,25 +343,25 @@ export const destroySteps = [
         ),
       );
     } catch (e) {
-      c.deleteLBTargetGroupError = e;
+      state.deleteLoadBalancerTargetGroupError = e;
     }
     // snippet-end:[javascript.v3.wkflw.resilient.DeleteTargetGroup]
   }),
-  new ScenarioOutput("deleteLBTargetGroupResult", (c) => {
-    if (c.deleteLBTargetGroupError) {
-      console.error(c.deleteLBTargetGroupError);
-      return MESSAGES.deleteLBTargetGroupError.replace(
+  new ScenarioOutput("deleteLoadBalancerTargetGroupResult", (state) => {
+    if (state.deleteLoadBalancerTargetGroupError) {
+      console.error(state.deleteLoadBalancerTargetGroupError);
+      return MESSAGES.deleteLoadBalancerTargetGroupError.replace(
         "${TARGET_GROUP_NAME}",
         NAMES.loadBalancerTargetGroupName,
       );
     } else {
-      return MESSAGES.deletedLBTargetGroup.replace(
+      return MESSAGES.deletedLoadBalancerTargetGroup.replace(
         "${TARGET_GROUP_NAME}",
         NAMES.loadBalancerTargetGroupName,
       );
     }
   }),
-  new ScenarioAction("detachSsmOnlyRoleFromProfile", async (c) => {
+  new ScenarioAction("detachSsmOnlyRoleFromProfile", async (state) => {
     try {
       const client = new IAMClient({});
       await client.send(
@@ -365,12 +371,12 @@ export const destroySteps = [
         }),
       );
     } catch (e) {
-      c.detachSsmOnlyRoleFromProfileError = e;
+      state.detachSsmOnlyRoleFromProfileError = e;
     }
   }),
-  new ScenarioOutput("detachSsmOnlyRoleFromProfileResult", (c) => {
-    if (c.detachSsmOnlyRoleFromProfileError) {
-      console.error(c.detachSsmOnlyRoleFromProfileError);
+  new ScenarioOutput("detachSsmOnlyRoleFromProfileResult", (state) => {
+    if (state.detachSsmOnlyRoleFromProfileError) {
+      console.error(state.detachSsmOnlyRoleFromProfileError);
       return MESSAGES.detachSsmOnlyRoleFromProfileError
         .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
         .replace("${PROFILE_NAME}", NAMES.ssmOnlyInstanceProfileName);
@@ -380,7 +386,7 @@ export const destroySteps = [
         .replace("${PROFILE_NAME}", NAMES.ssmOnlyInstanceProfileName);
     }
   }),
-  new ScenarioAction("detachSsmOnlyCustomRolePolicy", async (c) => {
+  new ScenarioAction("detachSsmOnlyCustomRolePolicy", async (state) => {
     try {
       const iamClient = new IAMClient({});
       const ssmOnlyPolicy = await findPolicy(NAMES.ssmOnlyPolicyName);
@@ -391,12 +397,12 @@ export const destroySteps = [
         }),
       );
     } catch (e) {
-      c.detachSsmOnlyCustomRolePolicyError = e;
+      state.detachSsmOnlyCustomRolePolicyError = e;
     }
   }),
-  new ScenarioOutput("detachSsmOnlyCustomRolePolicyResult", (c) => {
-    if (c.detachSsmOnlyCustomRolePolicyError) {
-      console.error(c.detachSsmOnlyCustomRolePolicyError);
+  new ScenarioOutput("detachSsmOnlyCustomRolePolicyResult", (state) => {
+    if (state.detachSsmOnlyCustomRolePolicyError) {
+      console.error(state.detachSsmOnlyCustomRolePolicyError);
       return MESSAGES.detachSsmOnlyCustomRolePolicyError
         .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
         .replace("${POLICY_NAME}", NAMES.ssmOnlyPolicyName);
@@ -406,7 +412,7 @@ export const destroySteps = [
         .replace("${POLICY_NAME}", NAMES.ssmOnlyPolicyName);
     }
   }),
-  new ScenarioAction("detachSsmOnlyAWSRolePolicy", async (c) => {
+  new ScenarioAction("detachSsmOnlyAWSRolePolicy", async (state) => {
     try {
       const iamClient = new IAMClient({});
       await iamClient.send(
@@ -416,12 +422,12 @@ export const destroySteps = [
         }),
       );
     } catch (e) {
-      c.detachSsmOnlyAWSRolePolicyError = e;
+      state.detachSsmOnlyAWSRolePolicyError = e;
     }
   }),
-  new ScenarioOutput("detachSsmOnlyAWSRolePolicyResult", (c) => {
-    if (c.detachSsmOnlyAWSRolePolicyError) {
-      console.error(c.detachSsmOnlyAWSRolePolicyError);
+  new ScenarioOutput("detachSsmOnlyAWSRolePolicyResult", (state) => {
+    if (state.detachSsmOnlyAWSRolePolicyError) {
+      console.error(state.detachSsmOnlyAWSRolePolicyError);
       return MESSAGES.detachSsmOnlyAWSRolePolicyError
         .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
         .replace("${POLICY_NAME}", "AmazonSSMManagedInstanceCore");
@@ -431,7 +437,7 @@ export const destroySteps = [
         .replace("${POLICY_NAME}", "AmazonSSMManagedInstanceCore");
     }
   }),
-  new ScenarioAction("deleteSsmOnlyInstanceProfile", async (c) => {
+  new ScenarioAction("deleteSsmOnlyInstanceProfile", async (state) => {
     try {
       const iamClient = new IAMClient({});
       await iamClient.send(
@@ -440,12 +446,12 @@ export const destroySteps = [
         }),
       );
     } catch (e) {
-      c.deleteSsmOnlyInstanceProfileError = e;
+      state.deleteSsmOnlyInstanceProfileError = e;
     }
   }),
-  new ScenarioOutput("deleteSsmOnlyInstanceProfileResult", (c) => {
-    if (c.deleteSsmOnlyInstanceProfileError) {
-      console.error(c.deleteSsmOnlyInstanceProfileError);
+  new ScenarioOutput("deleteSsmOnlyInstanceProfileResult", (state) => {
+    if (state.deleteSsmOnlyInstanceProfileError) {
+      console.error(state.deleteSsmOnlyInstanceProfileError);
       return MESSAGES.deleteSsmOnlyInstanceProfileError.replace(
         "${INSTANCE_PROFILE_NAME}",
         NAMES.ssmOnlyInstanceProfileName,
@@ -457,7 +463,7 @@ export const destroySteps = [
       );
     }
   }),
-  new ScenarioAction("deleteSsmOnlyPolicy", async (c) => {
+  new ScenarioAction("deleteSsmOnlyPolicy", async (state) => {
     try {
       const iamClient = new IAMClient({});
       const ssmOnlyPolicy = await findPolicy(NAMES.ssmOnlyPolicyName);
@@ -467,12 +473,12 @@ export const destroySteps = [
         }),
       );
     } catch (e) {
-      c.deleteSsmOnlyPolicyError = e;
+      state.deleteSsmOnlyPolicyError = e;
     }
   }),
-  new ScenarioOutput("deleteSsmOnlyPolicyResult", (c) => {
-    if (c.deleteSsmOnlyPolicyError) {
-      console.error(c.deleteSsmOnlyPolicyError);
+  new ScenarioOutput("deleteSsmOnlyPolicyResult", (state) => {
+    if (state.deleteSsmOnlyPolicyError) {
+      console.error(state.deleteSsmOnlyPolicyError);
       return MESSAGES.deleteSsmOnlyPolicyError.replace(
         "${POLICY_NAME}",
         NAMES.ssmOnlyPolicyName,
@@ -484,7 +490,7 @@ export const destroySteps = [
       );
     }
   }),
-  new ScenarioAction("deleteSsmOnlyRole", async (c) => {
+  new ScenarioAction("deleteSsmOnlyRole", async (state) => {
     try {
       const iamClient = new IAMClient({});
       await iamClient.send(
@@ -493,12 +499,12 @@ export const destroySteps = [
         }),
       );
     } catch (e) {
-      c.deleteSsmOnlyRoleError = e;
+      state.deleteSsmOnlyRoleError = e;
     }
   }),
-  new ScenarioOutput("deleteSsmOnlyRoleResult", (c) => {
-    if (c.deleteSsmOnlyRoleError) {
-      console.error(c.deleteSsmOnlyRoleError);
+  new ScenarioOutput("deleteSsmOnlyRoleResult", (state) => {
+    if (state.deleteSsmOnlyRoleError) {
+      console.error(state.deleteSsmOnlyRoleError);
       return MESSAGES.deleteSsmOnlyRoleError.replace(
         "${ROLE_NAME}",
         NAMES.ssmOnlyRoleName,

@@ -16,10 +16,10 @@ export class Step {
   }
 
   /**
-   * @param {Record<string, any>} context,
+   * @param {Record<string, any>} state,
    * @param {{ verbose: boolean }} [options]
    */
-  handle(context, options) {
+  handle(state, options) {
     if (options?.verbose) {
       console.log(
         `[DEBUG ${new Date().toISOString()}] Handling step: ${
@@ -27,9 +27,7 @@ export class Step {
         }<${this.name}>`,
       );
       console.log(
-        `[DEBUG ${new Date().toISOString()}] Context: ${JSON.stringify(
-          context,
-        )}`,
+        `[DEBUG ${new Date().toISOString()}] State: ${JSON.stringify(state)}`,
       );
     }
   }
@@ -38,7 +36,7 @@ export class Step {
 export class ScenarioOutput extends Step {
   /**
    * @param {string} name
-   * @param {string | (context: Record<string, any>) => string | false} value
+   * @param {string | (state: Record<string, any>) => string | false} value
    * @param {{ slow: boolean, header: boolean, preformatted: boolean }} [options]
    */
   constructor(name, value, options = { slow: true }) {
@@ -50,14 +48,14 @@ export class ScenarioOutput extends Step {
   }
 
   /**
-   * @param {Record<string, any>} context
+   * @param {Record<string, any>} state
    * @param {{ verbose: boolean, confirmAll: boolean }} [options]
    */
-  async handle(context, options) {
-    super.handle(context, options);
+  async handle(state, options) {
+    super.handle(state, options);
 
     const output =
-      typeof this.value === "function" ? this.value(context) : this.value;
+      typeof this.value === "function" ? this.value(state) : this.value;
     if (!output) {
       return;
     }
@@ -91,13 +89,13 @@ export class ScenarioInput extends Step {
   }
 
   /**
-   * @param {Record<string, any>} context
+   * @param {Record<string, any>} state
    * @param {{ confirmAll: boolean, verbose: boolean }} [options]
    */
-  async handle(context, options) {
-    super.handle(context, options);
+  async handle(state, options) {
+    super.handle(state, options);
     const message =
-      typeof this.prompt === "function" ? this.prompt(context) : this.prompt;
+      typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
     if (!message) {
       return;
     }
@@ -108,24 +106,24 @@ export class ScenarioInput extends Step {
         : this.options?.choices;
 
     if (this.options?.type === "multi-select") {
-      context[this.name] = await this.prompter.checkbox({
+      state[this.name] = await this.prompter.checkbox({
         message,
         choices,
       });
     } else if (this.options?.type === "select") {
-      context[this.name] = await this.prompter.select({
+      state[this.name] = await this.prompter.select({
         message,
         choices,
       });
     } else if (this.options?.type === "input") {
-      context[this.name] = await this.prompter.input({ message });
+      state[this.name] = await this.prompter.input({ message });
     } else if (this.options?.type === "confirm") {
       if (options?.confirmAll) {
-        context[this.name] = true;
+        state[this.name] = true;
         return true;
       }
 
-      context[this.name] = await this.prompter.confirm({
+      state[this.name] = await this.prompter.confirm({
         message,
       });
     } else {
@@ -134,14 +132,14 @@ export class ScenarioInput extends Step {
       );
     }
 
-    return context[this.name];
+    return state[this.name];
   }
 }
 
 export class ScenarioAction extends Step {
   /**
    * @param {string} name
-   * @param {(context: Record<string, any>) => Promise<void>} action
+   * @param {(state: Record<string, any>) => Promise<void>} action
    * @param {{ whileConfig: { inputEquals: any, input: ScenarioInput, output: ScenarioOutput }}} [options]
    */
   constructor(name, action, options) {
@@ -151,25 +149,25 @@ export class ScenarioAction extends Step {
   }
 
   /**
-   * @param {Record<string, any>} context
+   * @param {Record<string, any>} state
    * @param {{ verbose: boolean, confirmAll: boolean }} [options]
    */
-  async handle(context, options) {
+  async handle(state, options) {
     const _handle = async () => {
-      super.handle(context, options);
-      await this.action(context);
+      super.handle(state, options);
+      await this.action(state);
     };
 
-    if (!options.confirmAll && this.options?.whileConfig) {
+    if (!options?.confirmAll && this.options?.whileConfig) {
       const whileFn = () =>
-        this.options.whileConfig.input.handle(context, options);
+        this.options.whileConfig.input.handle(state, options);
 
       let actual = await whileFn();
       let expected = this.options.whileConfig.inputEquals;
 
       while (actual === expected) {
         await _handle();
-        await this.options.whileConfig.output.handle(context, options);
+        await this.options.whileConfig.output.handle(state, options);
         actual = await whileFn();
       }
     } else {
@@ -182,17 +180,17 @@ export class Scenario {
   /**
    * @type {Record<string, any>}
    */
-  context = {};
+  state = {};
 
   /**
    * @param {string} name
    * @param {(ScenarioOutput | ScenarioInput | ScenarioAction)[]} steps
-   * @param {Record<string, any>} initialContext
+   * @param {Record<string, any>} initialState
    */
-  constructor(name, steps = [], initialContext = {}) {
+  constructor(name, steps = [], initialState = {}) {
     this.name = name;
     this.steps = steps;
-    this.context = { ...initialContext, name };
+    this.state = { ...initialState, name };
   }
 
   /**
@@ -200,7 +198,7 @@ export class Scenario {
    */
   async run(runConfig) {
     for (const step of this.steps) {
-      await step.handle(this.context, runConfig);
+      await step.handle(this.state, runConfig);
     }
   }
 }

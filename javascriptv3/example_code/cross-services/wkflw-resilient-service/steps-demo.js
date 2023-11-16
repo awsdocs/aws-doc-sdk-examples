@@ -49,27 +49,33 @@ import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
 import { MESSAGES, NAMES, RESOURCES_PATH } from "./constants.js";
 import { findLoadBalancer } from "./shared.js";
 
-const getRecommendation = new ScenarioAction("getRecommendation", async (c) => {
-  const lb = await findLoadBalancer(NAMES.loadBalancerName);
-  if (lb) {
-    c.lbDnsName = lb.DNSName;
-    try {
-      c.recommendation = (await axios.get(`http://${c.lbDnsName}`)).data;
-    } catch (e) {
-      c.recommendation = e instanceof Error ? e.message : e;
+const getRecommendation = new ScenarioAction(
+  "getRecommendation",
+  async (state) => {
+    const loadBalancer = await findLoadBalancer(NAMES.loadBalancerName);
+    if (loadBalancer) {
+      state.loadBalancerDnsName = loadBalancer.DNSName;
+      try {
+        state.recommendation = (
+          await axios.get(`http://${state.loadBalancerDnsName}`)
+        ).data;
+      } catch (e) {
+        state.recommendation = e instanceof Error ? e.message : e;
+      }
+    } else {
+      throw new Error(MESSAGES.demoFindLoadBalancerError);
     }
-  } else {
-    throw new Error(MESSAGES.demoFindLbError);
-  }
-});
+  },
+);
 
 const getRecommendationResult = new ScenarioOutput(
   "getRecommendationResult",
-  (c) => `Recommendation:\n${JSON.stringify(c.recommendation, null, 2)}`,
+  (state) =>
+    `Recommendation:\n${JSON.stringify(state.recommendation, null, 2)}`,
   { preformatted: true },
 );
 
-const getHealthCheck = new ScenarioAction("getHealthCheck", async (c) => {
+const getHealthCheck = new ScenarioAction("getHealthCheck", async (state) => {
   // snippet-start:[javascript.v3.wkflw.resilient.DescribeTargetGroups]
   const client = new ElasticLoadBalancingV2Client({});
   const { TargetGroups } = await client.send(
@@ -86,16 +92,16 @@ const getHealthCheck = new ScenarioAction("getHealthCheck", async (c) => {
     }),
   );
   // snippet-end:[javascript.v3.wkflw.resilient.DescribeTargetHealth]
-  c.targetHealthDescriptions = TargetHealthDescriptions;
+  state.targetHealthDescriptions = TargetHealthDescriptions;
 });
 
 const getHealthCheckResult = new ScenarioOutput(
   "getHealthCheckResult",
   /**
-   * @param {{ targetHealthDescriptions: import('@aws-sdk/client-elastic-load-balancing-v2').TargetHealthDescription[]}} c
+   * @param {{ targetHealthDescriptions: import('@aws-sdk/client-elastic-load-balancing-v2').TargetHealthDescription[]}} state
    */
-  (c) => {
-    const status = c.targetHealthDescriptions
+  (state) => {
+    const status = state.targetHealthDescriptions
       .map((th) => `${th.Target.Id}: ${th.TargetHealth.State}`)
       .join("\n");
     return `Health check:\n${status}`;
@@ -104,14 +110,18 @@ const getHealthCheckResult = new ScenarioOutput(
 );
 
 const loadBalancerLoop = new ScenarioAction(
-  "lbLoop",
+  "loadBalancerLoop",
   getRecommendation.action,
   {
     whileConfig: {
       inputEquals: true,
-      input: new ScenarioInput("lbCheck", MESSAGES.demoLbCheck, {
-        type: "confirm",
-      }),
+      input: new ScenarioInput(
+        "loadBalancerCheck",
+        MESSAGES.demoLoadBalancerCheck,
+        {
+          type: "confirm",
+        },
+      ),
       output: getRecommendationResult,
     },
   },
@@ -150,24 +160,27 @@ export const demoSteps = [
     MESSAGES.demoBrokenDependencyConfirmation,
     { type: "confirm" },
   ),
-  new ScenarioAction("brokenDependency", async (c) => {
-    if (!c.brokenDependencyConfirmation) {
+  new ScenarioAction("brokenDependency", async (state) => {
+    if (!state.brokenDependencyConfirmation) {
       process.exit();
     } else {
       const client = new SSMClient({});
-      c.badTableName = `fake-table-${Date.now()}`;
+      state.badTableName = `fake-table-${Date.now()}`;
       await client.send(
         new PutParameterCommand({
           Name: NAMES.ssmTableNameKey,
-          Value: c.badTableName,
+          Value: state.badTableName,
           Overwrite: true,
           Type: "String",
         }),
       );
     }
   }),
-  new ScenarioOutput("testBrokenDependency", (c) =>
-    MESSAGES.demoTestBrokenDependency.replace("${TABLE_NAME}", c.badTableName),
+  new ScenarioOutput("testBrokenDependency", (state) =>
+    MESSAGES.demoTestBrokenDependency.replace(
+      "${TABLE_NAME}",
+      state.badTableName,
+    ),
   ),
   ...statusSteps,
   new ScenarioInput(
@@ -175,8 +188,8 @@ export const demoSteps = [
     MESSAGES.demoStaticResponseConfirmation,
     { type: "confirm" },
   ),
-  new ScenarioAction("staticResponse", async (c) => {
-    if (!c.staticResponseConfirmation) {
+  new ScenarioAction("staticResponse", async (state) => {
+    if (!state.staticResponseConfirmation) {
       process.exit();
     } else {
       const client = new SSMClient({});
@@ -197,8 +210,8 @@ export const demoSteps = [
     MESSAGES.demoBadCredentialsConfirmation,
     { type: "confirm" },
   ),
-  new ScenarioAction("badCredentialsExit", (c) => {
-    if (!c.badCredentialsConfirmation) {
+  new ScenarioAction("badCredentialsExit", (state) => {
+    if (!state.badCredentialsConfirmation) {
       process.exit();
     }
   }),
@@ -216,9 +229,9 @@ export const demoSteps = [
   new ScenarioAction(
     "badCredentials",
     /**
-     * @param {{ targetInstance: import('@aws-sdk/client-auto-scaling').Instance }} c
+     * @param {{ targetInstance: import('@aws-sdk/client-auto-scaling').Instance }} state
      */
-    async (c) => {
+    async (state) => {
       await createSsmOnlyInstanceProfile();
       const autoScalingClient = new AutoScalingClient({});
       const { AutoScalingGroups } = await autoScalingClient.send(
@@ -226,24 +239,24 @@ export const demoSteps = [
           AutoScalingGroupNames: [NAMES.autoScalingGroupName],
         }),
       );
-      c.targetInstance = AutoScalingGroups[0].Instances[0];
+      state.targetInstance = AutoScalingGroups[0].Instances[0];
       // snippet-start:[javascript.v3.wkflw.resilient.DescribeIamInstanceProfileAssociations]
       const ec2Client = new EC2Client({});
       const { IamInstanceProfileAssociations } = await ec2Client.send(
         new DescribeIamInstanceProfileAssociationsCommand({
           Filters: [
-            { Name: "instance-id", Values: [c.targetInstance.InstanceId] },
+            { Name: "instance-id", Values: [state.targetInstance.InstanceId] },
           ],
         }),
       );
       // snippet-end:[javascript.v3.wkflw.resilient.DescribeIamInstanceProfileAssociations]
-      c.instanceProfileAssociationId =
+      state.instanceProfileAssociationId =
         IamInstanceProfileAssociations[0].AssociationId;
       // snippet-start:[javascript.v3.wkflw.resilient.ReplaceIamInstanceProfileAssociation]
       await retry({ intervalInMs: 1000, maxRetries: 30 }, () =>
         ec2Client.send(
           new ReplaceIamInstanceProfileAssociationCommand({
-            AssociationId: c.instanceProfileAssociationId,
+            AssociationId: state.instanceProfileAssociationId,
             IamInstanceProfile: { Name: NAMES.ssmOnlyInstanceProfileName },
           }),
         ),
@@ -252,7 +265,7 @@ export const demoSteps = [
 
       await ec2Client.send(
         new RebootInstancesCommand({
-          InstanceIds: [c.targetInstance.InstanceId],
+          InstanceIds: [state.targetInstance.InstanceId],
         }),
       );
 
@@ -263,7 +276,7 @@ export const demoSteps = [
         );
 
         const instance = InstanceInformationList.find(
-          (info) => info.InstanceId === c.targetInstance.InstanceId,
+          (info) => info.InstanceId === state.targetInstance.InstanceId,
         );
 
         if (!instance) {
@@ -273,7 +286,7 @@ export const demoSteps = [
 
       await ssmClient.send(
         new SendCommandCommand({
-          InstanceIds: [c.targetInstance.InstanceId],
+          InstanceIds: [state.targetInstance.InstanceId],
           DocumentName: "AWS-RunShellScript",
           Parameters: { commands: ["cd / && sudo python3 server.py 80"] },
         }),
@@ -283,12 +296,12 @@ export const demoSteps = [
   new ScenarioOutput(
     "testBadCredentials",
     /**
-     * @param {{ targetInstance: import('@aws-sdk/client-ssm').InstanceInformation}} c
+     * @param {{ targetInstance: import('@aws-sdk/client-ssm').InstanceInformation}} state
      */
-    (c) =>
+    (state) =>
       MESSAGES.demoTestBadCredentials.replace(
         "${INSTANCE_ID}",
-        c.targetInstance.InstanceId,
+        state.targetInstance.InstanceId,
       ),
   ),
   loadBalancerLoop,
@@ -297,8 +310,8 @@ export const demoSteps = [
     MESSAGES.demoDeepHealthCheckConfirmation,
     { type: "confirm" },
   ),
-  new ScenarioAction("deepHealthCheckExit", (c) => {
-    if (!c.deepHealthCheckConfirmation) {
+  new ScenarioAction("deepHealthCheckExit", (state) => {
+    if (!state.deepHealthCheckConfirmation) {
       process.exit();
     }
   }),
@@ -319,30 +332,30 @@ export const demoSteps = [
   new ScenarioInput(
     "killInstanceConfirmation",
     /**
-     * @param {{ targetInstance: import('@aws-sdk/client-ssm').InstanceInformation }} c
+     * @param {{ targetInstance: import('@aws-sdk/client-ssm').InstanceInformation }} state
      */
-    (c) =>
+    (state) =>
       MESSAGES.demoKillInstanceConfirmation.replace(
         "${INSTANCE_ID}",
-        c.targetInstance.InstanceId,
+        state.targetInstance.InstanceId,
       ),
     { type: "confirm" },
   ),
-  new ScenarioAction("killInstanceExit", (c) => {
-    if (!c.killInstanceConfirmation) {
+  new ScenarioAction("killInstanceExit", (state) => {
+    if (!state.killInstanceConfirmation) {
       process.exit();
     }
   }),
   new ScenarioAction(
     "killInstance",
     /**
-     * @param {{ targetInstance: import('@aws-sdk/client-ssm').InstanceInformation }} c
+     * @param {{ targetInstance: import('@aws-sdk/client-ssm').InstanceInformation }} state
      */
-    async (c) => {
+    async (state) => {
       const client = new AutoScalingClient({});
       await client.send(
         new TerminateInstanceInAutoScalingGroupCommand({
-          InstanceId: c.targetInstance.InstanceId,
+          InstanceId: state.targetInstance.InstanceId,
           ShouldDecrementDesiredCapacity: false,
         }),
       );
@@ -354,8 +367,8 @@ export const demoSteps = [
   new ScenarioInput("failOpenConfirmation", MESSAGES.demoFailOpenConfirmation, {
     type: "confirm",
   }),
-  new ScenarioAction("failOpenExit", (c) => {
-    if (!c.failOpenConfirmation) {
+  new ScenarioAction("failOpenExit", (state) => {
+    if (!state.failOpenConfirmation) {
       process.exit();
     }
   }),
@@ -378,8 +391,8 @@ export const demoSteps = [
     MESSAGES.demoResetTableConfirmation,
     { type: "confirm" },
   ),
-  new ScenarioAction("resetTableExit", (c) => {
-    if (!c.resetTableConfirmation) {
+  new ScenarioAction("resetTableExit", (state) => {
+    if (!state.resetTableConfirmation) {
       process.exit();
     }
   }),
