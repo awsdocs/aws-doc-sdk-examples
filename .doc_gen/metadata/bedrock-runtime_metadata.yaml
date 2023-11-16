@@ -159,6 +159,14 @@ bedrock-runtime_InvokeLlama2:
   synopsis: invoke the Meta Llama 2 Chat model on &BR; to run inference.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.bedrock-runtime.InvokeLlama2
     Java:
       versions:
         - sdk_version: 2
