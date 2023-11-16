@@ -10,13 +10,13 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
-  ) 
+) 
 
 // snippet-start:[gov2.bedrock-runtime.InvokeModelWrapper.complete]
 // snippet-start:[gov2.bedrock-runtime.InvokeModelWrapper.struct]
 
 // InvokeModelWrapper encapsulates Amazon Bedrock actions used in the examples.
-// It contains a Bedrock service client that is used to perform foundation model actions.
+// It contains a Bedrock Runtime client that is used to invoke foundation models.
 type InvokeModelWrapper struct {
 	BedrockRuntimeClient *bedrockruntime.Client
 }
@@ -58,7 +58,7 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 
 	body, err := json.Marshal(request)
 
-	result, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
+	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String("anthropic.claude-v2"),
 		ContentType: aws.String("application/json"),
 		Body: body,
@@ -70,7 +70,7 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 
 	var response ClaudeResponse
 
-	err = json.Unmarshal(result.Body, &response)
+	err = json.Unmarshal(output.Body, &response)
 
 	if err != nil {
 		log.Fatal("failed to unmarshal", err)
@@ -110,7 +110,7 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 
 	body, err := json.Marshal(request)
 
-	result, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
+	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String("ai21.j2-mid"),
 		ContentType: aws.String("application/json"),
 		Body: body,
@@ -122,7 +122,7 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 
 	var response Jurassic2Response
 
-	err = json.Unmarshal(result.Body, &response)
+	err = json.Unmarshal(output.Body, &response)
 
 	if err != nil {
 		log.Fatal("failed to unmarshal", err)
@@ -161,7 +161,7 @@ func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
 
 	body, err := json.Marshal(request)
 
-	result, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
+	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String("meta.llama2-13b-chat-v1"),
 		ContentType: aws.String("application/json"),
 		Body: body,
@@ -173,7 +173,7 @@ func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
 
 	var response Llama2Response
 
-	err = json.Unmarshal(result.Body, &response)
+	err = json.Unmarshal(output.Body, &response)
 
 	if err != nil {
 		log.Fatal("failed to unmarshal", err)
