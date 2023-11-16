@@ -15,7 +15,7 @@ import (
 
 // snippet-start:[gov2.bedrock-runtime.InvokeModels]
 
-// InvokeModelsScenario demosytrates how to use the Amazon Bedrock Runtime client
+// InvokeModelsScenario demostrates how to use the Amazon Bedrock Runtime client
 // to invoke various foundation models for text and image generation
 //
 // 1. Generate text with Anthropic Claude 2
