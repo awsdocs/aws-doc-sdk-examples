@@ -40,10 +40,13 @@ type ClaudeRequest struct {
 	StopSequences     []string `json:"stop_sequences,omitempty"`
 }
 
+type ClaudeResponse struct {
+	Completion string `json:"completion"`
+}
+
 // Invokes Anthropic Claude on Amazon Bedrock to run an inference using the input
 // provided in the request body.
-func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) ([]byte, error) {
-	var completion []byte
+func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 
 	// Anthropic Claude requires you to enclose the prompt as follows:
 	prefix := "Human: "
@@ -59,7 +62,7 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) ([]byte, error) {
 
 	body, err := json.Marshal(request)
 
-	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
+	result, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String("anthropic.claude-v2"),
 		ContentType: aws.String("application/json"),
 		Body: body,
@@ -67,10 +70,17 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) ([]byte, error) {
 
 	if err != nil {
 		log.Printf("Couldn't invoke Claude. Here's why: %v\n", err)
-	} else {
-		completion = output.Body
 	}
-	return completion, err
+
+	var response ClaudeResponse
+
+	err = json.Unmarshal(result.Body, &response)
+
+	if err != nil {
+		log.Fatal("failed to unmarshal", err)
+	}
+
+	return response.Completion, nil
 }
 
 // snippet-end:[gov2.bedrock-runtime.InvokeClaude]

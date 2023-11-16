@@ -12,7 +12,7 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
-    "github.com/awsdocs/aws-doc-sdk-examples/gov2/bedrockruntime/stubs"
+    "github.com/awsdocs/aws-doc-sdk-examples/gov2/bedrock-runtime/stubs"
     "github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
 )
 
