@@ -42,8 +42,8 @@ type Response struct {
 	Completion string `json:"completion"`
 }
 
-// Invokes Anthropic Claude on Amazon Bedrock to run an inference using the input
-// provided in the request body and process the response stream.
+// Invokes Anthropic Claude on Amazon Bedrock to run an inference and asynchronously
+// process the response stream.
 
 func (wrapper InvokeModelWithResponseStreamWrapper) InvokeModelWithResponseStream(prompt string) (string, error) {
 
