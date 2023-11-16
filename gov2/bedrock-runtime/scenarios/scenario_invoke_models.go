@@ -13,7 +13,7 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/bedrock-runtime/actions"
 )
 
-// snippet-start:[gov2.bedrock-runtime.InvokeModels]
+// snippet-start:[gov2.bedrock-runtime.Scenario_InvokeModels]
 
 // InvokeModelsScenario demostrates how to use the Amazon Bedrock Runtime client
 // to invoke various foundation models for text and image generation
@@ -99,3 +99,5 @@ func (scenario InvokeModelsScenario) InvokeWithResponseStream(prompt string) {
 	if err != nil { panic(err) }
 	log.Println()
 }
+
+// snippet-start:[gov2.bedrock-runtime.Scenario_InvokeModels]

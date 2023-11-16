@@ -260,6 +260,14 @@ bedrock-runtime_InvokeModelWithResponseStream:
   synopsis: invoke Anthropic Claude on &BR; to run an inference with a response stream.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.bedrock-runtime.InvokeModelWithResponseStream
     Java:
       versions:
         - sdk_version: 2
@@ -289,6 +297,14 @@ bedrock-runtime_Scenario_Invoke_models:
     - Generate text with Meta Llama 2 Chat.
   category: Scenarios
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description: Invoke multiple foundation models
+              snippet_tags:
+                - gov2.bedrock-runtime.Scenario_InvokeModels
     PHP:
       versions:
         - sdk_version: 3
