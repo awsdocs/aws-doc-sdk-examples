@@ -40,11 +40,11 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
+* [Asynchronously process Anthropic Claude's response stream](bedrock_runtime_wrapper.py#L195) (`InvokeModelWithResponseStream`)
 * [Invoke AI21 Labs Jurassic-2 on Amazon Bedrock](bedrock_runtime_wrapper.py#L79) (`InvokeModel`)
 * [Invoke Anthropic Claude 2 on Amazon Bedrock](bedrock_runtime_wrapper.py#L39) (`InvokeModel`)
 * [Invoke Meta Llama 2 on Amazon Bedrock](bedrock_runtime_wrapper.py#L115) (`InvokeModel`)
 * [Invoke Stability.ai Stable Diffusion XL on Amazon Bedrock](bedrock_runtime_wrapper.py#L152) (`InvokeModel`)
-* [Invoke a model on Amazon Bedrock with a response stream](bedrock_runtime_wrapper.py#L195) (`InvokeModelWithResponseStream`)
 
 ## Run the examples
 
