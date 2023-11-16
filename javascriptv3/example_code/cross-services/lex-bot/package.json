@@ -17,7 +17,7 @@
     "@aws-sdk/client-iam": "^3.347.1",
     "@aws-sdk/client-lex-runtime-service": "^3.347.1",
     "@aws-sdk/client-translate": "^3.347.1",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.347.1"
+    "@aws-sdk/credential-providers": "^3.451.0"
   },
   "devDependencies": {
     "@types/node": "^14.0.23",

@@ -13,7 +13,7 @@ Inputs (replace in code):
 */
 // snippet-start:[lex.JavaScript.translateClient]
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-providers";
 import { TranslateClient } from "@aws-sdk/client-translate";
 
 const REGION = "REGION";
