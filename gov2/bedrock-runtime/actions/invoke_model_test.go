@@ -31,7 +31,7 @@ func CallInvokeModelActions(sdkConfig aws.Config, ) {
 	claudeCompletion, err := wrapper.InvokeClaude(prompt)
 	if err != nil {panic(err)}
 	log.Println(claudeCompletion)
-	
+
 	jurassic2Completion, err := wrapper.InvokeJurassic2(prompt)
 	if err != nil {panic(err)}
 	log.Println(jurassic2Completion)
@@ -90,4 +90,4 @@ func fakeLlama2Request() ([]byte) {
 		Temperature:  0.5,
 	})
 	return requestBytes
-} 
+}

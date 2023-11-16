@@ -55,12 +55,12 @@ func StubInvokeJurassic2(requestBytes []byte, raiseErr *testtools.StubError) tes
 			},
 		},
 	}
-	
+
 	responseBytes, err := json.Marshal(fakeJurassicResponse)
 	if err != nil {
 		panic(err)
 	}
-	
+
 	return testtools.Stub{
 		OperationName: "InvokeModel",
 		Input:	&bedrockruntime.InvokeModelInput{
@@ -75,7 +75,7 @@ func StubInvokeJurassic2(requestBytes []byte, raiseErr *testtools.StubError) tes
 	}
 }
 
-type Llama2Response struct { 
+type Llama2Response struct {
 	Generation string `json:"generation"`
 }
 
@@ -83,12 +83,12 @@ func StubInvokeLlama2(requestBytes []byte, raiseErr *testtools.StubError) testto
 	fakeLlamaResponse := Llama2Response{
 		Generation: "A fake response",
 	}
-	
+
 	responseBytes, err := json.Marshal(fakeLlamaResponse)
 	if err != nil {
 		panic(err)
 	}
-	
+
 	return testtools.Stub{
 		OperationName: "InvokeModel",
 		Input:	&bedrockruntime.InvokeModelInput{
