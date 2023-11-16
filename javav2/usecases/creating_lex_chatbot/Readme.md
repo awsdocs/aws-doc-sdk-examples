@@ -6,7 +6,6 @@
 | ----------- | ----------- |
 | Description |  Discusses how to create an Amazon Lex Chatbot by using the AWS SDK for Java v2.     |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 11/15/2023        |
 | Required skills   | Java, Maven  |
 
 ## Purpose

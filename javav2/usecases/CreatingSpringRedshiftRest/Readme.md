@@ -110,7 +110,7 @@ Active items are queried from the database and used to dynamically create an Exc
 ## Creating an IntelliJ project named ItemTrackerRedshiftRest
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
-2. In the Project SDK, choose 11.
+2. In the Project SDK, choose 17.
 3. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
 4. For **GroupId**, enter **aws-spring**.
 5. For **ArtifactId**, enter **ItemTrackerRedshiftRest**.

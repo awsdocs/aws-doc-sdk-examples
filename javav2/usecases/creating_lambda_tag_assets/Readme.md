@@ -6,7 +6,6 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop an AWS Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java (v2).   |
 | Audience   |  Developer (beginner)        |
-| Updated   | 5/5/2022        |
 | Required skills   | Java, Maven  |
 
 ## Purpose
