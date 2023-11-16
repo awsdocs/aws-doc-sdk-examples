@@ -36,3 +36,37 @@ func StubInvokeClaude(requestBytes []byte, raiseErr *testtools.StubError) testto
 		Error:	raiseErr,
 	}
 }
+
+type Jurassic2Response struct { Completions []Completion `json:"completions"` }
+type Completion struct { Data Data `json:"data"` }
+type Data struct { Text string `json:"text"` }
+
+func StubInvokeJurassic2(requestBytes []byte, raiseErr *testtools.StubError) testtools.Stub {
+	fakeJurassicResponse := Jurassic2Response{
+		Completions: []Completion{
+			{
+				Data: Data{
+					Text: "A fake response",
+				},
+			},
+		},
+	}
+	
+	responseBytes, err := json.Marshal(fakeJurassicResponse)
+	if err != nil {
+		panic(err)
+	}
+	
+	return testtools.Stub{
+		OperationName: "InvokeModel",
+		Input:	&bedrockruntime.InvokeModelInput{
+			Body:        requestBytes,
+			ModelId:     aws.String("ai21.j2-mid-v1"),
+			ContentType: aws.String("application/json"),
+		},
+		Output:	&bedrockruntime.InvokeModelOutput{
+			Body:        responseBytes,
+		},
+		Error:	raiseErr,
+	}
+}

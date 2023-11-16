@@ -114,7 +114,7 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 	body, err := json.Marshal(request)
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
-		ModelId: aws.String("ai21.j2-mid"),
+		ModelId: aws.String("ai21.j2-mid-v1"),
 		ContentType: aws.String("application/json"),
 		Body: body,
 	})
