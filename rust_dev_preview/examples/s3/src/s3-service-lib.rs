@@ -61,7 +61,7 @@ pub async fn delete_objects(client: &Client, bucket_name: &str) -> Result<Vec<St
 
     eprintln!("{objects:?}");
 
-    match objects.key_count {
+    match objects.key_count.unwrap_or_default() {
         0 => Ok(return_keys),
         _ => Err(Error::unhandled(
             "There were still objects left in the bucket.",

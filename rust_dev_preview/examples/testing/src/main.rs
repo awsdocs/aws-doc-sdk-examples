@@ -56,12 +56,12 @@ async fn determine_prefix_file_size(
         // Add up the file sizes we got back
         let contents = response.contents();
         for object in contents {
-            total_size_bytes += object.size() as usize;
+            total_size_bytes += object.size().unwrap_or(0) as usize;
         }
 
         // Handle pagination, and break the loop if there are no more pages
         next_token = response.next_continuation_token.clone();
-        if !response.is_truncated() {
+        if response.is_truncated() != Some(true) {
             break;
         }
     }

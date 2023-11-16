@@ -57,7 +57,7 @@ impl ListObjects for S3ListObjects {
         Ok(ListObjectsResult {
             objects: response.contents().to_vec(),
             next_continuation_token: response.next_continuation_token.clone(),
-            has_more: response.is_truncated(),
+            has_more: response.is_truncated() == Some(true),
         })
     }
 }
@@ -119,7 +119,7 @@ pub async fn determine_prefix_file_size(
 
         // Add up the file sizes we got back
         for object in result.objects {
-            total_size_bytes += object.size() as usize;
+            total_size_bytes += object.size().unwrap_or(0) as usize;
         }
 
         // Handle pagination, and break the loop if there are no more pages

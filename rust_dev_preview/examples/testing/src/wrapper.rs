@@ -68,7 +68,7 @@ pub async fn determine_prefix_file_size(
 
         // Add up the file sizes we got back
         for object in result.contents() {
-            total_size_bytes += object.size() as usize;
+            total_size_bytes += object.size().unwrap_or(0) as usize;
         }
 
         // Handle pagination, and break the loop if there are no more pages
