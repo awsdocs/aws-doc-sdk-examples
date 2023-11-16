@@ -12,8 +12,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
   ) 
 
-// snippet-start:[gov2.bedrock.InvokeModelWrapper.complete]
-// snippet-start:[gov2.bedrock.InvokeModelWrapper.struct]
+// snippet-start:[gov2.bedrock-runtime.InvokeModelWrapper.complete]
+// snippet-start:[gov2.bedrock-runtime.InvokeModelWrapper.struct]
 
 // InvokeModelWrapper encapsulates Amazon Bedrock actions used in the examples.
 // It contains a Bedrock service client that is used to perform foundation model actions.
@@ -21,9 +21,9 @@ type InvokeModelWrapper struct {
 	BedrockRuntimeClient *bedrockruntime.Client
 }
 
-// snippet-end:[gov2.bedrock.InvokeModelWrapper.struct]
+// snippet-end:[gov2.bedrock-runtime.InvokeModelWrapper.struct]
 
-// snippet-start:[gov2.bedrock.InvokeClaude]
+// snippet-start:[gov2.bedrock-runtime.InvokeClaude]
 
 // Each model provider has their own individual request and response formats.
 // For the format, ranges, and default values for Anthropic Claude, refer to:
@@ -61,6 +61,7 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) ([]byte, error) {
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String("anthropic.claude-v2"),
+		ContentType: aws.String("application/json"),
 		Body: body,
 	})
 
@@ -72,26 +73,6 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) ([]byte, error) {
 	return completion, err
 }
 
+// snippet-end:[gov2.bedrock-runtime.InvokeClaude]
 
-
-// Invoke takes a struct and returns a string and error
-// func Invoke(input InvokeModelWrapper) (string, error) {
-//   if input == nil {
-//     return "", errors.New("input is required")
-//   }
-  
-//   output, err := generateOutput(input)
-//   if err != nil {
-//     return "", err
-//   }
-  
-//   return output, nil
-// }
-
-// // generateOutput takes input and returns output string and error
-// func generateOutput(input InvokeModelWrapper) (string, error) {
-//   // logic to generate output
-// }
-
-// // documentation
-
+// snippet-end:[gov2.bedrock-runtime.InvokeModelWrapper.complete]
