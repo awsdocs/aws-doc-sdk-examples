@@ -34,10 +34,7 @@ def update_sdk_dependencies(cargo: TOMLDocument, feature: str) -> None:
     for name in dependencies:
         if isinstance(name, str):
             dependency = dependencies[name]
-            if (
-                name == "aws-config"
-                and not isinstance(dependency, str)
-            ):
+            if name == "aws-config" and not isinstance(dependency, str):
                 logging.debug(
                     f"Found aws-config with features {dependency.get('features')}"
                 )
@@ -61,9 +58,7 @@ arg_parser.add_argument(
     default="../",
     help="Root path for rust_dev_preview cargos. Default ../ assumes running this script from its location in tools. Update single examples by setting root to their folder directly.",
 )
-arg_parser.add_argument(
-    "--feature", help="Feature to add"
-)
+arg_parser.add_argument("--feature", help="Feature to add")
 arg_parser.add_argument(
     "--dry-run",
     dest="dry_run",
