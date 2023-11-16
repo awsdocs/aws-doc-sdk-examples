@@ -89,14 +89,14 @@ async fn main() -> Result<(), Error> {
     let client = Client::new(&shared_config);
 
     // parse resource type from user input
-    let parsed = ResourceType::from(resource_type.as_str());
-    if matches!(parsed, ResourceType::Unknown(_)) {
-        panic!(
+    let parsed = match ResourceType::try_parse(resource_type.as_str()) {
+        Ok(parsed) => parsed,
+        Err(_) => panic!(
             "unknown resource type: `{}`. Valid resource types: {:#?}",
             &resource_type,
             ResourceType::values()
-        )
-    }
+        ),
+    };
 
     get_history(&client, &resource_id, parsed).await
 }

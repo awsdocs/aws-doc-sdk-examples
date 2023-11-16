@@ -126,17 +126,12 @@ async fn main() -> Result<(), Error> {
 
     let snapshot_id = start(&client, &description).await.unwrap();
 
-    let mut blocks = vec![];
-
-    // Append a block of all 1s.
-    let mut block: Vec<u8> = Vec::new();
-    block.resize(EBS_BLOCK_SIZE, 1);
-    blocks.push(block);
-
-    // Append a block of all 0s.
-    let mut block: Vec<u8> = Vec::new();
-    block.resize(EBS_BLOCK_SIZE, 0);
-    blocks.push(block);
+    let blocks = vec![
+        // Block of all 1s.
+        vec![1u8; EBS_BLOCK_SIZE],
+        // Block of all 0s.
+        vec![0u8; EBS_BLOCK_SIZE],
+    ];
 
     for (idx, block) in blocks.into_iter().enumerate() {
         let mut hasher = sha2::Sha256::new();

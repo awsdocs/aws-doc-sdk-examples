@@ -85,16 +85,14 @@ async fn main() -> Result<(), Error> {
     }
 
     // Parse resource type from user input.
-    let parsed = ResourceType::from(resource_type.as_str());
-
-    // Make sure it's a known type.
-    if matches!(parsed, ResourceType::Unknown(_)) {
-        panic!(
+    let parsed = match ResourceType::try_parse(resource_type.as_str()) {
+        Ok(parsed) => parsed,
+        Err(_) => panic!(
             "unknown resource type: `{}`. Valid resource types: {:#?}",
             &resource_type,
             ResourceType::values()
-        )
-    }
+        ),
+    };
 
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);

@@ -138,7 +138,7 @@ mod test {
 
         let client = aws_sdk_dynamodb::Client::new(
             &SdkConfig::builder()
-                .behavior_major_version(BehaviorVersion::latest())
+                .behavior_version(BehaviorVersion::latest())
                 .build(),
         );
         let update = client.update_item();

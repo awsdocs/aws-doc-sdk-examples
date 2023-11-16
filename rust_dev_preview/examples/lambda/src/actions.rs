@@ -22,7 +22,7 @@ use aws_sdk_s3::{
 use aws_smithy_types::Blob;
 use serde::{ser::SerializeMap, Serialize};
 use std::{path::PathBuf, str::FromStr, time::Duration};
-use tracing::{debug, error, info, warn};
+use tracing::{debug, info, warn};
 
 /* Operation describes  */
 #[derive(Clone, Copy, Debug, Serialize)]
@@ -345,15 +345,14 @@ impl LambdaManager {
                                 LastUpdateStatus::Failed | LastUpdateStatus::InProgress => {
                                     return Ok(false);
                                 }
-                                LastUpdateStatus::Unknown(status_variant) => {
-                                    warn!(?status_variant, "LastUpdateStatus unknown");
+                                unknown => {
+                                    warn!(
+                                        status_variant = unknown.as_str(),
+                                        "LastUpdateStatus unknown"
+                                    );
                                     return Err(anyhow!(
                                         "Unknown LastUpdateStatus, fn config is {config:?}"
                                     ));
-                                }
-                                _ => {
-                                    error!("Unmatched LastUpdateStatus");
-                                    return Err(anyhow!("Unmatched LastUpdateStatus"));
                                 }
                             }
                         }

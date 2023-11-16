@@ -61,6 +61,7 @@ fn make_s3_test_credentials() -> s3::config::Credentials {
 mod test {
     // snippet-start:[testing.rust.replay-test-single]
     use super::*;
+    use aws_config::BehaviorVersion;
     use aws_sdk_s3 as s3;
     use aws_smithy_runtime::client::http::test_util::{ReplayEvent, StaticReplayClient};
     use aws_smithy_types::body::SdkBody;
@@ -81,6 +82,7 @@ mod test {
         let replay_client = StaticReplayClient::new(vec![page_1]);
         let client: s3::Client = s3::Client::from_conf(
             s3::Config::builder()
+                .behavior_version(BehaviorVersion::latest())
                 .credentials_provider(make_s3_test_credentials())
                 .region(s3::config::Region::new("us-east-1"))
                 .http_client(replay_client.clone())
@@ -129,6 +131,7 @@ mod test {
         // snippet-start:[testing.rust.replay-create-client]
         let client: s3::Client = s3::Client::from_conf(
             s3::Config::builder()
+                .behavior_version(BehaviorVersion::latest())
                 .credentials_provider(make_s3_test_credentials())
                 .region(s3::config::Region::new("us-east-1"))
                 .http_client(replay_client.clone())
