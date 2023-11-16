@@ -133,4 +133,55 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 
 // snippet-end:[gov2.bedrock-runtime.InvokeJurassic2]
 
+// snippet-start:[gov2.bedrock-runtime.InvokeLlama2]
+
+// Each model provider has their own individual request and response formats.
+// For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
+// https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
+
+type Llama2Request struct {
+	Prompt            string   `json:"prompt"`
+	MaxGenLength 	  int      `json:"max_gen_len,omitempty"`
+	Temperature       float64  `json:"temperature,omitempty"`
+}
+
+type Llama2Response struct { 
+	Generation string `json:"generation"`
+}
+
+// Invokes Meta Llama 2 Chaton Amazon Bedrock to run an inference using the input
+// provided in the request body.
+func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
+
+	request := Llama2Request {
+		Prompt:            prompt,
+		MaxGenLength:	   512,
+		Temperature:       0.5,
+	}
+
+	body, err := json.Marshal(request)
+
+	result, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
+		ModelId: aws.String("meta.llama2-13b-chat-v1"),
+		ContentType: aws.String("application/json"),
+		Body: body,
+	})
+
+	if err != nil {
+		log.Printf("Couldn't invoke Llama 2. Here's why: %v\n", err)
+	}
+
+	var response Llama2Response
+
+	err = json.Unmarshal(result.Body, &response)
+
+	if err != nil {
+		log.Fatal("failed to unmarshal", err)
+	}
+
+	return response.Generation, nil
+}
+
+// snippet-end:[gov2.bedrock-runtime.InvokeLlama2]
+
 // snippet-end:[gov2.bedrock-runtime.InvokeModelWrapper.complete]
