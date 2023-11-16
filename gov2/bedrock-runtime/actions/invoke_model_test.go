@@ -72,10 +72,10 @@ func fakeClaudeRequest() ([]byte) {
 		StopSequences:     []string{"\n\nHuman:"},
 	})
 	return requestBytes
-} 
+}
 
 func fakeJurassic2Request() ([]byte) {
-	requestBytes, _ := json.Marshal(Jurassic2Request{ 
+	requestBytes, _ := json.Marshal(Jurassic2Request{
 		Prompt:      prompt,
 		MaxTokens:   200,
 		Temperature: 0.5,
@@ -84,7 +84,7 @@ func fakeJurassic2Request() ([]byte) {
 }
 
 func fakeLlama2Request() ([]byte) {
-	requestBytes, _ := json.Marshal(Llama2Request{ 
+	requestBytes, _ := json.Marshal(Llama2Request{
 		Prompt:       prompt,
 		MaxGenLength: 512,
 		Temperature:  0.5,
