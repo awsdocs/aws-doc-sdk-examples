@@ -10,7 +10,7 @@ edition = "2021"
 # snippet-start:[testing.rust.Cargo.toml]
 [dependencies]
 async-trait = "0.1.51"
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["behavior-version-latest"]}
 aws-credential-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = [ "hardcoded-credentials", ] }
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }

@@ -11,7 +11,7 @@ use aws_sdk_s3::{
     primitives::{ByteStream, SdkBody},
     Client,
 };
-use aws_smithy_runtime_api::client::http::request::Request;
+use aws_smithy_runtime_api::http::Request;
 use bytes::Bytes;
 use clap::Parser;
 use http_body::{Body, SizeHint};

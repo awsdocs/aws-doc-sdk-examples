@@ -8,7 +8,7 @@ authors = [
 edition = "2021"
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["behavior-version-latest"]}
 aws-sdk-eks = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 tokio = { version = "1.20.1", features = ["full"] }

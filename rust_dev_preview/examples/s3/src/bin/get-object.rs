@@ -3,7 +3,7 @@ use std::{fs::File, io::Write, path::PathBuf, process::exit};
 
 use aws_sdk_s3::Client;
 use clap::Parser;
-use tracing::log::trace;
+use tracing::trace;
 
 #[derive(Debug, Parser)]
 struct Opt {

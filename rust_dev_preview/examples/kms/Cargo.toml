@@ -9,7 +9,7 @@ edition = "2021"
 description = "Example usage of the KMS service"
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["behavior-version-latest"]}
 aws-sdk-kms = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 tokio = { version = "1.20.1", features = ["full"] }
 base64 = "0.13.0"

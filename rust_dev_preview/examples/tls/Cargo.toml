@@ -12,7 +12,7 @@ name = "tls"
 path = "src/lib.rs"
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["behavior-version-latest"]}
 aws-smithy-runtime = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-kms = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false }
 webpki-roots = "0.22.4"

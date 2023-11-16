@@ -5,6 +5,7 @@
 
 use anyhow::{Context, Result};
 use aws_config::meta::region::RegionProviderChain;
+use aws_config::BehaviorVersion;
 use aws_sdk_polly::config::Region;
 use aws_sdk_polly::types::{OutputFormat, VoiceId};
 use aws_sdk_transcribe::types::{LanguageCode, Media, MediaFormat, TranscriptionJobStatus};
@@ -269,15 +270,15 @@ async fn main() -> Result<(), anyhow::Error> {
     }
 
     // Create configurations for each service client.
-    let polly_shared_config = aws_config::from_env()
+    let polly_shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(polly_region_provider)
         .load()
         .await;
-    let s3_shared_config = aws_config::from_env()
+    let s3_shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(s3_region_provider)
         .load()
         .await;
-    let transcribe_shared_config = aws_config::from_env()
+    let transcribe_shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(transcribe_region_provider)
         .load()
         .await;

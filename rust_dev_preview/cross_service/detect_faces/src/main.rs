@@ -4,6 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_config::BehaviorVersion;
 use aws_sdk_s3::config::Region;
 use clap::Parser;
 use std::error::Error;
@@ -205,13 +206,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
         println!();
     }
 
-    let s3_shared_config = aws_config::from_env()
+    let s3_shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(s3_region_provider)
         .load()
         .await;
     let s3_client = aws_sdk_s3::Client::new(&s3_shared_config);
 
-    let rek_shared_config = aws_config::from_env()
+    let rek_shared_config = aws_config::defaults(BehaviorVersion::latest())
         .region(rek_region_provider)
         .load()
         .await;

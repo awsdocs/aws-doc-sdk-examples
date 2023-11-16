@@ -17,7 +17,7 @@ name = "iam_getting_started"
 path = "src/bin/iam-getting-started.rs"
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["behavior-version-latest"]}
 aws-credential-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["hardcoded-credentials"] }
 aws-sdk-iam = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }

@@ -10,7 +10,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["behavior-version-latest"]}
 aws-sdk-kinesis = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 tokio = { version = "1.20.1", features = ["full"] }
 clap = { version = "~4.4", features = ["derive"] }
