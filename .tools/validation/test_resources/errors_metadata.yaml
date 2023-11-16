@@ -48,7 +48,7 @@ sns_TestExample2:
           github: github/link/to/README.md
           excerpts:
             - snippet_tags:
-              - this.snippet.does.not.exist
+                - this.snippet.does.not.exist
   services:
     garbled:
     sns:

@@ -14,10 +14,14 @@ sns_TestExample:
       versions:
         - sdk_version: 2
           github: javav2/example_code/sns
+          block_content: test block
     JavaScript:
       versions:
         - sdk_version: 3
-          block_content: sns_TestExample_block.xml
+          excerpts:
+            - description: Descriptive
+              snippet_tags:
+                - javascript.snippet.tag
           add_services:
             s3:
     PHP:

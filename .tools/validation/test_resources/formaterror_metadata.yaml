@@ -6,6 +6,7 @@ WrongNameFormat:
     Java:
       versions:
         - sdk_version: 2
+          block_content: test/block
           github: javav2/example_code/sns
   services:
     sns:

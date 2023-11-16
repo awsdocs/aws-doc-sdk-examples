@@ -3,6 +3,7 @@
 from dataclasses import dataclass
 from enum import Enum
 from typing import Optional, Self
+from os.path import splitext
 import example_errors
 from example_errors import ExampleErrors, ExampleParseError
 
@@ -223,17 +224,31 @@ class Version:
 
         sdk_version = int(yaml.get("sdk_version", 0))
         if sdk_version == 0:
-            errors.append(example_errors.MissingField("sdk_version"))
+            errors.append(example_errors.MissingField(field="sdk_version"))
 
         block_content = yaml.get("block_content")
         github = yaml.get("github")
         sdkguide = yaml.get("sdkguide")
+
+        if sdkguide is not None:
+            if sdkguide.startswith("https://docs.aws.amazon.com"):
+                errors.append(example_errors.InvalidSdkGuideStart(guide=sdkguide))
+
+        if github is not None:
+            _, ext = splitext(github)
+            if ext != "":
+                errors.append(example_errors.InvalidGithubLink())
 
         excerpts = yaml.get("excerpts", [])
         if len(excerpts) == 0:
             excerpts = None
         else:
             excerpts = [Excerpt.from_yaml(excerpt) for excerpt in excerpts]
+
+        if excerpts is None and block_content is None:
+            errors.append(example_errors.MissingBlockContentAndExcerpt())
+        if excerpts is not None and block_content is not None:
+            errors.append(example_errors.BlockContentAndExcerptConflict())
 
         more_info = []
         for url in yaml.get("more_info", []):
@@ -244,6 +259,8 @@ class Version:
                 errors.append(url)
 
         add_services = parse_services(yaml.get("add_services", {}), errors)
+        if add_services and block_content is not None:
+            errors.append(example_errors.APIExampleCannotAddService())
 
         if len(errors) > 0:
             return errors
@@ -272,7 +289,7 @@ class Language:
 
         yaml_versions = yaml.get("versions")
         if yaml_versions is None or len(yaml_versions) == 0:
-            errors.append(example_errors.MissingField("versions"))
+            errors.append(example_errors.MissingField(field="versions"))
             yaml_versions = []
 
         versions: list[Version] = []
@@ -332,7 +349,7 @@ class Example:
         yaml_languages = yaml.get("languages")
         languages = []
         if yaml_languages is None:
-            errors.append(example_errors.MissingField("languages"))
+            errors.append(example_errors.MissingField(field="languages"))
         else:
             for name in yaml_languages:
                 language = Language.from_yaml(name, yaml_languages[name])
