@@ -7,6 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"log"
+	"fmt"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
@@ -58,24 +59,26 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 
 	body, err := json.Marshal(request)
 
+	
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String("anthropic.claude-v2"),
 		ContentType: aws.String("application/json"),
 		Body: body,
 	})
-
+	
 	if err != nil {
 		log.Printf("Couldn't invoke Claude. Here's why: %v\n", err)
 	}
-
+	
 	var response ClaudeResponse
-
+	
 	err = json.Unmarshal(output.Body, &response)
-
+	
 	if err != nil {
+		fmt.Println(err)
 		log.Fatal("failed to unmarshal", err)
 	}
-
+	
 	return response.Completion, nil
 }
 

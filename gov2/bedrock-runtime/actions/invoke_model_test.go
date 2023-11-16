@@ -16,7 +16,6 @@ import (
     "github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
 )
 
-const region ="us-east-1"
 const text_prompt = "A test prompt"
 
 func CallInvokeModelActions(sdkConfig aws.Config, ) {
@@ -32,8 +31,6 @@ func CallInvokeModelActions(sdkConfig aws.Config, ) {
 	completion, err := wrapper.InvokeClaude(text_prompt)
 	if err != nil {panic(err)}
 	log.Println(completion)
-
-	
     log.Printf("Thanks for watching!")
 }
 
