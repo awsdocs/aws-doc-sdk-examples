@@ -30,7 +30,7 @@ type ClaudeResponse struct {
 	Completion string `json:"completion"`
 }
 
-// main uses the AWS SDK for Go (v2) to create an Amazon Bedrock Runtime client 
+// main uses the AWS SDK for Go (v2) to create an Amazon Bedrock Runtime client
 // and invokes Anthropic Claude 2 inside your account and the chosen region.
 // This example uses the default settings specified in your shared credentials
 // and config files.
@@ -78,7 +78,7 @@ func main() {
 	if err != nil {
 		log.Fatal("failed to unmarshal", err)
 	}
-	
+
 	fmt.Println("Response from Anthropic Claude:\n", response.Completion)
 }
 
