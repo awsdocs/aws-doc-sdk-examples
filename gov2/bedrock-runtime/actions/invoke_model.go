@@ -68,6 +68,8 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 
 	if err != nil {
 		log.Printf("Couldn't invoke Claude. Here's why: %v\n", err)
+	} else {
+		completion = output.Body
 	}
 
 	var response ClaudeResponse
