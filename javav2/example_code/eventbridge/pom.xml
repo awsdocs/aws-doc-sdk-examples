@@ -6,7 +6,9 @@
     <groupId>AWSEventBridgeJ2</groupId>
     <artifactId>AWSEventBridgeJ2</artifactId>
     <version>1.0-SNAPSHOT</version>
-   <properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>17</java.version>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
     </properties>
