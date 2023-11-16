@@ -16,7 +16,7 @@ import (
     "github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
 )
 
-const text_prompt = "A test prompt"
+const prompt = "A test prompt"
 
 func CallInvokeModelActions(sdkConfig aws.Config, ) {
     defer func() {
@@ -28,33 +28,28 @@ func CallInvokeModelActions(sdkConfig aws.Config, ) {
 	client := bedrockruntime.NewFromConfig(sdkConfig)
 	wrapper := InvokeModelWrapper{client}
 
-	completion, err := wrapper.InvokeClaude(text_prompt)
+	claudeCompletion, err := wrapper.InvokeClaude(prompt)
 	if err != nil {panic(err)}
-	log.Println(completion)
+	log.Println(claudeCompletion)
+	
+	jurassic2Completion, err := wrapper.InvokeJurassic2(prompt)
+	if err != nil {panic(err)}
+	log.Println(jurassic2Completion)
+	
     log.Printf("Thanks for watching!")
 }
 
-func TestInvokeClaude(t *testing.T) {
+func TestInvokeModels(t *testing.T) {
     scenTest := InvokeModelActionsTest{}
     testtools.RunScenarioTests(&scenTest, t)
 }
 
 type InvokeModelActionsTest struct {}
 
-func fakeClaudeRequest() ([]byte) {
-	claudeRequest := ClaudeRequest{
-		Prompt:            "Human: " + text_prompt + "\n\nAssistant:",
-		MaxTokensToSample: 200,
-		Temperature:       0.5,
-		StopSequences:     []string{"\n\nHuman:"},
-	}
-	requestBytes, _ := json.Marshal(claudeRequest)
-	return requestBytes
-} 
-
 func (scenTest *InvokeModelActionsTest) SetupDataAndStubs() []testtools.Stub {
     var stubList []testtools.Stub
     stubList = append(stubList, stubs.StubInvokeClaude(fakeClaudeRequest(), nil))
+	stubList = append(stubList, stubs.StubInvokeJurassic2(fakeJurassic2Request(), nil))
     return stubList
 }
 
@@ -63,3 +58,22 @@ func (scenTest *InvokeModelActionsTest) RunSubTest(stubber *testtools.AwsmStubbe
 }
 
 func (scenTest *InvokeModelActionsTest) Cleanup() {}
+
+func fakeClaudeRequest() ([]byte) {
+	requestBytes, _ := json.Marshal(ClaudeRequest{
+		Prompt:            "Human: " + prompt + "\n\nAssistant:",
+		MaxTokensToSample: 200,
+		Temperature:       0.5,
+		StopSequences:     []string{"\n\nHuman:"},
+	})
+	return requestBytes
+} 
+
+func fakeJurassic2Request() ([]byte) {
+	requestBytes, _ := json.Marshal(Jurassic2Request{ 
+		Prompt:      prompt,
+		MaxTokens:   200,
+		Temperature: 0.5,
+	})
+	return requestBytes
+} 
