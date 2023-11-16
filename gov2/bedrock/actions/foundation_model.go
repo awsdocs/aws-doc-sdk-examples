@@ -14,7 +14,7 @@ import (
 // snippet-start:[gov2.bedrock.FoundationModelWrapper.complete]
 // snippet-start:[gov2.bedrock.FoundationModelWrapper.struct]
 
-// PolicyWrapper encapsulates Amazon Bedrock actions used in the examples.
+// FoundationModelWrapper encapsulates Amazon Bedrock actions used in the examples.
 // It contains a Bedrock service client that is used to perform foundation model actions.
 type FoundationModelWrapper struct {
 	BedrockClient *bedrock.Client
