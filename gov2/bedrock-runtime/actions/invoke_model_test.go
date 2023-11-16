@@ -39,7 +39,7 @@ func CallInvokeModelActions(sdkConfig aws.Config, ) {
 	llama2Completion, err := wrapper.InvokeLlama2(prompt)
 	if err != nil {panic(err)}
 	log.Println(llama2Completion)
-	
+
     log.Printf("Thanks for watching!")
 }
 
