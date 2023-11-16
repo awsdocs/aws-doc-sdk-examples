@@ -59,7 +59,6 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 
 	body, err := json.Marshal(request)
 
-
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String("anthropic.claude-v2"),
 		ContentType: aws.String("application/json"),
