@@ -140,4 +140,4 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
     #snippet-end:[php.example_code.bedrock-runtime.service.invokeLlama2]
 }
 
-#snippet-start:[php.example_code.bedrock-runtime.service]
+#snippet-end:[php.example_code.bedrock-runtime.service]
