@@ -3,12 +3,16 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+/**
+ * Purpose
+ * Shows how to use the AWS SDK for PHP with Amazon Bedrock to:
+ * List information about the available foundation models.
+ **/
+
 # snippet-start:[php.example_code.bedrock.basics.scenario]
 namespace Bedrock;
 
-use AwsUtilities\RunnableExample;
-
-class GettingStartedWithBedrock implements RunnableExample
+class GettingStartedWithBedrock
 {
     protected BedrockService $bedrockService;
 
@@ -43,9 +47,5 @@ class GettingStartedWithBedrock implements RunnableExample
             echo "==========================================\n";
         }
     }
-
-    public function helloService() {}
-
-    public function cleanUp() {}
 }
 # snippet-end:[php.example_code.bedrock.basics.scenario]

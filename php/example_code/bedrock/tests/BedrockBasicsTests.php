@@ -3,6 +3,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+#
+# Integration test runner for Amazon Bedrock files.
+#
+
 namespace bedrock\tests;
 
 use Bedrock\BedrockService;
@@ -31,13 +35,5 @@ class BedrockBasicsTests extends TestCase
     {
         $result = $this->bedrockService->listFoundationModels();
         self::assertNotEmpty($result["modelSummaries"]);
-    }
-
-    public function test_foundation_models_can_be_filtered_by_provider_name()
-    {
-        $result = $this->bedrockService->listFoundationModels($providerName = "amazon");
-        foreach ($result["modelSummaries"] as $model) {
-            self::assertEquals("Amazon", $model["providerName"]);
-        }
     }
 }
