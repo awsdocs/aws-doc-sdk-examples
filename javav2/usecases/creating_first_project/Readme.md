@@ -6,7 +6,6 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a dynamic web MVC application by using the AWS SDK for Java (v2).   |
 | Audience   |  Developer (beginner)        |
-| Updated   | 5/13/2023        |
 | Required skills   | Java, Maven  |
 
 ## Purpose
@@ -47,7 +46,7 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + A Java IDE (this example uses IntelliJ)
-+ Java 1.8 SDK and Maven
++ Java 17 SDK
 
 ### Important
 
@@ -89,87 +88,7 @@ The first step is to create an IntelliJ project.
 
 ## Add the Spring POM dependencies to your project
 
-At this point, you have a new project named **Greetings**.
-
-![AWS Tracking Application](images/projectmvc2.png)
-
-Make sure that the **pom.xml** file resembles the following XML code.
-
-```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>spring-aws</groupId>
-    <artifactId>greetings</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <description>Demo project for Spring Boot</description>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.1</version>
-        <relativePath/>
-    </parent>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>software.amazon.awssdk</groupId>
-                <artifactId>bom</artifactId>
-                <version>2.20.45</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb-enhanced</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>sns</artifactId>
-        </dependency>
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${project.parent.version}</version>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
+Make sure that your project's pom.xml file looks like the POM file in this Github repository.
 
 ## Set up the Java packages in your project
 
