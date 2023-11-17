@@ -67,7 +67,7 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
             echo "Error: (" . $e->getCode() . ") - " . $e->getMessage() . "\n";
         }
     }
-    #snippet-start:[php.example_code.bedrock-runtime.service.invokeClaude]
+    #snippet-end:[php.example_code.bedrock-runtime.service.invokeClaude]
 
     #snippet-start:[php.example_code.bedrock-runtime.service.invokeJurassic2]
     public function invokeJurassic2($prompt) {
@@ -102,7 +102,42 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
             echo "Error: (" . $e->getCode() . ") - " . $e->getMessage() . "\n";
         }
     }
-    #snippet-start:[php.example_code.bedrock-runtime.service.invokeJurassic2]
+    #snippet-end:[php.example_code.bedrock-runtime.service.invokeJurassic2]
+
+    #snippet-start:[php.example_code.bedrock-runtime.service.invokeLlama2]
+    public function invokeLlama2($prompt) {
+
+        # The different model providers have individual request and response formats.
+        # For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
+        # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
+
+        try {
+
+            $modelId = 'meta.llama2-13b-chat-v1';
+
+            $body = (object) [
+                'prompt' => $prompt,
+                'temperature' => 0.5,
+                'max_gen_len' => 512,
+            ];
+
+            $result = $this->bedrockRuntimeClient->invokeModel([
+                'contentType' => 'application/json',
+                'body' => json_encode($body),
+                'modelId' => $modelId,
+            ]);
+
+            $response_body = json_decode($result["body"]);
+
+            $completion = $response_body->generation;
+
+            return $completion;
+
+        } catch (Exception $e) {
+            echo "Error: (" . $e->getCode() . ") - " . $e->getMessage() . "\n";
+        }
+    }
+    #snippet-end:[php.example_code.bedrock-runtime.service.invokeLlama2]
 }
 
 #snippet-start:[php.example_code.bedrock-runtime.service]

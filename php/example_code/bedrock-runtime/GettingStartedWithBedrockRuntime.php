@@ -31,13 +31,18 @@ class GettingStartedWithBedrockRuntime
 
         $bedrockRuntimeService = new BedrockRuntimeService($clientArgs);
 
-        $prompt = "Hi, how are you?";
+        $prompt = "In one paragraph, who are you?";
 
         echo "\nPrompt: " . $prompt;
+
         echo "\n\nAnthropic Claude:";
         echo $bedrockRuntimeService->invokeClaude($prompt);
+        
         echo "\n\nAI21 Labs Jurassic-2: ";
         echo $bedrockRuntimeService->invokeJurassic2($prompt);
+        
+        echo "\n\nMeta Llama 2 Chat: ";
+        echo $bedrockRuntimeService->invokeLlama2($prompt);
     }
 
 }

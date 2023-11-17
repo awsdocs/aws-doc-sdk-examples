@@ -46,4 +46,11 @@ require_once __DIR__ . "/../BedrockRuntimeService.php";
         $completion = $this->bedrockRuntimeService->invokeJurassic2($prompt);
         self::assertNotEmpty($completion);
     }
+
+    public function test_llama2_can_be_invoked()
+    {
+        $prompt = "A test prompt";
+        $completion = $this->bedrockRuntimeService->invokeLlama2($prompt);
+        self::assertNotEmpty($completion);
+    }
  }
