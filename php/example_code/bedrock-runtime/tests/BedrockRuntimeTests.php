@@ -33,10 +33,17 @@ require_once __DIR__ . "/../BedrockRuntimeService.php";
         $this->bedrockRuntimeService = new BedrockRuntimeService($this->clientArgs);
     }
 
-    public function test_foundation_models_can_be_listed()
+    public function test_claude_can_be_invoked()
     {
         $prompt = "A test prompt";
         $completion = $this->bedrockRuntimeService->invokeClaude($prompt);
+        self::assertNotEmpty($completion);
+    }
+
+    public function test_jurassic2_can_be_invoked()
+    {
+        $prompt = "A test prompt";
+        $completion = $this->bedrockRuntimeService->invokeJurassic2($prompt);
         self::assertNotEmpty($completion);
     }
  }
