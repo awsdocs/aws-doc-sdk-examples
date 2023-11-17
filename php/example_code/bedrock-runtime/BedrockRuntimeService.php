@@ -38,7 +38,9 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
         # https://docs.anthropic.com/claude/reference/complete_post
 
         try {
-            
+
+            $modelId = 'anthropic.claude-v2';
+
             # Claude requires you to enclose the prompt as follows:
             $prompt = "Human: " . $prompt . "\n\nAssistant:";
 
@@ -50,9 +52,9 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
             ];
 
             $result = $this->bedrockRuntimeClient->invokeModel([
-                'body' => json_encode($body),
-                'modelId' => 'anthropic.claude-v2',
                 'contentType' => 'application/json',
+                'body' => json_encode($body),
+                'modelId' => $modelId,
             ]);
 
             $response_body = json_decode($result["body"]);
@@ -66,6 +68,41 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
         }
     }
     #snippet-start:[php.example_code.bedrock-runtime.service.invokeClaude]
+
+    #snippet-start:[php.example_code.bedrock-runtime.service.invokeJurassic2]
+    public function invokeJurassic2($prompt) {
+
+        # The different model providers have individual request and response formats.
+        # For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
+        # https://docs.ai21.com/reference/j2-complete-ref
+
+        try {
+
+            $modelId = 'ai21.j2-mid-v1';
+
+            $body = (object) [
+                'prompt' => $prompt,
+                'temperature' => 0.5,
+                'maxTokens' => 200,
+            ];
+
+            $result = $this->bedrockRuntimeClient->invokeModel([
+                'contentType' => 'application/json',
+                'body' => json_encode($body),
+                'modelId' => $modelId,
+            ]);
+
+            $response_body = json_decode($result["body"]);
+
+            $completion = $response_body->completions[0]->data->text;
+
+            return $completion;
+
+        } catch (Exception $e) {
+            echo "Error: (" . $e->getCode() . ") - " . $e->getMessage() . "\n";
+        }
+    }
+    #snippet-start:[php.example_code.bedrock-runtime.service.invokeJurassic2]
 }
 
 #snippet-start:[php.example_code.bedrock-runtime.service]

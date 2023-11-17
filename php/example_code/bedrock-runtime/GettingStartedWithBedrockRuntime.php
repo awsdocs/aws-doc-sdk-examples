@@ -33,9 +33,11 @@ class GettingStartedWithBedrockRuntime
 
         $prompt = "Hi, how are you?";
 
-        echo "\nPrompt: " . $prompt . "\n\n";
-        echo "Anthropic Claude: ";
+        echo "\nPrompt: " . $prompt;
+        echo "\n\nAnthropic Claude:";
         echo $bedrockRuntimeService->invokeClaude($prompt);
+        echo "\n\nAI21 Labs Jurassic-2: ";
+        echo $bedrockRuntimeService->invokeJurassic2($prompt);
     }
 
 }
