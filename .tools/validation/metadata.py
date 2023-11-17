@@ -4,8 +4,9 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Optional, Self
 from os.path import splitext
-import example_errors
-from example_errors import ExampleErrors, ExampleParseError
+import metadata_errors
+from metadata_errors import MetadataErrors, MetadataParseError
+from sdks import Sdk
 
 Languages = Enum(
     "Language",
@@ -27,94 +28,16 @@ Languages = Enum(
     ],
 )
 
-ServiceNames = Enum(
-    "ServiceNames",
-    [
-        "acm",
-        "api-gateway",
-        "apigatewaymanagementapi",
-        "application-autoscaling",
-        "auditmanager",
-        "aurora",
-        "auto-scaling",
-        "batch",
-        "bedrock",
-        "bedrock-runtime",
-        "cloudformation",
-        "cloudfront",
-        "cloudwatch",
-        "cloudwatch-events",
-        "cloudwatch-logs",
-        "codebuild",
-        "cognito",
-        "cognito-identity",
-        "cognito-identity-provider",
-        "cognito-sync",
-        "comprehend",
-        "config-service",
-        "device-farm",
-        "dynamodb",
-        "ebs",
-        "ec2",
-        "ecr",
-        "ecs",
-        "eks",
-        "elastic-load-balancing-v2",
-        "emr",
-        "eventbridge",
-        "firehose",
-        "forecast",
-        "glacier",
-        "glue",
-        "iam",
-        "iot",
-        "keyspaces",
-        "kinesis",
-        "kinesis-analytics-v2",
-        "kms",
-        "lambda",
-        "lex",
-        "lookoutvision",
-        "mediaconvert",
-        "medialive",
-        "mediapackage",
-        "medical-imaging",
-        "migration-hub",
-        "opensearch",
-        "organizations",
-        "personalize",
-        "personalize-runtime",
-        "personalize-events",
-        "pinpoint",
-        "pinpoint-email",
-        "pinpoint-sms-voice",
-        "polly",
-        "qldb",
-        "rds",
-        "rds-data",
-        "redshift",
-        "rekognition",
-        "route-53",
-        "route53-domains",
-        "route53-recovery-cluster",
-        "s3",
-        "sagemaker",
-        "secrets-manager",
-        "ses",
-        "sesv2",
-        "sfn",
-        "snowball",
-        "sns",
-        "sqs",
-        "ssm",
-        "sts",
-        "support",
-        "textract",
-        "transcribe",
-        "transcribe-medical",
-        "translate",
-    ],
-)
+
+@dataclass
+class Snippet:
+    pass
+
+
+@dataclass
+class DocGen:
+    sdks: dict[str, Sdk]
+    snippets: dict[str, Snippet]
 
 
 @dataclass
@@ -131,14 +54,14 @@ class Url:
     url: Optional[str]
 
     @staticmethod
-    def from_yaml(yaml: any) -> None | Self | ExampleParseError:
+    def from_yaml(yaml: any) -> None | Self | MetadataParseError:
         if yaml is None:
             return None
         title = yaml.get("title")
         url = yaml.get("url")
 
         if title is None:
-            return example_errors.URLMissingTitle(url=url)
+            return metadata_errors.URLMissingTitle(url=url)
 
         return Url(title, url)
 
@@ -168,63 +91,19 @@ class Version:
     excerpts: Optional[list[Excerpt]]
     # Link to the source code for this example. TODO rename.
     github: Optional[str]
-    add_services: dict[ServiceNames, str]
+    add_services: dict[str, str]
     # Deprecated. Replace with guide_topic list.
     sdkguide: Optional[str]
     # Link to additional topic places. TODO: Overwritten by aws-doc-sdk-example when merging.
     more_info: list[Url]
 
     @staticmethod
-    def from_yaml(yaml: dict[str, any]) -> Self | ExampleParseError:
-        """
-        if _, ok := mapping.Sdks[language].Sdk[version.SdkVersion]; !ok {errs = append(errs, &metaSdkVersionNotValidError{metaName: name, language: language, sdkVersion: version.SdkVersion}) }
-
-        if version.BlockContent != "" {
-                if len(crossContents) > 0 {
-                        if !sliceContains(crossContents, version.BlockContent) {
-                                errs = append(errs, &metaLanguageBlockContentNotFoundError{metaName: name, blockContent: version.BlockContent})
-                        }
-                }
-                if version.Sdkguide != "" || len(version.Excerpts) > 0 {
-                        errs = append(errs, &metaLanguageBlockContentVersionConflictError{metaName: name, language: language})
-                }
-                for addService := range version.AddServices {
-                        if _, ok := mapping.Services[addService]; !ok {
-                                errs = append(errs, &metaServiceNotValidError{
-                                        metaName: fmt.Sprintf("%v.%v.add_service", name, language), service: addService})
-                        }
-                }
-        } else {
-                if path.Ext(version.Github) != "" {
-                        errs = append(errs, &metaVersionGithubLinkToFileError{metaName: name, link: version.Github})
-                }
-                if strings.HasPrefix(version.Sdkguide, DOCS_DOMAIN) {
-                        errs = append(errs, &metaVersionSdkGuideStartsWithDocsDomain{
-                                metaName: name, language: language, sdkguide: version.Sdkguide})
-                }
-                if len(version.AddServices) > 0 {
-                        errs = append(errs, &metaVersionAddServicesNotEmpty{metaName: name, language: language})
-                }
-                for _, excerpt := range version.Excerpts {
-                        if err := validateEntities(excerpt.Description, name, "Excerpt.Description"); err != nil {
-                                errs = append(errs, err)
-                        }
-
-                        if len(snippets) > 0 {
-                                for _, tag := range excerpt.SnippetTags {
-                                        if !sliceContains(snippets, tag) {
-                                                errs = append(errs, &metaExcerptTagNotValidError{metaName: name, excerpt: tag})
-                                        }
-                                }
-                        }
-                }
-        }
-        """
-        errors = ExampleErrors()
+    def from_yaml(yaml: dict[str, any], doc_gen: DocGen) -> Self | MetadataParseError:
+        errors = MetadataErrors()
 
         sdk_version = int(yaml.get("sdk_version", 0))
         if sdk_version == 0:
-            errors.append(example_errors.MissingField(field="sdk_version"))
+            errors.append(metadata_errors.MissingField(field="sdk_version"))
 
         block_content = yaml.get("block_content")
         github = yaml.get("github")
@@ -232,12 +111,12 @@ class Version:
 
         if sdkguide is not None:
             if sdkguide.startswith("https://docs.aws.amazon.com"):
-                errors.append(example_errors.InvalidSdkGuideStart(guide=sdkguide))
+                errors.append(metadata_errors.InvalidSdkGuideStart(guide=sdkguide))
 
         if github is not None:
             _, ext = splitext(github)
             if ext != "":
-                errors.append(example_errors.InvalidGithubLink())
+                errors.append(metadata_errors.InvalidGithubLink())
 
         excerpts = yaml.get("excerpts", [])
         if len(excerpts) == 0:
@@ -246,9 +125,9 @@ class Version:
             excerpts = [Excerpt.from_yaml(excerpt) for excerpt in excerpts]
 
         if excerpts is None and block_content is None:
-            errors.append(example_errors.MissingBlockContentAndExcerpt())
+            errors.append(metadata_errors.MissingBlockContentAndExcerpt())
         if excerpts is not None and block_content is not None:
-            errors.append(example_errors.BlockContentAndExcerptConflict())
+            errors.append(metadata_errors.BlockContentAndExcerptConflict())
 
         more_info = []
         for url in yaml.get("more_info", []):
@@ -258,9 +137,9 @@ class Version:
             else:
                 errors.append(url)
 
-        add_services = parse_services(yaml.get("add_services", {}), errors)
+        add_services = parse_services(yaml.get("add_services", {}), errors, doc_gen)
         if add_services and block_content is not None:
-            errors.append(example_errors.APIExampleCannotAddService())
+            errors.append(metadata_errors.APIExampleCannotAddService())
 
         if len(errors) > 0:
             return errors
@@ -282,14 +161,14 @@ class Language:
     versions: list[Version]
 
     @staticmethod
-    def from_yaml(name: str, yaml: any) -> Self | ExampleErrors:
-        errors = ExampleErrors()
+    def from_yaml(name: str, yaml: any) -> Self | MetadataErrors:
+        errors = MetadataErrors()
         if name not in Languages.__members__:
-            errors.append(example_errors.UnknownLanguage(language=name))
+            errors.append(metadata_errors.UnknownLanguage(language=name))
 
         yaml_versions = yaml.get("versions")
         if yaml_versions is None or len(yaml_versions) == 0:
-            errors.append(example_errors.MissingField(field="versions"))
+            errors.append(metadata_errors.MissingField(field="versions"))
             yaml_versions = []
 
         versions: list[Version] = []
@@ -322,34 +201,34 @@ class Example:
     languages: dict[Languages, Language]
     # TODO document service_main and services. Not to be used by tributaries. Part of Cross Service.
     # List of services used by the examples. Lines up with those in services.yaml.
-    service_main: Optional[ServiceNames]
-    services: dict[ServiceNames, dict[str, str]]
+    service_main: Optional[str]
+    services: dict[str, dict[str, str]]
     synopsis: str
     synopsis_list: list[str]
     file: str
     id: str
 
     @staticmethod
-    def from_yaml(yaml: any) -> Self | ExampleErrors:
-        errors = ExampleErrors()
+    def from_yaml(yaml: any, doc_gen: DocGen) -> Self | MetadataErrors:
+        errors = MetadataErrors()
 
         title = get_with_valid_entities("title", yaml, errors)
         title_abbrev = get_with_valid_entities("title_abbrev", yaml, errors)
         synopsis = get_with_valid_entities("synopsis", yaml, errors, opt=True)
 
         category = yaml.get("category")
-        services = parse_services(yaml.get("services", {}), errors)
+        services = parse_services(yaml.get("services", {}), errors, doc_gen)
         synopsis_list = [str(syn) for syn in yaml.get("synopsis_list", [])]
 
         guide_topic = Url.from_yaml(yaml.get("guide_topic"))
-        if isinstance(guide_topic, ExampleParseError):
+        if isinstance(guide_topic, MetadataParseError):
             errors.append(guide_topic)
             guide_topic = None
 
         yaml_languages = yaml.get("languages")
         languages = []
         if yaml_languages is None:
-            errors.append(example_errors.MissingField(field="languages"))
+            errors.append(metadata_errors.MissingField(field="languages"))
         else:
             for name in yaml_languages:
                 language = Language.from_yaml(name, yaml_languages[name])
@@ -359,8 +238,8 @@ class Example:
                     errors.extend(language)
 
         service_main = yaml.get("service_main", None)
-        if not (service_main is None or service_main in ServiceNames.__members__):
-            errors.append(example_errors.UnknownService(service=service_main))
+        if service_main is not None and service_main not in doc_gen.sdks:
+            errors.append(metadata_errors.UnknownService(service=service_main))
 
         if len(errors) > 0:
             return errors
@@ -381,14 +260,14 @@ class Example:
 
 
 def parse_services(
-    yaml: any, errors: ExampleErrors
-) -> dict[ServiceNames, dict[str, str]]:
+    yaml: any, errors: MetadataErrors, doc_gen: DocGen
+) -> dict[str, dict[str, str]]:
     if yaml is None:
         return {}
     services = {}
     for name in yaml:
-        if name not in ServiceNames.__members__:
-            errors.append(example_errors.UnknownService(service=name))
+        if name not in doc_gen.sdks:
+            errors.append(metadata_errors.UnknownService(service=name))
         else:
             service = yaml.get(name, {})
             if service is None:
@@ -401,19 +280,19 @@ ALLOWED = ["&AWS;", "&AWS-Region;", "&AWS-Regions;" "AWSJavaScriptSDK"]
 
 
 def get_with_valid_entities(
-    name: str, d: dict[str, str], errors: ExampleErrors, opt: bool = False
+    name: str, d: dict[str, str], errors: MetadataErrors, opt: bool = False
 ) -> Optional[str]:
     field = d.get(name)
     if field is None:
         if not opt:
-            errors.append(example_errors.MissingField(field=name))
+            errors.append(metadata_errors.MissingField(field=name))
         return None
 
     disallowed = field.count("AWS")
     allowed = sum([field.count(token) for token in ALLOWED])
 
     if disallowed != allowed:
-        errors.append(example_errors.AwsNotEntity(field_name=name, field_value=field))
+        errors.append(metadata_errors.AwsNotEntity(field_name=name, field_value=field))
         return None
 
     return field
@@ -423,13 +302,15 @@ def idFormat(id: str) -> bool:
     return len(id.split("_")) >= 2
 
 
-def parse(file: str, yaml: dict[str, any]) -> list[Example] | ExampleErrors:
+def parse(
+    file: str, yaml: dict[str, any], doc_gen: DocGen
+) -> list[Example] | MetadataErrors:
     examples: list[Example] = []
-    errors = ExampleErrors()
+    errors = MetadataErrors()
     for id in yaml:
         if not idFormat(id):
-            errors.append(example_errors.NameFormat(file=file, id=id))
-        example = Example.from_yaml(yaml[id])
+            errors.append(metadata_errors.NameFormat(file=file, id=id))
+        example = Example.from_yaml(yaml[id], doc_gen)
         if isinstance(example, Example):
             example.file = file
             example.id = id

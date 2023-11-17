@@ -9,11 +9,11 @@ import pytest
 import yaml
 from pathlib import Path
 
-from examples import parse, Example, Url, Language, Version, Excerpt
-import example_errors
+import metadata_errors
+from metadata import parse, Example, Url, Language, Version, Excerpt
 
 
-def load(path) -> list[Example] | list[example_errors.ExampleParseError]:
+def load(path) -> list[Example] | list[metadata_errors.ExampleParseError]:
     with open(Path(__file__).parent / "test_resources" / path) as file:
         meta = yaml.safe_load(file)
     return parse(path, meta)
@@ -102,17 +102,17 @@ def test_verify_load_successful():
         (
             "empty_metadata.yaml",
             [
-                example_errors.MissingField(
+                metadata_errors.MissingField(
                     field="title",
                     file="empty_metadata.yaml",
                     id="sns_EmptyExample",
                 ),
-                example_errors.MissingField(
+                metadata_errors.MissingField(
                     field="title_abbrev",
                     file="empty_metadata.yaml",
                     id="sns_EmptyExample",
                 ),
-                example_errors.MissingField(
+                metadata_errors.MissingField(
                     field="languages",
                     file="empty_metadata.yaml",
                     id="sns_EmptyExample",
@@ -122,30 +122,30 @@ def test_verify_load_successful():
         (
             "errors_metadata.yaml",
             [
-                example_errors.UnknownLanguage(
+                metadata_errors.UnknownLanguage(
                     language="Perl",
                     file="errors_metadata.yaml",
                     id="sqs_WrongServiceSlug",
                 ),
-                example_errors.InvalidSdkGuideStart(
+                metadata_errors.InvalidSdkGuideStart(
                     file="errors_metadata.yaml",
                     id="sqs_WrongServiceSlug",
                     language="Perl",
                     guide="https://docs.aws.amazon.com/absolute/link-to-my-guide",
                 ),
-                example_errors.MissingBlockContentAndExcerpt(
+                metadata_errors.MissingBlockContentAndExcerpt(
                     file="errors_metadata.yaml",
                     id="sqs_WrongServiceSlug",
                     language="Perl",
                     sdk_version=None,
                 ),
-                example_errors.MissingField(
+                metadata_errors.MissingField(
                     field="versions",
                     file="errors_metadata.yaml",
                     id="sqs_TestExample",
                     language=None,
                 ),
-                example_errors.MissingBlockContentAndExcerpt(
+                metadata_errors.MissingBlockContentAndExcerpt(
                     file="errors_metadata.yaml",
                     id="sns_TestExample",
                     language="Java",
@@ -158,33 +158,33 @@ def test_verify_load_successful():
                 #     sdk_version=2,
                 #     tag="this.snippet.does.not.exist",
                 # ),
-                example_errors.UnknownService(
+                metadata_errors.UnknownService(
                     file="errors_metadata.yaml",
                     id="sns_TestExample2",
                     service="garbled",
                 ),
-                example_errors.InvalidGithubLink(
+                metadata_errors.InvalidGithubLink(
                     file="errors_metadata.yaml",
                     id="sns_TestExample2",
                     language="Java",
                     sdk_version="",
                 ),
-                example_errors.BlockContentAndExcerptConflict(
+                metadata_errors.BlockContentAndExcerptConflict(
                     file="errors_metadata.yaml",
                     id="cross_TestExample_Versions",
                     language="Java",
                     sdk_version=None,
                 ),
-                example_errors.APIExampleCannotAddService(
+                metadata_errors.APIExampleCannotAddService(
                     language="Java",
                     file="errors_metadata.yaml",
                     id="cross_TestExample_Versions",
                 ),
-                example_errors.NameFormat(
+                metadata_errors.NameFormat(
                     file="errors_metadata.yaml",
                     id="snsBadFormat",
                 ),
-                example_errors.MissingBlockContentAndExcerpt(
+                metadata_errors.MissingBlockContentAndExcerpt(
                     file="errors_metadata.yaml",
                     id="snsBadFormat",
                     language="Java",
@@ -194,11 +194,11 @@ def test_verify_load_successful():
         (
             "formaterror_metadata.yaml",
             [
-                example_errors.NameFormat(
+                metadata_errors.NameFormat(
                     file="formaterror_metadata.yaml",
                     id="WrongNameFormat",
                 ),
-                example_errors.UnknownService(
+                metadata_errors.UnknownService(
                     file="formaterror_metadata.yaml",
                     id="cross_TestExample",
                     language="Java",

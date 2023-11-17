@@ -3,7 +3,7 @@ from typing import Optional, Iterable
 
 
 @dataclass
-class ExampleParseError:
+class MetadataParseError:
     file: Optional[str] = None
     id: Optional[str] = None
     language: Optional[str] = None
@@ -25,21 +25,21 @@ class ExampleParseError:
 
 
 @dataclass
-class LanguageError(ExampleParseError):
+class LanguageError(MetadataParseError):
     language: str = ""
 
     def prefix(self):
         return super().prefix() + f": {self.language}"
 
 
-class ExampleErrors:
+class MetadataErrors:
     """MyPy isn't catching list[Foo].append(list[Foo])"""
 
     def __init__(self):
-        self._errors: list[ExampleParseError] = []
+        self._errors: list[MetadataParseError] = []
 
-    def append(self, item: ExampleParseError):
-        if not isinstance(item, ExampleParseError):
+    def append(self, item: MetadataParseError):
+        if not isinstance(item, MetadataParseError):
             raise Exception(
                 f"InvalidItemException: Cannot append {item!r} to ExampleErrors"
             )
@@ -47,13 +47,13 @@ class ExampleErrors:
             raise Exception(f"Already have error {item}")
         self._errors.append(item)
 
-    def extend(self, errors: Iterable[ExampleParseError]):
+    def extend(self, errors: Iterable[MetadataParseError]):
         self._errors.extend(errors)
 
-    def __getitem__(self, key: int) -> ExampleParseError:
+    def __getitem__(self, key: int) -> MetadataParseError:
         return self._errors[key]
 
-    def __setitem__(self, key: int, value: ExampleParseError):
+    def __setitem__(self, key: int, value: MetadataParseError):
         self._errors[key] = value
 
     def __len__(self) -> int:
@@ -67,36 +67,43 @@ class ExampleErrors:
 
 
 @dataclass
-class NamePrefixMismatch(ExampleParseError):
+class NamePrefixMismatch(MetadataParseError):
     def message(self):
         return "name prefix does not match any known service."
 
 
 @dataclass
-class NameFormat(ExampleParseError):
+class NameFormat(MetadataParseError):
     def message(self):
         return "name does not match the required format of 'svc_Operation', 'svc_Operation_Specialization', or 'cross_Title'"
 
 
 @dataclass
-class MissingField(ExampleParseError):
+class FieldError(MetadataParseError):
     field: str = ""
+    value: str = ""
 
+
+@dataclass
+class MissingField(FieldError):
     def message(self):
         return f"missing field {self.field}"
 
 
 @dataclass
-class AwsNotEntity(ExampleParseError):
-    field_name: str = ""
-    field_value: str = ""
-
+class AwsNotEntity(FieldError):
     def message(self):
-        return f"field {self.field_name} is '{self.field_value}', which contains a usage of 'AWS' that is not an entity. All uses of 'AWS' must be entities: '&AWS;'."
+        return f"field {self.field} is '{self.value}', which contains a usage of 'AWS' that is not an entity. All uses of 'AWS' must be entities: '&AWS;'."
 
 
 @dataclass
-class LanguagesEmptyError(ExampleParseError):
+class MappingMustBeEntity(FieldError):
+    def message(self):
+        return f"Mapping field {self.field} with value {self.value} must be an entity."
+
+
+@dataclass
+class LanguagesEmptyError(MetadataParseError):
     def message(self):
         return "does not contain any languages."
 
@@ -176,7 +183,7 @@ class MissingSnippetTag(SdkVersionError):
 
 
 @dataclass
-class UnknownService(ExampleParseError):
+class UnknownService(MetadataParseError):
     service: str = ""
 
     def message(self):
@@ -184,7 +191,7 @@ class UnknownService(ExampleParseError):
 
 
 @dataclass
-class DuplicateService(ExampleParseError):
+class DuplicateService(MetadataParseError):
     services: str = ""
 
     def message(self):
@@ -192,7 +199,7 @@ class DuplicateService(ExampleParseError):
 
 
 @dataclass
-class DuplicateExample(ExampleParseError):
+class DuplicateExample(MetadataParseError):
     other_file: str = ""
 
     def message(self):
@@ -207,29 +214,13 @@ class URLMissingTitle(SdkVersionError):
         return f"URL {self.url} is missing a title"
 
 
-# type mappingFieldEmptyError struct {
-# field string
-# }
-
-# func (err *mappingFieldEmptyError) Error() string {
-# return fmt.Sprintf("Mapping field is empty: %v.", err.field)
-# }
-
-# type mappingFieldMustBeEntityError struct {
-# field      string
-# fieldValue string
-# }
-
-# func (err *mappingFieldMustBeEntityError) Error() string {
-# return fmt.Sprintf("Mapping field %v with value %v must be an entity.",
-#     err.field, err.fieldValue)
-# }
+# type mappingFieldMustBeEntityError struct { field string fieldValue string }
+# "Mapping field %v with value %v must be an entity.", err.field, err.fieldValue
 
 # type mappingFieldNonEntityAwsError struct {
 # field      string
 # fieldValue string
 # }
-
 # func (err *mappingFieldNonEntityAwsError) Error() string {
 # return fmt.Sprintf("Mapping field %v contains non-entity usage of AWS: %v", err.field, err.fieldValue)
 # }
