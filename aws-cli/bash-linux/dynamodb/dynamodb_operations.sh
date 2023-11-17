@@ -515,7 +515,8 @@ function dynamodb_get_item() {
     response=$(
       aws dynamodb get-item \
         --table-name "$table_name" \
-        --key file://"$keys"
+        --key file://"$keys" \
+        --output text
     )
   fi
 
@@ -1053,8 +1054,7 @@ function dynamodb_delete_table() {
   iecho ""
 
   response=$(aws dynamodb delete-table \
-    --table-name "$table_name" \
-    --output text)
+    --table-name "$table_name")
 
   local error_code=${?}
 
