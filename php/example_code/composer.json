@@ -16,6 +16,7 @@
       "AwsUtilities\\": "aws_utilities",
 
       "AutoScaling\\": "auto-scaling",
+      "Bedrock\\": "bedrock/",
       "DynamoDb\\": "dynamodb/",
       "DynamoDb\\Basics\\": "dynamodb/dynamodb_basics",
       "DynamoDb\\PartiQL_Basics\\": "dynamodb/partiql_basics",
