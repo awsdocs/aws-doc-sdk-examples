@@ -44,7 +44,7 @@ bedrock_ListFoundationModels:
         - sdk_version: 3
           github: php/example_code/bedrock
           excerpts:
-            - description:
+            - description: List the available &BRlong; foundation models.
               snippet_tags:
                 - php.example_code.bedrock.service.listFoundationModels
     Python:
