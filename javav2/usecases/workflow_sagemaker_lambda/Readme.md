@@ -14,7 +14,7 @@ To use this tutorial, you need the following:
 
 + An AWS account.
 + A Java IDE. 
-+ Java 1.8 JDK or later.
++ Java 17 JDK.
 + Maven 3.6 or later.
 + Set up your development environment. For more information, see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup-basics.html).
 

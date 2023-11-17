@@ -6,7 +6,6 @@
 | ----------- | ----------- |
 | Description | Discusses how to a dynamic web application that streams Amazon Simple Storage Service (Amazon S3) video content over HTTP.    |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 6/09/2023        |
 | Required skills   | Java, Maven  |
 
 ## Purpose
@@ -36,7 +35,7 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java JDK 1.8
++ Java JDK 17
 + Maven 3.6 or later
 
 ### Important
@@ -88,83 +87,7 @@ Create an IntelliJ project that is used to create the web application that strea
 
 ## Add the Spring POM dependencies to your project
 
-At this point, you have a new project named **SpringVideoApp**. Ensure that the pom.xml file resembles the following code.
-
-```xml
-     <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.example</groupId>
-    <artifactId>SpringVideoApp</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <description>Demo project for Spring Boot</description>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.0.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>software.amazon.awssdk</groupId>
-                <artifactId>bom</artifactId>
-                <version>2.20.45</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>s3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-core</artifactId>
-            <version>3.4.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-```
+Make sure that your project's pom.xml file looks like the POM file in this Github repository.
      
  ## Create the Java classes
  

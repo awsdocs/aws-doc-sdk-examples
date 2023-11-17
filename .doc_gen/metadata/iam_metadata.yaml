@@ -3372,6 +3372,15 @@ iam_CreateInstanceProfile:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.iam.CreateInstanceProfile
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.CreateInstanceProfile
   services:
     iam: {CreateInstanceProfile}
 iam_DeleteInstanceProfile:
@@ -3391,6 +3400,15 @@ iam_DeleteInstanceProfile:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.iam.DeleteInstanceProfile
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.DeleteInstanceProfile
   services:
     iam: {DeleteInstanceProfile}
 iam_Scenario_GroupBasics:

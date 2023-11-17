@@ -1029,8 +1029,8 @@ them as a second excerpt (with differentiating description) to the existing exam
 **ec2_metadata.yaml**
 
 * ec2_DescribeIamInstanceProfileAssociations
-* ec2_ReplaceIamInstancePorfileAssociation
-* ec2_CreateaLaunchTemplate
+* ec2_ReplaceIamInstanceProfileAssociation
+* ec2_CreateLaunchTemplate
 * ec2_DeleteLaunchTemplate
 * ec2_DescribeVpcs
 * ec2_DescribeSubnets

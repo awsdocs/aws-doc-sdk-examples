@@ -18,8 +18,12 @@ export class Logger {
     return Promise.resolve();
   }
 
-  hr() {
-    return ["\n", "*".repeat(this.lineLength), "\n"].join("");
+  /**
+   * @param {{ oneLineOnly: boolean }} options
+   */
+  hr({ oneLineOnly } = { oneLineOnly: false }) {
+    const rule = "*".repeat(this.lineLength);
+    return oneLineOnly ? rule : ["\n", rule, "\n"].join("");
   }
 
   /**

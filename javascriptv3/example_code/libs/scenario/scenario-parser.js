@@ -64,8 +64,8 @@ Options:
       }`,
     );
     console.log(
-      `[DEBUG ${new Date().toISOString()}] Context: ${JSON.stringify(
-        scenarios[values.scenario].context,
+      `[DEBUG ${new Date().toISOString()}] State: ${JSON.stringify(
+        scenarios[values.scenario].state,
       )}`,
     );
   }
