@@ -1,0 +1,16 @@
+{
+  "name": "@aws-sdk-examples/elastic-load-balancing-v2",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@aws-sdk/client-elastic-load-balancing-v2": "^3.445.0"
+  },
+  "devDependencies": {
+    "vitest": "^0.34.6"
+  }
+}

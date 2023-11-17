@@ -1723,6 +1723,15 @@ ec2_DescribeIamInstanceProfileAssociations:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DescribeIamInstanceProfileAssociations
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.DescribeIamInstanceProfileAssociations
   services:
     ec2: {DescribeIamInstanceProfileAssociations}
 ec2_ReplaceIamInstanceProfileAssociation:
@@ -1742,6 +1751,15 @@ ec2_ReplaceIamInstanceProfileAssociation:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.ReplaceIamInstanceProfileAssociation
   services:
     ec2: {ReplaceIamInstanceProfileAssociation}
 ec2_CreateLaunchTemplate:
@@ -1761,6 +1779,15 @@ ec2_CreateLaunchTemplate:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.CreateLaunchTemplate
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.CreateLaunchTemplate
   services:
     ec2: {CreateLaunchTemplate}
 ec2_DeleteLaunchTemplate:
@@ -1779,6 +1806,15 @@ ec2_DeleteLaunchTemplate:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DeleteLaunchTemplate
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.DeleteLaunchTemplate
   services:
     ec2: {DeleteLaunchTemplate}
 ec2_DescribeVpcs:
@@ -1797,6 +1833,15 @@ ec2_DescribeVpcs:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DescribeVpcs
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.DescribeVpcs
   services:
     ec2: {DescribeVpcs}
 ec2_DescribeSubnets:
@@ -1815,6 +1860,15 @@ ec2_DescribeSubnets:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DescribeSubnets
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.wkflw.resilient.DescribeSubnets
   services:
     ec2: {DescribeSubnets}
 ec2_Scenario_GetStartedInstances:
