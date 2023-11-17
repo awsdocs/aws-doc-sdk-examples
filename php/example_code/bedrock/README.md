@@ -79,6 +79,8 @@ in the `php` folder.
 
 
 <!--custom.tests.start-->
+From the `aws-doc-sdk-examples/php/example_code/bedrock-runtime` directory:
+
 Install the reequired dependencies using Composer:
 
 ```
