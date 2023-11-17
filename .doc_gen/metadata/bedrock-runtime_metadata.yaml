@@ -189,4 +189,4 @@ bedrock-runtime_Scenario_Invoke_models:
               snippet_tags:
                 - php.example_code.bedrock-runtime.basics.scenario
   services:
-    bedrock-runtime: {InvokeModel, InvokeModelWithResponseStream}
+    bedrock-runtime: {InvokeModel}
