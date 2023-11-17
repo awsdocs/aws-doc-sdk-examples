@@ -30,22 +30,10 @@ class BedrockService extends \AwsUtilities\AWSServiceClass
     }
 
     #snippet-start:[php.example_code.bedrock.service.listFoundationModels]
-    public function listFoundationModels(
-        $provider = null,
-        $inferenceType = null,
-        $outputModality = null,
-        $customizationType = null
-    )
-    {
-        $result = $this->bedrockClient->listFoundationModels([
-            'byProvider' => $provider,
-            'byInferenceType' => $inferenceType,
-            'byOutputModality' => $outputModality,
-            'byCustomizationType' => $customizationType,
-        ]);
+    public function listFoundationModels() {
+        $result = $this->bedrockClient->listFoundationModels();
         return $result;
     }
     #snippet-end:[php.example_code.bedrock.service.listFoundationModels]
 }
-
 #snippet-end:[php.example_code.bedrock.service]
