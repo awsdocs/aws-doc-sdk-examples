@@ -44,7 +44,6 @@ class GettingStartedWithBedrockRuntime
         echo "\n\nMeta Llama 2 Chat: ";
         echo $bedrockRuntimeService->invokeLlama2($prompt);
     }
-
 }
 
 # snippet-end:[php.example_code.bedrock-runtime.basics.scenario]
