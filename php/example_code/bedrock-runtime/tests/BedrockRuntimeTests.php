@@ -13,14 +13,14 @@ use BedrockRuntime\BedrockRuntimeService;
 use Aws\BedrockRuntime\BedrockRuntimeClient;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . "/../BedrockRuntimeService.php";
+require_once __DIR__ . '/../BedrockRuntimeService.php';
 
 /**
  * @group integ
  */
 
- class BedrockRuntimeTests extends TestCase {
-
+class BedrockRuntimeTests extends TestCase
+{
     protected BedrockRuntimeService $bedrockRuntimeService;
 
     public function setup(): void
@@ -35,22 +35,22 @@ require_once __DIR__ . "/../BedrockRuntimeService.php";
 
     public function test_claude_can_be_invoked()
     {
-        $prompt = "A test prompt";
+        $prompt = 'A test prompt';
         $completion = $this->bedrockRuntimeService->invokeClaude($prompt);
         self::assertNotEmpty($completion);
     }
 
     public function test_jurassic2_can_be_invoked()
     {
-        $prompt = "A test prompt";
+        $prompt = 'A test prompt';
         $completion = $this->bedrockRuntimeService->invokeJurassic2($prompt);
         self::assertNotEmpty($completion);
     }
 
     public function test_llama2_can_be_invoked()
     {
-        $prompt = "A test prompt";
+        $prompt = 'A test prompt';
         $completion = $this->bedrockRuntimeService->invokeLlama2($prompt);
         self::assertNotEmpty($completion);
     }
- }
+}

@@ -5,13 +5,13 @@
 
 use BedrockRuntime\GettingStartedWithBedrockRuntime;
 
-include __DIR__ . "/vendor/autoload.php";
+include __DIR__ . '/vendor/autoload.php';
 
-include "GettingStartedWithBedrockRuntime.php";
+include 'GettingStartedWithBedrockRuntime.php';
 
 try {
     $runner = new GettingStartedWithBedrockRuntime();
     $runner->runExample();
 } catch (Exception $e) {
-    echo "Error: (" . $e->getCode() . ") - " . $e->getMessage() . "\n";
+    echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
 }

@@ -12,7 +12,7 @@
 # snippet-start:[php.example_code.bedrock-runtime.basics.scenario]
 namespace BedrockRuntime;
 
-class GettingStartedWithBedrockRuntime 
+class GettingStartedWithBedrockRuntime
 {
     protected BedrockRuntimeService $bedrockRuntimeService;
 
@@ -31,16 +31,16 @@ class GettingStartedWithBedrockRuntime
 
         $bedrockRuntimeService = new BedrockRuntimeService($clientArgs);
 
-        $prompt = "In one paragraph, who are you?";
+        $prompt = 'In one paragraph, who are you?';
 
         echo "\nPrompt: " . $prompt;
 
         echo "\n\nAnthropic Claude:";
         echo $bedrockRuntimeService->invokeClaude($prompt);
-        
+
         echo "\n\nAI21 Labs Jurassic-2: ";
         echo $bedrockRuntimeService->invokeJurassic2($prompt);
-        
+
         echo "\n\nMeta Llama 2 Chat: ";
         echo $bedrockRuntimeService->invokeLlama2($prompt);
     }
