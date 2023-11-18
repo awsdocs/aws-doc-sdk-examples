@@ -34,16 +34,16 @@ class GettingStartedWithBedrock
         echo "Let's retrieve the available foundation models (FMs).\n";
 
         $result = $bedrockService->listFoundationModels();
-        foreach ($result["modelSummaries"] as $model) {
+        foreach ($result['modelSummaries'] as $model) {
             echo "\n==========================================\n";
-            echo " Model: {$model["modelId"]}\n";
+            echo " Model: {$model['modelId']}\n";
             echo "------------------------------------------\n";
-            echo " Name: {$model["modelName"]}\n";
-            echo " Provider: {$model["providerName"]}\n";
-            echo " Input modalities: " . json_encode($model["inputModalities"]) . "\n";
-            echo " Output modalities: " . json_encode($model["outputModalities"]) . "\n";
-            echo " Supported customaizations: " . json_encode($model["customizationsSupported"]) . "\n";
-            echo " Supported inference types: " . json_encode($model["inferenceTypesSupported"]) . "\n";
+            echo " Name: {$model['modelName']}\n";
+            echo " Provider: {$model['providerName']}\n";
+            echo " Input modalities: " . json_encode($model['inputModalities']) . "\n";
+            echo " Output modalities: " . json_encode($model['outputModalities']) . "\n";
+            echo " Supported customaizations: " . json_encode($model['customizationsSupported']) . "\n";
+            echo " Supported inference types: " . json_encode($model['inferenceTypesSupported']) . "\n";
             echo "==========================================\n";
         }
     }

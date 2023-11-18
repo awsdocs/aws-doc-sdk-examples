@@ -30,7 +30,8 @@ class BedrockService extends \AwsUtilities\AWSServiceClass
     }
 
     #snippet-start:[php.example_code.bedrock.service.listFoundationModels]
-    public function listFoundationModels() {
+    public function listFoundationModels()
+    {
         $result = $this->bedrockClient->listFoundationModels();
         return $result;
     }

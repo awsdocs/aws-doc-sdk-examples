@@ -12,7 +12,7 @@ namespace bedrock\tests;
 use Bedrock\BedrockService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . "/../BedrockService.php";
+require_once __DIR__ . '/../BedrockService.php';
 
 /**
  * @group integ
@@ -34,6 +34,6 @@ class BedrockBasicsTests extends TestCase
     public function test_foundation_models_can_be_listed()
     {
         $result = $this->bedrockService->listFoundationModels();
-        self::assertNotEmpty($result["modelSummaries"]);
+        self::assertNotEmpty($result['modelSummaries']);
     }
 }
