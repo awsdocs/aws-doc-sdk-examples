@@ -306,6 +306,19 @@ transcribe_Scenario_GettingStartedTranscriptionJobs:
     title: Getting started with &TSC;
     url: transcribe/latest/dg/getting-started.html
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description: Transcribes a PCM file.
+              snippet_tags:
+                - transcribe.java-streaming-demo-file.main
+            - description: Transcribes streaming audio from your computer's microphone.
+              snippet_tags:
+                - transcribe.java-streaming-demo
+    Python:    
     Python:
       versions:
         - sdk_version: 3
