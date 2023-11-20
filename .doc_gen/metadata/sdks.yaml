@@ -106,7 +106,6 @@ Kotlin:
     1:
       long: "&Kotlinlong;"
       short: "&Kotlin;"
-      caveat: "This is prerelease documentation for a feature in preview release. It is subject to change."
       expanded:
         long: "AWS SDK for Kotlin"
         short: "SDK for Kotlin"
