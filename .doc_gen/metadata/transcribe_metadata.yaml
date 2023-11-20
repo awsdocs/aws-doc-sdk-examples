@@ -318,6 +318,9 @@ transcribe_Scenario_GettingStartedTranscriptionJobs:
             - description: Transcribes streaming audio from your computer's microphone.
               snippet_tags:
                 - transcribe.java-streaming-demo
+            - description: Audio is streamed to Amazon Transcriber as part of a use case to gain insight into customer-agent interactions.
+              snippet_tags:
+                - transcribe.java-streaming-call-demo  
     Python:    
     Python:
       versions:
