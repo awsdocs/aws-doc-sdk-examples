@@ -140,8 +140,8 @@ language = {
     },
     "Rust": {
         1: {
-            "base_folder": "rust_dev_preview",
-            "service_folder": 'rust_dev_preview/examples/{{service["name"]}}',
+            "base_folder": "rustv1",
+            "service_folder": 'rustv1/examples/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.rs/aws-sdk-{{service["name"]}}/latest/aws_sdk_{{service["name"]}}/',
         }
     },

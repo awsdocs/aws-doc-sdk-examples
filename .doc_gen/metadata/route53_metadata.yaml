@@ -8,7 +8,7 @@ route-53_ListHostedZones:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/route53
+          github: rustv1/examples/route53
           sdkguide:
           excerpts:
             - description:

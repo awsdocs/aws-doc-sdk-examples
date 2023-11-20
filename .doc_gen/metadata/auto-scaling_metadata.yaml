@@ -33,7 +33,7 @@ auto-scaling_Hello:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_tags:
@@ -101,7 +101,7 @@ auto-scaling_CreateAutoScalingGroup:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_tags:
@@ -169,7 +169,7 @@ auto-scaling_DeleteAutoScalingGroup:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_tags:
@@ -236,7 +236,7 @@ auto-scaling_DescribeAutoScalingGroups:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_tags:
@@ -303,7 +303,7 @@ auto-scaling_UpdateAutoScalingGroup:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_tags:
@@ -384,7 +384,7 @@ auto-scaling_TerminateInstanceInAutoScalingGroup:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_tags:
@@ -455,7 +455,7 @@ auto-scaling_SetDesiredCapacity:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_tags:
@@ -525,7 +525,7 @@ auto-scaling_DescribeAutoScalingInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_tags:
@@ -595,7 +595,7 @@ auto-scaling_DescribeScalingActivities:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_tags:
@@ -665,7 +665,7 @@ auto-scaling_EnableMetricsCollection:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_tags:
@@ -735,7 +735,7 @@ auto-scaling_DisableMetricsCollection:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_tags:
@@ -852,14 +852,14 @@ auto-scaling_Scenario_GroupsAndInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/auto-scaling
+          github: rustv1/examples/auto-scaling
           excerpts:
             - description:
               snippet_files:
-                - rust_dev_preview/examples/auto-scaling/Cargo.toml
-                - rust_dev_preview/examples/auto-scaling/src/bin/scenario.rs
-                - rust_dev_preview/examples/auto-scaling/src/lib.rs
-                - rust_dev_preview/examples/auto-scaling/src/scenario.rs
+                - rustv1/examples/auto-scaling/Cargo.toml
+                - rustv1/examples/auto-scaling/src/bin/scenario.rs
+                - rustv1/examples/auto-scaling/src/lib.rs
+                - rustv1/examples/auto-scaling/src/scenario.rs
   services:
     auto-scaling:
       {

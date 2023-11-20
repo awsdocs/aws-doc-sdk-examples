@@ -183,7 +183,7 @@ export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   ...EMPTY_LAMBDAS_STRATEGY,
   codeAsset() {
     const rustSources = resolve(
-      "../../../rust_dev_preview/cross_service/photo_asset_management"
+      "../../../rustv1/cross_service/photo_asset_management"
     );
 
     console.log(
@@ -193,7 +193,7 @@ export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
       cwd: rustSources,
     });
     const rustZip = resolve(
-      "../../../rust_dev_preview/target/lambda/pam/bootstrap.zip"
+      "../../../rustv1/target/lambda/pam/bootstrap.zip"
     );
     return Code.fromAsset(rustZip);
 

@@ -8,7 +8,7 @@ ecr_DescribeRepositories:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ecr
+          github: rustv1/examples/ecr
           sdkguide:
           excerpts:
             - description:
@@ -25,7 +25,7 @@ ecr_ListImages:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ecr
+          github: rustv1/examples/ecr
           sdkguide:
           excerpts:
             - description:

@@ -283,7 +283,7 @@ sqs_ListQueues:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sqs
+          github: rustv1/examples/sqs
           excerpts:
             - description: Retrieve the first &SQS; queue listed in the Region.
               snippet_tags:
@@ -485,7 +485,7 @@ sqs_SendMessage:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sqs
+          github: rustv1/examples/sqs
           excerpts:
             - description:
               snippet_tags:
@@ -628,7 +628,7 @@ sqs_ReceiveMessage:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sqs
+          github: rustv1/examples/sqs
           excerpts:
             - description:
               snippet_tags:

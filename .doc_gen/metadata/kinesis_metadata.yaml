@@ -36,7 +36,7 @@ kinesis_CreateStream:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kinesis
+          github: rustv1/examples/kinesis
           excerpts:
             - description:
               snippet_tags:
@@ -87,7 +87,7 @@ kinesis_DescribeStream:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kinesis
+          github: rustv1/examples/kinesis
           excerpts:
             - description:
               snippet_tags:
@@ -137,7 +137,7 @@ kinesis_ListStreams:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kinesis
+          github: rustv1/examples/kinesis
           excerpts:
             - description:
               snippet_tags:
@@ -206,7 +206,7 @@ kinesis_DeleteStream:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kinesis
+          github: rustv1/examples/kinesis
           excerpts:
             - description:
               snippet_tags:
@@ -249,7 +249,7 @@ kinesis_PutRecord:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kinesis
+          github: rustv1/examples/kinesis
           excerpts:
             - description:
               snippet_tags:
