@@ -155,6 +155,7 @@ ALLOW_LIST = {
     "com/firehose/latest/APIReference/Welcome",
     "com/greengrass/latest/developerguide/lra",
     "com/greengrass/latest/developerguide/sns",
+    "com/kotlin/api/latest/mediaconvert/index",
     "com/pinpoint/latest/apireference/welcome",
     "com/redshift/latest/APIReference/Welcome",
     "com/rekognition/latest/dg/considerations",
