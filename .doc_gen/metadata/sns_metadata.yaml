@@ -300,7 +300,7 @@ sns_ListTopics:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sns
+          github: rustv1/examples/sns
           excerpts:
             - snippet_tags:
                 - sns.rust.list-topics
@@ -739,7 +739,7 @@ sns_CreateTopic:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sns
+          github: rustv1/examples/sns
           excerpts:
             - snippet_tags:
                 - sns.rust.create-topic
@@ -947,7 +947,7 @@ sns_Publish:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sns
+          github: rustv1/examples/sns
           excerpts:
             - snippet_tags:
                 - sns.rust.sns-hello-world
@@ -1175,7 +1175,7 @@ sns_Subscribe:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sns
+          github: rustv1/examples/sns
           excerpts:
             - snippet_tags:
                 - sns.rust.sns-hello-world

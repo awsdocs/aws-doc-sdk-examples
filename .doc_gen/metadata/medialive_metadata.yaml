@@ -8,7 +8,7 @@ medialive_ListInputs:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/medialive
+          github: rustv1/examples/medialive
           excerpts:
             - description: List your &EML; input names and ARNs in the Region.
               snippet_tags:

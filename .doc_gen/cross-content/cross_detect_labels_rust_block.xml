@@ -12,6 +12,6 @@
   </para>
   <para>
     For complete source code and instructions on how to set up and run, see the full example on
-    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/rust_dev_preview/cross_service/detect_labels/src/main.rs">GitHub</ulink>.
+    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/rustv1/cross_service/detect_labels/src/main.rs">GitHub</ulink>.
   </para>
 </block>

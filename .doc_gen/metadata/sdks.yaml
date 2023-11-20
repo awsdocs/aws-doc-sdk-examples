@@ -106,7 +106,6 @@ Kotlin:
     1:
       long: "&Kotlinlong;"
       short: "&Kotlin;"
-      caveat: "This is prerelease documentation for a feature in preview release. It is subject to change."
       expanded:
         long: "AWS SDK for Kotlin"
         short: "SDK for Kotlin"
@@ -178,7 +177,6 @@ Rust:
     1:
       long: "&Rustlong;"
       short: "&Rust;"
-      caveat: "This documentation is for an SDK in preview release. The SDK is subject to change and should not be used in production."
       expanded:
         long: "AWS SDK for Rust"
         short: "SDK for Rust"

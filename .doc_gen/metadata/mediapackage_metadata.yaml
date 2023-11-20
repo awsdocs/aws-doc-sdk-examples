@@ -8,7 +8,7 @@ mediapackage_ListChannels:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/mediapackage
+          github: rustv1/examples/mediapackage
           excerpts:
             - description: List channel ARNs and descriptions.
               snippet_tags:
@@ -24,7 +24,7 @@ mediapackage_ListOriginEndpoints:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/mediapackage
+          github: rustv1/examples/mediapackage
           excerpts:
             - description: List your endpoint descriptions and URLs.
               snippet_tags:

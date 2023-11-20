@@ -8,7 +8,7 @@ qldb_CreateLedger:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/qldb
+          github: rustv1/examples/qldb
           excerpts:
             - description:
               snippet_tags:
@@ -24,7 +24,7 @@ qldb_ListLedgers:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/qldb
+          github: rustv1/examples/qldb
           excerpts:
             - description:
               snippet_tags:

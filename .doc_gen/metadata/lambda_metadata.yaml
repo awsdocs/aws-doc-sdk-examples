@@ -146,7 +146,7 @@ lambda_CreateFunction:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/lambda
+          github: rustv1/examples/lambda
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.create_function
@@ -254,7 +254,7 @@ lambda_DeleteFunction:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/lambda
+          github: rustv1/examples/lambda
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.delete_function
@@ -362,7 +362,7 @@ lambda_Invoke:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/lambda
+          github: rustv1/examples/lambda
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.invoke
@@ -452,7 +452,7 @@ lambda_GetFunction:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/lambda
+          github: rustv1/examples/lambda
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.get_function
@@ -541,7 +541,7 @@ lambda_UpdateFunctionCode:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/lambda
+          github: rustv1/examples/lambda
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.update_function_code
@@ -631,7 +631,7 @@ lambda_UpdateFunctionConfiguration:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/lambda
+          github: rustv1/examples/lambda
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.update_function_configuration
@@ -720,7 +720,7 @@ lambda_ListFunctions:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/lambda
+          github: rustv1/examples/lambda
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.list_functions
@@ -912,17 +912,17 @@ lambda_Scenario_GettingStartedFunctions:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/lambda
+          github: rustv1/examples/lambda
           excerpts:
             - description: The Cargo.toml with dependencies used in this scenario.
               snippet_files:
-                - rust_dev_preview/examples/lambda/Cargo.toml
+                - rustv1/examples/lambda/Cargo.toml
             - description: A collection of utilities that streamline calling Lambda for this scenario. This file is src/ations.rs in the crate.
               snippet_files:
-                - rust_dev_preview/examples/lambda/src/actions.rs
+                - rustv1/examples/lambda/src/actions.rs
             - description: A binary to run the scenario from front to end, using command line flags to control some behavior. This file is src/bin/scenario.rs in the crate.
               snippet_files:
-                - rust_dev_preview/examples/lambda/src/bin/scenario.rs
+                - rustv1/examples/lambda/src/bin/scenario.rs
   services:
     lambda:
       {

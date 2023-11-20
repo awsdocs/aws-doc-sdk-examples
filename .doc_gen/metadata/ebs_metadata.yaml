@@ -8,7 +8,7 @@ ebs_StartSnapshot:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ebs
+          github: rustv1/examples/ebs
           excerpts:
             - description:
               snippet_tags:
@@ -24,7 +24,7 @@ ebs_PutSnapshotBlock:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ebs
+          github: rustv1/examples/ebs
           excerpts:
             - description:
               snippet_tags:
@@ -40,7 +40,7 @@ ebs_CompleteSnapshot:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ebs
+          github: rustv1/examples/ebs
           excerpts:
             - description:
               snippet_tags:

@@ -17,7 +17,7 @@ ssm_DescribeParameters:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ssm
+          github: rustv1/examples/ssm
           excerpts:
             - description:
               snippet_tags:
@@ -42,7 +42,7 @@ ssm_PutParameter:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ssm
+          github: rustv1/examples/ssm
           excerpts:
             - description:
               snippet_tags:

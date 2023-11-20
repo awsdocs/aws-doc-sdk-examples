@@ -739,16 +739,16 @@ cross_Testing:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/testing
+          github: rustv1/examples/testing
           excerpts:
             - description: Cargo.toml for testing examples.
               snippet_files:
-                - rust_dev_preview/examples/testing/Cargo.toml
+                - rustv1/examples/testing/Cargo.toml
             - description: Unit testing example using automock and a service wrapper.
               snippet_files:
-                - rust_dev_preview/examples/testing/src/wrapper.rs
+                - rustv1/examples/testing/src/wrapper.rs
             - description: Integration testing example using StaticReplayClient.
               snippet_files:
-                - rust_dev_preview/examples/testing/src/replay.rs
+                - rustv1/examples/testing/src/replay.rs
   services:
     s3:

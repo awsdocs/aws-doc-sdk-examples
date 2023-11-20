@@ -92,7 +92,7 @@ resources:
 - [Python cross-service examples](/python/cross_service/README.md)
 -->
 
-- [Rust cross-service examples](/rust_dev_preview/cross_service/rest_ses/README.md)
+- [Rust cross-service examples](/rustv1/cross_service/rest_ses/README.md)
 
 ---
 

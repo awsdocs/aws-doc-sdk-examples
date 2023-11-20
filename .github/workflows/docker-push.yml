@@ -94,7 +94,7 @@ jobs:
       - name: Build, tag, and push docker image to Amazon ECR Public - Rust
         if: contains(github.event.pull_request.labels.*.name, 'Rust')
         env:
-          REPOSITORY: rust_dev_preview
+          REPOSITORY: rustv1
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
