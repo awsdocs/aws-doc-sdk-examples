@@ -46,7 +46,8 @@ Kotlin:
   sdk:
     1:
       long: "&AWS; SDK for Kotlin"
-      short: "SDK for Kotlin"
+      # short: "SDK for Kotlin" # From original test, which I think is wrong. @larencra
+      short: "&AWS; SDK for Kotlin"
       caveat: "This is prerelease documentation for a feature in preview release. It is subject to change."
   guide: "&NO_GUIDE;"
 .NET:

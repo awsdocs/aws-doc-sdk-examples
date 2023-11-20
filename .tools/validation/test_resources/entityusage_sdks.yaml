@@ -4,4 +4,7 @@ C++:
     1:
       long: CPPlong
       short: CPP
+      expanded:
+        long: CPPlong
+        short: CPP
   guide: guide-cpp-dev

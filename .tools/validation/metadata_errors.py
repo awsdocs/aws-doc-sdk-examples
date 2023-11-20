@@ -63,7 +63,8 @@ class MetadataErrors:
         return repr(self._errors)
 
     def __str__(self) -> str:
-        return f"ExampleErrors with {len(self)} errors"
+        errs = "\n".join([f"\t{err!r}" for err in self])
+        return f"ExampleErrors with {len(self)} errors:\n{errs}"
 
 
 @dataclass

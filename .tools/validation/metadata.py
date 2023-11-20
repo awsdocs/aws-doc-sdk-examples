@@ -1,32 +1,12 @@
 #!/usr/bin/env python3
 
-from dataclasses import dataclass
-from enum import Enum
+from dataclasses import dataclass, field
 from typing import Optional, Self
 from os.path import splitext
 import metadata_errors
 from metadata_errors import MetadataErrors, MetadataParseError
+from services import Service
 from sdks import Sdk
-
-Languages = Enum(
-    "Language",
-    [
-        "Bash",
-        "C++",
-        "CLI",
-        "Go",
-        "Java",
-        "JavaScript",
-        "Kotlin",
-        ".NET",
-        "PHP",
-        "Python",
-        "Ruby",
-        "Rust",
-        "SAP ABAP",
-        "Swift",
-    ],
-)
 
 
 @dataclass
@@ -36,8 +16,9 @@ class Snippet:
 
 @dataclass
 class DocGen:
-    sdks: dict[str, Sdk]
-    snippets: dict[str, Snippet]
+    languages: dict[str, Sdk] = field(default_factory=dict)
+    services: dict[str, Service] = field(default_factory=dict)
+    snippets: dict[str, Snippet] = field(default_factory=dict)
 
 
 @dataclass
@@ -69,33 +50,33 @@ class Url:
 @dataclass
 class Excerpt:
     description: Optional[str]
-    # A path within the repo to extract the entire file as a snippet.
-    snippet_files: list[str]
     # Tags embedded in source files to extract as snippets.
     snippet_tags: list[str]
+    # A path within the repo to extract the entire file as a snippet.
+    snippet_files: list[str] = field(default_factory=list)
 
     @staticmethod
     def from_yaml(yaml: any) -> Self:
         description = yaml.get("description")
         snippet_files = [str(file) for file in yaml.get("snippet_files", [])]
         snippet_tags = [str(tag) for tag in yaml.get("snippet_tags", [])]
-        return Excerpt(description, snippet_files, snippet_tags)
+        return Excerpt(description, snippet_tags, snippet_files)
 
 
 @dataclass
 class Version:
     sdk_version: int
     # Additional ZonBook XML to include in the tab for this sample.
-    block_content: Optional[str]
+    block_content: Optional[str] = field(default=None)
     # The specific code samples to include in the example.
-    excerpts: Optional[list[Excerpt]]
+    excerpts: Optional[list[Excerpt]] = field(default=None)
     # Link to the source code for this example. TODO rename.
-    github: Optional[str]
-    add_services: dict[str, str]
+    github: Optional[str] = field(default=None)
+    add_services: dict[str, str] = field(default_factory=dict)
     # Deprecated. Replace with guide_topic list.
-    sdkguide: Optional[str]
+    sdkguide: Optional[str] = field(default=None)
     # Link to additional topic places. TODO: Overwritten by aws-doc-sdk-example when merging.
-    more_info: list[Url]
+    more_info: list[Url] = field(default_factory=list)
 
     @staticmethod
     def from_yaml(yaml: dict[str, any], doc_gen: DocGen) -> Self | MetadataParseError:
@@ -161,9 +142,9 @@ class Language:
     versions: list[Version]
 
     @staticmethod
-    def from_yaml(name: str, yaml: any) -> Self | MetadataErrors:
+    def from_yaml(name: str, yaml: any, doc_gen: DocGen) -> Self | MetadataErrors:
         errors = MetadataErrors()
-        if name not in Languages.__members__:
+        if name not in doc_gen.languages:
             errors.append(metadata_errors.UnknownLanguage(language=name))
 
         yaml_versions = yaml.get("versions")
@@ -173,7 +154,7 @@ class Language:
 
         versions: list[Version] = []
         for version in yaml_versions:
-            version = Version.from_yaml(version)
+            version = Version.from_yaml(version, doc_gen)
             if isinstance(version, Version):
                 versions.append(version)
             else:
@@ -189,24 +170,25 @@ class Language:
 
 @dataclass
 class Example:
+    id: str
+    file: str
     # Human readable title. TODO: Defaults to slug-to-title of the ID if not provided.
     title: str
     # Used in the TOC. TODO: Defaults to slug-to-title of the ID if not provided.
     title_abbrev: str
+    synopsis: str
+    languages: dict[str, Language]
     # String label categories. Categories inferred by cross-service with multiple services, and can be whatever else it wants. Controls where in the TOC it appears.
-    category: Optional[str]
+    category: Optional[str] = field(default=None)
     # Link to additional topic places.
-    guide_topic: Url  # TODO: Url|list[Url]
-    # TODO how to add a language here and require it in sdks_schema.
-    languages: dict[Languages, Language]
+    guide_topic: Optional[Url] = field(default=None)  # TODO: Url|list[Url]
+    # TODO how to add a language here and require it in services_schema.
     # TODO document service_main and services. Not to be used by tributaries. Part of Cross Service.
     # List of services used by the examples. Lines up with those in services.yaml.
-    service_main: Optional[str]
-    services: dict[str, dict[str, str]]
-    synopsis: str
-    synopsis_list: list[str]
-    file: str
-    id: str
+    service_main: Optional[str] = field(default=None)
+    services: dict[str, dict[str, str]] = field(default_factory=dict)
+    synopsis_list: list[str] = field(default_factory=list)
+    source_key: Optional[str] = field(default=None)
 
     @staticmethod
     def from_yaml(yaml: any, doc_gen: DocGen) -> Self | MetadataErrors:
@@ -217,6 +199,7 @@ class Example:
         synopsis = get_with_valid_entities("synopsis", yaml, errors, opt=True)
 
         category = yaml.get("category")
+        source_key = yaml.get("source_key")
         services = parse_services(yaml.get("services", {}), errors, doc_gen)
         synopsis_list = [str(syn) for syn in yaml.get("synopsis_list", [])]
 
@@ -231,31 +214,32 @@ class Example:
             errors.append(metadata_errors.MissingField(field="languages"))
         else:
             for name in yaml_languages:
-                language = Language.from_yaml(name, yaml_languages[name])
+                language = Language.from_yaml(name, yaml_languages[name], doc_gen)
                 if isinstance(language, Language):
                     languages.append(language)
                 else:
                     errors.extend(language)
 
         service_main = yaml.get("service_main", None)
-        if service_main is not None and service_main not in doc_gen.sdks:
+        if service_main is not None and service_main not in doc_gen.services:
             errors.append(metadata_errors.UnknownService(service=service_main))
 
         if len(errors) > 0:
             return errors
 
         return Example(
-            title,
-            title_abbrev,
-            category,
-            guide_topic,
-            languages,
-            service_main,
-            services,
-            synopsis,
-            synopsis_list,
-            file="",
             id="",
+            file="",
+            title=title,
+            title_abbrev=title_abbrev,
+            category=category,
+            guide_topic=guide_topic,
+            languages=languages,
+            service_main=service_main,
+            services=services,
+            synopsis=synopsis,
+            synopsis_list=synopsis_list,
+            source_key=source_key,
         )
 
 
@@ -266,13 +250,13 @@ def parse_services(
         return {}
     services = {}
     for name in yaml:
-        if name not in doc_gen.sdks:
+        if name not in doc_gen.services:
             errors.append(metadata_errors.UnknownService(service=name))
         else:
             service = yaml.get(name, {})
             if service is None:
                 service = {}
-            services[name] = {key: str(service[key]) for key in service}
+            services[name] = {key: service[key] for key in service}
     return services
 
 
@@ -330,12 +314,15 @@ if __name__ == "__main__":
     import yaml
     from pathlib import Path
 
-    with open(
+    doc_gen = DocGen()
+
+    path = (
         Path(__file__).parent.parent.parent
         / ".doc_gen"
         / "metadata"
         / "s3_metadata.yaml"
-    ) as file:
+    )
+    with open(path) as file:
         meta = yaml.safe_load(file)
-    examples = parse(file, meta)
+    examples = parse(path.name, meta, doc_gen)
     print(f"{examples!r}")

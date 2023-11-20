@@ -10,17 +10,169 @@ import yaml
 from pathlib import Path
 
 import metadata_errors
-from metadata import parse, Example, Url, Language, Version, Excerpt
+from metadata import parse, Example, Url, Language, Version, Excerpt, DocGen
+from services import Service
 
 
-def load(path) -> list[Example] | list[metadata_errors.ExampleParseError]:
-    with open(Path(__file__).parent / "test_resources" / path) as file:
+def load(path: Path, doc_gen: DocGen) -> list[Example] | metadata_errors.MetadataErrors:
+    root = Path(__file__).parent
+    filename = root / "test_resources" / path
+    with open(filename) as file:
         meta = yaml.safe_load(file)
-    return parse(path, meta)
+    return parse(filename.name, meta, doc_gen)
+
+
+DOC_GEN = DocGen(
+    services={"ses": Service(), "sns": Service(), "sqs": Service(), "s3": Service()},
+    languages={
+        "C++": Language(name="C++", versions=[]),
+        "Java": Language(name="Java", versions=[]),
+        "JavaScript": Language(name="JavaScript", versions=[]),
+        "PHP": Language(name="PHP", versions=[]),
+    },
+)
+
+GOOD_SINGLE_CPP = """
+sns_DeleteTopic:
+   title: Deleting an &SNS; topic
+   title_abbrev: Deleting a topic
+   synopsis: |-
+     Shows how to delete an &SNS; topic.
+   languages:
+     C++:
+       versions:
+         - sdk_version: 1
+           github: cpp/example_code/sns
+           sdkguide: sdkguide/link
+           excerpts:
+             - description: test excerpt description
+               snippet_tags:
+                 - test.excerpt
+   services:
+     sns:
+       ? Operation1
+       ? Operation2
+     ses: { Operation1, Operation2 }
+     sqs:
+"""
+
+
+def test_parse():
+    meta = yaml.safe_load(GOOD_SINGLE_CPP)
+    parsed = parse("test_cpp.yaml", meta, DOC_GEN)
+    assert parsed == [
+        Example(
+            file="test_cpp.yaml",
+            id="sns_DeleteTopic",
+            title="Deleting an &SNS; topic",
+            title_abbrev="Deleting a topic",
+            synopsis="Shows how to delete an &SNS; topic.",
+            services={
+                "sns": {"Operation1": None, "Operation2": None},
+                "ses": {"Operation1": None, "Operation2": None},
+                "sqs": {},
+            },
+            languages=[
+                Language(
+                    name="C++",
+                    versions=[
+                        Version(
+                            sdk_version=1,
+                            github="cpp/example_code/sns",
+                            sdkguide="sdkguide/link",
+                            excerpts=[
+                                Excerpt(
+                                    description="test excerpt description",
+                                    snippet_tags=["test.excerpt"],
+                                )
+                            ],
+                        )
+                    ],
+                )
+            ],
+        )
+    ]
+
+
+CROSS_META = """
+cross_DeleteTopic:
+  title: Delete Topic
+  title_abbrev: delete topic
+  languages:
+     Java:
+       versions:
+         - sdk_version: 3
+           block_content: cross_DeleteTopic_block.xml
+  services:
+     sns:
+"""
+
+
+def test_parse_cross():
+    meta = yaml.safe_load(CROSS_META)
+    actual = parse("cross.yaml", meta, DOC_GEN)
+    assert actual == [
+        Example(
+            file="cross.yaml",
+            id="cross_DeleteTopic",
+            title="Delete Topic",
+            title_abbrev="delete topic",
+            synopsis=None,
+            services={"sns": {}},
+            languages=[
+                Language(
+                    name="Java",
+                    versions=[
+                        Version(
+                            sdk_version=3, block_content="cross_DeleteTopic_block.xml"
+                        )
+                    ],
+                )
+            ],
+        )
+    ]
+
+
+CURATED = """
+autogluon_tabular_with_sagemaker_pipelines:
+  title: AutoGluon Tabular with SageMaker Pipelines
+  title_abbrev: AutoGluon Tabular with SageMaker Pipelines
+  synopsis: use AutoGluon with SageMaker Pipelines.
+  source_key: amazon-sagemaker-examples
+  languages:
+     Java:
+       versions:
+         - sdk_version: 2
+           block_content: block.xml
+  services:
+     s3:
+"""
+
+
+def test_parse_curated():
+    meta = yaml.safe_load(CURATED)
+    actual = parse("curated.yaml", meta, DOC_GEN)
+    assert actual == [
+        Example(
+            id="autogluon_tabular_with_sagemaker_pipelines",
+            file="curated.yaml",
+            title="AutoGluon Tabular with SageMaker Pipelines",
+            title_abbrev="AutoGluon Tabular with SageMaker Pipelines",
+            source_key="amazon-sagemaker-examples",
+            languages=[
+                Language(
+                    name="Java",
+                    versions=[Version(sdk_version=2, block_content="block.xml")],
+                )
+            ],
+            services={"s3": {}},
+            synopsis="use AutoGluon with SageMaker Pipelines.",
+        )
+    ]
 
 
 def test_verify_load_successful():
-    examples = load("valid_metadata.yaml")
+    examples = load("valid_metadata.yaml", DOC_GEN)
     assert examples == [
         Example(
             file="valid_metadata.yaml",
@@ -209,7 +361,7 @@ def test_verify_load_successful():
     ],
 )
 def test_common_errors(filename, expected_errors):
-    actual = load(filename)
+    actual = load(filename, DOC_GEN)
     assert expected_errors == actual._errors
 
 
