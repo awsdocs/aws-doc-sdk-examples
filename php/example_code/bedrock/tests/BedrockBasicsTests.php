@@ -12,8 +12,6 @@ namespace bedrock\tests;
 use Bedrock\BedrockService;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../BedrockService.php';
-
 /**
  * @group integ
  */
