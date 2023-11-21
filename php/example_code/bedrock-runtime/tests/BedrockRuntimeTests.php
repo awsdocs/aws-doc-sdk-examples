@@ -10,10 +10,7 @@
 namespace bedrockruntime\tests;
 
 use BedrockRuntime\BedrockRuntimeService;
-use Aws\BedrockRuntime\BedrockRuntimeClient;
 use PHPUnit\Framework\TestCase;
-
-require_once __DIR__ . '/../BedrockRuntimeService.php';
 
 /**
  * @group integ
