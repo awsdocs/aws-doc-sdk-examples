@@ -1,0 +1,15 @@
+{
+    "require": {
+        "aws/aws-sdk-php": "^3.286",
+        "guzzlehttp/guzzle": "^7.8"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "*"
+        },
+        "psr-4": {
+            "BedrockRuntime\\": "../bedrock-runtime/",
+            "AwsUtilities\\": "../aws_utilities/"
+        }
+    }
+}

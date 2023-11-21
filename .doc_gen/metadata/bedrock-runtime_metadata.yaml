@@ -33,6 +33,14 @@ bedrock-runtime_InvokeClaude:
             - description: Invoke the Anthropic Claude 2 foundation model.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_claude.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the Anthropic Claude 2 foundation model.
+              snippet_tags:
+                - php.example_code.bedrock-runtime.service.invokeClaude
     Python:
       versions:
         - sdk_version: 3
@@ -58,6 +66,14 @@ bedrock-runtime_InvokeJurassic2:
             - description: Invoke the AI21 Labs Jurassic-2 foundation model.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_jurassic2.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the AI 21 Labs Jurassic-2 foundation model.
+              snippet_tags:
+                - php.example_code.bedrock-runtime.service.invokeJurassic2
     Python:
       versions:
         - sdk_version: 3
@@ -84,13 +100,21 @@ bedrock-runtime_InvokeLlama2:
             - description: Invoke the Meta Llama 2 foundation model.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_llama2.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the Meta Llama 2 foundation model.
+              snippet_tags:
+                - php.example_code.bedrock-runtime.service.invokeLlama2
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/bedrockruntime
           sdkguide:
           excerpts:
-            - description: Invoke the AI 21 Labs Jurassic-2 foundation model.
+            - description: Invoke the Meta Llama 2 foundation model.
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeMetaLlama2
   services:
@@ -145,3 +169,24 @@ bedrock-runtime_InvokeModelWithResponseStream:
                 - python.example_code.bedrock-runtime.InvokeModelWithResponseStream
   services:
     bedrock-runtime: {InvokeModelWithResponseStream}
+
+bedrock-runtime_Scenario_Invoke_models:
+  title: Invoke multiple large-language models (LLMs) on &BR;
+  title_abbrev: Invoke multiple LLMs on &BR;
+  synopsis: invoke multiple large-language-models (LLMs) on &BR;.
+  synopsis_list:
+    - Generate text with Anthropic Claude 2.
+    - Generate text with AI21 Labs Jurassic-2.
+    - Generate text with Meta Llama 2 Chat.
+  category: Scenarios
+  languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/bedrock-runtime/
+          excerpts:
+            - description: Invoke multiple LLMs on &BR;.
+              snippet_tags:
+                - php.example_code.bedrock-runtime.basics.scenario
+  services:
+    bedrock-runtime: {InvokeModel}
