@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform logging and tracing using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform logging and tracing using the AWS SDK for Rust.
 
 ## Code examples
 

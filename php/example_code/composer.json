@@ -17,6 +17,7 @@
 
       "AutoScaling\\": "auto-scaling",
       "Bedrock\\": "bedrock/",
+      "BedrockRuntime\\": "bedrock-runtime/",
       "DynamoDb\\": "dynamodb/",
       "DynamoDb\\Basics\\": "dynamodb/dynamodb_basics",
       "DynamoDb\\PartiQL_Basics\\": "dynamodb/partiql_basics",

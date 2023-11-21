@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform AWS Global Accelerator operations using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform AWS Global Accelerator operations using the AWS SDK for Rust.
 
 AWS Global Accelerator is a networking service that improves the performance of your users’ traffic by up to 60% using Amazon Web Services’ global network infrastructure.
 
@@ -12,7 +12,7 @@ AWS Global Accelerator is a networking service that improves the performance of 
 
 ## ⚠ Important
 
-- We recommend that you grant this code least privilege, 
+- We recommend that you grant this code least privilege,
   or at most the minimum permissions required to perform the task.
   For more information, see
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
@@ -34,18 +34,18 @@ This example lists your Global Accelerator accelerator names and ARNs.
 
 `cargo run --bin globalaccelerator-helloworld [-v]`
 
-- __-v__ displays additional information.
+- **-v** displays additional information.
 
 ## Resources
 
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
 - [AWS SDK for Rust API Reference for Global Accelerator](https://docs.rs/aws-sdk-globalaccelerator)
-- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html) 
+- [AWS SDK for Rust API Reference Guide](https://awslabs.github.io/aws-sdk-rust/aws_sdk_config/index.html)
 
 ## Contributing
 
-To propose a new code example to the AWS documentation team, 
-see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
+To propose a new code example to the AWS documentation team,
+see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md).
 The team prefers to create code examples that show broad scenarios rather than individual API calls.
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

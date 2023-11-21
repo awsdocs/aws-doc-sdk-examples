@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This example demonstrates how to package in a WebAssembly module that uses the developer preview version of the AWS SDK for Rust.
+This example demonstrates how to package in a WebAssembly module that uses the AWS SDK for Rust.
 
 ## Code examples
 
