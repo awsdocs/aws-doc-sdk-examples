@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several AWS Application Auto Scaling (Application Auto Scaling) operations using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform several AWS Application Auto Scaling (Application Auto Scaling) operations using the AWS SDK for Rust.
 
 Application Auto Scaling enables auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling.
 
@@ -12,7 +12,7 @@ Application Auto Scaling enables auto scaling for resources beyond just EC2, eit
 
 ## ⚠ Important
 
-- We recommend that you grant this code least privilege, 
+- We recommend that you grant this code least privilege,
   or at most the minimum permissions required to perform the task.
   For more information, see
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
@@ -35,9 +35,9 @@ This example lists your Application Auto Scaling policies in the Region.
 `cargo run --bin describe-scaling-policies -- [-r REGION] [-v]`
 
 - _REGION_ is name of the Region where the stacks are located.
-  If not supplied, uses the value of the __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
+  If not supplied, uses the value of the **AWS_REGION** environment variable.
+  If the environment variable is not set, defaults to **us-west-2**.
+- **-v** displays additional information.
 
 ## Resources
 
@@ -47,8 +47,8 @@ This example lists your Application Auto Scaling policies in the Region.
 
 ## Contributing
 
-To propose a new code example to the AWS documentation team, 
-see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
+To propose a new code example to the AWS documentation team,
+see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md).
 The team prefers to create code examples that show broad scenarios rather than individual API calls.
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
