@@ -1,8 +1,8 @@
-# AWS SDK for Rust cross-service code examples 
+# AWS SDK for Rust cross-service code examples
 
 ## Purpose
 
-These code examples demonstrate how to perform two or more service operations using the developer preview version of the AWS SDK for Rust.
+These code examples demonstrate how to perform two or more service operations using the AWS SDK for Rust.
 
 Amazon Simple Storage Service (Amazon S3) is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
 
@@ -55,44 +55,46 @@ You must have an AWS account, and have configured your default credentials and A
 ### detect_faces
 
 This code example:
+
 - Saves the image in an Amazon Simple Storage Service (Amazon S3) bucket with an "uploads/" prefix.
 - Displays facial details age range, gender, and emotion (smiling, etc.).
 
 ```
-cd detect_faces; 
+cd detect_faces;
 cargo run -- -b BUCKET -f FILENAME [-r REGION] [-v]
 ```
 
 - _BUCKET_ is the name of the Amazon S3 bucket where the JPG, JPEG, or PNG file is uploaded.
 - _FILENAME_ is the name of the file to upload.
-  It must have a __jpg__, __jpeg__, or __png__ file extension.  
+  It must have a **jpg**, **jpeg**, or **png** file extension.
 - _REGION_ is the name of the Region in which the client is created.
-  If not supplied, uses the value of the __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
+  If not supplied, uses the value of the **AWS_REGION** environment variable.
+  If the environment variable is not set, defaults to **us-west-2**.
+- **-v** displays additional information.
 
 ### detect_labels
 
 This code example:
+
 - Gets EXIF information from a JPG, JPEG, or PNG file.
 - Uploads the file to an Amazon S3 bucket.
 - Uses Amazon Rekognition to identify the three top attributes (labels in Amazon Rekognition) in the file.
 - Adds the EXIF and label information to an Amazon DynamoDB table.
 
 ```
-cd detect_labels; 
+cd detect_labels;
 cargo run -- -b BUCKET -f FILENAME -t TABLE [-r REGION] [-v]
 ```
 
 - _BUCKET_ is the name of the Amazon S3 bucket where the JPG, JPEG, or PNG file is uploaded.
 - _FILENAME_ is the name of the file to upload.
-  It must have a __jpg__, __jpeg__, or __png__ file extension.
+  It must have a **jpg**, **jpeg**, or **png** file extension.
 - _TABLE_ is the DynamoDB table in which the EXIF and label information is stored.
-  It must use the primary key __filename__.
+  It must use the primary key **filename**.
 - _REGION_ is the name of the Region in which the client is created.
-  If not supplied, uses the value of the __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
+  If not supplied, uses the value of the **AWS_REGION** environment variable.
+  If the environment variable is not set, defaults to **us-west-2**.
+- **-v** displays additional information.
 
 ### telephone
 
@@ -103,14 +105,14 @@ cd telephone
 cargo run -- -f FILENAME -b BUCKET -j JOB-NAME  [-r REGION] [-v]
 ```
 
-- __FILENAME__ is the name of the input file.
-  The output is saved in MP3 format in a file with the same basename, but with an __mp3__ extension.
-- __BUCKET__ is the Amazon S3 bucket to which the MP3 file is uploaded.
-- __JOB-NAME__ is the unique name of the job.
+- **FILENAME** is the name of the input file.
+  The output is saved in MP3 format in a file with the same basename, but with an **mp3** extension.
+- **BUCKET** is the Amazon S3 bucket to which the MP3 file is uploaded.
+- **JOB-NAME** is the unique name of the job.
 - _REGION_ is the Region in which the client is created.
-  If not supplied, uses the value of the __AWS_REGION__ environment variable.
-  If the environment variable is not set, defaults to __us-west-2__.
-- __-v__ displays additional information.
+  If not supplied, uses the value of the **AWS_REGION** environment variable.
+  If the environment variable is not set, defaults to **us-west-2**.
+- **-v** displays additional information.
 
 ## Resources
 
@@ -124,8 +126,8 @@ cargo run -- -f FILENAME -b BUCKET -j JOB-NAME  [-r REGION] [-v]
 
 ## Contributing
 
-To propose a new code example to the AWS documentation team, 
-see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
-The team prefers to create code examples that show broad scenarios rather than individual API calls. 
+To propose a new code example to the AWS documentation team,
+see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md).
+The team prefers to create code examples that show broad scenarios rather than individual API calls.
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

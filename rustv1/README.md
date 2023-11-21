@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to perform several operations using the developer preview version of the AWS SDK for Rust.
+These examples demonstrate how to perform several operations using the AWS SDK for Rust.
 
 ## ⚠ Important
 

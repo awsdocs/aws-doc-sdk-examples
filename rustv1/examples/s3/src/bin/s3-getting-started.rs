@@ -8,7 +8,7 @@
 /*
 Purpose
 
-Shows how to use the developer preview version of the AWS SDK for Rust to get started using
+Shows how to use the AWS SDK for Rust to get started using
 Amazon Simple Storage Service (Amazon S3). Create a bucket, move objects into and out of it,
 and delete all resources at the end of the demo.
 
