@@ -30,6 +30,8 @@ SMTP_REGIONS = [
     "eu-central-1",  # Europe (Frankfurt)
     "eu-west-1",  # Europe (Ireland)
     "eu-west-2",  # Europe (London)
+    "eu-south-1",  # Europe (Milan)
+    "eu-north-1",  # Europe (Stockholm)
     "sa-east-1",  # South America (Sao Paulo)
     "us-gov-west-1",  # AWS GovCloud (US)
 ]
