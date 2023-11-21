@@ -1,4 +1,22 @@
 # zexi 0.4.3
+transcribe_StartCallAnalyticsStream:
+  title: Start an &TSC; call analytics transcription job using an &AWS; SDK
+  title_abbrev: Start call analytics transcription job
+  synopsis: start an &TSC; call analytics transcription job.
+  category:
+  languages:
+     Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - transcribe.java-streaming-call-demo
+  services:
+    transcribe: {startCallAnalyticsStreamTranscription}
+
 transcribe_StartTranscriptionJob:
   title: Start an &TSC; transcription job using an &AWS; SDK
   title_abbrev: Start a transcription job
