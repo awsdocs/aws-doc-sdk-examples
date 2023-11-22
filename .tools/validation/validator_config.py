@@ -39,10 +39,18 @@ IGNORE_FILES = {
     "AssemblyInfo.cs",
     "moviedata.json",
     "movies.json",
+    "movies_5.json",
     "package-lock.json",
 }
 
-GOOD_WORDS = {"throat", "dummy", "dp", "jerry"}
+GOOD_WORDS = {
+    "crash",
+    "dp",
+    "dummy",
+    "jerry",
+    "throat",
+}
+
 DATA = urlopen(
     "https://raw.githubusercontent.com/zacanger/profane-words/5ad6c62fa5228293bc610602eae475d50036dac2/words.json"
 )
