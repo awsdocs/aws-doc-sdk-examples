@@ -119,7 +119,7 @@ class BedrockRuntimeTest {
 
             assertDoesNotThrow(() -> InvokeModelWithResponseStream.invokeModel(bedrockRuntime, prompt));
 
-            System.out.println("Test 2 passed.");
+            System.out.printf("Test %d passed.%n", getTestNumber(new Object(){}.getClass().getEnclosingMethod()));
         }
     }
 
