@@ -11,10 +11,26 @@ import os
 import re
 import yaml
 import yamale
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Optional
 from yamale import YamaleError
 from yamale.validators import DefaultValidators, Validator, String
+
+from metadata_errors import MetadataErrors, MetadataParseError
+
+
+class SdkVersion(Validator):
+    """Validate that sdk version appears in sdks.yaml."""
+
+    tag = "sdk_version"
+    sdks = {}
+
+    def get_name(self):
+        return "sdk version found in sdks.yaml"
+
+    def _is_valid(self, value):
+        return value in self.sdks
 
 
 class ServiceName(Validator):
@@ -151,9 +167,21 @@ class StringExtension(String):
         return valid
 
 
-def validate_files(schema_name: Path, meta_names: Iterable[Path], validators):
+@dataclass
+class ValidateYamaleError(MetadataParseError):
+    yamale_error: Optional[YamaleError] = field(default=None)
+
+    def message(self):
+        return f"Yamale Error: {self.yamale_error.message}"
+
+
+def validate_files(
+    schema_name: Path,
+    meta_names: Iterable[Path],
+    validators: dict[str, Validator],
+    errors: MetadataErrors,
+):
     """Iterate a list of files and validate each one against a schema."""
-    errors = 0
 
     schema = yamale.make_schema(schema_name, validators=validators)
     for meta_name in meta_names:
@@ -162,14 +190,13 @@ def validate_files(schema_name: Path, meta_names: Iterable[Path], validators):
             yamale.validate(schema, data)
             print(f"{meta_name.resolve()} validation success! 👍")
         except YamaleError as e:
-            print(e.message)
-            errors += 1
+            errors.append(ValidateYamaleError(file=meta_name, yamale_error=e))
     return errors
 
 
-def validate_metadata(doc_gen: Path):
-    # with open(doc_gen / "metadata" / "sdks.yaml") as sdks_file:
-    #     sdks_yaml: dict[str, any] = yaml.safe_load(sdks_file)
+def validate_metadata(doc_gen: Path, errors: MetadataErrors):
+    with open(doc_gen / "metadata" / "sdks.yaml") as sdks_file:
+        sdks_yaml: dict[str, any] = yaml.safe_load(sdks_file)
 
     with open(doc_gen / "metadata" / "services.yaml") as services_file:
         services_yaml = yaml.safe_load(services_file)
@@ -179,6 +206,7 @@ def validate_metadata(doc_gen: Path):
     ) as curated_sources_file:
         curated_sources_yaml = yaml.safe_load(curated_sources_file)
 
+    SdkVersion.sdks = sdks_yaml
     ServiceName.services = services_yaml
     SourceKey.curated_sources = curated_sources_yaml
     ExampleId.services = services_yaml
@@ -203,10 +231,12 @@ def validate_metadata(doc_gen: Path):
         ("curated_sources_schema.yaml", "curated/sources.yaml"),
         ("curated_example_schema.yaml", "curated/*_metadata.yaml"),
     ]
-    errors = 0
     for schema, metadata in to_validate:
-        errors += validate_files(
-            schema_root / schema, (doc_gen / "metadata").glob(metadata), validators
+        validate_files(
+            schema_root / schema,
+            (doc_gen / "metadata").glob(metadata),
+            validators,
+            errors,
         )
 
     return errors

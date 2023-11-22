@@ -1,6 +1,6 @@
 import re
 from dataclasses import dataclass
-from typing import Optional, Iterable
+from typing import Optional, Iterable, TypeVar, Self
 
 
 @dataclass
@@ -33,6 +33,19 @@ class LanguageError(MetadataParseError):
         return super().prefix() + f": {self.language}"
 
 
+K = TypeVar("K")
+
+
+class InvalidItemException(Exception):
+    def __init__(self, item: MetadataParseError):
+        super().__init__(self, f"Cannot append {item!r} to ExampleErrors")
+
+
+class DuplicateItemException(Exception):
+    def __init__(self, item: MetadataParseError):
+        super().__init__(self, f"Already have item {item!r} in ExampleErrors")
+
+
 class MetadataErrors:
     """MyPy isn't catching list[Foo].append(list[Foo])"""
 
@@ -41,15 +54,19 @@ class MetadataErrors:
 
     def append(self, item: MetadataParseError):
         if not isinstance(item, MetadataParseError):
-            raise Exception(
-                f"InvalidItemException: Cannot append {item!r} to ExampleErrors"
-            )
+            raise InvalidItemException(item)
         if item in self._errors:
-            raise Exception(f"Already have error {item}")
+            raise DuplicateItemException(item)
         self._errors.append(item)
 
     def extend(self, errors: Iterable[MetadataParseError]):
         self._errors.extend(errors)
+
+    def maybe_extend(self, maybe_errors: K | Self) -> K | None:
+        if isinstance(maybe_errors, MetadataErrors):
+            self.extend(maybe_errors)
+            return None
+        return maybe_errors
 
     def __getitem__(self, key: int) -> MetadataParseError:
         return self._errors[key]

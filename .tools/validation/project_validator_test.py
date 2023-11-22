@@ -6,6 +6,7 @@ This script contains tests that verify the project_validator script works as exp
 import pytest
 
 import project_validator
+from metadata_errors import MetadataErrors
 
 
 @pytest.mark.parametrize(
@@ -37,7 +38,9 @@ def test(contents, expected_parts):
 )
 def test_verify_no_deny_list_words(file_contents, expected_error_count):
     """Test that file contents that contain disallowed words are counted as errors."""
-    error_count = project_validator.verify_no_deny_list_words(file_contents, "location")
+    errors = MetadataErrors()
+    project_validator.verify_no_deny_list_words(file_contents, "location", errors)
+    error_count = len(errors)
     assert error_count == expected_error_count
 
 
@@ -62,7 +65,9 @@ def test_verify_no_deny_list_words(file_contents, expected_error_count):
 def test_verify_no_secret_keys(file_contents, expected_error_count):
     """Test that file contents that contain 20- or 40-character strings and are
     not in the allowed list are counted as errors."""
-    error_count = project_validator.verify_no_secret_keys(file_contents, "location")
+    errors = MetadataErrors()
+    project_validator.verify_no_secret_keys(file_contents, "location", errors)
+    error_count = len(errors)
     assert error_count == expected_error_count
 
 
@@ -124,7 +129,9 @@ def test_verify_no_secret_keys(file_contents, expected_error_count):
 def test_verify_snippet_start_end(file_contents, expected_error_count):
     """Test that various kinds of mismatched snippet-start and -end tags are
     counted correctly as errors."""
-    error_count = project_validator.verify_snippet_start_end(file_contents, "location")
+    errors = MetadataErrors()
+    project_validator.verify_snippet_start_end(file_contents, "location", errors)
+    error_count = len(errors)
     assert error_count == expected_error_count
 
 

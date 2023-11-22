@@ -5,28 +5,7 @@ from typing import Optional, Self
 from os.path import splitext
 import metadata_errors
 from metadata_errors import MetadataErrors, MetadataParseError
-from services import Service
-from sdks import Sdk
-
-
-@dataclass
-class Snippet:
-    pass
-
-
-@dataclass
-class DocGen:
-    languages: dict[str, Sdk] = field(default_factory=dict)
-    services: dict[str, Service] = field(default_factory=dict)
-    snippets: dict[str, Snippet] = field(default_factory=dict)
-
-
-@dataclass
-class Snippet:
-    id: str
-    file: str
-    line_start: int
-    line_end: int
+from doc_gen import DocGen
 
 
 @dataclass

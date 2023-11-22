@@ -1,6 +1,47 @@
 from urllib.request import urlopen
 import json
 
+# Only files with these extensions are scanned.
+EXT_LOOKUP = {
+    "c": "C",
+    "cpp": "C++",
+    "cs": "C#",
+    "go": "Go",
+    "html": "JavaScript",
+    "java": "Java",
+    "js": "JavaScript",
+    "kt": "Kotlin",
+    "php": "PHP",
+    "py": "Python",
+    "rb": "Ruby",
+    "rs": "Rust",
+    "swift": "Swift",
+    "ts": "TypeScript",
+    "sh": "AWS-CLI",
+    "cmd": "AWS-CLI",
+    "json": "JSON",
+    "yml": "YAML",
+    "yaml": "YAML",
+    "md": "Markdown",
+}
+
+# If you get a lot of false-flagged 40-character errors
+# in specific folders or files, you can omit them from
+# these scans by adding them to the following lists.
+# However, because this script is mostly run as a GitHub
+# action in a clean environment (aside from testing),
+# exhaustive ignore lists shouldn't be necessary.
+
+# Files to skip.
+IGNORE_FILES = {
+    ".moviedata.json",
+    ".travis.yml",
+    "AssemblyInfo.cs",
+    "moviedata.json",
+    "movies.json",
+    "package-lock.json",
+}
+
 GOOD_WORDS = {"throat", "dummy", "dp", "jerry"}
 DATA = urlopen(
     "https://raw.githubusercontent.com/zacanger/profane-words/5ad6c62fa5228293bc610602eae475d50036dac2/words.json"
@@ -114,3 +155,20 @@ ALLOW_LIST = {
     "videoMetaData=celebrityRecognitionResult",
     "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
 }
+
+
+# Sample files.
+EXPECTED_SAMPLE_FILES = {
+    "README.md",
+    "chat_sfn_state_machine.json",
+    "market_2.jpg",
+    "movies.json",
+    "sample_cert.pem",
+    "sample_private_key.pem",
+    "sample_saml_metadata.xml",
+    "speech_sample.mp3",
+    "spheres_2.jpg",
+}
+
+# Media file types.
+MEDIA_FILE_TYPES = {"mp3", "wav"}
