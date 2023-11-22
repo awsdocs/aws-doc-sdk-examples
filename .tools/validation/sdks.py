@@ -140,14 +140,14 @@ class Sdk:
         return Sdk(name=name, versions=versions, guide=guide, property=property)
 
 
-def parse(file: str, yaml: dict[str, any]) -> list[Sdk]:
-    sdks = []
+def parse(file: str, yaml: dict[str, any]) -> dict[str, Sdk]:
+    sdks = {}
     errors = MetadataErrors()
 
     for name in yaml:
         sdk = Sdk.from_yaml(name, yaml[name])
         if isinstance(sdk, Sdk):
-            sdks.append(sdk)
+            sdks[name] = sdk
         else:
             for error in sdk:
                 error.file = file

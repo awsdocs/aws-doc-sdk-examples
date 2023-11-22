@@ -21,12 +21,12 @@ class DocGen:
         errors = MetadataErrors()
 
         with open(root / "sdks.yaml", encoding="utf-8") as file:
-            meta = yaml.parse(file)
+            meta = yaml.safe_load(file)
             parsed = parse_sdks("sdks.yaml", meta)
             sdks = errors.maybe_extend(parsed)
 
         with open(root / "services.yaml", encoding="utf-8") as file:
-            meta = yaml.parse(file)
+            meta = yaml.safe_load(file)
             parsed = parse_services("services.yaml", meta)
             services = errors.maybe_extend(parsed)
 

@@ -79,9 +79,9 @@ class Service:
         )
 
 
-def parse(filename: str, yaml: dict[str, any]) -> list[Service] | MetadataErrors:
+def parse(filename: str, yaml: dict[str, any]) -> dict[str, Service] | MetadataErrors:
     errors = metadata_errors.MetadataErrors()
-    services = []
+    services = {}
     for name in yaml:
         meta = yaml[name]
         if meta is None:
@@ -93,7 +93,7 @@ def parse(filename: str, yaml: dict[str, any]) -> list[Service] | MetadataErrors
                     error.file = filename
                 errors.extend(service)
             else:
-                services.append(service)
+                services[name] = service
 
     return services if len(errors) == 0 else errors
 

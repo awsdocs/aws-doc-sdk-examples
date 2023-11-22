@@ -255,7 +255,7 @@ polly_LipSync:
     Python:
       versions:
         - sdk_version: 3
-          github: polly_lipsync.py
+          github: python/example_code/polly
           block_content: scenario_PollyLipSync_Python_block.xml
   services:
     polly: {}

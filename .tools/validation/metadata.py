@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from typing import Optional, Self
 from os.path import splitext
 import metadata_errors
-from metadata_errors import MetadataErrors, MetadataParseError
+from metadata_errors import MetadataErrors, MetadataParseError, DuplicateItemException
 from doc_gen import DocGen
 
 
@@ -76,7 +76,11 @@ class Version:
         if github is not None:
             _, ext = splitext(github)
             if ext != "":
-                errors.append(metadata_errors.InvalidGithubLink())
+                errors.append(
+                    metadata_errors.InvalidGithubLink(
+                        link=github, sdk_version=sdk_version
+                    )
+                )
 
         excerpts = yaml.get("excerpts", [])
         if len(excerpts) == 0:
@@ -123,7 +127,7 @@ class Language:
     @staticmethod
     def from_yaml(name: str, yaml: any, doc_gen: DocGen) -> Self | MetadataErrors:
         errors = MetadataErrors()
-        if name not in doc_gen.languages:
+        if name not in doc_gen.sdks:
             errors.append(metadata_errors.UnknownLanguage(language=name))
 
         yaml_versions = yaml.get("versions")
@@ -201,7 +205,10 @@ class Example:
 
         service_main = yaml.get("service_main", None)
         if service_main is not None and service_main not in doc_gen.services:
-            errors.append(metadata_errors.UnknownService(service=service_main))
+            try:
+                errors.append(metadata_errors.UnknownService(service=service_main))
+            except DuplicateItemException:
+                pass
 
         if len(errors) > 0:
             return errors
