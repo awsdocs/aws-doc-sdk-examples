@@ -304,10 +304,8 @@ def parse(
                 error.file = file
                 error.id = id
                 errors.append(error)
-    if len(errors) > 0:
-        return errors
 
-    return examples
+    return examples if len(errors) == 0 else errors
 
 
 if __name__ == "__main__":

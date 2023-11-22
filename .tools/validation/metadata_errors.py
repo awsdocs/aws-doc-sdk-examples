@@ -1,3 +1,4 @@
+import re
 from dataclasses import dataclass
 from typing import Optional, Iterable
 
@@ -65,6 +66,12 @@ class MetadataErrors:
     def __str__(self) -> str:
         errs = "\n".join([f"\t{err!r}" for err in self])
         return f"ExampleErrors with {len(self)} errors:\n{errs}"
+
+
+@dataclass
+class MissingServiceBody(MetadataParseError):
+    def message(self):
+        return "service definition missing body"
 
 
 @dataclass
@@ -215,13 +222,10 @@ class URLMissingTitle(SdkVersionError):
         return f"URL {self.url} is missing a title"
 
 
-# type mappingFieldMustBeEntityError struct { field string fieldValue string }
-# "Mapping field %v with value %v must be an entity.", err.field, err.fieldValue
+def check_mapping(mapping: str | None, field: str) -> str | MetadataParseError:
+    if not mapping:
+        return MissingField(field=field)
+    if not re.match("&[-_a-zA-Z0-9]+;", mapping):
+        return MappingMustBeEntity(field=field, value=mapping)
 
-# type mappingFieldNonEntityAwsError struct {
-# field      string
-# fieldValue string
-# }
-# func (err *mappingFieldNonEntityAwsError) Error() string {
-# return fmt.Sprintf("Mapping field %v contains non-entity usage of AWS: %v", err.field, err.fieldValue)
-# }
+    return mapping

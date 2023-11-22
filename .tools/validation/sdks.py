@@ -1,8 +1,7 @@
 from typing import Self, Optional
 import metadata_errors
-from metadata_errors import MetadataErrors, MetadataParseError
+from metadata_errors import MetadataErrors, MetadataParseError, check_mapping
 from dataclasses import dataclass, field
-import re
 
 
 @dataclass
@@ -124,7 +123,7 @@ class Sdk:
         if isinstance(guide, MetadataParseError):
             errors.append(guide)
 
-        sdk = []
+        versions = []
         sdk_versions = yaml.get("sdk", {})
         if sdk_versions is None:
             sdk_versions = {}
@@ -133,21 +132,12 @@ class Sdk:
             if isinstance(sdk_version, MetadataErrors):
                 errors.extend(sdk_version)
             else:
-                sdk.append(sdk_version)
+                versions.append(sdk_version)
 
         if len(errors) > 0:
             return errors
 
-        return Sdk(name=name, versions=sdk, guide=guide, property=property)
-
-
-def check_mapping(mapping: str | None, field: str) -> str | MetadataParseError:
-    if not mapping:
-        return metadata_errors.MissingField(field=field)
-    if not re.match("&[-_a-zA-Z0-9]+;", mapping):
-        return metadata_errors.MappingMustBeEntity(field=field, value=mapping)
-
-    return mapping
+        return Sdk(name=name, versions=versions, guide=guide, property=property)
 
 
 def parse(file: str, yaml: dict[str, any]) -> list[Sdk]:
@@ -164,10 +154,7 @@ def parse(file: str, yaml: dict[str, any]) -> list[Sdk]:
                 error.id = name
             errors.extend(sdk)
 
-    if len(errors) > 0:
-        return errors
-
-    return sdks
+    return sdks if len(errors) == 0 else errors
 
 
 if __name__ == "__main__":
