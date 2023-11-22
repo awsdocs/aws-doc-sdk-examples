@@ -5,6 +5,15 @@ dynamodb_Hello:
   synopsis: get started using &DDB;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.list_tables.import
     .NET:
       versions:
         - sdk_version: 3
