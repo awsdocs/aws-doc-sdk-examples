@@ -339,7 +339,6 @@ transcribe_Scenario_GettingStartedTranscriptionJobs:
               snippet_tags:
                 - transcribe.java-streaming-call-demo  
     Python:    
-    Python:
       versions:
         - sdk_version: 3
           github: python/example_code/transcribe
