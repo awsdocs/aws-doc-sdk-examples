@@ -5,7 +5,7 @@ transcribe_StartCallAnalyticsStream:
   synopsis: start a transcription job.
   category:
   languages:
-     Java:
+    Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/transcribe
@@ -15,8 +15,7 @@ transcribe_StartCallAnalyticsStream:
               snippet_tags:
                 - transcribe.java-streaming-demo
   services:
-    transcribe: {startCallAnalyticsStreamTranscription}
-
+    transcribe: {startStreamTranscription}
 transcribe_StartTranscriptionJob:
   title: Start an &TSC; transcription job using an &AWS; SDK
   title_abbrev: Start a transcription job
