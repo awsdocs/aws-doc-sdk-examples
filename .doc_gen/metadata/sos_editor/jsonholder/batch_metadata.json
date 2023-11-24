@@ -1,0 +1,102 @@
+{
+  "glue_GetCrawler": {
+    "title": "Get an &GLU; crawler using an &AWS; SDK",
+    "title_abbrev": "Get a crawler",
+    "synopsis": "get an &GLU; crawler.",
+    "category": " ",
+    "languages": {
+      "Kotlin": {
+        "versions": [
+          {
+            "sdk_version": 1,
+            "github": "kotlin/services/glue",
+            "sdkguide": " ",
+            "excerpts": [
+              {
+                "description": " ",
+                "snippet_tags": [
+                  "glue.kotlin.get_crawler.main"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Java": {
+        "versions": [
+          {
+            "sdk_version": 2,
+            "github": "javav2/example_code/glue",
+            "sdkguide": " ",
+            "excerpts": [
+              {
+                "description": " ",
+                "snippet_tags": [
+                  "glue.java2.get_crawler.main"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Python": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "python/example_code/glue",
+            "sdkguide": " ",
+            "excerpts": [
+              {
+                "description": " ",
+                "snippet_tags": [
+                  "python.example_code.glue.GlueWrapper.decl",
+                  "python.example_code.glue.GetCrawler"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "services": {
+      "glue": "{GetCrawler}"
+    }
+  },
+  "batch_test": {
+    "title": "ljlk",
+    "title_abbrev": "undefined",
+    "synopsis": "lkjkl",
+    "synopsis_list": "",
+    "category": "lkjk",
+    "languages": {
+      "Go": {
+        "versions": [
+          {
+            "sdk_version": 1,
+            "github": "jlkj",
+            "sdkguide": "ljlk",
+            "excerpts": [
+              {
+                "description": "jkl",
+                "snippet_tags": [
+                  "jklj"
+                ]
+              },
+              {
+                "description": "tested",
+                "snippet_tags": [
+                  "ljklj"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "services": [
+      {
+        "batch": "{test}"
+      }
+    ]
+  }
+}
