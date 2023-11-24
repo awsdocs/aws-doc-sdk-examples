@@ -220,15 +220,9 @@ class BedrockRuntimeWrapper:
                 modelId="anthropic.claude-v2", body=json.dumps(body)
             )
 
-            stream = response.get("body")
-
-            if stream:
-                for event in stream:
-                    chunk = event.get("chunk")
-                    if chunk:
-                        chunk_obj = json.loads(chunk.get("bytes").decode())
-                        text = chunk_obj["completion"]
-                        yield text
+            for event in response.get("body"):
+                chunk = json.loads(event["chunk"]["bytes"])["completion"]
+                yield chunk
 
         except ClientError:
             logger.error("Couldn't invoke Anthropic Claude")
