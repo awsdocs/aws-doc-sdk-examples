@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[InvokeModel.java demonstrates how to invoke a model with Amazon Bedrock.]
+// snippet-sourcedescription:[InvokeModel.java demonstrates how to invoke models with Amazon Bedrock.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Bedrock]
 
@@ -11,7 +11,6 @@
 package com.example.bedrockruntime;
 
 // snippet-start:[bedrock-runtime.java2.invoke_model.import]
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;

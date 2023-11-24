@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[InvokeModelAsync.java demonstrates how to invoke a model with Amazon Bedrock.]
+// snippet-sourcedescription:[InvokeModelAsync.java demonstrates how to asynchronously invoke models with Amazon Bedrock.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Bedrock]
 

@@ -11,7 +11,6 @@
 package com.example.bedrockruntime;
 
 // snippet-start:[bedrock-runtime.java2.invoke_model_with_response_stream.import]
-
 import org.json.JSONObject;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
@@ -33,6 +32,13 @@ import java.util.concurrent.atomic.AtomicReference;
 public class InvokeModelWithResponseStream {
 
     // snippet-start:[bedrock-runtime.java2.invoke_model_with_response_stream.main]
+    /**
+     * Invokes the Anthropic Claude 2 model and processes the response stream.
+     *
+     * @param prompt The prompt for Claude to complete.
+     * @param silent Suppress console output of the individual response stream chunks.
+     * @return The generated response.
+     */
     public static String invokeClaude(String prompt, boolean silent) {
 
         BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
