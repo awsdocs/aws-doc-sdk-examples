@@ -3,20 +3,13 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-import org.junit.jupiter.api.Order;
-import java.lang.reflect.Method;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public abstract class TestBase {
 
     protected void assertNotNullOrEmpty(String string) {
         assertNotNull(string);
         assertFalse(string.trim().isEmpty());
-    }
-
-    protected void printSuccessMessage(Method testMethod) {
-        Order order = testMethod.getAnnotation(Order.class);
-        System.out.printf("Test %d passed.%n", order != null ? order.value() : 0);
     }
 }

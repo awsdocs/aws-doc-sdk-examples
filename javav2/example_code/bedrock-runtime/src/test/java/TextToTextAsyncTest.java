@@ -3,41 +3,47 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+import com.example.bedrockruntime.InvokeModelAsync;
 import com.example.bedrockruntime.InvokeModelWithResponseStream;
 import org.junit.jupiter.api.*;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeAsyncClient;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
-@Order(1)
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class TextToTextAsyncTest extends TestBase {
 
-    static private BedrockRuntimeAsyncClient client;
-
-    @BeforeAll()
-    static void setUp() {
-        client = BedrockRuntimeAsyncClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
-                
+    @Test
+    @Tag("IntegrationTest")
+    void InvokeClaudeAsync() {
+        var prompt = "In one sentence, what is a large-language model?";
+        var generatedText = InvokeModelAsync.invokeClaude(prompt);
+        assertNotNullOrEmpty(generatedText);
+        System.out.println("Test async invoke Claude passed.");
     }
 
     @Test
-    @Order(1)
     @Tag("IntegrationTest")
-    void InvokeModelWithResponseStream() {
+    void InvokeJurassic2Async() {
+        var prompt = "In one sentence, what is a large-language model?";
+        var generatedText = InvokeModelAsync.invokeJurassic2(prompt);
+        assertNotNullOrEmpty(generatedText);
+        System.out.println("Test async invoke Jurassic-2 passed.");
+    }
 
-        String prompt = "In one sentence, what is a large-language model?";
+    @Test
+    @Tag("IntegrationTest")
+    void InvokeLlama2Async() {
+        var prompt = "In one sentence, what is a large-language model?";
+        var generatedText = InvokeModelAsync.invokeLlama2(prompt);
+        assertNotNullOrEmpty(generatedText);
+        System.out.println("Test async invoke Llama 2 passed.");
+    }
 
-        assertDoesNotThrow(
-            () -> InvokeModelWithResponseStream.invokeModel(client, prompt)
-        );
-
-        printSuccessMessage(new Object(){}.getClass().getEnclosingMethod());
+    @Test
+    @Tag("IntegrationTest")
+    void InvokeClaudeWithResponseStream() {
+        var prompt = "In one sentence, what is a large-language model?";
+        var silent = true;
+        var generatedText = InvokeModelWithResponseStream.invokeClaude(prompt, silent);
+        assertNotNullOrEmpty(generatedText);
+        System.out.println("Test async invoke Claude with response stream passed.");
     }
 }
