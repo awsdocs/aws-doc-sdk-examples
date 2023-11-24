@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<div id="pagebody">
+    <script src="./js/createYAML.js"></script>
+  <div class="split left">
+    <h1>SoS metadata GUI editor</h1>
+    <h3>Prerequisites</h3>
+    <ul>
+      <li><p>Ensure your <i>USERPROFILE</i> is set to 'C:\Users\[username]' </p>
+        <p>To get a list of all environment variables enter the command <i><b>set</b></i>.</p>
+        <p>You can send them to a text file enter the command <i><b>set > filename.txt</b></i>.</p></li>
+      <li>Create your authoring environment per <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAuthoringenvironment">Authoring environment</a>.</li>
+    </ul>
+    <h3>Create/update metadata</h3>
+    <ol>
+      <li><p>Follow steps 1 and 2 of <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAddinganewAPIexample">Adding a new API example</a>.</p>
+        <p>Ensure the metadata file you want to edit is in the <i>/.doc_gen/metadata/sos_editor</i> folder <br>
+          of the <b>AWSDocsSdkExamplesPublic</b> pagckage you're working on.</p>
+        <p>If not, create it. Remember to update the 'services' section of this 'mapping.yaml' file to include the entities for this new service.</p></li>
+      <li>Open the command line and navigate to the <i>/.doc_gen/metadata/sos_editor folder</i>.</li>
+      <li><p>Run <i>node create_json.js [stubname of service metadata to edit].</i></p>
+        <p>For example, <i>node create_json.js sns</i>.</p>
+      <p><b>Note</b>: You are required to run this command only once per session.</p></li>
+      <li><p>Create/edit your metadata using <b>Editor</b></p>
+      <li>Click <b>Create YAML</b> at the bottom of the <b>Editor</b>.</li>
+      <li>In the command line run <i>node update_yaml.js [stubname of service metadata to update].</i></p>
+        <p>For example, <i>node update_yaml.js sns</i>.</p></li>
+      <li>The metadata file is now updated locally. If you want to continue editing metadata, refresh the browser and proceed. <br>
+        Otherwise, validate, build, verify, and submit your changes for review as described in <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS#HValidatingmetadata">the SoS wiki</a>. </li>
+    </ol>
+  </div>
+</div>
+<div class="split right">
+  <h1 style="margin-right:50px">Editor</h1>
+  <div id="controls">
+    <p id ="selectMyService"><input type="text" class="thissize" name="blockname" id ="selecttheservice" maxlength="200"></input><button id = "selectService">Enter service stub</button></p>
+    <p id="selectBlockView" class="show-when-target"><label class="thissize">Select operation</label><select id="selectBlock" class="show-when-target"><option>Choose an operation</option></select> <br>If there are no options, follow steps 2 and 3, then refresh the browser.</p>
+    <p id ="addBlockName" class="show-when-target"><textarea type="text" class="thissize" name="blockname" id ="blockname" maxlength="200"></textarea><button id = "compBlockBtn">Complete blockname</button></p>
+    <p id ="addTitle" class="show-when-target"><label class="thissize">Title</label><textarea type="text" name="thetitle" id ="thetitle" maxlength="200"></textarea></p>
+    <p id ="addAbbTitle" class="show-when-target"><label class="thissize">Abbreviated title</label><textarea type="text" name="addatitle" id ="addatitle" maxlength="200"></textarea></p>
+    <div id ="addSynopsis" class="show-when-target"><p><label class="thissize">Synopsis (NB: No carriage returns!)</label></p>
+    <p><textarea type="text" name="synopsis" id ="synopsis" maxlength="200"></textarea></p></div>
+    <div id ="addSynopsisList" class="show-when-target"><p><label class="thissize">Synopsis list</label></p>
+        <p><textarea type="text" name="synopsislist" id ="synopsislist" maxlength="200"></textarea></p></div>
+    <p id ="addCategory" class="show-when-target"><label class="thissize">Category (optional)</label><textarea type="text" name="category" id ="category" maxlength="200"></textarea></p>
+    <p id="chooseLangView" class="show-when-target"><label class="thissize">Choose Language</label><select id="languages" class="show-when-target"><option>Choose language</option></select></p>
+    <p id = "addLanguageView" class="show-when-target"><label class="thissize">Language</label><select id="addlanguage" class="show-when-target" ><option>Add a language</option></select></p>
+    <p id="chooseSDKView" class="show-when-target"><label class="thissize">SDK version</label><select id="sdkVersion" class="show-when-target" ><option>Choose an SDK version</option></select></p>
+    <p id ="addSdkVersion" class="show-when-target"><label class="thissize">Add SDK version</label><input type="text" class="thissize" name="text" id ="addskdversion" maxlength="200"></input><button id = "subVersion">Submit version</button></p>
+    <p id ="gitHub" class="show-when-target"><label class="thissize">GitHub link (Don't include 'https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/')</label><textarea type="text" name="text" id ="githublink" maxlength="200"></textarea></p>
+    <p id ="sdkGuide" class="show-when-target"><label class="thissize">SDK Guide link (Don't include 'https://docs.aws.amazon.com/')</label><textarea type="text" name="text" id ="sdkguidelink" maxlength="200"></textarea></p>
+   <p id ="anotherSnippet" class="show-when-target" class="thissize"><button id = "newsnippet">Add a snippet</button></p>
+    <p id ="removeSnippet" class="show-when-target" class="thissize"><button id = "removesnip">Remove a snippet</button></p>
+    <p id ="createYAML"  class="show-when-target"><button id = "yaml" onclick="createYAML()">Create YAML</button></p>
+  </div>
+</div>
+</div>
+  <script src="./js/functions.js"></script>
+  <script src="./js/click_events.js"></script>
+</body>
+
+</html>
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0 -->
