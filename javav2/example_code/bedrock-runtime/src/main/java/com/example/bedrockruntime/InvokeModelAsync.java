@@ -95,7 +95,7 @@ public class InvokeModelAsync {
     }
     // snippet-end:[bedrock-runtime.java2.invoke_claude_async.main]
 
-    // snippet-start:[bedrock-runtime.java2.invoke_jurassic2_async.main]
+    // snippet-start:[bedrock-runtime.java2.invoke_jurassic-2_async.main]
     /**
      * Asynchronously invokes the AI21 Labs Jurassic-2 model to run an inference based on the provided input.
      *
