@@ -27,8 +27,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -38,8 +38,8 @@ android {
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.6.0'
-    implementation("aws.sdk.kotlin:translate:0.19.0-beta")
-    implementation("aws.sdk.kotlin:sns:0.19.0-beta")  {
+    implementation("aws.sdk.kotlin:translate:1.0.0")
+    implementation("aws.sdk.kotlin:sns:1.0.0")  {
         exclude group: "xmlpull", module: "xmlpull"
     }
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'

@@ -10,7 +10,7 @@ The Amazon DynamoDB Kotlin API lets you perform the following tasks from within 
 * Perform various create, read, update, and delete (CRUD) operations
 * Execute queries
 
-The following shows the application you'll create.
+The following illustration shows the application you'll create.
 
 ![AWS Blog Application](images/app5.png)
 
@@ -39,11 +39,11 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + An IDE that lets you build Android projects (this example uses Android Studio)
-+ Java 1.8 SDK
-+ Gradle 6.8 or higher
++ Java 11 SDK
++ Gradle 8.1 or higher
 + Min API version is 24
 + Requires core library desugaring in the Gradle build file
-+ Source/target compat of 1.8
++ Source/target compat of 11
 
 ### ⚠️ Important
 
@@ -105,19 +105,19 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 }
 
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.6.0'
-    implementation("aws.sdk.kotlin:dynamodb:0.9.4-beta")
-    implementation("aws.sdk.kotlin:sns:0.9.4-beta")  {
+    implementation("aws.sdk.kotlin:dynamodb:0.33.1-beta")
+    implementation("aws.sdk.kotlin:sns:0.33.1-beta")  {
         exclude group: "xmlpull", module: "xmlpull"
     }
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
