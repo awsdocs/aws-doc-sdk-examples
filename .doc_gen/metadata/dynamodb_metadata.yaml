@@ -13,7 +13,7 @@ dynamodb_Hello:
           excerpts:
             - description:
               snippet_tags:
-                - dynamodb.java2.list_tables.import
+                - dynamodb.java2.list_tables.main
     .NET:
       versions:
         - sdk_version: 3
