@@ -35,8 +35,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("com.sun.mail:javax.mail:1.6.2")
-    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
-    implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
+    implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
 }
 
