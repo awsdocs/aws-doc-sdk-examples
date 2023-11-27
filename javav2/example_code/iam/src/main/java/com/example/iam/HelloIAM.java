@@ -8,20 +8,21 @@
 
 package com.example.iam;
 
-
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+// snippet-start:[iam.java2.hello.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.ListPoliciesResponse;
-import software.amazon.awssdk.services.iam.model.ListUserPoliciesResponse;
 import software.amazon.awssdk.services.iam.model.Policy;
-import software.amazon.awssdk.services.s3.model.Bucket;
-
 import java.util.List;
 
-// snippet-start:[iam.java2.hello.main]
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class HelloIAM {
-
     public static void main(String[] args){
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
