@@ -9,6 +9,7 @@
 
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.list_tables.main]
 // snippet-start:[dynamodb.java2.list_tables.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -41,9 +42,7 @@ public class ListTables {
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.list_tables.main]
     public static void listAllTables(DynamoDbClient ddb){
-
         boolean moreTables = true;
         String lastName = null;
 
