@@ -4,6 +4,15 @@ iam_Hello:
   synopsis: get started using &IAM;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.java2.hello.main
     .NET:
       versions:
         - sdk_version: 3
