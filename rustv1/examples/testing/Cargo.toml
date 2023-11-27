@@ -10,12 +10,12 @@ edition = "2021"
 # snippet-start:[testing.rust.Cargo.toml]
 [dependencies]
 async-trait = "0.1.51"
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["behavior-version-latest"]}
-aws-credential-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = [ "hardcoded-credentials", ] }
-aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-runtime = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["test-util"] }
-aws-smithy-runtime-api = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["test-util"] }
+aws-config = { features = ["behavior-version-latest"], version = "1.0.1"}
+aws-credential-types = { features = [ "hardcoded-credentials", ],  version = "1.0.1"}
+aws-sdk-s3 = "1.2.0"
+aws-smithy-types = "1.0.1"
+aws-smithy-runtime = { features = ["test-util"],  version = "1.0.1"}
+aws-smithy-runtime-api = { features = ["test-util"],  version = "1.0.1"}
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 clap = { version = "~4.4", features = ["derive"] }
 http = "0.2.9"

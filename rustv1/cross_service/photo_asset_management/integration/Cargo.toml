@@ -7,9 +7,9 @@ edition = "2021"
 
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-rekognition = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = "1.0.1"
+aws-sdk-dynamodb = "1.2.0"
+aws-sdk-rekognition = "1.2.0"
 photo_asset_management = { path = "../"}
 tokio = { version = "1.27.0", features = ["macros"] }
 tracing = "0.1.37"

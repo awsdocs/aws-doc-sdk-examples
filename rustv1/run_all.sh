@@ -28,7 +28,7 @@ CARGO="$HOME/.cargo/bin/cargo"
 FAIL=()
 for f in "${DIRS[@]}" ; do
   for a in "${ACTIONS[@]}" ; do
-    "$CARGO" "$a" --manifest-path "$f/Cargo.toml" || FAIL+=("${a}:$f")
+    "$CARGO" $a --manifest-path "$f/Cargo.toml" || FAIL+=("${a}:$f")
   done
 done
 

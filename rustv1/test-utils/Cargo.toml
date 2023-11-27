@@ -9,9 +9,9 @@ edition = "2021"
 [workspace]
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-runtime = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["test-util"] }
+aws-config = "1.0.1"
+aws-smithy-types = "1.0.1"
+aws-smithy-runtime = { features = ["test-util"],  version = "1.0.1"}
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next"}
 http = "0.2"
 tokio = "1.33.0"

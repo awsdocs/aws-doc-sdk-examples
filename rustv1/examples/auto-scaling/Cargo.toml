@@ -7,9 +7,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["behavior-version-latest"]}
-aws-sdk-autoscaling = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-ec2 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { features = ["behavior-version-latest"], version = "1.0.1"}
+aws-sdk-autoscaling = "1.2.0"
+aws-sdk-ec2 = "1.2.0"
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 tokio = { version = "1.20.1", features = ["full"] }
 clap = { version = "~4.4", features = ["derive"] }
