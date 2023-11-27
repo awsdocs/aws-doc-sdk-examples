@@ -55,7 +55,7 @@ bedrock-runtime_InvokeClaude:
 bedrock-runtime_InvokeClaudeAsync:
   title: Asynchronously invoke the Anthropic Claude model on &BR; to run an inference
   title_abbrev: Asynchronously invoke Anthropic Claude on &BR;
-  synopsis: asynchronously invoke the Anthropic Claude model on &BR; to run aninference.
+  synopsis: asynchronously invoke the Anthropic Claude model on &BR; to run an inference.
   category:
   languages:
     Java:
