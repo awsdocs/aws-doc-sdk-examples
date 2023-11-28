@@ -8,6 +8,7 @@
 
 package com.example.cognito;
 
+//snippet-start:[cognito.java2.hello.main]
 //snippet-start:[cognito.java2.ListUserPools.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -58,3 +59,4 @@ public class ListUserPools {
     }
     //snippet-end:[cognito.java2.ListUserPools.main]
 }
+//snippet-end:[cognito.java2.hello.main]
