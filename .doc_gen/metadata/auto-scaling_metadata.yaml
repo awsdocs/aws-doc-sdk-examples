@@ -5,6 +5,14 @@ auto-scaling_Hello:
   synopsis: get started using &AS;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/autoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscale.java2.hello.main
     .NET:
       versions:
         - sdk_version: 3
