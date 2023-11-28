@@ -8,6 +8,8 @@ import (
 	"encoding/json"
 	"log"
 	"fmt"
+	"os"
+	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
@@ -45,6 +47,8 @@ type ClaudeResponse struct {
 // provided in the request body.
 func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 
+    modelId := "anthropic.claude-v2"
+
 	// Anthropic Claude requires you to enclose the prompt as follows:
 	prefix := "Human: "
 	postfix := "\n\nAssistant:"
@@ -60,14 +64,22 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 	body, err := json.Marshal(request)
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
-		ModelId: aws.String("anthropic.claude-v2"),
+		ModelId: aws.String(modelId),
 		ContentType: aws.String("application/json"),
 		Body: body,
 	})
 
 	if err != nil {
-		log.Printf("Couldn't invoke Claude. Here's why: %v\n", err)
-	}
+        errMsg := err.Error()
+        if strings.Contains(errMsg, "no such host") {
+            log.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
+        } else if strings.Contains(errMsg, "Could not resolve the foundation model") {
+            log.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
+        } else {
+            log.Printf("Couldn't invoke Anthropic Claude. Here's why: %v\n", err)
+        }
+        os.Exit(1)
+    }
 
 	var response ClaudeResponse
 
@@ -104,6 +116,8 @@ type Data struct { Text string `json:"text"` }
 // provided in the request body.
 func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error) {
 
+    modelId := "ai21.j2-mid-v1"
+
 	request := Jurassic2Request {
 		Prompt:            prompt,
 		MaxTokens: 		   200,
@@ -113,14 +127,22 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 	body, err := json.Marshal(request)
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
-		ModelId: aws.String("ai21.j2-mid-v1"),
+		ModelId: aws.String(modelId),
 		ContentType: aws.String("application/json"),
 		Body: body,
 	})
 
 	if err != nil {
-		log.Printf("Couldn't invoke Jurassic-2. Here's why: %v\n", err)
-	}
+    	errMsg := err.Error()
+    	if strings.Contains(errMsg, "no such host") {
+    		log.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
+    	} else if strings.Contains(errMsg, "Could not resolve the foundation model") {
+    	    log.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
+    	} else {
+            log.Printf("Couldn't invoke AI21 Labs Jurassic-2. Here's why: %v\n", err)
+        }
+        os.Exit(1)
+    }
 
 	var response Jurassic2Response
 
@@ -155,6 +177,8 @@ type Llama2Response struct {
 // provided in the request body.
 func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
 
+    modelId := "meta.llama2-13b-chat-v1"
+
 	request := Llama2Request {
 		Prompt:            prompt,
 		MaxGenLength:	   512,
@@ -164,14 +188,22 @@ func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
 	body, err := json.Marshal(request)
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
-		ModelId: aws.String("meta.llama2-13b-chat-v1"),
+		ModelId: aws.String(modelId),
 		ContentType: aws.String("application/json"),
 		Body: body,
 	})
 
 	if err != nil {
-		log.Printf("Couldn't invoke Llama 2. Here's why: %v\n", err)
-	}
+        errMsg := err.Error()
+        if strings.Contains(errMsg, "no such host") {
+            log.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
+        } else if strings.Contains(errMsg, "Could not resolve the foundation model") {
+            log.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
+        } else {
+            log.Printf("Couldn't invoke Meta Llama 2. Here's why: %v\n", err)
+        }
+        os.Exit(1)
+    }
 
 	var response Llama2Response
 

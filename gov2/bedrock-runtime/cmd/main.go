@@ -23,6 +23,7 @@ import (
 // * `invokemodels`  -	Runs a scenario that shows how to invoke various image and text
 //						generation models on Amazon Bedrock.
 func main() {
+
 	scenarioMap := map[string]func(sdkConfig aws.Config){
 		"invokemodels":    runInvokeModelsScenario,
 	}
@@ -35,13 +36,19 @@ func main() {
 	scenario := flag.String(
 		"scenario", "",
 		fmt.Sprintf("The scenario to run. Must be one of %v.", choices))
-	flag.Parse()
+
+    var region string
+    flag.StringVar(&region, "region", "us-east-1", "The AWS region")
+
+    flag.Parse()
+
+    fmt.Println("The selected region is: ", region)
 
 	if runScenario, ok := scenarioMap[*scenario]; !ok {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.Background(), config.WithRegion("us-east-1"))
+		sdkConfig, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(region))
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}

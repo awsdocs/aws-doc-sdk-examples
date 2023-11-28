@@ -9,6 +9,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
+	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
@@ -47,6 +49,8 @@ type Response struct {
 
 func (wrapper InvokeModelWithResponseStreamWrapper) InvokeModelWithResponseStream(prompt string) (string, error) {
 
+    modelId := "anthropic.claude-v2"
+
 	// Anthropic Claude requires you to enclose the prompt as follows:
 	prefix := "Human: "
 	postfix := "\n\nAssistant:"
@@ -63,13 +67,21 @@ func (wrapper InvokeModelWithResponseStreamWrapper) InvokeModelWithResponseStrea
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModelWithResponseStream(context.Background(), &bedrockruntime.InvokeModelWithResponseStreamInput{
 		Body:        body,
-		ModelId:     aws.String("anthropic.claude-v2"),
+		ModelId:     aws.String(modelId),
 		ContentType: aws.String("application/json"),
 	})
 
 	if err != nil {
-		log.Printf("Couldn't invoke Claude. Here's why: %v\n", err)
-	}
+        errMsg := err.Error()
+        if strings.Contains(errMsg, "no such host") {
+            log.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
+        } else if strings.Contains(errMsg, "Could not resolve the foundation model") {
+            log.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
+        } else {
+            log.Printf("Couldn't invoke Anthropic Claude. Here's why: %v\n", err)
+        }
+        os.Exit(1)
+    }
 
 	resp, err := processStreamingOutput(output, func(ctx context.Context, part []byte) error {
 		fmt.Print(string(part))
