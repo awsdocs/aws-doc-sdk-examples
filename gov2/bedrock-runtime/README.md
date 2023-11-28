@@ -59,6 +59,8 @@ functions within the same service.
 
 
 <!--custom.instructions.start-->
+
+> **Note:** These examples use the region `us-east-1`. To change the region, 
 <!--custom.instructions.end-->
 
 #### Hello Amazon Bedrock
