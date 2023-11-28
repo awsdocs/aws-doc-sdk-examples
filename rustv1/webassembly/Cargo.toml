@@ -10,13 +10,13 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false }
-aws-credential-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["hardcoded-credentials"] }
-aws-sdk-lambda = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false }
-aws-smithy-async = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["event-stream"] }
-aws-smithy-runtime-api = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = "1.0.1"
+aws-credential-types = { features = ["hardcoded-credentials"],  version = "1.0.1"}
+aws-sdk-lambda = "1.2.0"
+aws-smithy-async = "1.0.1"
+aws-smithy-http = { features = ["event-stream"],  version = "0.60.0"}
+aws-smithy-runtime-api = "1.0.1"
+aws-smithy-types = "1.0.1"
 async-trait = "0.1.63"
 console_error_panic_hook = "0.1.7"
 http = "0.2.8"

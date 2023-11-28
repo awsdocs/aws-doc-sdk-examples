@@ -10,6 +10,7 @@ use std::{
 };
 
 use anyhow::anyhow;
+use aws_config::SdkConfig;
 use aws_sdk_autoscaling::{
     error::{DisplayErrorContext, ProvideErrorMetadata},
     types::{Activity, AutoScalingGroup, LaunchTemplateSpecification},
@@ -187,9 +188,7 @@ impl Display for ScenarioError {
 }
 
 impl AutoScalingScenario {
-    pub async fn prepare_scenario(
-        sdk_config: &aws_types::sdk_config::SdkConfig,
-    ) -> Result<Self, Vec<ScenarioError>> {
+    pub async fn prepare_scenario(sdk_config: &SdkConfig) -> Result<Self, Vec<ScenarioError>> {
         let ec2 = aws_sdk_ec2::Client::new(sdk_config);
         let autoscaling = aws_sdk_autoscaling::Client::new(sdk_config);
 
