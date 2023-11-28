@@ -11,9 +11,10 @@ LANGUAGES=(
   "tree-sitter/tree-sitter-rust"
 )
 
-for L in "$LANGUAGES" ; do 
-  if [ -d "$L" ] ; then
-    cd "$L"
+for L in "${LANGUAGES[@]}" ; do 
+  D=$(basename "$L")
+  if [ -d "$D" ] ; then
+    cd $(basename "$D")
     git pull
     cd -
   else
