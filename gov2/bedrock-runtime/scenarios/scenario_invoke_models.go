@@ -15,7 +15,7 @@ import (
 
 // snippet-start:[gov2.bedrock-runtime.Scenario_InvokeModels]
 
-// InvokeModelsScenario demostrates how to use the Amazon Bedrock Runtime client
+// InvokeModelsScenario demonstrates how to use the Amazon Bedrock Runtime client
 // to invoke various foundation models for text and image generation
 //
 // 1. Generate text with Anthropic Claude 2
@@ -30,7 +30,7 @@ type InvokeModelsScenario struct {
 	isTestRun bool
 }
 
-// NewInvokeModelsScenario constructs an InvokeModelsScenarion instance from a configuration.
+// NewInvokeModelsScenario constructs an InvokeModelsScenario instance from a configuration.
 // It uses the specified config to get a Bedrock Runtime client and create wrappers for the
 // actions used in the scenario.
 func NewInvokeModelsScenario(sdkConfig aws.Config, questioner demotools.IQuestioner) InvokeModelsScenario {

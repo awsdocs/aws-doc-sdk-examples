@@ -6,8 +6,6 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.22.2
 	github.com/aws/aws-sdk-go-v2/config v1.23.0
 	github.com/aws/aws-sdk-go-v2/service/bedrockruntime v1.3.1
-	github.com/awsdocs/aws-doc-sdk-examples/gov2/bedrock-runtime/scenarios v0.0.0-00010101000000-000000000000
-	github.com/awsdocs/aws-doc-sdk-examples/gov2/bedrock-runtime/stubs v0.0.0-00010101000000-000000000000
 	github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools v0.0.0-20231116013656-9f08f276537a
 	github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools v0.0.0-20231116013656-9f08f276537a
 )
