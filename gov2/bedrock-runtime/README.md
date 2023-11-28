@@ -63,10 +63,10 @@ functions within the same service.
 By default, examples are set to `us-east-1`. To specify a different region, use the `-region` flag as shown in this example:
 
 ```
-go run ./cmd -scenario=invokemodel -region=eu-central-1
+go run ./hello -region=eu-central-1
 ```
 
-Be aware that not all regions may support Bedrock and its models, yet. Verify service availability for your region [here](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/). For available models per region, refer to the [AWS Management Console](https://console.aws.amazon.com/bedrock).
+Be aware that not all regions may support Bedrock and its models yet. Verify service availability for your region [here](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/). For available models per region, refer to the [Bedrock dashboard](https://console.aws.amazon.com/bedrock) in the AWS Management Console.
 <!--custom.instructions.end-->
 
 #### Hello Amazon Bedrock

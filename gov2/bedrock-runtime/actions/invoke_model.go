@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"log"
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -72,13 +71,12 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 	if err != nil {
         errMsg := err.Error()
         if strings.Contains(errMsg, "no such host") {
-            fmt.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
+            log.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
         } else if strings.Contains(errMsg, "Could not resolve the foundation model") {
-            fmt.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
+            log.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
         } else {
-            fmt.Printf("Couldn't invoke Anthropic Claude. Here's why: %v\n", err)
+            log.Printf("Couldn't invoke Anthropic Claude. Here's why: %v\n", err)
         }
-        os.Exit(1)
     }
 
 	var response ClaudeResponse
@@ -135,13 +133,12 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 	if err != nil {
     	errMsg := err.Error()
     	if strings.Contains(errMsg, "no such host") {
-    		fmt.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
+    		log.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
     	} else if strings.Contains(errMsg, "Could not resolve the foundation model") {
-    	    fmt.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
+    	    log.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
     	} else {
-            fmt.Printf("Couldn't invoke AI21 Labs Jurassic-2. Here's why: %v\n", err)
+            log.Printf("Couldn't invoke AI21 Labs Jurassic-2. Here's why: %v\n", err)
         }
-        os.Exit(1)
     }
 
 	var response Jurassic2Response
@@ -196,13 +193,12 @@ func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
 	if err != nil {
         errMsg := err.Error()
         if strings.Contains(errMsg, "no such host") {
-            fmt.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
+            log.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
         } else if strings.Contains(errMsg, "Could not resolve the foundation model") {
-            fmt.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
+            log.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
         } else {
-            fmt.Printf("Couldn't invoke Meta Llama 2. Here's why: %v\n", err)
+            log.Printf("Couldn't invoke Meta Llama 2. Here's why: %v\n", err)
         }
-        os.Exit(1)
     }
 
 	var response Llama2Response

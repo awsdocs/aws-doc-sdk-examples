@@ -102,7 +102,7 @@ func (scenario InvokeModelsScenario) InvokeLlama2(prompt string) {
 }
 
 func (scenario InvokeModelsScenario) InvokeWithResponseStream(prompt string) {
-	log.Println("\nClaude with response stream:\n")
+	log.Println("\nClaude with response stream:")
 	_, err := scenario.responseStreamWrapper.InvokeModelWithResponseStream(prompt)
 	if err != nil { panic(err) }
 	log.Println()
