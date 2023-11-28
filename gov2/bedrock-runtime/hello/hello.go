@@ -8,6 +8,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
 
@@ -36,7 +37,12 @@ type ClaudeResponse struct {
 // and config files.
 func main() {
 
-	region := "us-east-1"
+    var region string
+    flag.StringVar(&region, "region", "us-east-1", "The AWS region")
+    flag.Parse()
+
+    fmt.Println("Region: ", region)
+
 	sdkConfig, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(region))
     if err != nil {
         fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
