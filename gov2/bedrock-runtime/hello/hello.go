@@ -39,13 +39,12 @@ type ClaudeResponse struct {
 // and config files.
 func main() {
 
-    var region string
-    flag.StringVar(&region, "region", "us-east-1", "The AWS region")
+    region := flag.String("region", "us-east-1", "The AWS region")
     flag.Parse()
 
-    fmt.Println("Region: ", region)
+    fmt.Printf("Using AWS region: %s\n", *region)
 
-	sdkConfig, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(region))
+	sdkConfig, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(*region))
     if err != nil {
         fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
         fmt.Println(err)
@@ -61,10 +60,10 @@ func main() {
 	// Anthropic Claude requires you to enclose the prompt as follows:
 	prefix := "Human: "
 	postfix := "\n\nAssistant:"
-	prompt = prefix + prompt + postfix
+	wrappedPrompt := prefix + prompt + postfix
 
 	request := ClaudeRequest {
-		Prompt:            prompt,
+		Prompt:            wrappedPrompt,
 		MaxTokensToSample: 200,
 	}
 
@@ -95,7 +94,6 @@ func main() {
 	if err != nil {
 		log.Fatal("failed to unmarshal", err)
 	}
-
     fmt.Println("Prompt:\n", prompt)
 	fmt.Println("Response from Anthropic Claude:\n", response.Completion)
 }

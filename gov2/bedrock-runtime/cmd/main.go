@@ -37,18 +37,16 @@ func main() {
 		"scenario", "",
 		fmt.Sprintf("The scenario to run. Must be one of %v.", choices))
 
-    var region string
-    flag.StringVar(&region, "region", "us-east-1", "The AWS region")
-
+    var region = flag.String("region", "us-east-1", "The AWS region")
     flag.Parse()
 
-    fmt.Println("The selected region is: ", region)
+    fmt.Printf("Using AWS region: %s\n", *region)
 
 	if runScenario, ok := scenarioMap[*scenario]; !ok {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(region))
+		sdkConfig, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(*region))
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}
