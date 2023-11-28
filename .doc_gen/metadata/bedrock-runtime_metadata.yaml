@@ -74,14 +74,6 @@ bedrock-runtime_InvokeClaude:
             - description: Invoke the Anthropic Claude 2 foundation model.
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeAnthropicClaude
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/bdr
-          excerpts:
-            - description: Invoke the Anthropic Claude 2 foundation model. This example uses features of /US2/CL_JSON which might not be available on some NetWeaver versions.
-              snippet_tags:
-                - bdr.abapv1.invokemodel_claude_v2
   services:
     bedrock-runtime: {InvokeModel}
 
@@ -240,14 +232,6 @@ bedrock-runtime_InvokeStableDiffusion:
             - description: Invoke the Stability.ai Stable Diffusion foundation model.
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeStableDiffusion
-    SAP ABAP:
-      versions:
-        - sdk_version: 1
-          github: sap-abap/services/bdr
-          excerpts:
-            - description: Invoke the Stability.ai Stable Diffusion foundation model.
-              snippet_tags:
-                - bdr.abapv1.invokemodel_stable_diffusion
   services:
     bedrock-runtime: {InvokeModel}
 
@@ -311,14 +295,6 @@ bedrock-runtime_Scenario_Invoke_models:
     - Generate text with Meta Llama 2 Chat.
   category: Scenarios
   languages:
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/bedrock-runtime
-          excerpts:
-            - description: Invoke multiple LLMs on &BR;.
-              snippet_tags:
-                - gov2.bedrock-runtime.Scenario_InvokeModels
     PHP:
       versions:
         - sdk_version: 3
@@ -329,3 +305,25 @@ bedrock-runtime_Scenario_Invoke_models:
                 - php.example_code.bedrock-runtime.basics.scenario
   services:
     bedrock-runtime: {InvokeModel}
+
+bedrock-runtime_Scenario_Invoke_Models_incl_Response_Stream:
+  title: Invoke multiple large-language models (LLMs) on &BR;
+  title_abbrev: Invoke multiple LLMs on &BR;
+  synopsis: invoke multiple large-language-models (LLMs) on &BR;.
+  synopsis_list:
+    - Generate text with Anthropic Claude.
+    - Generate text with AI21 Labs Jurassic-2.
+    - Generate text with Meta Llama 2 Chat.
+    - Asynchronously process the response stream with Anthropic Claude.
+  category: Scenarios
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description: Invoke multiple LLMs on &BR;.
+              snippet_tags:
+                - gov2.bedrock-runtime.Scenario_InvokeModels
+  services:
+    bedrock-runtime: {InvokeModel, InvokeModelWithResponseStream}
