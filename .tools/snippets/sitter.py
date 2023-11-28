@@ -3,7 +3,7 @@ from tree_sitter import Language, Parser
 
 Language.build_library(
     # Store the library in the `build` directory
-    "build/my-languages.so",
+    "vendors/languages.so",
     # Include one or more languages
     [
         "vendors/tree-sitter-rust",
@@ -13,34 +13,115 @@ Language.build_library(
 )
 
 
-RS_LANGUAGE = Language("build/my-languages.so", "rust")
-JS_LANGUAGE = Language("build/my-languages.so", "javascript")
-PY_LANGUAGE = Language("build/my-languages.so", "python")
+"""
+excerpts:
+  - description: My thing
+    snippet_files:
+      - foo.rs
+    snippet_query:
+      - file: bar.rs
+        function: get_engine
+      - file: baz.rs
+        class: Engine
+      - file: bang.rs
+        constant: MY_CLIENT
+      # Java and Kotlin
+      - classpath: com.amazon.examples.Foo::get_engine
+"""
 
-parser = Parser()
-parser.set_language(RS_LANGUAGE)
-with open(
-    Path(__file__).parent / "../../rustv1/examples/aurora/src/aurora_scenario/mod.rs",
-    "rb",
-) as file:
-    source = file.read()
+# https://tree-sitter.github.io/tree-sitter/playground
+LANGUAGES = {
+    "rs": {
+        "name": "rust",
+        "functions": """((line_comment)* . (function_item name: (identifier) @name)) @fn""",
+        "function": """
+        (
+            (line_comment)* .
+            (function_item name: (identifier) @name (#eq? @name "{name}"))
+        )
+        @fn
+        """,
+        "class": """(impl_item name: (identifier) @name (#eq? @name "{name}")) @fn""",
+        "constant": "",
+    },
+    "js": {
+        "name": "javascript",
+        "function": """(
+            (comment)*
+            .
+            [
+                (function_declaration name: (identifier) @name (#eq? @name "{name}"))
+                (assignment_expression
+                    left: (identifier) @name (#eq? @name "{name}")
+                    right: (arrow_function)
+                )
+            ]
+            )
+            @fn
+        """,
+        "class": """((impl_item name: (identifier) @name (#eq? @name "{name}")) @fn)""",
+        "constant": "",
+    },
+    # "js": "javascript",
+    "py": "python",
+}
 
-tree = parser.parse(source)
-
-query = RS_LANGUAGE.query(
-    """
+SNIPPETS = [
     (
-        (function_item
-            name: (identifier) @name (#eq? @name "set_engine")
-        ) @fn
-    )"""
-)
-# query = RS_LANGUAGE.query("""(function_item @fn name: (identifier) @name)""")
-captures = query.captures(tree.root_node)
-print(
-    "\n".join(
-        [str(capture[0].text, "utf-8") for capture in captures if capture[1] == "fn"]
-    )
-)
+        "rustv1/examples/aurora/src/aurora_scenario/mod.rs",
+        "set_engine",
+    ),  # Rust Function
+    (
+        "javascriptv3/example_code/dynamodb/actions/document-client/put.js",
+        "main",
+    ),  # JS Arrow Function
+    (
+        "javascriptv3/example_code/cross-services/textract-react/src/App.js",
+        "App",
+    ),  # JS Function Declaration
+]
+ROOT = Path(__file__).parent / "../../"
 
-# print(tree.root_node.sexp())
+
+def get_tree(file):
+    parser = Parser()
+    ext = file.name.split(".")[-1]
+    language = LANGUAGES[ext]
+    sitter = Language("build/my-languages.so", language["name"])
+    parser.set_language(sitter)
+    with open(ROOT / file, "rb") as file:
+        source = file.read()
+
+    tree = parser.parse(source)
+    return (tree, language, sitter)
+
+
+for file, name in SNIPPETS:
+    file = Path(file)
+    tree, language, sitter = get_tree(file)
+    query_string = language["function"].format(name=name)
+    query = sitter.query(query_string)
+    captures = query.captures(tree.root_node)
+    print(file.name, name, query_string.replace("\n", ""))
+    if len(captures) == 0:
+        print("No captures")
+    for capture in captures:
+        print(capture[1], str(capture[0].text, "utf-8")[0:20])
+
+    # TODO remove snippet tags in post
+
+    # print(tree.root_node.sexp())
+
+
+for file in ROOT.glob("rustv1/**/*.rs"):
+    tree, language, sitter = get_tree(file)
+    query_string = language["functions"]
+    query = sitter.query(query_string)
+    captures = query.captures(tree.root_node)
+    print(
+        file.name,
+        "captures:",
+        ", ".join(
+            [str(node.text, "utf-8") for (node, name) in captures if name == "name"]
+        ),
+    )
