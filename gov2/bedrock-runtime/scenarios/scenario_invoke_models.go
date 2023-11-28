@@ -5,7 +5,7 @@ package scenarios
 
 import (
 	"log"
-	"strings"
+		"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
@@ -46,33 +46,41 @@ func NewInvokeModelsScenario(sdkConfig aws.Config, questioner demotools.IQuestio
 // Run runs the interactive scenario.
 func (scenario InvokeModelsScenario) Run() {
 	defer func() {
-		if r := recover(); r != nil {
-			log.Printf("Something went wrong with the demo.\n")
-			log.Println(r)
-		}
-	}()
-
-	log.Println(strings.Repeat("-", 88))
-	log.Println("Welcome to the Amazon Bedrock Runtime model invocation demo.")
-	log.Println(strings.Repeat("-", 88))
+        if r := recover(); r != nil {
+            log.Printf("Something went wrong with the demo: %v\n", r)
+        }
+    }()
 
 	prompt := "In one paragraph, who are you?"
 
-	log.Printf("First, let's invoke a few large-language models:\n\n")
-	log.Printf("Prompt: %v\n", prompt)
-	log.Println(strings.Repeat("-", 37))
+	log.Println(strings.Repeat("=", 77))
+	log.Println("Welcome to the Amazon Bedrock Runtime model invocation demo.")
+	log.Println(strings.Repeat("=", 77))
 
+	log.Printf("First, let's invoke a few large-language models using the synchronous client:\n\n")
+
+    log.Println(strings.Repeat("-", 77))
+    log.Printf("Invoking Claude with prompt: %v\n", prompt)
 	scenario.InvokeClaude(prompt)
 
+    log.Println(strings.Repeat("-", 77))
+    log.Printf("Invoking Jurassic-2 with prompt: %v\n", prompt)
 	scenario.InvokeJurassic2(prompt)
 
+    log.Println(strings.Repeat("-", 77))
+    log.Printf("Invoking Llama2 with prompt: %v\n", prompt)
 	scenario.InvokeLlama2(prompt)
 
+	log.Println(strings.Repeat("=", 77))
+	log.Printf("Now, let's invoke Claude with the asynchronous client and process the response stream:\n\n")
+
+    log.Println(strings.Repeat("-", 77))
+    log.Printf("Invoking Claude with prompt: %v\n", prompt)
 	scenario.InvokeWithResponseStream(prompt)
 
-	log.Println(strings.Repeat("-", 88))
+	log.Println(strings.Repeat("=", 77))
 	log.Println("Thanks for watching!")
-	log.Println(strings.Repeat("-", 88))
+	log.Println(strings.Repeat("=", 77))
 }
 
 func (scenario InvokeModelsScenario) InvokeClaude(prompt string) {
