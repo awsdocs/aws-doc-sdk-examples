@@ -8,6 +8,7 @@
 
 package com.example.cognito;
 
+//snippet-start:[cognito.java2.hello.main]
 //snippet-start:[cognito.java2.ListUserPools.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -40,7 +41,6 @@ public class ListUserPools {
 
     //snippet-start:[cognito.java2.ListUserPools.main]
     public static void listAllUserPools(CognitoIdentityProviderClient cognitoClient ) {
-
         try {
             ListUserPoolsRequest request = ListUserPoolsRequest.builder()
                 .maxResults(10)
@@ -58,3 +58,4 @@ public class ListUserPools {
     }
     //snippet-end:[cognito.java2.ListUserPools.main]
 }
+//snippet-end:[cognito.java2.hello.main]
