@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-cd "$(dirname $0)"
+cd "$(dirname "$0")" || exit
 
 mkdir -p vendors
-cd vendors
+cd vendors || exit
 
 LANGUAGES=(
   "tree-sitter/tree-sitter-python"
@@ -14,9 +14,10 @@ LANGUAGES=(
 for L in "${LANGUAGES[@]}" ; do 
   D=$(basename "$L")
   if [ -d "$D" ] ; then
-    cd $(basename "$D")
-    git pull
-    cd -
+    (
+      cd "$(basename "$D")" || exit
+      git pull
+    )
   else
     git clone "git@github.com:$L.git"
   fi
