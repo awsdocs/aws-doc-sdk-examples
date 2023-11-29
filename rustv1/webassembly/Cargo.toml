@@ -14,7 +14,6 @@ aws-config = "1.0.1"
 aws-credential-types = { features = ["hardcoded-credentials"],  version = "1.0.1"}
 aws-sdk-lambda = "1.2.0"
 aws-smithy-async = "1.0.1"
-aws-smithy-http = { features = ["event-stream"],  version = "0.60.0"}
 aws-smithy-runtime-api = "1.0.1"
 aws-smithy-types = "1.0.1"
 async-trait = "0.1.63"

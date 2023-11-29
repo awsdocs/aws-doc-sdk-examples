@@ -17,9 +17,6 @@ aws-config = { features = ["behavior-version-latest"], version = "1.0.1"}
 aws-sdk-glue = "1.2.0"
 aws-sdk-s3 = "1.2.0"
 aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-http = { features = [
-  "rt-tokio",
-],  version = "0.60.0"}
 aws-smithy-types = "1.0.1"
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 tokio = { version = "1.20.1", features = ["full"] }

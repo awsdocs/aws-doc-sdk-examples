@@ -19,7 +19,6 @@ aws-sdk-dynamodb = "1.2.0"
 aws-sdk-rekognition = "1.2.0"
 aws-sdk-s3 = "1.2.0"
 aws-sdk-sns = "1.2.0"
-aws-smithy-http = "0.60.0"
 aws-smithy-runtime = "1.0.1"
 aws-smithy-types-convert ={ features = ["convert-chrono"],  version = "0.60.0"}
 aws_lambda_events = { version = "0.11.1", features = ["s3", "apigw"], default-features = false }
