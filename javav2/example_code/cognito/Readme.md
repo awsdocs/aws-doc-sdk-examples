@@ -17,6 +17,10 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 ### Single action
 
+The following example is the introduction example for this service: 
+
+- [Listing existing users in the specified user pool](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cognito/src/main/java/com/example/cognito/ListUserPools.java) (listUserPools command)
+
 The following examples use the **CognitoIdentityClient** object:
 
 - [Associating an Amazon Cognito identity pool with an identity provider](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cognito/src/main/java/com/example/cognito/AddLoginProvider.java) (updateIdentityPool command)
