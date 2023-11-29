@@ -13,7 +13,12 @@ use std::error::Error;
 async fn main() -> Result<(), Box<dyn Error>> {
     tracing_subscriber::fmt::init();
 
-    let shared_config = aws_config::load_defaults(BehaviorVersion::latest()).await;
+    let mut shared_config = aws_config::defaults(BehaviorVersion::latest());
+    if use_localstack() {
+        shared_config = shared_config.endpoint_url(LOCALSTACK_ENDPOINT);
+    };
+    let shared_config = shared_config.load().await;
+
     let sqs_client = sqs_client(&shared_config);
     let s3_client = s3_client(&shared_config);
 
@@ -59,18 +64,14 @@ fn use_localstack() -> bool {
 const LOCALSTACK_ENDPOINT: &str = "http://localhost:4566/";
 
 fn sqs_client(conf: &aws_config::SdkConfig) -> aws_sdk_sqs::Client {
-    let mut sqs_config_builder = aws_sdk_sqs::config::Builder::from(conf);
-    if use_localstack() {
-        sqs_config_builder = sqs_config_builder.endpoint_url(LOCALSTACK_ENDPOINT)
-    }
+    // Copy config from aws_config::SdkConfig to aws_sdk_sqs::Config
+    let sqs_config_builder = aws_sdk_sqs::config::Builder::from(conf);
     aws_sdk_sqs::Client::from_conf(sqs_config_builder.build())
 }
 
 fn s3_client(conf: &aws_config::SdkConfig) -> aws_sdk_s3::Client {
-    let mut s3_config_builder = aws_sdk_s3::config::Builder::from(conf);
-    if use_localstack() {
-        s3_config_builder = s3_config_builder.endpoint_url(LOCALSTACK_ENDPOINT);
-    }
+    // Copy config from aws_config::SdkConfig to aws_sdk_s3::Config
+    let s3_config_builder = aws_sdk_s3::config::Builder::from(conf);
     aws_sdk_s3::Client::from_conf(s3_config_builder.build())
 }
 // snippet-end:[localstack.rust.use-localstack]
