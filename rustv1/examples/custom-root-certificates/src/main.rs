@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::provider_config::ProviderConfig;
 use aws_config::BehaviorVersion;
+use aws_smithy_runtime::client::http::hyper_014::HyperClientBuilder;
 use rustls::RootCertStore;
-use std::sync::Arc;
 
 #[tokio::main]
 async fn main() {
@@ -16,36 +15,25 @@ async fn main() {
         .with_safe_defaults()
         .with_root_certificates(root_store)
         .with_no_client_auth();
-    let rustls_connector = hyper_rustls::HttpsConnectorBuilder::new()
+    let tls_connector = hyper_rustls::HttpsConnectorBuilder::new()
         .with_tls_config(config)
         .https_only()
         .enable_http1()
         .enable_http2()
         .build();
 
-    // Currently, aws_config connectors are buildable directly from something that implements `hyper::Connect`.
-    // This enables different providers to construct clients with different timeouts.
-    let provider_config = ProviderConfig::default().with_tcp_connector(rustls_connector.clone());
+    let hyper_client = HyperClientBuilder::new().build(tls_connector);
     let sdk_config = aws_config::defaults(BehaviorVersion::latest())
-        .configure(provider_config)
-        .http_connector(HttpConnector::ConnectorFn(Arc::new(
-            move |connector_settings, sleep_impl| {
-                let mut builder =
-                    hyper_ext::Adapter::builder().connector_settings(connector_settings.clone());
-                builder.set_sleep_impl(sleep_impl);
-                let conn = builder.build(rustls_connector.clone());
-
-                Some(DynConnector::new(conn))
-            },
-        )))
+        .http_client(hyper_client)
         .load()
         .await;
+
     // however, for generated clients, they are constructed from a Hyper adapter directly:
     let s3_client = aws_sdk_s3::Client::new(&sdk_config);
 
     match s3_client.list_buckets().send().await {
         Ok(res) => {
-            println!("Your buckets: {:?}", res.buckets().unwrap_or_default())
+            println!("Your buckets: {:?}", res.buckets())
         }
         Err(err) => {
             println!("an error occurred when trying to list buckets: {}", err)

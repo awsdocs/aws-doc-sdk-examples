@@ -18,6 +18,7 @@ members = [
     "cognitosync",
     "concurrency",
     "config",
+    "custom-root-certificates",
     "dynamodb",
     "ebs",
     "ec2",
