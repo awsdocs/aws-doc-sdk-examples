@@ -15,7 +15,6 @@ anyhow = "1.0.75"
 assert_matches = "1.5.0"
 async-trait = "0.1.73"
 aws-config = { features = ["behavior-version-latest"], version = "1.0.1"}
-aws-smithy-http = "0.60.0"
 aws-smithy-runtime-api = "1.0.1"
 aws-sdk-rds = "1.2.0"
 clap = { version = "~4.4", features = ["derive"] }

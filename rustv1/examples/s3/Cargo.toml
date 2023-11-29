@@ -23,7 +23,6 @@ predicates = "3.0.3"
 [dependencies]
 aws-config = { features = ["behavior-version-latest"], version = "1.0.1"}
 # snippet-start:[s3.rust.s3-object-lambda-cargo.toml]
-aws-endpoint = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 # snippet-end:[s3.rust.s3-object-lambda-cargo.toml]
 aws-sdk-s3 = { features = ["rt-tokio"], version = "1.2.0"}
 aws-smithy-runtime = "1.0.1"

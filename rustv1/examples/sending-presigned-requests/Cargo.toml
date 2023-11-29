@@ -9,7 +9,6 @@ edition = "2021"
 [dependencies]
 aws-config = { features = ["behavior-version-latest"], version = "1.0.1"}
 aws-sdk-s3 = "1.2.0"
-aws-smithy-client = "0.60.0"
 http = "0.2.6"
 hyper = "0.14"
 reqwest = "0.11"
