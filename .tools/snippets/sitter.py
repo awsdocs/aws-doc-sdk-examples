@@ -14,6 +14,7 @@ Language.build_library(
 
 
 """
+Ideas for updated yaml:
 excerpts:
   - description: My thing
     snippet_files:
@@ -25,7 +26,7 @@ excerpts:
         class: Engine
       - file: bang.rs
         constant: MY_CLIENT
-      # Java and Kotlin
+      # Java and Kotlin (Not sure I like this dedicated syntax)
       - classpath: com.amazon.examples.Foo::get_engine
 """
 
@@ -59,11 +60,12 @@ LANGUAGES = {
             )
             @fn
         """,
-        "class": """((impl_item name: (identifier) @name (#eq? @name "{name}")) @fn)""",
+        "class": """(
+            (comment)* .
+            (impl_item name: (identifier) @name (#eq? @name "{name}"))
+            ) @fn""",
         "constant": "",
     },
-    # "js": "javascript",
-    "py": "python",
 }
 
 SNIPPETS = [
@@ -96,32 +98,36 @@ def get_tree(file):
     return (tree, language, sitter)
 
 
-for file, name in SNIPPETS:
-    file = Path(file)
-    tree, language, sitter = get_tree(file)
-    query_string = language["function"].format(name=name)
-    query = sitter.query(query_string)
-    captures = query.captures(tree.root_node)
-    print(file.name, name, query_string.replace("\n", ""))
-    if len(captures) == 0:
-        print("No captures")
-    for capture in captures:
-        print(capture[1], str(capture[0].text, "utf-8")[0:20])
+def find_snippets():
+    for file, name in SNIPPETS:
+        file = Path(file)
+        tree, language, sitter = get_tree(file)
+        query_string = language["function"].format(name=name)
+        query = sitter.query(query_string)
+        captures = query.captures(tree.root_node)
+        print(file.name, name, query_string.replace("\n", ""))
+        if len(captures) == 0:
+            print("No captures")
+        for capture in captures:
+            print(capture[1], str(capture[0].text, "utf-8")[0:20])
 
-    # TODO remove snippet tags in post
-
-    # print(tree.root_node.sexp())
+        # TODO remove snippet tags in post
 
 
-for file in ROOT.glob("rustv1/**/*.rs"):
-    tree, language, sitter = get_tree(file)
-    query_string = language["functions"]
-    query = sitter.query(query_string)
-    captures = query.captures(tree.root_node)
-    print(
-        file.name,
-        "captures:",
-        ", ".join(
-            [str(node.text, "utf-8") for (node, name) in captures if name == "name"]
-        ),
-    )
+def find_functions():
+    for file in ROOT.glob("rustv1/**/*.rs"):
+        tree, language, sitter = get_tree(file)
+        query_string = language["functions"]
+        query = sitter.query(query_string)
+        captures = query.captures(tree.root_node)
+        print(
+            file.name,
+            "captures:",
+            ", ".join(
+                [str(node.text, "utf-8") for (node, name) in captures if name == "name"]
+            ),
+        )
+
+
+if __name__ == "__main__":
+    find_functions()
