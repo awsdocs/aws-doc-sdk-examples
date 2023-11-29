@@ -41,7 +41,6 @@ public class ListUserPools {
 
     //snippet-start:[cognito.java2.ListUserPools.main]
     public static void listAllUserPools(CognitoIdentityProviderClient cognitoClient ) {
-
         try {
             ListUserPoolsRequest request = ListUserPoolsRequest.builder()
                 .maxResults(10)
