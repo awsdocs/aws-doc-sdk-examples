@@ -13,13 +13,13 @@ Amazon Cognito is a simple user identity and data synchronization service that h
 
 ## Code examples
 
-The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+### Hello Amazon Cognito
 
-### Single action
-
-The following example is the introduction example for this service: 
+The following code example shows how to get started using Amazon Cognito.
 
 - [Listing existing users in the specified user pool](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cognito/src/main/java/com/example/cognito/ListUserPools.java) (listUserPools command)
+
+### Single action
 
 The following examples use the **CognitoIdentityClient** object:
 
