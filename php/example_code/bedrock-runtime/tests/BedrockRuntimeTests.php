@@ -16,9 +16,11 @@ use PHPUnit\Framework\TestCase;
  * @group integ
  */
 
-class BedrockRuntimeTests extends TestCase
+class BedrockRuntimeTest extends TestCase
 {
     protected BedrockRuntimeService $bedrockRuntimeService;
+
+    private string $prompt = 'A test prompt';
 
     public function setup(): void
     {
@@ -32,22 +34,27 @@ class BedrockRuntimeTests extends TestCase
 
     public function test_claude_can_be_invoked()
     {
-        $prompt = 'A test prompt';
-        $completion = $this->bedrockRuntimeService->invokeClaude($prompt);
+        $completion = $this->bedrockRuntimeService->invokeClaude($this->prompt);
         self::assertNotEmpty($completion);
     }
 
     public function test_jurassic2_can_be_invoked()
     {
-        $prompt = 'A test prompt';
-        $completion = $this->bedrockRuntimeService->invokeJurassic2($prompt);
+        $completion = $this->bedrockRuntimeService->invokeJurassic2($this->prompt);
         self::assertNotEmpty($completion);
     }
 
     public function test_llama2_can_be_invoked()
     {
-        $prompt = 'A test prompt';
-        $completion = $this->bedrockRuntimeService->invokeLlama2($prompt);
+        $completion = $this->bedrockRuntimeService->invokeLlama2($this->prompt);
         self::assertNotEmpty($completion);
+    }
+
+    public function test_stable_diffusion_can_be_invoked()
+    {
+        $seed = 0;
+        $style_preset = "photographic";
+        $base64_image_data = $this->bedrockRuntimeService->invokeStableDiffusion($this->prompt, $seed, $style_preset);
+        self::assertNotEmpty($base64_image_data);
     }
 }

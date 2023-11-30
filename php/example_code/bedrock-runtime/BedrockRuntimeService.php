@@ -33,7 +33,6 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
     #snippet-start:[php.example_code.bedrock-runtime.service.invokeClaude]
     public function invokeClaude($prompt)
     {
-
         # The different model providers have individual request and response formats.
         # For the format, ranges, and default values for Anthropic Claude, refer to:
         # https://docs.anthropic.com/claude/reference/complete_post
@@ -71,7 +70,6 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
     #snippet-start:[php.example_code.bedrock-runtime.service.invokeJurassic2]
     public function invokeJurassic2($prompt)
     {
-
         # The different model providers have individual request and response formats.
         # For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
         # https://docs.ai21.com/reference/j2-complete-ref
@@ -105,7 +103,6 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
     #snippet-start:[php.example_code.bedrock-runtime.service.invokeLlama2]
     public function invokeLlama2($prompt)
     {
-
         # The different model providers have individual request and response formats.
         # For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
         # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
@@ -130,11 +127,53 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
             $completion = $response_body->generation;
 
             return $completion;
+
         } catch (Exception $e) {
             echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
         }
     }
     #snippet-end:[php.example_code.bedrock-runtime.service.invokeLlama2]
+
+    #snippet-start:[php.example_code.bedrock-runtime.service.invokeStableDiffusion]
+    public function invokeStableDiffusion(string $prompt, int $seed, string $style_preset)
+    {
+        # The different model providers have individual request and response formats.
+        # For the format, ranges, and available style_presets of Stable Diffusion models refer to:
+        # https://platform.stability.ai/docs/api-reference#tag/v1generation
+
+        try {
+            $modelId = 'stability.stable-diffusion-xl';
+
+            $body = [
+                'text_prompts' => [
+                    ['text' => $prompt]
+                ],
+                'seed' => $seed,
+                'cfg_scale' => 10,
+                'steps' => 30
+            ];
+
+            if($style_preset) {
+                $body['style_preset'] = $style_preset;
+            }
+
+            $result = $this->bedrockRuntimeClient->invokeModel([
+                'contentType' => 'application/json',
+                'body' => json_encode($body),
+                'modelId' => $modelId,
+            ]);
+
+            $response_body = json_decode($result['body']);
+
+            $base64_image_data = $response_body->artifacts[0]->base64;
+
+            return $base64_image_data;
+
+        } catch (Exception $e) {
+            echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
+        }
+    }
+    #snippet-end:[php.example_code.bedrock-runtime.service.invokeStableDiffusion]
 }
 
 #snippet-end:[php.example_code.bedrock-runtime.service]
