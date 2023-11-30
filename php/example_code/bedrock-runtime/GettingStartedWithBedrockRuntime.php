@@ -47,14 +47,20 @@ class GettingStartedWithBedrockRuntime
         echo "\n---------------------------------------------------------------------\n";
 
         $image_prompt = 'stylized picture of a cute old steampunk robot';
-        $diffusionSeed = rand(0, 4294967295);
-        $style_preset = 'photographic';
 
         echo "\nImage prompt: " . $image_prompt;
 
         echo "\n\nStability.ai Stable Diffusion XL:\n";
+        $diffusionSeed = rand(0, 4294967295);
+        $style_preset = 'photographic';
         $base64 = $bedrockRuntimeService->invokeStableDiffusion($image_prompt, $diffusionSeed, $style_preset);
         $image_path = $this->saveImage($base64, 'stability.stable-diffusion-xl');
+        echo "The generated images has been saved to $image_path";
+
+        echo "\n\nAmazon Titan Image Generation:\n";
+        $titanSeed = rand(0, 2147483647);
+        $base64 = $bedrockRuntimeService->invokeTitanImage($image_prompt, $titanSeed);
+        $image_path = $this->saveImage($base64, 'amazon.titan-image-generator-v1');
         echo "The generated images has been saved to $image_path";
     }
 
@@ -75,7 +81,7 @@ class GettingStartedWithBedrockRuntime
 
         $file_path = "$output_dir/$model_id" . '_' . "$i.png";
 
-        $file = fopen($file_path, "wb");
+        $file = fopen($file_path, 'wb');
         fwrite($file, $image_data);
         fclose($file);
 

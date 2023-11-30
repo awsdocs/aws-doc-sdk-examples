@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  * @group integ
  */
 
-class BedrockRuntimeTest extends TestCase
+class BedrockRuntimeTests extends TestCase
 {
     protected BedrockRuntimeService $bedrockRuntimeService;
 
@@ -55,6 +55,13 @@ class BedrockRuntimeTest extends TestCase
         $seed = 0;
         $style_preset = "photographic";
         $base64_image_data = $this->bedrockRuntimeService->invokeStableDiffusion($this->prompt, $seed, $style_preset);
+        self::assertNotEmpty($base64_image_data);
+    }
+
+    public function test_titan_image_can_be_invoked()
+    {
+        $seed = 0;
+        $base64_image_data = $this->bedrockRuntimeService->invokeTitanImage($this->prompt, $seed);
         self::assertNotEmpty($base64_image_data);
     }
 }
