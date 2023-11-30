@@ -227,4 +227,62 @@ public class InvokeModel {
         return base64ImageData;
     }
     // snippet-end:[bedrock-runtime.java2.invoke_stable_diffusion.main]
+
+    // snippet-start:[bedrock-runtime.java2.invoke_titan_image.main]
+    /**
+     * Invokes the Amazon Titan image generation model to create an image using the input
+     * provided in the request body.
+     *
+     * @param prompt The prompt that you want Amazon Titan to use for image generation.
+     * @param seed The random noise seed for image generation (Range: 0 to 2147483647).
+     * @return A Base64-encoded string representing the generated image.
+     */
+    public static String invokeTitanImage(String prompt, int seed) {
+        /*
+         The different model providers have individual request and response formats.
+         For the format, ranges, and default values for Titan Image models refer to:
+         https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-image.html
+        */
+        String titanImageModelId = "amazon.titan-image-generator-v1";
+
+        BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
+
+        var textToImageParams = new JSONObject()
+                .put("text", prompt);
+
+        var imageGenerationConfig = new JSONObject()
+                .put("numberOfImages", 1)
+                .put("quality", "standard")
+                .put("cfgScale", 8.0)
+                .put("height", 512)
+                .put("width", 512)
+                .put("seed", seed);
+
+        JSONObject payload = new JSONObject()
+                .put("taskType", "TEXT_IMAGE")
+                .put("textToImageParams", textToImageParams)
+                .put("imageGenerationConfig", imageGenerationConfig);
+
+        InvokeModelRequest request = InvokeModelRequest.builder()
+                .body(SdkBytes.fromUtf8String(payload.toString()))
+                .modelId(titanImageModelId)
+                .contentType("application/json")
+                .accept("application/json")
+                .build();
+
+        InvokeModelResponse response = client.invokeModel(request);
+
+        JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+
+        String base64ImageData = responseBody
+                .getJSONArray("images")
+                .getString(0);
+
+        return base64ImageData;
+
+    }
+    // snippet-end:[bedrock-runtime.java2.invoke_titan_image.main]
 }

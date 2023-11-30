@@ -17,4 +17,13 @@ class TextToImageSyncTest extends TestBase {
         assertNotNullOrEmpty(base64Result);
         System.out.println("Test sync invoke Stable Diffusion passed.");
     }
+
+    @Test
+    @Tag("IntegrationTest")
+    void InvokeTitanImage() {
+        String prompt = "A sunset over the ocean";
+        String base64Result = InvokeModel.invokeTitanImage(prompt, 0);
+        assertNotNullOrEmpty(base64Result);
+        System.out.println("Test sync invoke Titan Image passed.");
+    }
 }
