@@ -11,6 +11,7 @@
 package com.example.bedrockruntime;
 
 // snippet-start:[bedrock-runtime.java2.invoke_model.import]
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
@@ -204,7 +205,7 @@ public class InvokeModel {
                 .put("text_prompts", wrappedPrompt)
                 .put("seed", seed);
 
-        if (stylePreset != null && !stylePreset.isEmpty()) {
+        if (!(stylePreset == null || stylePreset.isEmpty())) {
             payload.put("style_preset", stylePreset);
         }
 

@@ -29,6 +29,7 @@ public class BedrockRuntimeUsageDemo {
     private static final String JURASSIC2 = "ai21.j2-mid-v1";
     private static final String LLAMA2 = "meta.llama2-13b-chat-v1";
     private static final String STABLE_DIFFUSION = "stability.stable-diffusion-xl";
+    private static final String TITAN_IMAGE = "amazon.titan-image-generator-v1";
 
     public static void main(String[] args) {
         BedrockRuntimeUsageDemo.textToText();
@@ -39,9 +40,13 @@ public class BedrockRuntimeUsageDemo {
     private static void textToText() {
 
         String prompt = "In one sentence, what is a large-language model?";
-        BedrockRuntimeUsageDemo.invoke(CLAUDE, prompt, null);
-        BedrockRuntimeUsageDemo.invoke(JURASSIC2, prompt, null);
-        BedrockRuntimeUsageDemo.invoke(LLAMA2, prompt, null);
+        BedrockRuntimeUsageDemo.invoke(CLAUDE, prompt);
+        BedrockRuntimeUsageDemo.invoke(JURASSIC2, prompt);
+        BedrockRuntimeUsageDemo.invoke(LLAMA2, prompt);
+    }
+
+    private static void invoke(String modelId, String prompt) {
+        invoke(modelId, prompt, null);
     }
 
     private static void invoke(String modelId, String prompt, String stylePreset) {
@@ -53,19 +58,19 @@ public class BedrockRuntimeUsageDemo {
             switch (modelId) {
                 case CLAUDE:
                     printResponse(invokeClaude(prompt));
-                    return;
+                    break;
                 case JURASSIC2:
                     printResponse(invokeJurassic2(prompt));
-                    return;
+                    break;
                 case LLAMA2:
                     printResponse(invokeLlama2(prompt));
-                    return;
+                    break;
                 case STABLE_DIFFUSION:
-                    long seed = (random.nextLong() & 0xFFFFFFFFL);
-                    String base64ImageData = invokeStableDiffusion(prompt, seed, stylePreset);
-                    String imagePath = saveImage(base64ImageData);
-                    System.out.printf("Success: The generated image has been saved to %s%n", imagePath);
-                    return;
+                    createImage(STABLE_DIFFUSION, prompt, random.nextLong() & 0xFFFFFFFFL, stylePreset);
+                    break;
+                case TITAN_IMAGE:
+                    createImage(TITAN_IMAGE, prompt, random.nextLong() & 0xFFFFFFFL);
+                    break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + modelId);
             }
@@ -75,12 +80,24 @@ public class BedrockRuntimeUsageDemo {
         }
     }
 
-    private static void textToTextWithResponseStream() {
-        String prompt = "What is a large-language model?";
-        BedrockRuntimeUsageDemo.invoke(CLAUDE, prompt);
+    private static void createImage(String modelId, String prompt, long seed) {
+        createImage(modelId, prompt, seed, null);
     }
 
-    private static void invoke(String modelId, String prompt) {
+    private static void createImage(String modelId, String prompt, long seed, String stylePreset) {
+        String base64ImageData = (modelId.equals(STABLE_DIFFUSION))
+                ? invokeStableDiffusion(prompt, seed, stylePreset)
+                : invokeTitanImage(prompt, seed);
+        String imagePath = saveImage(modelId, base64ImageData);
+        System.out.printf("Success: The generated image has been saved to %s%n", imagePath);
+    }
+
+    private static void textToTextWithResponseStream() {
+        String prompt = "What is a large-language model?";
+        BedrockRuntimeUsageDemo.invokeWithResponseStream(CLAUDE, prompt);
+    }
+
+    private static void invokeWithResponseStream(String modelId, String prompt) {
         System.out.println(new String(new char[88]).replace("\0", "-"));
         System.out.printf("Invoking %s with response stream%n", modelId);
         System.out.println("Prompt: " + prompt);
@@ -95,16 +112,17 @@ public class BedrockRuntimeUsageDemo {
     }
 
     private static void textToImage() {
-        String imagePrompt = "A sunset over the ocean";
+        String imagePrompt = "stylized picture of a cute old steampunk robot";
         String stylePreset = "photographic";
         BedrockRuntimeUsageDemo.invoke(STABLE_DIFFUSION, imagePrompt, stylePreset);
+        BedrockRuntimeUsageDemo.invoke(TITAN_IMAGE, imagePrompt);
     }
 
     private static void printResponse(String response) {
         System.out.printf("Generated text: %s%n", response);
     }
 
-    private static String saveImage(String base64ImageData) {
+    private static String saveImage(String modelId, String base64ImageData) {
         try {
             String directory = "output";
             URI uri = InvokeModel.class.getProtectionDomain().getCodeSource().getLocation().toURI();
@@ -117,7 +135,7 @@ public class BedrockRuntimeUsageDemo {
             int i = 1;
             String fileName;
             do {
-                fileName = String.format("image_%d.png", i);
+                fileName = String.format("%s_%d.png", modelId, i);
                 i++;
             } while (Files.exists(outputPath.resolve(fileName)));
 

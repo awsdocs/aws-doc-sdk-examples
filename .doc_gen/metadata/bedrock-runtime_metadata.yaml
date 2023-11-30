@@ -274,6 +274,14 @@ bedrock-runtime_InvokeTitanImage:
             - description: Invoke the Amazon Titan image generation model.
               snippet_tags:
                 - gov2.bedrock-runtime.InvokeTitanImage
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the Amazon Titan image generation model.
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_titan_image.main
     PHP:
       versions:
         - sdk_version: 3
@@ -290,6 +298,23 @@ bedrock-runtime_InvokeTitanImage:
             - description: Invoke the Amazon Titan image generation model.
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeTitanImage
+  services:
+    bedrock-runtime: {InvokeModel}
+
+bedrock-runtime_InvokeTitanImageAsync:
+  title: Asynchronously invoke the Amazon Titan on &BR; to generate images
+  title_abbrev: Asynchronous image generation with Amazon Titan
+  synopsis: asynchronously invoke the Amazon Titan on &BR; to generate images.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the Amazon Titan image generation model (async).
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_titan_image_async.main
   services:
     bedrock-runtime: {InvokeModel}
 
