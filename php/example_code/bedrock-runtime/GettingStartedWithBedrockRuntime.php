@@ -68,12 +68,12 @@ class GettingStartedWithBedrockRuntime
     {
         $output_dir = "output";
 
-        if(!file_exists($output_dir)) {
+        if (!file_exists($output_dir)) {
             mkdir($output_dir);
         }
 
         $i = 1;
-        while(file_exists("$output_dir/$model_id" . '_' . "$i.png")) {
+        while (file_exists("$output_dir/$model_id" . '_' . "$i.png")) {
             $i++;
         }
 

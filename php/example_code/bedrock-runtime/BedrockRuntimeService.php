@@ -62,7 +62,6 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
             $response_body = json_decode($result['body']);
 
             $completion = $response_body->completion;
-
         } catch (Exception $e) {
             echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
         }
@@ -98,7 +97,6 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
             $response_body = json_decode($result['body']);
 
             $completion = $response_body->completions[0]->data->text;
-
         } catch (Exception $e) {
             echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
         }
@@ -134,7 +132,6 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
             $response_body = json_decode($result['body']);
 
             $completion = $response_body->generation;
-
         } catch (Exception $e) {
             echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
         }
@@ -164,7 +161,7 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
                 'steps' => 30
             ];
 
-            if($style_preset) {
+            if ($style_preset) {
                 $body['style_preset'] = $style_preset;
             }
 
@@ -177,7 +174,6 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
             $response_body = json_decode($result['body']);
 
             $base64_image_data = $response_body->artifacts[0]->base64;
-
         } catch (Exception $e) {
             echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
         }
@@ -222,7 +218,6 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
             $response_body = json_decode($result['body']);
 
             $base64_image_data = $response_body->images[0];
-
         } catch (Exception $e) {
             echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
         }
