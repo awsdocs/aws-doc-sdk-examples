@@ -237,7 +237,7 @@ public class InvokeModel {
      * @param seed The random noise seed for image generation (Range: 0 to 2147483647).
      * @return A Base64-encoded string representing the generated image.
      */
-    public static String invokeTitanImage(String prompt, int seed) {
+    public static String invokeTitanImage(String prompt, long seed) {
         /*
          The different model providers have individual request and response formats.
          For the format, ranges, and default values for Titan Image models refer to:
@@ -250,8 +250,7 @@ public class InvokeModel {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        var textToImageParams = new JSONObject()
-                .put("text", prompt);
+        var textToImageParams = new JSONObject().put("text", prompt);
 
         var imageGenerationConfig = new JSONObject()
                 .put("numberOfImages", 1)
@@ -282,7 +281,6 @@ public class InvokeModel {
                 .getString(0);
 
         return base64ImageData;
-
     }
     // snippet-end:[bedrock-runtime.java2.invoke_titan_image.main]
 }
