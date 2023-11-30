@@ -107,7 +107,7 @@ class BedrockRuntimeWrapper:
             return completion
 
         except ClientError:
-            logger.error("Couldn't invoke Anthropic Claude 2")
+            logger.error("Couldn't invoke Jurassic-2")
             raise
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeAi21Jurassic2]
