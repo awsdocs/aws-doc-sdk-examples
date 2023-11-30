@@ -155,7 +155,7 @@ class BedrockRuntimeWrapper:
         Invokes the Stability.ai Stable Diffusion XL model to create an image using
         the input provided in the request body.
 
-        :param prompt: The prompt that you want Stable Diffusion to complete.
+        :param prompt: The prompt that you want Stable Diffusion  to use for image generation.
         :param seed: Random noise seed (omit this option or use 0 for a random seed)
         :param style_preset: Pass in a style preset to guide the image model towards
                              a particular style.
@@ -193,11 +193,11 @@ class BedrockRuntimeWrapper:
     # snippet-end:[python.example_code.bedrock-runtime.InvokeStableDiffusion]
 
     # snippet-start:[python.example_code.bedrock-runtime.InvokeTitanImage]
-    def invoke_titan_image_generator(self, prompt, seed):
+    def invoke_titan_image(self, prompt, seed):
         """
         Invokes the Titan Image model to create an image using the input provided in the request body.
 
-        :param prompt: The prompt that you want Stable Diffusion to complete.
+        :param prompt: The prompt that you want Amazon Titan to use for image generation.
         :param seed: Random noise seed (range: 0 to 2147483647)
         :return: Base64-encoded inference response from the model.
         """
@@ -207,23 +207,26 @@ class BedrockRuntimeWrapper:
             # For the format, ranges, and default values for Titan Image models refer to:
             # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-image.html
 
-            body = {
-                "taskType": "TEXT_IMAGE",
-                "textToImageParams": {
-                    "text": prompt
-                },
-                "imageGenerationConfig": {
-                    "numberOfImages": 1,
-                    "quality": "standard",
-                    "cfgScale": 8.0,
-                    "height": 512,
-                    "width": 512,
-                    "seed": seed
+            request = json.dumps(
+                {
+                    "taskType": "TEXT_IMAGE",
+                    "textToImageParams": {
+                        "text": prompt
+                    },
+                    "imageGenerationConfig": {
+                        "numberOfImages": 1,
+                        "quality": "standard",
+                        "cfgScale": 8.0,
+                        "height": 512,
+                        "width": 512,
+                        "seed": seed
+                    }
                 }
-            }
+            )
 
             response = self.bedrock_runtime_client.invoke_model(
-                modelId="amazon.titan-image-generator-v1", body=json.dumps(body)
+                modelId="amazon.titan-image-generator-v1",
+                body=request
             )
 
             response_body = json.loads(response["body"].read())
@@ -323,7 +326,7 @@ def invoke(wrapper, model_id, prompt, style_preset=None):
 
         elif model_id == "amazon.titan-image-generator-v1":
             seed = random.randint(0, 2147483647)
-            base64_image_data = wrapper.invoke_titan_image_generator(prompt, seed)
+            base64_image_data = wrapper.invoke_titan_image(prompt, seed)
             image_path = save_image(base64_image_data, "titan")
             print(f"The generated image has been saved to {image_path}")
 

@@ -134,3 +134,33 @@ class BedrockRuntimeStubber(ExampleStubber):
         self._stub_bifurcator(
             "invoke_model", expected_params, response, error_code=error_code
         )
+
+    def stub_invoke_titan_image(self, prompt, seed, error_code=None):
+        expected_params = {
+            "modelId": "amazon.titan-image-generator-v1",
+            "body": json.dumps(
+                {
+                    "taskType": "TEXT_IMAGE",
+                    "textToImageParams": {
+                        "text": prompt
+                    },
+                    "imageGenerationConfig": {
+                        "numberOfImages": 1,
+                        "quality": "standard",
+                        "cfgScale": 8.0,
+                        "height": 512,
+                        "width": 512,
+                        "seed": seed
+                    }
+                }
+            ),
+        }
+
+        response_body = io.BytesIO(
+            json.dumps({"images": ["FakeBase64String=="]}).encode("utf-8")
+        )
+
+        response = {"body": response_body, "contentType": ""}
+        self._stub_bifurcator(
+            "invoke_model", expected_params, response, error_code=error_code
+        )
