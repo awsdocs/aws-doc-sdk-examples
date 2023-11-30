@@ -192,6 +192,51 @@ class BedrockRuntimeWrapper:
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeStableDiffusion]
 
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeTitanImage]
+    def invoke_titan_image_generator(self, prompt, seed):
+        """
+        Invokes the Titan Image model to create an image using the input provided in the request body.
+
+        :param prompt: The prompt that you want Stable Diffusion to complete.
+        :param seed: Random noise seed (range: 0 to 2147483647)
+        :return: Base64-encoded inference response from the model.
+        """
+
+        try:
+            # The different model providers have individual request and response formats.
+            # For the format, ranges, and default values for Titan Image models refer to:
+            # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-image.html
+
+            body = {
+                "taskType": "TEXT_IMAGE",
+                "textToImageParams": {
+                    "text": prompt
+                },
+                "imageGenerationConfig": {
+                    "numberOfImages": 1,
+                    "quality": "standard",
+                    "cfgScale": 8.0,
+                    "height": 512,
+                    "width": 512,
+                    "seed": seed
+                }
+            }
+
+            response = self.bedrock_runtime_client.invoke_model(
+                modelId="amazon.titan-image-generator-v1", body=json.dumps(body)
+            )
+
+            response_body = json.loads(response["body"].read())
+            base64_image_data = response_body["images"][0]
+
+            return base64_image_data
+
+        except ClientError:
+            logger.error("Couldn't invoke Stable Diffusion XL")
+            raise
+
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeTitanImage]
+
     # snippet-start:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream]
     async def invoke_model_with_response_stream(self, prompt):
         """
@@ -225,25 +270,25 @@ class BedrockRuntimeWrapper:
                 yield chunk
 
         except ClientError:
-            logger.error("Couldn't invoke Anthropic Claude")
+            logger.error("Couldn't invoke Titan Image Generator")
             raise
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream]
 
 
-def save_image(base64_image_data):
-    directory = "output"
+def save_image(base64_image_data, model):
+    output_dir = "output/" + model
 
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
     i = 1
-    while os.path.exists(os.path.join(directory, f"image_{i}.png")):
+    while os.path.exists(os.path.join(output_dir, f"image_{i}.png")):
         i += 1
 
     image_data = base64.b64decode(base64_image_data)
 
-    file_path = os.path.join(directory, f"image_{i}.png")
+    file_path = os.path.join(output_dir, f"image_{i}.png")
     with open(file_path, "wb") as file:
         file.write(image_data)
 
@@ -273,7 +318,13 @@ def invoke(wrapper, model_id, prompt, style_preset=None):
             base64_image_data = wrapper.invoke_stable_diffusion(
                 prompt, seed, style_preset
             )
-            image_path = save_image(base64_image_data)
+            image_path = save_image(base64_image_data, "diffusion")
+            print(f"The generated image has been saved to {image_path}")
+
+        elif model_id == "amazon.titan-image-generator-v1":
+            seed = random.randint(0, 2147483647)
+            base64_image_data = wrapper.invoke_titan_image_generator(prompt, seed)
+            image_path = save_image(base64_image_data, "titan")
             print(f"The generated image has been saved to {image_path}")
 
     except ClientError:
@@ -313,8 +364,6 @@ def usage_demo():
     wrapper = BedrockRuntimeWrapper(client)
 
     text_generation_prompt = "Hi, write a paragraph about yourself."
-    image_generation_prompt = "A sunset over the ocean"
-    image_style_preset = "photographic"
 
     invoke(wrapper, "anthropic.claude-v2", text_generation_prompt)
 
@@ -328,12 +377,19 @@ def usage_demo():
         )
     )
 
+    image_generation_prompt = "stylized picture of a cute old steampunk robot"
+
+    image_style_preset = "photographic"
+
     invoke(
         wrapper,
         "stability.stable-diffusion-xl",
         image_generation_prompt,
         image_style_preset,
     )
+
+    invoke(wrapper, "amazon.titan-image-generator-v1", image_generation_prompt)
+
 
 
 if __name__ == "__main__":
