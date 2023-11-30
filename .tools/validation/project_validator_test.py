@@ -12,8 +12,8 @@ from metadata_errors import MetadataErrors
 @pytest.mark.parametrize(
     "contents,expected_parts",
     [
-        (".Contents word WoRD file:", ["contents", "word", "word", "file"]),
-        ("https://adomain.com/foo", ["https", "", "adomain.com", "foo"]),
+        (".Contents word WORD file:", ["contents", "word", "word", "file"]),
+        ("https://example.com/foo", ["https", "", "example.com", "foo"]),
     ],
 )
 def test(contents, expected_parts):

@@ -40,8 +40,8 @@ def test_services_entity_usage():
 
 def test_services():
     examples = load("services.yaml")
-    assert examples == [
-        Service(
+    assert examples == {
+        "s3": Service(
             short="&S3;",
             long="&S3long;",
             sort="S3",
@@ -54,14 +54,14 @@ def test_services():
                 url="AmazonS3/latest/userguide/Welcome.html",
             ),
         ),
-        Service(
+        "sns": Service(
             short="&SNS;",
             long="&SNSlong;",
             sort="SNS",
             version="sns-2010-03-31",
             bundle="sqs",
         ),
-        Service(
+        "sqs": Service(
             short="&SQS;",
             long="&SQSlong;",
             sort="SQS",
@@ -71,14 +71,14 @@ def test_services():
             version="sqs-2012-11-05",
             bundle="sqs",
         ),
-        Service(
+        "textract": Service(
             short="&TEXTRACT;",
             long="&TEXTRACTlong;",
             sort="Textract",
             tags={"product_categories": set(["Category 1"])},
             version="textract-2018-06-27",
         ),
-    ]
+    }
 
 
 if __name__ == "__main__":

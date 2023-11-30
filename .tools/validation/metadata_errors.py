@@ -117,8 +117,10 @@ class MissingField(FieldError):
 
 @dataclass
 class AwsNotEntity(FieldError):
+    check_err: str = ""
+
     def message(self):
-        return f"field {self.field} is '{self.value}', which contains a usage of 'AWS' that is not an entity. All uses of 'AWS' must be entities: '&AWS;'."
+        return f"field {self.field} is '{self.value}', which has a validation issue: {self.check_err}."
 
 
 @dataclass

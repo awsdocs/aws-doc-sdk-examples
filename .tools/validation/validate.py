@@ -25,11 +25,6 @@ def validate_zexii(metadata_path: Path, errors: MetadataErrors) -> None:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--quiet",
-        action="store_true",
-        help="Suppresses output of filenames while parsing. The default is False.",
-    )
-    parser.add_argument(
         "--root",
         default=f"{Path(__file__).parent / '..' / '..'}",
         help="The root path from which to search for files to check. The default is the root of the git repo (two up from this file).",

@@ -1,7 +1,7 @@
 import os
 
 from pathlib import Path
-from typing import Generator, Callable
+from collections.abc import Generator, Callable
 
 from pathspec import GitIgnoreSpec
 
@@ -39,7 +39,7 @@ def walk_with_gitignore(
 
 
 def get_files(
-    root: Path, skip: Callable[[str, str], bool] = lambda _, __: False
+    root: Path, skip: Callable[[Path], bool] = lambda _: False
 ) -> Generator[Path, None, None]:
     """
     Yield non-skipped files, that is, anything not matching git ls-files and not
@@ -47,7 +47,5 @@ def get_files(
     want to validate them.
     """
     for path in walk_with_gitignore(root):
-        filename = path.parts[-1]
-        ext = os.path.splitext(filename)[1].lstrip(".")
-        if not skip(filename, ext):
+        if not skip(path):
             yield path

@@ -4,8 +4,9 @@ from dataclasses import dataclass, field
 from typing import Optional, Self
 from os.path import splitext
 import metadata_errors
-from metadata_errors import MetadataErrors, MetadataParseError, DuplicateItemException
 from doc_gen import DocGen
+from metadata_errors import MetadataErrors, MetadataParseError, DuplicateItemException
+from metadata_validator import StringExtension
 
 
 @dataclass
@@ -98,7 +99,7 @@ class Version:
             url = Url.from_yaml(url)
             if isinstance(url, Url):
                 more_info.append(url)
-            else:
+            elif url is not None:
                 errors.append(url)
 
         add_services = parse_services(yaml.get("add_services", {}), errors, doc_gen)
@@ -240,9 +241,11 @@ def parse_services(
             errors.append(metadata_errors.UnknownService(service=name))
         else:
             service = yaml.get(name, {})
+            # While .get replaces missing with {}, `sqs: ` in yaml parses a literal `None`
             if service is None:
                 service = {}
-            services[name] = {key: service[key] for key in service}
+            # Make a copy of the dict
+            services[name] = dict(service)
     return services
 
 
@@ -258,18 +261,22 @@ def get_with_valid_entities(
             errors.append(metadata_errors.MissingField(field=name))
         return None
 
-    disallowed = field.count("AWS")
-    allowed = sum([field.count(token) for token in ALLOWED])
-
-    if disallowed != allowed:
-        errors.append(metadata_errors.AwsNotEntity(field_name=name, field_value=field))
+    checker = StringExtension()
+    if not checker.is_valid(field):
+        errors.append(
+            metadata_errors.AwsNotEntity(
+                field_name=name, field_value=field, check_err=checker.get_name()
+            )
+        )
         return None
-
     return field
 
 
-def idFormat(id: str) -> bool:
-    return len(id.split("_")) >= 2
+def idFormat(id: str, doc_gen: DocGen) -> bool:
+    [service, *rest] = id.split("_")
+    if len(rest) == 0:
+        return False
+    return service in doc_gen.services or service == "cross"
 
 
 def parse(
@@ -278,7 +285,7 @@ def parse(
     examples: list[Example] = []
     errors = MetadataErrors()
     for id in yaml:
-        if not idFormat(id):
+        if not idFormat(id, doc_gen):
             errors.append(metadata_errors.NameFormat(file=file, id=id))
         example = Example.from_yaml(yaml[id], doc_gen)
         if isinstance(example, Example):

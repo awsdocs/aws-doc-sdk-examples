@@ -61,8 +61,8 @@ def test_entityusage():
 
 def test_sdks():
     actual = load("sdks.yaml")
-    expected = [
-        Sdk(
+    expected = {
+        "C++": Sdk(
             name="C++",
             property="cpp",
             guide="&guide-cpp-dev;",
@@ -72,7 +72,7 @@ def test_sdks():
                 )
             ],
         ),
-        Sdk(
+        "Go": Sdk(
             name="Go",
             property="go",
             guide="&guide-go-dev;",
@@ -81,7 +81,7 @@ def test_sdks():
                 SdkVersion(version=2, long="&Golong; V2", short="&Go; V2"),
             ],
         ),
-        Sdk(
+        "Java": Sdk(
             name="Java",
             property="java",
             guide="&guide-javav2-dev;",
@@ -90,7 +90,7 @@ def test_sdks():
                 SdkVersion(version=2, long="&JavaV2long;", short="&Java;"),
             ],
         ),
-        Sdk(
+        "JavaScript": Sdk(
             name="JavaScript",
             property="javascript",
             guide="&guide-jsb-dev;",
@@ -108,7 +108,7 @@ def test_sdks():
                 ),
             ],
         ),
-        Sdk(
+        "Kotlin": Sdk(
             name="Kotlin",
             property="kotlin",
             guide="&NO_GUIDE;",
@@ -121,7 +121,7 @@ def test_sdks():
                 ),
             ],
         ),
-        Sdk(
+        ".NET": Sdk(
             name=".NET",
             property="csharp",
             guide="&guide-net-dev;",
@@ -137,25 +137,25 @@ def test_sdks():
                 ),
             ],
         ),
-        Sdk(
+        "PHP": Sdk(
             name="PHP",
             property="php",
             guide="&guide-php-dev;",
             versions=[SdkVersion(version=3, long="&PHPlong;", short="&PHP;")],
         ),
-        Sdk(
+        "Python": Sdk(
             name="Python",
             property="python",
             guide="&guide-python3-gsg;",
             versions=[SdkVersion(version=3, long="&Python3long;", short="&Python3;")],
         ),
-        Sdk(
+        "Ruby": Sdk(
             name="Ruby",
             property="ruby",
             guide="&guide-ruby-dev;",
             versions=[SdkVersion(version=3, long="&Rubylong;", short="&Ruby;")],
         ),
-    ]
+    }
     assert actual == expected
 
 

@@ -23,8 +23,16 @@ def load(path: Path, doc_gen: DocGen) -> list[Example] | metadata_errors.Metadat
 
 
 DOC_GEN = DocGen(
-    services={"ses": Service(), "sns": Service(), "sqs": Service(), "s3": Service()},
-    languages={
+    services={
+        "ses": Service(long="&SESlong;", short="&SES;", sort="ses", version=1),
+        "sns": Service(long="&SNSlong;", short="&SNS;", sort="sns", version=1),
+        "sqs": Service(long="&SQSlong;", short="&SQS;", sort="sqs", version=1),
+        "s3": Service(long="&S3long;", short="&S3;", sort="s3", version=1),
+        "autogluon": Service(
+            long="AutoGluon Test", short="AG Test", sort="autogluon", version=1
+        ),
+    },
+    sdks={
         "C++": Language(name="C++", versions=[]),
         "Java": Language(name="Java", versions=[]),
         "JavaScript": Language(name="JavaScript", versions=[]),
@@ -319,7 +327,8 @@ def test_verify_load_successful():
                     file="errors_metadata.yaml",
                     id="sns_TestExample2",
                     language="Java",
-                    sdk_version="",
+                    sdk_version=2,
+                    link="github/link/to/README.md",
                 ),
                 metadata_errors.BlockContentAndExcerptConflict(
                     file="errors_metadata.yaml",
