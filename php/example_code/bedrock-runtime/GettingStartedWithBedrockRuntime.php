@@ -55,13 +55,13 @@ class GettingStartedWithBedrockRuntime
         $style_preset = 'photographic';
         $base64 = $bedrockRuntimeService->invokeStableDiffusion($image_prompt, $diffusionSeed, $style_preset);
         $image_path = $this->saveImage($base64, 'stability.stable-diffusion-xl');
-        echo "The generated images has been saved to $image_path";
+        echo "The generated images have been saved to $image_path";
 
         echo "\n\nAmazon Titan Image Generation:\n";
         $titanSeed = rand(0, 2147483647);
         $base64 = $bedrockRuntimeService->invokeTitanImage($image_prompt, $titanSeed);
         $image_path = $this->saveImage($base64, 'amazon.titan-image-generator-v1');
-        echo "The generated images has been saved to $image_path";
+        echo "The generated images have been saved to $image_path";
     }
 
     private function saveImage($base64_image_data, $model_id): string
