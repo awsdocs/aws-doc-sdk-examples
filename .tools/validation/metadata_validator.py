@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """
 Validator for mapping and example metadata used to generate code example documentation.
 This validator uses Yamale (https://github.com/23andMe/Yamale) to compare a schema

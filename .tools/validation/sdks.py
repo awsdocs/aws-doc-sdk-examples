@@ -1,3 +1,6 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 from typing import Self, Optional
 import metadata_errors
 from metadata_errors import MetadataErrors, MetadataParseError, check_mapping

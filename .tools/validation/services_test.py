@@ -1,8 +1,11 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 from pathlib import Path
 import pytest
-import metadata_errors
 import yaml
 
+import metadata_errors
 from services import parse, Service, ServiceGuide
 
 

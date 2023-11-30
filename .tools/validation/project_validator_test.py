@@ -1,8 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+
 """
 This script contains tests that verify the project_validator script works as expected.
 """
+
 import pytest
 
 import project_validator
