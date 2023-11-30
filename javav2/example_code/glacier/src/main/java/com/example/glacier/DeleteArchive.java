@@ -45,7 +45,6 @@ public class DeleteArchive {
         String archiveId = args[2];
         GlacierClient glacier = GlacierClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteGlacierArchive(glacier, vaultName, accountId, archiveId);
@@ -62,7 +61,7 @@ public class DeleteArchive {
                 .build();
 
             glacier.deleteArchive(delArcRequest);
-            System.out.println("The vault was deleted!");
+            System.out.println("The archive was deleted.");
 
         } catch(GlacierException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
