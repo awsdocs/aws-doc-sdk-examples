@@ -9,6 +9,7 @@
 
 package com.example.cloudfront;
 
+// snippet-start:[cloudfront.java2.mod.main]
 // snippet-start:[cloudfront.java2.mod.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -29,14 +30,15 @@ import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ModifyDistribution {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-             "Usage:\n" +
-             "    <id> \n\n" +
-             "Where:\n" +
-             "    id - the id value of the distribution. \n";
+            Usage:
+                <id>\s
+
+            Where:
+                id - the id value of the distribution.\s
+            """;
 
         if (args.length != 1) {
              System.out.println(usage);
@@ -46,16 +48,13 @@ public class ModifyDistribution {
         String id = args[0];
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
             .region(Region.AWS_GLOBAL)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         modDistribution(cloudFrontClient, id);
         cloudFrontClient.close();
     }
 
-    // snippet-start:[cloudfront.java2.mod.main]
     public static void modDistribution(CloudFrontClient cloudFrontClient, String idVal) {
-
         try {
             // Get the Distribution to modify.
             GetDistributionRequest disRequest = GetDistributionRequest.builder()
@@ -99,6 +98,6 @@ public class ModifyDistribution {
             System.exit(1);
         }
     }
- // snippet-end:[cloudfront.java2.mod.main]
 }
+// snippet-end:[cloudfront.java2.mod.main]
 

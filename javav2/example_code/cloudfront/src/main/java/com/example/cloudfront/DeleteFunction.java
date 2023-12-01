@@ -8,8 +8,8 @@
 
 package com.example.cloudfront;
 
+// snippet-start:[cloudfront.java2.del_function.main]
 // snippet-start:[cloudfront.java2.del_function.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
 import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
@@ -25,35 +25,33 @@ import software.amazon.awssdk.services.cloudfront.model.DeleteFunctionRequest;
  */
 
 public class DeleteFunction {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage:\n" +
-                "    <functionName> <ifMatchVal>\n\n" +
-                "Where:\n" +
-                "    functionName - The name of the function to delete. \n"+
-                "    ifMatchVal - The current version (ETag value) of the function that you are deleting, which you can get using DescribeFunction. \n" ;
+            Usage:
+                <functionName> <ifMatchVal>
+
+            Where:
+                functionName - The name of the function to delete.\s
+                ifMatchVal - The current version (ETag value) of the function that you are deleting, which you can get using DescribeFunction.\s
+            """;
 
         if (args.length != 2) {
-             System.out.println(usage);
-             System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String functionName = args[0];
         String ifMatchVal = args[1];
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
             .region(Region.AWS_GLOBAL)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteSpecificFunction(cloudFrontClient, functionName, ifMatchVal);
         cloudFrontClient.close();
     }
 
-    // snippet-start:[cloudfront.java2.del_function.main]
-    public static void deleteSpecificFunction( CloudFrontClient cloudFrontClient, String functionName,String ifMatchVal){
-
+    public static void deleteSpecificFunction(CloudFrontClient cloudFrontClient, String functionName, String ifMatchVal) {
         try {
             DeleteFunctionRequest functionRequest = DeleteFunctionRequest.builder()
                 .name(functionName)
@@ -61,12 +59,12 @@ public class DeleteFunction {
                 .build();
 
             cloudFrontClient.deleteFunction(functionRequest);
-            System.out.println(functionName +" was successfully deleted.");
+            System.out.println(functionName + " was successfully deleted.");
 
-        } catch (CloudFrontException e){
+        } catch (CloudFrontException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[cloudfront.java2.del_function.main]
 }
+// snippet-end:[cloudfront.java2.del_function.main]
