@@ -10,8 +10,8 @@
 
 package com.example.cloudformation;
 
+// snippet-start:[cf.java2.create_stack.main]
 // snippet-start:[cf.java2.create_stack.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudformation.CloudFormationClient;
@@ -42,18 +42,19 @@ import software.amazon.awssdk.services.cloudformation.waiters.CloudFormationWait
  */
 
 public class CreateStack {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <stackName> <roleARN> <location> <key> <value> \n\n" +
-            "Where:\n" +
-            "    stackName - The name of the AWS CloudFormation stack. \n" +
-            "    roleARN - The ARN of the role that has AWS CloudFormation permissions. \n" +
-            "    location - The location of file containing the template body. (for example, https://s3.amazonaws.com/<bucketname>/template.yml). \n"+
-            "    key - The key associated with the parameter. \n" +
-            "    value - The value associated with the parameter. \n" ;
+            Usage:
+                <stackName> <roleARN> <location> <key> <value>\s
+
+            Where:
+                stackName - The name of the AWS CloudFormation stack.\s
+                roleARN - The ARN of the role that has AWS CloudFormation permissions.\s
+                location - The location of file containing the template body. (for example, https://s3.amazonaws.com/<bucketname>/template.yml).\s
+                key - The key associated with the parameter.\s
+                value - The value associated with the parameter.\s
+            """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -69,49 +70,46 @@ public class CreateStack {
         Region region = Region.US_EAST_1;
         CloudFormationClient cfClient = CloudFormationClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createCFStack(cfClient, stackName, roleARN, location, key, value);
         cfClient.close();
-   }
-
-   // snippet-start:[cf.java2.create_stack.main]
-   public static void createCFStack(CloudFormationClient cfClient,
-                                    String stackName,
-                                    String roleARN,
-                                    String location,
-                                    String key,
-                                    String value){
-
-       try {
-           CloudFormationWaiter waiter = cfClient.waiter();
-           Parameter myParameter = Parameter.builder()
-               .parameterKey(key)
-               .parameterValue(value)
-               .build();
-
-           CreateStackRequest stackRequest = CreateStackRequest.builder()
-               .stackName(stackName)
-               .templateURL(location)
-               .roleARN(roleARN)
-               .onFailure(OnFailure.ROLLBACK)
-               .parameters(myParameter)
-               .build();
-
-           cfClient.createStack(stackRequest);
-           DescribeStacksRequest stacksRequest = DescribeStacksRequest.builder()
-               .stackName(stackName)
-               .build();
-
-           WaiterResponse<DescribeStacksResponse> waiterResponse = waiter.waitUntilStackCreateComplete(stacksRequest);
-           waiterResponse.matched().response().ifPresent(System.out::println);
-           System.out.println(stackName +" is ready");
-
-       } catch (CloudFormationException e) {
-           System.err.println(e.getMessage());
-           System.exit(1);
-       }
     }
-   // snippet-end:[cf.java2.create_stack.main]
+
+    public static void createCFStack(CloudFormationClient cfClient,
+                                     String stackName,
+                                     String roleARN,
+                                     String location,
+                                     String key,
+                                     String value) {
+        try {
+            CloudFormationWaiter waiter = cfClient.waiter();
+            Parameter myParameter = Parameter.builder()
+                .parameterKey(key)
+                .parameterValue(value)
+                .build();
+
+            CreateStackRequest stackRequest = CreateStackRequest.builder()
+                .stackName(stackName)
+                .templateURL(location)
+                .roleARN(roleARN)
+                .onFailure(OnFailure.ROLLBACK)
+                .parameters(myParameter)
+                .build();
+
+            cfClient.createStack(stackRequest);
+            DescribeStacksRequest stacksRequest = DescribeStacksRequest.builder()
+                .stackName(stackName)
+                .build();
+
+            WaiterResponse<DescribeStacksResponse> waiterResponse = waiter.waitUntilStackCreateComplete(stacksRequest);
+            waiterResponse.matched().response().ifPresent(System.out::println);
+            System.out.println(stackName + " is ready");
+
+        } catch (CloudFormationException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+    }
 }
+// snippet-end:[cf.java2.create_stack.main]
