@@ -13,7 +13,6 @@
 package aws.example.athena;
 
 //snippet-start:[athena.java2.DeleteNamedQueryExample.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.DeleteNamedQueryRequest;
@@ -21,7 +20,6 @@ import software.amazon.awssdk.services.athena.model.AthenaException;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryRequest;
 import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
 //snippet-end:[athena.java2.DeleteNamedQueryExample.import]
-
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -31,9 +29,7 @@ import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteNamedQueryExample {
-
     public static void main(String[] args) {
-
         final String USAGE = "\n" +
             "Usage:\n" +
             "    <name>\n\n" +
@@ -48,7 +44,6 @@ public class DeleteNamedQueryExample {
         String name = args[0];
         AthenaClient athenaClient = AthenaClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String sampleNamedQueryId = getNamedQueryId(athenaClient, name);
@@ -89,8 +84,7 @@ public class DeleteNamedQueryExample {
        }
        return null;
    }
-   //snippet-end:[athena.java2.DeleteNamedQueryExample.main]
 }
-
+//snippet-end:[athena.java2.DeleteNamedQueryExample.main]
 //snippet-end:[athena.java.DeleteNamedQueryExample.complete]
 //snippet-end:[athena.java2.DeleteNamedQueryExample.complete]

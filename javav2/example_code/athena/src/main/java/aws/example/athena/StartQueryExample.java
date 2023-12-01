@@ -10,8 +10,8 @@
 //snippet-start:[athena.java.StartQueryExample.complete]
 package aws.example.athena;
 
+//snippet-start:[athena.java2.StartQueryExample.main]
 //snippet-start:[athena.java2.StartQueryExample.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.QueryExecutionContext;
@@ -38,14 +38,11 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-//snippet-start:[athena.java2.StartQueryExample.main]
 public class StartQueryExample {
 
     public static void main(String[] args) throws InterruptedException {
-
         AthenaClient athenaClient = AthenaClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String queryExecutionId = submitAthenaQuery(athenaClient);
@@ -112,7 +109,6 @@ public class StartQueryExample {
     // This code retrieves the results of a query
     public static void processResultRows(AthenaClient athenaClient, String queryExecutionId) {
         try {
-
             // Max Results can be set but if its not set,
             // it will choose the maximum page size.
             GetQueryResultsRequest getQueryResultsRequest = GetQueryResultsRequest.builder()
@@ -140,8 +136,7 @@ public class StartQueryExample {
             }
         }
     }
-    //snippet-end:[athena.java2.StartQueryExample.main]
 }
+//snippet-end:[athena.java2.StartQueryExample.main]
 //snippet-end:[athena.java.StartQueryExample.complete]
-
 //snippet-end:[athena.java2.StartQueryExample.complete]

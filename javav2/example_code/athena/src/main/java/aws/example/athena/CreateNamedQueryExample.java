@@ -11,8 +11,8 @@
 //snippet-start:[athena.java.CreateNamedQueryExample.complete]
 package aws.example.athena;
 
+//snippet-start:[athena.java2.CreateNamedQueryExample.main]
 //snippet-start:[athena.java2.CreateNamedQueryExample.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.AthenaException;
@@ -29,7 +29,6 @@ import software.amazon.awssdk.services.athena.model.CreateNamedQueryRequest;
 
 public class CreateNamedQueryExample {
     public static void main(String[] args) {
-
         final String USAGE = "\n" +
             "Usage:\n" +
             "    <name>\n\n" +
@@ -44,14 +43,12 @@ public class CreateNamedQueryExample {
         String name = args[0];
         AthenaClient athenaClient = AthenaClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createNamedQuery(athenaClient, name);
         athenaClient.close();
     }
 
-    //snippet-start:[athena.java2.CreateNamedQueryExample.main]
     public static void createNamedQuery(AthenaClient athenaClient, String name) {
         try {
             // Create the named query request.
@@ -70,7 +67,7 @@ public class CreateNamedQueryExample {
             System.exit(1);
         }
     }
-    //snippet-end:[athena.java2.CreateNamedQueryExample.main]
 }
+//snippet-end:[athena.java2.CreateNamedQueryExample.main]
 //snippet-end:[athena.java.CreateNamedQueryExample.complete]
 //snippet-end:[athena.java2.CreateNamedQueryExample.complete]

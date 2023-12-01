@@ -11,6 +11,7 @@
 //snippet-start:[athena.java.ListNamedQueryExecutionsExample.complete]
 package aws.example.athena;
 
+//snippet-start:[athena.java2.ListNamedQueryExecutionsExample.main]
 //snippet-start:[athena.java2.ListNamedQueryExecutionsExample.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -30,9 +31,7 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListQueryExecutionsExample {
-
     public static void main(String[] args) {
-
         AthenaClient athenaClient = AthenaClient.builder()
             .region(Region.US_WEST_2)
             .credentialsProvider(ProfileCredentialsProvider.create())
@@ -42,9 +41,7 @@ public class ListQueryExecutionsExample {
         athenaClient.close();
     }
 
-    //snippet-start:[athena.java2.ListNamedQueryExecutionsExample.main]
     public static void listQueryIds(AthenaClient athenaClient) {
-
         try {
             ListQueryExecutionsRequest listQueryExecutionsRequest = ListQueryExecutionsRequest.builder().build();
             ListQueryExecutionsIterable listQueryExecutionResponses = athenaClient.listQueryExecutionsPaginator(listQueryExecutionsRequest);
@@ -58,7 +55,7 @@ public class ListQueryExecutionsExample {
             System.exit(1);
         }
     }
-    //snippet-end:[athena.java2.ListNamedQueryExecutionsExample.main]
 }
+//snippet-end:[athena.java2.ListNamedQueryExecutionsExample.main]
 //snippet-end:[athena.java.ListNamedQueryExecutionsExample.complete]
 //snippet-end:[athena.java2.ListNamedQueryExecutionsExample.complete]

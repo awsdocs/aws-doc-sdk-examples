@@ -11,8 +11,8 @@
 //snippet-start:[athena.java.ListNamedQueryExample.complete]
 package aws.example.athena;
 
+//snippet-start:[athena.java2.ListNamedQueryExample.main]
 //snippet-start:[athena.java2.ListNamedQueryExample.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.AthenaException;
@@ -32,17 +32,15 @@ import java.util.List;
 public class ListNamedQueryExample {
 
     public static void main(String[] args) {
-
         AthenaClient athenaClient = AthenaClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listNamedQueries(athenaClient) ;
         athenaClient.close();
     }
 
-    //snippet-start:[athena.java2.ListNamedQueryExample.main]
+
     public static void listNamedQueries(AthenaClient athenaClient) {
         try{
             ListNamedQueriesRequest listNamedQueriesRequest = ListNamedQueriesRequest.builder()
@@ -59,7 +57,7 @@ public class ListNamedQueryExample {
            System.exit(1);
         }
     }
-    //snippet-end:[athena.java2.ListNamedQueryExample.main]
 }
+//snippet-end:[athena.java2.ListNamedQueryExample.main]
 //snippet-end:[athena.java.ListNamedQueryExample.complete]
 //snippet-end:[athena.java2.ListNamedQueryExample.complete]

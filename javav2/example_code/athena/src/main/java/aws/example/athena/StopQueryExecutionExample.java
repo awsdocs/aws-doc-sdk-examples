@@ -11,8 +11,8 @@
 //snippet-start:[athena.java.StopQueryExecutionExample.complete]
 package aws.example.athena;
 
+//snippet-start:[athena.java2.StopQueryExecutionExample.main]
 //snippet-start:[athena.java2.StopQueryExecutionExample.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
 import software.amazon.awssdk.services.athena.model.StopQueryExecutionRequest;
@@ -35,10 +35,8 @@ import software.amazon.awssdk.services.athena.model.StartQueryExecutionResponse;
  */
 public class StopQueryExecutionExample {
     public static void main(String[] args) {
-
         AthenaClient athenaClient = AthenaClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String sampleQueryExecutionId = submitAthenaQuery(athenaClient);
@@ -46,17 +44,13 @@ public class StopQueryExecutionExample {
         athenaClient.close();
     }
 
-    //snippet-start:[athena.java2.StopQueryExecutionExample.main]
     public static void stopAthenaQuery(AthenaClient athenaClient, String sampleQueryExecutionId){
-
         try {
             StopQueryExecutionRequest stopQueryExecutionRequest = StopQueryExecutionRequest.builder()
                 .queryExecutionId(sampleQueryExecutionId)
                 .build();
 
             athenaClient.stopQueryExecution(stopQueryExecutionRequest);
-
-            // Ensure that the query was stopped.
             GetQueryExecutionRequest getQueryExecutionRequest = GetQueryExecutionRequest.builder()
                 .queryExecutionId(sampleQueryExecutionId)
                 .build();
@@ -102,8 +96,7 @@ public class StopQueryExecutionExample {
         return null;
 
     }
-    //snippet-end:[athena.java2.StopQueryExecutionExample.main]
 }
-
+//snippet-end:[athena.java2.StopQueryExecutionExample.main]
 //snippet-end:[athena.java.StopQueryExecutionExample.complete]
 //snippet-end:[athena.java2.StopQueryExecutionExample.complete]
