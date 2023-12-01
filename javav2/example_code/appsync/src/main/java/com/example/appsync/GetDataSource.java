@@ -27,12 +27,16 @@ import software.amazon.awssdk.services.appsync.model.AppSyncException;
  */
 public class GetDataSource {
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage: " +
-            "   <apiId> <name>\n\n" +
-            "Where:\n" +
-            "   apiId - The id of the API (You can get this value from the AWS Management Console). \n\n" +
-            "   name - The name of the data source. \n\n";
+        final String usage = """
+
+            Usage:    <apiId> <name>
+
+            Where:
+               apiId - The id of the API (You can get this value from the AWS Management Console).\s
+
+               name - The name of the data source.\s
+
+            """;
 
         if (args.length != 2) {
              System.out.println(usage);

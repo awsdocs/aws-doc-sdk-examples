@@ -22,11 +22,14 @@ import java.util.List;
 
 public class ListApiKeys {
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage: " +
-            "   <apiId> \n\n" +
-            "Where:\n" +
-            "   apiId - The id of the API (You can get this value from the AWS Management Console). \n\n" ;
+        final String usage = """
+
+            Usage:    <apiId>\s
+
+            Where:
+               apiId - The id of the API (You can get this value from the AWS Management Console).\s
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);

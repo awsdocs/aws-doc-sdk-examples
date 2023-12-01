@@ -8,8 +8,8 @@
 */
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.java2.list_metrics.main]
 // snippet-start:[cloudwatch.java2.list_metrics.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
@@ -26,14 +26,15 @@ import software.amazon.awssdk.services.cloudwatch.model.Metric;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListMetrics {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <namespace> \n\n" +
-            "Where:\n" +
-            "  namespace - The namespace to filter against (for example, AWS/EC2). \n" ;
+            Usage:
+              <namespace>\s
+
+            Where:
+              namespace - The namespace to filter against (for example, AWS/EC2).\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,16 +45,13 @@ public class ListMetrics {
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listMets(cw, namespace) ;
         cw.close();
     }
 
-    // snippet-start:[cloudwatch.java2.list_metrics.main]
     public static void listMets( CloudWatchClient cw, String namespace) {
-
         boolean done = false;
         String nextToken = null;
 
@@ -93,5 +91,5 @@ public class ListMetrics {
             System.exit(1);
         }
     }
-    // snippet-end:[cloudwatch.java2.list_metrics.main]
 }
+// snippet-end:[cloudwatch.java2.list_metrics.main]

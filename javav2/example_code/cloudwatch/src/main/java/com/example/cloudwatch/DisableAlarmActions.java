@@ -7,15 +7,13 @@
    SPDX-License-Identifier: Apache-2.0
 */
 package com.example.cloudwatch;
-
+// snippet-start:[cloudwatch.java2.disable_alarm_actions.main]
 // snippet-start:[cloudwatch.java2.disable_alarm_actions.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatch.model.DisableAlarmActionsRequest;
 // snippet-end:[cloudwatch.java2.disable_alarm_actions.import]
-
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -25,14 +23,16 @@ import software.amazon.awssdk.services.cloudwatch.model.DisableAlarmActionsReque
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DisableAlarmActions {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <alarmName>\n\n" +
-            "Where:\n" +
-            "  alarmName - An alarm name to disable (for example, MyAlarm).\n" ;
+        final String usage = """
+
+            Usage:
+              <alarmName>
+
+            Where:
+              alarmName - An alarm name to disable (for example, MyAlarm).
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,16 +43,13 @@ public class DisableAlarmActions {
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         disableActions(cw, alarmName) ;
         cw.close();
     }
 
-    // snippet-start:[cloudwatch.java2.disable_alarm_actions.main]
     public static void disableActions(CloudWatchClient cw, String alarmName) {
-
         try {
             DisableAlarmActionsRequest request = DisableAlarmActionsRequest.builder()
                 .alarmNames(alarmName)
@@ -66,5 +63,5 @@ public class DisableAlarmActions {
             System.exit(1);
         }
     }
-    // snippet-end:[cloudwatch.java2.disable_alarm_actions.main]
 }
+// snippet-end:[cloudwatch.java2.disable_alarm_actions.main]

@@ -30,11 +30,15 @@ import software.amazon.awssdk.services.athena.model.CreateNamedQueryResponse;
  */
 public class DeleteNamedQueryExample {
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    <name>\n\n" +
-            "Where:\n" +
-            "    name - the name of the Amazon Athena query. \n\n" ;
+        final String USAGE = """
+
+            Usage:
+                <name>
+
+            Where:
+                name - the name of the Amazon Athena query.\s
+
+            """;
 
         if (args.length != 1) {
             System.out.println(USAGE);

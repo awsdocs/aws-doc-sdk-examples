@@ -7,7 +7,7 @@
    SPDX-License-Identifier: Apache-2.0
 */
 package com.example.cloudwatch;
-
+// snippet-start:[cloudwatch.java2.describe_subscription_filters.main]
 // snippet-start:[cloudwatch.java2.describe_subscription_filters.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
@@ -17,7 +17,6 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeSubscription
 import software.amazon.awssdk.services.cloudwatchlogs.model.SubscriptionFilter;
 // snippet-end:[cloudwatch.java2.describe_subscription_filters.import]
 
-
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
@@ -26,14 +25,16 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.SubscriptionFilter;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeSubscriptionFilters {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <logGroup>\n\n" +
-            "Where:\n" +
-            "  logGroup - A log group name (for example, myloggroup).\n" ;
+        final String usage = """
+
+            Usage:
+              <logGroup>
+
+            Where:
+              logGroup - A log group name (for example, myloggroup).
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -49,9 +50,7 @@ public class DescribeSubscriptionFilters {
         logs.close();
     }
 
-    // snippet-start:[cloudwatch.java2.describe_subscription_filters.main]
     public static void describeFilters(CloudWatchLogsClient logs, String logGroup) {
-
         try {
             boolean done = false;
             String newToken = null;
@@ -92,6 +91,6 @@ public class DescribeSubscriptionFilters {
         }
         System.out.printf("Done");
     }
-    // snippet-end:[cloudwatch.java2.describe_subscription_filters.main]
 }
+// snippet-end:[cloudwatch.java2.describe_subscription_filters.main]
 

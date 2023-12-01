@@ -30,7 +30,6 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListNamedQueryExample {
-
     public static void main(String[] args) {
         AthenaClient athenaClient = AthenaClient.builder()
             .region(Region.US_WEST_2)

@@ -9,15 +9,13 @@
 
 
 package com.example.cloudwatch;
-
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+// snippet-start:[cloudwatch.java2.hello.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatch.model.ListMetricsRequest;
 import software.amazon.awssdk.services.cloudwatch.paginators.ListMetricsIterable;
 
-// snippet-start:[cloudwatch.java2.hello.main]
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
@@ -26,14 +24,15 @@ import software.amazon.awssdk.services.cloudwatch.paginators.ListMetricsIterable
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class HelloService {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <namespace> \n\n" +
-            "Where:\n" +
-            "  namespace - The namespace to filter against (for example, AWS/EC2). \n" ;
+            Usage:
+              <namespace>\s
+
+            Where:
+              namespace - The namespace to filter against (for example, AWS/EC2).\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,7 +43,6 @@ public class HelloService {
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listMets(cw, namespace);

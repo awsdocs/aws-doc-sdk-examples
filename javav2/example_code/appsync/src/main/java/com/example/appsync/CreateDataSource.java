@@ -30,14 +30,20 @@ import software.amazon.awssdk.services.appsync.model.AppSyncException;
 public class CreateDataSource {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-            "Usage: " +
-            "   <apiId> <name> <dsRole> <tableName>\n\n" +
-            "Where:\n" +
-            "   apiId - The id of the API (You can get this value from the AWS Management Console). \n\n" +
-            "   name - The name of the data source. \n\n"+
-            "   dsRole - The AWS Identity and Access Management (IAM) service role for the data source. \n\n"+
-            "   tableName - The name of the Amazon DynamoDB table used as the data source. \n\n";
+        final String USAGE = """
+
+            Usage:    <apiId> <name> <dsRole> <tableName>
+
+            Where:
+               apiId - The id of the API (You can get this value from the AWS Management Console).\s
+
+               name - The name of the data source.\s
+
+               dsRole - The AWS Identity and Access Management (IAM) service role for the data source.\s
+
+               tableName - The name of the Amazon DynamoDB table used as the data source.\s
+
+            """;
 
         if (args.length != 4) {
              System.out.println(USAGE);

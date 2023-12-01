@@ -25,12 +25,14 @@ import software.amazon.awssdk.services.appsync.model.DeleteDataSourceRequest;
  */
 public class DeleteDataSource {
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage: " +
-            "   <apiId> <dsName> \n\n" +
-            "Where:\n" +
-            "   apiId - the id of the API (You can get this value from the AWS Management Console). \n\n" +
-            "   dsName - The name of the data source to delete." ;
+        final String usage = """
+
+            Usage:    <apiId> <dsName>\s
+
+            Where:
+               apiId - the id of the API (You can get this value from the AWS Management Console).\s
+
+               dsName - The name of the data source to delete.""";
 
         if (args.length != 2) {
             System.out.println(usage);

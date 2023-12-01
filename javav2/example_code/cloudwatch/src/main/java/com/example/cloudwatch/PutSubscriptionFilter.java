@@ -9,8 +9,8 @@
 
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.java2.put_subscription_filter.main]
 // snippet-start:[cloudwatch.java2.put_subscription_filter.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.CloudWatchLogsException;
@@ -40,15 +40,17 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilte
 
 public class PutSubscriptionFilter {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <filter> <pattern> <logGroup> <functionArn> \n\n" +
-            "Where:\n" +
-            "  filter - A filter name (for example, myfilter).\n" +
-            "  pattern - A filter pattern (for example, ERROR).\n" +
-            "  logGroup - A log group name (testgroup).\n" +
-            "  functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:111111111111:function:lambda1) .\n" ;
+            Usage:
+              <filter> <pattern> <logGroup> <functionArn>\s
+
+            Where:
+              filter - A filter name (for example, myfilter).
+              pattern - A filter pattern (for example, ERROR).
+              logGroup - A log group name (testgroup).
+              functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:111111111111:function:lambda1) .
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -62,14 +64,12 @@ public class PutSubscriptionFilter {
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cwl = CloudWatchLogsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         putSubFilters(cwl, filter, pattern, logGroup, functionArn ) ;
         cwl.close();
     }
 
-    // snippet-start:[cloudwatch.java2.put_subscription_filter.main]
     public static void putSubFilters(CloudWatchLogsClient cwl,
                                      String filter,
                                      String pattern,
@@ -94,6 +94,6 @@ public class PutSubscriptionFilter {
             System.exit(1);
         }
     }
-    // snippet-end:[cloudwatch.java2.put_subscription_filter.main]
 }
+// snippet-end:[cloudwatch.java2.put_subscription_filter.main]
 

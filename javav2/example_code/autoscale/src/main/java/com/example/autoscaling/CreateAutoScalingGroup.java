@@ -7,9 +7,8 @@
 */
 
 package com.example.autoscaling;
-
+// snippet-start:[autoscale.java2.create_scaling_group.main]
 // snippet-start:[autoscale.java2.create_scaling_group.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.autoscaling.AutoScalingClient;
@@ -31,13 +30,16 @@ import software.amazon.awssdk.services.autoscaling.waiters.AutoScalingWaiter;
 public class CreateAutoScalingGroup {
 
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>\n\n" +
-            "Where:\n" +
-            "    groupName - The name of the Auto Scaling group.\n" +
-            "    launchTemplateName - The name of the launch template. \n" +
-            "    vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.\n" ;
+        final String usage = """
+
+            Usage:
+                <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>
+
+            Where:
+                groupName - The name of the Auto Scaling group.
+                launchTemplateName - The name of the launch template.\s
+                vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -47,17 +49,14 @@ public class CreateAutoScalingGroup {
         String groupName = args[0];
         String launchTemplateName = args[1];
         String vpcZoneId = args[2];
-
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, vpcZoneId);
         autoScalingClient.close();
     }
 
-    // snippet-start:[autoscale.java2.create_scaling_group.main]
     public static void createAutoScalingGroup(AutoScalingClient autoScalingClient,
                                               String groupName,
                                               String launchTemplateName,
@@ -92,5 +91,5 @@ public class CreateAutoScalingGroup {
             System.exit(1);
         }
     }
-    // snippet-end:[autoscale.java2.create_scaling_group.main]
 }
+// snippet-end:[autoscale.java2.create_scaling_group.main]
