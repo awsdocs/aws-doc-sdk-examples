@@ -89,7 +89,7 @@ func (scenario InvokeModelsScenario) Run() {
     log.Printf("Now, let's create an image with the Amazon Titan image generation model:\n\n")
 
     text2ImagePrompt := "stylized picture of a cute old steampunk robot"
-    seed := rand.Int63n(2147483647)
+    seed := rand.Int63n(2147483648)
 
     log.Println(strings.Repeat("-", 77))
     log.Printf("Invoking Amazon Titan with prompt: %v\n", text2ImagePrompt)
