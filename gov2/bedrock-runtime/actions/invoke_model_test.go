@@ -45,7 +45,7 @@ func CallInvokeModelActions(sdkConfig aws.Config) {
 	if err != nil {panic(err)}
 	log.Println(llama2Completion)
 
-    seed := uint32(0)
+    seed := int64(0)
 	titanImageCompletion, err := wrapper.InvokeTitanImage(prompt, seed)
     if err != nil {panic(err)}
     log.Println(titanImageCompletion)
@@ -115,8 +115,23 @@ func stubInvokeModel(modelId string) (testtools.Stub) {
             })
 
         case TITAN_IMAGE_MODEL_ID:
-            request, _ = json.Marshal(TitanImageRequest{})
-            response, _ = json.Marshal(TitanImageResponse{})
+            request, _ = json.Marshal(TitanImageRequest{
+                TaskType: "TEXT_IMAGE",
+                TextToImageParams: TextToImageParams{
+                    Text: prompt,
+                },
+                ImageGenerationConfig: ImageGenerationConfig{
+                    NumberOfImages: 1,
+                    Quality: "standard",
+                    CfgScale: 8.0,
+                    Height: 512,
+                    Width: 512,
+                    Seed: 0,
+                },
+            })
+            response, _ = json.Marshal(TitanImageResponse{
+                Images: []string{"FakeBase64String=="},
+            })
 
         default:
             return testtools.Stub{}

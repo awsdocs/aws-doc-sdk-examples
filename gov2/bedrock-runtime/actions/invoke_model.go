@@ -7,7 +7,6 @@ import (
 	"context"
 	"encoding/json"
 	"log"
-	"fmt"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -45,24 +44,19 @@ type ClaudeResponse struct {
 // Invokes Anthropic Claude on Amazon Bedrock to run an inference using the input
 // provided in the request body.
 func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
-
     modelId := "anthropic.claude-v2"
 
-	// Anthropic Claude requires you to enclose the prompt as follows:
-	prefix := "Human: "
-	postfix := "\n\nAssistant:"
-	prompt = prefix + prompt + postfix
+	// Anthropic Claude requires enclosing the prompt as follows:
+	enclosedPrompt := "Human: " + prompt + "\n\nAssistant:"
 
 	body, err := json.Marshal(ClaudeRequest {
-		Prompt:            prompt,
+		Prompt:            enclosedPrompt,
 		MaxTokensToSample: 200,
 		Temperature:       0.5,
 		StopSequences:     []string{"\n\nHuman:"},
 	})
 
-	if err != nil {
-        log.Fatal("failed to marshal", err)
-    }
+	if err != nil { log.Fatal("failed to marshal", err) }
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String(modelId),
@@ -70,18 +64,12 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 		Body: body,
 	})
 
-	if err != nil {
-        ProcessError(err, modelId)
-    }
+	if err != nil { ProcessError(err, modelId) }
 
 	var response ClaudeResponse
-
-	err = json.Unmarshal(output.Body, &response)
-
-	if err != nil {
-		fmt.Println(err)
-		log.Fatal("failed to unmarshal", err)
-	}
+    if err := json.Unmarshal(output.Body, &response); err != nil {
+        log.Fatal("failed to unmarshal", err)
+    }
 
 	return response.Completion, nil
 }
@@ -112,7 +100,6 @@ type Data struct {
 // Invokes AI21 Labs Jurassic-2 on Amazon Bedrock to run an inference using the input
 // provided in the request body.
 func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error) {
-
     modelId := "ai21.j2-mid-v1"
 
 	body, err := json.Marshal(Jurassic2Request {
@@ -121,9 +108,7 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 		Temperature:       0.5,
 	})
 
-	if err != nil {
-        log.Fatal("failed to marshal", err)
-    }
+	if err != nil { log.Fatal("failed to marshal", err) }
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String(modelId),
@@ -131,17 +116,12 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 		Body: body,
 	})
 
-	if err != nil {
-    	ProcessError(err, modelId)
-    }
+	if err != nil { ProcessError(err, modelId) }
 
 	var response Jurassic2Response
-
-	err = json.Unmarshal(output.Body, &response)
-
-	if err != nil {
-		log.Fatal("failed to unmarshal", err)
-	}
+    if err := json.Unmarshal(output.Body, &response); err != nil {
+        log.Fatal("failed to unmarshal", err)
+    }
 
 	return response.Completions[0].Data.Text, nil
 }
@@ -163,10 +143,9 @@ type Llama2Response struct {
 	Generation string `json:"generation"`
 }
 
-// Invokes Meta Llama 2 Chaton Amazon Bedrock to run an inference using the input
+// Invokes Meta Llama 2 Chat on Amazon Bedrock to run an inference using the input
 // provided in the request body.
 func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
-
     modelId := "meta.llama2-13b-chat-v1"
 
 	body, err := json.Marshal(Llama2Request {
@@ -175,9 +154,7 @@ func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
 		Temperature:       0.5,
 	})
 
-	if err != nil {
-        log.Fatal("failed to marshal", err)
-    }
+	if err != nil { log.Fatal("failed to marshal", err) }
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String(modelId),
@@ -185,17 +162,14 @@ func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
 		Body: body,
 	})
 
-	if err != nil {
-        ProcessError(err, modelId)
-    }
+	if err != nil { ProcessError(err, modelId) }
 
 	var response Llama2Response
+    if err := json.Unmarshal(output.Body, &response); err != nil {
+        log.Fatal("failed to unmarshal", err)
+    }
 
-	err = json.Unmarshal(output.Body, &response)
 
-	if err != nil {
-		log.Fatal("failed to unmarshal", err)
-	}
 
 	return response.Generation, nil
 }
@@ -217,7 +191,7 @@ type ImageGenerationConfig struct {
     CfgScale       float64 `json:"cfgScale"`
     Height         int     `json:"height"`
     Width          int     `json:"width"`
-    Seed           uint32  `json:"seed"`
+    Seed           int64   `json:"seed"`
 }
 
 type TitanImageResponse struct {
@@ -226,8 +200,7 @@ type TitanImageResponse struct {
 
 // Invokes the Titan Image model to create an image using the input provided
 // in the request body.
-func (wrapper InvokeModelWrapper) InvokeTitanImage(prompt string, seed uint32) (string, error) {
-
+func (wrapper InvokeModelWrapper) InvokeTitanImage(prompt string, seed int64) (string, error) {
     modelId := "amazon.titan-image-generator-v1"
 
     body, err := json.Marshal(TitanImageRequest {
@@ -245,9 +218,7 @@ func (wrapper InvokeModelWrapper) InvokeTitanImage(prompt string, seed uint32) (
         },
     })
 
-    if err != nil {
-        log.Fatal("failed to marshal", err)
-    }
+    if err != nil { log.Fatal("failed to marshal", err) }
 
     output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
         ModelId: aws.String(modelId),
@@ -255,19 +226,16 @@ func (wrapper InvokeModelWrapper) InvokeTitanImage(prompt string, seed uint32) (
         Body: body,
     })
 
-    if err != nil {
-        ProcessError(err, modelId)
-    }
+    if err != nil { ProcessError(err, modelId) }
 
     var response TitanImageResponse
-
-    err = json.Unmarshal(output.Body, &response)
-
-    if err != nil {
+    if err := json.Unmarshal(output.Body, &response); err != nil {
         log.Fatal("failed to unmarshal", err)
     }
 
-    return response.Images[0], nil
+    base64ImageData := response.Images[0]
+
+    return base64ImageData, nil
 
 }
 // snippet-end:[gov2.bedrock-runtime.InvokeTitanImage]
@@ -281,7 +249,8 @@ func ProcessError(err error, modelId string) {
     } else if strings.Contains(errMsg, "Could not resolve the foundation model") {
         log.Printf(`Could not resolve the foundation model from model identifier: \"%v\".
                     Please verify that the requested model exists and is accessible
-                    within the specified region.\n`, modelId)
+                    within the specified region.\n
+                    `, modelId)
     } else {
         log.Printf("Couldn't invoke model: \"%v\". Here's why: %v\n", modelId, err)
     }
