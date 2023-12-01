@@ -255,7 +255,7 @@ bedrock-runtime_InvokeStableDiffusionAsync:
 bedrock-runtime_InvokeTitanImage:
   title: Invoke Amazon Titan on &BR; to generate images
   title_abbrev: Image generation with Amazon Titan
-  synopsis: invoke the Amazon Titan on &BR; to generate images.
+  synopsis: invoke Amazon Titan on &BR; to generate images.
   category:
   languages:
     Go:
