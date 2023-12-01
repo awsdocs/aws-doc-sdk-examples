@@ -8,8 +8,8 @@
 
 package com.example.cognito;
 
+//snippet-start:[cognito.java2.create_identity_pool.main]
 //snippet-start:[cognito.java2.create_identity_pool.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentity.model.CreateIdentityPoolRequest;
@@ -25,14 +25,16 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIden
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateIdentityPool {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <identityPoolName> \n\n" +
-            "Where:\n" +
-            "    identityPoolName - The name to give your identity pool.\n\n" ;
+        final String usage = """
+
+            Usage:
+                <identityPoolName>\s
+
+            Where:
+                identityPoolName - The name to give your identity pool.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,31 +44,28 @@ public class CreateIdentityPool {
         String identityPoolName = args[0];
         CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        String identityPoolId = createIdPool(cognitoClient, identityPoolName) ;
+        String identityPoolId = createIdPool(cognitoClient, identityPoolName);
         System.out.println("Unity pool ID " + identityPoolId);
         cognitoClient.close();
     }
 
-    //snippet-start:[cognito.java2.create_identity_pool.main]
-    public static String createIdPool(CognitoIdentityClient cognitoClient, String identityPoolName ) {
-
+    public static String createIdPool(CognitoIdentityClient cognitoClient, String identityPoolName) {
         try {
             CreateIdentityPoolRequest poolRequest = CreateIdentityPoolRequest.builder()
                 .allowUnauthenticatedIdentities(false)
                 .identityPoolName(identityPoolName)
-                .build() ;
+                .build();
 
             CreateIdentityPoolResponse response = cognitoClient.createIdentityPool(poolRequest);
             return response.identityPoolId();
 
-        } catch (CognitoIdentityProviderException e){
+        } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         return "";
     }
-    //snippet-end:[cognito.java2.create_identity_pool.main]
 }
+//snippet-end:[cognito.java2.create_identity_pool.main]

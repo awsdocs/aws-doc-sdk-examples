@@ -8,8 +8,8 @@
 
 package com.example.cognito;
 
+//snippet-start:[cognito.java2.listidentities.main]
 //snippet-start:[cognito.java2.listidentities.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentity.model.ListIdentitiesRequest;
@@ -24,16 +24,16 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIden
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class ListIdentities {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <identityPoolId>\n\n" +
-            "Where:\n" +
-            "    identityPoolId - The id value of your identity pool (for example, us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx).\n\n" ;
+            Usage:
+                <identityPoolId>
+
+            Where:
+                identityPoolId - The id value of your identity pool (for example, us-east-1:00eb915b-c521-417b-af0d-ebad008axxxx).
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,31 +43,28 @@ public class ListIdentities {
         String identityPoolId = args[0];
         CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listPoolIdentities(cognitoClient, identityPoolId);
         cognitoClient.close();
     }
 
-    //snippet-start:[cognito.java2.listidentities.main]
     public static void listPoolIdentities(CognitoIdentityClient cognitoClient, String identityPoolId) {
-
         try {
             ListIdentitiesRequest identitiesRequest = ListIdentitiesRequest.builder()
                 .identityPoolId(identityPoolId)
                 .maxResults(15)
-                .build() ;
+                .build();
 
             ListIdentitiesResponse response = cognitoClient.listIdentities(identitiesRequest);
             response.identities().forEach(identity -> {
-                System.out.println("The ID is : "+identity.identityId());
+                System.out.println("The ID is : " + identity.identityId());
             });
 
-        } catch (CognitoIdentityProviderException e){
+        } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[cognito.java2.listidentities.main]
 }
+//snippet-end:[cognito.java2.listidentities.main]

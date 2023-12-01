@@ -7,8 +7,8 @@
 */
 package com.example.cognito;
 
+//snippet-start:[cognito.java2.GetIdentityCredentials.main]
 //snippet-start:[cognito.java2.GetIdentityCredentials.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentity.model.GetCredentialsForIdentityRequest;
@@ -23,16 +23,17 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIden
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class GetIdentityCredentials {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <identityId> \n\n" +
-            "Where:\n" +
-            "    identityId - The Id of an existing identity.\n\n" ;
+        final String usage = """
+
+            Usage:
+                <identityId>\s
+
+            Where:
+                identityId - The Id of an existing identity.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,14 +43,13 @@ public class GetIdentityCredentials {
         String identityId = args[0];
         CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getCredsForIdentity(cognitoClient, identityId);
         cognitoClient.close();
     }
 
-    //snippet-start:[cognito.java2.GetIdentityCredentials.main]
+
     public static void getCredsForIdentity(CognitoIdentityClient cognitoClient, String identityId) {
         try {
             GetCredentialsForIdentityRequest getCredentialsForIdentityRequest = GetCredentialsForIdentityRequest.builder()
@@ -64,5 +64,5 @@ public class GetIdentityCredentials {
             System.exit(1);
         }
     }
-    //snippet-end:[cognito.java2.GetIdentityCredentials.main]
 }
+//snippet-end:[cognito.java2.GetIdentityCredentials.main]

@@ -8,6 +8,7 @@
 
 package com.example.cognito;
 
+//snippet-start:[cognito.java2.deleteidpool.main]
 //snippet-start:[cognito.java2.deleteidpool.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
@@ -26,12 +27,14 @@ import software.amazon.awssdk.services.cognitoidentity.model.DeleteIdentityPoolR
 public class DeleteIdentityPool {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <identityPoolId> \n\n" +
-            "Where:\n" +
-            "    identityPoolId - The Id value of your identity pool.\n\n" ;
+            Usage:
+                <identityPoolId>\s
+
+            Where:
+                identityPoolId - The Id value of your identity pool.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,7 +51,6 @@ public class DeleteIdentityPool {
         cognitoIdClient.close();
     }
 
-    //snippet-start:[cognito.java2.deleteidpool.main]
     public static void deleteIdPool(CognitoIdentityClient cognitoIdClient, String identityPoold) {
         try {
 
@@ -59,10 +61,10 @@ public class DeleteIdentityPool {
             cognitoIdClient.deleteIdentityPool(identityPoolRequest);
             System.out.println("Done");
 
-        } catch (AwsServiceException e){
+        } catch (AwsServiceException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[cognito.java2.deleteidpool.main]
 }
+//snippet-end:[cognito.java2.deleteidpool.main]
