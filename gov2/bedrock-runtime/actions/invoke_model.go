@@ -53,14 +53,16 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 	postfix := "\n\nAssistant:"
 	prompt = prefix + prompt + postfix
 
-	request := ClaudeRequest {
+	body, err := json.Marshal(ClaudeRequest {
 		Prompt:            prompt,
 		MaxTokensToSample: 200,
 		Temperature:       0.5,
 		StopSequences:     []string{"\n\nHuman:"},
-	}
+	})
 
-	body, err := json.Marshal(request)
+	if err != nil {
+        log.Fatal("failed to marshal", err)
+    }
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String(modelId),
@@ -69,14 +71,7 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 	})
 
 	if err != nil {
-        errMsg := err.Error()
-        if strings.Contains(errMsg, "no such host") {
-            log.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
-        } else if strings.Contains(errMsg, "Could not resolve the foundation model") {
-            log.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
-        } else {
-            log.Printf("Couldn't invoke Anthropic Claude. Here's why: %v\n", err)
-        }
+        ProcessError(err, modelId)
     }
 
 	var response ClaudeResponse
@@ -90,7 +85,6 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 
 	return response.Completion, nil
 }
-
 // snippet-end:[gov2.bedrock-runtime.InvokeClaude]
 
 // snippet-start:[gov2.bedrock-runtime.InvokeJurassic2]
@@ -100,15 +94,20 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 // https://docs.ai21.com/reference/j2-complete-ref
 
 type Jurassic2Request struct {
-	Prompt            string   `json:"prompt"`
-	MaxTokens	 	  int      `json:"maxTokens,omitempty"`
-	Temperature       float64  `json:"temperature,omitempty"`
+	Prompt      string   `json:"prompt"`
+	MaxTokens   int      `json:"maxTokens,omitempty"`
+	Temperature float64  `json:"temperature,omitempty"`
 }
 
-type Jurassic2Response struct { Completions []Completion `json:"completions"` }
-type Completion struct { Data Data `json:"data"` }
-type Data struct { Text string `json:"text"` }
-
+type Jurassic2Response struct {
+    Completions []Completion `json:"completions"`
+}
+type Completion struct {
+    Data Data `json:"data"`
+}
+type Data struct {
+    Text string `json:"text"`
+}
 
 // Invokes AI21 Labs Jurassic-2 on Amazon Bedrock to run an inference using the input
 // provided in the request body.
@@ -116,13 +115,15 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 
     modelId := "ai21.j2-mid-v1"
 
-	request := Jurassic2Request {
+	body, err := json.Marshal(Jurassic2Request {
 		Prompt:            prompt,
 		MaxTokens: 		   200,
 		Temperature:       0.5,
-	}
+	})
 
-	body, err := json.Marshal(request)
+	if err != nil {
+        log.Fatal("failed to marshal", err)
+    }
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String(modelId),
@@ -131,14 +132,7 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 	})
 
 	if err != nil {
-    	errMsg := err.Error()
-    	if strings.Contains(errMsg, "no such host") {
-    		log.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
-    	} else if strings.Contains(errMsg, "Could not resolve the foundation model") {
-    	    log.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
-    	} else {
-            log.Printf("Couldn't invoke AI21 Labs Jurassic-2. Here's why: %v\n", err)
-        }
+    	ProcessError(err, modelId)
     }
 
 	var response Jurassic2Response
@@ -151,7 +145,6 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 
 	return response.Completions[0].Data.Text, nil
 }
-
 // snippet-end:[gov2.bedrock-runtime.InvokeJurassic2]
 
 // snippet-start:[gov2.bedrock-runtime.InvokeLlama2]
@@ -176,13 +169,15 @@ func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
 
     modelId := "meta.llama2-13b-chat-v1"
 
-	request := Llama2Request {
+	body, err := json.Marshal(Llama2Request {
 		Prompt:            prompt,
 		MaxGenLength:	   512,
 		Temperature:       0.5,
-	}
+	})
 
-	body, err := json.Marshal(request)
+	if err != nil {
+        log.Fatal("failed to marshal", err)
+    }
 
 	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
 		ModelId: aws.String(modelId),
@@ -191,14 +186,7 @@ func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
 	})
 
 	if err != nil {
-        errMsg := err.Error()
-        if strings.Contains(errMsg, "no such host") {
-            log.Printf("The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
-        } else if strings.Contains(errMsg, "Could not resolve the foundation model") {
-            log.Printf("Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
-        } else {
-            log.Printf("Couldn't invoke Meta Llama 2. Here's why: %v\n", err)
-        }
+        ProcessError(err, modelId)
     }
 
 	var response Llama2Response
@@ -211,7 +199,92 @@ func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
 
 	return response.Generation, nil
 }
-
 // snippet-end:[gov2.bedrock-runtime.InvokeLlama2]
+
+// snippet-start:[gov2.bedrock-runtime.InvokeTitanImage]
+
+type TitanImageRequest struct {
+    TaskType              string                `json:"taskType"`
+    TextToImageParams     TextToImageParams     `json:"textToImageParams"`
+    ImageGenerationConfig ImageGenerationConfig `json:"imageGenerationConfig"`
+}
+type TextToImageParams struct {
+    Text string `json:"text"`
+}
+type ImageGenerationConfig struct {
+    NumberOfImages int     `json:"numberOfImages"`
+    Quality        string  `json:"quality"`
+    CfgScale       float64 `json:"cfgScale"`
+    Height         int     `json:"height"`
+    Width          int     `json:"width"`
+    Seed           uint32  `json:"seed"`
+}
+
+type TitanImageResponse struct {
+    Images []string `json:"images"`
+}
+
+// Invokes the Titan Image model to create an image using the input provided
+// in the request body.
+func (wrapper InvokeModelWrapper) InvokeTitanImage(prompt string, seed uint32) (string, error) {
+
+    modelId := "amazon.titan-image-generator-v1"
+
+    body, err := json.Marshal(TitanImageRequest {
+        TaskType: "TEXT_IMAGE",
+        TextToImageParams: TextToImageParams {
+            Text: prompt,
+        },
+        ImageGenerationConfig: ImageGenerationConfig {
+            NumberOfImages: 1,
+            Quality: "standard",
+            CfgScale: 8.0,
+            Height: 512,
+            Width: 512,
+            Seed: seed,
+        },
+    })
+
+    if err != nil {
+        log.Fatal("failed to marshal", err)
+    }
+
+    output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
+        ModelId: aws.String(modelId),
+        ContentType: aws.String("application/json"),
+        Body: body,
+    })
+
+    if err != nil {
+        ProcessError(err, modelId)
+    }
+
+    var response TitanImageResponse
+
+    err = json.Unmarshal(output.Body, &response)
+
+    if err != nil {
+        log.Fatal("failed to unmarshal", err)
+    }
+
+    return response.Images[0], nil
+
+}
+// snippet-end:[gov2.bedrock-runtime.InvokeTitanImage]
+
+func ProcessError(err error, modelId string) {
+    errMsg := err.Error()
+    if strings.Contains(errMsg, "no such host") {
+        log.Printf(`The Bedrock service is not available in the selected region.
+                    Please double-check the service availability for your region at
+                    https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n`)
+    } else if strings.Contains(errMsg, "Could not resolve the foundation model") {
+        log.Printf(`Could not resolve the foundation model from model identifier: \"%v\".
+                    Please verify that the requested model exists and is accessible
+                    within the specified region.\n`, modelId)
+    } else {
+        log.Printf("Couldn't invoke model: \"%v\". Here's why: %v\n", modelId, err)
+    }
+}
 
 // snippet-end:[gov2.bedrock-runtime.InvokeModelWrapper.complete]
