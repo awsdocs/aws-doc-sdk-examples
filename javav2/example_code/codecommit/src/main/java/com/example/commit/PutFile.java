@@ -10,6 +10,7 @@
 
 package com.example.commit;
 
+// snippet-start:[codecommit.java2.put_file.main]
 // snippet-start:[codecommit.java2.put_file.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codecommit.CodeCommitClient;
@@ -33,20 +34,21 @@ import java.io.InputStream;
 
 
 public class PutFile {
-
     public static void main(String[] args) {
+        final String USAGE = """
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <repoName> <branchName> <filePath> <email> <name> <repoPath> <commitId>\n\n" +
-                "Where:\n" +
-                "    repoName - the name of the repository.\n" +
-                "    branchName -  the name of the branch.\n" +
-                "    filePath  - the location of the file on the local drive (i.e., C:/AWS/uploadGlacier.txt).\n" +
-                "    email -  the email of the user whom uploads the file.\n" +
-                "    name -  the name of the user.\n" +
-                "    repoPath -  the location in the repo to store the file.\n" +
-                "    commitId -  the full commit ID of the head commit in the branch (you can retrieve this value from the AWS CodeCommit Console).\n" ;
+            Usage:
+                <repoName> <branchName> <filePath> <email> <name> <repoPath> <commitId>
+
+            Where:
+                repoName - the name of the repository.
+                branchName -  the name of the branch.
+                filePath  - the location of the file on the local drive (i.e., C:/AWS/uploadGlacier.txt).
+                email -  the email of the user whom uploads the file.
+                name -  the name of the user.
+                repoPath -  the location in the repo to store the file.
+                commitId -  the full commit ID of the head commit in the branch (you can retrieve this value from the AWS CodeCommit Console).
+            """;
 
         if (args.length != 7) {
             System.out.println(USAGE);
@@ -63,14 +65,13 @@ public class PutFile {
 
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         uploadFile(codeCommitClient, filePath, repoName, branchName, email, name, repoPath, commitId);
         codeCommitClient.close();
     }
 
-    // snippet-start:[codecommit.java2.put_file.main]
     public static void uploadFile(CodeCommitClient codeCommitClient,
                                   String filePath,
                                   String repoName,
@@ -78,10 +79,8 @@ public class PutFile {
                                   String email,
                                   String name,
                                   String repoPath,
-                                  String commitId ){
-
+                                  String commitId) {
         try {
-            // Create an SdkBytes object that represents the file to upload
             File myFile = new File(filePath);
             InputStream is = new FileInputStream(myFile);
             SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
@@ -97,14 +96,13 @@ public class PutFile {
                 .name(name)
                 .build();
 
-            // Upload file to the branch
             PutFileResponse fileResponse = codeCommitClient.putFile(fileRequest);
-            System.out.println("The commit ID is "+fileResponse.commitId());
+            System.out.println("The commit ID is " + fileResponse.commitId());
 
         } catch (CodeCommitException | FileNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[codecommit.java2.put_file.main]
 }
+// snippet-end:[codecommit.java2.put_file.main]
