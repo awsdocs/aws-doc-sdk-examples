@@ -231,15 +231,15 @@ bedrock-runtime_InvokeStableDiffusion:
           excerpts:
             - description: Invoke the Stability.ai Stable Diffusion XL foundation model.
               snippet_tags:
-                - php.example_code.bedrock-runtime.service.invokeStableDiffusion
+                - python.example_code.bedrock-runtime.InvokeStableDiffusion
     PHP:
       versions:
         - sdk_version: 3
           github: php/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke the Meta Llama 2 foundation model.
+            - description: Invoke the Stability.ai Stable Diffusion XL foundation model.
               snippet_tags:
-                - php.example_code.bedrock-runtime.service.invokeLlama2
+                - php.example_code.bedrock-runtime.service.invokeStableDiffusion
   services:
     bedrock-runtime: {InvokeModel}
 
