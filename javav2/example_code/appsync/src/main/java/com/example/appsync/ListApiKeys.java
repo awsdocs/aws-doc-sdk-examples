@@ -9,8 +9,8 @@
 
 package com.example.appsync;
 
+//snippet-start:[appsync.java.get_keys.main]
 //snippet-start:[appsync.java.get_keys.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.ApiKey;
@@ -21,14 +21,12 @@ import java.util.List;
 //snippet-end:[appsync.java.get_keys.import]
 
 public class ListApiKeys {
-
     public static void main(String[] args) {
-
         final String usage = "\n" +
-                "Usage: " +
-                "   <apiId> \n\n" +
-                "Where:\n" +
-                "   apiId - The id of the API (You can get this value from the AWS Management Console). \n\n" ;
+            "Usage: " +
+            "   <apiId> \n\n" +
+            "Where:\n" +
+            "   apiId - The id of the API (You can get this value from the AWS Management Console). \n\n" ;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -36,23 +34,18 @@ public class ListApiKeys {
         }
 
         String apiId = args[0];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
-        Region region = Region.US_EAST_1;
         AppSyncClient appSyncClient = AppSyncClient.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
 
         getKeys(appSyncClient, apiId);
     }
 
-    //snippet-start:[appsync.java.get_keys.main]
     public static void getKeys(AppSyncClient appSyncClient, String apiId) {
-
         try {
             ListApiKeysRequest request = ListApiKeysRequest.builder()
-                    .apiId(apiId)
-                    .build();
+                .apiId(apiId)
+                .build();
 
             ListApiKeysResponse response = appSyncClient.listApiKeys(request);
             List<ApiKey> keys = response.apiKeys();

@@ -9,8 +9,8 @@
 
 package com.example.appsync;
 
+//snippet-start:[appsync.java2.create_ds.main]
 //snippet-start:[appsync.java2.create_ds.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.DynamodbDataSourceConfig;
@@ -30,16 +30,14 @@ import software.amazon.awssdk.services.appsync.model.AppSyncException;
 public class CreateDataSource {
 
     public static void main(String[] args) {
-
         final String USAGE = "\n" +
-                "Usage: " +
-                "   <apiId> <name> <dsRole> <tableName>\n\n" +
-                "Where:\n" +
-                "   apiId - The id of the API (You can get this value from the AWS Management Console). \n\n" +
-                "   name - The name of the data source. \n\n"+
-                "   dsRole - The AWS Identity and Access Management (IAM) service role for the data source. \n\n"+
-                "   tableName - The name of the Amazon DynamoDB table used as the data source. \n\n";
-
+            "Usage: " +
+            "   <apiId> <name> <dsRole> <tableName>\n\n" +
+            "Where:\n" +
+            "   apiId - The id of the API (You can get this value from the AWS Management Console). \n\n" +
+            "   name - The name of the data source. \n\n"+
+            "   dsRole - The AWS Identity and Access Management (IAM) service role for the data source. \n\n"+
+            "   tableName - The name of the Amazon DynamoDB table used as the data source. \n\n";
 
         if (args.length != 4) {
              System.out.println(USAGE);
@@ -50,22 +48,16 @@ public class CreateDataSource {
         String name = args[1];
         String dsRole = args[2];
         String tableName = args[3];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
-        Region region = Region.US_EAST_1;
         AppSyncClient appSyncClient = AppSyncClient.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
+                .region(Region.US_EAST_1)
                 .build();
 
-        String reg = region.toString();
-        String dsARN = createDS(appSyncClient, name, reg, dsRole, apiId, tableName);
+        String dsARN = createDS(appSyncClient, name, String.valueOf(Region.US_EAST_1), dsRole, apiId, tableName);
         System.out.println("The ARN of the data source is "+dsARN);
     }
 
-    //snippet-start:[appsync.java2.create_ds.main]
     public static String createDS(AppSyncClient appSyncClient, String name, String reg, String dsRole, String apiVal, String tableName) {
         try {
-
             DynamodbDataSourceConfig config = DynamodbDataSourceConfig.builder()
                     .awsRegion(reg)
                     .tableName(tableName)
@@ -90,5 +82,5 @@ public class CreateDataSource {
         }
         return "";
     }
-    //snippet-end:[appsync.java2.create_ds.main]
 }
+//snippet-end:[appsync.java2.create_ds.main]
