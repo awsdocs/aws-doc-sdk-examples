@@ -10,6 +10,7 @@
 
 package com.example.cloudtrail;
 
+//snippet-start:[cloudtrail.java2.getLogTime.main]
 //snippet-start:[cloudtrail.java2.getLogTime.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -33,14 +34,16 @@ import java.util.Locale;
  */
 
 public class GetTrailLoggingTime {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <trailName>  \n\n" +
-            "Where:\n" +
-            "    trailName - The name of the trail. \n" ;
+        final String usage = """
+
+            Usage:
+                <trailName> \s
+
+            Where:
+                trailName - The name of the trail.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -51,16 +54,13 @@ public class GetTrailLoggingTime {
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getLogTime(cloudTrailClient, trailName) ;
         cloudTrailClient.close();
     }
 
-    //snippet-start:[cloudtrail.java2.getLogTime.main]
     public static void getLogTime(CloudTrailClient cloudTrailClientClient, String trailName) {
-
         try {
             GetTrailStatusRequest trailStatusRequest = GetTrailStatusRequest.builder()
                 .name(trailName)
@@ -87,5 +87,5 @@ public class GetTrailLoggingTime {
             System.exit(1);
         }
     }
-    //snippet-end:[cloudtrail.java2.getLogTime.main]
 }
+//snippet-end:[cloudtrail.java2.getLogTime.main]

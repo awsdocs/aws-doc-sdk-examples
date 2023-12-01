@@ -10,6 +10,7 @@
 
 package com.example.cloudtrail;
 
+//snippet-start:[cloudtrail.java2.get_event_selectors.main]
 //snippet-start:[cloudtrail.java2.get_event_selectors.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -30,14 +31,15 @@ import java.util.List;
  */
 
 public class GetEventSelectors {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <trailName>  \n\n" +
-            "Where:\n" +
-            "    trailName - The name of the trail. \n" ;
+            Usage:
+                <trailName> \s
+
+            Where:
+                trailName - The name of the trail.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,14 +50,12 @@ public class GetEventSelectors {
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getSelectors(cloudTrailClient, trailName);
         cloudTrailClient.close();
     }
 
-    //snippet-start:[cloudtrail.java2.get_event_selectors.main]
     public static void getSelectors(CloudTrailClient cloudTrailClientClient, String trailName) {
         try {
             GetEventSelectorsRequest selectorsRequest = GetEventSelectorsRequest.builder()
@@ -73,5 +73,5 @@ public class GetEventSelectors {
             System.exit(1);
         }
     }
-    //snippet-end:[cloudtrail.java2.get_event_selectors.main]
- }
+}
+//snippet-end:[cloudtrail.java2.get_event_selectors.main]
