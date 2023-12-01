@@ -252,6 +252,23 @@ bedrock-runtime_InvokeStableDiffusionAsync:
   services:
     bedrock-runtime: {InvokeModel}
 
+bedrock-runtime_InvokeTitanImage:
+  title: Invoke Amazon Titan on &BR; to generate images
+  title_abbrev: Image generation with Amazon Titan
+  synopsis: invoke the Amazon Titan on &BR; to generate images.
+  category:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description: Invoke the Amazon Titan image generation model.
+              snippet_tags:
+                - gov2.bedrock-runtime.InvokeTitanImage
+  services:
+    bedrock-runtime: {InvokeModel}
+
 bedrock-runtime_InvokeModelWithResponseStream:
   title: Invoke Anthropic Claude on &BR; to run an inference with a response stream
   title_abbrev: Invoke Anthropic Claude on &BR; and process the response stream
@@ -293,6 +310,7 @@ bedrock-runtime_Scenario_Invoke_models:
     - Generate text with Anthropic Claude.
     - Generate text with AI21 Labs Jurassic-2.
     - Generate text with Meta Llama 2 Chat.
+    - Generate an image with the Amazon Titan Image Generator.
   category: Scenarios
   languages:
     PHP:
