@@ -310,7 +310,6 @@ bedrock-runtime_Scenario_Invoke_models:
     - Generate text with Anthropic Claude.
     - Generate text with AI21 Labs Jurassic-2.
     - Generate text with Meta Llama 2 Chat.
-    - Generate an image with the Amazon Titan Image Generator.
   category: Scenarios
   languages:
     PHP:
@@ -324,15 +323,16 @@ bedrock-runtime_Scenario_Invoke_models:
   services:
     bedrock-runtime: {InvokeModel}
 
-bedrock-runtime_Scenario_Invoke_Models_incl_Response_Stream:
-  title: Invoke multiple large-language models (LLMs) on &BR;
-  title_abbrev: Invoke multiple LLMs on &BR;
-  synopsis: invoke multiple large-language-models (LLMs) on &BR;.
+bedrock-runtime_Scenario_InvokeModelsInclResponseStream:
+  title: Invoke multiple foundation models on &BR;
+  title_abbrev: Invoke multiple foundation models on &BR;
+  synopsis: invoke multiple foundation models on &BR;.
   synopsis_list:
     - Generate text with Anthropic Claude.
     - Generate text with AI21 Labs Jurassic-2.
     - Generate text with Meta Llama 2 Chat.
-    - Asynchronously process the response stream with Anthropic Claude.
+    - Asynchronously process the response stream from Anthropic Claude.
+    - Generate an image with the Amazon Titan Image Generator.
   category: Scenarios
   languages:
     Go:
@@ -340,7 +340,7 @@ bedrock-runtime_Scenario_Invoke_Models_incl_Response_Stream:
         - sdk_version: 2
           github: gov2/bedrock-runtime
           excerpts:
-            - description: Invoke multiple LLMs on &BR;.
+            - description: Invoke multiple foundation models on &BR;.
               snippet_tags:
                 - gov2.bedrock-runtime.Scenario_InvokeModels
   services:
