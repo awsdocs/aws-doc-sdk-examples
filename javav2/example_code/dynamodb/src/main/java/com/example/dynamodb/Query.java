@@ -8,8 +8,8 @@
 
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.query.main]
 // snippet-start:[dynamodb.java2.query.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -31,56 +31,53 @@ import java.util.HashMap;
  *  Enhanced Client. See the EnhancedQueryRecords example.
  */
 public class Query {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <tableName> <partitionKeyName> <partitionKeyVal>\n\n" +
-            "Where:\n" +
-            "    tableName - The Amazon DynamoDB table to put the item in (for example, Music3).\n" +
-            "    partitionKeyName - The partition key name of the Amazon DynamoDB table (for example, Artist).\n" +
-            "    partitionKeyVal - The value of the partition key that should match (for example, Famous Band).\n\n" ;
+            Usage:
+                <tableName> <partitionKeyName> <partitionKeyVal>
 
-       if (args.length != 3) {
-           System.out.println(usage);
-           System.exit(1);
-       }
+            Where:
+                tableName - The Amazon DynamoDB table to put the item in (for example, Music3).
+                partitionKeyName - The partition key name of the Amazon DynamoDB table (for example, Artist).
+                partitionKeyVal - The value of the partition key that should match (for example, Famous Band).
 
-       String tableName = args[0];
-       String partitionKeyName = args[1];
-       String partitionKeyVal = args[2];
+            """;
 
-       // For more information about an alias, see:
-       // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html
-       String partitionAlias = "#a";
+        if (args.length != 3) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-       System.out.format("Querying %s", tableName);
-       System.out.println("");
+        String tableName = args[0];
+        String partitionKeyName = args[1];
+        String partitionKeyVal = args[2];
 
-       ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
-       Region region = Region.US_EAST_1;
-       DynamoDbClient ddb = DynamoDbClient.builder()
-           .credentialsProvider(credentialsProvider)
-           .region(region)
-           .build();
+        // For more information about an alias, see:
+        // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html
+        String partitionAlias = "#a";
 
-       int count = queryTable(ddb, tableName, partitionKeyName, partitionKeyVal,partitionAlias ) ;
-       System.out.println("There were "+count + "  record(s) returned");
-       ddb.close();
+        System.out.format("Querying %s", tableName);
+        System.out.println("");
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+            .region(region)
+            .build();
+
+        int count = queryTable(ddb, tableName, partitionKeyName, partitionKeyVal, partitionAlias);
+        System.out.println("There were " + count + "  record(s) returned");
+        ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.query.main]
     public static int queryTable(DynamoDbClient ddb, String tableName, String partitionKeyName, String partitionKeyVal, String partitionAlias) {
-
         // Set up an alias for the partition key name in case it's a reserved word.
-        HashMap<String,String> attrNameAlias = new HashMap<String,String>();
+        HashMap<String, String> attrNameAlias = new HashMap<String, String>();
         attrNameAlias.put(partitionAlias, partitionKeyName);
 
         // Set up mapping of the partition name with the value.
         HashMap<String, AttributeValue> attrValues = new HashMap<>();
 
-        attrValues.put(":"+partitionKeyName, AttributeValue.builder()
+        attrValues.put(":" + partitionKeyName, AttributeValue.builder()
             .s(partitionKeyVal)
             .build());
 
@@ -101,5 +98,5 @@ public class Query {
         }
         return -1;
     }
-    // snippet-end:[dynamodb.java2.query.main]
 }
+// snippet-end:[dynamodb.java2.query.main]

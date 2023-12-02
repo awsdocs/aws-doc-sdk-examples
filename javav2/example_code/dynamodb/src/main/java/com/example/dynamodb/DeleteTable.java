@@ -8,8 +8,8 @@
 */
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.delete_table.main]
 // snippet-start:[dynamodb.java2.delete_table.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -25,15 +25,17 @@ import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
  */
 
 public class DeleteTable {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <tableName>\n\n" +
-            "Where:\n" +
-            "    tableName - The Amazon DynamoDB table to delete (for example, Music3).\n\n" +
-            "**Warning** This program will delete the table that you specify!\n";
+            Usage:
+                <tableName>
+
+            Where:
+                tableName - The Amazon DynamoDB table to delete (for example, Music3).
+
+            **Warning** This program will delete the table that you specify!
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,10 +44,8 @@ public class DeleteTable {
 
         String tableName = args[0];
         System.out.format("Deleting the Amazon DynamoDB table %s...\n", tableName);
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
@@ -53,9 +53,7 @@ public class DeleteTable {
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.delete_table.main]
     public static void deleteDynamoDBTable(DynamoDbClient ddb, String tableName) {
-
         DeleteTableRequest request = DeleteTableRequest.builder()
             .tableName(tableName)
             .build();
@@ -67,7 +65,8 @@ public class DeleteTable {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println(tableName +" was successfully deleted!");
+        System.out.println(tableName + " was successfully deleted!");
     }
-    // snippet-end:[dynamodb.java2.delete_table.main]
 }
+// snippet-end:[dynamodb.java2.delete_table.main]
+

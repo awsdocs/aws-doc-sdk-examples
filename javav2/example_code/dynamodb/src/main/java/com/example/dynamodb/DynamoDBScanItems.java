@@ -8,8 +8,8 @@
 
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.dynamoDB_scan.main]
 // snippet-start:[dynamodb.java2.dynamoDB_scan.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -32,14 +32,17 @@ import java.util.Set;
  */
 
 public class DynamoDBScanItems {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <tableName>\n\n" +
-            "Where:\n" +
-            "    tableName - The Amazon DynamoDB table to get information from (for example, Music3).\n\n" ;
+        final String usage = """
+
+            Usage:
+                <tableName>
+
+            Where:
+                tableName - The Amazon DynamoDB table to get information from (for example, Music3).
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,20 +50,16 @@ public class DynamoDBScanItems {
         }
 
         String tableName = args[0];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
-        scanItems(ddb,tableName);
+        scanItems(ddb, tableName);
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.dynamoDB_scan.main]
-    public static void scanItems( DynamoDbClient ddb,String tableName ) {
-
+    public static void scanItems(DynamoDbClient ddb, String tableName) {
         try {
             ScanRequest scanRequest = ScanRequest.builder()
                 .tableName(tableName)
@@ -70,8 +69,8 @@ public class DynamoDBScanItems {
             for (Map<String, AttributeValue> item : response.items()) {
                 Set<String> keys = item.keySet();
                 for (String key : keys) {
-                    System.out.println ("The key name is "+key +"\n" );
-                    System.out.println("The value is "+item.get(key).s());
+                    System.out.println("The key name is " + key + "\n");
+                    System.out.println("The value is " + item.get(key).s());
                 }
             }
 
@@ -80,5 +79,5 @@ public class DynamoDBScanItems {
             System.exit(1);
         }
     }
-    // snippet-end:[dynamodb.java2.dynamoDB_scan.main]
 }
+// snippet-end:[dynamodb.java2.dynamoDB_scan.main]

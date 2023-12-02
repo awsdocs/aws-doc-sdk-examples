@@ -8,11 +8,10 @@
 */
 package com.example.dynamodb.enhanced;
 
+// snippet-start:[dynamodb.java2.mapping.batchitems.main]
 // snippet-start:[dynamodb.java2.mapping.batchitems.import]
-
 import com.example.dynamodb.Customer;
 import com.example.dynamodb.Music;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
@@ -22,7 +21,6 @@ import software.amazon.awssdk.enhanced.dynamodb.model.WriteBatch;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -43,27 +41,19 @@ import java.time.ZoneOffset;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class EnhancedBatchWriteItems {
-
     public static void main(String[] args) {
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
                 .region(region)
-                .credentialsProvider(credentialsProvider)
                 .build();
-
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(ddb)
                 .build();
-
         putBatchRecords(enhancedClient);
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.mapping.batchitems.main]
     public static void putBatchRecords(DynamoDbEnhancedClient enhancedClient) {
-
         try {
             DynamoDbTable<Customer> customerMappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             DynamoDbTable<Music> musicMappedTable = enhancedClient.table("Music", TableSchema.fromBean(Music.class));
@@ -106,9 +96,8 @@ public class EnhancedBatchWriteItems {
                     .build();
 
 
-            // Add three items to the Customer table and delete one item from the Music table
+            // Add three items to the Customer table and delete one item from the Music table.
             enhancedClient.batchWriteItem(batchWriteItemEnhancedRequest);
-
             System.out.println("done");
 
         } catch (DynamoDbException e) {
@@ -116,5 +105,5 @@ public class EnhancedBatchWriteItems {
             System.exit(1);
         }
     }
-    // snippet-end:[dynamodb.java2.mapping.batchitems.main]
 }
+ // snippet-end:[dynamodb.java2.mapping.batchitems.main]

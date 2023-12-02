@@ -8,8 +8,8 @@
 */
 package com.example.dynamodb.enhanced;
 
+// snippet-start:[dynamodb.java2.mapping.tableschema.main]
 // snippet-start:[dynamodb.java2.mapping.tableschema.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -31,7 +31,6 @@ import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTag
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class EnhancedTableSchema {
-
     private static final TableSchema<Record> TABLE_SCHEMA =
             StaticTableSchema.builder(Record.class)
                     .newItemSupplier(Record::new)
@@ -57,11 +56,8 @@ public class EnhancedTableSchema {
                     .build();
 
     public static void main(String[] args) {
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
                 .region(region)
                 .build();
 
@@ -73,7 +69,6 @@ public class EnhancedTableSchema {
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.mapping.tableschema.main]
     public static void putRecord(DynamoDbEnhancedClient enhancedClient){
 
         try {

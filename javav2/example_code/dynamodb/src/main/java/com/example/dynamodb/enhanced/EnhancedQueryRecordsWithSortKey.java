@@ -7,9 +7,7 @@ package com.example.dynamodb.enhanced;
  *This example is depreciated, see the Scenario example.
  */
 public class EnhancedQueryRecordsWithSortKey {
-
     public static void main(String[] args) {
-
         System.out.println("This example is depreciated, see the Scenario example");
     }
 

@@ -9,9 +9,9 @@
 
 package com.example.dynamodb.enhanced;
 
+// snippet-start:[dynamodb.java2.mapping.putitemlist.main]
 // snippet-start:[dynamodb.java2.mapping.putitemlist.import]
 import com.example.dynamodb.Contact;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -34,13 +34,9 @@ import java.util.List;
  */
 
 public class EnhancedHandleList {
-
     public static void main(String[] args) {
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
@@ -48,13 +44,11 @@ public class EnhancedHandleList {
             .dynamoDbClient(ddb)
             .build();
 
-        putRecord(enhancedClient) ;
+        putRecord(enhancedClient);
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.mapping.putitemlist.main]
     public static void putRecord(DynamoDbEnhancedClient enhancedClient) {
-
         try {
             DynamoDbTable<Contact> contactTable = (DynamoDbTable<Contact>) enhancedClient.table("Contact", TableSchema.fromBean(Contact.class));
             List<String> names = new ArrayList<>();
@@ -74,5 +68,5 @@ public class EnhancedHandleList {
         }
         System.out.println("done");
     }
-    // snippet-end:[dynamodb.java2.mapping.putitemlist.main]
 }
+ // snippet-end:[dynamodb.java2.mapping.putitemlist.main]
