@@ -1,0 +1,217 @@
+Parameters:
+  VPCId:
+    Type: AWS::EC2::VPC::Id
+    # aws ec2 describe-vpcs --filters Name=is-default,Values=true --query 'Vpcs[0].VpcId'
+  AZs:
+    Type: List<AWS::EC2::AvailabilityZone::Name>
+    # aws ec2 describe-subnets --filters Name=vpc-id,Values="vpc-0049e29b67c093b6d" --query 'Subnets[].AvailabilityZone'
+  Subnets:
+    Type: List<AWS::EC2::Subnet::Id>
+    # aws ec2 describe-subnets --filters Name=vpc-id,Values="vpc-0049e29b67c093b6d" --query 'Subnets[].SubnetId'
+
+Resources:
+  # 1. A DynamoDB table that acts as a service that recommends books, movies, and songs.
+  DocExampleRecommendationServiceTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Delete
+    Properties:
+      TableName: doc-example-recommendation-service
+      AttributeDefinitions:
+        - AttributeName: MediaType
+          AttributeType: S
+        - AttributeName: ItemId
+          AttributeType: N
+      KeySchema:
+        - AttributeName: MediaType
+          KeyType: HASH
+        - AttributeName: ItemId
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+  # 1b. A Lambda function that initializes data in the Database
+  DocExampleRecommendationServiceInitializerFn:
+    Type: AWS::Lambda::Function
+    DependsOn: DocExampleRecommendationServiceTable
+    Properties:
+      Runtime: nodejs20.x
+      Handler: index.handler
+      Timeout: 30
+      Role: !GetAtt DocExampleRecommendationServiceInitializerFnExecutionRole.Arn
+      Environment:
+        Variables:
+          tableName: !Ref DocExampleRecommendationServiceTable
+      Code:
+        ZipFile: |
+          const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
+          const response = require("cfn-response");
+
+          const client = new DynamoDBClient({});
+          const tableName = process.env.tableName;
+
+          exports.handler = async (event, context) => {
+            console.log("REQUEST RECEIVED", {tableName}, event);
+
+            if (event.RequestType == "Delete") {
+              response.send(event, context, response.SUCCESS, {});
+              return;
+            }
+
+            const recommendations = [
+              {"MediaType": {"S": "Book"}, "ItemId":{"N": "1"}, "Title": {"S": "Pride and Prejudice"}, "Creator": {"S": "Jane Austen"}},
+              {"MediaType": {"S": "Book"}, "ItemId": {"N": "2"}, "Title": {"S": "The Lord of the Rings"}, "Creator": {"S": "J. R. R. Tolkien"}},
+              {"MediaType": {"S": "Book"}, "ItemId": {"N": "3"}, "Title": {"S": "The Three Musketeers"}, "Creator": {"S": "Alexandre Dumas"}},
+              {"MediaType": {"S": "Movie"}, "ItemId": {"N": "1"}, "Title": {"S": "Delicatessen"}, "Creator": {"S": "Jeunet et Caro"}},
+              {"MediaType": {"S": "Movie"}, "ItemId": {"N": "2"}, "Title": {"S": "The Princess Bride"}, "Creator": {"S": "Rob Reiner"}},
+              {"MediaType": {"S": "Movie"}, "ItemId": {"N": "3"}, "Title": {"S": "12 Angry Men"}, "Creator": {"S": "Sidney Lumet"}},
+              {"MediaType": {"S": "Song"}, "ItemId": {"N": "1"}, "Title": {"S": "And Dream of Sheep"}, "Creator": {"S": "Kate Bush"}},
+              {"MediaType": {"S": "Song"}, "ItemId": {"N": "2"}, "Title": {"S": "Mirrorball"}, "Creator": {"S": "Elbow"}},
+              {"MediaType": {"S": "Song"}, "ItemId": {"N": "3"}, "Title": {"S": "Guardians of Asgaard"}, "Creator": {"S": "Amon Amarth"}}
+            ];
+
+            try {
+              await Promise.all(recommendations.map(recommendation => 
+                client.send(new PutItemCommand({TableName: tableName, Item: recommendation}))
+              ));
+              console.log("PUT ITEMS SUCCESS", {tableName});
+              response.send(event, context, response.SUCCESS, {});
+            } catch (e) {
+              console.log("PUT ITEMS ERROR", {tableName}, {e});
+              response.send(event, context, response.ERROR, {e});
+            }
+          };
+
+  DocExampleRecommendationServiceInitializerFnExecutionRole:
+    Type: AWS::IAM::Role
+    DeletionPolicy: Delete
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+
+  # 1c. A CustomResource to trigger the Lambda
+  DocExampleRecommendationServiceInitializer:
+    Type: Custom::DocExampleRecommendationServiceInitializer
+    Properties:
+      ServiceToken: !GetAtt DocExampleRecommendationServiceInitializerFn.Arn
+
+  # 2. An instance profile and an associated role and policy that grants permission to instances to access DynamoDB and Systems Manager.
+  DocExampleRecommendationServiceInstanceProfileRole:
+    Type: AWS::IAM::Role
+    DeletionPolicy: Delete
+    Properties:
+      RoleName: doc-example-resilience-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: "sts:AssumeRole"
+        # ManagedPolicies:
+        #   - "arn:aws:iam::aws:policy/{additional managed policies}"
+
+  DocExampleRecommendationServiceInstanceProfilePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: doc-example-resilience-pol
+      Roles:
+        - !Ref DocExampleRecommendationServiceInstanceProfileRole
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - "dynamodb:BatchGetItem"
+              - "dynamodb:Describe*"
+              - "dynamodb:GetItem"
+              - "dynamodb:List*"
+              - "dynamodb:Query"
+              - "dynamodb:Scan"
+            Resource:
+              - !GetAtt DocExampleRecommendationServiceTable.Arn
+
+  DocExampleRecommendationServiceInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      InstanceProfileName: doc-example-resilience-prof
+      Roles:
+        - !Ref DocExampleRecommendationServiceInstanceProfileRole
+
+  # 3. A launch template that specifies the instance profile and a startup script that starts a Python web server on each instance.
+  DocExampleRecommendationServiceKeyPair:
+    Type: AWS::EC2::KeyPair
+    Properties:
+      KeyName: doc-example-resilience-key
+
+  DocExampleRecommendationServiceLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: doc-example-resilience-template
+      LaunchTemplateData:
+        InstanceType: t3.micro
+        ImageId: resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+        IamInstanceProfile:
+          Name: !Ref DocExampleRecommendationServiceInstanceProfile
+        KeyName: !Ref DocExampleRecommendationServiceKeyPair
+        UserData: !Base64 |
+          #!/bin/bash
+          yum -y update
+          sleep 30 # prevent "Error: Rpmdb changed underneath us"
+          yum install python-pip -y
+          python3 -m pip install boto3 ec2-metadata
+          wget -O server.py https://raw.githubusercontent.com/Laren-AWS/aws-doc-sdk-examples/resilient-architecture-python/workflows/resilient_service/resources/server.py
+          python3 server.py 80 us-west-2
+
+  # 4. An Auto Scaling group that starts EC2 instances, one in each of three Availability Zones.
+  DocExampleRecommendationServiceAutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: doc-example-resilience-group
+      AvailabilityZones: !Ref AZs
+      LaunchTemplate:
+        Version: $Default
+        LaunchTemplateName: !Ref DocExampleRecommendationServiceLaunchTemplate
+      MinSize: 3
+      MaxSize: 3
+
+  # 6. A target group that connects the load balancer to instances in the Auto Scaling group.
+  DocExampleRecommendationServiceTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: doc-example-resilience-tg
+      Protocol: HTTP
+      Port: 80
+      HealthCheckPath: /healthcheck
+      HealthCheckIntervalSeconds: 10
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 2
+      # Not sure this works, it came from ChatGPT and I can't verify from docs
+      VpcId: !Ref VPCId
+
+  # 5. An Application Load Balancer that handles HTTP requests to a single endpoint.
+  DocExampleRecommendationServiceLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: doc-example-resilience-lb
+      Subnets: !Ref Subnets
+
+  # 7. A listener that is added to the load balancer and forwards requests to the target group.
+  DocExampleRecommendationServiceListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref DocExampleRecommendationServiceLoadBalancer
+      Protocol: !GetAtt DocExampleRecommendationServiceTargetGroup.Protocol
+      Port: !GetAtt DocExampleRecommendationServiceTargetGroup.Port
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !GetAtt DocExampleRecommendationServiceTargetGroup.Arn
