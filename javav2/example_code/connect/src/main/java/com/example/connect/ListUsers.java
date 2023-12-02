@@ -9,6 +9,7 @@
 
 package com.example.connect;
 
+// snippet-start:[connect.java2.list.users.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.connect.ConnectClient;
 import software.amazon.awssdk.services.connect.model.ConnectException;
@@ -28,11 +29,14 @@ import java.util.List;
 
 public class ListUsers {
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage: " +
-            "   <instanceId>\n\n" +
-            "Where:\n" +
-            "   instanceId - The id of the Amazon Connect instance.\n\n";
+        final String usage = """
+
+            Usage:    <instanceId>
+
+            Where:
+               instanceId - The id of the Amazon Connect instance.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,8 +52,7 @@ public class ListUsers {
         getUsers(connectClient, instanceId);
     }
 
-    // snippet-start:[connect.java2.list.users.main]
-    public static void getUsers( ConnectClient connectClient, String instanceId) {
+    public static void getUsers(ConnectClient connectClient, String instanceId) {
         try {
             ListUsersRequest usersRequest = ListUsersRequest.builder()
                 .instanceId(instanceId)
@@ -58,9 +61,9 @@ public class ListUsers {
 
             ListUsersResponse response = connectClient.listUsers(usersRequest);
             List<UserSummary> users = response.userSummaryList();
-            for (UserSummary user: users) {
-               System.out.println("The user name of the user is "+user.username());
-               System.out.println("The user id is  "+user.id());
+            for (UserSummary user : users) {
+                System.out.println("The user name of the user is " + user.username());
+                System.out.println("The user id is  " + user.id());
             }
 
         } catch (ConnectException e) {
@@ -68,5 +71,6 @@ public class ListUsers {
             System.exit(1);
         }
     }
-    // snippet-end:[connect.java2.list.users.main]
- }
+}
+// snippet-end:[connect.java2.list.users.main]
+

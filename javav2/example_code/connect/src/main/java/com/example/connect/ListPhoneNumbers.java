@@ -8,6 +8,7 @@
 */
 package com.example.connect;
 
+// snippet-start:[connect.java2.list.phone.numbers.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.connect.ConnectClient;
 import software.amazon.awssdk.services.connect.model.ConnectException;
@@ -47,9 +48,8 @@ public class ListPhoneNumbers {
         getPhoneNumbers(connectClient, targetArn);
     }
 
-    // snippet-start:[connect.java2.list.phone.numbers.main]
-    public static void getPhoneNumbers( ConnectClient connectClient, String targetArn ) {
-        try{
+    public static void getPhoneNumbers(ConnectClient connectClient, String targetArn) {
+        try {
             ListPhoneNumbersV2Request numbersV2Request = ListPhoneNumbersV2Request.builder()
                 .maxResults(10)
                 .phoneNumberTypes(PhoneNumberType.TOLL_FREE)
@@ -58,9 +58,9 @@ public class ListPhoneNumbers {
 
             ListPhoneNumbersV2Response response = connectClient.listPhoneNumbersV2(numbersV2Request);
             List<ListPhoneNumbersSummary> numbers = response.listPhoneNumbersSummaryList();
-            for (ListPhoneNumbersSummary num: numbers) {
-                System.out.println("Phone number is "+num.phoneNumber());
-                System.out.println("Country code  is "+num.phoneNumberCountryCode().toString());
+            for (ListPhoneNumbersSummary num : numbers) {
+                System.out.println("Phone number is " + num.phoneNumber());
+                System.out.println("Country code  is " + num.phoneNumberCountryCode().toString());
             }
 
         } catch (ConnectException e) {
@@ -68,5 +68,5 @@ public class ListPhoneNumbers {
             System.exit(1);
         }
     }
-    // snippet-end:[connect.java2.list.phone.numbers.main]
 }
+// snippet-end:[connect.java2.list.phone.numbers.main]

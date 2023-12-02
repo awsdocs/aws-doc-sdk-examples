@@ -9,6 +9,7 @@
 
 package com.example.connect;
 
+// snippet-start:[connect.java2.list.instances.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.connect.ConnectClient;
 import software.amazon.awssdk.services.connect.model.ConnectException;
@@ -25,7 +26,7 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
-public class ListInstances{
+public class ListInstances {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         ConnectClient connectClient = ConnectClient.builder()
@@ -35,25 +36,24 @@ public class ListInstances{
         listAllInstances(connectClient);
     }
 
-    // snippet-start:[connect.java2.list.instances.main]
     public static void listAllInstances(ConnectClient connectClient) {
         try {
             ListInstancesRequest instancesRequest = ListInstancesRequest.builder()
                 .maxResults(10)
-                .build() ;
+                .build();
 
             ListInstancesResponse response = connectClient.listInstances(instancesRequest);
             List<InstanceSummary> instances = response.instanceSummaryList();
-            for (InstanceSummary instance: instances) {
-               System.out.println("The identifier of the instance is "+instance.id());
-               System.out.println("The instance alias of the instance is "+instance.instanceAlias());
-               System.out.println("The ARN  of the instance is "+instance.arn());
-           }
+            for (InstanceSummary instance : instances) {
+                System.out.println("The identifier of the instance is " + instance.id());
+                System.out.println("The instance alias of the instance is " + instance.instanceAlias());
+                System.out.println("The ARN  of the instance is " + instance.arn());
+            }
 
         } catch (ConnectException e) {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[connect.java2.list.instances.main]
 }
+// snippet-end:[connect.java2.list.instances.main]

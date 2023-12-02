@@ -9,6 +9,7 @@
 
 package com.example.connect;
 
+// snippet-start:[connect.java2.describe.contact.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.connect.ConnectClient;
 import software.amazon.awssdk.services.connect.model.ConnectException;
@@ -25,12 +26,15 @@ import software.amazon.awssdk.services.connect.model.DescribeContactResponse;
 
 public class DescribeContact {
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage: " +
-            "   <instanceId> <contactId>\n\n" +
-            "Where:\n" +
-            "   instanceId - The id of your instance.\n\n" +
-            "   contactId - The id of the contact to describe.\n\n";
+        final String usage = """
+
+            Usage:    <instanceId> <contactId>
+
+            Where:
+               instanceId - The id of your instance.
+               contactId - The id of the contact to describe.
+
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,7 +51,6 @@ public class DescribeContact {
         describeSpecificContact(connectClient, instanceId, contactId);
     }
 
-    // snippet-start:[connect.java2.describe.contact.main]
     public static void describeSpecificContact(ConnectClient connectClient, String instanceId, String contactId) {
         try {
             DescribeContactRequest contactRequest = DescribeContactRequest.builder()
@@ -56,14 +59,14 @@ public class DescribeContact {
                 .build();
 
             DescribeContactResponse response = connectClient.describeContact(contactRequest);
-            System.out.println("The queue info is "+response.contact().queueInfo().toString());
-            System.out.println("The queue id is "+response.contact().queueInfo().id());
-            System.out.println("The initiation method is "+response.contact().initiationMethod().toString());
+            System.out.println("The queue info is " + response.contact().queueInfo().toString());
+            System.out.println("The queue id is " + response.contact().queueInfo().id());
+            System.out.println("The initiation method is " + response.contact().initiationMethod().toString());
 
-        } catch ( ConnectException e) {
+        } catch (ConnectException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[connect.java2.describe.contact.main]
 }
+// snippet-end:[connect.java2.describe.contact.main]

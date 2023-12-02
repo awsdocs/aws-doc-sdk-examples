@@ -9,6 +9,7 @@
 
 package com.example.connect;
 
+// snippet-start:[connect.java2.contact.attr.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.connect.ConnectClient;
 import software.amazon.awssdk.services.connect.model.ConnectException;
@@ -26,12 +27,15 @@ import java.util.Map;
 
 public class GetContactAttributes {
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage: " +
-            "   <instanceId>\n\n" +
-            "Where:\n" +
-            "   instanceId - The identifier of the Amazon Connect instance.\n\n" +
-            "   contactId - The identifier of the contact.\n\n" ;
+        final String usage = """
+
+            Usage:    <instanceId>
+
+            Where:
+               instanceId - The identifier of the Amazon Connect instance.
+               contactId - The identifier of the contact.
+
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -48,17 +52,16 @@ public class GetContactAttributes {
         getContactAttrs(connectClient, instanceId, contactId);
     }
 
-    // snippet-start:[connect.java2.contact.attr.main]
-    public static void getContactAttrs( ConnectClient connectClient, String instanceId, String contactId ) {
+    public static void getContactAttrs(ConnectClient connectClient, String instanceId, String contactId) {
         try {
             GetContactAttributesRequest attributesRequest = GetContactAttributesRequest.builder()
-               .instanceId(instanceId)
+                .instanceId(instanceId)
                 .initialContactId(contactId)
                 .build();
 
             GetContactAttributesResponse response = connectClient.getContactAttributes(attributesRequest);
             Map<String, String> attributeMap = response.attributes();
-            for (Map.Entry<String,String> entry : attributeMap.entrySet())
+            for (Map.Entry<String, String> entry : attributeMap.entrySet())
                 System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
 
         } catch (ConnectException e) {
@@ -66,6 +69,6 @@ public class GetContactAttributes {
             System.exit(1);
         }
     }
-    // snippet-end:[connect.java2.contact.attr.main]
 }
+// snippet-end:[connect.java2.contact.attr.main]
 
