@@ -8,8 +8,8 @@
 */
 package com.example.comprehend;
 
+//snippet-start:[comprehend.java2.detect_syntax.main]
 //snippet-start:[comprehend.java2.detect_syntax.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.comprehend.ComprehendClient;
 import software.amazon.awssdk.services.comprehend.model.ComprehendException;
@@ -27,14 +27,11 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DetectSyntax {
-
     public static void main(String[] args) {
-
         String text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing.";
         Region region = Region.US_EAST_1;
         ComprehendClient comClient = ComprehendClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println("Calling DetectSyntax");
@@ -42,8 +39,7 @@ public class DetectSyntax {
         comClient.close();
     }
 
-    //snippet-start:[comprehend.java2.detect_syntax.main]
-    public static void detectAllSyntax(ComprehendClient comClient, String text){
+    public static void detectAllSyntax(ComprehendClient comClient, String text) {
 
         try {
             DetectSyntaxRequest detectSyntaxRequest = DetectSyntaxRequest.builder()
@@ -63,5 +59,5 @@ public class DetectSyntax {
             System.exit(1);
         }
     }
-    //snippet-end:[comprehend.java2.detect_syntax.main]
 }
+//snippet-end:[comprehend.java2.detect_syntax.main]

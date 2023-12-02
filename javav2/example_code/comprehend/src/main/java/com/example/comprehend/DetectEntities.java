@@ -9,8 +9,8 @@
 
 package com.example.comprehend;
 
+//snippet-start:[comprehend.java2.detect_entities.main]
 //snippet-start:[comprehend.java2.detect_entities.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.comprehend.ComprehendClient;
 import software.amazon.awssdk.services.comprehend.model.DetectEntitiesRequest;
@@ -29,12 +29,10 @@ import java.util.List;
 public class DetectEntities {
 
     public static void main(String[] args) {
-
         String text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing.";
         Region region = Region.US_EAST_1;
         ComprehendClient comClient = ComprehendClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println("Calling DetectEntities");
@@ -42,9 +40,7 @@ public class DetectEntities {
         comClient.close();
     }
 
-    //snippet-start:[comprehend.java2.detect_entities.main]
-    public static void detectAllEntities(ComprehendClient comClient,String text ) {
-
+    public static void detectAllEntities(ComprehendClient comClient, String text) {
         try {
             DetectEntitiesRequest detectEntitiesRequest = DetectEntitiesRequest.builder()
                 .text(text)
@@ -62,5 +58,6 @@ public class DetectEntities {
             System.exit(1);
         }
     }
-    //snippet-end:[comprehend.java2.detect_entities.main]
 }
+//snippet-end:[comprehend.java2.detect_entities.main]
+
