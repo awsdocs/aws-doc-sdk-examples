@@ -28,7 +28,6 @@ public class UpdateTable {
 
     public static void main(String[] args) {
         final String usage = """
-
             Usage:
                 <tableName> <readCapacity> <writeCapacity>
 

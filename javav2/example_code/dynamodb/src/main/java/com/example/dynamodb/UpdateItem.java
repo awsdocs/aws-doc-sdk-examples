@@ -33,7 +33,6 @@ import java.util.HashMap;
  */
 public class UpdateItem {
     public static void main(String[] args) {
-
         final String usage = """
 
             Usage:

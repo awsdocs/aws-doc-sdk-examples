@@ -76,7 +76,6 @@ public class Query {
 
         // Set up mapping of the partition name with the value.
         HashMap<String, AttributeValue> attrValues = new HashMap<>();
-
         attrValues.put(":" + partitionKeyName, AttributeValue.builder()
             .s(partitionKeyVal)
             .build());
