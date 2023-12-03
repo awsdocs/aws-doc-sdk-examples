@@ -9,7 +9,6 @@
 
 package com.example.ec2;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
@@ -88,20 +87,23 @@ import java.util.List;
  * 17. Deletes the key pair.
  */
 public class EC2Scenario {
-
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "   <keyName> <fileName> <groupName> <groupDesc> <vpcId>\n\n" +
-            "Where:\n" +
-            "   keyName -  A key pair name (for example, TestKeyPair). \n\n" +
-            "   fileName -  A file name where the key information is written to. \n\n" +
-            "   groupName - The name of the security group. \n\n" +
-            "   groupDesc - The description of the security group. \n\n" +
-            "   vpcId - A VPC Id value. You can get this value from the AWS Management Console. \n\n" +
-            "   myIpAddress - The IP address of your development machine. \n\n" ;
+        final String usage = """
+
+            Usage:
+               <keyName> <fileName> <groupName> <groupDesc> <vpcId>
+
+            Where:
+               keyName -  A key pair name (for example, TestKeyPair).\s
+               fileName -  A file name where the key information is written to.\s
+               groupName - The name of the security group.\s
+               groupDesc - The description of the security group.\s
+               vpcId - A VPC Id value. You can get this value from the AWS Management Console.\s
+               myIpAddress - The IP address of your development machine.\s
+
+            """;
 
         if (args.length != 6) {
             System.out.println(usage);
@@ -118,12 +120,10 @@ public class EC2Scenario {
         Region region = Region.US_WEST_2;
         Ec2Client ec2 = Ec2Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         SsmClient ssmClient = SsmClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println(DASHES);
