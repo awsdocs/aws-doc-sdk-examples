@@ -8,8 +8,8 @@
 
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.update_service.main]
 // snippet-start:[ecs.java2.update_service.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.EcsException;
@@ -28,12 +28,15 @@ public class UpdateService {
 
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "   <clusterName> <serviceArn> \n\n" +
-            "Where:\n" +
-            "  clusterName - The cluster name.\n" +
-            "  serviceArn - The service ARN value.\n" ;
+        final String usage = """
+
+            Usage:
+               <clusterName> <serviceArn>\s
+
+            Where:
+              clusterName - The cluster name.
+              serviceArn - The service ARN value.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,16 +48,13 @@ public class UpdateService {
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        updateSpecificService(ecsClient, clusterName, serviceArn );
+        updateSpecificService(ecsClient, clusterName, serviceArn);
         ecsClient.close();
     }
 
-    // snippet-start:[ecs.java2.update_service.main]
-    public static void updateSpecificService( EcsClient ecsClient, String clusterName, String serviceArn) {
-
+    public static void updateSpecificService(EcsClient ecsClient, String clusterName, String serviceArn) {
         try {
             UpdateServiceRequest serviceRequest = UpdateServiceRequest.builder()
                 .cluster(clusterName)
@@ -70,5 +70,5 @@ public class UpdateService {
             System.exit(1);
         }
     }
-    // snippet-end:[ecs.java2.update_service.main]
 }
+// snippet-end:[ecs.java2.update_service.main]

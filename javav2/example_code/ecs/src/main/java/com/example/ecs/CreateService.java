@@ -9,8 +9,8 @@
 
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.create_service.main]
 // snippet-start:[ecs.java2.create_service.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.AwsVpcConfiguration;
@@ -30,16 +30,18 @@ import software.amazon.awssdk.services.ecs.model.EcsException;
  */
 public class CreateService {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <clusterName> <serviceName> <securityGroups> <subnets> <taskDefinition>\n\n" +
-            "Where:\n" +
-            "  clusterName - The name of the ECS cluster.\n" +
-            "  serviceName - The name of the ECS service to create.\n" +
-            "  securityGroups - The name of the security group.\n" +
-            "  subnets - The name of the subnet.\n" +
-            "  taskDefinition - The name of the task definition.\n" ;
+            Usage:
+              <clusterName> <serviceName> <securityGroups> <subnets> <taskDefinition>
+
+            Where:
+              clusterName - The name of the ECS cluster.
+              serviceName - The name of the ECS service to create.
+              securityGroups - The name of the security group.
+              subnets - The name of the subnet.
+              taskDefinition - The name of the task definition.
+            """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -54,15 +56,13 @@ public class CreateService {
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String serviceArn = createNewService(ecsClient, clusterName, serviceName, securityGroups, subnets, taskDefinition);
-        System.out.println("The ARN of the service is "+serviceArn);
+        System.out.println("The ARN of the service is " + serviceArn);
         ecsClient.close();
     }
 
-    // snippet-start:[ecs.java2.create_service.main]
     public static String createNewService(EcsClient ecsClient,
                                           String clusterName,
                                           String serviceName,
@@ -89,7 +89,7 @@ public class CreateService {
                 .taskDefinition(taskDefinition)
                 .build();
 
-            CreateServiceResponse response = ecsClient.createService(serviceRequest) ;
+            CreateServiceResponse response = ecsClient.createService(serviceRequest);
             return response.service().serviceArn();
 
         } catch (EcsException e) {
@@ -98,5 +98,5 @@ public class CreateService {
         }
         return "";
     }
-    // snippet-end:[ecs.java2.create_service.main]
 }
+// snippet-end:[ecs.java2.create_service.main]
