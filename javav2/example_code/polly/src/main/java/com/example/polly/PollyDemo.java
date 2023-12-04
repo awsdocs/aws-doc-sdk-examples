@@ -9,9 +9,9 @@
 
 package com.example.polly;
 
+// snippet-start:[polly.java2.demo.main]
 // snippet-start:[polly.java2.demo.import]
 import javazoom.jl.decoder.JavaLayerException;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.polly.PollyClient;
@@ -37,36 +37,33 @@ import javazoom.jl.player.advanced.PlaybackListener;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class PollyDemo {
-
-    private static final String SAMPLE = "Congratulations. You have successfully built this working demo "+
-        " of Amazon Polly in Java Version 2. Have fun building voice enabled apps with Amazon Polly (that's me!), and always "+
+    private static final String SAMPLE = "Congratulations. You have successfully built this working demo " +
+        " of Amazon Polly in Java Version 2. Have fun building voice enabled apps with Amazon Polly (that's me!), and always " +
         " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS";
 
     public static void main(String args[]) {
-
         PollyClient polly = PollyClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         talkPolly(polly);
         polly.close();
     }
 
-    // snippet-start:[polly.java2.demo.main]
     public static void talkPolly(PollyClient polly) {
-
         try {
             DescribeVoicesRequest describeVoiceRequest = DescribeVoicesRequest.builder()
                 .engine("standard")
                 .build();
 
             DescribeVoicesResponse describeVoicesResult = polly.describeVoices(describeVoiceRequest);
-            Voice voice = describeVoicesResult.voices().get(26);
+            Voice voice = describeVoicesResult.voices().stream()
+                .filter(v -> v.name().equals("Joanna"))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Voice not found"));
             InputStream stream = synthesize(polly, SAMPLE, voice, OutputFormat.MP3);
             AdvancedPlayer player = new AdvancedPlayer(stream, javazoom.jl.player.FactoryRegistry.systemRegistry().createAudioDevice());
             player.setPlayBackListener(new PlaybackListener() {
-
                 public void playbackStarted(PlaybackEvent evt) {
                     System.out.println("Playback started");
                     System.out.println(SAMPLE);
@@ -81,13 +78,12 @@ public class PollyDemo {
             player.play();
 
         } catch (PollyException | JavaLayerException | IOException e) {
-          System.err.println(e.getMessage());
-          System.exit(1);
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 
     public static InputStream synthesize(PollyClient polly, String text, Voice voice, OutputFormat format) throws IOException {
-
         SynthesizeSpeechRequest synthReq = SynthesizeSpeechRequest.builder()
             .text(text)
             .voiceId(voice.id())
@@ -97,5 +93,5 @@ public class PollyDemo {
         ResponseInputStream<SynthesizeSpeechResponse> synthRes = polly.synthesizeSpeech(synthReq);
         return synthRes;
     }
-    // snippet-end:[polly.java2.demo.main]
 }
+// snippet-end:[polly.java2.demo.main]
