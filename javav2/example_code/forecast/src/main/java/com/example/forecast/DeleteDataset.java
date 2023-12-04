@@ -9,14 +9,13 @@
 
 package com.example.forecast;
 
+// snippet-start:[forecast.java2.delete_forecast_dataset.main]
 // snippet-start:[forecast.java2.delete_forecast_dataset.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.forecast.ForecastClient;
 import software.amazon.awssdk.services.forecast.model.DeleteDatasetRequest;
 import software.amazon.awssdk.services.forecast.model.ForecastException;
 // snippet-end:[forecast.java2.delete_forecast_dataset.import]
-
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -28,12 +27,15 @@ import software.amazon.awssdk.services.forecast.model.ForecastException;
 public class DeleteDataset {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <datasetARN> \n\n" +
-            "Where:\n" +
-            "    datasetARN - The ARN of the data set to delete. \n\n" ;
+            Usage:
+                <datasetARN>\s
+
+            Where:
+                datasetARN - The ARN of the data set to delete.\s
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,28 +46,25 @@ public class DeleteDataset {
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteForecastDataSet(forecast, datasetARN);
         forecast.close();
     }
 
-    // snippet-start:[forecast.java2.delete_forecast_dataset.main]
     public static void deleteForecastDataSet(ForecastClient forecast, String myDataSetARN) {
-
         try {
             DeleteDatasetRequest deleteRequest = DeleteDatasetRequest.builder()
                 .datasetArn(myDataSetARN)
                 .build();
 
             forecast.deleteDataset(deleteRequest);
-            System.out.println("The Data Set was deleted") ;
+            System.out.println("The Data Set was deleted");
 
         } catch (ForecastException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[forecast.java2.delete_forecast_dataset.main]
 }
+// snippet-end:[forecast.java2.delete_forecast_dataset.main]

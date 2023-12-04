@@ -9,8 +9,8 @@
 
 package com.example.forecast;
 
+// snippet-start:[forecast.java2.list_forecast_datasetgroups.main]
 // snippet-start:[forecast.java2.list_forecast_datasetgroups.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.forecast.ForecastClient;
 import software.amazon.awssdk.services.forecast.model.DatasetGroupSummary;
@@ -28,22 +28,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListDataSetGroups {
-
     public static void main(String[] args) {
-
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listDataGroups(forecast);
         forecast.close();
     }
 
-   // snippet-start:[forecast.java2.list_forecast_datasetgroups.main]
     public static void listDataGroups(ForecastClient forecast) {
-
         try {
             ListDatasetGroupsRequest group = ListDatasetGroupsRequest.builder()
                 .maxResults(10)
@@ -60,5 +55,5 @@ public class ListDataSetGroups {
             System.exit(1);
         }
     }
-   // snippet-end:[forecast.java2.list_forecast_datasetgroups.main]
 }
+// snippet-end:[forecast.java2.list_forecast_datasetgroups.main]

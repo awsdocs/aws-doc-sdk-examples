@@ -9,8 +9,8 @@
 
 package com.example.forecast;
 
+// snippet-start:[forecast.java2.describe_forecast.main]
 // snippet-start:[forecast.java2.describe_forecast.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.forecast.ForecastClient;
 import software.amazon.awssdk.services.forecast.model.DescribeForecastRequest;
@@ -26,14 +26,16 @@ import software.amazon.awssdk.services.forecast.model.ForecastException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeForecast {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <forecastarn> \n\n" +
-            "Where:\n" +
-            "    forecastarn - The arn of the forecast (for example, \"arn:aws:forecast:us-west-2:xxxxx322:forecast/my_forecast)\n\n" ;
+            Usage:
+                <forecastarn>\s
+
+            Where:
+                forecastarn - The arn of the forecast (for example, "arn:aws:forecast:us-west-2:xxxxx322:forecast/my_forecast)
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,16 +46,13 @@ public class DescribeForecast {
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         describe(forecast, forecastarn);
         forecast.close();
     }
 
-    // snippet-start:[forecast.java2.describe_forecast.main]
     public static void describe(ForecastClient forecast, String forecastarn) {
-
         try {
             DescribeForecastRequest request = DescribeForecastRequest.builder()
                 .forecastArn(forecastarn)
