@@ -10,8 +10,7 @@
 */
 package aws.example.emr;
 
-// snippet-start:[emr.java2._create_fleet.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+// snippet-start:[emr.java2._create_fleet.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.emr.EmrClient;
 import software.amazon.awssdk.services.emr.model.InstanceTypeConfig;
@@ -40,19 +39,16 @@ import java.util.Arrays;
 public class CreateEmrFleet {
 
     public static void main(String[] args) throws Exception {
-
         Region region = Region.US_EAST_1;
         EmrClient emrClient = EmrClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         createFleet(emrClient);
     }
 
-    // snippet-start:[emr.java2._create_fleet.main]
     public static void createFleet(EmrClient emr) {
 
-       try {
+        try {
             InstanceTypeConfig m3xLarge = InstanceTypeConfig.builder()
                 .bidPriceAsPercentageOfOnDemandPrice(100.0)
                 .instanceType("m3.xlarge")
@@ -105,9 +101,9 @@ public class CreateEmrFleet {
                 .name("master-fleet")
                 .instanceFleetType(InstanceFleetType.MASTER)
                 .instanceTypeConfigs(Arrays.asList(
-                     m3xLarge,
-                     m4xLarge,
-                     m5xLarge
+                    m3xLarge,
+                    m4xLarge,
+                    m5xLarge
                 ))
                 .targetOnDemandCapacity(1)
                 .build();
@@ -116,10 +112,10 @@ public class CreateEmrFleet {
                 .name("core-fleet")
                 .instanceFleetType(InstanceFleetType.CORE)
                 .instanceTypeConfigs(Arrays.asList(
-                     m3xLarge,
-                     m4xLarge,
-                     r4xlarge,
-                     r3xlarge,
+                    m3xLarge,
+                    m4xLarge,
+                    r4xlarge,
+                    r3xlarge,
                     c32xlarge
                 ))
                 .targetOnDemandCapacity(20)
@@ -158,7 +154,7 @@ public class CreateEmrFleet {
                 .jobFlowRole("EMR_EC2_DefaultRole")
                 .visibleToAllUsers(true)
                 .applications(java.util.Arrays.asList(
-                   Application.builder().name("Spark").build()
+                    Application.builder().name("Spark").build()
                 ))
                 .releaseLabel("emr-5.29.0")
                 .build();
@@ -166,10 +162,10 @@ public class CreateEmrFleet {
             RunJobFlowResponse response = emr.runJobFlow(flowRequest);
             System.out.println(response.toString());
 
-       } catch (EmrException e) {
+        } catch (EmrException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
-       }
+        }
     }
-    // snippet-end:[emr.java2._create_fleet.main]
 }
+// snippet-end:[emr.java2._create_fleet.main]

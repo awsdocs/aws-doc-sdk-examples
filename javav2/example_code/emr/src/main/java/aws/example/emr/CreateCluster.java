@@ -9,8 +9,8 @@
 */
 package aws.example.emr;
 
+// snippet-start:[emr.java2._create_cluster.main]
 // snippet-start:[emr.java2._create_cluster.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.emr.EmrClient;
 import software.amazon.awssdk.services.emr.model.HadoopJarStepConfig;
@@ -33,45 +33,46 @@ import java.util.List;
  */
 public class CreateCluster {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage: " +
-                "   <jar> <myClass> <keys> <logUri> <name>\n\n" +
-                "Where:\n" +
-                "   jar - A path to a JAR file run during the step. \n\n" +
-                "   myClass - The name of the main class in the specified Java file. \n\n" +
-                "   keys - The name of the Amazon EC2 key pair. \n\n" +
-                "   logUri - The Amazon S3 bucket where the logs are located (for example,  s3://<BucketName>/logs/). \n\n" +
-                "   name - The name of the job flow. \n\n" ;
+            Usage:    <jar> <myClass> <keys> <logUri> <name>
 
-         if (args.length != 5) {
-              System.out.println(usage);
-              System.exit(1);
-         }
+            Where:
+               jar - A path to a JAR file run during the step.\s
+               myClass - The name of the main class in the specified Java file.\s
+               keys - The name of the Amazon EC2 key pair.\s
+               logUri - The Amazon S3 bucket where the logs are located (for example,  s3://<BucketName>/logs/).\s
+               name - The name of the job flow.\s
 
-        String jar = args[0] ;
-        String myClass = args[1] ;
-        String keys = args[2] ;
-        String logUri = args[3] ;
-        String name = args[4] ;
+            """;
+
+        if (args.length != 5) {
+            System.out.println(usage);
+            System.exit(1);
+        }
+
+        String jar = args[0];
+        String myClass = args[1];
+        String keys = args[2];
+        String logUri = args[3];
+        String name = args[4];
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String jobFlowId = createAppCluster(emrClient, jar, myClass, keys, logUri, name);
-        System.out.println("The job flow id is " +jobFlowId);
+        System.out.println("The job flow id is " + jobFlowId);
         emrClient.close();
     }
-    // snippet-start:[emr.java2._create_cluster.main]
-    public static String createAppCluster( EmrClient emrClient,
-                                        String jar,
-                                        String myClass,
-                                        String keys,
-                                        String logUri,
-                                        String name) {
+
+    public static String createAppCluster(EmrClient emrClient,
+                                          String jar,
+                                          String myClass,
+                                          String keys,
+                                          String logUri,
+                                          String name) {
 
         try {
             HadoopJarStepConfig jarStepConfig = HadoopJarStepConfig.builder()
@@ -91,7 +92,7 @@ public class CreateCluster {
                 .name("Zeppelin")
                 .build();
 
-            List <Application> apps = new ArrayList<>();
+            List<Application> apps = new ArrayList<>();
             apps.add(spark);
             apps.add(hive);
             apps.add(zeppelin);
@@ -125,12 +126,12 @@ public class CreateCluster {
             RunJobFlowResponse response = emrClient.runJobFlow(jobFlowRequest);
             return response.jobFlowId();
 
-        } catch(EmrException e){
+        } catch (EmrException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
 
         return "";
     }
-    // snippet-end:[emr.java2._create_cluster.main]
 }
+// snippet-end:[emr.java2._create_cluster.main]

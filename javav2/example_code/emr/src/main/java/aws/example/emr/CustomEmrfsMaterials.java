@@ -10,8 +10,8 @@
 
 package aws.example.emr;
 
+// snippet-start:[emr.java2.emrfs.main]
 // snippet-start:[emr.java2.emrfs.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.emr.EmrClient;
 import software.amazon.awssdk.services.emr.model.Configuration;
@@ -34,18 +34,19 @@ import java.util.Map;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CustomEmrfsMaterials {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <jar> <myClass> <keys> <logUri> <name>\n\n" +
-            "Where:\n" +
-            "   jar - A path to a JAR file run during the step. \n\n" +
-            "   myClass - The name of the main class in the specified Java file. \n\n" +
-            "   keys - The name of the Amazon EC2 key pair. \n\n" +
-            "   logUri - The Amazon S3 bucket where the logs are located (for example,  s3://<BucketName>/logs/). \n\n" +
-            "   name - The name of the job flow. \n\n";
+            Usage:    <jar> <myClass> <keys> <logUri> <name>
+
+            Where:
+               jar - A path to a JAR file run during the step.\s
+               myClass - The name of the main class in the specified Java file.\s
+               keys - The name of the Amazon EC2 key pair.\s
+               logUri - The Amazon S3 bucket where the logs are located (for example,  s3://<BucketName>/logs/).\s
+               name - The name of the job flow.\s
+
+            """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -60,14 +61,12 @@ public class CustomEmrfsMaterials {
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String jobFlowId = createEmrfsCluster(emrClient, jar, myClass, keys, logUri, name);
         System.out.println("The job flow id is " +jobFlowId);
     }
 
-    // snippet-start:[emr.java2.emrfs.main]
     public static String createEmrfsCluster( EmrClient emrClient,
                                         String jar,
                                         String myClass,
