@@ -8,7 +8,6 @@
 
 package com.example.redshiftdata;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshiftdata.model.DescribeStatementResponse;
 import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementRequest;
@@ -33,15 +32,16 @@ import java.util.List;
  *  https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-getting-started.html
  */
 public class RetrieveDataServerless {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    RetrieveData <database> <sqlStatement>  \n\n" +
-            "Where:\n" +
-            "    database - The name of the database (for example, sample_data_dev). \n" +
-            "    sqlStatement - The sql statement to use. \n";
+            Usage:
+                RetrieveData <database> <sqlStatement> \s
+
+            Where:
+                database - The name of the database (for example, sample_data_dev).\s
+                sqlStatement - The sql statement to use.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,7 +53,6 @@ public class RetrieveDataServerless {
         Region region = Region.US_WEST_2;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String id = performSQLStatement(redshiftDataClient, database, sqlStatement);
@@ -64,7 +63,6 @@ public class RetrieveDataServerless {
     }
 
     public static void checkStatement(RedshiftDataClient redshiftDataClient,String sqlId ) {
-
         try {
             DescribeStatementRequest statementRequest = DescribeStatementRequest.builder()
                 .id(sqlId)
@@ -112,7 +110,6 @@ public class RetrieveDataServerless {
     }
 
     public static void getResults(RedshiftDataClient redshiftDataClient, String statementId) {
-
         try {
             GetStatementResultRequest resultRequest = GetStatementResultRequest.builder()
                 .id(statementId)

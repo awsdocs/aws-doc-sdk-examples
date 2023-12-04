@@ -34,14 +34,17 @@ public class RetrieveData {
 
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    RetrieveData <database> <dbUser> <sqlStatement> <clusterId> \n\n" +
-            "Where:\n" +
-            "    database - The name of the database (for example, dev) \n" +
-            "    dbUser - The master user name \n" +
-            "    sqlStatement - The sql statement to use (for example, select * from information_schema.tables;) \n" +
-            "    clusterId - The id of the Redshift cluster (for example, redshift-cluster) \n" ;
+        final String usage = """
+
+            Usage:
+                RetrieveData <database> <dbUser> <sqlStatement> <clusterId>\s
+
+            Where:
+                database - The name of the database (for example, dev)\s
+                dbUser - The master user name\s
+                sqlStatement - The sql statement to use (for example, select * from information_schema.tables;)\s
+                clusterId - The id of the Redshift cluster (for example, redshift-cluster)\s
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -56,7 +59,6 @@ public class RetrieveData {
         Region region = Region.US_WEST_2;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String id = performSQLStatement(redshiftDataClient, database, dbUser, sqlStatement, clusterId);
@@ -128,7 +130,6 @@ public class RetrieveData {
 
             GetStatementResultResponse response = redshiftDataClient.getStatementResult(resultRequest);
             List<List<Field>> dataList = response.records();
-
             // Print out the records.
             for (List list : dataList) {
                 for (Object myField : list) {

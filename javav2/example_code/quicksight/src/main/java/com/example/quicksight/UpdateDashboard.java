@@ -107,7 +107,6 @@ public class UpdateDashboard {
     }
 
     private static String getTemplateARN(QuickSightClient qsClient, String account, String dataset, String analysisArn) {
-
         String arn = null;
         try {
             DataSetReference setReference = DataSetReference.builder()
