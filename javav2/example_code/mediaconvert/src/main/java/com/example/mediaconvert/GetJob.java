@@ -9,8 +9,8 @@
 
 package com.example.mediaconvert;
 
+// snippet-start:[mediaconvert.java.get_job.main]
 // snippet-start:[mediaconvert.java.get_job.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsResponse;
 import software.amazon.awssdk.services.mediaconvert.model.GetJobRequest;
@@ -35,7 +35,7 @@ public class GetJob {
         final String usage = "\n" +
             "  <jobId> \n\n" +
             "Where:\n" +
-            "  jobId - The job id value.\n\n" ;
+            "  jobId - The job id value.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,16 +46,13 @@ public class GetJob {
         Region region = Region.US_WEST_2;
         MediaConvertClient mc = MediaConvertClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getSpecificJob(mc, jobId);
         mc.close();
     }
 
-    // snippet-start:[mediaconvert.java.get_job.main]
     public static void getSpecificJob(MediaConvertClient mc, String jobId) {
-
         try {
             DescribeEndpointsResponse res = mc.describeEndpoints(DescribeEndpointsRequest.builder()
                 .maxResults(20)
@@ -76,12 +73,12 @@ public class GetJob {
                 .build();
 
             GetJobResponse response = emc.getJob(jobRequest);
-            System.out.println("The ARN of the job is "+response.job().arn());
+            System.out.println("The ARN of the job is " + response.job().arn());
 
         } catch (MediaConvertException e) {
             System.out.println(e.toString());
             System.exit(0);
         }
     }
-    // snippet-end:[mediaconvert.java.get_job.main]
 }
+// snippet-end:[mediaconvert.java.get_job.main]

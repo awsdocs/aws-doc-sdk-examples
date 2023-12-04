@@ -13,7 +13,6 @@ package com.example.mediaconvert;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
 import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsResponse;
@@ -122,15 +121,16 @@ import software.amazon.awssdk.services.mediaconvert.model.M3u8Scte35Source;
  *
  */
 public class CreateJob {
-
    public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage:\n" +
-                "    <mcRoleARN> <fileInput> \n\n" +
-                "Where:\n" +
-                "    mcRoleARN - The MediaConvert Role ARN. \n"+
-                "    fileInput -  The URL of an Amazon S3 bucket where the input file is located. \n";
+            Usage:
+                <mcRoleARN> <fileInput>\s
+
+            Where:
+                mcRoleARN - The MediaConvert Role ARN.\s
+                fileInput -  The URL of an Amazon S3 bucket where the input file is located.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -142,7 +142,6 @@ public class CreateJob {
         Region region = Region.US_WEST_2;
         MediaConvertClient mc = MediaConvertClient.builder()
                 .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
        String id = createMediaJob(mc, mcRoleARN, fileInput);
