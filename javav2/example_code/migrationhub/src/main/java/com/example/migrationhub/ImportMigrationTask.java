@@ -9,8 +9,8 @@
 
 package com.example.migrationhub;
 
+// snippet-start:[migration.java2.import_migration.main]
 // snippet-start:[migration.java2.import_migration.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.migrationhub.MigrationHubClient;
 import software.amazon.awssdk.services.migrationhub.model.CreateProgressUpdateStreamRequest;
@@ -26,15 +26,16 @@ import software.amazon.awssdk.services.migrationhub.model.MigrationHubException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ImportMigrationTask {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <migrationTask> <progressStream> \n\n" +
-            "Where:\n" +
-            "    migrationTask - the name of a migration task. \n"+
-            "    progressStream - the name of a progress stream. \n";
+            Usage:
+                <migrationTask> <progressStream>\s
+
+            Where:
+                migrationTask - the name of a migration task.\s
+                progressStream - the name of a progress stream.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,14 +47,12 @@ public class ImportMigrationTask {
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         importMigrTask(migrationClient, migrationTask, progressStream);
         migrationClient.close();
     }
 
-    // snippet-start:[migration.java2.import_migration.main]
     public static void importMigrTask(MigrationHubClient migrationClient, String migrationTask, String progressStream) {
 
         try {
@@ -62,19 +61,19 @@ public class ImportMigrationTask {
                 .dryRun(false)
                 .build();
 
-           migrationClient.createProgressUpdateStream(progressUpdateStreamRequest);
-           ImportMigrationTaskRequest migrationTaskRequest = ImportMigrationTaskRequest.builder()
-               .migrationTaskName(migrationTask)
-               .progressUpdateStream(progressStream)
-               .dryRun(false)
-               .build();
+            migrationClient.createProgressUpdateStream(progressUpdateStreamRequest);
+            ImportMigrationTaskRequest migrationTaskRequest = ImportMigrationTaskRequest.builder()
+                .migrationTaskName(migrationTask)
+                .progressUpdateStream(progressStream)
+                .dryRun(false)
+                .build();
 
-           migrationClient.importMigrationTask(migrationTaskRequest);
+            migrationClient.importMigrationTask(migrationTaskRequest);
 
-        } catch(MigrationHubException e) {
+        } catch (MigrationHubException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[migration.java2.import_migration.main]
 }
+// snippet-end:[migration.java2.import_migration.main]
