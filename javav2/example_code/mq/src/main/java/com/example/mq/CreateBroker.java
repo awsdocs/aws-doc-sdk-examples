@@ -27,13 +27,15 @@ import software.amazon.awssdk.services.mq.model.MqException;
 
 public class CreateBroker {
     public static void main(String[] args) {
+        final String USAGE = """
 
-        final String USAGE = "\n" +
-                "Usage: " +
-                "CreateBrokerActiveMQ <engineType> <brokerName>\n\n" +
-                "Where:\n" +
-                "  engineType - Required. RABBITMQ or ACTIVEMQ for broker's engine type.\n" +
-                "  brokerName - Optional. The name of the Amazon MQ for ActiveMQ broker.\n\n";
+            Usage: CreateBrokerActiveMQ <engineType> <brokerName>
+
+            Where:
+              engineType - Required. RABBITMQ or ACTIVEMQ for broker's engine type.
+              brokerName - Optional. The name of the Amazon MQ for ActiveMQ broker.
+
+            """;
         
         int argsLength = args.length;
         String brokerName = "";
@@ -52,8 +54,7 @@ public class CreateBroker {
         }
 
         Region region = Region.US_WEST_2;
-        
-        MqClient mqClient = MqClient.builder()
+                MqClient mqClient = MqClient.builder()
                 .region(region)
                 .build();
         
@@ -63,9 +64,7 @@ public class CreateBroker {
     }
     // snippet-start:[mq.java2.create_broker.main]
     public static String createBroker(MqClient mqClient, String engineType, String brokerName) {
-        
         try {
-
             // Create an Amazon MQ User object.
             User user = User.builder()
             .username("testAdminUser")

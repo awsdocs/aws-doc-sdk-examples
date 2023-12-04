@@ -9,8 +9,8 @@
 
 package com.example.search;
 
+// snippet-start:[opensearch.java2.update_domain.main]
 // snippet-start:[opensearch.java2.update_domain.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.opensearch.OpenSearchClient;
 import software.amazon.awssdk.services.opensearch.model.ClusterConfig;
@@ -27,14 +27,16 @@ import software.amazon.awssdk.services.opensearch.model.UpdateDomainConfigRespon
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class UpdateDomain {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <domainName>\n\n" +
-            "Where:\n" +
-            "    domainName - The name of the domain to update.\n\n" ;
+            Usage:
+                <domainName>
+
+            Where:
+                domainName - The name of the domain to update.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,16 +47,13 @@ public class UpdateDomain {
         Region region = Region.US_EAST_1;
         OpenSearchClient searchClient = OpenSearchClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         updateSpecificDomain(searchClient, domainName);
         System.out.println("Done");
     }
 
-    // snippet-start:[opensearch.java2.update_domain.main]
-    public static void updateSpecificDomain(OpenSearchClient searchClient, String domainName ) {
-
+    public static void updateSpecificDomain(OpenSearchClient searchClient, String domainName) {
         try {
             ClusterConfig clusterConfig = ClusterConfig.builder()
                 .instanceCount(3)
@@ -75,5 +74,5 @@ public class UpdateDomain {
             System.exit(1);
         }
     }
-    // snippet-end:[opensearch.java2.update_domain.main]
 }
+// snippet-end:[opensearch.java2.update_domain.main]
