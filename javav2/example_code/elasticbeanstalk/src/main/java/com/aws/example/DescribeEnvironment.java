@@ -8,8 +8,8 @@
 
 package com.aws.example;
 
+//snippet-start:[eb.java2.describe_env.main]
 //snippet-start:[eb.java2.describe_env.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.elasticbeanstalk.ElasticBeanstalkClient;
 import software.amazon.awssdk.services.elasticbeanstalk.model.DescribeEnvironmentsRequest;
@@ -28,14 +28,15 @@ import java.util.List;
  */
 
 public class DescribeEnvironment {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <appName> \n\n" +
-            "Where:\n" +
-            "    appName - The name of the AWS Elastic Beanstalk application. \n";
+            Usage:
+                <appName>\s
+
+            Where:
+                appName - The name of the AWS Elastic Beanstalk application.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,15 +47,12 @@ public class DescribeEnvironment {
         Region region = Region.US_EAST_1;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         describeEnv(beanstalkClient, appName);
     }
 
-    //snippet-start:[eb.java2.describe_env.main]
     public static void describeEnv(ElasticBeanstalkClient beanstalkClient, String appName) {
-
         try {
             DescribeEnvironmentsRequest request = DescribeEnvironmentsRequest.builder()
                 .environmentNames("Joblisting-env")
@@ -62,9 +60,9 @@ public class DescribeEnvironment {
 
             DescribeEnvironmentsResponse response = beanstalkClient.describeEnvironments(request);
             List<EnvironmentDescription> envs = response.environments();
-            for (EnvironmentDescription env: envs) {
-                System.out.println("The environment name is  "+env.environmentName());
-                System.out.println("The environment ARN is  "+env.environmentArn());
+            for (EnvironmentDescription env : envs) {
+                System.out.println("The environment name is  " + env.environmentName());
+                System.out.println("The environment ARN is  " + env.environmentArn());
             }
 
         } catch (ElasticBeanstalkException e) {
@@ -72,5 +70,5 @@ public class DescribeEnvironment {
             System.exit(1);
         }
     }
-    //snippet-end:[eb.java2.describe_env.main]
 }
+//snippet-end:[eb.java2.describe_env.main]

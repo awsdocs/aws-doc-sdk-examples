@@ -9,8 +9,8 @@
 
 package com.aws.example;
 
+//snippet-start:[eb.java2.create_env.main]
 //snippet-start:[eb.java2.create_env.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.elasticbeanstalk.ElasticBeanstalkClient;
 import software.amazon.awssdk.services.elasticbeanstalk.model.ConfigurationOptionSetting;
@@ -30,34 +30,32 @@ import software.amazon.awssdk.services.elasticbeanstalk.model.ElasticBeanstalkEx
 public class CreateEnvironment {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <envName> \n\n" +
-            "Where:\n" +
-            "    envName - The name of the AWS Elastic Beanstalk environment. \n" +
-            "    appName - The name of the AWS Elastic Beanstalk application." ;
+            Usage:
+                <envName>\s
 
-       if (args.length != 1) {
+            Where:
+                envName - The name of the AWS Elastic Beanstalk environment.\s
+                appName - The name of the AWS Elastic Beanstalk application.""";
+
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
-       }
+        }
 
         String envName = args[0];
         String appName = args[1];
         Region region = Region.US_WEST_2;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String environmentArn = createEBEnvironment(beanstalkClient, envName, appName);
-        System.out.println("The ARN of the environment is " +environmentArn);
+        System.out.println("The ARN of the environment is " + environmentArn);
     }
 
-    //snippet-start:[eb.java2.create_env.main]
     public static String createEBEnvironment(ElasticBeanstalkClient beanstalkClient, String envName, String appName) {
-
         try {
             ConfigurationOptionSetting setting1 = ConfigurationOptionSetting.builder()
                 .namespace("aws:autoscaling:launchconfiguration")
@@ -83,5 +81,5 @@ public class CreateEnvironment {
 
         return "";
     }
-    //snippet-end:[eb.java2.create_env.main]
 }
+//snippet-end:[eb.java2.create_env.main]
