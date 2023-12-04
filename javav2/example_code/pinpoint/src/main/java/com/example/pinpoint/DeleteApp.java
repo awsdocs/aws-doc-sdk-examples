@@ -9,8 +9,8 @@
 
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.deleteapp.main]
 //snippet-start:[pinpoint.java2.deleteapp.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.DeleteAppRequest;
@@ -27,12 +27,14 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
  */
 public class DeleteApp {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            " <appId>\n\n" +
-            "Where:\n" +
-            " appId - The ID of the application to delete.\n\n";
+            Usage:  <appId>
+
+            Where:
+             appId - The ID of the application to delete.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,17 +45,14 @@ public class DeleteApp {
         System.out.println("Deleting an application with ID: " + appId);
         PinpointClient pinpoint = PinpointClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        deletePinApp(pinpoint, appId) ;
+        deletePinApp(pinpoint, appId);
         System.out.println("Done");
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.deleteapp.main]
-    public static void deletePinApp(PinpointClient pinpoint, String appId ) {
-
+    public static void deletePinApp(PinpointClient pinpoint, String appId) {
         try {
             DeleteAppRequest appRequest = DeleteAppRequest.builder()
                 .applicationId(appId)
@@ -68,6 +67,6 @@ public class DeleteApp {
             System.exit(1);
         }
     }
-    //snippet-end:[pinpoint.java2.deleteapp.main]
 }
+//snippet-end:[pinpoint.java2.deleteapp.main]
 

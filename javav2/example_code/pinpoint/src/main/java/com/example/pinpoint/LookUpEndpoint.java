@@ -8,11 +8,11 @@
 
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.lookup.main]
 //snippet-start:[pinpoint.java2.lookup.import]
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.EndpointResponse;
@@ -29,19 +29,19 @@ import software.amazon.awssdk.services.pinpoint.model.GetEndpointRequest;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class LookUpEndpoint {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "  <appId> <endpoint>\n\n" +
-            "Where:\n" +
-            "  appId - The ID of the application to delete.\n\n"+
-            "  endpoint - The ID of the endpoint. ";
+            Usage:   <appId> <endpoint>
 
-       if (args.length != 2) {
-           System.out.println(usage);
-           System.exit(1);
+            Where:
+              appId - The ID of the application to delete.
+              endpoint - The ID of the endpoint.\s
+              """;
+
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String appId = args[0];
@@ -49,16 +49,13 @@ public class LookUpEndpoint {
         System.out.println("Looking up an endpoint point with ID: " + endpoint);
         PinpointClient pinpoint = PinpointClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         lookupPinpointEndpoint(pinpoint, appId, endpoint);
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.lookup.main]
-    public static void lookupPinpointEndpoint(PinpointClient pinpoint, String appId, String endpoint ) {
-
+    public static void lookupPinpointEndpoint(PinpointClient pinpoint, String appId, String endpoint) {
         try {
             GetEndpointRequest appRequest = GetEndpointRequest.builder()
                 .applicationId(appId)
@@ -83,6 +80,6 @@ public class LookUpEndpoint {
         }
         System.out.println("Done");
     }
-    //snippet-end:[pinpoint.java2.lookup.main]
 }
+//snippet-end:[pinpoint.java2.lookup.main]
 

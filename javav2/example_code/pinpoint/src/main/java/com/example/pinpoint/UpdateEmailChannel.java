@@ -14,7 +14,6 @@ import software.amazon.awssdk.services.pinpoint.model.*;
 public class UpdateEmailChannel {
     //snippet-start:[pinpoint.java2.updateemailchannel.main]
     public static void main(String[] args) {
-
         //TODO: Provide ApplicationId/ProjectId
         String appId = "";
         PinpointClient pinpoint = PinpointClient.builder()

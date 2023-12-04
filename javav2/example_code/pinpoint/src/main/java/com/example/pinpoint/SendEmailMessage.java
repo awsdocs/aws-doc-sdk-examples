@@ -9,8 +9,8 @@
 
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.send_email.main]
 //snippet-start:[pinpoint.java2.send_email.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.AddressConfiguration;
@@ -41,20 +41,21 @@ public class SendEmailMessage {
 
     // The body of the email for recipients whose email clients support HTML content.
     static final String htmlBody = "<h1>Amazon Pinpoint test (AWS SDK for Java 2.x)</h1>"
-            + "<p>This email was sent through the <a href='https://aws.amazon.com/pinpoint/'>"
-            + "Amazon Pinpoint</a> Email API using the "
-            + "<a href='https://aws.amazon.com/sdk-for-java/'>AWS SDK for Java 2.x</a>";
+        + "<p>This email was sent through the <a href='https://aws.amazon.com/pinpoint/'>"
+        + "Amazon Pinpoint</a> Email API using the "
+        + "<a href='https://aws.amazon.com/sdk-for-java/'>AWS SDK for Java 2.x</a>";
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <subject> <appId> <senderAddress> <toAddress>\n\n" +
-            "Where:\n" +
-            "   subject - The email subject to use.\n\n"+
-            "   appId - The Amazon Pinpoint project/application ID to use when you send this message\n\n" +
-            "   senderAddress - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" +
-            "   toAddress - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email \n\n" ;
+            Usage:    <subject> <appId> <senderAddress> <toAddress>
+
+            Where:
+               subject - The email subject to use.
+               appId - The Amazon Pinpoint project/application ID to use when you send this message
+               senderAddress - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email\s
+               toAddress - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email\s
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -62,13 +63,12 @@ public class SendEmailMessage {
         }
 
         String subject = args[0];
-        String appId = args[1] ;
-        String senderAddress = args[2] ;
-        String toAddress = args[3] ;
-        System.out.println("Sending a message" );
+        String appId = args[1];
+        String senderAddress = args[2];
+        String toAddress = args[3];
+        System.out.println("Sending a message");
         PinpointClient pinpoint = PinpointClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         sendEmail(pinpoint, subject, appId, senderAddress, toAddress);
@@ -76,7 +76,6 @@ public class SendEmailMessage {
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.send_email.main]
     public static void sendEmail(PinpointClient pinpoint,
                                  String subject,
                                  String appId,
@@ -84,7 +83,7 @@ public class SendEmailMessage {
                                  String toAddress) {
 
         try {
-            Map<String,AddressConfiguration> addressMap = new HashMap<>();
+            Map<String, AddressConfiguration> addressMap = new HashMap<>();
             AddressConfiguration configuration = AddressConfiguration.builder()
                 .channelType(ChannelType.EMAIL)
                 .build();
@@ -93,12 +92,12 @@ public class SendEmailMessage {
             SimpleEmailPart emailPart = SimpleEmailPart.builder()
                 .data(htmlBody)
                 .charset(charset)
-                .build() ;
+                .build();
 
             SimpleEmailPart subjectPart = SimpleEmailPart.builder()
                 .data(subject)
                 .charset(charset)
-                .build() ;
+                .build();
 
             SimpleEmail simpleEmail = SimpleEmail.builder()
                 .htmlPart(emailPart)
@@ -132,5 +131,5 @@ public class SendEmailMessage {
             System.exit(1);
         }
     }
-    //snippet-end:[pinpoint.java2.send_email.main]
 }
+//snippet-end:[pinpoint.java2.send_email.main]

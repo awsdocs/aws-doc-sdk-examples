@@ -9,8 +9,8 @@
 
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.update_batch.main]
 //snippet-start:[pinpoint.java2.update_batch.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.UpdateEndpointsBatchResponse;
@@ -36,12 +36,14 @@ import java.util.HashMap;
 public class AddExampleEndpoints {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <appId>\n\n" +
-            "Where:\n" +
-            "   appId - The ID of the application.\n\n" ;
+            Usage:    <appId>
+
+            Where:
+               appId - The ID of the application.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -51,16 +53,13 @@ public class AddExampleEndpoints {
         String applicationId = args[0];
         PinpointClient pinpoint = PinpointClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         updateEndpointsViaBatch(pinpoint, applicationId);
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.update_batch.main]
-    public static void updateEndpointsViaBatch( PinpointClient pinpoint, String applicationId) {
-
+    public static void updateEndpointsViaBatch(PinpointClient pinpoint, String applicationId) {
         try {
             List<String> myList = new ArrayList<>();
             myList.add("music");
@@ -74,7 +73,7 @@ public class AddExampleEndpoints {
             myList.add("Roe");
 
             Map myMap2 = new HashMap<String, List>();
-            myMap2.put("name",myNames );
+            myMap2.put("name", myNames);
 
             EndpointUser richardRoe = EndpointUser.builder()
                 .userId("example_user_1")
@@ -103,7 +102,7 @@ public class AddExampleEndpoints {
             myNameMary.add("Major");
 
             Map maryName = new HashMap<String, List>();
-            myMapMary.put("name",myNameMary );
+            myMapMary.put("name", myNameMary);
 
             EndpointUser maryMajor = EndpointUser.builder()
                 .userId("example_user_2")
@@ -121,8 +120,8 @@ public class AddExampleEndpoints {
 
             // Adds multiple endpoint definitions to a single request object.
             EndpointBatchRequest endpointList = EndpointBatchRequest.builder()
-                .item( richardRoesEmailEndpoint)
-                .item( maryMajorsSmsEndpoint)
+                .item(richardRoesEmailEndpoint)
+                .item(maryMajorsSmsEndpoint)
                 .build();
 
             // Create the UpdateEndpointsBatchRequest.
@@ -140,5 +139,5 @@ public class AddExampleEndpoints {
             System.exit(1);
         }
     }
-    //snippet-end:[pinpoint.java2.update_batch.main]
 }
+//snippet-end:[pinpoint.java2.update_batch.main]
