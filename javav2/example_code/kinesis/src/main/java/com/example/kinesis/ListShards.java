@@ -8,8 +8,8 @@
 
 package com.example.kinesis;
 
+// snippet-start:[kinesis.java2.ListShards.main]
 //snippet-start:[kinesis.java2.ListShards.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
 import software.amazon.awssdk.services.kinesis.model.KinesisException;
@@ -27,34 +27,34 @@ import software.amazon.awssdk.services.kinesis.model.ListShardsResponse;
 public class ListShards {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <streamName>\n\n" +
-            "Where:\n" +
-            "    streamName - The Amazon Kinesis data stream (for example, StockTradeStream)\n\n" ;
+            Usage:
+                <streamName>
 
-       if (args.length != 1) {
+            Where:
+                streamName - The Amazon Kinesis data stream (for example, StockTradeStream)
+
+            """;
+
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }
 
-       String name = args[0];
-       // snippet-start:[kinesis.java2.ListShards.client]
-       Region region = Region.US_EAST_1;
-       KinesisClient kinesisClient = KinesisClient.builder()
-           .region(region)
-           .credentialsProvider(ProfileCredentialsProvider.create())
-           .build();
-       // snippet-end:[kinesis.java2.ListShards.client]
+        String name = args[0];
+        // snippet-start:[kinesis.java2.ListShards.client]
+        Region region = Region.US_EAST_1;
+        KinesisClient kinesisClient = KinesisClient.builder()
+            .region(region)
+            .build();
+        // snippet-end:[kinesis.java2.ListShards.client]
 
-       listKinShards(kinesisClient, name);
-       kinesisClient.close();
-       }
+        listKinShards(kinesisClient, name);
+        kinesisClient.close();
+    }
 
-    // snippet-start:[kinesis.java2.ListShards.main]
     public static void listKinShards(KinesisClient kinesisClient, String name) {
-
         try {
             ListShardsRequest request = ListShardsRequest.builder()
                 .streamName(name)
@@ -69,5 +69,5 @@ public class ListShards {
         }
         System.out.println("Done");
     }
-    // snippet-end:[kinesis.java2.ListShards.main]
 }
+// snippet-end:[kinesis.java2.ListShards.main]

@@ -9,8 +9,8 @@
 
 package com.example.kinesis;
 
+// snippet-start:[kinesis.java2.putrecord.main]
 //snippet-start:[kinesis.java2.putrecord.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
@@ -30,41 +30,41 @@ import software.amazon.awssdk.services.kinesis.model.DescribeStreamResponse;
 public class StockTradesWriter {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <streamName>\n\n" +
-            "Where:\n" +
-            "    streamName - The Amazon Kinesis data stream to which records are written (for example, StockTradeStream)\n\n";
+            Usage:
+                <streamName>
 
-            if (args.length != 1) {
-                System.out.println(usage);
-                System.exit(1);
-            }
+            Where:
+                streamName - The Amazon Kinesis data stream to which records are written (for example, StockTradeStream)
 
-            String streamName = args[0];
-            Region region = Region.US_EAST_1;
-            KinesisClient kinesisClient = KinesisClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            """;
 
-            // Ensure that the Kinesis Stream is valid.
-            validateStream(kinesisClient, streamName);
-            setStockData( kinesisClient, streamName);
-            kinesisClient.close();
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
+
+        String streamName = args[0];
+        Region region = Region.US_EAST_1;
+        KinesisClient kinesisClient = KinesisClient.builder()
+            .region(region)
+            .build();
+
+        // Ensure that the Kinesis Stream is valid.
+        validateStream(kinesisClient, streamName);
+        setStockData(kinesisClient, streamName);
+        kinesisClient.close();
     }
 
-    // snippet-start:[kinesis.java2.putrecord.main]
-    public static void setStockData( KinesisClient kinesisClient, String streamName) {
-
+    public static void setStockData(KinesisClient kinesisClient, String streamName) {
         try {
             // Repeatedly send stock trades with a 100 milliseconds wait in between.
             StockTradeGenerator stockTradeGenerator = new StockTradeGenerator();
 
             // Put in 50 Records for this example.
             int index = 50;
-            for (int x=0; x<index; x++){
+            for (int x = 0; x < index; x++) {
                 StockTrade trade = stockTradeGenerator.getRandomTrade();
                 sendStockTrade(trade, kinesisClient, streamName);
                 Thread.sleep(100);
@@ -109,16 +109,16 @@ public class StockTradesWriter {
 
             DescribeStreamResponse describeStreamResponse = kinesisClient.describeStream(describeStreamRequest);
 
-            if(!describeStreamResponse.streamDescription().streamStatus().toString().equals("ACTIVE")) {
+            if (!describeStreamResponse.streamDescription().streamStatus().toString().equals("ACTIVE")) {
                 System.err.println("Stream " + streamName + " is not active. Please wait a few moments and try again.");
                 System.exit(1);
             }
 
-        }catch (KinesisException e) {
+        } catch (KinesisException e) {
             System.err.println("Error found while describing the stream " + streamName);
             System.err.println(e);
             System.exit(1);
         }
     }
-    // snippet-end:[kinesis.java2.putrecord.main]
 }
+// snippet-end:[kinesis.java2.putrecord.main]
