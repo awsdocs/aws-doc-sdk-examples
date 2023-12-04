@@ -9,8 +9,8 @@
 
 package com.example.kms;
 
+// snippet-start:[kms.java2_list_keys.main]
 // snippet-start:[kms.java2_list_keys.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.KeyListEntry;
@@ -28,22 +28,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListKeys {
-
     public static void main(String[] args) {
-
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllKeys(kmsClient);
         kmsClient.close();
     }
 
-    // snippet-start:[kms.java2_list_keys.main]
     public static void listAllKeys(KmsClient kmsClient) {
-
         try {
             ListKeysRequest listKeysRequest = ListKeysRequest.builder()
                 .limit(15)
@@ -61,5 +56,5 @@ public class ListKeys {
             System.exit(1);
         }
     }
-    // snippet-end:[kms.java2_list_keys.main]
 }
+// snippet-end:[kms.java2_list_keys.main]

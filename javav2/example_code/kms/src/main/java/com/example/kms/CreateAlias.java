@@ -9,8 +9,8 @@
 
 package com.example.kms;
 
+// snippet-start:[kms.java2._create_alias.main]
 // snippet-start:[kms.java2_create_alias.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.CreateAliasRequest;
@@ -25,15 +25,17 @@ import software.amazon.awssdk.services.kms.model.KmsException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateAlias {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <targetKeyId> <aliasName> \n\n" +
-            "Where:\n" +
-            "    targetKeyId - The key ID or the Amazon Resource Name (ARN) of the customer master key (CMK). \n\n" +
-            "    aliasName - An alias name (for example, alias/myAlias). \n\n" ;
+        final String usage = """
+
+            Usage:
+                <targetKeyId> <aliasName>\s
+
+            Where:
+                targetKeyId - The key ID or the Amazon Resource Name (ARN) of the customer master key (CMK).\s
+                aliasName - An alias name (for example, alias/myAlias).\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,16 +47,13 @@ public class CreateAlias {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createCustomAlias(kmsClient, targetKeyId, aliasName);
         kmsClient.close();
     }
 
-    // snippet-start:[kms.java2._create_alias.main]
     public static void createCustomAlias(KmsClient kmsClient, String targetKeyId, String aliasName) {
-
         try {
             CreateAliasRequest aliasRequest = CreateAliasRequest.builder()
                 .aliasName(aliasName)
@@ -68,5 +67,5 @@ public class CreateAlias {
             System.exit(1);
         }
     }
-    // snippet-end:[kms.java2._create_alias.main]
 }
+// snippet-end:[kms.java2._create_alias.main]

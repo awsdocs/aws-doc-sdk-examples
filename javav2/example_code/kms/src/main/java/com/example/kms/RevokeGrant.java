@@ -7,8 +7,8 @@
 */
 package com.example.kms;
 
+// snippet-start:[kms.java2_revoke_grant.main]
 // snippet-start:[kms.java2_revoke_grant.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.KmsException;
@@ -25,13 +25,12 @@ import software.amazon.awssdk.services.kms.model.RevokeGrantRequest;
 public class RevokeGrant {
 
     public static void main(String[] args) {
-
         final String usage = "\n" +
             "Usage:\n" +
             "    <keyId> <grantId> \n\n" +
             "Where:\n" +
             "    keyId - A unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
-            "    grantId - A grant id value of the grant revoke. \n\n" ;
+            "    grantId - A grant id value of the grant revoke. \n\n";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -43,16 +42,13 @@ public class RevokeGrant {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         revokeKeyGrant(kmsClient, keyId, grantId);
         kmsClient.close();
     }
 
-    // snippet-start:[kms.java2_revoke_grant.main]
     public static void revokeKeyGrant(KmsClient kmsClient, String keyId, String grantId) {
-
         try {
             RevokeGrantRequest grantRequest = RevokeGrantRequest.builder()
                 .keyId(keyId)
@@ -65,6 +61,6 @@ public class RevokeGrant {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-     }
-    // snippet-end:[kms.java2_revoke_grant.main]
+    }
 }
+ // snippet-end:[kms.java2_revoke_grant.main]

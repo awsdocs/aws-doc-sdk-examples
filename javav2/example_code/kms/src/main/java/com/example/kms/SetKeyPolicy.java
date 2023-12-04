@@ -9,8 +9,8 @@
 
 package com.example.kms;
 
+// snippet-start:[kms.java2_set_policy.main]
 // snippet-start:[kms.java2_set_policy.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.KmsException;
@@ -27,13 +27,17 @@ import software.amazon.awssdk.services.kms.model.PutKeyPolicyRequest;
 public class SetKeyPolicy {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <keyId> <policyName> \n\n" +
-            "Where:\n" +
-            "    keyId - A unique identifier for the customer master key (CMK) (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
-            "    policyName - The name of the key policy. \n\n" ;
+            Usage:
+                <keyId> <policyName>\s
+
+            Where:
+                keyId - A unique identifier for the customer master key (CMK) (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).\s
+
+                policyName - The name of the key policy.\s
+
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,14 +49,12 @@ public class SetKeyPolicy {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        createPolicy(kmsClient, keyId, policyName );
+        createPolicy(kmsClient, keyId, policyName);
         kmsClient.close();
     }
 
-    // snippet-start:[kms.java2_set_policy.main]
     public static void createPolicy(KmsClient kmsClient, String keyId, String policyName) {
         String policy = "{" +
             "  \"Version\": \"2012-10-17\"," +
@@ -65,7 +67,6 @@ public class SetKeyPolicy {
             "  }]" +
             "}";
         try {
-
             PutKeyPolicyRequest keyPolicyRequest = PutKeyPolicyRequest.builder()
                 .keyId(keyId)
                 .policyName(policyName)
@@ -80,5 +81,5 @@ public class SetKeyPolicy {
             System.exit(1);
         }
     }
-    // snippet-end:[kms.java2_set_policy.main]
 }
+// snippet-end:[kms.java2_set_policy.main]
