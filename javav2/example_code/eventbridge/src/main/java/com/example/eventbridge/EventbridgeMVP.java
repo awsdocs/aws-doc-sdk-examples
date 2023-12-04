@@ -9,7 +9,6 @@
 
 package com.example.eventbridge;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -114,14 +113,17 @@ import java.util.Scanner;
 public class EventbridgeMVP {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException, IOException {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <roleName> <bucketName> <topicName> <eventRuleName>\n\n" +
-            "Where:\n" +
-            "    roleName - The name of the role to create.\n" +
-            "    bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name to create.\n" +
-            "    topicName - The name of the Amazon Simple Notification Service (Amazon SNS) topic to create.\n" +
-            "    eventRuleName - The Amazon EventBridge rule name to create.\n" ;
+        final String usage = """
+
+            Usage:
+                <roleName> <bucketName> <topicName> <eventRuleName>
+
+            Where:
+                roleName - The name of the role to create.
+                bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name to create.
+                topicName - The name of the Amazon Simple Notification Service (Amazon SNS) topic to create.
+                eventRuleName - The Amazon EventBridge rule name to create.
+            """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -148,23 +150,19 @@ public class EventbridgeMVP {
         Region region = Region.US_EAST_1;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         S3Client s3Client = S3Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         Region regionGl = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(regionGl)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         SnsClient snsClient = SnsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println(DASHES);
