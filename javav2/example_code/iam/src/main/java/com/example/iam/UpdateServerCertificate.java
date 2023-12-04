@@ -9,7 +9,6 @@ package com.example.iam;
 
 // snippet-start:[iam.java2.update_server_certificate.complete]
 // snippet-start:[iam.java2.update_server_certificate.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.IamException;
@@ -25,13 +24,15 @@ import software.amazon.awssdk.services.iam.model.UpdateServerCertificateRequest;
  */
 public class UpdateServerCertificate {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <curName> <newName> \n\n" +
-            "Where:\n" +
-            "    curName - The current certificate name. \n\n" +
-            "    newName - An updated certificate name. \n\n" ;
+            Usage:
+                <curName> <newName>\s
+
+            Where:
+                curName - The current certificate name.\s
+                newName - An updated certificate name.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -43,7 +44,6 @@ public class UpdateServerCertificate {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         updateCertificate(iam, curName, newName) ;
@@ -51,9 +51,7 @@ public class UpdateServerCertificate {
         iam.close();
     }
 
-    // snippet-start:[iam.java2.update_server_certificate.main]
     public static void updateCertificate(IamClient iam, String curName, String newName) {
-
         try {
             UpdateServerCertificateRequest request = UpdateServerCertificateRequest.builder()
                 .serverCertificateName(curName)
@@ -68,6 +66,6 @@ public class UpdateServerCertificate {
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.update_server_certificate.main]
 }
+// snippet-end:[iam.java2.update_server_certificate.main]
 // snippet-end:[iam.java2.update_server_certificate.complete]

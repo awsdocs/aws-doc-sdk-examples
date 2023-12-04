@@ -9,6 +9,7 @@
 
 package com.example.identitystore;
 
+// snippet-start:[identitystore.java2.get_group_id.main]
 // snippet-start:[Identitystore.java2.get_group_id.import]
 import software.amazon.awssdk.services.identitystore.IdentitystoreClient;
 import software.amazon.awssdk.services.identitystore.model.IdentitystoreException;
@@ -28,17 +29,18 @@ import software.amazon.awssdk.core.document.Document;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
-
 public class GetGroupId {
     public static void main(String... args) {
+        final String usage = """
 
-        final String usage = "\n" +
-        "Usage:\n" +
-        "    <identitystoreId> <groupAttributeName> <groupAttributeValue> \n\n" +
-        "Where:\n" +
-        "    identitystoreId - The id of the identitystore. \n" +
-        "    groupAttributeName - The name of the unique attribute of the group. \n" +
-        "    groupAttributeValue - The value of the specified group attribute. \n\n" ;
+            Usage:
+                <identitystoreId> <groupAttributeName> <groupAttributeValue>\s
+
+            Where:
+                identitystoreId - The id of the identitystore.\s
+                groupAttributeName - The name of the unique attribute of the group.\s
+                groupAttributeValue - The value of the specified group attribute.\s
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -47,34 +49,30 @@ public class GetGroupId {
         String identitystoreId = args[0];
         String groupAttributeName = args[1];
         String groupAttributeValue = args[2];
-
         IdentitystoreClient identitystore = IdentitystoreClient.builder().build();
-
         String result = getGroupId(identitystore, identitystoreId, groupAttributeName, groupAttributeValue);
         System.out.println("GroupId: " + result);
         identitystore.close();
     }
 
-    // snippet-start:[identitystore.java2.get_group_id.main]
     public static String getGroupId(IdentitystoreClient identitystore, String identitystoreId, String groupAttributeName, String groupAttributeValue) {
         try {
-
             String attributePath = groupAttributeName;
             Document attributeValue = Document.fromString(groupAttributeValue);
 
             UniqueAttribute uniqueAttribute = UniqueAttribute.builder()
-                 .attributePath(attributePath)
-                 .attributeValue(attributeValue)
-                 .build();
+                .attributePath(attributePath)
+                .attributeValue(attributeValue)
+                .build();
 
             AlternateIdentifier alternateIdentifier = AlternateIdentifier.builder()
-                    .uniqueAttribute(uniqueAttribute)
-                    .build();
+                .uniqueAttribute(uniqueAttribute)
+                .build();
 
             GetGroupIdRequest request = GetGroupIdRequest.builder()
-                              .identityStoreId(identitystoreId)
-                              .alternateIdentifier(alternateIdentifier)
-                              .build();
+                .identityStoreId(identitystoreId)
+                .alternateIdentifier(alternateIdentifier)
+                .build();
 
             GetGroupIdResponse response = identitystore.getGroupId(request);
             return response.groupId();
@@ -85,6 +83,6 @@ public class GetGroupId {
         }
 
         return "";
-     }
-     // snippet-end:[identitystore.java2.get_group_id.main]
+    }
 }
+// snippet-end:[identitystore.java2.get_group_id.main]

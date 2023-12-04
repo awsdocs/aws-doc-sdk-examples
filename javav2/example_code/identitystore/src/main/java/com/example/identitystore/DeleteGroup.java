@@ -9,6 +9,7 @@
 
 package com.example.identitystore;
 
+// snippet-start:[identitystore.java2.delete_group.main]
 // snippet-start:[Identitystore.java2.delete_group.import]
 import software.amazon.awssdk.services.identitystore.IdentitystoreClient;
 import software.amazon.awssdk.services.identitystore.model.IdentitystoreException;
@@ -26,13 +27,15 @@ import software.amazon.awssdk.services.identitystore.model.DeleteGroupResponse;
 
 public class DeleteGroup {
     public static void main(String... args) {
+        final String usage = """
 
-        final String usage = "\n" +
-        "Usage:\n" +
-        "    <identitystoreId> <groupId>\n\n" +
-        "Where:\n" +
-        "    identitystoreId - The id of the identitystore. \n" +
-        "    groupId - The id of the group to delete. \n\n" ;
+            Usage:
+                <identitystoreId> <groupId>
+
+            Where:
+                identitystoreId - The id of the identitystore.\s
+                groupId - The id of the group to delete.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -41,22 +44,18 @@ public class DeleteGroup {
 
         String identitystoreId = args[0];
         String groupID = args[1];
-
         IdentitystoreClient identitystore = IdentitystoreClient.builder().build();
-
         String result = deleteGroup(identitystore, identitystoreId, groupID);
         System.out.println("Successfully deleted the group: " + result);
         identitystore.close();
     }
 
-    // snippet-start:[identitystore.java2.delete_group.main]
     public static String deleteGroup(IdentitystoreClient identitystore, String identitystoreId, String groupId) {
         try {
-
             DeleteGroupRequest request = DeleteGroupRequest.builder()
-                              .identityStoreId(identitystoreId)
-                              .groupId(groupId)
-                              .build();
+                .identityStoreId(identitystoreId)
+                .groupId(groupId)
+                .build();
 
             DeleteGroupResponse response = identitystore.deleteGroup(request);
 
@@ -68,6 +67,6 @@ public class DeleteGroup {
         }
 
         return "";
-     }
-     // snippet-end:[identitystore.java2.delete_group.main]
+    }
 }
+// snippet-end:[identitystore.java2.delete_group.main]

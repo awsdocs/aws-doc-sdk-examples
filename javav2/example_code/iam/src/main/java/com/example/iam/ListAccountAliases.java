@@ -8,8 +8,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.list_account_aliases.main]
 // snippet-start:[iam.java2.list_account_aliases.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.iam.model.ListAccountAliasesResponse;
 import software.amazon.awssdk.regions.Region;
@@ -25,11 +25,9 @@ import software.amazon.awssdk.services.iam.IamClient;
  */
 public class ListAccountAliases {
     public static void main(String[] args) {
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAliases(iam);
@@ -37,9 +35,7 @@ public class ListAccountAliases {
         iam.close();
     }
 
-    // snippet-start:[iam.java2.list_account_aliases.main]
     public static void listAliases(IamClient iam) {
-
         try {
             ListAccountAliasesResponse response = iam.listAccountAliases();
             for (String alias : response.accountAliases()) {
@@ -51,5 +47,5 @@ public class ListAccountAliases {
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.list_account_aliases.main]
 }
+// snippet-end:[iam.java2.list_account_aliases.main]

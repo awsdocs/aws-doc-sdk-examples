@@ -8,8 +8,8 @@
 
 package com.example.iam;
 
+// snippet-start:[iam.java2.delete_policy.main]
 // snippet-start:[iam.java2.delete_policy.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.DeletePolicyRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
@@ -24,14 +24,15 @@ import software.amazon.awssdk.services.iam.model.IamException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeletePolicy {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <policyARN> \n\n" +
-            "Where:\n" +
-            "    policyARN - A policy ARN value to delete. \n\n" ;
+            Usage:
+                <policyARN>\s
+
+            Where:
+                policyARN - A policy ARN value to delete.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,16 +43,13 @@ public class DeletePolicy {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteIAMPolicy(iam, policyARN);
         iam.close();
     }
 
-    // snippet-start:[iam.java2.delete_policy.main]
-    public static void deleteIAMPolicy(IamClient iam,String policyARN) {
-
+    public static void deleteIAMPolicy(IamClient iam, String policyARN) {
         try {
             DeletePolicyRequest request = DeletePolicyRequest.builder()
                 .policyArn(policyARN)
@@ -66,6 +64,6 @@ public class DeletePolicy {
         }
         System.out.println("Done");
     }
-    // snippet-end:[iam.java2.delete_policy.main]
 }
+// snippet-end:[iam.java2.delete_policy.main]
 

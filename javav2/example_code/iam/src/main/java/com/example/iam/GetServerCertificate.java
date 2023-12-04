@@ -8,8 +8,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.get_server_certificate.main]
 // snippet-start:[iam.java2.get_server_certificate.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.GetServerCertificateRequest;
 import software.amazon.awssdk.services.iam.model.GetServerCertificateResponse;
 import software.amazon.awssdk.regions.Region;
@@ -25,14 +25,15 @@ import software.amazon.awssdk.services.iam.model.IamException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetServerCertificate {
-
     public static void main(String[] args) {
+        final String usage = """
 
-         final String usage = "\n" +
-             "Usage:\n" +
-             "    <certName> \n\n" +
-             "Where:\n" +
-             "    certName - A certificate name. \n\n" ;
+            Usage:
+                <certName>\s
+
+            Where:
+                certName - A certificate name.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,17 +44,14 @@ public class GetServerCertificate {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        getCertificate(iam, certName );
+        getCertificate(iam, certName);
         System.out.println("Done");
         iam.close();
     }
 
-    // snippet-start:[iam.java2.get_server_certificate.main]
-    public static void getCertificate(IamClient iam,String certName ) {
-
+    public static void getCertificate(IamClient iam, String certName) {
         try {
             GetServerCertificateRequest request = GetServerCertificateRequest.builder()
                 .serverCertificateName(certName)
@@ -68,5 +66,5 @@ public class GetServerCertificate {
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.get_server_certificate.main]
 }
+// snippet-end:[iam.java2.get_server_certificate.main]

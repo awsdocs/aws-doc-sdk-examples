@@ -8,8 +8,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.delete_account_alias.main]
 // snippet-start:[iam.java2.delete_account_alias.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.DeleteAccountAliasRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
@@ -25,12 +25,14 @@ import software.amazon.awssdk.services.iam.model.IamException;
  */
 public class DeleteAccountAlias {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <alias> \n\n" +
-            "Where:\n" +
-            "    alias - The account alias to delete. \n\n" ;
+            Usage:
+                <alias>\s
+
+            Where:
+                alias - The account alias to delete.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -41,16 +43,13 @@ public class DeleteAccountAlias {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        deleteIAMAccountAlias(iam, alias) ;
+        deleteIAMAccountAlias(iam, alias);
         iam.close();
     }
 
-    // snippet-start:[iam.java2.delete_account_alias.main]
-    public static void deleteIAMAccountAlias(IamClient iam, String alias ) {
-
+    public static void deleteIAMAccountAlias(IamClient iam, String alias) {
         try {
             DeleteAccountAliasRequest request = DeleteAccountAliasRequest.builder()
                 .accountAlias(alias)
@@ -65,5 +64,5 @@ public class DeleteAccountAlias {
         }
         System.out.println("Done");
     }
-    // snippet-end:[iam.java2.delete_account_alias.main]
 }
+// snippet-end:[iam.java2.delete_account_alias.main]

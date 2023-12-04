@@ -39,7 +39,7 @@ public class GetFindings {
             Ex: GetFindings <findingId> <detectorId>
             """;
 
-        if (args.length < 1) {
+        if (args.length < 2) {
             System.out.println(usage);
             System.exit(1);
         }

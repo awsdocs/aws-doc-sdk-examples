@@ -8,9 +8,9 @@
 
 package com.example.kendra;
 
+// snippet-start:[kendra.java2.index.main]
 // snippet-start:[kendra.java2.index.import]
 import java.util.concurrent.TimeUnit;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kendra.KendraClient;
 import software.amazon.awssdk.services.kendra.model.CreateIndexResponse;
@@ -39,20 +39,22 @@ import software.amazon.awssdk.services.kendra.model.StartDataSourceSyncJobReques
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateIndexAndDataSourceExample {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <indexDescription> <indexName> <indexRoleArn> <dataSourceRoleArn> <dataSourceName> <dataSourceDescription> <s3BucketName>\n\n" +
-            "Where:\n" +
-            "    indexDescription - A description for the index.\n" +
-            "    indexName - The name for the new index.\n" +
-            "    indexRoleArn - An Identity and Access Management (IAM) role that gives Amazon Kendra permissions to access your Amazon CloudWatch logs and metrics.\n\n" +
-            "    dataSourceRoleArn - The ARN of am IAM role with permission to access the data source.\n\n" +
-            "    dataSourceName - The name for the new data source.\n\n" +
-            "    dataSourceDescription - A description for the data source.\n\n" +
-            "    s3BucketName - An Amazon S3 bucket used as your data source.\n\n" ;
+        final String usage = """
+
+            Usage:
+                <indexDescription> <indexName> <indexRoleArn> <dataSourceRoleArn> <dataSourceName> <dataSourceDescription> <s3BucketName>
+
+            Where:
+                indexDescription - A description for the index.
+                indexName - The name for the new index.
+                indexRoleArn - An Identity and Access Management (IAM) role that gives Amazon Kendra permissions to access your Amazon CloudWatch logs and metrics.
+                dataSourceRoleArn - The ARN of am IAM role with permission to access the data source.
+                dataSourceName - The name for the new data source.
+                dataSourceDescription - A description for the data source.
+                s3BucketName - An Amazon S3 bucket used as your data source.
+            """;
 
         if (args.length != 7) {
             System.out.println(usage);
@@ -69,17 +71,13 @@ public class CreateIndexAndDataSourceExample {
 
         KendraClient kendra = KendraClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
-
         String indexId = createIndex(kendra, indexDescription, indexName, indexRoleArn);
         String dataSourceId = CreateIndexAndDataSourceExample.createDataSource(kendra, s3BucketName, dataSourceName, dataSourceDescription, indexId, dataSourceRoleArn);
         startDataSource(kendra, indexId, dataSourceId);
     }
 
-    // snippet-start:[kendra.java2.index.main]
     public static String createIndex(KendraClient kendra, String indexDescription, String indexName, String indexRoleArn) {
-
         try {
             System.out.println("Creating an index named " +indexName);
             CreateIndexRequest createIndexRequest = CreateIndexRequest.builder()
@@ -165,7 +163,6 @@ public class CreateIndexAndDataSourceExample {
 
     // snippet-start:[kendra.java2.start.datasource.main]
     public static void startDataSource (KendraClient kendra, String indexId, String dataSourceId) {
-
         try{
             System.out.println("Synchronize the data source " +dataSourceId);
             StartDataSourceSyncJobRequest startDataSourceSyncJobRequest = StartDataSourceSyncJobRequest

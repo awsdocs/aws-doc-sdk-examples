@@ -8,8 +8,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.create_user.main]
 // snippet-start:[iam.java2.create_user.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.services.iam.model.CreateUserRequest;
 import software.amazon.awssdk.services.iam.model.CreateUserResponse;
@@ -29,14 +29,16 @@ import software.amazon.awssdk.services.iam.model.GetUserResponse;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateUser {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <username> \n\n" +
-            "Where:\n" +
-            "    username - The name of the user to create. \n\n" ;
+            Usage:
+                <username>\s
+
+            Where:
+                username - The name of the user to create.\s
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,19 +49,16 @@ public class CreateUser {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        String result = createIAMUser(iam, username) ;
-        System.out.println("Successfully created user: " +result);
+        String result = createIAMUser(iam, username);
+        System.out.println("Successfully created user: " + result);
         iam.close();
     }
 
-    // snippet-start:[iam.java2.create_user.main]
-    public static String createIAMUser(IamClient iam, String username ) {
-
+    public static String createIAMUser(IamClient iam, String username) {
         try {
-            // Create an IamWaiter object
+            // Create an IamWaiter object.
             IamWaiter iamWaiter = iam.waiter();
 
             CreateUserRequest request = CreateUserRequest.builder()
@@ -68,7 +67,7 @@ public class CreateUser {
 
             CreateUserResponse response = iam.createUser(request);
 
-            // Wait until the user is created
+            // Wait until the user is created.
             GetUserRequest userRequest = GetUserRequest.builder()
                 .userName(response.user().userName())
                 .build();
@@ -81,7 +80,7 @@ public class CreateUser {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-       return "";
+        return "";
     }
-    // snippet-end:[iam.java2.create_user.main]
 }
+// snippet-end:[iam.java2.create_user.main]
