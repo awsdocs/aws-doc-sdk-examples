@@ -9,8 +9,8 @@
 
 package com.example.mediastore;
 
+//snippet-start:[mediastore.java2.delete_object.main]
 //snippet-start:[mediastore.java2.delete_object.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.services.mediastore.model.DescribeContainerRequest;
@@ -30,15 +30,15 @@ import java.net.URISyntaxException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteObject {
-
     public static void main(String[] args) throws URISyntaxException {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <completePath> <containerName>\n\n" +
-            "Where:\n" +
-            "   completePath - The path (including the container) of the item to delete.\n"+
-            "   containerName - The name of the container.\n";
+            Usage:    <completePath> <containerName>
+
+            Where:
+               completePath - The path (including the container) of the item to delete.
+               containerName - The name of the container.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,16 +53,13 @@ public class DeleteObject {
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
             .endpointOverride(uri)
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteMediaObject(mediaStoreData, completePath);
         mediaStoreData.close();
     }
 
-    //snippet-start:[mediastore.java2.delete_object.main]
     public static void deleteMediaObject(MediaStoreDataClient mediaStoreData, String completePath) {
-
         try {
             DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
                 .path(completePath)
@@ -76,8 +73,7 @@ public class DeleteObject {
         }
     }
 
-    private static String getEndpoint(String containerName){
-
+    private static String getEndpoint(String containerName) {
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
             .region(region)
@@ -91,5 +87,5 @@ public class DeleteObject {
         mediaStoreClient.close();
         return response.container().endpoint();
     }
-    //snippet-end:[mediastore.java2.delete_object.main]
 }
+//snippet-end:[mediastore.java2.delete_object.main]

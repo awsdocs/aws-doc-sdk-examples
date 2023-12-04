@@ -9,6 +9,7 @@
 
 package com.example.mediastore;
 
+//snippet-start:[mediastore.java2.list_containers.main]
 //snippet-start:[mediastore.java2.list_containers.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -33,16 +34,13 @@ public class ListContainers {
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllContainers(mediaStoreClient);
         mediaStoreClient.close();
     }
 
-    //snippet-start:[mediastore.java2.list_containers.main]
     public static void listAllContainers(MediaStoreClient mediaStoreClient) {
-
         try {
             ListContainersResponse containersResponse = mediaStoreClient.listContainers();
             List<Container> containers = containersResponse.containers();
@@ -55,5 +53,5 @@ public class ListContainers {
             System.exit(1);
         }
     }
-    //snippet-end:[mediastore.java2.list_containers.main]
 }
+//snippet-end:[mediastore.java2.list_containers.main]
