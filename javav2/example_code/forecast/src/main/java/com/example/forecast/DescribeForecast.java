@@ -59,12 +59,12 @@ public class DescribeForecast {
                 .build();
 
             DescribeForecastResponse response = forecast.describeForecast(request);
-            System.out.println("The name of the forecast is " +response.forecastName());
+            System.out.println("The name of the forecast is " + response.forecastName());
 
         } catch (ForecastException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-   }
-    // snippet-end:[forecast.java2.describe_forecast.main]
+    }
 }
+ // snippet-end:[forecast.java2.describe_forecast.main]

@@ -7,8 +7,8 @@
 */
 package com.example.glacier;
 
+// snippet-start:[glacier.java2.list_vaults.main]
 // snippet-start:[glacier.java2.list_vaults.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glacier.model.ListVaultsRequest;
 import software.amazon.awssdk.services.glacier.model.ListVaultsResponse;
@@ -26,28 +26,21 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListVaults {
-
     public static void main(String[] args) {
-
         GlacierClient glacier = GlacierClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllVault(glacier);
         glacier.close();
     }
 
-    // snippet-start:[glacier.java2.list_vaults.main]
     public static void listAllVault(GlacierClient glacier) {
-
         boolean listComplete = false;
         String newMarker = null;
         int totalVaults = 0;
         System.out.println("Your Amazon Glacier vaults:");
-
         try {
-
             while (!listComplete) {
                 ListVaultsResponse response = null;
                 if (newMarker != null) {
@@ -63,7 +56,7 @@ public class ListVaults {
                 }
 
                 List<DescribeVaultOutput> vaultList = response.vaultList();
-                for (DescribeVaultOutput v: vaultList) {
+                for (DescribeVaultOutput v : vaultList) {
                     totalVaults += 1;
                     System.out.println("* " + v.vaultName());
                 }
@@ -79,10 +72,11 @@ public class ListVaults {
                 System.out.println("No vaults found.");
             }
 
-        } catch(GlacierException e) {
+        } catch (GlacierException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[glacier.java2.list_vaults.main]
 }
+// snippet-end:[glacier.java2.list_vaults.main]
+
