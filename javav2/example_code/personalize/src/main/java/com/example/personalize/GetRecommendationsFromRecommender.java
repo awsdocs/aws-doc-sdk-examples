@@ -35,12 +35,15 @@ public class GetRecommendationsFromRecommender {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    GetRecommendations <recommenderArn> <userId>\n\n" +
-                "Where:\n" +
-                "    recommenderArn - The ARN of the recommender.\n\n" +
-                "    userId - The user ID to provide recommendations for\n\n";
+        final String USAGE = """
+
+            Usage:
+                GetRecommendations <recommenderArn> <userId>
+
+            Where:
+                recommenderArn - The ARN of the recommender.
+                userId - The user ID to provide recommendations for
+            """;
 
         if (args.length < 2) {
             System.out.println(USAGE);

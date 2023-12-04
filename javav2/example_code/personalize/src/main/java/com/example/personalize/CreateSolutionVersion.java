@@ -28,12 +28,15 @@ public class CreateSolutionVersion {
 
     public static void main(String [] args) {
 
-    
-    final String USAGE = "\n" +
-                "Usage:\n" +
-                "    CreateSolutionVersion <solutionArn>\n\n" +
-                "Where:\n" +
-                "    solutionArn - The ARN of the solution.\n\n";
+    final String USAGE = """
+
+        Usage:
+            CreateSolutionVersion <solutionArn>
+
+        Where:
+            solutionArn - The ARN of the solution.
+
+        """;
 
         if (args.length != 1) {
             System.out.println(USAGE);

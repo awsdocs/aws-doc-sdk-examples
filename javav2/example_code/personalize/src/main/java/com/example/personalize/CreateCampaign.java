@@ -28,12 +28,17 @@ public class CreateCampaign {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    <solutionVersionArn> <name>\n\n" +
-            "Where:\n" +
-            "    solutionVersionArn - The ARN of the solution version.\n\n" +
-            "    name - The name of the Amazon Personalization campaign.\n\n" ;
+        final String USAGE = """
+
+            Usage:
+                <solutionVersionArn> <name>
+
+            Where:
+                solutionVersionArn - The ARN of the solution version.
+
+                name - The name of the Amazon Personalization campaign.
+
+            """;
 
         if (args.length != 2) {
             System.out.println(USAGE);

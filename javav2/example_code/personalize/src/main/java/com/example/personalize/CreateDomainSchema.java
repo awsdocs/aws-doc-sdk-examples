@@ -30,12 +30,16 @@ public class CreateDomainSchema {
 
     public static void main(String[] args) {
 
-        final String USAGE = "Usage:\n" +
-                "    CreateSchema <name, domain, schemaLocation>\n\n" +
-                "Where:\n" +
-                "   name - The name for the schema.\n" +
-                "   domain - The domain of the dataset's domain dataset group.\n" +
-                "   schemaLocation - the location of the schema JSON file.\n\n";
+        final String USAGE = """
+            Usage:
+                CreateSchema <name, domain, schemaLocation>
+
+            Where:
+               name - The name for the schema.
+               domain - The domain of the dataset's domain dataset group.
+               schemaLocation - the location of the schema JSON file.
+
+            """;
 
         if (args.length != 3) {
             System.out.println(USAGE);

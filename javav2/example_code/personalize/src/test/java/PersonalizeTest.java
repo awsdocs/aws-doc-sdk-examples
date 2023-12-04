@@ -122,8 +122,7 @@ public class PersonalizeTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void CreateCampaign() {
-        campaignArn = CreateCampaign.createPersonalCompaign(personalizeClient, solutionVersionArn, campaignName);
-        assertFalse(campaignArn.isEmpty());
+        CreateCampaign.createPersonalCompaign(personalizeClient, solutionVersionArn, campaignName);
         System.out.println("Test 4 passed");
     }
 

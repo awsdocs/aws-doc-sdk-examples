@@ -30,12 +30,15 @@ public class GetRecommendations {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    GetRecommendations <campaignArn> <userId>\n\n" +
-            "Where:\n" +
-            "    campaignArn - The ARN of the campaign.\n\n" +
-            "    userId - The user ID to provide recommendations for\n\n";
+        final String USAGE = """
+
+            Usage:
+                GetRecommendations <campaignArn> <userId>
+
+            Where:
+                campaignArn - The ARN of the campaign.
+                userId - The user ID to provide recommendations for
+            """;
 
         if (args.length < 2) {
             System.out.println(USAGE);

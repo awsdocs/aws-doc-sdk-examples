@@ -28,11 +28,14 @@ public class CreateDomainDatasetGroup {
 
     public static void main(String[] args) {
 
-        final String USAGE = "Usage:\n" +
-                "    CreateDomainDatasetGroup <name> <domain>\n\n" +
-                "Where:\n" +
-                "   name - The name for the new dataset group." +
-                "   domain - The domain for the dataset group. Specify either ECOMMERCE or VIDEO_ON_DEMAND.\n\n";
+        final String USAGE = """
+            Usage:
+                CreateDomainDatasetGroup <name> <domain>
+
+            Where:
+               name - The name for the new dataset group.   domain - The domain for the dataset group. Specify either ECOMMERCE or VIDEO_ON_DEMAND.
+
+            """;
 
         if (args.length != 2) {
             System.out.println(USAGE);

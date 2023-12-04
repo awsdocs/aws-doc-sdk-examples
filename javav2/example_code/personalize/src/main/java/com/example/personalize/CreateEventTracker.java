@@ -27,15 +27,17 @@ import java.time.Instant;
 //snippet-end:[personalize.java2.create_event_tracker.import]
 public class CreateEventTracker {
 
-    
-
     public static void main(String [] args) {
         
-        final String USAGE = "Usage:\n" +
-        "    CreateDatasetGroup <name, datasetGroupArn>\n\n" +
-        "Where:\n" +
-        "   datasetGroupArn - The Amazon Resource Name (ARN) of the dataset group that receives the event data\n" +
-        "   name - The name for the event tracker.\n\n";
+        final String USAGE = """
+            Usage:
+                CreateDatasetGroup <name, datasetGroupArn>
+
+            Where:
+               datasetGroupArn - The Amazon Resource Name (ARN) of the dataset group that receives the event data
+               name - The name for the event tracker.
+
+            """;
         
         if (args.length != 2) {
             System.out.println(USAGE);

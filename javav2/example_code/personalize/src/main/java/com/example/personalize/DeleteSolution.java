@@ -24,14 +24,17 @@ import software.amazon.awssdk.services.personalize.model.PersonalizeException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteSolution {
-
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    DeleteSolution <solutionArn>\n\n" +
-            "Where:\n" +
-            "    solutionArn - the ARN of the solution to delete.\n\n";
+        final String USAGE = """
+
+            Usage:
+                DeleteSolution <solutionArn>
+
+            Where:
+                solutionArn - the ARN of the solution to delete.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(USAGE);

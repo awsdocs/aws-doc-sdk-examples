@@ -31,20 +31,22 @@ import java.time.Instant;
 //snippet-end:[personalize.java2.create_dataset_export_job.import]
 
 public class CreateDatasetExportJob {
-
     public static void main(String [] args) {
 
-        final String USAGE = "\n" +
-        "Usage:\n" +
-        "    CreateDatasetExportJob <name, datasetArn, ingestionMode, roleArn, s3BucketPath>\n\n" +
-        "Where:\n" +
-        "    jobName - The name for the dataset export job.\n" +
-        "    datasetArn - The Amazon Resource Name (ARN) of the dataset that contains the data to export.\n" +
-        "    ingestionMode - The data to export, based on how you imported the data.\n" +
-        "    roleArn - The Amazon Resource Name (ARN) of the IAM service role that"
-                + "has permissions to add data to your output Amazon S3 bucket.\n" +
-        "    s3BucketPath - The path to your output bucket\n" +
-        "    kmsKeyArn - The ARN for your KMS key\n\n";
+        final String USAGE = """
+
+            Usage:
+                CreateDatasetExportJob <name, datasetArn, ingestionMode, roleArn, s3BucketPath>
+
+            Where:
+                jobName - The name for the dataset export job.
+                datasetArn - The Amazon Resource Name (ARN) of the dataset that contains the data to export.
+                ingestionMode - The data to export, based on how you imported the data.
+                roleArn - The Amazon Resource Name (ARN) of the IAM service role thathas permissions to add data to your output Amazon S3 bucket.
+                s3BucketPath - The path to your output bucket
+                kmsKeyArn - The ARN for your KMS key
+
+            """;
         
         if (args.length != 6) {
             System.out.println(USAGE);

@@ -20,9 +20,7 @@ import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 import software.amazon.awssdk.services.personalize.model.DeleteEventTrackerRequest;
 //snippet-end:[personalize.java2.delete_event_tracker.import]
 public class DeleteEventTracker {
- 
-    public static void main(String [] args) {
-
+     public static void main(String [] args) {
         Region region = Region.US_WEST_2;
         String eventTrackerArn = args[0];
 

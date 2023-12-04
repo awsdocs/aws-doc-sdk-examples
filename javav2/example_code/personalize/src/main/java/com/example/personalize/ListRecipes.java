@@ -28,7 +28,6 @@ import java.util.List;
  */
 
 public class ListRecipes {
-
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()

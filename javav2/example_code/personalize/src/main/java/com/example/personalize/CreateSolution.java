@@ -28,13 +28,19 @@ public class CreateSolution {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    CreateSolution <datasetGroupArn> <solutionName> <recipeArn>\n\n" +
-            "Where:\n" +
-            "    datasetGroupArn - The ARN of the dataset group.\n\n" +
-            "    solutionName - The name of the Amazon Personalization campaign.\n\n" +
-            "    recipeArn - The ARN of the recipe.\n\n" ;
+        final String USAGE = """
+
+            Usage:
+                CreateSolution <datasetGroupArn> <solutionName> <recipeArn>
+
+            Where:
+                datasetGroupArn - The ARN of the dataset group.
+
+                solutionName - The name of the Amazon Personalization campaign.
+
+                recipeArn - The ARN of the recipe.
+
+            """;
 
         if (args.length != 3) {
             System.out.println(USAGE);

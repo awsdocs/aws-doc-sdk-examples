@@ -28,11 +28,15 @@ public class DescribeCampaign {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    DescribeCampaign <campaignArn>\n\n" +
-            "Where:\n" +
-            "    campaignArn - The ARN of the campaign.\n\n" ;
+        final String USAGE = """
+
+            Usage:
+                DescribeCampaign <campaignArn>
+
+            Where:
+                campaignArn - The ARN of the campaign.
+
+            """;
 
         if (args.length < 1) {
             System.out.println(USAGE);

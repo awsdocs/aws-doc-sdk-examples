@@ -24,12 +24,16 @@ public class CreateFilter {
 
     public static void main(String [] args) {
 
-        final String USAGE = "Usage:\n" +
-                "    CreateFilter <filterName, datasetGroupArn, filterExpression, schemaArn>\n\n" +
-                "Where:\n" +
-                "   filterName - The name for the filter.\n" +
-                "   datasetGroupArn - The Amazon Resource Name (ARN) for the destination dataset group.\n" +
-                "   filterExpression - The expression for the filter.\n\n";
+        final String USAGE = """
+            Usage:
+                CreateFilter <filterName, datasetGroupArn, filterExpression, schemaArn>
+
+            Where:
+               filterName - The name for the filter.
+               datasetGroupArn - The Amazon Resource Name (ARN) for the destination dataset group.
+               filterExpression - The expression for the filter.
+
+            """;
 
         if (args.length != 3) {
             System.out.println(USAGE);
