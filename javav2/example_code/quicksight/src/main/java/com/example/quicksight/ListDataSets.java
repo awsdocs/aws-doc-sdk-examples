@@ -8,8 +8,8 @@
 */
 package com.example.quicksight;
 
+// snippet-start:[quicksight.java2.list_datasets.main]
 // snippet-start:[quicksight.java2.list_datasets.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.quicksight.QuickSightClient;
 import software.amazon.awssdk.services.quicksight.model.ListDataSetsRequest;
@@ -27,14 +27,15 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListDataSets {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <account>\n\n" +
-            "Where:\n" +
-            "   account - The ID of the AWS account.\n\n";
+            Usage:    <account>
+
+            Where:
+               account - The ID of the AWS account.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,16 +45,13 @@ public class ListDataSets {
         String account = args[0];
         QuickSightClient qsClient = QuickSightClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllDataSets(qsClient, account);
         qsClient.close();
     }
 
-    // snippet-start:[quicksight.java2.list_datasets.main]
     public static void listAllDataSets(QuickSightClient qsClient, String account) {
-
         try {
             ListDataSetsRequest datasetRequest = ListDataSetsRequest.builder()
                 .awsAccountId(account)
@@ -62,9 +60,9 @@ public class ListDataSets {
 
             ListDataSetsResponse res = qsClient.listDataSets(datasetRequest);
             List<DataSetSummary> dataSets = res.dataSetSummaries();
-            for (DataSetSummary dataset: dataSets) {
-                System.out.println("Dataset name: "+dataset.name());
-                System.out.println("Dataset ARN: "+dataset.arn());
+            for (DataSetSummary dataset : dataSets) {
+                System.out.println("Dataset name: " + dataset.name());
+                System.out.println("Dataset ARN: " + dataset.arn());
             }
 
         } catch (QuickSightException e) {
@@ -72,5 +70,6 @@ public class ListDataSets {
             System.exit(1);
         }
     }
-    // snippet-end:[quicksight.java2.list_datasets.main]
 }
+// snippet-end:[quicksight.java2.list_datasets.main]
+
