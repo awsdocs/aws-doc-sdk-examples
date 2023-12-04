@@ -9,8 +9,8 @@
 
 package com.example.memorydb;
 
+//snippet-start:[memoryDB.java2.describe_snapshot.main]
 //snippet-start:[memoryDB.java2.describe_snapshot.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.memorydb.MemoryDbClient;
 import software.amazon.awssdk.services.memorydb.model.DescribeSnapshotsRequest;
@@ -20,34 +20,32 @@ import software.amazon.awssdk.services.memorydb.model.Snapshot;
 import java.util.List;
 //snippet-end:[memoryDB.java2.describe_snapshot.import]
 
-public class DescribeSnapshots{
-
+public class DescribeSnapshots {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <clusterName>  \n\n" +
-            "Where:\n" +
-            "    clusterName - The name of the cluster. \n" ;
+            Usage:
+                <clusterName> \s
+
+            Where:
+                clusterName - The name of the cluster.\s
+            """;
 
         if (args.length != 1) {
-           System.out.println(usage);
-           System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String clusterName = args[0];
         Region region = Region.US_EAST_1;
         MemoryDbClient memoryDbClient = MemoryDbClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         describeALlSnapshots(memoryDbClient, clusterName);
     }
 
-    //snippet-start:[memoryDB.java2.describe_snapshot.main]
     public static void describeALlSnapshots(MemoryDbClient memoryDbClient, String clusterName) {
-
         try {
             DescribeSnapshotsRequest request = DescribeSnapshotsRequest.builder()
                 .maxResults(10)
@@ -66,5 +64,5 @@ public class DescribeSnapshots{
             System.exit(1);
         }
     }
-    //snippet-end:[memoryDB.java2.describe_snapshot.main]
 }
+//snippet-end:[memoryDB.java2.describe_snapshot.main]

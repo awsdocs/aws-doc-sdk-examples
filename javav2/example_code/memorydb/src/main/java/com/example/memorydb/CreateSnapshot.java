@@ -9,8 +9,8 @@
 
 package com.example.memorydb;
 
+//snippet-start:[memoryDB.java2.create_snapshot.main]
 //snippet-start:[memoryDB.java2.create_snapshot.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.memorydb.MemoryDbClient;
 import software.amazon.awssdk.services.memorydb.model.CreateSnapshotRequest;
@@ -19,14 +19,16 @@ import software.amazon.awssdk.services.memorydb.model.MemoryDbException;
 //snippet-end:[memoryDB.java2.create_snapshot.import]
 
 public class CreateSnapshot {
-
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <clusterName> <snapShotName> \n\n" +
-            "Where:\n" +
-            "    clusterName - The name of the cluster. \n" +
-            "    snapShotName - The name for the snapshot being created. \n" ;
+        final String usage = """
+
+            Usage:
+                <clusterName> <snapShotName>\s
+
+            Where:
+                clusterName - The name of the cluster.\s
+                snapShotName - The name for the snapshot being created.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -38,15 +40,12 @@ public class CreateSnapshot {
         Region region = Region.US_EAST_1;
         MemoryDbClient memoryDbClient = MemoryDbClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createSpecificSnapshot(memoryDbClient, clusterName, snapShotName);
     }
 
-    //snippet-start:[memoryDB.java2.create_snapshot.main]
-    public static void createSpecificSnapshot( MemoryDbClient memoryDbClient, String clusterName, String snapShotName) {
-
+    public static void createSpecificSnapshot(MemoryDbClient memoryDbClient, String clusterName, String snapShotName) {
         try {
             CreateSnapshotRequest request = CreateSnapshotRequest.builder()
                 .clusterName(clusterName)
@@ -54,12 +53,12 @@ public class CreateSnapshot {
                 .build();
 
             CreateSnapshotResponse response = memoryDbClient.createSnapshot(request);
-            System.out.println("The ARN of the response is" +response.snapshot().arn());
+            System.out.println("The ARN of the response is" + response.snapshot().arn());
 
         } catch (MemoryDbException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[memoryDB.java2.create_snapshot.main]
 }
+ //snippet-end:[memoryDB.java2.create_snapshot.main]
