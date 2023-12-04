@@ -10,8 +10,8 @@
 
 package com.example.guardduty;
 
+//snippet-start:[guard.java2.get_findings.main]
 //snippet-start:[guard.java2.get_findings.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.guardduty.GuardDutyClient;
 import software.amazon.awssdk.services.guardduty.model.Finding;
@@ -32,11 +32,12 @@ import java.util.List;
 public class GetFindings {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-                "To run this example, supply the findingId value and the detectorId value.  \n" +
-                "\n" +
-                "Ex: GetFindings <findingId> <detectorId>\n";
+            To run this example, supply the findingId value and the detectorId value. \s
+
+            Ex: GetFindings <findingId> <detectorId>
+            """;
 
         if (args.length < 1) {
             System.out.println(usage);
@@ -48,25 +49,22 @@ public class GetFindings {
 
         Region region = Region.US_EAST_1;
         GuardDutyClient guardDutyClient = GuardDutyClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .build();
 
         getSpecificFinding(guardDutyClient, findingId, detectorId);
         guardDutyClient.close();
     }
 
-    //snippet-start:[guard.java2.get_findings.main]
     public static void getSpecificFinding(GuardDutyClient guardDutyClient, String findingId, String detectorId) {
-
         try {
             List<String> myIds = new ArrayList<>();
             myIds.add(findingId);
 
             GetFindingsRequest findingsRequest = GetFindingsRequest.builder()
-                    .findingIds(myIds)
-                    .detectorId(detectorId)
-                    .build();
+                .findingIds(myIds)
+                .detectorId(detectorId)
+                .build();
 
             GetFindingsResponse findingsResponse = guardDutyClient.getFindings(findingsRequest);
             List<Finding> findings = findingsResponse.findings();
@@ -81,5 +79,5 @@ public class GetFindings {
             System.exit(1);
         }
     }
-    //snippet-end:[guard.java2.get_findings.main]
 }
+//snippet-end:[guard.java2.get_findings.main]
