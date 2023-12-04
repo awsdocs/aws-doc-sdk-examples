@@ -16,7 +16,6 @@ import software.amazon.awssdk.services.glue.model.ListJobsResponse;
 import java.util.List;
 
 public class HelloGlue {
-
     public static void main(String[] args){
         GlueClient glueClient = GlueClient.builder()
             .region(Region.US_EAST_1)

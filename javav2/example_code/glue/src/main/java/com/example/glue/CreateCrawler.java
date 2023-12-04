@@ -9,8 +9,8 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.create_crawler.main]
 //snippet-start:[glue.java2.create_crawler.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.CreateCrawlerRequest;
@@ -29,18 +29,19 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateCrawler {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <IAM> <s3Path> <cron> <dbName> <crawlerName>\n\n" +
-            "Where:\n" +
-            "    IAM - The ARN of the IAM role that has AWS Glue and S3 permissions. \n" +
-            "    s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).\n" +
-            "    cron - A cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).\n" +
-            "    dbName - The database name. \n" +
-            "    crawlerName - The name of the crawler. \n" ;
+            Usage:
+                <IAM> <s3Path> <cron> <dbName> <crawlerName>
+
+            Where:
+                IAM - The ARN of the IAM role that has AWS Glue and S3 permissions.\s
+                s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).
+                cron - A cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).
+                dbName - The database name.\s
+                crawlerName - The name of the crawler.\s
+            """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -55,14 +56,12 @@ public class CreateCrawler {
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        createGlueCrawler(glueClient, iam, s3Path, cron,dbName, crawlerName);
+        createGlueCrawler(glueClient, iam, s3Path, cron, dbName, crawlerName);
         glueClient.close();
     }
 
-    //snippet-start:[glue.java2.create_crawler.main]
     public static void createGlueCrawler(GlueClient glueClient,
                                          String iam,
                                          String s3Path,
@@ -93,12 +92,12 @@ public class CreateCrawler {
                 .build();
 
             glueClient.createCrawler(crawlerRequest);
-            System.out.println(crawlerName +" was successfully created");
+            System.out.println(crawlerName + " was successfully created");
 
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[glue.java2.create_crawler.main]
 }
+//snippet-end:[glue.java2.create_crawler.main]

@@ -8,8 +8,8 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.delete_crawler.main]
 //snippet-start:[glue.java2.delete_crawler.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.DeleteCrawlerRequest;
@@ -24,46 +24,44 @@ import software.amazon.awssdk.services.glue.model.GlueException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteCrawler {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <crawlerName>\n\n" +
-            "Where:\n" +
-            "    crawlerName - The name of the crawler. \n" ;
+            Usage:
+                <crawlerName>
+
+            Where:
+                crawlerName - The name of the crawler.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }
 
-        String crawlerName = args[0] ;
+        String crawlerName = args[0];
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteSpecificCrawler(glueClient, crawlerName);
         glueClient.close();
     }
 
-    //snippet-start:[glue.java2.delete_crawler.main]
     public static void deleteSpecificCrawler(GlueClient glueClient, String crawlerName) {
-
         try {
             DeleteCrawlerRequest deleteCrawlerRequest = DeleteCrawlerRequest.builder()
                 .name(crawlerName)
                 .build();
 
             glueClient.deleteCrawler(deleteCrawlerRequest);
-            System.out.println(crawlerName +" was deleted");
+            System.out.println(crawlerName + " was deleted");
 
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[glue.java2.delete_crawler.main]
 }
+//snippet-end:[glue.java2.delete_crawler.main]

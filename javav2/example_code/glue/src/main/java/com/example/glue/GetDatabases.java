@@ -9,8 +9,8 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.get_databases.main]
 //snippet-start:[glue.java2.get_databases.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.Database;
@@ -28,22 +28,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetDatabases {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getAllDatabases(glueClient);
         glueClient.close();
     }
 
-    //snippet-start:[glue.java2.get_databases.main]
     public static void getAllDatabases(GlueClient glueClient) {
-
         try {
             GetDatabasesRequest databasesRequest = GetDatabasesRequest.builder()
                 .maxResults(10)
@@ -51,14 +46,15 @@ public class GetDatabases {
 
             GetDatabasesResponse response = glueClient.getDatabases(databasesRequest);
             List<Database> databases = response.databaseList();
-            for (Database database: databases) {
-                System.out.println("The Database name is : "+database.name());
+            for (Database database : databases) {
+                System.out.println("The Database name is : " + database.name());
             }
 
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-     }
-    //snippet-end:[glue.java2.get_databases.main]
-   }
+    }
+}
+//snippet-end:[glue.java2.get_databases.main]
+

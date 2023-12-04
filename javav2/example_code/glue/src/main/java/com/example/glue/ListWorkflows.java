@@ -7,8 +7,9 @@
 */
 
 package com.example.glue;
+
+//snippet-start:[glue.java2.list_wfs.main]
 //snippet-start:[glue.java2.list_wfs.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GlueException;
@@ -25,22 +26,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListWorkflows {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllWorkflows(glueClient);
         glueClient.close();
     }
 
-    //snippet-start:[glue.java2.list_wfs.main]
-    public static void listAllWorkflows( GlueClient glueClient) {
-
+    public static void listAllWorkflows(GlueClient glueClient) {
         try {
             ListWorkflowsRequest workflowsRequest = ListWorkflowsRequest.builder()
                 .maxResults(10)
@@ -48,8 +44,8 @@ public class ListWorkflows {
 
             ListWorkflowsResponse workflowsResponse = glueClient.listWorkflows(workflowsRequest);
             List<String> workflows = workflowsResponse.workflows();
-            for (String workflow: workflows) {
-                System.out.println("Workflow name is: "+workflow);
+            for (String workflow : workflows) {
+                System.out.println("Workflow name is: " + workflow);
             }
 
         } catch (GlueException e) {
@@ -57,5 +53,5 @@ public class ListWorkflows {
             System.exit(1);
         }
     }
-   //snippet-end:[glue.java2.list_wfs.main]
 }
+//snippet-end:[glue.java2.list_wfs.main]
