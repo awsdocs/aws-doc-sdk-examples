@@ -9,9 +9,8 @@
 
 package com.example.translate;
 
+// snippet-start:[translate.java2._text.main]
 // snippet-start:[translate.java2._text.import]
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.translate.TranslateClient;
 import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
@@ -27,22 +26,17 @@ import software.amazon.awssdk.services.translate.model.TranslateException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class TranslateText {
-
     public static void main(String[] args) {
-
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        textTranslate( translateClient);
+        textTranslate(translateClient);
         translateClient.close();
     }
 
-    // snippet-start:[translate.java2._text.main]
     public static void textTranslate(TranslateClient translateClient) {
-
         try {
             TranslateTextRequest textRequest = TranslateTextRequest.builder()
                 .sourceLanguageCode("en")
@@ -58,5 +52,5 @@ public class TranslateText {
             System.exit(1);
         }
     }
-    // snippet-end:[translate.java2._text.main]
 }
+// snippet-end:[translate.java2._text.main]

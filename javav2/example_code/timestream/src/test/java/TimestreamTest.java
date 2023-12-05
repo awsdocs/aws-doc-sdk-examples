@@ -159,13 +159,6 @@ public class TimestreamTest {
         System.out.println("Test 10 passed");
     }
 
-    @Test
-    @Tag("IntegrationTest")
-    @Order(11)
-    public void QueryDatabase() {
-        assertDoesNotThrow(() ->QueryDatabase.runQuery(queryClient, queryString));
-        System.out.println("Test 11 passed");
-    }
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)

@@ -9,8 +9,8 @@
 
 package com.example.translate;
 
+// snippet-start:[translate.java2._batch.main]
 // snippet-start:[translate.java2._batch.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.translate.TranslateClient;
 import software.amazon.awssdk.services.translate.model.StartTextTranslationJobRequest;
@@ -30,19 +30,20 @@ import software.amazon.awssdk.services.translate.model.TranslateException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class BatchTranslation {
-
     public static long sleepTime = 5;
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <s3Uri> <s3UriOut> <jobName> <dataAccessRoleArn> \n\n" +
-            "Where:\n" +
-            "    s3Uri - The URI of the Amazon S3 bucket where the documents to translate are located. \n" +
-            "    s3UriOut - The URI of the Amazon S3 bucket where the translated documents are saved to.  \n" +
-            "    jobName - The job name. \n" +
-            "    dataAccessRoleArn - The Amazon Resource Name (ARN) value of the role required for translation jobs.\n";
+            Usage:
+                <s3Uri> <s3UriOut> <jobName> <dataAccessRoleArn>\s
+
+            Where:
+                s3Uri - The URI of the Amazon S3 bucket where the documents to translate are located.\s
+                s3UriOut - The URI of the Amazon S3 bucket where the translated documents are saved to. \s
+                jobName - The job name.\s
+                dataAccessRoleArn - The Amazon Resource Name (ARN) value of the role required for translation jobs.
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -57,20 +58,18 @@ public class BatchTranslation {
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String id = translateDocuments(translateClient, s3Uri, s3UriOut, jobName, dataAccessRoleArn);
-        System.out.println("Translation job "+id + " is completed");
+        System.out.println("Translation job " + id + " is completed");
         translateClient.close();
     }
 
-    // snippet-start:[translate.java2._batch.main]
     public static String translateDocuments(TranslateClient translateClient,
-                                          String s3Uri,
-                                          String s3UriOut,
-                                          String jobName,
-                                          String dataAccessRoleArn) {
+                                            String s3Uri,
+                                            String s3UriOut,
+                                            String jobName,
+                                            String dataAccessRoleArn) {
 
         try {
             InputDataConfig dataConfig = InputDataConfig.builder()
@@ -122,7 +121,7 @@ public class BatchTranslation {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-     return "";
+        return "";
     }
-    // snippet-end:[translate.java2._batch.main]
 }
+ // snippet-end:[translate.java2._batch.main]

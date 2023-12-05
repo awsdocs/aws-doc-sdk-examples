@@ -9,8 +9,8 @@
 
 package com.example.translate;
 
+// snippet-start:[translate.java2._describe_jobs.main]
 // snippet-start:[translate.java2._describe_jobs.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.translate.TranslateClient;
 import software.amazon.awssdk.services.translate.model.DescribeTextTranslationJobRequest;
@@ -26,14 +26,15 @@ import software.amazon.awssdk.services.translate.model.TranslateException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeTextTranslationJob {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <id> \n\n" +
-            "Where:\n" +
-            "    id - A translation job ID value. You can obtain this value from the BatchTranslation example.\n";
+            Usage:
+                <id>\s
+
+            Where:
+                id - A translation job ID value. You can obtain this value from the BatchTranslation example.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,30 +45,27 @@ public class DescribeTextTranslationJob {
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         describeTextTranslationJob(translateClient, id);
         translateClient.close();
     }
 
-    // snippet-start:[translate.java2._describe_jobs.main]
     public static void describeTextTranslationJob(TranslateClient translateClient, String id) {
-
         try {
             DescribeTextTranslationJobRequest textTranslationJobRequest = DescribeTextTranslationJobRequest.builder()
                 .jobId(id)
-                 .build();
+                .build();
 
             DescribeTextTranslationJobResponse jobResponse = translateClient.describeTextTranslationJob(textTranslationJobRequest);
-            System.out.println("The job status is "+jobResponse.textTranslationJobProperties().jobStatus());
-            System.out.println("The source language is "+jobResponse.textTranslationJobProperties().sourceLanguageCode());
-            System.out.println("The target language is "+jobResponse.textTranslationJobProperties().targetLanguageCodes());
+            System.out.println("The job status is " + jobResponse.textTranslationJobProperties().jobStatus());
+            System.out.println("The source language is " + jobResponse.textTranslationJobProperties().sourceLanguageCode());
+            System.out.println("The target language is " + jobResponse.textTranslationJobProperties().targetLanguageCodes());
 
         } catch (TranslateException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[translate.java2._describe_jobs.main]
 }
+// snippet-end:[translate.java2._describe_jobs.main]
