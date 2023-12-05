@@ -9,8 +9,8 @@
 
 package com.example.secrets;
 
+//snippet-start:[secretsmanager.java2.put_secret.main]
 //snippet-start:[secretsmanager.java2.put_secret.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.PutSecretValueRequest;
@@ -25,15 +25,16 @@ import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerExcept
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class PutSecret {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <secretName> <secretValue>\n\n" +
-            "Where:\n" +
-            "    secretName - The name of the secret (for example, tutorials/MyFirstSecret). \n"+
-            "    secretValue - The text to encrypt and store in the new version of the secret. \n";
+            Usage:
+                <secretName> <secretValue>
+
+            Where:
+                secretName - The name of the secret (for example, tutorials/MyFirstSecret).\s
+                secretValue - The text to encrypt and store in the new version of the secret.\s
+            """;
 
         if (args.length < 2) {
             System.out.println(usage);
@@ -45,14 +46,12 @@ public class PutSecret {
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         putSecret(secretsClient, secretName, secretValue);
         secretsClient.close();
     }
 
-    //snippet-start:[secretsmanager.java2.put_secret.main]
     public static void putSecret(SecretsManagerClient secretsClient, String secretName, String secretValue) {
         try {
             PutSecretValueRequest secretRequest = PutSecretValueRequest.builder()
@@ -68,5 +67,5 @@ public class PutSecret {
             System.exit(1);
         }
     }
-    //snippet-end:[secretsmanager.java2.put_secret.main]
 }
+//snippet-end:[secretsmanager.java2.put_secret.main]

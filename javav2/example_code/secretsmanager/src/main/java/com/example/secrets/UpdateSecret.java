@@ -9,8 +9,8 @@
 
 package com.example.secrets;
 
+//snippet-start:[secretsmanager.java2.update_secret.main]
 //snippet-start:[secretsmanager.java2.update_secret.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerException;
@@ -25,15 +25,16 @@ import software.amazon.awssdk.services.secretsmanager.model.UpdateSecretRequest;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class UpdateSecret {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <secretName> <secretValue>\n\n" +
-            "Where:\n" +
-            "    secretName - The name of the secret (for example, tutorials/MyFirstSecret). \n"+
-            "    secretValue - The secret value that is updated. \n";
+            Usage:
+                <secretName> <secretValue>
+
+            Where:
+                secretName - The name of the secret (for example, tutorials/MyFirstSecret).\s
+                secretValue - The secret value that is updated.\s
+            """;
 
         if (args.length < 2) {
             System.out.println(usage);
@@ -45,16 +46,13 @@ public class UpdateSecret {
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         updateMySecret(secretsClient, secretName, secretValue);
         secretsClient.close();
     }
 
-    //snippet-start:[secretsmanager.java2.update_secret.main]
     public static void updateMySecret(SecretsManagerClient secretsClient, String secretName, String secretValue) {
-
         try {
             UpdateSecretRequest secretRequest = UpdateSecretRequest.builder()
                 .secretId(secretName)
@@ -68,5 +66,5 @@ public class UpdateSecret {
             System.exit(1);
         }
     }
-    //snippet-end:[secretsmanager.java2.update_secret.main]
 }
+//snippet-end:[secretsmanager.java2.update_secret.main]
