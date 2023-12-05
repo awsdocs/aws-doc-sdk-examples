@@ -9,8 +9,8 @@
 
 package com.example.route;
 
+// snippet-start:[route53.java2.create_health_check.main]
 // snippet-start:[route53.java2.create_health_check.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53.Route53Client;
 import software.amazon.awssdk.services.route53.model.Route53Exception;
@@ -28,12 +28,14 @@ import software.amazon.awssdk.services.route53.model.CreateHealthCheckResponse;
  */
 public class CreateHealthCheck {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <domainName> \n\n" +
-            "Where:\n" +
-            "    domainName - The fully qualified domain name. \n";
+            Usage:
+                <domainName>\s
+
+            Where:
+                domainName - The fully qualified domain name.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,17 +46,14 @@ public class CreateHealthCheck {
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String id = createCheck(route53Client, domainName);
-        System.out.println("The health check id is "+ id);
+        System.out.println("The health check id is " + id);
         route53Client.close();
     }
 
-    // snippet-start:[route53.java2.create_health_check.main]
     public static String createCheck(Route53Client route53Client, String domainName) {
-
         try {
             // You must use a unique CallerReference string.
             String callerReference = java.util.UUID.randomUUID().toString();
@@ -79,7 +78,7 @@ public class CreateHealthCheck {
         }
         return "";
     }
-    // snippet-end:[route53.java2.create_health_check.main]
 }
+// snippet-end:[route53.java2.create_health_check.main]
 
 

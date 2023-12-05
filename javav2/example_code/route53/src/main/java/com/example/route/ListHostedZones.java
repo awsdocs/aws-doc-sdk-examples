@@ -9,8 +9,8 @@
 */
 package com.example.route;
 
+//snippet-start:[route.java2.list_zones.main]
 //snippet-start:[route.java2.list_zones.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53.Route53Client;
 import software.amazon.awssdk.services.route53.model.HostedZone;
@@ -28,25 +28,21 @@ import java.util.List;
  */
 public class ListHostedZones {
     public static void main(String[] args) {
-
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listZones(route53Client);
         route53Client.close();
     }
 
-    //snippet-start:[route.java2.list_zones.main]
     public static void listZones(Route53Client route53Client) {
-
         try {
             ListHostedZonesResponse zonesResponse = route53Client.listHostedZones();
             List<HostedZone> checklist = zonesResponse.hostedZones();
-            for (HostedZone check: checklist) {
-                System.out.println("The name is : "+check.name());
+            for (HostedZone check : checklist) {
+                System.out.println("The name is : " + check.name());
             }
 
         } catch (Route53Exception e) {
@@ -54,5 +50,5 @@ public class ListHostedZones {
             System.exit(1);
         }
     }
-    //snippet-end:[route.java2.list_zones.main]
 }
+//snippet-end:[route.java2.list_zones.main]

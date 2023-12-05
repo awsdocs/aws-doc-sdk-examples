@@ -9,8 +9,8 @@
 */
 package com.example.route;
 
+//snippet-start:[route.java2.list_records.main]
 //snippet-start:[route.java2.list_records.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53.Route53Client;
 import software.amazon.awssdk.services.route53.model.ListResourceRecordSetsRequest;
@@ -28,14 +28,15 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListResourceRecordSets {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <hostedZoneId> \n\n" +
-            "Where:\n" +
-            "    hostedZoneId - The id value of an existing hosted zone. \n";
+            Usage:
+                <hostedZoneId>\s
+
+            Where:
+                hostedZoneId - The id value of an existing hosted zone.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,16 +47,13 @@ public class ListResourceRecordSets {
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listResourceRecord(route53Client, hostedZoneId);
         route53Client.close();
     }
 
-    //snippet-start:[route.java2.list_records.main]
     public static void listResourceRecord(Route53Client route53Client, String hostedZoneId) {
-
         try {
             ListResourceRecordSetsRequest request = ListResourceRecordSetsRequest.builder()
                 .hostedZoneId(hostedZoneId)
@@ -73,5 +71,5 @@ public class ListResourceRecordSets {
             System.exit(1);
         }
     }
-    //snippet-end:[route.java2.list_records.main]
 }
+//snippet-end:[route.java2.list_records.main]
