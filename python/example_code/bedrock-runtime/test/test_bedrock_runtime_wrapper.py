@@ -122,6 +122,7 @@ def test_invoke_stable_diffusion(make_stubber, error_code):
             wrapper.invoke_stable_diffusion(prompt, seed, style_preset)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
+
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_invoke_titan_image(make_stubber, error_code):
     bedrock_runtime = boto3.client(
@@ -133,9 +134,7 @@ def test_invoke_titan_image(make_stubber, error_code):
     prompt = "A sunset over the ocean"
     seed = random.randint(0, 2147483647)
 
-    bedrock_runtime_stubber.stub_invoke_titan_image(
-        prompt, seed, error_code=error_code
-    )
+    bedrock_runtime_stubber.stub_invoke_titan_image(prompt, seed, error_code=error_code)
 
     if error_code is None:
         got_completion = wrapper.invoke_titan_image(prompt, seed)

@@ -141,17 +141,15 @@ class BedrockRuntimeStubber(ExampleStubber):
             "body": json.dumps(
                 {
                     "taskType": "TEXT_IMAGE",
-                    "textToImageParams": {
-                        "text": prompt
-                    },
+                    "textToImageParams": {"text": prompt},
                     "imageGenerationConfig": {
                         "numberOfImages": 1,
                         "quality": "standard",
                         "cfgScale": 8.0,
                         "height": 512,
                         "width": 512,
-                        "seed": seed
-                    }
+                        "seed": seed,
+                    },
                 }
             ),
         }

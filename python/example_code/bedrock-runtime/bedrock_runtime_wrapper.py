@@ -210,23 +210,20 @@ class BedrockRuntimeWrapper:
             request = json.dumps(
                 {
                     "taskType": "TEXT_IMAGE",
-                    "textToImageParams": {
-                        "text": prompt
-                    },
+                    "textToImageParams": {"text": prompt},
                     "imageGenerationConfig": {
                         "numberOfImages": 1,
                         "quality": "standard",
                         "cfgScale": 8.0,
                         "height": 512,
                         "width": 512,
-                        "seed": seed
-                    }
+                        "seed": seed,
+                    },
                 }
             )
 
             response = self.bedrock_runtime_client.invoke_model(
-                modelId="amazon.titan-image-generator-v1",
-                body=request
+                modelId="amazon.titan-image-generator-v1", body=request
             )
 
             response_body = json.loads(response["body"].read())
@@ -392,7 +389,6 @@ def usage_demo():
     )
 
     invoke(wrapper, "amazon.titan-image-generator-v1", image_generation_prompt)
-
 
 
 if __name__ == "__main__":
