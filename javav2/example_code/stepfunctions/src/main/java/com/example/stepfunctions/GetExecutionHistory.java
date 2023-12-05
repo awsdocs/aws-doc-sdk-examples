@@ -10,7 +10,6 @@
 package com.example.stepfunctions;
 
 // snippet-start:[stepfunctions.java2.get_history.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.GetExecutionHistoryRequest;
@@ -28,14 +27,15 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetExecutionHistory {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <exeARN> \n\n" +
-            "Where:\n" +
-            "    exeARN - The Amazon Resource Name (ARN) of the execution.\n\n" ;
+            Usage:
+                <exeARN>\s
+
+            Where:
+                exeARN - The Amazon Resource Name (ARN) of the execution.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,7 +46,6 @@ public class GetExecutionHistory {
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getExeHistory(sfnClient, exeARN);

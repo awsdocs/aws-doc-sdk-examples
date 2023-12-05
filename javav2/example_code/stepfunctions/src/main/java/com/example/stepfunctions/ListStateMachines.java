@@ -9,8 +9,8 @@
 
 package com.example.stepfunctions;
 
+// snippet-start:[stepfunctions.java2.list_machines.main]
 // snippet-start:[stepfunctions.java2.list_machines.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.ListStateMachinesResponse;
@@ -27,22 +27,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListStateMachines {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listMachines(sfnClient);
         sfnClient.close();
     }
 
-    // snippet-start:[stepfunctions.java2.list_machines.main]
     public static void listMachines(SfnClient sfnClient) {
-
         try {
             ListStateMachinesResponse response = sfnClient.listStateMachines();
             List<StateMachineListItem> machines = response.stateMachines();
@@ -56,5 +51,5 @@ public class ListStateMachines {
             System.exit(1);
         }
     }
-    // snippet-end:[stepfunctions.java2.list_machines.main]
 }
+// snippet-end:[stepfunctions.java2.list_machines.main]
