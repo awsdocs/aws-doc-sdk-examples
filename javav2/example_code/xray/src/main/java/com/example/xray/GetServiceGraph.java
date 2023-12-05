@@ -7,8 +7,8 @@
 */
 package com.example.xray;
 
+// snippet-start:[xray.java2_get_graph.main]
 // snippet-start:[xray.java2_get_graph.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.xray.XRayClient;
 import software.amazon.awssdk.services.xray.model.GetServiceGraphRequest;
@@ -29,33 +29,31 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetServiceGraph {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage: " +
-                "   <groupName>\n\n" +
-                "Where:\n" +
-                "   groupName - The name of a group based on which you want to generate a graph.\n\n";
+            Usage:    <groupName>
 
-         if (args.length != 1) {
-             System.out.println(usage);
-              System.exit(1);
-         }
+            Where:
+               groupName - The name of a group based on which you want to generate a graph.
+
+            """;
+
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String groupName = args[0];
         Region region = Region.US_EAST_1;
         XRayClient xRayClient = XRayClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .build();
         getGraph(xRayClient, groupName);
     }
 
-    // snippet-start:[xray.java2_get_graph.main]
-    public static void getGraph(XRayClient xRayClient, String groupName){
-
-        try{
+    public static void getGraph(XRayClient xRayClient, String groupName) {
+        try {
             // The Instant values have to be 6 hours apart.
             LocalDateTime localDateTime = LocalDateTime.parse("2022-03-09T06:00:00");
             Instant start = localDateTime.atZone(ZoneId.of("America/New_York")).toInstant();
@@ -71,9 +69,8 @@ public class GetServiceGraph {
 
             GetServiceGraphResponse graphResponse = xRayClient.getServiceGraph(getServiceGraphRequest);
             List<Service> services = graphResponse.services();
-
-            for (Service service: services) {
-                System.out.println("The name of the service is  "+service.name());
+            for (Service service : services) {
+                System.out.println("The name of the service is  " + service.name());
             }
 
         } catch (XRayException e) {
@@ -81,5 +78,5 @@ public class GetServiceGraph {
             System.exit(1);
         }
     }
-    // snippet-end:[xray.java2_get_graph.main]
 }
+// snippet-end:[xray.java2_get_graph.main]
