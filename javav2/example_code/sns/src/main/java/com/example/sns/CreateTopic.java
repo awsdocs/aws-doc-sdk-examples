@@ -9,8 +9,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.CreateTopic.main]
 //snippet-start:[sns.java2.CreateTopic.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest;
@@ -27,12 +27,14 @@ import software.amazon.awssdk.services.sns.model.SnsException;
  */
 public class CreateTopic {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <topicName>\n\n" +
-            "Where:\n" +
-            "   topicName - The name of the topic to create (for example, mytopic).\n\n";
+            Usage:    <topicName>
+
+            Where:
+               topicName - The name of the topic to create (for example, mytopic).
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,18 +45,15 @@ public class CreateTopic {
         System.out.println("Creating a topic with name: " + topicName);
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        String arnVal = createSNSTopic(snsClient, topicName) ;
-        System.out.println("The topic ARN is" +arnVal);
+        String arnVal = createSNSTopic(snsClient, topicName);
+        System.out.println("The topic ARN is" + arnVal);
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.CreateTopic.main]
-    public static String createSNSTopic(SnsClient snsClient, String topicName ) {
-
-        CreateTopicResponse result = null;
+    public static String createSNSTopic(SnsClient snsClient, String topicName) {
+        CreateTopicResponse result;
         try {
             CreateTopicRequest request = CreateTopicRequest.builder()
                 .name(topicName)
@@ -69,5 +68,5 @@ public class CreateTopic {
         }
         return "";
     }
-    //snippet-end:[sns.java2.CreateTopic.main]
 }
+//snippet-end:[sns.java2.CreateTopic.main]

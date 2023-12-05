@@ -9,14 +9,13 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.message_policy.main]
 //snippet-start:[sns.java2.message_policy.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SnsException;
 import java.util.ArrayList;
 //snippet-end:[sns.java2.message_policy.import]
-
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -26,14 +25,15 @@ import java.util.ArrayList;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class UseMessageFilterPolicy {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <subscriptionArn>\n\n" +
-            "Where:\n" +
-            "   subscriptionArn - The ARN of a subscription.\n\n" ;
+            Usage:    <subscriptionArn>
+
+            Where:
+               subscriptionArn - The ARN of a subscription.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,16 +43,13 @@ public class UseMessageFilterPolicy {
         String subscriptionArn = args[0];
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         usePolicy(snsClient, subscriptionArn);
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.message_policy.main]
     public static void usePolicy(SnsClient snsClient, String subscriptionArn) {
-
         try {
             SNSMessageFilterPolicy fp = new SNSMessageFilterPolicy();
             // Add a filter policy attribute with a single value
@@ -86,5 +83,5 @@ public class UseMessageFilterPolicy {
             System.exit(1);
         }
     }
-    //snippet-end:[sns.java2.message_policy.main]
 }
+//snippet-end:[sns.java2.message_policy.main]

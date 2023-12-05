@@ -9,8 +9,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.reg.endpoint.main]
 //snippet-start:[sns.java2.reg.endpoint.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CreatePlatformEndpointRequest;
@@ -32,17 +32,17 @@ import software.amazon.awssdk.services.sns.model.SnsException;
  * Without the values created by following the previous link, this code examples does not work.
  */
 
-//snippet-start:[sns.java2.reg.endpoint.main]
+
 public class RegistrationExample {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "    <token>\n\n" +
-            "Where:\n" +
-            "   token - The name of the FIFO topic. \n\n" +
-            "   platformApplicationArn - The ARN value of platform application. You can get this value from the AWS Management Console. \n\n";
+            Usage:     <token> <platformApplicationArn>
+
+            Where:
+               token - The name of the FIFO topic.\s
+               platformApplicationArn - The ARN value of platform application. You can get this value from the AWS Management Console.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,7 +53,6 @@ public class RegistrationExample {
         String platformApplicationArn = args[1];
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createEndpoint(snsClient, token, platformApplicationArn);
@@ -61,7 +60,6 @@ public class RegistrationExample {
 
     public static void createEndpoint(SnsClient snsClient, String token, String platformApplicationArn){
         System.out.println("Creating platform endpoint with token " + token);
-
         try {
             CreatePlatformEndpointRequest endpointRequest = CreatePlatformEndpointRequest.builder()
                 .token(token)
