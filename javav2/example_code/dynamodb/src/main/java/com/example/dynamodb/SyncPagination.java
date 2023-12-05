@@ -26,7 +26,6 @@ import software.amazon.awssdk.services.dynamodb.paginators.ListTablesIterable;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class SyncPagination {
     public static void main(String[] args) {
         final String usage = """
@@ -36,7 +35,6 @@ public class SyncPagination {
 
             Where:
                 type - The type of pagination. (auto, manual, or default).\s
-
             """;
 
         if (args.length != 1) {

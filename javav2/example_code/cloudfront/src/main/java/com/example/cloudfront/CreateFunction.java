@@ -19,7 +19,6 @@ import software.amazon.awssdk.services.cloudfront.model.CreateFunctionRequest;
 import software.amazon.awssdk.services.cloudfront.model.CreateFunctionResponse;
 import software.amazon.awssdk.services.cloudfront.model.FunctionConfig;
 import software.amazon.awssdk.services.cloudfront.model.FunctionRuntime;
-
 import java.io.InputStream;
 // snippet-end:[cloudfront.java2.function.import]
 

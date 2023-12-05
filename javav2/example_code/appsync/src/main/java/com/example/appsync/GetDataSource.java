@@ -33,9 +33,7 @@ public class GetDataSource {
 
             Where:
                apiId - The id of the API (You can get this value from the AWS Management Console).\s
-
                name - The name of the data source.\s
-
             """;
 
         if (args.length != 2) {

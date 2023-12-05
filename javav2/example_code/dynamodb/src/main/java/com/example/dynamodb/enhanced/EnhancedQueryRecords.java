@@ -51,7 +51,6 @@ public class EnhancedQueryRecords {
         System.out.println(result);
         ddb.close();
     }
-
     public static String queryTable(DynamoDbEnhancedClient enhancedClient) {
         try {
             DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));

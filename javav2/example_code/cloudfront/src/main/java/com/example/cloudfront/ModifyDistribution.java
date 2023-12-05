@@ -11,7 +11,6 @@ package com.example.cloudfront;
 
 // snippet-start:[cloudfront.java2.mod.main]
 // snippet-start:[cloudfront.java2.mod.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
 import software.amazon.awssdk.services.cloudfront.model.GetDistributionRequest;

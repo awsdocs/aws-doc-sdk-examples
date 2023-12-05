@@ -10,7 +10,6 @@
 package com.example.deploy;
 
 // snippet-start:[codedeploy.java2.delete_group.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codedeploy.CodeDeployClient;
 import software.amazon.awssdk.services.codedeploy.model.CodeDeployException;
@@ -25,15 +24,17 @@ import software.amazon.awssdk.services.codedeploy.model.DeleteDeploymentGroupReq
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteDeploymentGroup {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <appName> <deploymentGroupName>\n\n" +
-            "Where:\n" +
-            "    appName - The name of the application. \n"+
-            "    deploymentGroupName - The name of the deployment group. \n";
+        final String usage = """
+
+            Usage:
+                <appName> <deploymentGroupName>
+
+            Where:
+                appName - The name of the application.\s
+                deploymentGroupName - The name of the deployment group.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,7 +46,6 @@ public class DeleteDeploymentGroup {
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         delDeploymentGroup(deployClient, appName, deploymentGroupName);

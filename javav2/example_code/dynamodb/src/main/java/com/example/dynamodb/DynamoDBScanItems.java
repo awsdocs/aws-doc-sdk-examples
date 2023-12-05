@@ -41,7 +41,6 @@ public class DynamoDBScanItems {
 
             Where:
                 tableName - The Amazon DynamoDB table to get information from (for example, Music3).
-
             """;
 
         if (args.length != 1) {
@@ -58,7 +57,6 @@ public class DynamoDBScanItems {
         scanItems(ddb, tableName);
         ddb.close();
     }
-
     public static void scanItems(DynamoDbClient ddb, String tableName) {
         try {
             ScanRequest scanRequest = ScanRequest.builder()

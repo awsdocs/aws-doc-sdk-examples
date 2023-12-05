@@ -11,7 +11,6 @@ package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.put_metric_data.main]
 // snippet-start:[cloudwatch.java2.put_metric_data.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
@@ -52,7 +51,6 @@ public class PutMetricData {
         Region region = Region.US_WEST_2;
         CloudWatchClient cw = CloudWatchClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         putMetData(cw, dataPoint) ;

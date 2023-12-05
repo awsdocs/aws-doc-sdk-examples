@@ -28,7 +28,6 @@ import software.amazon.awssdk.services.codecommit.model.GetPullRequestResponse;
  */
 
 public class GetPullRequest {
-
     public static void main(String[] args) {
         final String USAGE = """
 

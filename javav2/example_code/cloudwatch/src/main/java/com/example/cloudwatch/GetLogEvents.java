@@ -49,7 +49,7 @@ public class GetLogEvents {
             .region(region)
             .build();
 
-        getCWLogEvents(cloudWatchLogsClient, logGroupName, logStreamName) ;
+        getCWLogEvents(cloudWatchLogsClient, logGroupName, logStreamName);
         cloudWatchLogsClient.close();
     }
 
@@ -73,5 +73,5 @@ public class GetLogEvents {
             System.exit(1);
         }
     }
-    // snippet-end:[cloudwatch.java2.get_logs.main]
 }
+// snippet-end:[cloudwatch.java2.get_logs.main]

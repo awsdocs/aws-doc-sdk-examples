@@ -36,7 +36,6 @@ public class CreateNamedQueryExample {
 
             Where:
                 name - the name of the Amazon Athena query.\s
-
             """;
 
         if (args.length != 1) {

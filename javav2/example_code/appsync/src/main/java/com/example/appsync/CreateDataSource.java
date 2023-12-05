@@ -36,13 +36,9 @@ public class CreateDataSource {
 
             Where:
                apiId - The id of the API (You can get this value from the AWS Management Console).\s
-
                name - The name of the data source.\s
-
                dsRole - The AWS Identity and Access Management (IAM) service role for the data source.\s
-
                tableName - The name of the Amazon DynamoDB table used as the data source.\s
-
             """;
 
         if (args.length != 4) {

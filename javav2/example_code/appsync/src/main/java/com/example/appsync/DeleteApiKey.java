@@ -32,8 +32,8 @@ public class DeleteApiKey {
 
             Where:
                apiId - the id of the API (You can get this value from the AWS Management Console).\s
-
-               keyId - The Id of the key to delete.""";
+               keyId - The Id of the key to delete.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);

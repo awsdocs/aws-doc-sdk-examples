@@ -11,7 +11,6 @@ package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.get_metric_alarm.main]
 // snippet-start:[cloudwatch.java2.get_metric_data.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.GetMetricDataResponse;
@@ -38,7 +37,6 @@ public class GetMetricData {
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getMetData(cw) ;

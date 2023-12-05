@@ -38,7 +38,6 @@ public class DocumentClassifierDemo {
               dataAccessRoleArn - The ARN value of the role used for this operation.
               s3Uri - The Amazon S3 bucket that contains the CSV file.
               documentClassifierName - The name of the document classifier.
-
             """;
 
         if (args.length != 3) {

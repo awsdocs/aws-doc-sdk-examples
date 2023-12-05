@@ -28,7 +28,6 @@ import software.amazon.awssdk.services.autoscaling.waiters.AutoScalingWaiter;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateAutoScalingGroup {
-
     public static void main(String[] args) {
         final String usage = """
 

@@ -1,10 +1,8 @@
 package com.example.cognito;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitiateAuthRequest;
-
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -15,7 +13,6 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitia
  */
 public class AdminInitiateAuth {
     public static void main(String[] args) {
-
         final String usage = """
 
             Usage:

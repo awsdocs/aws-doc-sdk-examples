@@ -8,7 +8,6 @@
 package com.example.deploy;
 
 // snippet-start:[codedeploy.java2._list_groups.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codedeploy.CodeDeployClient;
 import software.amazon.awssdk.services.codedeploy.model.CodeDeployException;
@@ -25,14 +24,16 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListDeploymentGroups {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <appName> \n\n" +
-            "Where:\n" +
-            "    appName - The application name. \n";
+        final String usage = """
+
+            Usage:
+                <appName>\s
+
+            Where:
+                appName - The application name.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,7 +44,6 @@ public class ListDeploymentGroups {
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listDeployGroups(deployClient, appName);

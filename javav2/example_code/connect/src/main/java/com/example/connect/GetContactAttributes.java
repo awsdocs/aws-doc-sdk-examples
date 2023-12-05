@@ -24,7 +24,6 @@ import java.util.Map;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class GetContactAttributes {
     public static void main(String[] args) {
         final String usage = """
@@ -34,7 +33,6 @@ public class GetContactAttributes {
             Where:
                instanceId - The identifier of the Amazon Connect instance.
                contactId - The identifier of the contact.
-
             """;
 
         if (args.length != 2) {

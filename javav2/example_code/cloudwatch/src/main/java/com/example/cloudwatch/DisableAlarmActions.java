@@ -24,7 +24,6 @@ import software.amazon.awssdk.services.cloudwatch.model.DisableAlarmActionsReque
  */
 public class DisableAlarmActions {
     public static void main(String[] args) {
-
         final String usage = """
 
             Usage:

@@ -23,7 +23,6 @@ import software.amazon.awssdk.services.connect.model.DescribeInstanceResponse;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class DescribeInstance {
     public static void main(String[] args) throws InterruptedException {
         final String usage = """
@@ -32,7 +31,6 @@ public class DescribeInstance {
 
             Where:
                instanceId - The id of the instance to describe.
-
             """;
 
         if (args.length != 1) {

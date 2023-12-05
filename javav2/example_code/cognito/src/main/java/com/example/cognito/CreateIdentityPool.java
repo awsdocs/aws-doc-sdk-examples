@@ -26,9 +26,7 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIden
  */
 public class CreateIdentityPool {
     public static void main(String[] args) {
-
         final String usage = """
-
             Usage:
                 <identityPoolName>\s
 

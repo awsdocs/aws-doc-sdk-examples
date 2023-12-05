@@ -12,7 +12,6 @@ package com.example.cloudtrail;
 
 //snippet-start:[cloudtrail.java2.get_event_selectors.main]
 //snippet-start:[cloudtrail.java2.get_event_selectors.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudtrail.CloudTrailClient;
 import software.amazon.awssdk.services.cloudtrail.model.CloudTrailException;

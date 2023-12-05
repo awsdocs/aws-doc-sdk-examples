@@ -37,7 +37,6 @@ public class DescribeTable {
 
             Where:
                 tableName - The Amazon DynamoDB table to get information about (for example, Music3).
-
             """;
 
         if (args.length != 1) {

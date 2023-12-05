@@ -9,8 +9,8 @@
 
 package com.example.deploy;
 
+// snippet-start:[codedeploy.java2.delete_app.main]
 // snippet-start:[codedeploy.java2.delete_app.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codedeploy.CodeDeployClient;
 import software.amazon.awssdk.services.codedeploy.model.CodeDeployException;
@@ -26,14 +26,16 @@ import software.amazon.awssdk.services.codedeploy.model.DeleteApplicationRequest
  */
 
 public class DeleteApplication {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <appName> \n\n" +
-            "Where:\n" +
-            "    appName -  The name of the application. \n";
+        final String usage = """
+
+            Usage:
+                <appName>\s
+
+            Where:
+                appName -  The name of the application.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,14 +46,12 @@ public class DeleteApplication {
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         delApplication(deployClient, appName);
         deployClient.close();
     }
 
-    // snippet-start:[codedeploy.java2.delete_app.main]
     public static void delApplication(CodeDeployClient deployClient, String appName) {
 
         try {

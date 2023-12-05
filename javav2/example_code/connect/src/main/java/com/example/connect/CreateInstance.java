@@ -32,7 +32,6 @@ public class CreateInstance {
 
             Where:
                instanceAlias - The name for your instance.
-
             """;
 
         if (args.length != 1) {

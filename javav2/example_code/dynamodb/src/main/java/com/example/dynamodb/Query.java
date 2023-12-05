@@ -41,7 +41,6 @@ public class Query {
                 tableName - The Amazon DynamoDB table to put the item in (for example, Music3).
                 partitionKeyName - The partition key name of the Amazon DynamoDB table (for example, Artist).
                 partitionKeyVal - The value of the partition key that should match (for example, Famous Band).
-
             """;
 
         if (args.length != 3) {

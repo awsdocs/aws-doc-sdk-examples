@@ -28,7 +28,6 @@ public class ListApiKeys {
 
             Where:
                apiId - The id of the API (You can get this value from the AWS Management Console).\s
-
             """;
 
         if (args.length != 1) {

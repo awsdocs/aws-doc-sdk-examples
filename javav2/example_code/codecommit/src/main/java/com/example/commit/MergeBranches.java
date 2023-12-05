@@ -57,7 +57,6 @@ public class MergeBranches {
 
         merge(codeCommitClient, repoName, targetBranch, sourceReference, destinationCommitId) ;
         codeCommitClient.close();
-
     }
 
     public static void merge(CodeCommitClient codeCommitClient,

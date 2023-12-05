@@ -54,7 +54,6 @@ public class CreateRepository {
     }
 
     public static void createRepo(CodeCommitClient codeCommitClient, String repoName) {
-
         try {
             CreateRepositoryRequest repositoryRequest = CreateRepositoryRequest.builder()
                 .repositoryDescription("Created by the CodeCommit Java API")

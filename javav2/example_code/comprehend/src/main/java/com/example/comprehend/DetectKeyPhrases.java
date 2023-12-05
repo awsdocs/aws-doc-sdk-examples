@@ -39,9 +39,7 @@ public class DetectKeyPhrases {
         comClient.close();
     }
 
-
     public static void detectAllKeyPhrases(ComprehendClient comClient, String text) {
-
         try {
             DetectKeyPhrasesRequest detectKeyPhrasesRequest = DetectKeyPhrasesRequest.builder()
                 .text(text)
@@ -59,6 +57,6 @@ public class DetectKeyPhrases {
             System.exit(1);
         }
     }
-    //snippet-end:[comprehend.java2.detect_keyphrases.main]
 }
+//snippet-end:[comprehend.java2.detect_keyphrases.main]
 

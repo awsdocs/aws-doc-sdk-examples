@@ -62,7 +62,6 @@ import java.util.Iterator;
 
 // snippet-start:[dynamodb.java2.scenario.partiql.main]
 public class ScenarioPartiQ {
-
     public static void main(String [] args) throws IOException {
         final String usage = """
 

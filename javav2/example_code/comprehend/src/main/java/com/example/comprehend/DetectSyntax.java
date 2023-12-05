@@ -40,7 +40,6 @@ public class DetectSyntax {
     }
 
     public static void detectAllSyntax(ComprehendClient comClient, String text) {
-
         try {
             DetectSyntaxRequest detectSyntaxRequest = DetectSyntaxRequest.builder()
                 .text(text)

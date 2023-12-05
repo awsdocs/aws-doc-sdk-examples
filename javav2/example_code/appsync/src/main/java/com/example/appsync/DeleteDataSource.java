@@ -32,7 +32,8 @@ public class DeleteDataSource {
             Where:
                apiId - the id of the API (You can get this value from the AWS Management Console).\s
 
-               dsName - The name of the data source to delete.""";
+               dsName - The name of the data source to delete.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);

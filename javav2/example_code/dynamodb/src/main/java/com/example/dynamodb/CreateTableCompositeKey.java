@@ -40,7 +40,6 @@ public class CreateTableCompositeKey {
 
             Where:
                 tableName - The Amazon DynamoDB table to create (for example, Music3).
-
             """;
 
         if (args.length != 1) {

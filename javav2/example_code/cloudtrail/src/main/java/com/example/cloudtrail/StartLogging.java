@@ -40,9 +40,9 @@ public class StartLogging {
         if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
-         }
+        }
 
-        String trailName = args[0] ;
+        String trailName = args[0];
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
             .region(region)
@@ -53,15 +53,14 @@ public class StartLogging {
         cloudTrailClient.close();
     }
 
-    public static void startLog( CloudTrailClient cloudTrailClientClient, String trailName) {
-
+    public static void startLog(CloudTrailClient cloudTrailClientClient, String trailName) {
         try {
             StopLoggingRequest loggingRequest = StopLoggingRequest.builder()
                 .name(trailName)
-                .build() ;
+                .build();
 
             cloudTrailClientClient.stopLogging(loggingRequest);
-            System.out.println(trailName +" has stopped logging");
+            System.out.println(trailName + " has stopped logging");
 
         } catch (CloudTrailException e) {
             System.err.println(e.getMessage());
@@ -69,19 +68,19 @@ public class StartLogging {
         }
     }
 
-    public static void stopLog( CloudTrailClient cloudTrailClientClient, String trailName) {
+    public static void stopLog(CloudTrailClient cloudTrailClientClient, String trailName) {
         try {
             StartLoggingRequest loggingRequest = StartLoggingRequest.builder()
                 .name(trailName)
-                .build() ;
+                .build();
 
             cloudTrailClientClient.startLogging(loggingRequest);
-            System.out.println(trailName +" has started logging");
+            System.out.println(trailName + " has started logging");
 
         } catch (CloudTrailException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[cloudtrail.java2.logging.main]
- }
+}
+//snippet-end:[cloudtrail.java2.logging.main]

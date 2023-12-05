@@ -13,7 +13,6 @@ package com.example.cloudformation;
 
 // snippet-start:[cf.java2.delete_stack.main]
 // snippet-start:[cf.java2.delete_stack.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudformation.CloudFormationClient;
 import software.amazon.awssdk.services.cloudformation.model.CloudFormationException;

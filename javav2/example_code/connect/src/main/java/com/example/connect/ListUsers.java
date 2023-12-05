@@ -26,7 +26,6 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class ListUsers {
     public static void main(String[] args) {
         final String usage = """

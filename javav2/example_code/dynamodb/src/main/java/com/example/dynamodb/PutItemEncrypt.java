@@ -48,7 +48,8 @@ public class PutItemEncrypt {
                 AwardVal - The value of the awards (for example, 10).
                 SongTitle - The song title (for example, SongTitle).
                 SongTitleVal - The value of the song title (for example, Happy Day).
-                keyId - A KMS key id value to use to encrypt/decrypt the data (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).""";
+                keyId - A KMS key id value to use to encrypt/decrypt the data (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).
+                """;
 
         if (args.length != 10) {
             System.out.println(usage);

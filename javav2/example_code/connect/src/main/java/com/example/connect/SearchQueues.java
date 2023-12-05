@@ -34,7 +34,6 @@ public class SearchQueues {
 
             Where:
                instanceId - The id of the Amazon Connect instance.
-
             """;
 
         if (args.length != 1) {
