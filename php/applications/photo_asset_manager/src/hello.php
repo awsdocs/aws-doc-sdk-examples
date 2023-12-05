@@ -15,7 +15,7 @@ function hello($data)
     $key = $data['Records'][0]['s3']['object']['key'];
 
     $s3Client = new S3Client(['region' => 'us-west-2']);
-    $contentType = $s3Client->getObject(['Bucket' => $bucket, 'Key' => $key])['ContentType'];
+    $contentType = $s3Client->headObject(['Bucket' => $bucket, 'Key' => $key])['ContentType'];
 
     return [
         'bucket' => $bucket,

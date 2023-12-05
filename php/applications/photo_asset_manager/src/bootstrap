@@ -21,7 +21,7 @@ do {
         $response = "PhotoAssetManager\\$handlerFunction"($request['payload']);
 
         sendResponse($request['invocationId'], $response);
-    }catch(Exception $e) {
+    } catch (Exception $e) {
         echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
     } catch (GuzzleException $e) {
         echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
