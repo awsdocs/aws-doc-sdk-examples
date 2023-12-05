@@ -27,7 +27,6 @@ public class SendReceiveMessages {
     private static final String QUEUE_NAME = "testQueue" + new Date().getTime();
 
     public static void main(String[] args) {
-
         SqsClient sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();

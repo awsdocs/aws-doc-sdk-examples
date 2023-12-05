@@ -9,8 +9,8 @@
 
 package com.example.sqs;
 
+// snippet-start:[sqs.java2.sqs_example.delete_queue]
 // snippet-start:[sqs.java2.sqs_example.delete_queue.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
@@ -26,14 +26,15 @@ import software.amazon.awssdk.services.sqs.model.SqsException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteQueue {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <queueName>\n\n" +
-            "Where:\n" +
-            "   queueName - The name of the Amazon SQS queue to delete.\n\n" ;
+            Usage:    <queueName>
+
+            Where:
+               queueName - The name of the Amazon SQS queue to delete.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,16 +44,13 @@ public class DeleteQueue {
         String queueName = args[0];
         SqsClient sqs = SqsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteSQSQueue(sqs, queueName);
         sqs.close();
     }
 
-    // snippet-start:[sqs.java2.sqs_example.delete_queue]
     public static void deleteSQSQueue(SqsClient sqsClient, String queueName) {
-
         try {
             GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
                 .queueName(queueName)
@@ -70,5 +68,5 @@ public class DeleteQueue {
             System.exit(1);
         }
     }
-    // snippet-end:[sqs.java2.sqs_example.delete_queue]
 }
+// snippet-end:[sqs.java2.sqs_example.delete_queue]

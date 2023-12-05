@@ -8,24 +8,21 @@
 */
 package com.example.sqs;
 
+// snippet-start:[sqs.java2.visibility_timeout.main]
 // snippet-start:[sqs.java2.visibility_timeout.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequest;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityBatchRequestEntry;
 import software.amazon.awssdk.services.sqs.model.ChangeMessageVisibilityRequest;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
-import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SqsException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 // snippet-end:[sqs.java2.visibility_timeout.import]
-
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -35,13 +32,10 @@ import java.util.Date;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class VisibilityTimeout {
-
-    // snippet-start:[sqs.java2.visibility_timeout.main]
     public static void main(String[] args) {
         final String queueName = "testQueue" + new Date().getTime();
         SqsClient sqs = SqsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         // First, create a queue (unless it exists already)
@@ -74,7 +68,6 @@ public class VisibilityTimeout {
 
     // Change the visibility timeout for a single message
     public static void changeMessageVisibilitySingle(SqsClient sqs, String queueName, int timeout) {
-
         try {
             // Get the receipt handle for the first message in the queue.
             ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
@@ -100,7 +93,6 @@ public class VisibilityTimeout {
 
     // Change the visibility timeout for multiple messages.
     public static void changeMessageVisibilityMultiple(SqsClient sqs, String queue_url, int timeout) {
-
         try {
             List<ChangeMessageVisibilityBatchRequestEntry> entries = new ArrayList<>();
             ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
@@ -136,6 +128,6 @@ public class VisibilityTimeout {
             System.exit(1);
         }
     }
-    // snippet-end:[sqs.java2.visibility_timeout.main]
 }
+// snippet-end:[sqs.java2.visibility_timeout.main]
 

@@ -9,6 +9,7 @@
 // snippet-start:[sqs.java2.long_polling.complete]
 package com.example.sqs;
 
+// snippet-start:[sqs.java2.long_polling.main]
 // snippet-start:[sqs.java2.long_polling.import]
 import java.util.Date;
 import java.util.HashMap;
@@ -37,23 +38,17 @@ import software.amazon.awssdk.services.sqs.model.SqsException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class LongPolling {
-
     private static final String QueueName = "testQueue" + new Date().getTime();
-
     public static void main(String[] args) {
-
         SqsClient sqsClient = SqsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         setLongPoll(sqsClient) ;
         sqsClient.close();
     }
 
-    // snippet-start:[sqs.java2.long_polling.main]
     public static void setLongPoll( SqsClient sqsClient) {
-
         // Enable long polling when creating a queue.
         HashMap<QueueAttributeName, String> attributes = new HashMap<QueueAttributeName, String>();
         attributes.put(QueueAttributeName.RECEIVE_MESSAGE_WAIT_TIME_SECONDS, "20");
@@ -90,7 +85,6 @@ public class LongPolling {
             System.exit(1);
         }
     }
-    // snippet-end:[sqs.java2.long_polling.main]
 }
-
+// snippet-end:[sqs.java2.long_polling.main]
 // snippet-end:[sqs.java2.long_polling.complete]

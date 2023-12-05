@@ -8,8 +8,8 @@
 
 package com.example.sqs;
 
+// snippet-start:[sqs.java2.list_tags.main]
 // snippet-start:[sqs.java2.list_tags.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
@@ -27,14 +27,14 @@ import software.amazon.awssdk.services.sqs.model.SqsException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListQueueTags {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "    <queueName>\n\n" +
-            "Where:\n" +
-            "   queueName - The name of the queue.\n\n" ;
+            Usage:     <queueName>
+
+            Where:
+               queueName - The name of the queue.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,16 +44,13 @@ public class ListQueueTags {
         String queueName = args[0];
         SqsClient sqsClient = SqsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listTags(sqsClient, queueName);
         sqsClient.close();
     }
 
-    // snippet-start:[sqs.java2.list_tags.main]
     public static void listTags(SqsClient sqsClient, String queueName) {
-
         try {
             GetQueueUrlRequest urlRequest = GetQueueUrlRequest.builder()
                 .queueName(queueName)
@@ -67,12 +64,12 @@ public class ListQueueTags {
 
             ListQueueTagsResponse listQueueTagsResponse = sqsClient.listQueueTags(listQueueTagsRequest);
             System.out.println(String.format("ListQueueTags: \tTags for queue %s are %s.\n",
-                   queueName, listQueueTagsResponse.tags() ));
+                queueName, listQueueTagsResponse.tags()));
 
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[sqs.java2.list_tags.main]
 }
+// snippet-end:[sqs.java2.list_tags.main]
