@@ -69,16 +69,13 @@ public class RetrieveData {
     }
 
     public static void checkStatement(RedshiftDataClient redshiftDataClient,String sqlId ) {
-
         try {
             DescribeStatementRequest statementRequest = DescribeStatementRequest.builder()
                 .id(sqlId)
                 .build() ;
 
-            // Wait until the sql statement processing is finished.
             String status;
             while (true) {
-
                 DescribeStatementResponse response = redshiftDataClient.describeStatement(statementRequest);
                 status = response.statusAsString();
                 System.out.println("..."+status);

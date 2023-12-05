@@ -8,8 +8,8 @@
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.add_faces_collection.main]
 // snippet-start:[rekognition.java2.add_faces_collection.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
@@ -36,15 +36,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class AddFacesToCollection {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage: " +
-            "    <collectionId> <sourceImage>\n\n" +
-            "Where:\n" +
-            "    collectionName - The name of the collection.\n" +
-            "    sourceImage - The path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+        final String usage = """
+
+            Usage:     <collectionId> <sourceImage>
+
+            Where:
+                collectionName - The name of the collection.
+                sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
+
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -56,16 +58,13 @@ public class AddFacesToCollection {
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         addToCollection(rekClient, collectionId, sourceImage);
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.add_faces_collection.main]
     public static void addToCollection(RekognitionClient rekClient, String collectionId, String sourceImage) {
-
         try {
             InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
@@ -105,5 +104,5 @@ public class AddFacesToCollection {
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.add_faces_collection.main]
 }
+ // snippet-end:[rekognition.java2.add_faces_collection.main]

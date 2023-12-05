@@ -9,8 +9,8 @@
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.detect_mod_labels.main]
 // snippet-start:[rekognition.java2.detect_mod_labels.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
@@ -35,12 +35,14 @@ import java.util.List;
 public class DetectModerationLabels {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <sourceImage>\n\n" +
-            "Where:\n" +
-            "   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+            Usage:    <sourceImage>
+
+            Where:
+               sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
+
+            """;
 
         if (args.length < 1) {
             System.out.println(usage);
@@ -51,16 +53,13 @@ public class DetectModerationLabels {
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         detectModLabels(rekClient, sourceImage);
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.detect_mod_labels.main]
     public static void detectModLabels(RekognitionClient rekClient, String sourceImage) {
-
         try {
             InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
@@ -76,7 +75,6 @@ public class DetectModerationLabels {
             DetectModerationLabelsResponse moderationLabelsResponse = rekClient.detectModerationLabels(moderationLabelsRequest);
             List<ModerationLabel> labels = moderationLabelsResponse.moderationLabels();
             System.out.println("Detected labels for image");
-
             for (ModerationLabel label : labels) {
                 System.out.println("Label: " + label.name()
                     + "\n Confidence: " + label.confidence().toString() + "%"
@@ -88,5 +86,5 @@ public class DetectModerationLabels {
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.detect_mod_labels.main]
 }
+// snippet-end:[rekognition.java2.detect_mod_labels.main]

@@ -9,8 +9,8 @@
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.detect_labels.main]
 // snippet-start:[rekognition.java2.detect_labels.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
@@ -19,13 +19,9 @@ import software.amazon.awssdk.services.rekognition.model.DetectLabelsRequest;
 import software.amazon.awssdk.services.rekognition.model.DetectLabelsResponse;
 import software.amazon.awssdk.services.rekognition.model.Label;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 // snippet-end:[rekognition.java2.detect_labels.import]
 
@@ -36,35 +32,32 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-public class DetectLabels {
-
+public class  DetectLabels {
     public static void main(String[] args) {
+        final String usage = """
 
-       final String usage = "\n" +
-           "Usage: " +
-           "   <sourceImage>\n\n" +
-           "Where:\n" +
-           "   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+            Usage:    <sourceImage>
 
-       if (args.length != 1) {
+            Where:
+               sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
+            """;
+
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
-       }
+        }
 
-       String sourceImage = args[0] ;
-       Region region = Region.US_EAST_1;
-       RekognitionClient rekClient = RekognitionClient.builder()
-           .region(region)
-           .credentialsProvider(ProfileCredentialsProvider.create())
-           .build();
+        String sourceImage = args[0];
+        Region region = Region.US_EAST_1;
+        RekognitionClient rekClient = RekognitionClient.builder()
+            .region(region)
+            .build();
 
-       detectImageLabels(rekClient, sourceImage );
-       rekClient.close();
+        detectImageLabels(rekClient, sourceImage);
+        rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.detect_labels.main]
     public static void detectImageLabels(RekognitionClient rekClient, String sourceImage) {
-
         try {
             InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
@@ -82,7 +75,7 @@ public class DetectLabels {
             DetectLabelsResponse labelsResponse = rekClient.detectLabels(detectLabelsRequest);
             List<Label> labels = labelsResponse.labels();
             System.out.println("Detected labels for the given photo");
-            for (Label label: labels) {
+            for (Label label : labels) {
                 System.out.println(label.name() + ": " + label.confidence().toString());
             }
 
@@ -91,5 +84,5 @@ public class DetectLabels {
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.detect_labels.main]
 }
+// snippet-end:[rekognition.java2.detect_labels.main]

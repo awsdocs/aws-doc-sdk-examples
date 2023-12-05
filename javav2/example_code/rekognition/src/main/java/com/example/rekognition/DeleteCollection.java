@@ -9,8 +9,8 @@
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.delete_collection.main]
 // snippet-start:[rekognition.java2.delete_collection.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.DeleteCollectionRequest;
@@ -26,14 +26,14 @@ import software.amazon.awssdk.services.rekognition.model.RekognitionException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteCollection {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <collectionId> \n\n" +
-            "Where:\n" +
-            "   collectionId - The id of the collection to delete. \n\n";
+            Usage:    <collectionId>\s
+
+            Where:
+               collectionId - The id of the collection to delete.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,7 +44,6 @@ public class DeleteCollection {
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println("Deleting collection: " + collectionId);
@@ -52,9 +51,7 @@ public class DeleteCollection {
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.delete_collection.main]
-    public static void deleteMyCollection(RekognitionClient rekClient,String collectionId ) {
-
+    public static void deleteMyCollection(RekognitionClient rekClient, String collectionId) {
         try {
             DeleteCollectionRequest deleteCollectionRequest = DeleteCollectionRequest.builder()
                 .collectionId(collectionId)
@@ -63,11 +60,11 @@ public class DeleteCollection {
             DeleteCollectionResponse deleteCollectionResponse = rekClient.deleteCollection(deleteCollectionRequest);
             System.out.println(collectionId + ": " + deleteCollectionResponse.statusCode().toString());
 
-        } catch(RekognitionException e) {
+        } catch (RekognitionException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.delete_collection.main]
 }
+// snippet-end:[rekognition.java2.delete_collection.main]
 
