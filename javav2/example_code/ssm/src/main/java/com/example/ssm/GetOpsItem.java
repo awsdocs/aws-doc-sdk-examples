@@ -11,8 +11,8 @@
 // snippet-start:[ssm.Java2.get_ops.complete]
 package com.example.ssm;
 
+// snippet-start:[ssm.Java2.get_ops.main]
 // snippet-start:[ssm.Java2.get_ops.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.GetOpsItemResponse;
@@ -30,12 +30,14 @@ import software.amazon.awssdk.services.ssm.model.SsmException;
  */
 public class GetOpsItem {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <opsID>\n\n" +
-            "Where:\n" +
-            "    opsID - The Ops item ID value.\n";
+            Usage:
+                <opsID>
+
+            Where:
+                opsID - The Ops item ID value.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,22 +48,19 @@ public class GetOpsItem {
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getOpsItem(ssmClient, opsID );
         ssmClient.close();
     }
 
-    // snippet-start:[ssm.Java2.get_ops.main]
     public static void getOpsItem(SsmClient ssmClient, String opsID ) {
-
         try {
             GetOpsItemRequest opsRequest = GetOpsItemRequest.builder()
                 .opsItemId(opsID)
                 .build();
 
-            // Get SSM Parameters (you can define them in the AWS Management Console)
+            // Get SSM Parameters (you can define them in the AWS Management Console).
             GetOpsItemResponse opsItem = ssmClient.getOpsItem(opsRequest);
             OpsItem item = opsItem.opsItem();
 
@@ -74,7 +73,7 @@ public class GetOpsItem {
             System.exit(1);
         }
     }
-    // snippet-end:[ssm.Java2.get_ops.main]
 }
+// snippet-end:[ssm.Java2.get_ops.main]
 // snippet-end:[ssm.Java2.get_ops.complete]
 
