@@ -37,7 +37,6 @@ public class DescribeRegionsAndZones {
         describeEC2RegionsAndZones(ec2);
         ec2.close();
     }
-
     public static void describeEC2RegionsAndZones( Ec2Client ec2) {
         // snippet-start:[ec2.java2.describe_region_and_zones.region]
         try {

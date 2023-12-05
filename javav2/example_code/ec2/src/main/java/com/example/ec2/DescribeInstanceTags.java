@@ -35,7 +35,6 @@ public class DescribeInstanceTags {
 
             Where:
                resourceId - The instance ID value that you can obtain from the AWS Management Console (for example, i-xxxxxx0913e05f482).\s
-
             """;
 
         if (args.length != 1) {

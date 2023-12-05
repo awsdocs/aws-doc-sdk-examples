@@ -17,7 +17,6 @@ import software.amazon.awssdk.services.elasticbeanstalk.model.ElasticBeanstalkEx
 import software.amazon.awssdk.services.elasticbeanstalk.model.DeleteApplicationRequest;
 //snippet-end:[eb.java2.delete_app.import]
 
-
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
  *

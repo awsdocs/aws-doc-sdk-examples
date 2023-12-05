@@ -45,7 +45,6 @@ public class CustomEmrfsMaterials {
                keys - The name of the Amazon EC2 key pair.\s
                logUri - The Amazon S3 bucket where the logs are located (for example,  s3://<BucketName>/logs/).\s
                name - The name of the job flow.\s
-
             """;
 
         if (args.length != 5) {
@@ -53,33 +52,33 @@ public class CustomEmrfsMaterials {
             System.exit(1);
         }
 
-        String jar = args[0] ;
-        String myClass = args[1] ;
-        String keys = args[2] ;
-        String logUri = args[3] ;
-        String name = args[4] ;
+        String jar = args[0];
+        String myClass = args[1];
+        String keys = args[2];
+        String logUri = args[3];
+        String name = args[4];
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
             .region(region)
             .build();
 
         String jobFlowId = createEmrfsCluster(emrClient, jar, myClass, keys, logUri, name);
-        System.out.println("The job flow id is " +jobFlowId);
+        System.out.println("The job flow id is " + jobFlowId);
     }
 
-    public static String createEmrfsCluster( EmrClient emrClient,
-                                        String jar,
-                                        String myClass,
-                                        String keys,
-                                        String logUri,
-                                        String name){
+    public static String createEmrfsCluster(EmrClient emrClient,
+                                            String jar,
+                                            String myClass,
+                                            String keys,
+                                            String logUri,
+                                            String name) {
 
         try {
-            Map<String,String> emrfsProperties = new HashMap<>() ;
-            emrfsProperties.put("fs.s3.cse.encryptionMaterialsProvider.uri","s3://emrscott/MyCustomEncryptionMaterialsProvider.jar");
-            emrfsProperties.put("fs.s3.cse.enabled","true");
-            emrfsProperties.put("fs.s3.consistent","true");
-            emrfsProperties.put("fs.s3.cse.encryptionMaterialsProvider","full.class.name.of.EncryptionMaterialsProvider");
+            Map<String, String> emrfsProperties = new HashMap<>();
+            emrfsProperties.put("fs.s3.cse.encryptionMaterialsProvider.uri", "s3://emrscott/MyCustomEncryptionMaterialsProvider.jar");
+            emrfsProperties.put("fs.s3.cse.enabled", "true");
+            emrfsProperties.put("fs.s3.consistent", "true");
+            emrfsProperties.put("fs.s3.cse.encryptionMaterialsProvider", "full.class.name.of.EncryptionMaterialsProvider");
 
 
             Configuration configuration = Configuration.builder()
@@ -126,13 +125,13 @@ public class CustomEmrfsMaterials {
             RunJobFlowResponse response = emrClient.runJobFlow(jobFlowRequest);
             return response.jobFlowId();
 
-        } catch(EmrException e){
+        } catch (EmrException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
 
         return "";
     }
-    // snippet-end:[emr.java2.emrfs.main]
 }
+// snippet-end:[emr.java2.emrfs.main]
 

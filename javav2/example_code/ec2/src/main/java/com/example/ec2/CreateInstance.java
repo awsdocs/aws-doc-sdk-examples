@@ -42,7 +42,6 @@ public class CreateInstance {
             Where:
                name - An instance name value that you can obtain from the AWS Console (for example, ami-xxxxxx5c8b987b1a0).\s
                amiId - An Amazon Machine Image (AMI) value that you can obtain from the AWS Console (for example, i-xxxxxx2734106d0ab).\s
-
             """;
 
         if (args.length != 2) {

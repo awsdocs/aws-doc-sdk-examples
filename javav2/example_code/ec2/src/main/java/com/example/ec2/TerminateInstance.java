@@ -35,7 +35,6 @@ public class TerminateInstance {
 
             Where:
                instanceId - An instance id value that you can obtain from the AWS Console.\s
-
             """;
 
         if (args.length != 1) {

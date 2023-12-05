@@ -40,7 +40,6 @@ public class DescribeInstances {
         describeEC2Instances(ec2);
         ec2.close();
     }
-
     public static void describeEC2Instances(Ec2Client ec2) {
         String nextToken = null;
         try {

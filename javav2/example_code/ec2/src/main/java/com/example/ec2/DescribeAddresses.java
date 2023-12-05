@@ -34,7 +34,6 @@ public class DescribeAddresses {
         describeEC2Address(ec2);
         ec2.close();
     }
-
     public static void describeEC2Address(Ec2Client ec2) {
         try {
             DescribeAddressesResponse response = ec2.describeAddresses();

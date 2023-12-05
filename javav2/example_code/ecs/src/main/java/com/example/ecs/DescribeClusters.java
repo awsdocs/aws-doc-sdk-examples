@@ -29,7 +29,6 @@ import java.util.List;
  */
 public class DescribeClusters {
     public static void main(String[] args) {
-
         final String usage = """
 
             Usage:

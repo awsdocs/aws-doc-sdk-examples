@@ -33,7 +33,6 @@ public class CreateKeyPair {
 
             Where:
                keyName - A key pair name (for example, TestKeyPair).\s
-
             """;
 
         if (args.length != 1) {

@@ -44,7 +44,6 @@ public class CreateCluster {
                keys - The name of the Amazon EC2 key pair.\s
                logUri - The Amazon S3 bucket where the logs are located (for example,  s3://<BucketName>/logs/).\s
                name - The name of the job flow.\s
-
             """;
 
         if (args.length != 5) {

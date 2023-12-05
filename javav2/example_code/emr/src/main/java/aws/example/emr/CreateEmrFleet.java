@@ -47,7 +47,6 @@ public class CreateEmrFleet {
     }
 
     public static void createFleet(EmrClient emr) {
-
         try {
             InstanceTypeConfig m3xLarge = InstanceTypeConfig.builder()
                 .bidPriceAsPercentageOfOnDemandPrice(100.0)

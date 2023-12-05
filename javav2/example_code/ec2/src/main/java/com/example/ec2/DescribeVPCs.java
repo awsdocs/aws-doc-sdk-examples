@@ -33,7 +33,6 @@ public class DescribeVPCs {
 
             Where:
                vpcId - A  VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f).\s
-
             """;
 
         if (args.length != 1) {

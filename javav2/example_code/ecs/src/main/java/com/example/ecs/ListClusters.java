@@ -35,7 +35,6 @@ public class ListClusters {
         listAllClusters(ecsClient);
         ecsClient.close();
     }
-
     public static void listAllClusters(EcsClient ecsClient) {
         try {
             ListClustersResponse response = ecsClient.listClusters();

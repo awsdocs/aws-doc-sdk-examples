@@ -18,7 +18,6 @@ import software.amazon.awssdk.services.emr.model.DescribeClusterResponse;
 import software.amazon.awssdk.services.emr.model.EmrException;
 // snippet-end:[emr.java2.describe_cluster.import]
 
-
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
@@ -34,7 +33,6 @@ public class DescribeCluster {
 
             Where:
                clusterId - The identifier of the cluster to describe.\s
-
             """;
 
         if (args.length != 1) {

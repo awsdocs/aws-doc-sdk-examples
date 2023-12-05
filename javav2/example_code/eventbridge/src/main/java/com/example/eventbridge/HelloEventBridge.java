@@ -38,7 +38,6 @@ public class HelloEventBridge {
         listBuses(eventBrClient);
         eventBrClient.close();
     }
-
     public static void listBuses(EventBridgeClient eventBrClient) {
         try {
             ListEventBusesRequest busesRequest = ListEventBusesRequest.builder()
