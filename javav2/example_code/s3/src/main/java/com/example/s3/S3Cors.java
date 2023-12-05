@@ -9,8 +9,8 @@
 
 package com.example.s3;
 
+// snippet-start:[s3.java2.cors.main]
 // snippet-start:[s3.java2.cors.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import java.util.ArrayList;
@@ -31,17 +31,17 @@ import software.amazon.awssdk.services.s3.model.PutBucketCorsRequest;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class S3Cors {
+    public static void main(String[] args) {
+        final String usage = """
 
-    public static void main (String[] args) {
+            Usage:
+                <bucketName> <accountId>\s
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <bucketName> <accountId> \n\n" +
-            "Where:\n" +
-            "    bucketName - The Amazon S3 bucket to upload an object into.\n" +
-            "    accountId - The id of the account that owns the Amazon S3 bucket.\n" ;
+            Where:
+                bucketName - The Amazon S3 bucket to upload an object into.
+                accountId - The id of the account that owns the Amazon S3 bucket.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -50,20 +50,17 @@ public class S3Cors {
 
         String bucketName = args[0];
         String accountId = args[1];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
-       setCorsInformation(s3, bucketName, accountId);
-       getBucketCorsInformation(s3, bucketName, accountId);
-       deleteBucketCorsInformation(s3, bucketName, accountId);
-       s3.close();
+        setCorsInformation(s3, bucketName, accountId);
+        getBucketCorsInformation(s3, bucketName, accountId);
+        deleteBucketCorsInformation(s3, bucketName, accountId);
+        s3.close();
     }
 
-    // snippet-start:[s3.java2.cors.main]
     public static void deleteBucketCorsInformation(S3Client s3, String bucketName, String accountId) {
         try {
             DeleteBucketCorsRequest bucketCorsRequest = DeleteBucketCorsRequest.builder()
@@ -71,7 +68,7 @@ public class S3Cors {
                 .expectedBucketOwner(accountId)
                 .build();
 
-            s3.deleteBucketCors(bucketCorsRequest) ;
+            s3.deleteBucketCors(bucketCorsRequest);
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -80,7 +77,6 @@ public class S3Cors {
     }
 
     public static void getBucketCorsInformation(S3Client s3, String bucketName, String accountId) {
-
         try {
             GetBucketCorsRequest bucketCorsRequest = GetBucketCorsRequest.builder()
                 .bucket(bucketName)
@@ -89,9 +85,9 @@ public class S3Cors {
 
             GetBucketCorsResponse corsResponse = s3.getBucketCors(bucketCorsRequest);
             List<CORSRule> corsRules = corsResponse.corsRules();
-            for (CORSRule rule: corsRules) {
-                System.out.println("allowOrigins: "+rule.allowedOrigins());
-                System.out.println("AllowedMethod: "+rule.allowedMethods());
+            for (CORSRule rule : corsRules) {
+                System.out.println("allowOrigins: " + rule.allowedOrigins());
+                System.out.println("AllowedMethod: " + rule.allowedMethods());
             }
 
         } catch (S3Exception e) {
@@ -102,7 +98,6 @@ public class S3Cors {
     }
 
     public static void setCorsInformation(S3Client s3, String bucketName, String accountId) {
-
         List<String> allowMethods = new ArrayList<>();
         allowMethods.add("PUT");
         allowMethods.add("POST");
@@ -136,5 +131,5 @@ public class S3Cors {
             System.exit(1);
         }
     }
-    // snippet-end:[s3.java2.cors.main]
 }
+// snippet-end:[s3.java2.cors.main]

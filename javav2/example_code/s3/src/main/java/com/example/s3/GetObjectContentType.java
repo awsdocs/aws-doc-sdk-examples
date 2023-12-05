@@ -10,8 +10,8 @@
 
 package com.example.s3;
 
+// snippet-start:[s3.java2.getobjectcontenttype.main]
 // snippet-start:[s3.java2.getobjectcontenttype.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
@@ -26,17 +26,17 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class GetObjectContentType {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <bucketName> <keyName>>\n\n" +
-            "Where:\n" +
-            "    bucketName - The Amazon S3 bucket name. \n\n"+
-            "    keyName - The key name. \n\n";
+            Usage:
+                <bucketName> <keyName>>
+
+            Where:
+                bucketName - The Amazon S3 bucket name.\s
+                keyName - The key name.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,20 +45,16 @@ public class GetObjectContentType {
 
         String bucketName = args[0];
         String keyName = args[1];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
-        getContentType(s3,bucketName,keyName);
+        getContentType(s3, bucketName, keyName);
         s3.close();
     }
 
-    // snippet-start:[s3.java2.getobjectcontenttype.main]
-    public static void getContentType (S3Client s3, String bucketName, String keyName) {
-
+    public static void getContentType(S3Client s3, String bucketName, String keyName) {
         try {
             HeadObjectRequest objectRequest = HeadObjectRequest.builder()
                 .key(keyName)
@@ -67,12 +63,12 @@ public class GetObjectContentType {
 
             HeadObjectResponse objectHead = s3.headObject(objectRequest);
             String type = objectHead.contentType();
-            System.out.println("The object content type is "+type);
+            System.out.println("The object content type is " + type);
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[s3.java2.getobjectcontenttype.main]
 }
+// snippet-end:[s3.java2.getobjectcontenttype.main]

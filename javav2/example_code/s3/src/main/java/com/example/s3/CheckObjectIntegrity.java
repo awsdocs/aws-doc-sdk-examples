@@ -7,6 +7,7 @@
 */
 package com.example.s3;
 
+// snippet-start:[s3.java2.s3_object_check_integrity.main]
 // snippet-start:[s3.java2.s3_object_check_integrity.import]
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -50,79 +51,81 @@ import java.util.List;
  */
 
 public class CheckObjectIntegrity {
-        private final static int CHUNK_SIZE = 5 * 1024 * 1024;
+    private final static int CHUNK_SIZE = 5 * 1024 * 1024;
+    public static void main(String[] args) {
+        final String USAGE = """
+            Usage:
+                <bucketName> <objectKey> <objectPath>\s
 
-        public static void main(String[] args) {
-                final String USAGE = "\n" +
-                        "Usage:\n" +
-                        "  <bucketName> <objectKey> <objectPath> \n\n" +
-                        "Where:\n" +
-                        "  bucketName - the Amazon S3 bucket to upload an object into.\n" +
-                        "  objectKey - the object to upload (for example, book.pdf).\n" +
-                        "  objectPath - the path where the file is located (for example, C:/AWS/book2.pdf). \n\n";
+            Where:
+                bucketName - the Amazon S3 bucket to upload an object into.
+                objectKey - the object to upload (for example, book.pdf).
+                objectPath - the path where the file is located (for example, C:/AWS/book2.pdf).\s
+            """;
 
-                if (args.length != 3) {
-                        System.out.println(USAGE);
-                        System.exit(1);
-                }
-
-                String bucketName = args[0];
-                String objectKey = args[1];
-                String objectPath = args[2];
-
-                System.out.println("Putting object " + objectKey + " into bucket " + bucketName + " with checksum in algorithm sha256.");
-                System.out.println("  in bucket: " + bucketName);
-
-                Region region = Region.US_EAST_1;
-                S3Client s3 = S3Client.builder()
-                        .region(region)
-                        .build();
-
-                putS3MultipartObjectBracketedByChecksum(s3, bucketName, objectKey, objectPath);
-                downloadS3MultipartObjectBracketedByChecksum(s3, bucketName, objectKey);
-                validateExistingFileAgainstS3Checksum(s3, bucketName, objectKey, objectPath);
+        if (args.length != 3) {
+            System.out.println(USAGE);
+            System.exit(1);
         }
 
-        // snippet-start:[s3.java2.s3_object_check_integrity.main]
-        public static void putS3MultipartObjectBracketedByChecksum(S3Client s3, String bucketName, String objectKey, String objectPath) {
-                System.out.println("Starting uploading file with additional checksum.");
-                File file = new File(objectPath);
-                try (InputStream in = new FileInputStream(file)) {
+        String bucketName = args[0];
+        String objectKey = args[1];
+        String objectPath = args[2];
+        System.out.println("Putting object " + objectKey + " into bucket " + bucketName + " with checksum in algorithm sha256.");
+        System.out.println("  in bucket: " + bucketName);
 
-                        CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
+        Region region = Region.US_EAST_1;
+        S3Client s3 = S3Client.builder()
+            .region(region)
+            .build();
+
+        putS3MultipartObjectBracketedByChecksum(s3, bucketName, objectKey, objectPath);
+        downloadS3MultipartObjectBracketedByChecksum(s3, bucketName, objectKey);
+        validateExistingFileAgainstS3Checksum(s3, bucketName, objectKey, objectPath);
+    }
+
+    public static void putS3MultipartObjectBracketedByChecksum(S3Client s3, String bucketName, String objectKey, String objectPath) {
+        System.out.println("Starting uploading file with additional checksum.");
+        File file = new File(objectPath);
+        try (InputStream in = new FileInputStream(file)) {
+            CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
+                .bucket(bucketName)
+                .key(objectKey)
+                .checksumAlgorithm(ChecksumAlgorithm.SHA256)
+                .build();
+
+            CreateMultipartUploadResponse createdUpload = s3.createMultipartUpload(createMultipartUploadRequest);
+            List<CompletedPart> completedParts = new ArrayList<>();
+            int partNumber = 1;
+            byte[] buffer = new byte[CHUNK_SIZE];
+            int read = in.read(buffer);
+
+            while (read != -1) {
+                UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
+                    .partNumber(partNumber)
+                    .uploadId(createdUpload.uploadId())
+                    .bucket(bucketName)
+                    .key(objectKey)
+                    .checksumAlgorithm(ChecksumAlgorithm.SHA256)
+                    .build();
+
+                UploadPartResponse uploadedPart = s3.uploadPart(uploadPartRequest, RequestBody.fromByteBuffer(ByteBuffer.wrap(buffer, 0, read)));
+                CompletedPart part = CompletedPart.builder()
+                    .partNumber(partNumber)
+                    .checksumSHA256(uploadedPart.checksumSHA256())
+                    .eTag(uploadedPart.eTag()).build();
+                          completedParts.add(part);
+                            read = in.read(buffer);
+                           partNumber++;
+                    }
+
+                CompletedMultipartUpload completedMultipartUpload = CompletedMultipartUpload.builder().parts(completedParts).build();
+                        CompleteMultipartUploadResponse completedUploadResponse = s3.completeMultipartUpload(
+                            CompleteMultipartUploadRequest.builder()
                                 .bucket(bucketName)
                                 .key(objectKey)
-                                .checksumAlgorithm(ChecksumAlgorithm.SHA256)
-                                .build();
-                        CreateMultipartUploadResponse createdUpload = s3.createMultipartUpload(createMultipartUploadRequest);
-                        List<CompletedPart> completedParts = new ArrayList<CompletedPart>();
-                        int partNumber = 1;
-                        byte[] buffer = new byte[CHUNK_SIZE];
-                        int read = in.read(buffer);
-                        while (read != -1) {
-                                UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
-                                        .partNumber(partNumber)
-                                        .uploadId(createdUpload.uploadId())
-                                        .bucket(bucketName)
-                                        .key(objectKey)
-                                        .checksumAlgorithm(ChecksumAlgorithm.SHA256).build();
-                                UploadPartResponse uploadedPart = s3.uploadPart(uploadPartRequest, RequestBody.fromByteBuffer(ByteBuffer.wrap(buffer, 0, read)));
-                                CompletedPart part = CompletedPart.builder().
-                                        partNumber(partNumber)
-                                        .checksumSHA256(uploadedPart.checksumSHA256())
-                                        .eTag(uploadedPart.eTag()).build();
-                                completedParts.add(part);
-                                read = in.read(buffer);
-                                partNumber++;
-                        }
-
-                        CompletedMultipartUpload completedMultipartUpload = CompletedMultipartUpload.builder().parts(completedParts).build();
-                        CompleteMultipartUploadResponse completedUploadResponse = s3.completeMultipartUpload(
-                                CompleteMultipartUploadRequest.builder()
-                                        .bucket(bucketName)
-                                        .key(objectKey)
-                                        .uploadId(createdUpload.uploadId())
-                                        .multipartUpload(completedMultipartUpload).build());
+                                .uploadId(createdUpload.uploadId())
+                                .multipartUpload(completedMultipartUpload).build());
 
                 } catch (IOException e) {
                         e.printStackTrace();
@@ -134,8 +137,8 @@ public class CheckObjectIntegrity {
                 File file = new File("DOWNLOADED_" + objectKey);
                 try (OutputStream out = new FileOutputStream(file)) {
                         GetObjectAttributesResponse
-                                objectAttributes = s3.getObjectAttributes(GetObjectAttributesRequest.builder().bucket(bucketName).key(objectKey)
-                                .objectAttributes(ObjectAttributes.OBJECT_PARTS, ObjectAttributes.CHECKSUM).build());
+                            objectAttributes = s3.getObjectAttributes(GetObjectAttributesRequest.builder().bucket(bucketName).key(objectKey)
+                            .objectAttributes(ObjectAttributes.OBJECT_PARTS, ObjectAttributes.CHECKSUM).build());
                         //Initialize the digester to calculate checksum of checksums.
                         MessageDigest sha256ChecksumOfChecksums = MessageDigest.getInstance("SHA-256");
 
@@ -143,10 +146,10 @@ public class CheckObjectIntegrity {
                         for (int partNumber = 1; partNumber <= objectAttributes.objectParts().totalPartsCount(); partNumber++) {
                                 MessageDigest sha256PartChecksum = MessageDigest.getInstance("SHA-256");
                                 ResponseInputStream<GetObjectResponse> response = s3.getObject(GetObjectRequest.builder()
-                                        .bucket(bucketName)
-                                        .key(objectKey)
-                                        .partNumber(partNumber)
-                                        .checksumMode(ChecksumMode.ENABLED).build());
+                                    .bucket(bucketName)
+                                    .key(objectKey)
+                                    .partNumber(partNumber)
+                                    .checksumMode(ChecksumMode.ENABLED).build());
                                 GetObjectResponse getObjectResponse = response.response();
                                 byte[] buffer = new byte[CHUNK_SIZE];
                                 int read = response.read(buffer);
@@ -185,14 +188,14 @@ public class CheckObjectIntegrity {
                 System.out.println("Starting validating the locally persisted file.");
                 File file = new File(objectPath);
                 GetObjectAttributesResponse
-                        objectAttributes = s3.getObjectAttributes(GetObjectAttributesRequest.builder().bucket(bucketName).key(objectKey)
-                        .objectAttributes(ObjectAttributes.OBJECT_PARTS, ObjectAttributes.CHECKSUM).build());
+                    objectAttributes = s3.getObjectAttributes(GetObjectAttributesRequest.builder().bucket(bucketName).key(objectKey)
+                    .objectAttributes(ObjectAttributes.OBJECT_PARTS, ObjectAttributes.CHECKSUM).build());
                 try (InputStream in = new FileInputStream(file)) {
                         MessageDigest sha256ChecksumOfChecksums = MessageDigest.getInstance("SHA-256");
                         MessageDigest sha256Part = MessageDigest.getInstance("SHA-256");
                         byte[] buffer = new byte[CHUNK_SIZE];
                         int currentPart = 0;
-                        int partBreak = objectAttributes.objectParts().parts().get(currentPart).size();
+                        int partBreak = Math.toIntExact(objectAttributes.objectParts().parts().get(currentPart).size());
                         int totalRead = 0;
                         int read = in.read(buffer);
                         while (read != -1) {
@@ -245,5 +248,5 @@ public class CheckObjectIntegrity {
                         e.printStackTrace();
                 }
         }
-        // snippet-end:[s3.java2.s3_object_check_integrity.main]
 }
+// snippet-end:[s3.java2.s3_object_check_integrity.main]

@@ -10,8 +10,6 @@
 package com.example.s3.async;
 // snippet-start:[s3.java2.async_ops.complete]
 // snippet-start:[s3.java2.async_ops.import]
-
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -31,16 +29,18 @@ import java.util.concurrent.CompletableFuture;
  */
 
 public class S3AsyncOps {
-
      public static void main(String[] args) {
 
-         final String usage = "\n" +
-                 "Usage:\n" +
-                 "    <bucketName> <key> <path>\n\n" +
-                 "Where:\n" +
-                 "    bucketName - The name of the Amazon S3 bucket (for example, bucket1). \n\n" +
-                 "    key - The name of the object (for example, book.pdf). \n" +
-                 "    path - The local path to the file (for example, C:/AWS/book.pdf). \n";
+         final String usage = """
+
+             Usage:
+                 <bucketName> <key> <path>
+
+             Where:
+                 bucketName - The name of the Amazon S3 bucket (for example, bucket1).\s
+                 key - The name of the object (for example, book.pdf).\s
+                 path - The local path to the file (for example, C:/AWS/book.pdf).\s
+             """;
 
          if (args.length != 3) {
              System.out.println(usage);
@@ -50,19 +50,15 @@ public class S3AsyncOps {
          String bucketName = args[0];
          String key = args[1];
          String path = args[2];
-
-         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
          Region region = Region.US_EAST_1;
          S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
-                 .region(region)
-                 .credentialsProvider(credentialsProvider)
-                 .build();
+             .region(region)
+             .build();
 
          putObjectAsync(s3AsyncClient, bucketName, key, path);
      }
 
      public static void putObjectAsync(S3AsyncClient client,String bucketName, String key, String path) {
-
         PutObjectRequest objectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(key)

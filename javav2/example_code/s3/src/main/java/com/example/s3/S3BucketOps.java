@@ -8,8 +8,8 @@
 
 package com.example.s3;
 
+// snippet-start:[s3.java2.s3_bucket_ops.create_bucket]
 // snippet-start:[s3.java2.s3_bucket_ops.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -31,17 +31,12 @@ import software.amazon.awssdk.services.s3.waiters.S3Waiter;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class S3BucketOps {
-
     public static void main(String[] args) {
-
         // snippet-start:[s3.java2.s3_bucket_ops.region]
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         // snippet-end:[s3.java2.s3_bucket_ops.region]
@@ -51,10 +46,8 @@ public class S3BucketOps {
         performOperations(s3, bucket) ;
         }
 
-    // snippet-start:[s3.java2.s3_bucket_ops.create_bucket]
     // Create a bucket by using a S3Waiter object
     public static void createBucket( S3Client s3Client, String bucketName) {
-
         try {
             S3Waiter s3Waiter = s3Client.waiter();
             CreateBucketRequest bucketRequest = CreateBucketRequest.builder()
@@ -79,7 +72,6 @@ public class S3BucketOps {
     // snippet-end:[s3.java2.s3_bucket_ops.create_bucket]
 
     public static void performOperations(S3Client s3, String bucket) {
-
         // snippet-start:[s3.java2.s3_bucket_ops.list_bucket]
         // List buckets
         ListBucketsRequest listBucketsRequest = ListBucketsRequest.builder().build();
@@ -97,6 +89,6 @@ public class S3BucketOps {
         s3.close();
         // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket] 
     }
-    // snippet-end:[s3.java2.s3_bucket_ops.main]
 }
+// snippet-end:[s3.java2.s3_bucket_ops.main]
 

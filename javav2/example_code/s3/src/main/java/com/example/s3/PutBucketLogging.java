@@ -7,8 +7,8 @@
 */
 package com.example.s3;
 
+// snippet-start:[s3.java2.s3_put_log.main]
 // snippet-start:[s3.java2.s3_put_log.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetBucketAclRequest;
@@ -32,37 +32,34 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class PutBucketLogging {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <bucketName> <targetBucket>  \n\n" +
-            "Where:\n" +
-            "  bucketName - The Amazon S3 bucket to upload an object into.\n" +
-            "  targetBucket - The target bucket .\n" ;
+            Usage:
+              <bucketName> <targetBucket> \s
+
+            Where:
+              bucketName - The Amazon S3 bucket to upload an object into.
+              targetBucket - The target bucket .
+            """;
 
         if (args.length != 3) {
-             System.out.println(usage);
-             System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String bucketName = args[0];
         String targetBucket = args[1];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         setlogRequest(s3, bucketName, targetBucket);
         s3.close();
     }
 
-    // snippet-start:[s3.java2.s3_put_log.main]
     public static void setlogRequest(S3Client s3, String bucketName, String targetBucket) {
-
         try {
             GetBucketAclRequest aclRequest = GetBucketAclRequest.builder()
                 .bucket(targetBucket)
@@ -105,5 +102,5 @@ public class PutBucketLogging {
             System.exit(1);
         }
     }
-    // snippet-end:[s3.java2.s3_put_log.main]
 }
+// snippet-end:[s3.java2.s3_put_log.main]

@@ -9,7 +9,6 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.s3_object_manage_tags.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -34,18 +33,18 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class ManagingObjectTags {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <bucketName> <objectKey> <objectPath> \n\n" +
-            "Where:\n" +
-            "  bucketName - The Amazon S3 bucket.\n" +
-            "  objectKey - The object that a tag is applied (for example, book.pdf).\n" +
-            "  objectPath - The path where the file is located (for example, C:/AWS/book2.pdf). \n\n" ;
+            Usage:
+              <bucketName> <objectKey> <objectPath>\s
+
+            Where:
+              bucketName - The Amazon S3 bucket.
+              objectKey - The object that a tag is applied (for example, book.pdf).
+              objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).\s
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -57,12 +56,9 @@ public class ManagingObjectTags {
         String objectPath = args[2];
         System.out.println("Putting object " + objectKey +" into bucket "+bucketName);
         System.out.println("  in bucket: " + bucketName);
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         putS3ObjectTags(s3, bucketName, objectKey, objectPath);
@@ -72,9 +68,7 @@ public class ManagingObjectTags {
 
     // snippet-start:[s3.java2.s3_object_manage_tags.main]
     public static void putS3ObjectTags(S3Client s3, String bucketName, String objectKey, String objectPath) {
-
         try {
-
             Tag tag1 = Tag.builder()
                 .key("Tag 1")
                 .value("This is tag 1")
@@ -108,7 +102,6 @@ public class ManagingObjectTags {
     }
 
     public static void updateObjectTags(S3Client s3, String bucketName, String objectKey) {
-
         try {
             GetObjectTaggingRequest taggingRequest = GetObjectTaggingRequest.builder()
                 .bucket(bucketName)
@@ -160,11 +153,9 @@ public class ManagingObjectTags {
             System.exit(1);
         }
     }
-    // snippet-end:[s3.java2.s3_object_manage_tags.main]
 
     // Return a byte array.
     private static byte[] getObjectFile(String filePath) {
-
         FileInputStream fileInputStream = null;
         byte[] bytesArray = null;
 
@@ -189,3 +180,4 @@ public class ManagingObjectTags {
         return bytesArray;
     }
 }
+// snippet-end:[s3.java2.s3_object_manage_tags.main]
