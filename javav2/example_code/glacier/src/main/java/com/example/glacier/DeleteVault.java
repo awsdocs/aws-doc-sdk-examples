@@ -32,7 +32,6 @@ public class DeleteVault {
 
             Where:
                vaultName - The name of the vault to delete.\s
-
             """;
 
         if (args.length != 1) {

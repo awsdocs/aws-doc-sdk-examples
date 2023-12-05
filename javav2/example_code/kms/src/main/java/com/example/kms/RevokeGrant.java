@@ -23,14 +23,16 @@ import software.amazon.awssdk.services.kms.model.RevokeGrantRequest;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class RevokeGrant {
-
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <keyId> <grantId> \n\n" +
-            "Where:\n" +
-            "    keyId - A unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" +
-            "    grantId - A grant id value of the grant revoke. \n\n";
+        final String usage = """
+
+            Usage:
+                <keyId> <grantId>\s
+
+            Where:
+                keyId - A unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).\s
+                grantId - A grant id value of the grant revoke.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);

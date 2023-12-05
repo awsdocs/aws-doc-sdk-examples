@@ -32,7 +32,6 @@ public class DescribeVault {
 
             Where:
                vaultName - The name of the vault to describe.
-
             """;
 
         if (args.length != 1) {

@@ -53,13 +53,11 @@ public class CreatePolicy {
     public static void main(String[] args) {
 
         final String usage = """
-
             Usage:
                 CreatePolicy <policyName>\s
 
             Where:
                 policyName - A unique policy name.\s
-
             """;
 
         if (args.length != 1) {

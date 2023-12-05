@@ -34,7 +34,6 @@ public class DeleteForecast {
 
             Where:
                 forecastArn - The ARN that belongs to the forecast to delete.\s
-
             """;
 
         if (args.length != 1) {

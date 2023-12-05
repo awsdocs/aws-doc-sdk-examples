@@ -37,7 +37,6 @@ public class CreateDataSet {
 
             Where:
                 name - The name of the data set.\s
-
             """;
 
         if (args.length != 1) {
@@ -55,7 +54,6 @@ public class CreateDataSet {
         System.out.println("The ARN of the new data set is " + myDataSetARN);
         forecast.close();
     }
-
     public static String createForecastDataSet(ForecastClient forecast, String name) {
         try {
             Schema schema = Schema.builder()

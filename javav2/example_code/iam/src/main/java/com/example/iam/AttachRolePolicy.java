@@ -38,7 +38,6 @@ public class AttachRolePolicy {
             Where:
                 roleName - A role name that you can obtain from the AWS Management Console.\s
                 policyArn - A policy ARN that you can obtain from the AWS Management Console.\s
-
             """;
 
         if (args.length != 2) {

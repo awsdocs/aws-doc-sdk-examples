@@ -28,7 +28,6 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListAliases {
-
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()

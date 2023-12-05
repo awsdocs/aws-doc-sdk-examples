@@ -51,7 +51,6 @@ public class DeleteFunction {
         deleteLambdaFunction(awsLambda, functionName);
         awsLambda.close();
     }
-
     public static void deleteLambdaFunction(LambdaClient awsLambda, String functionName) {
         try {
             DeleteFunctionRequest request = DeleteFunctionRequest.builder()

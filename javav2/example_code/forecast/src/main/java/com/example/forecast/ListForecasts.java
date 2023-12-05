@@ -38,7 +38,6 @@ public class ListForecasts {
         listAllForeCasts(forecast);
         forecast.close();
     }
-
     public static void listAllForeCasts(ForecastClient forecast) {
         try {
             ListForecastsRequest request = ListForecastsRequest.builder()

@@ -46,7 +46,6 @@ public class ArchiveDownload {
                vaultName - The name of the vault.
                accountId - The account ID value.
                path - The path where the file is written to.
-
             """;
 
         if (args.length != 3) {

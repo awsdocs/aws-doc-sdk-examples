@@ -34,7 +34,6 @@ public class DeleteDataset {
 
             Where:
                 datasetARN - The ARN of the data set to delete.\s
-
             """;
 
         if (args.length != 1) {

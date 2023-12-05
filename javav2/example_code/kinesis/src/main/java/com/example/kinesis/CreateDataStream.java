@@ -33,7 +33,6 @@ public class CreateDataStream {
 
             Where:
                 streamName - The Amazon Kinesis data stream (for example, StockTradeStream).
-
             """;
 
         if (args.length != 1) {

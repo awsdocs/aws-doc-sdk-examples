@@ -36,15 +36,12 @@ import java.io.FileReader;
 public class CreateRole {
     public static void main(String[] args) throws Exception {
         final String usage = """
-
             Usage:
                 <rolename> <fileLocation>\s
 
             Where:
                 rolename - The name of the role to create.\s
-
                 fileLocation - The location of the JSON document that represents the trust policy.\s
-
             """;
 
         if (args.length != 2) {

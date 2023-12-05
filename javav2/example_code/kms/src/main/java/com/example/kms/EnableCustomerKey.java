@@ -32,7 +32,6 @@ public class EnableCustomerKey {
 
             Where:
                 keyId - A key id value to enable (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).\s
-
             """;
 
         if (args.length != 1) {

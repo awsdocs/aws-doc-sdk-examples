@@ -31,7 +31,6 @@ public class RegisterStreamConsumer {
 
             Where:
                 streamARN - The Amazon Kinesis data stream (for example, arn:aws:kinesis:us-east-1:814548xxxxxx:stream/LamDataStream)
-
             """;
 
         if (args.length != 1) {

@@ -23,7 +23,6 @@ public class HelloGlue {
 
         listJobs(glueClient);
     }
-
     public static void listJobs(GlueClient glueClient) {
         ListJobsRequest request = ListJobsRequest.builder()
                 .maxResults(10)

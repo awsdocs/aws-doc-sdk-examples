@@ -12,7 +12,6 @@ package com.example.mediaconvert;
 // snippet-start:[mediaconvert.java.getendpointurl.complete]
 // snippet-start:[mediaconvert.java.getendpointurl.import]
 import java.util.Iterator;
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
 import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsRequest;
@@ -45,7 +44,6 @@ public class GetEndpointURL {
 
     // snippet-start:[mediaconvert.java.getendpointurl.retrieve_endpoints]
     public static void getEndpoint(MediaConvertClient mc) {
-
         try {
             DescribeEndpointsRequest request = DescribeEndpointsRequest.builder()
                 .maxResults(20)

@@ -25,7 +25,6 @@ import software.amazon.awssdk.services.glacier.model.GlacierException;
  */
 public class DeleteArchive {
     public static void main(String[] args) {
-
         final String usage = """
 
             Usage:    <vaultName> <accountId> <archiveId>
@@ -34,7 +33,6 @@ public class DeleteArchive {
                vaultName - The name of the vault that contains the archive to delete.
                accountId - The account ID value.
                archiveId - The archive ID value.
-
             """;
 
         if (args.length != 3) {

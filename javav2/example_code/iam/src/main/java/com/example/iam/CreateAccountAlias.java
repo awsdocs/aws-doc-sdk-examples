@@ -26,13 +26,11 @@ import software.amazon.awssdk.services.iam.model.IamException;
 public class CreateAccountAlias {
     public static void main(String[] args) {
         final String usage = """
-
             Usage:
                 <alias>\s
 
             Where:
                 alias - The account alias to create (for example, myawsaccount).\s
-
             """;
 
         if (args.length != 1) {

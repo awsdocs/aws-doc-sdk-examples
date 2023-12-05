@@ -28,7 +28,6 @@ import software.amazon.awssdk.services.kinesis.model.DescribeStreamResponse;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class StockTradesWriter {
-
     public static void main(String[] args) {
         final String usage = """
 
@@ -37,7 +36,6 @@ public class StockTradesWriter {
 
             Where:
                 streamName - The Amazon Kinesis data stream to which records are written (for example, StockTradeStream)
-
             """;
 
         if (args.length != 1) {

@@ -34,7 +34,6 @@ public class DescribeForecast {
 
             Where:
                 forecastarn - The arn of the forecast (for example, "arn:aws:forecast:us-west-2:xxxxx322:forecast/my_forecast)
-
             """;
 
         if (args.length != 1) {

@@ -44,7 +44,6 @@ public class DescribeSpecificCluster {
 
         checkIfAvailable(memoryDbClient, clusterName);
     }
-
     public static void checkIfAvailable(MemoryDbClient memoryDbClient, String clusterName) {
         try {
             String status;

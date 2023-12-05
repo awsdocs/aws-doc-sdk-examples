@@ -35,7 +35,6 @@ public class ListDeliveryStreams {
         listStreams(firehoseClient);
         firehoseClient.close();
     }
-
     public static void listStreams(FirehoseClient firehoseClient) {
         try {
             ListDeliveryStreamsResponse streamsResponse = firehoseClient.listDeliveryStreams();

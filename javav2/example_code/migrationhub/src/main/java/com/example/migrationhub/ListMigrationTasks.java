@@ -11,7 +11,6 @@ package com.example.migrationhub;
 
 // snippet-start:[migration.java2.list_migration_tasks.main]
 // snippet-start:[migration.java2.list_migration_tasks.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.migrationhub.MigrationHubClient;
 import software.amazon.awssdk.services.migrationhub.model.ListMigrationTasksRequest;
@@ -33,7 +32,6 @@ public class ListMigrationTasks {
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listMigrTasks(migrationClient);

@@ -37,7 +37,6 @@ public class CreateUser {
 
             Where:
                 username - The name of the user to create.\s
-
             """;
 
         if (args.length != 1) {
@@ -55,7 +54,6 @@ public class CreateUser {
         System.out.println("Successfully created user: " + result);
         iam.close();
     }
-
     public static String createIAMUser(IamClient iam, String username) {
         try {
             // Create an IamWaiter object.

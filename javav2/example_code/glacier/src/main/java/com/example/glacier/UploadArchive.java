@@ -43,7 +43,6 @@ public class UploadArchive {
             Where:
                strPath - The path to the archive to upload (for example, C:\\AWS\\test.pdf).
                vaultName - The name of the vault.
-
             """;
 
         if (args.length != 2) {

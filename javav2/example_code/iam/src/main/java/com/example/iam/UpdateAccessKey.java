@@ -27,7 +27,6 @@ import software.amazon.awssdk.services.iam.IamClient;
 public class UpdateAccessKey {
 
     private static StatusType statusType;
-
     public static void main(String[] args) {
         final String usage = """
 

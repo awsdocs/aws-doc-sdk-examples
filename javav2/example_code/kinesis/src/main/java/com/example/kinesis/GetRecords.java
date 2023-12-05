@@ -32,7 +32,6 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class GetRecords {
     public static void main(String[] args) {
         final String usage = """
@@ -42,7 +41,6 @@ public class GetRecords {
 
             Where:
                 streamName - The Amazon Kinesis data stream to read from (for example, StockTradeStream).
-
             """;
 
         if (args.length != 1) {

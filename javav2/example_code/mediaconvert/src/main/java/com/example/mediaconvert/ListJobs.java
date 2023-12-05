@@ -40,7 +40,6 @@ public class ListJobs {
         listCompleteJobs(mc);
         mc.close();
     }
-
     public static void listCompleteJobs(MediaConvertClient mc) {
         try {
             DescribeEndpointsResponse res = mc.describeEndpoints(DescribeEndpointsRequest.builder()

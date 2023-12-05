@@ -31,7 +31,6 @@ public class GetBotStatus {
 
             Where:
                botName - The name of an existing bot (for example, BookHotel).
-
             """;
 
         if (args.length != 1) {

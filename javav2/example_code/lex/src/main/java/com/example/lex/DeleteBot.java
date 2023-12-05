@@ -32,7 +32,6 @@ public class DeleteBot {
 
             Where:
                botName - The name of an existing bot to delete (for example, BookHotel).
-
             """;
 
         if (args.length != 1) {

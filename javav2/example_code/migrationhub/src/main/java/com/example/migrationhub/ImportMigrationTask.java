@@ -54,7 +54,6 @@ public class ImportMigrationTask {
     }
 
     public static void importMigrTask(MigrationHubClient migrationClient, String migrationTask, String progressStream) {
-
         try {
             CreateProgressUpdateStreamRequest progressUpdateStreamRequest = CreateProgressUpdateStreamRequest.builder()
                 .progressUpdateStreamName(progressStream)

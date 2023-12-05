@@ -34,7 +34,6 @@ public class AccessKeyLastUsed {
 
             Where:
                 accessId - An access key id that you can obtain from the AWS Management Console.\s
-
             """;
 
         if (args.length != 1) {

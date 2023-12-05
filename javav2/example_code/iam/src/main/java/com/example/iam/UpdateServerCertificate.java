@@ -50,7 +50,6 @@ public class UpdateServerCertificate {
         System.out.println("Done");
         iam.close();
     }
-
     public static void updateCertificate(IamClient iam, String curName, String newName) {
         try {
             UpdateServerCertificateRequest request = UpdateServerCertificateRequest.builder()
