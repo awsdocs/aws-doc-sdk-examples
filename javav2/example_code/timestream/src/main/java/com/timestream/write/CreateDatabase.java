@@ -9,8 +9,8 @@
 
 package com.timestream.write;
 
+//snippet-start:[timestream.java2.create_db.main]
 //snippet-start:[timestream.java2.create_db.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.timestreamwrite.TimestreamWriteClient;
 import software.amazon.awssdk.services.timestreamwrite.model.CreateDatabaseRequest;
@@ -26,14 +26,14 @@ import software.amazon.awssdk.services.timestreamwrite.model.TimestreamWriteExce
  */
 
 public class CreateDatabase {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <dbName> \n\n" +
-            "Where:\n" +
-            "   dbName - The name of the database.\n\n" ;
+            Usage:    <dbName>\s
+
+            Where:
+               dbName - The name of the database.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,16 +43,13 @@ public class CreateDatabase {
         String dbName = args[0];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createNewDatabase(timestreamWriteClient, dbName);
         timestreamWriteClient.close();
     }
 
-    //snippet-start:[timestream.java2.create_db.main]
-    public static void createNewDatabase( TimestreamWriteClient timestreamWriteClient, String dbName) {
-
+    public static void createNewDatabase(TimestreamWriteClient timestreamWriteClient, String dbName) {
         try {
             System.out.println("Creating database");
             CreateDatabaseRequest request = CreateDatabaseRequest.builder()
@@ -67,5 +64,5 @@ public class CreateDatabase {
             System.exit(1);
         }
     }
-    //snippet-end:[timestream.java2.create_db.main]
 }
+//snippet-end:[timestream.java2.create_db.main]

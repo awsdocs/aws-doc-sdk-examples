@@ -9,6 +9,7 @@
 
 package com.example.support;
 
+// snippet-start:[support.java2.hello.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.support.SupportClient;
 import software.amazon.awssdk.services.support.model.Category;
@@ -18,7 +19,7 @@ import software.amazon.awssdk.services.support.model.Service;
 import software.amazon.awssdk.services.support.model.SupportException;
 import java.util.ArrayList;
 import java.util.List;
-// snippet-start:[support.java2.hello.main]
+
 /**
  * Before running this Java (v2) code example, set up your development environment, including your credentials.
  *
@@ -39,7 +40,6 @@ import java.util.List;
  */
 
 public class HelloSupport {
-
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         SupportClient supportClient = SupportClient.builder()

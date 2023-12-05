@@ -9,8 +9,8 @@
 
 package com.timestream.write;
 
+//snippet-start:[timestream.java2.write_table.main]
 //snippet-start:[timestream.java2.write_table.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.timestreamwrite.TimestreamWriteClient;
 import software.amazon.awssdk.services.timestreamwrite.model.Dimension;
@@ -32,15 +32,15 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class WriteData {
-
     public static void main(String[] args){
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <dbName> <newTable>\n\n" +
-            "Where:\n" +
-            "   dbName - The name of the database.\n\n"+
-            "   newTable - The name of the table.\n\n";
+            Usage:    <dbName> <newTable>
+
+            Where:
+               dbName - The name of the database.
+               newTable - The name of the table.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -51,13 +51,11 @@ public class WriteData {
         String tableName =  args[1];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         writeRecords(timestreamWriteClient, dbName, tableName);
     }
 
-    //snippet-start:[timestream.java2.write_table.main]
     public static void writeRecords(TimestreamWriteClient timestreamWriteClient,  String dbName,  String tableName) {
 
         System.out.println("Writing records");

@@ -9,8 +9,8 @@
 
 package com.timestream.write;
 
+//snippet-start:[timestream.java2.listdatabases.main]
 //snippet-start:[timestream.java2.listdatabases.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.timestreamwrite.TimestreamWriteClient;
 import software.amazon.awssdk.services.timestreamwrite.model.Database;
@@ -30,20 +30,16 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListDatabases {
-
     public static void main(String[] args){
-
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllDatabases(timestreamWriteClient);
         timestreamWriteClient.close();
     }
-    //snippet-start:[timestream.java2.listdatabases.main]
-    public static void listAllDatabases(TimestreamWriteClient timestreamWriteClient) {
 
+    public static void listAllDatabases(TimestreamWriteClient timestreamWriteClient) {
         try {
             System.out.println("Listing databases:");
             ListDatabasesRequest request = ListDatabasesRequest.builder().maxResults(2).build();

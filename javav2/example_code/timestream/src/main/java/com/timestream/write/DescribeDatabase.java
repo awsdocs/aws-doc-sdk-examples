@@ -9,8 +9,8 @@
 
 package com.timestream.write;
 
+//snippet-start:[timestream.java2.desc_databases.main]
 //snippet-start:[timestream.java2.desc_databases.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.timestreamwrite.TimestreamWriteClient;
 import software.amazon.awssdk.services.timestreamwrite.model.Database;
@@ -28,14 +28,13 @@ import software.amazon.awssdk.services.timestreamwrite.model.TimestreamWriteExce
  */
 
 public class DescribeDatabase {
-
     public static void main(String[] args){
+        final String USAGE = """
+            Usage:    <dbName>
 
-        final String USAGE = "\n" +
-            "Usage: " +
-            "   <dbName>\n\n" +
-            "Where:\n" +
-            "   dbName - The name of the database.\n\n";
+            Where:
+               dbName - The name of the database.
+            """;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -45,16 +44,13 @@ public class DescribeDatabase {
         String dbName = args[0];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         DescribeSingleDatabases(timestreamWriteClient, dbName);
         timestreamWriteClient.close();
     }
 
-    //snippet-start:[timestream.java2.desc_databases.main]
     public static void DescribeSingleDatabases(TimestreamWriteClient timestreamWriteClient, String dbName) {
-
         System.out.println("Describing database");
         DescribeDatabaseRequest describeDatabaseRequest = DescribeDatabaseRequest.builder()
             .databaseName(dbName)
@@ -70,5 +66,5 @@ public class DescribeDatabase {
             System.exit(1);
         }
     }
-    //snippet-end:[timestream.java2.desc_databases.main]
 }
+//snippet-end:[timestream.java2.desc_databases.main]

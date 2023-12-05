@@ -4,7 +4,6 @@
 */
 import com.google.gson.Gson;
 import com.timestream.write.*;
-import com.timestream.query.*;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;

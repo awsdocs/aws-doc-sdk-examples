@@ -13,8 +13,6 @@ package com.example.helloswf;
 // snippet-start:[swf.java2.poll_tasks.import]
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.PollForActivityTaskRequest;
@@ -38,9 +36,7 @@ public class ActivityWorkerWithGracefulShutdown {
 
     private static CountDownLatch waitForTermination = new CountDownLatch(1);
     private static volatile boolean terminate = false;
-
     public static void main(String[] args) {
-
         final String USAGE = "\n" +
             "Usage:\n" +
             "    <domain> <taskList> \n\n" +
@@ -58,7 +54,6 @@ public class ActivityWorkerWithGracefulShutdown {
         Region region = Region.US_EAST_1;
         SwfClient swf = SwfClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
