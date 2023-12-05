@@ -9,8 +9,8 @@
 
 package com.example.sage;
 
+//snippet-start:[sagemaker.java2.transform_job.main]
 //snippet-start:[sagemaker.java2.transform_job.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import software.amazon.awssdk.services.sagemaker.model.TransformS3DataSource;
@@ -35,18 +35,18 @@ import software.amazon.awssdk.services.sagemaker.model.SageMakerException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateTransformJob {
-
     public static void main(String[] args) {
+        final String usage = """
 
+            Usage:
+                <s3Uri> <s3OutputPath> <modelName> <transformJobName>
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <s3Uri> <s3OutputPath> <modelName> <transformJobName>\n\n" +
-            "Where:\n" +
-            "    s3Uri - Identifies the key name of an Amazon S3 object that contains the data (ie, s3://mybucket/churn.txt).\n\n" +
-            "    s3OutputPath - The Amazon S3 location where the results are stored.\n\n" +
-            "    modelName - The name of the model.\n\n" +
-            "    transformJobName - The name of the transform job.\n\n";
+            Where:
+                s3Uri - Identifies the key name of an Amazon S3 object that contains the data (ie, s3://mybucket/churn.txt).
+                s3OutputPath - The Amazon S3 location where the results are stored.
+                modelName - The name of the model.
+                transformJobName - The name of the transform job.
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -57,21 +57,18 @@ public class CreateTransformJob {
         String s3OutputPath = args[1];
         String modelName = args[2];
         String transformJobName = args[3];
-
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         transformJob(sageMakerClient, s3Uri, s3OutputPath, modelName, transformJobName);
         sageMakerClient.close();
     }
 
-    //snippet-start:[sagemaker.java2.transform_job.main]
-    public static void transformJob(SageMakerClient sageMakerClient, String s3Uri, String s3OutputPath, String modelName, String transformJobName) {
 
-        try{
+    public static void transformJob(SageMakerClient sageMakerClient, String s3Uri, String s3OutputPath, String modelName, String transformJobName) {
+        try {
             TransformS3DataSource s3DataSource = TransformS3DataSource.builder()
                 .s3DataType("S3Prefix")
                 .s3Uri(s3Uri)
@@ -104,13 +101,13 @@ public class CreateTransformJob {
                 .transformResources(resources)
                 .build();
 
-            CreateTransformJobResponse jobResponse = sageMakerClient.createTransformJob(jobRequest) ;
-            System.out.println("Response "+jobResponse.transformJobArn());
+            CreateTransformJobResponse jobResponse = sageMakerClient.createTransformJob(jobRequest);
+            System.out.println("Response " + jobResponse.transformJobArn());
 
         } catch (SageMakerException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[sagemaker.java2.transform_job.main]
 }
+//snippet-end:[sagemaker.java2.transform_job.main]
