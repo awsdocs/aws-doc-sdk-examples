@@ -11,8 +11,8 @@
 // snippet-start:[ses.java2.sendmessage.complete]
 package com.example.ses;
 
+// snippet-start:[ses.java2.sendmessage.main]
 // snippet-start:[ses.java2.sendmessage.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.awscore.AwsRequestOverrideConfiguration;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
@@ -41,16 +41,17 @@ import javax.mail.internet.MimeMultipart;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class SendMessage {
-
     public static void main(String[] args) throws IOException {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <sender> <recipient> <subject> \n\n" +
-            "Where:\n" +
-            "    sender - An email address that represents the sender. \n"+
-            "    recipient -  An email address that represents the recipient. \n"+
-            "    subject - The  subject line. \n" ;
+            Usage:
+                <sender> <recipient> <subject>\s
+
+            Where:
+                sender - An email address that represents the sender.\s
+                recipient -  An email address that represents the recipient.\s
+                subject - The  subject line.\s
+            """;
 
        if (args.length != 3) {
            System.out.println(usage);
@@ -63,7 +64,6 @@ public class SendMessage {
         Region region = Region.US_EAST_1;
         SesClient client = SesClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         // The email body for non-HTML email clients.
@@ -83,7 +83,6 @@ public class SendMessage {
         }
     }
 
-    // snippet-start:[ses.java2.sendmessage.main]
     public static void send(SesClient client,
                             String sender,
                             String recipient,
@@ -145,7 +144,6 @@ public class SendMessage {
                 .build();
 
             AwsRequestOverrideConfiguration myConf = AwsRequestOverrideConfiguration.builder()
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build() ;
 
             SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
@@ -161,6 +159,6 @@ public class SendMessage {
             System.exit(1);
         }
     }
-    // snippet-end:[ses.java2.sendmessage.main]
 }
+// snippet-end:[ses.java2.sendmessage.main]
 // snippet-end:[ses.java2.sendmessage.complete]

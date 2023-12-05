@@ -10,8 +10,8 @@
 
 package com.example.ses;
 
+// snippet-start:[ses.java2.identities.main]
 // snippet-start:[ses.java2.identities.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.ses.model.ListIdentitiesResponse;
@@ -30,24 +30,20 @@ import java.util.List;
 public class ListIdentities {
 
     public static void main(String[] args) throws IOException {
-
         Region region = Region.US_WEST_2;
         SesClient client = SesClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listSESIdentities(client);
     }
 
-    // snippet-start:[ses.java2.identities.main]
     public static void listSESIdentities(SesClient client) {
-
         try {
             ListIdentitiesResponse identitiesResponse = client.listIdentities();
             List<String> identities = identitiesResponse.identities();
-            for (String identity: identities) {
-                System.out.println("The identity is "+identity);
+            for (String identity : identities) {
+                System.out.println("The identity is " + identity);
             }
 
         } catch (SesException e) {
@@ -55,5 +51,5 @@ public class ListIdentities {
             System.exit(1);
         }
     }
-    // snippet-end:[ses.java2.identities.main]
 }
+// snippet-end:[ses.java2.identities.main]

@@ -10,8 +10,8 @@
 
 package com.example.sesv2;
 
+// snippet-start:[ses.java2.sendmessage.template.sesv2.main]
 // snippet-start:[ses.java2.sendmessage.template.sesv2.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sesv2.model.Destination;
 import software.amazon.awssdk.services.sesv2.model.EmailContent;
@@ -34,16 +34,17 @@ import software.amazon.awssdk.services.sesv2.model.Template;
  */
 
 public class SendEmailTemplate {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <template> <sender> <recipient> \n\n" +
-            "Where:\n" +
-            "    template - The name of the email template." +
-            "    sender - An email address that represents the sender. \n"+
-            "    recipient - An email address that represents the recipient. \n" ;
+            Usage:
+                <template> <sender> <recipient>\s
+
+            Where:
+                template - The name of the email template.    
+                sender - An email address that represents the sender.\s
+                recipient - An email address that represents the recipient.\s
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -56,15 +57,12 @@ public class SendEmailTemplate {
         Region region = Region.US_EAST_1;
         SesV2Client sesv2Client = SesV2Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         send(sesv2Client, sender, recipient, templateName);
     }
 
-    // snippet-start:[ses.java2.sendmessage.template.sesv2.main]
-    public static void send(SesV2Client client, String sender, String recipient, String templateName){
-
+    public static void send(SesV2Client client, String sender, String recipient, String templateName) {
         Destination destination = Destination.builder()
             .toAddresses(recipient)
             .build();
@@ -76,9 +74,9 @@ public class SendEmailTemplate {
         Template myTemplate = Template.builder()
             .templateName(templateName)
             .templateData("{\n" +
-              "  \"name\": \"Jason\"\n," +
-              "  \"favoriteanimal\": \"Cat\"\n" +
-              "}")
+                "  \"name\": \"Jason\"\n," +
+                "  \"favoriteanimal\": \"Cat\"\n" +
+                "}")
             .build();
 
         EmailContent emailContent = EmailContent.builder()
@@ -101,5 +99,5 @@ public class SendEmailTemplate {
             System.exit(1);
         }
     }
-    // snippet-end:[ses.java2.sendmessage.template.sesv2.main]
 }
+// snippet-end:[ses.java2.sendmessage.template.sesv2.main]
