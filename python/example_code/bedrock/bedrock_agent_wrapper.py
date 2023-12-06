@@ -49,14 +49,33 @@ class BedrockAgentWrapper:
 
     # snippet-end:[python.example_code.bedrock.ListAgents]
 
+    # snippet-start:[python.example_code.bedrock.GetAgent]
+    def get_agent(self, agent_id):
+        """
+        Gets information about an agent.
+
+        :param agent_id: The unique identifier of the agent.
+        :return: The information about the requested agent.
+        """
+
+        try:
+            agent = self.client.get_agent(agentId=agent_id)
+        except ClientError as e:
+            logger.error(f'Error: Couldn\'t get agent {agent_id}. Here\'s why: {e}')
+            raise
+        else:
+            return agent
+
+    # snippet-end:[python.example_code.bedrock.GetAgent]
+
 # snippet-end:[python.example_code.bedrock.BedrockAgentWrapper.class]
 
 
 def usage_demo():
     """
     Shows how to use of Amazon Bedrock agents.
-    This demonstration gets the list of available agents and prints their
-    respective summaries.
+    This demonstration gets the list of available agents, retrieves their
+    respective details, and prints them to the console.
     """
     logging.basicConfig(level=logging.INFO)
     print("-" * 88)
