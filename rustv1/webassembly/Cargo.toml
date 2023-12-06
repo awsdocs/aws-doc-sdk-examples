@@ -10,9 +10,9 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-aws-config = "1.0.1"
+aws-config = { version = "1.0.1", default-features = false }
 aws-credential-types = { features = ["hardcoded-credentials"],  version = "1.0.1"}
-aws-sdk-lambda = "1.2.0"
+aws-sdk-lambda = { version = "1.2.0", default-features = false }
 aws-smithy-async = "1.0.1"
 aws-smithy-runtime-api = "1.0.1"
 aws-smithy-types = "1.0.1"
