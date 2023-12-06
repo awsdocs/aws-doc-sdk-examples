@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier:  Apache-2.0
 
-// snippet-start:[Bedrock.dotnetv3.HelloBedrock]
+// snippet-start:[Bedrock.dotnetv3.BedrockActions.HelloBedrock]
 using Amazon;
 using Amazon.Bedrock;
 using Amazon.Bedrock.Model;
@@ -25,6 +25,8 @@ namespace ListFoundationModelsExample
             await ListFoundationModelsAsync(bedrockClient);
 
         }
+
+        // snippet-start:[Bedrock.dotnetv3.BedrockActions.ListFoundationModels]
 
         /// <summary>
         /// List foundation models.
@@ -58,6 +60,8 @@ namespace ListFoundationModelsExample
             }
         }
 
+        // snippet-end:[Bedrock.dotnetv3.BedrockActions.ListFoundationModels]
+
         /// <summary>
         /// Write the foundation model summary to console.
         /// </summary>
@@ -68,4 +72,4 @@ namespace ListFoundationModelsExample
         }
     }
 }
-// snippet-end:[Bedrock.dotnetv3.HelloBedrock]
+// snippet-end:[Bedrock.dotnetv3.BedrockActions.HelloBedrock]
