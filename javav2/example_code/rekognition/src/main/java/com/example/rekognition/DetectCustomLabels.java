@@ -20,7 +20,6 @@ public class DetectCustomLabels {
             project arn - the arn of the model in Rekognition Custom Labels to the image (for example, arn:aws:rekognition:us-east-1:XXXXXXXXXXXX:project/YOURPROJECT/version/YOURPROJECT.YYYY-MM-DDT00.00.00/1234567890123).\s
             S3 bucket - the bucket where your image is stored (for example, my-bucket-name\s
             S3 key - the path of the image inside your bucket (for example, myfolder/pic1.png).\s
-
             """;
 
         if (args.length != 3) {

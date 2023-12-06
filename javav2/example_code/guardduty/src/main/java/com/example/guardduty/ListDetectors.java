@@ -50,4 +50,4 @@ public class ListDetectors {
         }
     }
 }
-//snippet-end:[guard.java2.list_detectors.main]}
+//snippet-end:[guard.java2.list_detectors.main]

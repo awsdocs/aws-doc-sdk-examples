@@ -32,7 +32,6 @@ public class CelebrityInfo {
 
             Where:
                id - The id value of the celebrity. You can use the RecognizeCelebrities example to get the ID value.\s
-
             """;
 
         if (args.length != 1) {

@@ -45,7 +45,6 @@ public class AddFacesToCollection {
             Where:
                 collectionName - The name of the collection.
                 sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
-
             """;
 
         if (args.length != 2) {

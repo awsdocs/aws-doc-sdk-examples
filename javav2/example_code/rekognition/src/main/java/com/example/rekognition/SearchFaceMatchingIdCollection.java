@@ -1,5 +1,5 @@
 // snippet-sourcedescription:[SearchFaceMatchingIdCollection.java demonstrates how to display information about a face that matches a face identified by its ID value.]
-//snippet-keyword:[AWS SDK for Java v2]
+// snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Rekognition]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -8,7 +8,7 @@
 
 package com.example.rekognition;
 
-// snippet-start:[rekognition.java2.recognize_image_orientation.main]
+// snippet-start:[rekognition.java2.match_faces_collection.main]
 // snippet-start:[rekognition.java2.match_faces_collection.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
@@ -35,7 +35,6 @@ public class SearchFaceMatchingIdCollection {
             Where:
                collectionId - The id of the collection. \s
                sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
-
             """;
 
         if (args.length != 2) {

@@ -11,6 +11,7 @@
 package aws.example.emr;
 
 // snippet-start:[emr.java2._create_fleet.main]
+// snippet-start:[emr.java2._create_fleet.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.emr.EmrClient;
 import software.amazon.awssdk.services.emr.model.InstanceTypeConfig;

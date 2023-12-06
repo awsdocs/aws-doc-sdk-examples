@@ -42,7 +42,6 @@ public class DetectFaces {
 
             Where:
                sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
-
             """;
 
         if (args.length != 1) {

@@ -32,7 +32,6 @@ public class CreateCollection {
 
             Where:
                collectionName - The name of the collection.\s
-
             """;
 
         if (args.length != 1) {
