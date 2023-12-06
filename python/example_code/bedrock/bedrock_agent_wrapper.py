@@ -40,7 +40,6 @@ class BedrockAgentWrapper:
         try:
             response = self.client.list_agents()
             agents = response["agentSummaries"]
-            print(agents)
         except ClientError as e:
             logger.error(f'Error: Couldn\'t list agents. Here\'s why: {e}')
             raise
@@ -73,7 +72,7 @@ class BedrockAgentWrapper:
 
 def usage_demo():
     """
-    Shows how to use of Amazon Bedrock agents.
+    Shows how to use Amazon Bedrock agents.
     This demonstration gets the list of available agents, retrieves their
     respective details, and prints them to the console.
     """
@@ -82,28 +81,43 @@ def usage_demo():
     print("Welcome to the Amazon Bedrock Agents demo.")
     print("-" * 88)
 
-    client = boto3.client(service_name="bedrock-agent", region_name="us-east-1")
+    region = "us-east-1"
+    client = boto3.client(service_name="bedrock-agent", region_name=region)
 
     wrapper = BedrockAgentWrapper(client)
 
-    print("Listing the available Bedrock agents.")
-
+    print("\n" + "=" * 42)
+    print("Retrieving list of Bedrock agents...")
     try:
-        for agent in wrapper.list_agents():
-            print("\n" + "=" * 42)
-            print(f' Agent ID: {agent["agentId"]}')
-            print("-" * 42)
-            print(f' Name: {agent["agentName"]}')
-            print(f' Status: {agent["agentStatus"]}')
-            if "description" in agent:
-                print(f' Description: {agent["description"]}')
-            if "latestAgentVersion" in agent:
-                print(f' Latest version: {agent["latestAgentVersion"]}')
-            print(f' Updated at: {agent["updatedAt"]}')
-            print("=" * 42)
+        agents = wrapper.list_agents()
     except ClientError:
         logger.exception("Couldn't list Bedrock agents.")
         raise
+
+    if len(agents) == 0:
+        print(f'I couldn\'t find any agents in {region}.')
+        exit()
+
+    print(f'Found {len(agents)} agents in {region}.')
+
+    for agent_summary in agents:
+        agent_id = agent_summary["agentId"]
+        print("=" * 42)
+        print(f'Retrieving details for agent {agent_id}...')
+        try:
+            agent = wrapper.get_agent(agent_id)["agent"]
+            print(f' Agent name: {agent["agentName"]}')
+            print(f' Agent status: {agent["agentStatus"]}')
+            if "agentVersion" in agent:
+                print(f' Agent version: {agent["agentVersion"]}')
+            if "description" in agent:
+                print(f' Description: {agent["description"]}')
+            print(f' Foundation Model: {agent["foundationModel"]}')
+            if "recommendedActions" in agent:
+                print(f' Recommended actions: {agent["recommendedActions"]}')
+        except ClientError:
+            logger.exception(f'Couldn\'t get agents {agent_id}.')
+            raise
 
 if __name__ == "__main__":
     usage_demo()
