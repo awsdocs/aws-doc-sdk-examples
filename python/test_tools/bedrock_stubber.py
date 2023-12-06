@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Stub functions that are used by the Amazon EC2 Bedrock unit tests.
+Stub functions that are used by the Amazon Bedrock unit tests.
 """
 
 from test_tools.example_stubber import ExampleStubber
