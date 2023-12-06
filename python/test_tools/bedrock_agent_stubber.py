@@ -32,9 +32,7 @@ class BedrockAgentStubber(ExampleStubber):
         )
 
     def stub_get_agent(self, agent_id, agent, error_code=None):
-        expected_params = {
-            "agentId": agent_id
-        }
+        expected_params = {"agentId": agent_id}
         response = {"agent": agent}
         self._stub_bifurcator(
             "get_agent", expected_params, response, error_code=error_code

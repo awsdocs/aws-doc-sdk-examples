@@ -27,6 +27,7 @@ class BedrockAgentWrapper:
                        for creating and managing Bedrock Agent resources.
         """
         self.client = client
+
     # snippet-end:[python.example_code.bedrock.BedrockAgentWrapper.decl]
 
     # snippet-start:[python.example_code.bedrock.ListAgents]
@@ -41,7 +42,7 @@ class BedrockAgentWrapper:
             response = self.client.list_agents()
             agents = response["agentSummaries"]
         except ClientError as e:
-            logger.error(f'Error: Couldn\'t list agents. Here\'s why: {e}')
+            logger.error(f"Error: Couldn't list agents. Here's why: {e}")
             raise
         else:
             return agents
@@ -60,12 +61,13 @@ class BedrockAgentWrapper:
         try:
             agent = self.client.get_agent(agentId=agent_id)
         except ClientError as e:
-            logger.error(f'Error: Couldn\'t get agent {agent_id}. Here\'s why: {e}')
+            logger.error(f"Error: Couldn't get agent {agent_id}. Here's why: {e}")
             raise
         else:
             return agent
 
     # snippet-end:[python.example_code.bedrock.GetAgent]
+
 
 # snippet-end:[python.example_code.bedrock.BedrockAgentWrapper.class]
 
@@ -95,15 +97,15 @@ def usage_demo():
         raise
 
     if len(agents) == 0:
-        print(f'I couldn\'t find any agents in {region}.')
+        print(f"Couldn't find any agents in {region}.")
         exit()
 
-    print(f'Found {len(agents)} agents in {region}.')
+    print(f"Found {len(agents)} agents in {region}.")
 
     for agent_summary in agents:
         agent_id = agent_summary["agentId"]
         print("=" * 42)
-        print(f'Retrieving details for agent {agent_id}...')
+        print(f"Retrieving details for agent {agent_id}...")
         try:
             agent = wrapper.get_agent(agent_id)["agent"]
             print(f' Agent name: {agent["agentName"]}')
@@ -116,8 +118,9 @@ def usage_demo():
             if "recommendedActions" in agent:
                 print(f' Recommended actions: {agent["recommendedActions"]}')
         except ClientError:
-            logger.exception(f'Couldn\'t get agents {agent_id}.')
+            logger.exception(f"Couldn't get agents {agent_id}.")
             raise
+
 
 if __name__ == "__main__":
     usage_demo()

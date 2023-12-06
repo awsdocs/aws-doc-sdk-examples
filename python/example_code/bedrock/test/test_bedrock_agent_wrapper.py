@@ -14,10 +14,7 @@ from bedrock_agent_wrapper import BedrockAgentWrapper
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_list_agents(make_stubber, error_code):
-    client = boto3.client(
-        service_name="bedrock-agent",
-        region_name="us-east-1"
-    )
+    client = boto3.client(service_name="bedrock-agent", region_name="us-east-1")
 
     stubber = make_stubber(client)
     wrapper = BedrockAgentWrapper(client)
@@ -28,7 +25,7 @@ def test_list_agents(make_stubber, error_code):
             "agentStatus": "PREPARED",
             "updatedAt": "1970-01-01 00:00:00.000000+00:00",
             "description": "A test description",
-            "latestAgentVersion": "0"
+            "latestAgentVersion": "0",
         }
     ]
 
@@ -42,12 +39,10 @@ def test_list_agents(make_stubber, error_code):
             wrapper.list_agents()
         assert exc_info.value.response["Error"]["Code"] == error_code
 
+
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_get_agent(make_stubber, error_code):
-    client = boto3.client(
-        service_name="bedrock-agent",
-        region_name="us-east-1"
-    )
+    client = boto3.client(service_name="bedrock-agent", region_name="us-east-1")
 
     stubber = make_stubber(client)
     wrapper = BedrockAgentWrapper(client)
@@ -63,7 +58,7 @@ def test_get_agent(make_stubber, error_code):
         "idleSessionTTLInSeconds": 60,
         "agentResourceRoleArn": "FakeResourceRoleArn",
         "createdAt": "1970-01-01 00:00:00.000000+00:00",
-        "updatedAt": "1970-01-01 00:00:00.000000+00:00"
+        "updatedAt": "1970-01-01 00:00:00.000000+00:00",
     }
 
     stubber.stub_get_agent(agent_id, agent, error_code=error_code)
