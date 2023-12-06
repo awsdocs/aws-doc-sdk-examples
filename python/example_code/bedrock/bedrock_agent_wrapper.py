@@ -50,23 +50,38 @@ class BedrockAgentWrapper:
     # snippet-end:[python.example_code.bedrock.ListAgents]
 
     # snippet-start:[python.example_code.bedrock.GetAgent]
-    def get_agent(self, agent_id):
+    def get_agent(self, agent_id, log_error=True):
         """
         Gets information about an agent.
 
         :param agent_id: The unique identifier of the agent.
+        :param log_error: Whether to log any errors that occur.
         :return: The information about the requested agent.
         """
 
         try:
             agent = self.client.get_agent(agentId=agent_id)
         except ClientError as e:
-            logger.error(f"Error: Couldn't get agent {agent_id}. Here's why: {e}")
+            if log_error:
+                logger.error(f"Error: Couldn't get agent {agent_id}. Here's why: {e}")
             raise
         else:
             return agent
 
     # snippet-end:[python.example_code.bedrock.GetAgent]
+
+    def create_agent(self, name, model, role_arn):
+        try:
+            response = self.client.create_agent(
+                agentName=name,
+                foundationModel=model,
+                agentResourceRoleArn=role_arn,
+            )
+        except ClientError as e:
+            logger.error(f"Error: Couldn't create agent. Here's why: {e}")
+            raise
+        else:
+            return response
 
 
 # snippet-end:[python.example_code.bedrock.BedrockAgentWrapper.class]
@@ -87,6 +102,17 @@ def usage_demo():
     client = boto3.client(service_name="bedrock-agent", region_name=region)
 
     wrapper = BedrockAgentWrapper(client)
+
+    print("\n" + "=" * 42)
+    print("Creating an Amazon Bedrock agent...")
+
+    name = "name",
+    model = "anthropic.claude-v2"
+    role_arn = "arn:aws:iam::424086380854:role/AmazonBedrockExecutionRoleForAgents_traubd",
+
+    response = wrapper.create_agent(name, model, role_arn)
+    print(response)
+    exit()
 
     print("\n" + "=" * 42)
     print("Retrieving list of Bedrock agents...")

@@ -12,10 +12,12 @@ from botocore.exceptions import ClientError
 from bedrock_agent_wrapper import BedrockAgentWrapper
 
 
-@pytest.mark.parametrize("error_code", [None, "ClientError"])
-def test_list_agents(make_stubber, error_code):
-    client = boto3.client(service_name="bedrock-agent", region_name="us-east-1")
+@pytest.fixture(scope="module")
+def client():
+    return boto3.client(service_name="bedrock-agent", region_name="us-east-1")
 
+@pytest.mark.parametrize("error_code", [None, "ClientError"])
+def test_list_agents(client, make_stubber, error_code):
     stubber = make_stubber(client)
     wrapper = BedrockAgentWrapper(client)
     agents = [
@@ -41,9 +43,7 @@ def test_list_agents(make_stubber, error_code):
 
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
-def test_get_agent(make_stubber, error_code):
-    client = boto3.client(service_name="bedrock-agent", region_name="us-east-1")
-
+def test_get_agent(client, make_stubber, error_code):
     stubber = make_stubber(client)
     wrapper = BedrockAgentWrapper(client)
 
