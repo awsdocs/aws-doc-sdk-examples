@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Stub functions that are used by the Amazon EC2 Bedrock Runtime unit tests.
+Stub functions that are used by the Amazon Bedrock Runtime unit tests.
 
 When tests are run against an actual AWS account, the stubber class does not
 set up stubs and passes all calls through to the Boto3 client.
