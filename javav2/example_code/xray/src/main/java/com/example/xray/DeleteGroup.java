@@ -64,5 +64,5 @@ public class DeleteGroup {
             System.exit(1);
         }
     }
-    // snippet-end:[xray.java2_delete_group.main]
 }
+// snippet-end:[xray.java2_delete_group.main]
