@@ -5,7 +5,7 @@
 Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Bedrock to manage
-Bedrock agents.
+Bedrock Agents.
 """
 
 import logging
@@ -15,31 +15,31 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.bedrock.BedrockAgentsWrapper.class]
-# snippet-start:[python.example_code.bedrock.BedrockAgentsWrapper.decl]
-class BedrockAgentsWrapper:
+# snippet-start:[python.example_code.bedrock.BedrockAgentWrapper.class]
+# snippet-start:[python.example_code.bedrock.BedrockAgentWrapper.decl]
+class BedrockAgentWrapper:
     """Encapsulates Amazon Bedrock Agent actions."""
 
-    def __init__(self, bedrock_client):
+    def __init__(self, client):
         """
-        :param bedrock_client: A Boto3 Amazon Bedrock client, which is a low-level client that
-                               represents Amazon Bedrock and describes the API operations for
-                               creating and managing Bedrock resources.
+        :param client: A Boto3 Agents for Amazon Bedrock client, which is a low-level client that
+                       represents Agents for Amazon Bedrock and describes the API operations
+                       for creating and managing Bedrock Agent resources.
         """
-        self.bedrock_client = bedrock_client
-    # snippet-end:[python.example_code.bedrock.BedrockAgentsWrapper.decl]
+        self.client = client
+    # snippet-end:[python.example_code.bedrock.BedrockAgentWrapper.decl]
 
     # snippet-start:[python.example_code.bedrock.ListAgents]
     def list_agents(self):
         """
-        List the available Amazon Bedrock agents.
+        List the available Amazon Bedrock Agents.
 
         :return: The list of available bedrock agents.
         """
 
         try:
-            response = self.bedrock_client.list_agents()
-            agents = response
+            response = self.client.list_agents()
+            agents = response["agentSummaries"]
             print(agents)
         except ClientError as e:
             logger.error(f'Error: Couldn\'t list agents. Here\'s why: {e}')
@@ -49,7 +49,7 @@ class BedrockAgentsWrapper:
 
     # snippet-end:[python.example_code.bedrock.ListAgents]
 
-# snippet-end:[python.example_code.bedrock.BedrockAgentsWrapper.class]
+# snippet-end:[python.example_code.bedrock.BedrockAgentWrapper.class]
 
 
 def usage_demo():
@@ -63,17 +63,24 @@ def usage_demo():
     print("Welcome to the Amazon Bedrock Agents demo.")
     print("-" * 88)
 
-    client = boto3.client(service_name="bedrock", region_name="us-east-1")
+    client = boto3.client(service_name="bedrock-agent", region_name="us-east-1")
 
-    wrapper = BedrockAgentsWrapper(client)
+    wrapper = BedrockAgentWrapper(client)
 
     print("Listing the available Bedrock agents.")
 
     try:
         for agent in wrapper.list_agents():
             print("\n" + "=" * 42)
-            print(f' Agent: {agent}')
+            print(f' Agent ID: {agent["agentId"]}')
             print("-" * 42)
+            print(f' Name: {agent["agentName"]}')
+            print(f' Status: {agent["agentStatus"]}')
+            if "description" in agent:
+                print(f' Description: {agent["description"]}')
+            if "latestAgentVersion" in agent:
+                print(f' Latest version: {agent["latestAgentVersion"]}')
+            print(f' Updated at: {agent["updatedAt"]}')
             print("=" * 42)
     except ClientError:
         logger.exception("Couldn't list Bedrock agents.")
