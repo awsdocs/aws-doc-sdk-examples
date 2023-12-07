@@ -43,6 +43,7 @@ class BedrockAgentScenarioWrapper:
     created_resources = {}
 
     def __init__(self, bedrock_agent_client, iam_client):
+        self.bedrock_agent_client = bedrock_agent_client
         self.bedrock_wrapper = BedrockAgentWrapper(bedrock_agent_client)
         self.iam_client = iam_client
         logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -79,12 +80,39 @@ class BedrockAgentScenarioWrapper:
 
         agent_id = agent["agentId"]
         agent_status = agent["agentStatus"]
-        while agent_status == "CREATING":
+        while agent_status != "NOT_PREPARED":
             r.wait(2)
             agent_status = self.bedrock_wrapper.get_agent(agent_id)["agent"]["agentStatus"]
 
-        print(f"Bedrock Agent '{name}' with id '{agent_id}' created.")
         self.created_resources["agent"] = agent
+
+        # Prepare the agent
+        print("Creating a DRAFT version of the agent...")
+        prepared_agent_data = self.bedrock_wrapper.prepare_agent(agent_id)
+        agent_status = prepared_agent_data["agentStatus"]
+        while agent_status != "PREPARED":
+            r.wait(2)
+            agent_status = self.bedrock_wrapper.get_agent(agent_id)["agent"]["agentStatus"]
+
+        exit()
+
+        # Create an alias for the agent
+        # print("Creating an alias for the agent...")
+        # agent_alias = self.bedrock_agent_client.create_agent_alias(
+        #     agentId=agent_id,
+        #     agentAliasName="test_alias",
+        # )
+        #
+        # print(agent_alias)
+        # exit()
+
+        # Create an action group
+        # print("Creating an action group for the agent...")
+        # action_group = self.bedrock_wrapper.create_agent_action_group(
+        #     agent_id,
+        #     agent["agentVersion"],
+        #     "get_date_and_time"
+        # )
 
         print("=" * 88)
         print("Thanks for running the demo!\n")

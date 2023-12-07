@@ -47,7 +47,7 @@ class BedrockAgentStubber(ExampleStubber):
         }
         response = {
             "agent": {
-                "agentId": "ARANDOMAGENTID",
+                "agentId": "FAKE_AGENT_ID",
                 "agentName": "fake_agent_name",
                 "agentArn": "xxx",
                 "foundationModel": "fake.model-id",
@@ -63,3 +63,17 @@ class BedrockAgentStubber(ExampleStubber):
         self._stub_bifurcator(
             "create_agent", expected_params, response, error_code=error_code
         )
+
+    def stub_delete_agent(self, agent_id, error_code=None):
+        expected_params = {
+            "agentId": "FAKE_AGENT_ID",
+            "skipResourceInUseCheck": False
+        }
+        response = {
+            "agentId": "FAKE_AGENT_ID",
+            "agentStatus": "DELETING"
+        }
+        self._stub_bifurcator(
+            "delete_agent", expected_params, response, error_code=error_code
+        )
+
