@@ -37,3 +37,29 @@ class BedrockAgentStubber(ExampleStubber):
         self._stub_bifurcator(
             "get_agent", expected_params, response, error_code=error_code
         )
+
+    def stub_create_agent(self, name, foundation_model, role_arn, instruction, error_code=None):
+        expected_params = {
+            "agentName": name,
+            "foundationModel": foundation_model,
+            "agentResourceRoleArn": role_arn,
+            "instruction": instruction
+        }
+        response = {
+            "agent": {
+                "agentId": "ARANDOMAGENTID",
+                "agentName": "fake_agent_name",
+                "agentArn": "xxx",
+                "foundationModel": "fake.model-id",
+                "instruction": "fake instruction with a minimum of 40 characters",
+                "agentVersion": "1.234.5",
+                "agentStatus": "xxx",
+                "idleSessionTTLInSeconds": 60,
+                "agentResourceRoleArn": "xxx",
+                "createdAt": "1970-01-01T00:00:00Z",
+                "updatedAt": "1970-01-01T00:00:00Z"
+            }
+        }
+        self._stub_bifurcator(
+            "create_agent", expected_params, response, error_code=error_code
+        )

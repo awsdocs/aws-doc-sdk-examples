@@ -71,3 +71,26 @@ def test_get_agent(client, make_stubber, error_code):
         with pytest.raises(ClientError) as exc_info:
             wrapper.get_agent(agent_id)
             assert exc_info.value.response["Error"]["Code"] == error_code
+
+@pytest.mark.parametrize("error_code", [None, "ClientError"])
+def test_create_agent(client, make_stubber, error_code):
+    stubber = make_stubber(client)
+    wrapper = BedrockAgentWrapper(client)
+
+    name = "fake_agent_name"
+    foundation_model = "fake.model-id"
+    role_arn = "fake:arn"
+    instruction = "fake instruction with a minimum of 40 characters"
+
+    stubber.stub_create_agent(name, foundation_model, role_arn, instruction, error_code=error_code)
+
+    if error_code is None:
+        response = wrapper.create_agent(name, foundation_model, role_arn, instruction)
+        created_agent = response["agent"]
+        assert created_agent["agentName"] == name
+        assert created_agent["foundationModel"] == foundation_model
+        assert created_agent["instruction"] == instruction
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.create_agent(name, foundation_model, role_arn, instruction)
+            assert exc_info.value.response["Error"]["Code"] == error_code

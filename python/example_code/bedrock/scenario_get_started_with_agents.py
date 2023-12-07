@@ -66,7 +66,16 @@ class BedrockAgentScenarioWrapper:
 
         # Create the agent
         print("Creating the agent...")
-        agent = self.bedrock_wrapper.create_agent(name, model_id, agent_role.arn)["agent"]
+        instruction = """
+            You are a friendly chatbot. When asked for the date and time, 
+            your answer in a natural way, including the full name of the weekday.
+            """
+        agent = self.bedrock_wrapper.create_agent(
+            name,
+            model_id,
+            agent_role.arn,
+            instruction
+        )["agent"]
 
         agent_id = agent["agentId"]
         agent_status = agent["agentStatus"]
@@ -76,8 +85,6 @@ class BedrockAgentScenarioWrapper:
 
         print(f"Bedrock Agent '{name}' with id '{agent_id}' created.")
         self.created_resources["agent"] = agent
-
-        #
 
         print("=" * 88)
         print("Thanks for running the demo!\n")
@@ -112,7 +119,8 @@ class BedrockAgentScenarioWrapper:
             while agent_status == "DELETING":
                 r.wait(2)
                 try:
-                    agent_status = self.bedrock_wrapper.get_agent(agent["agentId"], log_error=False)["agent"]["agentStatus"]
+                    agent_status = self.bedrock_wrapper.get_agent(agent["agentId"], log_error=False)["agent"][
+                        "agentStatus"]
                 except ClientError as err:
                     if err.response["Error"]["Code"] == "ResourceNotFoundException":
                         agent_status = "DELETED"
@@ -122,7 +130,6 @@ class BedrockAgentScenarioWrapper:
             print(f"Deleting role '{agent_role.role_name}'...")
             agent_role.Policy(AGENT_ROLE_POLICY_NAME).delete()
             agent_role.delete()
-
 
     def create_agent(self):
         print("Creating the agent...")
@@ -140,14 +147,6 @@ class BedrockAgentScenarioWrapper:
         print(f"Its current status is: {agent["agentStatus"]}")
 
         return agent
-
-
-    def is_valid_agent_name(self, answer):
-        valid_regex = r"^[a-zA-Z0-9_-]{1,100}$"
-        return (
-            answer if answer and len(answer) <= 100 and re.match(valid_regex, answer) else None,
-            "I need a name for the agent, please. Valid characters are a-z, A-Z, 0-9, _ (underscore) and - (hyphen)."
-        )
 
     def create_role_for_agent(self):
         postfix = "".join(random.choice(string.ascii_uppercase + "0123456789") for _ in range(8))
@@ -167,7 +166,7 @@ class BedrockAgentScenarioWrapper:
 
         execution_role = self.iam_client.create_role(
             RoleName=name,
-            AssumeRolePolicyDocument= trust_policy
+            AssumeRolePolicyDocument=trust_policy
         )
         execution_role.Policy(AGENT_ROLE_POLICY_NAME).put(
             PolicyDocument=json.dumps({
@@ -183,6 +182,15 @@ class BedrockAgentScenarioWrapper:
         )
 
         return execution_role
+
+    @staticmethod
+    def is_valid_agent_name(answer):
+        valid_regex = r"^[a-zA-Z0-9_-]{1,100}$"
+        return (
+            answer if answer and len(answer) <= 100 and re.match(valid_regex, answer) else None,
+            "I need a name for the agent, please. Valid characters are a-z, A-Z, 0-9, _ (underscore) and - (hyphen)."
+        )
+
 
 def main():
     bedrock_agent_client = boto3.client(service_name="bedrock-agent", region_name="us-east-1")

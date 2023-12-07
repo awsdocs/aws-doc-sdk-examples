@@ -72,12 +72,13 @@ class BedrockAgentWrapper:
     # snippet-end:[python.example_code.bedrock.GetAgent]
 
     # snippet-start:[python.example_code.bedrock.CreateAgent]
-    def create_agent(self, name, model, role_arn):
+    def create_agent(self, name, foundation_model, role_arn, instruction):
         try:
             response = self.client.create_agent(
                 agentName=name,
-                foundationModel=model,
+                foundationModel=foundation_model,
                 agentResourceRoleArn=role_arn,
+                instruction=instruction
             )
         except ClientError as e:
             logger.error(f"Error: Couldn't create agent. Here's why: {e}")
@@ -113,68 +114,3 @@ class BedrockAgentWrapper:
     # snippet-end:[python.example_code.bedrock.DeleteAgent]
 
 # snippet-end:[python.example_code.bedrock.BedrockAgentWrapper.class]
-
-
-def usage_demo():
-    """
-    Shows how to use Amazon Bedrock agents.
-    This demonstration gets the list of available agents, retrieves their
-    respective details, and prints them to the console.
-    """
-    logging.basicConfig(level=logging.INFO)
-    print("-" * 88)
-    print("Welcome to the Amazon Bedrock Agents demo.")
-    print("-" * 88)
-
-    region = "us-east-1"
-    client = boto3.client(service_name="bedrock-agent", region_name=region)
-
-    wrapper = BedrockAgentWrapper(client)
-
-    print("\n" + "=" * 42)
-    print("Creating an Amazon Bedrock agent...")
-
-    name = "name",
-    model = "anthropic.claude-v2"
-    role_arn = "arn:aws:iam::424086380854:role/AmazonBedrockExecutionRoleForAgents_traubd",
-
-    response = wrapper.create_agent(name, model, role_arn)
-    print(response)
-    exit()
-
-    print("\n" + "=" * 42)
-    print("Retrieving list of Bedrock agents...")
-    try:
-        agents = wrapper.list_agents()
-    except ClientError:
-        logger.exception("Couldn't list Bedrock agents.")
-        raise
-
-    if len(agents) == 0:
-        print(f"Couldn't find any agents in {region}.")
-        exit()
-
-    print(f"Found {len(agents)} agents in {region}.")
-
-    for agent_summary in agents:
-        agent_id = agent_summary["agentId"]
-        print("=" * 42)
-        print(f"Retrieving details for agent {agent_id}...")
-        try:
-            agent = wrapper.get_agent(agent_id)["agent"]
-            print(f' Agent name: {agent["agentName"]}')
-            print(f' Agent status: {agent["agentStatus"]}')
-            if "agentVersion" in agent:
-                print(f' Agent version: {agent["agentVersion"]}')
-            if "description" in agent:
-                print(f' Description: {agent["description"]}')
-            print(f' Foundation Model: {agent["foundationModel"]}')
-            if "recommendedActions" in agent:
-                print(f' Recommended actions: {agent["recommendedActions"]}')
-        except ClientError:
-            logger.exception(f"Couldn't get agents {agent_id}.")
-            raise
-
-
-if __name__ == "__main__":
-    usage_demo()
