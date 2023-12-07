@@ -8,6 +8,7 @@ cd "$(dirname "$0")" || exit
 mkdir -p vendors
 cd vendors || exit
 
+# Find more languages at https://tree-sitter.github.io/tree-sitter/#parsers
 LANGUAGES=(
   "tree-sitter/tree-sitter-python"
   "tree-sitter/tree-sitter-javascript"

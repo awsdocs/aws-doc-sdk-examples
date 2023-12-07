@@ -31,6 +31,7 @@ excerpts:
         class: Engine
       - file: bang.rs
         constant: MY_CLIENT
+
       # Java and Kotlin (Not sure I like this dedicated syntax)
       - classpath: com.amazon.examples.Foo::get_engine
 """
@@ -94,7 +95,7 @@ def get_tree(file):
     parser = Parser()
     ext = file.name.split(".")[-1]
     language = LANGUAGES[ext]
-    sitter = Language("build/my-languages.so", language["name"])
+    sitter = Language("vendors/languages.so", language["name"])
     parser.set_language(sitter)
     with open(ROOT / file, "rb") as file:
         source = file.read()
@@ -135,4 +136,5 @@ def find_functions():
 
 
 if __name__ == "__main__":
-    find_functions()
+    # find_functions()
+    find_snippets()
