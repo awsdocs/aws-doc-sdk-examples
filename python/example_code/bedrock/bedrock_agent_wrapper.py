@@ -56,6 +56,7 @@ class BedrockAgentWrapper:
 
         :param agent_id: The unique identifier of the agent.
         :param log_error: Whether to log any errors that occur.
+                          Default: True
         :return: The information about the requested agent.
         """
 
@@ -70,6 +71,7 @@ class BedrockAgentWrapper:
 
     # snippet-end:[python.example_code.bedrock.GetAgent]
 
+    # snippet-start:[python.example_code.bedrock.CreateAgent]
     def create_agent(self, name, model, role_arn):
         try:
             response = self.client.create_agent(
@@ -83,6 +85,32 @@ class BedrockAgentWrapper:
         else:
             return response
 
+    # snippet-end:[python.example_code.bedrock.CreateAgent]
+
+    # snippet-start:[python.example_code.bedrock.DeleteAgent]
+    def delete_agent(self, agent_id, skip_resource_in_use_check=False):
+        """
+        Deletes an Amazon Bedrock agent.
+
+        :param agent_id: The unique identifier of the agent to delete.
+        :param skip_resource_in_use_check: Whether to skip the resource in use check. By default, this value is
+                                           false and deletion is stopped if the resource is in use. If you set it
+                                           to true, the resource will be deleted even if the resource is in use.
+        :return: The response from Bedrock if successful, otherwise raises an exception.
+        """
+
+        try:
+            response = self.client.delete_agent(
+                agentId=agent_id,
+                skipResourceInUseCheck=skip_resource_in_use_check
+            )
+        except ClientError as e:
+            logger.error(f"Error: Couldn't delete agent. Here's why: {e}")
+            raise
+        else:
+            return response
+
+    # snippet-end:[python.example_code.bedrock.DeleteAgent]
 
 # snippet-end:[python.example_code.bedrock.BedrockAgentWrapper.class]
 
