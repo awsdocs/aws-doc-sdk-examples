@@ -5,6 +5,7 @@
 Stub functions that are used by the Agents for Amazon Bedrock unit tests.
 """
 
+import test_data as fake
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -24,20 +25,6 @@ class BedrockAgentStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_list_agents(self, agents, error_code=None):
-        expected_params = {}
-        response = {"agentSummaries": agents}
-        self._stub_bifurcator(
-            "list_agents", expected_params, response, error_code=error_code
-        )
-
-    def stub_get_agent(self, agent_id, agent, error_code=None):
-        expected_params = {"agentId": agent_id}
-        response = {"agent": agent}
-        self._stub_bifurcator(
-            "get_agent", expected_params, response, error_code=error_code
-        )
-
     def stub_create_agent(self, name, foundation_model, role_arn, instruction, error_code=None):
         expected_params = {
             "agentName": name,
@@ -47,33 +34,83 @@ class BedrockAgentStubber(ExampleStubber):
         }
         response = {
             "agent": {
-                "agentId": "FAKE_AGENT_ID",
-                "agentName": "fake_agent_name",
-                "agentArn": "xxx",
-                "foundationModel": "fake.model-id",
-                "instruction": "fake instruction with a minimum of 40 characters",
-                "agentVersion": "1.234.5",
-                "agentStatus": "xxx",
+                "agentStatus": "NOT_PREPARED",
                 "idleSessionTTLInSeconds": 60,
-                "agentResourceRoleArn": "xxx",
-                "createdAt": "1970-01-01T00:00:00Z",
-                "updatedAt": "1970-01-01T00:00:00Z"
+                "agentId": fake.AGENT_ID,
+                "agentName": fake.AGENT_NAME,
+                "agentArn": fake.ARN,
+                "foundationModel": fake.FOUNDATION_MODEL_ID,
+                "instruction": fake.INSTRUCTION,
+                "agentVersion": fake.VERSION,
+                "agentResourceRoleArn": fake.ARN,
+                "createdAt": fake.TIMESTAMP,
+                "updatedAt": fake.TIMESTAMP
             }
         }
         self._stub_bifurcator(
             "create_agent", expected_params, response, error_code=error_code
         )
 
+    def stub_create_agent_action_group(
+            self, name, agent_id, agent_version, function_arn, api_schema, error_code=None
+    ):
+        expected_params = {
+            "agentId": agent_id,
+            "agentVersion": agent_version,
+            "actionGroupName": name,
+            "actionGroupExecutor": {"lambda": function_arn},
+            "apiSchema": {"payload": api_schema}
+        }
+        response = {
+            "agentActionGroup": {
+                "agentId": agent_id,
+                "agentVersion": agent_version,
+                "actionGroupState": "ENABLED",
+                "actionGroupName": name,
+                "actionGroupId": fake.ACTION_GROUP_ID,
+                "createdAt": fake.TIMESTAMP,
+                "updatedAt": fake.TIMESTAMP,
+            }
+        }
+        self._stub_bifurcator(
+            "create_agent_action_group", expected_params, response, error_code=error_code
+        )
+
     def stub_delete_agent(self, agent_id, error_code=None):
         expected_params = {
-            "agentId": "FAKE_AGENT_ID",
+            "agentId": agent_id,
             "skipResourceInUseCheck": False
         }
         response = {
-            "agentId": "FAKE_AGENT_ID",
-            "agentStatus": "DELETING"
+            "agentStatus": "DELETING",
+            "agentId": agent_id
         }
         self._stub_bifurcator(
             "delete_agent", expected_params, response, error_code=error_code
         )
 
+    def stub_get_agent(self, agent_id, agent, error_code=None):
+        expected_params = {"agentId": agent_id}
+        response = {"agent": agent}
+        self._stub_bifurcator(
+            "get_agent", expected_params, response, error_code=error_code
+        )
+
+    def stub_list_agents(self, agents, error_code=None):
+        expected_params = {}
+        response = {"agentSummaries": agents}
+        self._stub_bifurcator(
+            "list_agents", expected_params, response, error_code=error_code
+        )
+
+    def stub_prepare_agent(self, agent_id, error_code=None):
+        expected_params = {"agentId": fake.AGENT_ID}
+        response = {
+            "agentStatus": "PREPARED",
+            "agentId": fake.AGENT_ID,
+            "agentVersion": fake.VERSION,
+            "preparedAt": fake.TIMESTAMP
+        }
+        self._stub_bifurcator(
+            "prepare_agent", expected_params, response, error_code=error_code
+        )

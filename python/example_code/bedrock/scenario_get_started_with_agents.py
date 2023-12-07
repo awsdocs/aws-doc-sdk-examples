@@ -39,6 +39,29 @@ logger = logging.getLogger(__name__)
 AGENT_ROLE_POLICY_NAME = "agent_role_policy"
 
 
+
+api_schema = """
+    openapi: 3.0.0
+    info: 
+      title: Time API 
+      version: 1.0.0 
+      description: API to get the current date and time.
+    paths: 
+      /datetime: 
+        get: 
+          summary: Gets current date and time
+          description: Gets current date and time. 
+          operationId: getDateTime 
+          responses: 
+            '200': 
+              description: Gets current date and time. 
+              content: 
+                'application/json': 
+                  schema: 
+                    type: string 
+                    description: The date and time as a timestamp string
+    """
+
 class BedrockAgentScenarioWrapper:
     created_resources = {}
 
@@ -76,13 +99,13 @@ class BedrockAgentScenarioWrapper:
             model_id,
             agent_role.arn,
             instruction
-        )["agent"]
+        )
 
         agent_id = agent["agentId"]
         agent_status = agent["agentStatus"]
         while agent_status != "NOT_PREPARED":
             r.wait(2)
-            agent_status = self.bedrock_wrapper.get_agent(agent_id)["agent"]["agentStatus"]
+            agent_status = self.bedrock_wrapper.get_agent(agent_id)["agentStatus"]
 
         self.created_resources["agent"] = agent
 
@@ -92,27 +115,22 @@ class BedrockAgentScenarioWrapper:
         agent_status = prepared_agent_data["agentStatus"]
         while agent_status != "PREPARED":
             r.wait(2)
-            agent_status = self.bedrock_wrapper.get_agent(agent_id)["agent"]["agentStatus"]
-
-        exit()
-
-        # Create an alias for the agent
-        # print("Creating an alias for the agent...")
-        # agent_alias = self.bedrock_agent_client.create_agent_alias(
-        #     agentId=agent_id,
-        #     agentAliasName="test_alias",
-        # )
-        #
-        # print(agent_alias)
-        # exit()
+            agent_status = self.bedrock_wrapper.get_agent(agent_id)["agentStatus"]
+        agent_version = prepared_agent_data["agentVersion"]
 
         # Create an action group
-        # print("Creating an action group for the agent...")
-        # action_group = self.bedrock_wrapper.create_agent_action_group(
-        #     agent_id,
-        #     agent["agentVersion"],
-        #     "get_date_and_time"
-        # )
+        print("Creating an action group for the agent...")
+        action_group_name = "get_date_and_time"
+        function_arn = "arn:aws:lambda:us-east-1:424086380854:function:BedrockAgentsDemo_AccessYouTubeAPI"
+        action_group = self.bedrock_wrapper.create_agent_action_group(
+            action_group_name,
+            agent_id,
+            agent_version,
+            function_arn,
+            api_schema
+        )
+
+        print(action_group)
 
         print("=" * 88)
         print("Thanks for running the demo!\n")
@@ -147,8 +165,7 @@ class BedrockAgentScenarioWrapper:
             while agent_status == "DELETING":
                 r.wait(2)
                 try:
-                    agent_status = self.bedrock_wrapper.get_agent(agent["agentId"], log_error=False)["agent"][
-                        "agentStatus"]
+                    agent_status = self.bedrock_wrapper.get_agent(agent["agentId"], log_error=False)["agentStatus"]
                 except ClientError as err:
                     if err.response["Error"]["Code"] == "ResourceNotFoundException":
                         agent_status = "DELETED"
@@ -158,23 +175,6 @@ class BedrockAgentScenarioWrapper:
             print(f"Deleting role '{agent_role.role_name}'...")
             agent_role.Policy(AGENT_ROLE_POLICY_NAME).delete()
             agent_role.delete()
-
-    def create_agent(self):
-        print("Creating the agent...")
-        agent = self.bedrock_wrapper.create_agent(name, model, agent_role.arn)["agent"]
-        self.created_resources["agent"] = agent
-
-        agent_id = agent["agentId"]
-        agent_status = agent["agentStatus"]
-
-        while agent_status == "CREATING":
-            r.wait(2)
-            agent_status = self.bedrock_wrapper.get_agent(agent_id)["agent"]["agentStatus"]
-
-        print(f"Successfully created agent {name} with id {agent_id}.")
-        print(f"Its current status is: {agent["agentStatus"]}")
-
-        return agent
 
     def create_role_for_agent(self):
         postfix = "".join(random.choice(string.ascii_uppercase + "0123456789") for _ in range(8))
@@ -202,7 +202,7 @@ class BedrockAgentScenarioWrapper:
                 "Statement": [
                     {
                         "Effect": "Allow",
-                        "Action": "lambda:*",
+                        "Action": "*",
                         "Resource": "*"
                     }
                 ]
