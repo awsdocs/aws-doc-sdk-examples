@@ -35,4 +35,4 @@ jobs:
           yamllint --format standard -c .tools/validation/.yamllint.yaml .doc_gen/metadata .doc_gen/metadata/curated
       - name: Validate metadata and repo
         run: >-
-          python3 .tools/validation/validate.py --q --doc-gen .doc_gen
+          python3 .tools/validation/validate.py --doc-gen .doc_gen

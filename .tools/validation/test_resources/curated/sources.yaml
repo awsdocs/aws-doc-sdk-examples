@@ -1,0 +1,4 @@
+amazon-sagemaker-examples:
+  name: Amazon SageMaker examples
+  description: Example Jupyter notebooks that demonstrate how to build, train, and deploy machine learning models using Amazon SageMaker.
+  url: https://github.com/aws/amazon-sagemaker-examples

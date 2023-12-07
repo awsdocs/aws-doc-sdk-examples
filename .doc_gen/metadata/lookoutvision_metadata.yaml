@@ -379,7 +379,7 @@ lookoutvision_Scenario_CreateTrainStartModel:
     Python:
       versions:
         - sdk_version: 3
-          github: train_host.py
+          github: python/example_code/lookoutvision
           block_content: scenario_LookoutVisionCreateTrainStartModel_Python_block.xml
   services:
     lookoutvision: {}
