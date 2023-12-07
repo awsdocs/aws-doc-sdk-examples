@@ -136,6 +136,38 @@ bedrock:
   tags:
     product_categories: {'Machine Learning &amp; AI'}
   version: bedrock-2023-04-20
+bedrock-agents:
+  bundle: bedrock
+  long: '&BRAlong;'
+  short: '&BRA;'
+  sort: Agents for Amazon Bedrock
+  expanded:
+    long: Agents for Amazon Bedrock
+    short: Bedrock Agents
+  blurb: offers you the ability to build and configure autonomous agents in your application.
+  guide:
+    subtitle: User Guide
+    url: bedrock/latest/userguide/agents.html
+  api_ref: bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html
+  tags:
+    product_categories: {'Machine Learning &amp; AI'}
+  version: bedrock-agents-2023-12-07
+bedrock-agents-runtime:
+  bundle: bedrock
+  long: '&BRARUNlong;'
+  short: '&BRARUN;'
+  sort: Agents for Amazon Bedrock Runtime
+  expanded:
+    long: Agents for Amazon Bedrock Runtime
+    short: Bedrock Agents Runtime
+  blurb: offers you the ability to build and configure autonomous agents in your application.
+  guide:
+    subtitle: User Guide
+    url: bedrock/latest/userguide/agents.html
+  api_ref: https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html
+  tags:
+    product_categories: {'Machine Learning &amp; AI'}
+  version: bedrock-agents-runtime-2023-12-07
 bedrock-runtime:
   bundle: bedrock
   long: '&BRRUNlong;'
@@ -502,14 +534,14 @@ firehose:
   version: "firehose-2015-08-04"
   tags:
     product_categories: {'Analytics'}
-forecast: 
+forecast:
   long: '&FORlong;'
   short: '&FOR;'
   sort: Forecast
   expanded:
     long: Amazon Forecast Service
     short: Forecast
-  blurb: a fully managed service that uses statistical and machine learning algorithms to deliver highly accurate time-series forecasts. 
+  blurb: a fully managed service that uses statistical and machine learning algorithms to deliver highly accurate time-series forecasts.
   guide:
     subtitle: User Guide
     url: forecast/latest/dg/getting-started.html
@@ -754,7 +786,7 @@ migration-hub:
   expanded:
     long: AWS Migration Hub
     short: Migration Hub
-  blurb: is a single place to discover your existing servers, plan migrations, and track the status of each application migration. 
+  blurb: is a single place to discover your existing servers, plan migrations, and track the status of each application migration.
   guide:
     subtitle: User Guide
     url: migrationhub/latest/ug/getting-started.html
@@ -762,7 +794,7 @@ migration-hub:
   tags:
     product_categories: {'Migration'}
   version: migration-hub-2017-05-31
-opensearch: 
+opensearch:
   long: '&ESlong;'
   short: '&ES;'
   sort: "ES"
