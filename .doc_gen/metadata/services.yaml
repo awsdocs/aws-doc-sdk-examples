@@ -164,7 +164,7 @@ bedrock-agents-runtime:
   guide:
     subtitle: User Guide
     url: bedrock/latest/userguide/agents.html
-  api_ref: https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html
+  api_ref: bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html
   tags:
     product_categories: {'Machine Learning &amp; AI'}
   version: bedrock-agents-runtime-2023-12-07
