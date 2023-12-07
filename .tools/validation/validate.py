@@ -2,39 +2,25 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import argparse
-import yaml
 from pathlib import Path
 from sys import exit
-from metadata import parse as parse_metadata
-from metadata_errors import MetadataErrors
+
+from doc_gen import DocGen
 from metadata_validator import validate_metadata
 from project_validator import check_files, verify_sample_files
-from doc_gen import DocGen
-
-
-def validate_zexii(metadata_path: Path, errors: MetadataErrors) -> None:
-    doc_gen = errors.maybe_extend(DocGen.from_root(metadata_path))
-    if doc_gen is None:
-        return
-
-    for path in metadata_path.glob("*_metadata.yaml"):
-        if path.name == "cross_metadata.yaml":
-            continue
-        with open(path, encoding="utf-8") as file:
-            meta = yaml.safe_load(file)
-        errors.maybe_extend(parse_metadata(path.name, meta, doc_gen))
+from snippets import validate_snippets
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--root",
-        default=f"{Path(__file__).parent / '..' / '..'}",
+        default=f"{Path(__file__).parent.parent.parent}",
         help="The root path from which to search for files to check. The default is the root of the git repo (two up from this file).",
     )
     parser.add_argument(
         "--doc-gen",
-        default=f"{Path(__file__).parent / '..' / '..' / '.doc_gen'}",
+        default=f"{Path(__file__).parent.parent.parent / '.doc_gen'}",
         help="The folder that contains schema and metadata files. The default is .doc_gen in the root of this repo.",
         required=False,
     )
@@ -46,19 +32,19 @@ def main():
     )
     args = parser.parse_args()
     root_path = Path(args.root).resolve()
-    doc_gen = Path(args.doc_gen).resolve()
 
-    errors = MetadataErrors()
+    doc_gen, errors = DocGen.from_root(root=root_path, snippets_root=root_path)
 
     check_files(root_path, errors, args.check_spdx)
     verify_sample_files(root_path, errors)
-    validate_metadata(doc_gen, errors)
-    validate_zexii(doc_gen / "metadata", errors)
+    validate_metadata(root_path, errors)
+    validate_snippets(
+        doc_gen.examples, doc_gen.snippets, doc_gen.snippet_files, errors, root_path
+    )
 
     error_count = len(errors)
     if error_count > 0:
-        for error in errors:
-            print(str(error))
+        print(f"{errors}")
         print(f"{error_count} errors found, please fix them.")
     else:
         print("All checks passed, you are cleared to check in.")
