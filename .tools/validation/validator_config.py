@@ -6,27 +6,32 @@ import json
 
 # Only files with these extensions are scanned.
 EXT_LOOKUP = {
-    "c": "C",
-    "cpp": "C++",
-    "cs": "C#",
-    "go": "Go",
-    "html": "JavaScript",
-    "java": "Java",
-    "js": "JavaScript",
-    "kt": "Kotlin",
-    "php": "PHP",
-    "py": "Python",
-    "rb": "Ruby",
-    "rs": "Rust",
-    "swift": "Swift",
-    "ts": "TypeScript",
-    "sh": "AWS-CLI",
-    "cmd": "AWS-CLI",
-    "json": "JSON",
-    "yml": "YAML",
-    "yaml": "YAML",
-    "md": "Markdown",
+    ".c": "C",
+    ".cpp": "C++",
+    ".cs": "C#",
+    ".go": "Go",
+    ".html": "JavaScript",
+    ".java": "Java",
+    ".js": "JavaScript",
+    ".kt": "Kotlin",
+    ".php": "PHP",
+    ".py": "Python",
+    ".rb": "Ruby",
+    ".rs": "Rust",
+    ".swift": "Swift",
+    ".ts": "TypeScript",
+    ".sh": "AWS-CLI",
+    ".cmd": "AWS-CLI",
+    ".json": "JSON",
+    ".yml": "YAML",
+    ".yaml": "YAML",
+    ".md": "Markdown",
 }
+
+
+def skip(path):
+    return path.suffix.lower() not in EXT_LOOKUP or path.name in IGNORE_FILES
+
 
 # If you get a lot of false-flagged 40-character errors
 # in specific folders or files, you can omit them from

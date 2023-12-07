@@ -44,11 +44,7 @@ def check_files(root: Path, errors: MetadataErrors):
     :return: The number of errors found in the scanned files.
     """
     file_count = 0
-    for file_path in get_files(
-        root,
-        lambda path: path.suffix.lower() not in validator_config.EXT_LOOKUP
-        or path.name in validator_config.IGNORE_FILES,
-    ):
+    for file_path in get_files(root, validator_config.skip):
         file_count += 1
         logger.info("\nChecking File: %s", file_path)
 

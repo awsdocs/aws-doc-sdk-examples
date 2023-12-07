@@ -7,14 +7,28 @@ from typing import Optional, Iterable, TypeVar, Self
 
 
 @dataclass
-class MetadataParseError:
+class MetadataError:
     file: Optional[str] = None
+
+    def prefix(self):
+        prefix = f"In {self.file}, "
+        return prefix
+
+    def message(self):
+        pass
+
+    def __str__(self):
+        return f"{self.prefix()} {self.message()}"
+
+
+@dataclass
+class MetadataParseError(MetadataError):
     id: Optional[str] = None
     language: Optional[str] = None
     sdk_version: Optional[int] = None
 
     def prefix(self):
-        prefix = f"In {self.file}, example {self.id}"
+        prefix = super().prefix() + f"example {self.id}"
         if self.language:
             prefix += f": {self.language}"
         if self.sdk_version:
@@ -25,7 +39,7 @@ class MetadataParseError:
         pass
 
     def __str__(self):
-        return f"{self.prefix} {self.message()}"
+        return f"{self.prefix()} {self.message()}"
 
 
 @dataclass
@@ -53,16 +67,16 @@ class MetadataErrors:
     """MyPy isn't catching list[Foo].append(list[Foo])"""
 
     def __init__(self):
-        self._errors: list[MetadataParseError] = []
+        self._errors: list[MetadataError] = []
 
-    def append(self, item: MetadataParseError):
-        if not isinstance(item, MetadataParseError):
+    def append(self, item: MetadataError):
+        if not isinstance(item, MetadataError):
             raise InvalidItemException(item)
         if item in self._errors:
             raise DuplicateItemException(item)
         self._errors.append(item)
 
-    def extend(self, errors: Iterable[MetadataParseError]):
+    def extend(self, errors: Iterable[MetadataError]):
         self._errors.extend(errors)
 
     def maybe_extend(self, maybe_errors: K | Self) -> K | None:
@@ -71,10 +85,10 @@ class MetadataErrors:
             return None
         return maybe_errors
 
-    def __getitem__(self, key: int) -> MetadataParseError:
+    def __getitem__(self, key: int) -> MetadataError:
         return self._errors[key]
 
-    def __setitem__(self, key: int, value: MetadataParseError):
+    def __setitem__(self, key: int, value: MetadataError):
         self._errors[key] = value
 
     def __len__(self) -> int:
