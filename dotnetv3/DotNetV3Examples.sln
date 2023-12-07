@@ -739,6 +739,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StepFunctionsBasics", "Step
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StepFunctionsActions", "StepFunctions\Actions\StepFunctionsActions.csproj", "{0340F970-AE33-4ABD-9B2B-E7CF266E33CC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedrockActions", "Bedrock\Actions\BedrockActions.csproj", "{F2975A40-3BCD-4AE0-BB14-03704E6B3F79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bedrock", "Bedrock", "{5810E90E-DBA6-438A-8FB3-A1769B2E4ECA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1677,6 +1681,10 @@ Global
 		{0340F970-AE33-4ABD-9B2B-E7CF266E33CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0340F970-AE33-4ABD-9B2B-E7CF266E33CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0340F970-AE33-4ABD-9B2B-E7CF266E33CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2975A40-3BCD-4AE0-BB14-03704E6B3F79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2975A40-3BCD-4AE0-BB14-03704E6B3F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2975A40-3BCD-4AE0-BB14-03704E6B3F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2975A40-3BCD-4AE0-BB14-03704E6B3F79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2014,6 +2022,7 @@ Global
 		{6A9E4CE0-E5B2-4136-B796-BFE673954ACA} = {66F40B36-B02C-4B6E-9978-592BB0040FD8}
 		{8638D5FD-CFEB-4FBA-A8C0-B65F31B8AE93} = {66F40B36-B02C-4B6E-9978-592BB0040FD8}
 		{0340F970-AE33-4ABD-9B2B-E7CF266E33CC} = {66F40B36-B02C-4B6E-9978-592BB0040FD8}
+		{F2975A40-3BCD-4AE0-BB14-03704E6B3F79} = {5810E90E-DBA6-438A-8FB3-A1769B2E4ECA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08502818-E8E1-4A91-A51C-4C8C8D4FF9CA}
