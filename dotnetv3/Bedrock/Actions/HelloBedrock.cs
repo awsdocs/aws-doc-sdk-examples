@@ -54,7 +54,7 @@ namespace ListFoundationModelsExample
                     Console.WriteLine("Something wrong happened");
                 }
             }
-            catch(AmazonBedrockException e)
+            catch (AmazonBedrockException e)
             {
                 Console.WriteLine(e.Message);
             }
