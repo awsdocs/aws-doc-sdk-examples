@@ -19,4 +19,14 @@ class TextToImageAsyncTest extends TestBase {
         assertNotNullOrEmpty(base64Result);
         System.out.println("Test async invoke Stable Diffusion passed.");
     }
+
+    @Test
+    @Tag("IntegrationTest")
+    void InvokeTitanImage() {
+        String prompt = "A sunset over the ocean";
+        long seed = 0;
+        String base64Result = InvokeModelAsync.invokeTitanImage(prompt, seed);
+        assertNotNullOrEmpty(base64Result);
+        System.out.println("Test async invoke Titan Image passed.");
+    }
 }
