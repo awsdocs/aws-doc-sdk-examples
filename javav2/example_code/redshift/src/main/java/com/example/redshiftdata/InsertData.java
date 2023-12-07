@@ -10,7 +10,6 @@
 package com.example.redshiftdata;
 
 // snippet-start:[redshift.java2.data_addrecord.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementRequest;
 import software.amazon.awssdk.services.redshiftdata.RedshiftDataClient;
@@ -48,9 +47,7 @@ import java.util.UUID;
 
 // snippet-start:[redshift.java2.data_addrecord.main]
 public class InsertData {
-
     public static void main(String [] args){
-
         String clusterId = "redshift-cluster-1";
         String database = "dev";
         String dbUser = "awsuser";
@@ -129,7 +126,6 @@ public class InsertData {
         Region region = Region.US_WEST_2;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         return redshiftDataClient;

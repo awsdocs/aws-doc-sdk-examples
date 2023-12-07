@@ -9,8 +9,8 @@
 
 package com.example.forecast;
 
+// snippet-start:[forecast.java2.delete_forecast.main]
 // snippet-start:[forecast.java2.delete_forecast.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.forecast.ForecastClient;
 import software.amazon.awssdk.services.forecast.model.DeleteForecastRequest;
@@ -27,12 +27,14 @@ import software.amazon.awssdk.services.forecast.model.ForecastException;
 public class DeleteForecast {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <forecastArn> \n\n" +
-            "Where:\n" +
-            "    forecastArn - The ARN that belongs to the forecast to delete. \n\n" ;
+            Usage:
+                <forecastArn>\s
+
+            Where:
+                forecastArn - The ARN that belongs to the forecast to delete.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,20 +45,17 @@ public class DeleteForecast {
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        delForecast(forecast, forecastArn) ;
+        delForecast(forecast, forecastArn);
         forecast.close();
     }
 
-    // snippet-start:[forecast.java2.delete_forecast.main]
     public static void delForecast(ForecastClient forecast, String forecastArn) {
-
         try {
             DeleteForecastRequest forecastRequest = DeleteForecastRequest.builder()
                 .forecastArn(forecastArn)
-                .build() ;
+                .build();
 
             forecast.deleteForecast(forecastRequest);
             System.out.println("The forecast was successfully deleted");
@@ -66,5 +65,5 @@ public class DeleteForecast {
             System.exit(1);
         }
     }
-    // snippet-end:[forecast.java2.delete_forecast.main]
 }
+// snippet-end:[forecast.java2.delete_forecast.main]

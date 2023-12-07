@@ -8,8 +8,8 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.get_crawlers.main]
 //snippet-start:[glue.java2.get_crawlers.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GetCrawlersRequest;
@@ -27,22 +27,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetCrawlers {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getAllCrawlers(glueClient);
         glueClient.close();
     }
 
-    //snippet-start:[glue.java2.get_crawlers.main]
-    public static void getAllCrawlers(GlueClient glueClient){
-
+    public static void getAllCrawlers(GlueClient glueClient) {
         try {
             GetCrawlersRequest crawlersRequest = GetCrawlersRequest.builder()
                 .maxResults(10)
@@ -50,8 +45,8 @@ public class GetCrawlers {
 
             GetCrawlersResponse response = glueClient.getCrawlers(crawlersRequest);
             List<Crawler> crawlers = response.crawlers();
-            for (Crawler crawler: crawlers) {
-                System.out.println("The crawler name is : "+crawler.name());
+            for (Crawler crawler : crawlers) {
+                System.out.println("The crawler name is : " + crawler.name());
             }
 
         } catch (GlueException e) {
@@ -59,5 +54,5 @@ public class GetCrawlers {
             System.exit(1);
         }
     }
-    //snippet-end:[glue.java2.get_crawlers.main]
 }
+//snippet-end:[glue.java2.get_crawlers.main]

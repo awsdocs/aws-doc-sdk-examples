@@ -12,7 +12,6 @@ package com.example.stepfunctions;
 // snippet-start:[stepfunctions.java2.start_execute.import]
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.SfnException;
@@ -31,14 +30,16 @@ import java.util.UUID;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class StartExecution {
-
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <stateMachineArn> <jsonFile>\n\n" +
-            "Where:\n" +
-            "    stateMachineArn - the ARN of the state machine.\n\n" +
-            "    jsonFile - A JSON file that contains the values to pass to the workflow.\n" ;
+        final String usage = """
+
+            Usage:
+                <stateMachineArn> <jsonFile>
+
+            Where:
+                stateMachineArn - the ARN of the state machine.
+                jsonFile - A JSON file that contains the values to pass to the workflow.
+            """;
 
             if (args.length != 2) {
                 System.out.println(usage);
@@ -50,7 +51,6 @@ public class StartExecution {
             Region region = Region.US_EAST_1;
             SfnClient sfnClient = SfnClient.builder()
                 .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
            String exeArn = startWorkflow(sfnClient,stateMachineArn, jsonFile);

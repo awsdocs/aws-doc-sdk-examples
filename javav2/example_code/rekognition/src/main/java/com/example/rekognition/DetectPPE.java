@@ -9,8 +9,8 @@
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.detect_ppe.main]
 // snippet-start:[rekognition.java2.detect_ppe.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
@@ -41,19 +41,19 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DetectPPE {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <sourceImage> <bucketName>\n\n" +
-            "Where:\n" +
-            "   sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png). \n\n" +
-            "   bucketName - The name of the Amazon S3 bucket (for example, myBucket). \n\n";
+            Usage:    <sourceImage> <bucketName>
+
+            Where:
+               sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png).\s
+               bucketName - The name of the Amazon S3 bucket (for example, myBucket).\s
+            """;
 
         if (args.length != 2) {
-             System.out.println(usage);
-             System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String sourceImage = args[0];
@@ -61,27 +61,24 @@ public class DetectPPE {
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         RekognitionClient rekClient = RekognitionClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        displayGear(s3, rekClient, sourceImage, bucketName) ;
+        displayGear(s3, rekClient, sourceImage, bucketName);
         s3.close();
         rekClient.close();
         System.out.println("This example is done!");
     }
 
-    // snippet-start:[rekognition.java2.detect_ppe.main]
     public static void displayGear(S3Client s3,
                                    RekognitionClient rekClient,
                                    String sourceImage,
                                    String bucketName) {
 
-        byte[] data = getObjectBytes (s3, bucketName, sourceImage);
+        byte[] data = getObjectBytes(s3, bucketName, sourceImage);
         InputStream is = new ByteArrayInputStream(data);
 
         try {
@@ -102,27 +99,27 @@ public class DetectPPE {
 
             DetectProtectiveEquipmentResponse result = rekClient.detectProtectiveEquipment(request);
             List<ProtectiveEquipmentPerson> persons = result.persons();
-            for (ProtectiveEquipmentPerson person: persons) {
+            for (ProtectiveEquipmentPerson person : persons) {
                 System.out.println("ID: " + person.id());
-                List<ProtectiveEquipmentBodyPart> bodyParts=person.bodyParts();
-                if (bodyParts.isEmpty()){
+                List<ProtectiveEquipmentBodyPart> bodyParts = person.bodyParts();
+                if (bodyParts.isEmpty()) {
                     System.out.println("\tNo body parts detected");
                 } else
-                    for (ProtectiveEquipmentBodyPart bodyPart: bodyParts) {
+                    for (ProtectiveEquipmentBodyPart bodyPart : bodyParts) {
                         System.out.println("\t" + bodyPart.name() + ". Confidence: " + bodyPart.confidence().toString());
-                        List<EquipmentDetection> equipmentDetections=bodyPart.equipmentDetections();
+                        List<EquipmentDetection> equipmentDetections = bodyPart.equipmentDetections();
 
-                        if (equipmentDetections.isEmpty()){
+                        if (equipmentDetections.isEmpty()) {
                             System.out.println("\t\tNo PPE Detected on " + bodyPart.name());
                         } else {
-                            for (EquipmentDetection item: equipmentDetections) {
+                            for (EquipmentDetection item : equipmentDetections) {
                                 System.out.println("\t\tItem: " + item.type() + ". Confidence: " + item.confidence().toString());
                                 System.out.println("\t\tCovers body part: "
-                                        + item.coversBodyPart().value().toString() + ". Confidence: " + item.coversBodyPart().confidence().toString());
+                                    + item.coversBodyPart().value().toString() + ". Confidence: " + item.coversBodyPart().confidence().toString());
 
                                 System.out.println("\t\tBounding Box");
-                                BoundingBox box =item.boundingBox();
-                                System.out.println("\t\tLeft: " +box.left().toString());
+                                BoundingBox box = item.boundingBox();
+                                System.out.println("\t\tLeft: " + box.left().toString());
                                 System.out.println("\t\tTop: " + box.top().toString());
                                 System.out.println("\t\tWidth: " + box.width().toString());
                                 System.out.println("\t\tHeight: " + box.height().toString());
@@ -144,8 +141,7 @@ public class DetectPPE {
         }
     }
 
-    public static byte[] getObjectBytes (S3Client s3, String bucketName, String keyName) {
-
+    public static byte[] getObjectBytes(S3Client s3, String bucketName, String keyName) {
         try {
             GetObjectRequest objectRequest = GetObjectRequest
                 .builder()
@@ -163,14 +159,14 @@ public class DetectPPE {
         return null;
     }
 
-    static void displaySummary(String summaryType,List<Integer> idList) {
+    static void displaySummary(String summaryType, List<Integer> idList) {
         System.out.print(summaryType + "\n\tIDs  ");
-        if (idList.size()==0) {
+        if (idList.size() == 0) {
             System.out.println("None");
         } else {
-            int count=0;
-            for (Integer id: idList ) {
-                if (count++ == idList.size()-1) {
+            int count = 0;
+            for (Integer id : idList) {
+                if (count++ == idList.size() - 1) {
                     System.out.println(id.toString());
                 } else {
                     System.out.print(id.toString() + ", ");
@@ -179,5 +175,5 @@ public class DetectPPE {
         }
         System.out.println();
     }
-    // snippet-end:[rekognition.java2.detect_ppe.main]
 }
+// snippet-end:[rekognition.java2.detect_ppe.main]

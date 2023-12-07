@@ -39,13 +39,17 @@ public class GetPersonalizedRanking {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    GetPersonalizedRanking <campaignArn> <userId> <items>\n\n" +
-                "Where:\n" +
-                "    campaignArn - The ARN of the campaign.\n" +
-                "    userId - The user ID to provide recommendations for.\n" +
-                "    itemList - A comma delimited list of items to rank for the user\n\n";
+        final String USAGE = """
+
+            Usage:
+                GetPersonalizedRanking <campaignArn> <userId> <items>
+
+            Where:
+                campaignArn - The ARN of the campaign.
+                userId - The user ID to provide recommendations for.
+                itemList - A comma delimited list of items to rank for the user
+
+            """;
 
         if (args.length < 3) {
             System.out.println(USAGE);

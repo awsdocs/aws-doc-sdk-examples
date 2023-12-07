@@ -8,8 +8,8 @@
 */
 package com.example.comprehend;
 
+//snippet-start:[comprehend.java2.detect_sentiment.main]
 //snippet-start:[comprehend.java2.detect_sentiment.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.comprehend.ComprehendClient;
 import software.amazon.awssdk.services.comprehend.model.ComprehendException;
@@ -25,14 +25,11 @@ import software.amazon.awssdk.services.comprehend.model.DetectSentimentResponse;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DetectSentiment {
-
     public static void main(String[] args) {
-
         String text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing.";
         Region region = Region.US_EAST_1;
         ComprehendClient comClient = ComprehendClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println("Calling DetectSentiment");
@@ -40,9 +37,7 @@ public class DetectSentiment {
         comClient.close();
     }
 
-    //snippet-start:[comprehend.java2.detect_sentiment.main]
-    public static void detectSentiments(ComprehendClient comClient, String text){
-
+    public static void detectSentiments(ComprehendClient comClient, String text) {
         try {
             DetectSentimentRequest detectSentimentRequest = DetectSentimentRequest.builder()
                 .text(text)
@@ -50,12 +45,12 @@ public class DetectSentiment {
                 .build();
 
             DetectSentimentResponse detectSentimentResult = comClient.detectSentiment(detectSentimentRequest);
-            System.out.println("The Neutral value is " +detectSentimentResult.sentimentScore().neutral() );
+            System.out.println("The Neutral value is " + detectSentimentResult.sentimentScore().neutral());
 
         } catch (ComprehendException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[comprehend.java2.detect_sentiment.main]
- }
+}
+//snippet-end:[comprehend.java2.detect_sentiment.main]

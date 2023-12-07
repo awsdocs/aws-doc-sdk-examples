@@ -7,8 +7,8 @@
 */
 
 package com.example.cognito;
+//snippet-start:[cognito.java2.ListUsers.main]
 //snippet-start:[cognito.java2.ListUsers.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
@@ -24,14 +24,16 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUsersRe
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListUsers {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <userPoolId> \n\n" +
-            "Where:\n" +
-            "    userPoolId - The ID given to your user pool when it's created.\n\n" ;
+        final String usage = """
+
+            Usage:
+                <userPoolId>\s
+
+            Where:
+                userPoolId - The ID given to your user pool when it's created.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -41,7 +43,6 @@ public class ListUsers {
         String userPoolId = args[0];
         CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllUsers(cognitoClient, userPoolId );
@@ -49,7 +50,6 @@ public class ListUsers {
         cognitoClient.close();
     }
 
-    //snippet-start:[cognito.java2.ListUsers.main]
     public static void listAllUsers(CognitoIdentityProviderClient cognitoClient, String userPoolId ) {
         try {
             ListUsersRequest usersRequest = ListUsersRequest.builder()
@@ -87,5 +87,5 @@ public class ListUsers {
             System.exit(1);
         }
     }
-    //snippet-end:[cognito.java2.ListUsers.main]
 }
+//snippet-end:[cognito.java2.ListUsers.main]

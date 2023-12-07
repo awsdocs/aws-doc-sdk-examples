@@ -7,7 +7,6 @@
 */
 package com.example.route;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53.model.Route53Exception;
 import software.amazon.awssdk.services.route53domains.Route53DomainsClient;
@@ -72,17 +71,18 @@ import java.util.List;
 public class Route53Scenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <domainType> <phoneNumber> <email> <domainSuggestion> <firstName> <lastName> <city>\n\n" +
-            "Where:\n" +
-            "    domainType - The domain type (for example, com). \n" +
-            "    phoneNumber - The phone number to use (for example, +91.9966564xxx)  "+
-            "    email - The email address to use.  "+
-            "    domainSuggestion - The domain suggestion (for example, findmy.accountants). \n" +
-            "    firstName - The first name to use to register a domain. \n" +
-            "    lastName -  The last name to use to register a domain. \n" +
-            "    city - the city to use to register a domain. ";
+        final String usage = """
+
+            Usage:
+                <domainType> <phoneNumber> <email> <domainSuggestion> <firstName> <lastName> <city>
+
+            Where:
+                domainType - The domain type (for example, com).\s
+                phoneNumber - The phone number to use (for example, +91.9966564xxx)      email - The email address to use.      domainSuggestion - The domain suggestion (for example, findmy.accountants).\s
+                firstName - The first name to use to register a domain.\s
+                lastName -  The last name to use to register a domain.\s
+                city - the city to use to register a domain.\s
+                """;
 
         if (args.length != 7) {
             System.out.println(usage);
@@ -99,7 +99,6 @@ public class Route53Scenario {
         Region region = Region.US_EAST_1;
         Route53DomainsClient route53DomainsClient = Route53DomainsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println(DASHES);

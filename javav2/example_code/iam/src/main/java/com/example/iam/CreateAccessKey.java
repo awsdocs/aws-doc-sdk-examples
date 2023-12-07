@@ -8,8 +8,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.create_access_key.main]
 // snippet-start:[iam.java2.create_access_key.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyResponse;
 import software.amazon.awssdk.regions.Region;
@@ -25,14 +25,15 @@ import software.amazon.awssdk.services.iam.model.IamException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateAccessKey {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "   <user> \n\n" +
-            "Where:\n" +
-            "   user - An AWS IAM user that you can obtain from the AWS Management Console.\n\n";
+            Usage:
+               <user>\s
+
+            Where:
+               user - An AWS IAM user that you can obtain from the AWS Management Console.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,17 +44,14 @@ public class CreateAccessKey {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String keyId = createIAMAccessKey(iam, user);
-        System.out.println("The Key Id is " +keyId);
+        System.out.println("The Key Id is " + keyId);
         iam.close();
     }
 
-    // snippet-start:[iam.java2.create_access_key.main]
-    public static String createIAMAccessKey(IamClient iam,String user) {
-
+    public static String createIAMAccessKey(IamClient iam, String user) {
         try {
             CreateAccessKeyRequest request = CreateAccessKeyRequest.builder()
                 .userName(user)
@@ -68,5 +66,5 @@ public class CreateAccessKey {
         }
         return "";
     }
-    // snippet-end:[iam.java2.create_access_key.main]
 }
+// snippet-end:[iam.java2.create_access_key.main]

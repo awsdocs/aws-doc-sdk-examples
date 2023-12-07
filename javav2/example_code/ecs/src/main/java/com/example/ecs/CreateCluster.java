@@ -9,8 +9,8 @@
 
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.create_cluster.main]
 // snippet-start:[ecs.java2.create_cluster.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.ExecuteCommandConfiguration;
@@ -30,12 +30,14 @@ import software.amazon.awssdk.services.ecs.model.CreateClusterRequest;
  */
 public class CreateCluster {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "   <clusterName> \n\n" +
-            "Where:\n" +
-            "   clusterName - The name of the ECS cluster to create.\n" ;
+            Usage:
+               <clusterName>\s
+
+            Where:
+               clusterName - The name of the ECS cluster to create.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,17 +48,14 @@ public class CreateCluster {
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String clusterArn = createGivenCluster(ecsClient, clusterName);
-        System.out.println("The cluster ARN is "+clusterArn) ;
+        System.out.println("The cluster ARN is " + clusterArn);
         ecsClient.close();
     }
 
-    // snippet-start:[ecs.java2.create_cluster.main]
-    public static String createGivenCluster( EcsClient ecsClient, String clusterName) {
-
+    public static String createGivenCluster(EcsClient ecsClient, String clusterName) {
         try {
             ExecuteCommandConfiguration commandConfiguration = ExecuteCommandConfiguration.builder()
                 .logging(ExecuteCommandLogging.DEFAULT)
@@ -71,7 +70,7 @@ public class CreateCluster {
                 .configuration(clusterConfiguration)
                 .build();
 
-            CreateClusterResponse response = ecsClient.createCluster(clusterRequest) ;
+            CreateClusterResponse response = ecsClient.createCluster(clusterRequest);
             return response.cluster().clusterArn();
 
         } catch (EcsException e) {
@@ -80,5 +79,5 @@ public class CreateCluster {
         }
         return "";
     }
-    // snippet-end:[ecs.java2.create_cluster.main]
 }
+// snippet-end:[ecs.java2.create_cluster.main]

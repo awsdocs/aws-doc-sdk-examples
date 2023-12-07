@@ -9,8 +9,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.GetTopicAttributes.main]
 //snippet-start:[sns.java2.GetTopicAttributes.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.GetTopicAttributesRequest;
@@ -27,12 +27,13 @@ import software.amazon.awssdk.services.sns.model.SnsException;
  */
 public class GetTopicAttributes {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <topicArn>\n\n" +
-            "Where:\n" +
-            "   topicArn - The ARN of the topic to look up.\n\n";
+            Usage:    <topicArn>
+
+            Where:
+               topicArn - The ARN of the topic to look up.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,17 +43,14 @@ public class GetTopicAttributes {
         String topicArn = args[0];
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println("Getting attributes for a topic with name: " + topicArn);
-        getSNSTopicAttributes(snsClient, topicArn) ;
+        getSNSTopicAttributes(snsClient, topicArn);
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.GetTopicAttributes.main]
-    public static void getSNSTopicAttributes(SnsClient snsClient, String topicArn ) {
-
+    public static void getSNSTopicAttributes(SnsClient snsClient, String topicArn) {
         try {
             GetTopicAttributesRequest request = GetTopicAttributesRequest.builder()
                 .topicArn(topicArn)
@@ -66,5 +64,5 @@ public class GetTopicAttributes {
             System.exit(1);
         }
     }
-    //snippet-end:[sns.java2.GetTopicAttributes.main]
 }
+//snippet-end:[sns.java2.GetTopicAttributes.main]

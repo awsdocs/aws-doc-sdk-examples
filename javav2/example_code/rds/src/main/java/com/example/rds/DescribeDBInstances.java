@@ -33,7 +33,7 @@ public class DescribeDBInstances {
             .region(region)
             .build();
 
-        describeInstances(rdsClient) ;
+        describeInstances(rdsClient);
         rdsClient.close();
     }
 
@@ -41,10 +41,10 @@ public class DescribeDBInstances {
         try {
             DescribeDbInstancesResponse response = rdsClient.describeDBInstances();
             List<DBInstance> instanceList = response.dbInstances();
-            for (DBInstance instance: instanceList) {
-                System.out.println("Instance ARN is: "+instance.dbInstanceArn());
-                System.out.println("The Engine is " +instance.engine());
-                System.out.println("Connection endpoint is" +instance.endpoint().address());
+            for (DBInstance instance : instanceList) {
+                System.out.println("Instance ARN is: " + instance.dbInstanceArn());
+                System.out.println("The Engine is " + instance.engine());
+                System.out.println("Connection endpoint is" + instance.endpoint().address());
             }
 
         } catch (RdsException e) {
@@ -52,6 +52,6 @@ public class DescribeDBInstances {
             System.exit(1);
         }
     }
-    // snippet-end:[rds.java2.describe_instances.main]
 }
+// snippet-end:[rds.java2.describe_instances.main]
 

@@ -7,8 +7,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.detach_role_policy.main]
 // snippet-start:[iam.java2.detach_role_policy.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.DetachRolePolicyRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
@@ -24,13 +24,15 @@ import software.amazon.awssdk.services.iam.model.IamException;
  */
 public class DetachRolePolicy {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <roleName> <policyArn> \n\n" +
-            "Where:\n" +
-            "    roleName - A role name that you can obtain from the AWS Management Console. \n\n" +
-            "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
+            Usage:
+                <roleName> <policyArn>\s
+
+            Where:
+                roleName - A role name that you can obtain from the AWS Management Console.\s
+                policyArn - A policy ARN that you can obtain from the AWS Management Console.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -42,16 +44,13 @@ public class DetachRolePolicy {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         detachPolicy(iam, roleName, policyArn);
         System.out.println("Done");
         iam.close();
     }
 
-    // snippet-start:[iam.java2.detach_role_policy.main]
-    public static void detachPolicy(IamClient iam, String roleName, String policyArn ) {
-
+    public static void detachPolicy(IamClient iam, String roleName, String policyArn) {
         try {
             DetachRolePolicyRequest request = DetachRolePolicyRequest.builder()
                 .roleName(roleName)
@@ -67,5 +66,5 @@ public class DetachRolePolicy {
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.detach_role_policy.main]
 }
+// snippet-end:[iam.java2.detach_role_policy.main]

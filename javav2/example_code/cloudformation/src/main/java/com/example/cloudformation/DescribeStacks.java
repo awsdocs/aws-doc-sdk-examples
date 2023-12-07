@@ -10,8 +10,8 @@
 
 package com.example.cloudformation;
 
+// snippet-start:[cf.java2.get_stacks.main]
 // snippet-start:[cf.java2.get_stacks.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudformation.CloudFormationClient;
 import software.amazon.awssdk.services.cloudformation.model.CloudFormationException;
@@ -28,20 +28,15 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeStacks {
-
     public static void main(String[] args) {
-
         Region region = Region.US_WEST_2;
         CloudFormationClient cfClient = CloudFormationClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         describeAllStacks(cfClient);
         cfClient.close();
     }
-
-    // snippet-start:[cf.java2.get_stacks.main]
     public static void describeAllStacks(CloudFormationClient cfClient) {
         try {
             DescribeStacksResponse stacksResponse = cfClient.describeStacks();
@@ -56,5 +51,5 @@ public class DescribeStacks {
             System.exit(1);
         }
     }
-    // snippet-end:[cf.java2.get_stacks.main]
 }
+// snippet-end:[cf.java2.get_stacks.main]

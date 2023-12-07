@@ -8,8 +8,8 @@
 
 package com.example.kinesis;
 
+// snippet-start:[kinesis.java2.getrecord.main]
 //snippet-start:[kinesis.java2.getrecord.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
@@ -32,40 +32,35 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class GetRecords {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <streamName>\n\n" +
-            "Where:\n" +
-            "    streamName - The Amazon Kinesis data stream to read from (for example, StockTradeStream).\n\n" ;
+            Usage:
+                <streamName>
 
-       if (args.length != 1) {
+            Where:
+                streamName - The Amazon Kinesis data stream to read from (for example, StockTradeStream).
+            """;
+
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
-       }
+        }
 
         String streamName = args[0];
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        getStockTrades(kinesisClient,streamName);
+        getStockTrades(kinesisClient, streamName);
         kinesisClient.close();
     }
 
-    // snippet-start:[kinesis.java2.getrecord.main]
     public static void getStockTrades(KinesisClient kinesisClient, String streamName) {
-
         String shardIterator;
         String lastShardId = null;
-
-        // Retrieve the Shards from a Stream
         DescribeStreamRequest describeStreamRequest = DescribeStreamRequest.builder()
             .streamName(streamName)
             .build();
@@ -79,7 +74,7 @@ public class GetRecords {
             if (shards.size() > 0) {
                 lastShardId = shards.get(shards.size() - 1).shardId();
             }
-            } while (streamRes.streamDescription().hasMoreShards());
+        } while (streamRes.streamDescription().hasMoreShards());
 
         GetShardIteratorRequest itReq = GetShardIteratorRequest.builder()
             .streamName(streamName)
@@ -111,6 +106,6 @@ public class GetRecords {
             System.out.printf("Seq No: %s - %s%n", record.sequenceNumber(), new String(byteBuffer.asByteArray()));
         }
     }
-    // snippet-end:[kinesis.java2.getrecord.main]
 }
+// snippet-end:[kinesis.java2.getrecord.main]
 

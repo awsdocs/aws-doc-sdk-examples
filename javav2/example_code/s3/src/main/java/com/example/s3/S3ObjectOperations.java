@@ -54,17 +54,17 @@ import software.amazon.awssdk.services.s3.model.HeadBucketResponse;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class S3ObjectOperations {
-
     private static S3Client s3;
-
     public static void main(String[] args) throws IOException {
+        final String USAGE = """
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <bucketName> <key>\n\n" +
-                "Where:\n" +
-                "    bucketName - the Amazon S3 bucket to create.\n\n" +
-                "    key - the key to use.\n\n" ;
+            Usage:
+                <bucketName> <key>
+
+            Where:
+                bucketName - the Amazon S3 bucket to create.
+                key - the key to use.
+            """;
 
         if (args.length != 2) {
             System.out.println(USAGE);

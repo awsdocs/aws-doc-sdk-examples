@@ -8,8 +8,8 @@
 
 package com.example.s3;
 
+// snippet-start:[s3.java2.copy_object.main]
 // snippet-start:[s3.java2.copy_object.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
@@ -26,16 +26,17 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
  */
 
 public class CopyObject {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <objectKey> <fromBucket> <toBucket>\n\n" +
-            "Where:\n" +
-            "    objectKey - The name of the object (for example, book.pdf).\n\n" +
-            "    fromBucket - The S3 bucket name that contains the object (for example, bucket1).\n" +
-            "    toBucket - The S3 bucket to copy the object to (for example, bucket2).\n";
+            Usage:
+                <objectKey> <fromBucket> <toBucket>
+
+            Where:
+                objectKey - The name of the object (for example, book.pdf).
+                fromBucket - The S3 bucket name that contains the object (for example, bucket1).
+                toBucket - The S3 bucket to copy the object to (for example, bucket2).
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -46,21 +47,16 @@ public class CopyObject {
         String fromBucket = args[1];
         String toBucket = args[2];
         System.out.format("Copying object %s from bucket %s to %s\n", objectKey, fromBucket, toBucket);
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
-        copyBucketObject (s3, fromBucket, objectKey, toBucket);
+        copyBucketObject(s3, fromBucket, objectKey, toBucket);
         s3.close();
     }
 
-    // snippet-start:[s3.java2.copy_object.main]
-    public static String copyBucketObject (S3Client s3, String fromBucket, String objectKey, String toBucket) {
-
+    public static String copyBucketObject(S3Client s3, String fromBucket, String objectKey, String toBucket) {
         CopyObjectRequest copyReq = CopyObjectRequest.builder()
             .sourceBucket(fromBucket)
             .sourceKey(objectKey)
@@ -78,5 +74,6 @@ public class CopyObject {
         }
         return "";
     }
-    // snippet-end:[s3.java2.copy_object.main]
 }
+// snippet-end:[s3.java2.copy_object.main]
+

@@ -8,8 +8,8 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.search_table.main]
 //snippet-start:[glue.java2.search_table.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GlueException;
@@ -30,14 +30,15 @@ import java.util.List;
 */
 
 public class SearchTables {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <text>\n\n" +
-            "Where:\n" +
-            "    text - A string used for a text search. \n";
+            Usage:
+                <text>
+
+            Where:
+                text - A string used for a text search.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,16 +49,13 @@ public class SearchTables {
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         searchGlueTable(glueClient, text);
         glueClient.close();
     }
 
-    //snippet-start:[glue.java2.search_table.main]
     public static void searchGlueTable(GlueClient glueClient, String text) {
-
         try {
             SearchTablesRequest tablesRequest = SearchTablesRequest.builder()
                 .searchText(text)
@@ -67,9 +65,9 @@ public class SearchTables {
 
             SearchTablesResponse tablesResponse = glueClient.searchTables(tablesRequest);
             List<Table> tables = tablesResponse.tableList();
-            for (Table table: tables) {
-                System.out.println("Table name is : "+table.name());
-                System.out.println("Database name is : "+table.databaseName());
+            for (Table table : tables) {
+                System.out.println("Table name is : " + table.name());
+                System.out.println("Database name is : " + table.databaseName());
             }
 
         } catch (GlueException e) {
@@ -77,5 +75,5 @@ public class SearchTables {
             System.exit(1);
         }
     }
-    //snippet-end:[glue.java2.search_table.main]
 }
+//snippet-end:[glue.java2.search_table.main]

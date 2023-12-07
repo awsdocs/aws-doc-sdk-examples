@@ -26,11 +26,14 @@ import software.amazon.awssdk.services.mq.model.MqException;
 public class CreateConfiguration {
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage: " +
-                "CreateConfiguration <configurationName>\n\n" +
-                "Where:\n" +
-                "  configurationName - the name of the ActiveMQ configuration.\n\n" ;
+        final String USAGE = """
+
+            Usage: CreateConfiguration <configurationName>
+
+            Where:
+              configurationName - the name of the ActiveMQ configuration.
+
+            """;
 
         String configurationName = "";
         if (args.length > 1) {

@@ -8,8 +8,8 @@
 */
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.java2.put_metric_alarm.main]
 // snippet-start:[cloudwatch.java2.put_metric_alarm.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
@@ -30,12 +30,15 @@ import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 public class PutMetricAlarm {
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <alarmName> <instanceId> \n\n" +
-            "Where:\n" +
-            "  alarmName - An alarm name to use.\n" +
-            "  instanceId - An instance Id value .\n" ;
+        final String usage = """
+
+            Usage:
+              <alarmName> <instanceId>\s
+
+            Where:
+              alarmName - An alarm name to use.
+              instanceId - An instance Id value .
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -44,19 +47,15 @@ public class PutMetricAlarm {
 
         String alarmName = args[0];
         String instanceId = args[1];
-        Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
+            .region(Region.US_EAST_1)
             .build();
 
         putMetricAlarm(cw, alarmName, instanceId) ;
         cw.close();
     }
 
-    // snippet-start:[cloudwatch.java2.put_metric_alarm.main]
     public static void putMetricAlarm(CloudWatchClient cw, String alarmName, String instanceId) {
-
         try {
             Dimension dimension = Dimension.builder()
                 .name("InstanceId")
@@ -85,5 +84,5 @@ public class PutMetricAlarm {
             System.exit(1);
         }
     }
-    // snippet-end:[cloudwatch.java2.put_metric_alarm.main]
 }
+// snippet-end:[cloudwatch.java2.put_metric_alarm.main]

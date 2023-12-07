@@ -9,8 +9,8 @@
 
 package com.example.memorydb;
 
+//snippet-start:[memoryDB.java2.describe_clusters.main]
 //snippet-start:[memoryDB.java2.describe_clusters.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.memorydb.MemoryDbClient;
 import software.amazon.awssdk.services.memorydb.model.Cluster;
@@ -21,30 +21,26 @@ import java.util.List;
 //snippet-end:[memoryDB.java2.describe_clusters.import]
 
 public class DescribeClusters {
-
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         MemoryDbClient memoryDbClient = MemoryDbClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getClusters(memoryDbClient);
     }
 
-    //snippet-start:[memoryDB.java2.describe_clusters.main]
     public static void getClusters(MemoryDbClient memoryDbClient) {
-
         try {
             DescribeClustersRequest request = DescribeClustersRequest.builder()
                 .build();
 
             DescribeClustersResponse response = memoryDbClient.describeClusters(request);
             List<Cluster> clusters = response.clusters();
-            for (Cluster cluster: clusters) {
-                System.out.println("The cluster name is: "+cluster.name());
-                System.out.println("The cluster ARN is: "+cluster.arn());
-                System.out.println("Endpoint is: "+cluster.clusterEndpoint());
+            for (Cluster cluster : clusters) {
+                System.out.println("The cluster name is: " + cluster.name());
+                System.out.println("The cluster ARN is: " + cluster.arn());
+                System.out.println("Endpoint is: " + cluster.clusterEndpoint());
             }
 
         } catch (MemoryDbException e) {
@@ -52,5 +48,5 @@ public class DescribeClusters {
             System.exit(1);
         }
     }
-    //snippet-end:[memoryDB.java2.describe_clusters.main]
 }
+//snippet-end:[memoryDB.java2.describe_clusters.main]

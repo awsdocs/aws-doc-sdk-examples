@@ -7,8 +7,8 @@
 */
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.java2.describe_alarms.main]
 // snippet-start:[cloudwatch.java2.describe_alarms.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
@@ -25,12 +25,9 @@ import software.amazon.awssdk.services.cloudwatch.model.MetricAlarm;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeAlarms {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .region(region)
             .build();
 
@@ -38,13 +35,10 @@ public class DescribeAlarms {
         cw.close();
     }
 
-    // snippet-start:[cloudwatch.java2.describe_alarms.main]
     public static void desCWAlarms( CloudWatchClient cw) {
         try {
-
             boolean done = false;
             String newToken = null;
-
             while(!done) {
                 DescribeAlarmsResponse response;
                 if (newToken == null) {
@@ -72,7 +66,7 @@ public class DescribeAlarms {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        System.out.printf("Done");
+        System.out.print("Done");
     }
-    // snippet-end:[cloudwatch.java2.describe_alarms.main]
 }
+// snippet-end:[cloudwatch.java2.describe_alarms.main]

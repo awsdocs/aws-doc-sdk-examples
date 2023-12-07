@@ -10,8 +10,8 @@
 
 package com.example.s3;
 
+// snippet-start:[s3.java2.restore_object.main]
 // snippet-start:[s3.java2.restore_object.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.RestoreRequest;
@@ -31,42 +31,37 @@ import software.amazon.awssdk.services.s3.model.Tier;
  *
  *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class RestoreObject {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <bucketName> <keyName> <expectedBucketOwner>\n\n" +
-            "Where:\n" +
-            "    bucketName - The Amazon S3 bucket name. \n\n" +
-            "    keyName - The key name of an object with a Storage class value of Glacier. \n\n" +
-            "    expectedBucketOwner - The account that owns the bucket (you can obtain this value from the AWS Management Console). \n\n";
+            Usage:
+                <bucketName> <keyName> <expectedBucketOwner>
+
+            Where:
+                bucketName - The Amazon S3 bucket name.\s
+                keyName - The key name of an object with a Storage class value of Glacier.\s
+                expectedBucketOwner - The account that owns the bucket (you can obtain this value from the AWS Management Console).\s
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
-             System.exit(1);
-         }
+            System.exit(1);
+        }
 
         String bucketName = args[0];
         String keyName = args[1];
         String expectedBucketOwner = args[2];
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         restoreS3Object(s3, bucketName, keyName, expectedBucketOwner);
         s3.close();
     }
 
-    // snippet-start:[s3.java2.restore_object.main]
     public static void restoreS3Object(S3Client s3, String bucketName, String keyName, String expectedBucketOwner) {
-
         try {
             RestoreRequest restoreRequest = RestoreRequest.builder()
                 .days(10)
@@ -87,5 +82,5 @@ public class RestoreObject {
             System.exit(1);
         }
     }
-    // snippet-end:[s3.java2.restore_object.main]
 }
+// snippet-end:[s3.java2.restore_object.main]

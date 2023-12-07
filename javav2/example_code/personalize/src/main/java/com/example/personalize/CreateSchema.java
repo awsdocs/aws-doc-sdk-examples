@@ -30,11 +30,15 @@ public class CreateSchema {
 
     public static void main(String[] args) {
 
-        final String USAGE = "Usage:\n" +
-                "    CreateSchema <name, schemaLocation>\n\n" +
-                "Where:\n" +
-                "   name - The name for the schema.\n" +
-                "   schemaLocation - the location of the schema JSON file.\n\n";
+        final String USAGE = """
+            Usage:
+                CreateSchema <name, schemaLocation>
+
+            Where:
+               name - The name for the schema.
+               schemaLocation - the location of the schema JSON file.
+
+            """;
 
         if (args.length != 2) {
             System.out.println(USAGE);

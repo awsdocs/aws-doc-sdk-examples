@@ -9,8 +9,8 @@
 
 package com.example.textract;
 
+// snippet-start:[textract.java2._analyze_doc.main]
 // snippet-start:[textract.java2._analyze_doc.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.textract.TextractClient;
@@ -37,16 +37,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class AnalyzeDocument {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage:\n" +
-                "    <sourceDoc> \n\n" +
-                "Where:\n" +
-                "    sourceDoc - The path where the document is located (must be an image, for example, C:/AWS/book.png). \n";
+            Usage:
+                <sourceDoc>\s
 
-       if (args.length != 1) {
+            Where:
+                sourceDoc - The path where the document is located (must be an image, for example, C:/AWS/book.png).\s
+            """;
+
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -54,42 +55,39 @@ public class AnalyzeDocument {
         String sourceDoc = args[0];
         Region region = Region.US_EAST_2;
         TextractClient textractClient = TextractClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .build();
 
         analyzeDoc(textractClient, sourceDoc);
         textractClient.close();
     }
 
-    // snippet-start:[textract.java2._analyze_doc.main]
     public static void analyzeDoc(TextractClient textractClient, String sourceDoc) {
-
         try {
             InputStream sourceStream = new FileInputStream(new File(sourceDoc));
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
 
             // Get the input Document object as bytes
             Document myDoc = Document.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                .bytes(sourceBytes)
+                .build();
 
             List<FeatureType> featureTypes = new ArrayList<FeatureType>();
             featureTypes.add(FeatureType.FORMS);
             featureTypes.add(FeatureType.TABLES);
 
             AnalyzeDocumentRequest analyzeDocumentRequest = AnalyzeDocumentRequest.builder()
-                    .featureTypes(featureTypes)
-                    .document(myDoc)
-                    .build();
+                .featureTypes(featureTypes)
+                .document(myDoc)
+                .build();
 
             AnalyzeDocumentResponse analyzeDocument = textractClient.analyzeDocument(analyzeDocumentRequest);
             List<Block> docInfo = analyzeDocument.blocks();
             Iterator<Block> blockIterator = docInfo.iterator();
 
-            while(blockIterator.hasNext()) {
+            while (blockIterator.hasNext()) {
                 Block block = blockIterator.next();
-                System.out.println("The block type is " +block.blockType().toString());
+                System.out.println("The block type is " + block.blockType().toString());
             }
 
         } catch (TextractException | FileNotFoundException e) {
@@ -98,5 +96,5 @@ public class AnalyzeDocument {
             System.exit(1);
         }
     }
-    // snippet-end:[textract.java2._analyze_doc.main]
 }
+// snippet-end:[textract.java2._analyze_doc.main]

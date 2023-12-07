@@ -10,8 +10,8 @@
 
 package com.example.sesv2;
 
+// snippet-start:[ses.java2.identities.sesv2.main]
 // snippet-start:[ses.java2.identities.sesv2.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sesv2.SesV2Client;
 import software.amazon.awssdk.services.sesv2.model.IdentityInfo;
@@ -31,21 +31,16 @@ import java.util.List;
  */
 
 public class ListEmailIdentities {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         SesV2Client sesv2Client = SesV2Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listSESIdentities(sesv2Client);
     }
 
-    // snippet-start:[ses.java2.identities.sesv2.main]
     public static void listSESIdentities(SesV2Client sesV2Client) {
-
         ListEmailIdentitiesRequest identitiesRequest = ListEmailIdentitiesRequest.builder()
             .pageSize(5)
             .build();
@@ -60,5 +55,5 @@ public class ListEmailIdentities {
             System.exit(1);
         }
     }
-    // snippet-end:[ses.java2.identities.sesv2.main]
 }
+// snippet-end:[ses.java2.identities.sesv2.main]

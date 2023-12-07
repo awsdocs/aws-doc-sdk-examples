@@ -9,7 +9,6 @@
 package com.example.deploy;
 
 // snippet-start:[codedeploy.java2._list_apps.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codedeploy.CodeDeployClient;
 import software.amazon.awssdk.services.codedeploy.model.CodeDeployException;
@@ -25,13 +24,10 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListApplications {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listApps(deployClient);

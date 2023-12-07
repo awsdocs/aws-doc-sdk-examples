@@ -9,8 +9,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.list_tags.main]
 //snippet-start:[sns.java2.list_tags.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.ListTagsForResourceRequest;
@@ -26,14 +26,15 @@ import software.amazon.awssdk.services.sns.model.SnsException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListTags {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <topicArn>\n\n" +
-            "Where:\n" +
-            "   topicArn - The ARN of the topic from which tags are listed.\n\n";
+            Usage:    <topicArn>
+
+            Where:
+               topicArn - The ARN of the topic from which tags are listed.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,16 +44,13 @@ public class ListTags {
         String topicArn = args[0];
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listTopicTags(snsClient, topicArn);
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.list_tags.main]
     public static void listTopicTags(SnsClient snsClient, String topicArn) {
-
         try {
             ListTagsForResourceRequest tagsForResourceRequest = ListTagsForResourceRequest.builder()
                 .resourceArn(topicArn)
@@ -60,12 +58,12 @@ public class ListTags {
 
             ListTagsForResourceResponse response = snsClient.listTagsForResource(tagsForResourceRequest);
             System.out.println(String.format("Tags for topic %s are %s.\n",
-                    topicArn, response.tags()));
+                topicArn, response.tags()));
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[sns.java2.list_tags.main]
 }
+//snippet-end:[sns.java2.list_tags.main]

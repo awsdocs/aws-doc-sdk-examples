@@ -7,8 +7,8 @@
 */
 package com.example.ec2;
 
+// snippet-start:[ec2.java2.describe_vpc.main]
 // snippet-start:[ec2.java2.describe_vpc.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
@@ -26,12 +26,14 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
  */
 public class DescribeVPCs {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "   <vpcId>\n\n" +
-            "Where:\n" +
-            "   vpcId - A  VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n" ;
+            Usage:
+               <vpcId>
+
+            Where:
+               vpcId - A  VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f).\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,14 +44,12 @@ public class DescribeVPCs {
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         describeEC2Vpcs(ec2, vpcId);
         ec2.close();
     }
 
-    // snippet-start:[ec2.java2.describe_vpc.main]
     public static void describeEC2Vpcs(Ec2Client ec2, String vpcId) {
         try {
             DescribeVpcsRequest request = DescribeVpcsRequest.builder()
@@ -60,8 +60,8 @@ public class DescribeVPCs {
             for (Vpc vpc : response.vpcs()) {
                 System.out.printf(
                     "Found VPC with id %s, " +
-                            "vpc state %s " +
-                            "and tennancy %s",
+                        "vpc state %s " +
+                        "and tennancy %s",
                     vpc.vpcId(),
                     vpc.stateAsString(),
                     vpc.instanceTenancyAsString());
@@ -72,6 +72,6 @@ public class DescribeVPCs {
             System.exit(1);
         }
     }
-    // snippet-end:[ec2.java2.describe_vpc.main]
 }
+// snippet-end:[ec2.java2.describe_vpc.main]
 

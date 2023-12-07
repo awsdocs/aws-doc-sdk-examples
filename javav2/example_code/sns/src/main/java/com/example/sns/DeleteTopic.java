@@ -8,8 +8,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.DeleteTopic.main]
 //snippet-start:[sns.java2.DeleteTopic.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.DeleteTopicRequest;
@@ -26,12 +26,13 @@ import software.amazon.awssdk.services.sns.model.SnsException;
  */
 public class DeleteTopic {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "    <topicArn>\n\n" +
-            "Where:\n" +
-            "   topicArn - The ARN of the topic to delete.\n\n";
+            Usage:     <topicArn>
+
+            Where:
+               topicArn - The ARN of the topic to delete.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -41,7 +42,6 @@ public class DeleteTopic {
         String topicArn = args[0];
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println("Deleting a topic with name: " + topicArn);
@@ -49,9 +49,7 @@ public class DeleteTopic {
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.DeleteTopic.main]
     public static void deleteSNSTopic(SnsClient snsClient, String topicArn ) {
-
         try {
             DeleteTopicRequest request = DeleteTopicRequest.builder()
                 .topicArn(topicArn)
@@ -65,5 +63,5 @@ public class DeleteTopic {
             System.exit(1);
         }
     }
-    //snippet-end:[sns.java2.DeleteTopic.main]
 }
+//snippet-end:[sns.java2.DeleteTopic.main]

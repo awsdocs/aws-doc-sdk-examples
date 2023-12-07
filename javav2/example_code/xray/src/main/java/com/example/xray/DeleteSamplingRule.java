@@ -8,8 +8,8 @@
 
 package com.example.xray;
 
+// snippet-start:[xray.java2_delete_rule.main]
 // snippet-start:[xray.java2_delete_rule.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.xray.XRayClient;
 import software.amazon.awssdk.services.xray.model.DeleteSamplingRuleRequest;
@@ -25,33 +25,31 @@ import software.amazon.awssdk.services.xray.model.XRayException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteSamplingRule {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage: " +
-                "   <ruleName>\n\n" +
-                "Where:\n" +
-                "   ruleName - The name of the rule to delete \n\n";
+            Usage:    <ruleName>
 
-         if (args.length != 1) {
-             System.out.println(usage);
-             System.exit(1);
-         }
+            Where:
+               ruleName - The name of the rule to delete\s
+
+            """;
+
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String ruleName = args[0];
         Region region = Region.US_EAST_1;
         XRayClient xRayClient = XRayClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .build();
 
-        deleteRule( xRayClient, ruleName );
+        deleteRule(xRayClient, ruleName);
     }
 
-    // snippet-start:[xray.java2_delete_rule.main]
-    public static void deleteRule( XRayClient xRayClient, String ruleName ) {
-
+    public static void deleteRule(XRayClient xRayClient, String ruleName) {
         try {
             DeleteSamplingRuleRequest ruleRequest = DeleteSamplingRuleRequest.builder()
                 .ruleName(ruleName)
@@ -63,5 +61,5 @@ public class DeleteSamplingRule {
             System.exit(1);
         }
     }
-    // snippet-end:[xray.java2_delete_rule.main]
 }
+// snippet-end:[xray.java2_delete_rule.main]

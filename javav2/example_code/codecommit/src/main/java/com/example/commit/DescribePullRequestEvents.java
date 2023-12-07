@@ -8,6 +8,7 @@
 */
 package com.example.commit;
 
+// snippet-start:[codecommit.java2.describe_pr_events.main]
 // snippet-start:[codecommit.java2.describe_pr_events.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codecommit.CodeCommitClient;
@@ -27,14 +28,16 @@ import java.util.List;
  */
 
 public class DescribePullRequestEvents {
-
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <prId> \n\n" +
-                "Where:\n" +
-                "    prId - the id of the pull request. \n" ;
+        final String USAGE = """
+
+            Usage:
+                <prId>\s
+
+            Where:
+                prId - the id of the pull request.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -44,25 +47,23 @@ public class DescribePullRequestEvents {
         String prId = args[0];
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         describePREvents(codeCommitClient, prId);
         codeCommitClient.close();
     }
 
-    // snippet-start:[codecommit.java2.describe_pr_events.main]
     public static void describePREvents(CodeCommitClient codeCommitClient, String prId) {
-
         try {
             DescribePullRequestEventsRequest eventsRequest = DescribePullRequestEventsRequest.builder()
-                    .pullRequestId(prId)
-                    .build();
+                .pullRequestId(prId)
+                .build();
 
             DescribePullRequestEventsResponse eventsResponse = codeCommitClient.describePullRequestEvents(eventsRequest);
             List<PullRequestEvent> events = eventsResponse.pullRequestEvents();
             for (PullRequestEvent event : events) {
-                System.out.println("The event name is: "+event.pullRequestEventType().toString());
+                System.out.println("The event name is: " + event.pullRequestEventType().toString());
             }
 
         } catch (CodeCommitException e) {
@@ -70,6 +71,5 @@ public class DescribePullRequestEvents {
             System.exit(1);
         }
     }
-    // snippet-end:[codecommit.java2.describe_pr_events.main]
 }
-
+// snippet-end:[codecommit.java2.describe_pr_events.main]

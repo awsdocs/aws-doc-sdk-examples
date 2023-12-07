@@ -9,8 +9,8 @@
 
 package com.example.sqs;
 
+// snippet-start:[sqs.java2.add_tags.main]
 // snippet-start:[sqs.java2.add_tags.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
@@ -28,16 +28,16 @@ import java.util.HashMap;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class AddQueueTags {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <queueName>\n\n" +
-            "Where:\n" +
-            "   queueName - The name of the queue to which tags are applied.\n\n";
+            Usage:    <queueName>
 
-       if (args.length != 1) {
+            Where:
+               queueName - The name of the queue to which tags are applied.
+            """;
+
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -45,15 +45,12 @@ public class AddQueueTags {
         String queueName = args[0];
         SqsClient sqsClient = SqsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         addTags(sqsClient, queueName);
         sqsClient.close();
     }
 
-    // snippet-start:[sqs.java2.add_tags.main]
     public static void addTags(SqsClient sqsClient, String queueName) {
-
         try {
             GetQueueUrlRequest urlRequest = GetQueueUrlRequest.builder()
                 .queueName(queueName)
@@ -72,12 +69,12 @@ public class AddQueueTags {
                 .build();
 
             sqsClient.tagQueue(tagQueueRequest);
-            System.out.println("Tags have been applied to "+queueName);
+            System.out.println("Tags have been applied to " + queueName);
 
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[sqs.java2.add_tags.main]
 }
+// snippet-end:[sqs.java2.add_tags.main]

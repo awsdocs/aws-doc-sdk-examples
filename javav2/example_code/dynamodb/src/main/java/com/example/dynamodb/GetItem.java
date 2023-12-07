@@ -9,8 +9,8 @@
 
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.get_item.main]
 // snippet-start:[dynamodb.java2.get_item.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 // snippet-end:[dynamodb.java2.get_item.import]
-
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -33,15 +32,17 @@ import java.util.Set;
  * Enhanced Client, see the EnhancedGetItem example.
  */
 public class GetItem {
-
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <tableName> <key> <keyVal>\n\n" +
-            "Where:\n" +
-            "    tableName - The Amazon DynamoDB table from which an item is retrieved (for example, Music3). \n" +
-            "    key - The key used in the Amazon DynamoDB table (for example, Artist). \n" +
-            "    keyval - The key value that represents the item to get (for example, Famous Band).\n" ;
+        final String usage = """
+
+            Usage:
+                <tableName> <key> <keyVal>
+
+            Where:
+                tableName - The Amazon DynamoDB table from which an item is retrieved (for example, Music3).\s
+                key - The key used in the Amazon DynamoDB table (for example, Artist).\s
+                keyval - The key value that represents the item to get (for example, Famous Band).
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -52,11 +53,8 @@ public class GetItem {
         String key = args[1];
         String keyVal = args[2];
         System.out.format("Retrieving item \"%s\" from \"%s\"\n", keyVal, tableName);
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
@@ -64,9 +62,8 @@ public class GetItem {
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.get_item.main]
-    public static void getDynamoDBItem(DynamoDbClient ddb,String tableName,String key,String keyVal ) {
-        HashMap<String,AttributeValue> keyToGet = new HashMap<>();
+    public static void getDynamoDBItem(DynamoDbClient ddb, String tableName, String key, String keyVal) {
+        HashMap<String, AttributeValue> keyToGet = new HashMap<>();
         keyToGet.put(key, AttributeValue.builder()
             .s(keyVal)
             .build());
@@ -78,7 +75,7 @@ public class GetItem {
 
         try {
             // If there is no matching item, GetItem does not return any data.
-            Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
+            Map<String, AttributeValue> returnedItem = ddb.getItem(request).item();
             if (returnedItem.isEmpty())
                 System.out.format("No item found with the key %s!\n", key);
             else {
@@ -94,5 +91,5 @@ public class GetItem {
             System.exit(1);
         }
     }
-    // snippet-end:[dynamodb.java2.get_item.main]
 }
+// snippet-end:[dynamodb.java2.get_item.main]

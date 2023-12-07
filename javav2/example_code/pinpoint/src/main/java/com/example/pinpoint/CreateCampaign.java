@@ -9,8 +9,8 @@
 
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.createcampaign.main]
 //snippet-start:[pinpoint.java2.createcampaign.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.CampaignResponse;
@@ -34,12 +34,14 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 public class CreateCampaign {
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage: " +
-            "  <appId> <segmentId>\n\n" +
-            "Where:\n" +
-            "  appId - The ID of the application to create the campaign in.\n\n" +
-            "  segmentId - The ID of the segment to create the campaign from.\n\n";
+        final String usage = """
+
+            Usage:   <appId> <segmentId>
+
+            Where:
+              appId - The ID of the application to create the campaign in.
+              segmentId - The ID of the segment to create the campaign from.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -50,14 +52,12 @@ public class CreateCampaign {
         String segmentId = args[1];
         PinpointClient pinpoint = PinpointClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        createPinCampaign(pinpoint, appId, segmentId) ;
+        createPinCampaign(pinpoint, appId, segmentId);
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.createcampaign.main]
     public static void createPinCampaign(PinpointClient pinpoint, String appId, String segmentId) {
         CampaignResponse result = createCampaign(pinpoint, appId, segmentId);
         System.out.println("Campaign " + result.name() + " created.");
@@ -90,8 +90,8 @@ public class CreateCampaign {
                 .build();
 
             CreateCampaignResponse result = client.createCampaign(CreateCampaignRequest.builder()
-                            .applicationId(appID)
-                            .writeCampaignRequest(request).build()
+                .applicationId(appID)
+                .writeCampaignRequest(request).build()
             );
 
             System.out.println("Campaign ID: " + result.campaignResponse().id());
@@ -104,5 +104,5 @@ public class CreateCampaign {
 
         return null;
     }
-    //snippet-end:[pinpoint.java2.createcampaign.main]
 }
+//snippet-end:[pinpoint.java2.createcampaign.main]

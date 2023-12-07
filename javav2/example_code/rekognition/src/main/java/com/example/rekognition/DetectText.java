@@ -8,8 +8,8 @@
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.detect_text.main]
 // snippet-start:[rekognition.java2.detect_text.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
@@ -32,34 +32,31 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DetectText {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <sourceImage>\n\n" +
-            "Where:\n" +
-            "   sourceImage - The path to the image that contains text (for example, C:\\AWS\\pic1.png). \n\n";
+            Usage:    <sourceImage>
 
-      if (args.length != 1) {
+            Where:
+               sourceImage - The path to the image that contains text (for example, C:\\AWS\\pic1.png).\s
+            """;
+
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }
 
-        String sourceImage = args[0] ;
+        String sourceImage = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        detectTextLabels(rekClient, sourceImage );
+        detectTextLabels(rekClient, sourceImage);
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.detect_text.main]
     public static void detectTextLabels(RekognitionClient rekClient, String sourceImage) {
-
         try {
             InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
@@ -74,7 +71,7 @@ public class DetectText {
             DetectTextResponse textResponse = rekClient.detectText(textRequest);
             List<TextDetection> textCollection = textResponse.textDetections();
             System.out.println("Detected lines and words");
-            for (TextDetection text: textCollection) {
+            for (TextDetection text : textCollection) {
                 System.out.println("Detected: " + text.detectedText());
                 System.out.println("Confidence: " + text.confidence().toString());
                 System.out.println("Id : " + text.id());
@@ -88,5 +85,5 @@ public class DetectText {
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.detect_text.main]
 }
+// snippet-end:[rekognition.java2.detect_text.main]

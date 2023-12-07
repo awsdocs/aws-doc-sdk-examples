@@ -8,7 +8,7 @@
 
 package com.example.route;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+//snippet-start:[route.java2.hello.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53domains.Route53DomainsClient;
 import software.amazon.awssdk.services.route53.model.Route53Exception;
@@ -17,7 +17,6 @@ import software.amazon.awssdk.services.route53domains.model.ListPricesRequest;
 import software.amazon.awssdk.services.route53domains.model.ListPricesResponse;
 import java.util.List;
 
-//snippet-start:[route.java2.hello.main]
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
@@ -48,7 +47,6 @@ public class HelloRoute53 {
         Region region = Region.US_EAST_1;
         Route53DomainsClient route53DomainsClient = Route53DomainsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println(DASHES);

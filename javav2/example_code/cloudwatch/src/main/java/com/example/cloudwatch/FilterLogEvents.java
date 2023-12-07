@@ -8,8 +8,8 @@
 */
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.java2.filter_logs.main]
 // snippet-start:[cloudwatch.java2.filter_logs.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
@@ -24,16 +24,18 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.FilterLogEventsReque
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class FilterLogEvents {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <logGroupName> <startTime> <endTime>\n\n" +
-            "Where:\n" +
-            "  logGroupName - The name of the log group (for example, myloggroup).\n" +
-            "  startTime - The start of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC (for example, 1620940080).\n" +
-            "  endTime - The end of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC (for example, 1620949080)\n" ;
+        final String usage = """
+
+            Usage:
+              <logGroupName> <startTime> <endTime>
+
+            Where:
+              logGroupName - The name of the log group (for example, myloggroup).
+              startTime - The start of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC (for example, 1620940080).
+              endTime - The end of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC (for example, 1620949080)
+            """;
 
         if (args.length != 3) {
             System.out.print(usage);
@@ -45,7 +47,6 @@ public class FilterLogEvents {
         Long endTime = Long.parseLong(args[2]);
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cloudWatchLogsClient = CloudWatchLogsClient.builder()
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .region(region)
             .build();
 
@@ -53,7 +54,6 @@ public class FilterLogEvents {
         cloudWatchLogsClient.close();
     }
 
-    // snippet-start:[cloudwatch.java2.filter_logs.main]
     public static void filterCWLogEvents(CloudWatchLogsClient cloudWatchLogsClient, String logGroupName, Long startTime, Long endTime) {
         try {
             FilterLogEventsRequest filterLogEventsRequest = FilterLogEventsRequest.builder()
@@ -74,5 +74,5 @@ public class FilterLogEvents {
             System.exit(1);
         }
     }
-    // snippet-end:[cloudwatch.java2.filter_logs.main]
 }
+// snippet-end:[cloudwatch.java2.filter_logs.main]

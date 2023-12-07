@@ -9,8 +9,8 @@
 
 package com.example.autoscaling;
 
+// snippet-start:[autoscale.java2.describe_instances.main]
 // snippet-start:[autoscale.java2.describe_instances.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.autoscaling.AutoScalingClient;
 import software.amazon.awssdk.services.autoscaling.model.AutoScalingException;
@@ -29,14 +29,15 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeAutoScalingInstances {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <groupName>\n\n" +
-            "Where:\n" +
-            "    groupName - The name of the Auto Scaling group.\n" ;
+            Usage:
+                <groupName>
+
+            Where:
+                groupName - The name of the Auto Scaling group.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,7 +47,6 @@ public class DescribeAutoScalingInstances {
         String groupName = args[0];
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String instanceId = getAutoScaling(autoScalingClient, groupName);
@@ -54,7 +54,6 @@ public class DescribeAutoScalingInstances {
         autoScalingClient.close();
     }
 
-    // snippet-start:[autoscale.java2.describe_instances.main]
     public static String getAutoScaling( AutoScalingClient autoScalingClient, String groupName) {
         try{
             String instanceId = "";
@@ -80,5 +79,5 @@ public class DescribeAutoScalingInstances {
         }
         return "";
     }
-    // snippet-end:[autoscale.java2.describe_instances.main]
 }
+// snippet-end:[autoscale.java2.describe_instances.main]

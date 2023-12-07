@@ -10,7 +10,6 @@
 
 package com.example.s3.async;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -29,39 +28,35 @@ import java.util.concurrent.CompletableFuture;
  */
 
 public class GetObjectDataAsync {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage:\n" +
-                "    <bucketName> <keyName> <path>\n\n" +
-                "Where:\n" +
-                "    bucketName - The Amazon S3 bucket name. \n\n"+
-                "    keyName - The key name. \n\n"+
-                "    path - The path where the file is written to. \n\n";
+            Usage:
+                <bucketName> <keyName> <path>
+
+            Where:
+                bucketName - The Amazon S3 bucket name.\s
+                keyName - The key name.\s
+                path - The path where the file is written to.\s
+            """;
 
         if (args.length != 3) {
            System.out.println(usage);
-            System.exit(1);
-       }
-
+           System.exit(1);
+        }
         String bucketName = args[0];
         String keyName = args[1];
         String path = args[2];
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .build();
 
         getObject (s3AsyncClient, bucketName, keyName, path);
         s3AsyncClient.close();
-
     }
-    public static void getObject (S3AsyncClient s3AsyncClient, String bucketName, String keyName, String path ) {
 
+    public static void getObject (S3AsyncClient s3AsyncClient, String bucketName, String keyName, String path ) {
         try {
             GetObjectRequest objectRequest = GetObjectRequest
                     .builder()

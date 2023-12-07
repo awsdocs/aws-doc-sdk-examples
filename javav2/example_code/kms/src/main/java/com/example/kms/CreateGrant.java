@@ -8,8 +8,8 @@
 */
 package com.example.kms;
 
+// snippet-start:[kms.java2_create_grant.main]
 // snippet-start:[kms.java2_create_grant.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.CreateGrantRequest;
@@ -25,16 +25,17 @@ import software.amazon.awssdk.services.kms.model.KmsException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateGrant {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <keyId> <granteePrincipal> <operation> \n\n" +
-            "Where:\n" +
-            "    keyId - The unique identifier for the customer master key (CMK) that the grant applies to. \n\n" +
-            "    granteePrincipal - The principal that is given permission to perform the operations that the grant permits. \n\n" +
-            "    operation - An operation (for example, Encrypt). \n\n" ;
+            Usage:
+                <keyId> <granteePrincipal> <operation>\s
+
+            Where:
+                keyId - The unique identifier for the customer master key (CMK) that the grant applies to.\s
+                granteePrincipal - The principal that is given permission to perform the operations that the grant permits.\s
+                operation - An operation (for example, Encrypt).\s
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -47,7 +48,6 @@ public class CreateGrant {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String grantId = createGrant(kmsClient, keyId, granteePrincipal, operation);
@@ -55,9 +55,7 @@ public class CreateGrant {
         kmsClient.close();
     }
 
-    // snippet-start:[kms.java2_create_grant.main]
     public static String createGrant(KmsClient kmsClient, String keyId, String granteePrincipal, String operation) {
-
         try {
             CreateGrantRequest grantRequest = CreateGrantRequest.builder()
                 .keyId(keyId)
@@ -68,11 +66,11 @@ public class CreateGrant {
             CreateGrantResponse response = kmsClient.createGrant(grantRequest);
             return response.grantId();
 
-        }catch (KmsException e) {
+        } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
         return "";
     }
-    // snippet-end:[kms.java2_create_grant.main]
 }
+// snippet-end:[kms.java2_create_grant.main]

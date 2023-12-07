@@ -8,8 +8,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.add_tags.main]
 //snippet-start:[sns.java2.add_tags.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SnsException;
@@ -27,14 +27,15 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class AddTags {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <topicArn>\n\n" +
-            "Where:\n" +
-            "   topicArn - The ARN of the topic to which tags are added.\n\n";
+            Usage:    <topicArn>
+
+            Where:
+               topicArn - The ARN of the topic to which tags are added.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,16 +45,13 @@ public class AddTags {
         String topicArn = args[0];
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         addTopicTags(snsClient, topicArn);
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.add_tags.main]
     public static void addTopicTags(SnsClient snsClient, String topicArn) {
-
         try {
             Tag tag = Tag.builder()
                 .key("Team")
@@ -75,12 +73,12 @@ public class AddTags {
                 .build();
 
             snsClient.tagResource(tagResourceRequest);
-            System.out.println("Tags have been added to "+topicArn);
+            System.out.println("Tags have been added to " + topicArn);
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[sns.java2.add_tags.main]
 }
+//snippet-end:[sns.java2.add_tags.main]

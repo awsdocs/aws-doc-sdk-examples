@@ -10,7 +10,6 @@ package com.example.s3.async;
 // snippet-start:[s3.java2.async_stream_ops.complete]
 
 // snippet-start:[s3.java2.async_stream_ops.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
@@ -31,16 +30,17 @@ import java.util.concurrent.CompletableFuture;
  */
 
 public class S3AsyncStreamOps {
-
     public static void main(String[] args) {
+        final String usage = """
+            Usage:
+                <bucketName> <objectKey> <path>
 
-        final String usage = "\n" +
-                "Usage:\n" +
-                "    <bucketName> <objectKey> <path>\n\n" +
-                "Where:\n" +
-                "    bucketName - The name of the Amazon S3 bucket (for example, bucket1). \n\n" +
-                "    objectKey - The name of the object (for example, book.pdf). \n" +
-                "    path - The local path to the file (for example, C:/AWS/book.pdf). \n" ;
+            Where:
+                bucketName - The name of the Amazon S3 bucket (for example, bucket1).\s
+
+                objectKey - The name of the object (for example, book.pdf).\s
+                path - The local path to the file (for example, C:/AWS/book.pdf).\s
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -50,17 +50,15 @@ public class S3AsyncStreamOps {
         String bucketName = args[0];
         String objectKey = args[1];
         String path = args[2];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .build();
 
         GetObjectRequest objectRequest = GetObjectRequest.builder()
-                .bucket(bucketName)
-                .key(objectKey)
-                .build();
+            .bucket(bucketName)
+            .key(objectKey)
+            .build();
 
         CompletableFuture<GetObjectResponse> futureGet = s3AsyncClient.getObject(objectRequest,
                 AsyncResponseTransformer.toFile(Paths.get(path)));

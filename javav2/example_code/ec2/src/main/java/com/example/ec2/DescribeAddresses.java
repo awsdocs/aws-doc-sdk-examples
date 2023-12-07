@@ -8,8 +8,8 @@
 */
 package com.example.ec2;
 
+// snippet-start:[ec2.java2.describe_addresses.main]
 // snippet-start:[ec2.java2.describe_addresses.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Address;
@@ -25,30 +25,24 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeAddresses {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        describeEC2Address(ec2 );
+        describeEC2Address(ec2);
         ec2.close();
     }
-
-    // snippet-start:[ec2.java2.describe_addresses.main]
-    public static void describeEC2Address(Ec2Client ec2 ) {
-
+    public static void describeEC2Address(Ec2Client ec2) {
         try {
             DescribeAddressesResponse response = ec2.describeAddresses();
-            for(Address address : response.addresses()) {
+            for (Address address : response.addresses()) {
                 System.out.printf(
                     "Found address with public IP %s, " +
-                       "domain %s, " +
-                       "allocation id %s " +
-                       "and NIC id %s",
+                        "domain %s, " +
+                        "allocation id %s " +
+                        "and NIC id %s",
                     address.publicIp(),
                     address.domain(),
                     address.allocationId(),
@@ -59,5 +53,5 @@ public class DescribeAddresses {
             System.exit(1);
         }
     }
-    // snippet-end:[ec2.java2.describe_addresses.main]
 }
+// snippet-end:[ec2.java2.describe_addresses.main]

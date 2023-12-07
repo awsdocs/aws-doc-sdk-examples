@@ -10,7 +10,6 @@ package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.scenario.import]
 import com.fasterxml.jackson.databind.JsonNode;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -72,11 +71,14 @@ import java.util.Set;
 public class Scenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws IOException {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <fileName>\n\n" +
-            "Where:\n" +
-            "    fileName - The path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.\n" ;
+        final String usage = """
+
+            Usage:
+                <fileName>
+
+            Where:
+                fileName - The path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -85,11 +87,9 @@ public class Scenario {
 
         String tableName = "Movies";
         String fileName = args[0];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         System.out.println(DASHES);
@@ -174,8 +174,8 @@ public class Scenario {
         CreateTableRequest request = CreateTableRequest.builder()
             .keySchema(tableKey)
             .provisionedThroughput(ProvisionedThroughput.builder()
-                .readCapacityUnits(new Long(10))
-                .writeCapacityUnits(new Long(10))
+                .readCapacityUnits(10L)
+                .writeCapacityUnits(10L)
                 .build())
             .attributeDefinitions(attributeDefinitions)
             .tableName(tableName)

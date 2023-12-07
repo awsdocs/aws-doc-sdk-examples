@@ -11,7 +11,6 @@ package com.example.lambda;
 
 // snippet-start:[lambda.javav2.scenario.import]
 import org.json.JSONObject;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -68,17 +67,19 @@ import java.util.List;
 public class LambdaScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <functionName> <filePath> <role> <handler> <bucketName> <key> \n\n" +
-            "Where:\n" +
-            "    functionName - The name of the Lambda function. \n"+
-            "    filePath - The path to the .zip or .jar where the code is located. \n"+
-            "    role - The AWS Identity and Access Management (IAM) service role that has Lambda permissions. \n"+
-            "    handler - The fully qualified method name (for example, example.Handler::handleRequest). \n"+
-            "    bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name that contains the .zip or .jar used to update the Lambda function's code. \n"+
-            "    key - The Amazon S3 key name that represents the .zip or .jar (for example, LambdaHello-1.0-SNAPSHOT.jar)." ;
+            Usage:
+                <functionName> <filePath> <role> <handler> <bucketName> <key>\s
+
+            Where:
+                functionName - The name of the Lambda function.\s
+                filePath - The path to the .zip or .jar where the code is located.\s
+                role - The AWS Identity and Access Management (IAM) service role that has Lambda permissions.\s
+                handler - The fully qualified method name (for example, example.Handler::handleRequest).\s
+                bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name that contains the .zip or .jar used to update the Lambda function's code.\s
+                key - The Amazon S3 key name that represents the .zip or .jar (for example, LambdaHello-1.0-SNAPSHOT.jar).
+                """;
 
         if (args.length != 6) {
             System.out.println(usage);
@@ -95,7 +96,6 @@ public class LambdaScenario {
         Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println(DASHES);

@@ -22,7 +22,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.keyspaces.KeyspacesClient;
 import software.amazon.awssdk.services.keyspaces.model.ColumnDefinition;
@@ -116,7 +115,6 @@ public class ScenarioKeyspaces {
         Region region = Region.US_EAST_1;
         KeyspacesClient keyClient = KeyspacesClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         DriverConfigLoader loader = DriverConfigLoader.fromClasspath("application.conf");

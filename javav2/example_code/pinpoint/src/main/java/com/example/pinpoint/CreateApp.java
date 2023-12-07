@@ -8,8 +8,8 @@
 */
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.createapp.main]
 //snippet-start:[pinpoint.java2.createapp.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.CreateAppRequest;
@@ -27,12 +27,14 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
  */
 public class CreateApp {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            " Usage: " +
-            " <appName>\n\n" +
-            " Where:\n" +
-            "  appName - The name of the application to create.\n\n";
+             Usage:  <appName>
+
+             Where:
+              appName - The name of the application to create.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,7 +45,6 @@ public class CreateApp {
 
         PinpointClient pinpoint = PinpointClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String appID = createApplication(pinpoint, appName);
@@ -51,9 +52,7 @@ public class CreateApp {
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.createapp.main]
     public static String createApplication(PinpointClient pinpoint, String appName) {
-
         try {
             CreateApplicationRequest appRequest = CreateApplicationRequest.builder()
                 .name(appName)
@@ -72,5 +71,5 @@ public class CreateApp {
         }
         return "";
     }
-    //snippet-end:[pinpoint.java2.createapp.main]
 }
+ //snippet-end:[pinpoint.java2.createapp.main]

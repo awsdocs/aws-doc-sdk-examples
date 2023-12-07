@@ -9,8 +9,8 @@
 
  package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.java2.put_targets.main]
 // snippet-start:[cloudwatch.java2.put_targets.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
 import software.amazon.awssdk.services.cloudwatchevents.model.PutTargetsRequest;
@@ -25,16 +25,17 @@ import software.amazon.awssdk.services.cloudwatchevents.model.Target;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class PutTargets {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <ruleName> <functionArn> <targetId> \n\n" +
-            "Where:\n" +
-            "  ruleName - A rule name (for example, myrule).\n" +
-            "  functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1).\n" +
-            "  targetId - A target id value.\n" ;
+            Usage:
+              <ruleName> <functionArn> <targetId>\s
+
+            Where:
+              ruleName - A rule name (for example, myrule).
+              functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1).
+              targetId - A target id value.
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -44,19 +45,14 @@ public class PutTargets {
         String ruleName = args[0];
         String functionArn = args[1];
         String targetId = args[2];
-
         CloudWatchEventsClient cwe = CloudWatchEventsClient.builder()
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         putCWTargets(cwe, ruleName, functionArn, targetId);
         cwe.close();
     }
 
-    // snippet-start:[cloudwatch.java2.put_targets.main]
     public static void putCWTargets(CloudWatchEventsClient cwe, String ruleName, String functionArn, String targetId ) {
-
         try {
             Target target = Target.builder()
                 .arn(functionArn)
@@ -78,5 +74,5 @@ public class PutTargets {
             System.exit(1);
         }
     }
-    // snippet-end:[cloudwatch.java2.put_targets.main]
 }
+// snippet-end:[cloudwatch.java2.put_targets.main]

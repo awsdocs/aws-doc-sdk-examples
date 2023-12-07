@@ -81,7 +81,7 @@ public class StepFunctionsTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void TestHello() {
-        assertDoesNotThrow(() ->HelloStepFunctions.listMachines(sfnClient));
+        assertDoesNotThrow(() ->ListStateMachines.listMachines(sfnClient));
         System.out.println("Test 2 passed");
    }
 

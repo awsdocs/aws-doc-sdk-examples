@@ -10,7 +10,6 @@
 package com.example.pipeline;
 
 // snippet-start:[pipeline.java2.list_pipelines.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codepipeline.CodePipelineClient;
 import software.amazon.awssdk.services.codepipeline.model.CodePipelineException;
@@ -27,13 +26,10 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListPipelines {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         CodePipelineClient pipelineClient = CodePipelineClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getAllPipelines(pipelineClient);

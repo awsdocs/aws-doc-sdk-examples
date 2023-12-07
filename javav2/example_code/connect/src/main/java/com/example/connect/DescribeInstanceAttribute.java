@@ -9,6 +9,7 @@
 
 package com.example.connect;
 
+// snippet-start:[connect.java2.describe.attr.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.connect.ConnectClient;
 import software.amazon.awssdk.services.connect.model.ConnectException;
@@ -25,11 +26,14 @@ import software.amazon.awssdk.services.connect.model.InstanceAttributeType;
  */
 public class DescribeInstanceAttribute {
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage: " +
-            "   <instanceId>\n\n" +
-            "Where:\n" +
-            "   instanceId - The identifier of the Amazon Connect instance.\n\n";
+        final String usage = """
+
+            Usage:    <instanceId>
+
+            Where:
+               instanceId - The identifier of the Amazon Connect instance.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,21 +49,20 @@ public class DescribeInstanceAttribute {
         describeAttribute(connectClient, instanceId);
     }
 
-    // snippet-start:[connect.java2.describe.attr.main]
     public static void describeAttribute(ConnectClient connectClient, String instanceId) {
-        try{
+        try {
             DescribeInstanceAttributeRequest request = DescribeInstanceAttributeRequest.builder()
                 .instanceId(instanceId)
                 .attributeType(InstanceAttributeType.USE_CUSTOM_TTS_VOICES)
                 .build();
 
             DescribeInstanceAttributeResponse response = connectClient.describeInstanceAttribute(request);
-            System.out.println("The attribute value is "+response.attribute().attributeType().toString());
+            System.out.println("The attribute value is " + response.attribute().attributeType().toString());
 
         } catch (ConnectException e) {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[connect.java2.describe.attr.main]
 }
+// snippet-end:[connect.java2.describe.attr.main]

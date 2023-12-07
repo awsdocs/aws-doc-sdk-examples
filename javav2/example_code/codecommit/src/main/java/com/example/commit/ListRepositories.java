@@ -10,6 +10,7 @@
 
 package com.example.commit;
 
+// snippet-start:[codecommit.java2.get_repos.main]
 // snippet-start:[codecommit.java2.get_repos.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codecommit.CodeCommitClient;
@@ -28,27 +29,23 @@ import java.util.List;
  */
 
 public class ListRepositories {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         listRepos(codeCommitClient);
         codeCommitClient.close();
     }
 
-    // snippet-start:[codecommit.java2.get_repos.main]
     public static void listRepos(CodeCommitClient codeCommitClient) {
-
         try {
             ListRepositoriesResponse repResponse = codeCommitClient.listRepositories();
             List<RepositoryNameIdPair> repoList = repResponse.repositories();
 
-            for (RepositoryNameIdPair repo: repoList) {
-                System.out.println("The repository name is "+repo.repositoryName());
+            for (RepositoryNameIdPair repo : repoList) {
+                System.out.println("The repository name is " + repo.repositoryName());
             }
 
         } catch (CodeCommitException e) {
@@ -56,5 +53,6 @@ public class ListRepositories {
             System.exit(1);
         }
     }
-    // snippet-end:[codecommit.java2.get_repos.main]
 }
+// snippet-end:[codecommit.java2.get_repos.main]
+

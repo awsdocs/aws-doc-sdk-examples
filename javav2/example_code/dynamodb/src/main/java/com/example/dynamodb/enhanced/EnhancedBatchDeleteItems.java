@@ -8,9 +8,9 @@
 */
 package com.example.dynamodb.enhanced;
 
+// snippet-start:[dynamodb.java2.mapping.batchdelete.main]
 // snippet-start:[dynamodb.java2.mapping.batchdelete.import]
 import com.example.dynamodb.Customer;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
@@ -39,12 +39,9 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 public class EnhancedBatchDeleteItems {
 
     public static void main(String[] args) {
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
@@ -54,7 +51,6 @@ public class EnhancedBatchDeleteItems {
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.mapping.batchdelete.main]
     public static void deleteBatchRecords(DynamoDbEnhancedClient enhancedClient) {
         try {
             DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
@@ -68,17 +64,17 @@ public class EnhancedBatchDeleteItems {
 
             BatchWriteItemEnhancedRequest request = BatchWriteItemEnhancedRequest.builder()
                 .writeBatches(WriteBatch.builder(Customer.class)
-                    .mappedTableResource(mappedTable)
-                    .addDeleteItem(DeleteItemEnhancedRequest.builder()
-                        .key(key1)
+                        .mappedTableResource(mappedTable)
+                        .addDeleteItem(DeleteItemEnhancedRequest.builder()
+                            .key(key1)
+                            .build())
+                        .build(),
+                    WriteBatch.builder(Customer.class)
+                        .mappedTableResource(mappedTable)
+                        .addDeleteItem(DeleteItemEnhancedRequest.builder()
+                            .key(key2)
+                            .build())
                         .build())
-                    .build(),
-                WriteBatch.builder(Customer.class)
-                    .mappedTableResource(mappedTable)
-                    .addDeleteItem(DeleteItemEnhancedRequest.builder()
-                        .key(key2)
-                        .build())
-                    .build())
                 .build();
 
             // Delete these two items from the table.
@@ -90,5 +86,5 @@ public class EnhancedBatchDeleteItems {
             System.exit(1);
         }
     }
-    // snippet-end:[dynamodb.java2.mapping.batchdelete.main]
 }
+ // snippet-end:[dynamodb.java2.mapping.batchdelete.main]

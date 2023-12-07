@@ -9,6 +9,7 @@
 
 package com.example.commit;
 
+// snippet-start:[codecommit.java2.del_repo.main]
 // snippet-start:[codecommit.java2.del_repo.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codecommit.CodeCommitClient;
@@ -25,14 +26,15 @@ import software.amazon.awssdk.services.codecommit.model.DeleteRepositoryRequest;
  */
 
 public class DeleteRepository {
-
     public static void main(String[] args) {
+        final String USAGE = """
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <repoName> \n\n" +
-                "Where:\n" +
-                "    repoName - the name of the repository.\n" ;
+            Usage:
+                <repoName>\s
+
+            Where:
+                repoName - the name of the repository.
+            """;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -42,16 +44,14 @@ public class DeleteRepository {
         String repoName = args[0];
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         deleteRepo(codeCommitClient, repoName);
         codeCommitClient.close();
     }
 
-    // snippet-start:[codecommit.java2.del_repo.main]
-    public static void deleteRepo(CodeCommitClient codeCommitClient, String repoName){
-
+    public static void deleteRepo(CodeCommitClient codeCommitClient, String repoName) {
         try {
             DeleteRepositoryRequest deleteRepositoryRequest = DeleteRepositoryRequest.builder()
                 .repositoryName(repoName)
@@ -63,6 +63,6 @@ public class DeleteRepository {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-     }
-    // snippet-end:[codecommit.java2.del_repo.main]
- }
+    }
+}
+// snippet-end:[codecommit.java2.del_repo.main]

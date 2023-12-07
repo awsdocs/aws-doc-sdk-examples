@@ -9,8 +9,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.ConfirmSubscription.main]
 //snippet-start:[sns.java2.ConfirmSubscription.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.ConfirmSubscriptionRequest;
@@ -27,13 +27,14 @@ import software.amazon.awssdk.services.sns.model.SnsException;
  */
 public class ConfirmSubscription {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <subscriptionToken> <topicArn>\n\n" +
-            "Where:\n" +
-            "   subscriptionToken - A short-lived token sent to an endpoint during the Subscribe action.\n\n" +
-            "   topicArn - The ARN of the topic. \n\n";
+            Usage:    <subscriptionToken> <topicArn>
+
+            Where:
+               subscriptionToken - A short-lived token sent to an endpoint during the Subscribe action.
+               topicArn - The ARN of the topic.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -44,16 +45,13 @@ public class ConfirmSubscription {
         String topicArn = args[1];
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        confirmSub(snsClient, subscriptionToken, topicArn ) ;
+        confirmSub(snsClient, subscriptionToken, topicArn);
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.ConfirmSubscription.main]
-    public static void confirmSub(SnsClient snsClient, String subscriptionToken, String topicArn ) {
-
+    public static void confirmSub(SnsClient snsClient, String subscriptionToken, String topicArn) {
         try {
             ConfirmSubscriptionRequest request = ConfirmSubscriptionRequest.builder()
                 .token(subscriptionToken)
@@ -64,9 +62,9 @@ public class ConfirmSubscription {
             System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode() + "\n\nSubscription Arn: \n\n" + result.subscriptionArn());
 
         } catch (SnsException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
-    //snippet-end:[sns.java2.ConfirmSubscription.main]
 }
+//snippet-end:[sns.java2.ConfirmSubscription.main]

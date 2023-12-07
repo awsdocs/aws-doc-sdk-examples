@@ -8,8 +8,8 @@
 
 package com.example.guardduty;
 
+//snippet-start:[guard.java2.list_detectors.main]
 //snippet-start:[guard.java2.list_detectors.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.guardduty.GuardDutyClient;
 import software.amazon.awssdk.services.guardduty.model.GuardDutyException;
@@ -27,26 +27,21 @@ import java.util.List;
 public class ListDetectors {
 
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         GuardDutyClient guardDutyClient = GuardDutyClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .build();
 
         listAllDetectors(guardDutyClient);
         guardDutyClient.close();
     }
 
-    //snippet-start:[guard.java2.list_detectors.main]
     public static void listAllDetectors(GuardDutyClient guardDutyClient) {
-
         try {
             ListDetectorsResponse response = guardDutyClient.listDetectors();
             List<String> detectors = response.detectorIds();
-
-            for (String detector: detectors) {
-                System.out.println("The detector id is : "+detector);
+            for (String detector : detectors) {
+                System.out.println("The detector id is : " + detector);
             }
 
         } catch (GuardDutyException e) {
@@ -54,5 +49,5 @@ public class ListDetectors {
             System.exit(1);
         }
     }
-    //snippet-end:[guard.java2.list_detectors.main]
 }
+//snippet-end:[guard.java2.list_detectors.main]

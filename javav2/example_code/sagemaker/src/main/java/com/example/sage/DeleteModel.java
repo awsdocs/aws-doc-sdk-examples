@@ -9,8 +9,8 @@
 
 package com.example.sage;
 
+//snippet-start:[sagemaker.java2.delete_model.main]
 //snippet-start:[sagemaker.java2.delete_model.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sagemaker.model.DeleteModelRequest;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
@@ -26,14 +26,15 @@ import software.amazon.awssdk.services.sagemaker.model.SageMakerException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteModel {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <modelName>\n\n" +
-            "Where:\n" +
-            "    modelName - The name of the model.\n\n";
+            Usage:
+                <modelName>
+
+            Where:
+                modelName - The name of the model.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,16 +45,13 @@ public class DeleteModel {
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteSagemakerModel(sageMakerClient, modelName);
         sageMakerClient.close();
     }
 
-    //snippet-start:[sagemaker.java2.delete_model.main]
     public static void deleteSagemakerModel(SageMakerClient sageMakerClient, String modelName) {
-
         try {
             DeleteModelRequest deleteModelRequest = DeleteModelRequest.builder()
                 .modelName(modelName)
@@ -61,10 +59,10 @@ public class DeleteModel {
 
             sageMakerClient.deleteModel(deleteModelRequest);
 
-       } catch (SageMakerException e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
-       }
+        } catch (SageMakerException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
-    //snippet-end:[sagemaker.java2.delete_model.main]
 }
+//snippet-end:[sagemaker.java2.delete_model.main]

@@ -11,8 +11,8 @@
 // snippet-start:[lambda.java2.DeleteFunction.complete]
 package com.example.lambda;
 
+// snippet-start:[lambda.java2.delete.main]
 // snippet-start:[lambda.java2.delete.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.model.DeleteFunctionRequest;
@@ -27,14 +27,15 @@ import software.amazon.awssdk.services.lambda.model.LambdaException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteFunction {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <functionName> \n\n" +
-            "Where:\n" +
-            "    functionName - The name of the Lambda function. \n";
+            Usage:
+                <functionName>\s
+
+            Where:
+                functionName - The name of the Lambda function.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,14 +46,11 @@ public class DeleteFunction {
         Region region = Region.US_EAST_1;
         LambdaClient awsLambda = LambdaClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteLambdaFunction(awsLambda, functionName);
         awsLambda.close();
     }
-
-    // snippet-start:[lambda.java2.delete.main]
     public static void deleteLambdaFunction(LambdaClient awsLambda, String functionName) {
         try {
             DeleteFunctionRequest request = DeleteFunctionRequest.builder()
@@ -67,6 +65,6 @@ public class DeleteFunction {
             System.exit(1);
         }
     }
-    // snippet-end:[lambda.java2.delete.main]
-}
+ }
+// snippet-end:[lambda.java2.delete.main]
 // snippet-end:[lambda.java2.DeleteFunction.complete]

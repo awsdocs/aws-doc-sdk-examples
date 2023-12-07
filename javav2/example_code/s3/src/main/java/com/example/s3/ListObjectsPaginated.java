@@ -8,7 +8,7 @@
 
 package com.example.s3;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+// snippet-start:[s3.java2.list_objects.pag.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
@@ -16,14 +16,15 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Iterable;
 
 public class ListObjectsPaginated {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <bucketName> \n\n" +
-            "Where:\n" +
-            "    bucketName - The Amazon S3 bucket from which objects are read. \n\n" ;
+            Usage:
+                <bucketName>\s
+
+            Where:
+                bucketName - The Amazon S3 bucket from which objects are read.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -31,19 +32,16 @@ public class ListObjectsPaginated {
         }
 
         String bucketName = args[0];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         listBucketObjects(s3, bucketName);
         s3.close();
     }
 
-    // snippet-start:[s3.java2.list_objects.pag.main]
-    public static void listBucketObjects(S3Client s3, String bucketName ) {
+    public static void listBucketObjects(S3Client s3, String bucketName) {
         try {
             ListObjectsV2Request listReq = ListObjectsV2Request.builder()
                 .bucket(bucketName)
@@ -60,7 +58,7 @@ public class ListObjectsPaginated {
             System.exit(1);
         }
     }
-    // snippet-end:[s3.java2.list_objects.pag.main]
 }
+// snippet-end:[s3.java2.list_objects.pag.main]
 
 

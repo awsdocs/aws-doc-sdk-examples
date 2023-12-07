@@ -9,6 +9,7 @@
 
 package com.example.identitystore;
 
+// snippet-start:[identitystore.java2.update_group.main]
 // snippet-start:[Identitystore.java2.update_group.import]
 import software.amazon.awssdk.core.document.Document;
 import software.amazon.awssdk.services.identitystore.IdentitystoreClient;
@@ -25,19 +26,21 @@ import software.amazon.awssdk.services.identitystore.model.AttributeOperation;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class UpdateGroup {
     public static void main(String... args) {
 
-        final String usage = "\n" +
-        "Usage:\n" +
-        "    <identitystoreId> <groupId> <groupAttributeName> <groupAttributeValue> \n\n" +
-        "Where:\n" +
-        "    identitystoreId - The id of the identitystore. \n" +
-        "    groupId - The id of the group. \n" +
-        "    groupAttributeName - The name of the unique attribute of the group. \n" +
-        "    groupAttributeValue - The value of the specified group attribute. \n\n" ;
+        final String usage = """
 
+            Usage:
+                <identitystoreId> <groupId> <groupAttributeName> <groupAttributeValue>\s
+
+            Where:
+                identitystoreId - The id of the identitystore.\s
+                groupId - The id of the group.\s
+                groupAttributeName - The name of the unique attribute of the group.\s
+                groupAttributeValue - The value of the specified group attribute.\s
+
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -48,31 +51,27 @@ public class UpdateGroup {
         String groupId = args[1];
         String groupAttributePath = args[2];
         String groupAttributeValue = args[3];
-
-
         IdentitystoreClient identitystore = IdentitystoreClient.builder().build();
-
         String result = updateGroup(identitystore, identitystoreId, groupId, groupAttributePath, groupAttributeValue);
         System.out.println("Group:" + result);
         identitystore.close();
     }
 
-    // snippet-start:[identitystore.java2.update_group.main]
     public static String updateGroup(IdentitystoreClient identitystore, String identitystoreId, String groupId, String groupAttributePath, String groupAttributeValue) {
         try {
             String attributePath = groupAttributePath;
             Document attributeValue = Document.fromString(groupAttributeValue);
 
             AttributeOperation attributeOperation = AttributeOperation.builder()
-                 .attributePath(attributePath)
-                 .attributeValue(attributeValue)
-                 .build();
+                .attributePath(attributePath)
+                .attributeValue(attributeValue)
+                .build();
 
             UpdateGroupRequest request = UpdateGroupRequest.builder()
-                              .identityStoreId(identitystoreId)
-                              .groupId(groupId)
-                              .operations(attributeOperation)
-                              .build();
+                .identityStoreId(identitystoreId)
+                .groupId(groupId)
+                .operations(attributeOperation)
+                .build();
 
             UpdateGroupResponse response = identitystore.updateGroup(request);
 
@@ -85,6 +84,6 @@ public class UpdateGroup {
         }
 
         return "";
-     }
-    // snippet-end:[identitystore.java2.update_group.main]
+    }
 }
+// snippet-end:[identitystore.java2.update_group.main]

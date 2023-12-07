@@ -5,8 +5,8 @@
 
 package com.example.rds;
 
+// snippet-start:[rds.java2.start_instance.main]
 // snippet-start:[rds.java2.start_instance.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.RdsException;
@@ -21,34 +21,33 @@ import software.amazon.awssdk.services.rds.model.StartDbInstanceRequest;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class StartDatabase {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <dbInstanceIdentifier> \n\n" +
-            "Where:\n" +
-            "    dbInstanceIdentifier - The database instance identifier \n" ;
+        final String usage = """
 
-            if (args.length != 1) {
-                System.out.println(usage);
-                System.exit(1);
-            }
+            Usage:
+                <dbInstanceIdentifier>\s
 
-            String dbInstanceIdentifier = args[0];
-            Region region = Region.US_WEST_2;
-            RdsClient rdsClient = RdsClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            Where:
+                dbInstanceIdentifier - The database instance identifier\s
+            """;
 
-            startInstance(rdsClient, dbInstanceIdentifier) ;
-            rdsClient.close();
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
         }
 
-    // snippet-start:[rds.java2.start_instance.main]
-    public static void startInstance(RdsClient rdsClient, String dbInstanceIdentifier ) {
+        String dbInstanceIdentifier = args[0];
+        Region region = Region.US_WEST_2;
+        RdsClient rdsClient = RdsClient.builder()
+            .region(region)
+            .build();
 
+        startInstance(rdsClient, dbInstanceIdentifier);
+        rdsClient.close();
+    }
+
+    public static void startInstance(RdsClient rdsClient, String dbInstanceIdentifier) {
         try {
             StartDbInstanceRequest startDbInstanceRequest = StartDbInstanceRequest.builder()
                 .dbInstanceIdentifier(dbInstanceIdentifier)
@@ -62,6 +61,6 @@ public class StartDatabase {
             System.exit(1);
         }
     }
-    // snippet-end:[rds.java2.start_instance.main]
 }
+// snippet-end:[rds.java2.start_instance.main]
 

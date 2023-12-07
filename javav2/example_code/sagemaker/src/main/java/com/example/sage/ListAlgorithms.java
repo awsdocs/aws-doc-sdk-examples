@@ -8,8 +8,8 @@
 */
 package com.example.sage;
 
+//snippet-start:[sagemaker.java2.list_algs.main]
 //snippet-start:[sagemaker.java2.list_algs.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import software.amazon.awssdk.services.sagemaker.model.ListAlgorithmsResponse;
@@ -26,22 +26,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListAlgorithms {
-
     public static void main(String[] args) {
-
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAlgs(sageMakerClient);
         sageMakerClient.close();
     }
 
-    //snippet-start:[sagemaker.java2.list_algs.main]
     public static void listAlgs(SageMakerClient sageMakerClient) {
-
         try {
             ListAlgorithmsResponse algorithmsResponse = sageMakerClient.listAlgorithms();
             List<AlgorithmSummary> items = algorithmsResponse.algorithmSummaryList();
@@ -54,5 +49,5 @@ public class ListAlgorithms {
             System.exit(1);
         }
     }
-    //snippet-end:[sagemaker.java2.list_algs.main]
 }
+//snippet-end:[sagemaker.java2.list_algs.main]

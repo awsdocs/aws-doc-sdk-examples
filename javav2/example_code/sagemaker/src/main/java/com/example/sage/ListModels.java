@@ -10,8 +10,8 @@
 
 package com.example.sage;
 
+//snippet-start:[sagemaker.java2.list_models.main]
 //snippet-start:[sagemaker.java2.list_models.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import software.amazon.awssdk.services.sagemaker.model.ListModelsRequest;
@@ -30,37 +30,33 @@ import java.util.List;
  */
 
 public class ListModels {
-
     public static void main(String[] args) {
+        Region region = Region.US_WEST_2;
+        SageMakerClient sageMakerClient = SageMakerClient.builder()
+            .region(region)
+            .build();
 
-            Region region = Region.US_WEST_2;
-            SageMakerClient sageMakerClient = SageMakerClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
+        listAllModels(sageMakerClient);
+        sageMakerClient.close();
+    }
+
+
+    public static void listAllModels(SageMakerClient sageMakerClient) {
+        try {
+            ListModelsRequest modelsRequest = ListModelsRequest.builder()
+                .maxResults(15)
                 .build();
 
-            listAllModels(sageMakerClient);
-            sageMakerClient.close();
+            ListModelsResponse modelResponse = sageMakerClient.listModels(modelsRequest);
+            List<ModelSummary> items = modelResponse.models();
+            for (ModelSummary item : items) {
+                System.out.println("Model name is: " + item.modelName());
+            }
+
+        } catch (SageMakerException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
-
-    //snippet-start:[sagemaker.java2.list_models.main]
-       public static void listAllModels(SageMakerClient sageMakerClient) {
-
-           try {
-               ListModelsRequest modelsRequest = ListModelsRequest.builder()
-                   .maxResults(15)
-                   .build();
-
-               ListModelsResponse modelResponse = sageMakerClient.listModels(modelsRequest);
-               List<ModelSummary> items = modelResponse.models();
-               for (ModelSummary item : items) {
-                   System.out.println("Model name is: " + item.modelName());
-               }
-
-           } catch (SageMakerException e) {
-               System.err.println(e.awsErrorDetails().errorMessage());
-               System.exit(1);
-           }
-       }
-      //snippet-end:[sagemaker.java2.list_models.main]
     }
+}
+//snippet-end:[sagemaker.java2.list_models.main]

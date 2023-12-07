@@ -9,7 +9,6 @@
 
 package com.example.pinpoint;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.EmailTemplateResponse;
@@ -26,12 +25,10 @@ import software.amazon.awssdk.services.pinpoint.model.GetEmailTemplateRequest;
 
 public class GetTemplateByName {
     public static void main(String[] args) {
-
         // Change "MyNewTemplate-1" to the name of the template to retrieve.
         String templateName = "MyNewTemplate-1";
         PinpointClient pinpoint = PinpointClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         EmailTemplateResponse templateResponse = getTemplateByName(pinpoint, templateName);
@@ -40,7 +37,6 @@ public class GetTemplateByName {
     }
 
     private static EmailTemplateResponse getTemplateByName(PinpointClient client, String templateName) {
-
         try {
             EmailTemplateResponse response = client.getEmailTemplate(GetEmailTemplateRequest.builder()
                 .templateName(templateName)

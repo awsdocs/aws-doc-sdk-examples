@@ -11,7 +11,6 @@ package com.example.redshift;
 // snippet-start:[redshift.java2.create_cluster.import]
 import com.google.gson.Gson;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
 import software.amazon.awssdk.services.redshift.model.CreateClusterRequest;
@@ -25,7 +24,6 @@ import software.amazon.awssdk.services.redshift.model.ModifyClusterRequest;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
-
 import java.util.List;
 // snippet-end:[redshift.java2.create_cluster.import]
 
@@ -43,17 +41,17 @@ import java.util.List;
  */
 
 public class CreateAndModifyCluster {
-
     public static long sleepTime = 20;
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <clusterId> <masterUsername> <masterUserPassword> \n\n" +
-            "Where:\n" +
-            "    clusterId - The id of the cluster to create. \n" +
-            "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials" ;
+            Usage:
+                <clusterId> <masterUsername> <masterUserPassword>\s
+
+            Where:
+                clusterId - The id of the cluster to create.\s
+                secretName - The name of the AWS Secrets Manager secret that contains the database credentials""";
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -67,7 +65,6 @@ public class CreateAndModifyCluster {
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createCluster(redshiftClient,clusterId, user.getMasterUsername(), user.getMasterUserPassword() );

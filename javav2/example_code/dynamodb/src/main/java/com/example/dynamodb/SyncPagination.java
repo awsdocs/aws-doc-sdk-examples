@@ -9,8 +9,8 @@
 
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.sync_pagination.main]
 // snippet-start:[dynamodb.java2.sync_pagination.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -26,16 +26,16 @@ import software.amazon.awssdk.services.dynamodb.paginators.ListTablesIterable;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class SyncPagination {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <type>\n\n" +
-            "Where:\n" +
-            "    type - The type of pagination. (auto, manual, or default). \n\n" ;
+            Usage:
+                <type>
+
+            Where:
+                type - The type of pagination. (auto, manual, or default).\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,33 +43,28 @@ public class SyncPagination {
         }
 
         String type = args[0];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
         switch (type.toLowerCase()) {
-            case "manual":
-                manualPagination(ddb);
-                break;
-            case "auto":
+            case "manual" -> manualPagination(ddb);
+            case "auto" -> {
                 autoPagination(ddb);
                 autoPaginationWithResume(ddb);
-                break;
-            default:
+            }
+            default -> {
                 manualPagination(ddb);
                 autoPagination(ddb);
                 autoPaginationWithResume(ddb);
+            }
         }
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.sync_pagination.main]
     public static void manualPagination(DynamoDbClient client) {
         System.out.println("running ManualPagination...\n");
-
         ListTablesRequest listTablesRequest = ListTablesRequest.builder()
             .limit(3)
             .build();
@@ -130,6 +125,6 @@ public class SyncPagination {
             }
         }
     }
-    // snippet-end:[dynamodb.java2.sync_pagination.main]
 }
+// snippet-end:[dynamodb.java2.sync_pagination.main]
 

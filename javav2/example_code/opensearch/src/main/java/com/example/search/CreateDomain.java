@@ -8,8 +8,8 @@
 */
 package com.example.search;
 
+// snippet-start:[opensearch.java2.create_domain.main]
 // snippet-start:[opensearch.java2.create_domain.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.opensearch.OpenSearchClient;
 import software.amazon.awssdk.services.opensearch.model.ClusterConfig;
@@ -29,14 +29,15 @@ import software.amazon.awssdk.services.opensearch.model.OpenSearchException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateDomain {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <domainName>\n\n" +
-            "Where:\n" +
-            "    domainName - The name of the domain to create.\n\n" ;
+            Usage:
+                <domainName>
+
+            Where:
+                domainName - The name of the domain to create.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,16 +48,13 @@ public class CreateDomain {
         Region region = Region.US_EAST_1;
         OpenSearchClient searchClient = OpenSearchClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createNewDomain(searchClient, domainName);
         System.out.println("Done");
     }
 
-    // snippet-start:[opensearch.java2.create_domain.main]
     public static void createNewDomain(OpenSearchClient searchClient, String domainName) {
-
         try {
             ClusterConfig clusterConfig = ClusterConfig.builder()
                 .dedicatedMasterEnabled(true)
@@ -86,13 +84,13 @@ public class CreateDomain {
 
             System.out.println("Sending domain creation request...");
             CreateDomainResponse createResponse = searchClient.createDomain(domainRequest);
-            System.out.println("Domain status is "+createResponse.domainStatus().toString());
-            System.out.println("Domain Id is "+createResponse.domainStatus().domainId());
+            System.out.println("Domain status is " + createResponse.domainStatus().toString());
+            System.out.println("Domain Id is " + createResponse.domainStatus().domainId());
 
         } catch (OpenSearchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[opensearch.java2.create_domain.main]
 }
+// snippet-end:[opensearch.java2.create_domain.main]

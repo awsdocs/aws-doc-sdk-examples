@@ -7,8 +7,8 @@
 */
 package com.example.cognito;
 
+//snippet-start:[cognito.java2.mvp.main]
 //snippet-start:[cognito.java2.mvp.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminGetUserRequest;
@@ -26,8 +26,6 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIden
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ConfirmSignUpRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ResendConfirmationCodeRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ResendConfirmationCodeResponse;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.RespondToAuthChallengeRequest;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.RespondToAuthChallengeResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.VerifySoftwareTokenRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.VerifySoftwareTokenResponse;
@@ -40,7 +38,6 @@ import java.util.Map;
 import java.util.Scanner;
 //snippet-end:[cognito.java2.mvp.import]
 
-//snippet-start:[cognito.java2.mvp.main]
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
@@ -66,13 +63,15 @@ import java.util.Scanner;
 public class CognitoMVP {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <clientId> <poolId>\n\n" +
-            "Where:\n" +
-            "    clientId - The app client Id value that you can get from the AWS CDK script.\n\n" +
-            "    poolId - The pool Id that you can get from the AWS CDK script. \n\n" ;
+            Usage:
+                <clientId> <poolId>
+
+            Where:
+                clientId - The app client Id value that you can get from the AWS CDK script.
+                poolId - The pool Id that you can get from the AWS CDK script.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -83,7 +82,6 @@ public class CognitoMVP {
         String poolId = args[1];
         CognitoIdentityProviderClient identityProviderClient = CognitoIdentityProviderClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println(DASHES);

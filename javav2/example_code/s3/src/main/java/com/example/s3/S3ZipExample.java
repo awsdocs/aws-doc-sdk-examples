@@ -33,14 +33,15 @@ import java.util.zip.ZipOutputStream;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class S3ZipExample {
-
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <bucketName> <imageKeys> \n\n" +
-            "Where:\n" +
-            "  bucketName - The Amazon S3 bucket where JPG images are located. \n" +
-            "  keys -  A comma separated list of images (without spaces) located in the S3 bucket and to be placed into a ZIP file. For example,  For example pic1.jpg,pic2.jpg";
+        final String usage = """
+
+            Usage:
+              <bucketName> <imageKeys>\s
+
+            Where:
+              bucketName - The Amazon S3 bucket where JPG images are located.\s
+              keys -  A comma separated list of images (without spaces) located in the S3 bucket and to be placed into a ZIP file. For example,  For example pic1.jpg,pic2.jpg""";
 
        if (args.length != 2) {
            System.out.println(usage);

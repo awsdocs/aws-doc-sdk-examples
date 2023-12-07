@@ -9,8 +9,8 @@
 
 package com.example.migrationhub;
 
+// snippet-start:[migration.java2.describe_migration.main]
 // snippet-start:[migration.java2.describe_migration.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.migrationhub.MigrationHubClient;
 import software.amazon.awssdk.services.migrationhub.model.DescribeMigrationTaskRequest;
@@ -28,13 +28,15 @@ import software.amazon.awssdk.services.migrationhub.model.MigrationHubException;
 public class DescribeMigrationTask {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    DescribeMigrationTask <migrationTask> <progressStream> \n\n" +
-            "Where:\n" +
-            "    migrationTask - the name of a migration task. \n"+
-            "    progressStream - the name of a progress stream. \n";
+            Usage:
+                DescribeMigrationTask <migrationTask> <progressStream>\s
+
+            Where:
+                migrationTask - the name of a migration task.\s
+                progressStream - the name of a progress stream.\s
+            """;
 
         if (args.length < 2) {
             System.out.println(usage);
@@ -46,14 +48,12 @@ public class DescribeMigrationTask {
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-       describeMigTask(migrationClient, migrationTask, progressStream);
-       migrationClient.close();
+        describeMigTask(migrationClient, migrationTask, progressStream);
+        migrationClient.close();
     }
 
-    // snippet-start:[migration.java2.describe_migration.main]
     public static void describeMigTask(MigrationHubClient migrationClient, String migrationTask, String progressStream) {
         try {
             DescribeMigrationTaskRequest migrationTaskRequestRequest = DescribeMigrationTaskRequest.builder()
@@ -62,12 +62,12 @@ public class DescribeMigrationTask {
                 .build();
 
             DescribeMigrationTaskResponse migrationTaskResponse = migrationClient.describeMigrationTask(migrationTaskRequestRequest);
-            System.out.println("The name is "+ migrationTaskResponse.migrationTask().migrationTaskName());
+            System.out.println("The name is " + migrationTaskResponse.migrationTask().migrationTaskName());
 
         } catch (MigrationHubException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[migration.java2.describe_migration.main]
 }
+// snippet-end:[migration.java2.describe_migration.main]

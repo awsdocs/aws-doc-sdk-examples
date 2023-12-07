@@ -7,12 +7,12 @@
 */
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.recognize_video_detect.main]
 // snippet-start:[rekognition.java2.recognize_video_detect.import]
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.StartLabelDetectionResponse;
@@ -44,19 +44,20 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class VideoDetect {
+    private static String startJobId = "";
 
-    private static String startJobId ="";
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <bucket> <video> <queueUrl> <topicArn> <roleArn>\n\n" +
-            "Where:\n" +
-            "   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). \n\n"+
-            "   video - The name of the video (for example, people.mp4). \n\n" +
-            "   queueUrl- The URL of a SQS queue. \n\n" +
-            "   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. \n\n" +
-            "   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. \n\n" ;
+            Usage:    <bucket> <video> <queueUrl> <topicArn> <roleArn>
+
+            Where:
+               bucket - The name of the bucket in which the video is located (for example, (for example, myBucket).\s
+               video - The name of the video (for example, people.mp4).\s
+               queueUrl- The URL of a SQS queue.\s
+               topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic.\s
+               roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use.\s
+            """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -71,12 +72,10 @@ public class VideoDetect {
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         SqsClient sqs = SqsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         NotificationChannel channel = NotificationChannel.builder()
@@ -85,13 +84,12 @@ public class VideoDetect {
             .build();
 
         startLabels(rekClient, channel, bucket, video);
-        getLabelJob(rekClient, sqs,  queueUrl);
+        getLabelJob(rekClient, sqs, queueUrl);
         System.out.println("This example is done!");
         sqs.close();
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.recognize_video_detect.main]
     public static void startLabels(RekognitionClient rekClient,
                                    NotificationChannel channel,
                                    String bucket,
@@ -132,22 +130,21 @@ public class VideoDetect {
                 if (status.compareTo("SUCCEEDED") == 0)
                     ans = false;
                 else
-                    System.out.println(yy +" status is: "+status);
+                    System.out.println(yy + " status is: " + status);
 
                 Thread.sleep(1000);
                 yy++;
             }
 
-            System.out.println(startJobId +" status is: "+status);
+            System.out.println(startJobId + " status is: " + status);
 
-        } catch(RekognitionException | InterruptedException e) {
+        } catch (RekognitionException | InterruptedException e) {
             e.getMessage();
             System.exit(1);
         }
     }
 
     public static void getLabelJob(RekognitionClient rekClient, SqsClient sqs, String queueUrl) {
-
         List<Message> messages;
         ReceiveMessageRequest messageRequest = ReceiveMessageRequest.builder()
             .queueUrl(queueUrl)
@@ -157,7 +154,7 @@ public class VideoDetect {
             messages = sqs.receiveMessage(messageRequest).messages();
 
             if (!messages.isEmpty()) {
-                for (Message message: messages) {
+                for (Message message : messages) {
                     String notification = message.body();
 
                     // Get the status and job id from the notification
@@ -175,26 +172,24 @@ public class VideoDetect {
                         .build();
 
                     String jobId = operationJobId.textValue();
-                    if (startJobId.compareTo(jobId)==0) {
-                        System.out.println("Job id: " + operationJobId );
+                    if (startJobId.compareTo(jobId) == 0) {
+                        System.out.println("Job id: " + operationJobId);
                         System.out.println("Status : " + operationStatus.toString());
 
                         if (operationStatus.asText().equals("SUCCEEDED"))
-                            GetResultsLabels(rekClient);
+                            getResultsLabels(rekClient);
                         else
                             System.out.println("Video analysis failed");
 
                         sqs.deleteMessage(deleteMessageRequest);
-                    }
-
-                    else{
-                        System.out.println("Job received was not job " +  startJobId);
+                    } else {
+                        System.out.println("Job received was not job " + startJobId);
                         sqs.deleteMessage(deleteMessageRequest);
                     }
                 }
             }
 
-        } catch(RekognitionException e) {
+        } catch (RekognitionException e) {
             e.getMessage();
             System.exit(1);
         } catch (JsonMappingException e) {
@@ -205,19 +200,19 @@ public class VideoDetect {
     }
 
     // Gets the job results by calling GetLabelDetection
-    private static void GetResultsLabels(RekognitionClient rekClient) {
+    private static void getResultsLabels(RekognitionClient rekClient) {
 
-        int maxResults=10;
-        String paginationToken=null;
-        GetLabelDetectionResponse labelDetectionResult=null;
+        int maxResults = 10;
+        String paginationToken = null;
+        GetLabelDetectionResponse labelDetectionResult = null;
 
         try {
             do {
-                if (labelDetectionResult !=null)
+                if (labelDetectionResult != null)
                     paginationToken = labelDetectionResult.nextToken();
 
 
-                GetLabelDetectionRequest labelDetectionRequest= GetLabelDetectionRequest.builder()
+                GetLabelDetectionRequest labelDetectionRequest = GetLabelDetectionRequest.builder()
                     .jobId(startJobId)
                     .sortBy(LabelDetectionSortBy.TIMESTAMP)
                     .maxResults(maxResults)
@@ -225,16 +220,16 @@ public class VideoDetect {
                     .build();
 
                 labelDetectionResult = rekClient.getLabelDetection(labelDetectionRequest);
-                VideoMetadata videoMetaData=labelDetectionResult.videoMetadata();
+                VideoMetadata videoMetaData = labelDetectionResult.videoMetadata();
                 System.out.println("Format: " + videoMetaData.format());
                 System.out.println("Codec: " + videoMetaData.codec());
                 System.out.println("Duration: " + videoMetaData.durationMillis());
                 System.out.println("FrameRate: " + videoMetaData.frameRate());
 
-                List<LabelDetection> detectedLabels= labelDetectionResult.labels();
-                for (LabelDetection detectedLabel: detectedLabels) {
-                    long seconds=detectedLabel.timestamp();
-                    Label label=detectedLabel.label();
+                List<LabelDetection> detectedLabels = labelDetectionResult.labels();
+                for (LabelDetection detectedLabel : detectedLabels) {
+                    long seconds = detectedLabel.timestamp();
+                    Label label = detectedLabel.label();
                     System.out.println("Millisecond: " + seconds + " ");
 
                     System.out.println("   Label:" + label.name());
@@ -263,12 +258,12 @@ public class VideoDetect {
                     }
                     System.out.println();
                 }
-            } while (labelDetectionResult !=null && labelDetectionResult.nextToken() != null);
+            } while (labelDetectionResult != null && labelDetectionResult.nextToken() != null);
 
-        } catch(RekognitionException e) {
+        } catch (RekognitionException e) {
             e.getMessage();
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.recognize_video_detect.main]
 }
+// snippet-end:[rekognition.java2.recognize_video_detect.main]

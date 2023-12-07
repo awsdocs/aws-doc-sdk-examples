@@ -9,6 +9,7 @@
 
 package com.example.sage;
 
+//snippet-start:[sagemaker.java2.list_jobs.main]
 //snippet-start:[sagemaker.java2.list_jobs.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -27,9 +28,7 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListTrainingJobs {
-
     public static void main(String[] args) {
-
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
             .region(region)
@@ -40,9 +39,7 @@ public class ListTrainingJobs {
         sageMakerClient.close();
     }
 
-    //snippet-start:[sagemaker.java2.list_jobs.main]
     public static void listJobs(SageMakerClient sageMakerClient) {
-
         try {
             ListTrainingJobsResponse response = sageMakerClient.listTrainingJobs();
             List<TrainingJobSummary> items = response.trainingJobSummaries();
@@ -56,8 +53,8 @@ public class ListTrainingJobs {
             System.exit(1);
         }
     }
-    //snippet-end:[sagemaker.java2.list_jobs.main]
 }
+//snippet-end:[sagemaker.java2.list_jobs.main]
 
 
 

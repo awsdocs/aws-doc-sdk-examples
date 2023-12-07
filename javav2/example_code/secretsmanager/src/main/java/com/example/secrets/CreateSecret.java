@@ -9,8 +9,8 @@
 
 package com.example.secrets;
 
+//snippet-start:[secretsmanager.java2.create_secret.main]
 //snippet-start:[secretsmanager.java2.create_secret.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.CreateSecretRequest;
@@ -26,15 +26,16 @@ import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerExcept
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateSecret {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <secretName> <secretValue> \n\n" +
-            "Where:\n" +
-            "    secretName - The name of the secret (for example, tutorials/MyFirstSecret). \n"+
-            "    secretValue - The secret value. \n";
+            Usage:
+                <secretName> <secretValue>\s
+
+            Where:
+                secretName - The name of the secret (for example, tutorials/MyFirstSecret).\s
+                secretValue - The secret value.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -42,21 +43,18 @@ public class CreateSecret {
         }
 
         String secretName = args[0];
-        String secretValue= args[1];
+        String secretValue = args[1];
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-       String secretARN = createNewSecret(secretsClient, secretName, secretValue);
-       System.out.println("The secret ARN is "+ secretARN);
-       secretsClient.close();
+        String secretARN = createNewSecret(secretsClient, secretName, secretValue);
+        System.out.println("The secret ARN is " + secretARN);
+        secretsClient.close();
     }
 
-    //snippet-start:[secretsmanager.java2.create_secret.main]
-    public static String createNewSecret( SecretsManagerClient secretsClient, String secretName, String secretValue) {
-
+    public static String createNewSecret(SecretsManagerClient secretsClient, String secretName, String secretValue) {
         try {
             CreateSecretRequest secretRequest = CreateSecretRequest.builder()
                 .name(secretName)
@@ -73,5 +71,5 @@ public class CreateSecret {
         }
         return "";
     }
-    //snippet-end:[secretsmanager.java2.create_secret.main]
 }
+//snippet-end:[secretsmanager.java2.create_secret.main]

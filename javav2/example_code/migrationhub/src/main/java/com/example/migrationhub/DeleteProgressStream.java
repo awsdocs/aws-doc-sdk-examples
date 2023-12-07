@@ -9,8 +9,8 @@
 
 package com.example.migrationhub;
 
+// snippet-start:[migration.java2.delete_progress_stream.main]
 // snippet-start:[migration.java2.delete_progress_stream.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.migrationhub.MigrationHubClient;
 import software.amazon.awssdk.services.migrationhub.model.DeleteProgressUpdateStreamRequest;
@@ -25,14 +25,15 @@ import software.amazon.awssdk.services.migrationhub.model.MigrationHubException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteProgressStream {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <progressStream> \n\n" +
-            "Where:\n" +
-            "    progressStream - the name of a progress stream to delete. \n";
+            Usage:
+                <progressStream>\s
+
+            Where:
+                progressStream - the name of a progress stream to delete.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,28 +44,25 @@ public class DeleteProgressStream {
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-       deleteStream(migrationClient,progressStream ) ;
-       migrationClient.close();
+        deleteStream(migrationClient, progressStream);
+        migrationClient.close();
     }
 
-    // snippet-start:[migration.java2.delete_progress_stream.main]
-    public static void deleteStream(MigrationHubClient migrationClient,String streamName ) {
-
+    public static void deleteStream(MigrationHubClient migrationClient, String streamName) {
         try {
             DeleteProgressUpdateStreamRequest deleteProgressUpdateStreamRequest = DeleteProgressUpdateStreamRequest.builder()
                 .progressUpdateStreamName(streamName)
                 .build();
 
             migrationClient.deleteProgressUpdateStream(deleteProgressUpdateStreamRequest);
-            System.out.println(streamName + " is deleted" );
+            System.out.println(streamName + " is deleted");
 
-        } catch(MigrationHubException e) {
-           System.out.println(e.getMessage());
-           System.exit(1);
+        } catch (MigrationHubException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
         }
     }
-    // snippet-end:[migration.java2.delete_progress_stream.main]
 }
+// snippet-end:[migration.java2.delete_progress_stream.main]

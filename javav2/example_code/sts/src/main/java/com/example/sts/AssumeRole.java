@@ -10,8 +10,8 @@
 
 package com.example.sts;
 
+// snippet-start:[sts.java2.assume_role.main]
 // snippet-start:[sts.java2.assume_role.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sts.StsClient;
 import software.amazon.awssdk.services.sts.model.AssumeRoleRequest;
@@ -50,17 +50,17 @@ import java.util.Locale;
  *
  *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class AssumeRole {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <roleArn> <roleSessionName> \n\n" +
-            "Where:\n" +
-            "    roleArn - The Amazon Resource Name (ARN) of the role to assume (for example, rn:aws:iam::000008047983:role/s3role). \n"+
-            "    roleSessionName - An identifier for the assumed role session (for example, mysession). \n";
+            Usage:
+                <roleArn> <roleSessionName>\s
+
+            Where:
+                roleArn - The Amazon Resource Name (ARN) of the role to assume (for example, rn:aws:iam::000008047983:role/s3role).\s
+                roleSessionName - An identifier for the assumed role session (for example, mysession).\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -72,42 +72,39 @@ public class AssumeRole {
         Region region = Region.US_EAST_1;
         StsClient stsClient = StsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         assumeGivenRole(stsClient, roleArn, roleSessionName);
         stsClient.close();
     }
 
-    // snippet-start:[sts.java2.assume_role.main]
     public static void assumeGivenRole(StsClient stsClient, String roleArn, String roleSessionName) {
-
         try {
             AssumeRoleRequest roleRequest = AssumeRoleRequest.builder()
                 .roleArn(roleArn)
                 .roleSessionName(roleSessionName)
                 .build();
 
-           AssumeRoleResponse roleResponse = stsClient.assumeRole(roleRequest);
-           Credentials myCreds = roleResponse.credentials();
+            AssumeRoleResponse roleResponse = stsClient.assumeRole(roleRequest);
+            Credentials myCreds = roleResponse.credentials();
 
-           // Display the time when the temp creds expire.
-           Instant exTime = myCreds.expiration();
-           String tokenInfo = myCreds.sessionToken();
+            // Display the time when the temp creds expire.
+            Instant exTime = myCreds.expiration();
+            String tokenInfo = myCreds.sessionToken();
 
-           // Convert the Instant to readable date.
-           DateTimeFormatter formatter =
-                   DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
-                           .withLocale( Locale.US)
-                           .withZone( ZoneId.systemDefault() );
+            // Convert the Instant to readable date.
+            DateTimeFormatter formatter =
+                DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+                    .withLocale(Locale.US)
+                    .withZone(ZoneId.systemDefault());
 
-           formatter.format( exTime );
-           System.out.println("The token "+tokenInfo + "  expires on " + exTime );
+            formatter.format(exTime);
+            System.out.println("The token " + tokenInfo + "  expires on " + exTime);
 
-       } catch (StsException e) {
-           System.err.println(e.getMessage());
-           System.exit(1);
-       }
-   }
-   // snippet-end:[sts.java2.assume_role.main]
+        } catch (StsException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+    }
 }
+// snippet-end:[sts.java2.assume_role.main]

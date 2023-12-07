@@ -9,8 +9,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.SubscribeEmail.main]
 //snippet-start:[sns.java2.SubscribeEmail.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SnsException;
@@ -26,15 +26,14 @@ import software.amazon.awssdk.services.sns.model.SubscribeResponse;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class SubscribeEmail {
-
     public static void main(String[] args) {
+        final String usage = """
+            Usage:     <topicArn> <email>
 
-        final String usage = "\n" +
-            "Usage: " +
-            "    <topicArn> <email>\n\n" +
-            "Where:\n" +
-            "   topicArn - The ARN of the topic to subscribe.\n\n" +
-            "   email - The email address to use.\n\n";
+            Where:
+               topicArn - The ARN of the topic to subscribe.
+               email - The email address to use.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,16 +44,14 @@ public class SubscribeEmail {
         String email = args[1];
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        subEmail(snsClient, topicArn, email) ;
+        subEmail(snsClient, topicArn, email);
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.SubscribeEmail.main]
-    public static void subEmail(SnsClient snsClient, String topicArn, String email) {
 
+    public static void subEmail(SnsClient snsClient, String topicArn, String email) {
         try {
             SubscribeRequest request = SubscribeRequest.builder()
                 .protocol("email")
@@ -71,5 +68,5 @@ public class SubscribeEmail {
             System.exit(1);
         }
     }
-    //snippet-end:[sns.java2.SubscribeEmail.main]
 }
+//snippet-end:[sns.java2.SubscribeEmail.main]

@@ -25,14 +25,17 @@ import software.amazon.awssdk.services.personalize.model.PersonalizeException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeRecipe {
-
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    DescribeRecipe <recipeArn>\n\n" +
-            "Where:\n" +
-            "    recipeArn - The ARN of the recipe.\n\n";
+        final String USAGE = """
+
+            Usage:
+                DescribeRecipe <recipeArn>
+
+            Where:
+                recipeArn - The ARN of the recipe.
+
+            """;
 
         if (args.length < 1) {
             System.out.println(USAGE);

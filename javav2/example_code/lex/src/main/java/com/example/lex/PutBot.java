@@ -9,8 +9,8 @@
 
 package com.example.lex;
 
+// snippet-start:[lex.java2.create_bot.main]
 // snippet-start:[lex.java2.create_bot.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lexmodelbuilding.LexModelBuildingClient;
 import software.amazon.awssdk.services.lexmodelbuilding.model.Intent;
@@ -30,40 +30,38 @@ import java.util.ArrayList;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class PutBot {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <botName> <intentName> <intentVersion> \n\n" +
-            "Where:\n" +
-            "   botName - The name of bot (for example, BookHotel).\n\n" +
-            "   intentName - The name of an existing intent (for example, BookHotel).\n\n" +
-            "   intentVersion - The version of the intent (for example, 1).\n\n";
+            Usage:    <botName> <intentName> <intentVersion>\s
 
-       if (args.length != 3) {
+            Where:
+               botName - The name of bot (for example, BookHotel).
+               intentName - The name of an existing intent (for example, BookHotel).
+               intentVersion - The version of the intent (for example, 1).
+            """;
+
+        if (args.length != 3) {
             System.out.println(usage);
             System.exit(1);
-       }
+        }
 
-       String botName = args[0];
-       String intentName = args[1];
-       String intentVersion = args[2];
-       Region region = Region.US_WEST_2;
-       LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
-           .region(region)
-           .credentialsProvider(ProfileCredentialsProvider.create())
-           .build();
+        String botName = args[0];
+        String intentName = args[1];
+        String intentVersion = args[2];
+        Region region = Region.US_WEST_2;
+        LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
+            .region(region)
+            .build();
 
-       createBot(lexClient, botName, intentName, intentVersion);
-       lexClient.close();
+        createBot(lexClient, botName, intentName, intentVersion);
+        lexClient.close();
     }
 
-    // snippet-start:[lex.java2.create_bot.main]
-    public static void createBot( LexModelBuildingClient lexClient,
-                                  String botName,
-                                  String intentName,
-                                  String intentVersion) {
+    public static void createBot(LexModelBuildingClient lexClient,
+                                 String botName,
+                                 String intentName,
+                                 String intentVersion) {
 
         try {
             // Create an Intent object for the bot.
@@ -78,7 +76,7 @@ public class PutBot {
             // Create an abort statement.
             Message msg = Message.builder()
                 .content("I do not understand you!")
-                .contentType(ContentType.PLAIN_TEXT )
+                .contentType(ContentType.PLAIN_TEXT)
                 .build();
 
             ArrayList<Message> abortMsg = new ArrayList<>();
@@ -104,5 +102,5 @@ public class PutBot {
             System.exit(1);
         }
     }
-    // snippet-end:[lex.java2.create_bot.main]
 }
+// snippet-end:[lex.java2.create_bot.main]

@@ -10,7 +10,6 @@ package com.example.redshift;
 
 // snippet-start:[firehose.java2.connect.import]
 import com.google.gson.Gson;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
@@ -46,11 +45,13 @@ import java.sql.ResultSet;
 public class ConnectToCluster {
 
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <secretName> \n\n" +
-            "Where:\n" +
-            "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials" ;
+        final String usage = """
+
+            Usage:
+                <secretName>\s
+
+            Where:
+                secretName - The name of the AWS Secrets Manager secret that contains the database credentials""";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -77,7 +78,6 @@ public class ConnectToCluster {
         Region region = Region.US_WEST_2;
         return SecretsManagerClient.builder()
             .region(region)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
     }
 

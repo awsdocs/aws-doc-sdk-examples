@@ -8,6 +8,7 @@
 */
 package com.example.identitystore;
 
+// snippet-start:[identitystore.java2.list_groups.main]
 // snippet-start:[Identitystore.java2.list_groups.import]
 import software.amazon.awssdk.services.identitystore.IdentitystoreClient;
 import software.amazon.awssdk.services.identitystore.model.IdentitystoreException;
@@ -28,10 +29,10 @@ public class ListGroups {
     public static void main(String... args) {
 
         final String usage = "\n" +
-        "Usage:\n" +
-        "    <identitystoreId> \n\n" +
-        "Where:\n" +
-        "    identitystoreId - The id of the identitystore. \n\n" ;
+            "Usage:\n" +
+            "    <identitystoreId> \n\n" +
+            "Where:\n" +
+            "    identitystoreId - The id of the identitystore. \n\n";
 
 
         if (args.length != 1) {
@@ -46,20 +47,17 @@ public class ListGroups {
         int result = listGroups(identitystore, identitystoreId);
         System.out.println("Total number of groups is: " + result);
         identitystore.close();
-
     }
 
-    // snippet-start:[identitystore.java2.list_groups.main]
     public static int listGroups(IdentitystoreClient identitystore, String identitystoreId) {
         try {
-
             boolean done = false;
             int count = 0;
             String nextToken = null;
 
-            while(!done) {
+            while (!done) {
                 ListGroupsResponse response;
-                if (nextToken == null){
+                if (nextToken == null) {
                     ListGroupsRequest request = ListGroupsRequest.builder().identityStoreId(identitystoreId).build();
                     response = identitystore.listGroups(request);
                 } else {
@@ -67,13 +65,13 @@ public class ListGroups {
                     response = identitystore.listGroups(request);
                 }
 
-                for(Group group : response.groups()) {
-                    count ++;
+                for (Group group : response.groups()) {
+                    count++;
                     System.out.format("GroupName: %s, GroupId: %s, GroupDescription: %s\n", group.displayName(), group.groupId(), group.description());
                 }
 
                 nextToken = response.nextToken();
-                if (nextToken == null){
+                if (nextToken == null) {
                     done = true;
                 }
             }
@@ -85,6 +83,6 @@ public class ListGroups {
         }
 
         return 0;
-     }
-     // snippet-end:[identitystore.java2.list_groups.main]
+    }
 }
+// snippet-end:[identitystore.java2.list_groups.main]

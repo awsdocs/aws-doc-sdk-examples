@@ -8,8 +8,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.delete_server_certificate.main]
 // snippet-start:[iam.java2.delete_server_certificate.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.DeleteServerCertificateRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
@@ -25,12 +25,14 @@ import software.amazon.awssdk.services.iam.model.IamException;
  */
 public class DeleteServerCertificate {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <certName> \n\n" +
-            "Where:\n" +
-            "    certName - A certificate name to delete. \n\n" ;
+            Usage:
+                <certName>\s
+
+            Where:
+                certName - A certificate name to delete.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -41,7 +43,6 @@ public class DeleteServerCertificate {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteCert(iam, certName) ;
@@ -49,9 +50,7 @@ public class DeleteServerCertificate {
         iam.close();
     }
 
-    // snippet-start:[iam.java2.delete_server_certificate.main]
     public static void deleteCert(IamClient iam,String certName ) {
-
         try {
             DeleteServerCertificateRequest request = DeleteServerCertificateRequest.builder()
                 .serverCertificateName(certName)
@@ -65,6 +64,6 @@ public class DeleteServerCertificate {
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.delete_server_certificate.main]
 }
+// snippet-end:[iam.java2.delete_server_certificate.main]
 

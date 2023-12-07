@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class StockTradeGenerator {
 
-    private static final List<StockPrice> STOCK_PRICES = new ArrayList<StockPrice>();
+    private static final List<StockPrice> STOCK_PRICES = new ArrayList<>();
     static {
         STOCK_PRICES.add(new StockPrice("AAPL", 119.72));
         STOCK_PRICES.add(new StockPrice("XOM", 91.56));

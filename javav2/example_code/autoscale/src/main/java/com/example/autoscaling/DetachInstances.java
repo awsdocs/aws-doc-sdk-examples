@@ -8,8 +8,8 @@
 
 package com.example.autoscaling;
 
+// snippet-start:[autoscale.java2.detach.main]
 // snippet-start:[autoscale.java2.detach.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.autoscaling.AutoScalingClient;
 import software.amazon.awssdk.services.autoscaling.model.AutoScalingException;
@@ -24,15 +24,16 @@ import software.amazon.awssdk.services.autoscaling.model.DetachInstancesRequest;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DetachInstances {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <groupName> <instanceId>\n\n" +
-            "Where:\n" +
-            "    groupName - The name of the Auto Scaling group.\n" +
-            "    instanceId - The instance Id value.\n" ;
+            Usage:
+                <groupName> <instanceId>
+
+            Where:
+                groupName - The name of the Auto Scaling group.
+                instanceId - The instance Id value.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -43,14 +44,12 @@ public class DetachInstances {
         String instanceId = args[1];
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         detachInstance(autoScalingClient, groupName, instanceId);
         autoScalingClient.close();
     }
 
-    // snippet-start:[autoscale.java2.detach.main]
     public static void detachInstance(AutoScalingClient autoScalingClient, String groupName, String instanceId) {
         try {
             DetachInstancesRequest detachInstancesRequest = DetachInstancesRequest.builder()
@@ -67,5 +66,5 @@ public class DetachInstances {
             System.exit(1);
         }
     }
-    // snippet-end:[autoscale.java2.detach.main]
 }
+// snippet-end:[autoscale.java2.detach.main]

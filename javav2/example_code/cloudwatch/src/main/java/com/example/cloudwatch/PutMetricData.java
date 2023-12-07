@@ -9,8 +9,8 @@
 
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.java2.put_metric_data.main]
 // snippet-start:[cloudwatch.java2.put_metric_data.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
@@ -33,12 +33,14 @@ import java.time.format.DateTimeFormatter;
  */
 public class PutMetricData {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <dataPoint> \n\n" +
-            "Where:\n" +
-            "  dataPoint - The value for the metric.\n" ;
+            Usage:
+              <dataPoint>\s
+
+            Where:
+              dataPoint - The value for the metric.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -49,15 +51,13 @@ public class PutMetricData {
         Region region = Region.US_WEST_2;
         CloudWatchClient cw = CloudWatchClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         putMetData(cw, dataPoint) ;
         cw.close();
     }
-    // snippet-start:[cloudwatch.java2.put_metric_data.main]
-    public static void putMetData(CloudWatchClient cw, Double dataPoint ) {
 
+    public static void putMetData(CloudWatchClient cw, Double dataPoint ) {
         try {
             Dimension dimension = Dimension.builder()
                 .name("UNIQUE_PAGES")
@@ -86,6 +86,6 @@ public class PutMetricData {
             System.exit(1);
         }
         System.out.printf("Successfully put data point %f", dataPoint);
-     }
-    // snippet-end:[cloudwatch.java2.put_metric_data.main]
+    }
 }
+// snippet-end:[cloudwatch.java2.put_metric_data.main]

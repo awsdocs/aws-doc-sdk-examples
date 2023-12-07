@@ -9,8 +9,8 @@
 
 package com.example.ec2;
 
+// snippet-start:[ec2.java2.monitor_instance.main]
 // snippet-start:[ec2.java2.monitor_instance.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.MonitorInstancesRequest;
@@ -27,13 +27,14 @@ import software.amazon.awssdk.services.ec2.model.UnmonitorInstancesRequest;
 public class MonitorInstance {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "   <instanceId> <monitor>\n\n" +
-            "Where:\n" +
-            "   instanceId - An instance id value that you can obtain from the AWS Management Console. \n\n" +
-            "   monitor - A monitoring status (true|false)";
+            Usage:
+               <instanceId> <monitor>
+
+            Where:
+               instanceId - An instance id value that you can obtain from the AWS Management Console.\s
+               monitor - A monitoring status (true|false)""";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -41,11 +42,10 @@ public class MonitorInstance {
         }
 
         String instanceId = args[0];
-        boolean monitor = Boolean.valueOf(args[1]);
+        boolean monitor = Boolean.parseBoolean(args[1]);
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         if (monitor) {
@@ -56,8 +56,7 @@ public class MonitorInstance {
         ec2.close();
     }
 
-    // snippet-start:[ec2.java2.monitor_instance.main]
-    public static void monitorInstance( Ec2Client ec2, String instanceId) {
+    public static void monitorInstance(Ec2Client ec2, String instanceId) {
         MonitorInstancesRequest request = MonitorInstancesRequest.builder()
             .instanceIds(instanceId)
             .build();

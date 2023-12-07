@@ -9,8 +9,8 @@
 
 package com.example.sqs;
 
+// snippet-start:[sqs.java2.delete_letter_queues.main]
 // snippet-start:[sqs.java2.delete_letter_queues.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import java.util.Date;
 import java.util.HashMap;
 import software.amazon.awssdk.regions.Region;
@@ -36,24 +36,16 @@ public class DeadLetterQueues {
     private static final String DLQueueName = "DLQueue" + new Date().getTime();
 
     public static void main(String[] args) {
-
         SqsClient sqsClient = SqsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         setDeadLetterQueue(sqsClient);
         sqsClient.close();
     }
 
-    // snippet-start:[sqs.java2.delete_letter_queues.main]
-    public static void setDeadLetterQueue( SqsClient sqs) {
-
+    public static void setDeadLetterQueue(SqsClient sqs) {
         try {
-            CreateQueueRequest request = CreateQueueRequest.builder()
-                .queueName(QueueName)
-                .build();
-
             CreateQueueRequest dlrequest = CreateQueueRequest.builder()
                 .queueName(DLQueueName)
                 .build();
@@ -69,7 +61,7 @@ public class DeadLetterQueues {
                 GetQueueAttributesRequest.builder()
                     .queueUrl(dlQueueUrl)
                     .attributeNames(QueueAttributeName.QUEUE_ARN)
-                        .build());
+                    .build());
 
             String dlQueueArn = queueAttrs.attributes().get(QueueAttributeName.QUEUE_ARN);
 
@@ -95,5 +87,5 @@ public class DeadLetterQueues {
             System.exit(1);
         }
     }
-    // snippet-end:[sqs.java2.delete_letter_queues.main]
 }
+// snippet-end:[sqs.java2.delete_letter_queues.main]

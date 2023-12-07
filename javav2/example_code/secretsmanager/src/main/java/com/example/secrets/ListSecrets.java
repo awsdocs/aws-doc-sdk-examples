@@ -9,8 +9,8 @@
 
 package com.example.secrets;
 
+//snippet-start:[secretsmanager.java2.list_secrets.main]
 //snippet-start:[secretsmanager.java2.list_secrets.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.ListSecretsResponse;
@@ -27,27 +27,23 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListSecrets {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllSecrets(secretsClient);
         secretsClient.close();
     }
 
-    //snippet-start:[secretsmanager.java2.list_secrets.main]
     public static void listAllSecrets(SecretsManagerClient secretsClient) {
         try {
             ListSecretsResponse secretsResponse = secretsClient.listSecrets();
             List<SecretListEntry> secrets = secretsResponse.secretList();
-            for (SecretListEntry secret: secrets) {
-                System.out.println("The secret name is "+secret.name());
-                System.out.println("The secret descreiption is "+secret.description());
+            for (SecretListEntry secret : secrets) {
+                System.out.println("The secret name is " + secret.name());
+                System.out.println("The secret descreiption is " + secret.description());
             }
 
         } catch (SecretsManagerException e) {
@@ -55,5 +51,5 @@ public class ListSecrets {
             System.exit(1);
         }
     }
-    //snippet-end:[secretsmanager.java2.list_secrets.main]
 }
+//snippet-end:[secretsmanager.java2.list_secrets.main]

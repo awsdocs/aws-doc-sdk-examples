@@ -44,19 +44,16 @@ public class FilterRecommendations {
         // Change the following code and the PersonalizeTest.java code based on the number of parameters
         // your expression uses and the values you want to pass.
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    GetRecommendations <campaignArn> <userId> <filterArn> <parameter1Name> " +
-                "       <parameter1Value1> <parameter1Value2> <parameter2Name> <parameter2Value>\n\n" +
-                "Where:\n" +
-                "    campaignArn - The Amazon Resource Name (ARN) of the campaign.\n\n" +
-                "    userId - The user ID to provide recommendations for." +
-                "    filterArn - The ARN of the filter to use." +
-                "    parameter1Name - The name of the first placeholder parameter in the filter." +
-                "    parameter1Value1 - The first value to pass to the first parameter." +
-                "    parameter1Value2 - The second value to pass to the first parameter." +
-                "    parameter2Name = The name of the second placeholder parameter in the filter." +
-                "    parameter2Value = The value to pass to the second parameter\n\n";
+        final String USAGE = """
+
+            Usage:
+                GetRecommendations <campaignArn> <userId> <filterArn> <parameter1Name>        <parameter1Value1> <parameter1Value2> <parameter2Name> <parameter2Value>
+
+            Where:
+                campaignArn - The Amazon Resource Name (ARN) of the campaign.
+                userId - The user ID to provide recommendations for.    filterArn - The ARN of the filter to use.    parameter1Name - The name of the first placeholder parameter in the filter.    parameter1Value1 - The first value to pass to the first parameter.    parameter1Value2 - The second value to pass to the first parameter.    parameter2Name = The name of the second placeholder parameter in the filter.    parameter2Value = The value to pass to the second parameter
+
+            """;
 
         if (args.length != 8) {
             System.out.println(USAGE);

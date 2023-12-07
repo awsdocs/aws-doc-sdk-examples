@@ -9,8 +9,8 @@
 
 package com.example.sts;
 
+// snippet-start:[sts.java2.get_session_token.main]
 // snippet-start:[sts.java2.get_session_token.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sts.StsClient;
 import software.amazon.awssdk.services.sts.model.GetSessionTokenResponse;
@@ -26,34 +26,29 @@ import software.amazon.awssdk.services.sts.model.GetSessionTokenRequest;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetSessionToken {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         StsClient stsClient = StsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getToken(stsClient);
         stsClient.close();
     }
 
-    // snippet-start:[sts.java2.get_session_token.main]
     public static void getToken(StsClient stsClient) {
-
         try {
             GetSessionTokenRequest tokenRequest = GetSessionTokenRequest.builder()
                 .durationSeconds(1500)
                 .build();
 
             GetSessionTokenResponse tokenResponse = stsClient.getSessionToken(tokenRequest);
-            System.out.println("The token value is "+tokenResponse.credentials().sessionToken());
+            System.out.println("The token value is " + tokenResponse.credentials().sessionToken());
 
         } catch (StsException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[sts.java2.get_session_token.main]
 }
+// snippet-end:[sts.java2.get_session_token.main]

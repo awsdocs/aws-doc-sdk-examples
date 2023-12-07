@@ -9,8 +9,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.SetTopicAttributes.main]
 //snippet-start:[sns.java2.SetTopicAttributes.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SetTopicAttributesRequest;
@@ -28,15 +28,15 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 public class SetTopicAttributes {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
+            Usage:    <attribute> <topicArn> <value>
 
-            "Usage: " +
-            "   <attribute> <topicArn> <value>\n\n" +
-            "Where:\n" +
-            "   attribute - The attribute action to use. Valid parameters are: Policy | DisplayName | DeliveryPolicy .\n" +
-            "   topicArn - The ARN of the topic. \n" +
-            "   value - The value for the attribute.\n\n";
+            Where:
+               attribute - The attribute action to use. Valid parameters are: Policy | DisplayName | DeliveryPolicy .
+               topicArn - The ARN of the topic.\s
+               value - The value for the attribute.
+            """;
 
         if (args.length < 3) {
             System.out.println(usage);
@@ -49,16 +49,13 @@ public class SetTopicAttributes {
 
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         setTopAttr(snsClient, attribute, topicArn, value);
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.SetTopicAttributes.main]
     public static void setTopAttr(SnsClient snsClient, String attribute, String topicArn, String value) {
-
         try {
             SetTopicAttributesRequest request = SetTopicAttributesRequest.builder()
                 .attributeName(attribute)
@@ -75,5 +72,5 @@ public class SetTopicAttributes {
             System.exit(1);
         }
     }
-    //snippet-end:[sns.java2.SetTopicAttributes.main]
 }
+//snippet-end:[sns.java2.SetTopicAttributes.main]

@@ -9,8 +9,8 @@
 
 package com.example.kms;
 
+// snippet-start:[kms.java2_encrypt_data.main]
 // snippet-start:[kms.java2_encrypt_data.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
@@ -29,14 +29,16 @@ import software.amazon.awssdk.services.kms.model.DecryptResponse;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class EncryptDataKey {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <keyId> \n\n" +
-            "Where:\n" +
-            "    keyId - A key id value to use to encrypt/decrypt the data (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" ;
+            Usage:
+                <keyId>\s
+
+            Where:
+                keyId - A key id value to use to encrypt/decrypt the data (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).\s
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,7 +49,6 @@ public class EncryptDataKey {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         SdkBytes encryData = encryptData(kmsClient, keyId);
@@ -56,12 +57,9 @@ public class EncryptDataKey {
         kmsClient.close();
     }
 
-     // snippet-start:[kms.java2_encrypt_data.main]
      public static SdkBytes encryptData(KmsClient kmsClient, String keyId) {
-
          try {
              SdkBytes myBytes = SdkBytes.fromByteArray(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0});
-
              EncryptRequest encryptRequest = EncryptRequest.builder()
                  .keyId(keyId)
                  .plaintext(myBytes)
@@ -81,11 +79,9 @@ public class EncryptDataKey {
          }
          return null;
      }
-    // snippet-end:[kms.java2_encrypt_data.main]
 
     // snippet-start:[kms.java2_decrypt_data.main]
     public static void decryptData(KmsClient kmsClient, SdkBytes encryptedData, String keyId) {
-
         try {
              DecryptRequest decryptRequest = DecryptRequest.builder()
                  .ciphertextBlob(encryptedData)
@@ -102,3 +98,4 @@ public class EncryptDataKey {
     }
     // snippet-end:[kms.java2_decrypt_data.main]
 }
+// snippet-end:[kms.java2_encrypt_data.main]

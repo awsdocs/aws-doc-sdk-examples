@@ -11,7 +11,6 @@ package com.example.rds;
 
 import com.google.gson.Gson;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.CreateDbClusterParameterGroupRequest;
@@ -87,7 +86,6 @@ import java.util.List;
  * 15. Deletes the DB cluster.
  * 16. Deletes the DB cluster group.
  */
-
 public class AuroraScenario {
     public static long sleepTime = 20;
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -126,7 +124,6 @@ public class AuroraScenario {
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println(DASHES);

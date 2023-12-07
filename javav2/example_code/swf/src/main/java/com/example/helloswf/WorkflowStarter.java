@@ -8,7 +8,6 @@
 
 package com.example.helloswf;
 // snippet-start:[swf.java2.start_workflow.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.WorkflowType;
@@ -27,19 +26,20 @@ import software.amazon.awssdk.services.swf.model.StartWorkflowExecutionRequest;
  */
 
 public class WorkflowStarter {
-
     public static final String WORKFLOW_EXECUTION = "HelloWorldWorkflowExecution";
 
     public static void main(String[] args) {
+         final String USAGE = """
 
-         final String USAGE = "\n" +
-             "Usage:\n" +
-             "    <domain> <workflowInput> <workflow> <workflowVersion> \n\n" +
-             "Where:\n" +
-             "    domain - the domain to use (ie, mydomain). \n" +
-             "    workflowInput - the input to the workflow (ie, ProcessFile).  \n" +
-             "    workflow - the name of the workflow (ie, myworkflow).\n" +
-             "    workflowVersion - the workflow version. \n" ;
+             Usage:
+                 <domain> <workflowInput> <workflow> <workflowVersion>\s
+
+             Where:
+                 domain - the domain to use (ie, mydomain).\s
+                 workflowInput - the input to the workflow (ie, ProcessFile). \s
+                 workflow - the name of the workflow (ie, myworkflow).
+                 workflowVersion - the workflow version.\s
+             """;
 
         if (args.length < 4) {
             System.out.println(USAGE);
@@ -54,7 +54,6 @@ public class WorkflowStarter {
         Region region = Region.US_EAST_1;
         SwfClient swf = SwfClient.builder()
              .region(region)
-             .credentialsProvider(ProfileCredentialsProvider.create())
              .build();
 
         System.out.println("Starting the workflow execution '" + WORKFLOW_EXECUTION +

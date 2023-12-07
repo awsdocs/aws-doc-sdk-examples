@@ -9,7 +9,6 @@
 package com.example.stepfunctions;
 
 // snippet-start:[stepfunctions.java2.delete_machine.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.SfnException;
@@ -24,14 +23,16 @@ import software.amazon.awssdk.services.sfn.model.DeleteStateMachineRequest;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteStateMachine {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <stateMachineArn>\n\n" +
-            "Where:\n" +
-            "    stateMachineArn - The ARN of the state machine to delete.\n";
+        final String usage = """
+
+            Usage:
+                <stateMachineArn>
+
+            Where:
+                stateMachineArn - The ARN of the state machine to delete.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,7 +43,6 @@ public class DeleteStateMachine {
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteMachine(sfnClient, stateMachineArn);

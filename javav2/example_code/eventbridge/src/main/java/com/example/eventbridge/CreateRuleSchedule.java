@@ -9,8 +9,8 @@
 
 package com.example.eventbridge;
 
+
 // snippet-start:[eventbridge.java2._create_schedule_rule.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.PutRuleRequest;
@@ -28,18 +28,19 @@ import software.amazon.awssdk.services.eventbridge.model.Target;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateRuleSchedule {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <ruleName> <cronExpression> <lambdaARN> <json> <targetId>\n\n" +
-            "Where:\n" +
-            "    ruleName - The name of the rule to create. \n" +
-            "    cronExpression - The scheduling expression. For example, rate(5 minutes)" +
-            "    lambdaARN - The ARN value of a Lambda function that is the target" +
-            "    json  - The JSON to pass the Lambda function"+
-            "    targetId - The ID of the target within the specified rule ";
+            Usage:
+                <ruleName> <cronExpression> <lambdaARN> <json> <targetId>
+
+            Where:
+                ruleName - The name of the rule to create.\s
+                cronExpression - The scheduling expression. For example, rate(5 minutes)    
+                lambdaARN - The ARN value of a Lambda function that is the target    
+                json  - The JSON to pass the Lambda function    
+                targetId - The ID of the target within the specified rule\s
+                """;
 
             if (args.length != 5) {
                 System.out.println(usage);
@@ -55,7 +56,6 @@ public class CreateRuleSchedule {
             Region region = Region.US_WEST_2;
             EventBridgeClient eventBrClient = EventBridgeClient.builder()
                 .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
             createEBRule(eventBrClient, ruleName, cronExpression);
@@ -65,7 +65,6 @@ public class CreateRuleSchedule {
 
         // snippet-start:[eventbridge.java2._create_schedule_rule.main]
         public static void createEBRule(EventBridgeClient eventBrClient, String ruleName, String cronExpression) {
-
             try {
                 PutRuleRequest ruleRequest = PutRuleRequest.builder()
                     .name(ruleName)
@@ -87,7 +86,6 @@ public class CreateRuleSchedule {
 
         // snippet-start:[eventbridge.java2._create_schedule_rule_target.main]
         public static void putRuleTarget(EventBridgeClient eventBrClient, String ruleName, String lambdaARN, String json, String targetId ) {
-
             try {
                 Target lambdaTarget = Target.builder()
                     .arn(lambdaARN)

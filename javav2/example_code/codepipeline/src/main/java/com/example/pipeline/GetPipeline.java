@@ -9,8 +9,8 @@
 
 package com.example.pipeline;
 
+// snippet-start:[pipeline.java2.get_pipeline.main]
 // snippet-start:[pipeline.java2.get_pipeline.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codepipeline.CodePipelineClient;
 import software.amazon.awssdk.services.codepipeline.model.GetPipelineResponse;
@@ -29,14 +29,14 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetPipeline {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <name> \n\n" +
-            "Where:\n" +
-            "   name - The name of the pipeline to retrieve \n\n" ;
+            Usage:    <name>\s
+
+            Where:
+               name - The name of the pipeline to retrieve\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,16 +47,13 @@ public class GetPipeline {
         Region region = Region.US_EAST_1;
         CodePipelineClient pipelineClient = CodePipelineClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getSpecificPipeline(pipelineClient, name);
         pipelineClient.close();
     }
 
-    // snippet-start:[pipeline.java2.get_pipeline.main]
     public static void getSpecificPipeline(CodePipelineClient pipelineClient, String name) {
-
         try {
             GetPipelineRequest pipelineRequest = GetPipelineRequest.builder()
                 .name(name)
@@ -65,7 +62,7 @@ public class GetPipeline {
 
             GetPipelineResponse response = pipelineClient.getPipeline(pipelineRequest);
             List<StageDeclaration> stages = response.pipeline().stages();
-            for (StageDeclaration stage: stages) {
+            for (StageDeclaration stage : stages) {
                 System.out.println("Stage name is " + stage.name() + " and actions are:");
 
                 //Get the stage actions.
@@ -80,6 +77,6 @@ public class GetPipeline {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-     }
-    // snippet-end:[pipeline.java2.get_pipeline.main]
     }
+}
+// snippet-end:[pipeline.java2.get_pipeline.main]

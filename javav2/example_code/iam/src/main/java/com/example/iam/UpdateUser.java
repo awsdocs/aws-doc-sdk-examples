@@ -8,8 +8,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.update_user.main]
 // snippet-start:[iam.java2.update_user.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.IamException;
@@ -25,13 +25,15 @@ import software.amazon.awssdk.services.iam.model.UpdateUserRequest;
  */
 public class UpdateUser {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <curName> <newName> \n\n" +
-            "Where:\n" +
-            "    curName - The current user name. \n\n" +
-            "    newName - An updated user name. \n\n" ;
+            Usage:
+                <curName> <newName>\s
+
+            Where:
+                curName - The current user name.\s
+                newName - An updated user name.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -43,17 +45,14 @@ public class UpdateUser {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        updateIAMUser(iam, curName, newName) ;
+        updateIAMUser(iam, curName, newName);
         System.out.println("Done");
         iam.close();
     }
 
-    // snippet-start:[iam.java2.update_user.main]
-    public static void updateIAMUser(IamClient iam, String curName,String newName ) {
-
+    public static void updateIAMUser(IamClient iam, String curName, String newName) {
         try {
             UpdateUserRequest request = UpdateUserRequest.builder()
                 .userName(curName)
@@ -68,5 +67,5 @@ public class UpdateUser {
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.update_user.main]
 }
+// snippet-end:[iam.java2.update_user.main]

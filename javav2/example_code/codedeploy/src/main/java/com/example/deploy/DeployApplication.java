@@ -9,7 +9,6 @@
 package com.example.deploy;
 
 // snippet-start:[codedeploy.java2._deploy_app.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codedeploy.CodeDeployClient;
 import software.amazon.awssdk.services.codedeploy.model.S3Location;
@@ -34,18 +33,20 @@ import software.amazon.awssdk.services.codedeploy.model.CodeDeployException;
  */
 
 public class DeployApplication {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <appName> <bucketName> <bundleType> <key> <deploymentGroup> \n\n" +
-            "Where:\n" +
-            "    appName - The name of the application. \n" +
-            "    bucketName - The name of the Amazon S3 bucket that contains the ZIP to deploy. \n" +
-            "    bundleType - The bundle type (for example, zip). \n" +
-            "    key - The key located in the S3 bucket (for example, mywebapp.zip). \n"+
-            "    deploymentGroup - The name of the deployment group (for example, group1). \n";
+        final String usage = """
+
+            Usage:
+                <appName> <bucketName> <bundleType> <key> <deploymentGroup>\s
+
+            Where:
+                appName - The name of the application.\s
+                bucketName - The name of the Amazon S3 bucket that contains the ZIP to deploy.\s
+                bundleType - The bundle type (for example, zip).\s
+                key - The key located in the S3 bucket (for example, mywebapp.zip).\s
+                deploymentGroup - The name of the deployment group (for example, group1).\s
+            """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -61,7 +62,6 @@ public class DeployApplication {
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String deploymentId = createAppDeployment(deployClient, appName, bucketName, bundleType, key, deploymentGroup);

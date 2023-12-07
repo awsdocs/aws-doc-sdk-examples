@@ -9,7 +9,6 @@
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.start_stop_instance.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
@@ -25,12 +24,15 @@ import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
  */
 public class StartStopInstance {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "   <instanceId>\n\n" +
-            "Where:\n" +
-            "   instanceId - an instance id value that you can obtain from the AWS Console. \n\n" ;
+            Usage:
+               <instanceId>
+
+            Where:
+               instanceId - an instance id value that you can obtain from the AWS Console.\s
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,16 +45,15 @@ public class StartStopInstance {
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        if(args[1].equals("start")) {
+        if (args[1].equals("start")) {
             start = true;
         } else {
             start = false;
         }
 
-        if(start) {
+        if (start) {
             startInstance(ec2, instanceId);
         } else {
             stopInstance(ec2, instanceId);
@@ -62,7 +63,6 @@ public class StartStopInstance {
 
     // snippet-start:[ec2.java2.start_stop_instance.start]
     public static void startInstance(Ec2Client ec2, String instanceId) {
-
         StartInstancesRequest request = StartInstancesRequest.builder()
             .instanceIds(instanceId)
             .build();
@@ -74,7 +74,6 @@ public class StartStopInstance {
 
     // snippet-start:[ec2.java2.start_stop_instance.stop]
     public static void stopInstance(Ec2Client ec2, String instanceId) {
-
         StopInstancesRequest request = StopInstancesRequest.builder()
             .instanceIds(instanceId)
             .build();
@@ -84,4 +83,3 @@ public class StartStopInstance {
     }
     // snippet-end:[ec2.java2.start_stop_instance.stop]
 }
-

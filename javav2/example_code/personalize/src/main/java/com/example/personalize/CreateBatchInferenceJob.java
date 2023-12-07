@@ -30,22 +30,21 @@ public class CreateBatchInferenceJob {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    CreateDatasetImportJob <solutionVersionArn, jobName, roleArn, s3DataSource, s3DataDestination, explorationWeight," +
-            "explorationItemAgeCutOff>\n\n" +
-            "Where:\n" +
-            "    solutionVersionArn - The Amazon Resource Name (ARN) of the solution version you want to use.\n" +
-            "    jobName - The name for the batch inference job.\n" +
-            "    s3InputDataSource - The path to the Amazon S3 bucket where your input list of users or items is stored.\n" +
-            "    s3DataDestination - The path to the Amazon S3 bucket where Amazon Personalize will output the " +
-            "batch recommendations.\n" +
-            "    roleArn - The ARN of the IAM service-linked role that" + "" +
-            "has permissions to add data to your output Amazon S3 bucket.\n" + "" +
-            "   explorationWeight - A User-Personalization recipe specific field that specifies how " +
-            "much to explore (how often to include new items in recommendations)\n" +
-            "    explorationItemAgeCutOff - A User-Personalization recipe specific field that defines " +
-            "what Amazon Personalize considers a new item in exploration.\n\n";
+        final String USAGE = """
+
+            Usage:
+                CreateDatasetImportJob <solutionVersionArn, jobName, roleArn, s3DataSource, s3DataDestination, explorationWeight,explorationItemAgeCutOff>
+
+            Where:
+                solutionVersionArn - The Amazon Resource Name (ARN) of the solution version you want to use.
+                jobName - The name for the batch inference job.
+                s3InputDataSource - The path to the Amazon S3 bucket where your input list of users or items is stored.
+                s3DataDestination - The path to the Amazon S3 bucket where Amazon Personalize will output the batch recommendations.
+                roleArn - The ARN of the IAM service-linked role thathas permissions to add data to your output Amazon S3 bucket.
+               explorationWeight - A User-Personalization recipe specific field that specifies how much to explore (how often to include new items in recommendations)
+                explorationItemAgeCutOff - A User-Personalization recipe specific field that defines what Amazon Personalize considers a new item in exploration.
+
+            """;
 
         // If omitting User-Personalization exploration fields, change from 7 to 5.
         if (args.length != 7) {

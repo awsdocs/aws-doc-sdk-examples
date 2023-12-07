@@ -8,10 +8,10 @@
 */
 package com.example.s3;
 
+// snippet-start:[s3.java2.bucket_deletion.main]
+// snippet-start:[s3.java2.s3_bucket_deletion.delete_objects]
 // snippet-start:[s3.java2.bucket_deletion.import]
 // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket.import]
-
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
@@ -22,7 +22,6 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.S3Object;
 // snippet-end:[s3.java2.s3_bucket_ops.delete_bucket.import]
 // snippet-end:[s3.java2.bucket_deletion.import]
-// snippet-start:[s3.java2.bucket_deletion.main]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -32,14 +31,15 @@ import software.amazon.awssdk.services.s3.model.S3Object;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class S3BucketDeletion {
-
     public static void main(String[] args) throws Exception {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage:\n" +
-                "    <bucket>\n\n" +
-                "Where:\n" +
-                "    bucket - The bucket to delete (for example, bucket1). \n\n" ;
+            Usage:
+                <bucket>
+
+            Where:
+                bucket - The bucket to delete (for example, bucket1).\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,20 +47,16 @@ public class S3BucketDeletion {
         }
 
         String bucket = args[0];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .region(region)
-                .credentialsProvider(credentialsProvider)
                 .build();
 
         deleteObjectsInBucket(s3,bucket);
         s3.close();
     }
 
-    // snippet-start:[s3.java2.s3_bucket_deletion.delete_objects]
     public static void deleteObjectsInBucket (S3Client s3, String bucket) {
-
         try {
             // To delete a bucket, all the objects in the bucket must be deleted first.
             ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder()
@@ -78,8 +74,6 @@ public class S3BucketDeletion {
                     s3.deleteObject(request);
                 }
             } while (listObjectsV2Response.isTruncated());
-            // snippet-end:[s3.java2.s3_bucket_deletion.delete_objects]
-
             DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucket).build();
             s3.deleteBucket(deleteBucketRequest);
 
@@ -88,6 +82,7 @@ public class S3BucketDeletion {
             System.exit(1);
         }
     }
-    // snippet-end:[s3.java2.bucket_deletion.main]
 }
+// snippet-end:[s3.java2.s3_bucket_deletion.delete_objects]
+// snippet-end:[s3.java2.bucket_deletion.main]
 

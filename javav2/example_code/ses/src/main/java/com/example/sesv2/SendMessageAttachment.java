@@ -8,11 +8,10 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.example.sesv2;
 
+// snippet-start:[ses.java2.sendmessage.request.sesv2.main]
 // snippet-start:[ses.java2.sendmessage.request.sesv2.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sesv2.model.RawMessage;
@@ -46,17 +45,18 @@ import java.util.Properties;
  */
 
 public class SendMessageAttachment {
-
     public static void main(String[] args) throws MessagingException, IOException {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <sender> <recipient> <subject> \n\n" +
-            "Where:\n" +
-            "    sender - An email address that represents the sender. \n"+
-            "    recipient - An email address that represents the recipient. \n"+
-            "    subject - The subject line. \n" +
-            "    fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls). \n" ;
+            Usage:
+                <sender> <recipient> <subject>\s
+
+            Where:
+                sender - An email address that represents the sender.\s
+                recipient - An email address that represents the recipient.\s
+                subject - The subject line.\s
+                fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls).\s
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -71,22 +71,20 @@ public class SendMessageAttachment {
         Region region = Region.US_EAST_1;
         SesV2Client sesv2Client = SesV2Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         // The HTML body of the email.
         String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-                        + "<p> See the attachment.</p>" + "</body>" + "</html>";
-        sendEmailAttachment(sesv2Client, sender, recipient, subject, bodyHTML, fileLocation );
+            + "<p> See the attachment.</p>" + "</body>" + "</html>";
+        sendEmailAttachment(sesv2Client, sender, recipient, subject, bodyHTML, fileLocation);
     }
 
-    // snippet-start:[ses.java2.sendmessage.request.sesv2.main]
     public static void sendEmailAttachment(SesV2Client sesv2Client,
-                                               String sender,
-                                               String recipient,
-                                               String subject,
-                                               String bodyHTML,
-                                               String fileLocation) throws MessagingException, IOException {
+                                           String sender,
+                                           String recipient,
+                                           String subject,
+                                           String bodyHTML,
+                                           String fileLocation) throws MessagingException, IOException {
 
         java.io.File theFile = new java.io.File(fileLocation);
         byte[] fileContent = Files.readAllBytes(theFile.toPath());
@@ -121,7 +119,7 @@ public class SendMessageAttachment {
         MimeMultipart msg = new MimeMultipart("mixed");
 
         // Add the parent container to the message.
-         message.setContent(msg);
+        message.setContent(msg);
 
         // Add the multipart/alternative part to the message.
         msg.addBodyPart(wrap);
@@ -161,11 +159,11 @@ public class SendMessageAttachment {
 
             sesv2Client.sendEmail(request);
 
-        } catch (SesV2Exception e ) {
+        } catch (SesV2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         System.out.println("The email message was successfully sent with an attachment");
     }
-    // snippet-end:[ses.java2.sendmessage.request.sesv2.main]
 }
+// snippet-end:[ses.java2.sendmessage.request.sesv2.main]

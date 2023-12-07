@@ -8,8 +8,8 @@
 */
 package com.example.ec2;
 
+// snippet-start:[ec2.java2.create_key_pair.main]
 // snippet-start:[ec2.java2.create_key_pair.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairRequest;
@@ -26,12 +26,14 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 public class CreateKeyPair {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "   <keyName> \n\n" +
-            "Where:\n" +
-            "   keyName - A key pair name (for example, TestKeyPair). \n\n";
+            Usage:
+               <keyName>\s
+
+            Where:
+               keyName - A key pair name (for example, TestKeyPair).\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,15 +44,13 @@ public class CreateKeyPair {
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        createEC2KeyPair(ec2, keyName) ;
+        createEC2KeyPair(ec2, keyName);
         ec2.close();
     }
 
-     // snippet-start:[ec2.java2.create_key_pair.main]
-    public static void createEC2KeyPair(Ec2Client ec2,String keyName ) {
+    public static void createEC2KeyPair(Ec2Client ec2, String keyName) {
         try {
             CreateKeyPairRequest request = CreateKeyPairRequest.builder()
                 .keyName(keyName)
@@ -63,6 +63,6 @@ public class CreateKeyPair {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-     }
-    // snippet-end:[ec2.java2.create_key_pair.main]
- }
+    }
+}
+// snippet-end:[ec2.java2.create_key_pair.main]

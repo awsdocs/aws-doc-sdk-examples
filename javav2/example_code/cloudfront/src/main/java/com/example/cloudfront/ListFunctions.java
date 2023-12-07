@@ -8,8 +8,8 @@
 
 package com.example.cloudfront;
 
+// snippet-start:[cloudfront.java2.list.main]
 // snippet-start:[cloudfront.java2.list.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
 import software.amazon.awssdk.services.cloudfront.model.ListFunctionsRequest;
@@ -29,21 +29,16 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListFunctions {
-
     public static void main(String[] args) {
-
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
             .region(Region.AWS_GLOBAL)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllFunctions(cloudFrontClient);
         cloudFrontClient.close();
     }
 
-    // snippet-start:[cloudfront.java2.list.main]
     public static void listAllFunctions( CloudFrontClient cloudFrontClient) {
-
         try {
             ListFunctionsRequest functionsRequest = ListFunctionsRequest.builder()
                 .stage(FunctionStage.DEVELOPMENT)
@@ -63,5 +58,5 @@ public class ListFunctions {
            System.exit(1);
        }
     }
-    // snippet-end:[cloudfront.java2.list.main]
 }
+// snippet-end:[cloudfront.java2.list.main]

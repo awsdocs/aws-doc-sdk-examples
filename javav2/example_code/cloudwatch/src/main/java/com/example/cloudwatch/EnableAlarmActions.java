@@ -7,8 +7,8 @@
 */
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.java2.enable_alarm_actions.main]
 // snippet-start:[cloudwatch.java2.enable_alarm_actions.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
@@ -23,14 +23,15 @@ import software.amazon.awssdk.services.cloudwatch.model.EnableAlarmActionsReques
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class EnableAlarmActions {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <alarmName>\n\n" +
-            "Where:\n" +
-            "  alarmName - An alarm name to enable (for example, MyAlarm).\n" ;
+            Usage:
+              <alarmName>
+
+            Where:
+              alarmName - An alarm name to enable (for example, MyAlarm).
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -40,7 +41,6 @@ public class EnableAlarmActions {
         String alarm = args[0];
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .region(region)
             .build();
 
@@ -48,9 +48,7 @@ public class EnableAlarmActions {
         cw.close();
     }
 
-    // snippet-start:[cloudwatch.java2.enable_alarm_actions.main]
     public static void enableActions(CloudWatchClient cw, String alarm) {
-
         try {
             EnableAlarmActionsRequest request = EnableAlarmActionsRequest.builder()
                 .alarmNames(alarm)
@@ -64,6 +62,6 @@ public class EnableAlarmActions {
             System.exit(1);
         }
    }
-    // snippet-end:[cloudwatch.java2.enable_alarm_actions.main]
 }
+// snippet-end:[cloudwatch.java2.enable_alarm_actions.main]
 

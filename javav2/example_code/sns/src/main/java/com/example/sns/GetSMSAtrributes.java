@@ -9,8 +9,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.GetSMSAtrributes.main]
 //snippet-start:[sns.java2.GetSMSAtrributes.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.GetSubscriptionAttributesRequest;
@@ -29,12 +29,13 @@ import java.util.Map;
  */
 public class GetSMSAtrributes {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <topicArn>\n\n" +
-            "Where:\n" +
-            "   topicArn - The ARN of the topic from which to retrieve attributes.\n\n";
+            Usage:    <topicArn>
+
+            Where:
+               topicArn - The ARN of the topic from which to retrieve attributes.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,16 +45,13 @@ public class GetSMSAtrributes {
         String topicArn = args[0];
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getSNSAttrutes(snsClient, topicArn);
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.GetSMSAtrributes.main]
-    public static void getSNSAttrutes(SnsClient snsClient,String topicArn ) {
-
+    public static void getSNSAttrutes(SnsClient snsClient, String topicArn) {
         try {
             GetSubscriptionAttributesRequest request = GetSubscriptionAttributesRequest.builder()
                 .subscriptionArn(topicArn)
@@ -77,5 +75,5 @@ public class GetSMSAtrributes {
 
         System.out.println("\n\nStatus was good");
     }
-    //snippet-end:[sns.java2.GetSMSAtrributes.main]
 }
+//snippet-end:[sns.java2.GetSMSAtrributes.main]

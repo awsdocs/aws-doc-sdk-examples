@@ -9,8 +9,8 @@
 */
 package aws.example.emr;
 
+// snippet-start:[emr.java2.terminate_job.main]
 // snippet-start:[emr.java2.terminate_job.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.emr.EmrClient;
 import software.amazon.awssdk.services.emr.model.TerminateJobFlowsRequest;
@@ -25,47 +25,44 @@ import software.amazon.awssdk.services.emr.model.EmrException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class TerminateJobFlow {
+    public static void main(String[] args) {
+        final String usage = """
 
-    public static void main(String[] args){
+            Usage:    <id>
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <id>\n\n" +
-            "Where:\n" +
-            "   id - An id of a job flow to shut down.\n\n" ;
+            Where:
+               id - An id of a job flow to shut down.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }
 
-        String id = args[0] ;
+        String id = args[0];
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         terminateFlow(emrClient, id);
         emrClient.close();
     }
 
-    // snippet-start:[emr.java2.terminate_job.main]
-    public static void terminateFlow( EmrClient emrClient, String id) {
-
-        try{
-
+    public static void terminateFlow(EmrClient emrClient, String id) {
+        try {
             TerminateJobFlowsRequest jobFlowsRequest = TerminateJobFlowsRequest.builder()
                 .jobFlowIds(id)
                 .build();
 
             emrClient.terminateJobFlows(jobFlowsRequest);
-            System.out.println("You have successfully terminated "+id);
+            System.out.println("You have successfully terminated " + id);
 
-        } catch(EmrException e){
+        } catch (EmrException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[emr.java2.terminate_job.main]
 }
+// snippet-end:[emr.java2.terminate_job.main]

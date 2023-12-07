@@ -9,8 +9,8 @@
 
 package com.example.kms;
 
+// snippet-start:[kms.java2_disable_key.main]
 // snippet-start:[kms.java2_disable_key.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.DisableKeyRequest;
@@ -25,14 +25,15 @@ import software.amazon.awssdk.services.kms.model.KmsException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DisableCustomerKey {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <keyId> \n\n" +
-            "Where:\n" +
-            "    keyId - A key id value to disable (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). \n\n" ;
+            Usage:
+                <keyId>\s
+
+            Where:
+                keyId - A key id value to disable (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,16 +44,13 @@ public class DisableCustomerKey {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         disableKey(kmsClient, keyId);
         kmsClient.close();
     }
 
-    // snippet-start:[kms.java2_disable_key.main]
-    public static void disableKey( KmsClient kmsClient, String keyId) {
-
+    public static void disableKey(KmsClient kmsClient, String keyId) {
         try {
             DisableKeyRequest keyRequest = DisableKeyRequest.builder()
                 .keyId(keyId)
@@ -65,5 +63,5 @@ public class DisableCustomerKey {
             System.exit(1);
         }
     }
-    // snippet-end:[kms.java2_disable_key.main]
 }
+// snippet-end:[kms.java2_disable_key.main]

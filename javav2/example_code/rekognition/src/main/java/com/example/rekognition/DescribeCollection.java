@@ -9,8 +9,8 @@
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.describe_collection.main]
 // snippet-start:[rekognition.java2.describe_collection.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.DescribeCollectionRequest;
@@ -26,14 +26,14 @@ import software.amazon.awssdk.services.rekognition.model.RekognitionException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeCollection {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <collectionName>\n\n" +
-            "Where:\n" +
-            "   collectionName - The name of the Amazon Rekognition collection. \n\n";
+            Usage:    <collectionName>
+
+            Where:
+               collectionName - The name of the Amazon Rekognition collection.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,16 +44,13 @@ public class DescribeCollection {
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         describeColl(rekClient, collectionName);
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.describe_collection.main]
     public static void describeColl(RekognitionClient rekClient, String collectionName) {
-
         try {
             DescribeCollectionRequest describeCollectionRequest = DescribeCollectionRequest.builder()
                 .collectionId(collectionName)
@@ -63,10 +60,10 @@ public class DescribeCollection {
             System.out.println("Collection Arn : " + describeCollectionResponse.collectionARN());
             System.out.println("Created : " + describeCollectionResponse.creationTimestamp().toString());
 
-        } catch(RekognitionException e) {
+        } catch (RekognitionException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.describe_collection.main]
 }
+// snippet-end:[rekognition.java2.describe_collection.main]

@@ -9,8 +9,8 @@
 
 package com.example.rds;
 
+// snippet-start:[rds.java2.create_snapshot.main]
 // snippet-start:[rds.java2.create_snapshot.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.CreateDbSnapshotRequest;
@@ -28,13 +28,15 @@ import software.amazon.awssdk.services.rds.model.RdsException;
 public class CreateDBSnapshot {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <dbInstanceIdentifier> <dbSnapshotIdentifier> \n\n" +
-            "Where:\n" +
-            "    dbInstanceIdentifier - The database instance identifier. \n" +
-            "    dbSnapshotIdentifier - The snapshot identifier. \n";
+            Usage:
+                <dbInstanceIdentifier> <dbSnapshotIdentifier>\s
+
+            Where:
+                dbInstanceIdentifier - The database instance identifier.\s
+                dbSnapshotIdentifier - The snapshot identifier.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,16 +48,13 @@ public class CreateDBSnapshot {
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        createSnapshot(rdsClient, dbInstanceIdentifier, dbSnapshotIdentifier) ;
+        createSnapshot(rdsClient, dbInstanceIdentifier, dbSnapshotIdentifier);
         rdsClient.close();
     }
 
-    // snippet-start:[rds.java2.create_snapshot.main]
     public static void createSnapshot(RdsClient rdsClient, String dbInstanceIdentifier, String dbSnapshotIdentifier) {
-
         try {
             CreateDbSnapshotRequest snapshotRequest = CreateDbSnapshotRequest.builder()
                 .dbInstanceIdentifier(dbInstanceIdentifier)
@@ -70,5 +69,5 @@ public class CreateDBSnapshot {
             System.exit(1);
         }
     }
-    // snippet-end:[rds.java2.create_snapshot.main]
 }
+// snippet-end:[rds.java2.create_snapshot.main]

@@ -9,9 +9,8 @@
 
 package com.example.cloudfront;
 
+// snippet-start:[cloudfront.java2.function.main]
 // snippet-start:[cloudfront.java2.function.import]
-
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
@@ -20,7 +19,6 @@ import software.amazon.awssdk.services.cloudfront.model.CreateFunctionRequest;
 import software.amazon.awssdk.services.cloudfront.model.CreateFunctionResponse;
 import software.amazon.awssdk.services.cloudfront.model.FunctionConfig;
 import software.amazon.awssdk.services.cloudfront.model.FunctionRuntime;
-
 import java.io.InputStream;
 // snippet-end:[cloudfront.java2.function.import]
 
@@ -34,13 +32,15 @@ import java.io.InputStream;
 public class CreateFunction {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage:\n" +
-                "    <functionName> <filePath>\n\n" +
-                "Where:\n" +
-                "    functionName - The name of the function to create. \n"+
-                "    filePath - The path to a file that contains the application logic for the function. \n" ;
+            Usage:
+                <functionName> <filePath>
+
+            Where:
+                functionName - The name of the function to create.\s
+                filePath - The path to a file that contains the application logic for the function.\s
+            """;
 
          if (args.length != 2) {
              System.out.println(usage);
@@ -51,7 +51,6 @@ public class CreateFunction {
         String filePath = args[1] ;
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
             .region(Region.AWS_GLOBAL)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String funArn = createNewFunction(cloudFrontClient, functionName, filePath);
@@ -59,11 +58,8 @@ public class CreateFunction {
         cloudFrontClient.close();
     }
 
-    // snippet-start:[cloudfront.java2.function.main]
     public static String createNewFunction(CloudFrontClient cloudFrontClient, String functionName, String filePath) {
-
         try {
-
             InputStream fileIs = CreateFunction.class.getClassLoader().getResourceAsStream(filePath);
             SdkBytes functionCode = SdkBytes.fromInputStream(fileIs);
 
@@ -87,6 +83,6 @@ public class CreateFunction {
         }
         return "";
     }
-    // snippet-end:[cloudfront.java2.function.main]
 }
+// snippet-end:[cloudfront.java2.function.main]
 

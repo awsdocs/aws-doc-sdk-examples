@@ -8,8 +8,8 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.get_jobs.main]
 //snippet-start:[glue.java2.get_jobs.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GetJobsRequest;
@@ -27,22 +27,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetJobs {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getAllJobs(glueClient);
         glueClient.close();
     }
 
-    //snippet-start:[glue.java2.get_jobs.main]
     public static void getAllJobs(GlueClient glueClient) {
-
         try {
             GetJobsRequest jobsRequest = GetJobsRequest.builder()
                 .maxResults(10)
@@ -50,9 +45,9 @@ public class GetJobs {
 
             GetJobsResponse jobsResponse = glueClient.getJobs(jobsRequest);
             List<Job> jobs = jobsResponse.jobs();
-            for (Job job: jobs) {
-                System.out.println("Job name is : "+job.name());
-                System.out.println("The job worker type is : "+job.workerType().name());
+            for (Job job : jobs) {
+                System.out.println("Job name is : " + job.name());
+                System.out.println("The job worker type is : " + job.workerType().name());
             }
 
         } catch (GlueException e) {
@@ -60,5 +55,5 @@ public class GetJobs {
             System.exit(1);
         }
     }
-    //snippet-end:[glue.java2.get_jobs.main]
-  }
+}
+//snippet-end:[glue.java2.get_jobs.main]

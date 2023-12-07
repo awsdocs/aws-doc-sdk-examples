@@ -9,8 +9,8 @@
 
 package com.example.kms;
 
+// snippet-start:[kms.java2_delete_alias.main]
 // snippet-start:[kms.java2_delete_alias.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.DeleteAliasRequest;
@@ -25,14 +25,15 @@ import software.amazon.awssdk.services.kms.model.KmsException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteAlias {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <aliasName> \n\n" +
-            "Where:\n" +
-            "    aliasName - An alias name to delete (for example, alias/myAlias). \n\n" ;
+            Usage:
+                <aliasName>\s
+
+            Where:
+                aliasName - An alias name to delete (for example, alias/myAlias).\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,16 +44,13 @@ public class DeleteAlias {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        deleteSpecificAlias(kmsClient, aliasName );
+        deleteSpecificAlias(kmsClient, aliasName);
         kmsClient.close();
     }
 
-    // snippet-start:[kms.java2_delete_alias.main]
     public static void deleteSpecificAlias(KmsClient kmsClient, String aliasName) {
-
         try {
             DeleteAliasRequest deleteAliasRequest = DeleteAliasRequest.builder()
                 .aliasName(aliasName)
@@ -65,5 +63,5 @@ public class DeleteAlias {
             System.exit(1);
         }
     }
-    // snippet-end:[kms.java2_delete_alias.main]
 }
+// snippet-end:[kms.java2_delete_alias.main]

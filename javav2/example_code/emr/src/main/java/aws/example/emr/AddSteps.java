@@ -11,8 +11,8 @@
 
 package aws.example.emr;
 
+// snippet-start:[emr.java2._add_steps.main]
 // snippet-start:[emr.java2._add_steps.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.emr.EmrClient;
 import software.amazon.awssdk.services.emr.model.AddJobFlowStepsRequest;
@@ -30,38 +30,36 @@ import software.amazon.awssdk.services.emr.model.StepConfig;
  */
 
 public class AddSteps {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <jar> <myClass> <jobFlowId> \n\n" +
-            "Where:\n" +
-            "   jar - A path to a JAR file run during the step. \n\n" +
-            "   myClass - The name of the main class in the specified Java file. \n\n" +
-            "   jobFlowId - The id of the job flow. \n\n" ;
+            Usage:    <jar> <myClass> <jobFlowId>\s
+
+            Where:
+               jar - A path to a JAR file run during the step.\s
+               myClass - The name of the main class in the specified Java file.\s
+               jobFlowId - The id of the job flow.\s
+
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
             System.exit(1);
         }
 
-        String jar = args[0] ;
-        String myClass = args[1] ;
-        String jobFlowId = args[2] ;
+        String jar = args[0];
+        String myClass = args[1];
+        String jobFlowId = args[2];
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         addNewStep(emrClient, jobFlowId, jar, myClass);
         emrClient.close();
     }
 
-    // snippet-start:[emr.java2._add_steps.main]
     public static void addNewStep(EmrClient emrClient, String jobFlowId, String jar, String myClass) {
-
         try {
             HadoopJarStepConfig jarStepConfig = HadoopJarStepConfig.builder()
                 .jar(jar)
@@ -86,5 +84,5 @@ public class AddSteps {
             System.exit(1);
         }
     }
-    // snippet-end:[emr.java2._add_steps.main]
 }
+// snippet-end:[emr.java2._add_steps.main]

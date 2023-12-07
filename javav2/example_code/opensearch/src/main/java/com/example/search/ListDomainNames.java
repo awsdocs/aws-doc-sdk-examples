@@ -8,6 +8,7 @@
 */
 package com.example.search;
 
+// snippet-start:[opensearch.java2.list_domains.main]
 // snippet-start:[opensearch.java2.list_domains.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -28,9 +29,7 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListDomainNames {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         OpenSearchClient searchClient = OpenSearchClient.builder()
             .region(region)
@@ -40,23 +39,21 @@ public class ListDomainNames {
         System.out.println("Done");
     }
 
-    // snippet-start:[opensearch.java2.list_domains.main]
-    public static void listAllDomains(OpenSearchClient searchClient){
-
+    public static void listAllDomains(OpenSearchClient searchClient) {
         try {
             ListDomainNamesRequest namesRequest = ListDomainNamesRequest.builder()
                 .engineType("OpenSearch")
                 .build();
 
-            ListDomainNamesResponse response = searchClient.listDomainNames(namesRequest) ;
+            ListDomainNamesResponse response = searchClient.listDomainNames(namesRequest);
             List<DomainInfo> domainInfoList = response.domainNames();
-            for (DomainInfo domain: domainInfoList)
-                System.out.println("Domain name is "+domain.domainName());
+            for (DomainInfo domain : domainInfoList)
+                System.out.println("Domain name is " + domain.domainName());
 
         } catch (OpenSearchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-   }
-   // snippet-end:[opensearch.java2.list_domains.main]
+    }
 }
+// snippet-end:[opensearch.java2.list_domains.main]

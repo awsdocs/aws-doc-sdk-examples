@@ -36,18 +36,22 @@ import java.util.ArrayList;
 public class PutUsers {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    PutUsers <datasetArn, user1Id, user1PropertyName, user1PropertyValue,\n" +
-                "        user2Id, user2PropertyName, user2PropertyValue>\n\n" +
-                "Where:\n" +
-                "    datasetArn - The ARN (Amazon Resource Name) for the user's destination dataset.\n" +
-                "    user1Id - The identification number of the first user.\n" +
-                "    user1propertyName - The metadata field name (in camel case) for the first user.\n" +
-                "    user1propertyValue - The metadata value for the first user.\n" +
-                "    user2Id - The identification number of the second user.\n" +
-                "    user2propertyName - The metadata field name (in camel case) for the second user.\n" +
-                "    user2propertyValue - The metadata value for the second user.\n\n";
+        final String USAGE = """
+
+            Usage:
+                PutUsers <datasetArn, user1Id, user1PropertyName, user1PropertyValue,
+                    user2Id, user2PropertyName, user2PropertyValue>
+
+            Where:
+                datasetArn - The ARN (Amazon Resource Name) for the user's destination dataset.
+                user1Id - The identification number of the first user.
+                user1propertyName - The metadata field name (in camel case) for the first user.
+                user1propertyValue - The metadata value for the first user.
+                user2Id - The identification number of the second user.
+                user2propertyName - The metadata field name (in camel case) for the second user.
+                user2propertyValue - The metadata value for the second user.
+
+            """;
 
         if (args.length != 7) {
             System.out.println(USAGE);

@@ -6,9 +6,10 @@
    SPDX-License-Identifier: Apache-2.0
 */
 package com.example.ec2;
+
 // snippet-start:[ec2.java2.describe_region_and_zones.complete]
+// snippet-start:[ec2.java2.describe_region_and_zones.main]
 // snippet-start:[ec2.java2.describe_region_and_zones.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeRegionsResponse;
 import software.amazon.awssdk.services.ec2.model.Region;
@@ -25,25 +26,20 @@ import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesRespon
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeRegionsAndZones {
-
     public static void main(String[] args) {
-
         // snippet-start:[ec2.java2.describe_region_and_zones.client]
         software.amazon.awssdk.regions.Region region = software.amazon.awssdk.regions.Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .build();
         // snippet-end:[ec2.java2.describe_region_and_zones.client]
 
         describeEC2RegionsAndZones(ec2);
         ec2.close();
     }
-    // snippet-start:[ec2.java2.describe_region_and_zones.main]
     public static void describeEC2RegionsAndZones( Ec2Client ec2) {
         // snippet-start:[ec2.java2.describe_region_and_zones.region]
         try {
-
             DescribeRegionsResponse regionsResponse = ec2.describeRegions();
             for(Region region : regionsResponse.regions()) {
                 System.out.printf(
@@ -76,6 +72,6 @@ public class DescribeRegionsAndZones {
             System.exit(1);
         }
     }
-    // snippet-end:[ec2.java2.describe_region_and_zones.main]
 }
+// snippet-end:[ec2.java2.describe_region_and_zones.main]
 // snippet-end:[ec2.java2.describe_region_and_zones.complete]

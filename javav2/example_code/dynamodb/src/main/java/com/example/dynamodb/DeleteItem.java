@@ -9,8 +9,8 @@
 
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.delete_item.main]
 // snippet-start:[dynamodb.java2.delete_item.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -28,14 +28,16 @@ import java.util.HashMap;
  */
 public class DeleteItem {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <tableName> <key> <keyval>\n\n" +
-            "Where:\n" +
-            "    tableName - The Amazon DynamoDB table to delete the item from (for example, Music3).\n" +
-            "    key - The key used in the Amazon DynamoDB table (for example, Artist). \n" +
-            "    keyval - The key value that represents the item to delete (for example, Famous Band).\n" ;
+            Usage:
+                <tableName> <key> <keyval>
+
+            Where:
+                tableName - The Amazon DynamoDB table to delete the item from (for example, Music3).
+                key - The key used in the Amazon DynamoDB table (for example, Artist).\s
+                keyval - The key value that represents the item to delete (for example, Famous Band).
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -45,12 +47,9 @@ public class DeleteItem {
         String tableName = args[0];
         String key = args[1];
         String keyVal = args[2];
-
         System.out.format("Deleting item \"%s\" from %s\n", keyVal, tableName);
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
@@ -58,9 +57,8 @@ public class DeleteItem {
         ddb.close();
     }
 
-   // snippet-start:[dynamodb.java2.delete_item.main]
     public static void deleteDynamoDBItem(DynamoDbClient ddb, String tableName, String key, String keyVal) {
-        HashMap<String,AttributeValue> keyToGet = new HashMap<>();
+        HashMap<String, AttributeValue> keyToGet = new HashMap<>();
         keyToGet.put(key, AttributeValue.builder()
             .s(keyVal)
             .build());
@@ -73,10 +71,10 @@ public class DeleteItem {
         try {
             ddb.deleteItem(deleteReq);
         } catch (DynamoDbException e) {
-           System.err.println(e.getMessage());
-           System.exit(1);
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
-    // snippet-end:[dynamodb.java2.delete_item.main]
 }
+// snippet-end:[dynamodb.java2.delete_item.main]
 

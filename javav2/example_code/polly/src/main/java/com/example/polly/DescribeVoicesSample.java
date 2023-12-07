@@ -9,16 +9,14 @@
 
 package com.example.polly;
 
+// snippet-start:[polly.java2.describe_voice.main]
 // snippet-start:[polly.java2.describe_voice.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.polly.PollyClient;
 import software.amazon.awssdk.services.polly.model.DescribeVoicesRequest;
 import software.amazon.awssdk.services.polly.model.DescribeVoicesResponse;
 import software.amazon.awssdk.services.polly.model.PollyException;
 import software.amazon.awssdk.services.polly.model.Voice;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 // snippet-end:[polly.java2.describe_voice.import]
 
@@ -30,21 +28,16 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeVoicesSample {
-
     public static void main(String args[]) {
-
         PollyClient polly = PollyClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        describeVoice(polly) ;
+        describeVoice(polly);
         polly.close();
     }
 
-    // snippet-start:[polly.java2.describe_voice.main]
     public static void describeVoice(PollyClient polly) {
-
         try {
             DescribeVoicesRequest voicesRequest = DescribeVoicesRequest.builder()
                 .languageCode("en-US")
@@ -52,15 +45,15 @@ public class DescribeVoicesSample {
 
             DescribeVoicesResponse enUsVoicesResult = polly.describeVoices(voicesRequest);
             List<Voice> voices = enUsVoicesResult.voices();
-            for (Voice myVoice: voices) {
-                    System.out.println("The ID of the voice is " +myVoice.id());
-                    System.out.println("The gender of the voice is " + myVoice.gender());
+            for (Voice myVoice : voices) {
+                System.out.println("The ID of the voice is " + myVoice.id());
+                System.out.println("The gender of the voice is " + myVoice.gender());
             }
 
         } catch (PollyException e) {
             System.err.println("Exception caught: " + e);
-           System.exit(1);
+            System.exit(1);
         }
     }
-    // snippet-end:[polly.java2.describe_voice.main]
 }
+// snippet-end:[polly.java2.describe_voice.main]

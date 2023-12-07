@@ -10,8 +10,8 @@
 
 package com.example.stepfunctions;
 
+// snippet-start:[stepfunctions.java2.get_failed_exes.main]
 // snippet-start:[stepfunctions.java2.get_failed_exes.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.ListExecutionsRequest;
@@ -29,14 +29,16 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetFailedExecutions {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <stateMachineARN>\n\n" +
-            "Where:\n" +
-            "    stateMachineARN - The ARN of the state machine.\n";
+        final String usage = """
+
+            Usage:
+                <stateMachineARN>
+
+            Where:
+                stateMachineARN - The ARN of the state machine.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,14 +49,12 @@ public class GetFailedExecutions {
         Region region = Region.US_WEST_2;
         SfnClient sfnClient = SfnClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getFailedExes(sfnClient, stateMachineARN);
         sfnClient.close();
     }
 
-    // snippet-start:[stepfunctions.java2.get_failed_exes.main]
     public static void getFailedExes(SfnClient sfnClient, String stateMachineARN) {
         try {
             ListExecutionsRequest executionsRequest = ListExecutionsRequest.builder()

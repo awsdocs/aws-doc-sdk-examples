@@ -19,15 +19,16 @@ import software.amazon.awssdk.services.rds.model.RdsException;
 
 // snippet-start:[rds.java2.create_token.main]
 public class GenerateRDSAuthToken {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <dbInstanceIdentifier> <masterUsername>\n\n" +
-            "Where:\n" +
-            "    dbInstanceIdentifier - The database instance identifier. \n" +
-            "    masterUsername - The master user name. \n";
+            Usage:
+                <dbInstanceIdentifier> <masterUsername>
+
+            Where:
+                dbInstanceIdentifier - The database instance identifier.\s
+                masterUsername - The master user name.\s
+            """;
 
             if (args.length != 2) {
                 System.out.println(usage);
@@ -39,7 +40,6 @@ public class GenerateRDSAuthToken {
             Region region = Region.US_WEST_2;
             RdsClient rdsClient = RdsClient.builder()
                 .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
             String token = getAuthToken(rdsClient, dbInstanceIdentifier, masterUsername);

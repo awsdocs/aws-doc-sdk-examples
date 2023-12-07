@@ -11,8 +11,8 @@
 
 package com.example.migrationhub;
 
+// snippet-start:[migration.java2.list_artifacts.main]
 // snippet-start:[migration.java2.list_artifacts.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.migrationhub.MigrationHubClient;
 import software.amazon.awssdk.services.migrationhub.model.CreatedArtifact;
@@ -30,22 +30,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListCreatedArtifacts {
-
     public static void main(String[] args) {
-
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listArtifacts(migrationClient);
         migrationClient.close();
     }
 
-    // snippet-start:[migration.java2.list_artifacts.main]
     public static void listArtifacts(MigrationHubClient migrationClient) {
-
         try {
             ListCreatedArtifactsRequest listCreatedArtifactsRequest = ListCreatedArtifactsRequest.builder()
                 .maxResults(10)
@@ -60,10 +55,10 @@ public class ListCreatedArtifacts {
                 System.out.println("The name is " + artifact.name());
             }
 
-        } catch(MigrationHubException e) {
+        } catch (MigrationHubException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[migration.java2.list_artifacts.main]
- }
+}
+ // snippet-end:[migration.java2.list_artifacts.main]

@@ -9,6 +9,7 @@
 
 package com.example.dynamodb.enhanced;
 
+// snippet-start:[dynamodb.java2.get_item_index.main]
 // snippet-start:[dynamodb.java2.get_item_index.import]
 import com.example.dynamodb.Movies;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
@@ -44,14 +45,10 @@ import java.util.List;
  * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html
  */
 public class EnhancedGetItemUsingIndex {
-
     public static void main(String[] args) {
-
-        String tableName = "Movies" ;
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+        String tableName = "Movies";
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
@@ -59,9 +56,7 @@ public class EnhancedGetItemUsingIndex {
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.get_item_index.main]
     public static void queryIndex(DynamoDbClient ddb, String tableName) {
-
         try {
             // Create a DynamoDbEnhancedClient and use the DynamoDbClient object.
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
@@ -72,7 +67,7 @@ public class EnhancedGetItemUsingIndex {
             DynamoDbTable<Movies> table = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
             String dateVal = "2013";
 
-            DynamoDbIndex<Movies> secIndex = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class)) .index("year-index");
+            DynamoDbIndex<Movies> secIndex = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class)).index("year-index");
             AttributeValue attVal = AttributeValue.builder()
                 .n(dateVal)
                 .build();
@@ -80,7 +75,7 @@ public class EnhancedGetItemUsingIndex {
             // Create a QueryConditional object that's used in the query operation.
             QueryConditional queryConditional = QueryConditional
                 .keyEqualTo(Key.builder().partitionValue(attVal)
-                .build());
+                    .build());
 
             // Get items in the table.
             SdkIterable<Page<Movies>> results = secIndex.query(QueryEnhancedRequest.builder()
@@ -91,7 +86,7 @@ public class EnhancedGetItemUsingIndex {
             // Display the results.
             results.forEach(page -> {
                 List<Movies> allMovies = page.items();
-                for (Movies myMovies: allMovies) {
+                for (Movies myMovies : allMovies) {
                     System.out.println("The movie title is " + myMovies.getTitle() + ". The year is " + myMovies.getYear());
                 }
             });
@@ -101,5 +96,5 @@ public class EnhancedGetItemUsingIndex {
             System.exit(1);
         }
     }
-    // snippet-end:[dynamodb.java2.get_item_index.main]
 }
+// snippet-end:[dynamodb.java2.get_item_index.main]

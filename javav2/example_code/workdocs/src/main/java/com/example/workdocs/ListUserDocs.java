@@ -11,10 +11,10 @@
 
 package com.example.workdocs;
 
+// snippet-start:[workdocs.java2.list_user_docs.main]
 // snippet-start:[workdocs.java2.list_user_docs.import]
 import java.util.ArrayList;
 import java.util.List;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.workdocs.WorkDocsClient;
 import software.amazon.awssdk.services.workdocs.model.DescribeFolderContentsRequest;
@@ -39,12 +39,15 @@ public class ListUserDocs {
     public static void main(String[] args) throws Exception {
         // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-role.html
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <organizationId> <userEmail>  \n\n" +
-            "Where:\n" +
-            "    organizationId - Your organization Id value. You can obtain this value from the AWS Management Console. \n"+
-            "    userEmail - A user email. \n" ;
+        final String usage = """
+
+            Usage:
+                <organizationId> <userEmail> \s
+
+            Where:
+                organizationId - Your organization Id value. You can obtain this value from the AWS Management Console.\s
+                userEmail - A user email.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -56,16 +59,13 @@ public class ListUserDocs {
         Region region = Region.US_WEST_2;
         WorkDocsClient workDocs = WorkDocsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listDocs(workDocs, orgId, userEmail );
         workDocs.close();
     }
 
-    // snippet-start:[workdocs.java2.list_user_docs.main]
     public static void listDocs(WorkDocsClient workDocs, String orgId, String userEmail ) {
-
         try {
             String folderId = getUserFolder(workDocs, orgId, userEmail);
             DescribeFolderContentsRequest dfcRequest = DescribeFolderContentsRequest.builder()
@@ -131,7 +131,6 @@ public class ListUserDocs {
         }
         return "";
     }
-    // snippet-end:[workdocs.java2.list_user_docs.main]
 }
-
+// snippet-end:[workdocs.java2.list_user_docs.main]
 // snippet-end:[workdocs.java2.list_user_docs.complete]

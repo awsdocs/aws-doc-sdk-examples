@@ -9,8 +9,8 @@
 
 package com.timestream.write;
 
+//snippet-start:[timestream.java2.list_tables.main]
 //snippet-start:[timestream.java2.list_tables.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.timestreamwrite.TimestreamWriteClient;
 import java.util.List;
@@ -29,14 +29,14 @@ import software.amazon.awssdk.services.timestreamwrite.paginators.ListTablesIter
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListTables {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <dbName>\n\n" +
-            "Where:\n" +
-            "   dbName - The name of the database.\n\n";
+            Usage:    <dbName>
+
+            Where:
+               dbName - The name of the database.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,27 +46,24 @@ public class ListTables {
         String dbName = args[0];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllTables(timestreamWriteClient, dbName);
         timestreamWriteClient.close();
     }
 
-    //snippet-start:[timestream.java2.list_tables.main]
     public static void listAllTables(TimestreamWriteClient timestreamWriteClient, String dbName) {
-
         try {
             System.out.println("Listing tables");
-             ListTablesRequest request = ListTablesRequest.builder()
-                 .databaseName(dbName)
-                 .maxResults(10)
-                 .build();
+            ListTablesRequest request = ListTablesRequest.builder()
+                .databaseName(dbName)
+                .maxResults(10)
+                .build();
 
             ListTablesIterable listTablesIterable = timestreamWriteClient.listTablesPaginator(request);
-            for(ListTablesResponse listTablesResponse : listTablesIterable) {
+            for (ListTablesResponse listTablesResponse : listTablesIterable) {
                 final List<Table> tables = listTablesResponse.tables();
-                 tables.forEach(table -> System.out.println(table.tableName()));
+                tables.forEach(table -> System.out.println(table.tableName()));
             }
 
         } catch (TimestreamWriteException e) {
@@ -74,5 +71,5 @@ public class ListTables {
             System.exit(1);
         }
     }
-    //snippet-end:[timestream.java2.list_tables.main]
 }
+//snippet-end:[timestream.java2.list_tables.main]

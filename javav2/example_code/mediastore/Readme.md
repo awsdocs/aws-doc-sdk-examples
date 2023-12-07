@@ -4,7 +4,7 @@ This README discusses how to run and test the Java code examples for AWS Element
 
 ## Running the AWS Elemental MediaStore Java files
 
-The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+The credential provider used in all code examples is the default credentials provider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
 **IMPORTANT**
 

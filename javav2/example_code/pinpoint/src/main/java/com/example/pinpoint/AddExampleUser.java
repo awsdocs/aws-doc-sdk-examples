@@ -34,12 +34,14 @@ import java.util.Map;
 public class AddExampleUser {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <appId>\n\n" +
-            "Where:\n" +
-            "   appId - The ID of the application to delete.\n\n";
+            Usage:    <appId>
+
+            Where:
+               appId - The ID of the application to delete.
+
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -58,7 +60,6 @@ public class AddExampleUser {
 
     //snippet-start:[pinpoint.java2.update_endpoint.main]
     public static void updatePinpointEndpoint(PinpointClient pinpoint,String applicationId, String endPointId) {
-
         try{
             List<String> wangXiList = new ArrayList<>();
             wangXiList.add("cooking");

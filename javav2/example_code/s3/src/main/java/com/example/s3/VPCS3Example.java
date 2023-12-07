@@ -9,8 +9,8 @@
 
 package com.example.s3;
 
+// snippet-start:[s3.java2.vpc.example.main]
 // snippet-start:[s3.java2.vpc.example.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
@@ -31,15 +31,16 @@ import java.util.List;
  */
 
 public class VPCS3Example {
-
     public static void main(String[] args) throws URISyntaxException {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <bucketName> <vpcBucketURL> \n\n" +
-            "Where:\n" +
-            "    bucketName - The Amazon S3 bucket from which objects are read. \n\n" +
-            "    vpcBucketURL - The URL of the bucket located in your virtual private cloud (VPC) (for example,  https://bucket.vpxx-xxxxxc4d-5e6f.s3.us-east-1.vpce.amazonaws.com";
+            Usage:
+                <bucketName> <vpcBucketURL>\s
+
+            Where:
+                bucketName - The Amazon S3 bucket from which objects are read.\s
+                vpcBucketURL - The URL of the bucket located in your virtual private cloud (VPC) (for example,  https://bucket.vpxx-xxxxxc4d-5e6f.s3.us-east-1.vpce.amazonaws.com
+                """;
 
         if (args.length != 2) {
           System.out.println(usage);
@@ -49,11 +50,9 @@ public class VPCS3Example {
         String bucketName = args[0];
         String vpcBucketURL = args[1];
         URI myURI = new URI(vpcBucketURL);
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .endpointOverride(myURI)
-            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
@@ -61,9 +60,7 @@ public class VPCS3Example {
         s3.close();
     }
 
-    // snippet-start:[s3.java2.vpc.example.main]
     public static void listBucketObjects(S3Client s3, String bucketName ) {
-
         try {
             ListObjectsRequest listObjects = ListObjectsRequest.builder()
                 .bucket(bucketName)
@@ -87,6 +84,6 @@ public class VPCS3Example {
     private static long convertBToKb(Long val) {
         return val/1024;
     }
-    // snippet-end:[s3.java2.vpc.example.main]
-}
+ }
+// snippet-end:[s3.java2.vpc.example.main]
 

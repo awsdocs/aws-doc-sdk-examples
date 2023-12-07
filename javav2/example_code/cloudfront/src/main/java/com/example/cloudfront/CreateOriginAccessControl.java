@@ -22,7 +22,6 @@ import java.util.UUID;
 // snippet-start:[cloudfront.java2.createoriginaccesscontrol.main]
 public class CreateOriginAccessControl {
     private static final Logger logger = LoggerFactory.getLogger(CreateOriginAccessControl.class);
-
     public static String createOriginAccessControl(CloudFrontClient cloudFrontClient) {
         CreateOriginAccessControlResponse response = cloudFrontClient.createOriginAccessControl(b -> b
                 .originAccessControlConfig(o -> o

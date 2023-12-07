@@ -7,7 +7,6 @@
 */
 package com.example.iam;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.GetRoleRequest;
 import software.amazon.awssdk.services.iam.model.GetRoleResponse;
 import software.amazon.awssdk.services.iam.model.IamException;
@@ -24,11 +23,14 @@ import software.amazon.awssdk.services.iam.IamClient;
 public class GetRole {
 
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <policyArn> \n\n" +
-            "Where:\n" +
-            "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
+        final String usage = """
+
+            Usage:
+                <policyArn>\s
+
+            Where:
+                policyArn - A policy ARN that you can obtain from the AWS Management Console.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -39,7 +41,6 @@ public class GetRole {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getRoleInformation(iam, roleName);

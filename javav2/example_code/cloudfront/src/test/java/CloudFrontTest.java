@@ -80,7 +80,7 @@ public class CloudFrontTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void DescribeFunction() {
-        eTagVal = DescribeFunction.describeSinFunction(cloudFrontClient, functionName);
+        eTagVal = DescribeFunction.describeFunction(cloudFrontClient, functionName);
         assertFalse(eTagVal.isEmpty());
         System.out.println("Test 2 passed");
     }
@@ -97,7 +97,7 @@ public class CloudFrontTest {
     @Tag("IntegrationTest")
     @Order(4)
    public void GetDistrubutions() {
-        assertDoesNotThrow(() ->GetDistrubutions.getCFDistrubutions(cloudFrontClient));
+        assertDoesNotThrow(() ->com.example.cloudfront.GetDistributions.getCFDistributions(cloudFrontClient));
         System.out.println("Test 4 passed");
    }
 
