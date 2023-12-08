@@ -25,12 +25,14 @@ class BedrockAgentStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_create_agent(self, name, foundation_model, role_arn, instruction, error_code=None):
+    def stub_create_agent(
+        self, name, foundation_model, role_arn, instruction, error_code=None
+    ):
         expected_params = {
             "agentName": name,
             "foundationModel": foundation_model,
             "agentResourceRoleArn": role_arn,
-            "instruction": instruction
+            "instruction": instruction,
         }
         response = {
             "agent": {
@@ -44,7 +46,7 @@ class BedrockAgentStubber(ExampleStubber):
                 "agentVersion": fake.VERSION,
                 "agentResourceRoleArn": fake.ARN,
                 "createdAt": fake.TIMESTAMP,
-                "updatedAt": fake.TIMESTAMP
+                "updatedAt": fake.TIMESTAMP,
             }
         }
         self._stub_bifurcator(
@@ -52,14 +54,15 @@ class BedrockAgentStubber(ExampleStubber):
         )
 
     def stub_create_agent_action_group(
-            self, name, agent_id, agent_version, function_arn, api_schema, error_code=None
+        self, name, description, agent_id, agent_version, function_arn, api_schema, error_code=None
     ):
         expected_params = {
+            "actionGroupName": name,
+            "description": description,
             "agentId": agent_id,
             "agentVersion": agent_version,
-            "actionGroupName": name,
             "actionGroupExecutor": {"lambda": function_arn},
-            "apiSchema": {"payload": api_schema}
+            "apiSchema": {"payload": api_schema},
         }
         response = {
             "agentActionGroup": {
@@ -73,18 +76,15 @@ class BedrockAgentStubber(ExampleStubber):
             }
         }
         self._stub_bifurcator(
-            "create_agent_action_group", expected_params, response, error_code=error_code
+            "create_agent_action_group",
+            expected_params,
+            response,
+            error_code=error_code,
         )
 
     def stub_delete_agent(self, agent_id, error_code=None):
-        expected_params = {
-            "agentId": agent_id,
-            "skipResourceInUseCheck": False
-        }
-        response = {
-            "agentStatus": "DELETING",
-            "agentId": agent_id
-        }
+        expected_params = {"agentId": agent_id, "skipResourceInUseCheck": False}
+        response = {"agentStatus": "DELETING", "agentId": agent_id}
         self._stub_bifurcator(
             "delete_agent", expected_params, response, error_code=error_code
         )
@@ -109,7 +109,7 @@ class BedrockAgentStubber(ExampleStubber):
             "agentStatus": "PREPARED",
             "agentId": fake.AGENT_ID,
             "agentVersion": fake.VERSION,
-            "preparedAt": fake.TIMESTAMP
+            "preparedAt": fake.TIMESTAMP,
         }
         self._stub_bifurcator(
             "prepare_agent", expected_params, response, error_code=error_code

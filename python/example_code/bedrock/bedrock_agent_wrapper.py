@@ -27,6 +27,7 @@ class BedrockAgentWrapper:
                        for creating and managing Bedrock Agent resources.
         """
         self.client = client
+
     # snippet-end:[python.example_code.bedrock.BedrockAgentWrapper.decl]
 
     # snippet-start:[python.example_code.bedrock.CreateAgent]
@@ -48,17 +49,20 @@ class BedrockAgentWrapper:
                 agentName=agent_name,
                 foundationModel=foundation_model,
                 agentResourceRoleArn=role_arn,
-                instruction=instruction
+                instruction=instruction,
             )
         except ClientError as e:
             logger.error(f"Error: Couldn't create agent. Here's why: {e}")
             raise
         else:
             return response["agent"]
+
     # snippet-end:[python.example_code.bedrock.CreateAgent]
 
     # snippet-start:[python.example_code.bedrock.CreateAgentActionGroup]
-    def create_agent_action_group(self, name, description, agent_id, agent_version, function_arn, api_schema):
+    def create_agent_action_group(
+        self, name, description, agent_id, agent_version, function_arn, api_schema
+    ):
         """
         Creates an action group for an agent. An action group defines a set of actions that an
         agent should carry out for the customer.
@@ -68,7 +72,7 @@ class BedrockAgentWrapper:
         :param agent_id: The unique identifier of the agent for which to create the action group.
         :param agent_version: The version of the agent for which to create the action group.
         :param function_arn: The ARN of the Lambda function containing the business logic that is
-                            carried out upon invoking the action.
+                             carried out upon invoking the action.
         :param api_schema: Contains the OpenAPI schema for the action group.
         :return: Details about the action group that was created.
         """
@@ -79,7 +83,7 @@ class BedrockAgentWrapper:
                 agentId=agent_id,
                 agentVersion=agent_version,
                 actionGroupExecutor={"lambda": function_arn},
-                apiSchema={"payload": api_schema}
+                apiSchema={"payload": api_schema},
             )
             agent_action_group = response["agentActionGroup"]
         except ClientError as e:
@@ -87,6 +91,7 @@ class BedrockAgentWrapper:
             raise
         else:
             return agent_action_group
+
     # snippet-end:[python.example_code.bedrock.CreateAgentActionGroup]
 
     # snippet-start:[python.example_code.bedrock.DeleteAgent]
@@ -103,14 +108,14 @@ class BedrockAgentWrapper:
 
         try:
             response = self.client.delete_agent(
-                agentId=agent_id,
-                skipResourceInUseCheck=skip_resource_in_use_check
+                agentId=agent_id, skipResourceInUseCheck=skip_resource_in_use_check
             )
         except ClientError as e:
             logger.error(f"Error: Couldn't delete agent. Here's why: {e}")
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.bedrock.DeleteAgent]
 
     # snippet-start:[python.example_code.bedrock.GetAgent]
@@ -134,6 +139,7 @@ class BedrockAgentWrapper:
             raise
         else:
             return agent
+
     # snippet-end:[python.example_code.bedrock.GetAgent]
 
     # snippet-start:[python.example_code.bedrock.ListAgents]
@@ -152,6 +158,7 @@ class BedrockAgentWrapper:
             raise
         else:
             return agents
+
     # snippet-end:[python.example_code.bedrock.ListAgents]
 
     # snippet-start:[python.example_code.bedrock.PrepareAgent]
@@ -165,15 +172,14 @@ class BedrockAgentWrapper:
                  https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PrepareAgent.html
         """
         try:
-            prepared_agent_details = self.client.prepare_agent(
-                agentId=agent_id
-            )
+            prepared_agent_details = self.client.prepare_agent(agentId=agent_id)
         except ClientError as e:
             logger.error(f"Error: Couldn't prepare agent. Here's why: {e}")
             raise
         else:
             return prepared_agent_details
-    # snippet-end:[python.example_code.bedrock.DeleteAgent]
+
+    # snippet-end:[python.example_code.bedrock.PrepareAgent]
 
 
 # snippet-end:[python.example_code.bedrock.BedrockAgentWrapper.class]

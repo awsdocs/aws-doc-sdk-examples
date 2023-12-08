@@ -17,6 +17,7 @@ from bedrock_agent_wrapper import BedrockAgentWrapper
 def client():
     return boto3.client(service_name="bedrock-agent", region_name="us-east-1")
 
+
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_create_agent(client, make_stubber, error_code):
     stubber = make_stubber(client)
@@ -27,10 +28,14 @@ def test_create_agent(client, make_stubber, error_code):
     foundation_model = fake.FOUNDATION_MODEL_ID
     instruction = fake.INSTRUCTION
 
-    stubber.stub_create_agent(name, foundation_model, role_arn, instruction, error_code=error_code)
+    stubber.stub_create_agent(
+        name, foundation_model, role_arn, instruction, error_code=error_code
+    )
 
     if error_code is None:
-        created_agent = wrapper.create_agent(name, foundation_model, role_arn, instruction)
+        created_agent = wrapper.create_agent(
+            name, foundation_model, role_arn, instruction
+        )
         assert created_agent["agentName"] == name
         assert created_agent["foundationModel"] == foundation_model
         assert created_agent["instruction"] == instruction
@@ -39,32 +44,37 @@ def test_create_agent(client, make_stubber, error_code):
             wrapper.create_agent(name, foundation_model, role_arn, instruction)
             assert exc_info.value.response["Error"]["Code"] == error_code
 
+
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_create_agent_action_group(client, make_stubber, error_code):
     stubber = make_stubber(client)
     wrapper = BedrockAgentWrapper(client)
 
+    name = fake.ACTION_GROUP_NAME
+    description = fake.DESCRIPTION
     agent_id = fake.AGENT_ID
     agent_version = fake.VERSION
-    name = fake.ACTION_GROUP_NAME
     function_arn = fake.ARN
     api_schema = fake.API_SCHEMA
 
     stubber.stub_create_agent_action_group(
-        name, agent_id, agent_version, function_arn, api_schema, error_code=error_code
+        name, description, agent_id, agent_version, function_arn, api_schema, error_code=error_code
     )
 
     if error_code is None:
         created_action_group = wrapper.create_agent_action_group(
-            name, agent_id, agent_version, function_arn, api_schema
+            name, description, agent_id, agent_version, function_arn, api_schema
         )
         assert created_action_group["agentId"] == agent_id
         assert created_action_group["agentVersion"] == agent_version
         assert created_action_group["actionGroupName"] == name
     else:
         with pytest.raises(ClientError) as exc_info:
-            wrapper.create_agent_action_group(name, agent_id, agent_version, function_arn, api_schema)
+            wrapper.create_agent_action_group(
+                name, description, agent_id, agent_version, function_arn, api_schema
+            )
             assert exc_info.value.response["Error"]["Code"] == error_code
+
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_delete_agent(client, make_stubber, error_code):
@@ -82,6 +92,7 @@ def test_delete_agent(client, make_stubber, error_code):
             wrapper.delete_agent(agent_id)
             assert exc_info.value.response["Error"]["Code"] == error_code
 
+
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_get_agent(client, make_stubber, error_code):
     stubber = make_stubber(client)
@@ -98,7 +109,7 @@ def test_get_agent(client, make_stubber, error_code):
         "agentVersion": fake.VERSION,
         "agentResourceRoleArn": fake.ARN,
         "createdAt": fake.TIMESTAMP,
-        "updatedAt": fake.TIMESTAMP
+        "updatedAt": fake.TIMESTAMP,
     }
 
     stubber.stub_get_agent(agent_id, agent, error_code=error_code)
@@ -110,6 +121,7 @@ def test_get_agent(client, make_stubber, error_code):
         with pytest.raises(ClientError) as exc_info:
             wrapper.get_agent(agent_id)
             assert exc_info.value.response["Error"]["Code"] == error_code
+
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_list_agents(client, make_stubber, error_code):
@@ -135,6 +147,7 @@ def test_list_agents(client, make_stubber, error_code):
         with pytest.raises(ClientError) as exc_info:
             wrapper.list_agents()
         assert exc_info.value.response["Error"]["Code"] == error_code
+
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_prepare_agent(client, make_stubber, error_code):
