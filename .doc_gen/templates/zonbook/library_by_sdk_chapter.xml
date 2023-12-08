@@ -1,5 +1,5 @@
 {{- template "prologue"}}
-{{- $omitted_sdks := makeSlice "java_1"}}
+{{- $omitted_sdks := makeSlice "java_1" "cli_2"}}
 {{- $chapter_id := "code_example_library_by_sdk"}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
