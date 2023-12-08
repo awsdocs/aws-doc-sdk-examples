@@ -15,6 +15,7 @@ This scenario requires the following resources:
 * A xxx.
 """
 
+import io
 import json
 import logging
 import random
@@ -22,21 +23,21 @@ import re
 import string
 import sys
 import time
+import zipfile
 
 import boto3
 from botocore.exceptions import ClientError
 
 from bedrock_agent_wrapper import BedrockAgentWrapper
+from scenario_resources.lambda_function import LambdaFunction
 
 # Add relative path to include demo_tools in this code example without needing to set up.
-sys.path.append("..")
 sys.path.append("../..")
 import demo_tools.question as q
 import demo_tools.retries as r
 
-logger = logging.getLogger(__name__)
 
-AGENT_ROLE_POLICY_NAME = "agent_role_policy"
+logger = logging.getLogger(__name__)
 
 api_schema = """
     openapi: 3.0.0
@@ -66,13 +67,16 @@ api_schema = """
                         description: The current time
     """
 
+
 class BedrockAgentScenarioWrapper:
     created_resources = {}
 
-    def __init__(self, bedrock_agent_client, iam_client):
+    def __init__(self, bedrock_agent_client, iam, lambda_function, postfix):
         self.bedrock_agent_client = bedrock_agent_client
+        self.iam = iam
+        self.lambda_function = lambda_function
         self.bedrock_wrapper = BedrockAgentWrapper(bedrock_agent_client)
-        self.iam_client = iam_client
+        self.postfix = postfix
         logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     def run(self):
@@ -95,8 +99,8 @@ class BedrockAgentScenarioWrapper:
         # Create the agent
         print("Creating the agent...")
         instruction = """
-            You are a friendly chat bot. You have access to a function, called 
-            'current_date_and_time' that returns information about the current 
+            You are a friendly chat bot. You have access to a function, called
+            'current_date_and_time' that returns information about the current
             date and time. When responding with date or time, please always add
             that the timezone is EST.
             """
@@ -110,7 +114,7 @@ class BedrockAgentScenarioWrapper:
         agent_id = agent["agentId"]
         agent_status = agent["agentStatus"]
         while agent_status != "NOT_PREPARED":
-            r.wait(2)
+            r.wait(5)
             agent_status = self.bedrock_wrapper.get_agent(agent_id)["agentStatus"]
 
         self.created_resources["agent"] = agent
@@ -125,12 +129,15 @@ class BedrockAgentScenarioWrapper:
 
         agent_version = prepared_agent_data["agentVersion"]
 
+        # Deploy the Lambda function
+        function_arn = self.lambda_function.create()
+        self.lambda_function.add_permission(agent["agentArn"])
+
         # Create an action group
         print("Creating an action group for the agent...")
         action_group_name = "current_date_and_time"
         description = "Gets the current date and time."
-        function_arn = "arn:aws:lambda:us-east-1:424086380854:function:DateTime"
-        action_group = self.bedrock_wrapper.create_agent_action_group(
+        self.bedrock_wrapper.create_agent_action_group(
             action_group_name,
             description,
             agent_id,
@@ -139,12 +146,12 @@ class BedrockAgentScenarioWrapper:
             api_schema
         )
 
-        # prepare_agent needs to be called again to activate the action group
+        # Call prepare_agent() again to activate the action group
         self.bedrock_wrapper.prepare_agent(agent_id)
 
         print("=" * 88)
         print("Thanks for running the demo!\n")
-        delete = q.ask("Do you want to delete the agent? [y/N] ", q.is_yesno)
+        delete = q.ask("Do you want to delete the created resources? [y/N] ", q.is_yesno)
 
         if delete:
             self.delete_resources()
@@ -173,7 +180,7 @@ class BedrockAgentScenarioWrapper:
             print(f"Deleting Bedrock agent '{agent["agentName"]}'...")
             agent_status = self.bedrock_wrapper.delete_agent(agent["agentId"])["agentStatus"]
             while agent_status == "DELETING":
-                r.wait(2)
+                r.wait(5)
                 try:
                     agent_status = self.bedrock_wrapper.get_agent(agent["agentId"], log_error=False)["agentStatus"]
                 except ClientError as err:
@@ -183,12 +190,13 @@ class BedrockAgentScenarioWrapper:
         if "agent_role" in self.created_resources:
             agent_role = self.created_resources["agent_role"]
             print(f"Deleting role '{agent_role.role_name}'...")
-            agent_role.Policy(AGENT_ROLE_POLICY_NAME).delete()
+            agent_role.Policy("agent_role_policy").delete()
             agent_role.delete()
 
+        self.lambda_function.delete_created_resources()
+
     def create_role_for_agent(self):
-        postfix = "".join(random.choice(string.ascii_uppercase + "0123456789") for _ in range(8))
-        name = f"AmazonBedrockExecutionRoleForAgents_{postfix}"
+        name = f"AmazonBedrockExecutionRoleForAgents_{self.postfix}"
         trust_policy = json.dumps({
             "Version": "2012-10-17",
             "Statement": [
@@ -202,11 +210,11 @@ class BedrockAgentScenarioWrapper:
             ]
         })
 
-        execution_role = self.iam_client.create_role(
+        execution_role = self.iam.create_role(
             RoleName=name,
             AssumeRolePolicyDocument=trust_policy
         )
-        execution_role.Policy(AGENT_ROLE_POLICY_NAME).put(
+        execution_role.Policy("agent_role_policy").put(
             PolicyDocument=json.dumps({
                 "Version": "2012-10-17",
                 "Statement": [
@@ -231,9 +239,15 @@ class BedrockAgentScenarioWrapper:
 
 
 def main():
-    bedrock_agent_client = boto3.client(service_name="bedrock-agent", region_name="us-east-1")
-    iam_client = boto3.resource("iam")
-    scenario = BedrockAgentScenarioWrapper(bedrock_agent_client, iam_client)
+    region = "us-east-1"
+
+    bedrock_agent_client = boto3.client(service_name="bedrock-agent", region_name=region)
+    lambda_client = boto3.client(service_name="lambda", region_name=region)
+    iam = boto3.resource("iam")
+
+    postfix = "".join(random.choice(string.ascii_lowercase + "0123456789") for _ in range(8))
+    lambda_function = LambdaFunction(lambda_client, iam, postfix)
+    scenario = BedrockAgentScenarioWrapper(bedrock_agent_client, iam, lambda_function, postfix)
     try:
         scenario.run()
     except Exception:
