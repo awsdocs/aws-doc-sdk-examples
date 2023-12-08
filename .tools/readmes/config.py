@@ -103,7 +103,7 @@ language = {
                 "ses": "dotnetv3/SES",
                 "sns": "dotnetv3/SNS",
                 "sqs": "dotnetv3/SQS",
-                "step-functions": "dotnetv3/StepFunctions",
+                "sfn": "dotnetv3/StepFunctions",
                 "sts": "dotnetv3/STS",
                 "support": "dotnetv3/Support",
                 "transcribe": "dotnetv3/Transcribe",

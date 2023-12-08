@@ -188,8 +188,7 @@ public class StepFunctionsWrapper
 
         do
         {
-            response = await _amazonStepFunctions.ListExecutionsAsync(new ListExecutionsRequest
-            { StateMachineArn = stateMachineArn });
+            response = await _amazonStepFunctions.ListExecutionsAsync(request);
             executions.AddRange(response.Executions);
             if (response.NextToken is not null)
             {
