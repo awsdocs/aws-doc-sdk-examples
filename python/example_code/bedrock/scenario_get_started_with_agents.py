@@ -38,8 +38,6 @@ logger = logging.getLogger(__name__)
 
 AGENT_ROLE_POLICY_NAME = "agent_role_policy"
 
-
-
 api_schema = """
     openapi: 3.0.0
     info: 
@@ -47,19 +45,25 @@ api_schema = """
       version: 1.0.0 
       description: API to get the current date and time.
     paths: 
-      /datetime: 
+      /get-current-date-and-time: 
         get: 
-          summary: Gets current date and time
-          description: Gets current date and time. 
-          operationId: getDateTime 
+          summary: Gets the current date and time. 
+          description: Gets the current date and time.
+          operationId: getDateAndTime
           responses: 
             '200': 
-              description: Gets current date and time. 
+              description: Gets the current date and time. 
               content: 
                 'application/json': 
                   schema: 
-                    type: string 
-                    description: The date and time as a timestamp string
+                    type: object 
+                    properties:
+                      date:
+                        type: string
+                        description: The current date
+                      time:
+                        type: string
+                        description: The current time
     """
 
 class BedrockAgentScenarioWrapper:
@@ -91,8 +95,10 @@ class BedrockAgentScenarioWrapper:
         # Create the agent
         print("Creating the agent...")
         instruction = """
-            You are a friendly chatbot. When asked for the date and time, 
-            your answer in a natural way, including the full name of the weekday.
+            You are a friendly chat bot. You have access to a function, called 
+            'current_date_and_time' that returns information about the current 
+            date and time. When responding with date or time, please always add
+            that the timezone is EST.
             """
         agent = self.bedrock_wrapper.create_agent(
             name,
@@ -116,21 +122,25 @@ class BedrockAgentScenarioWrapper:
         while agent_status != "PREPARED":
             r.wait(2)
             agent_status = self.bedrock_wrapper.get_agent(agent_id)["agentStatus"]
+
         agent_version = prepared_agent_data["agentVersion"]
 
         # Create an action group
         print("Creating an action group for the agent...")
-        action_group_name = "get_date_and_time"
-        function_arn = "arn:aws:lambda:us-east-1:424086380854:function:BedrockAgentsDemo_AccessYouTubeAPI"
+        action_group_name = "current_date_and_time"
+        description = "Gets the current date and time."
+        function_arn = "arn:aws:lambda:us-east-1:424086380854:function:DateTime"
         action_group = self.bedrock_wrapper.create_agent_action_group(
             action_group_name,
+            description,
             agent_id,
             agent_version,
             function_arn,
             api_schema
         )
 
-        print(action_group)
+        # prepare_agent needs to be called again to activate the action group
+        self.bedrock_wrapper.prepare_agent(agent_id)
 
         print("=" * 88)
         print("Thanks for running the demo!\n")

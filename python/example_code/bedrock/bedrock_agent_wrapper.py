@@ -58,24 +58,26 @@ class BedrockAgentWrapper:
     # snippet-end:[python.example_code.bedrock.CreateAgent]
 
     # snippet-start:[python.example_code.bedrock.CreateAgentActionGroup]
-    def create_agent_action_group(self, name, agent_id, agent_version, function_arn, api_schema):
+    def create_agent_action_group(self, name, description, agent_id, agent_version, function_arn, api_schema):
         """
         Creates an action group for an agent. An action group defines a set of actions that an
         agent should carry out for the customer.
 
         :param name: The name to give the action group.
+        :param description: The description of the action group.
         :param agent_id: The unique identifier of the agent for which to create the action group.
         :param agent_version: The version of the agent for which to create the action group.
         :param function_arn: The ARN of the Lambda function containing the business logic that is
                             carried out upon invoking the action.
-        :param api_schema:
+        :param api_schema: Contains the OpenAPI schema for the action group.
         :return: Details about the action group that was created.
         """
         try:
             response = self.client.create_agent_action_group(
+                actionGroupName=name,
+                description=description,
                 agentId=agent_id,
                 agentVersion=agent_version,
-                actionGroupName=name,
                 actionGroupExecutor={"lambda": function_arn},
                 apiSchema={"payload": api_schema}
             )
@@ -117,6 +119,9 @@ class BedrockAgentWrapper:
         Gets information about an agent.
 
         :param agent_id: The unique identifier of the agent.
+        :param log_error: Whether to log any errors that occur when getting the agent.
+                          If True, errors will be logged to the logger. If False, errors
+                          will still be raised, but not logged.
         :return: The information about the requested agent.
         """
 
