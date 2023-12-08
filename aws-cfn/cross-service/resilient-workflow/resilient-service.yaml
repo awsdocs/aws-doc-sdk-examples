@@ -1,13 +1,22 @@
 Parameters:
   VPCId:
     Type: AWS::EC2::VPC::Id
-    # aws ec2 describe-vpcs --filters Name=is-default,Values=true --query 'Vpcs[0].VpcId'
-  AZs:
-    Type: List<AWS::EC2::AvailabilityZone::Name>
-    # aws ec2 describe-subnets --filters Name=vpc-id,Values="vpc-0049e29b67c093b6d" --query 'Subnets[].AvailabilityZone'
+    # aws ec2 describe-vpcs --filters Name=is-default,Values=true --query 'Vpcs[0].VpcId' # "vpc-1234567890abcdef"
   Subnets:
     Type: List<AWS::EC2::Subnet::Id>
-    # aws ec2 describe-subnets --filters Name=vpc-id,Values="vpc-0049e29b67c093b6d" --query 'Subnets[].SubnetId'
+    # aws ec2 describe-subnets --filters Name=vpc-id,Values="vpc-01234567890abcdef" --query 'Subnets[].SubnetId' # "subnet-01234567890abcdef", "subnet-abcdef0123456789"
+  InstanceType:
+    Type: String
+    Default: t3.medium
+  SshCidr:
+    Type: String
+    Default: "0.0.0.0/0"
+  SSMFailure:
+    Type: String
+    Default: "empty" # 'static' for static response, any other string for empty response
+  SSMHealthCheck:
+    Type: String
+    Default: "shallow" # 'deep' to perform health checks on downstream resources
 
 Resources:
   # 1. A DynamoDB table that acts as a service that recommends books, movies, and songs.
@@ -98,10 +107,10 @@ Resources:
         - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 
   # 1c. A CustomResource to trigger the Lambda
-  DocExampleRecommendationServiceInitializer:
-    Type: Custom::DocExampleRecommendationServiceInitializer
-    Properties:
-      ServiceToken: !GetAtt DocExampleRecommendationServiceInitializerFn.Arn
+  # DocExampleRecommendationServiceInitializer:
+  #   Type: Custom::DocExampleRecommendationServiceInitializer
+  #   Properties:
+  #     ServiceToken: !GetAtt DocExampleRecommendationServiceInitializerFn.Arn
 
   # 2. An instance profile and an associated role and policy that grants permission to instances to access DynamoDB and Systems Manager.
   DocExampleRecommendationServiceInstanceProfileRole:
@@ -116,8 +125,6 @@ Resources:
             Principal:
               Service: ec2.amazonaws.com
             Action: "sts:AssumeRole"
-        # ManagedPolicies:
-        #   - "arn:aws:iam::aws:policy/{additional managed policies}"
 
   DocExampleRecommendationServiceInstanceProfilePolicy:
     Type: AWS::IAM::Policy
@@ -138,6 +145,11 @@ Resources:
               - "dynamodb:Scan"
             Resource:
               - !GetAtt DocExampleRecommendationServiceTable.Arn
+          - Effect: Allow
+            Action:
+              - "ssm:GetParameters"
+            Resource:
+              - "arn:aws:ssm:*"
 
   DocExampleRecommendationServiceInstanceProfile:
     Type: AWS::IAM::InstanceProfile
@@ -152,34 +164,61 @@ Resources:
     Properties:
       KeyName: doc-example-resilience-key
 
+  # DocExampleRecommendationServiceDebugSecurityGroup:
+  #   Type: AWS::EC2::SecurityGroup
+  #   Properties:
+  #     GroupDescription: SSH Ingress
+  #     VpcId: !Ref VPCId
+  #     # Allow SSH Traffic
+  #     SecurityGroupIngress:
+  #       - CidrIp: !Ref SshCidr
+  #         IpProtocol: tcp
+  #         FromPort: 22
+  #         ToPort: 22
+
+  # DocExampleRecommendationServiceDebugSecurityGroupSelfIngress:
+  #   # Add self traffic for ingress, without creating a circular dependency
+  #   Type: AWS::EC2::SecurityGroupIngress
+  #   # DependsOn: DocExampleRecommendationServiceDebugSecurityGroup
+  #   Properties:
+  #     IpProtocol: -1
+  #     GroupName: SelfIngress
+  #     SourceSecurityGroupId: !Ref DocExampleRecommendationServiceDebugSecurityGroup
+
   DocExampleRecommendationServiceLaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
     Properties:
       LaunchTemplateName: doc-example-resilience-template
       LaunchTemplateData:
-        InstanceType: t3.micro
+        InstanceType: !Ref InstanceType
         ImageId: resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
         IamInstanceProfile:
           Name: !Ref DocExampleRecommendationServiceInstanceProfile
         KeyName: !Ref DocExampleRecommendationServiceKeyPair
+        # SecurityGroupIds:
+        #   - !Ref DocExampleRecommendationServiceDebugSecurityGroup
+        MetadataOptions:
+          HttpTokens: required
         UserData: !Base64 |
           #!/bin/bash
           yum -y update
           sleep 30 # prevent "Error: Rpmdb changed underneath us"
           yum install python-pip -y
           python3 -m pip install boto3 ec2-metadata
-          wget -O server.py https://raw.githubusercontent.com/Laren-AWS/aws-doc-sdk-examples/resilient-architecture-python/workflows/resilient_service/resources/server.py
-          python3 server.py 80 us-west-2
+          wget -O server.py https://raw.githubusercontent.com/awsdocs/aws-doc-sdk-examples/main/workflows/resilient_service/resources/server.py
+          python3 server.py 80
 
   # 4. An Auto Scaling group that starts EC2 instances, one in each of three Availability Zones.
   DocExampleRecommendationServiceAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
       AutoScalingGroupName: doc-example-resilience-group
-      AvailabilityZones: !Ref AZs
+      AvailabilityZones: { "Fn::GetAZs": { "Ref": "AWS::Region" } }
       LaunchTemplate:
-        Version: $Default
-        LaunchTemplateName: !Ref DocExampleRecommendationServiceLaunchTemplate
+        LaunchTemplateId: !Ref DocExampleRecommendationServiceLaunchTemplate
+        Version: !GetAtt DocExampleRecommendationServiceLaunchTemplate.LatestVersionNumber
+      TargetGroupARNs:
+        - !Ref DocExampleRecommendationServiceTargetGroup
       MinSize: 3
       MaxSize: 3
 
@@ -195,7 +234,6 @@ Resources:
       HealthCheckTimeoutSeconds: 5
       HealthyThresholdCount: 2
       UnhealthyThresholdCount: 2
-      # Not sure this works, it came from ChatGPT and I can't verify from docs
       VpcId: !Ref VPCId
 
   # 5. An Application Load Balancer that handles HTTP requests to a single endpoint.
@@ -210,8 +248,40 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       LoadBalancerArn: !Ref DocExampleRecommendationServiceLoadBalancer
-      Protocol: !GetAtt DocExampleRecommendationServiceTargetGroup.Protocol
-      Port: !GetAtt DocExampleRecommendationServiceTargetGroup.Port
+      Protocol: HTTP
+      Port: 80
       DefaultActions:
         - Type: forward
-          TargetGroupArn: !GetAtt DocExampleRecommendationServiceTargetGroup.Arn
+          TargetGroupArn: !Ref DocExampleRecommendationServiceTargetGroup
+
+  DocExampleRecommendationServiceParameterTable:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: doc-example-resilient-architecture-table
+      Type: String
+      Value: !Ref DocExampleRecommendationServiceTable
+
+  # aws ssm put-parameter --name doc-example-resilient-architecture-health-check --value static --overwrite
+  DocExampleRecommendationServiceParameterFailure:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: doc-example-resilient-architecture-failure-response
+      Type: String
+      Value: !Ref SSMFailure
+
+  # aws ssm put-parameter --name doc-example-resilient-architecture-health-check --value deep --overwrite
+  DocExampleRecommendationServiceParameterHealthCheck:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: doc-example-resilient-architecture-health-check
+      Type: String
+      Value: !Ref SSMHealthCheck
+
+Outputs:
+  LB:
+    # aws cloudformation describe-stacks --stack-name resilience-demo --query 'Stacks[0].Outputs[?OutputKey==`LB`].OutputValue | [0]' # "doc-example-resilience-lb-0123456789.us-east-1.elb.amazonaws.com"
+    Value: !GetAtt DocExampleRecommendationServiceLoadBalancer.DNSName
+  Key:
+    # aws cloudformation describe-stacks --stack-name resilience-demo --query 'Stacks[0].Outputs[?OutputKey==`Key`].OutputValue | [0]' # "key-0123456789"
+    # aws ssm get-parameter --name /ec2/keypair/key-0123456789 --with-decryption --query Parameter.Value --output text > doc-example-resilience-key.pem
+    Value: !GetAtt DocExampleRecommendationServiceKeyPair.KeyPairId

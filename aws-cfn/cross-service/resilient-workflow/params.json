@@ -4,10 +4,6 @@
     "ParameterValue": "vpc-0049e29b67c093b6d"
   },
   {
-    "ParameterKey": "AZs",
-    "ParameterValue": "us-east-1f,us-east-1e"
-  },
-  {
     "ParameterKey": "Subnets",
     "ParameterValue": "subnet-077914596f21e7bc4,subnet-0dd275ee2c5dfb973"
   }
