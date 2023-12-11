@@ -70,7 +70,7 @@ class BedrockAgentScenarioWrapper:
         # Query input from user
         print("Let's start with creating an agent:")
         print("-" * 40)
-        name, model_id = self.request_name_and_model_from_user()
+        name, model_id = self._request_name_and_model_from_user()
         print("-" * 40)
 
         # Create an execution role for the agent
@@ -105,84 +105,74 @@ class BedrockAgentScenarioWrapper:
         print("Thanks for running the demo!\n")
 
         if q.ask("Do you want to delete the created resources? [y/N] ", q.is_yesno):
-            self.delete_resources()
-
-        print("=" * 88)
-        print("All demo resources have been deleted. Thanks again for running the demo!")
+            self._delete_resources()
+            print("=" * 88)
+            print("All demo resources have been deleted. Thanks again for running the demo!")
+        else:
+            self._list_resources()
+            print("=" * 88)
+            print("Thanks again for running the demo!")
 
     # snippet-end:[python.example_code.bedrock.Scenario_GettingStartedBedrockAgents]
 
-    def request_name_and_model_from_user(self):
-        existing_agent_names = [
-            agent["agentName"] for agent in self.bedrock_wrapper.list_agents()
-        ]
-        name = ""
-        valid_name = False
-        while not valid_name:
-            name = q.ask("Enter an agent name: ", self.is_valid_agent_name)
-            if name.lower() in [n.lower() for n in existing_agent_names]:
-                valid_name = False
-                print(
-                    f"Agent {name} conflicts with an existing agent. Please use a different name."
-                )
-            else:
-                valid_name = True
+    def _request_name_and_model_from_user(self):
+        existing_agent_names = [agent["agentName"] for agent in self.bedrock_wrapper.list_agents()]
 
-        model_ids = ["anthropic.claude-instant-v1", "anthropic.claude-v2"]
-        model_id = model_ids[
-            q.choose("Which foundation model would you like to use? ", model_ids)
-        ]
+        while True:
+            name = q.ask("Enter an agent name: ", self.is_valid_agent_name)
+            if name.lower() not in [n.lower() for n in existing_agent_names]:
+                break
+            print(f"Agent {name} conflicts with an existing agent. Please use a different name.")
+
+        models = ["anthropic.claude-instant-v1", "anthropic.claude-v2"]
+        model_id = models[q.choose("Which foundation model would you like to use? ", models)]
 
         return name, model_id
 
     def _create_agent_role(self, model_id):
-        print("Creating an an execution role for the agent...")
-        trust_policy = {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Effect": "Allow",
-                    "Principal": {"Service": "bedrock.amazonaws.com"},
-                    "Action": "sts:AssumeRole",
-                }
-            ],
-        }
-
         role_name = f"AmazonBedrockExecutionRoleForAgents_{self.postfix}"
         model_arn = f"arn:aws:bedrock:{REGION}::foundation-model/{model_id}*"
 
+        print("Creating an an execution role for the agent...")
+
         try:
             role = self.iam_resource.create_role(
-                RoleName=role_name, AssumeRolePolicyDocument=json.dumps(trust_policy)
+                RoleName=role_name, AssumeRolePolicyDocument=json.dumps({
+                    "Version": "2012-10-17",
+                    "Statement": [{
+                        "Effect": "Allow",
+                        "Principal": {"Service": "bedrock.amazonaws.com"},
+                        "Action": "sts:AssumeRole",
+                    }],
+                })
             )
 
             role.Policy(ROLE_POLICY_NAME).put(
                 PolicyDocument=json.dumps(
                     {
                         "Version": "2012-10-17",
-                        "Statement": [
-                            {
-                                "Effect": "Allow",
-                                "Action": "bedrock:InvokeModel",
-                                "Resource": model_arn,
-                            }
-                        ],
+                        "Statement": [{
+                            "Effect": "Allow",
+                            "Action": "bedrock:InvokeModel",
+                            "Resource": model_arn,
+                        }],
                     }
                 )
             )
         except ClientError as e:
             logger.error(f"Couldn't create role {role_name}. Here's why: {e}")
             raise
-        else:
-            return role
+
+        return role
 
     def _create_agent(self, name, model_id):
+
         print("Creating the agent...")
+
         instruction = """
-            You are a friendly chat bot. You have access to a function called
-            that returns information about the current date and time. When
-            responding with date or time, please make sure to add the timezone
-            you're in, which is UTC.
+            You are a friendly chat bot. You have access to a function called that returns
+            information about the current date and time. When responding with date or time,
+            please make sure to add the timezone UTC.
             """
         agent = self.bedrock_wrapper.create_agent(
             agent_name=name,
@@ -191,26 +181,30 @@ class BedrockAgentScenarioWrapper:
             role_arn=self.agent_role.arn,
         )
         self._wait_for_agent_status(agent["agentId"], "NOT_PREPARED")
+
         return agent
 
     def _prepare_agent(self):
+
         print("Preparing the agent...")
+
         agent_id = self.agent["agentId"]
         version = self.bedrock_wrapper.prepare_agent(agent_id)["agentVersion"]
-
-        # Allow for the preparation process to finish
         self._wait_for_agent_status(agent_id, "PREPARED")
+
         return version
 
     def _create_lambda_function(self):
-        # Create an execution role for the Lambda function
-        self.lambda_role = self._create_lambda_role()
 
         print("Creating the Lambda function...")
+
         function_name = f"AmazonBedrockExampleFunction_{self.postfix}"
-        deployment_package = self._create_deployment_package(function_name)
+
+        self.lambda_role = self._create_lambda_role()
 
         try:
+            deployment_package = self._create_deployment_package(function_name)
+
             lambda_function = self.lambda_client.create_function(
                 FunctionName=function_name,
                 Description="Lambda function for Amazon Bedrock example",
@@ -220,46 +214,45 @@ class BedrockAgentScenarioWrapper:
                 Code={"ZipFile": deployment_package},
                 Publish=True,
             )
+
             waiter = self.lambda_client.get_waiter("function_active_v2")
             waiter.wait(FunctionName=function_name)
+
         except ClientError as e:
-            logger.error(
-                f"Couldn't create Lambda function {function_name}. Here's why: {e}"
-            )
+            logger.error(f"Couldn't create Lambda function {function_name}. Here's why: {e}")
             raise
-        else:
-            return lambda_function
+
+        return lambda_function
 
     def _create_lambda_role(self):
+
         print("Creating an execution role for the Lambda function...")
+
         role_name = f"AmazonBedrockExecutionRoleForLambda_{self.postfix}"
-        trust_policy = {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Effect": "Allow",
-                    "Principal": {"Service": "lambda.amazonaws.com"},
-                    "Action": "sts:AssumeRole",
-                }
-            ],
-        }
 
         try:
             role = self.iam_resource.create_role(
-                RoleName=role_name, AssumeRolePolicyDocument=json.dumps(trust_policy)
+                RoleName=role_name, AssumeRolePolicyDocument=json.dumps({
+                    "Version": "2012-10-17",
+                    "Statement": [{
+                        "Effect": "Allow",
+                        "Principal": {"Service": "lambda.amazonaws.com"},
+                        "Action": "sts:AssumeRole",
+                    }],
+                })
             )
             logger.info(f"Created role {role_name}")
         except ClientError as e:
             logger.error(f"Couldn't create role {role_name}. Here's why: {e}")
             raise
-        else:
-            print("Waiting for the execution role to be fully propagated...")
-            wait(10)
-            return role
+
+        print("Waiting for the execution role to be fully propagated...")
+        wait(10)
+
+        return role
 
     def _allow_agent_to_invoke_function(self, lambda_function):
         policy = self.iam_resource.RolePolicy(self.agent_role.role_name, ROLE_POLICY_NAME)
-
         doc = policy.policy_document
         doc["Statement"].append({
             "Effect": "Allow",
@@ -280,13 +273,13 @@ class BedrockAgentScenarioWrapper:
                 SourceArn=agent["agentArn"],
             )
         except ClientError as e:
-            logger.error(
-                f"Couldn't grant Bedrock permission to invoke the Lambda function. Here's why: {e}"
-            )
+            logger.error(f"Couldn't grant Bedrock permission to invoke the Lambda function. Here's why: {e}")
             raise
 
     def _create_agent_action_group(self):
+
         print("Creating an action group for the agent...")
+
         try:
             with open("./scenario_resources/api_schema.yaml") as file:
                 self.bedrock_wrapper.create_agent_action_group(
@@ -300,17 +293,19 @@ class BedrockAgentScenarioWrapper:
         except ClientError as e:
             logger.error(f"Couldn't create agent action group. Here's why: {e}")
             raise
-        else:
-            return self.lambda_function
 
     def _create_agent_alias(self):
+
         print("Creating an agent alias...")
+
         agent_alias_name = "test_agent_alias"
         agent_alias = self.bedrock_wrapper.create_agent_alias(
             agent_alias_name,
             self.agent["agentId"]
         )
+
         self._wait_for_agent_status(self.agent["agentId"], "PREPARED")
+
         return agent_alias
 
     def _wait_for_agent_status(self, agent_id, status):
@@ -318,16 +313,23 @@ class BedrockAgentScenarioWrapper:
             wait(2)
 
     def _chat_with_agent(self):
+
         print("-" * 88)
         print("The agent is ready to chat.")
         print("Try asking for the date or time. Type 'exit' to quit.")
-        prompt = q.ask("Prompt: ", q.non_empty)
-        while prompt != "exit":
-            response = asyncio.run(self.invoke_agent(prompt))
-            print(f"Agent: {response}")
+
+        while True:
+
             prompt = q.ask("Prompt: ", q.non_empty)
 
-    async def invoke_agent(self, prompt):
+            if prompt == "exit":
+                break
+
+            response = asyncio.run(self._invoke_agent(prompt))
+
+            print(f"Agent: {response}")
+
+    async def _invoke_agent(self, prompt):
         client = boto3.client(
             service_name="bedrock-agent-runtime",
             region_name="us-east-1"
@@ -344,12 +346,11 @@ class BedrockAgentScenarioWrapper:
 
         for event in response.get("completion"):
             chunk = event["chunk"]
-            chunk_string = chunk["bytes"].decode()
-            completion += chunk_string
+            completion += chunk["bytes"].decode()
 
         return completion
 
-    def delete_resources(self):
+    def _delete_resources(self):
         if self.agent:
             agent_id = self.agent["agentId"]
 
@@ -388,6 +389,19 @@ class BedrockAgentScenarioWrapper:
             print(f"Deleting function '{name}'...")
             self.lambda_client.delete_function(FunctionName=name)
 
+    def _list_resources(self):
+        print("-" * 40)
+        print(f"Here is the list of created resources in '{REGION}'.")
+        print("Make sure you delete them once you're done to avoid unnecessary costs.")
+        if self.agent:
+            print(f"Bedrock Agent:   {self.agent["agentName"]}")
+        if self.lambda_function:
+            print(f"Lambda function: {self.lambda_function["FunctionName"]}")
+        if self.agent_role:
+            print(f"IAM role:        {self.agent_role.role_name}")
+        if self.lambda_role:
+            print(f"IAM role:        {self.lambda_role.role_name}")
+
     @staticmethod
     def is_valid_agent_name(answer):
         valid_regex = r"^[a-zA-Z0-9_-]{1,100}$"
@@ -412,17 +426,13 @@ class BedrockAgentScenarioWrapper:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    bedrock_client = boto3.client(service_name="bedrock-agent", region_name=REGION)
-    lambda_client = boto3.client(service_name="lambda", region_name=REGION)
-    iam_resource = boto3.resource("iam")
-
     postfix = "".join(
         random.choice(string.ascii_lowercase + "0123456789") for _ in range(8)
     )
     scenario = BedrockAgentScenarioWrapper(
-        bedrock_agent_client=bedrock_client,
-        lambda_client=lambda_client,
-        iam_resource=iam_resource,
+        bedrock_agent_client=boto3.client(service_name="bedrock-agent", region_name=REGION),
+        lambda_client=boto3.client(service_name="lambda", region_name=REGION),
+        iam_resource=boto3.resource("iam"),
         postfix=postfix,
     )
     try:
