@@ -94,6 +94,22 @@ class BedrockAgentWrapper:
 
     # snippet-end:[python.example_code.bedrock.CreateAgentActionGroup]
 
+    # snippet-start:[python.example_code.bedrock.CreateAgentAlias]
+    def create_agent_alias(self, name, agent_id):
+        try:
+            response = self.client.create_agent_alias(
+                agentAliasName=name,
+                agentId=agent_id
+            )
+            agent_alias = response["agentAlias"]
+        except ClientError as e:
+            logger.error(f"Error: Couldn't create agent alias. Here's why: {e}")
+            raise
+        else:
+            return agent_alias
+
+    # snippet-end:[python.example_code.bedrock.CreateAgentAlias]
+
     # snippet-start:[python.example_code.bedrock.DeleteAgent]
     def delete_agent(self, agent_id, skip_resource_in_use_check=False):
         """
@@ -117,6 +133,20 @@ class BedrockAgentWrapper:
             return response
 
     # snippet-end:[python.example_code.bedrock.DeleteAgent]
+
+    # snippet-start:[python.example_code.bedrock.DeleteAgentAlias]
+    def delete_agent_alias(self, agent_id, agent_alias_id):
+        try:
+            response = self.client.delete_agent_alias(
+                agentId=agent_id, agentAliasId=agent_alias_id
+            )
+        except ClientError as e:
+            logger.error(f"Error: Couldn't delete agent alias. Here's why: {e}")
+            raise
+        else:
+            return response
+
+    # snippet-end:[python.example_code.bedrock.DeleteAgentAlias]
 
     # snippet-start:[python.example_code.bedrock.GetAgent]
     def get_agent(self, agent_id, log_error=True):
