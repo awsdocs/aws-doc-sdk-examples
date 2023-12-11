@@ -2,13 +2,16 @@ Parameters:
   VPCId:
     Type: AWS::EC2::VPC::Id
     # aws ec2 describe-vpcs --filters Name=is-default,Values=true --query 'Vpcs[0].VpcId' # "vpc-1234567890abcdef"
+  SGId:
+    Type: String
+    # aws ec2 describe-security-groups --group-names default --query 'SecurityGroups[0].GroupId'
   Subnets:
     Type: List<AWS::EC2::Subnet::Id>
     # aws ec2 describe-subnets --filters Name=vpc-id,Values="vpc-01234567890abcdef" --query 'Subnets[].SubnetId' # "subnet-01234567890abcdef", "subnet-abcdef0123456789"
   InstanceType:
     Type: String
     Default: t3.medium
-  SshCidr:
+  ExternalCidr:
     Type: String
     Default: "0.0.0.0/0"
   SSMFailure:
@@ -176,14 +179,27 @@ Resources:
   #         FromPort: 22
   #         ToPort: 22
 
-  # DocExampleRecommendationServiceDebugSecurityGroupSelfIngress:
-  #   # Add self traffic for ingress, without creating a circular dependency
-  #   Type: AWS::EC2::SecurityGroupIngress
-  #   # DependsOn: DocExampleRecommendationServiceDebugSecurityGroup
-  #   Properties:
-  #     IpProtocol: -1
-  #     GroupName: SelfIngress
-  #     SourceSecurityGroupId: !Ref DocExampleRecommendationServiceDebugSecurityGroup
+  DocExampleRecommendationServiceDebugSecurityGroupSSHIngress:
+    # Add self traffic for ingress, without creating a circular dependency
+    Type: AWS::EC2::SecurityGroupIngress
+    # DependsOn: DocExampleRecommendationServiceDebugSecurityGroup
+    Properties:
+      GroupId: !Ref SGId
+      CidrIp: !Ref ExternalCidr
+      IpProtocol: tcp
+      FromPort: 22
+      ToPort: 22
+
+  DocExampleRecommendationServiceDebugSecurityGroupHTTPIngress:
+    # Add self traffic for ingress, without creating a circular dependency
+    Type: AWS::EC2::SecurityGroupIngress
+    # DependsOn: DocExampleRecommendationServiceDebugSecurityGroup
+    Properties:
+      GroupId: !Ref SGId
+      CidrIp: !Ref ExternalCidr
+      IpProtocol: tcp
+      FromPort: 80
+      ToPort: 80
 
   DocExampleRecommendationServiceLaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
@@ -284,4 +300,5 @@ Outputs:
   Key:
     # aws cloudformation describe-stacks --stack-name resilience-demo --query 'Stacks[0].Outputs[?OutputKey==`Key`].OutputValue | [0]' # "key-0123456789"
     # aws ssm get-parameter --name /ec2/keypair/key-0123456789 --with-decryption --query Parameter.Value --output text > doc-example-resilience-key.pem
+    # chmod 400 doc-example-resilience-key.pem
     Value: !GetAtt DocExampleRecommendationServiceKeyPair.KeyPairId
