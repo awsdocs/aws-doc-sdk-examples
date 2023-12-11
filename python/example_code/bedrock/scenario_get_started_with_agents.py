@@ -32,7 +32,6 @@ from botocore.exceptions import ClientError
 
 from bedrock_agent_wrapper import BedrockAgentWrapper
 
-
 # Add relative path to include demo_tools in this code example without needing to set up.
 sys.path.append("../..")
 import demo_tools.question as q
