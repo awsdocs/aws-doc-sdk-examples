@@ -1,13 +1,13 @@
 Parameters:
   VPCId:
     Type: AWS::EC2::VPC::Id
-    # aws ec2 describe-vpcs --filters Name=is-default,Values=true --query 'Vpcs[0].VpcId' # "vpc-1234567890abcdef"
+    # aws ec2 describe-vpcs --filters Name=is-default,Values=true --query "Vpcs[0].VpcId" # "vpc-1234567890abcdef"
   SGId:
     Type: String
-    # aws ec2 describe-security-groups --group-names default --query 'SecurityGroups[0].GroupId'
+    # aws ec2 describe-security-groups --group-names default --query "SecurityGroups[0].GroupId"
   Subnets:
     Type: List<AWS::EC2::Subnet::Id>
-    # aws ec2 describe-subnets --filters Name=vpc-id,Values="vpc-01234567890abcdef" --query 'Subnets[].SubnetId' # "subnet-01234567890abcdef", "subnet-abcdef0123456789"
+    # aws ec2 describe-subnets --filters Name=vpc-id,Values="vpc-01234567890abcdef" --query "Subnets[].SubnetId" # "subnet-01234567890abcdef", "subnet-abcdef0123456789"
   InstanceType:
     Type: String
     Default: t3.medium
@@ -20,6 +20,12 @@ Parameters:
   SSMHealthCheck:
     Type: String
     Default: "shallow" # 'deep' to perform health checks on downstream resources
+  SSMTableName:
+    Type: String
+    Default: ""
+
+Conditions:
+  EmptySSMTableName: !Equals ["", !Ref SSMTableName]
 
 Resources:
   # 1. A DynamoDB table that acts as a service that recommends books, movies, and songs.
@@ -65,8 +71,8 @@ Resources:
           exports.handler = async (event, context) => {
             console.log("REQUEST RECEIVED", {tableName}, event);
 
-            if (event.RequestType == "Delete") {
-              response.send(event, context, response.SUCCESS, {});
+            if (event.RequestType !== "Create") {
+              await response.send(event, context, response.SUCCESS, {});
               return;
             }
 
@@ -87,10 +93,10 @@ Resources:
                 client.send(new PutItemCommand({TableName: tableName, Item: recommendation}))
               ));
               console.log("PUT ITEMS SUCCESS", {tableName});
-              response.send(event, context, response.SUCCESS, {});
+              await response.send(event, context, response.SUCCESS, {});
             } catch (e) {
               console.log("PUT ITEMS ERROR", {tableName}, {e});
-              response.send(event, context, response.ERROR, {e});
+              await response.send(event, context, response.ERROR, {e});
             }
           };
 
@@ -110,10 +116,10 @@ Resources:
         - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 
   # 1c. A CustomResource to trigger the Lambda
-  # DocExampleRecommendationServiceInitializer:
-  #   Type: Custom::DocExampleRecommendationServiceInitializer
-  #   Properties:
-  #     ServiceToken: !GetAtt DocExampleRecommendationServiceInitializerFn.Arn
+  DocExampleRecommendationServiceInitializer:
+    Type: Custom::DocExampleRecommendationServiceInitializer
+    Properties:
+      ServiceToken: !GetAtt DocExampleRecommendationServiceInitializerFn.Arn
 
   # 2. An instance profile and an associated role and policy that grants permission to instances to access DynamoDB and Systems Manager.
   DocExampleRecommendationServiceInstanceProfileRole:
@@ -167,22 +173,9 @@ Resources:
     Properties:
       KeyName: doc-example-resilience-key
 
-  # DocExampleRecommendationServiceDebugSecurityGroup:
-  #   Type: AWS::EC2::SecurityGroup
-  #   Properties:
-  #     GroupDescription: SSH Ingress
-  #     VpcId: !Ref VPCId
-  #     # Allow SSH Traffic
-  #     SecurityGroupIngress:
-  #       - CidrIp: !Ref SshCidr
-  #         IpProtocol: tcp
-  #         FromPort: 22
-  #         ToPort: 22
-
   DocExampleRecommendationServiceDebugSecurityGroupSSHIngress:
     # Add self traffic for ingress, without creating a circular dependency
     Type: AWS::EC2::SecurityGroupIngress
-    # DependsOn: DocExampleRecommendationServiceDebugSecurityGroup
     Properties:
       GroupId: !Ref SGId
       CidrIp: !Ref ExternalCidr
@@ -193,7 +186,6 @@ Resources:
   DocExampleRecommendationServiceDebugSecurityGroupHTTPIngress:
     # Add self traffic for ingress, without creating a circular dependency
     Type: AWS::EC2::SecurityGroupIngress
-    # DependsOn: DocExampleRecommendationServiceDebugSecurityGroup
     Properties:
       GroupId: !Ref SGId
       CidrIp: !Ref ExternalCidr
@@ -275,7 +267,12 @@ Resources:
     Properties:
       Name: doc-example-resilient-architecture-table
       Type: String
-      Value: !Ref DocExampleRecommendationServiceTable
+      Value:
+        !If [
+          "EmptySSMTableName",
+          !Ref DocExampleRecommendationServiceTable,
+          !Ref SSMTableName,
+        ]
 
   # aws ssm put-parameter --name doc-example-resilient-architecture-health-check --value static --overwrite
   DocExampleRecommendationServiceParameterFailure:
@@ -302,3 +299,6 @@ Outputs:
     # aws ssm get-parameter --name /ec2/keypair/key-0123456789 --with-decryption --query Parameter.Value --output text > doc-example-resilience-key.pem
     # chmod 400 doc-example-resilience-key.pem
     Value: !GetAtt DocExampleRecommendationServiceKeyPair.KeyPairId
+  TGArn:
+    # aws elbv2 describe-target-health --target-group-arn tg-0123456789
+    Value: !Ref DocExampleRecommendationServiceTargetGroup

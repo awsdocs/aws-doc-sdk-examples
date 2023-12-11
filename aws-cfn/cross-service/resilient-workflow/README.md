@@ -81,13 +81,16 @@ To access the load balancer endpoint, you must allow inbound traffic
 on port 80 from your computer's IP address to your VPC. If this rule doesn't exist, the
 example tries to add it. Alternately, you can
 [add a rule to the default security group for your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html)
-and specify your computer's IP address
-as a source.
+and specify your computer's IP address as a source.
 
 This examples is deployed as an AWS CloudFormation stack. This can be achieved
 using the [AWS CloudFormation Console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-console.html),
 or using the [AWS Command Line Interface](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-cli.html) (AWS CLI).
 This guide presents step-by-step instructions using the AWS CLI.
+
+> NOTE: The instructions in this guide use single-quote `'` for parameters, which is consistent with a Unix or GNU/Linux shell like Bash or ZSH. You may need to change the quote character for other platforms. Windows CMD users should use `"`, for instance. Also, CMD uses `^` as a line continuation character, instead of `\` used in this guide.
+
+<!-- Editor's note: This is because JMESPath uses the ` character for literal values, which in a unix environment using " tries to execute the literal as a command. -->
 
 ### Instructions
 
@@ -110,24 +113,53 @@ Use AWS CloudFormation to create the following AWS resources:
 
 To deploy these resources, you will need to provide several pieces of information about your AWS Account.
 
+> NOTE: This example assumes your account has a [default VPC](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html) in the current region.
+
 | Parameter | AWS CLI                                                                                                      |
 | --------- | ------------------------------------------------------------------------------------------------------------ |
 | `VPCId`   | `aws ec2 describe-vpcs --filters Name=is-default,Values=true --query 'Vpcs[0].VpcId'`                        |
-| `AZs`     | `aws ec2 describe-vpcs --filters Name=is-default,Values=true --query 'Vpcs[0].AvailabilityZone'`             |
-| `Subnets` | `aws ec2 describe-subnets --filters Name=vpc-id,Values="vpc-0abcdef1234567890" --query 'Subnets[].SubnetId'` |
+| `SGId`    | `aws ec2 describe-security-groups --group-names default --query 'SecurityGroups[0].GroupId'`                 |
+| `Subnets` | `aws ec2 describe-subnets --filters Name=vpc-id,Values='vpc-00000000000000000' --query 'Subnets[].SubnetId'` |
 
-After running these commands, replace the placeholders in `params.json` with the returned values.
+After running these commands, replace the placeholders in `params.json` with the returned values. Remember to replace the VPC ID in the `describe-subnets` command with the ID returned from the first `describe-vpcs` command.
 
 ```
 aws cloudformation create-stack \
-  --stack-name doc-example-resilient-service \
+  --stack-name resilience-demo \
   --template-body file://./resilient-service.yaml \
-  --parameters: file://./params.json \
+  --parameters file://./params.json \
   --capabilities CAPABILITY_NAMED_IAM
-
 ```
 
-##### Demonstrate resiliency
+After creating the stack, you can find the URL for the Load Balancer in the stack's parameters.
+
+```
+aws cloudformation describe-stacks --stack-name resilience-demo --query 'Stacks[0].Outputs[?OutputKey==`LB`].OutputValue | [0]'
+
+# "doc-example-resilience-lb-0123456789.us-east-1.elb.amazonaws.com"
+```
+
+You can then access the URL via your browser or using `curl`.
+
+> NOTE: This command may return `null` immediately after running the create-stack command. You must wait for the stack to finish being created. This is easiest to watch from the CloudFormation page in the AWS Console.
+
+At any time after the stack has been created, you can check the health of the target group.
+
+```
+aws cloudformation describe-stacks --stack-name resilience-demo --query 'Stacks[0].Outputs[?OutputKey==`TGArn`].OutputValue | [0]'
+# "tg-0123456789"
+aws elbv2 describe-target-health --target-group-arn tg-0123456789
+```
+
+All stack outputs:
+
+| OutputKey | OutputValue                               | Usage                                             |
+| --------- | ----------------------------------------- | ------------------------------------------------- |
+| `LB`      | The DNS Name of the primary Load Balancer | `curl` or Browser                                 |
+| `Key`     | The ID of a pem format private key in SSM | `ssh` after downloading from SSM                  |
+| `TGArn`   | The ARN of the target group of instances  | Check various additional information from the CLI |
+
+#### Demonstrate resiliency
 
 This part of the example demonstrates resiliency by simulating several kinds of failures.
 It uses Systems Manager parameters to update how the web server responds to requests. It
@@ -137,7 +169,16 @@ Along with recommendations returned by the DynamoDB table, the web service inclu
 instance ID and Availability Zone so you can see how the load balancer distributes
 requests among the instances in the Auto Scaling group.
 
-The scenario takes the following steps:
+The scenario takes the following steps. After editing the `params.json` file for each step, update the stack
+to see the changes by running an `update-stack` command.
+
+```
+aws cloudformation update-stack \
+  --stack-name resilience-demo \
+  --template-body file://./resilient-service.yaml \
+  --parameters file://./params.json \
+  --capabilities CAPABILITY_NAMED_IAM
+```
 
 1. **Initial state: healthy** — Sends requests to the endpoint to get recommendations and verify that instances
    are healthy.
@@ -146,28 +187,60 @@ The scenario takes the following steps:
    code. All instances still report as healthy because they only implement shallow health checks. For this
    example, a shallow health check means the web server always reports itself as healthy as long as the
    load balancer can connect to it.
+
+   Edit `params.json`. Add a new entry with `ParameterKey` as `SSMTableName` and `ParameterValue` as `bad_table`.
+   After updating, the service should report healthy but return `502` responses.
+
 3. **Static response** — Updates a parameter that prompts the web server to return a static response when the
    recommendation service fails. Requests for recommendations now return a static response,
    which is a better customer experience.
+
+   Edit `params.json`. Add a new entry with `ParameterKey` as `SSMFailure` and set `ParameterValue` to `static`.
+
 4. **Bad credentials** — Sets the table name parameter so the recommendations service succeeds, but also
    updates one of the instances to use an instance profile that contains bad credentials.
    Now, when the load balancer selects the bad instance to serve a request, it returns
    a static response because it cannot access the recommendation service, but the other
    instances return real recommendations.
+
+   Edit `params.json` and remove the `SSMTableName` entry from step 2. Update the stack. Remove the IAM Instance Profile from one instance in the target group. This instance will no longer be able to access the DynamoDB table, and should now remain healthy but only return the static response.
+
+   To remove an IAM Instance Profile using the AWS CLI, follow these steps.
+
+   1. Find the ARN of the target group with `` aws cloudformation describe-stacks --stack-name resilience-demo --query 'Stacks[0].Outputs[?OutputKey==`TGArn`].OutputValue | [0]' ``.
+   2. With this target group ARN, query for the specific instances using `aws elbv2 describe-target-health --query 'TargetHealthDescriptions[*].Target.Id' --target-group-arn arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/doc-example-resilience-tg/exampleexample`.
+   3. Choose one ID from this list, and find the instance profile association id with `aws ec2 describe-iam-instance-profile-associations --query 'IamInstanceProfileAssociations[0].AssociationId' --filters Name=instance-id,Values=i-0123456789`.
+   4. Remove the association with `aws ec2 disassociate-iam-instance-profile --association-id iip-assoc-00000000000000000`
+
+   > NOTE: These steps are for the purpose of this example only, and should generally not be taken in production environments.
+   > Always use CloudFormation templates and Infrastructure as Code (IaC) to modify resources in production environments.
+
 5. **Deep health checks** — Sets a parameter that instructs the web server to perform a deep health check.
    For this example, a deep health check means that the web server reports itself as unhealthy if it can't
    access the recommendations service. The instance with bad credentials reports as unhealthy and the load
    balancer takes it out of rotation. Now, requests are forward only to healthy instances.
+
+   Edit `params.json`. Change the entry with `ParameterKey` as `SSMHealthCheck` and set `ParameterValue` to `deep`.
+
 6. **Replace the failing instance** — Terminates the unhealthy instance and lets Amazon EC2 Auto Scaling start
    a new instance in its place. During this process, the stopping and starting instances are unhealthy so they
    don't receive any requests, but the load balancer continues to forward requests to healthy
    instances. When the new instance is ready, it is added to the rotation and starts receiving
    requests.
+
+   Using the AWS Console, open the CloudFormation page. Navigate to the `resilience-demo` stack. Click on the `Resources`
+   tab. Find the `DocExampleRecommendationServiceTargetGroup` line. Click on the link to the "Physical Resource ID".
+   From this EC2 page, find the list of instances in the target group. Select one and navigate to it. Choose Actions ->
+   Terminate instance. See EC2 terminate the instance, and watch the Autoscaling Group start a new instance.
+
 7. **Fail open** — Sets the table name parameter so the recommendations service fails for all instances.
    Because all instances are using deep health checks, they all report as unhealthy. In this
    case, the load balancer continues to forward requests to all instances. This lets the
    system fail open and lets the instances return static responses, rather than fail closed
    and report failure.
+
+   Edit `params.json`. Add a new entry with `ParameterKey` as `SSMTableName` and `ParameterValue` as `bad_table`.
+   After updating, the service should report unhealthy but return static responses.
 
 ##### Destroy resources
 
@@ -180,7 +253,7 @@ Use AWS CloudFormation to clean up all resources created for this example.
 
 ```
 aws cloudformation delete-stack \
-  --stack-name doc-example-resilient-service
+  --stack-name resilience-demo
 ```
 
 ## Additional resources

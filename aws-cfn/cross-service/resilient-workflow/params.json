@@ -4,6 +4,10 @@
     "ParameterValue": "vpc-0049e29b67c093b6d"
   },
   {
+    "ParameterKey": "SGId",
+    "ParameterValue": "sg-08cf6ddcee51ba433"
+  },
+  {
     "ParameterKey": "Subnets",
     "ParameterValue": "subnet-077914596f21e7bc4,subnet-0dd275ee2c5dfb973"
   }
