@@ -60,7 +60,9 @@ class BedrockAgentWrapper:
     # snippet-end:[python.example_code.bedrock.CreateAgent]
 
     # snippet-start:[python.example_code.bedrock.CreateAgentActionGroup]
-    def create_agent_action_group(self, name, description, agent_id, agent_version, function_arn, api_schema):
+    def create_agent_action_group(
+        self, name, description, agent_id, agent_version, function_arn, api_schema
+    ):
         """
         Creates an action group for an agent. An action group defines a set of actions that an
         agent should carry out for the customer.
@@ -103,8 +105,7 @@ class BedrockAgentWrapper:
         """
         try:
             response = self.client.create_agent_alias(
-                agentAliasName=name,
-                agentId=agent_id
+                agentAliasName=name, agentId=agent_id
             )
             agent_alias = response["agentAlias"]
         except ClientError as e:
@@ -126,8 +127,7 @@ class BedrockAgentWrapper:
 
         try:
             response = self.client.delete_agent(
-                agentId=agent_id,
-                skipResourceInUseCheck=False
+                agentId=agent_id, skipResourceInUseCheck=False
             )
         except ClientError as e:
             logger.error(f"Couldn't delete agent. {e}")

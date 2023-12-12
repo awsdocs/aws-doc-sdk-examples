@@ -25,40 +25,6 @@ bedrock_Hello:
   services:
     bedrock: {ListFoundationModels}
 
-bedrock_GetAgent:
-  title: Get an&BRlong; agent using an &AWS; SDK
-  title_abbrev: Get an &BR; agent
-  synopsis: get an &BR; agent.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock
-          excerpts:
-            - description: Get an &BRlong; agent.
-              snippet_tags:
-                - python.example_code.bedrock.GetAgent
-  services:
-    bedrock: {GetAgent}
-
-bedrock_ListAgents:
-  title: List all &BRlong; agents using an &AWS; SDK
-  title_abbrev: List all &BR; agents
-  synopsis: list all &BR; agents.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock
-          excerpts:
-            - description: List all &BRlong; agents.
-              snippet_tags:
-                - python.example_code.bedrock.ListAgents
-  services:
-    bedrock: {ListAgents}
-
 bedrock_ListFoundationModels:
   title: List the available &BRlong; foundation models using an &AWS; SDK
   title_abbrev: List available &BR; foundation models

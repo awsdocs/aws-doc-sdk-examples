@@ -17,9 +17,11 @@ from bedrock_agent_wrapper import BedrockAgentWrapper
 def client():
     return boto3.client(service_name="bedrock-agent", region_name="us-east-1")
 
+
 @pytest.fixture(scope="function")
 def stubber(client, make_stubber):
     return make_stubber(client)
+
 
 @pytest.fixture(scope="function")
 def wrapper(client):
@@ -120,10 +122,7 @@ def test_create_agent_alias(stubber, wrapper, error_code):
     name = Fake.ALIAS_NAME
     agent_id = Fake.AGENT_ID
 
-    expected_params = {
-        "agentId": agent_id,
-        "agentAliasName": name
-    }
+    expected_params = {"agentId": agent_id, "agentAliasName": name}
     created_alias = {
         "agentAlias": {
             "agentId": "",
@@ -133,11 +132,13 @@ def test_create_agent_alias(stubber, wrapper, error_code):
             "routingConfiguration": [],
             "createdAt": Fake.TIMESTAMP,
             "updatedAt": Fake.TIMESTAMP,
-            "agentAliasStatus": ""
+            "agentAliasStatus": "",
         }
     }
 
-    stubber.stub_create_agent_alias(expected_params, created_alias, error_code=error_code)
+    stubber.stub_create_agent_alias(
+        expected_params, created_alias, error_code=error_code
+    )
 
     if error_code is None:
         created_alias = wrapper.create_agent_alias(name, agent_id)
@@ -171,14 +172,11 @@ def test_delete_agent_alias(stubber, wrapper, error_code):
     agent_id = Fake.AGENT_ID
     agent_alias_id = Fake.ALIAS_ID
 
-    expected_params = {
-        "agentId": agent_id,
-        "agentAliasId": agent_alias_id
-    }
+    expected_params = {"agentId": agent_id, "agentAliasId": agent_alias_id}
     response = {
         "agentId": agent_id,
         "agentAliasId": agent_alias_id,
-        "agentAliasStatus": "DELETING"
+        "agentAliasStatus": "DELETING",
     }
 
     stubber.stub_delete_agent_alias(expected_params, response, error_code=error_code)
@@ -226,14 +224,16 @@ def test_get_agent(stubber, wrapper, error_code):
 def test_list_agents(stubber, wrapper, error_code):
     expected_params = {}
     response = {
-        "agentSummaries": [{
-            "agentStatus": "PREPARED",
-            "agentId": Fake.AGENT_ID,
-            "agentName": Fake.AGENT_NAME,
-            "updatedAt": Fake.TIMESTAMP,
-            "description": Fake.DESCRIPTION,
-            "latestAgentVersion": Fake.VERSION,
-        }]
+        "agentSummaries": [
+            {
+                "agentStatus": "PREPARED",
+                "agentId": Fake.AGENT_ID,
+                "agentName": Fake.AGENT_NAME,
+                "updatedAt": Fake.TIMESTAMP,
+                "description": Fake.DESCRIPTION,
+                "latestAgentVersion": Fake.VERSION,
+            }
+        ]
     }
 
     stubber.stub_list_agents(expected_params, response, error_code=error_code)

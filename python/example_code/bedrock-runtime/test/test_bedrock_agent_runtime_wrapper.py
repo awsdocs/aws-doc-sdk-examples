@@ -33,13 +33,7 @@ async def test_invoke_agent(make_stubber, error_code):
         "sessionId": session_id,
         "inputText": prompt,
     }
-    response = {
-        "completion": {
-
-        },
-        "contentType": "",
-        "sessionId": session_id
-    }
+    response = {"completion": {}, "contentType": "", "sessionId": session_id}
 
     stubber.stub_invoke_agent(expected_params, response, error_code=error_code)
 
@@ -47,5 +41,7 @@ async def test_invoke_agent(make_stubber, error_code):
         wrapper.invoke_agent(agent_id, agent_alias_id, session_id, prompt)
     else:
         with pytest.raises(ClientError):
-            async for _ in wrapper.invoke_agent(agent_id, agent_alias_id, session_id, prompt):
+            async for _ in wrapper.invoke_agent(
+                agent_id, agent_alias_id, session_id, prompt
+            ):
                 assert exc_info.value.response["Error"]["Code"] == error_code

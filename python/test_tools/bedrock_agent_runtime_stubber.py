@@ -28,4 +28,6 @@ class BedrockAgentRuntimeStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_invoke_agent(self, expected_params, response, error_code=None):
-        self._stub_bifurcator("invoke_agent", expected_params, response, error_code=error_code)
+        self._stub_bifurcator(
+            "invoke_agent", expected_params, response, error_code=error_code
+        )
