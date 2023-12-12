@@ -1,0 +1,16 @@
+# zexi 0.4.0
+bedrock-agent-runtime_InvokeAgent:
+  title: Invoke an &BR; agent using an &AWS; SDK
+  title_abbrev: Invoke an &BR; agent
+  synopsis: invoke an &BR; agent.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent-runtime
+          excerpts:
+            - description: Invoke an agent.
+              snippet_tags:
+                - python.example_code.bedrock-agent-runtime.InvokeAgent
+  services:
+    bedrock-agent-runtime: {InvokeAgent}

@@ -289,7 +289,7 @@ bedrock:
   bundle: bedrock
   long: '&BRlong;'
   short: '&BR;'
-  sort: bedrock
+  sort: Bedrock
   expanded:
     long: Amazon Bedrock
     short: Amazon Bedrock
@@ -301,38 +301,6 @@ bedrock:
   tags:
     product_categories: {'Machine Learning &amp; AI'}
   version: bedrock-2023-04-20
-bedrock-agent:
-  bundle: bedrock
-  long: '&BRAlong;'
-  short: '&BRA;'
-  sort: Agent for Amazon Bedrock
-  expanded:
-    long: Agent for Amazon Bedrock
-    short: Bedrock Agent
-  blurb: offers you the ability to build and configure autonomous agents in your application.
-  guide:
-    subtitle: User Guide
-    url: bedrock/latest/userguide/agents.html
-  api_ref: bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html
-  tags:
-    product_categories: {'Machine Learning &amp; AI'}
-  version: bedrock-agents-2023-12-07
-bedrock-agent-runtime:
-  bundle: bedrock
-  long: '&BRARUNlong;'
-  short: '&BRARUN;'
-  sort: Agent for Amazon Bedrock Runtime
-  expanded:
-    long: Agent for Amazon Bedrock Runtime
-    short: Bedrock Agent Runtime
-  blurb: offers you the ability to build and configure autonomous agents in your application.
-  guide:
-    subtitle: User Guide
-    url: bedrock/latest/userguide/agents.html
-  api_ref: bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html
-  tags:
-    product_categories: {'Machine Learning &amp; AI'}
-  version: bedrock-agents-runtime-2023-12-07
 bedrock-runtime:
   bundle: bedrock
   long: '&BRRUNlong;'
@@ -349,6 +317,38 @@ bedrock-runtime:
   tags:
     product_categories: {'Machine Learning &amp; AI'}
   version: bedrock-runtime-2023-09-30
+bedrock-agent:
+  bundle: bedrock
+  long: '&BRAlong;'
+  short: '&BRA;'
+  sort: Bedrock Agents
+  expanded:
+    long: Agents for Amazon Bedrock
+    short: Amazon Bedrock Agents
+  blurb: offer you the ability to build and configure autonomous agents in your application.
+  guide:
+    subtitle: User Guide
+    url: bedrock/latest/userguide/agents.html
+  api_ref: bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html
+  tags:
+    product_categories: {'Machine Learning &amp; AI'}
+  version: bedrock-agent-2023-12-12
+bedrock-agent-runtime:
+  bundle: bedrock
+  long: '&BRARUNlong;'
+  short: '&BRARUN;'
+  sort: Bedrock Agents Runtime
+  expanded:
+    long: Agents for Amazon Bedrock Runtime
+    short: Amazon Bedrock Agents Runtime
+  blurb: offers you the ability to run autonomous agents in your application.
+  guide:
+    subtitle: User Guide
+    url: bedrock/latest/userguide/agents.html
+  api_ref: bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html
+  tags:
+    product_categories: {'Machine Learning &amp; AI'}
+  version: bedrock-agent-runtime-2023-12-12
 budgets:
   api_ref: aws-cost-management/latest/APIReference/Welcome.html
   blurb: ''

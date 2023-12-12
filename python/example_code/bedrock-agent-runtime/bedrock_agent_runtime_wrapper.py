@@ -15,8 +15,8 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.bedrock-runtime.BedrockAgentsRuntimeWrapper.class]
-# snippet-start:[python.example_code.bedrock-runtime.BedrockAgentRuntimeWrapper.decl]
+# snippet-start:[python.example_code.bedrock-agent-runtime.BedrockAgentsRuntimeWrapper.class]
+# snippet-start:[python.example_code.bedrock-agent-runtime.BedrockAgentRuntimeWrapper.decl]
 class BedrockAgentRuntimeWrapper:
     """Encapsulates Agents for Amazon Bedrock Runtime actions."""
 
@@ -28,9 +28,9 @@ class BedrockAgentRuntimeWrapper:
         """
         self.agents_runtime_client = runtime_client
 
-    # snippet-end:[python.example_code.bedrock-runtime.BedrockAgentRuntimeWrapper.decl]
+    # snippet-end:[python.example_code.bedrock-agent-runtime.BedrockAgentRuntimeWrapper.decl]
 
-    # snippet-start:[python.example_code.bedrock-runtime.InvokeAgent]
+    # snippet-start:[python.example_code.bedrock-agent-runtime.InvokeAgent]
     def invoke_agent(self, agent_id, agent_alias_id, session_id, prompt):
         """
         Sends a prompt for the agent to process and respond to.
@@ -63,7 +63,7 @@ class BedrockAgentRuntimeWrapper:
 
         return completion
 
-    # snippet-end:[python.example_code.bedrock-runtime.InvokeAgent]
+    # snippet-end:[python.example_code.bedrock-agent-runtime.InvokeAgent]
 
 
-# snippet-end:[python.example_code.bedrock-runtime.BedrockAgentsRuntimeWrapper.class]
+# snippet-end:[python.example_code.bedrock-agent-runtime.BedrockAgentsRuntimeWrapper.class]
