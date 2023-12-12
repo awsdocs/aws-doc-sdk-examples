@@ -232,7 +232,7 @@ class BedrockRuntimeWrapper:
             return base64_image_data
 
         except ClientError:
-            logger.error("Couldn't invoke Stable Diffusion XL")
+            logger.error("Couldn't invoke Titan Image generator")
             raise
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeTitanImage]
@@ -270,7 +270,7 @@ class BedrockRuntimeWrapper:
                 yield chunk
 
         except ClientError:
-            logger.error("Couldn't invoke Titan Image Generator")
+            logger.error("Couldn't invoke Anthropic Claude v2")
             raise
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream]
