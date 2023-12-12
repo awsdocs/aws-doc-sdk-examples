@@ -39,7 +39,7 @@ public class MemoryLog4jAppender extends AbstractAppender {
         if (eventWithParameters.getParameterCount() == 2) {
             eventMap.put(eventWithParameters.getParameters()[0].toString(), eventWithParameters.getParameters()[1].toString());
         } else {
-            eventMap.put (eventWithParameters.getFormattedMessage(), null);
+            eventMap.put (eventWithParameters.toString(), null);
         }
     }
 

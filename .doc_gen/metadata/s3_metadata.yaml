@@ -2321,9 +2321,41 @@ s3_Scenario_PresignedUrl:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description:
+            - description: <emphasis role="bold">Generate a pre-signed URL for an object, then download it (GET request).</emphasis>
+            - description: Imports
               snippet_tags:
-                - presigned.java2.generatepresignedurl.main
+                - presigned.java2.generatepresignedgeturlandretrieve.import
+            - description: <emphasis role="bold">Generate the URL</emphasis>.
+              snippet_tags:
+                - presigned.java2.generatepresignedgeturlandretrieve.createpresignedurl
+            - description: <emphasis role="bold">Download the object</emphasis> by using any one of the following three approaches.
+            - description: Use JDK <code>HttpURLConnection</code> (since v1.1) class to do the download.
+              snippet_tags:
+                - presigned.java2.generatepresignedgeturlandretrieve.basichttpclient
+            - description: Use JDK <code>HttpClient</code> (since v11) class to do the download.
+              snippet_tags:
+                - presigned.java2.generatepresignedgeturlandretrieve.jdkhttpclient
+            - description: Use the &AWS; SDK for Java <code>SdkHttpClient</code> class to do the download.
+              snippet_tags:
+                - presigned.java2.generatepresignedgeturlandretrieve.sdkhttpclient
+
+            - description: <emphasis role="bold">Generate a pre-signed URL for an upload, then upload a file (PUT request).</emphasis>
+            - description: Imports
+              snippet_tags:
+                - presigned.java2.generatepresignedurlandputfilewithmetadata.import
+            - description: <emphasis role="bold">Generate the URL</emphasis>.
+              snippet_tags:
+                - presigned.java2.generatepresignedurlandputfilewithmetadata.createpresignedurl
+            - description: <emphasis role="bold">Upload a file object</emphasis> by using any one of the following three approaches.
+            - description: Use the JDK <code>HttpURLConnection</code> (since v1.1) class to do the upload.
+              snippet_tags:
+                - presigned.java2.generatepresignedurlandputfilewithmetadata.basichttpclient
+            - description: Use the JDK <code>HttpClient</code> (since v11) class to do the upload.
+              snippet_tags:
+                - presigned.java2.generatepresignedurlandputfilewithmetadata.jdkhttpclient
+            - description: Use the &AWS; for Java V2 <code>SdkHttpClient</code> class to do the upload.
+              snippet_tags:
+                - presigned.java2.generatepresignedurlandputfilewithmetadata.sdkhttpclient
     Python:
       versions:
         - sdk_version: 3
@@ -2385,7 +2417,7 @@ s3_Scenario_PresignedUrl:
             - description: Create a <code>GetObject</code> presigned request and use the URL to download an object.
               snippet_tags:
                 - s3.kotlin.presign_getObject.main
-            - description: Create a <code>GetObject</code> presigned request with advanced options and use the URL to download an object.
+            - description: Create a <code>GetObject</code> presigned request with advanced options.
               snippet_tags:
                 - s3.kotlin.presign_getObjectMoreOptions.main
             - description: Create a <code>PutObject</code> presigned request and use it to upload an object.

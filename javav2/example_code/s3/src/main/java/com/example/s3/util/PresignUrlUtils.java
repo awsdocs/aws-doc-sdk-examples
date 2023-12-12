@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.waiters.S3Waiter;
 
+import java.io.File;
+
 public class PresignUrlUtils {
     private static final Logger logger = LoggerFactory.getLogger(PresignUrlUtils.class);
 
@@ -30,5 +32,13 @@ public class PresignUrlUtils {
             waiter.waitUntilObjectNotExists(b -> b.bucket(bucketName).key(key));
         }
         logger.info("Object [{}] deleted", key);
+    }
+
+    public static void uploadFile(S3Client s3Client, String bucketName, String key, File file) {
+        s3Client.putObject(b -> b.bucket(bucketName).key(key), file.toPath());
+        try (S3Waiter waiter = S3Waiter.builder().client(s3Client).build() ){
+            waiter.waitUntilObjectExists(w -> w.bucket(bucketName).key(key));
+        }
+        logger.info("File uploaded successfully");
     }
 }
