@@ -33,7 +33,7 @@ bedrock-agent-runtime_GettingStartedWithBedrockAgents:
           github: python/example_code/bedrock-agent
           excerpts:
             - description:
-              snippet_files:
+              snippet_tags:
                 - python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents
   services:
     bedrock-agent:
