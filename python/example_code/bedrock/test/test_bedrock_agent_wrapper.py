@@ -9,7 +9,7 @@ import boto3
 import pytest
 from botocore.exceptions import ClientError
 
-import test_data as fake
+from conftest import FakeData as Fake
 from bedrock_agent_wrapper import BedrockAgentWrapper
 
 
@@ -23,14 +23,35 @@ def test_create_agent(client, make_stubber, error_code):
     stubber = make_stubber(client)
     wrapper = BedrockAgentWrapper(client)
 
-    role_arn = fake.ARN
-    name = fake.AGENT_NAME
-    foundation_model = fake.FOUNDATION_MODEL_ID
-    instruction = fake.INSTRUCTION
+    name = Fake.AGENT_NAME
+    foundation_model = Fake.FOUNDATION_MODEL_ID
+    role_arn = Fake.ARN
+    instruction = Fake.INSTRUCTION
 
-    stubber.stub_create_agent(
-        name, foundation_model, role_arn, instruction, error_code=error_code
-    )
+    expected_params = {
+        "agentName": name,
+        "foundationModel": foundation_model,
+        "agentResourceRoleArn": role_arn,
+        "instruction": instruction,
+    }
+
+    response = {
+        "agent": {
+            "agentStatus": "NOT_PREPARED",
+            "idleSessionTTLInSeconds": 60,
+            "agentId": Fake.AGENT_ID,
+            "agentName": name,
+            "agentArn": Fake.ARN,
+            "foundationModel": foundation_model,
+            "instruction": Fake.INSTRUCTION,
+            "agentVersion": Fake.VERSION,
+            "agentResourceRoleArn": role_arn,
+            "createdAt": Fake.TIMESTAMP,
+            "updatedAt": Fake.TIMESTAMP,
+        }
+    }
+
+    stubber.stub_create_agent(expected_params, response, error_code=error_code)
 
     if error_code is None:
         created_agent = wrapper.create_agent(
@@ -50,15 +71,35 @@ def test_create_agent_action_group(client, make_stubber, error_code):
     stubber = make_stubber(client)
     wrapper = BedrockAgentWrapper(client)
 
-    name = fake.ACTION_GROUP_NAME
-    description = fake.DESCRIPTION
-    agent_id = fake.AGENT_ID
-    agent_version = fake.VERSION
-    function_arn = fake.ARN
-    api_schema = fake.API_SCHEMA
+    name = Fake.ACTION_GROUP_NAME
+    description = Fake.DESCRIPTION
+    agent_id = Fake.AGENT_ID
+    agent_version = Fake.VERSION
+    function_arn = Fake.ARN
+    api_schema = Fake.API_SCHEMA
+
+    expected_params = {
+        "actionGroupName": name,
+        "description": description,
+        "agentId": agent_id,
+        "agentVersion": agent_version,
+        "actionGroupExecutor": {"lambda": function_arn},
+        "apiSchema": {"payload": api_schema},
+    }
+    response = {
+        "agentActionGroup": {
+            "agentId": agent_id,
+            "agentVersion": agent_version,
+            "actionGroupState": "ENABLED",
+            "actionGroupName": name,
+            "actionGroupId": Fake.ACTION_GROUP_ID,
+            "createdAt": Fake.TIMESTAMP,
+            "updatedAt": Fake.TIMESTAMP,
+        }
+    }
 
     stubber.stub_create_agent_action_group(
-        name, description, agent_id, agent_version, function_arn, api_schema, error_code=error_code
+        expected_params, response, error_code=error_code
     )
 
     if error_code is None:
@@ -81,7 +122,7 @@ def test_delete_agent(client, make_stubber, error_code):
     stubber = make_stubber(client)
     wrapper = BedrockAgentWrapper(client)
 
-    agent_id = fake.AGENT_ID
+    agent_id = Fake.AGENT_ID
     stubber.stub_delete_agent(agent_id, error_code=error_code)
 
     if error_code is None:
@@ -98,18 +139,18 @@ def test_get_agent(client, make_stubber, error_code):
     stubber = make_stubber(client)
     wrapper = BedrockAgentWrapper(client)
 
-    agent_id = fake.AGENT_ID
+    agent_id = Fake.AGENT_ID
 
     agent = {
         "agentStatus": "PREPARED",
         "idleSessionTTLInSeconds": 60,
         "agentId": agent_id,
-        "agentName": fake.AGENT_ID,
-        "agentArn": fake.ARN,
-        "agentVersion": fake.VERSION,
-        "agentResourceRoleArn": fake.ARN,
-        "createdAt": fake.TIMESTAMP,
-        "updatedAt": fake.TIMESTAMP,
+        "agentName": Fake.AGENT_ID,
+        "agentArn": Fake.ARN,
+        "agentVersion": Fake.VERSION,
+        "agentResourceRoleArn": Fake.ARN,
+        "createdAt": Fake.TIMESTAMP,
+        "updatedAt": Fake.TIMESTAMP,
     }
 
     stubber.stub_get_agent(agent_id, agent, error_code=error_code)
@@ -130,11 +171,11 @@ def test_list_agents(client, make_stubber, error_code):
     agents = [
         {
             "agentStatus": "PREPARED",
-            "agentId": fake.AGENT_ID,
-            "agentName": fake.AGENT_NAME,
-            "updatedAt": fake.TIMESTAMP,
-            "description": fake.DESCRIPTION,
-            "latestAgentVersion": fake.VERSION,
+            "agentId": Fake.AGENT_ID,
+            "agentName": Fake.AGENT_NAME,
+            "updatedAt": Fake.TIMESTAMP,
+            "description": Fake.DESCRIPTION,
+            "latestAgentVersion": Fake.VERSION,
         }
     ]
 
@@ -154,8 +195,18 @@ def test_prepare_agent(client, make_stubber, error_code):
     stubber = make_stubber(client)
     wrapper = BedrockAgentWrapper(client)
 
-    agent_id = fake.AGENT_ID
-    stubber.stub_prepare_agent(agent_id, error_code=error_code)
+    agent_id = Fake.AGENT_ID
+
+    expected_params = {"agentId": agent_id}
+
+    response = {
+        "agentStatus": "PREPARED",
+        "agentId": agent_id,
+        "agentVersion": Fake.VERSION,
+        "preparedAt": Fake.TIMESTAMP,
+    }
+
+    stubber.stub_prepare_agent(expected_params, response, error_code=error_code)
 
     if error_code is None:
         response = wrapper.prepare_agent(agent_id)

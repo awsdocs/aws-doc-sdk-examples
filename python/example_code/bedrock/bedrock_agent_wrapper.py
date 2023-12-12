@@ -103,7 +103,7 @@ class BedrockAgentWrapper:
             )
             agent_alias = response["agentAlias"]
         except ClientError as e:
-            logger.error(f"Error: Couldn't create agent alias. Here's why: {e}")
+            logger.error(f"Couldn't create agent alias. {e}")
             raise
         else:
             return agent_alias
@@ -127,7 +127,7 @@ class BedrockAgentWrapper:
                 agentId=agent_id, skipResourceInUseCheck=skip_resource_in_use_check
             )
         except ClientError as e:
-            logger.error(f"Error: Couldn't delete agent. Here's why: {e}")
+            logger.error(f"Couldn't delete agent. {e}")
             raise
         else:
             return response
@@ -141,7 +141,7 @@ class BedrockAgentWrapper:
                 agentId=agent_id, agentAliasId=agent_alias_id
             )
         except ClientError as e:
-            logger.error(f"Error: Couldn't delete agent alias. Here's why: {e}")
+            logger.error(f"Couldn't delete agent alias. {e}")
             raise
         else:
             return response
@@ -165,7 +165,7 @@ class BedrockAgentWrapper:
             agent = response["agent"]
         except ClientError as e:
             if log_error:
-                logger.error(f"Error: Couldn't get agent {agent_id}. Here's why: {e}")
+                logger.error(f"Couldn't get agent {agent_id}. {e}")
             raise
         else:
             return agent
@@ -184,7 +184,7 @@ class BedrockAgentWrapper:
             response = self.client.list_agents()
             agents = response["agentSummaries"]
         except ClientError as e:
-            logger.error(f"Error: Couldn't list agents. Here's why: {e}")
+            logger.error(f"Couldn't list agents. {e}")
             raise
         else:
             return agents
@@ -204,7 +204,7 @@ class BedrockAgentWrapper:
         try:
             prepared_agent_details = self.client.prepare_agent(agentId=agent_id)
         except ClientError as e:
-            logger.error(f"Error: Couldn't prepare agent. Here's why: {e}")
+            logger.error(f"Couldn't prepare agent. {e}")
             raise
         else:
             return prepared_agent_details

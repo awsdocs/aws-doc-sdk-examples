@@ -45,10 +45,10 @@ logger = logging.getLogger(__name__)
 
 
 class BedrockAgentScenarioWrapper:
-    def __init__(self, bedrock_agent_client, lambda_client, iam_resource, postfix):
+    def __init__(self, bedrock_agent_client, runtime_client, lambda_client, iam_resource, postfix):
         self.iam_resource = iam_resource
         self.lambda_client = lambda_client
-        self.bedrock_agent_client = bedrock_agent_client
+        self.bedrock_agent_runtime_client = runtime_client
         self.postfix = postfix
 
         self.bedrock_wrapper = BedrockAgentWrapper(bedrock_agent_client)
@@ -240,7 +240,7 @@ class BedrockAgentScenarioWrapper:
                     }],
                 })
             )
-            logger.info(f"Created role {role_name}")
+            print(f"Created role {role_name}")
         except ClientError as e:
             logger.error(f"Couldn't create role {role_name}. Here's why: {e}")
             raise
@@ -329,12 +329,7 @@ class BedrockAgentScenarioWrapper:
             print(f"Agent: {response}")
 
     async def _invoke_agent(self, prompt):
-        client = boto3.client(
-            service_name="bedrock-agent-runtime",
-            region_name="us-east-1"
-        )
-
-        response = client.invoke_agent(
+        response = self.bedrock_agent_runtime_client.invoke_agent(
             agentId=self.agent["agentId"],
             agentAliasId=self.agent_alias["agentAliasId"],
             sessionId="Session",
@@ -360,7 +355,7 @@ class BedrockAgentScenarioWrapper:
                 self.bedrock_wrapper.delete_agent_alias(agent_id, agent_alias_id)
 
             agent_name = self.agent["agentName"]
-            print(f"Deleting Bedrock agent '{agent_name}'...")
+            print(f"Deleting agent '{agent_name}'...")
             agent_status = self.bedrock_wrapper.delete_agent(agent_id)["agentStatus"]
             while agent_status == "DELETING":
                 wait(5)
@@ -372,6 +367,11 @@ class BedrockAgentScenarioWrapper:
                     if err.response["Error"]["Code"] == "ResourceNotFoundException":
                         agent_status = "DELETED"
 
+        if self.lambda_function:
+            name = self.lambda_function["FunctionName"]
+            print(f"Deleting function '{name}'...")
+            self.lambda_client.delete_function(FunctionName=name)
+
         if self.agent_role:
             print(f"Deleting role '{self.agent_role.role_name}'...")
             self.agent_role.Policy(ROLE_POLICY_NAME).delete()
@@ -382,11 +382,6 @@ class BedrockAgentScenarioWrapper:
             for policy in self.lambda_role.attached_policies.all():
                 policy.detach_role(RoleName=self.lambda_role.role_name)
             self.lambda_role.delete()
-
-        if self.lambda_function:
-            name = self.lambda_function["FunctionName"]
-            print(f"Deleting function '{name}'...")
-            self.lambda_client.delete_function(FunctionName=name)
 
     def _list_resources(self):
         print("-" * 40)
@@ -416,7 +411,7 @@ class BedrockAgentScenarioWrapper:
         buffer = io.BytesIO()
         with zipfile.ZipFile(buffer, "w") as zipped:
             zipped.write(
-                "./scenario_resources/lambda_function_code.py", f"{function_name}.py"
+                "./scenario_resources/lambda_function.py", f"{function_name}.py"
             )
         buffer.seek(0)
         return buffer.read()
@@ -430,6 +425,7 @@ if __name__ == "__main__":
     )
     scenario = BedrockAgentScenarioWrapper(
         bedrock_agent_client=boto3.client(service_name="bedrock-agent", region_name=REGION),
+        runtime_client=boto3.client(service_name="bedrock-agent-runtime", region_name=REGION),
         lambda_client=boto3.client(service_name="lambda", region_name=REGION),
         iam_resource=boto3.resource("iam"),
         postfix=postfix,
