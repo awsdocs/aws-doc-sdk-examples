@@ -13,10 +13,12 @@ from test_tools.fixtures.common import *
 
 
 class FakeData:
-    ACTION_GROUP_NAME = "FakeActionGroupName"
-    ACTION_GROUP_ID = "FAKE_ACTION_GROUP_ID"
-    AGENT_NAME = "FakeAgentName"
     AGENT_ID = "FAKE_AGENT_ID"
+    AGENT_NAME = "FakeAgentName"
+    ALIAS_ID = "FAKE_AGENT_ALIAS_ID"
+    ALIAS_NAME = "FakeAliasName"
+    ACTION_GROUP_ID = "FAKE_ACTION_GROUP_ID"
+    ACTION_GROUP_NAME = "FakeActionGroupName"
     API_SCHEMA = "openapi: 3.0.0"
     ARN = "arn:aws:service:region:123456789012/fake-resource"
     DESCRIPTION = "A fake description."

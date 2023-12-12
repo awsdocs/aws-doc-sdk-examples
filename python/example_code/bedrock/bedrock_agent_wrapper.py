@@ -60,9 +60,7 @@ class BedrockAgentWrapper:
     # snippet-end:[python.example_code.bedrock.CreateAgent]
 
     # snippet-start:[python.example_code.bedrock.CreateAgentActionGroup]
-    def create_agent_action_group(
-        self, name, description, agent_id, agent_version, function_arn, api_schema
-    ):
+    def create_agent_action_group(self, name, description, agent_id, agent_version, function_arn, api_schema):
         """
         Creates an action group for an agent. An action group defines a set of actions that an
         agent should carry out for the customer.
@@ -96,6 +94,13 @@ class BedrockAgentWrapper:
 
     # snippet-start:[python.example_code.bedrock.CreateAgentAlias]
     def create_agent_alias(self, name, agent_id):
+        """
+        Creates an alias of an agent that can be used to deploy the agent.
+
+        :param name: The name of the alias.
+        :param agent_id: The unique identifier of the agent.
+        :return: Details about the alias that was created.
+        """
         try:
             response = self.client.create_agent_alias(
                 agentAliasName=name,
@@ -111,20 +116,18 @@ class BedrockAgentWrapper:
     # snippet-end:[python.example_code.bedrock.CreateAgentAlias]
 
     # snippet-start:[python.example_code.bedrock.DeleteAgent]
-    def delete_agent(self, agent_id, skip_resource_in_use_check=False):
+    def delete_agent(self, agent_id):
         """
         Deletes an Amazon Bedrock agent.
 
         :param agent_id: The unique identifier of the agent to delete.
-        :param skip_resource_in_use_check: Whether to skip the resource in use check. By default, this value is
-                                           false and deletion is stopped if the resource is in use. If you set it
-                                           to true, the resource will be deleted even if the resource is in use.
         :return: The response from Agents for Bedrock if successful, otherwise raises an exception.
         """
 
         try:
             response = self.client.delete_agent(
-                agentId=agent_id, skipResourceInUseCheck=skip_resource_in_use_check
+                agentId=agent_id,
+                skipResourceInUseCheck=False
             )
         except ClientError as e:
             logger.error(f"Couldn't delete agent. {e}")
@@ -136,6 +139,14 @@ class BedrockAgentWrapper:
 
     # snippet-start:[python.example_code.bedrock.DeleteAgentAlias]
     def delete_agent_alias(self, agent_id, agent_alias_id):
+        """
+        Deletes an alias of an Amazon Bedrock agent.
+
+        :param agent_id: The unique identifier of the agent that the alias belongs to.
+        :param agent_alias_id: The unique identifier of the alias to delete.
+        :return: The response from Agents for Bedrock if successful, otherwise raises an exception.
+        """
+
         try:
             response = self.client.delete_agent_alias(
                 agentId=agent_id, agentAliasId=agent_alias_id
@@ -198,8 +209,6 @@ class BedrockAgentWrapper:
 
         :param agent_id: The unique identifier of the agent to prepare.
         :return: The response from Agents for Bedrock if successful, otherwise raises an exception.
-                 For the response syntax and elements, refer to:
-                 https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_PrepareAgent.html
         """
         try:
             prepared_agent_details = self.client.prepare_agent(agentId=agent_id)
