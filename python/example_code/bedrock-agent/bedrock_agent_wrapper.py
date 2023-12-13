@@ -192,13 +192,17 @@ class BedrockAgentWrapper:
         """
 
         try:
-            response = self.client.list_agents()
-            agents = response["agentSummaries"]
+            all_agents = []
+
+            paginator = self.client.get_paginator("list_agents")
+            for page in paginator.paginate(PaginationConfig={"PageSize": 10}):
+                all_agents.extend(page["agentSummaries"])
+
         except ClientError as e:
             logger.error(f"Couldn't list agents. {e}")
             raise
         else:
-            return agents
+            return all_agents
 
     # snippet-end:[python.example_code.bedrock-agent.ListAgents]
 
