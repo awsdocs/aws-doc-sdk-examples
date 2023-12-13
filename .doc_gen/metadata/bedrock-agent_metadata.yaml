@@ -1,8 +1,8 @@
 # zexi 0.4.0
 bedrock-agent_CreateAgent:
-  title: Creates an &BR; agent using an &AWS; SDK
-  title_abbrev: Creates an &BR; agent
-  synopsis: creates an &BR; agent.
+  title: Create an &BR; agent using an &AWS; SDK
+  title_abbrev: Create an agent
+  synopsis: create an &BR; agent.
   languages:
     Python:
       versions:
@@ -16,9 +16,9 @@ bedrock-agent_CreateAgent:
     bedrock-agent: {CreateAgent}
 
 bedrock-agent_CreateAgentActionGroup:
-  title: Creates an &BR; agent action group using an &AWS; SDK
-  title_abbrev: Creates an &BR; agent action group
-  synopsis: creates an &BR; agent action group.
+  title: Create an &BR; agent action group using an &AWS; SDK
+  title_abbrev: Create an agent action group
+  synopsis: create an &BR; agent action group.
   languages:
     Python:
       versions:
@@ -32,9 +32,9 @@ bedrock-agent_CreateAgentActionGroup:
     bedrock-agent: {CreateAgentActionGroup}
 
 bedrock-agent_CreateAgentAlias:
-  title: Creates an &BR; agent alias using an &AWS; SDK
-  title_abbrev: Creates an &BR; agent alias
-  synopsis: creates an &BR; agent alias.
+  title: Create an &BR; agent alias using an &AWS; SDK
+  title_abbrev: Create an agent alias
+  synopsis: create an &BR; agent alias.
   languages:
     Python:
       versions:
@@ -48,9 +48,9 @@ bedrock-agent_CreateAgentAlias:
     bedrock-agent: {CreateAgentAlias}
 
 bedrock-agent_DeleteAgent:
-  title: Deletes an &BR; agent using an &AWS; SDK
-  title_abbrev: Deletes an &BR; agent
-  synopsis: deletes an &BR; agent.
+  title: Delete an &BR; agent using an &AWS; SDK
+  title_abbrev: Delete an agent
+  synopsis: delete an &BR; agent.
   languages:
     Python:
       versions:
@@ -64,9 +64,9 @@ bedrock-agent_DeleteAgent:
     bedrock-agent: {DeleteAgent}
 
 bedrock-agent_DeleteAgentAlias:
-  title: Deletes an &BR; agent alias using an &AWS; SDK
-  title_abbrev: Deletes an &BR; agent alias
-  synopsis: deletes an &BR; agent alias.
+  title: Delete an &BR; agent alias using an &AWS; SDK
+  title_abbrev: Delete an agent alias
+  synopsis: delete an &BR; agent alias.
   languages:
     Python:
       versions:
@@ -80,9 +80,9 @@ bedrock-agent_DeleteAgentAlias:
     bedrock-agent: {DeleteAgentAlias}
 
 bedrock-agent_GetAgent:
-  title: Gets information about an &BR; agent using an &AWS; SDK
-  title_abbrev: Gets information about an &BR; agent
-  synopsis: gets information about an &BR; agent.
+  title: Get information about an &BR; agent using an &AWS; SDK
+  title_abbrev: Get information about an agent
+  synopsis: get information about an &BR; agent.
   languages:
     Python:
       versions:
@@ -96,9 +96,9 @@ bedrock-agent_GetAgent:
     bedrock-agent: {GetAgent}
 
 bedrock-agent_ListAgents:
-  title: Lists the Agents for &BR; belonging to an account using an &AWS; SDK
+  title: List the Agents for &BR; belonging to an account using an &AWS; SDK
   title_abbrev: Lists the &BR; agents
-  synopsis: lists the Agents for &BR; belonging to an account.
+  synopsis: list the Agents for &BR; belonging to an account.
   languages:
     Python:
       versions:
@@ -113,7 +113,7 @@ bedrock-agent_ListAgents:
 
 bedrock-agent_PrepareAgent:
   title: Prepare an &BR; agent using an &AWS; SDK
-  title_abbrev: Prepare an &BR; agent
+  title_abbrev: Prepare an agent
   synopsis: prepare an &BR; agent for internal testing.
   languages:
     Python:
@@ -128,7 +128,7 @@ bedrock-agent_PrepareAgent:
     bedrock-agent: {PrepareAgent}
 bedrock-agent_GettingStartedWithBedrockAgents:
   title: An end-to-end example showing how to create and invoke &BR; agents using an &AWS; SDK
-  title_abbrev: Create and invoke &BR; agents
+  title_abbrev: Create and invoke agents
   synopsis_list:
     - Create an execution role for the agent.
     - Create the agent and deploy a DRAFT version.

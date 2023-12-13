@@ -5,7 +5,7 @@
 Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) with the Agents for Amazon
-Bedrock Runtime client to send prompts top an agent to process and respond to.
+Bedrock Runtime client to send prompts to an agent to process and respond to.
 """
 
 import logging

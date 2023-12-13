@@ -1,7 +1,7 @@
 # zexi 0.4.0
 bedrock-agent-runtime_InvokeAgent:
   title: Invoke an &BR; agent using an &AWS; SDK
-  title_abbrev: Invoke an &BR; agent
+  title_abbrev: Invoke an agent
   synopsis: invoke an &BR; agent.
   languages:
     Python:
@@ -16,7 +16,7 @@ bedrock-agent-runtime_InvokeAgent:
     bedrock-agent-runtime: {InvokeAgent}
 bedrock-agent-runtime_GettingStartedWithBedrockAgents:
   title: An end-to-end example showing how to create and invoke &BR; agents using an &AWS; SDK
-  title_abbrev: Create and invoke &BR; agents
+  title_abbrev: Create and invoke agents
   synopsis_list:
     - Create an execution role for the agent.
     - Create the agent and deploy a DRAFT version.
