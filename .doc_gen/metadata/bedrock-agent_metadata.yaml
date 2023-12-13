@@ -97,7 +97,7 @@ bedrock-agent_GetAgent:
 
 bedrock-agent_ListAgents:
   title: List the Agents for &BR; belonging to an account using an &AWS; SDK
-  title_abbrev: Lists the &BR; agents
+  title_abbrev: List the agents
   synopsis: list the Agents for &BR; belonging to an account.
   languages:
     Python:
