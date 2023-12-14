@@ -1,0 +1,15 @@
+mediaconvert_CreateContainer:
+  title: Create a &EMSlong; container using an &AWS; SDK
+  title_abbrev: Create a container
+  synopsis: create an &EMSlong; transcoding job.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/mediastore
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediastore.java2.create_container.main
+    mediastore: {CreateContainer}
