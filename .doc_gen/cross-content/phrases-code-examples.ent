@@ -85,6 +85,14 @@
 <!ENTITY BRRUNlong '&BRlong; Runtime'>
 <!ENTITY BRRUN '&BR; Runtime'>
 
+<!--Bedrock-->
+<!ENTITY BRAlong 'Agent for Amazon Bedrock'>
+<!ENTITY BRA 'Amazon Bedrock Agent'>
+
+<!--Bedrock Runtime-->
+<!ENTITY BRARUNlong '&BRAlong; Runtime'>
+<!ENTITY BRARUN '&BRA; Runtime'>
+
 <!-- CodeStar Notifications -->
 <!ENTITY CSNlong '&ACSlong; Notifications'>
 <!ENTITY CSN '&ACS; Notifications'>
