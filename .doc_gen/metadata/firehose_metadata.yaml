@@ -5,15 +5,6 @@ firehose_PutRecordBatch:
   synopsis: write multiple data records into a &AKF; delivery stream in a single call, which can achieve higher throughput per producer than when writing single records.
   category:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/firehose
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - firehose.java2.put_batch_records.main
     Rust:
       versions:
         - sdk_version: 1
