@@ -23,7 +23,7 @@ const retry = (config, fn) =>
       .then(resolve)
       .catch((err) => {
         console.warn(
-          `Callback in retry function failed. Retrying after ${
+          `Retrying after ${
             intervalInMs / 1000
           } seconds. ${maxRetries} retries left.`,
         );
