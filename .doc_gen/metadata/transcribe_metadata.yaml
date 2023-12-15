@@ -5,6 +5,15 @@ transcribe_StartTranscriptionJob:
   synopsis: start an &TSC; transcription job.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - transcribe.java-streaming-demo
     .NET:
       versions:
         - sdk_version: 3
@@ -43,6 +52,15 @@ transcribe_ListTranscriptionJobs:
   synopsis: list &TSC; transcription jobs.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.java-list-jobs
     .NET:
       versions:
         - sdk_version: 3
@@ -297,7 +315,19 @@ transcribe_Scenario_GettingStartedTranscriptionJobs:
     title: Getting started with &TSC;
     url: transcribe/latest/dg/getting-started.html
   languages:
-    Python:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description: Transcribes a PCM file.
+              snippet_tags:
+                - transcribe.java-streaming-demo-file.main
+            - description: Transcribes streaming audio from your computer's microphone.
+              snippet_tags:
+                - transcribe.java-streaming-demo
+    Python:    
       versions:
         - sdk_version: 3
           github: python/example_code/transcribe
