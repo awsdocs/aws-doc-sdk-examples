@@ -3,6 +3,7 @@
 
 // USAGE:
 // ailly --plugin file://./plugin.js [ailly arguments]
+// Requirements: on or after the ailly refactor-12-12 branch
 
 // DATA:
 // Get the vector file from davidsouther via S3 presigned URL
