@@ -1,5 +1,5 @@
-import { describe, it, vi } from "vitest";
-import { CloudWatchQuery } from "../scenarios/query-logs/index.js";
+import { describe, it, vi, expect } from "vitest";
+import { CloudWatchQuery } from "../scenarios/query-logs/cloud-watch-query.js";
 import {
   DescribeQueriesCommand,
   GetQueryResultsCommand,
@@ -20,11 +20,15 @@ const results = [
   ],
 ];
 
-const happyPathStartQueryMock = vi.fn(() =>
-  Promise.resolve({
+const happyPathStartQueryMock = vi
+  .fn()
+  .mockResolvedValueOnce({
     queryId: String(Math.random()),
-  }),
-);
+  })
+  .mockResolvedValueOnce({
+    queryId: String(Math.random()),
+  })
+  .mockRejectedValueOnce(new Error("Query's end date and time"));
 
 const happyPathGetQueryResultsMock = vi.fn(() => {
   const rand = Math.random() * 10;
@@ -67,15 +71,52 @@ const happyPathClient = {
 
 describe("CloudWatchQuery", () => {
   describe("with valid params", () => {
-    const cloudWatchQuery = new CloudWatchQuery(
-      happyPathClient,
-      ["some/log/group"],
-      "fields @timestamp, @message | sort @timestamp desc",
-    );
-
-    it("should output", async () => {
-      const results = await cloudWatchQuery.run();
-      console.log(results);
+    const endDate = new Date();
+    const cloudWatchQuery = new CloudWatchQuery(happyPathClient, {
+      logGroupNames: ["some/log/group"],
+      queryString: "fields @timestamp, @message | sort @timestamp desc",
+      startDate: new Date(
+        endDate.getFullYear(),
+        endDate.getMonth() - 1,
+        endDate.getDate(),
+        endDate.getHours(),
+      ),
+      endDate,
     });
+
+    it("should output", () =>
+      new Promise((resolve, reject) => {
+        cloudWatchQuery.run((results) => {
+          const logs = results
+            .map((subquery) => subquery.response.results)
+            .flat();
+
+          try {
+            expect(logs).toEqual([
+              [
+                { field: "a", value: "1" },
+                { field: "b", value: "2" },
+              ],
+              [
+                { field: "c", value: "3" },
+                { field: "d", value: "4" },
+              ],
+              [
+                { field: "a", value: "1" },
+                { field: "b", value: "2" },
+              ],
+              [
+                { field: "c", value: "3" },
+                { field: "d", value: "4" },
+              ],
+            ]);
+          } catch (err) {
+            reject(err);
+            return;
+          }
+
+          resolve();
+        });
+      }));
   });
 });
