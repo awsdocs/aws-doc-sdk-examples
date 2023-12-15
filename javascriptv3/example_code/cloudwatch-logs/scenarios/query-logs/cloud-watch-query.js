@@ -14,15 +14,14 @@ export class CloudWatchQuery {
    * perform a binary search across all of the logs in the provided date range
    * if a query returns the maximum number of results.
    *
-   * Note: The "@timestamp" field must be included in the results in order
-   * for this to work.
    * @param {import('@aws-sdk/client-cloudwatch-logs').CloudWatchLogsClient} client
-   * @param {{ logGroupNames: string[], dateRange: [Date, Date] }} config
+   * @param {{ logGroupNames: string[], dateRange: [Date, Date], queryConfig: { limit: number } }} config
    */
-  constructor(client, { logGroupNames, dateRange }) {
+  constructor(client, { logGroupNames, dateRange, queryConfig }) {
     this.client = client;
     this.logGroupNames = logGroupNames;
     this.dateRange = dateRange;
+    this.limit = queryConfig?.limit ?? 1000;
     /**
      * @type {{ queries: { [key: string]: { resultCount: number, dateRange: [Date, Date] } } }}
      */
@@ -30,13 +29,14 @@ export class CloudWatchQuery {
       logGroupNames: this.logGroupNames,
       initialDateRange: this.dateRange,
       queries: {},
-      logs: 0,
+      queryCount: 0,
+      logCount: 0,
     };
   }
 
   run() {
     this.resultsMeta.queries = {};
-    this.resultsMeta.logs = 0;
+    this.resultsMeta.logCount = 0;
     return this._bigQuery(this.dateRange);
   }
 
@@ -46,11 +46,10 @@ export class CloudWatchQuery {
    * @returns {Promise<import("@aws-sdk/client-cloudwatch-logs").ResultField[][]>}
    */
   async _bigQuery(dateRange) {
-    const maxLogs = 100;
-    const logs = await this._query(dateRange, maxLogs);
-    this.resultsMeta.logs += logs.length;
+    const logs = await this._query(dateRange, this.limit);
+    this.resultsMeta.logCount += logs.length;
 
-    if (logs.length < maxLogs) {
+    if (logs.length < this.limit) {
       return logs;
     }
 
@@ -118,6 +117,7 @@ export class CloudWatchQuery {
    */
   async _startQuery([startDate, endDate], maxLogs = 10000) {
     try {
+      this.resultsMeta.queryCount++;
       return await this.client.send(
         new StartQueryCommand({
           logGroupNames: this.logGroupNames,
@@ -152,13 +152,16 @@ export class CloudWatchQuery {
       return { queryDone, results };
     };
 
-    return retry({ intervalInMs: 1000, maxRetries: 60 }, async () => {
-      const { queryDone, results } = await getResults();
-      if (!queryDone) {
-        throw new Error("Query not done.");
-      }
+    return retry(
+      { intervalInMs: 1000, maxRetries: 60, quiet: true },
+      async () => {
+        const { queryDone, results } = await getResults();
+        if (!queryDone) {
+          throw new Error("Query not done.");
+        }
 
-      return results;
-    });
+        return results;
+      },
+    );
   }
 }

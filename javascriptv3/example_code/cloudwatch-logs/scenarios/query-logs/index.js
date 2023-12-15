@@ -4,12 +4,10 @@ import { CloudWatchQuery } from "./cloud-watch-query.js";
 const cloudWatchQuery = new CloudWatchQuery(new CloudWatchLogsClient({}), {
   logGroupNames: ["/aws-glue/crawlers"],
   dateRange: [new Date(2022, 1, 1), new Date()],
+  queryConfig: { limit: 50 },
 });
 
-const results = await cloudWatchQuery.run();
+await cloudWatchQuery.run();
 console.log(
-  results.map((resultFields) =>
-    resultFields.map((field) => `${field.field}: ${field.value}`),
-  ),
-  JSON.stringify(cloudWatchQuery.resultsMeta, null, 2),
+  `Queries made: ${cloudWatchQuery.resultsMeta.queryCount}\nLogs found: ${cloudWatchQuery.resultsMeta.logCount}`,
 );
