@@ -1,7 +1,3 @@
-// snippet-sourcedescription:[ListTranscriptionJobs.java provides a list of transcription jobs that match the specified criteria.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon Transcribe]
-
 package com.amazonaws.transcribe;
 
 import software.amazon.awssdk.regions.Region;
