@@ -1,186 +1,164 @@
 import {
   StartQueryCommand,
   GetQueryResultsCommand,
-  DescribeQueriesCommand,
 } from "@aws-sdk/client-cloudwatch-logs";
+import { splitDateRange } from "@aws-sdk-examples/libs/utils/util-date.js";
 import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
-import { dateRangeGenerator } from "@aws-sdk-examples/libs/utils/util-date.js";
+
+class DateOutOfBoundsError extends Error {}
 
 export class CloudWatchQuery {
   /**
+   * Run a query against CloudWatch Logs.
+   * CloudWatch logs return a max of 10,000 results. CloudWatchQuery will
+   * perform a binary search across all of the logs in the provided date range
+   * if a query returns the maximum number of results.
+   *
+   * Note: The "@timestamp" field must be included in the results in order
+   * for this to work.
    * @param {import('@aws-sdk/client-cloudwatch-logs').CloudWatchLogsClient} client
-   * @param {{ logGroupNames: string[], queryString: string, startDate: Date, endDate: Date }} config
+   * @param {{ logGroupNames: string[], dateRange: [Date, Date] }} config
    */
-  constructor(client, { logGroupNames, queryString, startDate, endDate }) {
+  constructor(client, { logGroupNames, dateRange }) {
     this.client = client;
     this.logGroupNames = logGroupNames;
-    this.queryString = queryString;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.stopNewQueries = false;
+    this.dateRange = dateRange;
     /**
-     * @type {{ queryId: string, response: import("@aws-sdk/client-cloudwatch-logs").GetQueryResultsResponse, startDate: Date, endDate: Date, error: Error | undefined }[]}
+     * @type {{ queries: { [key: string]: { resultCount: number, dateRange: [Date, Date] } } }}
      */
-    this.subQueries = [];
+    this.resultsMeta = {
+      logGroupNames: this.logGroupNames,
+      initialDateRange: this.dateRange,
+      queries: {},
+      logs: 0,
+    };
   }
 
-  /** @param {(subQueries: CloudWatchQuery['subQueries']) => void} cb */
-  run(cb) {
-    this.stopNewQueries = false;
-    this.subQueries = [];
-
-    this._pollQueryResults(cb);
-    this._partitionQueries();
-    // TODO: do something with errors in sub queries
+  run() {
+    this.resultsMeta.queries = {};
+    this.resultsMeta.logs = 0;
+    return this._bigQuery(this.dateRange);
   }
 
   /**
-   * Get the count of ALL running queries, including those not started
-   * with this instance of CloudWatchQuery.
+   * Recursively query for logs.
+   * @param {[Date, Date]} dateRange
+   * @returns {Promise<import("@aws-sdk/client-cloudwatch-logs").ResultField[][]>}
    */
-  async _getActiveQueryCount() {
-    /**
-     * @param {string} nextToken
-     * @param {import("@aws-sdk/client-cloudwatch-logs").QueryInfo[]} queries
-     */
-    const describeQueries = async (nextToken, queries = []) => {
-      const response = await retry({ intervalInMs: 500, maxRetries: 60 }, () =>
-        this.client.send(new DescribeQueriesCommand({ nextToken })),
-      );
-      queries.push(...response.queries);
+  async _bigQuery(dateRange) {
+    const maxLogs = 100;
+    const logs = await this._query(dateRange, maxLogs);
+    this.resultsMeta.logs += logs.length;
 
-      if (response.nextToken) {
-        await describeQueries(response.nextToken, queries);
-      }
+    if (logs.length < maxLogs) {
+      return logs;
+    }
 
-      return queries;
-    };
+    const lastLogDate = this._getLastLogDate(logs);
+    const offsetLastLogDate = new Date(lastLogDate);
+    offsetLastLogDate.setMilliseconds(lastLogDate.getMilliseconds() + 1);
+    const subDateRange = [offsetLastLogDate, dateRange[1]];
+    const [r1, r2] = splitDateRange(subDateRange);
+    const results = await Promise.all([this._bigQuery(r1), this._bigQuery(r2)]);
+    return [logs, ...results].flat();
+  }
 
-    const queries = await describeQueries();
-    const activeQueries = queries.filter(
-      (query) => query.status === "Running" || query.status === "Scheduled",
-    );
-    return activeQueries.length;
+  /**
+   *
+   * @param {import("@aws-sdk/client-cloudwatch-logs").ResultField[][]} logs
+   */
+  _getLastLogDate(logs) {
+    const timestamps = logs
+      .map(
+        (log) =>
+          log.find((fieldMeta) => fieldMeta.field === "@timestamp")?.value,
+      )
+      .filter((t) => !!t)
+      .map((t) => `${t}Z`)
+      .sort();
+
+    // Throw if no timestamp.
+    if (!timestamps.length) {
+      throw new Error("No timestamp found in logs.");
+    }
+
+    return new Date(timestamps[timestamps.length - 1]);
   }
 
   _getQueryResults(queryId) {
     return this.client.send(new GetQueryResultsCommand({ queryId }));
   }
 
-  _partitionQueries() {
-    const maxQueries = 30; // CloudWatch Logs has a max of 30 active queries.
-
-    const dateRanges = dateRangeGenerator({
-      interval: { days: 1 },
-      start: this.startDate,
-      end: this.endDate,
-    });
-    const intervalInMs = 200;
-
-    // TODO: refactor to use timersPromises api
-    return new Promise((resolve, reject) => {
-      const tick = setInterval(async () => {
-        if (this.stopNewQueries) {
-          clearInterval(tick);
-          resolve();
-          return;
-        }
-
-        const activeQueries = await this._getActiveQueryCount();
-        if (activeQueries < maxQueries) {
-          try {
-            const { startDate, endDate } = dateRanges.next().value;
-            const { queryId } = await this._startQuery(startDate, endDate);
-            if (queryId) {
-              this.subQueries.push({ queryId, startDate, endDate });
-            }
-          } catch (err) {
-            reject(err);
-          }
-        }
-      }, intervalInMs);
-    });
-  }
-
-  /** @param {(subQueries: CloudWatchQuery['subQueries']) => void} cb */
-  _pollQueryResults(cb) {
-    /**
-     * @param {import("@aws-sdk/client-cloudwatch-logs").GetQueryResultsResponse} queryResponse
-     */
-    const queryDone = (queryResponse) =>
-      ["Complete", "Failed", "Cancelled", "Timeout", "Unknown"].includes(
-        queryResponse?.status,
-      );
-
-    /**
-     * @param {import("@aws-sdk/client-cloudwatch-logs").GetQueryResultsResponse} queryResponse
-     */
-    const queryErred = (queryResponse) =>
-      ["Failed", "Cancelled", "Timeout", "Unknown"].includes(
-        queryResponse?.status,
-      );
-
-    const intervalInMs = 500;
-    const tick = setInterval(async () => {
-      const allQueriesDone = this.subQueries.every((subQuery) =>
-        queryDone(subQuery.response),
-      );
-      if (this.stopNewQueries && allQueriesDone) {
-        clearInterval(tick);
-        cb(this.subQueries);
-        return;
+  /**
+   * @param {[Date, Date]} dateRange
+   * @param {number} maxLogs
+   */
+  async _query(dateRange, maxLogs) {
+    try {
+      const { queryId } = await this._startQuery(dateRange, maxLogs);
+      const { results } = await this._waitUntilQueryDone(queryId);
+      this.resultsMeta.queries[queryId] = {
+        resultCount: results.length,
+        dateRange,
+      };
+      return results ?? [];
+    } catch (err) {
+      if (err instanceof DateOutOfBoundsError) {
+        return [];
+      } else {
+        throw err;
       }
-
-      for (const subQuery of this.subQueries.values()) {
-        if (queryDone(subQuery.response)) {
-          continue;
-        }
-
-        // Handle throttling exceptions.
-        const response = await retry(
-          { intervalInMs: 500, maxRetries: 60 },
-          () => this._getQueryResults(subQuery.queryId),
-        );
-
-        subQuery.response = response;
-
-        if (queryErred(response)) {
-          subQuery.error = new Error(`Sub query error: ${response.status}`);
-        }
-      }
-    }, intervalInMs);
+    }
   }
 
   /**
-   * @param {string} queryString
-   * @param {Date} startDate
-   * @param {Date} endDate
+   * @param {[Date, Date]} dateRange
+   * @param {number} maxLogs
+   * @returns {Promise<{ queryId: string }>}
    */
-  async _startQuery(startDate, endDate) {
+  async _startQuery([startDate, endDate], maxLogs = 10000) {
     try {
-      console.debug("---");
-      console.debug(`log groups: ${this.logGroupNames}`);
-      console.debug(`query: ${this.queryString}`);
-      console.debug(`start: ${startDate.toISOString()}`);
-      console.debug(`end: ${endDate.toISOString()}`);
-      console.debug("---");
       return await this.client.send(
         new StartQueryCommand({
           logGroupNames: this.logGroupNames,
-          queryString: this.queryString,
+          queryString: "fields @timestamp, @message | sort @timestamp asc",
           startTime: startDate.valueOf(),
           endTime: endDate.valueOf(),
+          limit: maxLogs,
         }),
       );
     } catch (err) {
       /** @type {string} */
       const message = err.message;
       if (message.startsWith("Query's end date and time")) {
-        this.stopNewQueries = true;
-        return {};
+        throw new DateOutOfBoundsError(message);
       }
 
       throw err;
     }
+  }
+
+  _waitUntilQueryDone(queryId) {
+    const getResults = async () => {
+      const results = await this._getQueryResults(queryId);
+      const queryDone = [
+        "Complete",
+        "Failed",
+        "Cancelled",
+        "Timeout",
+        "Unknown",
+      ].includes(results.status);
+
+      return { queryDone, results };
+    };
+
+    return retry({ intervalInMs: 1000, maxRetries: 60 }, async () => {
+      const { queryDone, results } = await getResults();
+      if (!queryDone) {
+        throw new Error("Query not done.");
+      }
+
+      return results;
+    });
   }
 }

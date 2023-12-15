@@ -36,8 +36,6 @@ export function* dateRangeGenerator({ interval, start, end }) {
     ...interval,
   };
 
-  console.log(years, months, days, hours, minutes, seconds);
-
   let chunkEnd = new Date(end);
 
   while (true) {
@@ -58,4 +56,18 @@ export function* dateRangeGenerator({ interval, start, end }) {
     yield { startDate: chunkStart, endDate: chunkEnd };
     chunkEnd = new Date(chunkStart);
   }
+}
+
+/**
+ * Split a date range in half and return two date
+ * ranges.
+ * @param {[Date, Date]} daterange
+ */
+export function splitDateRange([startDate, endDate]) {
+  const mid = new Date((startDate.getTime() + endDate.getTime()) / 2);
+  const midPlus = new Date(mid);
+  return [
+    [startDate, mid],
+    [new Date(midPlus.setMilliseconds(midPlus.getMilliseconds() + 1)), endDate],
+  ];
 }

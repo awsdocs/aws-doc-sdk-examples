@@ -74,49 +74,29 @@ describe("CloudWatchQuery", () => {
     const endDate = new Date();
     const cloudWatchQuery = new CloudWatchQuery(happyPathClient, {
       logGroupNames: ["some/log/group"],
-      queryString: "fields @timestamp, @message | sort @timestamp desc",
-      startDate: new Date(
-        endDate.getFullYear(),
-        endDate.getMonth() - 1,
-        endDate.getDate(),
-        endDate.getHours(),
-      ),
-      endDate,
+      dateRange: [
+        new Date(
+          endDate.getFullYear(),
+          endDate.getMonth() - 1,
+          endDate.getDate(),
+          endDate.getHours(),
+        ),
+        endDate,
+      ],
     });
 
-    it("should output", () =>
-      new Promise((resolve, reject) => {
-        cloudWatchQuery.run((results) => {
-          const logs = results
-            .map((subquery) => subquery.response.results)
-            .flat();
-
-          try {
-            expect(logs).toEqual([
-              [
-                { field: "a", value: "1" },
-                { field: "b", value: "2" },
-              ],
-              [
-                { field: "c", value: "3" },
-                { field: "d", value: "4" },
-              ],
-              [
-                { field: "a", value: "1" },
-                { field: "b", value: "2" },
-              ],
-              [
-                { field: "c", value: "3" },
-                { field: "d", value: "4" },
-              ],
-            ]);
-          } catch (err) {
-            reject(err);
-            return;
-          }
-
-          resolve();
-        });
-      }));
+    it("should output", async () => {
+      const results = await cloudWatchQuery.run();
+      expect(results).toEqual([
+        [
+          { field: "a", value: "1" },
+          { field: "b", value: "2" },
+        ],
+        [
+          { field: "c", value: "3" },
+          { field: "d", value: "4" },
+        ],
+      ]);
+    });
   });
 });
