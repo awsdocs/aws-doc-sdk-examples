@@ -30,6 +30,11 @@
 <!ENTITY Bashlong '&CLIlong; with Bash script'>
 <!ENTITY Bash '&CLI; with Bash script'>
 
+<!-- CLI v2 -->
+
+<!ENTITY CLI2long '&CLIlong; version 2'>
+<!ENTITY CLI2 '&CLI; version 2'>
+
 <!-- API Gateway Management API -->
 
 <!ENTITY ABPMA '&ABP; Management API'>
