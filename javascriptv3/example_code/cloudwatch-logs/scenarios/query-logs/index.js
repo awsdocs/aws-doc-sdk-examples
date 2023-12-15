@@ -3,11 +3,13 @@ import { CloudWatchQuery } from "./cloud-watch-query.js";
 
 const cloudWatchQuery = new CloudWatchQuery(new CloudWatchLogsClient({}), {
   logGroupNames: ["/aws-glue/crawlers"],
-  queryString: "fields @timestamp, @message | sort @timestamp desc",
-  startDate: new Date(2023, 9, 1),
-  endDate: new Date(2023, 9, 31),
+  dateRange: [new Date(2022, 1, 1), new Date()],
 });
 
-cloudWatchQuery.run((subQueries) => {
-  console.log(subQueries.map((query) => query.response.results).flat());
-});
+const results = await cloudWatchQuery.run();
+console.log(
+  results.map((resultFields) =>
+    resultFields.map((field) => `${field.field}: ${field.value}`),
+  ),
+  JSON.stringify(cloudWatchQuery.resultsMeta, null, 2),
+);
