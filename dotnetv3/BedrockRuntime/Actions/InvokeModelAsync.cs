@@ -66,3 +66,4 @@ namespace BedrockRuntimeActions
         }
     }
 }
+// snippet-end:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.Claude]
