@@ -1,5 +1,5 @@
 import { describe, it, vi, expect } from "vitest";
-import { CloudWatchQuery } from "../scenarios/query-logs/cloud-watch-query.js";
+import { CloudWatchQuery } from "../scenarios/big-query/cloud-watch-query.js";
 import {
   DescribeQueriesCommand,
   GetQueryResultsCommand,
