@@ -98,7 +98,7 @@ public class GeneratePresignedUrlAndPutFileWithMetadata {
                     .build();
 
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10))  // The URL will expire in 10 minutes.
+                    .signatureDuration(Duration.ofMinutes(10))  // The URL expires in 10 minutes.
                     .putObjectRequest(objectRequest)
                     .build();
 

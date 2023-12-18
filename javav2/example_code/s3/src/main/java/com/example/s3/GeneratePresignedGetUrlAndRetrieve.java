@@ -96,7 +96,7 @@ public class GeneratePresignedGetUrlAndRetrieve {
     // snippet-start:[presigned.java2.generatepresignedgeturlandretrieve.basichttpclient]
     /* Use the JDK HttpURLConnection (since v1.1) class to do the download. */
     public byte[] useHttpUrlConnectionToGet(String presignedUrlString) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(); // Capture the response bode to a byte array.
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(); // Capture the response body to a byte array.
 
         try {
             URL presignedUrl = new URL(presignedUrlString);
@@ -118,8 +118,8 @@ public class GeneratePresignedGetUrlAndRetrieve {
     // snippet-start:[presigned.java2.generatepresignedgeturlandretrieve.jdkhttpclient]
     /* Use the JDK HttpClient (since v11) class to do the download. */
     public byte[] useHttpClientToGet(String presignedUrlString) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(); // Capture the response body to a byte array.
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(); // Capture the response bode to a byte array.
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder();
         HttpClient httpClient = HttpClient.newHttpClient();
         try {
@@ -145,7 +145,7 @@ public class GeneratePresignedGetUrlAndRetrieve {
     /* Use the AWS SDK for Java SdkHttpClient class to do the download. */
     public byte[] useSdkHttpClientToPut(String presignedUrlString) {
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(); // Capture the response bode to a byte array.
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(); // Capture the response body to a byte array.
         try {
             URL presignedUrl = new URL(presignedUrlString);
             SdkHttpRequest request = SdkHttpRequest.builder()
