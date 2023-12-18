@@ -9,35 +9,56 @@ class DateOutOfBoundsError extends Error {}
 
 export class CloudWatchQuery {
   /**
-   * Run a query against CloudWatch Logs.
-   * CloudWatch logs return a max of 10,000 results. CloudWatchQuery will
-   * perform a binary search across all of the logs in the provided date range
-   * if a query returns the maximum number of results.
+   * Run a query for all CloudWatch Logs within a certain date range.
+   * CloudWatch logs return a max of 10,000 results. This class
+   * performs a binary search across all of the logs in the provided
+   * date range if a query returns the maximum number of results.
    *
    * @param {import('@aws-sdk/client-cloudwatch-logs').CloudWatchLogsClient} client
    * @param {{ logGroupNames: string[], dateRange: [Date, Date], queryConfig: { limit: number } }} config
    */
   constructor(client, { logGroupNames, dateRange, queryConfig }) {
     this.client = client;
-    this.logGroupNames = logGroupNames;
-    this.dateRange = dateRange;
-    this.limit = queryConfig?.limit ?? 1000;
     /**
-     * @type {{ queries: { [key: string]: { resultCount: number, dateRange: [Date, Date] } } }}
+     * All log groups are queried.
+     */
+    this.logGroupNames = logGroupNames;
+
+    /**
+     * The inclusive date range that is queried.
+     */
+    this.dateRange = dateRange;
+
+    /**
+     * CloudWatch Logs never returns more than 10,000 logs.
+     */
+    this.limit = queryConfig?.limit ?? 10000;
+
+    /**
+     * @type {{ queries: { [key: string]: { resultCount: number, dateRange: [Date, Date] } }, queryCount: number, logCount: number, initialDateRange: [Date, Date], logGroupNames: string[], secondsElapsed: number }}
      */
     this.resultsMeta = {
       logGroupNames: this.logGroupNames,
       initialDateRange: this.dateRange,
+      secondsElapsed: 0,
       queries: {},
       queryCount: 0,
       logCount: 0,
     };
   }
 
-  run() {
+  /**
+   * Run the query.
+   */
+  async run() {
     this.resultsMeta.queries = {};
     this.resultsMeta.logCount = 0;
-    return this._bigQuery(this.dateRange);
+
+    const start = new Date();
+    const results = await this._bigQuery(this.dateRange);
+    const end = new Date();
+    this.resultsMeta.secondsElapsed = (end - start) / 1000;
+    return results;
   }
 
   /**
@@ -46,6 +67,7 @@ export class CloudWatchQuery {
    * @returns {Promise<import("@aws-sdk/client-cloudwatch-logs").ResultField[][]>}
    */
   async _bigQuery(dateRange) {
+    const start = new Date();
     const logs = await this._query(dateRange, this.limit);
     this.resultsMeta.logCount += logs.length;
 
@@ -59,11 +81,13 @@ export class CloudWatchQuery {
     const subDateRange = [offsetLastLogDate, dateRange[1]];
     const [r1, r2] = splitDateRange(subDateRange);
     const results = await Promise.all([this._bigQuery(r1), this._bigQuery(r2)]);
+    const end = new Date();
+    console.log(`Query took: ${(end.valueOf() - start.valueOf()) / 1000}`);
     return [logs, ...results].flat();
   }
 
   /**
-   *
+   * Find the most recent log in a list of logs.
    * @param {import("@aws-sdk/client-cloudwatch-logs").ResultField[][]} logs
    */
   _getLastLogDate(logs) {
@@ -76,7 +100,6 @@ export class CloudWatchQuery {
       .map((t) => `${t}Z`)
       .sort();
 
-    // Throw if no timestamp.
     if (!timestamps.length) {
       throw new Error("No timestamp found in logs.");
     }
@@ -84,11 +107,18 @@ export class CloudWatchQuery {
     return new Date(timestamps[timestamps.length - 1]);
   }
 
+  // snippet-start:[javascript.v3.cloudwatch-logs.actions.GetQueryResults]
+  /**
+   * Simple wrapper for the GetQueryResultsCommand.
+   * @param {string} queryId
+   */
   _getQueryResults(queryId) {
     return this.client.send(new GetQueryResultsCommand({ queryId }));
   }
+  // snippet-end:[javascript.v3.cloudwatch-logs.actions.GetQueryResults]
 
   /**
+   * Starts a query and waits for it to complete.
    * @param {[Date, Date]} dateRange
    * @param {number} maxLogs
    */
@@ -102,6 +132,11 @@ export class CloudWatchQuery {
       };
       return results ?? [];
     } catch (err) {
+      /**
+       * This error is thrown when StartQuery returns an error indicating
+       * that the query's start or end date occur before the log group was
+       * created.
+       */
       if (err instanceof DateOutOfBoundsError) {
         return [];
       } else {
@@ -110,7 +145,10 @@ export class CloudWatchQuery {
     }
   }
 
+  // snippet-start:[javascript.v3.cloudwatch-logs.actions.StartQuery]
   /**
+   * Wrapper for the StartQueryCommand. Uses a static query string
+   * for consistency.
    * @param {[Date, Date]} dateRange
    * @param {number} maxLogs
    * @returns {Promise<{ queryId: string }>}
@@ -131,13 +169,20 @@ export class CloudWatchQuery {
       /** @type {string} */
       const message = err.message;
       if (message.startsWith("Query's end date and time")) {
+        // This error indicates that the query's start or end date occur
+        // before the log group was created.
         throw new DateOutOfBoundsError(message);
       }
 
       throw err;
     }
   }
+  // snippet-end:[javascript.v3.cloudwatch-logs.actions.StartQuery]
 
+  /**
+   * Call GetQueryResultsCommand until the query is done.
+   * @param {string} queryId
+   */
   _waitUntilQueryDone(queryId) {
     const getResults = async () => {
       const results = await this._getQueryResults(queryId);
