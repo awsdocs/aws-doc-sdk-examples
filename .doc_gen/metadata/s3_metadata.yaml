@@ -2322,7 +2322,7 @@ s3_Scenario_PresignedUrl:
           sdkguide:
           excerpts:
             - description: Generate a pre-signed URL for an object, then download it (GET request).
-            - description: Imports
+            - description: Imports.
               snippet_tags:
                 - presigned.java2.generatepresignedgeturlandretrieve.import
             - description: Generate the URL.
@@ -2340,7 +2340,7 @@ s3_Scenario_PresignedUrl:
                 - presigned.java2.generatepresignedgeturlandretrieve.sdkhttpclient
 
             - description: Generate a pre-signed URL for an upload, then upload a file (PUT request).
-            - description: Imports
+            - description: Imports.
               snippet_tags:
                 - presigned.java2.generatepresignedurlandputfilewithmetadata.import
             - description: Generate the URL.
