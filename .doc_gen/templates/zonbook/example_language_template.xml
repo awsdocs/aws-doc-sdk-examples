@@ -44,7 +44,13 @@
             {{- end}}
             {{- range $version.Excerpts}}
             <block>
-                <para>{{.Description}}</para>
+                {{- if .Description}}
+                    {{- if hasPrefix .Description "<programlisting"}}
+                    {{.Description}}
+                    {{- else}}
+                    <para>{{.Description}}</para>
+                    {{- end}}
+                {{- end}}
                 {{- if .SnippetTags}}
                 <!-- The following line break must be preserved and left-justified exactly as-is, to keep snippets looking good. -->
                 <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="{{$include_base}}snippets/{{.}}.txt"/>
