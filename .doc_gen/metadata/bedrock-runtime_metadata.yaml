@@ -91,6 +91,15 @@ bedrock-runtime_InvokeClaudeAsync:
             - description: Invoke the Anthropic Claude foundation model (async).
               snippet_tags:
                 - bedrock-runtime.java2.invoke_claude_async.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock
+          sdkguide:
+          excerpts:
+            - description: Invoke the Anthropic Claude foundation model (async).
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.Claude
   services:
     bedrock-runtime: {InvokeModel}
 
