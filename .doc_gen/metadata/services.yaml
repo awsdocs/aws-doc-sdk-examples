@@ -2003,7 +2003,7 @@ medical-imaging:
     short: HealthImaging
   blurb: is a HIPAA-eligible service that helps health care providers and their medical imaging ISV partners store, transform, and apply machine learning to medical images.
   guide:
-    subtitle: User Guide
+    subtitle: Developer Guide
     url: healthimaging/latest/devguide/what-is.html
   api_ref: healthimaging/latest/APIReference/Welcome.html
   tags:

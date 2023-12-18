@@ -45,7 +45,7 @@
             {{- range $version.Excerpts}}
             <block>
                 {{- if .Description}}
-                    {{- if and (lt 15 (len .Description)) (eq (slice .Description 0 15) "<programlisting")}}
+                    {{- if hasPrefix .Description "<programlisting"}}
                     {{.Description}}
                     {{- else}}
                     <para>{{.Description}}</para>
