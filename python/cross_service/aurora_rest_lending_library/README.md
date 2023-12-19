@@ -118,10 +118,9 @@ python library_demo.py demo_rest
 ### 5. Cleanup
 
 Remove all resources created during the demonstration by running the following 
-commands at a command prompt.
+command at a command prompt.
 
 ```
-python library_demo.py cleanup
 cdk destroy
 ```
 
