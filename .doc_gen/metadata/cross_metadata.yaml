@@ -72,6 +72,7 @@ cross_PAM:
     dynamodb:
     rekognition:
     lambda:
+    api-gateway:
 cross_RedshiftDataTracker:
   title: Create an &RSlong; item tracker
   title_abbrev: Create a web application to track &RS; data
