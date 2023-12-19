@@ -105,7 +105,6 @@ def do_populate_database(cluster, db_name, secret):
     rdsdata_client = boto3.client("rds-data")
     storage = Storage(cluster, secret, db_name, rdsdata_client)
     print(f"Creating tables in database {db_name}.")
-    breakpoint()
     storage.bootstrap_tables()
     print(f"Pulling data from {url_get_spider_books} to populate the demo database.")
     author_count, book_count = fill_db_tables(url_get_spider_books, storage)

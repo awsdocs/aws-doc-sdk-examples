@@ -1,6 +1,3 @@
-admin_name: docexampleadmin
-admin_password: your-password
-secret_name: doc-example-aurora-app-secret
 db_name: auroraappdb
 engine: mysql
 host: your-host

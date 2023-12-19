@@ -190,7 +190,6 @@ class Storage:
                 "secretArn": self._secret["ARN"],
                 "sql": sql,
             }
-            breakpoint()
             if sql_params is not None:
                 run_args["parameters"] = sql_params
             if transaction_id is not None:
