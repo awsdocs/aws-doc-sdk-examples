@@ -96,7 +96,7 @@ public class GeneratePresignedGetUrlAndRetrieve {
     // snippet-start:[presigned.java2.generatepresignedgeturlandretrieve.basichttpclient]
     /* Use the JDK HttpURLConnection (since v1.1) class to do the download. */
     public byte[] useHttpUrlConnectionToGet(String presignedUrlString) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(); // Capture the response body to a byte array.
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); // Capture the response body to a byte array.
 
         try {
             URL presignedUrl = new URL(presignedUrlString);
@@ -104,21 +104,21 @@ public class GeneratePresignedGetUrlAndRetrieve {
             connection.setRequestMethod("GET");
             // Download the result of executing the request.
             try (InputStream content = connection.getInputStream()) {
-                IoUtils.copy(content, baos);
+                IoUtils.copy(content, byteArrayOutputStream);
             }
             logger.info("HTTP response code is " + connection.getResponseCode());
 
         } catch (S3Exception | IOException e) {
             logger.error(e.getMessage(), e);
         }
-        return baos.toByteArray();
+        return byteArrayOutputStream.toByteArray();
     }
     // snippet-end:[presigned.java2.generatepresignedgeturlandretrieve.basichttpclient]
 
     // snippet-start:[presigned.java2.generatepresignedgeturlandretrieve.jdkhttpclient]
     /* Use the JDK HttpClient (since v11) class to do the download. */
     public byte[] useHttpClientToGet(String presignedUrlString) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(); // Capture the response body to a byte array.
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); // Capture the response body to a byte array.
 
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder();
         HttpClient httpClient = HttpClient.newHttpClient();
@@ -130,14 +130,14 @@ public class GeneratePresignedGetUrlAndRetrieve {
                             .build(),
                     HttpResponse.BodyHandlers.ofInputStream());
 
-            IoUtils.copy(response.body(), baos);
+            IoUtils.copy(response.body(), byteArrayOutputStream);
 
             logger.info("HTTP response code is " + response.statusCode());
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
             logger.error(e.getMessage(), e);
         }
-        return baos.toByteArray();
+        return byteArrayOutputStream.toByteArray();
     }
     // snippet-end:[presigned.java2.generatepresignedgeturlandretrieve.jdkhttpclient]
 
@@ -145,7 +145,7 @@ public class GeneratePresignedGetUrlAndRetrieve {
     /* Use the AWS SDK for Java SdkHttpClient class to do the download. */
     public byte[] useSdkHttpClientToPut(String presignedUrlString) {
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(); // Capture the response body to a byte array.
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); // Capture the response body to a byte array.
         try {
             URL presignedUrl = new URL(presignedUrlString);
             SdkHttpRequest request = SdkHttpRequest.builder()
@@ -162,7 +162,7 @@ public class GeneratePresignedGetUrlAndRetrieve {
                 response.responseBody().ifPresentOrElse(
                         abortableInputStream -> {
                             try {
-                                IoUtils.copy(abortableInputStream, baos);
+                                IoUtils.copy(abortableInputStream, byteArrayOutputStream);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -174,7 +174,7 @@ public class GeneratePresignedGetUrlAndRetrieve {
         } catch (URISyntaxException | IOException e) {
             logger.error(e.getMessage(), e);
         }
-        return baos.toByteArray();
+        return byteArrayOutputStream.toByteArray();
     }
     // snippet-end:[presigned.java2.generatepresignedgeturlandretrieve.sdkhttpclient]
     // snippet-end:[presigned.java2.generatepresignedgeturlandretrieve.main]
