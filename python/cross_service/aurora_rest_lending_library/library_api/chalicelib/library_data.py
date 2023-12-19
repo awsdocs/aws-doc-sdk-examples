@@ -43,7 +43,7 @@ class Storage:
         """
         Initialize the storage object.
 
-        Also initializes all of the definitions of the library tables.
+        Also initializes all the definitions of the library tables.
 
         :param cluster: The Amazon Aurora cluster that contains the library database.
         :param secret: The AWS Secrets Manager secret that contains credentials used
@@ -190,6 +190,7 @@ class Storage:
                 "secretArn": self._secret["ARN"],
                 "sql": sql,
             }
+            breakpoint()
             if sql_params is not None:
                 run_args["parameters"] = sql_params
             if transaction_id is not None:

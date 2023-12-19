@@ -17,11 +17,15 @@ import time
 from urllib.parse import urljoin
 import requests
 import boto3
+import yaml
 
-import rds_tools.aurora_tools as aurora_tools
 from library_api.chalicelib.library_data import Storage
 
 logger = logging.getLogger(__name__)
+
+# Read YAML configuration
+with open('config.yml', 'r') as file:
+    config = yaml.safe_load(file)
 
 
 def find_api_url(stack_name):
@@ -53,51 +57,6 @@ def find_api_url(stack_name):
         )
     else:
         return api_url
-
-
-def create_resources(
-    cluster_name,
-    db_name,
-    admin_name,
-    admin_password,
-    rds_client,
-    secret_name,
-    secrets_client,
-):
-    """
-    Creates cluster, database, and secrets resources for the lending library demo.
-
-    :param cluster_name: The name of the Amazon Aurora cluster to create.
-    :param db_name: The name of the database to create in the Aurora cluster.
-    :param admin_name: The username of the database administrator.
-    :param admin_password: The password of the database administrator. This is
-                           passed directly only when the database is created.
-                           In all subsequent calls, an AWS Secrets Manager secret
-                           is used.
-    :param rds_client: The Boto3 RDS client.
-    :param secret_name: The name of the secret that holds the database administrator
-                        credentials.
-    :param secrets_client: The Boto3 Secrets Manager client.
-    :return: The newly created cluster and secret.
-    """
-    cluster = aurora_tools.create_db_cluster(
-        cluster_name, db_name, admin_name, admin_password, rds_client
-    )
-    secret = aurora_tools.create_aurora_secret(
-        secret_name,
-        admin_name,
-        admin_password,
-        cluster["Engine"],
-        cluster["Endpoint"],
-        cluster["Port"],
-        cluster["DBClusterIdentifier"],
-        secrets_client,
-    )
-
-    cluster_available_waiter = aurora_tools.ClusterAvailableWaiter(rds_client)
-    cluster_available_waiter.wait(cluster_name)
-
-    return cluster, secret
 
 
 def fill_db_tables(books_url, storage):
@@ -134,41 +93,19 @@ def fill_db_tables(books_url, storage):
     return author_count, book_count
 
 
-def do_deploy_database(cluster_name, secret_name):
+def do_populate_database(cluster, db_name, secret):
     """
     Creates the demo database and fills it with example data.
 
-    :param cluster_name: The name of the Aurora cluster to create.
-    :param secret_name: The name of the secret that holds the database administrator
-                        credentials.
+    :param cluster: A dict containing cluster details
+    :param db_name: The name of the database
+    :param secret: A dict containing secret details required to connect to database
     """
     url_get_spider_books = "https://openlibrary.org/subjects/spiders.json?details=false"
-
-    secrets_client = boto3.client("secretsmanager")
-    rds_client = boto3.client("rds")
     rdsdata_client = boto3.client("rds-data")
-
-    db_name = "lendinglibrary"
-    admin_name = "demoadmin"
-    admin_password = secrets_client.get_random_password(
-        PasswordLength=20, ExcludeCharacters='/@"'
-    )["RandomPassword"]
-
-    print(
-        f"Creating database {db_name} in cluster {cluster_name}. This typically "
-        f"takes a few minutes."
-    )
-    cluster, secret = create_resources(
-        cluster_name,
-        db_name,
-        admin_name,
-        admin_password,
-        rds_client,
-        secret_name,
-        secrets_client,
-    )
     storage = Storage(cluster, secret, db_name, rdsdata_client)
     print(f"Creating tables in database {db_name}.")
+    breakpoint()
     storage.bootstrap_tables()
     print(f"Pulling data from {url_get_spider_books} to populate the demo database.")
     author_count, book_count = fill_db_tables(url_get_spider_books, storage)
@@ -184,10 +121,7 @@ def do_deploy_rest(stack_name):
     """
     s3 = boto3.resource("s3")
     bucket = s3.create_bucket(
-        Bucket=f"demo-aurora-rest-deploy-{time.time_ns()}",
-        CreateBucketConfiguration={
-            "LocationConstraint": s3.meta.client.meta.region_name
-        },
+        Bucket=f"demo-aurora-rest-deploy-{time.time_ns()}"
     )
     print(f"Creating bucket {bucket.name} to hold deployment package.")
     bucket.wait_until_exists()
@@ -270,53 +204,26 @@ def do_rest_demo(stack_name):
     print(f"Response: {response.status_code}")
 
 
-def do_cleanup(stack_name, cluster_name, secret_name):
-    """
-    Cleans up all resources created by the demo.
-
-    :param stack_name: The name of the stack to delete. This also removes all of the
-                       resources created by the stack.
-    :param cluster_name: The name of the cluster to delete.
-    :param secret_name: The name of the secret to delete.
-    """
-    print(f"Cleaning up {cluster_name}, {secret_name}, and {stack_name}.")
-
-    os.chdir("library_api")
-    logger.info("Running AWS CLI command to delete the %s stack.", stack_name)
-    os.system(f"aws cloudformation delete-stack --stack-name {stack_name}")
-    os.chdir("..")
-
-    rds_client = boto3.client("rds")
-    secrets_client = boto3.client("secretsmanager")
-
-    aurora_tools.delete_db_cluster(cluster_name, rds_client)
-    aurora_tools.delete_secret(secret_name, secrets_client)
-
-
 def main():
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "action", choices=["deploy_database", "deploy_rest", "demo_rest", "cleanup"]
+        "action", choices=["populate_database", "deploy_rest", "demo_rest"]
     )
     args = parser.parse_args()
-
-    cluster_name = "demo-aurora-cluster"
-    secret_name = "demo-aurora-secret"
-    stack_name = "LendingLibrary"
 
     print("-" * 88)
     print("Welcome to the Amazon Relational Database Service (Amazon RDS) demo.")
     print("-" * 88)
 
-    if args.action == "deploy_database":
-        print("Deploying the serverless database cluster and supporting resources.")
-        do_deploy_database(cluster_name, secret_name)
+    if args.action == "populate_database":
+        print("Populating serverless database cluster with data.")
+        do_populate_database(config['cluster'], config['db_name'], config['secret'])
         print("Next, run 'py library_demo.py deploy_rest' to deploy the REST API.")
     elif args.action == "deploy_rest":
         print("Deploying the REST API components.")
-        api_url = do_deploy_rest(stack_name)
+        api_url = do_deploy_rest(config['cluster']['cluster_name'])
         print(
             f"Next, send HTTP requests to {api_url} or run "
             f"'py library_demo.py demo_rest' "
@@ -326,18 +233,14 @@ def main():
     elif args.action == "demo_rest":
         print("Demonstrating how to call the REST API by using the Requests package.")
         try:
-            do_rest_demo(stack_name)
+            do_rest_demo(config['cluster']['cluster_name'])
         except TimeoutError as err:
             print(err)
         else:
             print(
-                "Next, give it a try yourself or run 'py library_demo.py cleanup' "
+                "Next, give it a try yourself or run cdk destroy "
                 "to delete all demo resources."
             )
-    elif args.action == "cleanup":
-        print("Cleaning up all resources created for the demo.")
-        do_cleanup(stack_name, cluster_name, secret_name)
-        print("All clean, thanks for watching!")
     print("-" * 88)
 
 
