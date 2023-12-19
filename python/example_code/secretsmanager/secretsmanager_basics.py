@@ -44,21 +44,28 @@ class SecretsManagerSecret:
                 kwargs["VersionStage"] = stage
             self.secretsmanager_client.batch_get_secret_value(
                 SecretIdList=[
-                    'string',
+                    "string",
                 ],
                 Filters=[
                     {
-                        'Key': 'description'|'name'|'tag-key'|'tag-value'|'primary-region'|'owning-service'|'all',
-                        'Values': [
-                            'string',
-                        ]
+                        "Key": "description"
+                        | "name"
+                        | "tag-key"
+                        | "tag-value"
+                        | "primary-region"
+                        | "owning-service"
+                        | "all",
+                        "Values": [
+                            "string",
+                        ],
                     },
                 ],
                 MaxResults=123,
-                NextToken='string'
+                NextToken="string",
             )
             logger.info("Got value for secret %s.", self.name)
         except ClientError:
             logger.exception("Couldn't get value for secret %s.", self.name)
             raise
+
     # snippet-end:[python.example_code.secrets-manager.GetSecretValue]

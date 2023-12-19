@@ -24,7 +24,7 @@ from library_api.chalicelib.library_data import Storage
 logger = logging.getLogger(__name__)
 
 # Read YAML configuration
-with open('config.yml', 'r') as file:
+with open("config.yml", "r") as file:
     config = yaml.safe_load(file)
 
 
@@ -120,9 +120,7 @@ def do_deploy_rest(stack_name):
     :param stack_name: The name of the AWS CloudFormation stack to deploy.
     """
     s3 = boto3.resource("s3")
-    bucket = s3.create_bucket(
-        Bucket=f"demo-aurora-rest-deploy-{time.time_ns()}"
-    )
+    bucket = s3.create_bucket(Bucket=f"demo-aurora-rest-deploy-{time.time_ns()}")
     print(f"Creating bucket {bucket.name} to hold deployment package.")
     bucket.wait_until_exists()
 
@@ -219,11 +217,11 @@ def main():
 
     if args.action == "populate_database":
         print("Populating serverless database cluster with data.")
-        do_populate_database(config['cluster'], config['db_name'], config['secret'])
+        do_populate_database(config["cluster"], config["db_name"], config["secret"])
         print("Next, run 'py library_demo.py deploy_rest' to deploy the REST API.")
     elif args.action == "deploy_rest":
         print("Deploying the REST API components.")
-        api_url = do_deploy_rest(config['cluster']['cluster_name'])
+        api_url = do_deploy_rest(config["cluster"]["cluster_name"])
         print(
             f"Next, send HTTP requests to {api_url} or run "
             f"'py library_demo.py demo_rest' "
@@ -233,7 +231,7 @@ def main():
     elif args.action == "demo_rest":
         print("Demonstrating how to call the REST API by using the Requests package.")
         try:
-            do_rest_demo(config['cluster']['cluster_name'])
+            do_rest_demo(config["cluster"]["cluster_name"])
         except TimeoutError as err:
             print(err)
         else:
