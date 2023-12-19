@@ -24,6 +24,31 @@ const LANGUAGES = [
   "javascript.v3",
 ];
 
+const SIMILAR = 0.8;
+const SAME = 0.99609375;
+const TOP_N = 5;
+const PER_LANG = 3;
+
+const Best = {
+  "javascript.v3": [
+    {
+      score: 0.9,
+      language: "javascript.v3",
+      name: "javascript.v3.dynamodb.hello.txt",
+    },
+    {
+      score: 0.9,
+      language: "javascript.v3",
+      name: "javascript.v3.glue.hello.txt",
+    },
+    {
+      score: 0.9,
+      language: "javascript.v3",
+      name: "javascript.v3.support.scenarios.Hello.txt",
+    },
+  ],
+};
+
 class MyRAG extends Ailly.RAG {
   constructor(engine, _path) {
     super(engine, join(fileURLToPath(import.meta.url), "../.vectors"));
@@ -37,7 +62,8 @@ class MyRAG extends Ailly.RAG {
     this.index._data.items.forEach((item) => {
       if (Array.isArray(item.vector)) return;
       const vector = Buffer.from(item.vector, "base64");
-      if (vector.length === 1536 * 4) item.vector = vector;
+      if (vector.length === 1536 * 4)
+        item.vector = new Float32Array(vector.buffer);
     });
     return this;
   }
@@ -50,21 +76,24 @@ class MyRAG extends Ailly.RAG {
     const vector = await this.engine.vector(content.prompt, {});
     const map = (
       await Promise.all(
-        LANGUAGES.map(async (language) =>
-          (
-            await this.index.queryItems(vector, 3, { language })
-          ).map(({ score, item }) => ({
-            score,
-            path: item.metadata.path,
-            name: item.metadata.name,
-            language,
-          }))
-        )
+        LANGUAGES.map(async (language) => [
+          ...(Best[language] ?? []),
+          ...(
+            await this.index.queryItems(vector, PER_LANG, { language })
+          )
+            .filter(({ score }) => score >= SIMILAR && score < SAME)
+            .map(({ score, item }) => ({
+              score,
+              path: item.metadata.path,
+              name: item.metadata.name,
+              language,
+            })),
+        ])
       )
     ).flat();
 
     map.sort((a, b) => b.score - a.score);
-    const tmpResult = map.slice(0, 5);
+    const tmpResult = map.slice(0, TOP_N);
 
     const results = tmpResult.map(async ({ score, name, language }) => ({
       score,
