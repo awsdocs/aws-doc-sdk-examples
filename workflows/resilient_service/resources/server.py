@@ -23,6 +23,7 @@ from ec2_metadata import ec2_metadata
 
 class RequestHandler(BaseHTTPRequestHandler):
     """Handles HTTP requests by returning a recommendation or responding to a health check."""
+
     def __init__(self, dynamodb_client, ssm_client, *args, **kwargs):
         """
         :param dynamodb_client: A Boto3 DynamoDB client.
@@ -33,11 +34,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         super().__init__(*args, **kwargs)
 
     def _respond(self, status_code, payload):
-        content = bytes(json.dumps(payload), 'utf-8')
+        content = bytes(json.dumps(payload), "utf-8")
         self.send_response(status_code)
-        self.send_header('Content-Type', 'application/json')
-        self.send_header('Content-Length', f'{len(content)}')
-        self.send_header('Content-Encoding', 'utf-8')
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", f"{len(content)}")
+        self.send_header("Content-Encoding", "utf-8")
         self.end_headers()
         self.wfile.write(content)
 
@@ -62,48 +63,55 @@ class RequestHandler(BaseHTTPRequestHandler):
         """
         print("path: ", self.path)
 
-        table = 'doc-example-resilient-architecture-table'
-        failure_response = 'doc-example-resilient-architecture-failure-response'
-        health_check = 'doc-example-resilient-architecture-health-check'
-        param_response = self.ssm_client.get_parameters(Names=[table, failure_response, health_check])
-        parameters = {p['Name']: p['Value'] for p in param_response['Parameters']}
+        table = "doc-example-resilient-architecture-table"
+        failure_response = "doc-example-resilient-architecture-failure-response"
+        health_check = "doc-example-resilient-architecture-health-check"
+        param_response = self.ssm_client.get_parameters(
+            Names=[table, failure_response, health_check]
+        )
+        parameters = {p["Name"]: p["Value"] for p in param_response["Parameters"]}
         print(parameters)
 
-        if self.path == '/':
+        if self.path == "/":
             try:
-                media_type = random.choice(['Book', 'Movie', 'Song'])
+                media_type = random.choice(["Book", "Movie", "Song"])
                 item_id = random.randint(1, 3)
                 response = self.dynamodb_client.get_item(
                     TableName=parameters[table],
-                    Key={'MediaType': {'S': media_type}, 'ItemId': {'N': str(item_id)}})
-                payload = response.get('Item', {})
+                    Key={"MediaType": {"S": media_type}, "ItemId": {"N": str(item_id)}},
+                )
+                payload = response.get("Item", {})
             except ClientError as err:
                 print(f"Recommendation service error: {err}")
-                if parameters[failure_response] == 'static':
+                if parameters[failure_response] == "static":
                     payload = {
                         "MediaType": {"S": "Book"},
-                        "ItemId":{"N": "0"},
+                        "ItemId": {"N": "0"},
                         "Title": {"S": "404 Not Found: A Coloring Book"},
-                        "Creator": {"S": "The Oatmeal"}}
+                        "Creator": {"S": "The Oatmeal"},
+                    }
                 else:
                     raise err
             except Exception:
-                self._respond(500, {'error': format_exc()})
+                self._respond(500, {"error": format_exc()})
                 return
 
-            payload['Metadata'] = {
-                'InstanceId': ec2_metadata.instance_id,
-                'AvailabilityZone': ec2_metadata.availability_zone}
+            payload["Metadata"] = {
+                "InstanceId": ec2_metadata.instance_id,
+                "AvailabilityZone": ec2_metadata.availability_zone,
+            }
             self._respond(200, payload)
-        elif self.path == '/healthcheck':
+        elif self.path == "/healthcheck":
             response_code = 200
             success = True
             if not health_check in parameters:
                 print(f"{health_check} parameter not found.")
-            elif parameters[health_check] == 'deep':
+            elif parameters[health_check] == "deep":
                 try:
-                    response = self.dynamodb_client.describe_table(TableName=parameters[table])
-                    if response['Table']['TableStatus'] == 'ACTIVE':
+                    response = self.dynamodb_client.describe_table(
+                        TableName=parameters[table]
+                    )
+                    if response["Table"]["TableStatus"] == "ACTIVE":
                         response_code = 200
                         success = True
                     else:
@@ -113,7 +121,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     print(f"Recommendation service health check error: {err}")
                     response_code = 503
                     success = False
-            self._respond(response_code, {'success': success})
+            self._respond(response_code, {"success": success})
 
 
 def run():
@@ -123,21 +131,27 @@ def run():
     Python web server that is intended only for development and testing.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('port', default=80, type=int, help="The port where the HTTP server listens.")
-    parser.add_argument('--region', default=ec2_metadata.region, help="The AWS Region of AWS resources used by this example.")
+    parser.add_argument(
+        "port", default=80, type=int, help="The port where the HTTP server listens."
+    )
+    parser.add_argument(
+        "--region",
+        default=ec2_metadata.region,
+        help="The AWS Region of AWS resources used by this example.",
+    )
     args = parser.parse_args()
 
     server_port = args.port
-    server_ip = '0.0.0.0'
+    server_ip = "0.0.0.0"
 
-    print('Starting server...')
+    print("Starting server...")
     server_address = (server_ip, server_port)
 
-    dynamodb_client = boto3.client('dynamodb', region_name=args.region)
-    ssm_client = boto3.client('ssm', region_name=args.region)
+    dynamodb_client = boto3.client("dynamodb", region_name=args.region)
+    ssm_client = boto3.client("ssm", region_name=args.region)
     handler = partial(RequestHandler, dynamodb_client, ssm_client)
     httpd = HTTPServer(server_address, handler)
-    print('Running server...')
+    print("Running server...")
     httpd.serve_forever()
 
 

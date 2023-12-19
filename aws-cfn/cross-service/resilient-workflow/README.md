@@ -147,8 +147,8 @@ At any time after the stack has been created, you can check the health of the ta
 
 ```
 aws cloudformation describe-stacks --stack-name resilience-demo --query 'Stacks[0].Outputs[?OutputKey==`TGArn`].OutputValue | [0]'
-# "tg-0123456789"
-aws elbv2 describe-target-health --target-group-arn tg-0123456789
+# "arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/doc-example-resilience-tg/dc038043cedce18c"
+aws elbv2 describe-target-health --target-group-arn "arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/doc-example-resilience-tg/0123456789abcdef"
 ```
 
 All stack outputs:
@@ -170,7 +170,7 @@ instance ID and Availability Zone so you can see how the load balancer distribut
 requests among the instances in the Auto Scaling group.
 
 The scenario takes the following steps. After editing the `params.json` file for each step, update the stack
-to see the changes by running an `update-stack` command.
+to see the changes by running this `update-stack` command.
 
 ```
 aws cloudformation update-stack \
@@ -188,7 +188,7 @@ aws cloudformation update-stack \
    example, a shallow health check means the web server always reports itself as healthy as long as the
    load balancer can connect to it.
 
-   Edit `params.json`. Add a new entry with `ParameterKey` as `SSMTableName` and `ParameterValue` as `bad_table`.
+   Edit `params.json`. Add a new entry with `ParameterKey` as `SSMTableName` and `ParameterValue` as `unknown`.
    After updating, the service should report healthy but return `502` responses.
 
 3. **Static response** — Updates a parameter that prompts the web server to return a static response when the
@@ -198,7 +198,7 @@ aws cloudformation update-stack \
    Edit `params.json`. Add a new entry with `ParameterKey` as `SSMFailure` and set `ParameterValue` to `static`.
 
 4. **Bad credentials** — Sets the table name parameter so the recommendations service succeeds, but also
-   updates one of the instances to use an instance profile that contains bad credentials.
+   updates one of the instances to use an instance profile without appropriate credentials to access the DynamoDB table.
    Now, when the load balancer selects the bad instance to serve a request, it returns
    a static response because it cannot access the recommendation service, but the other
    instances return real recommendations.
@@ -211,6 +211,7 @@ aws cloudformation update-stack \
    2. With this target group ARN, query for the specific instances using `aws elbv2 describe-target-health --query 'TargetHealthDescriptions[*].Target.Id' --target-group-arn arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/doc-example-resilience-tg/exampleexample`.
    3. Choose one ID from this list, and find the instance profile association id with `aws ec2 describe-iam-instance-profile-associations --query 'IamInstanceProfileAssociations[0].AssociationId' --filters Name=instance-id,Values=i-0123456789`.
    4. Remove the association with `aws ec2 disassociate-iam-instance-profile --association-id iip-assoc-00000000000000000`
+   5. Restart the instance with `aws ec2 reboot-instances --instance-ids i-0123456789`
 
    > NOTE: These steps are for the purpose of this example only, and should generally not be taken in production environments.
    > Always use CloudFormation templates and Infrastructure as Code (IaC) to modify resources in production environments.
@@ -239,7 +240,7 @@ aws cloudformation update-stack \
    system fail open and lets the instances return static responses, rather than fail closed
    and report failure.
 
-   Edit `params.json`. Add a new entry with `ParameterKey` as `SSMTableName` and `ParameterValue` as `bad_table`.
+   Edit `params.json`. Add a new entry with `ParameterKey` as `SSMTableName` and `ParameterValue` as `unknown`.
    After updating, the service should report unhealthy but return static responses.
 
 ##### Destroy resources
