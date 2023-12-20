@@ -67,6 +67,8 @@ Sample applications that work across multiple AWS services.
 
 
 <!--custom.instructions.start-->
+# Setup
+To use these examples, first deploy the secrets to AWS using [this CDK stack](../../../resources/cdk/secrets-manager).
 <!--custom.instructions.end-->
 
 
