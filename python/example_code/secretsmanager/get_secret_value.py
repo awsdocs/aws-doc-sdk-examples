@@ -17,9 +17,9 @@ def get_secret(secret_name):
         get_secret_value_response = client.get_secret_value(SecretId=secret_name)
         print(json.loads(get_secret_value_response["SecretString"]))
     except client.exceptions.ResourceNotFoundException:
-        return f"The requested secret {secret_name} was not found"
+        return f"The requested secret {secret_name} was not found."
     except Exception as e:
-        return f"An unknown error occurred: {str(e)}"
+        return f"An unknown error occurred: {str(e)}."
 
 
 print(get_secret("mySecret1"))
