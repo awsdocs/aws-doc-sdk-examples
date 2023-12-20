@@ -21,13 +21,13 @@ assert_cmd = "2.0"
 predicates = "3.0.3"
 
 [dependencies]
-aws-config = { features = ["behavior-version-latest"], version = "1.0.1"}
+aws-config = { version = "1.0.1", features = ["behavior-version-latest"] }
 # snippet-start:[s3.rust.s3-object-lambda-cargo.toml]
 # snippet-end:[s3.rust.s3-object-lambda-cargo.toml]
-aws-sdk-s3 = { features = ["rt-tokio"], version = "1.2.0"}
-aws-smithy-runtime = "1.0.1"
-aws-smithy-runtime-api = { features = ["client"],  version = "1.0.1"}
-aws-smithy-types = { features = ["http-body-0-4-x"],  version = "1.0.1"}
+aws-sdk-s3 = { version = "1.4.0", features = ["rt-tokio"] }
+aws-smithy-runtime = { version = "1.0.1" }
+aws-smithy-runtime-api = { version = "1.0.1", features = ["client"] }
+aws-smithy-types = { version = "1.0.1", features = ["http-body-0-4-x"] }
 sdk-examples-test-utils = { path = "../../test-utils" }
 anyhow = "1.0.70"
 bytes = "1.4.0"
