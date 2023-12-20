@@ -7,11 +7,12 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::types::{
-    CompressionType, CsvInput, CsvOutput, ExpressionType, FileHeaderInfo, InputSerialization,
+    CompressionType, CsvInput, ExpressionType, FileHeaderInfo, InputSerialization, JsonOutput,
     OutputSerialization, SelectObjectContentEventStream,
 };
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
+use serde::Deserialize;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -41,6 +42,15 @@ struct Opt {
     verbose: bool,
 }
 
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+struct Record {
+    name: String,
+    phone_number: String,
+    city: String,
+    occupation: String,
+}
+
 // Get object content.
 // snippet-start:[s3.rust.select-object-content]
 async fn get_content(client: &Client, bucket: &str, object: &str, name: &str) -> Result<(), Error> {
@@ -66,22 +76,26 @@ async fn get_content(client: &Client, bucket: &str, object: &str, name: &str) ->
         )
         .output_serialization(
             OutputSerialization::builder()
-                .csv(CsvOutput::builder().build())
+                // By default, the output delimiter is `\n`
+                .json(JsonOutput::builder().build())
                 .build(),
         )
         .send()
         .await?;
+    let mut processed_records: Vec<Record> = vec![];
 
     while let Some(event) = output.payload.recv().await? {
         match event {
             SelectObjectContentEventStream::Records(records) => {
-                println!(
-                    "Record: {}",
-                    records
-                        .payload()
-                        .map(|p| std::str::from_utf8(p.as_ref()).unwrap())
-                        .unwrap_or("")
-                );
+                let records_str =
+                    String::from_utf8(records.payload.map(|p| p.into_inner()).unwrap_or_default())
+                        .expect("invalid payload—not utf8");
+                for line in records_str.lines() {
+                    match serde_json::from_str(line) {
+                        Ok(record) => processed_records.push(record),
+                        Err(_e) => eprintln!("failed to deserialize record {}\n{:?}", line, _e),
+                    }
+                }
             }
             SelectObjectContentEventStream::Stats(stats) => {
                 println!("Stats: {:?}", stats.details().unwrap());
@@ -98,6 +112,7 @@ async fn get_content(client: &Client, bucket: &str, object: &str, name: &str) ->
             otherwise => panic!("Unknown event type: {:?}", otherwise),
         }
     }
+    println!("Found the following records:\n{:#?}", processed_records);
 
     Ok(())
 }
