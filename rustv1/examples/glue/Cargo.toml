@@ -13,12 +13,12 @@ name = "scenario"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { features = ["behavior-version-latest"], version = "1.0.1"}
-aws-sdk-glue = "1.2.0"
-aws-sdk-s3 = "1.2.0"
-aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-types = "1.0.1"
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { version = "1.0.1", features = ["behavior-version-latest"] }
+aws-sdk-glue = { version = "1.4.0" }
+aws-sdk-s3 = { version = "1.4.0" }
+aws-http = { version = "0.60.0" }
+aws-smithy-types = { version = "1.0.1" }
+aws-types = { version = "1.0.1" }
 tokio = { version = "1.20.1", features = ["full"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
 tracing = "0.1.37"

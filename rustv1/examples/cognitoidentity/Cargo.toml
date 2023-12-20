@@ -10,11 +10,11 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { features = ["behavior-version-latest"], version = "1.0.1"}
-aws-sdk-cognitoidentity = "1.2.0"
-aws-smithy-types-convert = { features = [
+aws-config = { version = "1.0.1", features = ["behavior-version-latest"] }
+aws-sdk-cognitoidentity = { version = "1.3.0" }
+aws-smithy-types-convert = { version = "0.60.0", features = [
   "convert-chrono",
-],  version = "0.60.0"}
+] }
 chrono = "0.4"
 clap = { version = "~4.4", features = ["derive"] }
 thiserror = "1.0"

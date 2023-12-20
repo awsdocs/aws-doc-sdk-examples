@@ -11,9 +11,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { features = ["behavior-version-latest"], version = "1.0.1"}
-aws-credential-types = "1.0.1"
-aws-sdk-s3 = "1.2.0"
+aws-config = { version = "1.0.1", features = ["behavior-version-latest"] }
+aws-credential-types = { version = "1.0.1" }
+aws-sdk-s3 = { version = "1.4.0" }
 tokio = { version = "1.20.1", features = ["full"] }
 clap = { version = "~4.4", features = ["derive"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }

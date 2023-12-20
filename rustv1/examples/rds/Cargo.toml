@@ -14,9 +14,9 @@ version = "0.1.0"
 anyhow = "1.0.75"
 assert_matches = "1.5.0"
 async-trait = "0.1.73"
-aws-config = { features = ["behavior-version-latest"], version = "1.0.1"}
-aws-smithy-runtime-api = "1.0.1"
-aws-sdk-rds = "1.2.0"
+aws-config = { version = "1.0.1", features = ["behavior-version-latest"] }
+aws-smithy-runtime-api = { version = "1.0.1" }
+aws-sdk-rds = { version = "1.3.0" }
 clap = { version = "~4.4", features = ["derive"] }
 inquire = "0.6.2"
 mockall = "0.11.4"
