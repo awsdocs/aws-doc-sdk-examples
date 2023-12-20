@@ -4,6 +4,7 @@ from botocore.exceptions import NoCredentialsError
 
 # snippet-start:[python.example_code.secretsmanager.GetSecretValue]
 
+
 def get_secret(secret_name):
     """
     Retrieve individual secrets from AWS Secrets Manager using the get_secret_value API.
@@ -14,7 +15,7 @@ def get_secret(secret_name):
     """
 
     # Create SecretsManager client
-    client = boto3.client(service_name='secretsmanager')
+    client = boto3.client(service_name="secretsmanager")
 
     try:
         # Retrieve secret
@@ -27,8 +28,8 @@ def get_secret(secret_name):
         return f"An unknown error occurred: {str(e)}"
 
     # Decode and return secret
-    if 'SecretString' in get_secret_value_response:
-        secret = get_secret_value_response['SecretString']
+    if "SecretString" in get_secret_value_response:
+        secret = get_secret_value_response["SecretString"]
         return json.loads(secret)
     else:
         return "Binary secrets are not supported in this example"

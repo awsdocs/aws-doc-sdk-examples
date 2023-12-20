@@ -2,6 +2,7 @@ import boto3
 import json
 from botocore.exceptions import NoCredentialsError
 
+
 # snippet-start:[python.example_code.secretsmanager.BatchGetSecretValue]
 def batch_get_secrets(filter_name):
     """
@@ -12,18 +13,20 @@ def batch_get_secrets(filter_name):
     @:param filter_name [String] The full or partial name of secrets to be fetched.
     """
     # Create SecretsManager client
-    client = boto3.client(service_name='secretsmanager')
+    client = boto3.client(service_name="secretsmanager")
 
     try:
         # Retrieve secrets
-        response = client.batch_get_secret_value(Filters=[
-            {
-                'Key': 'name',
-                'Values': [
-                    f'{filter_name}',
-                ]
-            },
-        ])
+        response = client.batch_get_secret_value(
+            Filters=[
+                {
+                    "Key": "name",
+                    "Values": [
+                        f"{filter_name}",
+                    ],
+                },
+            ]
+        )
     except NoCredentialsError:
         return "No AWS credentials available"
     except client.exceptions.ResourceNotFoundException:
@@ -32,10 +35,10 @@ def batch_get_secrets(filter_name):
         return f"An unknown error occurred: {str(e)}"
 
     secrets = {}
-    for secret in response['SecretValues']:
-        secret_name = secret['ARN'].split(':')[-1]
-        if 'SecretString' in secret:
-            secrets[secret_name] = json.loads(secret['SecretString'])
+    for secret in response["SecretValues"]:
+        secret_name = secret["ARN"].split(":")[-1]
+        if "SecretString" in secret:
+            secrets[secret_name] = json.loads(secret["SecretString"])
         else:
             secrets[secret_name] = "Binary secrets not supported in this example"
 
