@@ -14,11 +14,14 @@ def batch_get_secrets(filter_name):
     client = boto3.client("secretsmanager")
 
     try:
+        secrets = []
         response = client.batch_get_secret_value(
             Filters=[{"Key": "name", "Values": [f"{filter_name}"]}]
         )
         for secret in response["SecretValues"]:
             print(json.loads(secret["SecretString"]))
+            secrets.append(json.loads(secret["SecretString"]))
+        return secrets
     except client.exceptions.ResourceNotFoundException:
         return f"One or more requested secrets were not found."
     except Exception as e:
