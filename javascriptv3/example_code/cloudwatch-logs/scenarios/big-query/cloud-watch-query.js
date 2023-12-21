@@ -35,30 +35,21 @@ export class CloudWatchQuery {
     this.limit = queryConfig?.limit ?? 10000;
 
     /**
-     * @type {{ queries: { [key: string]: { resultCount: number, dateRange: [Date, Date] } }, queryCount: number, logCount: number, initialDateRange: [Date, Date], logGroupNames: string[], secondsElapsed: number }}
+     * @type {import("@aws-sdk/client-cloudwatch-logs").ResultField[][]}
      */
-    this.resultsMeta = {
-      logGroupNames: this.logGroupNames,
-      initialDateRange: this.dateRange,
-      secondsElapsed: 0,
-      queries: {},
-      queryCount: 0,
-      logCount: 0,
-    };
+    this.results = [];
   }
 
   /**
    * Run the query.
    */
   async run() {
-    this.resultsMeta.queries = {};
-    this.resultsMeta.logCount = 0;
-
+    this.secondsElapsed = 0;
     const start = new Date();
-    const results = await this._bigQuery(this.dateRange);
+    this.results = await this._bigQuery(this.dateRange);
     const end = new Date();
-    this.resultsMeta.secondsElapsed = (end - start) / 1000;
-    return results;
+    this.secondsElapsed = (end - start) / 1000;
+    return this.results;
   }
 
   /**
@@ -67,9 +58,13 @@ export class CloudWatchQuery {
    * @returns {Promise<import("@aws-sdk/client-cloudwatch-logs").ResultField[][]>}
    */
   async _bigQuery(dateRange) {
-    const start = new Date();
     const logs = await this._query(dateRange, this.limit);
-    this.resultsMeta.logCount += logs.length;
+
+    console.log(
+      `Query date range: ${dateRange
+        .map((d) => d.toISOString())
+        .join(" to ")}. Found ${logs.length} logs.`,
+    );
 
     if (logs.length < this.limit) {
       return logs;
@@ -81,8 +76,6 @@ export class CloudWatchQuery {
     const subDateRange = [offsetLastLogDate, dateRange[1]];
     const [r1, r2] = splitDateRange(subDateRange);
     const results = await Promise.all([this._bigQuery(r1), this._bigQuery(r2)]);
-    const end = new Date();
-    console.log(`Query took: ${(end.valueOf() - start.valueOf()) / 1000}`);
     return [logs, ...results].flat();
   }
 
@@ -126,10 +119,6 @@ export class CloudWatchQuery {
     try {
       const { queryId } = await this._startQuery(dateRange, maxLogs);
       const { results } = await this._waitUntilQueryDone(queryId);
-      this.resultsMeta.queries[queryId] = {
-        resultCount: results.length,
-        dateRange,
-      };
       return results ?? [];
     } catch (err) {
       /**
@@ -155,7 +144,6 @@ export class CloudWatchQuery {
    */
   async _startQuery([startDate, endDate], maxLogs = 10000) {
     try {
-      this.resultsMeta.queryCount++;
       return await this.client.send(
         new StartQueryCommand({
           logGroupNames: this.logGroupNames,

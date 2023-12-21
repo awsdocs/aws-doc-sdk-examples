@@ -28,9 +28,11 @@ For general prerequisites, see the [README](../../../../README.md) in the `javas
 Follow the below steps to create the necessary resources in AWS CloudFormation and use the AWS CLI to upload the necessary logs.
 
 1. In your local terminal, change directories to [resources](../../../../../workflows/cloudwatch_logs_big_query/resources/).
-2. Run `aws cloudformation deploy --template-file stack.yaml --stack-name CloudWatchBigQuery`
-3. Run `./make-log-files.sh`.
-4. Run `./put-log-events.sh`.
+1. Run `aws cloudformation deploy --template-file stack.yaml --stack-name CloudWatchBigQuery`
+1. Run `./make-log-files.sh`. This will output two timestamps for use in the following step.
+1. Run `export QUERY_START_DATE=<QUERY_START_DATE>`. Replace `<QUERY_START_DATE>` with the output from the previous step. Repeat this for `QUERY_END_DATE`.
+1. Run `./put-log-events.sh`.
+1. Wait 5 minutes for logs to settle and to ensure we're not querying for logs that exist in the future.
 
 ### Run the scenario
 
