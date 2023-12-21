@@ -26,6 +26,7 @@ import random
 import re
 import string
 import sys
+import uuid
 import yaml
 import zipfile
 
@@ -39,12 +40,16 @@ sys.path.append("../..")
 import demo_tools.question as q
 from demo_tools.retries import wait
 
+logger = logging.getLogger(__name__)
+
+# snippet-start:[python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents]
 REGION = "us-east-1"
 ROLE_POLICY_NAME = "agent_permissions"
-logger = logging.getLogger(__name__)
 
 
 class BedrockAgentScenarioWrapper:
+    """Runs a scenario that shows how to get started using Agents for Amazon Bedrock."""
+
     def __init__(
         self, bedrock_agent_client, runtime_client, lambda_client, iam_resource, postfix
     ):
@@ -58,11 +63,10 @@ class BedrockAgentScenarioWrapper:
         self.agent = None
         self.agent_alias = None
         self.agent_role = None
-        self.agent_version = None
+        self.prepared_agent_details = None
         self.lambda_role = None
         self.lambda_function = None
 
-    # snippet-start:[python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents]
     def run_scenario(self):
         print("=" * 88)
         print("Welcome to the Amazon Bedrock Agents demo.")
@@ -81,7 +85,7 @@ class BedrockAgentScenarioWrapper:
         self.agent = self._create_agent(name, model_id)
 
         # Prepare a DRAFT version of the agent
-        self.agent_version = self._prepare_agent()
+        self.prepared_agent_details = self._prepare_agent()
 
         # Create the lambda function
         self.lambda_function = self._create_lambda_function()
@@ -93,8 +97,12 @@ class BedrockAgentScenarioWrapper:
         # Create an action group that connects the agent to the Lambda function
         self._create_agent_action_group()
 
-        # Prepare the DRAFT version of the agent, including the action group
-        self.agent_version = self._prepare_agent()
+        # If any components have been added or updated, prepare the agent again
+        components = self._get_agent_action_groups() + self._get_agent_knowledge_bases()
+        latest_update = max(component["updatedAt"] for component in components)
+
+        if latest_update > self.prepared_agent_details["preparedAt"]:
+            self.prepared_agent_details = self._prepare_agent()
 
         # Create an agent alias
         self.agent_alias = self._create_agent_alias()
@@ -115,8 +123,6 @@ class BedrockAgentScenarioWrapper:
             self._list_resources()
             print("=" * 88)
             print("Thanks again for running the demo!")
-
-    # snippet-end:[python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents]
 
     def _request_name_and_model_from_user(self):
         existing_agent_names = [
@@ -203,10 +209,10 @@ class BedrockAgentScenarioWrapper:
         print("Preparing the agent...")
 
         agent_id = self.agent["agentId"]
-        version = self.bedrock_wrapper.prepare_agent(agent_id)["agentVersion"]
+        prepared_agent_details = self.bedrock_wrapper.prepare_agent(agent_id)
         self._wait_for_agent_status(agent_id, "PREPARED")
 
-        return version
+        return prepared_agent_details
 
     def _create_lambda_function(self):
         print("Creating the Lambda function...")
@@ -308,13 +314,23 @@ class BedrockAgentScenarioWrapper:
                     name="current_date_and_time",
                     description="Gets the current date and time.",
                     agent_id=self.agent["agentId"],
-                    agent_version=self.agent_version,
+                    agent_version=self.prepared_agent_details["agentVersion"],
                     function_arn=self.lambda_function["FunctionArn"],
                     api_schema=json.dumps(yaml.safe_load(file)),
                 )
         except ClientError as e:
             logger.error(f"Couldn't create agent action group. Here's why: {e}")
             raise
+
+    def _get_agent_action_groups(self):
+        return self.bedrock_wrapper.list_agent_action_groups(
+            self.agent["agentId"], self.prepared_agent_details["agentVersion"]
+        )
+
+    def _get_agent_knowledge_bases(self):
+        return self.bedrock_wrapper.list_agent_knowledge_bases(
+            self.agent["agentId"], self.prepared_agent_details["agentVersion"]
+        )
 
     def _create_agent_alias(self):
         print("Creating an agent alias...")
@@ -337,21 +353,24 @@ class BedrockAgentScenarioWrapper:
         print("The agent is ready to chat.")
         print("Try asking for the date or time. Type 'exit' to quit.")
 
+        # Create a unique session ID for the conversation
+        session_id = uuid.uuid4().hex
+
         while True:
             prompt = q.ask("Prompt: ", q.non_empty)
 
             if prompt == "exit":
                 break
 
-            response = asyncio.run(self._invoke_agent(prompt))
+            response = asyncio.run(self._invoke_agent(prompt, session_id))
 
             print(f"Agent: {response}")
 
-    async def _invoke_agent(self, prompt):
+    async def _invoke_agent(self, prompt, session_id):
         response = self.bedrock_agent_runtime_client.invoke_agent(
             agentId=self.agent["agentId"],
             agentAliasId=self.agent_alias["agentAliasId"],
-            sessionId="Session",
+            sessionId=session_id,
             inputText=prompt,
         )
 
@@ -457,3 +476,5 @@ if __name__ == "__main__":
         scenario.run_scenario()
     except Exception as e:
         logging.exception(f"Something went wrong with the demo. Here's what: {e}")
+
+# snippet-end:[python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents]
