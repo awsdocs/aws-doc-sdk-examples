@@ -12,24 +12,24 @@ NUM_FILES=$((TOTAL_ENTRIES / ENTRIES_PER_FILE))
 ENTRY_COUNT=0
 
 # Generate the json files
-for i in $(seq 1 $NUM_FILES); do
+for i in $(seq 1 "$NUM_FILES"); do
 
   # Set filename 
   FILE="file$i.json"
 
   # Write opening bracket
-  echo '[' > $FILE
+  echo '[' > "$FILE"
 
   # Generate entries
-  for j in $(seq 1 $ENTRIES_PER_FILE); do
+  for j in $(seq 1 "$ENTRIES_PER_FILE"); do
 
     # Output the timestamp of the first entry in the first file.
-    if [ $i -eq 1 ] && [ $j -eq 1 ]; then
+    if [ "$i" -eq 1 ] && [ "$j" -eq 1 ]; then
       echo "QUERY_START_DATE=$TIMESTAMP";
     fi
 
     # Output the timestamp of the last entry in the last file.
-    if [ $i -eq $NUM_FILES ] && [ $j -eq $ENTRIES_PER_FILE ]; then
+    if [ "$i" -eq "$NUM_FILES" ] && [ "$j" -eq "$ENTRIES_PER_FILE" ]; then
       echo "QUERY_END_DATE=$TIMESTAMP";
     fi
     
@@ -39,7 +39,7 @@ for i in $(seq 1 $NUM_FILES); do
     ((ENTRY_COUNT++))
 
     # Write entry
-    echo -e "\t{\"timestamp\": $TIMESTAMP, \"message\": \"$MSG\"}," >> $FILE
+    echo -e "\t{\"timestamp\": $TIMESTAMP, \"message\": \"$MSG\"}," >> "$FILE"
 
     # Increment timestamp
     TIMESTAMP=$((TIMESTAMP + TIMESTAMP_INCREMENT))
@@ -47,7 +47,7 @@ for i in $(seq 1 $NUM_FILES); do
   done
 
   # Remove trailing comma and close bracket
-  sed -i '' -e '$ s/.$//' $FILE
-  echo ']' >> $FILE
+  sed -i '' -e '$ s/.$//' "$FILE"
+  echo ']' >> "$FILE"
 
 done
