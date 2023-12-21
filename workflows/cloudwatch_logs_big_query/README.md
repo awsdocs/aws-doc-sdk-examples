@@ -16,14 +16,15 @@ An AWS CloudFormation [template](./resources/stack.yaml) exists in the [resource
 
 ### Sample logs
 
-A lot of logs are needed to make a robust example. If you happen to have a log group with over 10,000 logs
-at the ready, great! If not, there are two resources that can help:
+A lot of logs are needed to make a robust example. If you happen to have a log group with over 10,000 logs at the ready, great! If not, there are two resources that can help:
 
 **Prerequisites**
 
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
-1. [make-log-files](./resources/make-log-files.sh) will create 50,000 logs and divide them amongst 5 files of 10,000 logs each (the maximum for each call to 'PutLogEvents').
+**Resources**
+
+1. [make-log-files](./resources/make-log-files.sh) will create 50,000 logs and divide them amongst 5 files of 10,000 logs each (the maximum for each call to 'PutLogEvents'). Two timestamps will be output to the console. These timestamps can be used to configure the query. **Five minutes of logs, starting at the time of execution, will be created. Wait at least five minutes after running this script before attempting to query.**
 2. [put-log-events](./resources/put-log-events.sh) will use the AWS CLI to put the created files from Step 1 into the log group/stream created by the [CloudFormation template](#cloudformation).
 
 ## Implementations

@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# Set start timestamp three days in the past
-THREE_DAYS_IN_MS=$((1000*60*60*24*3))
-START=$(($(date +%s) * 1000 - THREE_DAYS_IN_MS))
+FIVE_MINUTES_IN_MS=$((1000*60*5))
+START=$(($(date +%s) * 1000))
 
 # Set number of entries per file and total entries
 ENTRIES_PER_FILE=10000
 TOTAL_ENTRIES=50000
 TIMESTAMP=$((START))
-TIMESTAMP_INCREMENT=$((THREE_DAYS_IN_MS / TOTAL_ENTRIES))
+TIMESTAMP_INCREMENT=$((FIVE_MINUTES_IN_MS / TOTAL_ENTRIES))
 NUM_FILES=$((TOTAL_ENTRIES / ENTRIES_PER_FILE))
 ENTRY_COUNT=0
 
@@ -24,6 +23,16 @@ for i in $(seq 1 $NUM_FILES); do
   # Generate entries
   for j in $(seq 1 $ENTRIES_PER_FILE); do
 
+    # Output the timestamp of the first entry in the first file.
+    if [ $i -eq 1 ] && [ $j -eq 1 ]; then
+      echo "QUERY_START_DATE=$TIMESTAMP";
+    fi
+
+    # Output the timestamp of the last entry in the last file.
+    if [ $i -eq $NUM_FILES ] && [ $j -eq $ENTRIES_PER_FILE ]; then
+      echo "QUERY_END_DATE=$TIMESTAMP";
+    fi
+    
 
     # Simple message 
     MSG="Entry $ENTRY_COUNT"
