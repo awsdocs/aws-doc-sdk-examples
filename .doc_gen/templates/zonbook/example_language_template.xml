@@ -3,7 +3,7 @@
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
     {{- $include_base = ""}}
-    {{- $include_docs := ""}}
+    {{- $include_docs = ""}}
 {{- end}}
 {{- define "github_note"}}
 <note>

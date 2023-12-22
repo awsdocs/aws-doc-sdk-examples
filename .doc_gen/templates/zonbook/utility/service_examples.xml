@@ -8,7 +8,7 @@
 {{- end}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
-    {{- $include_docs := ""}}
+    {{- $include_docs = ""}}
 {{- end}}
 <para role="topiclist-abbrev">Examples</para>
 {{- range $examples.Examples}}
