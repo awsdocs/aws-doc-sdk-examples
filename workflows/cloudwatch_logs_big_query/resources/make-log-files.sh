@@ -38,16 +38,21 @@ for i in $(seq 1 "$NUM_FILES"); do
     MSG="Entry $ENTRY_COUNT"
     ((ENTRY_COUNT++))
 
+    ENTRY="\t{\"timestamp\": $TIMESTAMP, \"message\": \"$MSG\"}"
+
     # Write entry
-    echo -e "\t{\"timestamp\": $TIMESTAMP, \"message\": \"$MSG\"}," >> "$FILE"
+    if [ "$j" -eq "$ENTRIES_PER_FILE" ]; then
+      echo -e "$ENTRY" >> "$FILE"
+    else
+      echo -e "$ENTRY," >> "$FILE"
+    fi
 
     # Increment timestamp
     TIMESTAMP=$((TIMESTAMP + TIMESTAMP_INCREMENT))
 
   done
 
-  # Remove trailing comma and close bracket
-  sed -i '' -e '$ s/.$//' "$FILE"
+  # Close bracket
   echo ']' >> "$FILE"
 
 done
