@@ -46,7 +46,7 @@ export class CloudWatchQuery {
   async run() {
     this.secondsElapsed = 0;
     const start = new Date();
-    this.results = await this._bigQuery(this.dateRange);
+    this.results = await this._largeQuery(this.dateRange);
     const end = new Date();
     this.secondsElapsed = (end - start) / 1000;
     return this.results;
@@ -57,7 +57,7 @@ export class CloudWatchQuery {
    * @param {[Date, Date]} dateRange
    * @returns {Promise<import("@aws-sdk/client-cloudwatch-logs").ResultField[][]>}
    */
-  async _bigQuery(dateRange) {
+  async _largeQuery(dateRange) {
     const logs = await this._query(dateRange, this.limit);
 
     console.log(
@@ -75,7 +75,10 @@ export class CloudWatchQuery {
     offsetLastLogDate.setMilliseconds(lastLogDate.getMilliseconds() + 1);
     const subDateRange = [offsetLastLogDate, dateRange[1]];
     const [r1, r2] = splitDateRange(subDateRange);
-    const results = await Promise.all([this._bigQuery(r1), this._bigQuery(r2)]);
+    const results = await Promise.all([
+      this._largeQuery(r1),
+      this._largeQuery(r2),
+    ]);
     return [logs, ...results].flat();
   }
 
