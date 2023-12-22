@@ -1,4 +1,4 @@
-# CloudWatch Logs big query
+# CloudWatch Logs large query
 
 ## Overview
 
@@ -13,6 +13,14 @@ The following components are used in this example:
 ### CloudFormation
 
 An AWS CloudFormation [template](./resources/stack.yaml) exists in the [resources folder](./resources/). The template contains two resources: a CloudWatch log group, and a CloudWatch log stream that will be used as the default log group and stream for the queries made in the example.
+
+If you need to, [Install or update the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
+
+To deploy the stack using the template, run the following command:
+
+```
+aws cloudformation deploy --template-file stack.yaml --stack-name LargeQueryStack
+```
 
 ### Sample logs
 
@@ -31,7 +39,7 @@ A lot of logs are needed to make a robust example. If you happen to have a log g
 
 This example is implemented in the following languages:
 
-- [JavaScript](../../javascriptv3/example_code/cloudwatch-logs/scenarios/big-query/README.md)
+- [JavaScript](../../javascriptv3/example_code/cloudwatch-logs/scenarios/)
 
 ## Additional reading
 
