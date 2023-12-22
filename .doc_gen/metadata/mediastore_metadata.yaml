@@ -109,4 +109,6 @@ mediaconvert_PutObject:
               snippet_tags:
                 - mediastore.java2.put_object.main
   services:  
-    mediastore: {PutObject}                             
+    mediastore: {PutObject}
+
+
