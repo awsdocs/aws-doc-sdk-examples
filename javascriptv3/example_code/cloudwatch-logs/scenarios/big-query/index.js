@@ -1,6 +1,8 @@
 import { CloudWatchLogsClient } from "@aws-sdk/client-cloudwatch-logs";
 import { CloudWatchQuery } from "./cloud-watch-query.js";
 
+console.log("Starting a recursive query...");
+
 if (!process.env.QUERY_START_DATE || !process.env.QUERY_END_DATE) {
   throw new Error(
     "QUERY_START_DATE and QUERY_END_DATE environment variables are required.",
