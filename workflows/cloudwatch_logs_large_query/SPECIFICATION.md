@@ -95,14 +95,15 @@ To illustrate the search, log the date ranges for each query made and the number
 Example:
 
 ```
-Query date range: 2023-12-21T14:58:16.000Z to 2023-12-21T15:03:15.994Z. Found 10000 logs.
-Query date range: 2023-12-21T15:01:15.995Z to 2023-12-21T15:03:15.994Z. Found 10000 logs.
-Query date range: 2023-12-21T14:59:15.995Z to 2023-12-21T15:01:15.994Z. Found 10000 logs.
-Query date range: 2023-12-21T15:02:15.995Z to 2023-12-21T15:02:45.994Z. Found 5000 logs.
-Query date range: 2023-12-21T15:02:45.995Z to 2023-12-21T15:03:15.994Z. Found 5000 logs.
-Query date range: 2023-12-21T15:00:45.995Z to 2023-12-21T15:01:15.994Z. Found 5000 logs.
-Query date range: 2023-12-21T15:00:15.995Z to 2023-12-21T15:00:45.994Z. Found 5000 logs.
-Queries finished in 12.372 seconds.
+Starting a recursive query...
+Query date range: 2023-12-22T19:08:42.000Z to 2023-12-22T19:13:41.994Z. Found 10000 logs.
+Query date range: 2023-12-22T19:09:41.995Z to 2023-12-22T19:11:41.994Z. Found 10000 logs.
+Query date range: 2023-12-22T19:11:41.995Z to 2023-12-22T19:13:41.994Z. Found 10000 logs.
+Query date range: 2023-12-22T19:10:41.995Z to 2023-12-22T19:11:11.994Z. Found 5000 logs.
+Query date range: 2023-12-22T19:11:11.995Z to 2023-12-22T19:11:41.994Z. Found 5000 logs.
+Query date range: 2023-12-22T19:12:41.995Z to 2023-12-22T19:13:11.994Z. Found 5000 logs.
+Query date range: 2023-12-22T19:13:11.995Z to 2023-12-22T19:13:41.994Z. Found 5000 logs.
+Queries finished in 11.253 seconds.
 Total logs found: 50000
 ```
 
