@@ -1,6 +1,6 @@
-# CloudWatch Logs big query - technical specification
+# CloudWatch Logs large query - technical specification
 
-This document contains the technical specifications for _CloudWatch Logs big query_,
+This document contains the technical specifications for _CloudWatch Logs large query_,
 a workflow scenario that showcases AWS services and SDKs. It is primarily intended for the AWS code
 examples team to use while developing this example in additional languages.
 
@@ -8,9 +8,9 @@ This document explains the following:
 
 - Deploying AWS resources.
 - Adding sample data.
-- Setting up a big query.
+- Setting up a large query.
 
-For an introduction to _Big query_, see the [README.md](README.md).
+For an introduction to see the [README.md](README.md).
 
 ---
 
@@ -77,7 +77,7 @@ Concatenate the results of the first query with the results of the two new queri
 The following pseudocode illustrates this.
 
 ```pseudocode
-func big_query(date_range):
+func large_query(date_range):
   query_results = get_query_results(date_range)
 
   if query_results.length < LIMIT
@@ -85,7 +85,7 @@ func big_query(date_range):
   else
     date_range = [query_results.end, date_range.end]
     d1, d2 = split(date_range)
-    return concat(query_results, big_query(d1), big_query(d2))
+    return concat(query_results, large_query(d1), large_query(d2))
 ```
 
 ## Output
@@ -114,7 +114,7 @@ Total logs found: 50000
 | ----------------- | ----------------------------- | --------------------------------- |
 | `GetQueryResults` | cloudwatch-logs_metadata.yaml | cloudwatch-logs_GetQueryResults   |
 | `StartQuery`      | cloudwatch-logs_metadata.yaml | cloudwatch-logs_StartQuery        |
-| `Big Query`       | cloudwatch-logs_metadata.yaml | cloudwatch-logs_Scenario_BigQuery |
+| `Large Query`       | cloudwatch-logs_metadata.yaml | cloudwatch-logs_Scenario_LargeQuery |
 
 ---
 
