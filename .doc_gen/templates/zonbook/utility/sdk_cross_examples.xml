@@ -3,7 +3,7 @@
 {{- $sdk_prefix := index . 1}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
-    {{- $include_docs := ""}}
+    {{- $include_docs = ""}}
 {{- end}}
 {{- if $examples.CrossServiceExamples}}
 <section id="{{$sdk_prefix}}_code_examples_cross_service" role="topic">
