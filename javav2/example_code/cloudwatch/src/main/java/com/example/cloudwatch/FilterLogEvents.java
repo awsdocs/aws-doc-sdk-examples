@@ -62,9 +62,9 @@ public class FilterLogEvents {
                 .endTime(endTime)
                 .build();
 
-            int logLimit = cloudWatchLogsClient.filterLogEvents(filterLogEventsRequest).events().size();
-            for (int c = 0; c < logLimit; c++) {
-                System.out.println(cloudWatchLogsClient.filterLogEvents(filterLogEventsRequest).events().get(c).message());
+            List<FilteredLogEvent> events = cloudWatchLogsClient.filterLogEvents(filterLogEventsRequest).events();
+            for (FilteredLogEvent event: events) {
+                System.out.println(event.message());
             }
 
             System.out.println("Successfully got CloudWatch log events!");
