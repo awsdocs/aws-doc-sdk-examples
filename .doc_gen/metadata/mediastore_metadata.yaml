@@ -110,4 +110,3 @@ mediaconvert_PutObject:
                 - mediastore.java2.put_object.main
   services:  
     mediastore: {PutObject}
-
