@@ -21,7 +21,7 @@ For an introduction to see the [README.md](README.md).
 - [Common resources](#common-resources)
 - [Building the queries](#building-the-queries)
 - [Output](#output)
-- [Other material](#other-material)
+- [Metadata](#metadata)
 
 ## Architecture
 

@@ -21,7 +21,9 @@ The following components are used in this example:
 
 ### Prerequisites
 
-For general prerequisites, see the [README](../../../../README.md) in the `javascriptv3` folder. To run this example you need a CloudWatch log group that contains over 10000 logs. You can [create one yourself](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html), or you can follow the steps in the [Infrastructure and data](#infrastructure-and-data) section. You might also need the AWS CLI depending on your existing CloudWatch environment.
+For general prerequisites, see the [README](../../../../README.md) in the `javascriptv3` folder.
+
+To run this example you need a CloudWatch log group that contains over 10000 logs. You can [create one yourself](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html), or you can follow the steps in the [Infrastructure and data](#infrastructure-and-data) section. These steps require you to [install or update the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 ### Infrastructure and data
 
@@ -45,6 +47,4 @@ Follow the below steps to create the necessary resources in AWS CloudFormation a
 
 ---
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-SPDX-License-Identifier: Apache-2.0
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
