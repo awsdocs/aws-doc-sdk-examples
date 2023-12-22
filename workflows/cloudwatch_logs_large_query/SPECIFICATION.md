@@ -116,11 +116,3 @@ Total logs found: 50000
 | `GetQueryResults` | cloudwatch-logs_metadata.yaml | cloudwatch-logs_GetQueryResults   |
 | `StartQuery`      | cloudwatch-logs_metadata.yaml | cloudwatch-logs_StartQuery        |
 | `Large Query`       | cloudwatch-logs_metadata.yaml | cloudwatch-logs_Scenario_LargeQuery |
-
----
-
-## Other material
-
-If technical details are not what you seek, try these instead:
-
-- [High-level summary](README.md)
