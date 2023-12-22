@@ -24,6 +24,7 @@ class ProducerStack(Stack):
         self.init_publish_permissions(topic, acct_config)
         bucket = self.init_create_bucket(bucket_name)
         self.init_cross_account_log_role(acct_config, bucket)
+        self.init_rule(topic)
 
     def get_yaml_config(self, filepath):
         with open(filepath, "r") as file:
