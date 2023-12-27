@@ -32,7 +32,7 @@ public class GetIdentityCredentials {
                 <identityId>\s
 
             Where:
-                identityId - The Id of an existing identity.
+                identityId - The Id of an existing identity in the format REGION:GUID.
             """;
 
         if (args.length != 1) {
@@ -57,7 +57,7 @@ public class GetIdentityCredentials {
                 .build();
 
             GetCredentialsForIdentityResponse response = cognitoClient.getCredentialsForIdentity(getCredentialsForIdentityRequest);
-            System.out.println("Identity ID " + response.identityId() + ", Access key ID " + response.credentials().accessKeyId());
+            System.out.println("Identity ID " + response.identityId() + ", Expiration " + response.credentials().expiration());
 
         } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

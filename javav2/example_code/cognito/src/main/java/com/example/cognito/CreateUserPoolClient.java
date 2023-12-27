@@ -16,12 +16,14 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIden
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CreateUserPoolClientRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CreateUserPoolClientResponse;
 //snippet-end:[cognito.java2.user_pool.create_user_pool_client.import]
-
 /**
+ * A user pool client app is an application that authenticates with Amazon Cognito user pools.
+ * When you create a user pool, you can configure app clients that allow mobile or web applications
+ * to call API operations to authenticate users, manage user attributes and profiles,
+ * and implement sign-up and sign-in flows.
+ *
  * Before running this Java V2 code example, set up your development environment, including your credentials.
- *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateUserPoolClient {
