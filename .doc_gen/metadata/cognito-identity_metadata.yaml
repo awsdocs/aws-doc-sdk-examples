@@ -1,8 +1,8 @@
 # zexi 0.4.0
 cognito-identity_ListIdentityPools:
-  title: List &COGID; pools
+  title: List &COG; identity pools
   title_abbrev: List identity pools
-  synopsis: get a list of &COGID; pools.
+  synopsis: get a list of &COG; identity pools.
   category:
   languages:
     Swift:
@@ -29,9 +29,9 @@ cognito-identity_ListIdentityPools:
   services:
     cognito-identity: {CreateIdentityPool, ListIdentityPools}
 cognito-identity_CreateIdentityPool:
-  title: Create a new &COGID; with a specified name
+  title: Create an &COG; identity pool
   title_abbrev: Create an identity pool
-  synopsis: find the &COGID; with the given name, creating it if it's not found.
+  synopsis: create an &COG; identity pool.
   category:
   languages:
     Swift:
