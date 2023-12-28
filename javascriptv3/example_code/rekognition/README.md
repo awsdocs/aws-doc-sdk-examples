@@ -1,13 +1,13 @@
-# Amazon Redshift code examples for the SDK for JavaScript (v3)
+# Amazon Rekognition code examples for the SDK for JavaScript (v3)
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Redshift.
+Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Rekognition.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon Redshift is a fast, fully managed, petabyte-scale data warehouse service that makes it simple and cost-effective to efficiently analyze all your data using your existing business intelligence tools._
+_Amazon Rekognition makes it easy to add image and video analysis to your applications._
 
 ## ⚠ Important
 
@@ -28,16 +28,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [Create a cluster](src/libs/redshiftClient.js#L13) (`CreateCluster`)
-- [Delete a cluster](src/libs/redshiftClient.js#L13) (`DeleteCluster`)
-- [Describe your clusters](src/libs/redshiftClient.js#L13) (`DescribeClusters`)
-- [Modify a cluster](src/libs/redshiftClient.js#L13) (`ModifyCluster`)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -81,9 +71,9 @@ in the `javascriptv3` folder.
 
 ## Additional resources
 
-- [Amazon Redshift Management Guide](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html)
-- [Amazon Redshift API Reference](https://docs.aws.amazon.com/redshift/latest/APIReference/Welcome.html)
-- [SDK for JavaScript (v3) Amazon Redshift reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/redshift)
+- [Amazon Rekognition Developer Guide](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html)
+- [Amazon Rekognition API Reference](https://docs.aws.amazon.com/rekognition/latest/APIReference/Welcome.html)
+- [SDK for JavaScript (v3) Amazon Rekognition reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/rekognition)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
