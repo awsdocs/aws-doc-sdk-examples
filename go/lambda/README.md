@@ -1,99 +1,97 @@
-# AWS SDK for Go code examples for AWS Lambda
+# Lambda code examples for the SDK for Go V1
 
-## Purpose
+> NOTE: Examples for this SDK are no longer supported.
+> These examples are for historical purposes only, and should not be relied upon.
+> Please migrate to the currently supported AWS SDK for this language.
 
-These examples demonstrate how to perform several AWS Lambda operations.
+## Overview
 
-## Prerequisites
+Shows how to use the AWS SDK for Go V1 to work with AWS Lambda.
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the _AWS SDK for Go Developer Guide_.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## Running the code
+_Lambda allows you to run code without provisioning or managing servers._
 
-### ConfigureFunction/ConfigureFunction.go
+## ⚠ Important
 
-This example enables an Amazon S3 bucket to send notifications to an AWS Lambda function.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-`go run ConfigureFunction.go -f FUNCTION -a ARN`
+<!--custom.important.start-->
+<!--custom.important.end-->
 
-- _FUNCTION_ is the name of the AWS Lambda function.
-- _ARN_ is the Amazon Resource Name (ARN) of the S3 bucket sending a notification to the function.
+## Code examples
 
-The unit test mocks the service client and the `AddPermission` function.
+### Prerequisites
 
-### MakeFunction/MakeFunction.go
+For prerequisites, see the [README](../README.md#Prerequisites) in the `go` folder.
 
-This example creates an AWS Lambda function.
 
-`go run MakeFunction.go -z ZIPFILE -b BUCKET -f FUNCTION -h HANDLER -a ROLE-ARN -r RUNTIME`
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-- _ZIPFILE_ is the name of the zip file, without the .zip extension, containing the AWS Lambda function code.
-- _BUCKET_ is the name of an Amazon S3 bucket in the same AWS Region as the AWS Lambda function.
-- _FUNCTION_ is the name of the AWS Lambda function.
-- _HANDLER_ is the name of the method within your code that AWS Lambda calls.
-- _ROLE-ARN_ is the ARN of the function's execution role.
-- _RUNTIME_ is the identifier of the function's runtime.
+### Get started
 
-The unit test mocks the service client and the `CreateFunction` function.
+- [Hello Lambda](None) (`ListFunctions`)
 
-### RunFunction/RunFunction.go
 
-This example executes an AWS Lambda function.
+### Single actions
 
-`go run RunFunction.go -f FUNCTION -f FUNCTION [-m MAX-ITEMS]`
+Code excerpts that show you how to call individual service functions.
 
-- _FUNCTION_ is the name of the AWS Lambda function to call.
-- _MAX-ITEMS_ is the maximum number of items to retrieve.
-  This argument is optional, and if not supplied, defaults to 10.
+- [Create a function](None) (`CreateFunction`)
+- [Delete a function](None) (`DeleteFunction`)
+- [Get a function](None) (`GetFunction`)
+- [Invoke a function](None) (`Invoke`)
+- [List functions](None) (`ListFunctions`)
+- [Update function code](None) (`UpdateFunctionCode`)
+- [Update function configuration](None) (`UpdateFunctionConfiguration`)
 
-The unit test mocks the service client and the `Invoke` function.
 
-### ShowFunctions/ShowFunctions.go
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-This example displays a list of your AWS Lambda functions.
+## Run the examples
 
-`go run ShowFunctions.go`
+### Instructions
 
-The unit test mocks the service client and the `ListFunctions` function.
 
-### Notes
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the _AWS Identity and Access Management User Guide_.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+#### Hello Lambda
 
-## Running the unit tests
+This example shows you how to get started using Lambda.
 
-Unit tests should delete any resources they create.
-However, they might result in charges to your
-AWS account.
 
-To run a unit test, enter the following.
 
-`go test`
+### Tests
 
-You should see something like the following,
-where PATH is the path to the folder containing the Go files.
+⚠ Running tests might result in charges to your AWS account.
 
-```sh
-PASS
-ok      PATH 6.593s
-```
 
-To see any log messages, enter the following.
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `go` folder.
 
-`go test -test.v`
 
-You should see additional log messages.
-The last two lines should be similar to the previous output shown.
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
+- [Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
+- [SDK for Go V1 Lambda reference](https://pkg.go.dev/github.com/aws/aws-sdk-go/service/lambda)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

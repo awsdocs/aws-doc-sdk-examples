@@ -1,101 +1,75 @@
-# AWS SDK for Go code examples for Amazon SNS
+# Amazon SNS code examples for the SDK for Go V1
 
-## Purpose
+> NOTE: Examples for this SDK are no longer supported.
+> These examples are for historical purposes only, and should not be relied upon.
+> Please migrate to the currently supported AWS SDK for this language.
 
-These examples demonstrate how to perform several Amazon Simple Notification Service (Amazon SNS) operations.
+## Overview
 
-## Prerequisites
+Shows how to use the AWS SDK for Go V1 to work with Amazon Simple Notification Service (Amazon SNS).
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the _AWS SDK for Go Developer Guide_.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## Running the code
+_Amazon SNS is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud._
 
-### MakeTopic/MakeTopic.go
+## ⚠ Important
 
-This example creates an Amazon SNS topic.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-`go run MakeTopic.go -t TOPIC`
+<!--custom.important.start-->
+<!--custom.important.end-->
 
-- _TOPIC_ is the name of the topic to create.
+## Code examples
 
-The unit test mocks the service client and the `CreateTopic` function.
+### Prerequisites
 
-### PublishMessage/PublishMessage.go
+For prerequisites, see the [README](../README.md#Prerequisites) in the `go` folder.
 
-This example publishes a message to an Amazon SNS topic.
 
-`go run PublishMessage.go -m MESSAGE -t TOPIC-ARN`
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-- _MESSAGE_ is the message to publish.
-- _TOPIC-ARN_ is the Amazon Resource Name (ARN) of the topic to which the user subscribes.
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-The unit test mocks the service client and the `Publish` function.
+## Run the examples
 
-### ShowSubscriptions/ShowSubscriptions.go
+### Instructions
 
-This example displays the Amazon Resource Names (ARNs) of your Amazon SNS subscriptions.
 
-`go run ShowSubscriptions.go`
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-The unit test mocks the service client and the `ListSubscriptions` function.
 
-### ShowTopics/ShowTopics.go
 
-This example displays the Amazon Resource Names (ARNs) of your Amazon SNS topics.
+### Tests
 
-`go run ShowTopics.go`
+⚠ Running tests might result in charges to your AWS account.
 
-The unit test mocks the service client and the `ListTopics` function.
 
-### SubscribeTopic/SubscribeTopic.go
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `go` folder.
 
-This example subscribes a user to a topic by their email address.
 
-`go run SubscribeTopic.go -e EMAIL -t TOPIC-ARN`
 
-- _EMAIL_ is the email address of the user.
-- _TOPIC-ARN_ is the Amazon Resource Name (ARN) of the topic.
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
-The unit test mocks the service client and the `Subscribe` function.
+## Additional resources
 
-### Notes
+- [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
+- [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
+- [SDK for Go V1 Amazon SNS reference](https://pkg.go.dev/github.com/aws/aws-sdk-go/service/sns)
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the _AWS Identity and Access Management User Guide_.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
-## Running the unit tests
+---
 
-Unit tests should delete any resources they create.
-However, they might result in charges to your
-AWS account.
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-To run a unit test, enter the following.
-
-`go test`
-
-You should see something like the following,
-where PATH is the path to the folder containing the Go files.
-
-```sh
-PASS
-ok      PATH 6.593s
-```
-
-To see any log messages, enter the following.
-
-`go test -test.v`
-
-You should see additional log messages.
-The last two lines should be similar to the previous output shown.
-
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: Apache-2.0

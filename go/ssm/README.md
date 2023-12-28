@@ -1,4 +1,4 @@
-# Amazon EC2 code examples for the SDK for Go V1
+# Systems Manager code examples for the SDK for Go V1
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Go V1 to work with Amazon Elastic Compute Cloud (Amazon EC2).
+Shows how to use the AWS SDK for Go V1 to work with AWS Systems Manager.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon EC2 is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems._
+_Systems Manager organizes, monitors, and automates management tasks on your AWS resources._
 
 ## ⚠ Important
 
@@ -61,9 +61,9 @@ in the `go` folder.
 
 ## Additional resources
 
-- [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
-- [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
-- [SDK for Go V1 Amazon EC2 reference](https://pkg.go.dev/github.com/aws/aws-sdk-go/service/ec2)
+- [Systems Manager User Guide](https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html)
+- [Systems Manager API Reference](https://docs.aws.amazon.com/systems-manager/latest/APIReference/Welcome.html)
+- [SDK for Go V1 Systems Manager reference](https://pkg.go.dev/github.com/aws/aws-sdk-go/service/ssm)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

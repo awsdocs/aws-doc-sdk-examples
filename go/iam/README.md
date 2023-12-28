@@ -1,271 +1,117 @@
-# AWS SDK for Go code examples for AWS Identity and Access Management (IAM)
+# IAM code examples for the SDK for Go V1
 
-## Purpose
+> NOTE: Examples for this SDK are no longer supported.
+> These examples are for historical purposes only, and should not be relied upon.
+> Please migrate to the currently supported AWS SDK for this language.
 
-These examples demonstrate how to perform several IAM operations.
+## Overview
 
-## Prerequisites
+Shows how to use the AWS SDK for Go V1 to work with AWS Identity and Access Management (IAM).
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the AWS SDK for Go Developer Guide.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## Running the code
+_IAM is a web service for securely controlling access to AWS services. With IAM, you can centrally manage permissions in your AWS account._
 
-### AccessKeyLastUsed/AccessKeyLastUsed.go
+## ⚠ Important
 
-This example retrieves when an access key was last used,
-including in which service and AWS Region.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-`go run AccessKeyLastUsed.go -k KEY-ID`
+<!--custom.important.start-->
+<!--custom.important.end-->
 
-- _KEY-ID_ is the ID of the access key.
+## Code examples
 
-The unit test mocks the IAM service client an `AccessKeyLastUsed` function.
+### Prerequisites
 
-### AttachUserPolicy/AttachUserPolicy.go
+For prerequisites, see the [README](../README.md#Prerequisites) in the `go` folder.
 
-This example attaches an Amazon DynamoDB full-access policy to an IAM role.
 
-`go run AttachUserPolicy.go -r ROLE`
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-- _ROLE_ is the role name.
+### Get started
 
-The unit test mocks the service client and the `AttachRolePolicy` function.
+- [Hello IAM](None) (`ListPolicies`)
 
-### CreateAccessKey/CreateAccessKey.go
 
-This example creates a new access key ID and secret key for a user.
+### Single actions
 
-`go run CreateAccessKey.go -u USER`
+Code excerpts that show you how to call individual service functions.
 
-- _USER_ is the name of the user to created the access key ID and secret key.
+- [Attach a policy to a role](None) (`AttachRolePolicy`)
+- [Create a policy](None) (`CreatePolicy`)
+- [Create a role](None) (`CreateRole`)
+- [Create a service-linked role](None) (`CreateServiceLinkedRole`)
+- [Create a user](None) (`CreateUser`)
+- [Create an access key](None) (`CreateAccessKey`)
+- [Create an inline policy for a user](None) (`PutUserPolicy`)
+- [Delete a policy](None) (`DeletePolicy`)
+- [Delete a role](None) (`DeleteRole`)
+- [Delete a service-linked role](None) (`DeleteServiceLinkedRole`)
+- [Delete a user](None) (`DeleteUser`)
+- [Delete an access key](None) (`DeleteAccessKey`)
+- [Delete an inline policy from a user](None) (`DeleteUserPolicy`)
+- [Detach a policy from a role](None) (`DetachRolePolicy`)
+- [Get a policy](None) (`GetPolicy`)
+- [Get a role](None) (`GetRole`)
+- [Get a user](None) (`GetUser`)
+- [Get the account password policy](None) (`GetAccountPasswordPolicy`)
+- [List SAML providers](None) (`ListSAMLProviders`)
+- [List a user's access keys](None) (`ListAccessKeys`)
+- [List groups](None) (`ListGroups`)
+- [List inline policies for a role](None) (`ListRolePolicies`)
+- [List inline policies for a user](None) (`ListUserPolicies`)
+- [List policies](None) (`ListPolicies`)
+- [List policies attached to a role](None) (`ListAttachedRolePolicies`)
+- [List roles](None) (`ListRoles`)
+- [List users](None) (`ListUsers`)
 
-The unit test mocks the IAM service client and `CreateAccessKey` function.
 
-### CreateAccountAlias/CreateAccountAlias.go
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-This example creates an alias for your IAM account.
+## Run the examples
 
-`go run CreateAccountAlias.go -a ALIAS`
+### Instructions
 
-- _ALIAS_ is the alias for the account.
 
-The unit test mocks the service client and the `CreateAccountAlias` function.
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-### CreatePolicy/CreatePolicy.go
+#### Hello IAM
 
-This example creates a new policy.
+This example shows you how to get started using IAM.
 
-`go run CreatePolicy.go -n POLICY`
 
-- _POLICY_ is the name of the policy.
 
-The unit test mocks the service client and the `CreatePolicy` function.
+### Tests
 
-### CreateUser/CreateUser.go
+⚠ Running tests might result in charges to your AWS account.
 
-This example creates a new IAM user.
 
-`go run CreateUser.go -u USERNAME`
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `go` folder.
 
-- _USERNAME_ is the name of the user.
 
-The unit test mocks the service client and the `CreateUser` function.
 
-### DeleteAccessKey/DeleteAccessKey.go
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
-This example deletes an IAM access key.
+## Additional resources
 
-`go run DeleteAccessKey.go -k KEY-ID -u USER-NAME`
+- [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+- [IAM API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
+- [SDK for Go V1 IAM reference](https://pkg.go.dev/github.com/aws/aws-sdk-go/service/iam)
 
-- _KEY-ID_ is the ID of the access key.
-- _USER-NAME_ is the name of a user.
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
-The unit test mocks the IAM service client and the `DeleteAccessKey` function.
+---
 
-### DeleteAccountAlias/DeleteAccountAlias
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-This example removes an alias for an IAM account.
-
-`go run DeleteAccountAlias.go -a ALIAS`
-
-- _ALIAS_ is the alias for the account.
-
-The unit test mocks the IAM service client and the `DeleteAccountAlias` function.
-
-### DeleteServerCert/DeleteServerCert.go
-
-This example deletes an IAM server certificate.
-
-`go run DeleteServerCert.go -c CERT-NAME`
-
-- _CERT-NAME_ is the name of the cerificate.
-
-The unit test mocks the IAM service client and the `DeleteServerCertificate` function.
-
-### DeleteUser/DeleteUser.go
-
-This example deletes an IAM user.
-
-`go run DeleteUser.go -u USERNAME`
-
-- _USERNAME_ is the name of the user to delete.
-
-The unit test mocks the service client and the `DeleteUser` function.
-
-### DetachUserPolicy/DetachUserPolicy.go
-
-This example detaches an Amazon DynamoDB full-access policy from an IAM role.
-
-`go run DetachUserPolicy.go -r ROLE`
-
-- _ROLE_ is the role name.
-
-The unit test mocks the service client and the `DetachRolePolicy` function.
-
-### GetPolicy/GetPolicy.go
-
-This example retrieves the description for a policy.
-
-`go run GetPolicy.go -a POLICY-ARN`
-
-- _POLICY-ARN_ is the ARN of a policy.
-
-The unit test mocks the IAM service client and the `GetPolicy` function.
-
-### GetPublicKeys/GetPublicKeys.go
-
-This example gets the bodies of a user's public SSH keys.
-
-`go run GetPublicKeys -u USER-NAME`
-
-- _USER-NAME_ is the name of a user.
-
-The unit test mocks the IAM service client and the `ListSSHPublicKeys` function.
-
-### GetServerCert/GetServerCert.go
-
-This example retrieves information about an IAM server certificate.
-
-`go run GetServerCert.go -c CERT-NAME`
-
-- _CERT-NAME_ is the name of a server certificate.
-
-The unit test mocks the IAM service client and the `GetServerCertificate` function.
-
-### ListAccessKeys/ListAccessKeys.go
-
-This example lists the accesss keys for a specific user.
-
-`go run ListAccessKeys -u USER`
-
-The unit test mocks the IAM service client and the `ListAccessKeys` function.
-
-### ListAccountAliases/ListAccountAliases.go
-
-This example lists the aliases for your account.
-
-`go run ListAccountAliases -m MAX-ITEMS`
-
-- _MAX-ITEMS_ is the maximum number of aliases to show.
-
-The unit test mocks the service client and the `ListAccountAliases` function.
-
-### ListAdmins/ListAdmins.go
-
-This example lists the number of users and users who have administrative rights.
-
-`go run ListAdmins.go`
-
-### ListServerCerts/ListServerCerts.go
-
-This example lists the metadata about your server certificates.
-
-`go run ListServerCerts.go`
-
-The unit test mocks the IAM service client and the `ListServerCertificates` function.
-
-### ListUsers/ListUsers.go
-
-This example lists your IAM users.
-
-`go run ListUsers.go [-m MAX-USERS]`
-
-- _MAX-USERS_ is the maximum number of users to show.
-  The default is 10.
-
-The unit test accepts a similar value in _config.json_.
-
-### UpdateAccessKey/UpdateAccessKey.go
-
-This example activates an access key.
-
-`go run UpdateAccessKey.go -k KEY-ID -u USER-NAME`
-
-- _KEY-ID_ is the ID of an access key.
-- _USER-NAME_ is the name of a user.
-
-The unit test mocks the IAM service client and the `UpdateAccessKey` function.
-
-### UpdateServerCert/UpdateServerCert.go
-
-This example renames an IAM server certificate.
-
-`go run UpdateServerCert.go -c CERT-NAME -n NEW-NAME`
-
-- _CERT-NAME_ is the original name of the server certificate.
-- _NEW-NAME_ is the new name of the server certificate.
-
-The unit test mocks the IAM service client and the `UpdateServerCertificate` function.
-
-### UpdateUser/UpdateUser.go
-
-This example changes the name of an existing IAM user.
-
-`go run UpdateUser.go -u USERNAME -n NEW-NAME`
-
-- _USERNAME_ is the name of an existing IAM user.
-- _NEW-NAME_ is the new user name.
-
-The unit test mocks the service client and the `UpdateUser` function.
-
-### Notes
-
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
-
-## Running the unit tests
-
-Unit tests should delete any resources they create.
-However, they might result in charges to your
-AWS account.
-
-To run a unit test, enter the following:
-
-`go test`
-
-You should see something like the following,
-where PATH is the path to the folder containing the Go files.
-
-```sh
-PASS
-ok      PATH 6.593s
-```
-
-If you want to see any log messages, enter the following:
-
-`go test -test.v`
-
-You should see some additional log messages.
-The last two lines should be similar to the previous output shown.
-
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: Apache-2.0

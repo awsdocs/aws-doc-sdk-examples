@@ -1,123 +1,102 @@
-# AWS SDK for Go code examples for Amazon RDS
+# Amazon RDS code examples for the SDK for Go V1
 
-## Purpose
+> NOTE: Examples for this SDK are no longer supported.
+> These examples are for historical purposes only, and should not be relied upon.
+> Please migrate to the currently supported AWS SDK for this language.
 
-These examples demonstrate how to perform several Amazon RDS operations.
+## Overview
 
-## Prerequisites
+Shows how to use the AWS SDK for Go V1 to work with Amazon Relational Database Service (Amazon RDS).
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the AWS SDK for Go Developer Guide.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## Running the code
+_Amazon RDS is a web service that makes it easier to set up, operate, and scale a relational database in the cloud._
 
-### CopySnapshotToS3/CopySnapshotToS3.go
+## ⚠ Important
 
-This example copies a snapshot of an Amazon RDS cluster to an Amazon S3 bucket.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-`go run CopySnapshot.go -a ROLE-ARN -k KMS-KEY -b BUCKET-NAME -s SNAPSHOT-NAME -e EXPORT-NAME`
+<!--custom.important.start-->
+<!--custom.important.end-->
 
-- _ROLE-ARN_ is the ARN of a role that has permission to write to the bucket.
-- _KMS-KEY is the KMS key used to encrypt the snapshot in the bucket.
-- _BUCKET-NAME is the name of the bucket.
-- _SNAPSHOT-NAME is the name of the snapshot.
-- _EXPORT-NAME_ is the name given to the snapshot in the bucket.
+## Code examples
 
-The unit test mocks the service client and the `DescribeDBSnapshots` and `StartExportTask` functions.
+### Prerequisites
 
-### CreateClusterSnapshot/CreateClusterSnapshot.go
+For prerequisites, see the [README](../README.md#Prerequisites) in the `go` folder.
 
-This example creates a snapshot of an Amazon RDS cluster.
 
-`go run CreateClusterSnapshot.go -c CLUSTER-ID`
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-- _CLUSTER-ID_ is the ID of a cluster.
+### Get started
 
-The unit test mocks the service client and the `CreateClusterSnapshot` function.
+- [Hello Amazon RDS](None) (`DescribeDBInstances`)
 
-### CreateInstanceSnapshot/CreateInstanceSnapshot.go
 
-This example creates a snapshot of an Amazon RDS instance.
+### Single actions
 
-`go run CreateInstanceSnapshot.go -i INSTANCE`
+Code excerpts that show you how to call individual service functions.
 
-- _INSTANCE_ is the name of the instance.
+- [Create a DB instance](None) (`CreateDBInstance`)
+- [Create a DB parameter group](None) (`CreateDBParameterGroup`)
+- [Create a snapshot of a DB instance](None) (`CreateDBSnapshot`)
+- [Delete a DB instance](None) (`DeleteDBInstance`)
+- [Delete a DB parameter group](None) (`DeleteDBParameterGroup`)
+- [Describe DB instances](None) (`DescribeDBInstances`)
+- [Describe DB parameter groups](None) (`DescribeDBParameterGroups`)
+- [Describe database engine versions](None) (`DescribeDBEngineVersions`)
+- [Describe options for DB instances](None) (`DescribeOrderableDBInstanceOptions`)
+- [Describe parameters in a DB parameter group](None) (`DescribeDBParameters`)
+- [Describe snapshots of DB instances](None) (`DescribeDBSnapshots`)
+- [Update parameters in a DB parameter group](None) (`ModifyDBParameterGroup`)
 
-The unit test mocks the service client and the `CreateDBSnapshot` function.
 
-### ListClusterSnapshots/ListClusterSnapshots.go
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-This example lists your Amazon RDS cluster snapshots.
+## Run the examples
 
-`go run ListClusterSnapshots.go`
+### Instructions
 
-### ListInstances/ListInstances.go
 
-This example lists your Amazon RDS instances.
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-`go run ListInstances.go`
+#### Hello Amazon RDS
 
-### ListInstanceSnapshots/ListInstanceSnapshots.go
+This example shows you how to get started using Amazon RDS.
 
-This example lists your Amazon RDS instance snapshots.
 
-`go run ListInstanceSnapshots.go`
 
-### ListParameterGroups/ListParameterGroups.go
+### Tests
 
-This example lists your Amazon RDS parameter groups.
+⚠ Running tests might result in charges to your AWS account.
 
-`go run ListParameterGroups.go`
 
-### ListSecurityGroups/ListSecurityGroups.go
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `go` folder.
 
-This example lists your Amazon RDS security groups.
 
-`go run ListSecurityGroups.go`
 
-### ListSubnetGroups/ListSubnetGroups.go
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
-This example lists your Amazon RDS subnet groups.
+## Additional resources
 
-`go run ListSubnetGroups.go`
+- [Amazon RDS User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)
+- [Amazon RDS API Reference](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/Welcome.html)
+- [SDK for Go V1 Amazon RDS reference](https://pkg.go.dev/github.com/aws/aws-sdk-go/service/rds)
 
-### Notes
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+---
 
-## Running a unit test
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-Unit tests should delete any resources they create.
-However, they might result in charges to your
-AWS account.
-
-To run a unit test, enter the following.
-
-`go test`
-
-You should see something like the following,
-where PATH is the path to the folder containing the Go files.
-
-```sh
-PASS
-ok      PATH 6.593s
-```
-
-To see any log messages, enter the following.
-
-`go test -test.v`
-
-You should see some additional log messages.
-The last two lines should be similar to the previous output shown.
-
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: Apache-2.0

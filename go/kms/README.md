@@ -1,96 +1,75 @@
-# AWS SDK for Go code examples for AWS KMS
+# AWS KMS code examples for the SDK for Go V1
 
-## Purpose
+> NOTE: Examples for this SDK are no longer supported.
+> These examples are for historical purposes only, and should not be relied upon.
+> Please migrate to the currently supported AWS SDK for this language.
 
-These examples demonstrate how to perform several AWS Key Management Service (AWS KMS) operations.
+## Overview
 
-## Prerequisites
+Shows how to use the AWS SDK for Go V1 to work with AWS Key Management Service (AWS KMS).
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the AWS SDK for Go Developer Guide.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## Running the code
+_AWS KMS is an encryption and key management service scaled for the cloud._
 
-### CreateKey/CreateKey.go
+## ⚠ Important
 
-This example creates an AWS KMS key.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-`go run CreateKey.go -k KEY-NAME -v KEY-VALUE`
+<!--custom.important.start-->
+<!--custom.important.end-->
 
-- _KEY-NAME_ is the name of the key.
-- _KEY-VALUE_ is the value of the key.
+## Code examples
 
-The unit test mocks the service client and the `CreateKey` function.
+### Prerequisites
 
-### DecryptData/DecryptData.go
+For prerequisites, see the [README](../README.md#Prerequisites) in the `go` folder.
 
-This example decrypts some text that was encrypted with an AWS KMS key.
 
-`go run DecryptData.go -d DATA`
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-- _DATA_ is the encrypted data, as a string.
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-The unit test mocks the service client and the `Decrypt` function.
+## Run the examples
 
-### EncryptData/EncryptData.go
+### Instructions
 
-This example encrypts some text using an AWS KMS key.
 
-`go run EncryptData.go -k KEY-ID -t "text"`
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-- _KEY-ID_ is the ID of a KMS key.
-- _text_ is the text to encrypt.
 
-The unit test mocks the service client and the `Encrypt` function.
 
-### ReEncryptData/ReEncryptData.go
+### Tests
 
-This example reencrypts some text using a new AWS KMS key.
+⚠ Running tests might result in charges to your AWS account.
 
-`go run ReEncryptData.go -k KEY-ID -d DATA`
 
-- _KEY-ID_ is the ID of a KMS key.
-- _DATA_ is the data to reencrypt, as a string.
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `go` folder.
 
-The unit test mocks the service client and the `ReEncrypt` function.
 
-### Notes
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the *AWS Identity and Access Management User Guide*.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
-## Running the unit tests
+## Additional resources
 
-Unit tests should delete any resources they create.
-However, they might result in charges to your
-AWS account.
+- [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
+- [AWS KMS API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/Welcome.html)
+- [SDK for Go V1 AWS KMS reference](https://pkg.go.dev/github.com/aws/aws-sdk-go/service/kms)
 
-To run a unit test, enter the following.
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
-`go test`
+---
 
-You should see something like the following,
-where PATH is the path to the folder containing the Go files.
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-```sh
-PASS
-ok      PATH 6.593s
-```
-
-To see any log messages, enter the following.
-
-`go test -test.v`
-
-You should see additional log messages.
-The last two lines should be similar to the previous output shown.
-
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: Apache-2.0

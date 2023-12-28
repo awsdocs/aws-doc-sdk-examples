@@ -1,102 +1,75 @@
-# AWS SDK for Go code examples for Amazon SES
+# Amazon SES code examples for the SDK for Go V1
 
-## Purpose
+> NOTE: Examples for this SDK are no longer supported.
+> These examples are for historical purposes only, and should not be relied upon.
+> Please migrate to the currently supported AWS SDK for this language.
 
-These examples demonstrate how to perform several Amazon Simple Email Service (Amazon SES) operations.
+## Overview
 
-## Prerequisites
+Shows how to use the AWS SDK for Go V1 to work with Amazon Simple Email Service (Amazon SES).
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the _AWS SDK for Go Developer Guide_.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## Running the code
+_Amazon SES is a reliable, scalable, and cost-effective email service._
 
-### DeleteAddress/DeleteAddress.go
+## ⚠ Important
 
-This example deletes an Amazon SES email address.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-`go run DeleteAddress -a ADDRESS`
+<!--custom.important.start-->
+<!--custom.important.end-->
 
-- _ADDRESS_ is the email address to delete.
+## Code examples
 
-The unit test mocks the service client and the `DeleteVerifiedEmailAddress` function.
+### Prerequisites
 
-### GetStatistics/GetStatistics.go
+For prerequisites, see the [README](../README.md#Prerequisites) in the `go` folder.
 
-This example retrieves statistics about Amazon SES send operations.
 
-`go run GetStatistics.go`
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-The unit test mocks the service client and the `GetSendStatistics` function.
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-### ListAddresses/ListAddresses.go
+## Run the examples
 
-This example lists the verified SES email addresses.
+### Instructions
 
-`go run ListAddresses.go`
 
-The unit test mocks the service client and the `ListIdentities` and `GetIdentityVerificationAttributes` functions.
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-### SendMessage/SendMessage.go
 
-This example sends an email message to a recipient.
 
-`go run SendMessage.go -f SENDER -t RECIPIENT [-s SUBJECT]`
+### Tests
 
-- _SENDER_ is the email address for the From field.
-- _RECIPIENT_ is the email address for the recipient.
-- _SUBJECT_ is the text for the Subject field.
-  If this value is not supplied, it defaults to **Amazon SES Test (AWS SDK for Go)**.
+⚠ Running tests might result in charges to your AWS account.
 
-The unit test mocks the service client and the `SendEmail` function.
 
-### VerifyAddress/VerifyAddress.go
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `go` folder.
 
-This example verifies an email address.
 
-`go run VerifyAddress -r RECIPIENT`
 
-- _RECIPIENT_ is the email address to verify.
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
-The unit test mocks the service client and the `VerifyEmailAddress` function.
+## Additional resources
 
-### Notes
+- [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
+- [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
+- [SDK for Go V1 Amazon SES reference](https://pkg.go.dev/github.com/aws/aws-sdk-go/service/ses)
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the _AWS Identity and Access Management User Guide_.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
-## Running the unit tests
+---
 
-Unit tests should delete any resources they create.
-However, they might result in charges to your
-AWS account.
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-To run a unit test, enter the following.
-
-`go test`
-
-You should see something like the following,
-where PATH is the path to the folder containing the Go files.
-
-```sh
-PASS
-ok      PATH 6.593s
-```
-
-To see any log messages, enter the following.
-
-`go test -test.v`
-
-You should see additional log messages.
-The last two lines should be similar to the previous output shown.
-
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: Apache-2.0

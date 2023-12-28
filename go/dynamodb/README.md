@@ -1,154 +1,94 @@
-# AWS SDK for Go Code Examples for Amazon DynamoDB
+# DynamoDB code examples for the SDK for Go V1
 
-## Purpose
+> NOTE: Examples for this SDK are no longer supported.
+> These examples are for historical purposes only, and should not be relied upon.
+> Please migrate to the currently supported AWS SDK for this language.
 
-These examples demonstrates how to perform several DynamoDB operations.
+## Overview
 
-## Prerequisites
+Shows how to use the AWS SDK for Go V1 to work with Amazon DynamoDB.
 
-You must have an AWS account, and have your default credentials and AWS Region
-configured as described in
-[Configuring the AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html)
-in the AWS SDK for Go Developer Guide.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## Running the code
+_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
 
-### CreateTable/CreateTable.go
+## ⚠ Important
 
-This example creates a DynamoDB table.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-`go run CreateTable.go -t TABLE`
+<!--custom.important.start-->
+<!--custom.important.end-->
 
-- _TABLE_ is the name of the table.
+## Code examples
 
-The unit test accepts a similar value in _config.json_.
+### Prerequisites
 
-The table has two attributes:
+For prerequisites, see the [README](../README.md#Prerequisites) in the `go` folder.
 
-- **Year** is an integer.
-- **Title** is a string.
 
-### CreateTableItem/CreateTableItem.go
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-Creates a new item in a DynamoDB table.
+### Single actions
 
-`go run CreateTableItem -d TABLE -y YEAR -t TITLE -r RATING`
+Code excerpts that show you how to call individual service functions.
 
-- _TABLE_ is the name of the table.
-- _YEAR_ is the year that the movie was released.
-- _TITLE_ is the title of the movie.
-- _RATING_ is the rating, from 0.0 to 10.0, of the movie.
+- [Create a table](None) (`CreateTable`)
+- [Delete a table](None) (`DeleteTable`)
+- [Delete an item from a table](None) (`DeleteItem`)
+- [Get an item from a table](None) (`GetItem`)
+- [Get information about a table](None) (`DescribeTable`)
+- [List tables](None) (`ListTables`)
+- [Put an item in a table](None) (`PutItem`)
+- [Query a table](None) (`Query`)
+- [Run a PartiQL statement](None) (`ExecuteStatement`)
+- [Run batches of PartiQL statements](None) (`BatchExecuteStatement`)
+- [Scan a table](None) (`Scan`)
+- [Update an item in a table](None) (`UpdateItem`)
+- [Write a batch of items](None) (`BatchWriteItem`)
 
-The unit test accepts similar values in _config.json_.
 
-### DeleteItem/DeleteItem.go
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-This example deletes an item from a DynamoDB table.
+## Run the examples
 
-`go run DeleteTable.go -t TABLE -m MOVIE -y YEAR`
+### Instructions
 
-- _TABLE_ is the name of the table containing the item to delete.
-- _MOVIE_ is the name of the movie item to delete.
-- _YEAR_ is when the movie was released.
 
-The unit test mocks the DynamoDB service and the `DeleteItem` function.
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-### GetItem/GetItem.go
 
-This example retrieves an item from a DynamoDB table.
 
-`go run GetItem.go -t TABLE -n NAME -y YEAR`
+### Tests
 
-- _TABLE_ is the name of the table.
-- _NAME_ is the name of the movie.
-- _YEAR_ is when the movie was released.
+⚠ Running tests might result in charges to your AWS account.
 
-The unit test mocks the DynamoDB service and `GetItem` function.
 
-### ListTables/ListTables.go
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `go` folder.
 
-This example lists your DynamoDB tables.
 
-`go run ListTables.go [-l LIMIT]`
 
-- _LIMIT_ is how many tables to show.
-  The default is 100.
-  If this value is less than zero,
-  it is set to 10.
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
-The unit test accepts a similar value in _config.json_.
+## Additional resources
 
-### LoadTableItems/LoadTableItems.go
+- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
+- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
+- [SDK for Go V1 DynamoDB reference](https://pkg.go.dev/github.com/aws/aws-sdk-go/service/dynamodb)
 
-This example adds items from a JSON file to a table.
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
-`go run LoadTableItems.go -j JSON-FILE -d TABLE`
+---
 
-- _JSON-FILE_ is the name of the JSON file containing the items to load into the table.
-- _TABLE_ is the name of the table.
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-The unit test accepts similar values in _config.json_.
-
-### ScanItems/ScanItems.go
-
-This example uses the Expression Builder package to scan a table for items that fit the criteria.
-
-`go run ScanItems.go -t TABLE -r RATING -y YEAR`
-
-- _TABLE_ is the name of the table.
-- _RATING_ is the minimum rating, from 0.0 to 1.0, given to the movies to retrieve.
-- _YEAR_ is the year when the movies were released.
-
-The unit test mocks the DynamoDB service and `Scan` function.
-
-### UpdateItem/UpdateItem.go
-
-This example updates the year and rating of a movie in a table.
-
-`go run UpdateItem.go -t TABLE -m MOVIE -y YEAR -r RATING`
-
-- _TABLE_ is the name of the table.
-- _MOVIE_ is the name of the movie.
-- _YEAR_ is the year the movie was released.
-- _RATING_ is the rating, from 0.0 to 1.0.
-
-The unit test accepts similar values from _config.json_.
-
-### Notes
-
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
-
-## Running the unit tests
-
-Unit tests should delete any resources they create.
-However, they might result in charges to your
-AWS account.
-
-To run a unit test, enter:
-
-`go test`
-
-You should see something like the following,
-where PATH is the path to the folder containing the Go files:
-
-```sh
-PASS
-ok      PATH 6.593s
-```
-
-If you want to see any log messages, enter:
-
-`go test -test.v`
-
-You should see some additional log messages.
-The last two lines should be similar to the previous output shown.
-
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: Apache-2.0
