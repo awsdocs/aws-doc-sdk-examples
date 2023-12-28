@@ -1,13 +1,13 @@
-# Amazon SNS code examples for the SDK for PHP
+# Amazon S3 code examples for the SDK for PHP
 
 ## Overview
 
-Shows how to use the AWS SDK for PHP to work with Amazon Simple Notification Service (Amazon SNS).
+Shows how to use the AWS SDK for PHP to work with Amazon Simple Storage Service (Amazon S3).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon SNS is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud._
+_Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web._
 
 ## ⚠ Important
 
@@ -33,22 +33,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Check whether a phone number is opted out](CheckOptOut.php#L19) (`CheckIfPhoneNumberIsOptedOut`)
-- [Confirm an endpoint owner wants to receive messages](ConfirmSubscription.php#L19) (`ConfirmSubscription`)
-- [Create a topic](CreateTopic.php#L19) (`CreateTopic`)
-- [Delete a subscription](Unsubscribe.php#L19) (`Unsubscribe`)
-- [Delete a topic](DeleteTopic.php#L19) (`DeleteTopic`)
-- [Get the properties of a topic](GetTopicAttributes.php#L34) (`GetTopicAttributes`)
-- [Get the settings for sending SMS messages](GetSMSAtrributes.php#L19) (`GetSMSAttributes`)
-- [List opted out phone numbers](ListOptOut.php#L19) (`ListPhoneNumbersOptedOut`)
-- [List the subscribers of a topic](ListSubscriptions.php#L19) (`ListSubscriptions`)
-- [List topics](ListTopics.php#L19) (`ListTopics`)
-- [Publish an SMS text message](PublishTextSMS.php#L19) (`Publish`)
-- [Publish to a topic](PublishTopic.php#L19) (`Publish`)
-- [Set the default settings for sending SMS messages](SetSMSAttributes.php#L34) (`SetSMSAttributes`)
-- [Set topic attributes](SetTopicAttributes.php#L19) (`SetTopicAttributes`)
-- [Subscribe an HTTP endpoint to a topic](SubscribeHTTPS.php#L19) (`Subscribe`)
-- [Subscribe an email address to a topic](SubscribeEmail.php#L19) (`Subscribe`)
+- [Copy an object from one bucket to another](s3_basics/GettingStartedWithS3.php#L46) (`CopyObject`)
+- [Create a bucket](s3_basics/GettingStartedWithS3.php#L46) (`CreateBucket`)
+- [Delete an empty bucket](s3_basics/GettingStartedWithS3.php#L46) (`DeleteBucket`)
+- [Delete multiple objects](s3_basics/GettingStartedWithS3.php#L46) (`DeleteObjects`)
+- [Get an object from a bucket](s3_basics/GettingStartedWithS3.php#L46) (`GetObject`)
+- [List objects in a bucket](s3_basics/GettingStartedWithS3.php#L46) (`ListObjectsV2`)
+- [Upload an object to a bucket](s3_basics/GettingStartedWithS3.php#L46) (`PutObject`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Get started with buckets and objects](s3_basics/GettingStartedWithS3.php)
 
 
 <!--custom.examples.start-->
@@ -63,6 +61,23 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.end-->
 
 
+
+#### Get started with buckets and objects
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
+<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
 
 ### Tests
 
@@ -79,9 +94,9 @@ in the `php` folder.
 
 ## Additional resources
 
-- [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
-- [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
-- [SDK for PHP Amazon SNS reference](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.Sns.html)
+- [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+- [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+- [SDK for PHP Amazon S3 reference](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.S3.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
