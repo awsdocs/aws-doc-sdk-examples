@@ -1,4 +1,4 @@
-# EventBridge code examples for the SDK for JavaScript (v2)
+# Amazon SNS code examples for the SDK for JavaScript (v2)
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon EventBridge.
+Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon Simple Notification Service (Amazon SNS).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources._
+_Amazon SNS is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud._
 
 ## ⚠ Important
 
@@ -33,13 +33,33 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon SNS](None) (`ListTopics`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](eb_puttargets.js#L16) (`PutTargets`)
-- [Create a rule](eb_putrule.js#L15) (`PutRule`)
-- [Send events](eb_putevents.js#L16) (`PutEvents`)
+- [Check whether a phone number is opted out](None) (`CheckIfPhoneNumberIsOptedOut`)
+- [Confirm an endpoint owner wants to receive messages](None) (`ConfirmSubscription`)
+- [Create a topic](None) (`CreateTopic`)
+- [Delete a subscription](None) (`Unsubscribe`)
+- [Delete a topic](None) (`DeleteTopic`)
+- [Get the properties of a topic](sns_gettopicattributes.js#L28) (`GetTopicAttributes`)
+- [Get the settings for sending SMS messages](None) (`GetSMSAttributes`)
+- [List the subscribers of a topic](None) (`ListSubscriptions`)
+- [List topics](None) (`ListTopics`)
+- [Publish a message with an attribute](None) (`Publish`)
+- [Publish to a topic](None) (`Publish`)
+- [Set the default settings for sending SMS messages](None) (`SetSMSAttributes`)
+- [Set topic attributes](None) (`SetTopicAttributes`)
+- [Subscribe a Lambda function to a topic](None) (`Subscribe`)
+- [Subscribe a mobile application to a topic](None) (`Subscribe`)
+- [Subscribe an SQS queue to a topic](None) (`Subscribe`)
+- [Subscribe an email address to a topic](None) (`Subscribe`)
+- [Subscribe with a filter to a topic](None) (`Subscribe`)
 
 
 <!--custom.examples.start-->
@@ -52,6 +72,10 @@ Code excerpts that show you how to call individual service functions.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello Amazon SNS
+
+This example shows you how to get started using Amazon SNS.
 
 
 
@@ -70,9 +94,9 @@ in the `javascript` folder.
 
 ## Additional resources
 
-- [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
-- [EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
-- [SDK for JavaScript (v2) EventBridge reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Eventbridge.html)
+- [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
+- [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
+- [SDK for JavaScript (v2) Amazon SNS reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Sns.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

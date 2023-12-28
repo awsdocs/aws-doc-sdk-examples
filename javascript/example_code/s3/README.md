@@ -1,4 +1,4 @@
-# EventBridge code examples for the SDK for JavaScript (v2)
+# Amazon S3 code examples for the SDK for JavaScript (v2)
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon EventBridge.
+Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon Simple Storage Service (Amazon S3).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources._
+_Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web._
 
 ## ⚠ Important
 
@@ -33,13 +33,34 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon S3](None) (`ListBuckets`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](eb_puttargets.js#L16) (`PutTargets`)
-- [Create a rule](eb_putrule.js#L15) (`PutRule`)
-- [Send events](eb_putevents.js#L16) (`PutEvents`)
+- [Add CORS rules to a bucket](None) (`PutBucketCors`)
+- [Add a policy to a bucket](None) (`PutBucketPolicy`)
+- [Copy an object from one bucket to another](None) (`CopyObject`)
+- [Create a bucket](None) (`CreateBucket`)
+- [Delete a policy from a bucket](None) (`DeleteBucketPolicy`)
+- [Delete an empty bucket](None) (`DeleteBucket`)
+- [Delete an object](None) (`DeleteObject`)
+- [Delete multiple objects](None) (`DeleteObjects`)
+- [Delete the website configuration from a bucket](None) (`DeleteBucketWebsite`)
+- [Get CORS rules for a bucket](None) (`GetBucketCors`)
+- [Get an object from a bucket](None) (`GetObject`)
+- [Get the ACL of a bucket](None) (`GetBucketAcl`)
+- [Get the policy for a bucket](None) (`GetBucketPolicy`)
+- [Get the website configuration for a bucket](None) (`GetBucketWebsite`)
+- [List buckets](None) (`ListBuckets`)
+- [List objects in a bucket](None) (`ListObjectsV2`)
+- [Set a new ACL for a bucket](None) (`PutBucketAcl`)
+- [Set the website configuration for a bucket](None) (`PutBucketWebsite`)
+- [Upload an object to a bucket](None) (`PutObject`)
 
 
 <!--custom.examples.start-->
@@ -52,6 +73,10 @@ Code excerpts that show you how to call individual service functions.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello Amazon S3
+
+This example shows you how to get started using Amazon S3.
 
 
 
@@ -70,9 +95,9 @@ in the `javascript` folder.
 
 ## Additional resources
 
-- [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
-- [EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
-- [SDK for JavaScript (v2) EventBridge reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Eventbridge.html)
+- [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+- [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+- [SDK for JavaScript (v2) Amazon S3 reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

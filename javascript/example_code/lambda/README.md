@@ -1,4 +1,4 @@
-# EventBridge code examples for the SDK for JavaScript (v2)
+# Lambda code examples for the SDK for JavaScript (v2)
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon EventBridge.
+Shows how to use the AWS SDK for JavaScript (v2) to work with AWS Lambda.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources._
+_Lambda allows you to run code without provisioning or managing servers._
 
 ## ⚠ Important
 
@@ -33,13 +33,22 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Lambda](None) (`ListFunctions`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](eb_puttargets.js#L16) (`PutTargets`)
-- [Create a rule](eb_putrule.js#L15) (`PutRule`)
-- [Send events](eb_putevents.js#L16) (`PutEvents`)
+- [Create a function](None) (`CreateFunction`)
+- [Delete a function](None) (`DeleteFunction`)
+- [Get a function](None) (`GetFunction`)
+- [Invoke a function](None) (`Invoke`)
+- [List functions](None) (`ListFunctions`)
+- [Update function code](None) (`UpdateFunctionCode`)
+- [Update function configuration](None) (`UpdateFunctionConfiguration`)
 
 
 <!--custom.examples.start-->
@@ -52,6 +61,10 @@ Code excerpts that show you how to call individual service functions.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello Lambda
+
+This example shows you how to get started using Lambda.
 
 
 
@@ -70,9 +83,9 @@ in the `javascript` folder.
 
 ## Additional resources
 
-- [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
-- [EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
-- [SDK for JavaScript (v2) EventBridge reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Eventbridge.html)
+- [Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
+- [Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
+- [SDK for JavaScript (v2) Lambda reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Lambda.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -1,4 +1,4 @@
-# EventBridge code examples for the SDK for JavaScript (v2)
+# Amazon SQS code examples for the SDK for JavaScript (v2)
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon EventBridge.
+Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon Simple Queue Service (Amazon SQS).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources._
+_Amazon SQS is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications._
 
 ## ⚠ Important
 
@@ -33,13 +33,27 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon SQS](None) (`ListQueues`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](eb_puttargets.js#L16) (`PutTargets`)
-- [Create a rule](eb_putrule.js#L15) (`PutRule`)
-- [Send events](eb_putevents.js#L16) (`PutEvents`)
+- [Change message timeout visibility](sqs_changingvisibility.js#L28) (`ChangeMessageVisibility`)
+- [Configure a dead-letter queue](None) (`SetQueueAttributes`)
+- [Create a queue](sqs_createqueue.js#L28) (`CreateQueue`)
+- [Delete a batch of messages from a queue](None) (`DeleteMessageBatch`)
+- [Delete a message from a queue](sqs_receivemessage.js#L28) (`DeleteMessage`)
+- [Delete a queue](sqs_deletequeue.js#L29) (`DeleteQueue`)
+- [Get attributes for a queue](None) (`GetQueueAttributes`)
+- [Get the URL of a queue](sqs_getqueueurl.js#L28) (`GetQueueUrl`)
+- [List queues](sqs_listqueues.js#L28) (`ListQueues`)
+- [Receive messages from a queue](sqs_longpolling_receivemessage.js#L28) (`ReceiveMessage`)
+- [Send a message to a queue](sqs_sendmessage.js#L28) (`SendMessage`)
+- [Set queue attributes](None) (`SetQueueAttributes`)
 
 
 <!--custom.examples.start-->
@@ -52,6 +66,10 @@ Code excerpts that show you how to call individual service functions.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello Amazon SQS
+
+This example shows you how to get started using Amazon SQS.
 
 
 
@@ -70,9 +88,9 @@ in the `javascript` folder.
 
 ## Additional resources
 
-- [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
-- [EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
-- [SDK for JavaScript (v2) EventBridge reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Eventbridge.html)
+- [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
+- [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
+- [SDK for JavaScript (v2) Amazon SQS reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Sqs.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

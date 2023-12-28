@@ -1,4 +1,4 @@
-# EventBridge code examples for the SDK for JavaScript (v2)
+# S3 Glacier code examples for the SDK for JavaScript (v2)
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon EventBridge.
+Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon S3 Glacier.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources._
+_S3 Glacier provides durable and extremely low-cost storage for infrequently used data with security features for data archiving and backup._
 
 ## ⚠ Important
 
@@ -37,9 +37,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](eb_puttargets.js#L16) (`PutTargets`)
-- [Create a rule](eb_putrule.js#L15) (`PutRule`)
-- [Send events](eb_putevents.js#L16) (`PutEvents`)
+- [Create a multipart upload](initiateMultipartUpload.js#L25) (`UploadMultipartPart`)
+- [Create a vault](createVault.js#L25) (`CreateVault`)
+- [Upload an archive to a vault](uploadArchive.js#L25) (`UploadArchive`)
 
 
 <!--custom.examples.start-->
@@ -70,9 +70,9 @@ in the `javascript` folder.
 
 ## Additional resources
 
-- [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
-- [EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
-- [SDK for JavaScript (v2) EventBridge reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Eventbridge.html)
+- [S3 Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
+- [S3 Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
+- [SDK for JavaScript (v2) S3 Glacier reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Glacier.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

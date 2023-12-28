@@ -1,4 +1,4 @@
-# EventBridge code examples for the SDK for JavaScript (v2)
+# MediaConvert code examples for the SDK for JavaScript (v2)
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon EventBridge.
+Shows how to use the AWS SDK for JavaScript (v2) to work with AWS Elemental MediaConvert.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources._
+_MediaConvert is a service that formats and compresses offline video content for delivery to televisions or connected devices._
 
 ## ⚠ Important
 
@@ -32,15 +32,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [Add a target](eb_puttargets.js#L16) (`PutTargets`)
-- [Create a rule](eb_putrule.js#L15) (`PutRule`)
-- [Send events](eb_putevents.js#L16) (`PutEvents`)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -70,9 +61,9 @@ in the `javascript` folder.
 
 ## Additional resources
 
-- [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
-- [EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
-- [SDK for JavaScript (v2) EventBridge reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Eventbridge.html)
+- [MediaConvert User Guide](https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html)
+- [MediaConvert API Reference](https://docs.aws.amazon.com/mediaconvert/latest/apireference/custom-endpoints.html)
+- [SDK for JavaScript (v2) MediaConvert reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Mediaconvert.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

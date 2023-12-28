@@ -1,4 +1,4 @@
-# EventBridge code examples for the SDK for JavaScript (v2)
+# Amazon SES code examples for the SDK for JavaScript (v2)
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon EventBridge.
+Shows how to use the AWS SDK for JavaScript (v2) to work with Amazon Simple Email Service (Amazon SES).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources._
+_Amazon SES is a reliable, scalable, and cost-effective email service._
 
 ## ⚠ Important
 
@@ -37,9 +37,26 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](eb_puttargets.js#L16) (`PutTargets`)
-- [Create a rule](eb_putrule.js#L15) (`PutRule`)
-- [Send events](eb_putevents.js#L16) (`PutEvents`)
+- [Create a receipt filter](None) (`CreateReceiptFilter`)
+- [Create a receipt rule](None) (`CreateReceiptRule`)
+- [Create a receipt rule set](None) (`CreateReceiptRuleSet`)
+- [Create an email template](None) (`CreateTemplate`)
+- [Delete a receipt filter](None) (`DeleteReceiptFilter`)
+- [Delete a receipt rule](None) (`DeleteReceiptRule`)
+- [Delete a rule set](None) (`DeleteReceiptRuleSet`)
+- [Delete an email template](None) (`DeleteTemplate`)
+- [Delete an identity](None) (`DeleteIdentity`)
+- [Get an existing email template](None) (`GetTemplate`)
+- [List email templates](None) (`ListTemplates`)
+- [List identities](None) (`ListIdentities`)
+- [List receipt filters](None) (`ListReceiptFilters`)
+- [Send bulk templated email](None) (`SendBulkTemplatedEmail`)
+- [Send email](None) (`SendEmail`)
+- [Send raw email](None) (`SendRawEmail`)
+- [Send templated email](None) (`SendTemplatedEmail`)
+- [Update an email template](None) (`UpdateTemplate`)
+- [Verify a domain identity](None) (`VerifyDomainIdentity`)
+- [Verify an email identity](None) (`VerifyEmailIdentity`)
 
 
 <!--custom.examples.start-->
@@ -70,9 +87,9 @@ in the `javascript` folder.
 
 ## Additional resources
 
-- [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
-- [EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
-- [SDK for JavaScript (v2) EventBridge reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Eventbridge.html)
+- [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
+- [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
+- [SDK for JavaScript (v2) Amazon SES reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Ses.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
