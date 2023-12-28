@@ -1,13 +1,13 @@
-# EventBridge code examples for the SDK for C++
+# Kinesis code examples for the SDK for C++
 
 ## Overview
 
-Shows how to use the AWS SDK for C++ to work with Amazon EventBridge.
+Shows how to use the AWS SDK for C++ to work with Amazon Kinesis.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_EventBridge is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources._
+_Kinesis makes it easy to collect, process, and analyze video and data streams in real time._
 
 ## ⚠ Important
 
@@ -36,15 +36,6 @@ Next, for information on code example structures and how to build and run the ex
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [Add a target](put_targets.cpp#L17) (`PutTargets`)
-- [Create a rule](put_rule.cpp#L14) (`PutRule`)
-- [Send events](put_events.cpp#L15) (`PutEvents`)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -87,9 +78,9 @@ will display any required arguments.
 
 ## Additional resources
 
-- [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
-- [EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
-- [SDK for C++ EventBridge reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-eventbridge/html/annotated.html)
+- [Kinesis Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/introduction.html)
+- [Kinesis API Reference](https://docs.aws.amazon.com/kinesis/latest/APIReference/Welcome.html)
+- [SDK for C++ Kinesis reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-kinesis/html/annotated.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
