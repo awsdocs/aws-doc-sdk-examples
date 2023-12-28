@@ -1,4 +1,4 @@
-# DynamoDB code examples for the SDK for Java 1.x
+# Amazon Rekognition code examples for the SDK for Java 1.x
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 1.x to work with Amazon DynamoDB.
+Shows how to use the AWS SDK for Java 1.x to work with Amazon Rekognition.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
+_Amazon Rekognition makes it easy to add image and video analysis to your applications._
 
 ## ⚠ Important
 
@@ -33,26 +33,25 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `java`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Get started
-
-- [Hello DynamoDB](None) (`ListTables`)
-
-
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](None) (`CreateTable`)
-- [Delete a table](None) (`DeleteTable`)
-- [Delete an item from a table](None) (`DeleteItem`)
-- [Get an item from a table](None) (`GetItem`)
-- [Get information about a table](None) (`DescribeTable`)
-- [List tables](None) (`ListTables`)
-- [Put an item in a table](None) (`PutItem`)
-- [Query a table](None) (`Query`)
-- [Scan a table](None) (`Scan`)
-- [Update an item in a table](None) (`UpdateItem`)
-- [Write a batch of items](None) (`BatchWriteItem`)
+- [Compare faces in an image against a reference image](None) (`CompareFaces`)
+- [Create a collection](None) (`CreateCollection`)
+- [Delete a collection](None) (`DeleteCollection`)
+- [Delete faces from a collection](None) (`DeleteFaces`)
+- [Describe a collection](None) (`DescribeCollection`)
+- [Detect faces in an image](None) (`DetectFaces`)
+- [Detect labels in an image](None) (`DetectLabels`)
+- [Detect moderation labels in an image](None) (`DetectModerationLabels`)
+- [Detect text in an image](None) (`DetectText`)
+- [Index faces to a collection](None) (`IndexFaces`)
+- [List collections](None) (`ListCollections`)
+- [List faces in a collection](None) (`ListFaces`)
+- [Recognize celebrities in an image](None) (`RecognizeCelebrities`)
+- [Search for faces in a collection](None) (`SearchFaces`)
+- [Search for faces in a collection compared to a reference image](None) (`SearchFacesByImage`)
 
 
 <!--custom.examples.start-->
@@ -65,10 +64,6 @@ Code excerpts that show you how to call individual service functions.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
-
-#### Hello DynamoDB
-
-This example shows you how to get started using DynamoDB.
 
 
 
@@ -87,9 +82,9 @@ in the `java` folder.
 
 ## Additional resources
 
-- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-- [SDK for Java 1.x DynamoDB reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/dynamodb/package-summary.html)
+- [Amazon Rekognition Developer Guide](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html)
+- [Amazon Rekognition API Reference](https://docs.aws.amazon.com/rekognition/latest/APIReference/Welcome.html)
+- [SDK for Java 1.x Amazon Rekognition reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rekognition/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

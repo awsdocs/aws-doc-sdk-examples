@@ -1,4 +1,4 @@
-# DynamoDB code examples for the SDK for Java 1.x
+# Amazon SQS code examples for the SDK for Java 1.x
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 1.x to work with Amazon DynamoDB.
+Shows how to use the AWS SDK for Java 1.x to work with Amazon Simple Queue Service (Amazon SQS).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
+_Amazon SQS is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications._
 
 ## ⚠ Important
 
@@ -35,24 +35,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `java`
 
 ### Get started
 
-- [Hello DynamoDB](None) (`ListTables`)
+- [Hello Amazon SQS](None) (`ListQueues`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](None) (`CreateTable`)
-- [Delete a table](None) (`DeleteTable`)
-- [Delete an item from a table](None) (`DeleteItem`)
-- [Get an item from a table](None) (`GetItem`)
-- [Get information about a table](None) (`DescribeTable`)
-- [List tables](None) (`ListTables`)
-- [Put an item in a table](None) (`PutItem`)
-- [Query a table](None) (`Query`)
-- [Scan a table](None) (`Scan`)
-- [Update an item in a table](None) (`UpdateItem`)
-- [Write a batch of items](None) (`BatchWriteItem`)
+- [Create a queue](None) (`CreateQueue`)
+- [Delete a message from a queue](None) (`DeleteMessage`)
+- [Delete a queue](None) (`DeleteQueue`)
+- [Get the URL of a queue](None) (`GetQueueUrl`)
+- [List queues](None) (`ListQueues`)
+- [Receive messages from a queue](None) (`ReceiveMessage`)
+- [Send a batch of messages to a queue](None) (`SendMessageBatch`)
+- [Send a message to a queue](None) (`SendMessage`)
 
 
 <!--custom.examples.start-->
@@ -66,9 +63,9 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello DynamoDB
+#### Hello Amazon SQS
 
-This example shows you how to get started using DynamoDB.
+This example shows you how to get started using Amazon SQS.
 
 
 
@@ -87,9 +84,9 @@ in the `java` folder.
 
 ## Additional resources
 
-- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-- [SDK for Java 1.x DynamoDB reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/dynamodb/package-summary.html)
+- [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
+- [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
+- [SDK for Java 1.x Amazon SQS reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/sqs/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

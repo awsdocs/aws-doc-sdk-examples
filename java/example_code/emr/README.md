@@ -1,4 +1,4 @@
-# DynamoDB code examples for the SDK for Java 1.x
+# Amazon EMR code examples for the SDK for Java 1.x
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 1.x to work with Amazon DynamoDB.
+Shows how to use the AWS SDK for Java 1.x to work with Amazon EMR.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
+_Amazon EMR is a web service that makes it easy to process vast amounts of data efficiently using Apache Hadoop and services offered by Amazon Web Services._
 
 ## ⚠ Important
 
@@ -33,28 +33,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `java`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Get started
-
-- [Hello DynamoDB](None) (`ListTables`)
-
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [Create a table](None) (`CreateTable`)
-- [Delete a table](None) (`DeleteTable`)
-- [Delete an item from a table](None) (`DeleteItem`)
-- [Get an item from a table](None) (`GetItem`)
-- [Get information about a table](None) (`DescribeTable`)
-- [List tables](None) (`ListTables`)
-- [Put an item in a table](None) (`PutItem`)
-- [Query a table](None) (`Query`)
-- [Scan a table](None) (`Scan`)
-- [Update an item in a table](None) (`UpdateItem`)
-- [Write a batch of items](None) (`BatchWriteItem`)
-
-
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
@@ -65,10 +43,6 @@ Code excerpts that show you how to call individual service functions.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
-
-#### Hello DynamoDB
-
-This example shows you how to get started using DynamoDB.
 
 
 
@@ -87,9 +61,9 @@ in the `java` folder.
 
 ## Additional resources
 
-- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-- [SDK for Java 1.x DynamoDB reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/dynamodb/package-summary.html)
+- [Amazon EMR Management Guide](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html)
+- [Amazon EMR API Reference](https://docs.aws.amazon.com/emr/latest/APIReference/Welcome.html)
+- [SDK for Java 1.x Amazon EMR reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/emr/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

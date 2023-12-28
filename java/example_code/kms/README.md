@@ -1,4 +1,4 @@
-# DynamoDB code examples for the SDK for Java 1.x
+# AWS KMS code examples for the SDK for Java 1.x
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 1.x to work with Amazon DynamoDB.
+Shows how to use the AWS SDK for Java 1.x to work with AWS Key Management Service (AWS KMS).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
+_AWS KMS is an encryption and key management service scaled for the cloud._
 
 ## ⚠ Important
 
@@ -33,26 +33,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `java`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Get started
-
-- [Hello DynamoDB](None) (`ListTables`)
-
-
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](None) (`CreateTable`)
-- [Delete a table](None) (`DeleteTable`)
-- [Delete an item from a table](None) (`DeleteItem`)
-- [Get an item from a table](None) (`GetItem`)
-- [Get information about a table](None) (`DescribeTable`)
-- [List tables](None) (`ListTables`)
-- [Put an item in a table](None) (`PutItem`)
-- [Query a table](None) (`Query`)
-- [Scan a table](None) (`Scan`)
-- [Update an item in a table](None) (`UpdateItem`)
-- [Write a batch of items](None) (`BatchWriteItem`)
+- [Create a grant for a key](None) (`CreateGrant`)
+- [Create a key](None) (`CreateKey`)
+- [Create an alias for a key](None) (`CreateAlias`)
+- [Decrypt ciphertext](None) (`Decrypt`)
+- [Describe a key](None) (`DescribeKey`)
+- [Disable a key](None) (`DisableKey`)
+- [Enable a key](None) (`EnableKey`)
+- [Encrypt text using a key](None) (`Encrypt`)
+- [List aliases for a key](None) (`ListAliases`)
+- [List grants for a key](None) (`ListGrants`)
+- [List keys](None) (`ListKeys`)
 
 
 <!--custom.examples.start-->
@@ -65,10 +60,6 @@ Code excerpts that show you how to call individual service functions.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
-
-#### Hello DynamoDB
-
-This example shows you how to get started using DynamoDB.
 
 
 
@@ -87,9 +78,9 @@ in the `java` folder.
 
 ## Additional resources
 
-- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-- [SDK for Java 1.x DynamoDB reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/dynamodb/package-summary.html)
+- [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
+- [AWS KMS API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/Welcome.html)
+- [SDK for Java 1.x AWS KMS reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/kms/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

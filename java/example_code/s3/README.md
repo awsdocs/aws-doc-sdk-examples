@@ -1,4 +1,4 @@
-# DynamoDB code examples for the SDK for Java 1.x
+# Amazon S3 code examples for the SDK for Java 1.x
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 1.x to work with Amazon DynamoDB.
+Shows how to use the AWS SDK for Java 1.x to work with Amazon Simple Storage Service (Amazon S3).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
+_Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web._
 
 ## ⚠ Important
 
@@ -35,24 +35,35 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `java`
 
 ### Get started
 
-- [Hello DynamoDB](None) (`ListTables`)
+- [Hello Amazon S3](None) (`ListBuckets`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](None) (`CreateTable`)
-- [Delete a table](None) (`DeleteTable`)
-- [Delete an item from a table](None) (`DeleteItem`)
-- [Get an item from a table](None) (`GetItem`)
-- [Get information about a table](None) (`DescribeTable`)
-- [List tables](None) (`ListTables`)
-- [Put an item in a table](None) (`PutItem`)
-- [Query a table](None) (`Query`)
-- [Scan a table](None) (`Scan`)
-- [Update an item in a table](None) (`UpdateItem`)
-- [Write a batch of items](None) (`BatchWriteItem`)
+- [Add CORS rules to a bucket](None) (`PutBucketCors`)
+- [Add a lifecycle configuration to a bucket](None) (`PutBucketLifecycleConfiguration`)
+- [Add a policy to a bucket](None) (`PutBucketPolicy`)
+- [Copy an object from one bucket to another](None) (`CopyObject`)
+- [Create a bucket](None) (`CreateBucket`)
+- [Delete a policy from a bucket](None) (`DeleteBucketPolicy`)
+- [Delete an empty bucket](None) (`DeleteBucket`)
+- [Delete multiple objects](None) (`DeleteObjects`)
+- [Delete the website configuration from a bucket](None) (`DeleteBucketWebsite`)
+- [Determine the existence and content type of an object](None) (`HeadObject`)
+- [Download objects to a local directory](None) (`DownloadDirectory`)
+- [Enable notifications](None) (`PutBucketNotificationConfiguration`)
+- [Get an object from a bucket](None) (`GetObject`)
+- [Get the ACL of a bucket](None) (`GetBucketAcl`)
+- [Get the policy for a bucket](None) (`GetBucketPolicy`)
+- [List in-progress multipart uploads](None) (`ListMultipartUploads`)
+- [List objects in a bucket](None) (`ListObjectsV2`)
+- [Restore an archived copy of an object](None) (`RestoreObject`)
+- [Set a new ACL for a bucket](None) (`PutBucketAcl`)
+- [Set the website configuration for a bucket](None) (`PutBucketWebsite`)
+- [Upload an object to a bucket](None) (`PutObject`)
+- [Upload directory to a bucket](None) (`UploadDirectory`)
 
 
 <!--custom.examples.start-->
@@ -66,9 +77,9 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello DynamoDB
+#### Hello Amazon S3
 
-This example shows you how to get started using DynamoDB.
+This example shows you how to get started using Amazon S3.
 
 
 
@@ -87,9 +98,9 @@ in the `java` folder.
 
 ## Additional resources
 
-- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-- [SDK for Java 1.x DynamoDB reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/dynamodb/package-summary.html)
+- [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+- [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+- [SDK for Java 1.x Amazon S3 reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -1,4 +1,4 @@
-# DynamoDB code examples for the SDK for Java 1.x
+# IAM code examples for the SDK for Java 1.x
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 1.x to work with Amazon DynamoDB.
+Shows how to use the AWS SDK for Java 1.x to work with AWS Identity and Access Management (IAM).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
+_IAM is a web service for securely controlling access to AWS services. With IAM, you can centrally manage permissions in your AWS account._
 
 ## ⚠ Important
 
@@ -35,24 +35,29 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `java`
 
 ### Get started
 
-- [Hello DynamoDB](None) (`ListTables`)
+- [Hello IAM](None) (`ListPolicies`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](None) (`CreateTable`)
-- [Delete a table](None) (`DeleteTable`)
-- [Delete an item from a table](None) (`DeleteItem`)
-- [Get an item from a table](None) (`GetItem`)
-- [Get information about a table](None) (`DescribeTable`)
-- [List tables](None) (`ListTables`)
-- [Put an item in a table](None) (`PutItem`)
-- [Query a table](None) (`Query`)
-- [Scan a table](None) (`Scan`)
-- [Update an item in a table](None) (`UpdateItem`)
-- [Write a batch of items](None) (`BatchWriteItem`)
+- [Attach a policy to a role](None) (`AttachRolePolicy`)
+- [Create a policy](None) (`CreatePolicy`)
+- [Create a role](None) (`CreateRole`)
+- [Create a user](None) (`CreateUser`)
+- [Create an access key](None) (`CreateAccessKey`)
+- [Create an alias for an account](None) (`CreateAccountAlias`)
+- [Delete a policy](None) (`DeletePolicy`)
+- [Delete a user](None) (`DeleteUser`)
+- [Delete an access key](None) (`DeleteAccessKey`)
+- [Delete an account alias](None) (`DeleteAccountAlias`)
+- [Detach a policy from a role](None) (`DetachRolePolicy`)
+- [List a user's access keys](None) (`ListAccessKeys`)
+- [List account aliases](None) (`ListAccountAliases`)
+- [List users](None) (`ListUsers`)
+- [Update a user](None) (`UpdateUser`)
+- [Update an access key](None) (`UpdateAccessKey`)
 
 
 <!--custom.examples.start-->
@@ -66,9 +71,9 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello DynamoDB
+#### Hello IAM
 
-This example shows you how to get started using DynamoDB.
+This example shows you how to get started using IAM.
 
 
 
@@ -87,9 +92,9 @@ in the `java` folder.
 
 ## Additional resources
 
-- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-- [SDK for Java 1.x DynamoDB reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/dynamodb/package-summary.html)
+- [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+- [IAM API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
+- [SDK for Java 1.x IAM reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iam/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

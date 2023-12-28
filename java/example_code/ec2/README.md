@@ -1,4 +1,4 @@
-# DynamoDB code examples for the SDK for Java 1.x
+# Amazon EC2 code examples for the SDK for Java 1.x
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 1.x to work with Amazon DynamoDB.
+Shows how to use the AWS SDK for Java 1.x to work with Amazon Elastic Compute Cloud (Amazon EC2).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
+_Amazon EC2 is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems._
 
 ## ⚠ Important
 
@@ -35,24 +35,30 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `java`
 
 ### Get started
 
-- [Hello DynamoDB](None) (`ListTables`)
+- [Hello Amazon EC2](None) (`DescribeSecurityGroups`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](None) (`CreateTable`)
-- [Delete a table](None) (`DeleteTable`)
-- [Delete an item from a table](None) (`DeleteItem`)
-- [Get an item from a table](None) (`GetItem`)
-- [Get information about a table](None) (`DescribeTable`)
-- [List tables](None) (`ListTables`)
-- [Put an item in a table](None) (`PutItem`)
-- [Query a table](None) (`Query`)
-- [Scan a table](None) (`Scan`)
-- [Update an item in a table](None) (`UpdateItem`)
-- [Write a batch of items](None) (`BatchWriteItem`)
+- [Allocate an Elastic IP address](None) (`AllocateAddress`)
+- [Associate an Elastic IP address with an instance](None) (`AssociateAddress`)
+- [Create a security group](None) (`CreateSecurityGroup`)
+- [Create a security key pair](None) (`CreateKeyPair`)
+- [Create and run an instance](None) (`RunInstances`)
+- [Delete a security group](None) (`DeleteSecurityGroup`)
+- [Delete a security key pair](None) (`DeleteKeyPair`)
+- [Describe instances](None) (`DescribeInstances`)
+- [Disassociate an Elastic IP address from an instance](None) (`DisassociateAddress`)
+- [Get data about a security group](None) (`DescribeSecurityGroups`)
+- [Get data about instance types](None) (`DescribeInstanceTypes`)
+- [List security key pairs](None) (`DescribeKeyPairs`)
+- [Release an Elastic IP address](None) (`ReleaseAddress`)
+- [Set inbound rules for a security group](None) (`AuthorizeSecurityGroupIngress`)
+- [Start an instance](None) (`StartInstances`)
+- [Stop an instance](None) (`StopInstances`)
+- [Terminate an instance](None) (`TerminateInstances`)
 
 
 <!--custom.examples.start-->
@@ -66,9 +72,9 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello DynamoDB
+#### Hello Amazon EC2
 
-This example shows you how to get started using DynamoDB.
+This example shows you how to get started using Amazon EC2.
 
 
 
@@ -87,9 +93,9 @@ in the `java` folder.
 
 ## Additional resources
 
-- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-- [SDK for Java 1.x DynamoDB reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/dynamodb/package-summary.html)
+- [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
+- [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
+- [SDK for Java 1.x Amazon EC2 reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ec2/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -1,4 +1,4 @@
-# DynamoDB code examples for the SDK for Java 1.x
+# CloudWatch code examples for the SDK for Java 1.x
 
 > NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
@@ -6,12 +6,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 1.x to work with Amazon DynamoDB.
+Shows how to use the AWS SDK for Java 1.x to work with Amazon CloudWatch.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
+_CloudWatch provides a reliable, scalable, and flexible monitoring solution that you can start using within minutes._
 
 ## ⚠ Important
 
@@ -35,24 +35,31 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `java`
 
 ### Get started
 
-- [Hello DynamoDB](None) (`ListTables`)
+- [Hello CloudWatch](None) (`ListMetrics`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](None) (`CreateTable`)
-- [Delete a table](None) (`DeleteTable`)
-- [Delete an item from a table](None) (`DeleteItem`)
-- [Get an item from a table](None) (`GetItem`)
-- [Get information about a table](None) (`DescribeTable`)
-- [List tables](None) (`ListTables`)
-- [Put an item in a table](None) (`PutItem`)
-- [Query a table](None) (`Query`)
-- [Scan a table](None) (`Scan`)
-- [Update an item in a table](None) (`UpdateItem`)
-- [Write a batch of items](None) (`BatchWriteItem`)
+- [Create a dashboard](None) (`PutDashboard`)
+- [Create a metric alarm](None) (`PutMetricAlarm`)
+- [Create an anomaly detector](None) (`PutAnomalyDetector`)
+- [Delete alarms](None) (`DeleteAlarms`)
+- [Delete an anomaly detector](None) (`DeleteAnomalyDetector`)
+- [Delete dashboards](None) (`DeleteDashboards`)
+- [Describe alarm history](None) (`DescribeAlarmHistory`)
+- [Describe alarms](None) (`DescribeAlarms`)
+- [Describe alarms for a metric](None) (`DescribeAlarmsForMetric`)
+- [Describe anomaly detectors](None) (`DescribeAnomalyDetectors`)
+- [Disable alarm actions](None) (`DisableAlarmActions`)
+- [Enable alarm actions](None) (`EnableAlarmActions`)
+- [Get a metric data image](None) (`GetMetricWidgetImage`)
+- [Get metric data](None) (`GetMetricData`)
+- [Get metric statistics](None) (`GetMetricStatistics`)
+- [List dashboards](None) (`ListDashboards`)
+- [List metrics](None) (`ListMetrics`)
+- [Put data into a metric](None) (`PutMetricData`)
 
 
 <!--custom.examples.start-->
@@ -66,9 +73,9 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello DynamoDB
+#### Hello CloudWatch
 
-This example shows you how to get started using DynamoDB.
+This example shows you how to get started using CloudWatch.
 
 
 
@@ -87,9 +94,9 @@ in the `java` folder.
 
 ## Additional resources
 
-- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-- [SDK for Java 1.x DynamoDB reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/dynamodb/package-summary.html)
+- [CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
+- [CloudWatch API Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/Welcome.html)
+- [SDK for Java 1.x CloudWatch reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudwatch/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
