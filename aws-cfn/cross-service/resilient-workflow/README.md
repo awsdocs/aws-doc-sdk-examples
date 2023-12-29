@@ -1,4 +1,4 @@
-# Build and manage a resilient service using AWS CloudFormation
+# Build and manage a resilient service using CloudFormation
 
 ## Overview
 
@@ -83,14 +83,14 @@ example tries to add it. Alternately, you can
 [add a rule to the default security group for your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html)
 and specify your computer's IP address as a source.
 
-This examples is deployed as an AWS CloudFormation stack. This can be achieved
-using the [AWS CloudFormation Console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-console.html),
-or using the [AWS Command Line Interface](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-cli.html) (AWS CLI).
-This guide presents step-by-step instructions using the AWS CLI.
+This example is deployed as a CloudFormation stack. Achieve this by
+using the [CloudFormation console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-console.html)
+or the [AWS Command Line Interface](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-cli.html) (AWS CLI).
+This guide presents step-by-step instructions for the AWS CLI.
 
 > NOTE: The instructions in this guide use single-quote `'` for parameters, which is consistent with a Unix or GNU/Linux shell like Bash or ZSH. You may need to change the quote character for other platforms. Windows CMD users should use `"`, for instance. Also, CMD uses `^` as a line continuation character, instead of `\` used in this guide.
 
-<!-- Editor's note: This is because JMESPath uses the ` character for literal values, which in a unix environment using " tries to execute the literal as a command. -->
+<!-- Editor's note: This is because JMESPath uses the ` character for literal values, which in a Unix environment using " tries to execute the literal as a command. -->
 
 ### Instructions
 
@@ -111,9 +111,9 @@ Use AWS CloudFormation to create the following AWS resources:
 6. A target group that connects the load balancer to instances in the Auto Scaling group.
 7. A listener that is added to the load balancer and forwards requests to the target group.
 
-To deploy these resources, you will need to provide several pieces of information about your AWS Account.
+To deploy these resources, you will need to provide information about your AWS account.
 
-> NOTE: This example assumes your account has a [default VPC](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html) in the current region.
+> NOTE: This example assumes your account has a [default VPC](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html) in the current Region.
 
 | Parameter | AWS CLI                                                                                                      |
 | --------- | ------------------------------------------------------------------------------------------------------------ |
@@ -131,7 +131,7 @@ aws cloudformation create-stack \
   --capabilities CAPABILITY_NAMED_IAM
 ```
 
-After creating the stack, you can find the URL for the Load Balancer in the stack's parameters.
+After creating the stack, you can find the URL for the load balancer in the stack's parameters.
 
 ```
 aws cloudformation describe-stacks --stack-name resilience-demo --query 'Stacks[0].Outputs[?OutputKey==`LB`].OutputValue | [0]'
@@ -139,9 +139,9 @@ aws cloudformation describe-stacks --stack-name resilience-demo --query 'Stacks[
 # "doc-example-resilience-lb-0123456789.us-east-1.elb.amazonaws.com"
 ```
 
-You can then access the URL via your browser or using `curl`.
+You can then access the URL in your browser or by using `curl`.
 
-> NOTE: This command may return `null` immediately after running the create-stack command. You must wait for the stack to finish being created. This is easiest to watch from the CloudFormation page in the AWS Console.
+> NOTE: This command may return `null` immediately after running the create-stack command. You must wait for the stack to finish being created. This is easiest to watch from the CloudFormation page in the console.
 
 At any time after the stack has been created, you can check the health of the target group.
 
@@ -155,8 +155,8 @@ All stack outputs:
 
 | OutputKey | OutputValue                               | Usage                                             |
 | --------- | ----------------------------------------- | ------------------------------------------------- |
-| `LB`      | The DNS Name of the primary Load Balancer | `curl` or Browser                                 |
-| `Key`     | The ID of a pem format private key in SSM | `ssh` after downloading from SSM                  |
+| `LB`      | The DNS Name of the primary load balancer | `curl` or Browser                                 |
+| `Key`     | The ID of a .pem format private key in SSM | `ssh` after downloading from SSM                  |
 | `TGArn`   | The ARN of the target group of instances  | Check various additional information from the CLI |
 
 #### Demonstrate resiliency
@@ -203,23 +203,23 @@ aws cloudformation update-stack \
    a static response because it cannot access the recommendation service, but the other
    instances return real recommendations.
 
-   Edit `params.json` and remove the `SSMTableName` entry from step 2. Update the stack. Remove the IAM Instance Profile from one instance in the target group. This instance will no longer be able to access the DynamoDB table, and should now remain healthy but only return the static response.
+   Edit `params.json` and remove the `SSMTableName` entry from step 2. Update the stack. Remove the IAM instance profile from one instance in the target group. This instance won't be able to access the DynamoDB table anymore, and should now remain healthy but only return the static response.
 
-   To remove an IAM Instance Profile using the AWS CLI, follow these steps.
+   To remove an IAM instance profile by using the AWS CLI, follow these steps.
 
    1. Find the ARN of the target group with `` aws cloudformation describe-stacks --stack-name resilience-demo --query 'Stacks[0].Outputs[?OutputKey==`TGArn`].OutputValue | [0]' ``.
    2. With this target group ARN, query for the specific instances using `aws elbv2 describe-target-health --query 'TargetHealthDescriptions[*].Target.Id' --target-group-arn arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/doc-example-resilience-tg/exampleexample`.
    3. Choose one ID from this list, and find the instance profile association id with `aws ec2 describe-iam-instance-profile-associations --query 'IamInstanceProfileAssociations[0].AssociationId' --filters Name=instance-id,Values=i-0123456789`.
-   4. Remove the association with `aws ec2 disassociate-iam-instance-profile --association-id iip-assoc-00000000000000000`
-   5. Restart the instance with `aws ec2 reboot-instances --instance-ids i-0123456789`
+   4. Remove the association with `aws ec2 disassociate-iam-instance-profile --association-id iip-assoc-00000000000000000`.
+   5. Restart the instance with `aws ec2 reboot-instances --instance-ids i-0123456789`.
 
-   > NOTE: These steps are for the purpose of this example only, and should generally not be taken in production environments.
+   > Note: These steps are for the purpose of this example only. In most cases, you shouldn't use them in production environments.
    > Always use CloudFormation templates and Infrastructure as Code (IaC) to modify resources in production environments.
 
 5. **Deep health checks** — Sets a parameter that instructs the web server to perform a deep health check.
    For this example, a deep health check means that the web server reports itself as unhealthy if it can't
    access the recommendations service. The instance with bad credentials reports as unhealthy and the load
-   balancer takes it out of rotation. Now, requests are forward only to healthy instances.
+   balancer takes it out of rotation. Now, requests are forwarded only to healthy instances.
 
    Edit `params.json`. Change the entry with `ParameterKey` as `SSMHealthCheck` and set `ParameterValue` to `deep`.
 
@@ -229,10 +229,9 @@ aws cloudformation update-stack \
    instances. When the new instance is ready, it is added to the rotation and starts receiving
    requests.
 
-   Using the AWS Console, open the CloudFormation page. Navigate to the `resilience-demo` stack. Click on the `Resources`
-   tab. Find the `DocExampleRecommendationServiceTargetGroup` line. Click on the link to the "Physical Resource ID".
-   From this EC2 page, find the list of instances in the target group. Select one and navigate to it. Choose Actions ->
-   Terminate instance. See EC2 terminate the instance, and watch the Autoscaling Group start a new instance.
+   Using the AWS Management Console, open the CloudFormation page. Navigate to the `resilience-demo` stack. Choose the `Resources`
+   tab. Find the `DocExampleRecommendationServiceTargetGroup` line. Choose the `Physical Resource ID` link.
+   From this EC2 page, find the list of instances in the target group. Select one and navigate to it. Choose `Actions`,  `Terminate instance`. See EC2 terminate the instance, and watch the Auto Scaling group start a new instance.
 
 7. **Fail open** — Sets the table name parameter so the recommendations service fails for all instances.
    Because all instances are using deep health checks, they all report as unhealthy. In this
@@ -259,13 +258,13 @@ aws cloudformation delete-stack \
 
 ## Additional resources
 
-- [AWS CLI CloudFormation commands reference](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/index.html)
-- [Application Load Balancers user guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
-- [Amazon EC2 Auto Scaling user guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
-- [Amazon Elastic Compute Cloud (Amazon EC2) user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
-- [AWS CloudFormation for Elastic Load Balancing v2 reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_ElasticLoadBalancingV2.html)
-- [AWS CloudFormation for EC2 Auto Scaling reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_AutoScaling.html)
-- [AWS CloudFormation for EC2 reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_EC2.html)
+- [AWS CLI CloudFormation Command Reference](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/index.html)
+- [User Guide for Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
+- [Amazon EC2 Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
+- [Amazon Elastic Compute Cloud User Guide for Linux Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
+- [Elastic Load Balancing V2 reference in the AWS CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_ElasticLoadBalancingV2.html)
+- [Amazon EC2 Auto Scaling reference in the AWS CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_AutoScaling.html)
+- [Amazon EC2 reference in the AWS CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_EC2.html)
 
 ---
 
