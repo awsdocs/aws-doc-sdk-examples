@@ -213,7 +213,7 @@ aws cloudformation update-stack \
    4. Remove the association with `aws ec2 disassociate-iam-instance-profile --association-id iip-assoc-00000000000000000`.
    5. Restart the instance with `aws ec2 reboot-instances --instance-ids i-0123456789`.
 
-   > Note: These steps are for the purpose of this example only. In most cases, you shouldn't use them in production environments.
+   > Note: The preceding steps are for the purpose of this example only. In most cases, you shouldn't use them in production environments.
    > Always use CloudFormation templates and Infrastructure as Code (IaC) to modify resources in production environments.
 
 5. **Deep health checks** — Sets a parameter that instructs the web server to perform a deep health check.
