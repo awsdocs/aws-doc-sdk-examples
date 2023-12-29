@@ -35,7 +35,7 @@ language = {
         1: {
             "base_folder": "go",
             "service_folder": 'go/{{service["name"]}}',
-            "deprecated": "true",
+            "unsupported": "true",
             "sdk_api_ref": 'https://pkg.go.dev/github.com/aws/aws-sdk-go/service/{{service["name"]}}',
         },
         2: {
@@ -49,7 +49,7 @@ language = {
             "base_folder": "java",
             "service_folder": 'java/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/{{service["name"]}}/package-summary.html',
-            "deprecated": "true",
+            "unsupported": "true",
         },
         2: {
             "base_folder": "javav2",
@@ -65,7 +65,7 @@ language = {
             "base_folder": "javascript",
             "service_folder": 'javascript/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/{{service["name"] | capitalize}}.html',
-            "deprecated": "true",
+            "unsupported": "true",
         },
         3: {
             "base_folder": "javascriptv3",
@@ -173,13 +173,6 @@ language = {
         }
     },
     "Bash": {
-        2: {
-            "base_folder": "aws-cli",
-            "service_folder": 'aws-cli/bash-linux/{{service["name"]}}',
-            "sdk_api_ref": 'https://awscli.amazonaws.com/v2/documentation/api/latest/reference/{{service["name"]}}/index.html',
-        }
-    },
-    "CLI": {
         2: {
             "base_folder": "aws-cli",
             "service_folder": 'aws-cli/bash-linux/{{service["name"]}}',

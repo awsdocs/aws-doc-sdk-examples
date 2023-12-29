@@ -1,10 +1,10 @@
 # {{ service['short'] }} code examples for the {{ sdk['short'] }}
 {% import 'includes/macros.jinja2' as macs %}
-{% if deprecated %}
+{% if unsupported %}
 
-> NOTE: This API has been deprecated.
+> NOTE: Examples for this SDK are no longer supported.
 > These examples are for historical purposes only, and should not be relied upon.
-> Please migrate to the currently supported AWS SDK.
+> Please migrate to the currently supported AWS SDK for this language.
 {% endif %}
 
 {% include 'includes/overview.jinja2' %}

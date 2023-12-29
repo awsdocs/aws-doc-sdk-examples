@@ -19,8 +19,6 @@ def main():
     for sdk in sdks:
         for v in sdks[sdk]["sdk"]:
             lang_vers.append(f"{sdk}:{v}")
-    # Remove CLI - these come from the aws-cli repo, and do not need READMEs
-    lang_vers.remove("CLI:2")
 
     parser = argparse.ArgumentParser()
     parser.add_argument(

@@ -234,7 +234,7 @@ class Renderer:
         self.lang_config["name"] = self.scanner.lang_name
         self.lang_config["sdk_ver"] = self.sdk_ver
         self.lang_config["readme"] = f"{self._lang_level_double_dots()}README.md"
-        deprecated = self.lang_config.get("deprecated", False)
+        unsupported = self.lang_config.get("unsupported", False)
 
         readme_filename = f'{self.lang_config["service_folder"]}/{config.readme}'
         readme_exists = os.path.exists(readme_filename)
@@ -253,7 +253,7 @@ class Renderer:
             scenarios=scenarios,
             crosses=crosses,
             customs=customs,
-            deprecated=deprecated,
+            unsupported=unsupported,
         )
         readme_text = self._expand_entities(readme_text)
 
