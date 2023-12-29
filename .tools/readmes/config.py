@@ -32,13 +32,25 @@ language = {
         }
     },
     "Go": {
+        1: {
+            "base_folder": "go",
+            "service_folder": 'go/{{service["name"]}}',
+            "unsupported": "true",
+            "sdk_api_ref": 'https://pkg.go.dev/github.com/aws/aws-sdk-go/service/{{service["name"]}}',
+        },
         2: {
             "base_folder": "gov2",
             "service_folder": 'gov2/{{service["name"]}}',
             "sdk_api_ref": 'https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/{{service["name"]}}',
-        }
+        },
     },
     "Java": {
+        1: {
+            "base_folder": "java",
+            "service_folder": 'java/example_code/{{service["name"]}}',
+            "sdk_api_ref": 'https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/{{service["name"]}}/package-summary.html',
+            "unsupported": "true",
+        },
         2: {
             "base_folder": "javav2",
             "service_folder": 'javav2/example_code/{{service["name"]}}',
@@ -46,13 +58,14 @@ language = {
             "service_folder_overrides": {
                 "medical-imaging": "javav2/example_code/medicalimaging",
             },
-        }
+        },
     },
     "JavaScript": {
         2: {
             "base_folder": "javascript",
             "service_folder": 'javascript/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/{{service["name"] | capitalize}}.html',
+            "unsupported": "true",
         },
         3: {
             "base_folder": "javascriptv3",
