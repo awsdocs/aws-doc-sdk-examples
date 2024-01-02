@@ -37,7 +37,11 @@ async fn main() -> Result<(), Error> {
     // Generate a unique bucket name using the previously generated UUID.
     // Then create a new bucket with that name.
     let bucket_name = format!("if-modified-since-{uuid}");
-    client.create_bucket().bucket(bucket_name.clone()).send().await?;
+    client
+        .create_bucket()
+        .bucket(bucket_name.clone())
+        .send()
+        .await?;
 
     // Create a new object in the bucket whose name is `KEY` and whose
     // contents are `BODY`.
@@ -71,13 +75,18 @@ async fn main() -> Result<(), Error> {
     // values of the headers `last-modified` and `etag`. If the request
     // failed, return the error in a tuple instead.
     let (last_modified, e_tag_2) = match head_object_output {
-        Ok(output) => (Ok(output.last_modified()
-                      .cloned().unwrap()), output.e_tag.unwrap()),
+        Ok(output) => (
+            Ok(output.last_modified().cloned().unwrap()),
+            output.e_tag.unwrap(),
+        ),
         Err(err) => (Err(err), String::new()),
     };
 
     warn!("last modified: {last_modified:?}");
-    assert_eq!(e_tag_1, e_tag_2, "PutObject and first GetObject had differing eTags");
+    assert_eq!(
+        e_tag_1, e_tag_2,
+        "PutObject and first GetObject had differing eTags"
+    );
 
     println!("First value of last_modified: {last_modified:?}");
     println!("First tag: {}\n", e_tag_1);
@@ -113,44 +122,46 @@ async fn main() -> Result<(), Error> {
     // `SdkError::ServiceError`.
 
     // snippet-start:[s3.rust.if-modified-since.result-handler]
-    let (last_modified, e_tag_2): (
-        Result<DateTime, SdkError<HeadObjectError>>,
-        String,
-    ) = match head_object_output {
-        Ok(output) => (Ok(output.last_modified()
-                      .cloned().unwrap()), output.e_tag.unwrap()),
-        Err(err) => match err {
-            SdkError::ServiceError(err) => {
-                // Get the raw HTTP response. If its status is 304, the object
-                // has not changed. This is the expected code path.
-                let http = err.raw();
-                match http.status().as_u16() {
-                    // If the HTTP status is 304: Not Modified, return a tuple
-                    // containing the values of the HTTP `last-modified` and
-                    // `etag` headers.
-                    304 => (
-                        Ok(DateTime::from_str(
+    let (last_modified, e_tag_2): (Result<DateTime, SdkError<HeadObjectError>>, String) =
+        match head_object_output {
+            Ok(output) => (
+                Ok(output.last_modified().cloned().unwrap()),
+                output.e_tag.unwrap(),
+            ),
+            Err(err) => match err {
+                SdkError::ServiceError(err) => {
+                    // Get the raw HTTP response. If its status is 304, the
+                    // object has not changed. This is the expected code path.
+                    let http = err.raw();
+                    match http.status().as_u16() {
+                        // If the HTTP status is 304: Not Modified, return a
+                        // tuple containing the values of the HTTP
+                        // `last-modified` and `etag` headers.
+                        304 => (
+                            Ok(DateTime::from_str(
                                 http.headers().get("last-modified").unwrap(),
                                 DateTimeFormat::HttpDate,
                             )
-                            .unwrap(),
+                            .unwrap()),
+                            http.headers().get("etag").map(|t| t.into()).unwrap(),
                         ),
-                        http.headers().get("etag").map(|t| t.into()).unwrap(),
-                    ),
-                    // Any other HTTP status code is returned as an
-                    // `SdkError::ServiceError`.
-                    _ => (Err(SdkError::ServiceError(err)), String::new()),
+                        // Any other HTTP status code is returned as an
+                        // `SdkError::ServiceError`.
+                        _ => (Err(SdkError::ServiceError(err)), String::new()),
+                    }
                 }
-            }
-            // Any other kind of error is returned in a tuple containing the
-            // error and an empty string.
-            _ => (Err(err), String::new()),
-        },
-    };
+                // Any other kind of error is returned in a tuple containing the
+                // error and an empty string.
+                _ => (Err(err), String::new()),
+            },
+        };
     // snippet-end:[s3.rust.if-modified-since.result-handler]
 
     warn!("last modified: {last_modified:?}");
-    assert_eq!(e_tag_1, e_tag_2, "PutObject and second HeadObject had different eTags");
+    assert_eq!(
+        e_tag_1, e_tag_2,
+        "PutObject and second HeadObject had different eTags"
+    );
 
     println!("Second value of last modified: {last_modified:?}");
     println!("Second tag: {}", e_tag_2);
