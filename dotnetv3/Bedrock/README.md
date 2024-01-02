@@ -1,13 +1,13 @@
-# Secrets Manager code examples for the SDK for .NET
+# Amazon Bedrock code examples for the SDK for .NET
 
 ## Overview
 
-Shows how to use the AWS SDK for .NET to work with AWS Secrets Manager.
+Shows how to use the AWS SDK for .NET to work with Amazon Bedrock.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Secrets Manager helps you to securely encrypt, store, and retrieve credentials for your databases and other services._
+_Amazon Bedrock enables you to build and scale generative AI applications with foundation models._
 
 ## ⚠ Important
 
@@ -29,11 +29,16 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon Bedrock](Actions/HelloBedrock.cs#L4) (`ListFoundationModels`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get a secret value](GetSecretValue/GetSecretValueExample/GetSecretValue.cs#L6) (`GetSecretValue`)
+- [List available Amazon Bedrock foundation models](Actions/HelloBedrock.cs#L29) (`ListFoundationModels`)
 
 
 <!--custom.examples.start-->
@@ -64,6 +69,10 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Amazon Bedrock
+
+This example shows you how to get started using Amazon Bedrock.
+
 
 
 ### Tests
@@ -81,9 +90,9 @@ in the `dotnetv3` folder.
 
 ## Additional resources
 
-- [Secrets Manager User Guide](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
-- [Secrets Manager API Reference](https://docs.aws.amazon.com/secretsmanager/latest/apireference/Welcome.html)
-- [SDK for .NET Secrets Manager reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/SecretsManager/NSecretsManager.html)
+- [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
+- [Amazon Bedrock API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
+- [SDK for .NET Amazon Bedrock reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Bedrock/NBedrock.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
