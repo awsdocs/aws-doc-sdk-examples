@@ -635,7 +635,7 @@ public class AutoScalerWrapper
     /// </summary>
     /// <param name="groupName">The name of the group to delete.</param>
     /// <returns>Async task.</returns>
-    public async Task TerminateAndDeleteAutoScalingGroupByName(string groupName)
+    public async Task TerminateAndDeleteAutoScalingGroupWithName(string groupName)
     {
         var describeGroupsResponse = await _amazonAutoScaling.DescribeAutoScalingGroupsAsync(
             new DescribeAutoScalingGroupsRequest()
