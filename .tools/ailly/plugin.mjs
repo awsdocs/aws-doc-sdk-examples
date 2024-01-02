@@ -30,7 +30,7 @@ const LANGUAGES = [
   "php",
   "rust",
   "python",
-  "javascript.v3",
+  "javascriptv3",
 ];
 
 const SIMILAR = 0.8;
@@ -39,21 +39,38 @@ const TOP_N = 5;
 const PER_LANG = 3;
 
 const Best = {
-  "javascript.v3": [
+  javascriptv3: [
     {
       score: 0.9,
-      language: "javascript.v3",
+      language: "javascriptv3",
       name: "javascript.v3.dynamodb.hello.txt",
     },
     {
       score: 0.9,
-      language: "javascript.v3",
+      language: "javascriptv3",
       name: "javascript.v3.glue.hello.txt",
     },
     {
       score: 0.9,
-      language: "javascript.v3",
+      language: "javascriptv3",
       name: "javascript.v3.support.scenarios.Hello.txt",
+    },
+  ],
+  rust: [
+    {
+      score: 0.9,
+      language: "rust",
+      name: "ec2.rust.create-instance.txt",
+    },
+    {
+      score: 0.9,
+      language: "rust",
+      name: "logging.rust.main.txt",
+    },
+    {
+      score: 0.9,
+      language: "rust",
+      name: "s3.rust.list-buckets.txt",
     },
   ],
 };
@@ -110,6 +127,11 @@ class MyRAG extends Ailly.RAG {
       language,
       content: await readFile(join(".vectors", name), { encoding: "utf8" }),
     }));
+
+    console.log(
+      "Found augmentations",
+      results.map((m) => m.name)
+    );
 
     content.augment = await Promise.all(results);
   }
