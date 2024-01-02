@@ -38,10 +38,6 @@ aws cloudformation delete-stack --stack-name LargeQueryStack
 
 A lot of logs are needed to make a robust example. If you happen to have a log group with over 10,000 logs at the ready, great! If not, there are two resources that can help:
 
-### Prerequisites
-
-If you need to, [install or update the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
-
 ### Resources
 
 1. [make-log-files.sh](./resources/make-log-files.sh) will create 50,000 logs and divide them among 5 files of 10,000 logs each (the maximum for each call to 'PutLogEvents'). Two timestamps will output to the console. These timestamps can be used to configure the query. **Five minutes of logs, starting at the time of execution, will be created. Wait at least five minutes after running this script before attempting to query.**
