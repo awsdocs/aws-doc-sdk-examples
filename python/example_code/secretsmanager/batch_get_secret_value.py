@@ -9,7 +9,8 @@ def batch_get_secrets(filter_name):
     This function assumes the stack mentioned in this directory's README has been successfully deployed.
     This stack includes 7 secrets, all of which have names beginning with "mySecret".
 
-    @:param filter_name [String] The full or partial name of secrets to be fetched.
+    :param filter_name: The full or partial name of secrets to be fetched.
+    :type filter_name: str
     """
     client = boto3.client("secretsmanager")
 
