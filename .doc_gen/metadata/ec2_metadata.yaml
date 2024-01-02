@@ -1443,6 +1443,9 @@ ec2_RebootInstances:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.RebootInstances
+            - description: Replace the profile for an instance, reboot, and restart a web server.
+              snippet_tags:
+                - ResilientService.dotnetv3.Ec2.ReplaceInstanceProfile
     Rust:
       versions:
         - sdk_version: 1
@@ -1607,6 +1610,14 @@ ec2_DescribeAvailabilityZones:
   synopsis: describe &EC2; Availability Zones.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/AutoScalerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.Ec2.DescribeAvailabilityZones
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -1713,6 +1724,14 @@ ec2_DescribeIamInstanceProfileAssociations:
   synopsis: get data about the instance profile associated with an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/AutoScalerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.Ec2.GetInstanceProfile
     Python:
       versions:
         - sdk_version: 3
@@ -1740,6 +1759,14 @@ ec2_ReplaceIamInstanceProfileAssociation:
   synopsis: replace the instance profile associated with an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/AutoScalerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.Ec2.ReplaceInstanceProfile
     Python:
       versions:
         - sdk_version: 3
@@ -1768,6 +1795,14 @@ ec2_CreateLaunchTemplate:
   synopsis: create an &EC2; launch template.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/AutoScalerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.ec2.CreateLaunchTemplate
     Python:
       versions:
         - sdk_version: 3
@@ -1796,6 +1831,14 @@ ec2_DeleteLaunchTemplate:
   synopsis: delete an &EC2; launch template.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/AutoScalerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.Ec2.DeleteLaunchTemplate
     Python:
       versions:
         - sdk_version: 3
@@ -1823,6 +1866,14 @@ ec2_DescribeVpcs:
   synopsis: get the default VPC of the current account.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/AutoScalerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.Ec2.DescribeVpcs
     Python:
       versions:
         - sdk_version: 3
@@ -1850,6 +1901,14 @@ ec2_DescribeSubnets:
   synopsis: get the default subnets for a VPC.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/AutoScalerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.Ec2.DescribeSubnets
     Python:
       versions:
         - sdk_version: 3

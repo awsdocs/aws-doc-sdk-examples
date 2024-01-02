@@ -3370,6 +3370,14 @@ iam_CreateInstanceProfile:
   synopsis: create an &IAM; instance profile.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/AutoScalerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.iam.CreateInstanceProfile
     Python:
       versions:
         - sdk_version: 3
@@ -3398,6 +3406,14 @@ iam_DeleteInstanceProfile:
   synopsis: delete an &IAM; instance profile.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/AutoScalerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.Ec2.DeleteInstanceProfile
     Python:
       versions:
         - sdk_version: 3
