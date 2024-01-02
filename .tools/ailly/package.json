@@ -1,4 +1,7 @@
 {
   "name": "ailly-aws-doc-sdk-examples",
-  "dependencies": {}
+  "dependencies": {
+    "@ailly/cli": "^1.0.0",
+    "@ailly/core": "^1.0.2"
+  }
 }
