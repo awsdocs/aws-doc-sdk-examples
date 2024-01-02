@@ -115,7 +115,7 @@ This example shows you how to do the following:
 {% if customs['scenario_prereqs'] %}{{ customs['scenario_prereqs'][scenario['id']] -}}{% endif %}
 <!--custom.scenario_prereqs.{{ scenario['id'] }}.end-->
 
-{% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 %}
+{% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 and scenario["file"].endswith(".py") %}
 Start the example by running the following at a command prompt:
 
 ```

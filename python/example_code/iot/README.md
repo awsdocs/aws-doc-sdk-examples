@@ -1,13 +1,13 @@
-# Organizations code examples for the SDK for Python
+# AWS IoT code examples for the SDK for Python
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with AWS Organizations.
+Shows how to use the AWS SDK for Python (Boto3) to work with AWS IoT.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Organizations consolidates multiple AWS accounts into an organization that you create and centrally manage._
+_AWS IoT provides secure, bi-directional communication for Internet-connected devices (such as sensors, actuators, embedded devices, wireless devices, and smart appliances) to connect to the AWS Cloud over MQTT, HTTPS, and LoRaWAN._
 
 ## ⚠ Important
 
@@ -34,18 +34,6 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [Attach a policy to a target](organizations_policies.py#L99) (`AttachPolicy`)
-- [Create a policy](organizations_policies.py#L21) (`CreatePolicy`)
-- [Delete a policy](organizations_policies.py#L144) (`DeletePolicy`)
-- [Describe a policy](organizations_policies.py#L76) (`DescribePolicy`)
-- [Detach a policy from a target](organizations_policies.py#L122) (`DetachPolicy`)
-- [List policies](organizations_policies.py#L53) (`ListPolicies`)
-
-
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
@@ -55,15 +43,6 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
-Run this example at a command prompt with the following command.
-
-```
-python organizations_policies.py [--target TARGET]
-``` 
-
-The example optionally attaches and detaches the demo policy to an AWS Organizations
-resource, such as a root organization or account. If you want to include this in the
-demo, replace `TARGET` in the command with the ID of the resource. 
 <!--custom.instructions.end-->
 
 
@@ -83,9 +62,9 @@ in the `python` folder.
 
 ## Additional resources
 
-- [Organizations User Guide](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html)
-- [Organizations API Reference](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html)
-- [SDK for Python Organizations reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/organizations.html)
+- [AWS IoT Developer Guide](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)
+- [AWS IoT API Reference](https://docs.aws.amazon.com/iot/latest/apireference/Welcome.html)
+- [SDK for Python AWS IoT reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
