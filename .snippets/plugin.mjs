@@ -1,12 +1,21 @@
 // INSTALLATION:
+// In this directory:
+//
 // mkdir node_modules ; ln -s /path/to/ailly/core node_modules/ailly
 
 // USAGE:
+//
 // ailly --plugin file://./plugin.js --engine bedrock [ailly arguments]
+//
 // Requirements: on or after the ailly refactor-12-12 branch
 
 // DATA:
 // Get the vector file from davidsouther via S3 presigned URL
+// MacOS:
+// cd .snippets
+// rm -rf .vectors
+// curl [presigned_url] > vectors-12-15.zip
+// unzip vectors-12-15.zip
 
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
