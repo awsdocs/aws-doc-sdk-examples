@@ -4,6 +4,6 @@ host: your-host
 port: 3306
 cluster:
   cluster_name: doc-example-aurora-app-cluster
-  DBClusterArn: arn:aws:rds:us-east-1:260778392212:cluster:doc-example-aurora-app-docexampleauroraappclustere-iiojz9de5elx
+  DBClusterArn: arn:aws:rds:us-east-1:123456789100:cluster:doc-example-aurora-app-docexampleauroraappcluster
 secret:
-  ARN: arn:aws:secretsmanager:us-east-1:260778392212:secret:docexampleauroraappsecret8B-qrKpsg5Kt87W-GiwQbX
+  ARN: arn:aws:secretsmanager:us-east-1:123456789100:secret:docexampleauroraappsecret
