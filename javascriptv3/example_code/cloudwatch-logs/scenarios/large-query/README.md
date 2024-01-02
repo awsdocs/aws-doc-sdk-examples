@@ -2,9 +2,9 @@
 
 ## Overview
 
-This example shows how to use AWS SDKs to perform a query on CloudWatch logs and get more than the maximum amount of 10,000 logs back.
+This example shows how to use AWS SDKs to perform a query on CloudWatch logs and get more than the maximum number of 10,000 logs back.
 
-The CloudWatch Logs API is capped at 10,000 records for requests that [read](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html) or [write](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html). GetLogEvents returns tokens for pagination, but [GetQueryResults](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetQueryResults.html) does not. This example breaks down one query into multiple queries if more than the maximum amount of records is returned from the query.
+The CloudWatch Logs API is capped at 10,000 records for requests that [read](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html) or [write](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html). GetLogEvents returns tokens for pagination, but [GetQueryResults](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetQueryResults.html) does not. This example breaks down one query into multiple queries if more than the maximum number of records are returned from the query.
 
 The following components are used in this example:
 
@@ -23,18 +23,18 @@ The following components are used in this example:
 
 For general prerequisites, see the [README](../../../../README.md) in the `javascriptv3` folder.
 
-To run this example you need a CloudWatch log group that contains over 10000 logs. You can [create one yourself](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html), or you can follow the steps in the [Infrastructure and data](#infrastructure-and-data) section. These steps require you to [install or update the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+To run this example, you need a CloudWatch log group that contains over 10,000 logs. You can [create one yourself](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html), or you can follow the steps in the [Infrastructure and data](#infrastructure-and-data) section. These steps require you to [install or update the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 ### Infrastructure and data
 
-Follow the below steps to create the necessary resources in AWS CloudFormation and use the AWS CLI to upload the necessary logs.
+Use the following steps to create the necessary resources in AWS CloudFormation and use the AWS CLI to upload the necessary logs.
 
 1. In your local terminal, change directories to [resources](../../../../../workflows/cloudwatch_logs_large_query/resources/).
 1. Run `aws cloudformation deploy --template-file stack.yaml --stack-name CloudWatchLargeQuery`
 1. Run `./make-log-files.sh`. This will output two timestamps for use in the following step.
 1. Run `export QUERY_START_DATE=<QUERY_START_DATE>`. Replace `<QUERY_START_DATE>` with the output from the previous step. Repeat this for `QUERY_END_DATE`.
 1. Run `./put-log-events.sh`.
-1. Wait 5 minutes for logs to settle and to ensure we're not querying for logs that exist in the future.
+1. Wait five minutes for logs to settle and to make sure you're not querying for logs that exist in the future.
 
 ### Run the scenario
 
