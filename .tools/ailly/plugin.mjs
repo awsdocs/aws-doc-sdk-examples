@@ -2,12 +2,21 @@
 // In this directory:
 //
 // mkdir node_modules ; ln -s /path/to/ailly/core node_modules/ailly
+//
+// TODO:
+// npm install
 
 // USAGE:
+// In this directory:
+// (nb these are for bash, please adjust ${PWD} as necessary for bash/powershell)
 //
-// ailly --plugin file://./plugin.js --engine bedrock [ailly arguments]
+// ailly --plugin file://${PWD}/plugin.mjs --engine bedrock \
+//     --root ../../[language]/example/[service] \
+//     --out ../../[language]/example/[service]/scouts/[target language] \
+//     --prompt "Translate to [target language]. [Additional instructions.]"
 //
-// Requirements: on or after the ailly refactor-12-12 branch
+// TODO:
+// python3 .tools/ailly/ailly.py --target Rust:1 --source Python:3 --service cloudwatch-logs
 
 // DATA:
 // Get the vector file from davidsouther via S3 presigned URL
