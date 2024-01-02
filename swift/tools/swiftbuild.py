@@ -14,7 +14,6 @@ import pathlib
 import os
 import subprocess
 
-
 def swiftbuild(test, run, packages, swiftc_options):
     # Process the package directories. Each directory in `packages` that has a
     # `Package.swift` file is built using the `swiftc` command.
@@ -27,11 +26,11 @@ def swiftbuild(test, run, packages, swiftc_options):
             if is_package:
                 num_packages_found = num_packages_found + 1
                 results = results + ((path, output),)
-
+    
     # Display a table of build results.
     if num_packages_found != 0:
         print("{0: <65} {1}".format("Example", "Status"))
-        print("-" * 65, "-" * 6)
+        print("-"*65, "-"*6)
 
     fails = 0
     for result in results:
@@ -41,7 +40,7 @@ def swiftbuild(test, run, packages, swiftc_options):
         if value != 0:
             fails = fails + 1
             outcome_str = "Fail"
-
+        
         num_parts = len(path.parts)
         if num_parts > 1:
             parent = path.parts[num_parts - 2]
@@ -54,10 +53,9 @@ def swiftbuild(test, run, packages, swiftc_options):
         if short_path_len > 64:
             short_path = f"...{short_path[-61:]}"
         print("{0:.<65} {1}".format(f"{short_path} ", outcome_str))
-
+        
     print(f"\nBuilt {num_packages_found} project(s) with {fails} failure(s).")
     print_configuration(test, swiftc_options)
-
 
 def print_configuration(test, swiftc_options):
     print("Build options:")
@@ -72,12 +70,10 @@ def print_configuration(test, swiftc_options):
     elif not test:
         print("    None")
 
-
 # Determine if the specified path contains a Swift package.
 def is_package_dir(dir):
     packagefile_path = dir / "Package.swift"
     return packagefile_path.is_file()
-
 
 # Build one package, given a specific directory. Build and test
 # if the `test` argument is True.
@@ -89,7 +85,7 @@ def build_package(test, run, package, swiftc_options):
     # If it's not a package directory, return at once.
     if not is_package:
         return 1, is_package
-
+    
     # Set up verb forms we need for pretty output.
     if test == True:
         build_command = "test"
@@ -100,7 +96,7 @@ def build_package(test, run, package, swiftc_options):
     else:
         build_command = "build"
         command_gerund = "building"
-
+    
     # If testing, look to see if there's a `test.sh` file. If so,
     # the build command is "bash path/to/test.sh"
     test_script = package / "test.sh"
@@ -112,53 +108,22 @@ def build_package(test, run, package, swiftc_options):
 
         for opt in swiftc_options:
             command_parts = command_parts + ["-Xswiftc", opt]
-
+    
     print(f"Now {command_gerund} project in {package}...")
 
     # Build the project.
     results = subprocess.run(command_parts, cwd=package)
-    print("=" * 72, "\n")
+    print("="*72, "\n")
     return results.returncode, is_package
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Build (and optionally test) one or more Swift projects."
-    )
-    parser.add_argument(
-        "-r",
-        "--run",
-        action="store_true",
-        help="build and run each project",
-        dest="run",
-    )
-    parser.add_argument(
-        "-t",
-        "--test",
-        action="store_true",
-        help="run tests on projects after building them",
-    )
-    parser.add_argument(
-        "-p",
-        "--parseable",
-        action="store_true",
-        help="enable parseable output",
-        dest="parseable",
-    )
-    parser.add_argument(
-        "-w",
-        "--hide-warnings",
-        action="store_true",
-        help="hide build warnings",
-        dest="hide_warnings",
-    )
-    parser.add_argument(
-        "packages",
-        metavar="PACKAGE_DIR",
-        type=pathlib.Path,
-        nargs="*",
-        help="Directory of a project to build.",
-    )
+    parser = argparse.ArgumentParser(description="Build (and optionally test) one or more Swift projects.")
+    parser.add_argument("-r", "--run", action="store_true", help="build and run each project", dest="run")
+    parser.add_argument("-t", "--test", action="store_true", help="run tests on projects after building them")
+    parser.add_argument("-p", "--parseable", action="store_true", help="enable parseable output", dest="parseable")
+    parser.add_argument("-w", "--hide-warnings", action="store_true", help="hide build warnings", dest="hide_warnings")
+    parser.add_argument("packages", metavar="PACKAGE_DIR", type=pathlib.Path, nargs="*", help="Directory of a project to build.")
 
     args = parser.parse_args()
 
@@ -180,5 +145,6 @@ if __name__ == "__main__":
             package_list = [item for item in cwd_path.iterdir() if item.is_dir()]
     else:
         package_list = args.packages
+
 
     swiftbuild(args.test, args.run, package_list, swiftc_options)
