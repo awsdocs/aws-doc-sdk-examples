@@ -409,7 +409,7 @@ public static class ResilientServiceWorkflow
         {
             await _elasticLoadBalancerWrapper.DeleteLoadBalancerByName(_elasticLoadBalancerWrapper.LoadBalancerName);
             await _elasticLoadBalancerWrapper.DeleteTargetGroupByName(_elasticLoadBalancerWrapper.TargetGroupName);
-            await _autoScalerWrapper.TerminateAndDeleteAutoScalingGroupByName(_autoScalerWrapper.GroupName);
+            await _autoScalerWrapper.TerminateAndDeleteAutoScalingGroupWithName(_autoScalerWrapper.GroupName);
             await _autoScalerWrapper.DeleteKeyPairByName(_autoScalerWrapper.KeyPairName);
             await _autoScalerWrapper.DeleteTemplateByName(_autoScalerWrapper.LaunchTemplateName);
             await _autoScalerWrapper.DeleteInstanceProfile(
