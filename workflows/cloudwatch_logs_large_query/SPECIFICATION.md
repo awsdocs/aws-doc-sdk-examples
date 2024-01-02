@@ -1,4 +1,4 @@
-# CloudWatch Logs large query - technical specification
+# CloudWatch Logs large query - Technical specification
 
 This document contains the technical specifications for _CloudWatch Logs large query_,
 a workflow scenario that showcases AWS services and SDKs. It is primarily intended for the AWS code
@@ -10,7 +10,7 @@ This document explains the following:
 - Adding sample data.
 - Setting up a large query.
 
-For an introduction to see the [README.md](README.md).
+For an introduction, see the [README.md](README.md).
 
 ---
 
@@ -25,8 +25,8 @@ For an introduction to see the [README.md](README.md).
 
 ## Architecture
 
-- Amazon CloudWatch Log Group
-  - Amazon CloudWatch Log Stream
+- Amazon CloudWatch Logs group
+- Amazon CloudWatch Logs stream
 
 ---
 
@@ -56,19 +56,19 @@ This example has a set of common resources that are stored in the [resources](re
 
 ### Building and waiting for single query
 
-The query itself is a "CloudWatch Logs Insights query syntax" string. The query must return the `@timestamp` field so follow-up queries can use that information. Here's a sample query string: `fields @timestamp, @message | sort @timestamp asc`. Notice it sorts in ascending order. You can sort in either `asc` or `desc`, but the recursive strategy described below will need to match accordingly.
+The query itself is a "CloudWatch Logs Insights query syntax" string. The query must return the `@timestamp` field so follow-up queries can use that information. Here's a sample query string: `fields @timestamp, @message | sort @timestamp asc`. Notice it sorts in ascending order. You can sort in either `asc` or `desc`, but the recursive strategy described later will need to match accordingly.
 
 Queries are jobs. You can start a query with `StartQuery`, but it immediately returns the `queryId`. You must poll a query using `GetQueryResults` until the query has finished. For the purpose of this example, a query has "finished" when `GetQueryResults` has returned a status of one of "Complete", "Failed", "Cancelled", "Timeout", or "Unknown".
 
 `StartQuery` responds with an error if the query's start or end date occurs out of bounds of the log group creation date. The error message starts with "Query's end date and time".
 
-Start the query and wait for it to "finish". Store the `results`. If the count of the results is less than the configured LIMIT, return the results. If the the results are greater than or equal to the limit, go to [Recursive queries](#recursive-queries).
+Start the query and wait for it to "finish". Store the `results`. If the count of the results is less than the configured LIMIT, return the results. If the results are greater than or equal to the limit, go to [Recursive queries](#recursive-queries).
 
 ---
 
 ### Recursive queries
 
-If the result count from the previous step is 10000 (or the configured LIMIT), it is very likely that there are more results. The example should do a binary search of the remaining logs. To do this, get the date of the last (earliest or latest depending on sort order) log. Use that date as the start date of a new date range, while the end date can remain the same.
+If the result count from the previous step is 10000 (or the configured LIMIT), it is very likely that there are more results. The example should do a binary search of the remaining logs. To do this, get the date of the last log (earliest or latest, depending on sort order). Use that date as the start date of a new date range. The end date can remain the same.
 
 Split that date range in half, resulting in two new date ranges. Call your query function twice; once for each new date range.
 
