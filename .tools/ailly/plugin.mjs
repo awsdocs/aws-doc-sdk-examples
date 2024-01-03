@@ -66,17 +66,17 @@ const Best = {
     {
       score: 0.9,
       language: "python",
-      name: "python.example_code.python.LambdaWrapper.full",
+      name: "python.example_code.python.LambdaWrapper.full.txt",
     },
     {
       score: 0.9,
       language: "python",
-      name: "python.example_code.rds.helper.InstanceWrapper_full",
+      name: "python.example_code.rds.helper.InstanceWrapper_full.txt",
     },
     {
       score: 0.9,
       language: "python",
-      name: "python.example_code.sfn.Scenario_GetStartedStateMachines",
+      name: "python.example_code.sfn.Scenario_GetStartedStateMachines.txt",
     },
   ],
   rust: [
