@@ -344,11 +344,11 @@ cloudwatch-logs_Scenario_BigQuery:
         - sdk_version: 3
           github: javascriptv3/example_code/cloudwatch-logs/scenarios/query-logs
           excerpts:
-            - description:
-                The first file is the entry point. The second file is a class
-                that splits queries into multiple steps if necessary.
+            - description: This is the entry point.
               snippet_files:
                 - javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/index.js
+            - description: This is a class that splits queries into multiple steps if necessary.
+            - snippet_files:
                 - javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/cloud-watch-query.js
   services:
     cloudwatch-logs: {StartQuery, GetQueryResults}
