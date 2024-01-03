@@ -188,7 +188,6 @@ ALLOW_LIST = {
     "iotanalytics/latest/APIReference/Welcome",
     "mediaconnect/latest/APIReference/Welcome",
     "cryptography/latest/APIReference/Welcome",
-    "com/AmazonCloudWatch/latest/logs/Working",
 }
 
 
