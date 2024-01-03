@@ -221,7 +221,7 @@ class Renderer:
                     else:
                         customs[section][subsection] += line
                 else:
-                    link_re = r"^\s*[-*] \[([^\]]+)\]\((https:.+\.html)\)\s*$"
+                    link_re = r"^\s*[-*] \[([^\]]+)\]\(([^)]+)\)\s*$"
                     link_match = re.match(link_re, line)
                     if link_match:
                         link, href = link_match.groups()
