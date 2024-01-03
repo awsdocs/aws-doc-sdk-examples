@@ -1,13 +1,13 @@
-# Amazon Bedrock code examples for the SDK for Go V2
+# CloudFront code examples for the SDK for Go V2
 
 ## Overview
 
-Shows how to use the AWS SDK for Go V2 to work with Amazon Bedrock.
+Shows how to use the AWS SDK for Go V2 to work with Amazon CloudFront.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon Bedrock enables you to build and scale generative AI applications with foundation models._
+_CloudFront speeds up distribution of your static and dynamic web content, such as .html, .css, .php, image, and media files._
 
 ## ⚠ Important
 
@@ -27,20 +27,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 
 <!--custom.prerequisites.start-->
-> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.prerequisites.end-->
-
-### Get started
-
-- [Hello Amazon Bedrock](hello/hello.go#L4) (`ListFoundationModels`)
-
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [List available Amazon Bedrock foundation models](actions/foundation_model.go#L25) (`ListFoundationModels`)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -53,13 +40,6 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon Bedrock
-
-This example shows you how to get started using Amazon Bedrock.
-
-```
-go run ./hello
-```
 
 #### Run a scenario
 
@@ -85,9 +65,9 @@ in the `gov2` folder.
 
 ## Additional resources
 
-- [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
-- [Amazon Bedrock API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
-- [SDK for Go V2 Amazon Bedrock reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/bedrock)
+- [CloudFront Developer Guide](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
+- [CloudFront API Reference](https://docs.aws.amazon.com/cloudfront/latest/APIReference/Welcome.html)
+- [SDK for Go V2 CloudFront reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/cloudfront)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
