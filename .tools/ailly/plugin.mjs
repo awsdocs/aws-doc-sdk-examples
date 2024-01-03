@@ -18,7 +18,7 @@
 // DATA:
 // Get the vector file from davidsouther via S3 presigned URL
 // MacOS:
-// cd .snippets
+// cd .tools/ailly
 // rm -rf .vectors
 // curl [presigned_url] > vectors-12-15.zip
 // unzip vectors-12-15.zip
@@ -60,6 +60,23 @@ const Best = {
       score: 0.9,
       language: "javascriptv3",
       name: "javascript.v3.support.scenarios.Hello.txt",
+    },
+  ],
+  python: [
+    {
+      score: 0.9,
+      language: "python",
+      name: "python.example_code.python.LambdaWrapper.full",
+    },
+    {
+      score: 0.9,
+      language: "python",
+      name: "python.example_code.rds.helper.InstanceWrapper_full",
+    },
+    {
+      score: 0.9,
+      language: "python",
+      name: "python.example_code.sfn.Scenario_GetStartedStateMachines",
     },
   ],
   rust: [
