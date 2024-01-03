@@ -47,7 +47,7 @@
         "MemorySize": 256,
         "Timeout": 30,
         "Policies": [
-          "AWSLambdaBasicExecutionRole"
+          "AWSLambda_FullAccess"
         ],
         "PackageType": "Zip",
         "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_GetLabels_Generated::GetLabels",
@@ -56,7 +56,8 @@
             "Type": "HttpApi",
             "Properties": {
               "Path": "/labels",
-              "Method": "GET"
+              "Method": "GET",
+              "PayloadFormatVersion": "2.0"
             }
           }
         }
@@ -76,7 +77,7 @@
         "MemorySize": 256,
         "Timeout": 30,
         "Policies": [
-          "AWSLambdaBasicExecutionRole"
+          "AWSLambda_FullAccess"
         ],
         "PackageType": "Zip",
         "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_Upload_Generated::Upload",
@@ -85,7 +86,8 @@
             "Type": "HttpApi",
             "Properties": {
               "Path": "/upload",
-              "Method": "PUT"
+              "Method": "PUT",
+              "PayloadFormatVersion": "2.0"
             }
           }
         }

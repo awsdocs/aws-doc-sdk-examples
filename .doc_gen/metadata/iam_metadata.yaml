@@ -3413,7 +3413,7 @@ iam_DeleteInstanceProfile:
           excerpts:
             - description:
               snippet_tags:
-                - ResilientService.dotnetv3.Ec2.DeleteInstanceProfile
+                - ResilientService.dotnetv3.iam.DeleteInstanceProfile
     Python:
       versions:
         - sdk_version: 3
