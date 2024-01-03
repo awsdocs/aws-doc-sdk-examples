@@ -1,33 +1,51 @@
-import boto3
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+"""
+Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to manage secrets in AWS
+Secrets Manager.
+"""
+
+import logging
 import json
 
-
-# snippet-start:[python.example_code.secretsmanager.BatchGetSecretValue]
-def batch_get_secrets(filter_name):
-    """
-    Retrieve multiple secrets from AWS Secrets Manager using the batch_get_secret_value API.
-    This function assumes the stack mentioned in this directory's README has been successfully deployed.
-    This stack includes 7 secrets, all of which have names beginning with "mySecret".
-
-    :param filter_name: The full or partial name of secrets to be fetched.
-    :type filter_name: str
-    """
-    client = boto3.client("secretsmanager")
-
-    try:
-        secrets = []
-        response = client.batch_get_secret_value(
-            Filters=[{"Key": "name", "Values": [f"{filter_name}"]}]
-        )
-        for secret in response["SecretValues"]:
-            print(json.loads(secret["SecretString"]))
-            secrets.append(json.loads(secret["SecretString"]))
-        return secrets
-    except client.exceptions.ResourceNotFoundException:
-        return f"One or more requested secrets were not found."
-    except Exception as e:
-        return f"An unknown error occurred:\n{str(e)}."
+logger = logging.getLogger(__name__)
 
 
-print(batch_get_secrets("mySecret"))
-# snippet-end:[python.example_code.secretsmanager.BatchGetSecretValue]
+# snippet-start:[python.example_code.python.BatchGetSecretValue.full]
+# snippet-start:[python.example_code.python.BatchGetSecretValue.decl]
+class BatchGetSecretsWrapper:
+    def __init__(self, secretsmanager_client):
+        self.client = secretsmanager_client
+
+    # snippet-end:[python.example_code.python.BatchGetSecretValue.decl]
+    def batch_get_secrets(self, filter_name):
+        """
+        Retrieve multiple secrets from AWS Secrets Manager using the batch_get_secret_value API.
+        This function assumes the stack mentioned in the source code README has been successfully deployed.
+        This stack includes 7 secrets, all of which have names beginning with "mySecret".
+
+        :param filter_name: The full or partial name of secrets to be fetched.
+        :type filter_name: str
+        """
+        try:
+            secrets = []
+            response = self.client.batch_get_secret_value(
+                Filters=[{"Key": "name", "Values": [f"{filter_name}"]}]
+            )
+            for secret in response["SecretValues"]:
+                logger.info(json.loads(secret["SecretString"]))
+                secrets.append(json.loads(secret["SecretString"]))
+            return secrets
+        except self.client.exceptions.ResourceNotFoundException:
+            msg = f"One or more requested secrets were not found with filter: {filter_name}"
+            logger.info(msg)
+            return msg
+        except Exception as e:
+            msg = f"An unknown error occurred:\n{str(e)}."
+            logger.error(msg)
+            raise
+
+# snippet-end:[python.example_code.python.BatchGetSecretValue.full]

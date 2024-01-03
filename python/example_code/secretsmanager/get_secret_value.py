@@ -1,26 +1,41 @@
-import boto3
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+"""
+Purpose
+
+Shows how to use the AWS SDK for Python (Boto3) to manage secrets in AWS
+Secrets Manager.
+"""
+
+import logging
 import json
 
-
-# snippet-start:[python.example_code.secretsmanager.GetSecretValue]
-def get_secret(secret_name):
-    """
-    Retrieve individual secrets from AWS Secrets Manager using the get_secret_value API.
-    This function assumes the stack mentioned in this directory's README has been successfully deployed.
-    This stack includes 7 secrets, all of which have names beginning with "mySecret".
-
-    @:param secret_name [String] The name of the secret fetched.
-    """
-    client = boto3.client("secretsmanager")
-
-    try:
-        get_secret_value_response = client.get_secret_value(SecretId=secret_name)
-        print(json.loads(get_secret_value_response["SecretString"]))
-    except client.exceptions.ResourceNotFoundException:
-        return f"The requested secret {secret_name} was not found."
-    except Exception as e:
-        return f"An unknown error occurred: {str(e)}."
+logger = logging.getLogger(__name__)
 
 
-print(get_secret("mySecret1"))
-# snippet-end:[python.example_code.secretsmanager.GetSecretValue]
+# snippet-start:[python.example_code.python.GetSecretValue.full]
+# snippet-start:[python.example_code.python.GetSecretValue.decl]
+class GetSecretWrapper:
+    def __init__(self, secretsmanager_client):
+        self.client = secretsmanager_client
+    # snippet-end:[python.example_code.python.GetSecretValue.decl]
+
+    def get_secret(self, secret_name):
+        """
+        Retrieve individual secrets from AWS Secrets Manager using the get_secret_value API.
+        This function assumes the stack mentioned in the source code README has been successfully deployed.
+        This stack includes 7 secrets, all of which have names beginning with "mySecret".
+
+        :param secret_name: The name of the secret fetched.
+        :type secret_name: str
+        """
+        try:
+            get_secret_value_response = self.client.get_secret_value(SecretId=secret_name)
+            print(json.loads(get_secret_value_response["SecretString"]))
+        except self.client.exceptions.ResourceNotFoundException:
+            return f"The requested secret {secret_name} was not found."
+        except Exception as e:
+            return f"An unknown error occurred: {str(e)}."
+
+# snippet-end:[python.example_code.python.GetSecretValue.full]
