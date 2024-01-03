@@ -220,8 +220,13 @@ class Renderer:
                         customs[section] += line
                     else:
                         customs[section][subsection] += line
-                elif line.lstrip().startswith(f"* [{sdk_short}"):
-                    self.lang_config["sdk_api_ref"] = line.split("(")[-1].split(")")[0]
+                else:
+                    link_re = r"^\s*[-*] \[([^\]]+)\]\(([^)]+)\)\s*$"
+                    link_match = re.match(link_re, line)
+                    if link_match:
+                        link, href = link_match.groups()
+                        if link.startswith(sdk_short):
+                            self.lang_config["sdk_api_ref"] = href
         return customs
 
     def render(self):
