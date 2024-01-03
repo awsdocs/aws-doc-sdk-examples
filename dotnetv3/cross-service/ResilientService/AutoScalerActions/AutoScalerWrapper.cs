@@ -422,7 +422,7 @@ public class AutoScalerWrapper
     }
     // snippet-end:[ResilientService.dotnetv3.Ec2.DeleteLaunchTemplate]
 
-    // snippet-start:[ResilientService.dotnetv3.Ec2.DeleteInstanceProfile]
+    // snippet-start:[ResilientService.dotnetv3.iam.DeleteInstanceProfile]
     /// <summary>
     /// Detaches a role from an instance profile, detaches policies from the role,
     /// and deletes all the resources.
@@ -471,7 +471,7 @@ public class AutoScalerWrapper
             Console.WriteLine($"Instance profile {profileName} does not exist.");
         }
     }
-    // snippet-end:[ResilientService.dotnetv3.Ec2.DeleteInstanceProfile]
+    // snippet-end:[ResilientService.dotnetv3.iam.DeleteInstanceProfile]
 
     // snippet-start:[ResilientService.dotnetv3.AutoScaling.DescribeAutoScalingGroups]
     /// <summary>
