@@ -12,7 +12,7 @@ const wait = (seconds) =>
 
 /**
  * @template T
- * @param {{ intervalInMs: number, maxRetries: number, swallowError?: boolean, quiet?: boolean }} config
+ * @param {{ intervalInMs: number, maxRetries: number, swallowError?: boolean }} config
  * @param {() => Promise<T>} fn
  * @returns {Promise<T>}
  */
@@ -22,19 +22,17 @@ const retry = (config, fn) =>
     fn()
       .then(resolve)
       .catch((err) => {
-        if (!config.quiet) {
-          console.warn(
-            `Retrying after ${
-              intervalInMs / 1000
-            } seconds. ${maxRetries} retries left.`,
-          );
-          console.warn(err instanceof Error ? err.message : err);
-        }
+        console.warn(
+          `Callback in retry function failed. Retrying after ${
+            intervalInMs / 1000
+          } seconds. ${maxRetries} retries left.`,
+        );
+        console.warn(err instanceof Error ? err.message : err);
         if (maxRetries === 0) {
           config.swallowError ? resolve() : reject(err);
         } else {
           setTimeout(() => {
-            retry({ ...config, maxRetries: maxRetries - 1 }, fn).then(
+            retry({ intervalInMs, maxRetries: maxRetries - 1 }, fn).then(
               resolve,
               reject,
             );
