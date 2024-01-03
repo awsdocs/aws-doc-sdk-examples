@@ -125,6 +125,7 @@ ALLOW_LIST = {
     "aws/rds/model/DescribeDBInstancesRequest",
     "aws/rds/model/DescribeDBSnapshotsRequest",
     "cloudwatch/commands/PutMetricDataCommand",
+    "com/AWSJavaScriptSDK/v3/latest/client/s3",
     "com/amazondynamodb/latest/developerguide",
     "com/apigateway/latest/developerguide/set",
     "com/autoscaling/ec2/APIReference/Welcome",
