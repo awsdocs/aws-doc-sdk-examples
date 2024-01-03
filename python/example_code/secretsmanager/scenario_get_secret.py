@@ -32,7 +32,7 @@ def run_scenario(secret_name):
         client = boto3.client("secretsmanager")
         wrapper = GetSecretWrapper(client)
         secret = wrapper.get_secret(secret_name)
-        logging.info("Secret retrieved successfully.")
+        # Note: Secrets should not be logged.
         return secret
     except Exception as e:
         logging.error(f"Error retrieving secret: {e}")
@@ -40,4 +40,4 @@ def run_scenario(secret_name):
 
 
 if __name__ == "__main__":
-    run_scenario(secret_name='mySecret1')
+    run_scenario(secret_name="mySecret1")

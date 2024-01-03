@@ -9,7 +9,6 @@ Secrets Manager.
 """
 
 import logging
-import json
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +18,7 @@ logger = logging.getLogger(__name__)
 class GetSecretWrapper:
     def __init__(self, secretsmanager_client):
         self.client = secretsmanager_client
+
     # snippet-end:[python.example_code.python.GetSecretValue.decl]
 
     def get_secret(self, secret_name):
@@ -31,11 +31,18 @@ class GetSecretWrapper:
         :type secret_name: str
         """
         try:
-            get_secret_value_response = self.client.get_secret_value(SecretId=secret_name)
-            print(json.loads(get_secret_value_response["SecretString"]))
+            get_secret_value_response = self.client.get_secret_value(
+                SecretId=secret_name
+            )
+            logging.info("Secret retrieved successfully.")
+            return get_secret_value_response["SecretString"]
         except self.client.exceptions.ResourceNotFoundException:
-            return f"The requested secret {secret_name} was not found."
+            msg = f"The requested secret {secret_name} was not found."
+            logger.info(msg)
+            return msg
         except Exception as e:
-            return f"An unknown error occurred: {str(e)}."
+            logger.error(f"An unknown error occurred: {str(e)}.")
+            raise
+
 
 # snippet-end:[python.example_code.python.GetSecretValue.full]

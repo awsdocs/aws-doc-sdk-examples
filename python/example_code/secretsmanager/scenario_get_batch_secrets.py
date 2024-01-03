@@ -32,7 +32,9 @@ def run_scenario(secret_filter):
         client = boto3.client("secretsmanager")
         wrapper = BatchGetSecretsWrapper(client)
         secrets = wrapper.batch_get_secrets(secret_filter)
-        logging.info("Secrets retrieved successfully.")
+        if isinstance(secrets, list):
+            logging.info("Secrets retrieved successfully.")
+        # Note: Secrets should not be logged.
         return secrets
     except Exception as e:
         logging.error(f"Error retrieving secrets: {e}")

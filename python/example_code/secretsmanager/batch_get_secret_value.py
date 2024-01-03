@@ -21,6 +21,7 @@ class BatchGetSecretsWrapper:
         self.client = secretsmanager_client
 
     # snippet-end:[python.example_code.python.BatchGetSecretValue.decl]
+
     def batch_get_secrets(self, filter_name):
         """
         Retrieve multiple secrets from AWS Secrets Manager using the batch_get_secret_value API.
@@ -36,16 +37,19 @@ class BatchGetSecretsWrapper:
                 Filters=[{"Key": "name", "Values": [f"{filter_name}"]}]
             )
             for secret in response["SecretValues"]:
-                logger.info(json.loads(secret["SecretString"]))
                 secrets.append(json.loads(secret["SecretString"]))
+            if secrets:
+                logger.info("Secrets retrieved successfully.")
+            else:
+                logger.info("Zero secrets returned without error.")
             return secrets
         except self.client.exceptions.ResourceNotFoundException:
             msg = f"One or more requested secrets were not found with filter: {filter_name}"
             logger.info(msg)
             return msg
         except Exception as e:
-            msg = f"An unknown error occurred:\n{str(e)}."
-            logger.error(msg)
+            logger.error(f"An unknown error occurred:\n{str(e)}.")
             raise
+
 
 # snippet-end:[python.example_code.python.BatchGetSecretValue.full]
