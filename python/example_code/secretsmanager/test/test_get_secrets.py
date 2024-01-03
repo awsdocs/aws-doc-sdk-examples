@@ -4,6 +4,7 @@
 import sys
 import os
 import boto3
+import pytest
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -11,6 +12,7 @@ from batch_get_secret_value import BatchGetSecretsWrapper
 from get_secret_value import GetSecretWrapper
 
 
+@pytest.mark.integ
 def test_scenario():
     """
     This test assumes the stack mentioned in the source code README has been successfully deployed.
@@ -25,6 +27,7 @@ def test_scenario():
     assert secret
 
 
+@pytest.mark.integ
 def test_batch_scenario():
     """
     This test assumes the stack mentioned in the source code README has been successfully deployed.
