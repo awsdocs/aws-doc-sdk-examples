@@ -13,7 +13,18 @@ medical-imaging_Hello:
           excerpts:
             - description:
               snippet_tags:
-                - medical-imaging.JavaScript.datastore.createDatastoreV3
+                - javascript.v3.medical-imaging.hello
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/medical-imaging/hello_health_imaging
+          excerpts:
+            - description: Code for the CMakeLists.txt CMake file.
+              snippet_tags:
+                - cpp.example_code.medical-imaging.hello_medical-imaging.cmake
+            - description: Code for the hello_health_imaging.cpp source file.
+              snippet_tags:
+                - cpp.example_code.medical-imaging.hello_medical-imaging
   services:
     medical-imaging: {ListDatastores}
 medical-imaging_CreateDatastore:
@@ -228,6 +239,14 @@ medical-imaging_StartDICOMImportJob:
             - description:
               snippet_tags:
                 - medicalimaging.java2.start_dicom_import_job.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/medical-imaging/
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.medical_imaging.StartDICOMImportJob
   services:
     medical-imaging: {StartDICOMImportJob}
 medical-imaging_GetDICOMImportJob:
@@ -263,6 +282,14 @@ medical-imaging_GetDICOMImportJob:
             - description:
               snippet_tags:
                 - medicalimaging.java2.get_dicom_import_job.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/medical-imaging/
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.medical_imaging.GetDICOMImportJob
   services:
     medical-imaging: {GetDICOMImportJob}
 medical-imaging_ListDICOMImportJobs:
@@ -363,6 +390,23 @@ medical-imaging_SearchImageSets:
             - description: "Use case #3: BETWEEN operator using createdAt. Time studies were previously persisted."
               snippet_tags:
                 - medicalimaging.java2.search_imagesets.use_case3
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/medical-imaging/
+          excerpts:
+            - description: The utility function for searching image sets.
+              snippet_tags:
+                - cpp.example_code.medical_imaging.SearchImageSets
+            - description: "Use case #1: EQUAL operator."
+              snippet_tags:
+                - cpp.example_code.medical_imaging.SearchImageSets.use_case1
+            - description: "Use case #2: BETWEEN operator using DICOMStudyDate and DICOMStudyTime."
+              snippet_tags:
+                - cpp.example_code.medical_imaging.SearchImageSets.use_case2
+            - description: "Use case #3: BETWEEN operator using createdAt. Time studies were previously persisted."
+              snippet_tags:
+                - cpp.example_code.medical_imaging.SearchImageSets.use_case3
   services:
     medical-imaging: {SearchImageSets}
 medical-imaging_GetImageSet:
@@ -445,6 +489,20 @@ medical-imaging_GetImageSetMetadata:
             - description:
               snippet_tags:
                 - medicalimaging.java2.get_imageset.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/medical-imaging/
+          excerpts:
+            - description: Utility function to get image set metadata.
+              snippet_tags:
+                - cpp.example_code.medical_imaging.GetImageSetMetadata
+            - description: Get image set metadata without version.
+              snippet_tags:
+                - cpp.example_code.medical_imaging.GetImageSetMetadata.without_version
+            - description: Get image set metadata with version.
+              snippet_tags:
+                - cpp.example_code.medical_imaging.GetImageSetMetadata.with_version
   services:
     medical-imaging: {GetImageSetMetadata}
 medical-imaging_GetImageFrame:
@@ -480,6 +538,14 @@ medical-imaging_GetImageFrame:
             - description:
               snippet_tags:
                 - medicalimaging.java2.get_image_frame.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/medical-imaging/
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.medical-imaging.GetImageFrame
   services:
     medical-imaging: {GetImageFrame}
 medical-imaging_ListImageSetVersions:
@@ -638,6 +704,14 @@ medical-imaging_DeleteImageSet:
             - description:
               snippet_tags:
                 - medicalimaging.java2.delete_imageset.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/medical-imaging/
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.medical_imaging.DeleteImageSet
   services:
     medical-imaging: {DeleteImageSet}
 medical-imaging_TagResource:
@@ -917,3 +991,49 @@ medical-imaging_tagging_imagesets:
                 - medicalimaging.java2.untag_resource.main
   services:
     medical-imaging: {TagResource, UntagResource, ListTagsForResource}
+medical-imaging_Scenario_image_sets_and_frames:
+  title: Get started with &AHI; image sets and image frames using an &AWS; SDK
+  title_abbrev: Get started with image sets and image frames
+  synopsis_list:
+    - Set up resources for a DICOM import.
+    - Import DICOM files into a data store.
+    - Retrieve the image set IDs for the import job.
+    - Retrieve the image frame IDs for the image sets.
+    - Download, decode and verify the image frames.
+    - Clean up resources.
+  category: Scenarios
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/medical-imaging/imaging_set_and_frames_workflow
+          excerpts:
+            - description: Create a &CFN; stack with the necessary resources.
+              snippet_tags:
+                - cpp.example_code.medical-imaging.image-sets-workflow.createstack
+            - description: Copy DICOM files to the &S3; import bucket.
+              snippet_tags:
+                - cpp.example_code.medical-imaging.image-sets-workflow.copy-dicom-files
+            - description: Import the DICOM files to the &S3; data store.
+              snippet_tags:
+                - cpp.example_code.medical-imaging.image-sets-workflow.dicom-import1
+                - cpp.example_code.medical-imaging.image-sets-workflow.dicom-import2
+                - cpp.example_code.medical_imaging.StartDICOMImportJob
+            - description: Get image sets created by the DICOM import job.
+              snippet_tags:
+                - cpp.example_code.medical-imaging.image-sets-workflow.get_image_sets
+                - cpp.example_code.medical_imaging.GetDICOMImportJob
+            - description: Get image frame information for image sets.
+              snippet_tags:
+                - cpp.example_code.medical-imaging.image-sets-workflow.get_image_frames
+                - cpp.example_code.medical_imaging.GetImageSetMetadata
+            - description: Download decode and verify image frames.
+              snippet_tags:
+                - cpp.example_code.medical-imaging.image-sets-workflow.download_frames
+                - cpp.example_code.medical-imaging.image-sets-workflow.decode_and_check
+                - cpp.example_code.medical-imaging.image-sets-workflow.decode_jph
+                - cpp.example_code.medical-imaging.image-sets-workflow.verify_check_sum
+            - description: Clean up resources.
+              snippet_tags:
+                - cpp.example_code.medical-imaging.image-sets-workflow.clean_up
+                - cpp.example_code.medical-imaging.image-sets-workflow.empty_data_store
