@@ -44,7 +44,9 @@ class ConsumerStack(Stack):
         return data
 
     def init_get_topic(self, topic_name):
-        topic = sns.Topic(self, "fanout-topic", topic_name=topic_name)
+        # topic = sns.Topic(self, "fanout-topic", topic_name=topic_name)
+        external_sns_topic_arn = f"arn:aws:sns:us-east-1:{self.producer_account_id}:{topic_name}"
+        topic = sns.Topic.from_topic_arn(self, "ExternalSNSTopic", external_sns_topic_arn)
         return topic
 
     def init_batch_fargte(self):
