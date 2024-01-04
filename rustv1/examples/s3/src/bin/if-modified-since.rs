@@ -18,12 +18,12 @@ const BODY: &str = "Hello, world!";
 /// Demonstrate how `if-modified-since` reports that matching objects haven't
 /// changed.
 ///
-/// *Steps*
-/// * Create a bucket.
-/// * Put an object in the bucket.
-/// * Get the bucket headers.
-/// * Get the bucket headers again but only if modified.
-/// * Delete the bucket.
+/// # Steps
+/// - Create a bucket.
+/// - Put an object in the bucket.
+/// - Get the bucket headers.
+/// - Get the bucket headers again but only if modified.
+/// - Delete the bucket.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
