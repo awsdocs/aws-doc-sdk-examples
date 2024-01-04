@@ -31,14 +31,21 @@ def handler(event, context):
         return
 
     try:
-        job_id = event["detail"]["jobId"]
-        get_and_put_logs(job_id)
+        get_and_put_logs(event["detail"])
     except Exception as e:
         logger.error(json.dumps(f"Error: {str(e)}"))
         raise e
 
 
-def get_and_put_logs(job_id):
+def get_and_put_logs(job_detail):
+    """
+    Puts logs to a cross-account S3 bucket
+    :param job_detail: Contains job_id and job_status
+    :return:
+    """
+    job_id = job_detail["jobId"]
+    job_status = job_detail["status"]
+
     # Get most recent log stream
     log_streams = logs_client.describe_log_streams(
         logGroupName=log_group_name,
@@ -60,17 +67,26 @@ def get_and_put_logs(job_id):
         [f"{e['timestamp']}, {e['message']}" for e in log_events["events"]]
     )
 
-    # Put logs to cross-account bucket
-    s3_client.put_object(
-        Body=log_file,
-        Bucket=os.environ["PRODUCER_BUCKET_NAME"],
-        Key=f"{os.environ['LANGUAGE_NAME']}/{log_file_name}",
-    )
-
-    # Back up logs to local bucket
-    s3_client.put_object(
-        Body=log_file, Bucket=os.environ["BUCKET_NAME"], Key=f"{log_file_name}"
-    )
+    # Copy logs to local and cross-account buckets
+    for bucket in [os.environ["PRODUCER_BUCKET_NAME"], os.environ["BUCKET_NAME"]]:
+        # Put status file into top-level directory
+        s3_client.put_object(
+            Body=log_file,
+            Bucket=bucket,
+            Key=job_status,
+        )
+        # Put logs to cross-account bucket LATEST directory
+        s3_client.put_object(
+            Body=log_file,
+            Bucket=bucket,
+            Key=f"latest/{os.environ['LANGUAGE_NAME']}.log",
+        )
+        # Put logs to cross-account bucket ARCHIVE
+        s3_client.put_object(
+            Body=log_file,
+            Bucket=bucket,
+            Key=f"archive/{os.environ['LANGUAGE_NAME']}/{log_file_name}",
+        )
 
     logger.info(
         f"Log data saved successfully: {os.environ['LANGUAGE_NAME']}/{log_file_name}"
