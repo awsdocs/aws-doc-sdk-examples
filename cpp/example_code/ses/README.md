@@ -108,7 +108,7 @@ will display any required arguments.
 
 - [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
 - [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
-- [SDK for C++ Amazon SES reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-ses/html/annotated.html)
+- [SDK for C++ Amazon SES reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-email/html/annotated.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
