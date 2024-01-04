@@ -98,7 +98,7 @@ will display any required arguments.
 
 - [CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
 - [CloudWatch API Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/Welcome.html)
-- [SDK for C++ CloudWatch reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-cloudwatch/html/annotated.html)
+- [SDK for C++ CloudWatch reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-monitoring/html/annotated.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
