@@ -94,7 +94,7 @@ will display any required arguments.
 
 - [CloudWatch Logs User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
 - [CloudWatch Logs API Reference](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/Welcome.html)
-- [SDK for C++ CloudWatch Logs reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-cloudwatch-logs/html/annotated.html)
+- [SDK for C++ CloudWatch Logs reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-logs/html/annotated.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
