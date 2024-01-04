@@ -1,13 +1,13 @@
-# HealthImaging code examples for the AWS CLI with Bash script
+# Amazon EC2 code examples for the AWS CLI with Bash script
 
 ## Overview
 
-Shows how to use the AWS Command Line Interface with Bash script to work with AWS HealthImaging.
+Shows how to use the AWS Command Line Interface with Bash script to work with Amazon Elastic Compute Cloud (Amazon EC2).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_HealthImaging is a HIPAA-eligible service that helps health care providers and their medical imaging ISV partners store, transform, and apply machine learning to medical images._
+_Amazon EC2 is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems._
 
 ## ⚠ Important
 
@@ -28,16 +28,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [Create a data store](medical_imaging_operations.sh#L22) (`CreateDatastore`)
-- [Delete a data store](medical_imaging_operations.sh#L218) (`DeleteDatastore`)
-- [Get data store properties](medical_imaging_operations.sh#L147) (`GetDatastore`)
-- [List data stores](medical_imaging_operations.sh#L91) (`ListDatastores`)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -67,9 +57,9 @@ in the `aws-cli` folder.
 
 ## Additional resources
 
-- [HealthImaging Developer Guide](https://docs.aws.amazon.com/healthimaging/latest/devguide/what-is.html)
-- [HealthImaging API Reference](https://docs.aws.amazon.com/healthimaging/latest/APIReference/Welcome.html)
-- [AWS CLI with Bash script HealthImaging reference](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/medical-imaging/index.html)
+- [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
+- [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
+- [AWS CLI with Bash script Amazon EC2 reference](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
