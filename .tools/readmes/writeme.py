@@ -6,6 +6,8 @@ import config
 import logging
 from scanner import Scanner
 from render import Renderer
+from pathlib import Path
+import os
 
 
 def main():
@@ -31,7 +33,7 @@ def main():
         "service",
         metavar="service",
         choices=scanner.services(),
-        help=f"The targeted service. Choose from: %(choices)s.",
+        help="The targeted service. Choose from: %(choices)s.",
     )
     parser.add_argument(
         "--svc_folder",
@@ -68,6 +70,7 @@ def main():
             scanner, args.sdk_version, args.safe, svc_folder=args.svc_folder
         )
         renderer.render()
+        renderer.write()
     except Exception as err:
         print("*** Something went wrong! ***")
         raise err
