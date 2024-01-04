@@ -6,6 +6,8 @@ import config
 import logging
 from scanner import Scanner
 from render import Renderer
+from pathlib import Path
+import os
 
 
 def main():
@@ -31,7 +33,7 @@ def main():
         "service",
         metavar="service",
         choices=scanner.services(),
-        help=f"The targeted service. Choose from: %(choices)s.",
+        help="The targeted service. Choose from: %(choices)s.",
     )
     parser.add_argument(
         "--svc_folder",
@@ -67,7 +69,15 @@ def main():
         renderer = Renderer(
             scanner, args.sdk_version, args.safe, svc_folder=args.svc_folder
         )
-        renderer.render()
+        (readme_filename, readme_text) = renderer.render()
+        if args.safe and Path(readme_filename).exists():
+            os.rename(
+                readme_filename,
+                f'{renderer.lang_config["service_folder"]}/{config.saved_readme}',
+            )
+        with open(readme_filename, "w", encoding="utf-8") as f:
+            f.write(readme_text)
+        print(f"Updated {readme_filename}.")
     except Exception as err:
         print("*** Something went wrong! ***")
         raise err
