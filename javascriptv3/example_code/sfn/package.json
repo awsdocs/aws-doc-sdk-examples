@@ -1,12 +1,16 @@
 {
-  "name": "sfn",
+  "name": "example-javascriptv3-sfn",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "author": "Corey Pyle <corepyle@amazon.com>",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run **/*.unit.test.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-sfn": "^3.485.0"
+  },
+  "devDependencies": {
+    "vitest": "^1.1.1"
+  }
 }

@@ -266,6 +266,15 @@ sfn_StartExecution:
               snippet_tags:
                 - python.example_code.sfn.StateMachine_decl
                 - python.example_code.sfn.StartExecution
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sfn
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/sfn/actions/start-execution.js
   services:
     sfn: {StartExecution}
 sfn_ListExecutions:
