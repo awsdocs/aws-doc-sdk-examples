@@ -139,7 +139,7 @@ This example shows you how to do the following:
 
 - [Aurora User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
 - [Aurora API Reference](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/Welcome.html)
-- [SDK for C++ Aurora reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-aurora/html/annotated.html)
+- [SDK for C++ Aurora reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-rds/html/annotated.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
