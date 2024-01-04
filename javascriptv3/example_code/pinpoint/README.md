@@ -1,65 +1,92 @@
-# Amazon Pinpoint JavaScript SDK v3 code examples
+# Amazon Pinpoint code examples for the SDK for JavaScript (v3)
 
-## Purpose
+## Overview
 
-The code examples in this directory demonstrate how to work with Amazon Pinpoint
-using the AWS SDK for JavaScript (v3).
+Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Pinpoint.
 
-Amazon Pinpoint is a flexible and scalable outbound and inbound marketing communications service. You can connect with customers over channels like email, SMS, push, or voice.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_Amazon Pinpoint helps you engage your customers by sending them email, SMS and voice messages, and push notifications._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
 
-### API examples
-
-- [Send email messages](src/pinpoint_send_email_message.js)
-- [Send SMS messages](src/pinpoint_send_sms_message.js)
-
-**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
-[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
-
-## Important
-
-- As an AWS best practice, grant this code least privilege, or only the
-  permissions required to perform a task. For more information, see
-  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the _AWS Identity and Access Management User Guide_.
-- This code has not been tested in all AWS Regions. Some AWS services are
-  available only in specific AWS Regions. For more information, see the
-  [AWS Regional Services List](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-  on the AWS website.
-- Running this code might result in charges to your AWS account.
-
-## Running the code
-
 ### Prerequisites
 
-- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-- AWS credentials. For details, see [Setting credentials in Node.js](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html) in the
-  _AWS SDK for Javascript (v3) Developer Guide_.
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javascriptv3` folder.
 
-1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
 
-2. Install the dependencies listed in the package.json.
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-**Note**: These include the client module for the AWS services required in these example,
-which are _@aws-sdk/client-pinpoint_, _@aws-sdk/client-pinpoint-email_, and _@aws-sdk/client-pinpoint-sms-voice_.
+### Single actions
 
+Code excerpts that show you how to call individual service functions.
+
+- [Send email and text messages](src/libs/pinClient.js#L14) (`SendMessages`)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
+
+**Run a single action**
+
+```bash
+node ./actions/<fileName>
 ```
-npm install node -g
-cd javascriptv3/example_code/pinpoint
-npm install
+
+**Run a scenario**
+Most scenarios can be run with the following command:
+```bash
+node ./scenarios/<fileName>
 ```
 
-3. In your text editor, update user variables specified in the `Inputs` section of the sample file.
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-4. Run sample code:
 
-```
-cd src
-node [example name].js // For example, node pinpoint-create-cluster.js
-```
 
-## Resources
+### Tests
 
-- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)
-- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/pinpoint/index.html)
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javascriptv3` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Amazon Pinpoint Developer Guide](https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html)
+- [Amazon Pinpoint API Reference](https://docs.aws.amazon.com/pinpoint/latest/apireference/welcome.html)
+- [SDK for JavaScript (v3) Amazon Pinpoint reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/pinpoint)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
