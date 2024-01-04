@@ -141,6 +141,7 @@ language = {
                 "config-service": "python/example_code/config",
                 "device-farm": "python/example_code/devicefarm",
                 "elastic-load-balancing-v2": "python/example_code/elastic-load-balancing",
+                "secrets-manager": "python/example_code/secretsmanager"
             },
         }
     },
