@@ -163,6 +163,10 @@ language = {
             "base_folder": "sap-abap",
             "service_folder": 'sap-abap/services/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/{{service["name"]}}/index.html',
+            "service_folder_overrides": {
+                "bedrock-runtime": "sap-abap/services/bdr",
+                "dynamodb": "sap-abap/services/dyn",
+            },
         }
     },
     "Swift": {

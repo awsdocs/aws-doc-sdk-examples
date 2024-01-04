@@ -1,13 +1,13 @@
-# Amazon S3 code examples for the SDK for SAP ABAP
+# Amazon Translate code examples for the SDK for SAP ABAP
 
 ## Overview
 
-Shows how to use the AWS SDK for SAP ABAP to work with Amazon Simple Storage Service (Amazon S3).
+Shows how to use the AWS SDK for SAP ABAP to work with Amazon Translate.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web._
+_Amazon Translate is a neural machine translation service for translating text to and from English across a breadth of supported languages._
 
 ## ⚠ Important
 
@@ -33,20 +33,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](zcl_aws1_s3_actions.clas.abap#L64) (`CopyObject`)
-- [Create a bucket](zcl_aws1_s3_actions.clas.abap#L88) (`CreateBucket`)
-- [Delete an empty bucket](zcl_aws1_s3_actions.clas.abap#L110) (`DeleteBucket`)
-- [Delete an object](zcl_aws1_s3_actions.clas.abap#L131) (`DeleteObject`)
-- [Get an object from a bucket](zcl_aws1_s3_actions.clas.abap#L151) (`GetObject`)
-- [List objects in a bucket](zcl_aws1_s3_actions.clas.abap#L194) (`ListObjectsV2`)
-- [Upload an object to a bucket](zcl_aws1_s3_actions.clas.abap#L214) (`PutObject`)
+- [Describe a translation job](zcl_aws1_xl8_actions.clas.abap#L62) (`DescribeTextTranslationJob`)
+- [List translation jobs](zcl_aws1_xl8_actions.clas.abap#L89) (`ListTextTranslationJobs`)
+- [Start a translation job](zcl_aws1_xl8_actions.clas.abap#L124) (`StartTextTranslationJob`)
+- [Stop a translation job](zcl_aws1_xl8_actions.clas.abap#L184) (`StopTextTranslationJob`)
+- [Translate text](zcl_aws1_xl8_actions.clas.abap#L210) (`TranslateText`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with buckets and objects](zcl_aws1_s3_scenario.clas.abap)
+- [Get started with translate jobs](zcl_aws1_xl8_scenario.clas.abap)
 
 
 <!--custom.examples.start-->
@@ -62,22 +60,20 @@ functions within the same service.
 
 
 
-#### Get started with buckets and objects
+#### Get started with translate jobs
 
 This example shows you how to do the following:
 
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
+- Start an asynchronous batch translation job.
+- Wait for the asynchronous job to complete.
+- Describe the asynchronous job.
 
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+<!--custom.scenario_prereqs.translate_Scenario_GettingStarted.start-->
+<!--custom.scenario_prereqs.translate_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.scenarios.translate_Scenario_GettingStarted.start-->
+<!--custom.scenarios.translate_Scenario_GettingStarted.end-->
 
 ### Tests
 
@@ -94,9 +90,9 @@ in the `sap-abap` folder.
 
 ## Additional resources
 
-- [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
-- [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-- [SDK for SAP ABAP Amazon S3 reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/s3/index.html)
+- [Amazon Translate Developer Guide](https://docs.aws.amazon.com/translate/latest/dg/what-is.html)
+- [Amazon Translate API Reference](https://docs.aws.amazon.com/translate/latest/APIReference/welcome.html)
+- [SDK for SAP ABAP Amazon Translate reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/xl8/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
