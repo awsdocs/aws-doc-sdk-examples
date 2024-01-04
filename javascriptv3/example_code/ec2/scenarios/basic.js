@@ -37,15 +37,14 @@ import {
 } from "@aws-sdk/client-ec2";
 import { paginateGetParametersByPath, SSMClient } from "@aws-sdk/client-ssm";
 
-import {
-  promptToSelect,
-  promptToContinue,
-} from "@aws-sdk-examples/libs/utils/util-io.js";
+import { promptToContinue } from "@aws-sdk-examples/libs/utils/util-io.js";
 import { wrapText } from "@aws-sdk-examples/libs/utils/util-string.js";
+import { Prompter } from "@aws-sdk-examples/libs/prompter.js";
 
 const ec2Client = new EC2Client();
 const ssmClient = new SSMClient();
 
+const prompter = new Prompter();
 const tmpDirectory = mkdtempSync(join(tmpdir(), "ec2-scenario-tmp"));
 
 const createKeyPair = async (keyPairName) => {
@@ -149,14 +148,18 @@ const getAmznLinux2AMIs = async () => {
     imageDetails.push(...(page.Images || []));
   }
 
-  const options = imageDetails.map(
-    (image) => `${image.ImageId} - ${image.Description}`,
-  );
+  const choices = imageDetails.map((image, index) => ({
+    name: `${image.ImageId} - ${image.Description}`,
+    value: index,
+  }));
 
   /**
-   * @type {number[]}
+   * @type {number}
    */
-  const [selectedIndex] = await promptToSelect(options);
+  const selectedIndex = await prompter.select({
+    message: "Select an image.",
+    choices,
+  });
 
   return imageDetails[selectedIndex];
 };
@@ -186,17 +189,18 @@ const getCompatibleInstanceTypes = async (imageDetails) => {
     }
   }
 
-  const instanceTypeList = instanceTypes.map(
-    (type) => `${type.InstanceType} - Memory:${type.MemoryInfo.SizeInMiB}`,
-  );
+  const choices = instanceTypes.map((type, index) => ({
+    name: `${type.InstanceType} - Memory:${type.MemoryInfo.SizeInMiB}`,
+    value: index,
+  }));
 
   /**
-   * @type {number[]}
+   * @type {number}
    */
-  const [selectedIndex] = await promptToSelect(
-    instanceTypeList,
-    "Select an instance type.",
-  );
+  const selectedIndex = await prompter.select({
+    message: "Select an instance type.",
+    choices,
+  });
   return instanceTypes[selectedIndex];
 };
 
@@ -269,7 +273,14 @@ const disassociateAddress = async (associationId) => {
   const command = new DisassociateAddressCommand({
     AssociationId: associationId,
   });
-  await ec2Client.send(command);
+  try {
+    await ec2Client.send(command);
+  } catch (err) {
+    console.warn(
+      `Failed to disassociated address with association id: ${associationId}`,
+      err,
+    );
+  }
 };
 
 const releaseAddress = async (allocationId) => {
@@ -281,7 +292,10 @@ const releaseAddress = async (allocationId) => {
     await ec2Client.send(command);
     console.log(`🧹 Address with allocation ID ${allocationId} released.\n`);
   } catch (err) {
-    console.log(err);
+    console.log(
+      `Failed to release address with allocation id: ${allocationId}.`,
+      err,
+    );
   }
 };
 
@@ -307,7 +321,7 @@ const terminateInstance = async (instanceId) => {
     );
     console.log(`🧹 Instance with ID ${instanceId} terminated.\n`);
   } catch (err) {
-    console.error(err);
+    console.warn(`Failed to terminate instance ${instanceId}.`, err);
   }
 };
 
@@ -320,7 +334,7 @@ const deleteSecurityGroup = async (securityGroupId) => {
     await ec2Client.send(command);
     console.log(`🧹 Security group ${securityGroupId} deleted.\n`);
   } catch (err) {
-    console.error(err);
+    console.warn(`Failed to delete security group ${securityGroupId}.`, err);
   }
 };
 
@@ -333,7 +347,7 @@ const deleteKeyPair = async (keyPairName) => {
     await ec2Client.send(command);
     console.log(`🧹 Key pair ${keyPairName} deleted.\n`);
   } catch (err) {
-    console.error(err);
+    console.warn(`Failed to delete key pair ${keyPairName}.`, err);
   }
 };
 
@@ -342,7 +356,7 @@ const deleteTemporaryDirectory = () => {
     rmSync(tmpDirectory, { recursive: true });
     console.log(`🧹 Temporary directory ${tmpDirectory} deleted.\n`);
   } catch (err) {
-    console.error(err);
+    console.warn(`Failed to delete temporary directory ${tmpDirectory}.`, err);
   }
 };
 
