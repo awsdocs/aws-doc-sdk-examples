@@ -1019,10 +1019,10 @@ medical-imaging_Scenario_image_sets_and_frames:
                 - cpp.example_code.medical-imaging.image-sets-workflow.dicom-import
                 - cpp.example_code.medical_imaging.StartDICOMImportJob
                 - cpp.example_code.medical-imaging.image-sets-workflow.wait_import
+                - cpp.example_code.medical_imaging.GetDICOMImportJob
             - description: Get image sets created by the DICOM import job.
               snippet_tags:
                 - cpp.example_code.medical-imaging.image-sets-workflow.get_image_sets
-                - cpp.example_code.medical_imaging.GetDICOMImportJob
             - description: Get image frame information for image sets.
               snippet_tags:
                 - cpp.example_code.medical-imaging.image-sets-workflow.get_image_frames
