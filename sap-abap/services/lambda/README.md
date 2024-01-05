@@ -1,13 +1,13 @@
-# Amazon S3 code examples for the SDK for SAP ABAP
+# Lambda code examples for the SDK for SAP ABAP
 
 ## Overview
 
-Shows how to use the AWS SDK for SAP ABAP to work with Amazon Simple Storage Service (Amazon S3).
+Shows how to use the AWS SDK for SAP ABAP to work with AWS Lambda.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web._
+_Lambda allows you to run code without provisioning or managing servers._
 
 ## ⚠ Important
 
@@ -33,20 +33,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](zcl_aws1_s3_actions.clas.abap#L64) (`CopyObject`)
-- [Create a bucket](zcl_aws1_s3_actions.clas.abap#L88) (`CreateBucket`)
-- [Delete an empty bucket](zcl_aws1_s3_actions.clas.abap#L110) (`DeleteBucket`)
-- [Delete an object](zcl_aws1_s3_actions.clas.abap#L131) (`DeleteObject`)
-- [Get an object from a bucket](zcl_aws1_s3_actions.clas.abap#L151) (`GetObject`)
-- [List objects in a bucket](zcl_aws1_s3_actions.clas.abap#L194) (`ListObjectsV2`)
-- [Upload an object to a bucket](zcl_aws1_s3_actions.clas.abap#L214) (`PutObject`)
+- [Create a function](zcl_aws1_lmd_actions.clas.abap#L65) (`CreateFunction`)
+- [Delete a function](zcl_aws1_lmd_actions.clas.abap#L105) (`DeleteFunction`)
+- [Get a function](zcl_aws1_lmd_actions.clas.abap#L130) (`GetFunction`)
+- [Invoke a function](zcl_aws1_lmd_actions.clas.abap#L151) (`Invoke`)
+- [List functions](zcl_aws1_lmd_actions.clas.abap#L193) (`ListFunctions`)
+- [Update function code](zcl_aws1_lmd_actions.clas.abap#L216) (`UpdateFunctionCode`)
+- [Update function configuration](zcl_aws1_lmd_actions.clas.abap#L253) (`UpdateFunctionConfiguration`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with buckets and objects](zcl_aws1_s3_scenario.clas.abap)
+- [Get started with functions](zcl_aws1_lmd_scenario.clas.abap)
 
 
 <!--custom.examples.start-->
@@ -62,22 +62,22 @@ functions within the same service.
 
 
 
-#### Get started with buckets and objects
+#### Get started with functions
 
 This example shows you how to do the following:
 
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
+- Create an IAM role and Lambda function, then upload handler code.
+- Invoke the function with a single parameter and get results.
+- Update the function code and configure with an environment variable.
+- Invoke the function with new parameters and get results. Display the returned execution log.
+- List the functions for your account, then clean up resources.
 
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
 
 ### Tests
 
@@ -94,9 +94,9 @@ in the `sap-abap` folder.
 
 ## Additional resources
 
-- [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
-- [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-- [SDK for SAP ABAP Amazon S3 reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/s3/index.html)
+- [Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
+- [Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
+- [SDK for SAP ABAP Lambda reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/lmd/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

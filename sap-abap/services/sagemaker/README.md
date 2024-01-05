@@ -1,13 +1,13 @@
-# Amazon S3 code examples for the SDK for SAP ABAP
+# SageMaker code examples for the SDK for SAP ABAP
 
 ## Overview
 
-Shows how to use the AWS SDK for SAP ABAP to work with Amazon Simple Storage Service (Amazon S3).
+Shows how to use the AWS SDK for SAP ABAP to work with Amazon SageMaker.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web._
+_SageMaker is a fully managed machine learning service._
 
 ## ⚠ Important
 
@@ -33,20 +33,24 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](zcl_aws1_s3_actions.clas.abap#L64) (`CopyObject`)
-- [Create a bucket](zcl_aws1_s3_actions.clas.abap#L88) (`CreateBucket`)
-- [Delete an empty bucket](zcl_aws1_s3_actions.clas.abap#L110) (`DeleteBucket`)
-- [Delete an object](zcl_aws1_s3_actions.clas.abap#L131) (`DeleteObject`)
-- [Get an object from a bucket](zcl_aws1_s3_actions.clas.abap#L151) (`GetObject`)
-- [List objects in a bucket](zcl_aws1_s3_actions.clas.abap#L194) (`ListObjectsV2`)
-- [Upload an object to a bucket](zcl_aws1_s3_actions.clas.abap#L214) (`PutObject`)
+- [Create a model](zcl_aws1_sgm_actions.clas.abap#L173) (`CreateModel`)
+- [Create an endpoint](zcl_aws1_sgm_actions.clas.abap#L123) (`CreateEndpoint`)
+- [Delete a model](zcl_aws1_sgm_actions.clas.abap#L435) (`DeleteModel`)
+- [Delete an endpoint](zcl_aws1_sgm_actions.clas.abap#L402) (`DeleteEndpoint`)
+- [Describe a training job](zcl_aws1_sgm_actions.clas.abap#L457) (`DescribeTrainingJob`)
+- [List models](zcl_aws1_sgm_actions.clas.abap#L499) (`ListModels`)
+- [List notebook instances](zcl_aws1_sgm_actions.clas.abap#L520) (`ListNotebookInstances`)
+- [List the machine learning algorithms](zcl_aws1_sgm_actions.clas.abap#L478) (`ListAlgorithms`)
+- [List training jobs](zcl_aws1_sgm_actions.clas.abap#L540) (`ListTrainingJobs`)
+- [Start a training job](zcl_aws1_sgm_actions.clas.abap#L204) (`CreateTrainingJob`)
+- [Start a transform job](zcl_aws1_sgm_actions.clas.abap#L337) (`CreateTransformJob`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with buckets and objects](zcl_aws1_s3_scenario.clas.abap)
+- [Get started with models and endpoints](zcl_aws1_sgm_scenario.clas.abap)
 
 
 <!--custom.examples.start-->
@@ -62,22 +66,20 @@ functions within the same service.
 
 
 
-#### Get started with buckets and objects
+#### Get started with models and endpoints
 
 This example shows you how to do the following:
 
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
+- Start a training job and create a SageMaker model.
+- Create an endpoint configuration.
+- Create an endpoint, then clean up resources.
 
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+<!--custom.scenario_prereqs.sagemaker_Scenario_GettingStarted.start-->
+<!--custom.scenario_prereqs.sagemaker_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.scenarios.sagemaker_Scenario_GettingStarted.start-->
+<!--custom.scenarios.sagemaker_Scenario_GettingStarted.end-->
 
 ### Tests
 
@@ -94,9 +96,9 @@ in the `sap-abap` folder.
 
 ## Additional resources
 
-- [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
-- [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-- [SDK for SAP ABAP Amazon S3 reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/s3/index.html)
+- [SageMaker Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html)
+- [SageMaker API Reference](https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html)
+- [SDK for SAP ABAP SageMaker reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/sgm/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

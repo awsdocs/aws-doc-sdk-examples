@@ -1,13 +1,13 @@
-# Amazon S3 code examples for the SDK for SAP ABAP
+# CloudWatch code examples for the SDK for SAP ABAP
 
 ## Overview
 
-Shows how to use the AWS SDK for SAP ABAP to work with Amazon Simple Storage Service (Amazon S3).
+Shows how to use the AWS SDK for SAP ABAP to work with Amazon CloudWatch.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web._
+_CloudWatch provides a reliable, scalable, and flexible monitoring solution that you can start using within minutes._
 
 ## ⚠ Important
 
@@ -33,20 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](zcl_aws1_s3_actions.clas.abap#L64) (`CopyObject`)
-- [Create a bucket](zcl_aws1_s3_actions.clas.abap#L88) (`CreateBucket`)
-- [Delete an empty bucket](zcl_aws1_s3_actions.clas.abap#L110) (`DeleteBucket`)
-- [Delete an object](zcl_aws1_s3_actions.clas.abap#L131) (`DeleteObject`)
-- [Get an object from a bucket](zcl_aws1_s3_actions.clas.abap#L151) (`GetObject`)
-- [List objects in a bucket](zcl_aws1_s3_actions.clas.abap#L194) (`ListObjectsV2`)
-- [Upload an object to a bucket](zcl_aws1_s3_actions.clas.abap#L214) (`PutObject`)
+- [Create a metric alarm](zcl_aws1_cwt_actions.clas.abap#L177) (`PutMetricAlarm`)
+- [Delete alarms](zcl_aws1_cwt_actions.clas.abap#L63) (`DeleteAlarms`)
+- [Describe alarms](zcl_aws1_cwt_actions.clas.abap#L84) (`DescribeAlarms`)
+- [Disable alarm actions](zcl_aws1_cwt_actions.clas.abap#L106) (`DisableAlarmActions`)
+- [Enable alarm actions](zcl_aws1_cwt_actions.clas.abap#L130) (`EnableAlarmActions`)
+- [List metrics](zcl_aws1_cwt_actions.clas.abap#L154) (`ListMetrics`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with buckets and objects](zcl_aws1_s3_scenario.clas.abap)
+- [Get started with alarms](zcl_aws1_cwt_scenario.clas.abap)
 
 
 <!--custom.examples.start-->
@@ -62,22 +61,21 @@ functions within the same service.
 
 
 
-#### Get started with buckets and objects
+#### Get started with alarms
 
 This example shows you how to do the following:
 
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
+- Create an alarm.
+- Disable alarm actions.
+- Describe an alarm.
+- Delete an alarm.
 
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+<!--custom.scenario_prereqs.cloudwatch_Scenario_GettingStarted.start-->
+<!--custom.scenario_prereqs.cloudwatch_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.scenarios.cloudwatch_Scenario_GettingStarted.start-->
+<!--custom.scenarios.cloudwatch_Scenario_GettingStarted.end-->
 
 ### Tests
 
@@ -94,9 +92,9 @@ in the `sap-abap` folder.
 
 ## Additional resources
 
-- [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
-- [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-- [SDK for SAP ABAP Amazon S3 reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/s3/index.html)
+- [CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
+- [CloudWatch API Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/Welcome.html)
+- [SDK for SAP ABAP CloudWatch reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/cwt/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
