@@ -2,7 +2,7 @@ name: Validate WRITEMEs
 
 # Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
+  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [main]
   pull_request:
@@ -31,4 +31,4 @@ jobs:
           python3 -m pip install -r .tools/base_requirements.txt
       - name: Check WRITEMEs
         run: >-
-          python3 .tools/readmes/multi.py --dry-run
+          python3 .tools/readmes/multi.py --check
