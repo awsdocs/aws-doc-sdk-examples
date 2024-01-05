@@ -819,7 +819,7 @@ medical-imaging_ListTagsForResource:
                 - medicalimaging.java2.list_tags_for_resource.main
   services:
     medical-imaging: {ListTagsForResource}
-medical-imaging_tagging_datastores:
+medical-imaging_Scenario_TaggingDataStores:
   title: Tagging a &AHI; data store using an &AWS; SDK
   title_abbrev: Tagging a data store
   synopsis: tag a &AHI; data store.
@@ -905,7 +905,7 @@ medical-imaging_tagging_datastores:
                 - medicalimaging.java2.untag_resource.main
   services:
     medical-imaging: {TagResource, UntagResource, ListTagsForResource}
-medical-imaging_tagging_imagesets:
+medical-imaging_Scenario_TaggingImageSets:
   title: Tagging a &AHI; image set using an &AWS; SDK
   title_abbrev: Tagging an image set
   synopsis: tag a &AHI; image set.
@@ -991,9 +991,10 @@ medical-imaging_tagging_imagesets:
                 - medicalimaging.java2.untag_resource.main
   services:
     medical-imaging: {TagResource, UntagResource, ListTagsForResource}
-medical-imaging_Scenario_image_sets_and_frames:
+medical-imaging_Scenario_ImageSetsAndFrames:
   title: Get started with &AHI; image sets and image frames using an &AWS; SDK
   title_abbrev: Get started with image sets and image frames
+  synopsis: get started with &AHI; image sets and image frames.
   synopsis_list:
     - Set up resources for a DICOM import.
     - Import DICOM files into a data store.
