@@ -19,7 +19,8 @@
 #include <iostream>
 
 /*
- *  A "Hello HealthImaging" starter application which initializes an AWS HealthImaging (HealthImaging) client and lists the HealthImaging data stores in the current account.
+ *  A "Hello HealthImaging" starter application which initializes an AWS HealthImaging (HealthImaging) client
+ *  and lists the HealthImaging data stores in the current account.
  *
  *  main function
  *
@@ -33,8 +34,8 @@ int main(int argc, char **argv) {
     (void) argc;
     (void) argv;
     Aws::SDKOptions options;
-    //     Optionally change the log level for debugging.
-//   options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
+    //   Optional: change the log level for debugging.
+    //   options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
 
     Aws::InitAPI(options); // Should only be called once.
     {
@@ -46,7 +47,7 @@ int main(int argc, char **argv) {
         Aws::MedicalImaging::Model::ListDatastoresRequest listDatastoresRequest;
 
         Aws::Vector<Aws::MedicalImaging::Model::DatastoreSummary> allDataStoreSummaries;
-        Aws::String nextToken; // Used for paginated results;
+        Aws::String nextToken; // Used for paginated results.
         do {
             if (!nextToken.empty()) {
                 listDatastoresRequest.SetNextToken(nextToken);

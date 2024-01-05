@@ -4,8 +4,8 @@
 */
 
 #pragma once
-#ifndef S3_EXAMPLES_S3_GTESTS_H
-#define S3_EXAMPLES_S3_GTESTS_H
+#ifndef MEDICALIMAGING_EXAMPLES_GTESTS_H
+#define MEDICALIMAGING_EXAMPLES_GTESTS_H
 
 #include <aws/core/Aws.h>
 #include <memory>
@@ -67,4 +67,4 @@ namespace AwsDocTest {
     }; // MockHTTP
 } // AwsDocTest
 
-#endif //S3_EXAMPLES_S3_GTESTS_H
+#endif //MEDICALIMAGING_EXAMPLES_GTESTS_H

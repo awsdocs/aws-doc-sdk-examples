@@ -23,6 +23,7 @@ SPDX-License-Identifier: Apache-2.0
  *
  */
 
+// snippet-start:[cpp.example_code.medical-imaging.GetImageFrame]
 //! Routine which downloads an AWS HealthImaging image frame.
 /*!
   \param dataStoreID: The HealthImaging data store ID.
@@ -32,8 +33,6 @@ SPDX-License-Identifier: Apache-2.0
   \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
 */
-
-// snippet-start:[cpp.example_code.medical-imaging.GetImageFrame]
 bool AwsDoc::Medical_Imaging::getImageFrame(const Aws::String &dataStoreID,
                                             const Aws::String &imageSetID,
                                             const Aws::String &frameID,

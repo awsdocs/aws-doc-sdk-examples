@@ -41,7 +41,7 @@ bool AwsDoc::Medical_Imaging::searchImageSets(
     request.SetDatastoreId(dataStoreID);
     request.SetSearchCriteria(searchCriteria);
 
-    Aws::String nextToken;
+    Aws::String nextToken; // Used for paginated results.
     bool result = true;
     do {
         if (!nextToken.empty()) {
@@ -170,7 +170,7 @@ int main(int argc, char **argv) {
         result = AwsDoc::Medical_Imaging::searchImageSets(dataStoreID, useCase3SearchCriteria, usesCase3Results,
                                                           clientConfig);
         if (result) {
-            std::cout << usesCase3Results.size() << " image sets found for created between 2023/12/01 and present."
+            std::cout << usesCase3Results.size() << " image sets found for created between 2023/11/30 and present."
                       <<  std::endl;
             for (auto &imageSetResult : usesCase3Results) {
                 std::cout << "  Image set with ID '" << imageSetResult << std::endl;

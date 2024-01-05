@@ -1037,3 +1037,13 @@ medical-imaging_Scenario_image_sets_and_frames:
               snippet_tags:
                 - cpp.example_code.medical-imaging.image-sets-workflow.clean_up
                 - cpp.example_code.medical-imaging.image-sets-workflow.empty_data_store
+  services:
+    medical-imaging:
+      {
+        StartDICOMImportJob,
+        GetDICOMImportJob,
+        GetImageSetMetadata,
+        GetImageFrame,
+        SearchImageSets,
+        DeleteImageSet
+      }
