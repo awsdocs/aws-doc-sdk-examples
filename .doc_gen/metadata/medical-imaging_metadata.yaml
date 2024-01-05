@@ -9,6 +9,7 @@ medical-imaging_Hello:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -25,6 +26,7 @@ medical-imaging_CreateDatastore:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -34,6 +36,7 @@ medical-imaging_CreateDatastore:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -42,6 +45,7 @@ medical-imaging_CreateDatastore:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -50,6 +54,7 @@ medical-imaging_CreateDatastore:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -66,6 +71,7 @@ medical-imaging_DeleteDatastore:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -75,6 +81,7 @@ medical-imaging_DeleteDatastore:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -83,6 +90,7 @@ medical-imaging_DeleteDatastore:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - snippet_tags:
                 - medicalimaging.java2.delete_datastore.main
@@ -90,6 +98,7 @@ medical-imaging_DeleteDatastore:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -106,6 +115,7 @@ medical-imaging_ListDatastores:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -115,6 +125,7 @@ medical-imaging_ListDatastores:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -123,6 +134,7 @@ medical-imaging_ListDatastores:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -131,6 +143,7 @@ medical-imaging_ListDatastores:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -147,6 +160,7 @@ medical-imaging_GetDatastore:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -156,6 +170,7 @@ medical-imaging_GetDatastore:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -164,6 +179,7 @@ medical-imaging_GetDatastore:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -172,6 +188,7 @@ medical-imaging_GetDatastore:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -188,6 +205,7 @@ medical-imaging_StartDICOMImportJob:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -196,6 +214,7 @@ medical-imaging_StartDICOMImportJob:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -204,6 +223,7 @@ medical-imaging_StartDICOMImportJob:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -220,6 +240,7 @@ medical-imaging_GetDICOMImportJob:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -228,6 +249,7 @@ medical-imaging_GetDICOMImportJob:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -236,6 +258,7 @@ medical-imaging_GetDICOMImportJob:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -252,6 +275,7 @@ medical-imaging_ListDICOMImportJobs:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -260,6 +284,7 @@ medical-imaging_ListDICOMImportJobs:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -268,6 +293,7 @@ medical-imaging_ListDICOMImportJobs:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -284,6 +310,7 @@ medical-imaging_SearchImageSets:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description: The utility function for searching image sets.
               snippet_tags:
@@ -301,6 +328,7 @@ medical-imaging_SearchImageSets:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description: The utility function for searching image sets.
               snippet_tags:
@@ -321,6 +349,7 @@ medical-imaging_SearchImageSets:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description: The utility function for searching image sets.
               snippet_tags:
@@ -346,6 +375,7 @@ medical-imaging_GetImageSet:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -354,6 +384,7 @@ medical-imaging_GetImageSet:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -362,6 +393,7 @@ medical-imaging_GetImageSet:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -378,6 +410,7 @@ medical-imaging_GetImageSetMetadata:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description: Utility function to get image set metadata.
               snippet_tags:
@@ -392,6 +425,7 @@ medical-imaging_GetImageSetMetadata:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description: Utility function to get image set metadata.
               snippet_tags:
@@ -406,6 +440,7 @@ medical-imaging_GetImageSetMetadata:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -422,6 +457,7 @@ medical-imaging_GetImageFrame:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -430,6 +466,7 @@ medical-imaging_GetImageFrame:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -438,6 +475,7 @@ medical-imaging_GetImageFrame:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -454,6 +492,7 @@ medical-imaging_ListImageSetVersions:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -462,6 +501,7 @@ medical-imaging_ListImageSetVersions:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -470,6 +510,7 @@ medical-imaging_ListImageSetVersions:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -486,6 +527,7 @@ medical-imaging_UpdateImageSetMetadata:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -494,6 +536,7 @@ medical-imaging_UpdateImageSetMetadata:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -505,6 +548,7 @@ medical-imaging_UpdateImageSetMetadata:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -521,6 +565,7 @@ medical-imaging_CopyImageSet:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description: Utility function to copy an image set.
               snippet_tags:
@@ -538,6 +583,7 @@ medical-imaging_CopyImageSet:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description: Utility function to copy an image set.
               snippet_tags:
@@ -552,6 +598,7 @@ medical-imaging_CopyImageSet:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -568,6 +615,7 @@ medical-imaging_DeleteImageSet:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -576,6 +624,7 @@ medical-imaging_DeleteImageSet:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -584,6 +633,7 @@ medical-imaging_DeleteImageSet:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -600,6 +650,7 @@ medical-imaging_TagResource:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -608,6 +659,7 @@ medical-imaging_TagResource:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -616,6 +668,7 @@ medical-imaging_TagResource:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -632,6 +685,7 @@ medical-imaging_UntagResource:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -640,6 +694,7 @@ medical-imaging_UntagResource:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -648,6 +703,7 @@ medical-imaging_UntagResource:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -664,6 +720,7 @@ medical-imaging_ListTagsForResource:
       versions:
         - sdk_version: 3
           github: python/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -672,6 +729,7 @@ medical-imaging_ListTagsForResource:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -680,6 +738,7 @@ medical-imaging_ListTagsForResource:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -696,6 +755,7 @@ medical-imaging_tagging_datastores:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description: To tag a data store.
               snippet_tags:
@@ -722,6 +782,7 @@ medical-imaging_tagging_datastores:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description: To tag a data store.
               snippet_tags:
@@ -745,6 +806,7 @@ medical-imaging_tagging_datastores:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description: To tag a data store.
               snippet_tags:
@@ -779,6 +841,7 @@ medical-imaging_tagging_imagesets:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description: To tag an image set.
               snippet_tags:
@@ -805,6 +868,7 @@ medical-imaging_tagging_imagesets:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
+          github_note_at_bottom: true
           excerpts:
             - description: To tag an image set.
               snippet_tags:
@@ -828,6 +892,7 @@ medical-imaging_tagging_imagesets:
       versions:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
+          github_note_at_bottom: true
           excerpts:
             - description: To tag an image set.
               snippet_tags:

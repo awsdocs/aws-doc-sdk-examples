@@ -17,19 +17,7 @@ jobs:
     runs-on: aws-doc-sdk-examples_ubuntu-latest_16-core
     steps:
       - name: setup
-        run: >
-          sudo apt-get update && sudo apt-get install -y libclang-dev  &&
-          (
-          echo "Removing unwanted software... " ;
-          echo "Before:" ; df -h ;
-          sudo apt-get clean ; 
-          sudo rm -rf /usr/share/dotnet ;
-          sudo rm -rf /usr/local/lib/android ;
-          sudo rm -rf /opt/ghc ;
-          sudo rm -rf /opt/hostedtoolcache/CodeQL ;
-          sudo docker image prune --all --force ;
-          echo "After:" ; df -h ;
-          )
+        run: sudo apt-get update && sudo apt-get install -y libclang-dev
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: "1.70.0"

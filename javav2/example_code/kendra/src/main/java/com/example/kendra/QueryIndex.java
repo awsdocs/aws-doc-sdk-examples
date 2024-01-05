@@ -9,6 +9,7 @@
 
 package com.example.kendra;
 
+// snippet-start:[kendra.java2.query.index.main]
 // snippet-start:[kendra.java2.query.index.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -31,13 +32,15 @@ import java.util.List;
 public class QueryIndex {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <indexId> <text> \n\n" +
-            "Where:\n" +
-            "    indexId - The Id value of the index.\n" +
-            "    text - The text to use.\n" ;
+            Usage:
+                <indexId> <text>\s
+
+            Where:
+                indexId - The Id value of the index.
+                text - The text to use.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -48,14 +51,11 @@ public class QueryIndex {
         String text = args[1];
         KendraClient kendra = KendraClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         querySpecificIndex(kendra, indexId, text);
     }
 
-    // snippet-start:[kendra.java2.query.index.main]
     public static void querySpecificIndex(KendraClient kendra, String indexId, String text) {
-
         try {
             QueryRequest queryRequest = QueryRequest.builder()
                 .indexId(indexId)
@@ -65,19 +65,19 @@ public class QueryIndex {
 
             QueryResponse response = kendra.query(queryRequest);
             List<QueryResultItem> items = response.resultItems();
-            for (QueryResultItem item: items) {
-                System.out.println("The document title is "+item.documentTitle());
+            for (QueryResultItem item : items) {
+                System.out.println("The document title is " + item.documentTitle());
                 System.out.println("Text:");
                 System.out.println(item.documentExcerpt().text());
             }
 
             String id = response.responseMetadata().requestId();
-            System.out.println("The request Id is "+id);
+            System.out.println("The request Id is " + id);
 
         } catch (KendraException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[kendra.java2.query.index.main]
 }
+// snippet-end:[kendra.java2.query.index.main]

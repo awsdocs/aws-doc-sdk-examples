@@ -8,7 +8,7 @@
 */
 
 package com.example.cloudwatch;
-
+// snippet-start:[cloudwatch.java2.scenario.main]
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -77,7 +77,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// snippet-start:[cloudwatch.java2.scenario.main]
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
@@ -110,20 +109,22 @@ import java.util.Scanner;
  * 18. Clean up the Amazon CloudWatch resources.
  */
 public class CloudWatchScenario {
-
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws IOException {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <myDate> <costDateWeek> <dashboardName> <dashboardJson> <dashboardAdd> <settings> <metricImage>  \n\n" +
-            "Where:\n" +
-            "  myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z.) \n" +
-            "  costDateWeek - The start date to use to get AWS/Billinget statistics. (For example, 2023-01-11T18:35:24.00Z.) \n" +
-            "  dashboardName - The name of the dashboard to create. \n" +
-            "  dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file.) \n" +
-            "  dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file.) \n" +
-            "  settings - The location of a JSON file from which various values are read. (See Readme file.) \n" +
-            "  metricImage - The location of a BMP file that is used to create a graph. \n" ;
+        final String usage = """
+
+            Usage:
+              <myDate> <costDateWeek> <dashboardName> <dashboardJson> <dashboardAdd> <settings> <metricImage> \s
+
+            Where:
+              myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z.)\s
+              costDateWeek - The start date to use to get AWS/Billinget statistics. (For example, 2023-01-11T18:35:24.00Z.)\s
+              dashboardName - The name of the dashboard to create.\s
+              dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file.)\s
+              dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file.)\s
+              settings - The location of a JSON file from which various values are read. (See Readme file.)\s
+              metricImage - The location of a BMP file that is used to create a graph.\s
+            """;
 
        if (args.length != 7) {
            System.out.println(usage);

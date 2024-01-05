@@ -12,8 +12,6 @@ package com.example.mediaconvert;
 // snippet-start:[mediaconvert.java.getendpointurl.complete]
 // snippet-start:[mediaconvert.java.getendpointurl.import]
 import java.util.Iterator;
-
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
 import software.amazon.awssdk.services.mediaconvert.model.DescribeEndpointsRequest;
@@ -33,12 +31,10 @@ import software.amazon.awssdk.services.mediaconvert.model.MediaConvertException;
  */
 public class GetEndpointURL {
     public static void main(String[] args) {
-
         // snippet-start:[mediaconvert.java.getendpointurl.build_mediaconvertclient]
         Region region = Region.US_WEST_2;
         MediaConvertClient mc = MediaConvertClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         // snippet-end:[mediaconvert.java.getendpointurl.build_mediaconvertclient]
 
@@ -48,7 +44,6 @@ public class GetEndpointURL {
 
     // snippet-start:[mediaconvert.java.getendpointurl.retrieve_endpoints]
     public static void getEndpoint(MediaConvertClient mc) {
-
         try {
             DescribeEndpointsRequest request = DescribeEndpointsRequest.builder()
                 .maxResults(20)

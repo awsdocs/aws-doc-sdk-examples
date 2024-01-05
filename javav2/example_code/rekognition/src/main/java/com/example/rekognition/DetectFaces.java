@@ -9,8 +9,8 @@
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.detect_faces.main]
 // snippet-start:[rekognition.java2.detect_faces.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
@@ -35,14 +35,14 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DetectFaces {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <sourceImage>\n\n" +
-            "Where:\n" +
-            "   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png). \n\n";
+            Usage:    <sourceImage>
+
+            Where:
+               sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -52,17 +52,14 @@ public class DetectFaces {
         String sourceImage = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-             .region(region)
-             .credentialsProvider(ProfileCredentialsProvider.create())
-             .build();
+            .region(region)
+            .build();
 
-        detectFacesinImage(rekClient, sourceImage );
+        detectFacesinImage(rekClient, sourceImage);
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.detect_faces.main]
-    public static void detectFacesinImage(RekognitionClient rekClient,String sourceImage ) {
-
+    public static void detectFacesinImage(RekognitionClient rekClient, String sourceImage) {
         try {
             InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
@@ -82,10 +79,10 @@ public class DetectFaces {
             for (FaceDetail face : faceDetails) {
                 AgeRange ageRange = face.ageRange();
                 System.out.println("The detected face is estimated to be between "
-                            + ageRange.low().toString() + " and " + ageRange.high().toString()
-                            + " years old.");
+                    + ageRange.low().toString() + " and " + ageRange.high().toString()
+                    + " years old.");
 
-                System.out.println("There is a smile : "+face.smile().value().toString());
+                System.out.println("There is a smile : " + face.smile().value().toString());
             }
 
         } catch (RekognitionException | FileNotFoundException e) {
@@ -93,5 +90,5 @@ public class DetectFaces {
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.detect_faces.main]
- }
+}
+// snippet-end:[rekognition.java2.detect_faces.main]

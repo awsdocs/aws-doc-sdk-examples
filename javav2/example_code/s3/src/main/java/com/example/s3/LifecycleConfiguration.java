@@ -8,8 +8,8 @@
 */
 package com.example.s3;
 
+// snippet-start:[s3.java2.manage_lifecycle.main]
 // snippet-start:[s3.java2.manage_lifecycle.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.LifecycleRuleFilter;
@@ -36,15 +36,16 @@ import java.util.List;
  */
 
 public class LifecycleConfiguration {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <bucketName> <accountId> \n\n" +
-            "Where:\n" +
-            "  bucketName - The Amazon Simple Storage Service (Amazon S3) bucket to upload an object into.\n" +
-            "  accountId - The id of the account that owns the Amazon S3 bucket.\n" ;
+            Usage:
+              <bucketName> <accountId>\s
+
+            Where:
+              bucketName - The Amazon Simple Storage Service (Amazon S3) bucket to upload an object into.
+              accountId - The id of the account that owns the Amazon S3 bucket.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,11 +54,9 @@ public class LifecycleConfiguration {
 
         String bucketName = args[0];
         String accountId = args[1];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         setLifecycleConfig(s3, bucketName, accountId);
@@ -67,9 +66,7 @@ public class LifecycleConfiguration {
         s3.close();
     }
 
-    // snippet-start:[s3.java2.manage_lifecycle.main]
     public static void setLifecycleConfig(S3Client s3, String bucketName, String accountId) {
-
         try {
             // Create a rule to archive objects with the "glacierobjects/" prefix to Amazon S3 Glacier.
             LifecycleRuleFilter ruleFilter = LifecycleRuleFilter.builder()
@@ -132,8 +129,7 @@ public class LifecycleConfiguration {
     }
 
     // Retrieve the configuration and add a new rule.
-    public static void getLifecycleConfig(S3Client s3, String bucketName, String accountId){
-
+    public static void getLifecycleConfig(S3Client s3, String bucketName, String accountId) {
         try {
             GetBucketLifecycleConfigurationRequest getBucketLifecycleConfigurationRequest = GetBucketLifecycleConfigurationRequest.builder()
                 .bucket(bucketName)
@@ -143,7 +139,7 @@ public class LifecycleConfiguration {
             GetBucketLifecycleConfigurationResponse response = s3.getBucketLifecycleConfiguration(getBucketLifecycleConfigurationRequest);
             List<LifecycleRule> newList = new ArrayList<>();
             List<LifecycleRule> rules = response.rules();
-            for (LifecycleRule rule: rules) {
+            for (LifecycleRule rule : rules) {
                 newList.add(rule);
             }
 
@@ -186,7 +182,6 @@ public class LifecycleConfiguration {
 
     // Delete the configuration from the Amazon S3 bucket.
     public static void deleteLifecycleConfig(S3Client s3, String bucketName, String accountId) {
-
         try {
             DeleteBucketLifecycleRequest deleteBucketLifecycleRequest = DeleteBucketLifecycleRequest.builder()
                 .bucket(bucketName)
@@ -200,5 +195,5 @@ public class LifecycleConfiguration {
             System.exit(1);
         }
     }
-    // snippet-end:[s3.java2.manage_lifecycle.main]
 }
+// snippet-end:[s3.java2.manage_lifecycle.main]

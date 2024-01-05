@@ -8,8 +8,8 @@
 
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.send_voice_message.main]
 //snippet-start:[pinpoint.java2.send_voice_message.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpointsmsvoice.PinpointSmsVoiceClient;
@@ -52,12 +52,14 @@ public class SendVoiceMessage {
 
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage: " +
-            "  <originationNumber> <destinationNumber> \n\n" +
-            "Where:\n" +
-            "  originationNumber - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654). "+
-            "  destinationNumber - The recipient's phone number.  For best results, you should specify the phone number in E.164 format (for example, +1-555-555-5654). ";
+        final String usage = """
+
+            Usage:   <originationNumber> <destinationNumber>\s
+
+            Where:
+              originationNumber - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654).  
+              destinationNumber - The recipient's phone number.  For best results, you should specify the phone number in E.164 format (for example, +1-555-555-5654).\s
+              """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -66,7 +68,7 @@ public class SendVoiceMessage {
 
         String originationNumber = args[0];
         String destinationNumber = args[1];
-        System.out.println("Sending a voice message" );
+        System.out.println("Sending a voice message");
 
         // Set the content type to application/json.
         List<String> listVal = new ArrayList<>();
@@ -81,16 +83,13 @@ public class SendVoiceMessage {
         PinpointSmsVoiceClient client = PinpointSmsVoiceClient.builder()
             .overrideConfiguration(config2)
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         sendVoiceMsg(client, originationNumber, destinationNumber);
         client.close();
     }
 
-    //snippet-start:[pinpoint.java2.send_voice_message.main]
-    public static void sendVoiceMsg(PinpointSmsVoiceClient client, String originationNumber, String destinationNumber ) {
-
+    public static void sendVoiceMsg(PinpointSmsVoiceClient client, String originationNumber, String destinationNumber) {
         try {
             SSMLMessageType ssmlMessageType = SSMLMessageType.builder()
                 .languageCode(languageCode)
@@ -116,5 +115,5 @@ public class SendVoiceMessage {
             System.exit(1);
         }
     }
-    //snippet-end:[pinpoint.java2.send_voice_message.main]
 }
+//snippet-end:[pinpoint.java2.send_voice_message.main]

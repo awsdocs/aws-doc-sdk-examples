@@ -9,8 +9,8 @@
 
 package com.example.mediastore;
 
+//snippet-start:[mediastore.java2.get_object.main]
 //snippet-start:[mediastore.java2.get_object.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
@@ -36,16 +36,16 @@ import java.net.URISyntaxException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetObject {
-
     public static void main(String[] args) throws URISyntaxException {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <completePath> <containerName> <savePath>\n\n" +
-            "Where:\n" +
-            "   completePath - The path of the object in the container (for example, Videos5/sampleVideo.mp4).\n"+
-            "   containerName - The name of the container.\n"+
-            "   savePath - The path on the local drive where the file is saved, including the file name (for example, C:/AWS/myvid.mp4).\n";
+            Usage:    <completePath> <containerName> <savePath>
+
+            Where:
+               completePath - The path of the object in the container (for example, Videos5/sampleVideo.mp4).
+               containerName - The name of the container.
+               savePath - The path on the local drive where the file is saved, including the file name (for example, C:/AWS/myvid.mp4).
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -61,14 +61,12 @@ public class GetObject {
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
             .endpointOverride(uri)
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getMediaObject(mediaStoreData, completePath, savePath);
         mediaStoreData.close();
     }
 
-    //snippet-start:[mediastore.java2.get_object.main]
     public static void getMediaObject(MediaStoreDataClient mediaStoreData, String completePath, String savePath) {
 
         try {
@@ -84,7 +82,7 @@ public class GetObject {
             File targetFile = new File(savePath);
             OutputStream outStream = new FileOutputStream(targetFile);
             outStream.write(buffer);
-            System.out.println("The data was written to "+savePath);
+            System.out.println("The data was written to " + savePath);
 
         } catch (MediaStoreDataException | IOException e) {
             System.err.println(e.getMessage());
@@ -92,7 +90,7 @@ public class GetObject {
         }
     }
 
-    private static String getEndpoint(String containerName){
+    private static String getEndpoint(String containerName) {
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
             .region(region)
@@ -105,5 +103,5 @@ public class GetObject {
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
         return response.container().endpoint();
     }
-    //snippet-end:[mediastore.java2.get_object.main]
 }
+//snippet-end:[mediastore.java2.get_object.main]

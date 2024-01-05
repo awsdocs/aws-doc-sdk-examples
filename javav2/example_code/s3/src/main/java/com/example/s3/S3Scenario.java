@@ -19,7 +19,6 @@ import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -72,15 +71,18 @@ import software.amazon.awssdk.services.s3.model.CopyObjectResponse;
 public class S3Scenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws IOException {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <bucketName> <key> <objectPath> <savePath> <toBucket>\n\n" +
-            "Where:\n" +
-            "    bucketName - The Amazon S3 bucket to create.\n\n" +
-            "    key - The key to use.\n\n" +
-            "    objectPath - The path where the file is located (for example, C:/AWS/book2.pdf). "+
-            "    savePath - The path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf). " +
-            "    toBucket - An Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf). ";
+        final String usage = """
+
+            Usage:
+                <bucketName> <key> <objectPath> <savePath> <toBucket>
+
+            Where:
+                bucketName - The Amazon S3 bucket to create.
+                key - The key to use.
+                objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).     
+                savePath - The path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf).     
+                toBucket - An Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf).\s
+                """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -92,12 +94,9 @@ public class S3Scenario {
         String objectPath = args[2];
         String savePath = args[3];
         String toBucket = args[4] ;
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         System.out.println(DASHES);

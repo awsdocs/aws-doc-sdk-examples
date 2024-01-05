@@ -9,7 +9,6 @@
 
 package com.example.lex;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lexmodelbuilding.LexModelBuildingClient;
 import software.amazon.awssdk.services.lexmodelbuilding.model.GetBotRequest;
@@ -26,12 +25,13 @@ import software.amazon.awssdk.services.lexmodelbuilding.model.LexModelBuildingEx
 public class GetBotStatus {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <botName> \n\n" +
-            "Where:\n" +
-            "   botName - The name of an existing bot (for example, BookHotel).\n\n" ;
+            Usage:    <botName>\s
+
+            Where:
+               botName - The name of an existing bot (for example, BookHotel).
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,7 +42,6 @@ public class GetBotStatus {
         Region region = Region.US_WEST_2;
         LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getStatus(lexClient, botName );
@@ -50,17 +49,13 @@ public class GetBotStatus {
     }
 
     public static void getStatus(LexModelBuildingClient lexClient, String botName ) {
-
         GetBotRequest botRequest = GetBotRequest.builder()
             .name(botName)
             .versionOrAlias("$LATEST")
             .build();
         try {
             String status = "";
-
-            // Loop until the bot is in a ready status
             do {
-
                 // Wait 5 secs.
                 Thread.sleep(5000);
                 GetBotResponse response = lexClient.getBot(botRequest);

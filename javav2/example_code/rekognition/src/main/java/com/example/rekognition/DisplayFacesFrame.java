@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
@@ -45,19 +44,19 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DisplayFacesFrame extends JPanel {
-
     static DetectFacesResponse result;
     static BufferedImage image;
     static int scale;
 
     public static void main(String[] args) throws Exception {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <sourceImage> <bucketName>\n\n" +
-            "Where:\n" +
-            "   sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png). \n\n" +
-            "   bucketName - The name of the Amazon S3 bucket (for example, myBucket). \n\n";
+            Usage:    <sourceImage> <bucketName>
+
+            Where:
+               sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png).\s
+               bucketName - The name of the Amazon S3 bucket (for example, myBucket).\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -69,12 +68,10 @@ public class DisplayFacesFrame extends JPanel {
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         RekognitionClient rekClient = RekognitionClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         displayAllFaces(s3, rekClient, sourceImage, bucketName);
@@ -143,7 +140,6 @@ public class DisplayFacesFrame extends JPanel {
     }
 
     public static byte[] getObjectBytes (S3Client s3, String bucketName, String keyName) {
-
         try {
             GetObjectRequest objectRequest = GetObjectRequest
                 .builder()

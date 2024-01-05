@@ -8,10 +8,9 @@
 */
 package com.example.dynamodb.enhanced;
 
+// snippet-start:[dynamodb.java2.mapping.query.main]
 // snippet-start:[dynamodb.java2.mapping.query.import]
-
 import com.example.dynamodb.Customer;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
@@ -38,14 +37,10 @@ import java.util.Iterator;
  */
 
 public class EnhancedQueryRecords {
-
     public static void main(String[] args) {
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
@@ -56,11 +51,8 @@ public class EnhancedQueryRecords {
         System.out.println(result);
         ddb.close();
     }
-
-    // snippet-start:[dynamodb.java2.mapping.query.main]
     public static String queryTable(DynamoDbEnhancedClient enhancedClient) {
-
-        try{
+        try {
             DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             QueryConditional queryConditional = QueryConditional.keyEqualTo(Key.builder()
                 .partitionValue("id101")
@@ -68,12 +60,12 @@ public class EnhancedQueryRecords {
 
             // Get items in the table and write out the ID value.
             Iterator<Customer> results = mappedTable.query(queryConditional).items().iterator();
-            String result="";
+            String result = "";
 
             while (results.hasNext()) {
                 Customer rec = results.next();
                 result = rec.getId();
-                System.out.println("The record id is "+result);
+                System.out.println("The record id is " + result);
             }
             return result;
 
@@ -83,5 +75,5 @@ public class EnhancedQueryRecords {
         }
         return "";
     }
-    // snippet-end:[dynamodb.java2.mapping.query.main]
- }
+}
+// snippet-end:[dynamodb.java2.mapping.query.main]

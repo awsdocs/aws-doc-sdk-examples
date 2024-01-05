@@ -12,12 +12,11 @@
 
 package com.example.mediastore;
 
+//snippet-start:[mediastore.java2.list_items.main]
 //snippet-start:[mediastore.java2.list_items.import]
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.services.mediastoredata.MediaStoreDataClient ;
@@ -39,13 +38,13 @@ import software.amazon.awssdk.services.mediastore.model.DescribeContainerRespons
 public class ListItems {
 
     public static void main(String[] args) throws URISyntaxException {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "ListItems <containerName> <completePath>\n\n" +
-            "Where:\n" +
-            "  containerName - The name of the container.\n" +
-            "  completePath - The path in the container where the objects are located (for example, /Videos5).";
+            Usage: ListItems <containerName> <completePath>
+
+            Where:
+              containerName - The name of the container.
+              completePath - The path in the container where the objects are located (for example, /Videos5).""";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -60,16 +59,13 @@ public class ListItems {
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
             .endpointOverride(uri)
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllItems(mediaStoreData, completePath);
         mediaStoreData.close();
     }
 
-    //snippet-start:[mediastore.java2.list_items.main]
     public static void listAllItems(MediaStoreDataClient mediaStoreData, String completePath) {
-
         try {
             ListItemsRequest itemsRequest = ListItemsRequest.builder()
                 .path(completePath)
@@ -93,8 +89,7 @@ public class ListItems {
         }
     }
 
-    private static String getEndpoint(String containerName){
-
+    private static String getEndpoint(String containerName) {
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
             .region(region)
@@ -107,5 +102,5 @@ public class ListItems {
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
         return response.container().endpoint();
     }
-    //snippet-end:[mediastore.java2.list_items.main]
 }
+//snippet-end:[mediastore.java2.list_items.main]

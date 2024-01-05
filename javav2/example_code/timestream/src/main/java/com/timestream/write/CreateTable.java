@@ -8,8 +8,8 @@
 
 package com.timestream.write;
 
+//snippet-start:[timestream.java2.create_table.main]
 //snippet-start:[timestream.java2.create_table.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.timestreamwrite.TimestreamWriteClient;
 import software.amazon.awssdk.services.timestreamwrite.model.CreateTableRequest;
@@ -27,32 +27,31 @@ import software.amazon.awssdk.services.timestreamwrite.model.TimestreamWriteExce
 
 public class CreateTable {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <dbName> <newTable>\n\n" +
-            "Where:\n" +
-            "   dbName - The name of the database.\n\n"+
-            "   newTable - The name of the table.\n\n";
+            Usage:    <dbName> <newTable>
+
+            Where:
+               dbName - The name of the database.
+               newTable - The name of the table.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
             System.exit(1);
-         }
+        }
 
         String dbName = args[0];
         String newTable = args[1];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createNewTable(timestreamWriteClient, dbName, newTable);
         timestreamWriteClient.close();
     }
 
-    //snippet-start:[timestream.java2.create_table.main]
     public static void createNewTable(TimestreamWriteClient timestreamWriteClient, String dbName, String tableName) {
         System.out.println("Creating table");
         RetentionProperties retentionProperties = RetentionProperties.builder()
@@ -75,5 +74,5 @@ public class CreateTable {
             System.exit(1);
         }
     }
-    //snippet-end:[timestream.java2.create_table.main]
 }
+//snippet-end:[timestream.java2.create_table.main]

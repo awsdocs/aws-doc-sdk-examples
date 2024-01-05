@@ -11,7 +11,6 @@
 package com.example.sts;
 
 // snippet-start:[sts.java2.get_call_id.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sts.StsClient;
 import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
@@ -26,13 +25,10 @@ import software.amazon.awssdk.services.sts.model.StsException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetCallerIdentity {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         StsClient stsClient = StsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getCallerId(stsClient);
@@ -41,16 +37,15 @@ public class GetCallerIdentity {
 
     // snippet-start:[sts.java2.get_call_id.main]
     public static void getCallerId(StsClient stsClient) {
-
         try {
             GetCallerIdentityResponse response = stsClient.getCallerIdentity();
-            System.out.println("The user id is" +response.userId());
-            System.out.println("The ARN value is" +response.arn());
+            System.out.println("The user id is" + response.userId());
+            System.out.println("The ARN value is" + response.arn());
 
         } catch (StsException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[sts.java2.get_call_id.main]
 }
+// snippet-end:[sts.java2.get_call_id.main]

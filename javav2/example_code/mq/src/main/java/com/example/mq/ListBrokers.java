@@ -28,13 +28,11 @@ import software.amazon.awssdk.services.mq.model.MqException;
 public class ListBrokers {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
-    
-        MqClient mqClient = MqClient.builder()
+            MqClient mqClient = MqClient.builder()
                 .region(region)
                 .build();
 
         List<BrokerSummary> results = listBrokers(mqClient);
-
         for (BrokerSummary result : results) {
             System.out.print("Name: " + result.brokerName() + " | " +
                 "ID: " + result.brokerId() + " | " + result.brokerState() + "\n");

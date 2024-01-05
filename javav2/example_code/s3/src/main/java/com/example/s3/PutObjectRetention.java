@@ -9,8 +9,8 @@
 
 package com.example.s3;
 
+// snippet-start:[s3.java2.retention_object.main]
 // snippet-start:[s3.java2.retention_object.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRetentionRequest;
@@ -31,15 +31,16 @@ import java.time.ZoneOffset;
  */
 
 public class PutObjectRetention {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <key> <bucketName> \n\n" +
-            "Where:\n" +
-            "    key - The name of the object (for example, book.pdf). \n\n" +
-            "    bucketName - The Amazon S3 bucket name that contains the object (for example, bucket1). \n" ;
+            Usage:
+                <key> <bucketName>\s
+
+            Where:
+                key - The name of the object (for example, book.pdf).\s
+                bucketName - The Amazon S3 bucket name that contains the object (for example, bucket1).\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -48,21 +49,17 @@ public class PutObjectRetention {
 
         String key = args[0];
         String bucketName = args[1];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
-        setRentionPeriod(s3, key, bucketName) ;
+        setRentionPeriod(s3, key, bucketName);
         s3.close();
     }
 
-    // snippet-start:[s3.java2.retention_object.main]
     public static void setRentionPeriod(S3Client s3, String key, String bucket) {
-
-        try{
+        try {
             LocalDate localDate = LocalDate.parse("2020-07-17");
             LocalDateTime localDateTime = localDate.atStartOfDay();
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
@@ -88,7 +85,7 @@ public class PutObjectRetention {
             System.exit(1);
         }
     }
-    // snippet-end:[s3.java2.retention_object.main]
 }
+// snippet-end:[s3.java2.retention_object.main]
 
 

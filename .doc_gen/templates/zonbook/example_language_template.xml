@@ -3,7 +3,24 @@
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
     {{- $include_base = ""}}
-    {{- $include_docs := ""}}
+    {{- $include_docs = ""}}
+{{- end}}
+{{- define "github_note"}}
+<note>
+    <para>
+        There's more on GitHub. Find the complete example and learn how to set up and run in the
+        {{- if .GitHubName}}
+        <ulink url="{{.GitHubUrl}}">{{.GitHubName}}</ulink>
+        repository.
+        {{- else if hasPrefix .GitHubUrl "https:"}}
+        <ulink url="{{.GitHubUrl}}">{{.Category}}</ulink>
+        repository.
+        {{- else}}
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{.GitHubUrl}}">&AWS; Code
+            Examples Repository</ulink>.
+        {{- end}}
+    </para>
+</note>
 {{- end}}
 <variablelist role="termdef">
     {{- range $version := .Versions}}
@@ -22,24 +39,23 @@
                 {{- end}}
             </itemizedlist>
             {{- else}}
-            {{- if $version.GitHubUrl}}
-            <note>
-                <para>
-                    There's more on GitHub. Find the complete example and learn how to set up and run in the
-                    {{- if hasPrefix $version.GitHubUrl "https:"}}
-                    <ulink url="{{$version.GitHubUrl}}">{{$version.Category}}</ulink> repository.
-                    {{- else}}
-                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">&AWS; Code Examples Repository</ulink>.
-                    {{- end}}
-                </para>
-            </note>
+            {{- if and $version.GitHubUrl (not $version.GitHubNoteAtBottom)}}
+            {{- template "github_note" $version}}
             {{- end}}
             {{- range $version.Excerpts}}
             <block>
-                <para>{{.Description}}</para>
+                {{- if .Description}}
+                    {{- if hasPrefix .Description "<programlisting"}}
+                    {{.Description}}
+                    {{- else}}
+                    <para>{{.Description}}</para>
+                    {{- end}}
+                {{- end}}
+                {{- if .SnippetTags}}
                 <!-- The following line break must be preserved and left-justified exactly as-is, to keep snippets looking good. -->
                 <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="{{$include_base}}snippets/{{.}}.txt"/>
 {{end}}</programlisting>
+                {{- end}}
             </block>
             {{- end}}
             {{- if or $version.SdkGuideLink.Url (gt (len $version.ApiRefLinks) 0)}}
@@ -74,6 +90,9 @@
             </itemizedlist>
             {{- end}}
             {{- end}}
+        {{- if and $version.GitHubUrl $version.GitHubNoteAtBottom}}
+        {{- template "github_note" $version}}
+        {{- end}}
         </listitem>
     </varlistentry>
     {{- end}}

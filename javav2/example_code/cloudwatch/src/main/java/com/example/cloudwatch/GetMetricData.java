@@ -9,8 +9,8 @@
 
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.java2.get_metric_alarm.main]
 // snippet-start:[cloudwatch.java2.get_metric_data.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.GetMetricDataResponse;
@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 // snippet-end:[cloudwatch.java2.get_metric_data.import]
 
-
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
@@ -34,20 +33,16 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetMetricData {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getMetData(cw) ;
         cw.close();
     }
 
-    // snippet-start:[cloudwatch.java2.get_metric_alarm.main]
     public static void getMetData( CloudWatchClient cw) {
         try {
             // Set the date.
@@ -93,5 +88,5 @@ public class GetMetricData {
             System.exit(1);
         }
     }
-    // snippet-end:[cloudwatch.java2.get_metric_alarm.main]
 }
+// snippet-end:[cloudwatch.java2.get_metric_alarm.main]

@@ -9,8 +9,8 @@
 
 package com.example.forecast;
 
+// snippet-start:[forecast.java2.list_forecasts.main]
 // snippet-start:[forecast.java2.list_forecasts.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.forecast.ForecastClient;
 import software.amazon.awssdk.services.forecast.model.ListForecastsResponse;
@@ -30,20 +30,15 @@ import java.util.List;
 public class ListForecasts {
 
     public static void main(String[] args) {
-
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllForeCasts(forecast);
         forecast.close();
     }
-
-    // snippet-start:[forecast.java2.list_forecasts.main]
     public static void listAllForeCasts(ForecastClient forecast) {
-
         try {
             ListForecastsRequest request = ListForecastsRequest.builder()
                 .maxResults(10)
@@ -60,5 +55,5 @@ public class ListForecasts {
             System.exit(1);
         }
     }
-    // snippet-end:[forecast.java2.list_forecasts.main]
 }
+// snippet-end:[forecast.java2.list_forecasts.main]

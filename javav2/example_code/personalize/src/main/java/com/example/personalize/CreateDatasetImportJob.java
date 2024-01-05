@@ -31,16 +31,18 @@ public class CreateDatasetImportJob {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    CreateDatasetImportJob <datasetArn, s3BucketPath, jobName, roleArn>\n\n" +
-                "Where:\n" +
-                "    datasetArn - The Amazon Resource Name (ARN) of the destination dataset.\n" +
-                "    s3BucketPath - The path to the Amazon S3 bucket where the data that you " +
-                "want to upload to your dataset is stored.\n" +
-                "    jobName - The name for the dataset import job.\n" +
-                "    roleArn - The ARN of the IAM service-linked role that"
-                + "has permissions to add data to your output Amazon S3 bucket.\n\n";
+        final String USAGE = """
+
+            Usage:
+                CreateDatasetImportJob <datasetArn, s3BucketPath, jobName, roleArn>
+
+            Where:
+                datasetArn - The Amazon Resource Name (ARN) of the destination dataset.
+                s3BucketPath - The path to the Amazon S3 bucket where the data that you want to upload to your dataset is stored.
+                jobName - The name for the dataset import job.
+                roleArn - The ARN of the IAM service-linked role thathas permissions to add data to your output Amazon S3 bucket.
+
+            """;
 
         if (args.length != 4) {
             System.out.println(USAGE);

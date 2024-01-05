@@ -9,8 +9,8 @@
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.create_streamprocessor.main]
 // snippet-start:[rekognition.java2.create_streamprocessor.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.CreateStreamProcessorRequest;
@@ -38,18 +38,18 @@ import software.amazon.awssdk.services.rekognition.model.DescribeStreamProcessor
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateStreamProcessor {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <role> <kinInputStream> <kinOutputStream> <collectionName> <StreamProcessorName>\n\n" +
-            "Where:\n" +
-            "   role - The ARN of the AWS Identity and Access Management (IAM) role to use.  \n\n" +
-            "   kinInputStream - The ARN of the Kinesis video stream. \n\n" +
-            "   kinOutputStream - The ARN of the Kinesis data stream. \n\n" +
-            "   collectionName - The name of the collection to use that contains content.  \n\n" +
-            "   StreamProcessorName - The name of the Stream Processor.  \n\n";
+            Usage:    <role> <kinInputStream> <kinOutputStream> <collectionName> <StreamProcessorName>
+
+            Where:
+               role - The ARN of the AWS Identity and Access Management (IAM) role to use. \s
+               kinInputStream - The ARN of the Kinesis video stream.\s
+               kinOutputStream - The ARN of the Kinesis data stream.\s
+               collectionName - The name of the collection to use that contains content. \s
+               StreamProcessorName - The name of the Stream Processor. \s
+            """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -58,26 +58,23 @@ public class CreateStreamProcessor {
 
         String role = args[0];
         String kinInputStream = args[1];
-        String kinOutputStream = args[2] ;
+        String kinOutputStream = args[2];
         String collectionName = args[3];
         String streamProcessorName = args[4];
 
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        processCollection(rekClient,streamProcessorName, kinInputStream, kinOutputStream, collectionName, role);
+        processCollection(rekClient, streamProcessorName, kinInputStream, kinOutputStream, collectionName, role);
         startSpecificStreamProcessor(rekClient, streamProcessorName);
         listStreamProcessors(rekClient);
         describeStreamProcessor(rekClient, streamProcessorName);
         deleteSpecificStreamProcessor(rekClient, streamProcessorName);
     }
 
-    // snippet-start:[rekognition.java2.create_streamprocessor.main]
     public static void listStreamProcessors(RekognitionClient rekClient) {
-
         ListStreamProcessorsRequest request = ListStreamProcessorsRequest.builder()
             .maxResults(15)
             .build();
@@ -90,7 +87,6 @@ public class CreateStreamProcessor {
     }
 
     private static void describeStreamProcessor(RekognitionClient rekClient, String StreamProcessorName) {
-
         DescribeStreamProcessorRequest streamProcessorRequest = DescribeStreamProcessorRequest.builder()
             .name(StreamProcessorName)
             .build();
@@ -98,12 +94,12 @@ public class CreateStreamProcessor {
         DescribeStreamProcessorResponse describeStreamProcessorResult = rekClient.describeStreamProcessor(streamProcessorRequest);
         System.out.println("Arn - " + describeStreamProcessorResult.streamProcessorArn());
         System.out.println("Input kinesisVideo stream - "
-              + describeStreamProcessorResult.input().kinesisVideoStream().arn());
+            + describeStreamProcessorResult.input().kinesisVideoStream().arn());
         System.out.println("Output kinesisData stream - "
-              + describeStreamProcessorResult.output().kinesisDataStream().arn());
+            + describeStreamProcessorResult.output().kinesisDataStream().arn());
         System.out.println("RoleArn - " + describeStreamProcessorResult.roleArn());
         System.out.println(
-              "CollectionId - " + describeStreamProcessorResult.settings().faceSearch().collectionId());
+            "CollectionId - " + describeStreamProcessorResult.settings().faceSearch().collectionId());
         System.out.println("Status - " + describeStreamProcessorResult.status());
         System.out.println("Status message - " + describeStreamProcessorResult.statusMessage());
         System.out.println("Creation timestamp - " + describeStreamProcessorResult.creationTimestamp());
@@ -125,8 +121,7 @@ public class CreateStreamProcessor {
         }
     }
 
-    private static void processCollection(RekognitionClient rekClient, String StreamProcessorName, String kinInputStream, String kinOutputStream, String collectionName, String role ) {
-
+    private static void processCollection(RekognitionClient rekClient, String StreamProcessorName, String kinInputStream, String kinOutputStream, String collectionName, String role) {
         try {
             KinesisVideoStream videoStream = KinesisVideoStream.builder()
                 .arn(kinInputStream)
@@ -147,7 +142,7 @@ public class CreateStreamProcessor {
             FaceSearchSettings searchSettings = FaceSearchSettings.builder()
                 .faceMatchThreshold(75f)
                 .collectionId(collectionName)
-                .build() ;
+                .build();
 
             StreamProcessorSettings processorSettings = StreamProcessorSettings.builder()
                 .faceSearch(searchSettings)
@@ -162,7 +157,7 @@ public class CreateStreamProcessor {
                 .build();
 
             CreateStreamProcessorResponse response = rekClient.createStreamProcessor(processorRequest);
-            System.out.println("The ARN for the newly create stream processor is "+response.streamProcessorArn());
+            System.out.println("The ARN for the newly create stream processor is " + response.streamProcessorArn());
 
         } catch (RekognitionException e) {
             System.out.println(e.getMessage());
@@ -171,10 +166,9 @@ public class CreateStreamProcessor {
     }
 
     private static void deleteSpecificStreamProcessor(RekognitionClient rekClient, String StreamProcessorName) {
-
-        rekClient.stopStreamProcessor(a->a.name(StreamProcessorName));
-        rekClient.deleteStreamProcessor(a->a.name(StreamProcessorName));
+        rekClient.stopStreamProcessor(a -> a.name(StreamProcessorName));
+        rekClient.deleteStreamProcessor(a -> a.name(StreamProcessorName));
         System.out.println("Stream Processor " + StreamProcessorName + " deleted.");
     }
-    // snippet-end:[rekognition.java2.create_streamprocessor.main]
- }
+}
+// snippet-end:[rekognition.java2.create_streamprocessor.main]

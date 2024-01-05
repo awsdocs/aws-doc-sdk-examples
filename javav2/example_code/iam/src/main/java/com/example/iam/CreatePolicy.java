@@ -8,8 +8,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.create_policy.main]
 // snippet-start:[iam.java2.create_policy.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.services.iam.model.CreatePolicyRequest;
 import software.amazon.awssdk.services.iam.model.CreatePolicyResponse;
@@ -32,52 +32,51 @@ public class CreatePolicy {
 
     // snippet-start:[iam.java2.create_policy.policy_document]
     public static final String PolicyDocument =
-            "{" +
-                    "  \"Version\": \"2012-10-17\"," +
-                    "  \"Statement\": [" +
-                    "    {" +
-                    "        \"Effect\": \"Allow\"," +
-                    "        \"Action\": [" +
-                    "            \"dynamodb:DeleteItem\"," +
-                    "            \"dynamodb:GetItem\"," +
-                    "            \"dynamodb:PutItem\"," +
-                    "            \"dynamodb:Scan\"," +
-                    "            \"dynamodb:UpdateItem\"" +
-                    "       ]," +
-                    "       \"Resource\": \"*\"" +
-                    "    }" +
-                    "   ]" +
-                    "}";
+        "{" +
+            "  \"Version\": \"2012-10-17\"," +
+            "  \"Statement\": [" +
+            "    {" +
+            "        \"Effect\": \"Allow\"," +
+            "        \"Action\": [" +
+            "            \"dynamodb:DeleteItem\"," +
+            "            \"dynamodb:GetItem\"," +
+            "            \"dynamodb:PutItem\"," +
+            "            \"dynamodb:Scan\"," +
+            "            \"dynamodb:UpdateItem\"" +
+            "       ]," +
+            "       \"Resource\": \"*\"" +
+            "    }" +
+            "   ]" +
+            "}";
     // snippet-end:[iam.java2.create_policy.policy_document]
 
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    CreatePolicy <policyName> \n\n" +
-            "Where:\n" +
-                "    policyName - A unique policy name. \n\n" ;
+        final String usage = """
+            Usage:
+                CreatePolicy <policyName>\s
+
+            Where:
+                policyName - A unique policy name.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
-           System.exit(1);
+            System.exit(1);
         }
 
         String policyName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String result = createIAMPolicy(iam, policyName);
-        System.out.println("Successfully created a policy with this ARN value: " +result);
+        System.out.println("Successfully created a policy with this ARN value: " + result);
         iam.close();
     }
 
-    // snippet-start:[iam.java2.create_policy.main]
-    public static String createIAMPolicy(IamClient iam, String policyName ) {
-
+    public static String createIAMPolicy(IamClient iam, String policyName) {
         try {
             // Create an IamWaiter object.
             IamWaiter iamWaiter = iam.waiter();
@@ -98,11 +97,11 @@ public class CreatePolicy {
             waitUntilPolicyExists.matched().response().ifPresent(System.out::println);
             return response.policy().arn();
 
-         } catch (IamException e) {
+        } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        return "" ;
+        return "";
     }
-    // snippet-end:[iam.java2.create_policy.main]
 }
+// snippet-end:[iam.java2.create_policy.main]

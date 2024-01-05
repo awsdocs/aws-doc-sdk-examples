@@ -9,6 +9,7 @@
 
 package com.example.connect;
 
+// snippet-start:[connect.java2.historical.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.connect.ConnectClient;
 import software.amazon.awssdk.services.connect.model.Channel;
@@ -44,12 +45,15 @@ import java.util.Locale;
  */
 public class GetMetricData {
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage: " +
-            "   <instanceId>\n\n" +
-            "Where:\n" +
-            "   instanceId - The identifier of the Amazon Connect instance.\n\n" +
-            "   queueId - The identifier of the queue.\n\n" ;
+        final String usage = """
+
+            Usage:    <instanceId>
+
+            Where:
+               instanceId - The identifier of the Amazon Connect instance.
+               queueId - The identifier of the queue.
+
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -63,11 +67,10 @@ public class GetMetricData {
             .region(region)
             .build();
 
-        getHistoricalMetrics (connectClient, instanceId, queueId);
+        getHistoricalMetrics(connectClient, instanceId, queueId);
     }
 
-    // snippet-start:[connect.java2.historical.main]
-    public static void getHistoricalMetrics (ConnectClient connectClient, String instanceId, String queueId) {
+    public static void getHistoricalMetrics(ConnectClient connectClient, String instanceId, String queueId) {
         try {
             // Define the metrics to retrieve.
             Threshold threshold = Threshold.builder()
@@ -105,15 +108,15 @@ public class GetMetricData {
                 .filters(filter)
                 .maxResults(10)
                 .historicalMetrics(contactMetric)
-                 .build();
+                .build();
 
             GetMetricDataResponse response = connectClient.getMetricData(dataRequest);
             List<HistoricalMetricResult> resultList = response.metricResults();
-            for (HistoricalMetricResult result: resultList) {
+            for (HistoricalMetricResult result : resultList) {
                 List<HistoricalMetricData> colls = result.collections();
-                   for (HistoricalMetricData data: colls) {
-                       System.out.println("The statistic name is "+ data.metric().statistic().name());
-                   }
+                for (HistoricalMetricData data : colls) {
+                    System.out.println("The statistic name is " + data.metric().statistic().name());
+                }
             }
 
         } catch (ConnectException e) {
@@ -121,5 +124,5 @@ public class GetMetricData {
             System.exit(1);
         }
     }
-    // snippet-end:[connect.java2.historical.main]
 }
+// snippet-end:[connect.java2.historical.main]

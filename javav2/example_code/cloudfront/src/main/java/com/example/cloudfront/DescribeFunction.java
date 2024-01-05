@@ -9,8 +9,8 @@
 
 package com.example.cloudfront;
 
+// snippet-start:[cloudfront.java2.des_function.main]
 // snippet-start:[cloudfront.java2.des_function.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
 import software.amazon.awssdk.services.cloudfront.model.DescribeFunctionRequest;
@@ -29,12 +29,14 @@ import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
 public class DescribeFunction {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <functionName> \n\n" +
-            "Where:\n" +
-            "    functionName - The name of the function to describe. \n";
+            Usage:
+                <functionName>\s
+
+            Where:
+                functionName - The name of the function to describe.\s
+            """;
 
          if (args.length != 1) {
              System.out.println(usage);
@@ -44,7 +46,6 @@ public class DescribeFunction {
         String functionName = args[0];
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
             .region(Region.AWS_GLOBAL)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String eTagVal = describeFunction(cloudFrontClient, functionName);
@@ -52,9 +53,7 @@ public class DescribeFunction {
         cloudFrontClient.close();
     }
 
-    // snippet-start:[cloudfront.java2.des_function.main]
     public static String describeFunction(CloudFrontClient cloudFrontClient, String functionName) {
-
         try {
             DescribeFunctionRequest functionRequest = DescribeFunctionRequest.builder()
                 .name(functionName)
@@ -70,5 +69,5 @@ public class DescribeFunction {
         }
         return "";
     }
-    // snippet-end:[cloudfront.java2.des_function.main]
 }
+// snippet-end:[cloudfront.java2.des_function.main]

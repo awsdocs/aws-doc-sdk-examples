@@ -9,8 +9,8 @@
 
 package com.example.lambda;
 
+// snippet-start:[lambda.java2.create.main]
 // snippet-start:[lambda.java2.create.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -42,17 +42,19 @@ import java.io.InputStream;
  */
 
 public class CreateFunction {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <functionName> <filePath> <role> <handler> \n\n" +
-            "Where:\n" +
-            "    functionName - The name of the Lambda function. \n"+
-            "    filePath - The path to the ZIP or JAR where the code is located. \n"+
-            "    role - The role ARN that has Lambda permissions. \n"+
-            "    handler - The fully qualified method name (for example, example.Handler::handleRequest).  \n";
+        final String usage = """
+
+            Usage:
+                <functionName> <filePath> <role> <handler>\s
+
+            Where:
+                functionName - The name of the Lambda function.\s
+                filePath - The path to the ZIP or JAR where the code is located.\s
+                role - The role ARN that has Lambda permissions.\s
+                handler - The fully qualified method name (for example, example.Handler::handleRequest). \s
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -66,14 +68,12 @@ public class CreateFunction {
         Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createLambdaFunction(awsLambda, functionName, filePath, role, handler);
         awsLambda.close();
     }
 
-    // snippet-start:[lambda.java2.create.main]
     public static void createLambdaFunction(LambdaClient awsLambda,
                                             String functionName,
                                             String filePath,
@@ -107,10 +107,10 @@ public class CreateFunction {
             waiterResponse.matched().response().ifPresent(System.out::println);
             System.out.println("The function ARN is " + functionResponse.functionArn());
 
-        } catch(LambdaException | FileNotFoundException e) {
+        } catch (LambdaException | FileNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[lambda.java2.create.main]
 }
+// snippet-end:[lambda.java2.create.main]

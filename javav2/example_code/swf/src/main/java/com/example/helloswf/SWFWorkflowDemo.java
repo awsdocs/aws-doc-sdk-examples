@@ -9,7 +9,6 @@
 package com.example.helloswf;
 // snippet-start:[swf.java2.activity_types.complete]
 // snippet-start:[swf.java2.activity_types.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.TypeAlreadyExistsException;
@@ -33,16 +32,19 @@ public class SWFWorkflowDemo {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    <domain> <taskList> <workflow> <workflowVersion> <activity> <activityVersion> \n\n" +
-            "Where:\n" +
-            "    domain - the domain to use (for example, mydomain). \n" +
-            "    taskList - the task list to use (for example, HelloTasklist).  \n" +
-            "    workflow - the name of the workflow (for example, myworkflow).\n" +
-            "    workflowVersion - the workflow version. \n" +
-            "    activity - the activity to use (for example, GrayscaleTransform).  \n" +
-            "    activityVersion - the activity version.\n";
+        final String USAGE = """
+
+            Usage:
+                <domain> <taskList> <workflow> <workflowVersion> <activity> <activityVersion>\s
+
+            Where:
+                domain - the domain to use (for example, mydomain).\s
+                taskList - the task list to use (for example, HelloTasklist). \s
+                workflow - the name of the workflow (for example, myworkflow).
+                workflowVersion - the workflow version.\s
+                activity - the activity to use (for example, GrayscaleTransform). \s
+                activityVersion - the activity version.
+            """;
 
         if (args.length != 6) {
             System.out.println(USAGE);
@@ -58,7 +60,6 @@ public class SWFWorkflowDemo {
         Region region = Region.US_EAST_1;
         SwfClient swf = SwfClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         registerDomain(swf, domain);

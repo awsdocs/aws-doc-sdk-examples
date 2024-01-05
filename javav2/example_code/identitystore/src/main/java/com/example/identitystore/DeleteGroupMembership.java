@@ -9,6 +9,7 @@
 
 package com.example.identitystore;
 
+// snippet-start:[identitystore.java2.delete_group_membership.main]
 // snippet-start:[Identitystore.java2.delete_group_membership.import]
 import software.amazon.awssdk.services.identitystore.IdentitystoreClient;
 import software.amazon.awssdk.services.identitystore.model.IdentitystoreException;
@@ -26,13 +27,16 @@ import software.amazon.awssdk.services.identitystore.model.DeleteGroupMembership
 
 public class DeleteGroupMembership {
     public static void main(String... args) {
+        final String usage = """
 
-        final String usage = "\n" +
-        "Usage:\n" +
-        "    <identitystoreId> <membershipId>\n\n" +
-        "Where:\n" +
-        "    identitystoreId - The id of the identitystore. \n" +
-        "    membershipId - The id of the user member of the group. \n\n" ;
+            Usage:
+                <identitystoreId> <membershipId>
+
+            Where:
+                identitystoreId - The id of the identitystore.\s
+                membershipId - The id of the user member of the group.\s
+
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -41,33 +45,28 @@ public class DeleteGroupMembership {
 
         String identitystoreId = args[0];
         String membershipId = args[1];
-
         IdentitystoreClient identitystore = IdentitystoreClient.builder().build();
-
         String result = deleteGroupMembership(identitystore, identitystoreId, membershipId);
         System.out.println("Successfully removed the user from the group: " + result);
         identitystore.close();
     }
 
-    // snippet-start:[identitystore.java2.delete_group_membership.main]
     public static String deleteGroupMembership(IdentitystoreClient identitystore, String identitystoreId, String membershipId) {
         try {
-
             DeleteGroupMembershipRequest request = DeleteGroupMembershipRequest.builder()
-                              .identityStoreId(identitystoreId)
-                              .membershipId(membershipId)
-                              .build();
+                .identityStoreId(identitystoreId)
+                .membershipId(membershipId)
+                .build();
 
             DeleteGroupMembershipResponse response = identitystore.deleteGroupMembership(request);
-
             return membershipId;
 
-        } catch (IdentitystoreException e) {  
+        } catch (IdentitystoreException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
 
         return "";
-     }
-    // snippet-end:[identitystore.java2.delete_group_membership.main]
+    }
 }
+// snippet-end:[identitystore.java2.delete_group_membership.main]

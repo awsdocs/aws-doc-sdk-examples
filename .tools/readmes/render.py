@@ -3,7 +3,7 @@
 
 import config
 import datetime
-from jinja2 import BaseLoader, Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 import logging
 import os
 from operator import itemgetter
@@ -42,9 +42,8 @@ class Renderer:
                 "service_folder_overrides" in self.lang_config
                 and scanner.svc_name in self.lang_config["service_folder_overrides"]
             ):
-                self.lang_config["service_folder"] = self.lang_config[
-                    "service_folder_overrides"
-                ][scanner.svc_name]
+                overrides = self.lang_config["service_folder_overrides"]
+                self.lang_config["service_folder"] = overrides[scanner.svc_name]
             elif "service_folder" in self.lang_config:
                 svc_folder_tmpl = env.from_string(self.lang_config["service_folder"])
                 self.lang_config["service_folder"] = svc_folder_tmpl.render(
@@ -108,7 +107,7 @@ class Renderer:
         post_actions = []
         for _, pre in pre_actions.items():
             api = ""
-            if pre["services"][self.scanner.svc_name]:
+            if self.scanner.svc_name in pre["services"]:
                 api = next(iter(pre["services"][self.scanner.svc_name]))
             action = {
                 "title_abbrev": pre["title_abbrev"],
@@ -155,7 +154,8 @@ class Renderer:
                     break
             if github is None:
                 logger.warning(
-                    "GitHub path not specified for cross-service example: %s.",
+                    "GitHub path not specified for cross-service example: %s %s.",
+                    self.scanner.lang_name,
                     pre["title_abbrev"],
                 )
             else:
@@ -220,8 +220,13 @@ class Renderer:
                         customs[section] += line
                     else:
                         customs[section][subsection] += line
-                elif line.lstrip().startswith(f"* [{sdk_short}"):
-                    self.lang_config["sdk_api_ref"] = line.split("(")[-1].split(")")[0]
+                else:
+                    link_re = r"^\s*[-*] \[([^\]]+)\]\(([^)]+)\)\s*$"
+                    link_match = re.match(link_re, line)
+                    if link_match:
+                        link, href = link_match.groups()
+                        if link.startswith(sdk_short):
+                            self.lang_config["sdk_api_ref"] = href
         return customs
 
     def render(self):
@@ -234,12 +239,15 @@ class Renderer:
         self.lang_config["name"] = self.scanner.lang_name
         self.lang_config["sdk_ver"] = self.sdk_ver
         self.lang_config["readme"] = f"{self._lang_level_double_dots()}README.md"
+        unsupported = self.lang_config.get("unsupported", False)
 
         readme_filename = f'{self.lang_config["service_folder"]}/{config.readme}'
         readme_exists = os.path.exists(readme_filename)
         customs = (
             self._scrape_customs(readme_filename, sdk["short"]) if readme_exists else {}
         )
+        if "examples" not in customs:
+            customs["examples"] = ""
 
         readme_text = self.template.render(
             lang_config=self.lang_config,
@@ -250,15 +258,8 @@ class Renderer:
             scenarios=scenarios,
             crosses=crosses,
             customs=customs,
+            unsupported=unsupported,
         )
         readme_text = self._expand_entities(readme_text)
 
-        if self.safe and readme_exists:
-            os.rename(
-                readme_filename,
-                f'{self.lang_config["service_folder"]}/{config.saved_readme}',
-            )
-
-        with open(readme_filename, "w", encoding="utf-8") as f:
-            f.write(readme_text)
-        print(f"Updated {readme_filename}.")
+        return readme_filename, readme_text

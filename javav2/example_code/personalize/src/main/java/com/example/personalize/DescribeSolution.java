@@ -28,11 +28,15 @@ public class DescribeSolution {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    DescribeSolution <solutionArn>\n\n" +
-            "Where:\n" +
-            "    solutionArn - The ARN of the solution.\n\n";
+        final String USAGE = """
+
+            Usage:
+                DescribeSolution <solutionArn>
+
+            Where:
+                solutionArn - The ARN of the solution.
+
+            """;
 
         if (args.length < 1) {
             System.out.println(USAGE);

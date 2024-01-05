@@ -8,11 +8,10 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.example.ses;
 
+// snippet-start:[ses.java2.sendmessage.request.main]
 // snippet-start:[ses.java2.sendmessage.request.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.ses.model.Content;
@@ -33,16 +32,17 @@ import javax.mail.MessagingException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class SendMessageEmailRequest {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <sender> <recipient> <subject> \n\n" +
-            "Where:\n" +
-            "    sender - An email address that represents the sender. \n"+
-            "    recipient -  An email address that represents the recipient. \n"+
-            "    subject - The  subject line. \n" ;
+            Usage:
+                <sender> <recipient> <subject>\s
+
+            Where:
+                sender - An email address that represents the sender.\s
+                recipient -  An email address that represents the recipient.\s
+                subject - The  subject line.\s
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -56,12 +56,11 @@ public class SendMessageEmailRequest {
         Region region = Region.US_EAST_1;
         SesClient client = SesClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         // The HTML body of the email.
         String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-                + "<p> See the list of customers.</p>" + "</body>" + "</html>";
+            + "<p> See the list of customers.</p>" + "</body>" + "</html>";
 
         try {
             send(client, sender, recipient, subject, bodyHTML);
@@ -73,7 +72,6 @@ public class SendMessageEmailRequest {
         }
     }
 
-    // snippet-start:[ses.java2.sendmessage.request.main]
     public static void send(SesClient client,
                             String sender,
                             String recipient,
@@ -117,6 +115,6 @@ public class SendMessageEmailRequest {
             System.exit(1);
         }
     }
-    // snippet-end:[ses.java2.sendmessage.request.main]
 }
+// snippet-end:[ses.java2.sendmessage.request.main]
 

@@ -8,8 +8,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.CreateTopicFIFO.main]
 //snippet-start:[sns.java2.CreateTopicFIFO.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest;
@@ -24,16 +24,16 @@ import java.util.UUID;
 //snippet-end:[sns.java2.CreateTopicFIFO.import]
 
 public class CreateFIFOTopic {
-
-    //snippet-start:[sns.java2.CreateTopicFIFO.main]
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage: " +
-            "    <topicArn>\n\n" +
-            "Where:\n" +
-            "   fifoTopicName - The name of the FIFO topic. \n\n" +
-            "   fifoQueueARN - The ARN value of a SQS FIFO queue. You can get this value from the AWS Management Console. \n\n";
+        final String usage = """
+
+            Usage:     <topicArn>
+
+            Where:
+               fifoTopicName - The name of the FIFO topic.\s
+               fifoQueueARN - The ARN value of a SQS FIFO queue. You can get this value from the AWS Management Console.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -44,14 +44,12 @@ public class CreateFIFOTopic {
         String fifoQueueARN = "arn:aws:sqs:us-east-1:814548047983:MyPriceSQS.fifo";
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createFIFO(snsClient, fifoTopicName, fifoQueueARN);
     }
 
     public static void createFIFO(SnsClient snsClient, String topicName, String queueARN) {
-
         try {
             // Create a FIFO topic by using the SNS service client.
             Map<String, String> topicAttributes = new HashMap<>();

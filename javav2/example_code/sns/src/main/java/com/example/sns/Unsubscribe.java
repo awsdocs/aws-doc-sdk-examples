@@ -9,8 +9,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.Unsubscribe.main]
 //snippet-start:[sns.java2.Unsubscribe.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SnsException;
@@ -26,14 +26,14 @@ import software.amazon.awssdk.services.sns.model.UnsubscribeResponse;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class Unsubscribe {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <subscriptionArn>\n\n" +
-            "Where:\n" +
-            "   subscriptionArn - The ARN of the subscription to delete.\n\n";
+            Usage:    <subscriptionArn>
+
+            Where:
+               subscriptionArn - The ARN of the subscription to delete.
+            """;
 
         if (args.length < 1) {
             System.out.println(usage);
@@ -43,16 +43,13 @@ public class Unsubscribe {
         String subscriptionArn = args[0];
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         unSub(snsClient, subscriptionArn);
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.Unsubscribe.main]
     public static void unSub(SnsClient snsClient, String subscriptionArn) {
-
         try {
             UnsubscribeRequest request = UnsubscribeRequest.builder()
                 .subscriptionArn(subscriptionArn)
@@ -67,5 +64,5 @@ public class Unsubscribe {
             System.exit(1);
         }
     }
-    //snippet-end:[sns.java2.Unsubscribe.main]
 }
+//snippet-end:[sns.java2.Unsubscribe.main]

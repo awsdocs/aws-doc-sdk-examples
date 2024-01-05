@@ -10,7 +10,6 @@
 package com.example.eventbridge;
 
 // snippet-start:[eventbridge.java2._list_buses.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.EventBridgeException;
@@ -30,19 +29,16 @@ import java.util.List;
  *
  */
 public class HelloEventBridge {
-
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        listBuses(eventBrClient) ;
+        listBuses(eventBrClient);
         eventBrClient.close();
     }
-
-    public static void listBuses( EventBridgeClient eventBrClient) {
+    public static void listBuses(EventBridgeClient eventBrClient) {
         try {
             ListEventBusesRequest busesRequest = ListEventBusesRequest.builder()
                 .limit(10)
@@ -50,16 +46,16 @@ public class HelloEventBridge {
 
             ListEventBusesResponse response = eventBrClient.listEventBuses(busesRequest);
             List<EventBus> buses = response.eventBuses();
-            for (EventBus bus: buses) {
-                System.out.println("The name of the event bus is: "+bus.name());
-                System.out.println("The ARN of the event bus is: "+bus.arn());
+            for (EventBus bus : buses) {
+                System.out.println("The name of the event bus is: " + bus.name());
+                System.out.println("The ARN of the event bus is: " + bus.arn());
             }
 
         } catch (EventBridgeException e) {
-
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[eventbridge.java2._list_buses.main]
 }
+// snippet-end:[eventbridge.java2._list_buses.main]
+

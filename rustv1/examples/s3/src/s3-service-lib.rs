@@ -71,11 +71,25 @@ pub async fn delete_objects(client: &Client, bucket_name: &str) -> Result<Vec<St
 // snippet-end:[rust.example_code.s3.basics.delete_objects]
 
 // snippet-start:[rust.example_code.s3.basics.list_objects]
-pub async fn list_objects(client: &Client, bucket_name: &str) -> Result<(), Error> {
-    let objects = client.list_objects_v2().bucket(bucket_name).send().await?;
-    println!("Objects in bucket:");
-    for obj in objects.contents() {
-        println!("{:?}", obj.key().unwrap());
+pub async fn list_objects(client: &Client, bucket: &str) -> Result<(), Error> {
+    let mut response = client
+        .list_objects_v2()
+        .bucket(bucket.to_owned())
+        .max_keys(10) // In this example, go 10 at a time.
+        .into_paginator()
+        .send();
+
+    while let Some(result) = response.next().await {
+        match result {
+            Ok(output) => {
+                for object in output.contents() {
+                    println!(" - {}", object.key().unwrap_or("Unknown"));
+                }
+            }
+            Err(err) => {
+                eprintln!("{err:?}")
+            }
+        }
     }
 
     Ok(())

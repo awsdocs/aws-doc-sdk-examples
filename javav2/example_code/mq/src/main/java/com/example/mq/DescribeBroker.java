@@ -25,11 +25,14 @@ import software.amazon.awssdk.services.mq.model.MqException;
 
 public class DescribeBroker {
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-            "Usage: " +
-            "DescribeBroker <brokerName>\n\n" +
-            "Where:\n" +
-            "  brokerName - The name of the broker.\n\n";
+        final String USAGE = """
+
+            Usage: DescribeBroker <brokerName>
+
+            Where:
+              brokerName - The name of the broker.
+
+            """;
         
         String brokerName = "";
 

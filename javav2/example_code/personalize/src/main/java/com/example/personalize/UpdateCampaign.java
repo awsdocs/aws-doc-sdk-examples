@@ -25,14 +25,16 @@ import software.amazon.awssdk.services.personalize.model.DescribeCampaignRespons
 
 public class UpdateCampaign {
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    UpdateCampaign <campaignArn, solutionVersion, minProvisionedTPS>\n\n" +
-                "Where:\n" +
-                "    campaignArn - The Amazon Resource Name (ARN) of the campaign to update.\n" +
-                "    solutionVersion - The Amazon Resource Name (ARN) of the new solution version to deploy.\n" +
-                "    minProvisionedTPS - Specifies the requested minimum provisioned transactions" +
-                "(recommendations) per second that Amazon Personalize will support.\n";
+        final String USAGE = """
+
+            Usage:
+                UpdateCampaign <campaignArn, solutionVersion, minProvisionedTPS>
+
+            Where:
+                campaignArn - The Amazon Resource Name (ARN) of the campaign to update.
+                solutionVersion - The Amazon Resource Name (ARN) of the new solution version to deploy.
+                minProvisionedTPS - Specifies the requested minimum provisioned transactions(recommendations) per second that Amazon Personalize will support.
+            """;
 
         if (args.length != 3) {
             System.out.println(USAGE);

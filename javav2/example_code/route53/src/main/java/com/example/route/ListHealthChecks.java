@@ -9,8 +9,8 @@
 */
 package com.example.route;
 
+// snippet-start:[route53.java2.list_health_checks.main]
 // snippet-start:[route53.java2.list_health_checks.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53.Route53Client;
 import software.amazon.awssdk.services.route53.model.HealthCheck;
@@ -27,29 +27,24 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListHealthChecks {
-
     public static void main(String[] args) {
-
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllHealthChecks(route53Client);
         route53Client.close();
     }
 
-    // snippet-start:[route53.java2.list_health_checks.main]
     public static void listAllHealthChecks(Route53Client route53Client) {
-
         try {
             ListHealthChecksResponse checksResponse = route53Client.listHealthChecks();
             List<HealthCheck> checklist = checksResponse.healthChecks();
-            for (HealthCheck check: checklist) {
-                System.out.println("The health check id is: "+check.id());
-                System.out.println("The health threshold is: "+check.healthCheckConfig().healthThreshold());
-                System.out.println("The type is: "+check.healthCheckConfig().typeAsString());
+            for (HealthCheck check : checklist) {
+                System.out.println("The health check id is: " + check.id());
+                System.out.println("The health threshold is: " + check.healthCheckConfig().healthThreshold());
+                System.out.println("The type is: " + check.healthCheckConfig().typeAsString());
             }
 
         } catch (Route53Exception e) {
@@ -57,5 +52,5 @@ public class ListHealthChecks {
             System.exit(1);
         }
     }
-    // snippet-end:[route53.java2.list_health_checks.main]
 }
+// snippet-end:[route53.java2.list_health_checks.main]

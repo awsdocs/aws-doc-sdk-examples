@@ -13,7 +13,6 @@ package com.example.workdocs;
 // snippet-start:[workdocs.java2.list_users.import]
 import java.util.ArrayList;
 import java.util.List;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.workdocs.WorkDocsClient;
 import software.amazon.awssdk.services.workdocs.model.DescribeUsersRequest;
@@ -29,15 +28,16 @@ import software.amazon.awssdk.services.workdocs.model.User;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListUsers {
-
     public static void main(String[] args) {
         // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-iam.html
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <organizationId>   \n\n" +
-            "Where:\n" +
-            "    organizationId - Your organization Id value. You can obtain this value from the AWS Management Console. \n" ;
+        final String usage = """
+            Usage:
+                <organizationId>  \s
+
+            Where:
+                organizationId - Your organization Id value. You can obtain this value from the AWS Management Console.\s
+            """;
 
        if (args.length != 1) {
            System.out.println(usage);
@@ -48,7 +48,6 @@ public class ListUsers {
        Region region = Region.US_WEST_2;
        WorkDocsClient workDocs = WorkDocsClient.builder()
            .region(region)
-           .credentialsProvider(ProfileCredentialsProvider.create())
            .build();
 
        getAllUsers(workDocs, orgId);
@@ -87,7 +86,6 @@ public class ListUsers {
                     wdUser.rootFolderId());
         }
     }
-    // snippet-end:[workdocs.java2.list_users.main]
 }
-
+// snippet-end:[workdocs.java2.list_users.main]
 // snippet-end:[workdocs.java2.list_users.complete]

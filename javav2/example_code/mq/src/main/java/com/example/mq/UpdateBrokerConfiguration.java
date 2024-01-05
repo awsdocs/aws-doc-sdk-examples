@@ -25,14 +25,17 @@ import software.amazon.awssdk.services.mq.model.MqException;
 
 public class UpdateBrokerConfiguration {
     public static void main(String[] args) {
+        final String USAGE = """
 
-        final String USAGE = "\n" +
-                "Usage: " +
-                "CreateConfiguration <brokerId> <configurationId>\n\n" +
-                "Where:\n" +
-                "  brokerId - The ID of the broker being updated\n" +
-                "  configurationId - The ID of the configuration being associate with a broker.\n\n" +
-                "Tip: You can use ListBrokers and ListConfigurations to display a list of your brokers and configurations.\n\n";
+            Usage: CreateConfiguration <brokerId> <configurationId>
+
+            Where:
+              brokerId - The ID of the broker being updated
+              configurationId - The ID of the configuration being associate with a broker.
+
+            Tip: You can use ListBrokers and ListConfigurations to display a list of your brokers and configurations.
+
+            """;
 
         int argsLength = args.length;
         String brokerId = "";

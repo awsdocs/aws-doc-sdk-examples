@@ -9,8 +9,8 @@
 
 package com.example.migrationhub;
 
+// snippet-start:[migration.java2.list_apps.main]
 // snippet-start:[migration.java2.list_apps.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.migrationhub.MigrationHubClient;
 import software.amazon.awssdk.services.migrationhub.model.ApplicationState;
@@ -28,23 +28,18 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListApplications {
-
     public static void main(String[] args) {
-
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listApps(migrationClient);
         migrationClient.close();
     }
 
-    // snippet-start:[migration.java2.list_apps.main]
     public static void listApps(MigrationHubClient migrationClient) {
-
-        try{
+        try {
             ListApplicationStatesRequest applicationStatesRequest = ListApplicationStatesRequest.builder()
                 .maxResults(10)
                 .build();
@@ -56,10 +51,10 @@ public class ListApplications {
                 System.out.println("The status is " + appState.applicationStatus().toString());
             }
 
-        } catch(MigrationHubException e) {
+        } catch (MigrationHubException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[migration.java2.list_apps.main]
 }
+ // snippet-end:[migration.java2.list_apps.main]

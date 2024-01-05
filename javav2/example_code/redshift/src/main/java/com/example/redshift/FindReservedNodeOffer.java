@@ -9,8 +9,8 @@
 
 package com.example.redshift;
 
+// snippet-start:[redshift.java2._nodes.main]
 // snippet-start:[redshift.java2._nodes.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
 import software.amazon.awssdk.services.redshift.model.DescribeReservedNodesResponse;
@@ -31,7 +31,6 @@ import java.util.ArrayList;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class FindReservedNodeOffer {
-
     public static String nodeTypeToPurchase = "dc2.large";
     public static Double fixedPriceLimit = 10000.00;
     public static ArrayList<ReservedNodeOffering> matchingNodes = new ArrayList<>();
@@ -41,7 +40,6 @@ public class FindReservedNodeOffer {
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listReservedNodes(redshiftClient);
@@ -49,9 +47,7 @@ public class FindReservedNodeOffer {
         redshiftClient.close();
     }
 
-    // snippet-start:[redshift.java2._nodes.main]
     public static void listReservedNodes(RedshiftClient redshiftClient) {
-
         try {
             DescribeReservedNodesResponse reservedNodesResponse = redshiftClient.describeReservedNodes();
             System.out.println("Listing nodes already purchased.");
@@ -75,11 +71,11 @@ public class FindReservedNodeOffer {
             System.out.println("\nFinding nodes to purchase.");
 
             for (ReservedNodeOffering offering : response.reservedNodeOfferings()) {
-                if (offering.nodeType().equals(nodeTypeToPurchase)){
+                if (offering.nodeType().equals(nodeTypeToPurchase)) {
                     if (offering.fixedPrice() < fixedPriceLimit) {
                         matchingNodes.add(offering);
                         printOfferingDetails(offering);
-                        count +=1;
+                        count += 1;
                     }
                 }
             }
@@ -115,5 +111,5 @@ public class FindReservedNodeOffer {
         System.out.format("Offering Type: %s\n", offering.offeringType());
         System.out.format("Duration: %s\n", offering.duration());
     }
-    // snippet-end:[redshift.java2._nodes.main]
 }
+// snippet-end:[redshift.java2._nodes.main]

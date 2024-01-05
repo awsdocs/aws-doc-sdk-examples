@@ -6,7 +6,7 @@
 | -----------  | ----------- |
 | Description  | Discusses how to develop a photo asset management application for users to manage photos with labels. This application is developed by using the AWS SDK for Kotlin.     |
 | Audience     |  Developer (beginner / intermediate)        |
-| Updated      | 4/25/2023        |
+| Updated      | 11/14/2023        |
 | Required skills   | Kotlin, Gradle  |
 
 ## Purpose
@@ -42,8 +42,8 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Kotlin IDE. (This tutorial uses the IntelliJ IDE with the Kotlin plugin).
-+ Java JDK 11.
-+ Gradle 6.8 or higher.
++ Java JDK 17.
++ Gradle 8.1 or higher.
 + You must also set up your Kotlin development environment. For more information, see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 
 ### Important
@@ -204,16 +204,21 @@ At this point, you have a new project named **PhotoAssetKotlin**.
 Add the following dependencies to your Gradle build file.
 
 ```xml
-  import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.0"
     id("com.github.johnrengelman.shadow") version "7.1.0"
     application
 }
 
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 buildscript {
     repositories {
@@ -226,12 +231,17 @@ buildscript {
 
 repositories {
     mavenCentral()
-    jcenter()
     gradlePluginPortal()
 }
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
+    implementation("aws.sdk.kotlin:dynamodb:1.0.0")
+    implementation("aws.sdk.kotlin:s3:1.0.0")
+    implementation("aws.sdk.kotlin:sns:1.0.0")
+    implementation("aws.sdk.kotlin:rekognition:1.0.0")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
+    implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
     implementation("org.springframework.boot:spring-boot-starter-web:2.7.5")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -241,10 +251,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("com.sun.mail:javax.mail:1.6.2")
-    implementation("aws.sdk.kotlin:dynamodb-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:s3-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:sns-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:rekognition-jvm:0.21.3-beta")
     implementation("com.google.code.gson:gson:2.10")
     implementation("org.json:json:20230227")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
@@ -258,13 +264,14 @@ application {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
 
 ```
 
@@ -814,18 +821,20 @@ package com.example.photo.services
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.GetObjectRequest
 import aws.sdk.kotlin.services.s3.model.PutObjectRequest
-import aws.sdk.kotlin.services.s3.presigners.presign
+import aws.sdk.kotlin.services.s3.presigners.presignGetObject
+import aws.sdk.kotlin.services.s3.presigners.presignPutObject
 import aws.smithy.kotlin.runtime.content.ByteStream
 import aws.smithy.kotlin.runtime.content.toByteArray
 import com.example.photo.PhotoApplicationResources
 import java.io.ByteArrayOutputStream
+import java.net.URL
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
 class S3Service {
-    // Place the uploaded image into an S3 bucket.
+    // Place the upload image into an Amazon S3 bucket
     suspend fun putObject(data: ByteArray, objectKey: String) {
         val request = PutObjectRequest {
             bucket = PhotoApplicationResources.STORAGE_BUCKET
@@ -838,7 +847,7 @@ class S3Service {
         }
     }
 
-    // Place the uploaded image into an S3 bucket.
+    // Place the upload image into an Amazon S3 bucket.
     suspend fun putZIP(data: ByteArray, objectKey: String) {
         val request = PutObjectRequest {
             bucket = PhotoApplicationResources.WORKING_BUCKET
@@ -885,13 +894,16 @@ class S3Service {
 
     suspend fun signObjectToDownload(keyName: String?): String? {
         S3Client { region = "us-east-1" }.use { s3Client ->
-            val presignedUrl = GetObjectRequest {
+            val unsignedRequest = GetObjectRequest {
                 bucket = PhotoApplicationResources.WORKING_BUCKET
                 key = keyName
-            }.presign(s3Client.config, 1L.hours).url
+            }
 
+            // Presign the GetObject request.
+            val presignedRequest = s3Client.presignGetObject(unsignedRequest, 1.hours)
+            val presignedUrl = URL(presignedRequest.url.toString()).readText()
             println(presignedUrl)
-            return presignedUrl.toString()
+            return presignedUrl
         }
     }
 
@@ -901,13 +913,15 @@ class S3Service {
                 bucket = PhotoApplicationResources.WORKING_BUCKET
                 key = keyName
                 contentType = "image/jpeg"
-            }.presign(s3Client.config, 5L.minutes).url
+            }
 
-            println(presignedUrl)
-            return presignedUrl.toString()
+            val presignedRequest = s3Client.presignPutObject(presignedUrl, 5L.minutes)
+            println(presignedRequest.url.toString())
+            return presignedRequest.url.toString()
         }
     }
 }
+
 
 ```
 

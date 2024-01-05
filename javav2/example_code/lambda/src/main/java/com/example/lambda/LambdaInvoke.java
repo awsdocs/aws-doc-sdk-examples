@@ -11,6 +11,7 @@
 // snippet-start:[lambda.java2.LambdaInvoke.complete]
 package com.example.lambda;
 
+// snippet-start:[lambda.java2.invoke.main]
 // snippet-start:[lambda.java2.invoke.import]
 import org.json.JSONObject;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
@@ -36,12 +37,14 @@ public class LambdaInvoke {
    */
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <functionName> \n\n" +
-            "Where:\n" +
-            "    functionName - The name of the Lambda function \n";
+            Usage:
+                <functionName>\s
+
+            Where:
+                functionName - The name of the Lambda function\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -52,14 +55,12 @@ public class LambdaInvoke {
         Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         invokeFunction(awsLambda, functionName);
         awsLambda.close();
     }
 
-    // snippet-start:[lambda.java2.invoke.main]
     public static void invokeFunction(LambdaClient awsLambda, String functionName) {
 
         InvokeResponse res = null ;
@@ -85,6 +86,6 @@ public class LambdaInvoke {
             System.exit(1);
         }
     }
-    // snippet-end:[lambda.java2.invoke.main]
 }
+// snippet-end:[lambda.java2.invoke.main]
 // snippet-end:[lambda.java2.LambdaInvoke.complete]

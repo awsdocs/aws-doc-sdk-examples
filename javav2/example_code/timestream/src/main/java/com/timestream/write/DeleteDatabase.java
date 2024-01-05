@@ -9,8 +9,8 @@
 
 package com.timestream.write;
 
+//snippet-start:[timestream.java2.del_db.main]
 //snippet-start:[timestream.java2.del_db.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.timestreamwrite.TimestreamWriteClient;
 import software.amazon.awssdk.services.timestreamwrite.model.DeleteDatabaseRequest;
@@ -25,42 +25,39 @@ import software.amazon.awssdk.services.timestreamwrite.model.TimestreamWriteExce
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class DeleteDatabase {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <dbName> \n\n" +
-            "Where:\n" +
-            "   dbName - The name of the database.\n\n";
+        final String usage = """
+
+            Usage:    <dbName>\s
+
+            Where:
+               dbName - The name of the database.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
-         }
+        }
 
         String dbName = args[0];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         delDatabase(timestreamWriteClient, dbName);
         timestreamWriteClient.close();
     }
 
-    //snippet-start:[timestream.java2.del_db.main]
     public static void delDatabase(TimestreamWriteClient timestreamWriteClient, String dbName) {
-
         try {
             System.out.println("Deleting database");
             DeleteDatabaseRequest deleteDatabaseRequest = DeleteDatabaseRequest.builder()
                 .databaseName(dbName)
                 .build();
 
-            DeleteDatabaseResponse result =  timestreamWriteClient.deleteDatabase(deleteDatabaseRequest);
+            DeleteDatabaseResponse result = timestreamWriteClient.deleteDatabase(deleteDatabaseRequest);
             System.out.println("Delete database status: " + result.sdkHttpResponse().statusCode());
 
         } catch (TimestreamWriteException e) {
@@ -68,5 +65,5 @@ public class DeleteDatabase {
             System.exit(1);
         }
     }
-    //snippet-end:[timestream.java2.del_db.main]
 }
+//snippet-end:[timestream.java2.del_db.main]

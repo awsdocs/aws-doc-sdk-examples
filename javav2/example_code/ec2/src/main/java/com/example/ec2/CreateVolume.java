@@ -30,11 +30,9 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
  */
 public class CreateVolume {
     public static void main(String[] args) {
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         try {

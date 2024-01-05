@@ -10,8 +10,8 @@
 // snippet-start:[ssm.Java2.get_params.complete]
 package com.example.ssm;
 
+// snippet-start:[ssm.Java2.get_params.main]
 // snippet-start:[ssm.Java2.get_params.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.DescribeParametersRequest;
@@ -28,22 +28,17 @@ import software.amazon.awssdk.services.ssm.model.SsmException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeParameters {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         describeParams(ssmClient);
         ssmClient.close();
     }
 
-    // snippet-start:[ssm.Java2.get_params.main]
     public static void describeParams(SsmClient ssmClient) {
-
         try {
             // Create a DescribeParametersRequest object
             DescribeParametersRequest desRequest = DescribeParametersRequest.builder()
@@ -61,7 +56,7 @@ public class DescribeParameters {
             e.getStackTrace();
         }
     }
-    // snippet-end:[ssm.Java2.get_params.main]
 }
+// snippet-end:[ssm.Java2.get_params.main]
 // snippet-end:[ssm.Java2.get_params.complete]
 

@@ -24,9 +24,7 @@ import software.amazon.awssdk.services.apigateway.model.*;
  */
 
 public class CreateAPIKey {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         ApiGatewayClient apiGateway = ApiGatewayClient.builder()
                 .region(region)

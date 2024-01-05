@@ -9,8 +9,8 @@
 
 package com.example.cloudtrail;
 
+//snippet-start:[cloudtrail.java2.events.main]
 //snippet-start:[cloudtrail.java2.events.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudtrail.CloudTrailClient;
 import software.amazon.awssdk.services.cloudtrail.model.CloudTrailException;
@@ -29,20 +29,16 @@ import java.util.List;
  */
 
 public class LookupEvents {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         lookupAllEvents(cloudTrailClient);
         cloudTrailClient.close();
     }
 
-    //snippet-start:[cloudtrail.java2.events.main]
     public static void lookupAllEvents(CloudTrailClient cloudTrailClientClient) {
         try {
             LookupEventsRequest eventsRequest = LookupEventsRequest.builder()
@@ -61,5 +57,5 @@ public class LookupEvents {
             System.exit(1);
         }
     }
-    //snippet-end:[cloudtrail.java2.events.main]
 }
+//snippet-end:[cloudtrail.java2.events.main]

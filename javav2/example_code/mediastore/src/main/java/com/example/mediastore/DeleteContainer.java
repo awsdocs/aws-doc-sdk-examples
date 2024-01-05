@@ -9,8 +9,8 @@
 
 package com.example.mediastore;
 
+//snippet-start:[mediastore.java2.delete_container.main]
 //snippet-start:[mediastore.java2.delete_container.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.services.mediastore.model.DeleteContainerRequest;
@@ -25,14 +25,14 @@ import software.amazon.awssdk.services.mediastore.model.MediaStoreException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteContainer {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   DeleteContainer <containerName>\n\n" +
-            "Where:\n" +
-            "   containerName - The name of the container to delete.\n";
+            Usage:    DeleteContainer <containerName>
+
+            Where:
+               containerName - The name of the container to delete.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,17 +43,14 @@ public class DeleteContainer {
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteMediaContainer(mediaStoreClient, containerName);
         mediaStoreClient.close();
     }
 
-    //snippet-start:[mediastore.java2.delete_container.main]
     public static void deleteMediaContainer(MediaStoreClient mediaStoreClient, String containerName) {
-
-        try{
+        try {
             DeleteContainerRequest deleteContainerRequest = DeleteContainerRequest.builder()
                 .containerName(containerName)
                 .build();
@@ -65,5 +62,5 @@ public class DeleteContainer {
             System.exit(1);
         }
     }
-    //snippet-end:[mediastore.java2.delete_container.main]
 }
+//snippet-end:[mediastore.java2.delete_container.main]

@@ -10,7 +10,6 @@
 package com.example.deploy;
 
 // snippet-start:[codedeploy.java2._get_deployment.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codedeploy.CodeDeployClient;
 import software.amazon.awssdk.services.codedeploy.model.CodeDeployException;
@@ -29,11 +28,14 @@ public class GetDeployment {
 
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <deploymentId> \n\n" +
-            "Where:\n" +
-            "    deploymentId - The id of the deployment. \n";
+        final String usage = """
+
+            Usage:
+                <deploymentId>\s
+
+            Where:
+                deploymentId - The id of the deployment.\s
+            """;
 
        if (args.length != 1) {
            System.out.println(usage);
@@ -44,7 +46,6 @@ public class GetDeployment {
        Region region = Region.US_EAST_1;
        CodeDeployClient deployClient = CodeDeployClient.builder()
            .region(region)
-           .credentialsProvider(ProfileCredentialsProvider.create())
            .build();
 
        getSpecificDeployment(deployClient, deploymentId);

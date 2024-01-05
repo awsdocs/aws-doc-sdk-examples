@@ -10,7 +10,6 @@
 package com.example.sage;
 
 //snippet-start:[sagemaker.java2.list_books.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import software.amazon.awssdk.services.sagemaker.model.ListNotebookInstancesResponse;
@@ -32,7 +31,6 @@ public class HelloSageMaker {
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listBooks(sageMakerClient);
@@ -43,8 +41,8 @@ public class HelloSageMaker {
         try {
             ListNotebookInstancesResponse notebookInstancesResponse = sageMakerClient.listNotebookInstances();
             List<NotebookInstanceSummary> items = notebookInstancesResponse.notebookInstances();
-            for (NotebookInstanceSummary item: items) {
-                System.out.println("The notebook name is: "+item.notebookInstanceName());
+            for (NotebookInstanceSummary item : items) {
+                System.out.println("The notebook name is: " + item.notebookInstanceName());
             }
 
         } catch (SageMakerException e) {
@@ -52,5 +50,5 @@ public class HelloSageMaker {
             System.exit(1);
         }
     }
-    //snippet-end:[sagemaker.java2.list_books.main]
 }
+//snippet-end:[sagemaker.java2.list_books.main]

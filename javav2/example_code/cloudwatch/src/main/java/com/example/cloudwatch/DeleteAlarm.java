@@ -7,8 +7,8 @@
 */
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.java2.delete_metrics.main]
 // snippet-start:[cloudwatch.java2.delete_metrics.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
@@ -25,12 +25,14 @@ import software.amazon.awssdk.services.cloudwatch.model.DeleteAlarmsRequest;
 
 public class DeleteAlarm {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <alarmName>\n\n" +
-            "Where:\n" +
-            "  alarmName - An alarm name to delete (for example, MyAlarm).\n" ;
+            Usage:
+              <alarmName>
+
+            Where:
+              alarmName - An alarm name to delete (for example, MyAlarm).
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -41,16 +43,13 @@ public class DeleteAlarm {
         Region region = Region.US_EAST_2;
         CloudWatchClient cw = CloudWatchClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteCWAlarm(cw, alarmName) ;
         cw.close();
     }
 
-    // snippet-start:[cloudwatch.java2.delete_metrics.main]
     public static void deleteCWAlarm(CloudWatchClient cw, String alarmName) {
-
         try {
             DeleteAlarmsRequest request = DeleteAlarmsRequest.builder()
                 .alarmNames(alarmName)
@@ -64,5 +63,5 @@ public class DeleteAlarm {
             System.exit(1);
         }
     }
-    // snippet-end:[cloudwatch.java2.delete_metrics.main]
 }
+// snippet-end:[cloudwatch.java2.delete_metrics.main]

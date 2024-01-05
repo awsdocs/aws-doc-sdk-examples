@@ -8,8 +8,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.delete_user.main]
 // snippet-start:[iam.java2.delete_user.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.DeleteUserRequest;
@@ -25,23 +25,24 @@ import software.amazon.awssdk.services.iam.model.IamException;
  */
 public class DeleteUser {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <userName> \n\n" +
-            "Where:\n" +
-            "    userName - The name of the user to delete. \n\n" ;
+            Usage:
+                <userName>\s
 
-       if (args.length != 1) {
+            Where:
+                userName - The name of the user to delete.\s
+            """;
+
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
-       }
+        }
 
         String userName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteIAMUser(iam, userName);
@@ -49,9 +50,7 @@ public class DeleteUser {
         iam.close();
     }
 
-    // snippet-start:[iam.java2.delete_user.main]
     public static void deleteIAMUser(IamClient iam, String userName) {
-
         try {
             DeleteUserRequest request = DeleteUserRequest.builder()
                 .userName(userName)
@@ -65,5 +64,5 @@ public class DeleteUser {
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.delete_user.main]
 }
+// snippet-end:[iam.java2.delete_user.main]

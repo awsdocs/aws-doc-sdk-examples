@@ -9,8 +9,8 @@
 
 package com.example.s3;
 
+// snippet-start:[s3.java2.create_job.main]
 // snippet-start:[s3.java2.create_job.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
 import software.amazon.awssdk.services.s3control.model.S3Tag;
@@ -22,9 +22,8 @@ import software.amazon.awssdk.services.s3control.model.JobManifest;
 import software.amazon.awssdk.services.s3control.model.JobReport;
 import software.amazon.awssdk.services.s3control.model.CreateJobRequest;
 import software.amazon.awssdk.services.s3control.model.S3ControlException;
-// snippet-end:[s3.java2.create_job.import]
-
 import java.util.ArrayList;
+// snippet-end:[s3.java2.create_job.import]
 
 /**
  * To run this code example, ensure that you have followed the documentation provided here:
@@ -39,17 +38,18 @@ import java.util.ArrayList;
  */
 
 public class CreateJob {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-                "    <accountId> <iamRoleArn> <manifestLocation> <reportBucketName>>\n\n" +
-            "Where:\n" +
-            "    accountId - The account id value that owns the Amazon S3 bucket.\n\n" +
-            "    iamRoleArn - The ARN of the AWS Identity and Access Management (IAM) role that has permissions to create a batch job.\n" +
-            "    manifestLocation - The location where the manaifest file required for the job (for example, arn:aws:s3:::<BUCKETNAME>/manifest.csv).\n" +
-            "    reportBucketName - The Amazon S3 bucket where the report is written to  (for example, arn:aws:s3:::<BUCKETNAME>).\n";
+            Usage:
+                <accountId> <iamRoleArn> <manifestLocation> <reportBucketName>>
+
+            Where:
+                accountId - The account id value that owns the Amazon S3 bucket.
+                iamRoleArn - The ARN of the AWS Identity and Access Management (IAM) role that has permissions to create a batch job.
+                manifestLocation - The location where the manaifest file required for the job (for example, arn:aws:s3:::<BUCKETNAME>/manifest.csv).
+                reportBucketName - The Amazon S3 bucket where the report is written to  (for example, arn:aws:s3:::<BUCKETNAME>).
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -61,20 +61,15 @@ public class CreateJob {
         String manifestLocation = args[2];
         String reportBucketName = args[3];
         String uuid = java.util.UUID.randomUUID().toString();
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3ControlClient s3ControlClient = S3ControlClient.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
         createS3Job(s3ControlClient, accountId, iamRoleArn, manifestLocation, reportBucketName, uuid);
         s3ControlClient.close();
     }
 
-    // snippet-start:[s3.java2.create_job.main]
-    public static void createS3Job( S3ControlClient s3ControlClient, String accountId, String iamRoleArn, String manifestLocation, String reportBucketName, String uuid) {
-
+    public static void createS3Job(S3ControlClient s3ControlClient, String accountId, String iamRoleArn, String manifestLocation, String reportBucketName, String uuid) {
         try {
             ArrayList<S3Tag> tagSet = new ArrayList<>();
             S3Tag s3Tag = S3Tag.builder()
@@ -128,10 +123,10 @@ public class CreateJob {
 
             s3ControlClient.createJob(jobRequest);
 
-       } catch (S3ControlException e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
-       }
+        } catch (S3ControlException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
-    // snippet-end:[s3.java2.create_job.main]
 }
+// snippet-end:[s3.java2.create_job.main]

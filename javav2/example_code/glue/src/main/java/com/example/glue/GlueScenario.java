@@ -9,7 +9,6 @@
 package com.example.glue;
 
 //snippet-start:[glue.java2.scenario.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import java.time.Instant;
@@ -85,19 +84,22 @@ import software.amazon.awssdk.services.glue.model.DeleteCrawlerRequest;
 public class GlueScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <iam> <s3Path> <cron> <dbName> <crawlerName> <jobName> \n\n" +
-            "Where:\n" +
-            "    iam - The ARN of the IAM role that has AWS Glue and S3 permissions. \n" +
-            "    s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).\n" +
-            "    cron - A cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).\n" +
-            "    dbName - The database name. \n" +
-            "    crawlerName - The name of the crawler. \n" +
-            "    jobName - The name you assign to this job definition."+
-            "    scriptLocation - The Amazon S3 path to a script that runs a job." +
-            "    locationUri - The location of the database" +
-            "    bucketNameSc - The Amazon S3 bucket name used when creating a job" ;
+        final String usage = """
+
+            Usage:
+                <iam> <s3Path> <cron> <dbName> <crawlerName> <jobName>\s
+
+            Where:
+                iam - The ARN of the IAM role that has AWS Glue and S3 permissions.\s
+                s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).
+                cron - A cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).
+                dbName - The database name.\s
+                crawlerName - The name of the crawler.\s
+                jobName - The name you assign to this job definition.    
+                scriptLocation - The Amazon S3 path to a script that runs a job.    
+                locationUri - The location of the database    
+                bucketNameSc - The Amazon S3 bucket name used when creating a job
+                """;
 
        if (args.length != 9) {
             System.out.println(usage);
@@ -117,7 +119,6 @@ public class GlueScenario {
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         System.out.println(DASHES);
         System.out.println("Welcome to the AWS Glue scenario.");

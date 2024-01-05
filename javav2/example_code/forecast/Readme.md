@@ -1,77 +1,84 @@
-# Amazon Forecast Java code examples
+# Forecast code examples for the SDK for Java 2.x
 
-This README discusses how to run and test the Java code examples for Amazon Forecast.
+## Overview
 
-## Running the Amazon Forecast Java files
+Shows how to use the AWS SDK for Java 2.x to work with Amazon Forecast Service.
 
-The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-**IMPORTANT**
+_Forecast a fully managed service that uses statistical and machine learning algorithms to deliver highly accurate time-series forecasts._
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+## ⚠ Important
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a named query example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
 
 
- ## Testing the Amazon Forecast files
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-You can test the Amazon Forecast Java code examples by running a test file named **ForecastTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/) .
+### Single actions
 
-You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+Code excerpts that show you how to call individual service functions.
 
-	Test 3 passed
+- [Create a data set](src/main/java/com/example/forecast/CreateDataSet.java#L11) (`CreateDataset`)
+- [Create a forecast](src/main/java/com/example/forecast/CreateForecast.java#L11) (`CreateForecast`)
+- [Delete a data set](src/main/java/com/example/forecast/DeleteDataset.java#L12) (`DeleteDataset`)
+- [Delete a forecast](src/main/java/com/example/forecast/DeleteDataset.java#L12) (`DeleteForecast`)
+- [Describe a forecast](src/main/java/com/example/forecast/DescribeForecast.java#L12) (`DescribeForecast`)
+- [List data set groups](src/main/java/com/example/forecast/ListDataSetGroups.java#L12) (`ListDatasetGroups`)
+- [List forecasts](src/main/java/com/example/forecast/ListForecasts.java#L12) (`ListForecasts`)
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
- ### Properties file
-Before running the Amazon Forecast JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a forecast name used in the tests. If you do not define all values, the JUnit tests fail.
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-Define these values to successfully run the JUnit tests:
+## Run the examples
 
-- **forecastName** - The name of a forecast used in the tests.  
-- **predictorARN** - An Amazon Resource Name (ARN) of an existing predictor.
-- **dataSet** - The name of a dataset to create.
-- **forecastARNToDelete** - An ARN of an existing forecast to delete (you cannot delete the forecast that is created because there is a time delay).
+### Instructions
 
-### Command line
-To run the JUnit tests from the command line, you can use the following command.
 
-		mvn test
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-You will see output from the JUnit tests, as shown here.
 
-	[INFO] -------------------------------------------------------
-	[INFO]  T E S T S
-	[INFO] -------------------------------------------------------
-	[INFO] Running ForecastTest
-	Test 1 passed
-	Test 2 passed
-	...
-	Done!
-	[INFO] Results:
-	[INFO]
-	[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
-	[INFO]
-	INFO] --------------------------------------------
-	[INFO] BUILD SUCCESS
-	[INFO]--------------------------------------------
-	[INFO] Total time:  12.003 s
-	[INFO] Finished at: 2020-02-10T14:25:08-05:00
-	[INFO] --------------------------------------------
 
-### Unsuccessful tests
+### Tests
 
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as the following. You need to double-check the values that you set in the properties file and run the tests again.
+⚠ Running tests might result in charges to your AWS account.
 
-	[INFO]
-	[INFO] --------------------------------------
-	[INFO] BUILD FAILURE
-	[INFO] --------------------------------------
-	[INFO] Total time:  19.038 s
-	[INFO] Finished at: 2020-02-10T14:41:51-05:00
-	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
-	[ERROR];
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Forecast User Guide](https://docs.aws.amazon.com/forecast/latest/dg/getting-started.html)
+- [Forecast API Reference](https://docs.aws.amazon.com/forecast/latest/dg/api-reference.html)
+- [SDK for Java 2.x Forecast reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/forecast/package-summary.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

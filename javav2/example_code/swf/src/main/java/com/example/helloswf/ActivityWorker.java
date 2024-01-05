@@ -9,8 +9,8 @@
 
 package com.example.helloswf;
 
+// snippet-start:[swf.java2.activity_worker.main]
 // snippet-start:[swf.java2.activity_worker.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.PollForActivityTaskResponse;
@@ -31,13 +31,15 @@ import software.amazon.awssdk.services.swf.model.RespondActivityTaskFailedReques
 public class ActivityWorker {
 
     public static void main(String[] args) {
+        final String USAGE = """
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    <domain> <taskList> \n\n" +
-            "Where:\n" +
-            "    domain - The domain to use (for example, mydomain). \n" +
-            "    taskList - The taskList to use (for example, HelloTasklist).  \n" ;
+            Usage:
+                <domain> <taskList>\s
+
+            Where:
+                domain - The domain to use (for example, mydomain).\s
+                taskList - The taskList to use (for example, HelloTasklist). \s
+            """;
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -49,16 +51,13 @@ public class ActivityWorker {
         Region region = Region.US_EAST_1;
         SwfClient swf = SwfClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getPollData(swf, domain, taskList) ;
         swf.close();
     }
 
-    // snippet-start:[swf.java2.activity_worker.main]
     public static void getPollData( SwfClient swf, String domain, String taskList) {
-
         System.out.println("Polling for an activity task from the tasklist '"
                     + taskList + "' in the domain '" +
                     domain + "'.");

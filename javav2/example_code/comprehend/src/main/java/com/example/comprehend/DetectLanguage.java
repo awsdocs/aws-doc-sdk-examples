@@ -9,8 +9,8 @@
 
 package com.example.comprehend;
 
+//snippet-start:[comprehend.java2.detect_language.main]
 //snippet-start:[comprehend.java2.detect_language.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.comprehend.ComprehendClient;
 import software.amazon.awssdk.services.comprehend.model.ComprehendException;
@@ -28,16 +28,13 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DetectLanguage {
-
     public static void main(String[] args) {
-
         // Specify French text - "It is raining today in Seattle".
         String text = "Il pleut aujourd'hui à Seattle";
         Region region = Region.US_EAST_1;
 
         ComprehendClient comClient = ComprehendClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println("Calling DetectDominantLanguage");
@@ -45,9 +42,7 @@ public class DetectLanguage {
         comClient.close();
     }
 
-    //snippet-start:[comprehend.java2.detect_language.main]
-    public static void detectTheDominantLanguage(ComprehendClient comClient, String text){
-
+    public static void detectTheDominantLanguage(ComprehendClient comClient, String text) {
         try {
             DetectDominantLanguageRequest request = DetectDominantLanguageRequest.builder()
                 .text(text)
@@ -64,6 +59,6 @@ public class DetectLanguage {
             System.exit(1);
         }
     }
-    //snippet-end:[comprehend.java2.detect_language.main]
-    }
+}
+//snippet-end:[comprehend.java2.detect_language.main]
 

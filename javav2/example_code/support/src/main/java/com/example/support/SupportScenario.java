@@ -9,6 +9,7 @@
 
 package com.example.support;
 
+// snippet-start:[support.java2.scenario.main]
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.support.SupportClient;
@@ -46,7 +47,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-// snippet-start:[support.java2.scenario.main]
+
 /**
  * Before running this Java (v2) code example, set up your development environment, including your credentials.
  *
@@ -75,11 +76,12 @@ public class SupportScenario {
 
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <fileAttachment>" +
-            "Where:\n" +
-            "    fileAttachment - The file can be a simple saved .txt file to use as an email attachment. \n";
+        final String usage = """
+
+            Usage:
+                <fileAttachment>Where:
+                fileAttachment - The file can be a simple saved .txt file to use as an email attachment.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);

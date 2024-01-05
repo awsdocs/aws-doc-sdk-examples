@@ -23,14 +23,15 @@ import software.amazon.awssdk.services.kinesis.model.RegisterStreamConsumerRespo
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class RegisterStreamConsumer {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <streamARN>\n\n" +
-            "Where:\n" +
-            "    streamARN - The Amazon Kinesis data stream (for example, arn:aws:kinesis:us-east-1:814548xxxxxx:stream/LamDataStream)\n\n" ;
+            Usage:
+                <streamARN>
+
+            Where:
+                streamARN - The Amazon Kinesis data stream (for example, arn:aws:kinesis:us-east-1:814548xxxxxx:stream/LamDataStream)
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -41,7 +42,6 @@ public class RegisterStreamConsumer {
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
        String arnValue = regConsumer(kinesisClient, streamARN);
@@ -50,7 +50,6 @@ public class RegisterStreamConsumer {
     }
 
     public static String regConsumer(KinesisClient kinesisClient, String streamARN) {
-
         try {
             RegisterStreamConsumerRequest regCon = RegisterStreamConsumerRequest.builder()
                 .consumerName("MyConsumer")

@@ -7,8 +7,8 @@
 */
 
 package com.example.kinesis;
+// snippet-start:[kinesis.java2.DescribeLimits.main]
 //snippet-start:[kinesis.java2.DescribeLimits.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
 import software.amazon.awssdk.services.kinesis.model.DescribeLimitsRequest;
@@ -24,20 +24,18 @@ import software.amazon.awssdk.services.kinesis.model.KinesisException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeLimits {
-
     public static void main(String[] args) {
         // snippet-start:[kinesis.java2.DescribeLimits.client]
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         // snippet-end:[kinesis.java2.DescribeLimits.client]
 
         describeKinLimits(kinesisClient);
         kinesisClient.close();
     }
-    // snippet-start:[kinesis.java2.DescribeLimits.main]
+
     public static void describeKinLimits(KinesisClient kinesisClient) {
         try {
             DescribeLimitsRequest request = DescribeLimitsRequest.builder()
@@ -53,5 +51,5 @@ public class DescribeLimits {
         }
         System.out.println("Done");
     }
-    // snippet-end:[kinesis.java2.DescribeLimits.main]
 }
+// snippet-end:[kinesis.java2.DescribeLimits.main]

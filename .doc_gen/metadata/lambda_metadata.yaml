@@ -5,6 +5,15 @@ lambda_Hello:
   synopsis: get started using &LAM;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.java2.ListLambdaFunctions.complete
     .NET:
       versions:
         - sdk_version: 3

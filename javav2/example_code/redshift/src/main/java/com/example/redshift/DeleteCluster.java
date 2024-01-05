@@ -9,8 +9,8 @@
 
 package com.example.redshift;
 
+// snippet-start:[redshift.java2.delete_cluster.main]
 // snippet-start:[redshift.java2.delete_cluster.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
 import software.amazon.awssdk.services.redshift.model.DeleteClusterRequest;
@@ -26,14 +26,16 @@ import software.amazon.awssdk.services.redshift.model.RedshiftException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteCluster {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <clusterId> \n\n" +
-            "Where:\n" +
-            "    clusterId - The id of the cluster to delete. \n";
+        final String usage = """
+
+            Usage:
+                <clusterId>\s
+
+            Where:
+                clusterId - The id of the cluster to delete.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,16 +46,13 @@ public class DeleteCluster {
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        deleteRedshiftCluster(redshiftClient, clusterId) ;
+        deleteRedshiftCluster(redshiftClient, clusterId);
         redshiftClient.close();
     }
 
-    // snippet-start:[redshift.java2.delete_cluster.main]
     public static void deleteRedshiftCluster(RedshiftClient redshiftClient, String clusterId) {
-
         try {
             DeleteClusterRequest deleteClusterRequest = DeleteClusterRequest.builder()
                 .clusterIdentifier(clusterId)
@@ -61,12 +60,12 @@ public class DeleteCluster {
                 .build();
 
             DeleteClusterResponse response = redshiftClient.deleteCluster(deleteClusterRequest);
-            System.out.println("The status is "+response.cluster().clusterStatus());
+            System.out.println("The status is " + response.cluster().clusterStatus());
 
         } catch (RedshiftException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[redshift.java2.delete_cluster.main]
 }
+// snippet-end:[redshift.java2.delete_cluster.main]

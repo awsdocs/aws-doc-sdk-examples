@@ -8,8 +8,8 @@
 
 package com.example.forecast;
 
+// snippet-start:[forecast.java2.create_forecast_dataset.main]
 // snippet-start:[forecast.java2.create_forecast_dataset.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.forecast.ForecastClient;
 import software.amazon.awssdk.services.forecast.model.CreateDatasetRequest;
@@ -29,14 +29,15 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateDataSet {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <name> \n\n" +
-            "Where:\n" +
-            "    name - The name of the data set. \n\n" ;
+            Usage:
+                <name>\s
+
+            Where:
+                name - The name of the data set.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,17 +48,13 @@ public class CreateDataSet {
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String myDataSetARN = createForecastDataSet(forecast, name);
-        System.out.println("The ARN of the new data set is "+myDataSetARN) ;
+        System.out.println("The ARN of the new data set is " + myDataSetARN);
         forecast.close();
     }
-
-    // snippet-start:[forecast.java2.create_forecast_dataset.main]
     public static String createForecastDataSet(ForecastClient forecast, String name) {
-
         try {
             Schema schema = Schema.builder()
                 .attributes(getSchema())
@@ -75,11 +72,11 @@ public class CreateDataSet {
             return response.datasetArn();
 
         } catch (ForecastException e) {
-          System.err.println(e.awsErrorDetails().errorMessage());
-          System.exit(1);
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
 
-       return "" ;
+        return "";
     }
 
     // Create a SchemaAttribute list required to create a data set.
@@ -107,5 +104,5 @@ public class CreateDataSet {
         schemaList.add(att3);
         return schemaList;
     }
-    // snippet-end:[forecast.java2.create_forecast_dataset.main]
 }
+// snippet-end:[forecast.java2.create_forecast_dataset.main]

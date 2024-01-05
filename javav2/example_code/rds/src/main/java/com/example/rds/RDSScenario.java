@@ -9,10 +9,10 @@
 
 package com.example.rds;
 
+// snippet-start:[rds.java2.scenario.main]
 // snippet-start:[rds.java2.scenario.import]
 import com.google.gson.Gson;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.CreateDbInstanceRequest;
@@ -52,8 +52,6 @@ import java.util.ArrayList;
 import java.util.List;
 // snippet-end:[rds.java2.scenario.import]
 
-
-// snippet-start:[rds.java2.scenario.main]
 /**
  * Before running this Java (v2) code example, set up your development environment, including your credentials.
  *
@@ -84,20 +82,22 @@ import java.util.List;
  * 14. Deletes the parameter group.
  */
 public class RDSScenario {
-
     public static long sleepTime = 20;
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <dbSnapshotIdentifier> <secretName>\n\n" +
-            "Where:\n" +
-            "    dbGroupName - The database group name. \n"+
-            "    dbParameterGroupFamily - The database parameter group name (for example, mysql8.0).\n"+
-            "    dbInstanceIdentifier - The database instance identifier \n"+
-            "    dbName - The database name. \n"+
-            "    dbSnapshotIdentifier - The snapshot identifier. \n" +
-            "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials\"\n" ;
+        final String usage = """
+
+            Usage:
+                <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <dbSnapshotIdentifier> <secretName>
+
+            Where:
+                dbGroupName - The database group name.\s
+                dbParameterGroupFamily - The database parameter group name (for example, mysql8.0).
+                dbInstanceIdentifier - The database instance identifier\s
+                dbName - The database name.\s
+                dbSnapshotIdentifier - The snapshot identifier.\s
+                secretName - The name of the AWS Secrets Manager secret that contains the database credentials"
+            """;
 
         if (args.length != 6) {
             System.out.println(usage);
@@ -119,7 +119,6 @@ public class RDSScenario {
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         System.out.println(DASHES);
         System.out.println("Welcome to the Amazon RDS example scenario.");

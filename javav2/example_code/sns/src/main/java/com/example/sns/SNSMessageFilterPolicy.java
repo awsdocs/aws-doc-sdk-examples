@@ -37,7 +37,6 @@ public class SNSMessageFilterPolicy {
 
     private final Map<String, Attribute> filterPolicy = new HashMap<>();
 
-
     public void addAttribute(final String attributeName, final String attributeValue) {
         filterPolicy.put(attributeName, new Attribute<>(AttributeType.String, attributeValue));
     }

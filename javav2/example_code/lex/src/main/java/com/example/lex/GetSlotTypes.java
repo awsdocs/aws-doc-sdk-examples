@@ -9,6 +9,7 @@
 
 package com.example.lex;
 
+// snippet-start:[lex.java2.get_slot_types.main]
 // snippet-start:[lex.java2.get_slot_types.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -27,9 +28,7 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetSlotTypes {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
             .region(region)
@@ -40,16 +39,14 @@ public class GetSlotTypes {
         lexClient.close();
     }
 
-    // snippet-start:[lex.java2.get_slot_types.main]
     public static void getSlotsInfo(LexModelBuildingClient lexClient) {
-
         try {
             GetSlotTypesResponse slotTypesResponse = lexClient.getSlotTypes();
             List<SlotTypeMetadata> slots = slotTypesResponse.slotTypes();
-            for (SlotTypeMetadata slot: slots) {
-                System.out.println("Slot name is "+slot.name());
-                System.out.println("Slot description is "+slot.description());
-                System.out.println("Slot version is "+slot.version());
+            for (SlotTypeMetadata slot : slots) {
+                System.out.println("Slot name is " + slot.name());
+                System.out.println("Slot description is " + slot.description());
+                System.out.println("Slot version is " + slot.version());
             }
 
         } catch (LexModelBuildingException e) {
@@ -57,5 +54,5 @@ public class GetSlotTypes {
             System.exit(1);
         }
     }
-    // snippet-end:[lex.java2.get_slot_types.main]
 }
+// snippet-end:[lex.java2.get_slot_types.main]

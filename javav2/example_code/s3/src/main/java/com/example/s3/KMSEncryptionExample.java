@@ -9,8 +9,8 @@
 
 package com.example.s3;
 
+// snippet-start:[s3.java2.kms.main]
 // snippet-start:[s3.java2.kms.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -48,16 +48,18 @@ import java.io.FileInputStream;
 public class KMSEncryptionExample {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <objectName> <bucketName> <objectPath> <outPath> <keyId>\n\n" +
-            "Where:\n" +
-            "    objectName - The name of the object. \n\n" +
-            "    bucketName - The Amazon S3 bucket name that contains the object (for example, bucket1). \n" +
-            "    objectPath - The path to a TXT file to encrypt and place into a Amazon S3 bucket (for example, C:/AWS/test.txt).\n" +
-            "    outPath - The path where a text file is written to after it's decrypted (for example, C:/AWS/testPlain.txt).\n" +
-            "    keyId - The id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS Management Console.\n";
+            Usage:
+                <objectName> <bucketName> <objectPath> <outPath> <keyId>
+
+            Where:
+                objectName - The name of the object.\s
+                bucketName - The Amazon S3 bucket name that contains the object (for example, bucket1).\s
+                objectPath - The path to a TXT file to encrypt and place into a Amazon S3 bucket (for example, C:/AWS/test.txt).
+                outPath - The path where a text file is written to after it's decrypted (for example, C:/AWS/testPlain.txt).
+                keyId - The id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS Management Console.
+            """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -69,23 +71,18 @@ public class KMSEncryptionExample {
         String objectPath = args[2];
         String outPath = args[3];
         String keyId = args[4];
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
-         putEncryptData(s3, objectName, bucketName, objectPath, keyId);
-         getEncryptedData (s3, bucketName, objectName, outPath, keyId );
-         s3.close();
+        putEncryptData(s3, objectName, bucketName, objectPath, keyId);
+        getEncryptedData(s3, bucketName, objectName, outPath, keyId);
+        s3.close();
     }
 
-    // snippet-start:[s3.java2.kms.main]
     // Encrypt data and place the encrypted data into an Amazon S3 bucket.
     public static void putEncryptData(S3Client s3, String objectName, String bucketName, String objectPath, String keyId) {
-
         try {
             PutObjectRequest objectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -106,7 +103,6 @@ public class KMSEncryptionExample {
 
     // Obtain the encrypted data, decrypt it, and write the data to a text file.
     public static void getEncryptedData(S3Client s3, String bucketName, String objectName, String path, String keyId) {
-
         try {
             GetObjectRequest objectRequest = GetObjectRequest.builder()
                 .key(objectName)
@@ -121,7 +117,7 @@ public class KMSEncryptionExample {
             byte[] unEncryptedData = decryptData(data, keyId);
 
             // Write the data to a local file.
-            File myFile = new File(path );
+            File myFile = new File(path);
             OutputStream os = new FileOutputStream(myFile);
             os.write(unEncryptedData);
             System.out.println("Successfully obtained and decrypted bytes from the Amazon S3 bucket");
@@ -137,7 +133,6 @@ public class KMSEncryptionExample {
 
     // Encrypt the data passed as a byte array.
     private static byte[] encryptData(String keyId, byte[] data) {
-
         try {
             KmsClient kmsClient = getKMSClient();
             SdkBytes myBytes = SdkBytes.fromByteArray(data);
@@ -223,5 +218,5 @@ public class KMSEncryptionExample {
             .region(region)
             .build();
     }
-    // snippet-end:[s3.java2.kms.main]
 }
+// snippet-end:[s3.java2.kms.main]

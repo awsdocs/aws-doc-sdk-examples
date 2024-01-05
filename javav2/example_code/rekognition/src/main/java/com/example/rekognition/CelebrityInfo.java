@@ -7,8 +7,9 @@
 */
 
 package com.example.rekognition;
+
+// snippet-start:[rekognition.java2.celebrityInfo.main]
 // snippet-start:[rekognition.java2.celebrityInfo.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.GetCelebrityInfoRequest;
@@ -24,14 +25,14 @@ import software.amazon.awssdk.services.rekognition.model.RekognitionException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CelebrityInfo {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <id>\n\n" +
-            "Where:\n" +
-            "   id - The id value of the celebrity. You can use the RecognizeCelebrities example to get the ID value. \n\n";
+            Usage:    <id>
+
+            Where:
+               id - The id value of the celebrity. You can use the RecognizeCelebrities example to get the ID value.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,16 +43,13 @@ public class CelebrityInfo {
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getCelebrityInfo(rekClient, id);
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.celebrityInfo.main]
     public static void getCelebrityInfo(RekognitionClient rekClient, String id) {
-
         try {
             GetCelebrityInfoRequest info = GetCelebrityInfoRequest.builder()
                 .id(id)
@@ -60,7 +58,7 @@ public class CelebrityInfo {
             GetCelebrityInfoResponse response = rekClient.getCelebrityInfo(info);
             System.out.println("celebrity name: " + response.name());
             System.out.println("Further information (if available):");
-            for (String url: response.urls()){
+            for (String url : response.urls()) {
                 System.out.println(url);
             }
 
@@ -69,5 +67,5 @@ public class CelebrityInfo {
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.celebrityInfo.main]
 }
+// snippet-end:[rekognition.java2.celebrityInfo.main]

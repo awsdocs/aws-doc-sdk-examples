@@ -29,12 +29,14 @@ import java.util.concurrent.CompletableFuture;
 public class CreateBucketAsync {
 
     public static void main(String[] args) throws URISyntaxException {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage:\n" +
-                "    <bucketName> \n\n" +
-                "Where:\n" +
-                "    bucketName - The name of the bucket to create. The bucket name must be unique, or an error occurs.\n\n" ;
+            Usage:
+                <bucketName>\s
+
+            Where:
+                bucketName - The name of the bucket to create. The bucket name must be unique, or an error occurs.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,18 +47,15 @@ public class CreateBucketAsync {
         System.out.format("Creating a bucket named %s\n",
                 bucketName);
 
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                .build();
+            .region(region)
+            .build();
 
         createBucket (s3AsyncClient, bucketName);
     }
 
     public static void createBucket( S3AsyncClient s3AsyncClient, String bucketName) {
-
         try {
             CreateBucketRequest bucketRequest = CreateBucketRequest.builder()
                     .bucket(bucketName)

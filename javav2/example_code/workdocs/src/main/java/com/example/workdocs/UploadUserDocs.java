@@ -10,6 +10,7 @@
 
 package com.example.workdocs;
 
+// snippet-start:[workdocs.java2.upload_user_doc.main]
 // snippet-start:[workdocs.java2.upload_user_doc.import]
 import java.io.FileInputStream;
 import java.io.OutputStream;
@@ -23,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.io.IOUtils;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.workdocs.WorkDocsClient;
 import software.amazon.awssdk.services.workdocs.model.InitiateDocumentVersionUploadRequest;
@@ -45,18 +45,19 @@ import software.amazon.awssdk.services.workdocs.model.DocumentVersionStatus;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class UploadUserDocs {
-
     public static void main(String[] args) {
     // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <organizationId> <userEmail> <docName> <docPath> \n\n" +
-            "Where:\n" +
-            "    organizationId - Your organization Id value. You can obtain this value from the AWS Management Console. \n"+
-            "    userEmail - A user email. \n"+
-            "    docName - The name of the document (for example, book.pdf). \n"+
-            "    docPath - The path where the document is located (for example, C:/AWS/book.pdf). \n";
+            Usage:
+                <organizationId> <userEmail> <docName> <docPath>\s
+
+            Where:
+                organizationId - Your organization Id value. You can obtain this value from the AWS Management Console.\s
+                userEmail - A user email.\s
+                docName - The name of the document (for example, book.pdf).\s
+                docPath - The path where the document is located (for example, C:/AWS/book.pdf).\s
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -70,16 +71,13 @@ public class UploadUserDocs {
         Region region = Region.US_WEST_2;
         WorkDocsClient workDocs = WorkDocsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         uploadDoc(workDocs, organizationId, userEmail, docName, docPath) ;
         workDocs.close();
     }
 
-    // snippet-start:[workdocs.java2.upload_user_doc.main]
     public static void uploadDoc(WorkDocsClient workDocs, String orgId, String userEmail, String docName, String docPath) {
-
         String docId ;
         String versionId ;
         String uploadUrl ;
@@ -100,7 +98,6 @@ public class UploadUserDocs {
     }
 
     private static Map<String, String> getDocInfo(WorkDocsClient workDocs, String orgId, String user, String doc) {
-
         String folderId = getUserFolder(workDocs, orgId, user);
         InitiateDocumentVersionUploadRequest request = InitiateDocumentVersionUploadRequest.builder()
             .parentFolderId(folderId)
@@ -152,7 +149,6 @@ public class UploadUserDocs {
     }
 
     private static int startDocUpload(String uploadUrl, String doc) {
-
         try {
             URL url = new URL(uploadUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -190,7 +186,6 @@ public class UploadUserDocs {
 
         workDocs.updateDocumentVersion(request);
     }
-    // snippet-end:[workdocs.java2.upload_user_doc.main]
 }
-
+// snippet-end:[workdocs.java2.upload_user_doc.main]
 // snippet-end:[workdocs.java2.upload_user_doc.complete]

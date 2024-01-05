@@ -9,8 +9,8 @@
 
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.create_table.main]
 // snippet-start:[dynamodb.java2.create_table.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -35,38 +35,35 @@ import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateTable {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <tableName> <key>\n\n" +
-            "Where:\n" +
-            "    tableName - The Amazon DynamoDB table to create (for example, Music3).\n\n" +
-            "    key - The key for the Amazon DynamoDB table (for example, Artist).\n" ;
+            Usage:
+                <tableName> <key>
 
-       if (args.length != 2) {
-           System.out.println(usage);
-           System.exit(1);
-       }
+            Where:
+                tableName - The Amazon DynamoDB table to create (for example, Music3).
+                key - The key for the Amazon DynamoDB table (for example, Artist).
+            """;
 
-       String tableName = args[0];
-       String key = args[1];
-       System.out.println("Creating an Amazon DynamoDB table "+tableName +" with a simple primary key: " +key );
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-       ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
-       Region region = Region.US_EAST_1;
-       DynamoDbClient ddb = DynamoDbClient.builder()
-           .credentialsProvider(credentialsProvider)
-           .region(region)
-           .build();
+        String tableName = args[0];
+        String key = args[1];
+        System.out.println("Creating an Amazon DynamoDB table " + tableName + " with a simple primary key: " + key);
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+            .region(region)
+            .build();
 
-       String result = createTable(ddb, tableName, key);
-       System.out.println("New table is "+result);
-       ddb.close();
+        String result = createTable(ddb, tableName, key);
+        System.out.println("New table is " + result);
+        ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.create_table.main]
     public static String createTable(DynamoDbClient ddb, String tableName, String key) {
         DynamoDbWaiter dbWaiter = ddb.waiter();
         CreateTableRequest request = CreateTableRequest.builder()
@@ -79,13 +76,13 @@ public class CreateTable {
                 .keyType(KeyType.HASH)
                 .build())
             .provisionedThroughput(ProvisionedThroughput.builder()
-                .readCapacityUnits(new Long(10))
-                .writeCapacityUnits(new Long(10))
+                .readCapacityUnits(10L)
+                .writeCapacityUnits(10L)
                 .build())
             .tableName(tableName)
             .build();
 
-        String newTable ="";
+        String newTable;
         try {
             CreateTableResponse response = ddb.createTable(request);
             DescribeTableRequest tableRequest = DescribeTableRequest.builder()
@@ -102,7 +99,7 @@ public class CreateTable {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-       return "";
+        return "";
     }
-    // snippet-end:[dynamodb.java2.create_table.main]
 }
+// snippet-end:[dynamodb.java2.create_table.main]

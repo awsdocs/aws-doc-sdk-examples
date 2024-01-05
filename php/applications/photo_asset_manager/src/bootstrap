@@ -1,0 +1,64 @@
+#!/var/task/bin/php
+<?php
+
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\GuzzleException;
+
+require '/var/task/vendor/autoload.php';
+
+do {
+    try {
+        $request = getNextRequest();
+
+        $handlerFunction = array_slice(explode('.', $_ENV['_HANDLER']), -1)[0];
+        require_once "/var/task/$handlerFunction.php";
+
+        $response = "PhotoAssetManager\\$handlerFunction"($request['payload']);
+
+        sendResponse($request['invocationId'], $response);
+    } catch (Exception $e) {
+        echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
+    } catch (GuzzleException $e) {
+        echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
+    }
+} while (true);
+
+/**
+ * @throws GuzzleException
+ */
+function getNextRequest()
+{
+    $client = new GuzzleClient(['headers' => ['Access-Control-Allow-Origin' => '*']]);
+    $response = $client->get('http://' . $_ENV['AWS_LAMBDA_RUNTIME_API'] . '/2018-06-01/runtime/invocation/next');
+
+    return [
+        'invocationId' => $response->getHeader('Lambda-Runtime-Aws-Request-Id')[0],
+        'payload' => json_decode((string) $response->getBody(), true)
+    ];
+}
+
+/**
+ * @throws GuzzleException
+ */
+function sendResponse($invocationId, $response)
+{
+    $client = new GuzzleClient(['headers' => ['Access-Control-Allow-Origin' => '*']]);
+    $jsonResponse = json_encode($response);
+    $body = json_encode([
+        "isBase64Encoded" => false,
+        "headers" => ["Access-Control-Allow-Origin" => "*"],
+        'body' => $jsonResponse,
+        'statusCode' => 200,
+    ]);
+    $client->post(
+        'http://' . $_ENV['AWS_LAMBDA_RUNTIME_API'] . '/2018-06-01/runtime/invocation/' . $invocationId . '/response',
+        [
+            'body' => $body
+        ]
+    );
+}

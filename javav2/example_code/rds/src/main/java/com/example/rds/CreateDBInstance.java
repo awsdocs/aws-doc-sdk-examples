@@ -9,10 +9,10 @@
 
 package com.example.rds;
 
+// snippet-start:[rds.java2.create_instance.main]
 // snippet-start:[rds.java2.create_instance.import]
 import com.google.gson.Gson;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.DescribeDbInstancesRequest;
@@ -42,17 +42,20 @@ import java.util.List;
  *
  *
  */
-// snippet-start:[rds.java2.create_instance.main]
+
 public class CreateDBInstance {
     public static long sleepTime = 20;
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <dbInstanceIdentifier> <dbName> <secretName>\n\n" +
-            "Where:\n" +
-            "    dbInstanceIdentifier - The database instance identifier. \n" +
-            "    dbName - The database name. \n" +
-            "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials.\"\n" ;
+        final String usage = """
+
+            Usage:
+                <dbInstanceIdentifier> <dbName> <secretName>
+
+            Where:
+                dbInstanceIdentifier - The database instance identifier.\s
+                dbName - The database name.\s
+                secretName - The name of the AWS Secrets Manager secret that contains the database credentials."
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -67,7 +70,6 @@ public class CreateDBInstance {
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
             .region(region)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         createDatabaseInstance(rdsClient, dbInstanceIdentifier, dbName, user.getUsername(), user.getPassword()) ;

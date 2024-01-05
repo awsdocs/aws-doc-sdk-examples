@@ -9,8 +9,8 @@
 
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.createsegment.main]
 //snippet-start:[pinpoint.java2.createsegment.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.AttributeDimension;
@@ -37,14 +37,15 @@ import java.util.Map;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateSegment {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "  <appId>\n\n" +
-            "Where:\n" +
-            "  appId - The application ID to create a segment for.\n\n";
+            Usage:   <appId>
+
+            Where:
+              appId - The application ID to create a segment for.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -54,7 +55,6 @@ public class CreateSegment {
         String appId = args[0];
         PinpointClient pinpoint = PinpointClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         SegmentResponse result = createSegment(pinpoint, appId);
@@ -63,9 +63,7 @@ public class CreateSegment {
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.createsegment.main]
     public static SegmentResponse createSegment(PinpointClient client, String appId) {
-
         try {
             Map<String, AttributeDimension> segmentAttributes = new HashMap<>();
             segmentAttributes.put("Team", AttributeDimension.builder()
@@ -119,5 +117,5 @@ public class CreateSegment {
         }
         return null;
     }
-    //snippet-end:[pinpoint.java2.createsegment.main]
 }
+ //snippet-end:[pinpoint.java2.createsegment.main]

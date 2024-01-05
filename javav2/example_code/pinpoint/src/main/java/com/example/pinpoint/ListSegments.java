@@ -10,8 +10,8 @@
 
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.listsegments.main]
 //snippet-start:[pinpoint.java2.listsegments.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.GetSegmentsRequest;
@@ -30,12 +30,14 @@ import java.util.List;
  */
 public class ListSegments {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "  <appId>\n\n" +
-            "Where:\n" +
-            "  appId - The ID of the application that contains a segment.\n\n";
+            Usage:   <appId>
+
+            Where:
+              appId - The ID of the application that contains a segment.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,16 +47,13 @@ public class ListSegments {
         String appId = args[0];
         PinpointClient pinpoint = PinpointClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listSegs(pinpoint, appId);
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.listsegments.main]
-    public static void listSegs( PinpointClient pinpoint, String appId) {
-
+    public static void listSegs(PinpointClient pinpoint, String appId) {
         try {
             GetSegmentsRequest request = GetSegmentsRequest.builder()
                 .applicationId(appId)
@@ -62,14 +61,14 @@ public class ListSegments {
 
             GetSegmentsResponse response = pinpoint.getSegments(request);
             List<SegmentResponse> segments = response.segmentsResponse().item();
-            for(SegmentResponse segment: segments) {
+            for (SegmentResponse segment : segments) {
                 System.out.println("Segement " + segment.id() + " " + segment.name() + " " + segment.lastModifiedDate());
             }
 
-        } catch ( PinpointException e) {
+        } catch (PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[pinpoint.java2.listsegments.main]
 }
+//snippet-end:[pinpoint.java2.listsegments.main]

@@ -8,9 +8,9 @@
 */
 package com.example.dynamodb.enhanced;
 
+// snippet-start:[dynamodb.java2.mapping.getitem.main]
 // snippet-start:[dynamodb.java2.mapping.getitem.import]
 import com.example.dynamodb.Customer;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
@@ -37,13 +37,9 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
  */
 
 public class EnhancedGetItem {
-
     public static void main(String[] args) {
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
@@ -55,11 +51,8 @@ public class EnhancedGetItem {
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.mapping.getitem.main]
     public static String getItem(DynamoDbEnhancedClient enhancedClient) {
-
         Customer result = null;
-
         try {
             DynamoDbTable<Customer> table = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             Key key = Key.builder()
@@ -68,7 +61,7 @@ public class EnhancedGetItem {
 
             // Get the item by using the key.
             result = table.getItem(
-                    (GetItemEnhancedRequest.Builder requestBuilder) -> requestBuilder.key(key));
+                (GetItemEnhancedRequest.Builder requestBuilder) -> requestBuilder.key(key));
             System.out.println("******* The description value is " + result.getCustName());
 
         } catch (DynamoDbException e) {
@@ -77,5 +70,5 @@ public class EnhancedGetItem {
         }
         return result.getCustName();
     }
-    // snippet-end:[dynamodb.java2.mapping.getitem.main]
 }
+// snippet-end:[dynamodb.java2.mapping.getitem.main]

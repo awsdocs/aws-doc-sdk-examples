@@ -11,7 +11,6 @@
 package com.example.autoscaling;
 
 // snippet-start:[autoscale.java2.create_scaling_scenario.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.autoscaling.AutoScalingClient;
@@ -70,13 +69,16 @@ import java.util.List;
 public class AutoScalingScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <groupName> <launchTemplateName> <vpcZoneId>\n\n" +
-            "Where:\n" +
-            "    groupName - The name of the Auto Scaling group.\n" +
-            "    launchTemplateName - The name of the launch template. \n" +
-            "    vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.\n" ;
+        final String usage = """
+
+            Usage:
+                <groupName> <launchTemplateName> <vpcZoneId>
+
+            Where:
+                groupName - The name of the Auto Scaling group.
+                launchTemplateName - The name of the launch template.\s
+                vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -88,7 +90,6 @@ public class AutoScalingScenario {
         String vpcZoneId = args[2];
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println(DASHES);

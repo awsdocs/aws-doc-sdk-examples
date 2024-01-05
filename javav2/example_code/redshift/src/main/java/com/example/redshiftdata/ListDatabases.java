@@ -8,7 +8,6 @@
 
 package com.example.redshiftdata;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshiftdata.model.ListDatabasesRequest;
 import software.amazon.awssdk.services.redshiftdata.RedshiftDataClient;
@@ -18,7 +17,6 @@ import software.amazon.awssdk.services.redshiftdata.model.ListTablesResponse;
 import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
 import software.amazon.awssdk.services.redshiftdata.model.TableMember;
 import java.util.List;
-
 
  /**
   * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -30,14 +28,16 @@ import java.util.List;
 public class ListDatabases {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    ListDatabases <database> <dbUser> <sqlStatement> <clusterId> \n\n" +
-            "Where:\n" +
-            "    database - The name of the database (for example, dev) \n" +
-            "    dbUser - The master user name \n" +
-            "    clusterId - The id of the Redshift cluster (for example, redshift-cluster) \n";
+            Usage:
+                ListDatabases <database> <dbUser> <sqlStatement> <clusterId>\s
+
+            Where:
+                database - The name of the database (for example, dev)\s
+                dbUser - The master user name\s
+                clusterId - The id of the Redshift cluster (for example, redshift-cluster)\s
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -50,7 +50,6 @@ public class ListDatabases {
         Region region = Region.US_WEST_2;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllDatabases(redshiftDataClient,clusterId, dbUser, database) ;
@@ -59,7 +58,6 @@ public class ListDatabases {
     }
 
     public static void listAllDatabases(RedshiftDataClient redshiftDataClient,String clusterId, String dbUser, String database) {
-
         try {
             ListDatabasesRequest databasesRequest = ListDatabasesRequest.builder()
                 .clusterIdentifier(clusterId)

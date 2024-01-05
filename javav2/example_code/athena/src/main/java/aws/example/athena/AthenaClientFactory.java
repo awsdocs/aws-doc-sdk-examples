@@ -19,8 +19,7 @@ import software.amazon.awssdk.services.athena.AthenaClientBuilder;
 
 //snippet-start:[athena.java2.AthenaClientFactory.client.main]
 public class AthenaClientFactory {
-
-    private final AthenaClientBuilder builder = AthenaClient.builder()
+   private final AthenaClientBuilder builder = AthenaClient.builder()
             .region(Region.US_WEST_2)
             .credentialsProvider(ProfileCredentialsProvider.create());
 

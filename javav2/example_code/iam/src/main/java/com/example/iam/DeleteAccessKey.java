@@ -8,8 +8,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.delete_access_key.main]
 // snippet-start:[iam.java2.delete_access_key.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.DeleteAccessKeyRequest;
@@ -25,13 +25,15 @@ import software.amazon.awssdk.services.iam.model.IamException;
  */
 public class DeleteAccessKey {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <username> <accessKey> \n\n" +
-            "Where:\n" +
-            "    username - The name of the user. \n\n" +
-            "    accessKey - The access key ID for the secret access key you want to delete. \n\n" ;
+            Usage:
+                <username> <accessKey>\s
+
+            Where:
+                username - The name of the user.\s
+                accessKey - The access key ID for the secret access key you want to delete.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -43,15 +45,12 @@ public class DeleteAccessKey {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         deleteKey(iam, username, accessKey);
         iam.close();
     }
 
-    // snippet-start:[iam.java2.delete_access_key.main]
-    public static void deleteKey(IamClient iam ,String username, String accessKey ) {
-
+    public static void deleteKey(IamClient iam, String username, String accessKey) {
         try {
             DeleteAccessKeyRequest request = DeleteAccessKeyRequest.builder()
                 .accessKeyId(accessKey)
@@ -67,5 +66,5 @@ public class DeleteAccessKey {
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.delete_access_key.main]
 }
+// snippet-end:[iam.java2.delete_access_key.main]

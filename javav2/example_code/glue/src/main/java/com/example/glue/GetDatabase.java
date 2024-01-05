@@ -8,8 +8,8 @@
 
 package com.example.glue;
 
+//snippet-start:[glue.java2.get_database.main]
 //snippet-start:[glue.java2.get_database.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GetDatabaseRequest;
@@ -31,12 +31,14 @@ import java.util.Locale;
  */
 public class GetDatabase {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <databaseName>\n\n" +
-            "Where:\n" +
-            "    databaseName - The name of the database. \n" ;
+            Usage:
+                <databaseName>
+
+            Where:
+                databaseName - The name of the database.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,16 +49,13 @@ public class GetDatabase {
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getSpecificDatabase(glueClient, databaseName);
         glueClient.close();
     }
 
-    //snippet-start:[glue.java2.get_database.main]
     public static void getSpecificDatabase(GlueClient glueClient, String databaseName) {
-
         try {
             GetDatabaseRequest databasesRequest = GetDatabaseRequest.builder()
                 .name(databaseName)
@@ -78,5 +77,5 @@ public class GetDatabase {
             System.exit(1);
         }
     }
-    //snippet-end:[glue.java2.get_database.main]
 }
+//snippet-end:[glue.java2.get_database.main]

@@ -27,11 +27,15 @@ public class DeleteCampaign {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    DeleteCampaign <campaignArn> \n\n" +
-            "Where:\n" +
-            "    campaignArn - The ARN of the campaign to delete.\n\n";
+        final String USAGE = """
+
+            Usage:
+                DeleteCampaign <campaignArn>\s
+
+            Where:
+                campaignArn - The ARN of the campaign to delete.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(USAGE);

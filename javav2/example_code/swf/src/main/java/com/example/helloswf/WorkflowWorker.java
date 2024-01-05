@@ -11,7 +11,6 @@
 package com.example.helloswf;
 
 // snippet-start:[swf.java2.task_request.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.swf.SwfClient;
 import software.amazon.awssdk.services.swf.model.PollForDecisionTaskRequest;
@@ -39,15 +38,17 @@ import java.util.UUID;
 public class WorkflowWorker {
 
     public static void main(String[] args) {
+        final String USAGE = """
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    <domain> <taskList> <activity> <activityVersion> \n\n" +
-            "Where:\n" +
-            "    domain - the domain to use (ie, mydomain). \n" +
-            "    taskList - the taskList to use (ie, HelloTasklist).  \n" +
-            "    activity - the activity to use (ie, GrayscaleTransform).  \n" +
-            "    activityVersion - the activity version. \n";
+            Usage:
+                <domain> <taskList> <activity> <activityVersion>\s
+
+            Where:
+                domain - the domain to use (ie, mydomain).\s
+                taskList - the taskList to use (ie, HelloTasklist). \s
+                activity - the activity to use (ie, GrayscaleTransform). \s
+                activityVersion - the activity version.\s
+            """;
 
         if (args.length != 4) {
             System.out.println(USAGE);
@@ -62,7 +63,6 @@ public class WorkflowWorker {
         Region region = Region.US_EAST_1;
         SwfClient swf = SwfClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         pollADecision(swf, domain, taskList, activity, activityVersion);

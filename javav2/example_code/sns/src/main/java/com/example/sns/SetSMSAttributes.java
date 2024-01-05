@@ -8,8 +8,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.SetSMSAttributes.main]
 //snippet-start:[sns.java2.SetSMSAttributes.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SetSmsAttributesRequest;
@@ -25,24 +25,20 @@ import java.util.HashMap;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-//snippet-start:[sns.java2.SetSMSAttributes.main]
 public class SetSMSAttributes {
     public static void main(String[] args) {
-
         HashMap<String, String> attributes = new HashMap<>(1);
         attributes.put("DefaultSMSType", "Transactional");
-        attributes.put("UsageReportS3Bucket", "janbucket" );
+        attributes.put("UsageReportS3Bucket", "janbucket");
 
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         setSNSAttributes(snsClient, attributes);
         snsClient.close();
     }
 
-    public static void setSNSAttributes( SnsClient snsClient, HashMap<String, String> attributes) {
-
+    public static void setSNSAttributes(SnsClient snsClient, HashMap<String, String> attributes) {
         try {
             SetSmsAttributesRequest request = SetSmsAttributesRequest.builder()
                 .attributes(attributes)
@@ -56,5 +52,5 @@ public class SetSMSAttributes {
             System.exit(1);
         }
     }
-    //snippet-end:[sns.java2.SetSMSAttributes.main]
 }
+//snippet-end:[sns.java2.SetSMSAttributes.main]

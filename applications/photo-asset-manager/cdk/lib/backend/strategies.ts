@@ -223,6 +223,7 @@ export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
     upload: "upload",
   },
 };
+
 export const CPP_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(90),
   memorySize: 1024,
@@ -248,6 +249,26 @@ export const CPP_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
 };
 
+export const PHP_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  ...EMPTY_LAMBDAS_STRATEGY,
+  memorySize: 256,
+  timeout: Duration.minutes(5),
+  codeAsset() {
+    let phpPAMZip = resolve(
+        "../../../php/applications/photo_asset_manager/bootstrap.zip"
+    );
+    return Code.fromAsset(phpPAMZip);
+  },
+  runtime: Runtime.PROVIDED_AL2,
+  architecture: Architecture.X86_64,
+  handlers: {
+    detectLabels: "detectLabels",
+    download: "download",
+    labels: "labels",
+    upload: "upload",
+  },
+};
+
 export const STRATEGIES: Record<string, PamLambdasStrategy> = {
   java: JAVA_LAMBDAS_STRATEGY,
   javascript: JAVASCRIPT_LAMBDAS_STRATEGY,
@@ -256,6 +277,7 @@ export const STRATEGIES: Record<string, PamLambdasStrategy> = {
   dotnetla: DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY,
   rust: RUST_LAMBDAS_STRATEGY,
   cpp: CPP_LAMBDAS_STRATEGY,
+  php: PHP_LAMBDAS_STRATEGY,
   empty: EMPTY_LAMBDAS_STRATEGY,
 };
 

@@ -13,7 +13,7 @@ AWS Elastic Beanstalk is an easy-to-use service for deploying and scaling web ap
 
 ## Code examples
 
-The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+The credential provider used in all code examples is the default credentials provider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
 ### Single action
 

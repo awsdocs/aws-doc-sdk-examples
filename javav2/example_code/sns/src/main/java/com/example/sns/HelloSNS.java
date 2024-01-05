@@ -8,18 +8,15 @@
 //snippet-start:[sns.java2.hello.main]
 package com.example.sns;
 
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SnsException;
 import software.amazon.awssdk.services.sns.paginators.ListTopicsIterable;
 
 public class HelloSNS {
-
     public static void main(String[] args) {
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         listSNSTopics(snsClient);

@@ -9,6 +9,7 @@
 
 package com.example.sqs;
 // snippet-start:[sqs.java2.send_recieve_messages.complete]
+// snippet-start:[sqs.java2.send_recieve_messages.main]
 // snippet-start:[sqs.java2.send_recieve_messages.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -27,15 +28,15 @@ import software.amazon.awssdk.services.sqs.model.SqsException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class SendMessages {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <queueName> <message>\n\n" +
-            "Where:\n" +
-            "   queueName - The name of the queue.\n\n" +
-            "   message - The message to send.\n\n";
+            Usage:    <queueName> <message>
+
+            Where:
+               queueName - The name of the queue.
+               message - The message to send.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,15 +47,12 @@ public class SendMessages {
         String message = args[1];
         SqsClient sqsClient = SqsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         sendMessage(sqsClient, queueName, message);
         sqsClient.close();
     }
 
-    // snippet-start:[sqs.java2.send_recieve_messages.main]
     public static void sendMessage(SqsClient sqsClient, String queueName, String message) {
-
         try {
             CreateQueueRequest request = CreateQueueRequest.builder()
                 .queueName(queueName)
@@ -79,6 +77,6 @@ public class SendMessages {
             System.exit(1);
         }
     }
-    // snippet-end:[sqs.java2.send_recieve_messages.main]
 }
+// snippet-end:[sqs.java2.send_recieve_messages.main]
 // snippet-end:[sqs.java2.send_recieve_messages.complete]

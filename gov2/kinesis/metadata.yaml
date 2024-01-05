@@ -1,7 +1,0 @@
-files:
-  - path: PutRecord/PutRecordv2.go
-    services:
-      - kinesis
-  - path: PutRecord/PutRecordv2_test.go
-    services:
-      - kinesis

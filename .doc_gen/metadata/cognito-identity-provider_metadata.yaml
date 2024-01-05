@@ -5,6 +5,15 @@ cognito-identity-provider_Hello:
   synopsis: get started using &COG;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.hello.main
     C++:
       versions:
         - sdk_version: 1
@@ -49,6 +58,15 @@ cognito-identity-provider_ListUserPools:
             - description:
               snippet_tags:
                 - cognitoidentityprovider.rust.list-user-pools
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.ListUserPools.main
   services:
     cognito-identity-provider: {ListUserPools}
 cognito-identity-provider_SignUp:
@@ -738,6 +756,40 @@ cognito-identity-provider_DeleteUser:
                 - cpp.example_code.cognito.delete_user
   services:
     cognito-identity-provider: {DeleteUser}
+cognito-identity-provider_CreateUserPool:
+  title: Create an &COG; user pool using an &AWS; SDK
+  title_abbrev: Create a user pool
+  synopsis: create an &COG; user pool.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.create_user_pool.main
+  services:
+    cognito-identity-provider: {CreateUserPool}
+cognito-identity-provider_CreateUserPoolClientApp:
+  title: Create an &COG; user pool client app using an &AWS; SDK
+  title_abbrev: Create an app client
+  synopsis: create an &COG; user pool client app.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.user_pool.create_user_pool_client.main
+  services:
+    cognito-identity-provider: {CreateUserPoolClient}
 cognito-identity-provider_Scenario_SignUpUserWithMfa:
   title: Sign up a user with an &COG; user pool that requires MFA using an &AWS; SDK
   title_abbrev: Sign up a user with a user pool that requires MFA

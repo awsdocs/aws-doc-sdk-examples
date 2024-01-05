@@ -1,49 +1,85 @@
-# Amazon Elemental MediaConvert (EMC) JavaScript SDK v3 code examples
+# MediaConvert code examples for the SDK for JavaScript (v3)
 
-Amazon EMC is a file-based video transcoding service with broadcast-grade features.
+## Overview
+
+Shows how to use the AWS SDK for JavaScript (v3) to work with AWS Elemental MediaConvert.
+
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_MediaConvert is a service that formats and compresses offline video content for delivery to televisions or connected devices._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
 
-This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon EMC examples:
+### Prerequisites
 
-- [Create a job template](src/emc_create_jobtemplate.js)
-- [Create a job](src/emc_createjob.js)
-- [Create a job using a template](src/emc_template_createjob.js)
-- [List jobs](src/emc_listjobs.js)
-- [Cancel a job](src/emc_canceljob.js)
-- [List templates](src/emc_listtemplates.js)
-- [Delete a template](src/emc_deletetemplate.js)
-- [Get an endpoint](src/emc_getendpoint.js)
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javascriptv3` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
-[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
 
-## Getting started
+**Run a single action**
 
-1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
-
-2. Install the dependencies listed in the package.json.
-
-**Note**: These include the client module for the AWS services required in these example,
-which is _@aws-sdk/client-mediaconvert_.
-
-```
-npm install node -g
-cd javascriptv3/example_code/mediaconvert
-npm install
+```bash
+node ./actions/<fileName>
 ```
 
-3. In your text editor, update user variables specified in the `Inputs` section of the sample file.
-
-4. Run sample code:
-
-```
-cd src
-node [example name].js // For example, node emc_createjob.js
+**Run a scenario**
+Most scenarios can be run with the following command:
+```bash
+node ./scenarios/<fileName>
 ```
 
-## Resources
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)
-- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/mediaconvert-examples.html)
-- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/mediaconvert/index.html)
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javascriptv3` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [MediaConvert User Guide](https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html)
+- [MediaConvert API Reference](https://docs.aws.amazon.com/mediaconvert/latest/apireference/custom-endpoints.html)
+- [SDK for JavaScript (v3) MediaConvert reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/mediaconvert)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

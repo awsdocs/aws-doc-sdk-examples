@@ -8,7 +8,6 @@
 
 package com.example.sqs;
 // snippet-start:[sqs.java2.hello.main]
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.SqsException;
@@ -22,11 +21,9 @@ import software.amazon.awssdk.services.sqs.paginators.ListQueuesIterable;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class HelloSQS {
-
     public static void main(String[] args) {
         SqsClient sqsClient = SqsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         listQueues(sqsClient);

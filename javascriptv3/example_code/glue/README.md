@@ -1,114 +1,142 @@
-# AWS Glue code examples for the SDK for JavaScript in Node.js
+# AWS Glue code examples for the SDK for JavaScript (v3)
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript in Node.js with AWS Glue.
+Shows how to use the AWS SDK for JavaScript (v3) to work with AWS Glue.
 
-AWS Glue is a serverless data integration service that makes it easier to discover, prepare, move, and integrate data from multiple sources for analytics, machine learning (ML), and application development.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## ⚠️ Important
+_AWS Glue is a scalable, serverless data integration service that makes it easy to discover, prepare, and combine data for analytics, machine learning, and application development._
 
-- Running this code might result in charges to your AWS account.
-- Running the tests might result in charges to your AWS account.
-- We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javascriptv3` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Get started
+
+- [Hello AWS Glue](hello.js#L8) (`ListJobs`)
+
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](./actions/create-crawler.js)(`CreateCrawler`)
-- [Create a job definition](./actions/create-job.js)(`CreateJob`)
-- [Delete a crawler](./actions/delete-crawler.js)(`DeleteCrawler`)
-- [Delete a database from the Data Catalog](./actions/delete-database.js)(`DeleteDatabase`)
-- [Delete a job definition](./actions/delete-job.js)(`DeleteJob`)
-- [Delete a table from a database](./actions/delete-table.js)(`DeleteTable`)
-- [Get a crawler](./actions/get-crawler.js)(`GetCrawler`)
-- [Get a database from the Data Catalog](./actions/get-database.js)(`GetDatabase`)
-- [Get a job run](./actions/get-job.js)(`GetJob`)
-- [Get runs of a job](./actions/get-job-runs.js)(`GetJobRuns`)
-- [Get tables from a database](./actions/get-tables.js)(`GetTables`)
-- [List job definitions](./actions/list-jobs.js)(`ListJobs`)
-- [Start a crawler](./actions/start-crawler.js)(`StartCrawler`)
-- [Start a job run](./actions/start-job-run.js)(`StartJobRun`)
+- [Create a crawler](actions/create-crawler.js#L9) (`CreateCrawler`)
+- [Create a job definition](actions/create-job.js#L9) (`CreateJob`)
+- [Delete a crawler](actions/delete-crawler.js#L9) (`DeleteCrawler`)
+- [Delete a database from the Data Catalog](actions/delete-database.js#L9) (`DeleteDatabase`)
+- [Delete a job definition](actions/delete-job.js#L9) (`DeleteJob`)
+- [Delete a table from a database](actions/delete-table.js#L9) (`DeleteTable`)
+- [Get a crawler](actions/get-crawler.js#L9) (`GetCrawler`)
+- [Get a database from the Data Catalog](actions/get-database.js#L9) (`GetDatabase`)
+- [Get a job run](actions/get-job-run.js#L9) (`GetJobRun`)
+- [Get databases from the Data Catalog](actions/get-databases.js#L9) (`GetDatabases`)
+- [Get job from the Data Catalog](actions/get-job.js#L9) (`GetJob`)
+- [Get runs of a job](actions/get-job-runs.js#L9) (`GetJobRuns`)
+- [Get tables from a database](actions/get-tables.js#L9) (`GetTables`)
+- [List job definitions](actions/list-jobs.js#L9) (`ListJobs`)
+- [Start a crawler](actions/start-crawler.js#L9) (`StartCrawler`)
+- [Start a job run](actions/start-job-run.js#L9) (`StartJobRun`)
 
 ### Scenarios
 
-Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
-- [Get started running crawlers and jobs](./scenarios/basic/index.js)
+- [Get started with crawlers and jobs](scenarios/basic/steps/start-crawler.js)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
 ## Run the examples
 
-### Prerequisites
-
-1. [Set up AWS SDK for JavaScript](../README.md).
-1. Run `npm i`.
-
 ### Instructions
+
+**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
 
 **Run a single action**
 
-1. Create a new file in this directory and run `import { functionName } from "./actions/action-name.js"`.
-   Replace `action-name` with the file name of the action to run, and replace `functionName` with the name of
-   the exported function in that file.
-1. Call the imported function with its required parameters and log the result.
+```bash
+node ./actions/<fileName>
+```
 
 **Run a scenario**
+Most scenarios can be run with the following command:
+```bash
+node ./scenarios/<fileName>
+```
 
-> ### Get started running crawlers and jobs
->
-> ---
->
-> Prerequisites:
->
-> 1. [Install the AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#getting_started_install).
-> 1. Run `cdk bootstrap`.
-> 1. Change directories to `resources/cdk/glue_role_bucket`.
-> 1. Run `cdk deploy` and save the output.
-> 1. Upload `python/example_code/glue/flight_etl_job_script.py` to the S3 bucket created in the preceding step.
-> 1. Create a .env file with the following values.
->    Set the value of BUCKET_NAME and ROLE_NAME to the values output from
->    the CDK.
->
-> ```
->    BUCKET_NAME =
->    ROLE_NAME =
->    PYTHON_SCRIPT_KEY = flight_etl_job_script.py
->    S3_TARGET_PATH = s3://crawler-public-us-east-1/flight/2016/csv
->    DATABASE_NAME = doc-example-database
->    TABLE_PREFIX = doc-example-
->    TABLE_NAME = doc-example-csv
->    CRAWLER_NAME = s3-flight-data-crawler
->    JOB_NAME = flight_etl_job
-> ```
->
-> Running the scenario:
->
-> 1. Run `node ./scenarios/basic`.
-> 2. The scenario will create a crawler, create a job, run the crawler, and run the job. User input will be required
->    for getting more information about job runs, and for clean up options.
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-## Tests
+#### Hello AWS Glue
 
-⚠️ Running the tests might result in charges to your AWS account.
+This example shows you how to get started using AWS Glue.
 
-### Unit tests
+```bash
+node ./hello.js
+```
 
-1. Run `npm i`.
-1. Run `npm test`.
 
-### Integration tests
+#### Get started with crawlers and jobs
 
-1. Run `npm i`.
-1. Run `npm run integration-test`.
+This example shows you how to do the following:
+
+- Create a crawler that crawls a public Amazon S3 bucket and generates a database of CSV-formatted metadata.
+- List information about databases and tables in your AWS Glue Data Catalog.
+- Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.
+- List information about job runs, view transformed data, and clean up resources.
+
+<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
+
+
+<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javascriptv3` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
 ## Additional resources
 
 - [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html)
 - [AWS Glue API Reference](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api.html)
-- [AWS Glue client - AWS SDK for JavaScript (v3)](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/glue/index.html)
+- [SDK for JavaScript (v3) AWS Glue reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/glue)
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

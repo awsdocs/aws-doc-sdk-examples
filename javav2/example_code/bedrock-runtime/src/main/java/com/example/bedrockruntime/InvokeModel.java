@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[InvokeModel.java demonstrates how to invoke a model with Amazon Bedrock.]
+// snippet-sourcedescription:[InvokeModel.java demonstrates how to invoke models with Amazon Bedrock.]
 // snippet-keyword:[AWS SDK for Java v2]
 // snippet-service:[Amazon Bedrock]
 
@@ -15,23 +15,15 @@ package com.example.bedrockruntime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
-import software.amazon.awssdk.services.bedrockruntime.model.BedrockRuntimeException;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelRequest;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
 
-import java.io.FileOutputStream;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.List;
-import java.util.Random;
 // snippet-end:[bedrock-runtime.java2.invoke_model.import]
+
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -42,59 +34,52 @@ import java.util.Random;
  */
 public class InvokeModel {
 
-    private static final Random random = new Random();
-
-    public static void main(String[] args) {
-        usageDemo();
-    }
-
     // snippet-start:[bedrock-runtime.java2.invoke_claude.main]
     /**
      * Invokes the Anthropic Claude 2 model to run an inference based on the provided input.
      *
-     * @param client A Bedrock Runtime client
-     * @param prompt The prompt that you want Claude to complete.
-     * @return Inference response from the model.
+     * @param prompt The prompt for Claude to complete.
+     * @return The generated response.
      */
-    public static String invokeClaude(BedrockRuntimeClient client, String prompt) {
+    public static String invokeClaude(String prompt) {
+        /*
+          The different model providers have individual request and response formats.
+          For the format, ranges, and default values for Anthropic Claude, refer to:
+          https://docs.anthropic.com/claude/reference/complete_post
+         */
 
-        try {
+        String claudeModelId = "anthropic.claude-v2";
 
-            /*
-              For request/response formats, defaults, and value ranges of Anthropic Claude, see:
-              https://docs.anthropic.com/claude/reference/complete_post
-             */
+        // Claude requires you to enclose the prompt as follows:
+        String enclosedPrompt = "Human: " + prompt + "\n\nAssistant:";
 
-            // Claude requires you to enclose the prompt as follows:
-            String enclosedPrompt = "Human: " + prompt + "\n\nAssistant:";
+        BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
-            JSONObject payload = new JSONObject()
-                    .put("prompt", "Human: " + enclosedPrompt + " Assistant:")
-                    .put("max_tokens_to_sample", 200)
-                    .put("temperature", 0.5)
-                    .put("stop_sequences", List.of("\n\nHuman:"));
+        String payload = new JSONObject()
+                .put("prompt", enclosedPrompt)
+                .put("max_tokens_to_sample", 200)
+                .put("temperature", 0.5)
+                .put("stop_sequences", List.of("\n\nHuman:"))
+                .toString();
 
-            SdkBytes body = SdkBytes.fromUtf8String(payload.toString());
+        InvokeModelRequest request = InvokeModelRequest.builder()
+                .body(SdkBytes.fromUtf8String(payload))
+                .modelId(claudeModelId)
+                .contentType("application/json")
+                .accept("application/json")
+                .build();
 
-            InvokeModelRequest request = InvokeModelRequest.builder()
-                    .modelId("anthropic.claude-v2")
-                    .body(body)
-                    .build();
 
-            InvokeModelResponse response = client.invokeModel(request);
+        InvokeModelResponse response = client.invokeModel(request);
 
-            JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+        JSONObject responseBody = new JSONObject(response.body().asUtf8String());
 
-            String completion = responseBody.getString("completion");
+        String generatedText = responseBody.getString("completion");
 
-            return completion;
-
-        } catch (AwsServiceException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        return null;
-
+        return generatedText;
     }
     // snippet-end:[bedrock-runtime.java2.invoke_claude.main]
 
@@ -102,49 +87,47 @@ public class InvokeModel {
     /**
      * Invokes the AI21 Labs Jurassic-2 model to run an inference based on the provided input.
      *
-     * @param client A Bedrock Runtime client
-     * @param prompt The prompt that you want Jurassic to complete.
-     * @return Inference response from the model.
+     * @param prompt The prompt for Jurassic to complete.
+     * @return The generated response.
      */
-    public static String invokeJurassic2(BedrockRuntimeClient client, String prompt) {
+    public static String invokeJurassic2(String prompt) {
+        /*
+          The different model providers have individual request and response formats.
+          For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
+          https://docs.ai21.com/reference/j2-complete-ref
+         */
 
-        try {
+        String jurassic2ModelId = "ai21.j2-mid-v1";
 
-            /*
-              For request/response formats, defaults, and value ranges of AI21 Labs Jurassic-2, see:
-              https://docs.ai21.com/reference/j2-complete-ref
-             */
+        BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
-            JSONObject payload = new JSONObject()
-                    .put("prompt", prompt)
-                    .put("maxTokens", 200)
-                    .put("temperature", 0.5);
+        String payload = new JSONObject()
+                .put("prompt", prompt)
+                .put("temperature", 0.5)
+                .put("maxTokens", 200)
+                .toString();
 
-            SdkBytes body = SdkBytes.fromUtf8String(payload.toString());
+        InvokeModelRequest request = InvokeModelRequest.builder()
+                .body(SdkBytes.fromUtf8String(payload))
+                .modelId(jurassic2ModelId)
+                .contentType("application/json")
+                .accept("application/json")
+                .build();
 
-            InvokeModelRequest request = InvokeModelRequest.builder()
-                    .modelId("ai21.j2-mid-v1")
-                    .body(body)
-                    .build();
+        InvokeModelResponse response = client.invokeModel(request);
 
-            InvokeModelResponse response = client.invokeModel(request);
+        JSONObject responseBody = new JSONObject(response.body().asUtf8String());
 
-            JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+        String generatedText = responseBody
+                .getJSONArray("completions")
+                .getJSONObject(0)
+                .getJSONObject("data")
+                .getString("text");
 
-            String completion = responseBody
-                    .getJSONArray("completions")
-                    .getJSONObject(0)
-                    .getJSONObject("data")
-                    .getString("text");
-
-            return completion;
-
-        } catch (AwsServiceException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        return null;
-
+        return generatedText;
     }
     // snippet-end:[bedrock-runtime.java2.invoke_jurassic2.main]
 
@@ -152,46 +135,44 @@ public class InvokeModel {
     /**
      * Invokes the Meta Llama 2 Chat model to run an inference based on the provided input.
      *
-     * @param client A Bedrock Runtime client
-     * @param prompt The prompt that you want Llama 2 to complete.
-     * @return Inference response from the model.
+     * @param prompt The prompt for Llama 2 to complete.
+     * @return The generated response.
      */
-    public static String invokeLlama2(BedrockRuntimeClient client, String prompt) {
+    public static String invokeLlama2(String prompt) {
+        /*
+          The different model providers have individual request and response formats.
+          For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
+          https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
+         */
 
-        try {
+        String llama2ModelId = "meta.llama2-13b-chat-v1";
 
-            /*
-              For request/response formats, defaults, and value ranges of Meta Llama 2 Chat, see:
-              https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
-             */
+        BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
-            JSONObject payload = new JSONObject()
-                    .put("prompt", prompt)
-                    .put("max_gen_len", 512)
-                    .put("temperature", 0.5)
-                    .put("top_p", 0.9);
+        String payload = new JSONObject()
+                .put("prompt", prompt)
+                .put("max_gen_len", 512)
+                .put("temperature", 0.5)
+                .put("top_p", 0.9)
+                .toString();
 
-            SdkBytes body = SdkBytes.fromUtf8String(payload.toString());
+        InvokeModelRequest request = InvokeModelRequest.builder()
+                .body(SdkBytes.fromUtf8String(payload))
+                .modelId(llama2ModelId)
+                .contentType("application/json")
+                .accept("application/json")
+                .build();
 
-            InvokeModelRequest request = InvokeModelRequest.builder()
-                    .modelId("meta.llama2-13b-chat-v1")
-                    .body(body)
-                    .build();
+        InvokeModelResponse response = client.invokeModel(request);
 
-            InvokeModelResponse response = client.invokeModel(request);
+        JSONObject responseBody = new JSONObject(response.body().asUtf8String());
 
-            JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+        String generatedText = responseBody.getString("generation");
 
-            String completion = responseBody.getString("generation");
-
-            return completion;
-
-        } catch (AwsServiceException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        return null;
-
+        return generatedText;
     }
     // snippet-end:[bedrock-runtime.java2.invoke_llama2.main]
 
@@ -199,147 +180,108 @@ public class InvokeModel {
     /**
      * Invokes the Stability.ai Stable Diffusion XL model to create an image based on the provided input.
      *
-     * @param client A Bedrock Runtime client
      * @param prompt The prompt that guides the Stable Diffusion model.
      * @param seed The random noise seed for image generation (use 0 or omit for a random seed).
      * @param stylePreset The style preset to guide the image model towards a specific style.
-     * @return A Base64-encoded string representing the model's inference response as an image.
+     * @return A Base64-encoded string representing the generated image.
      */
-    public static String invokeStableDiffusion(BedrockRuntimeClient client, String prompt, long seed, String stylePreset) {
+    public static String invokeStableDiffusion(String prompt, long seed, String stylePreset) {
+        /*
+          The different model providers have individual request and response formats.
+          For the format, ranges, and available style_presets of Stable Diffusion models refer to:
+          https://platform.stability.ai/docs/api-reference#tag/v1generation
+         */
 
-        try {
+        String stableDiffusionModelId = "stability.stable-diffusion-xl";
 
-            /*
-             For request/response formats, defaults, and value ranges of Stable Diffusion, see:
-             https://platform.stability.ai/docs/api-reference#tag/v1generation
-             */
-
-            JSONObject payload = new JSONObject()
-                    .put("text_prompts",
-                            new JSONArray()
-                                    .put(new JSONObject().put("text", prompt))
-                    )
-                    .put("seed", seed);
-
-            if (stylePreset != null && !stylePreset.isEmpty()) {
-                payload.put("style_preset", stylePreset);
-            }
-
-            SdkBytes body = SdkBytes.fromUtf8String(payload.toString());
-
-            InvokeModelRequest request = InvokeModelRequest.builder()
-                    .modelId("stability.stable-diffusion-xl")
-                    .body(body)
-                    .build();
-
-            InvokeModelResponse response = client.invokeModel(request);
-
-            JSONObject responseBody = new JSONObject(response.body().asUtf8String());
-
-            String base64ImageData = responseBody
-                    .getJSONArray("artifacts")
-                    .getJSONObject(0)
-                    .getString("base64");
-
-            return base64ImageData;
-
-        } catch (AwsServiceException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        return null;
-
-    }
-    // snippet-end:[bedrock-runtime.java2.invoke_stable_diffusion.main]
-
-
-    /**
-     * Demonstrates the invocation of various large-language and image generation models:
-     * Anthropic Claude 2, AI21 Labs Jurassic-2, and Stability.ai Stable Diffusion XL.
-     */
-    private static void usageDemo() {
-        Region region = Region.US_EAST_1;
         BedrockRuntimeClient client = BedrockRuntimeClient.builder()
-                .region(region)
+                .region(Region.US_EAST_1)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        System.out.println(String.format("%0" + 88 + "d", 0).replace("0", "-"));
-        System.out.println("Welcome to the Amazon Bedrock Runtime demo.");
+        JSONArray wrappedPrompt = new JSONArray().put(new JSONObject().put("text", prompt));
 
-        String textPrompt = "In one sentence, what is a large-language model?";
-        invoke(client, "anthropic.claude-v2", textPrompt);
-        invoke(client, "ai21.j2-mid-v1", textPrompt);
-        invoke(client, "meta.llama2-13b-chat-v1", textPrompt);
+        JSONObject payload = new JSONObject()
+                .put("text_prompts", wrappedPrompt)
+                .put("seed", seed);
 
-        String imagePrompt = "A sunset over the ocean";
-        String stylePreset = "photographic";
-        invoke(client, "stability.stable-diffusion-xl", imagePrompt, stylePreset);
-    }
-
-    private static void invoke(BedrockRuntimeClient client, String modelId, String prompt) {
-        invoke(client, modelId, prompt, null);
-    }
-
-    private static void invoke(BedrockRuntimeClient client, String modelId, String prompt, String stylePreset) {
-        System.out.println(new String(new char[88]).replace("\0", "-"));
-        System.out.println("Invoking: " + modelId);
-        System.out.println("Prompt: " + prompt);
-
-        try {
-            String completion;
-            if ("anthropic.claude-v2".equals(modelId)) {
-                completion = invokeClaude(client, prompt);
-                System.out.printf("Completion: %s%n", completion);
-            } else if ("ai21.j2-mid-v1".equals(modelId)) {
-                completion = invokeJurassic2(client, prompt);
-                System.out.printf("Completion: %s%n", completion);
-            } else if ("meta.llama2-13b-chat-v1".equals(modelId)) {
-                completion = invokeLlama2(client, prompt);
-                System.out.printf("Completion: %s%n", completion);
-            } else if ("stability.stable-diffusion-xl".equals(modelId)) {
-                long seed = (random.nextLong() & 0xFFFFFFFFL);
-                String base64ImageData = invokeStableDiffusion(client, prompt, seed, stylePreset);
-                String imagePath = saveImage(base64ImageData);
-                System.out.printf("The generated image has been saved to %s%n", imagePath);
-            }
-        } catch (BedrockRuntimeException e) {
-            System.out.println("Couldn't invoke model " + modelId + ": " + e.getMessage());
-            throw e;
+        if (!(stylePreset == null || stylePreset.isEmpty())) {
+            payload.put("style_preset", stylePreset);
         }
+
+        InvokeModelRequest request = InvokeModelRequest.builder()
+                .body(SdkBytes.fromUtf8String(payload.toString()))
+                .modelId(stableDiffusionModelId)
+                .contentType("application/json")
+                .accept("application/json")
+                .build();
+
+        InvokeModelResponse response = client.invokeModel(request);
+
+        JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+
+        String base64ImageData = responseBody
+                .getJSONArray("artifacts")
+                .getJSONObject(0)
+                .getString("base64");
+
+        return base64ImageData;
     }
+    // snippet-end:[bedrock-runtime.java2.invoke_stable_diffusion.main]
 
-    private static String saveImage(String base64ImageData) {
-        try {
+    // snippet-start:[bedrock-runtime.java2.invoke_titan_image.main]
+    /**
+     * Invokes the Amazon Titan image generation model to create an image using the input
+     * provided in the request body.
+     *
+     * @param prompt The prompt that you want Amazon Titan to use for image generation.
+     * @param seed The random noise seed for image generation (Range: 0 to 2147483647).
+     * @return A Base64-encoded string representing the generated image.
+     */
+    public static String invokeTitanImage(String prompt, long seed) {
+        /*
+         The different model providers have individual request and response formats.
+         For the format, ranges, and default values for Titan Image models refer to:
+         https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-image.html
+        */
+        String titanImageModelId = "amazon.titan-image-generator-v1";
 
-            String directory = "output";
+        BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
-            URI uri = InvokeModel.class.getProtectionDomain().getCodeSource().getLocation().toURI();
-            Path outputPath = Paths.get(uri).getParent().getParent().resolve(directory);
+        var textToImageParams = new JSONObject().put("text", prompt);
 
-            if (!Files.exists(outputPath)) {
-                Files.createDirectories(outputPath);
-            }
+        var imageGenerationConfig = new JSONObject()
+                .put("numberOfImages", 1)
+                .put("quality", "standard")
+                .put("cfgScale", 8.0)
+                .put("height", 512)
+                .put("width", 512)
+                .put("seed", seed);
 
-            int i = 1;
-            String fileName;
-            do {
-                fileName = String.format("image_%d.png", i);
-                i++;
-            } while (Files.exists(outputPath.resolve(fileName)));
+        JSONObject payload = new JSONObject()
+                .put("taskType", "TEXT_IMAGE")
+                .put("textToImageParams", textToImageParams)
+                .put("imageGenerationConfig", imageGenerationConfig);
 
-            byte[] imageBytes = Base64.getDecoder().decode(base64ImageData);
+        InvokeModelRequest request = InvokeModelRequest.builder()
+                .body(SdkBytes.fromUtf8String(payload.toString()))
+                .modelId(titanImageModelId)
+                .contentType("application/json")
+                .accept("application/json")
+                .build();
 
-            Path filePath = outputPath.resolve(fileName);
-            try (FileOutputStream fileOutputStream = new FileOutputStream(filePath.toFile())) {
-                fileOutputStream.write(imageBytes);
-            }
+        InvokeModelResponse response = client.invokeModel(request);
 
-            return filePath.toString();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return null;
+        JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+
+        String base64ImageData = responseBody
+                .getJSONArray("images")
+                .getString(0);
+
+        return base64ImageData;
     }
+    // snippet-end:[bedrock-runtime.java2.invoke_titan_image.main]
 }

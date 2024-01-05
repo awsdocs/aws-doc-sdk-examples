@@ -9,8 +9,8 @@
 
 package com.example.stepfunctions;
 
+// snippet-start:[stepfunctions.java2.list_activities.main]
 // snippet-start:[stepfunctions.java2.list_activities.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.ListActivitiesRequest;
@@ -28,22 +28,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListActivities {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllActivites(sfnClient);
         sfnClient.close();
     }
 
-    // snippet-start:[stepfunctions.java2.list_activities.main]
     public static void listAllActivites(SfnClient sfnClient) {
-
         try {
             ListActivitiesRequest activitiesRequest = ListActivitiesRequest.builder()
                 .maxResults(10)
@@ -51,9 +46,9 @@ public class ListActivities {
 
             ListActivitiesResponse response = sfnClient.listActivities(activitiesRequest);
             List<ActivityListItem> items = response.activities();
-            for (ActivityListItem item: items) {
-                System.out.println("The activity ARN is "+item.activityArn());
-                System.out.println("The activity name is "+item.name());
+            for (ActivityListItem item : items) {
+                System.out.println("The activity ARN is " + item.activityArn());
+                System.out.println("The activity name is " + item.name());
             }
 
         } catch (SfnException e) {
@@ -61,7 +56,7 @@ public class ListActivities {
             System.exit(1);
         }
     }
-    // snippet-end:[stepfunctions.java2.list_activities.main]
 }
+// snippet-end:[stepfunctions.java2.list_activities.main]
 
 

@@ -12,7 +12,6 @@ package com.example.stepfunctions;
 // snippet-start:[stepfunctions.java2.create_machine.import]
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sfn.SfnClient;
 import software.amazon.awssdk.services.sfn.model.CreateStateMachineRequest;
@@ -37,15 +36,18 @@ import java.io.IOException;
 
 
 public class CreateStateMachine {
-
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <jsonFile> <roleARN> <stateMachineName>\n\n" +
-            "Where:\n" +
-            "    jsonFile - A JSON file that represents the Amazon States Language definition of the state machine.\n\n" +
-            "    roleARN - The Amazon Resource Name (ARN) of the IAM role to use for this state machine.\n" +
-            "    stateMachineName - The name of the state machine to create.\n";
+        final String usage = """
+
+            Usage:
+                <jsonFile> <roleARN> <stateMachineName>
+
+            Where:
+                jsonFile - A JSON file that represents the Amazon States Language definition of the state machine.
+
+                roleARN - The Amazon Resource Name (ARN) of the IAM role to use for this state machine.
+                stateMachineName - The name of the state machine to create.
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -59,7 +61,6 @@ public class CreateStateMachine {
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String arnStateMachine = createMachine(sfnClient, roleARN, stateMachineName, jsonFile);

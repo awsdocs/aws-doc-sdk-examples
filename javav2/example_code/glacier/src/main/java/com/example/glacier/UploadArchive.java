@@ -8,8 +8,8 @@
 
 package com.example.glacier;
 
+// snippet-start:[glacier.java2.upload.main]
 // snippet-start:[glacier.java2.upload.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glacier.GlacierClient;
 import software.amazon.awssdk.services.glacier.model.UploadArchiveRequest;
@@ -34,14 +34,16 @@ import java.security.NoSuchAlgorithmException;
 public class UploadArchive {
 
     static final int ONE_MB = 1024 * 1024;
-    public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:" +
-            "   <strPath> <vaultName> \n\n" +
-            "Where:\n" +
-            "   strPath - The path to the archive to upload (for example, C:\\AWS\\test.pdf).\n" +
-            "   vaultName - The name of the vault.\n\n";
+    public static void main(String[] args) {
+        final String usage = """
+
+            Usage:   <strPath> <vaultName>\s
+
+            Where:
+               strPath - The path to the archive to upload (for example, C:\\AWS\\test.pdf).
+               vaultName - The name of the vault.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -54,17 +56,14 @@ public class UploadArchive {
         Path path = Paths.get(strPath);
         GlacierClient glacier = GlacierClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        String archiveId = uploadContent(glacier, path, vaultName, myFile );
-        System.out.println("The ID of the archived item is " +archiveId);
+        String archiveId = uploadContent(glacier, path, vaultName, myFile);
+        System.out.println("The ID of the archived item is " + archiveId);
         glacier.close();
     }
 
-    // snippet-start:[glacier.java2.upload.main]
     public static String uploadContent(GlacierClient glacier, Path path, String vaultName, File myFile) {
-
         // Get an SHA-256 tree hash value.
         String checkVal = computeSHA256(myFile);
         try {
@@ -76,7 +75,7 @@ public class UploadArchive {
             UploadArchiveResponse res = glacier.uploadArchive(uploadRequest, path);
             return res.archiveId();
 
-        } catch(GlacierException e) {
+        } catch (GlacierException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
@@ -84,7 +83,6 @@ public class UploadArchive {
     }
 
     private static String computeSHA256(File inputFile) {
-
         try {
             byte[] treeHash = computeSHA256TreeHash(inputFile);
             System.out.printf("SHA-256 tree hash = %s\n", toHex(treeHash));
@@ -102,7 +100,7 @@ public class UploadArchive {
     }
 
     public static byte[] computeSHA256TreeHash(File inputFile) throws IOException,
-            NoSuchAlgorithmException {
+        NoSuchAlgorithmException {
 
         byte[][] chunkSHA256Hashes = getChunkSHA256Hashes(inputFile);
         return computeSHA256TreeHash(chunkSHA256Hashes);
@@ -113,7 +111,7 @@ public class UploadArchive {
      * includes the checksum for the last chunk, even if it's smaller than 1 MB.
      */
     public static byte[][] getChunkSHA256Hashes(File file) throws IOException,
-            NoSuchAlgorithmException {
+        NoSuchAlgorithmException {
 
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         long numChunks = file.length() / ONE_MB;
@@ -122,7 +120,7 @@ public class UploadArchive {
         }
 
         if (numChunks == 0) {
-            return new byte[][] { md.digest() };
+            return new byte[][]{md.digest()};
         }
 
         byte[][] chunkSHA256Hashes = new byte[(int) numChunks][];
@@ -149,7 +147,7 @@ public class UploadArchive {
                     fileStream.close();
                 } catch (IOException ioe) {
                     System.err.printf("Exception while closing %s.\n %s", file.getName(),
-                            ioe.getMessage());
+                        ioe.getMessage());
                 }
             }
         }
@@ -160,7 +158,7 @@ public class UploadArchive {
      * checksums.
      */
     public static byte[] computeSHA256TreeHash(byte[][] chunkSHA256Hashes)
-            throws NoSuchAlgorithmException {
+        throws NoSuchAlgorithmException {
 
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[][] prevLvlHashes = chunkSHA256Hashes;
@@ -210,5 +208,5 @@ public class UploadArchive {
         }
         return sb.toString().toLowerCase();
     }
-    // snippet-end:[glacier.java2.upload.main]
 }
+// snippet-end:[glacier.java2.upload.main]

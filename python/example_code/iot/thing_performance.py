@@ -23,7 +23,7 @@
 # snippet-sourcedate:[2020-01-23]
 # snippet-sourceauthor:[FThompsonAWS]
 # snippet-start:[iot.python.thing_performance.complete]
-from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTShadowClient
+import AWSIoTPythonSDK.MQTTLib as AWSIoTPyMQTT
 
 import json
 import psutil
@@ -147,7 +147,7 @@ class PerformanceShadowClient:
 
     # Configures the MQTT shadow client for this thing.
     def configureMQTTClient(self):
-        mqttClient = AWSIoTMQTTShadowClient(self.thingName)
+        mqttClient = AWSIoTPyMQTT.AWSIoTMQTTShadowClient(self.thingName)
         mqttClient.configureEndpoint(self.host, self.port)
         mqttClient.configureCredentials(
             self.rootCAPath, self.privateKeyPath, self.certificatePath

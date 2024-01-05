@@ -10,8 +10,8 @@
 
 package com.example.route;
 
+// snippet-start:[route53.java2.update_health_check.main]
 // snippet-start:[route53.java2.update_health_check.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53.Route53Client;
 import software.amazon.awssdk.services.route53.model.UpdateHealthCheckResponse;
@@ -27,14 +27,15 @@ import software.amazon.awssdk.services.route53.model.UpdateHealthCheckRequest;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class UpdateHealthCheck {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <id> \n\n" +
-            "Where:\n" +
-            "    id - The health check id. \n";
+            Usage:
+                <id>\s
+
+            Where:
+                id - The health check id.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,15 +46,13 @@ public class UpdateHealthCheck {
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         updateSpecificHealthCheck(route53Client, id);
         route53Client.close();
     }
 
-    // snippet-start:[route53.java2.update_health_check.main]
-    public static void updateSpecificHealthCheck( Route53Client route53Client, String id ){
+    public static void updateSpecificHealthCheck(Route53Client route53Client, String id) {
 
         try {
             UpdateHealthCheckRequest checkRequest = UpdateHealthCheckRequest.builder()
@@ -62,14 +61,14 @@ public class UpdateHealthCheck {
                 .build();
 
             UpdateHealthCheckResponse healthResponse = route53Client.updateHealthCheck(checkRequest);
-            System.out.println("The health check with id "+ healthResponse.healthCheck().id() +" was updated!");
+            System.out.println("The health check with id " + healthResponse.healthCheck().id() + " was updated!");
 
         } catch (Route53Exception e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[route53.java2.update_health_check.main]
 }
+// snippet-end:[route53.java2.update_health_check.main]
 
 

@@ -8,8 +8,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.get_policy.main]
 // snippet-start:[iam.java2.get_policy.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.GetPolicyRequest;
 import software.amazon.awssdk.services.iam.model.GetPolicyResponse;
 import software.amazon.awssdk.regions.Region;
@@ -25,14 +25,15 @@ import software.amazon.awssdk.services.iam.model.IamException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetPolicy {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <policyArn> \n\n" +
-            "Where:\n" +
-            "    policyArn - A policy ARN that you can obtain from the AWS Management Console. \n\n" ;
+            Usage:
+                <policyArn>\s
+
+            Where:
+                policyArn - A policy ARN that you can obtain from the AWS Management Console.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,7 +44,6 @@ public class GetPolicy {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getIAMPolicy(iam, policyArn);
@@ -51,9 +51,7 @@ public class GetPolicy {
         iam.close();
     }
 
-    // snippet-start:[iam.java2.get_policy.main]
     public static void getIAMPolicy(IamClient iam, String policyArn) {
-
         try {
             GetPolicyRequest request = GetPolicyRequest.builder()
                 .policyArn(policyArn)
@@ -68,5 +66,5 @@ public class GetPolicy {
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.get_policy.main]
 }
+// snippet-end:[iam.java2.get_policy.main]

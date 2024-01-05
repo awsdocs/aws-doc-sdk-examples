@@ -11,7 +11,6 @@ package com.example.iam;
 // snippet-start:[iam.java2.scenario.import]
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -91,15 +90,18 @@ public class IAMScenario {
     public static String userArn;
     public static void main(String[] args) throws Exception {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <username> <policyName> <roleName> <roleSessionName> <bucketName> \n\n" +
-            "Where:\n" +
-            "    username - The name of the IAM user to create. \n\n" +
-            "    policyName - The name of the policy to create. \n\n" +
-            "    roleName - The name of the role to create. \n\n" +
-            "    roleSessionName - The name of the session required for the assumeRole operation. \n\n" +
-            "    bucketName - The name of the Amazon S3 bucket from which objects are read. \n\n";
+        final String usage = """
+
+            Usage:
+                <username> <policyName> <roleName> <roleSessionName> <bucketName>\s
+
+            Where:
+                username - The name of the IAM user to create.\s
+                policyName - The name of the policy to create.\s
+                roleName - The name of the role to create.\s
+                roleSessionName - The name of the session required for the assumeRole operation.\s
+                bucketName - The name of the Amazon S3 bucket from which objects are read.\s
+            """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -115,7 +117,6 @@ public class IAMScenario {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println(DASHES);

@@ -9,8 +9,8 @@
 
 package com.example.kms;
 
+// snippet-start:[kms.java2_create_key.main]
 // snippet-start:[kms.java2_create_key.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.CreateKeyRequest;
@@ -27,23 +27,18 @@ import software.amazon.awssdk.services.kms.model.KmsException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateCustomerKey {
-
     public static void main(String[] args) {
-
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-       String keyDesc = "Created by the AWS KMS API";
-       System.out.println("The key id is "+createKey(kmsClient, keyDesc));
-       kmsClient.close();
+        String keyDesc = "Created by the AWS KMS API";
+        System.out.println("The key id is " + createKey(kmsClient, keyDesc));
+        kmsClient.close();
     }
 
-    // snippet-start:[kms.java2_create_key.main]
     public static String createKey(KmsClient kmsClient, String keyDesc) {
-
         try {
             CreateKeyRequest keyRequest = CreateKeyRequest.builder()
                 .description(keyDesc)
@@ -61,5 +56,5 @@ public class CreateCustomerKey {
         }
         return "";
     }
-    // snippet-end:[kms.java2_create_key.main]
 }
+// snippet-end:[kms.java2_create_key.main]

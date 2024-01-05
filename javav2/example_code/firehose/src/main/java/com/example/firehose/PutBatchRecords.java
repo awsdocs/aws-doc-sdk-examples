@@ -9,8 +9,8 @@
 
 package com.example.firehose;
 
+// snippet-start:[firehose.java2.put_batch_records.main]
 // snippet-start:[firehose.java2.put_batch_records.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.firehose.FirehoseClient;
 import software.amazon.awssdk.services.firehose.model.Record;
@@ -34,12 +34,14 @@ import java.util.List;
 public class PutBatchRecords {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <streamName> \n\n" +
-            "Where:\n" +
-            "    streamName - The data stream name \n" ;
+            Usage:
+                <streamName>\s
+
+            Where:
+                streamName - The data stream name\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -50,25 +52,21 @@ public class PutBatchRecords {
         Region region = Region.US_WEST_2;
         FirehoseClient firehoseClient = FirehoseClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         addStockTradeData(firehoseClient, streamName);
         firehoseClient.close();
     }
 
-    // snippet-start:[firehose.java2.put_batch_records.main]
     public static void addStockTradeData(FirehoseClient firehoseClient, String streamName) {
-
         List<Record> recordList = new ArrayList<>();
         try {
-
-            // Repeatedly send stock trades with a 100 milliseconds wait in between
+            // Repeatedly send stock trades with a 100 milliseconds wait in between.
             StockTradeGenerator stockTradeGenerator = new StockTradeGenerator();
             int index = 100;
 
-            // Populate the list with StockTrade data
-            for (int x=0; x<index; x++){
+            // Populate the list with StockTrade data.
+            for (int x = 0; x < index; x++) {
                 StockTrade trade = stockTradeGenerator.getRandomTrade();
                 byte[] bytes = trade.toJsonAsBytes();
 
@@ -86,22 +84,22 @@ public class PutBatchRecords {
                 .records(recordList)
                 .build();
 
-            PutRecordBatchResponse recordResponse = firehoseClient.putRecordBatch(recordBatchRequest) ;
-            System.out.println("The number of records added is: "+recordResponse.requestResponses().size());
+            PutRecordBatchResponse recordResponse = firehoseClient.putRecordBatch(recordBatchRequest);
+            System.out.println("The number of records added is: " + recordResponse.requestResponses().size());
 
             // Check the details of all records in this batch operation.
-            String errorMsg ="";
+            String errorMsg = "";
             String errorCode = "";
             List<PutRecordBatchResponseEntry> results = recordResponse.requestResponses();
-            for (PutRecordBatchResponseEntry result: results) {
+            for (PutRecordBatchResponseEntry result : results) {
 
                 // Returns null if there is no error.
                 errorCode = result.errorCode();
                 if (errorCode == null) {
-                    System.out.println("Record "+result.recordId() + " was successfully added!");
+                    System.out.println("Record " + result.recordId() + " was successfully added!");
                 } else {
                     errorMsg = result.errorMessage();
-                    System.out.println("Error code for record ID : "+result.recordId() + " is "+errorMsg);
+                    System.out.println("Error code for record ID : " + result.recordId() + " is " + errorMsg);
                 }
             }
 
@@ -110,5 +108,5 @@ public class PutBatchRecords {
             System.exit(1);
         }
     }
-    // snippet-end:[firehose.java2.put_batch_records.main]
 }
+// snippet-end:[firehose.java2.put_batch_records.main]

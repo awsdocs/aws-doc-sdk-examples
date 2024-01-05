@@ -16,12 +16,10 @@ import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeAsyncClient;
-import software.amazon.awssdk.services.bedrockruntime.model.BedrockRuntimeException;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelWithResponseStreamRequest;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelWithResponseStreamResponseHandler;
-import software.amazon.awssdk.services.bedrockruntime.model.ResponseStream;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 // snippet-end:[bedrock-runtime.java2.invoke_model_with_response_stream.import]
 
 /**
@@ -33,67 +31,54 @@ import java.util.concurrent.CompletableFuture;
  */
 public class InvokeModelWithResponseStream {
 
-    public static void main(String[] args) {
+    // snippet-start:[bedrock-runtime.java2.invoke_model_with_response_stream.main]
+    /**
+     * Invokes the Anthropic Claude 2 model and processes the response stream.
+     *
+     * @param prompt The prompt for Claude to complete.
+     * @param silent Suppress console output of the individual response stream chunks.
+     * @return The generated response.
+     */
+    public static String invokeClaude(String prompt, boolean silent) {
 
-        Region region = Region.US_EAST_1;
-        BedrockRuntimeAsyncClient bedrockRuntimeAsyncClient = BedrockRuntimeAsyncClient.builder()
-                .region(region)
+        BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
+                .region(Region.US_EAST_1)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        String prompt = "What is a large-language model?";
+        var finalCompletion = new AtomicReference<>("");
 
-        invokeModel(bedrockRuntimeAsyncClient, prompt);
-    }
+        var payload = new JSONObject()
+                .put("prompt", "Human: " + prompt + " Assistant:")
+                .put("temperature", 0.8)
+                .put("max_tokens_to_sample", 300)
+                .toString();
 
-    // snippet-start:[bedrock-runtime.java2.invoke_model_with_response_stream.main]
-    public static String invokeModel(BedrockRuntimeAsyncClient bedrockRuntimeAsyncClient, String prompt) {
+        var request = InvokeModelWithResponseStreamRequest.builder()
+                .body(SdkBytes.fromUtf8String(payload))
+                .modelId("anthropic.claude-v2")
+                .contentType("application/json")
+                .accept("application/json")
+                .build();
 
-        try {
+        var visitor = InvokeModelWithResponseStreamResponseHandler.Visitor.builder()
+                .onChunk(chunk -> {
+                    var json = new JSONObject(chunk.bytes().asUtf8String());
+                    var completion = json.getString("completion");
+                    finalCompletion.set(finalCompletion.get() + completion);
+                    if (!silent) { System.out.print(completion); }
+                })
+                .build();
 
-            double temperature = 0.8;
-            int maxTokensToSample = 300;
+        var handler = InvokeModelWithResponseStreamResponseHandler.builder()
+                .onEventStream(stream -> stream.subscribe(event -> event.accept(visitor)))
+                .onComplete(() -> {} )
+                .onError(e -> System.out.println("\n\nError: " + e.getMessage()))
+                .build();
 
-            JSONObject payload = new JSONObject()
-                    .put("prompt", "Human: " + prompt + " Assistant:")
-                    .put("temperature", temperature)
-                    .put("max_tokens_to_sample", maxTokensToSample);
+        client.invokeModelWithResponseStream(request, handler).join();
 
-            SdkBytes body = SdkBytes.fromUtf8String(payload.toString());
-
-            InvokeModelWithResponseStreamRequest request = InvokeModelWithResponseStreamRequest.builder()
-                    .modelId("anthropic.claude-v2")
-                    .contentType("application/json")
-                    .accept("application/json")
-                    .body(body)
-                    .build();
-
-            InvokeModelWithResponseStreamResponseHandler.Visitor visitor =
-                    InvokeModelWithResponseStreamResponseHandler.Visitor.builder()
-                            .onDefault((event) -> System.out.println("\n\nDefault: " + event.toString()))
-                            .onChunk((chunk) -> {
-                                JSONObject json = new JSONObject(chunk.bytes().asUtf8String());
-                                System.out.print(json.getString("completion"));
-                            })
-                            .build();
-
-            InvokeModelWithResponseStreamResponseHandler responseHandler =
-                    InvokeModelWithResponseStreamResponseHandler.builder()
-                            .onEventStream((stream) -> stream.subscribe((ResponseStream e) -> e.accept(visitor)))
-                            .onComplete(() -> System.out.println("\n\nCompleted streaming response."))
-                            .onError((e) -> System.out.println("\n\nError: " + e.getMessage()))
-                            .build();
-
-            CompletableFuture<Void> futureResponse = bedrockRuntimeAsyncClient
-                    .invokeModelWithResponseStream(request, responseHandler);
-
-            futureResponse.join();
-
-        } catch (BedrockRuntimeException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        return null;
+        return finalCompletion.get();
     }
     // snippet-end:[bedrock-runtime.java2.invoke_model_with_response_stream.main]
 }

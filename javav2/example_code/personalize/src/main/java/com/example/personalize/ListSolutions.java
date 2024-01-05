@@ -30,11 +30,15 @@ public class ListSolutions {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    ListSolutions <datasetGroupArn>\n\n" +
-            "Where:\n" +
-            "    datasetGroupArn - The ARN of the data set group.\n\n";
+        final String USAGE = """
+
+            Usage:
+                ListSolutions <datasetGroupArn>
+
+            Where:
+                datasetGroupArn - The ARN of the data set group.
+
+            """;
 
         if (args.length < 1) {
             System.out.println(USAGE);

@@ -9,7 +9,6 @@
 package com.example.deploy;
 
 // snippet-start:[codedeploy.java2.create_deployment_group.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codedeploy.CodeDeployClient;
 import software.amazon.awssdk.services.codedeploy.model.DeploymentStyle;
@@ -35,18 +34,20 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateDeploymentGroup {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <deploymentGroupName> <appName> <serviceRoleArn> <tagKey> <tagValue> \n\n" +
-            "Where:\n" +
-            "    deploymentGroupName - The name of the deployment group. \n" +
-            "    appName - The name of the application. \n" +
-            "    serviceRoleArn - A service role Amazon Resource Name (ARN) that allows AWS CodeDeploy to act on the user's behalf.  \n" +
-            "    tagKey - The tag filter key (ie, AppName). \n"+
-            "    tagValue - The tag filter value (ie, mywebapp).\n";
+        final String usage = """
+
+            Usage:
+                <deploymentGroupName> <appName> <serviceRoleArn> <tagKey> <tagValue>\s
+
+            Where:
+                deploymentGroupName - The name of the deployment group.\s
+                appName - The name of the application.\s
+                serviceRoleArn - A service role Amazon Resource Name (ARN) that allows AWS CodeDeploy to act on the user's behalf. \s
+                tagKey - The tag filter key (ie, AppName).\s
+                tagValue - The tag filter value (ie, mywebapp).
+            """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -62,7 +63,6 @@ public class CreateDeploymentGroup {
         Region region = Region.US_EAST_1;
         CodeDeployClient deployClient = CodeDeployClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         String groupId = createNewDeploymentGroup(deployClient, deploymentGroupName, appName, serviceRoleArn, tagKey, tagValue );

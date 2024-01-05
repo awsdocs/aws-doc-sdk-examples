@@ -9,6 +9,7 @@
 
 package com.example.xray;
 
+// snippet-start:[xray.java2_get_rules.main]
 // snippet-start:[xray.java2_get_rules.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -28,33 +29,29 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetSamplingRules {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         XRayClient xRayClient = XRayClient.builder()
-                .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         getRules(xRayClient);
     }
 
-    // snippet-start:[xray.java2_get_rules.main]
     public static void getRules(XRayClient xRayClient) {
-
         try {
-            GetSamplingRulesResponse response = xRayClient.getSamplingRules(r->r.build());
+            GetSamplingRulesResponse response = xRayClient.getSamplingRules(r -> r.build());
             List<SamplingRuleRecord> records = response.samplingRuleRecords();
 
-            for (SamplingRuleRecord record: records) {
-                System.out.println("The rule name is: "+record.samplingRule().ruleName());
-                System.out.println("The related service is: "+record.samplingRule().serviceName());
+            for (SamplingRuleRecord record : records) {
+                System.out.println("The rule name is: " + record.samplingRule().ruleName());
+                System.out.println("The related service is: " + record.samplingRule().serviceName());
             }
         } catch (XRayException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-     }
-    // snippet-end:[xray.java2_get_rules.main]
-   }
+    }
+}
+// snippet-end:[xray.java2_get_rules.main]

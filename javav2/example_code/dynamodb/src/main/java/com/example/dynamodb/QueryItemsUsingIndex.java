@@ -9,8 +9,8 @@
 
 package com.example.dynamodb;
 
+// snippet-start:[dynamodb.java2.query_items_sec_index.main]
 // snippet-start:[dynamodb.java2.query_items_sec_index.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -34,14 +34,10 @@ import java.util.Map;
  * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html
  */
 public class QueryItemsUsingIndex {
-
     public static void main(String[] args) {
-
         String tableName = "Movies";
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .credentialsProvider(credentialsProvider)
             .region(region)
             .build();
 
@@ -49,9 +45,7 @@ public class QueryItemsUsingIndex {
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.query_items_sec_index.main]
     public static void queryIndex(DynamoDbClient ddb, String tableName) {
-
         try {
             Map<String, String> expressionAttributesNames = new HashMap<>();
             expressionAttributesNames.put("#year", "year");
@@ -76,6 +70,6 @@ public class QueryItemsUsingIndex {
             System.exit(1);
         }
     }
-    // snippet-end:[dynamodb.java2.query_items_sec_index.main]
 }
+// snippet-end:[dynamodb.java2.query_items_sec_index.main]
 

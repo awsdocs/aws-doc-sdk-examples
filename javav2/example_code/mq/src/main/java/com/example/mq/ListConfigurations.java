@@ -26,8 +26,7 @@ import software.amazon.awssdk.services.mq.model.*;
 public class ListConfigurations {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
-    
-        MqClient mqClient = MqClient.builder()
+            MqClient mqClient = MqClient.builder()
                 .region(region)
                 .build();
         

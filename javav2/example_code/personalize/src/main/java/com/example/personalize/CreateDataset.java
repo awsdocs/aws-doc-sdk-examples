@@ -17,16 +17,19 @@ import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 //snippet-end:[personalize.java2.create_dataset.import]
 
 public class CreateDataset {
-
     public static void main(String[] args) {
 
-        final String USAGE = "Usage:\n" +
-            "    <datasetName> <datasetGroupArn> <datasetType> <schemaArn>\n\n" +
-            "Where:\n" +
-            "   datasetName - The name for the dataset.\n" +
-            "   datasetGroupArn - The Amazon Resource Name (ARN) for the dataset group.\n" +
-            "   datasetType- The type of dataset (INTERACTIONS, USERS, or ITEMS).\n" +
-            "   schemaArn - The ARN for the dataset's schema.\n\n";
+        final String USAGE = """
+            Usage:
+                <datasetName> <datasetGroupArn> <datasetType> <schemaArn>
+
+            Where:
+               datasetName - The name for the dataset.
+               datasetGroupArn - The Amazon Resource Name (ARN) for the dataset group.
+               datasetType- The type of dataset (INTERACTIONS, USERS, or ITEMS).
+               schemaArn - The ARN for the dataset's schema.
+
+            """;
 
         if (args.length != 4) {
             System.out.println(USAGE);

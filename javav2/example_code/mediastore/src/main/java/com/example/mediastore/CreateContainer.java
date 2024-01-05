@@ -9,8 +9,8 @@
 
 package com.example.mediastore;
 
+//snippet-start:[mediastore.java2.create_container.main]
 //snippet-start:[mediastore.java2.create_container.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.model.CreateContainerRequest;
@@ -26,15 +26,16 @@ import software.amazon.awssdk.services.mediastore.model.MediaStoreException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateContainer {
-
     public static long sleepTime = 10;
-    public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <containerName>\n\n" +
-            "Where:\n" +
-            "   containerName - The name of the container to create.\n";
+    public static void main(String[] args) {
+        final String usage = """
+
+            Usage:    <containerName>
+
+            Where:
+               containerName - The name of the container to create.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,16 +46,13 @@ public class CreateContainer {
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         createMediaContainer(mediaStoreClient, containerName);
         mediaStoreClient.close();
     }
 
-    //snippet-start:[mediastore.java2.create_container.main]
-    public static void createMediaContainer( MediaStoreClient mediaStoreClient, String containerName) {
-
+    public static void createMediaContainer(MediaStoreClient mediaStoreClient, String containerName) {
         try {
             CreateContainerRequest containerRequest = CreateContainerRequest.builder()
                 .containerName(containerName)
@@ -62,15 +60,13 @@ public class CreateContainer {
 
             CreateContainerResponse containerResponse = mediaStoreClient.createContainer(containerRequest);
             String status = containerResponse.container().status().toString();
-
-            // Wait unitl the container is in an active state.
-            while (!status.equalsIgnoreCase("Active")){
+            while (!status.equalsIgnoreCase("Active")) {
                 status = DescribeContainer.checkContainer(mediaStoreClient, containerName);
-                System.out.println("Status - "+ status);
+                System.out.println("Status - " + status);
                 Thread.sleep(sleepTime * 1000);
             }
 
-            System.out.println("The container ARN value is "+containerResponse.container().arn());
+            System.out.println("The container ARN value is " + containerResponse.container().arn());
             System.out.println("Finished ");
 
         } catch (MediaStoreException | InterruptedException e) {
@@ -78,5 +74,5 @@ public class CreateContainer {
             System.exit(1);
         }
     }
-    //snippet-end:[mediastore.java2.create_container.main]
 }
+//snippet-end:[mediastore.java2.create_container.main]

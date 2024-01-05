@@ -9,8 +9,8 @@
 
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.delete_service.main]
 // snippet-start:[ecs.java2.delete_service.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.DeleteServiceRequest;
@@ -26,15 +26,16 @@ import software.amazon.awssdk.services.ecs.model.EcsException;
  */
 
 public class DeleteService {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <clusterName> <serviceArn> \n\n" +
-            "Where:\n" +
-            "  clusterName - The name of the ECS cluster.\n" +
-            "  serviceArn - The ARN of the ECS service.\n";
+            Usage:
+              <clusterName> <serviceArn>\s
+
+            Where:
+              clusterName - The name of the ECS cluster.
+              serviceArn - The ARN of the ECS service.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,16 +47,13 @@ public class DeleteService {
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteSpecificService(ecsClient, clusterName, serviceArn);
         ecsClient.close();
     }
 
-    // snippet-start:[ecs.java2.delete_service.main]
     public static void deleteSpecificService(EcsClient ecsClient, String clusterName, String serviceArn) {
-
         try {
             DeleteServiceRequest serviceRequest = DeleteServiceRequest.builder()
                 .cluster(clusterName)
@@ -70,5 +68,5 @@ public class DeleteService {
             System.exit(1);
         }
     }
-    // snippet-end:[ecs.java2.delete_service.main]
 }
+// snippet-end:[ecs.java2.delete_service.main]

@@ -78,6 +78,7 @@ def usage_demo():
             print("-" * 42)
             print(f' Name: {model["modelName"]}')
             print(f' Provider: {model["providerName"]}')
+            print(f' Model ARN: {model["modelArn"]}')
             print(f' Input modalities: {model["inputModalities"]}')
             print(f' Output modalities: {model["outputModalities"]}')
             print(f' Supported customizations: {model["customizationsSupported"]}')

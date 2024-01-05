@@ -9,8 +9,8 @@
 
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.segment_id.main]
 //snippet-start:[pinpoint.java2.segment_id.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.GetSegmentRequest;
@@ -26,15 +26,18 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetSegmentById {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            " Usage:" +
-            "   <appId> <segmentId>\n\n" +
-            " Where:\n" +
-            "   appId - The id of the application.\n\n"+
-            "   segmentId - The id of the segment.\n\n";
+        final String usage = """
+
+             Usage:   <appId> <segmentId>
+
+             Where:
+               appId - The id of the application.
+
+               segmentId - The id of the segment.
+
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,16 +48,13 @@ public class GetSegmentById {
         String segmentId = args[1];
         PinpointClient pinpoint = PinpointClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        System.out.println("Name of the segment is " + getSegmentById(pinpoint, appId, segmentId) );
+        System.out.println("Name of the segment is " + getSegmentById(pinpoint, appId, segmentId));
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.segment_id.main]
     private static String getSegmentById(PinpointClient client, String applicationId, String segmentId) {
-
         try {
             GetSegmentRequest request = GetSegmentRequest.builder()
                 .applicationId(applicationId)
@@ -70,5 +70,5 @@ public class GetSegmentById {
         }
         return null;
     }
-    //snippet-end:[pinpoint.java2.segment_id.main]
 }
+//snippet-end:[pinpoint.java2.segment_id.main]

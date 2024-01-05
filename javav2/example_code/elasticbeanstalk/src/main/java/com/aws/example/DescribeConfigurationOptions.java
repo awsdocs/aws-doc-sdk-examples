@@ -9,8 +9,8 @@
 
 package com.aws.example;
 
+//snippet-start:[eb.java2.config.main]
 //snippet-start:[eb.java2.config.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.elasticbeanstalk.ElasticBeanstalkClient;
 import software.amazon.awssdk.services.elasticbeanstalk.model.OptionSpecification;
@@ -30,21 +30,16 @@ import java.util.List;
  */
 
 public class DescribeConfigurationOptions {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getOptions(beanstalkClient);
     }
 
-    //snippet-start:[eb.java2.config.main]
     public static void getOptions(ElasticBeanstalkClient beanstalkClient) {
-
         try {
             OptionSpecification spec = OptionSpecification.builder()
                 .namespace("aws:ec2:instances")
@@ -57,14 +52,14 @@ public class DescribeConfigurationOptions {
 
             DescribeConfigurationOptionsResponse response = beanstalkClient.describeConfigurationOptions(request);
             List<ConfigurationOptionDescription> options = response.options();
-            for (ConfigurationOptionDescription option: options) {
-                System.out.println("The namespace is "+option.namespace());
+            for (ConfigurationOptionDescription option : options) {
+                System.out.println("The namespace is " + option.namespace());
                 String optionName = option.name();
-                System.out.println("The option name is "+optionName);
+                System.out.println("The option name is " + optionName);
                 if (optionName.compareTo("InstanceTypes") == 0) {
                     List<String> valueOptions = option.valueOptions();
                     for (String value : valueOptions) {
-                        System.out.println("The value is "+value);
+                        System.out.println("The value is " + value);
                     }
                 }
             }
@@ -74,5 +69,5 @@ public class DescribeConfigurationOptions {
             System.exit(1);
         }
     }
-    //snippet-end:[eb.java2.config.main]
 }
+//snippet-end:[eb.java2.config.main]

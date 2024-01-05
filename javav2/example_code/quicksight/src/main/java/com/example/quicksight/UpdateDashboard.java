@@ -9,8 +9,8 @@
 
 package com.example.quicksight;
 
+// snippet-start:[quicksight.java2.update_dashboard.main]
 // snippet-start:[quicksight.java2.update_dashboard.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.quicksight.QuickSightClient;
 import software.amazon.awssdk.services.quicksight.model.DataSetReference;
@@ -42,17 +42,17 @@ import java.util.UUID;
 */
 
 public class UpdateDashboard {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <account> <dashboardId> <dataSetArn> <analysisArn>\n\n" +
-            "Where:\n" +
-            "   account - The account to use.\n\n" +
-            "   dashboardId - The dashboard id value to use.\n\n" +
-            "   dataSetArn - The ARN of the dataset.\n\n" +
-            "   analysisArn - The ARN of an existing analysis";
+            Usage:    <account> <dashboardId> <dataSetArn> <analysisArn>
+
+            Where:
+               account - The account to use.
+               dashboardId - The dashboard id value to use.
+               dataSetArn - The ARN of the dataset.
+               analysisArn - The ARN of an existing analysis
+               """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -65,16 +65,13 @@ public class UpdateDashboard {
         String analysisArn = args[3];
         QuickSightClient qsClient = QuickSightClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         updateSpecificDashboard(qsClient, account, dashboardId, dataSetArn, analysisArn);
         qsClient.close();
     }
 
-    // snippet-start:[quicksight.java2.update_dashboard.main]
-    public static void updateSpecificDashboard( QuickSightClient qsClient, String account, String dashboardId, String dataSetArn, String analysisArn) {
-
+    public static void updateSpecificDashboard(QuickSightClient qsClient, String account, String dashboardId, String dataSetArn, String analysisArn) {
         try {
             DataSetReference dataSetReference = DataSetReference.builder()
                 .dataSetArn(dataSetArn)
@@ -110,7 +107,6 @@ public class UpdateDashboard {
     }
 
     private static String getTemplateARN(QuickSightClient qsClient, String account, String dataset, String analysisArn) {
-
         String arn = null;
         try {
             DataSetReference setReference = DataSetReference.builder()
@@ -145,5 +141,5 @@ public class UpdateDashboard {
         }
         return arn;
     }
-    // snippet-end:[quicksight.java2.update_dashboard.main]
 }
+// snippet-end:[quicksight.java2.update_dashboard.main]

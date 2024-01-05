@@ -8,8 +8,8 @@
 
 package com.example.ec2;
 
+// snippet-start:[ec2.java2.create_security_group.main]
 // snippet-start:[ec2.java2.create_security_group.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupRequest;
@@ -29,16 +29,18 @@ import software.amazon.awssdk.services.ec2.model.IpRange;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateSecurityGroup {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "   <groupName> <groupDesc> <vpcId> \n\n" +
-            "Where:\n" +
-            "   groupName - A group name (for example, TestKeyPair). \n\n" +
-            "   groupDesc - A group description  (for example, TestKeyPair). \n\n"+
-            "   vpcId - A VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). \n\n";
+            Usage:
+               <groupName> <groupDesc> <vpcId>\s
+
+            Where:
+               groupName - A group name (for example, TestKeyPair).\s
+               groupDesc - A group description  (for example, TestKeyPair).\s
+               vpcId - A VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f).\s
+
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -53,7 +55,6 @@ public class CreateSecurityGroup {
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
         // snippet-end:[ec2.java2.create_security_group.client]
 
@@ -62,10 +63,8 @@ public class CreateSecurityGroup {
         ec2.close();
     }
 
-    // snippet-start:[ec2.java2.create_security_group.main]
-    public static String createEC2SecurityGroup( Ec2Client ec2,String groupName, String groupDesc, String vpcId) {
+    public static String createEC2SecurityGroup(Ec2Client ec2, String groupName, String groupDesc, String vpcId) {
         try {
-
             // snippet-start:[ec2.java2.create_security_group.create]
             CreateSecurityGroupRequest createRequest = CreateSecurityGroupRequest.builder()
                 .groupName(groupName)
@@ -73,7 +72,7 @@ public class CreateSecurityGroup {
                 .vpcId(vpcId)
                 .build();
 
-            CreateSecurityGroupResponse resp= ec2.createSecurityGroup(createRequest);
+            CreateSecurityGroupResponse resp = ec2.createSecurityGroup(createRequest);
             // snippet-end:[ec2.java2.create_security_group.create]
 
             // snippet-start:[ec2.java2.create_security_group.config]
@@ -101,7 +100,7 @@ public class CreateSecurityGroup {
                     .build();
 
             AuthorizeSecurityGroupIngressResponse authResponse =
-            ec2.authorizeSecurityGroupIngress(authRequest);
+                ec2.authorizeSecurityGroupIngress(authRequest);
             System.out.printf("Successfully added ingress policy to Security Group %s", groupName);
             return resp.groupId();
 
@@ -111,7 +110,7 @@ public class CreateSecurityGroup {
         }
         return "";
     }
+}
     // snippet-end:[ec2.java2.create_security_group.config]
     // snippet-end:[ec2.java2.create_security_group.main]
-}
 

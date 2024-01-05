@@ -9,8 +9,8 @@
 
 package com.example.cloudwatch;
 
+// snippet-start:[cloudwatch.javav2.describe_rule.main]
 // snippet-start:[cloudwatch.javav2.describe_rule.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatchevents.CloudWatchEventsClient;
@@ -27,14 +27,15 @@ import software.amazon.awssdk.services.cloudwatchevents.model.DescribeRuleRespon
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeRule {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <ruleName>\n\n" +
-            "Where:\n" +
-            "  ruleName - The name of the rule to describe.\n" ;
+            Usage:
+              <ruleName>
+
+            Where:
+              ruleName - The name of the rule to describe.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,17 +45,14 @@ public class DescribeRule {
         String ruleName = args[0];
         CloudWatchEventsClient cwe = CloudWatchEventsClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         describeSpecificRule(cwe, ruleName);
         cwe.close();
     }
 
-    // snippet-start:[cloudwatch.javav2.describe_rule.main]
     public static void describeSpecificRule(CloudWatchEventsClient cwe, String ruleName) {
         try {
-
             DescribeRuleRequest ruleRequest = DescribeRuleRequest.builder()
                 .name(ruleName)
                 .build();
@@ -68,5 +66,5 @@ public class DescribeRule {
             System.exit(1);
         }
     }
-    // snippet-end:[cloudwatch.javav2.describe_rule.main]
 }
+// snippet-end:[cloudwatch.javav2.describe_rule.main]

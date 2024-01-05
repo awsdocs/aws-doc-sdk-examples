@@ -8,6 +8,7 @@
 */
 package com.example.s3;
 
+// snippet-start:[s3.java2.set_acl.main]
 // snippet-start:[s3.java2.set_acl.import]
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +31,16 @@ import software.amazon.awssdk.services.s3.S3Client;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class SetAcl {
-
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <bucketName> <id> \n\n" +
-            "Where:\n" +
-            "  bucketName - The Amazon S3 bucket to grant permissions on. \n" +
-            "  id - The ID of the owner of this bucket (you can get this value from the AWS Management Console).\n" ;
+        final String usage = """
+
+            Usage:
+              <bucketName> <id>\s
+
+            Where:
+              bucketName - The Amazon S3 bucket to grant permissions on.\s
+              id - The ID of the owner of this bucket (you can get this value from the AWS Management Console).
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -48,12 +51,9 @@ public class SetAcl {
         String id = args[1];
         System.out.format("Setting access \n");
         System.out.println(" in bucket: " + bucketName);
-
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
         setBucketAcl(s3, bucketName, id);
@@ -61,15 +61,13 @@ public class SetAcl {
         s3.close();
     }
 
-    // snippet-start:[s3.java2.set_acl.main]
     public static void setBucketAcl(S3Client s3, String bucketName, String id) {
-
         try {
             Grant ownerGrant = Grant.builder()
                 .grantee(builder -> builder.id(id)
-                .type(Type.CANONICAL_USER))
-                    .permission(Permission.FULL_CONTROL)
-                    .build();
+                    .type(Type.CANONICAL_USER))
+                .permission(Permission.FULL_CONTROL)
+                .build();
 
             List<Grant> grantList2 = new ArrayList<>();
             grantList2.add(ownerGrant);
@@ -91,6 +89,6 @@ public class SetAcl {
             System.exit(1);
         }
     }
-    // snippet-end:[s3.java2.set_acl.main]
 }
+// snippet-end:[s3.java2.set_acl.main]
 

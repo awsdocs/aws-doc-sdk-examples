@@ -9,8 +9,8 @@
 
 package com.example.kendra;
 
+// snippet-start:[kendra.java2.delete.index.main]
 // snippet-start:[kendra.java2.delete.index.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kendra.KendraClient;
 import software.amazon.awssdk.services.kendra.model.KendraException;
@@ -27,11 +27,14 @@ import software.amazon.awssdk.services.kendra.model.DeleteIndexRequest;
 public class DeleteIndex {
 
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <indexId> \n\n" +
-            "Where:\n" +
-            "    indexId - The id value of the index.\n" ;
+        final String usage = """
+
+            Usage:
+                <indexId>\s
+
+            Where:
+                indexId - The id value of the index.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -41,15 +44,12 @@ public class DeleteIndex {
         String indexId = args[0];
         KendraClient kendra = KendraClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         deleteSpecificIndex(kendra, indexId);
     }
 
-    // snippet-start:[kendra.java2.delete.index.main]
     public static void deleteSpecificIndex(KendraClient kendra, String indexId) {
-
         try {
             DeleteIndexRequest deleteIndexRequest = DeleteIndexRequest.builder()
                 .id(indexId)
@@ -63,5 +63,5 @@ public class DeleteIndex {
             System.exit(1);
         }
     }
-    // snippet-end:[kendra.java2.delete.index.main]
 }
+// snippet-end:[kendra.java2.delete.index.main]

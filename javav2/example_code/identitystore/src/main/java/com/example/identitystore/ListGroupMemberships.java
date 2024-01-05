@@ -9,6 +9,7 @@
 
 package com.example.identitystore;
 
+// snippet-start:[identitystore.java2.list_group_memberships.main]
 // snippet-start:[Identitystore.java2.list_group_memberships.import]
 import software.amazon.awssdk.services.identitystore.IdentitystoreClient;
 import software.amazon.awssdk.services.identitystore.model.IdentitystoreException;
@@ -28,14 +29,15 @@ import software.amazon.awssdk.services.identitystore.model.GroupMembership;
 
 public class ListGroupMemberships {
     public static void main(String... args) {
+        final String usage = """
 
-        final String usage = "\n" +
-        "Usage:\n" +
-        "    <identitystoreId> <groupId> \n\n" +
-        "Where:\n" +
-        "    identitystoreId - The id of the identitystore. \n" +
-        "    groupId - The id of the group. \n\n" ;
+            Usage:
+                <identitystoreId> <groupId>\s
 
+            Where:
+                identitystoreId - The id of the identitystore.\s
+                groupId - The id of the group.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -44,25 +46,22 @@ public class ListGroupMemberships {
 
         String identitystoreId = args[0];
         String groupId = args[1];
-
         IdentitystoreClient identitystore = IdentitystoreClient.builder().build();
 
         int result = listGroupMemberships(identitystore, identitystoreId, groupId);
         System.out.println("Total number of memberships in a group is: " + result);
         identitystore.close();
-
     }
 
-    // snippet-start:[identitystore.java2.list_group_memberships.main]
     public static int listGroupMemberships(IdentitystoreClient identitystore, String identitystoreId, String groupId) {
         try {
             boolean done = false;
             int count = 0;
             String nextToken = null;
 
-            while(!done) {
+            while (!done) {
                 ListGroupMembershipsResponse response;
-                if (nextToken == null){
+                if (nextToken == null) {
                     ListGroupMembershipsRequest request = ListGroupMembershipsRequest.builder()
                         .identityStoreId(identitystoreId)
                         .groupId(groupId)
@@ -70,24 +69,24 @@ public class ListGroupMemberships {
                     response = identitystore.listGroupMemberships(request);
                 } else {
                     ListGroupMembershipsRequest request = ListGroupMembershipsRequest.builder()
-                    .nextToken(nextToken)
-                    .identityStoreId(identitystoreId)
-                    .groupId(groupId)
-                    .build();
+                        .nextToken(nextToken)
+                        .identityStoreId(identitystoreId)
+                        .groupId(groupId)
+                        .build();
                     response = identitystore.listGroupMemberships(request);
                 }
 
-                for(GroupMembership groupmembership : response.groupMemberships()) {
-                    count ++;
+                for (GroupMembership groupmembership : response.groupMemberships()) {
+                    count++;
                     System.out.format("GroupId: %s, UserId: %s, MembershipId: %s\n", groupmembership.groupId(), groupmembership.memberId().userId(), groupmembership.membershipId());
                 }
 
                 nextToken = response.nextToken();
-                if (nextToken == null){
+                if (nextToken == null) {
                     done = true;
                 }
             }
-           return count;
+            return count;
 
         } catch (IdentitystoreException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -95,6 +94,6 @@ public class ListGroupMemberships {
         }
 
         return 0;
-     }
-     // snippet-end:[identitystore.java2.list_group_memberships.main]
+    }
 }
+ // snippet-end:[identitystore.java2.list_group_memberships.main]

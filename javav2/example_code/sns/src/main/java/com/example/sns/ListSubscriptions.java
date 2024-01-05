@@ -9,8 +9,8 @@
 
 package com.example.sns;
 
+//snippet-start:[sns.java2.ListSubscriptions.main]
 //snippet-start:[sns.java2.ListSubscriptions.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.ListSubscriptionsRequest;
@@ -27,19 +27,15 @@ import software.amazon.awssdk.services.sns.model.SnsException;
  */
 public class ListSubscriptions {
     public static void main(String[] args) {
-
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listSNSSubscriptions(snsClient);
         snsClient.close();
     }
 
-    //snippet-start:[sns.java2.ListSubscriptions.main]
-    public static void listSNSSubscriptions( SnsClient snsClient) {
-
+    public static void listSNSSubscriptions(SnsClient snsClient) {
         try {
             ListSubscriptionsRequest request = ListSubscriptionsRequest.builder()
                 .build();
@@ -53,5 +49,5 @@ public class ListSubscriptions {
             System.exit(1);
         }
     }
-    //snippet-end:[sns.java2.ListSubscriptions.main]
 }
+//snippet-end:[sns.java2.ListSubscriptions.main]

@@ -11,7 +11,6 @@ package com.example.stepfunctions;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.CreateRoleRequest;
@@ -68,13 +67,16 @@ import java.util.UUID;
 public class StepFunctionsScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[]args) throws Exception {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <roleARN> <activityName> <stateMachineName>\n\n" +
-            "Where:\n" +
-            "    roleName - The name of the IAM role to create for this state machine.\n" +
-            "    activityName - The name of an activity to create." +
-            "    stateMachineName - The name of the state machine to create.\n";
+        final String usage = """
+
+            Usage:
+                <roleARN> <activityName> <stateMachineName>
+
+            Where:
+                roleName - The name of the IAM role to create for this state machine.
+                activityName - The name of an activity to create.    
+                stateMachineName - The name of the state machine to create.
+            """;
 
        if (args.length != 3) {
            System.out.println(usage);
@@ -104,13 +106,11 @@ public class StepFunctionsScenario {
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         Region regionGl = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(regionGl)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println(DASHES);

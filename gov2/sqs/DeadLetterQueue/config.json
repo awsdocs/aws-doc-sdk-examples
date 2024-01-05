@@ -1,4 +1,0 @@
-{
-  "QueueName": "aws-docs-examples-queue-name",
-  "DLQueueName": "aws-docs-examples-dead-letter-queue-name"
-}

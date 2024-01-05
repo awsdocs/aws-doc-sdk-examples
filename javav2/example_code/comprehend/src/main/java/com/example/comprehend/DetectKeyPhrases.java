@@ -9,8 +9,8 @@
 
 package com.example.comprehend;
 
+//snippet-start:[comprehend.java2.detect_keyphrases.main]
 //snippet-start:[comprehend.java2.detect_keyphrases.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.comprehend.ComprehendClient;
 import software.amazon.awssdk.services.comprehend.model.DetectKeyPhrasesRequest;
@@ -27,14 +27,11 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DetectKeyPhrases {
-
     public static void main(String[] args) {
-
         String text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing.";
         Region region = Region.US_EAST_1;
         ComprehendClient comClient = ComprehendClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println("Calling DetectKeyPhrases");
@@ -42,9 +39,7 @@ public class DetectKeyPhrases {
         comClient.close();
     }
 
-    //snippet-start:[comprehend.java2.detect_keyphrases.main]
     public static void detectAllKeyPhrases(ComprehendClient comClient, String text) {
-
         try {
             DetectKeyPhrasesRequest detectKeyPhrasesRequest = DetectKeyPhrasesRequest.builder()
                 .text(text)
@@ -62,6 +57,6 @@ public class DetectKeyPhrases {
             System.exit(1);
         }
     }
-    //snippet-end:[comprehend.java2.detect_keyphrases.main]
 }
+//snippet-end:[comprehend.java2.detect_keyphrases.main]
 

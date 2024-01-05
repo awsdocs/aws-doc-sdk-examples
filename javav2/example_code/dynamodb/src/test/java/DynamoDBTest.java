@@ -196,7 +196,7 @@ public class DynamoDBTest {
    @Tag("IntegrationTest")
    @Order(9)
    public void deleteItem() {
-       assertDoesNotThrow(() ->DeleteItem.deleteItem(ddb,tableName,key,keyVal));
+       assertDoesNotThrow(() ->DeleteItem.deleteDynamoDBItem(ddb,tableName,key,keyVal));
        System.out.println("\n Test 9 passed");
    }
 

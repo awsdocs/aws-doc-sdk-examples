@@ -21,14 +21,13 @@ assert_cmd = "2.0"
 predicates = "3.0.3"
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["behavior-version-latest"]}
+aws-config = { version = "1.0.1", features = ["behavior-version-latest"] }
 # snippet-start:[s3.rust.s3-object-lambda-cargo.toml]
-aws-endpoint = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 # snippet-end:[s3.rust.s3-object-lambda-cargo.toml]
-aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["rt-tokio"]}
-aws-smithy-runtime = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-runtime-api = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["client"] }
-aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["http-body-0-4-x"] }
+aws-sdk-s3 = { version = "1.4.0", features = ["rt-tokio"] }
+aws-smithy-runtime = { version = "1.0.1" }
+aws-smithy-runtime-api = { version = "1.0.1", features = ["client"] }
+aws-smithy-types = { version = "1.0.1", features = ["http-body-0-4-x"] }
 sdk-examples-test-utils = { path = "../../test-utils" }
 anyhow = "1.0.70"
 bytes = "1.4.0"
@@ -45,3 +44,6 @@ tokio-stream = "0.1.8"
 tracing = "0.1.37"
 tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }
 uuid = { version = "1.3.1", features = ["serde", "v4"] }
+
+serde_json = "1"
+serde = { version = "1", features = ["derive"]}

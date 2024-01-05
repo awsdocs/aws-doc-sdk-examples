@@ -32,9 +32,7 @@ import java.util.Map;
 
 public class ParseUri {
     private static final Logger logger = LoggerFactory.getLogger(ParseUri.class);
-
     public static void main(String[] args) {
-
         S3Client s3Client = S3Client.create();
         String url = "https://s3.us-west-1.amazonaws.com/myBucket/resources/doc.txt?versionId=abc123&partNumber=77&partNumber=88";
         parseS3UriExample(s3Client, url);

@@ -8,8 +8,8 @@
 */
 package com.example.s3;
 
+// snippet-start:[s3.java2.set_website_configuration.main]
 // snippet-start:[s3.java2.set_website_configuration.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.IndexDocument;
 import software.amazon.awssdk.services.s3.model.PutBucketWebsiteRequest;
@@ -27,16 +27,16 @@ import software.amazon.awssdk.regions.Region;
  */
 
 public class SetWebsiteConfiguration {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <bucketName> [indexdoc] \n\n" +
-            "Where:\n" +
-            "   bucketName   - The Amazon S3 bucket to set the website configuration on. \n" +
-            "   indexdoc - The index document, ex. 'index.html'\n" +
-            "              If not specified, 'index.html' will be set.\n" ;
+            Usage:    <bucketName> [indexdoc]\s
+
+            Where:
+               bucketName   - The Amazon S3 bucket to set the website configuration on.\s
+               indexdoc - The index document, ex. 'index.html'
+                          If not specified, 'index.html' will be set.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,20 +45,17 @@ public class SetWebsiteConfiguration {
 
         String bucketName = args[0];
         String indexDoc = "index.html";
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
-        setWebsiteConfig(s3, bucketName,indexDoc);
+        setWebsiteConfig(s3, bucketName, indexDoc);
         s3.close();
     }
 
-    // snippet-start:[s3.java2.set_website_configuration.main]
-    public static void setWebsiteConfig( S3Client s3, String bucketName, String indexDoc) {
 
+    public static void setWebsiteConfig(S3Client s3, String bucketName, String indexDoc) {
         try {
             WebsiteConfiguration websiteConfig = WebsiteConfiguration.builder()
                 .indexDocument(IndexDocument.builder().suffix(indexDoc).build())
@@ -77,6 +74,6 @@ public class SetWebsiteConfiguration {
             System.exit(1);
         }
     }
-    // snippet-end:[s3.java2.set_website_configuration.main]
- }
+}
+// snippet-end:[s3.java2.set_website_configuration.main]
 

@@ -8,8 +8,9 @@
 
 package com.example.cognito;
 
+//snippet-start:[cognito.java2.hello.main]
+//snippet-start:[cognito.java2.ListUserPools.main]
 //snippet-start:[cognito.java2.ListUserPools.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
@@ -24,23 +25,17 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUserPoo
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class ListUserPools {
-
     public static void main(String[] args) {
-
         CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         listAllUserPools(cognitoClient) ;
         cognitoClient.close();
     }
 
-    //snippet-start:[cognito.java2.ListUserPools.main]
     public static void listAllUserPools(CognitoIdentityProviderClient cognitoClient ) {
-
         try {
             ListUserPoolsRequest request = ListUserPoolsRequest.builder()
                 .maxResults(10)
@@ -56,5 +51,6 @@ public class ListUserPools {
             System.exit(1);
         }
     }
-    //snippet-end:[cognito.java2.ListUserPools.main]
 }
+//snippet-end:[cognito.java2.ListUserPools.main]
+//snippet-end:[cognito.java2.hello.main]

@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a Spring REST API that sends and retrieves messages by using the AWS SDK for Kotlin and Amazon Simple Queue Service (Amazon SQS). This application also detects the language code of the posted message by using Amazon Comprehend. The Spring REST API is used by a React application that displays the data.   |
 | Audience   |  Developer (intermediate)        |
-| Updated   | 9/15/2022        |
+| Updated   | 11/14/2023        |
 | Required skills   | Kotlin, Gradle, JavaScript  |
 
 
@@ -36,8 +36,8 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Kotlin IDE. (This tutorial uses the IntelliJ IDE.)
-+ Java 1.8 JDK.
-+ Gradle 6.8 or higher.
++ Java 17 JDK.
++ Gradle 8.1 or higher.
 + A Kotlin development environment setup. For more information, see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 
 **Note**: Make sure that you have installed the Kotlin plug-in for IntelliJ. 
@@ -99,12 +99,18 @@ At this point, you have a new project named **AWSMessageRestKotlin**. Confirm th
  import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.0"
     application
 }
 
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
 
 buildscript {
     repositories {
@@ -121,19 +127,21 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
+    implementation("aws.sdk.kotlin:sqs:0.33.1-beta")
+    implementation("aws.sdk.kotlin:comprehend:0.33.1-beta")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
+    implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
     implementation("org.springframework.boot:spring-boot-starter-web:2.7.3")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("aws.sdk.kotlin:sqs:0.17.1-beta")
-    implementation("aws.sdk.kotlin:comprehend:0.17.1-beta")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 

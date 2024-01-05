@@ -8,8 +8,8 @@
 */
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.list_tasks.main]
 // snippet-start:[ecs.java2.list_tasks.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.DescribeTasksRequest;
@@ -27,15 +27,16 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListTaskDefinitions {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <clusterArn> <taskId> \n\n" +
-            "Where:\n" +
-            "  clusterArn - The ARN of an ECS cluster.\n" +
-            "  taskId - The task Id value.\n" ;
+            Usage:
+              <clusterArn> <taskId>\s
+
+            Where:
+              clusterArn - The ARN of an ECS cluster.
+              taskId - The task Id value.
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,26 +48,23 @@ public class ListTaskDefinitions {
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getAllTasks(ecsClient, clusterArn, taskId);
         ecsClient.close();
     }
 
-    // snippet-start:[ecs.java2.list_tasks.main]
     public static void getAllTasks(EcsClient ecsClient, String clusterArn, String taskId) {
-
         try {
             DescribeTasksRequest tasksRequest = DescribeTasksRequest.builder()
-               .cluster(clusterArn)
-               .tasks(taskId)
-               .build();
+                .cluster(clusterArn)
+                .tasks(taskId)
+                .build();
 
             DescribeTasksResponse response = ecsClient.describeTasks(tasksRequest);
             List<Task> tasks = response.tasks();
-            for (Task task: tasks) {
-                System.out.println("The task ARN is "+task.taskDefinitionArn());
+            for (Task task : tasks) {
+                System.out.println("The task ARN is " + task.taskDefinitionArn());
             }
 
         } catch (EcsException e) {
@@ -74,5 +72,5 @@ public class ListTaskDefinitions {
             System.exit(1);
         }
     }
-    // snippet-end:[ecs.java2.list_tasks.main]
 }
+// snippet-end:[ecs.java2.list_tasks.main]

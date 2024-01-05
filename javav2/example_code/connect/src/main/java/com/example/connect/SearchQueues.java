@@ -9,6 +9,7 @@
 
 package com.example.connect;
 
+// snippet-start:[connect.java2.search.queue.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.connect.ConnectClient;
 import software.amazon.awssdk.services.connect.model.ConnectException;
@@ -27,11 +28,13 @@ import java.util.List;
 
 public class SearchQueues {
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage: " +
-            "   <instanceId>\n\n" +
-            "Where:\n" +
-            "   instanceId - The id of the Amazon Connect instance.\n\n";
+        final String usage = """
+
+            Usage:    <instanceId>
+
+            Where:
+               instanceId - The id of the Amazon Connect instance.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,7 +50,6 @@ public class SearchQueues {
         searchQueue(connectClient, instanceId);
     }
 
-    // snippet-start:[connect.java2.search.queue.main]
     public static void searchQueue(ConnectClient connectClient, String instanceId) {
         try {
             SearchQueuesRequest queuesRequest = SearchQueuesRequest.builder()
@@ -57,11 +59,11 @@ public class SearchQueues {
 
             SearchQueuesResponse response = connectClient.searchQueues(queuesRequest);
             List<Queue> queuesList = response.queues();
-            for (Queue queue: queuesList) {
-                System.out.println("The queue name is "+queue.name());
-                System.out.println("The queue description is "+queue.description());
-                System.out.println("The queue id is "+queue.queueId());
-                System.out.println("The queue ARN is "+queue.queueArn());
+            for (Queue queue : queuesList) {
+                System.out.println("The queue name is " + queue.name());
+                System.out.println("The queue description is " + queue.description());
+                System.out.println("The queue id is " + queue.queueId());
+                System.out.println("The queue ARN is " + queue.queueArn());
             }
 
         } catch (ConnectException e) {
@@ -69,5 +71,5 @@ public class SearchQueues {
             System.exit(1);
         }
     }
-    // snippet-end:[connect.java2.search.queue.main]
 }
+// snippet-end:[connect.java2.search.queue.main]

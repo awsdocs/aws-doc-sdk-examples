@@ -9,8 +9,8 @@
 
 package com.example.translate;
 
+// snippet-start:[translate.java2._list_jobs.main]
 // snippet-start:[translate.java2._list_jobs.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.translate.TranslateClient;
 import software.amazon.awssdk.services.translate.model.ListTextTranslationJobsRequest;
@@ -29,21 +29,17 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListTextTranslationJobs {
-
     public static void main(String[] args) {
-
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         getTranslationJobs(translateClient);
         translateClient.close();
     }
 
-    // snippet-start:[translate.java2._list_jobs.main]
-    public static void getTranslationJobs( TranslateClient translateClient) {
+    public static void getTranslationJobs(TranslateClient translateClient) {
         try {
             ListTextTranslationJobsRequest textTranslationJobsRequest = ListTextTranslationJobsRequest.builder()
                 .maxResults(10)
@@ -51,9 +47,9 @@ public class ListTextTranslationJobs {
 
             ListTextTranslationJobsResponse jobsResponse = translateClient.listTextTranslationJobs(textTranslationJobsRequest);
             List<TextTranslationJobProperties> props = jobsResponse.textTranslationJobPropertiesList();
-            for (TextTranslationJobProperties prop: props) {
-                System.out.println("The job name is: "+prop.jobName());
-                System.out.println("The job id is: "+prop.jobId());
+            for (TextTranslationJobProperties prop : props) {
+                System.out.println("The job name is: " + prop.jobName());
+                System.out.println("The job id is: " + prop.jobId());
             }
 
         } catch (TranslateException e) {
@@ -61,5 +57,5 @@ public class ListTextTranslationJobs {
             System.exit(1);
         }
     }
-    // snippet-end:[translate.java2._list_jobs.main]
 }
+// snippet-end:[translate.java2._list_jobs.main]

@@ -9,8 +9,8 @@
 
 package com.example.appsync;
 
+//snippet-start:[appsync.java2.get_apis.main]
 //snippet-start:[appsync.java2.get_apis.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.AppSyncException;
@@ -27,35 +27,28 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListGraphqlApis {
-
-public static void main(String[] args) {
-
-    ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
-    Region region = Region.US_EAST_1;
-    AppSyncClient appSyncClient = AppSyncClient.builder()
-            .region(region)
-            .credentialsProvider(credentialsProvider)
+    public static void main(String[] args) {
+        AppSyncClient appSyncClient = AppSyncClient.builder()
+            .region(Region.US_EAST_1)
             .build();
 
-    getApis(appSyncClient);
-}
-
-//snippet-start:[appsync.java2.get_apis.main]
-public static void getApis(AppSyncClient appSyncClient) {
-
-    try {
-        ListGraphqlApisResponse apisResponse = appSyncClient.listGraphqlApis();
-        List<GraphqlApi> graphList = apisResponse.graphqlApis();
-        for (GraphqlApi graph: graphList) {
-            System.out.println("The name of the graph api is "+graph.name());
-            System.out.println("The API Id is "+graph.apiId());
-            System.out.println("The API URI is "+graph.uris());
-        }
-
-    } catch (AppSyncException e) {
-        System.out.println(e.getMessage());
-        System.exit(1);
+        getApis(appSyncClient);
     }
-  }
-  //snippet-end:[appsync.java2.get_apis.main]
+
+    public static void getApis(AppSyncClient appSyncClient) {
+        try {
+            ListGraphqlApisResponse apisResponse = appSyncClient.listGraphqlApis();
+            List<GraphqlApi> graphList = apisResponse.graphqlApis();
+            for (GraphqlApi graph : graphList) {
+                System.out.println("The name of the graph api is " + graph.name());
+                System.out.println("The API Id is " + graph.apiId());
+                System.out.println("The API URI is " + graph.uris());
+            }
+
+        } catch (AppSyncException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
+    }
 }
+//snippet-end:[appsync.java2.get_apis.main]

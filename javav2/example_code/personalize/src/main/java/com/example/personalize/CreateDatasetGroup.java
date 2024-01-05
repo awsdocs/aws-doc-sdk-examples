@@ -28,10 +28,14 @@ public class CreateDatasetGroup {
 
     public static void main(String[] args) {
 
-        final String USAGE = "Usage:\n" +
-                "    CreateDatasetGroup <name>\n\n" +
-                "Where:\n" +
-                "   name - The name for the new dataset group.\n\n";
+        final String USAGE = """
+            Usage:
+                CreateDatasetGroup <name>
+
+            Where:
+               name - The name for the new dataset group.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(USAGE);

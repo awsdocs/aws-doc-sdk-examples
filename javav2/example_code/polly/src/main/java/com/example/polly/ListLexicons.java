@@ -9,8 +9,8 @@
 
 package com.example.polly;
 
+// snippet-start:[polly.java2.list_icons.main]
 // snippet-start:[polly.java2.list_icons.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.polly.PollyClient;
 import software.amazon.awssdk.services.polly.model.ListLexiconsResponse;
@@ -28,21 +28,16 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListLexicons {
-
     public static void main(String args[]) {
-
         PollyClient polly = PollyClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        listLexicons(polly) ;
+        listLexicons(polly);
         polly.close();
     }
 
-    // snippet-start:[polly.java2.list_icons.main]
     public static void listLexicons(PollyClient client) {
-
         try {
             ListLexiconsRequest listLexiconsRequest = ListLexiconsRequest.builder()
                 .build();
@@ -58,5 +53,5 @@ public class ListLexicons {
             System.exit(1);
         }
     }
-    // snippet-end:[polly.java2.list_icons.main]
 }
+// snippet-end:[polly.java2.list_icons.main]

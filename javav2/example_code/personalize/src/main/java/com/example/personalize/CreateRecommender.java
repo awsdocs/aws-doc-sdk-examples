@@ -36,13 +36,17 @@ public class CreateRecommender {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    CreateRecommender <solutionVersionArn> <name>\n\n" +
-                "Where:\n" +
-                "    datasetGroupArn - The ARN of the destination dataset group for the recommender.\n" +
-                "    name - The name of the new recommender.\n" +
-                "    recipeArn - The ARN of the use case (recipe) for the recommender.\n\n";
+        final String USAGE = """
+
+            Usage:
+                CreateRecommender <solutionVersionArn> <name>
+
+            Where:
+                datasetGroupArn - The ARN of the destination dataset group for the recommender.
+                name - The name of the new recommender.
+                recipeArn - The ARN of the use case (recipe) for the recommender.
+
+            """;
 
         if (args.length != 3) {
             System.out.println(USAGE);

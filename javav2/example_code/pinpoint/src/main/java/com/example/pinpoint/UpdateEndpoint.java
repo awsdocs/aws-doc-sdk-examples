@@ -9,8 +9,8 @@
 
 package com.example.pinpoint;
 
+//snippet-start:[pinpoint.java2.createendpoint.main]
 //snippet-start:[pinpoint.java2.createendpoint.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.EndpointResponse;
@@ -43,12 +43,14 @@ import java.util.Date;
  */
 public class UpdateEndpoint {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            " <appId>\n\n" +
-            "Where:\n" +
-            "  appId - The ID of the application to create an endpoint for.\n\n";
+            Usage:  <appId>
+
+            Where:
+              appId - The ID of the application to create an endpoint for.
+
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -58,7 +60,6 @@ public class UpdateEndpoint {
         String appId = args[0];
         PinpointClient pinpoint = PinpointClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         EndpointResponse response = createEndpoint(pinpoint, appId);
@@ -66,7 +67,6 @@ public class UpdateEndpoint {
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.createendpoint.main]
     //snippet-start:[pinpoint.java2.createendpoint.helper]
     public static EndpointResponse createEndpoint(PinpointClient client, String appId) {
         String endpointId = UUID.randomUUID().toString();
@@ -106,7 +106,6 @@ public class UpdateEndpoint {
     }
 
     private static EndpointRequest createEndpointRequestData() {
-
         try {
             List<String> favoriteTeams = new ArrayList<>();
             favoriteTeams.add("Lakers");
@@ -133,7 +132,7 @@ public class UpdateEndpoint {
                 .region("CA")
                 .build();
 
-            Map<String,Double> metrics = new HashMap<>();
+            Map<String, Double> metrics = new HashMap<>();
             metrics.put("health", 100.00);
             metrics.put("luck", 75.00);
 
@@ -164,5 +163,5 @@ public class UpdateEndpoint {
         return null;
     }
     //snippet-end:[pinpoint.java2.createendpoint.helper]
-    //snippet-end:[pinpoint.java2.createendpoint.main]
 }
+    //snippet-end:[pinpoint.java2.createendpoint.main]

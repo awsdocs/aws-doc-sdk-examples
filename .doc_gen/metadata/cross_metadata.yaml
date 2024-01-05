@@ -52,6 +52,10 @@ cross_PAM:
       versions:
         - sdk_version: 3
           block_content: cross_PAM_JavaScript_block.xml
+    PHP:
+      versions:
+        - sdk_version: 3
+          block_content: cross_PAM_PHP_block.xml
     Rust:
       versions:
         - sdk_version: 1
@@ -68,6 +72,7 @@ cross_PAM:
     dynamodb:
     rekognition:
     lambda:
+    api-gateway:
 cross_RedshiftDataTracker:
   title: Create an &RSlong; item tracker
   title_abbrev: Create a web application to track &RS; data

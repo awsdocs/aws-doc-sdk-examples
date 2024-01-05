@@ -7,8 +7,8 @@
 */
 package com.example.iam;
 
+// snippet-start:[iam.java2.list_access_keys.main]
 // snippet-start:[iam.java2.list_access_keys.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.AccessKeyMetadata;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.iam.model.ListAccessKeysRequest;
@@ -26,12 +26,14 @@ import software.amazon.awssdk.services.iam.IamClient;
  */
 public class ListAccessKeys {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <userName> \n\n" +
-            "Where:\n" +
-            "    userName - The name of the user for which access keys are retrieved. \n\n" ;
+            Usage:
+                <userName>\s
+
+            Where:
+                userName - The name of the user for which access keys are retrieved.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,17 +44,14 @@ public class ListAccessKeys {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        listKeys(iam,userName) ;
+        listKeys(iam, userName);
         System.out.println("Done");
         iam.close();
     }
 
-    // snippet-start:[iam.java2.list_access_keys.main]
-    public static void listKeys( IamClient iam,String userName ){
-
+    public static void listKeys(IamClient iam, String userName) {
         try {
             boolean done = false;
             String newMarker = null;
@@ -60,10 +59,10 @@ public class ListAccessKeys {
             while (!done) {
                 ListAccessKeysResponse response;
 
-                if(newMarker == null) {
+                if (newMarker == null) {
                     ListAccessKeysRequest request = ListAccessKeysRequest.builder()
-                    .userName(userName)
-                    .build();
+                        .userName(userName)
+                        .build();
 
                     response = iam.listAccessKeys(request);
 
@@ -78,19 +77,19 @@ public class ListAccessKeys {
 
                 for (AccessKeyMetadata metadata : response.accessKeyMetadata()) {
                     System.out.format("Retrieved access key %s", metadata.accessKeyId());
-            }
+                }
 
-            if (!response.isTruncated()) {
-                done = true;
-            } else {
-                newMarker = response.marker();
+                if (!response.isTruncated()) {
+                    done = true;
+                } else {
+                    newMarker = response.marker();
+                }
             }
-        }
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.list_access_keys.main]
 }
+// snippet-end:[iam.java2.list_access_keys.main]

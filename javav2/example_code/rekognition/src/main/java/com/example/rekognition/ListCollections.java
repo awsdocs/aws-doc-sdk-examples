@@ -9,8 +9,8 @@
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.list_collections.main]
 // snippet-start:[rekognition.java2.list_collections.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.ListCollectionsRequest;
@@ -27,13 +27,10 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListCollections {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         System.out.println("Listing collections");
@@ -41,7 +38,6 @@ public class ListCollections {
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.list_collections.main]
     public static void listAllCollections(RekognitionClient rekClient) {
         try {
             ListCollectionsRequest listCollectionsRequest = ListCollectionsRequest.builder()
@@ -59,5 +55,5 @@ public class ListCollections {
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.list_collections.main]
 }
+// snippet-end:[rekognition.java2.list_collections.main]

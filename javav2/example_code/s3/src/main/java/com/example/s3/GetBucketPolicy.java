@@ -9,8 +9,8 @@
 
 package com.example.s3;
 
+// snippet-start:[s3.java2.get_bucket_policy.main]
 // snippet-start:[s3.java2.get_bucket_policy.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -27,14 +27,15 @@ import software.amazon.awssdk.services.s3.model.GetBucketPolicyResponse;
  */
 
 public class GetBucketPolicy {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <bucketName>\n\n" +
-            "Where:\n" +
-            "    bucketName - The Amazon S3 bucket to get the policy from.\n\n" ;
+            Usage:
+                <bucketName>
+
+            Where:
+                bucketName - The Amazon S3 bucket to get the policy from.
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,21 +44,17 @@ public class GetBucketPolicy {
 
         String bucketName = args[0];
         System.out.format("Getting policy for bucket: \"%s\"\n\n", bucketName);
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
-            .credentialsProvider(credentialsProvider)
             .build();
 
-        String polText = getPolicy(s3, bucketName );
-        System.out.println("Policy Text: "+polText);
+        String polText = getPolicy(s3, bucketName);
+        System.out.println("Policy Text: " + polText);
         s3.close();
     }
 
-    // snippet-start:[s3.java2.get_bucket_policy.main]
     public static String getPolicy(S3Client s3, String bucketName) {
-
         String policyText;
         System.out.format("Getting policy for bucket: \"%s\"\n\n", bucketName);
         GetBucketPolicyRequest policyReq = GetBucketPolicyRequest.builder()
@@ -76,5 +73,5 @@ public class GetBucketPolicy {
 
         return "";
     }
-// snippet-end:[s3.java2.get_bucket_policy.main]
 }
+// snippet-end:[s3.java2.get_bucket_policy.main]

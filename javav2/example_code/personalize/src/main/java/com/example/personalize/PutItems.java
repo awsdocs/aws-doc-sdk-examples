@@ -35,18 +35,22 @@ import java.util.ArrayList;
 public class PutItems {
 
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    PutItems <datasetArn, item1Id, item1PropertyName, item1PropertyValue,\n" +
-                "        item2Id, item2PropertyName, item2PropertyValue>\n\n" +
-                "Where:\n" +
-                "    datasetArn - The ARN (Amazon Resource Name) for the item's destination dataset.\n" +
-                "    item1Id - The identification number of the first item.\n" +
-                "    item1propertyName - The metadata field name (in camel case) for the first item.\n" +
-                "    item1propertyValue - The metadata value for the first item.\n" +
-                "    item2Id - The identification number of the second item.\n" +
-                "    item2propertyName - The metadata field name (in camel case) for the second item.\n" +
-                "    item2propertyValue - The metadata value for the second item.\n\n";
+        final String USAGE = """
+
+            Usage:
+                PutItems <datasetArn, item1Id, item1PropertyName, item1PropertyValue,
+                    item2Id, item2PropertyName, item2PropertyValue>
+
+            Where:
+                datasetArn - The ARN (Amazon Resource Name) for the item's destination dataset.
+                item1Id - The identification number of the first item.
+                item1propertyName - The metadata field name (in camel case) for the first item.
+                item1propertyValue - The metadata value for the first item.
+                item2Id - The identification number of the second item.
+                item2propertyName - The metadata field name (in camel case) for the second item.
+                item2propertyValue - The metadata value for the second item.
+
+            """;
 
         if (args.length != 7) {
             System.out.println(USAGE);
