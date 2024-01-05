@@ -37,7 +37,6 @@ import {
 } from "@aws-sdk/client-ec2";
 import { paginateGetParametersByPath, SSMClient } from "@aws-sdk/client-ssm";
 
-import { promptToContinue } from "@aws-sdk-examples/libs/utils/util-io.js";
 import { wrapText } from "@aws-sdk-examples/libs/utils/util-string.js";
 import { Prompter } from "@aws-sdk-examples/libs/prompter.js";
 
@@ -45,6 +44,7 @@ const ec2Client = new EC2Client();
 const ssmClient = new SSMClient();
 
 const prompter = new Prompter();
+const confirmMessage = "Continue?";
 const tmpDirectory = mkdtempSync(join(tmpdir(), "ec2-scenario-tmp"));
 
 const createKeyPair = async (keyPairName) => {
@@ -380,7 +380,7 @@ export const main = async () => {
       "\n\n I'll go ahead and take care of the first three, but I'll need your help for the rest.",
     );
 
-    await promptToContinue();
+    await prompter.confirm({ message: confirmMessage });
 
     await createKeyPair(keyPairName);
     securityGroupId = await createSecurityGroup(securityGroupName);
@@ -398,7 +398,7 @@ export const main = async () => {
     );
     console.log(`✅ allocated ${publicIp} to be used for your EC2 instance.\n`);
 
-    await promptToContinue();
+    await prompter.confirm({ message: confirmMessage });
 
     // Creating the instance
     console.log(wrapText("Create the instance."));
@@ -425,7 +425,7 @@ export const main = async () => {
       })}`,
     );
 
-    await promptToContinue();
+    await prompter.confirm({ message: confirmMessage });
 
     // Understanding the IP address.
     console.log(wrapText("Understanding the IP address."));
@@ -441,7 +441,7 @@ export const main = async () => {
         keyPairName,
       })}`,
     );
-    await promptToContinue();
+    await prompter.confirm({ message: confirmMessage });
     console.log(
       `If you want to the IP address to be static, you can associate an allocated`,
       `IP address to your instance. I allocated ${publicIp} for you earlier, and now I'll associate it to your instance.`,
@@ -454,7 +454,7 @@ export const main = async () => {
       "Done. Now you should be able to SSH using the new IP.\n",
       `${displaySSHConnectionInfo({ publicIp, keyPairName })}`,
     );
-    await promptToContinue();
+    await prompter.confirm({ message: confirmMessage });
     console.log(
       "I'll restart the server again so you can see the IP address remains the same.",
     );
@@ -466,14 +466,14 @@ export const main = async () => {
         keyPairName,
       })}`,
     );
-    await promptToContinue();
+    await prompter.confirm({ message: confirmMessage });
   } catch (err) {
     console.error(err);
   } finally {
     // Clean up.
     console.log(wrapText("Clean up."));
     console.log("Now I'll clean up all of the stuff I created.");
-    await promptToContinue();
+    await prompter.confirm({ message: confirmMessage });
     console.log("Cleaning up. Some of these steps can take a bit of time.");
     await disassociateAddress(associationId);
     await terminateInstance(instanceId);
