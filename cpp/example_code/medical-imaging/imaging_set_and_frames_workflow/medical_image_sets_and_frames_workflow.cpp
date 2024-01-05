@@ -501,7 +501,6 @@ bool AwsDoc::Medical_Imaging::workingWithHealthImagingImageSetsAndImageFrames(
               << dataStoreId << "'" << std::endl;
     askQuestion("Enter return to start the DICOM import job.", alwaysTrueTest);
 
-    // snippet-start:[cpp.example_code.medical-imaging.image-sets-workflow.dicom-import1]
     Aws::String importJobId;
     if (!startDicomImport(dataStoreId, inputBucketName,
                           inputDirectory + "/" + fromDirectory,
@@ -511,7 +510,6 @@ bool AwsDoc::Medical_Imaging::workingWithHealthImagingImageSetsAndImageFrames(
         cleanup(stackName, dataStoreId, clientConfiguration);
         return false;
     }
-    // snippet-end:[cpp.example_code.medical-imaging.image-sets-workflow.dicom-import1]
 
     std::cout << "The DICOM files were successfully imported. The import job ID is '"
               << importJobId << "'." << std::endl;
@@ -618,6 +616,7 @@ bool AwsDoc::Medical_Imaging::workingWithHealthImagingImageSetsAndImageFrames(
     return result & cleanup(stackName, dataStoreId, clientConfiguration);
 }
 
+// snippet-start:[cpp.example_code.medical-imaging.image-sets-workflow.wait_import]
 //! Routine which waits for a DICOM import job to complete.
 /*!
  * @param dataStoreID: The HealthImaging data store ID.
@@ -653,6 +652,7 @@ bool AwsDoc::Medical_Imaging::waitImportJobCompleted(const Aws::String &datastor
 
     return jobStatus == Aws::MedicalImaging::Model::JobStatus::COMPLETED;
 }
+// snippet-end:[cpp.example_code.medical-imaging.image-sets-workflow.wait_import]
 
 //! Routine which retrieves the image sets created for an import job.
 /*!
@@ -820,7 +820,7 @@ bool AwsDoc::Medical_Imaging::getImageFramesForImageSet(const Aws::String &dataS
  * @param clientConfiguration : Aws client configuration.
  * @return  bool: Function succeeded.
  */
-// snippet-start:[cpp.example_code.medical-imaging.image-sets-workflow.dicom-import2]
+// snippet-start:[cpp.example_code.medical-imaging.image-sets-workflow.dicom-import]
 bool AwsDoc::Medical_Imaging::startDicomImport(const Aws::String &dataStoreID,
                                                const Aws::String &inputBucketName,
                                                const Aws::String &inputDirectory,
@@ -844,7 +844,7 @@ bool AwsDoc::Medical_Imaging::startDicomImport(const Aws::String &dataStoreID,
 
     return result;
 }
-// snippet-end:[cpp.example_code.medical-imaging.image-sets-workflow.dicom-import2]
+// snippet-end:[cpp.example_code.medical-imaging.image-sets-workflow.dicom-import]
 
 //! Routine which saves image frames, decodes them and uses the checksum to
 //! validate the decoded images.

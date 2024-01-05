@@ -157,8 +157,7 @@ int main(int argc, char **argv) {
 
         Aws::MedicalImaging::Model::SearchByAttributeValue useCase3EndDate;
         useCase3EndDate.SetCreatedAt(Aws::Utils::DateTime(std::chrono::system_clock::now()));
-
-
+        
         Aws::MedicalImaging::Model::SearchFilter useCase3SearchFilter;
         useCase3SearchFilter.SetValues({useCase3StartDate, useCase3EndDate});
         useCase3SearchFilter.SetOperator(Aws::MedicalImaging::Model::Operator::BETWEEN);
