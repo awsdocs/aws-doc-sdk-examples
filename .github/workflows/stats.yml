@@ -11,5 +11,5 @@ jobs:
       - name: Run pull request stats
         uses: flowwer-dev/pull-request-stats@master
         with:
-          period: 180
+          period: 29
 
