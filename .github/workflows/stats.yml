@@ -11,5 +11,9 @@ jobs:
       - name: Run pull request stats
         uses: flowwer-dev/pull-request-stats@master
         with:
-          period: 29
+          token: ${{ secrets.ADD_A_PERSONAL_ACCESS_TOKEN }}
+          period: 7
+          charts: true
+          disableLinks: true
+          sortBy: 'COMMENTS'
 
