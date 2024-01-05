@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+//   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//   SPDX-License-Identifier: Apache-2.0
+
 
 #pragma once
 #ifndef MEDICAL_IMAGING_EXAMPLES_MEDICAL_IMAGING_SAMPLES_H
