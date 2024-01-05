@@ -26,7 +26,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { Ailly } from "ailly";
+import { Ailly } from "@ailly/core";
 
 const LANGUAGES = [
   "cpp",
@@ -111,6 +111,8 @@ class MyRAG extends Ailly.RAG {
     this.index._data.items.forEach((item) => {
       if (Array.isArray(item.vector)) return;
       const vector = Buffer.from(item.vector, "base64");
+      // 1536 is a common vector length for encodings. This is a heuristic to load it into a Float32Array,
+      // which is faster for per-element dot product computations than native arrays.
       if (vector.length === 1536 * 4)
         item.vector = new Float32Array(vector.buffer);
     });
@@ -118,8 +120,10 @@ class MyRAG extends Ailly.RAG {
   }
 
   /*
-    1. Get best three of every other language
-    2. Take the best 5, with at least three languages included
+    1. From every language, get best three (PER_LANG).
+        1. Filter on similarity (cosine >= SIMILAR), to guard on bad results
+        2. and sameness (cosine <= SAME), to not include the same snippet as the source
+    2. From best three per language, take five (TOP_N) total (with at least three languages included)
     */
   async augment(content) {
     const vector = await this.engine.vector(content.prompt, {});
