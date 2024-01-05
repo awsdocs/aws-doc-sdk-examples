@@ -245,7 +245,7 @@ class ConsumerStack(Stack):
         # Grants ability to get and put to local logs bucket.
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
-                actions=["s3:PutObject", "s3:GetObject", "s3:ListObjectsV2", "s3:DeleteObject"],
+                actions=["s3:PutObject", "s3:GetObject", "s3:ListBucket", "s3:DeleteObject"],
                 resources=[f"{bucket.bucket_arn}/*"],
             )
         )
@@ -253,7 +253,7 @@ class ConsumerStack(Stack):
         # Grants ability to write to cross-account log bucket.
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
-                actions=["s3:PutObject", "s3:PutObjectAcl", "s3:ListObjectsV2", "s3:DeleteObject"],
+                actions=["s3:PutObject", "s3:PutObjectAcl", "s3:ListBucket", "s3:DeleteObject"],
                 resources=[f"arn:aws:s3:::{producer_bucket_name}/*"],
             )
         )
