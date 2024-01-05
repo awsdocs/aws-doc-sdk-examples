@@ -11,10 +11,10 @@ _Amazon Bedrock Agents Runtime offers you the ability to run autonomous agents i
 
 ## ⚠ Important
 
-- Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
-- Running the tests might result in charges to your AWS account.
-- We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 <!--custom.important.start-->
 <!--custom.important.end-->
@@ -43,6 +43,7 @@ Code excerpts that show you how to call individual service functions.
 
 - [Invoke an agent](bedrock_agent_runtime_wrapper.py#L33) (`InvokeAgent`)
 
+
 <!--custom.examples.start-->
 
 #### Create and invoke agents
@@ -57,30 +58,27 @@ This example shows you how to do the following:
 - Invoke the agent with user-provided prompts.
 - Delete all created resources.
 
-<!--custom.scenario_prereqs.bedrock-agent-runtime_GettingStartedWithBedrockAgents.start-->
-<!--custom.scenario_prereqs.bedrock-agent-runtime_GettingStartedWithBedrockAgents.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python ../bedrock-agent/scenario_get_started_with_agents.py
-```
-
 <!--custom.examples.end-->
 
 ## Run the examples
 
 ### Instructions
 
+
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+
 
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
 
+
 To find instructions for running these tests, see the [README](../../README.md#Tests)
 in the `python` folder.
+
+
 
 <!--custom.tests.start-->
 <!--custom.tests.end-->
