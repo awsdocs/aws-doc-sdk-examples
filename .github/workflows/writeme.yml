@@ -28,7 +28,7 @@ jobs:
           python-version: 3.11 #install the python needed
       - name: Install dependencies
         run: >-
-          python3 -m pip install -r .tools/base_requirements.txt
+          python3 -m pip install -r .tools/readmes/requirements.txt
       - name: Check WRITEMEs
         run: >-
           python3 .tools/readmes/multi.py --check
