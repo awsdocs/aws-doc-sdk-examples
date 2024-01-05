@@ -195,6 +195,7 @@ ALLOW_LIST = {
     "mediaconnect/latest/APIReference/Welcome",
     "cryptography/latest/APIReference/Welcome",
     "com/AmazonCloudWatch/latest/logs/Working",
+    "imaging/model/GetImageSetMetadataRequest",
 }
 
 
