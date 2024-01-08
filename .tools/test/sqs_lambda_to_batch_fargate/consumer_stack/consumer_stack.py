@@ -227,6 +227,16 @@ class ConsumerStack(Stack):
             role_name=f"LogsLambdaExecutionRole",
         )
 
+        statement = iam.PolicyStatement()
+        statement.add_actions("s3:PutObject", "s3:PutObjectAcl", "s3:DeleteObject", "s3:ListBucket")
+        statement.add_resources(f"{bucket.bucket_arn}/*")
+        statement.add_resources(bucket.bucket_arn)
+        statement.add_arn_principal(
+            f"arn:aws:iam::{Aws.ACCOUNT_ID}:role/LogsLambdaExecutionRole"
+        )
+        statement.add_arn_principal(f"arn:aws:iam::{Aws.ACCOUNT_ID}:root")
+        bucket.add_to_resource_policy(statement)
+
         # Attach AWSLambdaBasicExecutionRole to the Lambda function's role.
         execution_role.add_managed_policy(
             policy=iam.ManagedPolicy.from_aws_managed_policy_name(
@@ -245,16 +255,22 @@ class ConsumerStack(Stack):
         # Grants ability to get and put to local logs bucket.
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
-                actions=["s3:PutObject", "s3:GetObject", "s3:ListBucket", "s3:DeleteObject"],
-                resources=[f"{bucket.bucket_arn}/*"],
+                actions=["s3:PutObject", "s3:PutObjectAcl", "s3:GetObject", "s3:ListBucket", "s3:DeleteObject"],
+                resources=[
+                    f"arn:aws:s3:::{bucket.bucket_arn}/*",
+                    f"arn:aws:s3:::{bucket.bucket_arn}",
+                ],
             )
         )
 
         # Grants ability to write to cross-account log bucket.
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
-                actions=["s3:PutObject", "s3:PutObjectAcl", "s3:ListBucket", "s3:DeleteObject"],
-                resources=[f"arn:aws:s3:::{producer_bucket_name}/*"],
+                actions=["s3:PutObject", "s3:PutObjectAcl", "s3:GetObject", "s3:ListBucket", "s3:DeleteObject"],
+                resources=[
+                    f"arn:aws:s3:::{producer_bucket_name}/*",
+                    f"arn:aws:s3:::{producer_bucket_name}"
+                ],
             )
         )
 

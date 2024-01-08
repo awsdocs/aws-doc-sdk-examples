@@ -41,8 +41,7 @@ class ProducerStack(Stack):
             "trigger-rule",
             schedule=events.Schedule.cron(
                 minute="0",
-                hour="22",
-                week_day="FRI",
+                hour="*",
             ),
         )
         rule.add_target(targets.SnsTopic(topic))

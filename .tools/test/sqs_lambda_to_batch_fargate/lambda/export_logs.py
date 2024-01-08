@@ -69,8 +69,7 @@ def get_and_put_logs(job_detail):
 
     # Copy logs to local and cross-account buckets
     for bucket in [os.environ["PRODUCER_BUCKET_NAME"], os.environ["BUCKET_NAME"]]:
-
-        # Delete outfile from previous runs
+        # Reset outfile
         response = s3_client.list_objects_v2(Bucket=bucket, Delimiter='/')
         objects = response.get('Contents', [])
         for obj in objects:
@@ -78,8 +77,6 @@ def get_and_put_logs(job_detail):
             if key.endswith('SUCCEEDED') or key.endswith('FAILED'):
                 s3_client.delete_object(Bucket=bucket, Key=key)
                 logger.info(f"Deleted: {key}")
-
-        # Put status file into top-level directory
         s3_client.put_object(
             Body=log_file,
             Bucket=bucket,
@@ -96,7 +93,7 @@ def get_and_put_logs(job_detail):
         s3_client.put_object(
             Body=log_file,
             Bucket=bucket,
-            Key=f"archive/{os.environ['LANGUAGE_NAME']}/{log_file_name}",
+            Key=f"archive/{os.environ['LANGUAGE_NAME']}/{job_detail['status']}/{log_file_name}",
         )
 
     logger.info(
