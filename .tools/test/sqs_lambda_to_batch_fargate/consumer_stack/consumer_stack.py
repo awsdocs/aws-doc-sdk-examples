@@ -29,6 +29,7 @@ class ConsumerStack(Stack):
         resource_config = self.get_yaml_config("../config/resources.yaml")
         topic_name = resource_config["topic_name"]
         producer_bucket_name = resource_config["bucket_name"]
+        self.region = resource_config["aws_region"]
         self.producer_account_id = resource_config["admin_acct"]
         sns_topic = self.init_get_topic(topic_name)
         sqs_queue = sqs.Queue(self, f"BatchJobQueue-{language_name}")
@@ -45,7 +46,7 @@ class ConsumerStack(Stack):
 
     def init_get_topic(self, topic_name):
         external_sns_topic_arn = (
-            f"arn:aws:sns:us-east-1:{self.producer_account_id}:{topic_name}"
+            f"arn:aws:sns:{self.aws_region}:{self.producer_account_id}:{topic_name}"
         )
         topic = sns.Topic.from_topic_arn(
             self, "ExternalSNSTopic", external_sns_topic_arn
@@ -254,7 +255,7 @@ class ConsumerStack(Stack):
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
                 actions=["logs:GetLogEvents", "logs:DescribeLogStreams"],
-                resources=[f"arn:aws:logs:us-east-1:{Aws.ACCOUNT_ID}:*"],
+                resources=[f"arn:aws:logs:{self.aws_region}:{Aws.ACCOUNT_ID}:*"],
             )
         )
 
