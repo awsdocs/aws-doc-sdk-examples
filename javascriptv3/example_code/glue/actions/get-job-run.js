@@ -4,11 +4,10 @@
  */
 
 import { GetJobRunCommand, GlueClient } from "@aws-sdk/client-glue";
-import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 
 /** snippet-start:[javascript.v3.glue.actions.GetJobRun] */
 const getJobRun = (jobName, jobRunId) => {
-  const client = new GlueClient({ region: DEFAULT_REGION });
+  const client = new GlueClient({});
   const command = new GetJobRunCommand({
     JobName: jobName,
     RunId: jobRunId,

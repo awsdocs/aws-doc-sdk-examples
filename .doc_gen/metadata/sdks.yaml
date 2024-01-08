@@ -207,8 +207,8 @@ CLI:
   syntax: none
   sdk:
     2:
-      long: "&CLI2long;"
-      short: "&CLI2;"
+      long: "&CLIlong;"
+      short: "&CLI;"
       expanded:
         long: "AWS Command Line Interface"
         short: "AWS CLI"

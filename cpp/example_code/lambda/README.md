@@ -1,44 +1,29 @@
 # Lambda code examples for the SDK for C++
+
 ## Overview
 
-Shows how to use the AWS SDK for C++ to create, deploy, and invoke
-AWS Lambda functions.
+Shows how to use the AWS SDK for C++ to work with AWS Lambda.
 
-*AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. You can trigger Lambda from over 200 AWS services and software as a service (SaaS) applications, and only pay for what you use.*
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## ⚠️ Important
-* Running this code might result in charges to your AWS account. 
+_Lambda allows you to run code without provisioning or managing servers._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
 
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-* [Create a function](get_started_with_functions_scenario.cpp)(CreateFunction)
-* [Delete a function](get_started_with_functions_scenario.cpp)(DeleteFunction)
-* [Get a function](get_started_with_functions_scenario.cpp)(GetFunction)
-* [Invoke a function](get_started_with_functions_scenario.cpp)(Invoke)
-* [List functions](get_started_with_functions_scenario.cpp)(ListFunctions)
-* [Update function code](get_started_with_functions_scenario.cpp)
-  (UpdateFunctionCode)
-* [Update function configuration](get_started_with_functions_scenario.cpp)
-  (UpdateFunctionConfiguration)
-* 
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
-* 
-* [Get started with functions](get_started_with_functions_scenario.cpp) 
-  (CreateFunction, GetFunction, ListFunctions, Invoke, UpdateFunctionCode, 
-  UpdateFunctionConfiguration, DeleteFunction)
-
-## Run the examples
-
 ### Prerequisites
+
+
 
 Before using the code examples, first complete the installation and setup steps
 for [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
@@ -46,27 +31,114 @@ C++ Developer Guide.
 This section covers how to get and build the SDK, and how to build your own code by using the SDK with a
 sample Hello World-style application.
 
-Next, for information about code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
+Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
-This sample code contains a [Lambda C++ runtime implementation](cpp_lambda/) 
-which can be used in the "Get started with functions" scenario instead of the default Python Lambda function.
 
-Instructions for building the Lambda C++ runtime are in this [README](cpp_lambda/README.md)
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-## Tests
-⚠️ Running the tests might result in charges to your AWS account.
+### Get started
+
+- [Hello Lambda](hello_lambda/CMakeLists.txt#L4) (`ListFunctions`)
+
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create a function](get_started_with_functions_scenario.cpp#L607) (`CreateFunction`)
+- [Delete a function](get_started_with_functions_scenario.cpp#L607) (`DeleteFunction`)
+- [Get a function](get_started_with_functions_scenario.cpp#L607) (`GetFunction`)
+- [Invoke a function](get_started_with_functions_scenario.cpp#L607) (`Invoke`)
+- [List functions](get_started_with_functions_scenario.cpp#L607) (`ListFunctions`)
+- [Update function code](get_started_with_functions_scenario.cpp#L607) (`UpdateFunctionCode`)
+- [Update function configuration](get_started_with_functions_scenario.cpp#L607) (`UpdateFunctionConfiguration`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Get started with functions](get_started_with_functions_scenario.cpp)
+
+### Cross-service examples
+
+Sample applications that work across multiple AWS services.
+
+- [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+An executable is built for each source file. These executables are located in the build folder and have
+"run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
+
+For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
+will display any required arguments.
+
+```
+./run_my_action
+```
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+#### Hello Lambda
+
+This example shows you how to get started using Lambda.
+
+
+
+#### Get started with functions
+
+This example shows you how to do the following:
+
+- Create an IAM role and Lambda function, then upload handler code.
+- Invoke the function with a single parameter and get results.
+- Update the function code and configure with an environment variable.
+- Invoke the function with new parameters and get results. Display the returned execution log.
+- List the functions for your account, then clean up resources.
+
+<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+
+
+<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
 
 ```sh
    cd <BUILD_DIR>
    cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
    make
-   ctest 
-```   
+   ctest
+```
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
 ## Additional resources
-* [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
-* [AWS Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
-* [AWS SDK for C++ Documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html)
 
+- [Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
+- [Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
+- [SDK for C++ Lambda reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-lambda/html/annotated.html)
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

@@ -13,6 +13,7 @@ import argparse
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from functools import partial
+from traceback import format_exc
 import random
 
 import boto3
@@ -33,10 +34,13 @@ class RequestHandler(BaseHTTPRequestHandler):
         super().__init__(*args, **kwargs)
 
     def _respond(self, status_code, payload):
+        content = bytes(json.dumps(payload), "utf-8")
         self.send_response(status_code)
-        self.send_header("Content-type", "application/json")
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", f"{len(content)}")
+        self.send_header("Content-Encoding", "utf-8")
         self.end_headers()
-        self.wfile.write(bytes(json.dumps(payload), "utf-8"))
+        self.wfile.write(content)
 
     def do_GET(self):
         """
@@ -76,7 +80,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                     TableName=parameters[table],
                     Key={"MediaType": {"S": media_type}, "ItemId": {"N": str(item_id)}},
                 )
-                payload = response["Item"]
+                payload = response.get("Item", {})
             except ClientError as err:
                 print(f"Recommendation service error: {err}")
                 if parameters[failure_response] == "static":
@@ -88,6 +92,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                     }
                 else:
                     raise err
+            except Exception:
+                self._respond(500, {"error": format_exc()})
+                return
 
             payload["Metadata"] = {
                 "InstanceId": ec2_metadata.instance_id,

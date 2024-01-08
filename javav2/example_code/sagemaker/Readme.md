@@ -1,85 +1,134 @@
-# Amazon SageMaker Java code examples
+# SageMaker code examples for the SDK for Java 2.x
 
-This README discusses how to run and test the Java code examples for Amazon SageMaker.
+## Overview
 
-## Running the Amazon SageMaker Java files
+Shows how to use the AWS SDK for Java 2.x to work with Amazon SageMaker.
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_SageMaker is a fully managed machine learning service._
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a model by running the **DeleteModel** example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+## ⚠ Important
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
 
 
- ## Testing the Amazon SageMaker Java files
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-You can test the Java code examples for SageMaker by running a test file named **SageMakerTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+### Get started
 
-You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+- [Hello SageMaker](src/main/java/com/example/sage/HelloSageMaker.java#L21) (`ListNotebookInstances`)
 
-	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
+### Single actions
 
- ### Properties file
+Code excerpts that show you how to call individual service functions.
+
+- [Create a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L304) (`CreatePipeline`)
+- [Delete a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L292) (`DeletePipeline`)
+- [Describe a pipeline execution](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L272) (`DescribePipelineExecution`)
+- [Execute a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L342) (`StartPipelineExecution`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Get started with geospatial jobs and pipelines](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+#### Hello SageMaker
+
+This example shows you how to get started using SageMaker.
+
+
+
+#### Get started with geospatial jobs and pipelines
+
+This example shows you how to do the following:
+
+- Set up resources for a pipeline.
+- Set up a pipeline that executes a geospatial job.
+- Start a pipeline execution.
+- Monitor the status of the execution.
+- View the output of the pipeline.
+- Clean up resources.
+
+<!--custom.scenario_prereqs.sagemaker_Scenario_Pipelines.start-->
+<!--custom.scenario_prereqs.sagemaker_Scenario_Pipelines.end-->
+
+
+<!--custom.scenarios.sagemaker_Scenario_Pipelines.start-->
+<!--custom.scenarios.sagemaker_Scenario_Pipelines.end-->
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
+
+
+
+<!--custom.tests.start-->
+
+#### Properties file
+
 Before running the SageMaker JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a model name used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **image** - The registry path of the Docker image that contains the training algorithm.   
+- **image** - The registry path of the Docker image that contains the training algorithm.
 - **modelDataUrl** - The Amazon S3 path where the model artifacts, which result from model training, are stored.
 - **executionRoleArn** - The Amazon Resource Name (ARN) of the IAM role that SageMaker uses.
 - **modelName** - The model name used in various tests.
-- **s3UriData** - The Amazon S3 path where the model data is stored and used in the **CreateTrainingJob** test. 
+- **s3UriData** - The Amazon S3 path where the model data is stored and used in the **CreateTrainingJob** test.
 - **s3Uri** - The Amazon S3 path where you want SageMaker to store checkpoints.
 - **trainingJobName** - The name of the training job.
-- **roleArn** -  The ARN of the IAM role that SageMaker uses.
-- **s3OutputPath**  - The output path located in an Amazon S3 bucket (i.e., s3://trainbucket/sagemaker).
+- **roleArn** - The ARN of the IAM role that SageMaker uses.
+- **s3OutputPath** - The output path located in an Amazon S3 bucket (i.e., s3://trainbucket/sagemaker).
 - **channelName** - The channel name.
- - **trainingImage** - The training image.
+- **trainingImage** - The training image.
 
+<!--custom.tests.end-->
 
-**Note**: To set up the model data and other requirements needed for the unit tests, follow [Build, train, and deploy a machine learning model](https://aws.amazon.com/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/).
+## Additional resources
 
-### Command line
-To run the JUnit tests from the command line, you can use the following command.
+- [SageMaker Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html)
+- [SageMaker API Reference](https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html)
+- [SDK for Java 2.x SageMaker reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/sagemaker/package-summary.html)
 
-		mvn test
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
-You will see output from the JUnit tests, as shown here.
+---
 
-	[INFO] -------------------------------------------------------
-	[INFO]  T E S T S
-	[INFO] -------------------------------------------------------
-	[INFO] Running SageMakerTest
-	Test 1 passed
-	Test 2 passed
-	...
-	Done!
-	[INFO] Results:
-	[INFO]
-	[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0
-	[INFO]
-	INFO] --------------------------------------------
-	[INFO] BUILD SUCCESS
-	[INFO]--------------------------------------------
-	[INFO] Total time:  12.003 s
-	[INFO] Finished at: 2020-02-10T14:25:08-05:00
-	[INFO] --------------------------------------------
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-### Unsuccessful tests
-
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as the following. You need to double-check the values that you set in the properties file and run the tests again.
-
-	[INFO]
-	[INFO] --------------------------------------
-	[INFO] BUILD FAILURE
-	[INFO] --------------------------------------
-	[INFO] Total time:  19.038 s
-	[INFO] Finished at: 2020-02-10T14:41:51-05:00
-	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project SageMakerServiceIntegrationTest:  There are test failures.
-	[ERROR];
+SPDX-License-Identifier: Apache-2.0

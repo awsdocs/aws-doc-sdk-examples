@@ -1,27 +1,126 @@
-# Amazon SageMaker Kotlin code examples
+# SageMaker code examples for the SDK for Kotlin
 
-This README discusses how to run the Kotlin code examples for Amazon SageMaker.
+## Overview
 
-## Running the Amazon SageMaker Kotlin files
+Shows how to use the AWS SDK for Kotlin to work with Amazon SageMaker.
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Kotlin code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_SageMaker is a fully managed machine learning service._
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a model. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+## ⚠ Important
 
-You will find these examples: 
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-- **CreateModel** - Demonstrates how to create a model in Amazon SageMaker.
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotlin` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Get started
+
+- [Hello SageMaker](src/main/kotlin/com/kotlin/sage/ListNotebooks.kt#L28) (`ListNotebookInstances`)
+
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L500) (`CreatePipeline`)
+- [Delete a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L205) (`DeletePipeline`)
+- [Describe a pipeline execution](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L396) (`DescribePipelineExecution`)
+- [Execute a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L417) (`StartPipelineExecution`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Get started with geospatial jobs and pipelines](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt)
+
+
+<!--custom.examples.start-->
+
+### Custom Examples
+
 - **CreateModel** - Demonstrates how to create a model in Amazon SageMaker.
 - **CreateTransformJob** - Demonstrates how to start a transform job that uses a trained model to get inferences on a dataset.
 - **DeleteModel** - Demonstrates how to delete a model in Amazon SageMaker.
 - **DescribeTrainingJob** - Demonstrates how to obtain information about a training job.
-- **ListAlgorithms**  - Demonstrates how to list algorithms.
+- **ListAlgorithms** - Demonstrates how to list algorithms.
 - **ListModels** - Demonstrates how to retrieve a list of models.
 - **ListNotebooks** - Demonstrates how to list notebooks.
 - **ListTrainingJobs** - Demonstrates how to retrieve a list of training jobs.
+<!--custom.examples.end-->
 
-To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
-see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
+## Run the examples
 
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+#### Hello SageMaker
+
+This example shows you how to get started using SageMaker.
+
+
+
+#### Get started with geospatial jobs and pipelines
+
+This example shows you how to do the following:
+
+- Set up resources for a pipeline.
+- Set up a pipeline that executes a geospatial job.
+- Start a pipeline execution.
+- Monitor the status of the execution.
+- View the output of the pipeline.
+- Clean up resources.
+
+<!--custom.scenario_prereqs.sagemaker_Scenario_Pipelines.start-->
+<!--custom.scenario_prereqs.sagemaker_Scenario_Pipelines.end-->
+
+
+<!--custom.scenarios.sagemaker_Scenario_Pipelines.start-->
+<!--custom.scenarios.sagemaker_Scenario_Pipelines.end-->
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `kotlin` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [SageMaker Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html)
+- [SageMaker API Reference](https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html)
+- [SDK for Kotlin SageMaker reference](https://sdk.amazonaws.com/kotlin/api/latest/sagemaker/index.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

@@ -1,36 +1,91 @@
-# Amazon Cognito Swift code examples
+# Amazon Cognito Identity code examples for the SDK for Swift
 
-This README discusses how to run the Swift code examples for Amazon Cognito Identity. All examples require Swift 5.5 or later.
+## Overview
 
-## Running the Amazon Cognito Swift examples
+Shows how to use the AWS SDK for Swift to work with Amazon Cognito Identity.
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Swift code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_Amazon Cognito Identity enables you to create unique identities for your users and federate them with identity providers._
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a user pool. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+## ⚠ Important
 
-To build any of these examples from a terminal window, navigate into its directory then use the command:
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create an identity pool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L94) (`CreateIdentityPool`)
+- [Delete an identity pool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L116) (`DeleteIdentityPool`)
+- [List identity pools](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L27) (`CreateIdentityPool`)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+To build any of these examples from a terminal window, navigate into its
+directory, then use the following command:
 
 ```
 $ swift build
 ```
 
 To build one of these examples in Xcode, navigate to the example's directory
-(such as the `FindOrCreateIdentityPool` directory, to build that example), then
-type `xed .` to open the example directory in Xcode. You can then use standard
-Xcode build and run commands.
+(such as the `ListUsers` directory, to build that example). Then type `xed.`
+to open the example directory in Xcode. You can then use standard Xcode build
+and run commands.
 
-You will find these examples: 
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-- **FindOrCreateIdentityPool** - Demonstrates how to search for a Cognito identity pool by name, creating it if the named pool doesn't exist yet. This example is explained in detail in the [getting started](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/getting-started.html) page of the AWS SDK for Swift Developer Guide.
 
 
-To run these examples, you can setup your development environment to use the [Swift Package Manager](https://www.swift.org/package-manager/) to configure and build AWS SDK for Swift projects. For more information, 
-see [Getting started with the AWS SDK for Swift](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/getting-started.html). 
+### Tests
 
-## For more information...
+⚠ Running tests might result in charges to your AWS account.
 
-* [AWS SDK for Swift Developer Guide](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide)
-* [AWS SDK for Swift Reference](https://awslabs.github.io/aws-sdk-swift/reference/0.x/)
-* [AWS SDK for Swift on GitHub](https://github.com/awslabs/aws-sdk-swift)
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `swift` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Amazon Cognito Identity Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html)
+- [Amazon Cognito Identity API Reference](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html)
+- [SDK for Swift Amazon Cognito Identity reference](https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWSCognito-identity/Home)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

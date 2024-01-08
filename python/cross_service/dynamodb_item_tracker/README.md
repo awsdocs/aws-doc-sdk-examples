@@ -32,7 +32,7 @@ In addition to the standard prerequisites, this example also requires:
 * Flask-Cors 3.0.10 or later
 * webargs 8.2.0 or later
 
-You can install all of the prerequisites by running the following in a virtual environment:
+You can install all the prerequisites by running the following in a virtual environment:
 
 ```
 python -m pip install -r requirements.txt
