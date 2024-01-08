@@ -108,9 +108,8 @@ class Renderer:
         for _, pre in pre_actions.items():
             api = ""
             if self.scanner.svc_name in pre["services"]:
-                api = ""
-                if pre['services'][self.scanner.svc_name]:
-                    api = next(iter(pre['services'][self.scanner.svc_name]))
+                if pre["services"][self.scanner.svc_name]:
+                    api = next(iter(pre["services"][self.scanner.svc_name]))
             action = {
                 "title_abbrev": pre["title_abbrev"],
                 "synopsis": pre["synopsis"],
