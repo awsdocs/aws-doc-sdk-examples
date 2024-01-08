@@ -41,25 +41,28 @@ def get_and_put_logs(job_detail):
     """
     Puts logs to a cross-account S3 bucket
     :param job_detail: Contains job_id and job_status
-    :return:
     """
     job_id = job_detail["jobId"]
     job_status = job_detail["status"]
 
-    # Get most recent log stream
-    log_streams = logs_client.describe_log_streams(
-        logGroupName=log_group_name,
-        orderBy="LastEventTime",
-        descending=True,
-        limit=1,
-    )
+    try:
+        # Get most recent log stream
+        log_streams = logs_client.describe_log_streams(
+            logGroupName=log_group_name,
+            orderBy="LastEventTime",
+            descending=True,
+            limit=1,
+        )
 
-    # Get log events from the stream
-    log_events = logs_client.get_log_events(
-        logGroupName=log_group_name,
-        logStreamName=log_streams["logStreams"][0]["logStreamName"],
-        startFromHead=True,
-    )
+        # Get log events from the stream
+        log_events = logs_client.get_log_events(
+            logGroupName=log_group_name,
+            logStreamName=log_streams["logStreams"][0]["logStreamName"],
+            startFromHead=True,
+        )
+    except Exception as e:
+        logger.error(f'Error getting log events from CloudWatch:\n{e}')
+        raise
 
     log_file_name = f"{job_id}.log"
 
@@ -67,34 +70,38 @@ def get_and_put_logs(job_detail):
         [f"{e['timestamp']}, {e['message']}" for e in log_events["events"]]
     )
 
-    # Copy logs to local and cross-account buckets
-    for bucket in [os.environ["PRODUCER_BUCKET_NAME"], os.environ["BUCKET_NAME"]]:
-        # Reset outfile
-        response = s3_client.list_objects_v2(Bucket=bucket, Delimiter='/')
-        objects = response.get('Contents', [])
-        for obj in objects:
-            key = obj['Key']
-            if key.endswith('SUCCEEDED') or key.endswith('FAILED'):
-                s3_client.delete_object(Bucket=bucket, Key=key)
-                logger.info(f"Deleted: {key}")
-        s3_client.put_object(
-            Body=log_file,
-            Bucket=bucket,
-            Key=job_status,
-        )
+    try:
+        # Copy logs to local and cross-account buckets
+        for bucket in [os.environ["PRODUCER_BUCKET_NAME"], os.environ["BUCKET_NAME"]]:
+            # Reset outfile
+            response = s3_client.list_objects_v2(Bucket=bucket, Delimiter='/')
+            objects = response.get('Contents', [])
+            for obj in objects:
+                key = obj['Key']
+                if key.endswith('SUCCEEDED') or key.endswith('FAILED'):
+                    s3_client.delete_object(Bucket=bucket, Key=key)
+                    logger.info(f"Deleted: {key}")
+            s3_client.put_object(
+                Body=log_file,
+                Bucket=bucket,
+                Key=job_status,
+            )
 
-        # Put logs to cross-account bucket LATEST directory
-        s3_client.put_object(
-            Body=log_file,
-            Bucket=bucket,
-            Key=f"latest/{os.environ['LANGUAGE_NAME']}.log",
-        )
-        # Put logs to cross-account bucket ARCHIVE
-        s3_client.put_object(
-            Body=log_file,
-            Bucket=bucket,
-            Key=f"archive/{os.environ['LANGUAGE_NAME']}/{job_detail['status']}/{log_file_name}",
-        )
+            # Put logs to cross-account bucket LATEST directory
+            s3_client.put_object(
+                Body=log_file,
+                Bucket=bucket,
+                Key=f"latest/{os.environ['LANGUAGE_NAME']}.log",
+            )
+            # Put logs to cross-account bucket ARCHIVE
+            s3_client.put_object(
+                Body=log_file,
+                Bucket=bucket,
+                Key=f"archive/{os.environ['LANGUAGE_NAME']}/{job_detail['status']}/{log_file_name}",
+            )
+    except Exception as e:
+        logger.error(f'Error writing logs to S3:\n{e}')
+        raise
 
     logger.info(
         f"Log data saved successfully: {os.environ['LANGUAGE_NAME']}/{log_file_name}"
