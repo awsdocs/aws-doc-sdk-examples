@@ -1,29 +1,129 @@
-# Amazon S3 Kotlin code examples
+# Amazon S3 code examples for the SDK for Kotlin
 
-This README discusses how to run the Kotlin code examples for the Amazon Simple Storage Service (Amazon S3).
+## Overview
 
-## Running the Amazon S3 Kotlin files
+Shows how to use the AWS SDK for Kotlin to work with Amazon Simple Storage Service (Amazon S3).
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Kotlin code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_Amazon S3 is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web._
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon S3 bucket. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+## ⚠ Important
 
-You will find these examples: 
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-- **CopyObject** - Demonstrates how to copy an object from one Amazon S3 bucket to another.
-- **CreateBucket** - Demonstrates how to create an Amazon S3 bucket.
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotlin` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Copy an object from one bucket to another](src/main/kotlin/com/kotlin/s3/CopyObject.kt#L52) (`CopyObject`)
+- [Create a bucket](src/main/kotlin/com/kotlin/s3/CreateBucket.kt#L43) (`CreateBucket`)
+- [Delete a policy from a bucket](src/main/kotlin/com/kotlin/s3/DeleteBucketPolicy.kt#L45) (`DeleteBucketPolicy`)
+- [Delete multiple objects](src/main/kotlin/com/kotlin/s3/DeleteObjects.kt#L48) (`DeleteObjects`)
+- [Get an object from a bucket](src/main/kotlin/com/kotlin/s3/GetObjectData.kt#L50) (`GetObject`)
+- [Get the ACL of an object](src/main/kotlin/com/kotlin/s3/GetAcl.kt#L45) (`GetObjectAcl`)
+- [Get the policy for a bucket](src/main/kotlin/com/kotlin/s3/GetBucketPolicy.kt#L46) (`GetBucketPolicy`)
+- [List objects in a bucket](src/main/kotlin/com/kotlin/s3/ListObjects.kt#L44) (`ListObjectsV2`)
+- [Set a new ACL for a bucket](src/main/kotlin/com/kotlin/s3/SetAcl.kt#L52) (`PutBucketAcl`)
+- [Upload an object to a bucket](src/main/kotlin/com/kotlin/s3/PutObject.kt#L50) (`PutObject`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Create a presigned URL](src/main/kotlin/com/kotlin/s3/PresigningExamples.kt)
+- [Get started with buckets and objects](src/main/kotlin/com/kotlin/s3/S3Operations.kt)
+
+
+<!--custom.examples.start-->
+
+### Custom Examples
+
 - **DeleteBucket** - Demonstrates how to delete an Amazon S3 bucket.
-- **DeleteBucketPolicy** - Demonstrates how to delete a policy from an Amazon S3 bucket.
-- **DeleteObjects** - Demonstrates how to delete an object from an Amazon S3 bucket.
-- **GetAcl** - Demonstrates how to get the access control list (ACL) of an object located in an Amazon S3 bucket.
 - **SetBucketPolicy** - Demonstrates how to add a bucket policy to an existing Amazon S3 bucket.
-- **GetObjectData** - Demonstrates how to read data from an Amazon S3 object.
-- **ListObjects** - Demonstrates how to list objects located in a given Amazon S3 bucket.
-- **PutObject** - Demonstrates how to upload an object to an Amazon S3 bucket.
-- **SetAcl** - Demonstrates how to set a new ACL for an Amazon S3 bucket.
-- **SetBucketPolicy** - Demonstrates how to add a bucket policy to an existing Amazon S3 bucket.
+<!--custom.examples.end-->
 
-To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
-see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
+## Run the examples
+
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+#### Create a presigned URL
+
+This example shows you how to create a presigned URL for Amazon S3 and upload an object.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.end-->
+
+
+<!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
+
+#### Get started with buckets and objects
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
+<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `kotlin` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+- [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+- [SDK for Kotlin Amazon S3 reference](https://sdk.amazonaws.com/kotlin/api/latest/s3/index.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

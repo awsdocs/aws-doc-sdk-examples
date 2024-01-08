@@ -1,80 +1,105 @@
-# Amazon Personalize code examples for SDK for JavaScript (v3)
+# Amazon Personalize code examples for the SDK for JavaScript (v3)
 
-The code examples in this directory demonstrate how to work with Amazon Personalize using the AWS SDK for JavaScript version 3 (v3).
+## Overview
 
-Amazon Personalize is a fully managed machine learning service that makes it easy for developers to deliver personalized experiences to their users.
+Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Personalize.
+
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_Amazon Personalize enables real-time personalization and recommendations, based on the same technology used at Amazon.com._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
 
-This directory contains the following SDK for JavaScript (v3) examples for Amazon Personalize:
+### Prerequisites
 
-### Single action
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javascriptv3` folder.
 
-- [Create a batch inference job](src/personalize_createBatchInferenceJob.js) (CreateBatchInferenceJobCommand)
-- [Create a batch segment job](src/personalize_createBatchSegmentJob.js) (CreateBatchSegmentJobCommand)
-- [Create a campaign](src/personalize_createCampaign.js) (CreateCampaignCommand)
-- [Create a dataset](src/personalize_createDataset.js) (CreateDatasetCommand)
-- [Create a dataset export job](src/personalize_createDatasetExportJob.js) (CreateDatasetExportJobCommand)
-- [Create a dataset group](src/personalize_createDatasetGroup.js) (CreateDatasetGroupCommand)
-- [Create a dataset import job](src/personalize_createDatasetImportJob.js) (CreateDatasetImportJobCommand)
-- [Create a domain dataset group](src/personalize_createDomainDatasetGroup.js) (CreateDatasetGroupCommand)
-- [Create a domain schema](src/personalize_createDomainSchema.js) (CreateSchemaCommand)
-- [Create an event tracker](src/personalize_createEventTracker.js) (CreateEventTrackerCommand)
-- [Create a filter](src/personalize_createFilter.js) (CreateFilterCommand)
-- [Create a recommender](src/personalize_createRecommender.js) (CreateRecommenderCommand)
-- [Create a schema](src/personalize_createSchema.js) (CreateSchemaCommand)
-- [Create a solution](src/personalize_createSolution.js) (CreateSolutionCommand)
-- [Create a solution version](src/personalize_createSolutionVersion.js) (CreateSolutionVersion)
-- [Get a personalized ranking](src/personalize_getPersonalizedRanking.js) (GetPersonalizedRankingCommand)
-- [Get recommendations (custom dataset group)](src/personalize_getRecommendations.js) (GetRecommendationsCommand)
-- [Get recommendations from a recommender (domain dataset group)](src/personalize_getRecommendationsFromRecommender.js) (GetRecommendationsCommand)
-- [Get recommendation with a filter (custom dataset group)](src/personalize_getRecommendationsWithFilter.js) (GetRecommendationsCommand)
-- [Put events](src/personalize_putEvents.js) (PutEventsCommand)
-- [Put items](src/personalize_putItems.js) (PutItemsCommand)
-- [Put users](src/personalize_putUsers.js) (PutUsersCommand)
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create a batch interface job](src/personalize_createBatchInferenceJob.js#L27) (`CreateBatchInferenceJob`)
+- [Create a batch segment job](src/personalize_createBatchSegmentJob.js#L25) (`CreateBatchSegmentJob`)
+- [Create a campaign](src/personalize_createCampaign.js#L20) (`CreateCampaign`)
+- [Create a dataset](src/personalize_createDataset.js#L21) (`CreateDataset`)
+- [Create a dataset export job](src/personalize_createDatasetExportJob.js#L22) (`CreateDatasetExportJob`)
+- [Create a dataset group](src/personalize_createDatasetGroup.js#L19) (`CreateDatasetGroup`)
+- [Create a dataset import job](src/personalize_createDatasetImportJob.js#L21) (`CreateDatasetImportJob`)
+- [Create a domain schema](src/personalize_createDomainSchema.js#L20) (`CreateSchema`)
+- [Create a filter](src/personalize_createFilter.js#L19) (`CreateFilter`)
+- [Create a recommender](src/personalize_createRecommender.js#L20) (`CreateRecommender`)
+- [Create a schema](src/personalize_createSchema.js#L19) (`CreateSchema`)
+- [Create a solution](src/personalize_createSolution.js#L20) (`CreateSolution`)
+- [Create a solution version](src/personalize_createSolutionVersion.js#L18) (`CreateSolutionVersion`)
+- [Create an event tracker](src/personalize_createEventTracker.js#L19) (`CreateEventTracker`)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
 
-## Important
+**Run a single action**
 
-- Running this code might result in charges to your AWS account.
-- We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see
-  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the _AWS Identity and Access Management User Guide_.
-- This code is not tested in every AWS Region. Some AWS services are
-  available only in specific AWS Regions. For more information, see the
-  [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
-
-## Running the examples
-
-### Prerequisites
-
-- An AWS account. To create an account, see [How do I create and activate a new AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/) on the AWS Premium Support website.
-- AWS credentials. For details, see [Setting credentials in Node.js](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html) in the _AWS SDK for JavaScript (v3) Developer Guide_.
-
-1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. For instructions, see the [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
-
-2. Install the dependencies listed in the package.json.
-
-```
-cd javascriptv3/example_code/personalize/src
-npm install
+```bash
+node ./actions/<fileName>
 ```
 
-3. In your text editor, update the user variables specified in the `Inputs` section of the sample file.
-
-4. Run the following sample code:
-
-```
-cd src
-node [example name].js
+**Run a scenario**
+Most scenarios can be run with the following command:
+```bash
+node ./scenarios/<fileName>
 ```
 
-## Resources
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-- [AWS SDK for JavaScript (v3) repo](https://github.com/aws/aws-sdk-js-v3)
-- [Amazon Personalize Developer Guide ](https://docs.aws.amazon.com/personalize/latest/dg/what-is-personalize.html)
-- [AWS SDK for JavaScript v3 API Reference Guide - Personalize Client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/personalize/index.html)
-- [AWS SDK for JavaScript v3 API Reference Guide - Personalize Events Client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/personalize-events/index.html)
-- [AWS SDK for JavaScript v3 API Reference Guide - Personalize Runtime Client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/personalize-events/index.html)
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javascriptv3` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Amazon Personalize Developer Guide](https://docs.aws.amazon.com/personalize/latest/dg/what-is-personalize.html)
+- [Amazon Personalize API Reference](https://docs.aws.amazon.com/personalize/latest/dg/API_Reference.html)
+- [SDK for JavaScript (v3) Amazon Personalize reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/personalize)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

@@ -1,28 +1,145 @@
-# Amazon DynamoDB Kotlin code examples
+# DynamoDB code examples for the SDK for Kotlin
 
-This README discusses how to run the Kotlin code examples for Amazon DynamoDB.
+## Overview
 
-## Running the Amazon DynamoDB Kotlin files
+Shows how to use the AWS SDK for Kotlin to work with Amazon DynamoDB.
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Kotlin code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a table. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+## ⚠ Important
 
-You will find these examples: 
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-- **CreateTable** - Demonstrates how to create an Amazon DynamoDB table.
-- **DeleteItem** - Demonstrates how to delete an item from an Amazon DynamoDB table.
-- **DeleteTable** - Demonstrates how to delete an Amazon DynamoDB table.
-- **DescribeTable** - Demonstrates how to retrieve information about an Amazon DynamoDB table.
-- **DynamoDBScanItems** - Demonstrates how to return items from an Amazon DynamoDB table.
-- **DynamoDBScanItemsFilter** - Demonstrates how to return items from an Amazon DynamoDB table using a filter expression.
-- **GetItem** - Demonstrates how to retrieve an item from an Amazon DynamoDB table.
-- **ListTables** - Demonstrates how to list all Amazon DynamoDB tables.
-- **PutItem** - Demonstrates how to place an item into an Amazon DynamoDB table.
-- **QueryTable** - Demonstrates how to query an Amazon DynamoDB table.
-- **UpdateItem** - Demonstrates how to update a value located in an Amazon DynamoDB table.
+<!--custom.important.start-->
+<!--custom.important.end-->
 
-To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
-see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotlin` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create a table](src/main/kotlin/com/kotlin/dynamodb/CreateTable.kt#L55) (`CreateTable`)
+- [Delete a table](src/main/kotlin/com/kotlin/dynamodb/DeleteTable.kt#L44) (`DeleteTable`)
+- [Delete an item from a table](src/main/kotlin/com/kotlin/dynamodb/DeleteItem.kt#L49) (`DeleteItem`)
+- [Get an item from a table](src/main/kotlin/com/kotlin/dynamodb/GetItem.kt#L50) (`GetItem`)
+- [List tables](src/main/kotlin/com/kotlin/dynamodb/ListTables.kt#L30) (`ListTables`)
+- [Put an item in a table](src/main/kotlin/com/kotlin/dynamodb/PutItem.kt#L63) (`PutItem`)
+- [Query a table](src/main/kotlin/com/kotlin/dynamodb/QueryTable.kt#L54) (`Query`)
+- [Scan a table](src/main/kotlin/com/kotlin/dynamodb/DynamoDBScanItems.kt#L45) (`Scan`)
+- [Update an item in a table](src/main/kotlin/com/kotlin/dynamodb/UpdateItem.kt#L57) (`UpdateItem`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Get started with tables, items, and queries](src/main/kotlin/com/kotlin/dynamodb/Scenario.kt)
+- [Query a table by using batches of PartiQL statements](src/main/kotlin/com/kotlin/dynamodb/ScenarioPartiQLBatch.kt)
+- [Query a table using PartiQL](src/main/kotlin/com/kotlin/dynamodb/ScenarioPartiQ.kt)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+#### Get started with tables, items, and queries
+
+This example shows you how to do the following:
+
+- Create a table that can hold movie data.
+- Put, get, and update a single movie in the table.
+- Write movie data to the table from a sample JSON file.
+- Query for movies that were released in a given year.
+- Scan for movies that were released in a range of years.
+- Delete a movie from the table, then delete the table.
+
+<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
+
+
+<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.end-->
+
+#### Query a table by using batches of PartiQL statements
+
+This example shows you how to do the following:
+
+- Get a batch of items by running multiple SELECT statements.
+- Add a batch of items by running multiple INSERT statements.
+- Update a batch of items by running multiple UPDATE statements.
+- Delete a batch of items by running multiple DELETE statements.
+
+<!--custom.scenario_prereqs.dynamodb_Scenario_PartiQLBatch.start-->
+<!--custom.scenario_prereqs.dynamodb_Scenario_PartiQLBatch.end-->
+
+
+<!--custom.scenarios.dynamodb_Scenario_PartiQLBatch.start-->
+<!--custom.scenarios.dynamodb_Scenario_PartiQLBatch.end-->
+
+#### Query a table using PartiQL
+
+This example shows you how to do the following:
+
+- Get an item by running a SELECT statement.
+- Add an item by running an INSERT statement.
+- Update an item by running an UPDATE statement.
+- Delete an item by running a DELETE statement.
+
+<!--custom.scenario_prereqs.dynamodb_Scenario_PartiQLSingle.start-->
+<!--custom.scenario_prereqs.dynamodb_Scenario_PartiQLSingle.end-->
+
+
+<!--custom.scenarios.dynamodb_Scenario_PartiQLSingle.start-->
+<!--custom.scenarios.dynamodb_Scenario_PartiQLSingle.end-->
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `kotlin` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
+- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
+- [SDK for Kotlin DynamoDB reference](https://sdk.amazonaws.com/kotlin/api/latest/dynamodb/index.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

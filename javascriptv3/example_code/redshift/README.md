@@ -1,45 +1,95 @@
-# Amazon Redshift JavaScript SDK v3 code examples
+# Amazon Redshift code examples for the SDK for JavaScript (v3)
 
-Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the cloud. You can start with just a few hundred gigabytes of data and scale to a petabyte or more. This enables you to use your data to acquire new insights for your business and customers.
+## Overview
+
+Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Redshift.
+
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_Amazon Redshift is a fast, fully managed, petabyte-scale data warehouse service that makes it simple and cost-effective to efficiently analyze all your data using your existing business intelligence tools._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
 
-This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Redshift examples.
+### Prerequisites
 
-- [Create Redshift cluster](src/redshift-create-cluster.js)
-- [Delete a Redshift cluster](src/redshift-delete-cluster.js)
-- [Describe Redshift clusters](src/redshift-describe-clusters.js)
-- [Modify a Redshift cluster](src/redshift-modify-cluster.js)
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javascriptv3` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create a cluster](src/libs/redshiftClient.js#L13) (`CreateCluster`)
+- [Delete a cluster](src/libs/redshiftClient.js#L13) (`DeleteCluster`)
+- [Describe your clusters](src/libs/redshiftClient.js#L13) (`DescribeClusters`)
+- [Modify a cluster](src/libs/redshiftClient.js#L13) (`ModifyCluster`)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
-[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
 
-# Getting started
+**Run a single action**
 
-1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
-
-2. Install the dependencies listed in the package.json.
-
-**Note**: These include the client module for the AWS services required in these example,
-which is _@aws-sdk/client-redshift-node_.
-
-```
-npm install node -g
-cd javascriptv3/example_code/redshift
-npm install
+```bash
+node ./actions/<fileName>
 ```
 
-3. In your text editor, update user variables specified in the `Inputs` section of the sample file.
-
-4. Run sample code:
-
-```
-cd src
-node [example name].js // For example, node redshift-create-cluster.js
+**Run a scenario**
+Most scenarios can be run with the following command:
+```bash
+node ./scenarios/<fileName>
 ```
 
-## Resources
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)
-- [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html)
-- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/redshift/index.html)
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javascriptv3` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Amazon Redshift Management Guide](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html)
+- [Amazon Redshift API Reference](https://docs.aws.amazon.com/redshift/latest/APIReference/Welcome.html)
+- [SDK for JavaScript (v3) Amazon Redshift reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/redshift)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

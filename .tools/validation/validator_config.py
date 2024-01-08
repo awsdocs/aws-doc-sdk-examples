@@ -125,6 +125,7 @@ ALLOW_LIST = {
     "aws/rds/model/DescribeDBInstancesRequest",
     "aws/rds/model/DescribeDBSnapshotsRequest",
     "cloudwatch/commands/PutMetricDataCommand",
+    "com/AWSJavaScriptSDK/v3/latest/client/s3",
     "com/amazondynamodb/latest/developerguide",
     "com/apigateway/latest/developerguide/set",
     "com/autoscaling/ec2/APIReference/Welcome",
@@ -156,6 +157,7 @@ ALLOW_LIST = {
     "ses/commands/DeleteReceiptRuleSetCommand",
     "ses/commands/VerifyDomainIdentityCommand",
     "src/main/java/com/example/dynamodb/Query",
+    "src/main/java/com/example/glue/HelloGlue",
     "src/main/java/com/example/iam/CreateRole",
     "src/main/java/com/example/iam/CreateUser",
     "src/main/java/com/example/iam/DeleteUser",
@@ -166,6 +168,10 @@ ALLOW_LIST = {
     "src/main/java/com/example/sns/ListOptOut",
     "src/main/java/com/example/sns/ListTopics",
     "src/main/java/com/example/sqs/SQSExample",
+    "src/main/java/com/example/sts/AssumeRole",
+    "src/main/kotlin/com/kotlin/s3/CopyObject",
+    "src/main/kotlin/com/kotlin/iam/ListUsers",
+    "src/main/kotlin/com/kotlin/iam/GetPolicy",
     "targetTrackingScalingPolicyConfiguration",
     "upload_files_using_managed_file_uploader",
     "videoMetaData=celebrityRecognitionResult",
@@ -188,6 +194,7 @@ ALLOW_LIST = {
     "iotanalytics/latest/APIReference/Welcome",
     "mediaconnect/latest/APIReference/Welcome",
     "cryptography/latest/APIReference/Welcome",
+    "com/AmazonCloudWatch/latest/logs/Working",
 }
 
 

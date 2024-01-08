@@ -1,73 +1,88 @@
-# AWS Security Token Service Java code examples
+# AWS STS code examples for the SDK for Java 2.x
 
-This README discusses how to run and test the Java code examples for AWS Security Token Service.
+## Overview
 
-## Running the AWS Security Token Service Java files
+Shows how to use the AWS SDK for Java 2.x to work with AWS Security Token Service (AWS STS).
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_AWS STS creates and provides trusted users with temporary security credentials that can control access to your AWS resources._
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
 
 
- ## Testing the AWS Security Token Service files
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-You can test the Java code examples for AWS Security Token Service by running a test file named **STSServiceTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+### Single actions
 
-You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is ran, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+Code excerpts that show you how to call individual service functions.
 
-	Test 3 passed
+- [Assume a role](src/main/java/com/example/sts/AssumeRole.java#L13) (`AssumeRole`)
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
- ### Properties file
+<!--custom.examples.start-->
+
+#### Properties file
+
 Before running the AWS Security Token Service JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to execute the JUnit tests. For example, you define a the **roleArn** value used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **roleArn** - The Amazon Resource Name (ARN) of the role to assume.  
+- **roleArn** - The Amazon Resource Name (ARN) of the role to assume.
 - **accessKeyId** – The identifier of an access key.
 - **roleSessionName** – An identifier for the assumed role session.
+<!--custom.examples.end-->
 
-### Command line
-To execute the JUnit tests from the command line, you can use the following command.
+## Run the examples
 
-		mvn test
+### Instructions
 
-You will see output from the JUnit tests, as shown here.
 
-	[INFO] -------------------------------------------------------
-	[INFO]  T E S T S
-	[INFO] -------------------------------------------------------
-	[INFO] Running STSServiceTest
-	Test 1 passed
-	Test 2 passed
-	...
-	Done!
-	[INFO] Results:
-	[INFO]
-	[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
-	[INFO]
-	INFO] --------------------------------------------
-	[INFO] BUILD SUCCESS
-	[INFO]--------------------------------------------
-	[INFO] Total time:  12.003 s
-	[INFO] Finished at: 2020-02-10T14:25:08-05:00
-	[INFO] --------------------------------------------
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-### Unsuccessful tests
 
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as the following. You need to double-check the values that you set in the properties file and run the tests again.
 
-	[INFO]
-	[INFO] --------------------------------------
-	[INFO] BUILD FAILURE
-	[INFO] --------------------------------------
-	[INFO] Total time:  19.038 s
-	[INFO] Finished at: 2020-02-10T14:41:51-05:00
-	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
-	[ERROR];
+### Tests
 
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [AWS STS User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
+- [AWS STS API Reference](https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html)
+- [SDK for Java 2.x AWS STS reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/sts/package-summary.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
