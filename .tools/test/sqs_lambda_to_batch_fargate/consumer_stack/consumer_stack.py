@@ -44,8 +44,12 @@ class ConsumerStack(Stack):
         return data
 
     def init_get_topic(self, topic_name):
-        external_sns_topic_arn = f"arn:aws:sns:us-east-1:{self.producer_account_id}:{topic_name}"
-        topic = sns.Topic.from_topic_arn(self, "ExternalSNSTopic", external_sns_topic_arn)
+        external_sns_topic_arn = (
+            f"arn:aws:sns:us-east-1:{self.producer_account_id}:{topic_name}"
+        )
+        topic = sns.Topic.from_topic_arn(
+            self, "ExternalSNSTopic", external_sns_topic_arn
+        )
         return topic
 
     def init_batch_fargte(self):
@@ -228,7 +232,9 @@ class ConsumerStack(Stack):
         )
 
         statement = iam.PolicyStatement()
-        statement.add_actions("s3:PutObject", "s3:PutObjectAcl", "s3:DeleteObject", "s3:ListBucket")
+        statement.add_actions(
+            "s3:PutObject", "s3:PutObjectAcl", "s3:DeleteObject", "s3:ListBucket"
+        )
         statement.add_resources(f"{bucket.bucket_arn}/*")
         statement.add_resources(bucket.bucket_arn)
         statement.add_arn_principal(
@@ -255,7 +261,13 @@ class ConsumerStack(Stack):
         # Grants ability to get and put to local logs bucket.
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
-                actions=["s3:PutObject", "s3:PutObjectAcl", "s3:GetObject", "s3:ListBucket", "s3:DeleteObject"],
+                actions=[
+                    "s3:PutObject",
+                    "s3:PutObjectAcl",
+                    "s3:GetObject",
+                    "s3:ListBucket",
+                    "s3:DeleteObject",
+                ],
                 resources=[
                     f"arn:aws:s3:::{bucket.bucket_arn}/*",
                     f"arn:aws:s3:::{bucket.bucket_arn}",
@@ -266,10 +278,16 @@ class ConsumerStack(Stack):
         # Grants ability to write to cross-account log bucket.
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
-                actions=["s3:PutObject", "s3:PutObjectAcl", "s3:GetObject", "s3:ListBucket", "s3:DeleteObject"],
+                actions=[
+                    "s3:PutObject",
+                    "s3:PutObjectAcl",
+                    "s3:GetObject",
+                    "s3:ListBucket",
+                    "s3:DeleteObject",
+                ],
                 resources=[
                     f"arn:aws:s3:::{producer_bucket_name}/*",
-                    f"arn:aws:s3:::{producer_bucket_name}"
+                    f"arn:aws:s3:::{producer_bucket_name}",
                 ],
             )
         )

@@ -61,7 +61,7 @@ def get_and_put_logs(job_detail):
             startFromHead=True,
         )
     except Exception as e:
-        logger.error(f'Error getting log events from CloudWatch:\n{e}')
+        logger.error(f"Error getting log events from CloudWatch:\n{e}")
         raise
 
     log_file_name = f"{job_id}.log"
@@ -74,11 +74,11 @@ def get_and_put_logs(job_detail):
         # Copy logs to local and cross-account buckets
         for bucket in [os.environ["PRODUCER_BUCKET_NAME"], os.environ["BUCKET_NAME"]]:
             # Reset outfile
-            response = s3_client.list_objects_v2(Bucket=bucket, Delimiter='/')
-            objects = response.get('Contents', [])
+            response = s3_client.list_objects_v2(Bucket=bucket, Delimiter="/")
+            objects = response.get("Contents", [])
             for obj in objects:
-                key = obj['Key']
-                if key.endswith('SUCCEEDED') or key.endswith('FAILED'):
+                key = obj["Key"]
+                if key.endswith("SUCCEEDED") or key.endswith("FAILED"):
                     s3_client.delete_object(Bucket=bucket, Key=key)
                     logger.info(f"Deleted: {key}")
             s3_client.put_object(
@@ -100,7 +100,7 @@ def get_and_put_logs(job_detail):
                 Key=f"archive/{os.environ['LANGUAGE_NAME']}/{job_detail['status']}/{log_file_name}",
             )
     except Exception as e:
-        logger.error(f'Error writing logs to S3:\n{e}')
+        logger.error(f"Error writing logs to S3:\n{e}")
         raise
 
     logger.info(

@@ -105,7 +105,9 @@ class ProducerStack(Stack):
         if len(languages) > 0:
             # Define policy that allows cross-account Amazon SNS and Amazon SQS access.
             statement = iam.PolicyStatement()
-            statement.add_actions("s3:PutObject", "s3:PutObjectAcl", "s3:DeleteObject", "s3:ListBucket")
+            statement.add_actions(
+                "s3:PutObject", "s3:PutObjectAcl", "s3:DeleteObject", "s3:ListBucket"
+            )
             statement.add_resources(f"{bucket.bucket_arn}/*")
             statement.add_resources(bucket.bucket_arn)
             for language in languages:
