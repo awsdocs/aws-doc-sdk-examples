@@ -39,6 +39,14 @@ elastic-load-balancing-v2_DescribeLoadBalancers:
   synopsis: get the endpoint of an ELB load balancer.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.ELB.DescribeLoadBalancers
     Python:
       versions:
         - sdk_version: 3
@@ -83,6 +91,14 @@ elastic-load-balancing-v2_CreateTargetGroup:
   synopsis: create an ELB target group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.ELB.CreateTargetGroup
     Java:
       versions:
         - sdk_version: 2
@@ -119,6 +135,14 @@ elastic-load-balancing-v2_DeleteTargetGroup:
   synopsis: delete an ELB  target group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.ELB.DeleteTargetGroup
     Java:
       versions:
         - sdk_version: 2
@@ -155,6 +179,14 @@ elastic-load-balancing-v2_CreateLoadBalancer:
   synopsis: create an ELB Application Load Balancer.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.ELB.CreateLoadBalancer
     Java:
       versions:
         - sdk_version: 2
@@ -191,6 +223,14 @@ elastic-load-balancing-v2_CreateListener:
   synopsis: create a listener that forwards requests from an ELB load balancer to a target group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.ELB.CreateListener
     Java:
       versions:
         - sdk_version: 2
@@ -227,6 +267,14 @@ elastic-load-balancing-v2_DeleteLoadBalancer:
   synopsis: delete an ELB load balancer.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.ELB.DeleteLoadBalancer
     Java:
       versions:
         - sdk_version: 2
@@ -263,6 +311,14 @@ elastic-load-balancing-v2_DescribeTargetHealth:
   synopsis: get the health of instances in an ELB target group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.ELB.DescribeTargetHealth
     Java:
       versions:
         - sdk_version: 2

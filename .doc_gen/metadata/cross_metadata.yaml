@@ -646,6 +646,26 @@ cross_ResilientService:
     - Control web server response to requests and health checks by updating &SYSlong; parameters.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService
+          excerpts:
+            - description: Run the interactive scenario at a command prompt.
+              snippet_tags:
+                - ResilientService.dotnetv3.Scenario
+            - description: Create a class that wraps &AS; and &EC2; actions.
+              snippet_tags:
+                - ResilientService.dotnetv3.AutoScalerWrapper
+            - description: Create a class that wraps &ELB; actions.
+              snippet_tags:
+                - ResilientService.dotnetv3.ELB.ElasticLoadBalancerWrapper
+            - description: Create a class that uses &DDB; to simulate a recommendation service.
+              snippet_tags:
+                - ResilientService.dotnetv3.RecommendationService
+            - description: Create a class that wraps &SYS; actions.
+              snippet_tags:
+                - ResilientService.dotnetv3.SmParameterWrapper
     Java:
       versions:
         - sdk_version: 2

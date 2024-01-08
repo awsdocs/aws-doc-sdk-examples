@@ -48,6 +48,7 @@ Code excerpts that show you how to call individual service functions.
 - [Create a user](Actions/IAMWrapper.cs#L159) (`CreateUser`)
 - [Create an access key](Actions/IAMWrapper.cs#L62) (`CreateAccessKey`)
 - [Create an inline policy for a group](Actions/IAMWrapper.cs#L548) (`PutGroupPolicy`)
+- [Create an instance profile](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L83) (`CreateInstanceProfile`)
 - [Delete a group](Actions/IAMWrapper.cs#L194) (`DeleteGroup`)
 - [Delete a group policy](Actions/IAMWrapper.cs#L208) (`DeleteGroupPolicy`)
 - [Delete a policy](Actions/IAMWrapper.cs#L230) (`DeletePolicy`)
@@ -56,6 +57,7 @@ Code excerpts that show you how to call individual service functions.
 - [Delete a user](Actions/IAMWrapper.cs#L279) (`DeleteUser`)
 - [Delete an access key](Actions/IAMWrapper.cs#L173) (`DeleteAccessKey`)
 - [Delete an inline policy from a user](Actions/IAMWrapper.cs#L294) (`DeleteUserPolicy`)
+- [Delete an instance profile](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L425) (`DeleteInstanceProfile`)
 - [Detach a policy from a role](Actions/IAMWrapper.cs#L310) (`DetachRolePolicy`)
 - [Get a policy](Actions/IAMWrapper.cs#L343) (`GetPolicy`)
 - [Get a role](Actions/IAMWrapper.cs#L358) (`GetRole`)
@@ -75,6 +77,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Build and manage a resilient service](../cross-service/ResilientService/ResilientServiceWorkflow/ResilientServiceWorkflow.cs)
 - [Create a group and add a user](Scenarios/IamScenariosCommon/UIWrapper.cs)
 - [Create a user and assume a role](Scenarios/IamScenariosCommon/UIWrapper.cs)
 
@@ -113,6 +116,24 @@ To run the examples, see the [README](../README.md#building-and-running-the-code
 This example shows you how to get started using IAM.
 
 
+
+#### Build and manage a resilient service
+
+This example shows you how to create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.
+
+- Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.
+- Handle and distribute HTTP requests with Elastic Load Balancing.
+- Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.
+- Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.
+- Simulate a recommendation service with an Amazon DynamoDB table.
+- Control web server response to requests and health checks by updating AWS Systems Manager parameters.
+
+<!--custom.scenario_prereqs.cross_ResilientService.start-->
+<!--custom.scenario_prereqs.cross_ResilientService.end-->
+
+
+<!--custom.scenarios.cross_ResilientService.start-->
+<!--custom.scenarios.cross_ResilientService.end-->
 
 #### Create a group and add a user
 

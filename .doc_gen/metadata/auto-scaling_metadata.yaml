@@ -136,8 +136,11 @@ auto-scaling_DeleteAutoScalingGroup:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/AutoScaling
+          github: dotnetv3/cross-service/ResilientService/AutoScalerActions
           excerpts:
+            - description: Update the minimum size of an Auto Scaling group to zero, terminate all instances in the group, and delete the group.
+              snippet_tags:
+                - ResilientService.dotnetv3.AutoScaling.DeleteAutoScalingGroup
             - description:
               snippet_tags:
                 - AutoScaling.dotnetv3.AutoScalingActions.DeleteAutoScalingGroup
@@ -756,6 +759,15 @@ auto-scaling_AttachLoadBalancerTargetGroups:
   synopsis: attach an ELB target group to an &AS; group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService/AutoScalerActions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ResilientService.dotnetv3.AutoScaling.AttachLoadBalancer
     Python:
       versions:
         - sdk_version: 3
