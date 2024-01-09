@@ -8,7 +8,6 @@
 require "aws-sdk-dynamodb"
 require "logger"
 require "json"
-require "zip"
 require "cli/ui"
 require_relative("../../../helpers/disclaimers")
 require_relative("../../../helpers/decorators")

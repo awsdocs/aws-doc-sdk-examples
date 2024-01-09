@@ -5,7 +5,6 @@
 
 require "json"
 require "rspec"
-require 'zip'
 require_relative "../dynamodb_basics"
 require_relative "../../scaffold"
 
