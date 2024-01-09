@@ -17,11 +17,18 @@ bedrock_Hello:
       versions:
         - sdk_version: 3
           github: dotnetv3/Bedrock
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
                 - Bedrock.dotnetv3.BedrockActions.HelloBedrock
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.bedrock.hello
   services:
     bedrock: {ListFoundationModels}
 
