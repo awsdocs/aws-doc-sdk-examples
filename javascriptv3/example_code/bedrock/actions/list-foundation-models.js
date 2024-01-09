@@ -6,7 +6,7 @@
 import { fileURLToPath } from "url";
 
 // snippet-start:[javascript.v3.bedrock.actions.ListFoundationModels]
-import {BedrockClient, ListFoundationModelsCommand} from "@aws-sdk/client-bedrock";
+import { BedrockClient, ListFoundationModelsCommand } from "@aws-sdk/client-bedrock";
 
 /**
  * List the available Amazon Bedrock foundation models.
@@ -28,7 +28,7 @@ export const listFoundationModels = async () => {
 
     return response.modelSummaries;
 }
-// snippet-start:[javascript.v3.bedrock.actions.ListFoundationModels]
+// snippet-end:[javascript.v3.bedrock.actions.ListFoundationModels]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
