@@ -39,7 +39,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [List available Amazon Bedrock foundation models](actions/list-foundation-models.js#L31) (`ListFoundationModels`)
+- [List available Amazon Bedrock foundation models](actions/list-foundation-models.js#L8) (`ListFoundationModels`)
 
 
 <!--custom.examples.start-->
