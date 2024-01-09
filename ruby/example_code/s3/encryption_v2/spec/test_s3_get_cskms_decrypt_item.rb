@@ -52,7 +52,7 @@ describe "#get_decrypted_object_content" do
             expect(context.params[:key_id]).to eq(opts[:response][:key_id])
           end
         end
-      opts[:response]
+        opts[:response]
       end
     )
   end

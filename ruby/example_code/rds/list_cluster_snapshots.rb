@@ -29,5 +29,5 @@ end
 if __FILE__ == $0
   rds_resource = Aws::RDS::Resource.new
   test = list_cluster_snapshots(rds_resource)
-  puts test.to_s
+  puts test
 end
