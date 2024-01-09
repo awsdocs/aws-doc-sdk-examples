@@ -55,9 +55,9 @@ public class SendEmailMessageCC {
         }
 
         String subject = args[0];
-        String senderAddress = args[2];
-        String toAddress = args[3];
-        String ccAddress1 = args[4];
+        String senderAddress = args[1];
+        String toAddress = args[2];
+        String ccAddress1 = args[3];
 
         System.out.println("Sending a message");
         PinpointEmailClient pinpoint = PinpointEmailClient.builder()

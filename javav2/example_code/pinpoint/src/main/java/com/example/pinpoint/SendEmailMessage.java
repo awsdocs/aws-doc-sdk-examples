@@ -72,8 +72,8 @@ public class SendEmailMessage {
         }
 
         String subject = args[0];
-        String senderAddress = args[2];
-        String toAddress = args[3];
+        String senderAddress = args[1];
+        String toAddress = args[2];
         System.out.println("Sending a message");
         PinpointEmailClient pinpoint = PinpointEmailClient.builder()
             .region(Region.US_EAST_1)
