@@ -5,9 +5,14 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
+    "test": "vitest run **/*.unit.test.js",
     "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock": "^3.485.0"
+  },
+  "devDependencies": {
+    "vitest": "^1.1.3",
+    "zod": "^3.22.4"
   }
 }
