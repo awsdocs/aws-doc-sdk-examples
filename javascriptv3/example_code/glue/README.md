@@ -11,7 +11,7 @@ _AWS Glue is a scalable, serverless data integration service that makes it easy 
 
 ## ⚠ Important
 
-* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
 * Running the tests might result in charges to your AWS account.
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
@@ -38,22 +38,22 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](actions/create-crawler.js#L9) (`CreateCrawler`)
-- [Create a job definition](actions/create-job.js#L9) (`CreateJob`)
-- [Delete a crawler](actions/delete-crawler.js#L9) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](actions/delete-database.js#L9) (`DeleteDatabase`)
-- [Delete a job definition](actions/delete-job.js#L9) (`DeleteJob`)
-- [Delete a table from a database](actions/delete-table.js#L9) (`DeleteTable`)
-- [Get a crawler](actions/get-crawler.js#L9) (`GetCrawler`)
-- [Get a database from the Data Catalog](actions/get-database.js#L9) (`GetDatabase`)
-- [Get a job run](actions/get-job-run.js#L9) (`GetJobRun`)
-- [Get databases from the Data Catalog](actions/get-databases.js#L9) (`GetDatabases`)
-- [Get job from the Data Catalog](actions/get-job.js#L9) (`GetJob`)
-- [Get runs of a job](actions/get-job-runs.js#L9) (`GetJobRuns`)
-- [Get tables from a database](actions/get-tables.js#L9) (`GetTables`)
-- [List job definitions](actions/list-jobs.js#L9) (`ListJobs`)
-- [Start a crawler](actions/start-crawler.js#L9) (`StartCrawler`)
-- [Start a job run](actions/start-job-run.js#L9) (`StartJobRun`)
+- [Create a crawler](actions/create-crawler.js#L8) (`CreateCrawler`)
+- [Create a job definition](actions/create-job.js#L8) (`CreateJob`)
+- [Delete a crawler](actions/delete-crawler.js#L8) (`DeleteCrawler`)
+- [Delete a database from the Data Catalog](actions/delete-database.js#L8) (`DeleteDatabase`)
+- [Delete a job definition](actions/delete-job.js#L8) (`DeleteJob`)
+- [Delete a table from a database](actions/delete-table.js#L8) (`DeleteTable`)
+- [Get a crawler](actions/get-crawler.js#L8) (`GetCrawler`)
+- [Get a database from the Data Catalog](actions/get-database.js#L8) (`GetDatabase`)
+- [Get a job run](actions/get-job-run.js#L8) (`GetJobRun`)
+- [Get databases from the Data Catalog](actions/get-databases.js#L8) (`GetDatabases`)
+- [Get job from the Data Catalog](actions/get-job.js#L8) (`GetJob`)
+- [Get runs of a job](actions/get-job-runs.js#L8) (`GetJobRuns`)
+- [Get tables from a database](actions/get-tables.js#L8) (`GetTables`)
+- [List job definitions](actions/list-jobs.js#L8) (`ListJobs`)
+- [Start a crawler](actions/start-crawler.js#L8) (`StartCrawler`)
+- [Start a job run](actions/start-job-run.js#L8) (`StartJobRun`)
 
 ### Scenarios
 
