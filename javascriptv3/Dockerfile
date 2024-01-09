@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM node:20
+FROM node:21
 COPY . /javascriptv3
 RUN npm i --prefix /javascriptv3
 CMD npm run --prefix /javascriptv3 integration-test
