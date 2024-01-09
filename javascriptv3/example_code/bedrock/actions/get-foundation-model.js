@@ -5,7 +5,6 @@
 
 import { fileURLToPath } from 'url';
 
-// snippet-start:[javascript.v3.bedrock.actions.GetFoundationModel]
 import { BedrockClient, GetFoundationModelCommand  } from '@aws-sdk/client-bedrock';
 
 /**
@@ -24,8 +23,6 @@ export const getFoundationModel = async () => {
 
     return response.modelDetails;
 };
-
-// snippet-end:[javascript.v3.bedrock.actions.GetFoundationModel]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
