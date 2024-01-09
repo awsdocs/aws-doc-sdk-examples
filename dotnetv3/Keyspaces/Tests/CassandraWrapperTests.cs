@@ -15,7 +15,7 @@ namespace KeyspacesTests
         private readonly string _tableName;
         private readonly string _movieFileName;
         private readonly int _moviesToInsert = 5;
-        private static string _movieToUpdate;
+        private static string _movieToUpdate = null!;
         private static int _movieToUpdateYear;
 
         /// <summary>
@@ -33,10 +33,10 @@ namespace KeyspacesTests
             _client = new AmazonKeyspacesClient();
             _wrapper = new CassandraWrapper();
 
-            _keyspaceName = _configuration["KeyspaceName"];
-            _tableName = _configuration["TableName"];
+            _keyspaceName = _configuration["KeyspaceName"]!;
+            _tableName = _configuration["TableName"]!;
 
-            _movieFileName = _configuration["MovieFile"];
+            _movieFileName = _configuration["MovieFile"]!;
 
         }
 

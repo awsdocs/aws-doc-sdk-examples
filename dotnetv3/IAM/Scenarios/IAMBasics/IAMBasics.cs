@@ -38,9 +38,9 @@ public class IAMBasics
             .Build();
 
         // Values needed for user, role, and policies.
-        string userName = configuration["UserName"];
-        string s3PolicyName = configuration["S3PolicyName"];
-        string roleName = configuration["RoleName"];
+        string userName = configuration["UserName"]!;
+        string s3PolicyName = configuration["S3PolicyName"]!;
+        string roleName = configuration["RoleName"]!;
 
 
         var iamWrapper = host.Services.GetRequiredService<IAMWrapper>();

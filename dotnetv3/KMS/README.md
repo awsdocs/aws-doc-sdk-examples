@@ -33,15 +33,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a grant for a key](CreateGrantExample/CreateGrant.cs#L18) (`CreateGrant`)
-- [Create a key](CreateKeyExample/CreateKey.cs#L10) (`CreateKey`)
-- [Create an alias for a key](CreateAliasExample/CreateAlias.cs#L10) (`CreateAlias`)
-- [Describe a key](DescribeKeyExample/DescribeKey.cs#L12) (`DescribeKey`)
-- [Disable a key](DisableKeyExample/DisableKey.cs#L11) (`DisableKey`)
-- [Enable a key](EnableKeyExample/EnableKey.cs#L10) (`EnableKey`)
-- [List aliases for a key](ListAliasesExample/ListAliases.cs#L13) (`ListAliases`)
-- [List grants for a key](ListGrantsExample/ListGrants.cs#L11) (`ListGrants`)
-- [List keys](ListKeysExample/ListKeys.cs#L12) (`ListKeys`)
+- [Create a grant for a key](CreateGrantExample/CreateGrant.cs#L17) (`CreateGrant`)
+- [Create a key](CreateKeyExample/CreateKey.cs#L6) (`CreateKey`)
+- [Create an alias for a key](CreateAliasExample/CreateAlias.cs#L6) (`CreateAlias`)
+- [Describe a key](DescribeKeyExample/DescribeKey.cs#L6) (`DescribeKey`)
+- [Disable a key](DisableKeyExample/DisableKey.cs#L6) (`DisableKey`)
+- [Enable a key](EnableKeyExample/EnableKey.cs#L6) (`EnableKey`)
+- [List aliases for a key](ListAliasesExample/ListAliases.cs#L6) (`ListAliases`)
+- [List grants for a key](ListGrantsExample/ListGrants.cs#L6) (`ListGrants`)
+- [List keys](ListKeysExample/ListKeys.cs#L6) (`ListKeys`)
 
 
 <!--custom.examples.start-->

@@ -1,11 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-/// <summary>
-/// This example shows how to perform a multi-part copy from one Amazon
-/// Simple Storage Service (Amazon S3) bucket to another. The example uses
-/// the AWS SDK for .NET version 3.7 and .NET Core 5.0.
-/// </summary>
 namespace MPUapiCopyObjectExample
 {
     // snippet-start:[S3.dotnetv3.MPUapiCopyObjectExample]
@@ -15,6 +10,10 @@ namespace MPUapiCopyObjectExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
+    /// <summary>
+    /// This example shows how to perform a multi-part copy from one Amazon
+    /// Simple Storage Service (Amazon S3) bucket to another.
+    /// </summary>
     public class MPUapiCopyObj
     {
         private const string SourceBucket = "doc-example-bucket1";

@@ -11,8 +11,7 @@ namespace ListConsumersExample
     using Amazon.Kinesis.Model;
 
     /// <summary>
-    /// List the consumers of an Amazon Kinesis stream. This example was
-    /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// List the consumers of an Amazon Kinesis stream.
     /// </summary>
     public class ListConsumers
     {

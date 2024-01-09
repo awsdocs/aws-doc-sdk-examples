@@ -8,7 +8,6 @@ namespace S3_BasicsScenario.Tests
         private string newBucket = "";
         private string keyName = "sample.txt";
         private string destinationFolderName = "saved_pictures";
-        private string sourceFolderPath = "~/pictures";
 
         public IAmazonS3 CreateMockS3Client()
         {
