@@ -29,6 +29,7 @@ class ConsumerStack(Stack):
         resource_config = self.get_yaml_config("../config/resources.yaml")
         topic_name = resource_config["topic_name"]
         producer_bucket_name = resource_config["bucket_name"]
+        self.region = resource_config["aws_region"]
         self.producer_account_id = resource_config["admin_acct"]
         sns_topic = self.init_get_topic(topic_name)
         sqs_queue = sqs.Queue(self, f"BatchJobQueue-{language_name}")
@@ -44,7 +45,12 @@ class ConsumerStack(Stack):
         return data
 
     def init_get_topic(self, topic_name):
-        topic = sns.Topic(self, "fanout-topic", topic_name=topic_name)
+        external_sns_topic_arn = (
+            f"arn:aws:sns:{self.aws_region}:{self.producer_account_id}:{topic_name}"
+        )
+        topic = sns.Topic.from_topic_arn(
+            self, "ExternalSNSTopic", external_sns_topic_arn
+        )
         return topic
 
     def init_batch_fargte(self):
@@ -226,6 +232,18 @@ class ConsumerStack(Stack):
             role_name=f"LogsLambdaExecutionRole",
         )
 
+        statement = iam.PolicyStatement()
+        statement.add_actions(
+            "s3:PutObject", "s3:PutObjectAcl", "s3:DeleteObject", "s3:ListBucket"
+        )
+        statement.add_resources(f"{bucket.bucket_arn}/*")
+        statement.add_resources(bucket.bucket_arn)
+        statement.add_arn_principal(
+            f"arn:aws:iam::{Aws.ACCOUNT_ID}:role/LogsLambdaExecutionRole"
+        )
+        statement.add_arn_principal(f"arn:aws:iam::{Aws.ACCOUNT_ID}:root")
+        bucket.add_to_resource_policy(statement)
+
         # Attach AWSLambdaBasicExecutionRole to the Lambda function's role.
         execution_role.add_managed_policy(
             policy=iam.ManagedPolicy.from_aws_managed_policy_name(
@@ -237,23 +255,41 @@ class ConsumerStack(Stack):
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
                 actions=["logs:GetLogEvents", "logs:DescribeLogStreams"],
-                resources=[f"arn:aws:logs:us-east-1:{Aws.ACCOUNT_ID}:*"],
+                resources=[f"arn:aws:logs:{self.aws_region}:{Aws.ACCOUNT_ID}:*"],
             )
         )
 
         # Grants ability to get and put to local logs bucket.
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
-                actions=["s3:PutObject", "s3:GetObject"],
-                resources=[f"{bucket.bucket_arn}/*"],
+                actions=[
+                    "s3:PutObject",
+                    "s3:PutObjectAcl",
+                    "s3:GetObject",
+                    "s3:ListBucket",
+                    "s3:DeleteObject",
+                ],
+                resources=[
+                    f"arn:aws:s3:::{bucket.bucket_arn}/*",
+                    f"arn:aws:s3:::{bucket.bucket_arn}",
+                ],
             )
         )
 
         # Grants ability to write to cross-account log bucket.
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
-                actions=["s3:PutObject", "s3:PutObjectAcl"],
-                resources=[f"arn:aws:s3:::{producer_bucket_name}/*"],
+                actions=[
+                    "s3:PutObject",
+                    "s3:PutObjectAcl",
+                    "s3:GetObject",
+                    "s3:ListBucket",
+                    "s3:DeleteObject",
+                ],
+                resources=[
+                    f"arn:aws:s3:::{producer_bucket_name}/*",
+                    f"arn:aws:s3:::{producer_bucket_name}",
+                ],
             )
         )
 

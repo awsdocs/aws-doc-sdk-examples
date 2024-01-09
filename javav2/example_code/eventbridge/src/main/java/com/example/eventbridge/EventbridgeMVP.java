@@ -591,8 +591,8 @@ public class EventbridgeMVP {
             .build();
 
         ListTargetsByRuleResponse res = eventBrClient.listTargetsByRule(ruleRequest);
-        List<Target> tagets = res.targets();
-        for (Target target :tagets) {
+        List<Target> targetsList = res.targets();
+        for (Target target :targetsList) {
             System.out.println("Target ARN: "+target.arn());
         }
     }

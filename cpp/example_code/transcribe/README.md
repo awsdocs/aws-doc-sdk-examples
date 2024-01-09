@@ -1,40 +1,99 @@
 # Amazon Transcribe code examples for the SDK for C++
+
 ## Overview
-The code examples in this directory demonstrate how to work with Amazon Transcribe using the AWS SDK for C++.
 
-Amazon Transcribe is an automatic speech recognition service that makes it easy to add speech to text capabilities to any application.
+Shows how to use the AWS SDK for C++ to work with Amazon Transcribe.
 
-## ⚠️ Important
-* Running this code might result in charges to your AWS account.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_Amazon Transcribe provides transcription services for your audio files and audio streams._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
 * Running the tests might result in charges to your AWS account.
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
+<!--custom.important.start-->
+<!--custom.important.end-->
+
 ## Code examples
 
-### Scenarios
-Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
-- [Transcribing from an audio file](./get_transcript.cpp) - Shows streaming transcription by mimicking live audio using a flat file. This example uses the following API classes:
-   
-   - TranscribeStreamingServiceClient
-   - StartStreamTranscriptionHandler
-   - StartStreamTranscriptionRequest
+### Prerequisites
 
-## Run the Examples
-Before using the code examples, first complete the installation and setup steps of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for C++ Developer Guide.
-This section covers how to obtain and build the SDK, and how to build your own code utilizing the SDK with a sample Hello World-style application. 
 
-Next, for information about code example structure and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
-This example relies on curl as the HTTP client. If you are using Windows, additional steps are required to build the SDK for C++ with curl support.  For more information, see [Building the AWS SDK for C++ on Windows](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/setup-windows.html) in the AWS SDK for C++ Developer Guide.  Additionally, code execution must be able to locate the curl dll.
+Before using the code examples, first complete the installation and setup steps
+for [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
+C++ Developer Guide.
+This section covers how to get and build the SDK, and how to build your own code by using the SDK with a
+sample Hello World-style application.
 
-To run this code example, your AWS user must have permissions to perform these actions with Amazon Transcribe.  
-The AWS managed policy named "AmazonTranscribeFullAccess" can be used to grant permissions in bulk for this example.  
-For more information on attaching policies to IAM user groups, 
-see [Attaching a policy to an IAM user group](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups_manage_attach-policy.html).
+Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Produce real-time transcriptions](get_transcript.cpp#L26) (`StartStreamTranscriptionAsync`)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+An executable is built for each source file. These executables are located in the build folder and have
+"run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
+
+For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
+will display any required arguments.
+
+```
+./run_my_action
+```
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+
+```sh
+   cd <BUILD_DIR>
+   cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
+   make
+   ctest
+```
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
 ## Additional resources
-- [AWS SDK for C++ Documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html) 
-- [Amazon Transcribe Documentation](https://docs.aws.amazon.com/transcribe/index.html)
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+- [Amazon Transcribe Developer Guide](https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html)
+- [Amazon Transcribe API Reference](https://docs.aws.amazon.com/transcribe/latest/APIReference/Welcome.html)
+- [SDK for C++ Amazon Transcribe reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-transcribe/html/annotated.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

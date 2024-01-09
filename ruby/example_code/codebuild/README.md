@@ -1,56 +1,79 @@
 # CodeBuild code examples for the SDK for Ruby
+
 ## Overview
-These examples show how to create and manage AWS CodeBuild workflows using the SDK for Ruby.
 
-CodeBuild is a fully managed build service that compiles your source code, runs unit tests, and produces artifacts that are ready to deploy.
+Shows how to use the AWS SDK for Ruby to work with AWS CodeBuild.
 
-## ⚠️ Important
-* Running this code might result in charges to your AWS account. 
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_CodeBuild compiles your source code, runs unit tests, and produces artifacts that are ready to deploy._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
 
-### Single actions
-Code excerpts that show you how to call individual service functions.
+### Prerequisites
 
-* [Build a project](./aws-ruby-sdk-codebuild-example-build-project.rb) (`CreateProject`)
-
-* [List builds](./aws-ruby-sdk-codebuild-example-list-builds.rb) (`ListBuilds`)
-
-* [List projects](./aws-ruby-sdk-codebuild-example-list-projects.rb) (`ListProjects`)
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby` folder.
 
 
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
 ## Run the examples
 
-### Prerequisites
-
-See the [Ruby README.md](../../../ruby/README.md) for prerequisites.
-
 ### Instructions
-The easiest way to interact with this example code is by invoking [Single Actions](#single-actions) from your command line. This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments.
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
 
 ### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `ruby` folder.
+
+
+
 <!--custom.tests.start-->
+
 The example code in this directory is not currently tested.
 
 ## Contribute
+
 Code examples thrive on community contribution.
 
 To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md).
+
 <!--custom.tests.end-->
 
 ## Additional resources
-<!--custom.resources.start-->
-* [More Ruby CodeBuild code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/cb-examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby CodeBuild Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CodeBuild.html)
-* [CodeBuild User Guide](https://docs.aws.amazon.com/codebuild/)
-* [CodeBuild API Reference](https://docs.aws.amazon.com/codebuild/latest/APIReference/Welcome.html)
 
+- [CodeBuild User Guide](https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html)
+- [CodeBuild API Reference](https://docs.aws.amazon.com/codebuild/latest/APIReference/Welcome.html)
+- [SDK for Ruby CodeBuild reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Codebuild.html)
+
+<!--custom.resources.start-->
+
+- [More Ruby CodeBuild code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/cb-examples.html)
+- [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
 <!--custom.resources.end-->
 
 ---

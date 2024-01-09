@@ -1,72 +1,90 @@
-# Amazon Textract Java code examples
+# Amazon Textract code examples for the SDK for Java 2.x
 
-This README discusses how to run and test the Java code examples for Amazon Textract.
+## Overview
 
-## Running the Amazon Textract Java files
+Shows how to use the AWS SDK for Java 2.x to work with Amazon Textract.
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_Amazon Textract enables you to add document text detection and analysis to your applications._
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
 
 
- ## Testing the Amazon Textract Java files
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-You can test the Java code examples for Amazon Textract by running a test file named **AmazonTextractServiceIntegrationTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+### Single actions
 
-You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+Code excerpts that show you how to call individual service functions.
 
-	Test 3 passed
+- [Analyze a document](src/main/java/com/example/textract/AnalyzeDocument.java#L12) (`AnalyzeDocument`)
+- [Detect text in a document](src/main/java/com/example/textract/DetectDocumentText.java#L13) (`DetectDocumentText`)
+- [Start asynchronous analysis of a document](src/main/java/com/example/textract/StartDocumentAnalysis.java#L12) (`StartDocumentAnalysis`)
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
- ### Properties file
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
+
+
+
+<!--custom.tests.start-->
+
+#### Properties file
+
 Before running the Amazon Textract JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a cluster id value used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **sourceDoc** - The path where the document is located.   
+- **sourceDoc** - The path where the document is located.
 - **bucketName** - The name of the S3 bucket that contains the document.
 - **docName** - A document name (must be an image, for example, book.png).
+<!--custom.tests.end-->
 
-### Command line
-To run the JUnit tests from the command line, you can use the following command.
+## Additional resources
 
-		mvn test
+- [Amazon Textract Developer Guide](https://docs.aws.amazon.com/textract/latest/dg/what-is.html)
+- [Amazon Textract API Reference](https://docs.aws.amazon.com/textract/latest/dg/API_Reference.html)
+- [SDK for Java 2.x Amazon Textract reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/textract/package-summary.html)
 
-You will see output from the JUnit tests, as shown here.
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
-	[INFO] -------------------------------------------------------
-	[INFO]  T E S T S
-	[INFO] -------------------------------------------------------
-	[INFO] Running AmazonTextractServiceIntegrationTest
-	Test 1 passed
-	Test 2 passed
-	...
-	Done!
-	[INFO] Results:
-	[INFO]
-	[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
-	[INFO]
-	INFO] --------------------------------------------
-	[INFO] BUILD SUCCESS
-	[INFO]--------------------------------------------
-	[INFO] Total time:  12.003 s
-	[INFO] Finished at: 2020-02-10T14:25:08-05:00
-	[INFO] --------------------------------------------
+---
 
-### Unsuccessful tests
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as the following. You need to double-check the values that you set in the properties file and run the tests again.
-
-	[INFO]
-	[INFO] --------------------------------------
-	[INFO] BUILD FAILURE
-	[INFO] --------------------------------------
-	[INFO] Total time:  19.038 s
-	[INFO] Finished at: 2020-02-10T14:41:51-05:00
-	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project AmazonRedshiftServiceIntegrationTest:  There are test failures.
-	[ERROR];
+SPDX-License-Identifier: Apache-2.0

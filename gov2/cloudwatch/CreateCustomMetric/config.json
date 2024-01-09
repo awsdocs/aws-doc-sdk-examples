@@ -1,7 +1,0 @@
-{
-  "Namespace": "aws-docs-example-namespace",
-  "MetricName": "aws-docs-example-metric-name",
-  "MetricValue": "4",
-  "DimensionName": "aws-docs-example-dimension-name",
-  "DimensionValue": "aws-docs-example-dimension-value"
-}

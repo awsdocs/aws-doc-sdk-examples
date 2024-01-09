@@ -2,53 +2,62 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for PHP to create, deploy, and invoke
-AWS Lambda functions. Learn to accomplish the following tasks
+Shows how to use the AWS SDK for PHP to work with AWS Lambda.
 
-* Create, deploy, and invoke Lambda function.
-* Update function code or configuration options.
-* List all existing functions.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-*With AWS Lambda, you can run code without provisioning or managing servers. You pay only for the compute time that 
-you consume—there's no charge when your code isn't running.*
+_Lambda allows you to run code without provisioning or managing servers._
 
-## ⚠️ Important
+## ⚠ Important
 
-* Running this code might result in charges to your AWS account.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
 * Running the tests might result in charges to your AWS account.
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
+<!--custom.important.start-->
+<!--custom.important.end-->
+
 ## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-* [Create a function](LambdaService.php)
-  (`CreateFunction`)
-* [Delete a function](LambdaService.php)
-  (`DeleteFunction`)
-* [Get a function](LambdaService.php)
-  (`GetFunction`)
-* [Invoke a function](LambdaService.php)
-  (`Invoke`)
-* [List functions](LambdaService.php)
-  (`ListFunctions`)
-* [Update function code](LambdaService.php)
-  (`UpdateFunctionCode`)
-* [Update function configuration](LambdaService.php)
-  (`UpdateFunctionConfiguration`)
+- [Create a function](LambdaService.php#L32) (`CreateFunction`)
+- [Delete a function](LambdaService.php#L109) (`DeleteFunction`)
+- [Get a function](LambdaService.php#L51) (`GetFunction`)
+- [Invoke a function](LambdaService.php#L76) (`Invoke`)
+- [List functions](LambdaService.php#L60) (`ListFunctions`)
+- [Update function code](LambdaService.php#L87) (`UpdateFunctionCode`)
+- [Update function configuration](LambdaService.php#L98) (`UpdateFunctionConfiguration`)
 
 ### Scenarios
 
-Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
-* [Get started with functions](GettingStartedWithLambda.php)
+- [Get started with functions](GettingStartedWithLambda.php)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
 ## Run the examples
 
-### Get started with functions
+### Instructions
+
+
+<!--custom.instructions.start-->
 
 This interactive scenario runs at a command prompt and shows you how to use
 AWS Lambda to do the following:
@@ -75,7 +84,7 @@ following command from the `aws-doc-sdk-examples\php\Lambda\` directory:
 
 ```
 php Runner.php
-```   
+```
 
 Alternatively, you can have the choices automatically selected by running the file as part of a PHPUnit test with the
 following:
@@ -84,18 +93,48 @@ following:
 ..\..\vendor\bin\phpunit LambdaBasicsTests.php
 ```
 
-### Prerequisites
+<!--custom.instructions.end-->
 
-- You must have an AWS account, and have your default credentials and AWS Region configured as described in
-  the [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- PHP 7.1 or later.
-- Composer installed.
+
+
+#### Get started with functions
+
+This example shows you how to do the following:
+
+- Create an IAM role and Lambda function, then upload handler code.
+- Invoke the function with a single parameter and get results.
+- Update the function code and configure with an environment variable.
+- Invoke the function with new parameters and get results. Display the returned execution log.
+- List the functions for your account, then clean up resources.
+
+<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+
+
+<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `php` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
 ## Additional resources
 
-* [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
-* [AWS Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
-* [AWS SDK for PHP Lambda Client](https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.Lambda.LambdaClient.html)
+- [Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
+- [Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
+- [SDK for PHP Lambda reference](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.Lambda.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
 ---
 

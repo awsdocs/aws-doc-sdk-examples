@@ -1,15 +1,81 @@
-# Amazon OpenSearch Java code examples
+# OpenSearch code examples for the SDK for Java 2.x
 
-This README discusses how to run the Java code examples for Amazon OpenSearch.
+## Overview
 
-## Running the Amazon OpenSearch Java files
+Shows how to use the AWS SDK for Java 2.x to work with Amazon OpenSearch Service.
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Java code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_OpenSearch is a distributed, community-driven, Apache 2.0-licensed, 100% open-source search and analytics suite used for a broad set of use cases like real-time application monitoring, log analytics, and website search._
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting an # Amazon OpenSearch domain. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+## ⚠ Important
 
-To run these examples, you can setup your development environment. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create a domain](src/main/java/com/example/search/CreateDomain.java#L11) (`CreateDomain`)
+- [Delete a domain](src/main/java/com/example/search/DeleteDomain.java#L12) (`DeleteDomain`)
+- [List domains](src/main/java/com/example/search/ListDomainNames.java#L11) (`ListDomainNames`)
+- [Modify a cluster configuration](src/main/java/com/example/search/UpdateDomain.java#L12) (`UpdateDomainConfig`)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [OpenSearch User Guide](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/gsg.html)
+- [OpenSearch API Reference](https://docs.aws.amazon.com/opensearch-service/latest/APIReference/Welcome.html)
+- [SDK for Java 2.x OpenSearch reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/opensearch/package-summary.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

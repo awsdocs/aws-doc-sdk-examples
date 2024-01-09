@@ -36,7 +36,7 @@ language = {
             "base_folder": "gov2",
             "service_folder": 'gov2/{{service["name"]}}',
             "sdk_api_ref": 'https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/{{service["name"]}}',
-        }
+        },
     },
     "Java": {
         2: {
@@ -46,14 +46,9 @@ language = {
             "service_folder_overrides": {
                 "medical-imaging": "javav2/example_code/medicalimaging",
             },
-        }
+        },
     },
     "JavaScript": {
-        2: {
-            "base_folder": "javascript",
-            "service_folder": 'javascript/example_code/{{service["name"]}}',
-            "sdk_api_ref": 'https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/{{service["name"] | capitalize}}.html',
-        },
         3: {
             "base_folder": "javascriptv3",
             "service_folder": 'javascriptv3/example_code/{{service["name"]}}',
@@ -128,6 +123,7 @@ language = {
                 "config-service": "python/example_code/config",
                 "device-farm": "python/example_code/devicefarm",
                 "elastic-load-balancing-v2": "python/example_code/elastic-load-balancing",
+                "secrets-manager": "python/example_code/secretsmanager",
             },
         }
     },
@@ -150,6 +146,10 @@ language = {
             "base_folder": "sap-abap",
             "service_folder": 'sap-abap/services/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/{{service["name"]}}/index.html',
+            "service_folder_overrides": {
+                "bedrock-runtime": "sap-abap/services/bdr",
+                "dynamodb": "sap-abap/services/dyn",
+            },
         }
     },
     "Swift": {

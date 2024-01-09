@@ -5,8 +5,11 @@
 import argparse
 import config
 import logging
-from scanner import Scanner
+import os
+import sys
+from pathlib import Path
 from render import Renderer
+from scanner import Scanner
 
 
 def main():
@@ -46,10 +49,11 @@ def main():
         "--dry-run",
         action="store_true",
         dest="dry_run",
-        help="This tool is in development. You must pass --dry-run=false to have it run.",
-        default=True,  # Change this to default false when we're ready to use this generally.
+        help="In dry run, compare current vs generated and exit with failure if they do not match.",
+        default=False,  # Change this to default false when we're ready to use this generally.
     )
     parser.add_argument("--no-dry-run", dest="dry_run", action="store_false")
+    parser.add_argument("--check", dest="dry_run", action="store_true")
     args = parser.parse_args()
 
     if "all" in args.languages:
@@ -67,6 +71,7 @@ def main():
         logging.info("Dry run, no changes will be made.")
 
     skipped = []
+    failed = []
 
     for language_and_version in args.languages:
         (language, version) = language_and_version.split(":")
@@ -77,18 +82,32 @@ def main():
                 try:
                     scanner.set_example(language, service)
                     logging.debug(f"Rendering {language}:{version}:{service}")
-                    if not args.dry_run:
-                        Renderer(scanner, int(version), args.safe).render()
-                except Exception as err:
+                    renderer = Renderer(scanner, int(version), args.safe)
+
+                    result = renderer.render()
+                    if result is None:
+                        continue
+                    if args.dry_run:
+                        if not renderer.check():
+                            failed.append(f"{language}:{version}:{service}")
+                    else:
+                        renderer.write()
+                except FileNotFoundError:
                     skip = f"{language}:{version}:{service}"
-                    logging.error(
-                        f"Exception rendering {skip} - {err}",
-                    )
                     skipped.append(skip)
+                except Exception:
+                    skip = f"{language}:{version}:{service}"
+                    logging.exception(
+                        f"Exception rendering {skip}",
+                    )
 
     skip_list = "\n\t".join(skipped)
     logging.info(f"Run complete. Skipped: {skip_list}")
+    if len(failed) > 0:
+        failed_list = "\n\t".join(failed)
+        logging.warning(f"READMEs with incorrect formatting:\n\t{failed_list}")
+    return len(failed)
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

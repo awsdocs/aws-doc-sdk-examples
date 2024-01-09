@@ -146,13 +146,6 @@ sns_ListSubscriptions:
           excerpts:
             - snippet_tags:
                 - sns.cpp.list_subscriptions.code
-    Go:
-      versions:
-        - github: gov2/sns/ListSubscriptions
-          sdk_version: 2
-          excerpts:
-            - snippet_tags:
-                - sns.go-v2.ListSubscriptions
     PHP:
       versions:
         - sdk_version: 3
@@ -237,13 +230,6 @@ sns_ListTopics:
           excerpts:
             - snippet_tags:
                 - sns.cpp.list_topics.code
-    Go:
-      versions:
-        - github: gov2/sns/ListTopics
-          sdk_version: 2
-          excerpts:
-            - snippet_tags:
-                - sns.go-v2.ListTopics
     PHP:
       versions:
         - sdk_version: 3
@@ -410,7 +396,6 @@ sns_Subscribe_Lambda:
                 - sns.JavaScript.subscriptions.subscribeLambdaV3
   services:
     sns: {Subscribe}
-
 sns_GetSMSAttributes:
   title: Get the settings for sending &SNS; SMS messages using an &AWS; SDK
   title_abbrev: Get the settings for sending SMS messages
@@ -676,13 +661,6 @@ sns_CreateTopic:
           excerpts:
             - snippet_tags:
                 - sns.cpp.create_topic.code
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/sns/CreateTopic
-          excerpts:
-            - snippet_tags:
-                - sns.go-v2.CreateTopic
     Kotlin:
       versions:
         - sdk_version: 1
@@ -879,13 +857,6 @@ sns_Publish:
           excerpts:
             - snippet_tags:
                 - sns.cpp.publish_to_topic.code
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/sns/Publish
-          excerpts:
-            - snippet_tags:
-                - sns.go-v2.Publish
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1112,13 +1083,6 @@ sns_Subscribe:
           excerpts:
             - snippet_tags:
                 - sns.cpp.subscribe_email.code
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/sns/Subscribe
-          excerpts:
-            - snippet_tags:
-                - sns.go-v2.Subscribe
     Kotlin:
       versions:
         - sdk_version: 1

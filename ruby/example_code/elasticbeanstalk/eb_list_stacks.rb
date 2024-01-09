@@ -75,10 +75,10 @@ stacks.each do |s|
   if filter != ""
     d = s.downcase
 
-      if d.include? filter
-        puts s
-        filtered_length += 1
-      end
+    if d.include? filter
+      puts s
+      filtered_length += 1
+    end
   else
     puts s
   end
