@@ -45,19 +45,6 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.examples.start-->
-
-#### Create and invoke agents
-
-This example shows you how to do the following:
-
-- Create an execution role for the agent.
-- Create the agent and deploy a DRAFT version.
-- Create a Lambda function that implements the agent's capabilities.
-- Create an action group that connects the agent to the Lambda function.
-- Deploy the fully configured agent.
-- Invoke the agent with user-provided prompts.
-- Delete all created resources.
-
 <!--custom.examples.end-->
 
 ## Run the examples
