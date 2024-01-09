@@ -84,7 +84,10 @@ def main():
                     logging.debug(f"Rendering {language}:{version}:{service}")
                     renderer = Renderer(scanner, int(version), args.safe)
 
-                    readme_filename, readme_text = renderer.render()
+                    result = renderer.render()
+                    if result is None:
+                        continue
+                    readme_filename, readme_text = result
                     if args.dry_run:
                         with open(readme_filename, "r", encoding="utf-8") as f:
                             readme_current = f.read()

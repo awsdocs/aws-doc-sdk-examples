@@ -30,7 +30,12 @@ class Renderer:
         self.template.globals["now"] = datetime.datetime.utcnow
         self.scanner = scanner
         self.sdk_ver = int(sdk_ver)
-        self.lang_config = config.language[self.scanner.lang_name][self.sdk_ver].copy()
+        self.lang_config = config.language.get(self.scanner.lang_name, {}).get(
+            self.sdk_ver, None
+        )
+        if self.lang_config is None:
+            return
+        self.lang_config = self.lang_config.copy()
         service_info = {
             "name": self.scanner.svc_name,
             "sort": self.scanner.service()["sort"].replace(" ", ""),
@@ -54,7 +59,7 @@ class Renderer:
                     "Service folder not found. You must either specify a service_folder template in config.py or\n"
                     "as a command line --svc_folder argument."
                 )
-        sdk_api_ref_tmpl = env.from_string(self.lang_config["sdk_api_ref"])
+        sdk_api_ref_tmpl = env.from_string(self.lang_config.get("sdk_api_ref", ""))
         self.lang_config["sdk_api_ref"] = sdk_api_ref_tmpl.render(service=service_info)
         self.safe = safe
 
@@ -230,6 +235,8 @@ class Renderer:
         return customs
 
     def render(self):
+        if self.lang_config is None:
+            return None
         sdk = self._transform_sdk()
         svc = self._transform_service()
         hello = self._transform_actions(self.scanner.hello())
