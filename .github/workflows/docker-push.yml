@@ -82,7 +82,7 @@ jobs:
           REPOSITORY: javascriptv3
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
