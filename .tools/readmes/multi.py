@@ -87,21 +87,11 @@ def main():
                     result = renderer.render()
                     if result is None:
                         continue
-                    readme_filename, readme_text = result
                     if args.dry_run:
-                        with open(readme_filename, "r", encoding="utf-8") as f:
-                            readme_current = f.read()
-                        if readme_current != readme_text:
+                        if not renderer.check():
                             failed.append(f"{language}:{version}:{service}")
                     else:
-                        if args.safe and Path(readme_filename).exists():
-                            os.rename(
-                                readme_filename,
-                                f'{renderer.lang_config["service_folder"]}/{config.saved_readme}',
-                            )
-                        with open(readme_filename, "w", encoding="utf-8") as f:
-                            f.write(readme_text)
-                        print(f"Updated {readme_filename}.")
+                        renderer.write()
                 except FileNotFoundError:
                     skip = f"{language}:{version}:{service}"
                     skipped.append(skip)
