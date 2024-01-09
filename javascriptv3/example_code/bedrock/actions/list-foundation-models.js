@@ -3,14 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from 'url';
 
 // snippet-start:[javascript.v3.bedrock.actions.ListFoundationModels]
-import { BedrockClient, ListFoundationModelsCommand } from "@aws-sdk/client-bedrock";
+import { BedrockClient, ListFoundationModelsCommand } from '@aws-sdk/client-bedrock';
 
 /**
  * List the available Amazon Bedrock foundation models.
- * @return {Object[]} - The list of available bedrock foundation models.
+ *
+ * @return {FoundationModelSummary[]} - The list of available bedrock foundation models.
  */
 export const listFoundationModels = async () => {
     const client = new BedrockClient();

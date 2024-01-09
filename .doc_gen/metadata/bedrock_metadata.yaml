@@ -32,6 +32,22 @@ bedrock_Hello:
   services:
     bedrock: {ListFoundationModels}
 
+bedrock_GetFoundationModel:
+  title: Get details about an &BRlong; foundation model using an &AWS; SDK
+  title_abbrev: Get details about an &BR; foundation model
+  synopsis: get details about an &BR; foundation model.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock
+          excerpts:
+            - description: Get details about a foundation model.
+              snippet_tags:
+                - javascript.v3.bedrock.actions.GetFoundationModel
+  services:
+    bedrock: { GetFoundationModel }
+
 bedrock_ListFoundationModels:
   title: List the available &BRlong; foundation models using an &AWS; SDK
   title_abbrev: List available &BR; foundation models
@@ -60,7 +76,7 @@ bedrock_ListFoundationModels:
         - sdk_version: 3
           github: javascriptv3/example_code/bedrock
           excerpts:
-            - description: List the available Bedrock foundation models.
+            - description: List the available foundation models.
               snippet_tags:
                 - javascript.v3.bedrock.actions.ListFoundationModels
     Kotlin:

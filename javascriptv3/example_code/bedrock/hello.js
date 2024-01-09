@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from 'url';
 
 // snippet-start:[javascript.v3.bedrock.hello]
 
-import { BedrockClient, ListFoundationModelsCommand } from "@aws-sdk/client-bedrock";
+import { BedrockClient, ListFoundationModelsCommand } from '@aws-sdk/client-bedrock';
 
 const REGION = 'us-east-1';
 const client = new BedrockClient( { region: REGION } );
@@ -23,7 +23,7 @@ export const main = async () => {
     for (let model of models) {
         console.log('='.repeat(42));
         console.log(` Model: ${model.modelId}`);
-        console.log("-".repeat(42));
+        console.log('-'.repeat(42));
         console.log(` Name: ${model.modelName}`);
         console.log(` Provider: ${model.providerName}`);
         console.log(` Model ARN: ${model.modelArn}`);
@@ -46,5 +46,5 @@ export const main = async () => {
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    main();
+    await main();
 }
