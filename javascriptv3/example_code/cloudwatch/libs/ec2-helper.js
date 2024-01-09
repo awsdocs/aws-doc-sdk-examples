@@ -8,9 +8,8 @@ import {
   TerminateInstancesCommand,
 } from "@aws-sdk/client-ec2";
 import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
-import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 
-const client = new EC2Client({ region: DEFAULT_REGION });
+const client = new EC2Client({});
 
 export const runEC2Instance = async () => {
   // Free Tier - Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type

@@ -2524,9 +2524,7 @@ s3_Scenario_GettingStarted:
                            of those utilities.
               snippet_tags:
                 - javascript.v3.utils.dirnameFromMetaUrl
-                - javascript.v3.utils.promptToSelect
-                - javascript.v3.utils.promptToContinue
-                - javascript.v3.utils.promptForText
+                - javascript.v3.utils.prompter
                 - javascript.v3.utils.wrapText
             - description: Objects in S3 are stored in 'buckets'. Let's define a function
                            for creating a new bucket.

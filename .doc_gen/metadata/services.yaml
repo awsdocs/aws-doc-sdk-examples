@@ -375,7 +375,7 @@ chime:
     url: chime/latest/ug/what-is-chime.html
   long: '&CHMlong;'
   short: '&CHM;'
-  sort: Amazon Chime
+  sort: Chime
   tags:
     product_categories: {}
   version: '2018-05-01'
@@ -833,6 +833,21 @@ database-migration-service:
   tags:
     product_categories: {}
   version: '2016-01-01'
+datasync:
+  api_ref: datasync/latest/userguide/API_Reference.html
+  blurb: is an online data movement and discovery service that simplifies data migration and helps you quickly, easily, and securely transfer your file or object data to, from, and between AWS storage services.
+  expanded:
+    long: AWS DataSync
+    short: DataSync
+  guide:
+    subtitle: User Guide
+    url: datasync/latest/userguide/what-is-datasync.html
+  long: '&DSYlong;'
+  short: '&DSY;'
+  sort: DataSync
+  tags:
+    product_categories: {}
+  version: '2018-11-09'
 dax:
   api_ref: amazondynamodb/latest/APIReference/Welcome.html
   blurb: ''
@@ -919,7 +934,7 @@ dlm:
     url: AWSEC2/latest/UserGuide/snapshot-lifecycle.html
   long: '&DLMlong;'
   short: '&DLM;'
-  sort: Amazon Data Lifecycle Manager
+  sort: Data Lifecycle Manager
   tags:
     product_categories: {}
   version: '2018-01-12'
@@ -1070,7 +1085,7 @@ efs:
     url: efs/latest/ug/whatisefs.html
   long: '&EFSlong;'
   short: '&EFS;'
-  sort: Amazon EFS
+  sort: EFS
   tags:
     product_categories: {}
   version: '2015-02-01'
@@ -1295,7 +1310,7 @@ gamelift:
     url: gamelift/latest/developerguide/gamelift-intro.html
   long: '&AGSlong;'
   short: '&AGS;'
-  sort: Amazon GameLift
+  sort: GameLift
   tags:
     product_categories: {}
   version: '2015-10-01'
@@ -1479,7 +1494,7 @@ inspector:
     url: inspector/latest/user/what-is-inspector.html
   long: '&INSlong;'
   short: '&INS;'
-  sort: Amazon Inspector
+  sort: Inspector
   tags:
     product_categories: {}
   version: '2016-02-16'
@@ -1649,6 +1664,21 @@ iotsitewise:
   tags:
     product_categories: {}
   version: '2019-12-02'
+iotthingsgraph:
+  api_ref: iot-twinmaker/latest/apireference/Welcome.html
+  blurb: ''
+  expanded:
+    long: AWS IoT Things Graph
+    short: AWS IoT Things Graph
+  guide:
+    subtitle: User Guide
+    url: iot-twinmaker/latest/guide/what-is-twinmaker.html
+  long: '&ITTGlong;'
+  short: '&ITTG;'
+  sort: IoT Things Graph
+  tags:
+    product_categories: {}
+  version: '2018-09-06'
 ivs:
   api_ref: ivs/latest/APIReference/Welcome.html
   blurb: ''
@@ -2510,7 +2540,7 @@ route-53:
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
   version: route53-2013-04-01
-route53-domains:
+route-53-domains:
   bundle: route-53
   long: '&R53DRlong;'
   short: '&R53DR;'
@@ -2582,7 +2612,7 @@ s3-control:
     url: AmazonS3/latest/userguide/Welcome.html
   long: '&S3Controllong;'
   short: '&S3Control;'
-  sort: Amazon S3 Control
+  sort: S3 Control
   tags:
     product_categories: {}
   version: '2018-08-20'
@@ -2642,7 +2672,7 @@ serverlessapplicationrepository:
     url: serverlessrepo/latest/devguide/what-is-serverlessrepo.html
   long: '&SARlong;'
   short: '&SAR;'
-  sort: AWS Serverless Application Repository
+  sort: Serverless Application Repository
   tags:
     product_categories: {}
   version: '2017-09-08'
@@ -2931,7 +2961,7 @@ swf:
     url: amazonswf/latest/developerguide/swf-welcome.html
   long: '&SWFlong;'
   short: '&SWF;'
-  sort: Amazon SWF
+  sort: SWF
   tags:
     product_categories: {}
   version: '2012-01-25'
@@ -3052,7 +3082,7 @@ waf-regional:
     url: waf/latest/developerguide/waf-chapter.html
   long: '&WAFRegionallong;'
   short: '&WAFRegional;'
-  sort: AWS WAF
+  sort: WAF
   tags:
     product_categories: {}
   version: '2016-11-28'
@@ -3082,7 +3112,7 @@ workdocs:
     url: workdocs/latest/developerguide/what_is.html
   long: '&WDlong;'
   short: '&WD;'
-  sort: Amazon WorkDocs
+  sort: WorkDocs
   tags:
     product_categories: {}
   version: '2016-05-01'
@@ -3097,7 +3127,7 @@ workmail:
     url: workmail/latest/userguide/what_is.html
   long: '&WMlong;'
   short: '&WM;'
-  sort: Amazon WorkMail
+  sort: WorkMail
   tags:
     product_categories: {}
   version: '2017-10-01'
@@ -3112,7 +3142,7 @@ workmailmessageflow:
     url: workmail/latest/userguide/what_is.html
   long: '&WMFlowlong;'
   short: '&WMFlow;'
-  sort: Amazon WorkMail Message Flow
+  sort: WorkMail Message Flow
   tags:
     product_categories: {}
   version: '2019-05-01'

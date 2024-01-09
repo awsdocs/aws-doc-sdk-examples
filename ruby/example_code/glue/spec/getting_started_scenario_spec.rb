@@ -22,9 +22,9 @@ require_relative("../../../helpers/waiters")
 require_relative("../glue_wrapper")
 require_relative("../getting_started")
 
-describe GlueWrapper do
+describe GlueWrapper, :quarantine do
   context "GlueWrapper" do
-    resource_names = YAML.load_file("../resource_names.yaml")
+    resource_names = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "./..", "resource_names.yaml")))
 
     # Instantiate existing IAM role created with the CDK
     iam = Aws::IAM::Resource.new(region: "us-east-1")

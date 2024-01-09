@@ -12,7 +12,6 @@ import {
   DeleteTableCommand,
   DynamoDBClient,
   waitUntilTableExists,
-  ExecuteStatementCommand as BaseExecuteStatementCommand,
 } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,
@@ -71,16 +70,10 @@ export const main = async () => {
    */
 
   log("Inserting a coffee into the table.");
-  // The base client is used here instead of 'lib-dynamodb'. There's
-  // a bug (https://github.com/aws/aws-sdk-js-v3/issues/4703) in the SDK
-  // causing list parameters to not be handled correctly.
-  const addItemStatementCommand = new BaseExecuteStatementCommand({
+  const addItemStatementCommand = new ExecuteStatementCommand({
     // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.insert.html
     Statement: `INSERT INTO ${tableName} value {'varietal':?, 'profile':?}`,
-    Parameters: [
-      { S: "arabica" },
-      { L: [{ S: "chocolate" }, { S: "floral" }] },
-    ],
+    Parameters: ["arabica", ["chocolate", "floral"]],
   });
   await client.send(addItemStatementCommand);
   log(`Coffee inserted.`);
@@ -103,11 +96,10 @@ export const main = async () => {
    */
 
   log("Add a flavor profile to the coffee.");
-  // The base client is used here for the same reasons described previously.
-  const updateItemStatementCommand = new BaseExecuteStatementCommand({
+  const updateItemStatementCommand = new ExecuteStatementCommand({
     // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.update.html
     Statement: `UPDATE ${tableName} SET profile=list_append(profile, ?) WHERE varietal=?`,
-    Parameters: [{ L: [{ S: "fruity" }] }, { S: "arabica" }],
+    Parameters: [["fruity"], "arabica"],
   });
   await client.send(updateItemStatementCommand);
   log(`Updated coffee`);

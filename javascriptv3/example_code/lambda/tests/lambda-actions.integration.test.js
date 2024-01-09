@@ -14,7 +14,6 @@ import {
 
 import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
 import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
-import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 
 import {
   waitForFunctionActive,
@@ -30,7 +29,7 @@ import { updateFunctionConfiguration } from "../actions/update-function-configur
 import { helloLambda } from "../hello.js";
 
 describe("Creating, getting, invoking, listing, updating, and deleting", () => {
-  const iamClient = new IAMClient({ region: DEFAULT_REGION });
+  const iamClient = new IAMClient({});
   const roleName = "test-lambda-actions-role-name";
   const rolePolicyArn =
     "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole";
