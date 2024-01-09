@@ -5,8 +5,6 @@
 
 import { fileURLToPath } from 'url';
 
-// snippet-start:[javascript.v3.bedrock.hello]
-
 import { BedrockClient, ListFoundationModelsCommand } from '@aws-sdk/client-bedrock';
 
 const REGION = 'us-east-1';
@@ -42,7 +40,6 @@ export const main = async () => {
 
     return response;
 };
-// snippet-end:[javascript.v3.bedrock.hello]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

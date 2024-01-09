@@ -32,15 +32,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Amazon Bedrock](hello.js#L8) (`ListFoundationModels`)
+- [Hello Amazon Bedrock](javascriptv3/example_code/bedrock/hello.js) (`ListFoundationModels`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get details about an Amazon Bedrock foundation model](actions/get-foundation-model.js#L8) (`GetFoundationModel`)
-- [List available Amazon Bedrock foundation models](actions/list-foundation-models.js#L8) (`ListFoundationModels`)
+- [Get details about an Amazon Bedrock foundation model](javascriptv3/example_code/bedrock/actions/getFoundationModel.js) (`GetFoundationModel`)
+- [List available Amazon Bedrock foundation models](javascriptv3/example_code/bedrock/actions/listFoundationModels.js) (`ListFoundationModels`)
 
 
 <!--custom.examples.start-->
