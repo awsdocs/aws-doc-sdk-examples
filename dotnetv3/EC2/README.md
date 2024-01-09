@@ -40,18 +40,25 @@ Code excerpts that show you how to call individual service functions.
 
 - [Allocate an Elastic IP address](Actions/EC2Wrapper.cs#L19) (`AllocateAddress`)
 - [Associate an Elastic IP address with an instance](Actions/EC2Wrapper.cs#L33) (`AssociateAddress`)
+- [Create a launch template](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L260) (`CreateLaunchTemplate`)
 - [Create a security group](Actions/EC2Wrapper.cs#L145) (`CreateSecurityGroup`)
 - [Create a security key pair](Actions/EC2Wrapper.cs#L98) (`CreateKeyPair`)
 - [Create and run an instance](Actions/EC2Wrapper.cs#L587) (`RunInstances`)
+- [Delete a launch template](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L402) (`DeleteLaunchTemplate`)
 - [Delete a security group](Actions/EC2Wrapper.cs#L223) (`DeleteSecurityGroup`)
 - [Delete a security key pair](Actions/EC2Wrapper.cs#L190) (`DeleteKeyPair`)
+- [Describe Availability Zones](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L304) (`DescribeAvailabilityZones`)
 - [Describe instances](Actions/EC2Wrapper.cs#L316) (`DescribeInstances`)
 - [Disassociate an Elastic IP address from an instance](Actions/EC2Wrapper.cs#L516) (`DisassociateAddress`)
 - [Get data about a security group](Actions/EC2Wrapper.cs#L454) (`DescribeSecurityGroups`)
 - [Get data about instance types](Actions/EC2Wrapper.cs#L395) (`DescribeInstanceTypes`)
+- [Get data about the instance profile associated with an instance](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L495) (`DescribeIamInstanceProfileAssociations`)
+- [Get the default VPC](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L352) (`DescribeVpcs`)
+- [Get the default subnets for a VPC](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L371) (`DescribeSubnets`)
 - [List security key pairs](Actions/EC2Wrapper.cs#L432) (`DescribeKeyPairs`)
 - [Reboot an instance](Actions/EC2Wrapper.cs#L544) (`RebootInstances`)
 - [Release an Elastic IP address](Actions/EC2Wrapper.cs#L569) (`ReleaseAddress`)
+- [Replace the instance profile associated with an instance](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L515) (`ReplaceIamInstanceProfileAssociation`)
 - [Set inbound rules for a security group](Actions/EC2Wrapper.cs#L55) (`AuthorizeSecurityGroupIngress`)
 - [Start an instance](Actions/EC2Wrapper.cs#L616) (`StartInstances`)
 - [Stop an instance](Actions/EC2Wrapper.cs#L643) (`StopInstances`)
@@ -62,6 +69,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Build and manage a resilient service](../cross-service/ResilientService/ResilientServiceWorkflow/ResilientServiceWorkflow.cs)
 - [Get started with instances](Scenarios/EC2_Basics/EC2Basics.cs)
 
 
@@ -98,6 +106,24 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Amazon EC2.
 
 
+
+#### Build and manage a resilient service
+
+This example shows you how to create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.
+
+- Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.
+- Handle and distribute HTTP requests with Elastic Load Balancing.
+- Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.
+- Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.
+- Simulate a recommendation service with an Amazon DynamoDB table.
+- Control web server response to requests and health checks by updating AWS Systems Manager parameters.
+
+<!--custom.scenario_prereqs.cross_ResilientService.start-->
+<!--custom.scenario_prereqs.cross_ResilientService.end-->
+
+
+<!--custom.scenarios.cross_ResilientService.start-->
+<!--custom.scenarios.cross_ResilientService.end-->
 
 #### Get started with instances
 

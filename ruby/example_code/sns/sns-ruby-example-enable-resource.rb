@@ -36,7 +36,7 @@ policy  = '{
 sns = Aws::SNS::Resource.new(region: "REGION")
 
 # Get topic by ARN
-topic = sns.topic()
+topic = sns.topic
 
 # Add policy to topic
 topic.set_attributes({

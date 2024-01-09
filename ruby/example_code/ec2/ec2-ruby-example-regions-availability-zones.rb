@@ -28,10 +28,10 @@ def list_regions_endpoints(ec2_client)
   print "\n"
   # Print Regions and their endpoints.
   result.regions.each do |region|
-    print region.region_name.to_s
+    print region.region_name
     print " " * (max_region_string_length - region.region_name.length)
     print "  "
-    print region.endpoint.to_s
+    print region.endpoint
     print "\n"
   end
 end

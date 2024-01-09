@@ -41,8 +41,7 @@ class ProducerStack(Stack):
             "trigger-rule",
             schedule=events.Schedule.cron(
                 minute="0",
-                hour="22",
-                week_day="FRI",
+                hour="*",
             ),
         )
         rule.add_target(targets.SnsTopic(topic))
@@ -106,8 +105,11 @@ class ProducerStack(Stack):
         if len(languages) > 0:
             # Define policy that allows cross-account Amazon SNS and Amazon SQS access.
             statement = iam.PolicyStatement()
-            statement.add_actions("s3:PutObject", "s3:PutObjectAcl")
+            statement.add_actions(
+                "s3:PutObject", "s3:PutObjectAcl", "s3:DeleteObject", "s3:ListBucket"
+            )
             statement.add_resources(f"{bucket.bucket_arn}/*")
+            statement.add_resources(bucket.bucket_arn)
             for language in languages:
                 if "enabled" in str(target_accts[language]["status"]):
                     statement.add_arn_principal(

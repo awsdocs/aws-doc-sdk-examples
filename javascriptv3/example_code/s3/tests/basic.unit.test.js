@@ -26,13 +26,13 @@ vi.doMock("fs", async () => {
   };
 });
 
-vi.doMock("@aws-sdk-examples/libs/utils/util-io.js", async () => {
-  const actual = await vi.importActual(
-    "@aws-sdk-examples/libs/utils/util-io.js",
-  );
+vi.doMock("@aws-sdk-examples/libs/prompter.js", () => {
   return {
-    ...actual,
-    promptForText: () => Promise.resolve("my-bucket"),
+    Prompter: class MockPrompter {
+      input() {
+        return Promise.resolve("name");
+      }
+    },
   };
 });
 

@@ -10,9 +10,8 @@ import {
   DetachRolePolicyCommand,
   IAMClient,
 } from "@aws-sdk/client-iam";
-import { DEFAULT_REGION } from "./constants.js";
 
-const client = new IAMClient({ region: DEFAULT_REGION });
+const client = new IAMClient({});
 
 const createRole = async (roleName, statement) => {
   const command = new CreateRoleCommand({
