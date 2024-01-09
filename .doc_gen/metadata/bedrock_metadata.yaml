@@ -55,6 +55,14 @@ bedrock_ListFoundationModels:
             - description: List the available &BRlong; foundation models.
               snippet_tags:
                 - bedrock.java2.list_foundation_models.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock
+          excerpts:
+            - description: List the available Bedrock foundation models.
+              snippet_tags:
+                - javascript.v3.bedrock.actions.ListFoundationModels
     Kotlin:
       versions:
         - sdk_version: 1
