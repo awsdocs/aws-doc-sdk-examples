@@ -11,19 +11,15 @@ package com.example.pinpoint;
 
 //snippet-start:[pinpoint.java2.send_emailcc.main]
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.pinpoint.PinpointClient;
-import software.amazon.awssdk.services.pinpoint.model.AddressConfiguration;
-import software.amazon.awssdk.services.pinpoint.model.ChannelType;
-import software.amazon.awssdk.services.pinpoint.model.SimpleEmailPart;
-import software.amazon.awssdk.services.pinpoint.model.SimpleEmail;
-import software.amazon.awssdk.services.pinpoint.model.EmailMessage;
-import software.amazon.awssdk.services.pinpoint.model.DirectMessageConfiguration;
-import software.amazon.awssdk.services.pinpoint.model.MessageRequest;
-import software.amazon.awssdk.services.pinpoint.model.SendMessagesRequest;
 import software.amazon.awssdk.services.pinpoint.model.PinpointException;
+import  software.amazon.awssdk.services.pinpointemail.PinpointEmailClient;
+import software.amazon.awssdk.services.pinpointemail.model.Body;
+import software.amazon.awssdk.services.pinpointemail.model.Content;
+import software.amazon.awssdk.services.pinpointemail.model.Destination;
+import software.amazon.awssdk.services.pinpointemail.model.EmailContent;
+import software.amazon.awssdk.services.pinpointemail.model.Message;
+import software.amazon.awssdk.services.pinpointemail.model.SendEmailRequest;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -34,16 +30,13 @@ import java.util.Map;
  */
 public class SendEmailMessageCC {
 
-    // The character encoding the you want to use for the subject line and
-    // message body of the email.
-    public static String charset = "UTF-8";
-
-    // The body of the email for recipients whose email clients support HTML content.
-    static final String htmlBody = "<h1>Amazon Pinpoint test (AWS SDK for Java 2.x)</h1>"
-        + "<p>This email was sent through the <a href='https://aws.amazon.com/pinpoint/'>"
-        + "Amazon Pinpoint</a> Email API using the "
-        + "<a href='https://aws.amazon.com/sdk-for-java/'>AWS SDK for Java 2.x</a>";
-
+    // The body of the email.
+    static final String body = """
+        Amazon Pinpoint test (AWS SDK for Java 2.x)
+                
+        This email was sent through the Amazon Pinpoint Email API using the AWS SDK for Java 2.x
+                
+        """;
     public static void main(String[] args) {
         final String usage = """
 
@@ -51,99 +44,65 @@ public class SendEmailMessageCC {
 
             Where:
                subject - The email subject to use.
-               appId - The Amazon Pinpoint project/application ID to use when you send this message
                senderAddress - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email\s
                toAddress - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email\s
-               ccAddress1 - The first CC address.
-               ccAddress2 - The second CC address.
+               ccAddress1 - The CC address.
             """;
 
-        if (args.length != 6) {
-             System.out.println(usage);
-             System.exit(1);
+        if (args.length != 4) {
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String subject = args[0];
-        String appId = args[1];
         String senderAddress = args[2];
         String toAddress = args[3];
         String ccAddress1 = args[4];
-        String ccAddress2 = args[5];
 
         System.out.println("Sending a message");
-        PinpointClient pinpoint = PinpointClient.builder()
+        PinpointEmailClient pinpoint = PinpointEmailClient.builder()
             .region(Region.US_EAST_1)
             .build();
 
         ArrayList<String> ccList = new ArrayList<>();
         ccList.add(ccAddress1);
-        ccList.add(ccAddress2);
-        sendEmail(pinpoint, subject, appId, senderAddress, toAddress, ccList);
+        sendEmail(pinpoint, subject, senderAddress, toAddress, ccList);
         pinpoint.close();
     }
 
-    public static void sendEmail(PinpointClient pinpoint,
-                                 String subject,
-                                 String appId,
-                                 String senderAddress,
-                                 String toAddress,
-                                 ArrayList<String> ccAddresses) {
-
+    public static void sendEmail(PinpointEmailClient pinpointEmailClient, String subject, String senderAddress, String toAddress, ArrayList<String> ccAddresses) {
         try {
-            Map<String, AddressConfiguration> addressMap = new HashMap<>();
-            AddressConfiguration addressConfig = AddressConfiguration.builder()
-                .channelType(ChannelType.EMAIL)
+            Content content = Content.builder()
+                .data(body)
                 .build();
 
-            addressMap.put(toAddress, addressConfig);
-
-            // Create a separate AddressConfiguration for CC recipients.
-            AddressConfiguration ccAddressConfig = AddressConfiguration.builder()
-                .channelType(ChannelType.EMAIL)
+            Body messageBody = Body.builder()
+                .text(content)
                 .build();
 
-            // Add CC addresses to the addressMap.
-            for (String ccAddress : ccAddresses) {
-                addressMap.put(ccAddress, ccAddressConfig);
-            }
-
-            SimpleEmailPart emailPart = SimpleEmailPart.builder()
-                .data(htmlBody)
-                .charset(charset)
+            Message message = Message.builder()
+                .body(messageBody)
+                .subject(Content.builder().data(subject).build())
                 .build();
 
-            SimpleEmailPart subjectPart = SimpleEmailPart.builder()
-                .data(subject)
-                .charset(charset)
+            Destination destination = Destination.builder()
+                .toAddresses(toAddress)
+                .ccAddresses(ccAddresses)
                 .build();
 
-            SimpleEmail simpleEmail = SimpleEmail.builder()
-                .htmlPart(emailPart)
-                .subject(subjectPart)
+            EmailContent emailContent = EmailContent.builder()
+                .simple(message)
                 .build();
 
-            EmailMessage emailMessage = EmailMessage.builder()
-                .body(htmlBody)
-                .fromAddress(senderAddress)
-                .simpleEmail(simpleEmail)
+            SendEmailRequest sendEmailRequest = SendEmailRequest.builder()
+                .fromEmailAddress(senderAddress)
+                .destination(destination)
+                .content(emailContent)
                 .build();
 
-            DirectMessageConfiguration directMessageConfiguration = DirectMessageConfiguration.builder()
-                .emailMessage(emailMessage)
-                .build();
-
-            MessageRequest messageRequest = MessageRequest.builder()
-                .addresses(addressMap)
-                .messageConfiguration(directMessageConfiguration)
-                .build();
-
-            SendMessagesRequest messagesRequest = SendMessagesRequest.builder()
-                .applicationId(appId)
-                .messageRequest(messageRequest)
-                .build();
-
-            pinpoint.sendMessages(messagesRequest);
+            pinpointEmailClient.sendEmail(sendEmailRequest);
             System.out.println("Message Sent");
+
         } catch (PinpointException e) {
             // Handle exception
             e.printStackTrace();
