@@ -50,9 +50,10 @@ def main():
         action="store_true",
         dest="dry_run",
         help="In dry run, compare current vs generated and exit with failure if they do not match.",
-        default=True,  # Change this to default false when we're ready to use this generally.
+        default=False,  # Change this to default false when we're ready to use this generally.
     )
     parser.add_argument("--no-dry-run", dest="dry_run", action="store_false")
+    parser.add_argument("--check", dest="dry_run", action="store_true")
     args = parser.parse_args()
 
     if "all" in args.languages:
@@ -83,7 +84,10 @@ def main():
                     logging.debug(f"Rendering {language}:{version}:{service}")
                     renderer = Renderer(scanner, int(version), args.safe)
 
-                    readme_filename, readme_text = renderer.render()
+                    result = renderer.render()
+                    if result is None:
+                        continue
+                    readme_filename, readme_text = result
                     if args.dry_run:
                         with open(readme_filename, "r", encoding="utf-8") as f:
                             readme_current = f.read()
