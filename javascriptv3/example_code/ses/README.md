@@ -54,6 +54,12 @@ Code excerpts that show you how to call individual service functions.
 - [Verify a domain identity](src/ses_verifydomainidentity.js#L14) (`VerifyDomainIdentity`)
 - [Verify an email identity](src/ses_verifyemailidentity.js#L15) (`VerifyEmailIdentity`)
 
+### Cross-service examples
+
+Sample applications that work across multiple AWS services.
+
+- [Use Step Functions to invoke Lambda functions](../../example_code/cross-services/lambda-step-functions)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->

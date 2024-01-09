@@ -53,6 +53,12 @@ functions within the same service.
 
 - [Get started with functions](../iam/actions/attach-role-policy.js)
 
+### Cross-service examples
+
+Sample applications that work across multiple AWS services.
+
+- [Use Step Functions to invoke Lambda functions](../../example_code/cross-services/lambda-step-functions)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->

@@ -62,6 +62,12 @@ functions within the same service.
 - [Query a table by using batches of PartiQL statements](scenarios/partiql-batch.js)
 - [Query a table using PartiQL](scenarios/partiql-single.js)
 
+### Cross-service examples
+
+Sample applications that work across multiple AWS services.
+
+- [Use Step Functions to invoke Lambda functions](../../example_code/cross-services/lambda-step-functions)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
