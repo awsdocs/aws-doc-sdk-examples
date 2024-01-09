@@ -1,11 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-/// <summary>
-/// Shows how to stop a running Amazon Translation Service text translation
-/// job. The example was created using the AWS SDK for .NET version 3.7 and
-/// .NET Core 5.0.
-/// </summary>
 namespace StopTextTranslationJobExample
 {
     // snippet-start:[Translate.dotnetv3.StopTextTranslationJobExample]
@@ -14,6 +9,10 @@ namespace StopTextTranslationJobExample
     using Amazon.Translate;
     using Amazon.Translate.Model;
 
+    /// <summary>
+    /// Shows how to stop a running Amazon Translation Service text translation
+    /// job.
+    /// </summary>
     public class StopTextTranslationJob
     {
         public static async Task Main()

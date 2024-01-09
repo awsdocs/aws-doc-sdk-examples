@@ -127,7 +127,7 @@ public class GlacierWrapper
 
             var options = new DownloadOptions
             {
-                StreamTransferProgress = Progress,
+                StreamTransferProgress = Progress!,
             };
 
             // Download an archive.

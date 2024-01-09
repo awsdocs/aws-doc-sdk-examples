@@ -11,8 +11,7 @@ namespace DescribeCollectionExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to describe the contents of a
-    /// collection. The example was created using the AWS SDK for .NET version
-    /// 3.7 and .NET Core 5.0.
+    /// collection.
     /// </summary>
     public class DescribeCollection
     {

@@ -43,8 +43,8 @@ public class LambdaBasics
         var lambdaRoleWrapper = host.Services.GetRequiredService<LambdaRoleWrapper>();
         var uiWrapper = host.Services.GetRequiredService<UIWrapper>();
 
-        string functionName = configuration["FunctionName"];
-        string roleName = configuration["RoleName"];
+        string functionName = configuration["FunctionName"]!;
+        string roleName = configuration["RoleName"]!;
         string policyDocument = "{" +
             " \"Version\": \"2012-10-17\"," +
             " \"Statement\": [ " +

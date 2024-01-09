@@ -33,11 +33,11 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Delete a lexicon](DeleteLexiconExample/DeleteLexicon.cs#L10) (`DeleteLexicon`)
-- [Get a lexicon](GetLexiconExample/GetLexicon.cs#L10) (`GetLexicon`)
+- [Delete a lexicon](DeleteLexiconExample/DeleteLexicon.cs#L6) (`DeleteLexicon`)
+- [Get a lexicon](GetLexiconExample/GetLexicon.cs#L6) (`GetLexicon`)
 - [Get voices available for synthesis](DescribeVoicesExample/DescribeVoices.cs#L10) (`DescribeVoices`)
-- [List pronunciation lexicons](ListLexiconsExample/ListLexicons.cs#L15) (`ListLexicons`)
-- [Store a pronunciation lexicon](PutLexiconExample/PutLexicon.cs#L10) (`PutLexicon`)
+- [List pronunciation lexicons](ListLexiconsExample/ListLexicons.cs#L6) (`ListLexicons`)
+- [Store a pronunciation lexicon](PutLexiconExample/PutLexicon.cs#L6) (`PutLexicon`)
 - [Synthesize speech from text](SynthesizeSpeechExample/SynthesizeSpeech.cs#L11) (`SynthesizeSpeech`)
 
 ### Cross-service examples

@@ -12,8 +12,7 @@ namespace TagStreamExample
 
     /// <summary>
     /// This example shows how to apply key/value pairs to an Amazon Kinesis
-    /// stream. The example was created using the AWS SDK for .NET version 3.7
-    /// and .NET Core 5.0.
+    /// stream.
     /// </summary>
     public class TagStream
     {

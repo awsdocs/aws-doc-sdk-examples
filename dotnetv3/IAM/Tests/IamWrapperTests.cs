@@ -17,16 +17,12 @@ namespace IAMActions.Tests
         private readonly string? _rolePolicyName;
 
         // Values for tests related to the IAM Groups scenario.
-        private readonly string? _groupUserName;
         private readonly string? _groupPolicyName;
         private readonly string? _groupName;
-        private readonly string? _s3FullAccessPolicyName;
 
         private readonly string? _listBucketsPolicyDocument;
-        private readonly string? _s3FullAccessPolicyDocument;
 
         private readonly string? _roleName;
-        private readonly string? _assumePolicyName;
 
         private readonly string? _userName;
         private readonly string? _userPolicyName;
@@ -48,12 +44,10 @@ namespace IAMActions.Tests
                     true) // Optionally load local settings.
                 .Build();
 
-            _groupUserName = _configuration["GroupUserName"];
             _groupPolicyName = _configuration["GroupPolicyName"];
             _groupName = _configuration["GroupName"];
 
             _s3ListBucketsPolicyName = _configuration["S3ListBucketsPolicyName"];
-            _s3FullAccessPolicyName = _configuration["S3FullAccessPolicyName"];
 
             _roleName = _configuration["RoleName"];
             _rolePolicyName = _configuration["RolePolicyName"];
@@ -69,16 +63,6 @@ namespace IAMActions.Tests
                 "\"Version\": \"2012-10-17\"," +
                 "	\"Statement\" : [{" +
                     "	\"Action\" : [\"s3:ListAllMyBuckets\"]," +
-                    "	\"Effect\" : \"Allow\"," +
-                    "	\"Resource\" : \"*\"" +
-                "}]" +
-            "}";
-
-            // Permissions for full access to Amazon Simple Storage Service
-            // (Amazon S3).
-            _s3FullAccessPolicyDocument = "{" +
-                    "	\"Statement\" : [{" +
-                    "	\"Action\" : [\"s3:*\"]," +
                     "	\"Effect\" : \"Allow\"," +
                     "	\"Resource\" : \"*\"" +
                 "}]" +

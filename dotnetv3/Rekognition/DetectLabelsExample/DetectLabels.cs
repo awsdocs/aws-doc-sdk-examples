@@ -11,8 +11,7 @@ namespace DetectLabelsExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to detect labels within an image
-    /// stored in an Amazon Simple Storage Service (Amazon S3) bucket. This
-    /// example was created using the AWS SDK for .NET and .NET Core 5.0.
+    /// stored in an Amazon Simple Storage Service (Amazon S3) bucket.
     /// </summary>
     public class DetectLabels
     {

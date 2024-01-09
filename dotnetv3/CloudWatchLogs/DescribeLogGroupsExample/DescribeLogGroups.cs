@@ -11,8 +11,7 @@ namespace DescribeLogGroupsExample
 
     /// <summary>
     /// Retrieves information about existing Amazon CloudWatch Logs log groups
-    /// and displays the information on the console. The example was created
-    /// using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// and displays the information on the console.
     /// </summary>
     public class DescribeLogGroups
     {
@@ -25,7 +24,7 @@ namespace DescribeLogGroupsExample
             var client = new AmazonCloudWatchLogsClient();
 
             bool done = false;
-            string? newToken = null;
+            string newToken = null;
 
             var request = new DescribeLogGroupsRequest
             {

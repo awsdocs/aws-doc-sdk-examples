@@ -1,15 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-/// <summary>
-/// This example shows how to configure your Amazon Simple Storage Service
-/// (Amazon S3) bucket to allow cross-origin requests by creating a CORS
-/// configuration. The CORS configuration is a document with rules that
-/// identify the origins that you will allow to access your bucket, the
-/// operations (HTTP methods) supported for each origin, and other operation-
-/// specific information. This example was created using the AWS SDK for
-/// .NET 3.7 and .NET Core 5.0.
-/// </summary>
 namespace S3CORSExample
 {
     using System;
@@ -19,6 +10,14 @@ namespace S3CORSExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
+    /// <summary>
+    /// This example shows how to configure your Amazon Simple Storage Service
+    /// (Amazon S3) bucket to allow cross-origin requests by creating a CORS
+    /// configuration. The CORS configuration is a document with rules that
+    /// identify the origins that you will allow to access your bucket, the
+    /// operations (HTTP methods) supported for each origin, and other operation-
+    /// specific information.
+    /// </summary>
     public class S3CORS
     {
         // Remember to change the bucket name to the name of an Amazon Simple
