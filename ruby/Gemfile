@@ -18,7 +18,7 @@ gem "rspec"
 gem "rubocop"
 gem "rubocop-github"
 gem "rubocop-rake"
+gem "rubyzip", ">= 1.0.0"
 gem "sequel"
 gem "sinatra"
-gem 'rubyzip', '>= 1.0.0'
-gem 'zip-zip'
+gem "zip-zip"
