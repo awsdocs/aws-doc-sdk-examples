@@ -11,7 +11,7 @@ _CloudWatch Logs monitor, store, and access your log files from Amazon Elastic C
 
 ## ⚠ Important
 
-* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/?aws-products-pricing.sort-by=item.additionalFields.productNameLowercase&aws-products-pricing.sort-order=asc&awsf.Free%20Tier%20Type=*all&awsf.tech-category=*all) and [Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all).
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
 * Running the tests might result in charges to your AWS account.
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
@@ -39,6 +39,15 @@ Code excerpts that show you how to call individual service functions.
 - [Delete a subscription filter](actions/delete-subscription-filter.js#L6) (`DeleteSubscriptionFilter`)
 - [Describe existing subscription filters](actions/describe-subscription-filters.js#L6) (`DescribeSubscriptionFilters`)
 - [Describe log groups](actions/describe-log-groups.js#L8) (`DescribeLogGroups`)
+- [Get the results of a query](scenarios/large-query/cloud-watch-query.js#L106) (`GetQueryResults`)
+- [Start a query](scenarios/large-query/cloud-watch-query.js#L140) (`StartQuery`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Run a large query](javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/index.js)
 
 
 <!--custom.examples.start-->
@@ -67,6 +76,18 @@ node ./scenarios/<fileName>
 <!--custom.instructions.end-->
 
 
+
+#### Run a large query
+
+This example shows you how to use CloudWatch Logs to query more than 10,000 records.
+
+
+<!--custom.scenario_prereqs.cloudwatch-logs_Scenario_BigQuery.start-->
+<!--custom.scenario_prereqs.cloudwatch-logs_Scenario_BigQuery.end-->
+
+
+<!--custom.scenarios.cloudwatch-logs_Scenario_BigQuery.start-->
+<!--custom.scenarios.cloudwatch-logs_Scenario_BigQuery.end-->
 
 ### Tests
 
