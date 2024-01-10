@@ -28,10 +28,9 @@ val body: String = """
                 
         This email was sent through the Amazon Pinpoint Email API using the AWS SDK for Kotlin.
                                 
-        """.trimIndent()
+""".trimIndent()
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: 
         <subject> <appId> <senderAddress> <toAddress>
@@ -43,8 +42,8 @@ suspend fun main(args: Array<String>) {
     """
 
     if (args.size != 3) {
-         println(usage)
-         exitProcess(0)
+        println(usage)
+        exitProcess(0)
     }
 
     val subject = args[0]
