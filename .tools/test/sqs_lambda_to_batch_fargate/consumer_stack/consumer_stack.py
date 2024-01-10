@@ -102,6 +102,7 @@ class ConsumerStack(Stack):
                 f"ContainerDefinition-{language_name}",
                 image=container_image,
                 execution_role=batch_execution_role,
+                job_role=batch_execution_role,
                 assign_public_ip=True,
                 memory=Size.gibibytes(2),
                 cpu=1,
