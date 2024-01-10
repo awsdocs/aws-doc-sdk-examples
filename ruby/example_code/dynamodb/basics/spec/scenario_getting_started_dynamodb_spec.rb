@@ -14,7 +14,7 @@ describe DynamoDBBasics do
     scaffold = Scaffold.new(table_name)
     sdk = DynamoDBBasics.new(table_name)
 
-    it "Create a new DynamoDB table", integ: true do
+    it "Create a new DynamoDB table", integ: true, demo: true do
       scaffold.create_table(table_name)
       expect(scaffold.exists?(table_name)).to be_truthy
     end

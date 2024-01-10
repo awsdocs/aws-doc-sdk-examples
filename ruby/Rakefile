@@ -17,7 +17,7 @@ end
 desc "Run specs."
 RSpec::Core::RakeTask.new do |t|
   t.pattern = "*/**/*_spec.rb"
-  t.rspec_opts = ["--tag", "integ", "--tag", "~@quarantine"]
+  t.rspec_opts = ["--tag", "demo", "--tag", "~@quarantine"]
 end
 
 desc "Run rubocop"
