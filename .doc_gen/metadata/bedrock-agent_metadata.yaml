@@ -160,7 +160,7 @@ bedrock-agent_PrepareAgent:
     bedrock-agent: {PrepareAgent}
 bedrock-agent_GettingStartedWithBedrockAgents:
   title: An end-to-end example showing how to create and invoke &BR; agents using an &AWS; SDK
-  title_abbrev: Create and invoke agents
+  title_abbrev: Create and invoke an agent
   synopsis_list:
     - Create an execution role for the agent.
     - Create the agent and deploy a DRAFT version.
@@ -176,7 +176,7 @@ bedrock-agent_GettingStartedWithBedrockAgents:
         - sdk_version: 3
           github: python/example_code/bedrock-agent
           excerpts:
-            - description:
+            - description: Create and invoke an agent
               snippet_tags:
                 - python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents
   services:
