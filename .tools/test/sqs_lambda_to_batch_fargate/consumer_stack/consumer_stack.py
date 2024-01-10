@@ -29,7 +29,7 @@ class ConsumerStack(Stack):
         resource_config = self.get_yaml_config("../config/resources.yaml")
         topic_name = resource_config["topic_name"]
         producer_bucket_name = resource_config["bucket_name"]
-        self.region = resource_config["aws_region"]
+        self.aws_region = resource_config["aws_region"]
         self.producer_account_id = resource_config["admin_acct"]
         sns_topic = self.init_get_topic(topic_name)
         sqs_queue = sqs.Queue(self, f"BatchJobQueue-{language_name}")
