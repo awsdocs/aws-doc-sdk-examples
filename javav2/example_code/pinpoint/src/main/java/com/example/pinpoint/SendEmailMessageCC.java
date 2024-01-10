@@ -40,13 +40,13 @@ public class SendEmailMessageCC {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <subject> <appId> <senderAddress> <toAddress> <ccAddress1> <ccAddress2>
+            Usage:    <subject> <senderAddress> <toAddress> <ccAddress>
 
             Where:
                subject - The email subject to use.
                senderAddress - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email\s
                toAddress - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email\s
-               ccAddress1 - The CC address.
+               ccAddress - The CC address.
             """;
 
         if (args.length != 4) {
@@ -57,7 +57,7 @@ public class SendEmailMessageCC {
         String subject = args[0];
         String senderAddress = args[1];
         String toAddress = args[2];
-        String ccAddress1 = args[3];
+        String ccAddress = args[3];
 
         System.out.println("Sending a message");
         PinpointEmailClient pinpoint = PinpointEmailClient.builder()
@@ -65,7 +65,7 @@ public class SendEmailMessageCC {
             .build();
 
         ArrayList<String> ccList = new ArrayList<>();
-        ccList.add(ccAddress1);
+        ccList.add(ccAddress);
         sendEmail(pinpoint, subject, senderAddress, toAddress, ccList);
         pinpoint.close();
     }
