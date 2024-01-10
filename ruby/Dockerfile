@@ -9,6 +9,7 @@ RUN apt-get update && \
 
 # Copy source code
 COPY . /ruby/
+WORKDIR /ruby
 
 # Perform build steps
 RUN bundle config --delete frozen && \
