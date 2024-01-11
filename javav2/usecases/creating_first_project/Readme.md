@@ -86,7 +86,7 @@ The first step is to create an IntelliJ project.
 2. In the **New Project** dialog box, choose **Maven**.
 3. Choose **Next**.
 4. In **GroupId**, enter **spring-aws**.
-5. In **ArtifactId**, enter **Greetings**.
+5. In **ArtifactId**, enter **greetings**.
 6. Choose **Next**.
 7. Choose **Finish**.
 
@@ -98,7 +98,7 @@ Make sure that your project's pom.xml file looks like the POM file in this Githu
 
 In the **main/java** folder, create a Java package named **com.example.handlingformsubmission**. The Java files go into this package.
 
-![AWS Tracking Application](images/projectmvc2.png)
+![AWS Tracking Application](images/projectmvc3.png)
 
 The following Java files go into this package:
 
