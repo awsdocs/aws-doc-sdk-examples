@@ -12,7 +12,7 @@ COPY . /kotlin
 
 # Set non-root user
 RUN useradd -m automation && \
-    chown -R automation:automation /kotlin/
+    chown -R automation:automation /kotlin
 USER automation:automation
 
-CMD ["./run_tests.sh"]
+CMD ["./kotlin/run_tests.sh"]
