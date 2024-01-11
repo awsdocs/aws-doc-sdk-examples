@@ -19,4 +19,4 @@ RUN useradd -m automation && \
 USER automation:automation
 
 # Set default command
-CMD ["./gov2/run_all_tests.sh", "integration"]
+CMD ["/gov2/run_all_tests.sh", "integration"]
