@@ -1,0 +1,13 @@
+{
+  "name": "bedrock-runtime-examples",
+  "version": "1.0.0",
+  "author": "Dennis Traub <traubd@amazon.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.489.0"
+  }
+}

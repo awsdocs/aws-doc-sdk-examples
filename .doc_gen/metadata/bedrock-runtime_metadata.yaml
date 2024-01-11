@@ -13,6 +13,14 @@ bedrock-runtime_Hello:
             - description:
               snippet_tags:
                 - gov2.bedrock-runtime.Hello
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/bedrock-runtime/hello.js
   services:
     bedrock-runtime: {InvokeModel}
 
