@@ -16,8 +16,7 @@ public class GreetingItems {
     private String message;
     private String title;
 
-    public GreetingItems()
-    {
+    public GreetingItems() {
     }
 
     public String getId() {

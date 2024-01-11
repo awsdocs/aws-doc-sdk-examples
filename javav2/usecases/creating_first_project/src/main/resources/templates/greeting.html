@@ -3,31 +3,38 @@
 <head>
     <title>Getting Started: Spring Boot and the Enhanced DynamoDB Client</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css|"/>
+    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css|"/>
 </head>
 <body>
-<div class="container">
-<h1>Your first AWS Web application</h1>
-<p>You can submit data to a DynamoDB table by using the Enhanced Client. A mobile notification is sent alerting a user a new submission occurred.</p>
-<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
-    <div class="form-group">
-        <p>Id: <input type="text"  class="form-control" th:field="*{id}" /></p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">Your First AWS Web Application</h1>
+            <p class="lead text-center">Submit data to a DynamoDB table using the Enhanced Client. Receive a mobile notification for new submissions.</p>
+            <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
+                <div class="form-group">
+                    <label for="id">ID:</label>
+                    <input type="text" class="form-control" id="id" th:field="*{id}" />
+                </div>
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" class="form-control" id="title" th:field="*{title}" />
+                </div>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" />
+                </div>
+                <div class="form-group">
+                    <label for="body">Body:</label>
+                    <input type="text" class="form-control" id="body" th:field="*{body}" />
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-secondary ml-2">Reset</button>
+                </div>
+            </form>
         </div>
-
-        <div class="form-group">
-            <p>Title: <input type="text" class="form-control" th:field="*{title}" /></p>
-        </div>
-
-        <div class="form-group">
-            <p>Name: <input type="text" class="form-control" th:field="*{name}" /></p>
-        </div>
-
-        <div class="form-group">
-            <p>Body: <input type="text" class="form-control" th:field="*{body}"/></p>
-        </div>
-
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
+    </div>
 </div>
 </body>
 </html>

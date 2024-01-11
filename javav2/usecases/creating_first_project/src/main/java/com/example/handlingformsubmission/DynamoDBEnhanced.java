@@ -18,18 +18,17 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 @Component("DynamoDBEnhanced")
 public class DynamoDBEnhanced {
 
-     public void injectDynamoItem(Greeting item){
-
+    public void injectDynamoItem(Greeting item){
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
         try {
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                    .dynamoDbClient(ddb)
-                    .build();
+                .dynamoDbClient(ddb)
+                .build();
 
             DynamoDbTable<GreetingItems> mappedTable = enhancedClient.table("Greeting", TableSchema.fromBean(GreetingItems.class));
             GreetingItems gi = new GreetingItems();
@@ -39,8 +38,8 @@ public class DynamoDBEnhanced {
             gi.setId(item.getId());
 
             PutItemEnhancedRequest enReq = PutItemEnhancedRequest.builder(GreetingItems.class)
-                    .item(gi)
-                    .build();
+                .item(gi)
+                .build();
 
             mappedTable.putItem(enReq);
 
