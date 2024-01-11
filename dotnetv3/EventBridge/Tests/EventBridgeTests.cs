@@ -47,7 +47,6 @@ public class EventBridgeTests
     [Fact]
     [Order(1)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task AddRuleToEventBus_ShouldReturnNonEmptyArn()
     {
         // Arrange.
@@ -69,7 +68,6 @@ public class EventBridgeTests
     [Fact]
     [Order(2)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task GetRuleStateByRuleName_ShouldReturnEnabled()
     {
         // Arrange.
@@ -89,7 +87,6 @@ public class EventBridgeTests
     [Fact]
     [Order(3)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task DisableRuleByName_ShouldReturnTrue()
     {
         // Arrange.
@@ -109,7 +106,6 @@ public class EventBridgeTests
     [Fact]
     [Order(4)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task EnableRuleByName_ShouldReturnTrue()
     {
         // Arrange.
@@ -128,7 +124,6 @@ public class EventBridgeTests
     [Fact]
     [Order(5)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task AddSnsTargetToRule_ReturnsSuccessfulResult()
     {
         // Arrange.
@@ -148,7 +143,6 @@ public class EventBridgeTests
     [Fact]
     [Order(6)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task ListAllTargetsOnRule_ReturnsSuccessfulResult()
     {
         // Arrange.
@@ -168,7 +162,6 @@ public class EventBridgeTests
     [Fact]
     [Order(7)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task ListAllRuleNamesByTarget_ReturnsSuccessfulResult()
     {
         // Arrange.
@@ -188,7 +181,6 @@ public class EventBridgeTests
     [Fact]
     [Order(8)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task UpdateS3UploadRuleTargetWithTransform_ReturnsSuccessfulResult()
     {
         // Arrange.
@@ -209,7 +201,6 @@ public class EventBridgeTests
     [Fact]
     [Order(9)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task UpdateCustomEventPattern_ReturnsNonEmptyArn()
     {
         // Arrange.
@@ -228,7 +219,6 @@ public class EventBridgeTests
     [Fact]
     [Order(10)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task PutEvents_ReturnsSuccessfulResult()
     {
         // Arrange.
@@ -247,7 +237,6 @@ public class EventBridgeTests
     [Fact]
     [Order(11)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task RemoveTargets_ReturnsSuccessfulResult()
     {
         // Arrange.
@@ -266,7 +255,6 @@ public class EventBridgeTests
     [Fact]
     [Order(12)]
     [Trait("Category", "Integration")]
-    [Trait("Category", "Weathertop")]
     public async Task DeleteEventRule_ReturnsSuccessfulResult()
     {
         // Arrange.
