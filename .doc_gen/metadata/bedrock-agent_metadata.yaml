@@ -111,6 +111,38 @@ bedrock-agent_ListAgents:
   services:
     bedrock-agent: {ListAgents}
 
+bedrock-agent_ListAgentActionGroups:
+  title: List the action groups for a &BR; agent using an &AWS; SDK
+  title_abbrev: List the action groups for an agent
+  synopsis: list the action groups for a &BR; agent.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: List the action groups for an agent.
+              snippet_tags:
+                - python.example_code.bedrock-agent.ListAgentActionGroups
+  services:
+    bedrock-agent: {ListAgentActionGroups}
+
+bedrock-agent_ListAgentKnowledgeBases:
+  title: List the knowledge bases associated with a &BR; agent using an &AWS; SDK
+  title_abbrev: List the knowledge bases associated with an agent
+  synopsis: list the knowledge bases associated with a &BR; agent.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: List the knowledge bases associated with an agent.
+              snippet_tags:
+                - python.example_code.bedrock-agent.ListAgentKnowledgeBases
+  services:
+    bedrock-agent: {ListAgentKnowledgeBases}
+
 bedrock-agent_PrepareAgent:
   title: Prepare an &BR; agent using an &AWS; SDK
   title_abbrev: Prepare an agent
@@ -128,7 +160,7 @@ bedrock-agent_PrepareAgent:
     bedrock-agent: {PrepareAgent}
 bedrock-agent_GettingStartedWithBedrockAgents:
   title: An end-to-end example showing how to create and invoke &BR; agents using an &AWS; SDK
-  title_abbrev: Create and invoke agents
+  title_abbrev: Create and invoke an agent
   synopsis_list:
     - Create an execution role for the agent.
     - Create the agent and deploy a DRAFT version.
@@ -144,7 +176,7 @@ bedrock-agent_GettingStartedWithBedrockAgents:
         - sdk_version: 3
           github: python/example_code/bedrock-agent
           excerpts:
-            - description:
+            - description: Create and invoke an agent.
               snippet_tags:
                 - python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents
   services:
@@ -156,7 +188,9 @@ bedrock-agent_GettingStartedWithBedrockAgents:
         DeleteAgent,
         DeleteAgentAlias,
         GetAgent,
+        ListAgentActionGroups,
         ListAgents,
+        ListAgentKnowledgeBases,
         PrepareAgent,
       }
     bedrock-agent-runtime:
