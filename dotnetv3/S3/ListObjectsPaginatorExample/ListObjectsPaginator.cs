@@ -11,8 +11,7 @@ namespace ListObjectsPaginatorExample
 
     /// <summary>
     /// The following example lists objects in an Amazon Simple Storage
-    /// Service (Amazon S3) bucket. It was created using AWS SDK for .NET 3.5
-    /// and .NET Core 5.0.
+    /// Service (Amazon S3) bucket.
     /// </summary>
     public class ListObjectsPaginator
     {

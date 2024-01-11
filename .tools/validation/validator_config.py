@@ -207,8 +207,6 @@ EXPECTED_SAMPLE_FILES = {
     "chat_sfn_state_machine.json",
     "market_2.jpg",
     "movies.json",
-    "sample_cert.pem",
-    "sample_private_key.pem",
     "sample_saml_metadata.xml",
     "speech_sample.mp3",
     "spheres_2.jpg",

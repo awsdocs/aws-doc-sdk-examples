@@ -37,7 +37,7 @@ namespace PartiQL_Batch_Scenario.Tests
             IDictionary<TKey, TValue> dictionary, TKey key)
             where TKey : struct
             where TValue : new() =>
-            dictionary.TryGetValue(key, out TValue result)
+            dictionary.TryGetValue(key, out var result)
                 ? result
                 : (dictionary[key] = new TValue());
     }

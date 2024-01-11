@@ -12,8 +12,7 @@ namespace CreateExportTaskExample
     /// <summary>
     /// Shows how to create an Export Task to export the contents of the Amazon
     /// CloudWatch Logs to the specified Amazon Simple Storage Service (Amazon S3)
-    /// bucket. The example was created with the AWS SDK for .NET version 3.7 and
-    /// .NET Core 5.0.
+    /// bucket.
     /// </summary>
     public class CreateExportTask
     {

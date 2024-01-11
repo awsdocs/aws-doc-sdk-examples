@@ -28,6 +28,7 @@ public class BedrockTest
     [Fact]
     [Order(1)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task ListFoundationModelsAsync_ShouldNotBeNull()
     {
         var result = await bedrockClient.ListFoundationModelsAsync(new ListFoundationModelsRequest());

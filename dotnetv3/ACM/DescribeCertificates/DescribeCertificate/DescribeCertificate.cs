@@ -12,7 +12,7 @@ namespace DescribeCertificate
 {
     class DescribeCertificate
     {
-        // The following example retrieves and displays the metadate for a
+        // The following example retrieves and displays the metadata for a
         // certificate using the AWS Certificate Manager (ACM) service.
 
         // Specify your AWS Region (an example Region is shown).
@@ -21,7 +21,7 @@ namespace DescribeCertificate
 
         static void Main(string[] args)
         {
-            var _client = new Amazon.CertificateManager.AmazonCertificateManagerClient(ACMRegion);
+            _client = new Amazon.CertificateManager.AmazonCertificateManagerClient(ACMRegion);
 
             var describeCertificateReq = new DescribeCertificateRequest();
             // The ARN used here is just an example. Replace it with the ARN of

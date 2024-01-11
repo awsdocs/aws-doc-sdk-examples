@@ -11,8 +11,7 @@ namespace ListAccountsExample
 
     /// <summary>
     /// Uses the AWS Organizations service to list the accounts associated
-    /// with the default account. The example was created using the AWS SDK for
-    /// .NET and .NET Core 5.0.
+    /// with the default account.
     /// </summary>
     public class ListAccounts
     {

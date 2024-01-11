@@ -6,7 +6,7 @@ namespace PartiQL_Basics_Scenario
     public class Movie
     {
         public int Year { get; set; }
-        public string Title { get; set; }
-        public MovieInfo Info { get; set; }
+        public string Title { get; set; } = null!;
+        public MovieInfo Info { get; set; } = null!;
     }
 }
