@@ -779,9 +779,9 @@ cross_Testing:
   services:
     s3:
 cross_ServerlessPromptChaining:
-  title: Build and orchestrate generative AI applications with &SFN; and &BR;
+  title: Build and orchestrate generative AI applications with &BR; and &SFN;
   title_abbrev: Orchestrate generative AI applications with &SFN;
-  synopsis: build and orchestrate generative AI applications with &SFN; and &BR;.
+  synopsis: build and orchestrate generative AI applications with &BR; and &SFN;.
   category: Scenarios
   languages:
     Python:
