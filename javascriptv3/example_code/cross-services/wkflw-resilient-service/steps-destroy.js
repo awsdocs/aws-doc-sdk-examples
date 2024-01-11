@@ -238,6 +238,30 @@ export const destroySteps = [
       );
     }
   }),
+  new ScenarioAction("deleteAutoScalingGroup", async (state) => {
+    try {
+      await terminateGroupInstances(NAMES.autoScalingGroupName);
+      await retry({ intervalInMs: 30000, maxRetries: 60 }, async () => {
+        await deleteAutoScalingGroup(NAMES.autoScalingGroupName);
+      });
+    } catch (e) {
+      state.deleteAutoScalingGroupError = e;
+    }
+  }),
+  new ScenarioOutput("deleteAutoScalingGroupResult", (state) => {
+    if (state.deleteAutoScalingGroupError) {
+      console.error(state.deleteAutoScalingGroupError);
+      return MESSAGES.deleteAutoScalingGroupError.replace(
+        "${AUTO_SCALING_GROUP_NAME}",
+        NAMES.autoScalingGroupName,
+      );
+    } else {
+      return MESSAGES.deletedAutoScalingGroup.replace(
+        "${AUTO_SCALING_GROUP_NAME}",
+        NAMES.autoScalingGroupName,
+      );
+    }
+  }),
   new ScenarioAction("deleteLaunchTemplate", async (state) => {
     const client = new EC2Client({});
     try {
@@ -263,30 +287,6 @@ export const destroySteps = [
       return MESSAGES.deletedLaunchTemplate.replace(
         "${LAUNCH_TEMPLATE_NAME}",
         NAMES.launchTemplateName,
-      );
-    }
-  }),
-  new ScenarioAction("deleteAutoScalingGroup", async (state) => {
-    try {
-      await terminateGroupInstances(NAMES.autoScalingGroupName);
-      await retry({ intervalInMs: 30000, maxRetries: 60 }, async () => {
-        await deleteAutoScalingGroup(NAMES.autoScalingGroupName);
-      });
-    } catch (e) {
-      state.deleteAutoScalingGroupError = e;
-    }
-  }),
-  new ScenarioOutput("deleteAutoScalingGroupResult", (state) => {
-    if (state.deleteAutoScalingGroupError) {
-      console.error(state.deleteAutoScalingGroupError);
-      return MESSAGES.deleteAutoScalingGroupError.replace(
-        "${AUTO_SCALING_GROUP_NAME}",
-        NAMES.autoScalingGroupName,
-      );
-    } else {
-      return MESSAGES.deletedAutoScalingGroup.replace(
-        "${AUTO_SCALING_GROUP_NAME}",
-        NAMES.autoScalingGroupName,
       );
     }
   }),
