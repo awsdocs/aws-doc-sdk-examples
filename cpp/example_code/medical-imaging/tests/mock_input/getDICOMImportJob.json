@@ -1,0 +1,14 @@
+{
+  "jobProperties": {
+    "dataAccessRoleArn": "arn:aws:iam::123456789012:role/dicom_import",
+    "datastoreId": "12345678901234567890123456789012",
+    "endedAt": 1.703018666714E9,
+    "inputS3Uri": "s3://source_bucket/source_folder/",
+    "jobId": "12345678901234567890123456789012",
+    "jobName": null,
+    "jobStatus": "COMPLETED",
+    "message": null,
+    "outputS3Uri": "s3://destination_bucket/destination_folder/12345678901234567890123456789012-DicomImport-12345678901234567890123456789012/",
+    "submittedAt": 1.703018663321E9
+  }
+}
