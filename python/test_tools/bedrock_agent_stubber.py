@@ -64,6 +64,21 @@ class BedrockAgentStubber(ExampleStubber):
             "list_agents", expected_params, response, error_code=error_code
         )
 
+    def stub_list_agent_action_groups(self, expected_params, response, error_code=None):
+        self._stub_bifurcator(
+            "list_agent_action_groups", expected_params, response, error_code=error_code
+        )
+
+    def stub_list_agent_knowledge_bases(
+        self, expected_params, response, error_code=None
+    ):
+        self._stub_bifurcator(
+            "list_agent_knowledge_bases",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
     def stub_prepare_agent(self, expected_params, response, error_code=None):
         self._stub_bifurcator(
             "prepare_agent", expected_params, response, error_code=error_code

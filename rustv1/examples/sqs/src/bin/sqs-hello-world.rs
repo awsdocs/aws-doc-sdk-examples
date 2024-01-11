@@ -27,7 +27,6 @@ struct Opt {
 #[derive(Debug)]
 struct SQSMessage {
     body: String,
-    group: String,
 }
 
 // snippet-start:[sqs.rust.sqs-list-first]
@@ -50,9 +49,8 @@ async fn send(client: &Client, queue_url: &String, message: &SQSMessage) -> Resu
         .send_message()
         .queue_url(queue_url)
         .message_body(&message.body)
-        .message_group_id(&message.group)
         // If the queue is FIFO, you need to set .message_deduplication_id
-        // or configure the queue for ContentBasedDeduplication.
+        // and message_group_id or configure the queue for ContentBasedDeduplication.
         .send()
         .await?;
 
@@ -115,7 +113,6 @@ async fn main() -> Result<(), Error> {
 
     let message = SQSMessage {
         body: "hello from my queue".to_owned(),
-        group: "MyGroup".to_owned(),
     };
 
     send(&client, &queue_url, &message).await?;

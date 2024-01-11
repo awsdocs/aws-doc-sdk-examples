@@ -34,13 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 Code excerpts that show you how to call individual service functions.
 
 - [Delete a snapshot](../ebs/src/bin/delete-snapshot.rs#L28) (`DeleteSnapshot`)
-- [Describe Regions](../../../.snippets/content/hello.rs#L24) (`DescribeRegions`)
+- [Describe Regions](src/bin/ec2-helloworld.rs#L24) (`DescribeRegions`)
 - [Describe instance status](src/bin/list-all-instance-events.rs#L24) (`DescribeInstanceStatus`)
 - [Describe instances](src/bin/describe-instances.rs#L28) (`DescribeInstances`)
 - [Describe snapshots](../ebs/src/bin/get-snapshot-state.rs#L29) (`DescribeSnapshots`)
 - [Enable monitoring](src/bin/monitor-instance.rs#L28) (`MonitorInstances`)
 - [Reboot an instance](src/bin/reboot-instance.rs#L28) (`RebootInstances`)
-- [Start an instance](../../../.snippets/content/start-instance.rs#L28) (`StartInstances`)
+- [Start an instance](src/bin/start-instance.rs#L28) (`StartInstances`)
 - [Stop an instance](src/bin/stop-instance.rs#L28) (`StopInstances`)
 
 

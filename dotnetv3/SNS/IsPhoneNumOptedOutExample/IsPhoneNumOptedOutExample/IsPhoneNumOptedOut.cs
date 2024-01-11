@@ -11,9 +11,7 @@ namespace IsPhoneNumOptedOutExample
 
     /// <summary>
     /// This example shows how to use the Amazon Simple Notification Service
-    /// (Amazon SNS) to check whether a phone number has been opted out. The
-    /// example was created using the AWS SDK for .NET version 3.7 and
-    /// .NET Core 5.0.
+    /// (Amazon SNS) to check whether a phone number has been opted out.
     /// </summary>
     public class IsPhoneNumOptedOut
     {

@@ -11,11 +11,6 @@ RUN apt-get update && \
 COPY . /ruby/
 WORKDIR /ruby
 
-# Set non-root user
-RUN useradd -m automation && \
-    chown -R automation:automation /ruby
-USER automation:automation
-
 # Perform build steps
 RUN bundle config --delete frozen && \
     bundle install

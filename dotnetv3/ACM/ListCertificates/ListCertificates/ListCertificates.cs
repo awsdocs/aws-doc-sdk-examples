@@ -23,7 +23,7 @@ namespace ListCertificates
 
         static void Main(string[] args)
         {
-            var _client = new AmazonCertificateManagerClient(ACMRegion);
+            _client = new AmazonCertificateManagerClient(ACMRegion);
             var certificateList = ListCertificatesResponseAsync(client: _client);
 
             Console.WriteLine("Certificate Summary List\n");

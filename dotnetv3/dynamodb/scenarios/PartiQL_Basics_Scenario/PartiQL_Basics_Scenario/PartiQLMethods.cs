@@ -85,7 +85,7 @@ namespace PartiQL_Basics_Scenario
         {
             if (!File.Exists(movieFileName))
             {
-                return null;
+                return null!;
             }
 
             using var sr = new StreamReader(movieFileName);
@@ -99,7 +99,7 @@ namespace PartiQL_Basics_Scenario
             }
             else
             {
-                return null;
+                return null!;
             }
         }
 

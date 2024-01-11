@@ -44,15 +44,17 @@ Code excerpts that show you how to call individual service functions.
 - [Delete an agent](bedrock_agent_wrapper.py#L119) (`DeleteAgent`)
 - [Delete an agent alias](bedrock_agent_wrapper.py#L140) (`DeleteAgentAlias`)
 - [Get information about an agent](bedrock_agent_wrapper.py#L162) (`GetAgent`)
+- [List the action groups for an agent](bedrock_agent_wrapper.py#L209) (`ListAgentActionGroups`)
 - [List the agents](bedrock_agent_wrapper.py#L186) (`ListAgents`)
-- [Prepare an agent](bedrock_agent_wrapper.py#L209) (`PrepareAgent`)
+- [List the knowledge bases associated with an agent](bedrock_agent_wrapper.py#L238) (`ListAgentKnowledgeBases`)
+- [Prepare an agent](bedrock_agent_wrapper.py#L267) (`PrepareAgent`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create and invoke agents](scenario_get_started_with_agents.py)
+- [Create and invoke an agent](scenario_get_started_with_agents.py)
 
 
 <!--custom.examples.start-->
@@ -68,7 +70,7 @@ functions within the same service.
 
 
 
-#### Create and invoke agents
+#### Create and invoke an agent
 
 This example shows you how to do the following:
 

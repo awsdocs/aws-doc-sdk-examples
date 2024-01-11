@@ -19,7 +19,7 @@ jobs:
         name: Checkout files
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v35
+        uses: tj-actions/changed-files@v41
         with:
           files: "javascriptv3/**/*.{js,ts,jsx,tsx}"
       - name: Setup NodeJS

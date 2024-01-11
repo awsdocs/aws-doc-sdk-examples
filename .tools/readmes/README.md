@@ -113,7 +113,7 @@ empty if you don't need custom content.
 versions, and services.
 
 ```
-python .tools/readmes/multi.py --language <language1>:<version> <language2>:<version> --service <service1> <service2>
+python .tools/readmes/multi.py --languages <language1>:<version> <language2>:<version> --service <service1> <service2>
 ```
 
 For example, to generate S3 and STS READMEs for Python sdk version 3 and Go sdk version 2:
