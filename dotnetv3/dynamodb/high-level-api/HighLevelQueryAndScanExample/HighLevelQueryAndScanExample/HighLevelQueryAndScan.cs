@@ -14,8 +14,7 @@ namespace HighLevelQueryAndScanExample
 
     /// <summary>
     /// Shows how to perform high-level query and scan operations to Amazon
-    /// DynamoDB tables. This example was created using the AWS SDK for .NET
-    /// version 3.7 and .NET Core 5.0.
+    /// DynamoDB tables.
     /// </summary>
     public class HighLevelQueryAndScan
     {

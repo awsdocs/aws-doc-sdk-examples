@@ -11,8 +11,6 @@ namespace DeleteOrganizationalUnitExample
 
     /// <summary>
     /// Shows how to delete an existing AWS Organizations organizational unit.
-    /// This example was created using the AWS SDK for .NET version 3.7 and
-    /// .NET Core 5.0.
     /// </summary>
     public class DeleteOrganizationalUnit
     {

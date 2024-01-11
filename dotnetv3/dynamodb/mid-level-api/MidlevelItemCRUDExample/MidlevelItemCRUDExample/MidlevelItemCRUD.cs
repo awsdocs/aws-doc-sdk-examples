@@ -13,8 +13,7 @@ namespace MidlevelItemCRUDExample
     // snippet-start:[dynamodb.dotnetv3.MidlevelItemCRUDExample]
 
     /// <summary>
-    /// Performs CRUD operations on an Amazon DynamoDB table. The example was
-    /// created using the AWS SDK for .NET 3.7 and .NET Core 5.0.
+    /// Performs CRUD operations on an Amazon DynamoDB table.
     /// </summary>
     public class MidlevelItemCRUD
     {

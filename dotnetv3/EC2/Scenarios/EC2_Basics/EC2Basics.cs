@@ -58,7 +58,7 @@ public class EC2Basics
         {
             Console.Write("Would you like to list your existing key pairs? ");
             answer = Console.ReadLine();
-        } while (answer.ToLower() != "y" && answer.ToLower() != "n");
+        } while (answer!.ToLower() != "y" && answer.ToLower() != "n");
 
         if (answer == "y")
         {

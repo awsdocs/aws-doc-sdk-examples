@@ -83,7 +83,7 @@ public class Widget
     public int Height { get; set; }
 
     [JsonPropertyName("properties")]
-    public Properties Properties { get; set; }
+    public Properties Properties { get; set; } = null!;
 }
 
 public class YAxis

@@ -14,8 +14,7 @@ namespace MidLevelQueryAndScanExample
 
     /// <summary>
     /// Shows how to perform mid-level query procedures on an Amazon DynamoDB
-    /// table. The example was created using the AWS SDK for .NET version 3.7 and
-    /// .NET Core 5.0.
+    /// table.
     /// </summary>
     public class MidLevelQueryAndScan
     {

@@ -129,6 +129,8 @@ csharp_space_between_square_brackets = false
 ###############################
 # File header.
 file_header_template = Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. \nSPDX-License-Identifier:  Apache-2.0
+# SA0001: XML comment disable is allowed.
+dotnet_diagnostic.SA0001.severity = none
 # SA1600: Elements must be documented is disabled.
 dotnet_diagnostic.SA1600.severity = none
 dotnet_diagnostic.SA1615.severity = none
@@ -151,3 +153,5 @@ dotnet_diagnostic.SA1309.severity = none
 dotnet_diagnostic.IDE2000.severity = error
 # IDE0073: Require a file header.
 dotnet_diagnostic.IDE0073.severity = error
+# CA1416: Disable system.drawing warnings.
+dotnet_diagnostic.CA1416.severity = none

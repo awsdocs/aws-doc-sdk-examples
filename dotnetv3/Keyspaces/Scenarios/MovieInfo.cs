@@ -8,13 +8,13 @@ namespace KeyspacesScenario;
 /// </summary>
 public class MovieInfo
 {
-    public string[] Directors { get; set; }
+    public string[] Directors { get; set; } = null!;
     public DateTime Release_Date { get; set; }
     public float Rating { get; set; }
-    public string[] Genres { get; set; }
-    public string Image_Url { get; set; }
-    public string Plot { get; set; }
+    public string[] Genres { get; set; } = null!;
+    public string Image_Url { get; set; } = null!;
+    public string Plot { get; set; } = null!;
     public int Rank { get; set; }
     public int RunningTimeSecs { get; set; }
-    public string[] Actors { get; set; }
+    public string[] Actors { get; set; } = null!;
 }

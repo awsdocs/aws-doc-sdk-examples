@@ -104,7 +104,7 @@ static class LowLevelTableExample
     {
         Console.WriteLine("\n*** Listing tables ***");
 
-        string? lastTableNameEvaluated = null;
+        string lastTableNameEvaluated = null;
         do
         {
             var response = await Client.ListTablesAsync(new ListTablesRequest
@@ -186,7 +186,7 @@ static class LowLevelTableExample
     // snippet-start:[dynamodb.dotnetv3.WaitUntilTableReady]
     private static async Task WaitUntilTableReady(string tableName)
     {
-        string? status = null;
+        string status = null;
         // Wait until table is created. Call DescribeTable.
         do
         {

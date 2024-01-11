@@ -11,8 +11,7 @@ namespace SearchFacesMatchingImageExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to search for images matching those
-    /// in a collection. The example was created using the AWS SDK for .NET
-    /// version 3.7 and .NET Core 5.0.
+    /// in a collection.
     /// </summary>
     public class SearchFacesMatchingImage
     {

@@ -11,8 +11,7 @@ namespace CreateCollectionExample
 
     /// <summary>
     /// Uses Amazon Rekognition to create a collection to which you can add
-    /// faces using the IndexFaces operation. The example was created using
-    /// the AWS SDK for .NET 3.7 and .NET Core 5.0.
+    /// faces using the IndexFaces operation.
     /// </summary>
     public class CreateCollection
     {
