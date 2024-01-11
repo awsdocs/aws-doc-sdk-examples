@@ -1,8 +1,7 @@
 #!/bin/bash
 
 function runCommand() {
-  dt=$(date +%Y-%m-%d)
-  if [ $@ ] && [ $@ == 'integration' ]
+  if [ "$@" ] && [ "$@" == 'integration' ]
   then
     kind='integration'
   else
