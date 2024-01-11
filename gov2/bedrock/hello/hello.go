@@ -35,7 +35,7 @@ func main() {
     if len(result.ModelSummaries) == 0 {
     fmt.Println("There are no foundation models.")}
     for _, modelSummary := range result.ModelSummaries {
-        fmt.Println(fmt.Sprintf("%s", *modelSummary.ModelId))
+        fmt.Println(*modelSummary.ModelId)
     }
 }
 

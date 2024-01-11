@@ -24,8 +24,8 @@ import (
 // https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html
 
 type ClaudeRequest struct {
-	Prompt            string   `json:"prompt"`
-	MaxTokensToSample int      `json:"max_tokens_to_sample"`
+	Prompt            string `json:"prompt"`
+	MaxTokensToSample int    `json:"max_tokens_to_sample"`
 	// Omitting optional request parameters
 }
 
@@ -39,17 +39,17 @@ type ClaudeResponse struct {
 // and config files.
 func main() {
 
-    region := flag.String("region", "us-east-1", "The AWS region")
-    flag.Parse()
+	region := flag.String("region", "us-east-1", "The AWS region")
+	flag.Parse()
 
-    fmt.Printf("Using AWS region: %s\n", *region)
+	fmt.Printf("Using AWS region: %s\n", *region)
 
 	sdkConfig, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(*region))
-    if err != nil {
-        fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
-        fmt.Println(err)
-        return
-    }
+	if err != nil {
+		fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
+		fmt.Println(err)
+		return
+	}
 
 	client := bedrockruntime.NewFromConfig(sdkConfig)
 
@@ -62,30 +62,33 @@ func main() {
 	postfix := "\n\nAssistant:"
 	wrappedPrompt := prefix + prompt + postfix
 
-	request := ClaudeRequest {
+	request := ClaudeRequest{
 		Prompt:            wrappedPrompt,
 		MaxTokensToSample: 200,
 	}
 
 	body, err := json.Marshal(request)
+	if err != nil {
+		log.Panicln("Couldn't marshal the request: ", err)
+	}
 
-	result, err := client.InvokeModel(context.Background(), &bedrockruntime.InvokeModelInput {
+	result, err := client.InvokeModel(context.Background(), &bedrockruntime.InvokeModelInput{
 		ModelId:     aws.String(modelId),
 		ContentType: aws.String("application/json"),
 		Body:        body,
 	})
 
 	if err != nil {
-        errMsg := err.Error()
-        if strings.Contains(errMsg, "no such host") {
-            fmt.Printf("Error: The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
-        } else if strings.Contains(errMsg, "Could not resolve the foundation model") {
-            fmt.Printf("Error: Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
-        } else {
-            fmt.Printf("Error: Couldn't invoke Anthropic Claude. Here's why: %v\n", err)
-        }
-        os.Exit(1)
-    }
+		errMsg := err.Error()
+		if strings.Contains(errMsg, "no such host") {
+			fmt.Printf("Error: The Bedrock service is not available in the selected region. Please double-check the service availability for your region at https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/.\n")
+		} else if strings.Contains(errMsg, "Could not resolve the foundation model") {
+			fmt.Printf("Error: Could not resolve the foundation model from model identifier: \"%v\". Please verify that the requested model exists and is accessible within the specified region.\n", modelId)
+		} else {
+			fmt.Printf("Error: Couldn't invoke Anthropic Claude. Here's why: %v\n", err)
+		}
+		os.Exit(1)
+	}
 
 	var response ClaudeResponse
 
@@ -94,7 +97,7 @@ func main() {
 	if err != nil {
 		log.Fatal("failed to unmarshal", err)
 	}
-    fmt.Println("Prompt:\n", prompt)
+	fmt.Println("Prompt:\n", prompt)
 	fmt.Println("Response from Anthropic Claude:\n", response.Completion)
 }
 

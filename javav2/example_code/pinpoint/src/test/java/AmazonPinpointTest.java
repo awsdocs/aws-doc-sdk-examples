@@ -14,6 +14,7 @@ import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.*;
 import java.io.*;
 import com.example.pinpoint.*;
+import software.amazon.awssdk.services.pinpointemail.PinpointEmailClient;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.pinpointsmsvoice.PinpointSmsVoiceClient;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
@@ -29,6 +30,8 @@ import java.util.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonPinpointTest {
     private static PinpointClient pinpoint;
+
+    private static PinpointEmailClient pinpointEmailClient;
     private static PinpointSmsVoiceClient voiceClient;
     private static S3Client s3Client;
     private static String appName = "";
@@ -54,6 +57,11 @@ public class AmazonPinpointTest {
     @BeforeAll
     public static void setUp() throws IOException {
         pinpoint = PinpointClient.builder()
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+
+        pinpointEmailClient = PinpointEmailClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
@@ -239,7 +247,7 @@ public class AmazonPinpointTest {
     @Tag("IntegrationTest")
     @Order(14)
     public void SendEmailMessage() {
-        assertDoesNotThrow(() -> SendEmailMessage.sendEmail(pinpoint, subject, existingApplicationId,  senderAddress, toAddress));
+        assertDoesNotThrow(() -> SendEmailMessage.sendEmail(pinpointEmailClient, subject,  senderAddress, toAddress));
         System.out.println("SendEmailMessage test passed");
    }
 
