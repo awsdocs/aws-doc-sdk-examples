@@ -56,7 +56,7 @@ describe("queue actions", () => {
 
     await deleteQueue(QueueUrl);
 
-    await retry({ intervalInMs: 1000, maxRetries: 60 }, async () => {
+    await retry({ intervalInMs: 5000, maxRetries: 60 }, async () => {
       const urlsAfterDelete = await listQueues();
       expect(urlsAfterDelete.length).toBe(0);
     });
