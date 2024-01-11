@@ -11,8 +11,7 @@ namespace DetectSentimentExample
 
     /// <summary>
     /// This example shows how to detect the overall sentiment of the supplied
-    /// text using the Amazon Comprehend service. The example was writing using
-    /// the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// text using the Amazon Comprehend service.
     /// </summary>
     public static class DetectSentiment
     {

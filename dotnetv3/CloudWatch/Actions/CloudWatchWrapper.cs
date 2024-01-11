@@ -275,7 +275,7 @@ public class CloudWatchWrapper
     /// <param name="alarmActions">Optional actions to execute when in an alarm state.</param>
     /// <returns>True if successful.</returns>
     public async Task<bool> PutMetricEmailAlarm(string alarmDescription, string alarmName, ComparisonOperator comparison,
-        string metricName, string metricNamespace, double threshold, List<string> alarmActions = null)
+        string metricName, string metricNamespace, double threshold, List<string> alarmActions = null!)
     {
         try
         {

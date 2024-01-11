@@ -24,8 +24,8 @@ public class CassandraWrapper
     private Cluster _cluster;
 
     // User name and password for the service.
-    private string _userName;
-    private string _pwd;
+    private string _userName = null!;
+    private string _pwd = null!;
 
     public CassandraWrapper()
     {
@@ -42,12 +42,18 @@ public class CassandraWrapper
         var client = new WebClient();
         client.DownloadFile(_certLocation, $"{_localPathToFile}/{_certFileName}");
 
+        //var httpClient = new HttpClient();
+        //var httpResult = httpClient.Get(fileUrl);
+        //using var resultStream = await httpResult.Content.ReadAsStreamAsync();
+        //using var fileStream = File.Create(pathToSave);
+        //resultStream.CopyTo(fileStream);
+
         _certCollection = new X509Certificate2Collection();
         _amazoncert = new X509Certificate2($"{_localPathToFile}/{_certFileName}");
 
         // Get the user name and password stored in the configuration file.
-        _userName = _configuration["UserName"];
-        _pwd = _configuration["Password"];
+        _userName = _configuration["UserName"]!;
+        _pwd = _configuration["Password"]!;
 
         // For a list of Service Endpoints for Amazon Keyspaces, see:
         // https://docs.aws.amazon.com/keyspaces/latest/devguide/programmatic.endpoints.html
@@ -75,7 +81,7 @@ public class CassandraWrapper
     {
         if (!File.Exists(movieFileName))
         {
-            return null;
+            return null!;
         }
 
         using var sr = new StreamReader(movieFileName);
@@ -116,12 +122,12 @@ public class CassandraWrapper
         RowSet rs;
 
         // Now we insert the numToImport movies into the table.
-        movies.ForEach(async movie =>
+        foreach (var movie in movies)
         {
             // Escape single quote characters in the plot.
             insertCql = $"INSERT INTO {keyspaceName}.{movieTableName} (title, year, release_date, plot) values($${movie.Title}$$, {movie.Year}, '{movie.Info.Release_Date.ToString("yyyy-MM-dd")}', $${movie.Info.Plot}$$)";
             rs = await session.ExecuteAsync(new SimpleStatement(insertCql));
-        });
+        }
 
         return true;
     }
@@ -147,7 +153,7 @@ public class CassandraWrapper
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            return null;
+            return null!;
         }
     }
 
@@ -190,7 +196,7 @@ public class CassandraWrapper
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            return null;
+            return null!;
         }
     }
 }

@@ -222,7 +222,7 @@ def test_get_agent(stubber, wrapper, error_code):
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_list_agents(stubber, wrapper, error_code):
-    expected_params = {}
+    expected_params = {"maxResults": 10}
     response = {
         "agentSummaries": [
             {
@@ -244,6 +244,54 @@ def test_list_agents(stubber, wrapper, error_code):
     else:
         with pytest.raises(ClientError) as exc_info:
             wrapper.list_agents()
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "ClientError"])
+def test_list_agent_action_groups(stubber, wrapper, error_code):
+    expected_params = {
+        "agentId": Fake.AGENT_ID,
+        "agentVersion": Fake.VERSION,
+        "maxResults": 10,
+    }
+    response = {"actionGroupSummaries": []}
+
+    stubber.stub_list_agent_action_groups(
+        expected_params, response, error_code=error_code
+    )
+
+    if error_code is None:
+        got_action_groups = wrapper.list_agent_action_groups(
+            Fake.AGENT_ID, Fake.VERSION
+        )
+        assert got_action_groups is not None
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.list_agent_action_groups(Fake.AGENT_ID, Fake.VERSION)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "ClientError"])
+def test_list_agent_knowledge_bases(stubber, wrapper, error_code):
+    expected_params = {
+        "agentId": Fake.AGENT_ID,
+        "agentVersion": Fake.VERSION,
+        "maxResults": 10,
+    }
+    response = {"agentKnowledgeBaseSummaries": []}
+
+    stubber.stub_list_agent_knowledge_bases(
+        expected_params, response, error_code=error_code
+    )
+
+    if error_code is None:
+        got_action_groups = wrapper.list_agent_knowledge_bases(
+            Fake.AGENT_ID, Fake.VERSION
+        )
+        assert got_action_groups is not None
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.list_agent_knowledge_bases(Fake.AGENT_ID, Fake.VERSION)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 

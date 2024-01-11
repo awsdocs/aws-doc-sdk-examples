@@ -1,11 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-/// <summary>
-/// Take text from a file stored a Amazon Simple Storage Service (Amazon S3)
-/// object and translate it using the Amazon Transfer Service. The example was
-/// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
-/// </summary>
 namespace TranslateTextExample
 {
     // snippet-start:[Translate.dotnetv3.TranslateTextExample]
@@ -17,6 +12,10 @@ namespace TranslateTextExample
     using Amazon.Translate;
     using Amazon.Translate.Model;
 
+    /// <summary>
+    /// Take text from a file stored a Amazon Simple Storage Service (Amazon S3)
+    /// object and translate it using the Amazon Transfer Service.
+    /// </summary>
     public class TranslateText
     {
         public static async Task Main()

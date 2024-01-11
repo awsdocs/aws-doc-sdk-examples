@@ -22,7 +22,7 @@
  *
  * Building the code:
  *
- * To build the following code, using CMake version 3.8 or later, generate this
+ * To build the following code, using CMake version 3.13 or later, generate this
  * project's makefiles by running the cmake command from the same directory as 
  * this file. Then build this project's makefiles by running the make command 
  * from the same directory as this file. For more information, see the 
