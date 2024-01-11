@@ -30,7 +30,8 @@ def main():
     args = parser.parse_args()
     root_path = Path(args.root).resolve()
 
-    doc_gen = DocGen.from_root(root=root_path, snippets_root=root_path)
+    doc_gen = DocGen.from_root(root=root_path)
+    doc_gen.collect_snippets(snippets_root=root_path)
     doc_gen.validate()
 
     error_count = len(doc_gen.errors)

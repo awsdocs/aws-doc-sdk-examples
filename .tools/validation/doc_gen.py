@@ -28,8 +28,15 @@ class DocGen:
     snippet_files: set[str] = field(default_factory=set)
     examples: list[Example] = field(default_factory=list)
 
+    def collect_snippets(self, snippets_root: Path | None):
+        if snippets_root is None:
+            snippets_root = self.root.parent.parent
+        snippets, errs = collect_snippets(snippets_root)
+        self.snippets = snippets
+        self.errors.extend(errs)
+
     @classmethod
-    def from_root(cls, root: Path, snippets_root: Path | None = None) -> Self:
+    def from_root(cls, root: Path) -> Self:
         errors = MetadataErrors()
         metadata = root / ".doc_gen/metadata"
 
@@ -43,14 +50,9 @@ class DocGen:
             services, service_errors = parse_services("services.yaml", meta)
             errors.extend(service_errors)
 
-        if snippets_root is None:
-            snippets_root = root.parent.parent
-        snippets, errs = collect_snippets(snippets_root)
-
         doc_gen = cls(
             sdks=sdks,
             services=services,
-            snippets=snippets,
             errors=errors,
             root_path=root,
         )
