@@ -10,7 +10,11 @@
 
 ## Purpose
 
-You can develop a dynamic web application that users can use to submit data to an Amazon DynamoDB table. In addition to using DynamoDB, this web application also uses the Amazon Simple Notification Service (Amazon SNS) and AWS Elastic Beanstalk. This application uses the [DynamoDbEnhancedClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/enhanced/dynamodb/DynamoDbEnhancedClient.html) to store data in DynamoDB table. After the table is updated, the application uses Amazon SNS to send a text message to notify a user. This application also uses Spring Boot APIs to build a model, views, and a controller.
+You can develop a dynamic web application that users can use to submit data to an Amazon DynamoDB table. In addition to using DynamoDB, 
+this web application also uses the Amazon Simple Notification Service (Amazon SNS) and AWS Elastic Beanstalk. 
+This application uses the [DynamoDbEnhancedClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/enhanced/dynamodb/DynamoDbEnhancedClient.html) 
+to store data in DynamoDB table. After the table is updated, the application uses Amazon SNS to send a text message to notify a user. 
+This application also uses Spring Boot 3.0 APIs to build a model, views, and a controller.
 
 The DynamoDB enhanced client maps your Java classes to DynamoDB tables. With the DynamoDB enhanced client, you can do the following:
 
