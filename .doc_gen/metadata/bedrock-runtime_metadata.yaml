@@ -303,9 +303,9 @@ bedrock-runtime_InvokeModelWithResponseStream:
     bedrock-runtime: {InvokeModelWithResponseStream}
 
 bedrock-runtime_Scenario_Invoke_models:
-  title: Invoke multiple large-language models (LLMs) on &BR;
-  title_abbrev: Invoke multiple LLMs on &BR;
-  synopsis: invoke multiple large-language-models (LLMs) on &BR;.
+  title: Invoke multiple foundation models on &BR;
+  title_abbrev: Invoke multiple foundation models on &BR;
+  synopsis: invoke multiple foundation models on &BR;.
   synopsis_list:
     - Generate text with Anthropic Claude.
     - Generate text with AI21 Labs Jurassic-2.

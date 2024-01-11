@@ -40,7 +40,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [List available Amazon Bedrock foundation models](BedrockService.php#L32) (`ListFoundationModels`)
+- [List Amazon Bedrock foundation models](BedrockService.php#L32) (`ListFoundationModels`)
 
 
 <!--custom.examples.start-->
