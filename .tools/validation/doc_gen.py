@@ -9,16 +9,19 @@ from pathlib import Path
 
 # from os import glob
 
-from file_utils import get_files
-from metadata_errors import MetadataErrors
 from metadata import Example, parse as parse_examples
+from metadata_errors import MetadataErrors
+from metadata_validator import validate_metadata
+from project_validator import check_files, verify_sample_files
 from sdks import Sdk, parse as parse_sdks
 from services import Service, parse as parse_services
-from snippets import Snippet, collect_snippets
+from snippets import Snippet, collect_snippets, validate_snippets
 
 
 @dataclass
 class DocGen:
+    root_path: Path
+    errors: MetadataErrors
     sdks: dict[str, Sdk] = field(default_factory=dict)
     services: dict[str, Service] = field(default_factory=dict)
     snippets: dict[str, Snippet] = field(default_factory=dict)
@@ -26,9 +29,7 @@ class DocGen:
     examples: list[Example] = field(default_factory=list)
 
     @classmethod
-    def from_root(
-        cls, root: Path, snippets_root: Path | None = None
-    ) -> tuple[Self, MetadataErrors]:
+    def from_root(cls, root: Path, snippets_root: Path | None = None) -> Self:
         errors = MetadataErrors()
         metadata = root / ".doc_gen/metadata"
 
@@ -46,7 +47,13 @@ class DocGen:
             snippets_root = root.parent.parent
         snippets, errs = collect_snippets(snippets_root)
 
-        doc_gen = cls(sdks=sdks, services=services, snippets=snippets)
+        doc_gen = cls(
+            sdks=sdks,
+            services=services,
+            snippets=snippets,
+            errors=errors,
+            root_path=root,
+        )
 
         for path in metadata.glob("*_metadata.yaml"):
             with open(path) as file:
@@ -56,4 +63,16 @@ class DocGen:
                 doc_gen.examples.extend(ex)
                 errors.extend(errs)
 
-        return doc_gen, errors
+        return doc_gen
+
+    def validate(self):
+        check_files(self.root_path, self.errors)
+        verify_sample_files(self.root_path, self.errors)
+        validate_metadata(self.root_path, self.errors)
+        validate_snippets(
+            self.examples,
+            self.snippets,
+            self.snippet_files,
+            self.errors,
+            self.root_path,
+        )
