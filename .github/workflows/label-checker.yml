@@ -22,20 +22,11 @@ jobs:
           all_of: On Call Review complete
           none_of: On Call Review needed
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-  check_text_labels:
-    name: Check Text labels
-    runs-on: ubuntu-latest
-    steps:
-      - uses: docker://agilepathway/pull-request-label-checker:latest
-        with:
-          one_of: Text Review complete,Text Review not needed
-          none_of: Text Review needed
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
   check_stats_labels:
     name: Check Stats labels
     runs-on: ubuntu-latest
     steps:
       - uses: docker://agilepathway/pull-request-label-checker:latest
         with:
-          one_of: Application,MVP,Workflow,Task
+          one_of: Application,MVP,Workflow,Task,Bug
           repo_token: ${{ secrets.GITHUB_TOKEN }}
