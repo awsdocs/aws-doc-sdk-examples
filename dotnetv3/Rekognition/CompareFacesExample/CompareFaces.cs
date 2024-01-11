@@ -12,7 +12,6 @@ namespace CompareFacesExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to compare faces in two images.
-    /// The example uses the AWS SDK for .NET 3.7 and .NET Core 5.0.
     /// </summary>
     public class CompareFaces
     {

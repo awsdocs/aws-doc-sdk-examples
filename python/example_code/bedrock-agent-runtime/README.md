@@ -32,9 +32,6 @@ python -m pip install -r requirements.txt
 ```
 
 <!--custom.prerequisites.start-->
-
-> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
-
 <!--custom.prerequisites.end-->
 
 ### Single actions
@@ -45,19 +42,6 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.examples.start-->
-
-#### Create and invoke agents
-
-This example shows you how to do the following:
-
-- Create an execution role for the agent.
-- Create the agent and deploy a DRAFT version.
-- Create a Lambda function that implements the agent's capabilities.
-- Create an action group that connects the agent to the Lambda function.
-- Deploy the fully configured agent.
-- Invoke the agent with user-provided prompts.
-- Delete all created resources.
-
 <!--custom.examples.end-->
 
 ## Run the examples

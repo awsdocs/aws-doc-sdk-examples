@@ -11,8 +11,7 @@ namespace RegisterConsumerExample
 
     /// <summary>
     /// This example shows how to register a consumer to an Amazon Kinesis
-    /// stream. The example was written using the AWS SDK for .NET version 3.7
-    /// and .NET Core 5.0.
+    /// stream.
     /// </summary>
     public class RegisterConsumer
     {

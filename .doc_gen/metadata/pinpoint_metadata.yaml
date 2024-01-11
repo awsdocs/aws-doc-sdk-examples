@@ -22,6 +22,9 @@ pinpoint_SendMessages:
             - description: Send an email message.
               snippet_tags:
                 - pinpoint.java2.send_email.main
+            - description: Send an email message with CC values.
+              snippet_tags:
+                - pinpoint.java2.send_emailcc.main    
             - description: Send an SMS message.
               snippet_tags:
                 - pinpoint.java2.sendmsg.main

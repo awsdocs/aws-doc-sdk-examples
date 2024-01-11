@@ -195,6 +195,9 @@ ALLOW_LIST = {
     "mediaconnect/latest/APIReference/Welcome",
     "cryptography/latest/APIReference/Welcome",
     "com/AmazonCloudWatch/latest/logs/Working",
+    "imaging/model/GetImageSetMetadataRequest",
+    "cd5e746ec203c8c3c61647e0886a8df8c1e78e41",
+    "imaging/model/StartDICOMImportJobRequest",
 }
 
 
@@ -204,8 +207,6 @@ EXPECTED_SAMPLE_FILES = {
     "chat_sfn_state_machine.json",
     "market_2.jpg",
     "movies.json",
-    "sample_cert.pem",
-    "sample_private_key.pem",
     "sample_saml_metadata.xml",
     "speech_sample.mp3",
     "spheres_2.jpg",
