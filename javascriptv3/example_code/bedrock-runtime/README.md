@@ -27,11 +27,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 
 <!--custom.prerequisites.start-->
+> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.prerequisites.end-->
 
 ### Get started
 
 - [Hello Amazon Bedrock](javascriptv3/example_code/bedrock-runtime/hello.js) (`InvokeModel`)
+
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Text generation with Anthropic Claude 2](javascriptv3/example_code/bedrock-runtime/action/invoke-model.js) (`InvokeModel`)
 
 
 <!--custom.examples.start-->
