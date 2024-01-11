@@ -523,7 +523,7 @@ If this is your first time accessing this service, you see the **Welcome to AWS 
 
 To access the application, open your browser and enter the full URL.
 
-![AWS Blog Application](images/greet15.png)
+![AWS Blog Application](images/webui.png)
 
 ### Next steps
 Congratulations! You have created your first web application that interacts with AWS services. As stated at the beginning of this tutorial, be sure to delete all of the resources that you create while going through this tutorial so that you won't continue to be charged for them.
