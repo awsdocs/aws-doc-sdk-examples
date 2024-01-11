@@ -15,4 +15,4 @@ RUN useradd -m automation && \
     chown -R automation:automation /kotlin
 USER automation:automation
 
-CMD ["./kotlin/run_tests.sh"]
+CMD ["/kotlin/run_tests.sh"]
