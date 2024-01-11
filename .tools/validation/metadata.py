@@ -66,7 +66,11 @@ class Version:
 
     @classmethod
     def from_yaml(
-        cls, yaml: dict[str, Any], services: dict[str, Service]
+        cls,
+        yaml: dict[str, Any],
+        services: dict[str, Service],
+        cross_content_blocks: set[str],
+        is_action: bool,
     ) -> tuple[Self, MetadataErrors]:
         errors = MetadataErrors()
 
@@ -108,8 +112,11 @@ class Version:
                 errors.append(url)
 
         add_services = parse_services(yaml.get("add_services", {}), errors, services)
-        if add_services and block_content is not None:
+        if add_services and is_action:
             errors.append(metadata_errors.APIExampleCannotAddService())
+
+        if block_content is not None and block_content not in cross_content_blocks:
+            errors.append(metadata_errors.MissingCrossContent(block=block_content))
 
         return (
             cls(
@@ -132,7 +139,13 @@ class Language:
 
     @classmethod
     def from_yaml(
-        cls, name: str, yaml: Any, sdks: dict[str, Sdk], services: dict[str, Service]
+        cls,
+        name: str,
+        yaml: Any,
+        sdks: dict[str, Sdk],
+        services: dict[str, Service],
+        blocks: set[str],
+        is_action: bool,
     ) -> tuple[Self, MetadataErrors]:
         errors = MetadataErrors()
         if name not in sdks:
@@ -145,7 +158,9 @@ class Language:
 
         versions: list[Version] = []
         for version in yaml_versions:
-            version, version_errors = Version.from_yaml(version, services)
+            version, version_errors = Version.from_yaml(
+                version, services, blocks, is_action
+            )
             errors.extend(version_errors)
             versions.append(version)
 
@@ -179,7 +194,11 @@ class Example:
 
     @classmethod
     def from_yaml(
-        cls, yaml: Any, sdks: dict[str, Sdk], services: dict[str, Service]
+        cls,
+        yaml: Any,
+        sdks: dict[str, Sdk],
+        services: dict[str, Service],
+        blocks: set[str],
     ) -> tuple[Self, MetadataErrors]:
         errors = MetadataErrors()
 
@@ -187,15 +206,26 @@ class Example:
         title_abbrev = get_with_valid_entities("title_abbrev", yaml, errors)
         synopsis = get_with_valid_entities("synopsis", yaml, errors, opt=True)
 
-        category = yaml.get("category")
+        category = yaml.get("category", "")
         source_key = yaml.get("source_key")
         parsed_services = parse_services(yaml.get("services", {}), errors, services)
         synopsis_list = [str(syn) for syn in yaml.get("synopsis_list", [])]
-
         guide_topic = Url.from_yaml(yaml.get("guide_topic"))
         if isinstance(guide_topic, MetadataParseError):
             errors.append(guide_topic)
             guide_topic = None
+
+        service_main = yaml.get("service_main", None)
+        if service_main is not None and service_main not in services:
+            try:
+                errors.append(metadata_errors.UnknownService(service=service_main))
+            except DuplicateItemException:
+                pass
+
+        if category == "":
+            category = "Api" if len(parsed_services) == 1 else "Cross"
+
+        is_action = category == "Api"
 
         yaml_languages = yaml.get("languages")
         languages: dict[str, Language] = {}
@@ -204,17 +234,10 @@ class Example:
         else:
             for name in yaml_languages:
                 language, errs = Language.from_yaml(
-                    name, yaml_languages[name], sdks, services
+                    name, yaml_languages[name], sdks, services, blocks, is_action
                 )
                 languages[language.name] = language
                 errors.extend(errs)
-
-        service_main = yaml.get("service_main", None)
-        if service_main is not None and service_main not in services:
-            try:
-                errors.append(metadata_errors.UnknownService(service=service_main))
-            except DuplicateItemException:
-                pass
 
         return (
             cls(
@@ -285,14 +308,18 @@ def idFormat(id: str, services: dict[str, Service]) -> bool:
 
 
 def parse(
-    file: str, yaml: dict[str, Any], sdks: dict[str, Sdk], services: dict[str, Service]
+    file: str,
+    yaml: dict[str, Any],
+    sdks: dict[str, Sdk],
+    services: dict[str, Service],
+    blocks: set[str],
 ) -> tuple[list[Example], MetadataErrors]:
     examples: list[Example] = []
     errors = MetadataErrors()
     for id in yaml:
         if not idFormat(id, services):
             errors.append(metadata_errors.NameFormat(file=file, id=id))
-        example, example_errors = Example.from_yaml(yaml[id], sdks, services)
+        example, example_errors = Example.from_yaml(yaml[id], sdks, services, blocks)
         for error in example_errors:
             error.file = file
             error.id = id
@@ -316,7 +343,7 @@ def main():
     )
     with open(path) as file:
         meta = yaml.safe_load(file)
-    (examples, errors) = parse(path.name, meta, {}, {})
+    (examples, errors) = parse(path.name, meta, {}, {}, set())
     if len(errors) > 0:
         print(f"{errors}")
     else:

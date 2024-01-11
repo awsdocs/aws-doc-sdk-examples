@@ -32,7 +32,7 @@ def main():
 
     doc_gen = DocGen.from_root(root=root_path)
     doc_gen.collect_snippets(snippets_root=root_path)
-    doc_gen.validate()
+    doc_gen.validate(args.check_spdx)
 
     error_count = len(doc_gen.errors)
     if error_count > 0:

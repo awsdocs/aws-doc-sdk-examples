@@ -119,6 +119,14 @@ class NameFormat(MetadataParseError):
 
 
 @dataclass
+class MissingCrossContent(MetadataParseError):
+    block: str = ""
+
+    def message(self):
+        return f"missing cross content block {self.block}"
+
+
+@dataclass
 class FieldError(MetadataParseError):
     field: str = ""
     value: str = ""
