@@ -39,8 +39,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get details about an Amazon Bedrock foundation model](javascriptv3/example_code/bedrock/actions/getFoundationModel.js) (`GetFoundationModel`)
-- [List available Amazon Bedrock foundation models](javascriptv3/example_code/bedrock/actions/listFoundationModels.js) (`ListFoundationModels`)
+- [Get details about an Amazon Bedrock foundation model](javascriptv3/example_code/bedrock/actions/get-foundation-model.js) (`GetFoundationModel`)
+- [List available Amazon Bedrock foundation models](javascriptv3/example_code/bedrock/actions/list-foundation-models.js) (`ListFoundationModels`)
 
 
 <!--custom.examples.start-->
