@@ -105,10 +105,14 @@ You must configure the app client. For example, you need to define OAuth scope v
 7. Add **Authorization code grant** under **OAuth 2.0 grant types**.
 ![AWS Tracking Application](images/clientapp2.png) 
 
-8. Add **email** and **openid** to **OpenID Connect scopes**.
+8. Add **email** and **openid** under **OpenID Connect scopes**.
 ![AWS Tracking Application](images/clientapp3.png)
  
 9. Choose **Save Changes**. 
+
+Once done, you need to reference these two values. You need to specify these values in the YAML file (discussed later).
+![AWS Tracking Application](images/clientapp4.png)
+
 
 ## Configure a domain name
 
