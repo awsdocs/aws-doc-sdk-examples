@@ -40,7 +40,7 @@
         </listitem>
         <listitem>
             <para>
-                Find and summarize today's highest trending GitHub repository. This example illustrates chaining two <ulink url="https://www.promptingguide.ai/techniques/react">ReAct prompts</ulink> (also known as ReAct agents) in a two-step sequential pipeline to interact with GitHub's API.
+                Find and summarize today's highest trending GitHub repository. This example illustrates chaining multiple AI agents that interact with external APIs.
             </para>
         </listitem>
     </itemizedlist>
