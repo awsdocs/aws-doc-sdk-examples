@@ -15,4 +15,4 @@ RUN useradd -m automation && \
     chown -R automation:automation /javav2
 USER automation:automation
 
-CMD ["./run_tests.sh"]
+CMD ["/javav2/run_tests.sh"]

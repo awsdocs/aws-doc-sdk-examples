@@ -17,13 +17,36 @@ bedrock_Hello:
       versions:
         - sdk_version: 3
           github: dotnetv3/Bedrock
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
                 - Bedrock.dotnetv3.BedrockActions.HelloBedrock
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/bedrock/hello.js
   services:
     bedrock: {ListFoundationModels}
+
+bedrock_GetFoundationModel:
+  title: Get details about an &BRlong; foundation model using an &AWS; SDK
+  title_abbrev: Get details about an &BR; foundation model
+  synopsis: get details about an &BR; foundation model.
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock
+          excerpts:
+            - description: Get details about a foundation model.
+              snippet_files:
+                - javascriptv3/example_code/bedrock/actions/get-foundation-model.js
+  services:
+    bedrock: {GetFoundationModel}
 
 bedrock_ListFoundationModels:
   title: List the available &BRlong; foundation models using an &AWS; SDK
@@ -48,6 +71,14 @@ bedrock_ListFoundationModels:
             - description: List the available &BRlong; foundation models.
               snippet_tags:
                 - bedrock.java2.list_foundation_models.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock
+          excerpts:
+            - description: List the available foundation models.
+              snippet_files:
+                - javascriptv3/example_code/bedrock/actions/list-foundation-models.js
     Kotlin:
       versions:
         - sdk_version: 1

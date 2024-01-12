@@ -1,0 +1,17 @@
+{
+  "name": "bedrock-examples",
+  "version": "1.0.0",
+  "author": "Dennis Traub <traubd@amazon.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock": "^3.485.0"
+  },
+  "devDependencies": {
+    "vitest": "^1.1.3",
+    "zod": "^3.22.4"
+  }
+}
