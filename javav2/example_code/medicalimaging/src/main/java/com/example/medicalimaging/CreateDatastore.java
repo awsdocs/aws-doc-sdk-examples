@@ -1,15 +1,9 @@
-//snippet-sourcedescription:[CreateDataStore.java demonstrates how to create a data store in AWS HealthImaging.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS HealthImaging]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.medicalimaging;
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
-//snippet-start:[medicalimaging.java2.create_datastore.import]
+// snippet-start:[medicalimaging.java2.create_datastore.import]
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -17,10 +11,11 @@ import software.amazon.awssdk.services.medicalimaging.MedicalImagingClient;
 import software.amazon.awssdk.services.medicalimaging.model.CreateDatastoreRequest;
 import software.amazon.awssdk.services.medicalimaging.model.CreateDatastoreResponse;
 import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingException;
-//snippet-end:[medicalimaging.java2.create_datastore.import]
+// snippet-end:[medicalimaging.java2.create_datastore.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  * <p>
  * For more information, see the following documentation topic:
  * <p>
@@ -54,9 +49,9 @@ public class CreateDatastore {
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.create_datastore.main]
+    // snippet-start:[medicalimaging.java2.create_datastore.main]
     public static String createMedicalImageDatastore(MedicalImagingClient medicalImagingClient,
-                                                     String datastoreName) {
+            String datastoreName) {
         try {
             CreateDatastoreRequest datastoreRequest = CreateDatastoreRequest.builder()
                     .datastoreName(datastoreName)
@@ -70,5 +65,5 @@ public class CreateDatastore {
 
         return "";
     }
-    //snippet-end:[medicalimaging.java2.create_datastore.main]
+    // snippet-end:[medicalimaging.java2.create_datastore.main]
 }

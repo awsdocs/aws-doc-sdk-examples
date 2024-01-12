@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[ListServerCertificates.java demonstrates how to list all server certificates associated with an AWS account.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[IAM]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.iam;
 
 // snippet-start:[iam.java2.list_server_certificates.main]
@@ -19,7 +14,8 @@ import software.amazon.awssdk.services.iam.IamClient;
 // snippet-end:[iam.java2.list_server_certificates.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,8 +25,8 @@ public class ListServerCertificates {
     public static void main(String[] args) {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listCertificates(iam);
         System.out.println("Done");
@@ -50,8 +46,8 @@ public class ListServerCertificates {
                     response = iam.listServerCertificates(request);
                 } else {
                     ListServerCertificatesRequest request = ListServerCertificatesRequest.builder()
-                        .marker(newMarker)
-                        .build();
+                            .marker(newMarker)
+                            .build();
                     response = iam.listServerCertificates(request);
                 }
 

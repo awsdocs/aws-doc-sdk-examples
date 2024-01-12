@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteAlias.java demonstrates how to delete an AWS Key Management Service (AWS KMS) alias.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Key Management Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kms;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.kms.model.KmsException;
 // snippet-end:[kms.java2_delete_alias.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +23,12 @@ public class DeleteAlias {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <aliasName>\s
+                Usage:
+                    <aliasName>\s
 
-            Where:
-                aliasName - An alias name to delete (for example, alias/myAlias).\s
-            """;
+                Where:
+                    aliasName - An alias name to delete (for example, alias/myAlias).\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,8 +38,8 @@ public class DeleteAlias {
         String aliasName = args[0];
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         deleteSpecificAlias(kmsClient, aliasName);
         kmsClient.close();
@@ -53,8 +48,8 @@ public class DeleteAlias {
     public static void deleteSpecificAlias(KmsClient kmsClient, String aliasName) {
         try {
             DeleteAliasRequest deleteAliasRequest = DeleteAliasRequest.builder()
-                .aliasName(aliasName)
-                .build();
+                    .aliasName(aliasName)
+                    .build();
 
             kmsClient.deleteAlias(deleteAliasRequest);
 

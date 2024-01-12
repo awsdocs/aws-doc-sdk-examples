@@ -1,24 +1,19 @@
-//snippet-sourcedescription:[PutSecret.java demonstrates how to create a new version with a new encrypted secret value and attaches it to the secret.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Secrets Manager]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.secrets;
 
-//snippet-start:[secretsmanager.java2.put_secret.main]
-//snippet-start:[secretsmanager.java2.put_secret.import]
+// snippet-start:[secretsmanager.java2.put_secret.main]
+// snippet-start:[secretsmanager.java2.put_secret.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.PutSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerException;
-//snippet-end:[secretsmanager.java2.put_secret.import]
+// snippet-end:[secretsmanager.java2.put_secret.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,13 +23,13 @@ public class PutSecret {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <secretName> <secretValue>
+                Usage:
+                    <secretName> <secretValue>
 
-            Where:
-                secretName - The name of the secret (for example, tutorials/MyFirstSecret).\s
-                secretValue - The text to encrypt and store in the new version of the secret.\s
-            """;
+                Where:
+                    secretName - The name of the secret (for example, tutorials/MyFirstSecret).\s
+                    secretValue - The text to encrypt and store in the new version of the secret.\s
+                """;
 
         if (args.length < 2) {
             System.out.println(usage);
@@ -45,8 +40,8 @@ public class PutSecret {
         String secretValue = args[1];
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         putSecret(secretsClient, secretName, secretValue);
         secretsClient.close();
@@ -55,9 +50,9 @@ public class PutSecret {
     public static void putSecret(SecretsManagerClient secretsClient, String secretName, String secretValue) {
         try {
             PutSecretValueRequest secretRequest = PutSecretValueRequest.builder()
-                .secretId(secretName)
-                .secretString(secretValue)
-                .build();
+                    .secretId(secretName)
+                    .secretString(secretValue)
+                    .build();
 
             secretsClient.putSecretValue(secretRequest);
             System.out.println("A new version was created.");
@@ -68,4 +63,4 @@ public class PutSecret {
         }
     }
 }
-//snippet-end:[secretsmanager.java2.put_secret.main]
+// snippet-end:[secretsmanager.java2.put_secret.main]

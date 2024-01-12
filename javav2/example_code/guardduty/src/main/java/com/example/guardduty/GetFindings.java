@@ -1,17 +1,10 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetFindings.java demonstrates how to List detector id values for existing Amazon GuardDuty detector resources.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon GuardDuty]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.guardduty;
 
-//snippet-start:[guard.java2.get_findings.main]
-//snippet-start:[guard.java2.get_findings.import]
+// snippet-start:[guard.java2.get_findings.main]
+// snippet-start:[guard.java2.get_findings.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.guardduty.GuardDutyClient;
 import software.amazon.awssdk.services.guardduty.model.Finding;
@@ -20,10 +13,11 @@ import software.amazon.awssdk.services.guardduty.model.GetFindingsResponse;
 import software.amazon.awssdk.services.guardduty.model.GuardDutyException;
 import java.util.ArrayList;
 import java.util.List;
-//snippet-end:[guard.java2.get_findings.import]
+// snippet-end:[guard.java2.get_findings.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -34,10 +28,10 @@ public class GetFindings {
     public static void main(String[] args) {
         final String usage = """
 
-            To run this example, supply the findingId value and the detectorId value. \s
+                To run this example, supply the findingId value and the detectorId value. \s
 
-            Ex: GetFindings <findingId> <detectorId>
-            """;
+                Ex: GetFindings <findingId> <detectorId>
+                """;
 
         if (args.length < 2) {
             System.out.println(usage);
@@ -49,8 +43,8 @@ public class GetFindings {
 
         Region region = Region.US_EAST_1;
         GuardDutyClient guardDutyClient = GuardDutyClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getSpecificFinding(guardDutyClient, findingId, detectorId);
         guardDutyClient.close();
@@ -62,9 +56,9 @@ public class GetFindings {
             myIds.add(findingId);
 
             GetFindingsRequest findingsRequest = GetFindingsRequest.builder()
-                .findingIds(myIds)
-                .detectorId(detectorId)
-                .build();
+                    .findingIds(myIds)
+                    .detectorId(detectorId)
+                    .build();
 
             GetFindingsResponse findingsResponse = guardDutyClient.getFindings(findingsRequest);
             List<Finding> findings = findingsResponse.findings();
@@ -80,4 +74,4 @@ public class GetFindings {
         }
     }
 }
-//snippet-end:[guard.java2.get_findings.main]
+// snippet-end:[guard.java2.get_findings.main]

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.resilient;
 
@@ -50,8 +48,8 @@ public class LaunchTemplateCreator {
     private Ec2Client getEc2Client() {
         if (ec2Client == null) {
             ec2Client = Ec2Client.builder()
-                .region(Region.US_EAST_1)
-                .build();
+                    .region(Region.US_EAST_1)
+                    .build();
         }
         return ec2Client;
     }
@@ -59,8 +57,8 @@ public class LaunchTemplateCreator {
     private static IamClient getIAMClient() {
         if (iamClient == null) {
             iamClient = IamClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+                    .region(Region.US_EAST_1)
+                    .build();
         }
         return iamClient;
     }
@@ -68,41 +66,43 @@ public class LaunchTemplateCreator {
     private SsmClient getSSMClient() {
         if (ssmClient == null) {
             ssmClient = SsmClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+                    .region(Region.US_EAST_1)
+                    .build();
         }
         return ssmClient;
     }
 
     // snippet-start:[javav2.cross_service.resilient_service.ec2.CreateLaunchTemplate]
-    public void createTemplate(String policyFile, String policyName, String profileName, String startScript, String templateName, String roleName) {
+    public void createTemplate(String policyFile, String policyName, String profileName, String startScript,
+            String templateName, String roleName) {
         String profileArn = createInstanceProfile(policyFile, policyName, profileName, roleName);
         String amiId = getLatestAmazonLinuxAmiId();
 
         try {
             String userData = getBase64EncodedUserData(startScript);
-            LaunchTemplateIamInstanceProfileSpecificationRequest specification = LaunchTemplateIamInstanceProfileSpecificationRequest.builder()
-                .arn(profileArn)
-                .build();
+            LaunchTemplateIamInstanceProfileSpecificationRequest specification = LaunchTemplateIamInstanceProfileSpecificationRequest
+                    .builder()
+                    .arn(profileArn)
+                    .build();
 
             RequestLaunchTemplateData templateData = RequestLaunchTemplateData.builder()
-                .instanceType(InstanceType.T3_MICRO) // Replace with your desired instance type.
-                .imageId(amiId)
-                .iamInstanceProfile(specification)
-                .userData(userData)
-                .build();
+                    .instanceType(InstanceType.T3_MICRO) // Replace with your desired instance type.
+                    .imageId(amiId)
+                    .iamInstanceProfile(specification)
+                    .userData(userData)
+                    .build();
 
             CreateLaunchTemplateRequest templateRequest = CreateLaunchTemplateRequest.builder()
-                .launchTemplateName(templateName)
-                .launchTemplateData(templateData)
-                .build();
+                    .launchTemplateName(templateName)
+                    .launchTemplateData(templateData)
+                    .build();
 
             CreateLaunchTemplateResponse templateResponse = getEc2Client().createLaunchTemplate(templateRequest);
             LaunchTemplate template = templateResponse.launchTemplate();
             System.out.println("\nCreated launch template named " + template.launchTemplateName());
 
         } catch (Ec2Exception e) {
-            System.out.println("An exception occurred "+e.getMessage());
+            System.out.println("An exception occurred " + e.getMessage());
         }
     }
     // snippet-end:[javav2.cross_service.resilient_service.ec2.CreateLaunchTemplate]
@@ -111,16 +111,16 @@ public class LaunchTemplateCreator {
     public String createInstanceProfile(String policyFile, String policyName, String profileName, String roleName) {
         boolean instacneProfileExists = false;
         String assumeRoleDoc = """
-            {
-                "Version": "2012-10-17",
-                "Statement": [
-                    {
-                        "Effect": "Allow",
-                        "Principal": {"Service": "ec2.amazonaws.com"},
-                        "Action": "sts:AssumeRole"
-                    }
-                ]
-            }""";
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {"Service": "ec2.amazonaws.com"},
+                            "Action": "sts:AssumeRole"
+                        }
+                    ]
+                }""";
 
         // Read the policy document for the role
         String instancePolicyDoc = "";
@@ -138,9 +138,9 @@ public class LaunchTemplateCreator {
 
             // Attach role policy.
             AttachRolePolicyRequest attachRequest = AttachRolePolicyRequest.builder()
-                .roleName(roleName)
-                .policyArn(policyArn)
-                .build();
+                    .roleName(roleName)
+                    .policyArn(policyArn)
+                    .build();
 
             getIAMClient().attachRolePolicy(attachRequest);
         } else {
@@ -149,12 +149,12 @@ public class LaunchTemplateCreator {
 
         try {
             CreateInstanceProfileRequest instanceProfileRequest = CreateInstanceProfileRequest.builder()
-                .instanceProfileName(profileName)
-                .build();
+                    .instanceProfileName(profileName)
+                    .build();
 
             getIAMClient().createInstanceProfile(instanceProfileRequest);
 
-        } catch (EntityAlreadyExistsException e){
+        } catch (EntityAlreadyExistsException e) {
             // This exception is thrown if the instance profile exists.
             System.out.println(profileName + "already exists - moving on");
             instacneProfileExists = true;
@@ -165,9 +165,9 @@ public class LaunchTemplateCreator {
         // Only call addRoleToInstanceProfile if it's new instance profile.
         if (!instacneProfileExists) {
             AddRoleToInstanceProfileRequest profileRequest = AddRoleToInstanceProfileRequest.builder()
-                .instanceProfileName(profileName)
-                .roleName(roleName)
-                .build();
+                    .instanceProfileName(profileName)
+                    .roleName(roleName)
+                    .build();
 
             getIAMClient().addRoleToInstanceProfile(profileRequest);
             System.out.printf("Created profile %s and added role %s.", profileName, roleName);
@@ -178,8 +178,8 @@ public class LaunchTemplateCreator {
 
     private String getInstanceProfile(String profileName) {
         GetInstanceProfileRequest profileRequest = GetInstanceProfileRequest.builder()
-            .instanceProfileName(profileName)
-            .build();
+                .instanceProfileName(profileName)
+                .build();
 
         GetInstanceProfileResponse resp = getIAMClient().getInstanceProfile(profileRequest);
         return resp.instanceProfile().arn();
@@ -193,9 +193,9 @@ public class LaunchTemplateCreator {
         if (policyArn.isEmpty()) {
             try {
                 CreatePolicyRequest policyRequest = CreatePolicyRequest.builder()
-                    .policyName(policyName)
-                    .policyDocument(policyDocument)
-                    .build();
+                        .policyName(policyName)
+                        .policyDocument(policyDocument)
+                        .build();
 
                 CreatePolicyResponse policyResponse = getIAMClient().createPolicy(policyRequest);
                 policyArn = policyResponse.policy().arn();
@@ -212,13 +212,13 @@ public class LaunchTemplateCreator {
     public String checkPolicyExists(String polName) {
         String polARN = "";
         ListPoliciesRequest policiesRequest = ListPoliciesRequest.builder()
-            .scope(PolicyScopeType.LOCAL)
-            .build();
+                .scope(PolicyScopeType.LOCAL)
+                .build();
 
         ListPoliciesResponse policiesResponse = getIAMClient().listPolicies(policiesRequest);
         List<Policy> policyList = policiesResponse.policies();
-        for (Policy pol: policyList) {
-            if (pol.policyName().compareTo(polName)==0) {
+        for (Policy pol : policyList) {
+            if (pol.policyName().compareTo(polName) == 0) {
                 return pol.arn();
             }
         }
@@ -227,8 +227,8 @@ public class LaunchTemplateCreator {
 
     private boolean doesRoleExist(String roleName) {
         GetRoleRequest request = GetRoleRequest.builder()
-            .roleName(roleName)
-            .build();
+                .roleName(roleName)
+                .build();
 
         try {
             getIAMClient().getRole(request);
@@ -241,9 +241,9 @@ public class LaunchTemplateCreator {
     private boolean createRoleExists(String roleName, String assumeRoleDoc) {
         if (!doesRoleExist(roleName)) {
             CreateRoleRequest roleRequest = CreateRoleRequest.builder()
-                .roleName(roleName)
-                .assumeRolePolicyDocument(assumeRoleDoc)
-                .build();
+                    .roleName(roleName)
+                    .assumeRolePolicyDocument(assumeRoleDoc)
+                    .build();
 
             getIAMClient().createRole(roleRequest);
             System.out.println(roleName + " created");
@@ -257,8 +257,8 @@ public class LaunchTemplateCreator {
     public String getLatestAmazonLinuxAmiId() {
         String parameterName = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2";
         GetParameterRequest parameterRequest = GetParameterRequest.builder()
-            .name(parameterName)
-            .build();
+                .name(parameterName)
+                .build();
 
         GetParameterResponse parameterResponse = getSSMClient().getParameter(parameterRequest);
         return parameterResponse.parameter().value();

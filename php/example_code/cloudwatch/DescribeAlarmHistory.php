@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudwatch.php.describe_alarm_history.complete]
 // snippet-start:[cloudwatch.php.describe_alarm_history.import]
@@ -81,14 +80,4 @@ function describeTheAlarmHistory()
 // describeTheAlarmHistory();
 // snippet-end:[cloudwatch.php.describe_alarm_history.main]
 // snippet-end:[cloudwatch.php.describe_alarm_history.complete]
-// snippet-sourcedescription:[DescribeAlarmHistory.php demonstrates how to retrieve history for the specified alarm in Amazon CloudWatch.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Cloudwatch]
-// snippet-service:[cloudwatch]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-05]
-// snippet-sourceauthor:[pccornel (AWS)]
 

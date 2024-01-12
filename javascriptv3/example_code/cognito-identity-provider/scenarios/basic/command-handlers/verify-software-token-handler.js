@@ -1,7 +1,5 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /** snippet-start:[javascript.v3.cognito-idp.scenarios.basic.VerifySoftwareTokenHandler] **/
 import { log } from "@aws-sdk-examples/libs/utils/util-log.js";

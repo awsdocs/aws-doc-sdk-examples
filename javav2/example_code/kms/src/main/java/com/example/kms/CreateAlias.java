@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[CreateAlias.java demonstrates how to create an AWS Key Management Service (AWS KMS) alias.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Key Management Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kms;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.kms.model.KmsException;
 // snippet-end:[kms.java2_create_alias.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,13 +24,13 @@ public class CreateAlias {
 
         final String usage = """
 
-            Usage:
-                <targetKeyId> <aliasName>\s
+                Usage:
+                    <targetKeyId> <aliasName>\s
 
-            Where:
-                targetKeyId - The key ID or the Amazon Resource Name (ARN) of the customer master key (CMK).\s
-                aliasName - An alias name (for example, alias/myAlias).\s
-            """;
+                Where:
+                    targetKeyId - The key ID or the Amazon Resource Name (ARN) of the customer master key (CMK).\s
+                    aliasName - An alias name (for example, alias/myAlias).\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,8 +41,8 @@ public class CreateAlias {
         String aliasName = args[1];
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         createCustomAlias(kmsClient, targetKeyId, aliasName);
         kmsClient.close();
@@ -56,9 +51,9 @@ public class CreateAlias {
     public static void createCustomAlias(KmsClient kmsClient, String targetKeyId, String aliasName) {
         try {
             CreateAliasRequest aliasRequest = CreateAliasRequest.builder()
-                .aliasName(aliasName)
-                .targetKeyId(targetKeyId)
-                .build();
+                    .aliasName(aliasName)
+                    .targetKeyId(targetKeyId)
+                    .build();
 
             kmsClient.createAlias(aliasRequest);
 

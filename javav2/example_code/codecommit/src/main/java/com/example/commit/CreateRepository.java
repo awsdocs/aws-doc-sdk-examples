@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateRepository.java demonstrates how to create a new repository.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CodeCommit]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.commit;
 
@@ -20,7 +13,8 @@ import software.amazon.awssdk.services.codecommit.model.CreateRepositoryResponse
 // snippet-end:[codecommit.java2.create_repo.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -31,12 +25,12 @@ public class CreateRepository {
     public static void main(String[] args) {
         final String USAGE = """
 
-            Usage:
-                <repoName>\s
+                Usage:
+                    <repoName>\s
 
-            Where:
-                repoName - the name of the repository.\s
-            """;
+                Where:
+                    repoName - the name of the repository.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -46,8 +40,8 @@ public class CreateRepository {
         String repoName = args[0];
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         createRepo(codeCommitClient, repoName);
         codeCommitClient.close();
@@ -56,9 +50,9 @@ public class CreateRepository {
     public static void createRepo(CodeCommitClient codeCommitClient, String repoName) {
         try {
             CreateRepositoryRequest repositoryRequest = CreateRepositoryRequest.builder()
-                .repositoryDescription("Created by the CodeCommit Java API")
-                .repositoryName(repoName)
-                .build();
+                    .repositoryDescription("Created by the CodeCommit Java API")
+                    .repositoryName(repoName)
+                    .build();
 
             CreateRepositoryResponse repositoryResponse = codeCommitClient.createRepository(repositoryRequest);
             System.out.println("The ARN of the new repository is " + repositoryResponse.repositoryMetadata().arn());

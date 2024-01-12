@@ -1,3 +1,5 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 from custom_labels_csv_to_manifest import check_duplicates, create_manifest_file
 from os.path import exists
 from os import remove

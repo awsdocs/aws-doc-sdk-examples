@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { describe, beforeAll, it, expect } from "vitest";
 
 import { findIdentity, createIdentity } from "../src/libs/sesUtils";

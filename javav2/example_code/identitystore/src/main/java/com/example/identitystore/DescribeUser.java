@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DescribeUser.java demonstrates how to retrieves the user metadata and attributes from the userId in an AWS Identitystore.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.identitystore;
 
@@ -17,9 +11,9 @@ import software.amazon.awssdk.services.identitystore.model.DescribeUserRequest;
 import software.amazon.awssdk.services.identitystore.model.DescribeUserResponse;
 // snippet-end:[Identitystore.java2.describe_user.import]
 
-
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,14 +24,14 @@ public class DescribeUser {
     public static void main(String... args) {
         final String usage = """
 
-            Usage:
-                <identitystoreId> <userId>
+                Usage:
+                    <identitystoreId> <userId>
 
-            Where:
-                identitystoreId - The id of the identitystore.\s
-                userid - The id of the user.\s
+                Where:
+                    identitystoreId - The id of the identitystore.\s
+                    userid - The id of the user.\s
 
-            """;
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -55,9 +49,9 @@ public class DescribeUser {
         try {
 
             DescribeUserRequest request = DescribeUserRequest.builder()
-                .identityStoreId(identitystoreID)
-                .userId(userId)
-                .build();
+                    .identityStoreId(identitystoreID)
+                    .userId(userId)
+                    .build();
 
             DescribeUserResponse response = identitystore.describeUser(request);
             return response.userId() + " " + response.displayName();

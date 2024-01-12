@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[StockTradesWriter.java demonstrates how to write multiple data records into an Amazon Kinesis data stream.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Kinesis]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kinesis;
 
 // snippet-start:[kinesis.java2.putrecord.main]
-//snippet-start:[kinesis.java2.putrecord.import]
+// snippet-start:[kinesis.java2.putrecord.import]
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
@@ -18,10 +12,11 @@ import software.amazon.awssdk.services.kinesis.model.PutRecordRequest;
 import software.amazon.awssdk.services.kinesis.model.KinesisException;
 import software.amazon.awssdk.services.kinesis.model.DescribeStreamRequest;
 import software.amazon.awssdk.services.kinesis.model.DescribeStreamResponse;
-//snippet-end:[kinesis.java2.putrecord.import]
+// snippet-end:[kinesis.java2.putrecord.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,12 +26,12 @@ public class StockTradesWriter {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <streamName>
+                Usage:
+                    <streamName>
 
-            Where:
-                streamName - The Amazon Kinesis data stream to which records are written (for example, StockTradeStream)
-            """;
+                Where:
+                    streamName - The Amazon Kinesis data stream to which records are written (for example, StockTradeStream)
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,8 +41,8 @@ public class StockTradesWriter {
         String streamName = args[0];
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         // Ensure that the Kinesis Stream is valid.
         validateStream(kinesisClient, streamName);
@@ -76,10 +71,11 @@ public class StockTradesWriter {
     }
 
     private static void sendStockTrade(StockTrade trade, KinesisClient kinesisClient,
-                                       String streamName) {
+            String streamName) {
         byte[] bytes = trade.toJsonAsBytes();
 
-        // The bytes could be null if there is an issue with the JSON serialization by the Jackson JSON library.
+        // The bytes could be null if there is an issue with the JSON serialization by
+        // the Jackson JSON library.
         if (bytes == null) {
             System.out.println("Could not get JSON bytes for stock trade");
             return;
@@ -87,10 +83,11 @@ public class StockTradesWriter {
 
         System.out.println("Putting trade: " + trade);
         PutRecordRequest request = PutRecordRequest.builder()
-            .partitionKey(trade.getTickerSymbol()) // We use the ticker symbol as the partition key, explained in the Supplemental Information section below.
-            .streamName(streamName)
-            .data(SdkBytes.fromByteArray(bytes))
-            .build();
+                .partitionKey(trade.getTickerSymbol()) // We use the ticker symbol as the partition key, explained in
+                                                       // the Supplemental Information section below.
+                .streamName(streamName)
+                .data(SdkBytes.fromByteArray(bytes))
+                .build();
 
         try {
             kinesisClient.putRecord(request);
@@ -102,8 +99,8 @@ public class StockTradesWriter {
     private static void validateStream(KinesisClient kinesisClient, String streamName) {
         try {
             DescribeStreamRequest describeStreamRequest = DescribeStreamRequest.builder()
-                .streamName(streamName)
-                .build();
+                    .streamName(streamName)
+                    .build();
 
             DescribeStreamResponse describeStreamResponse = kinesisClient.describeStream(describeStreamRequest);
 

@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 use photo_asset_management::{
     common::{init_tracing_subscriber, Common},
     handlers::hello,

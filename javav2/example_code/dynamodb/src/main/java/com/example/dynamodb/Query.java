@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[Query.java demonstrates how to query an Amazon DynamoDB table.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.dynamodb;
 
@@ -20,28 +15,29 @@ import java.util.HashMap;
 // snippet-end:[dynamodb.java2.query.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- *  To query items from an Amazon DynamoDB table using the AWS SDK for Java V2,
- *  its better practice to use the
- *  Enhanced Client. See the EnhancedQueryRecords example.
+ * To query items from an Amazon DynamoDB table using the AWS SDK for Java V2,
+ * its better practice to use the
+ * Enhanced Client. See the EnhancedQueryRecords example.
  */
 public class Query {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <tableName> <partitionKeyName> <partitionKeyVal>
+                Usage:
+                    <tableName> <partitionKeyName> <partitionKeyVal>
 
-            Where:
-                tableName - The Amazon DynamoDB table to put the item in (for example, Music3).
-                partitionKeyName - The partition key name of the Amazon DynamoDB table (for example, Artist).
-                partitionKeyVal - The value of the partition key that should match (for example, Famous Band).
-            """;
+                Where:
+                    tableName - The Amazon DynamoDB table to put the item in (for example, Music3).
+                    partitionKeyName - The partition key name of the Amazon DynamoDB table (for example, Artist).
+                    partitionKeyVal - The value of the partition key that should match (for example, Famous Band).
+                """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -60,15 +56,16 @@ public class Query {
         System.out.println("");
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         int count = queryTable(ddb, tableName, partitionKeyName, partitionKeyVal, partitionAlias);
         System.out.println("There were " + count + "  record(s) returned");
         ddb.close();
     }
 
-    public static int queryTable(DynamoDbClient ddb, String tableName, String partitionKeyName, String partitionKeyVal, String partitionAlias) {
+    public static int queryTable(DynamoDbClient ddb, String tableName, String partitionKeyName, String partitionKeyVal,
+            String partitionAlias) {
         // Set up an alias for the partition key name in case it's a reserved word.
         HashMap<String, String> attrNameAlias = new HashMap<String, String>();
         attrNameAlias.put(partitionAlias, partitionKeyName);
@@ -76,15 +73,15 @@ public class Query {
         // Set up mapping of the partition name with the value.
         HashMap<String, AttributeValue> attrValues = new HashMap<>();
         attrValues.put(":" + partitionKeyName, AttributeValue.builder()
-            .s(partitionKeyVal)
-            .build());
+                .s(partitionKeyVal)
+                .build());
 
         QueryRequest queryReq = QueryRequest.builder()
-            .tableName(tableName)
-            .keyConditionExpression(partitionAlias + " = :" + partitionKeyName)
-            .expressionAttributeNames(attrNameAlias)
-            .expressionAttributeValues(attrValues)
-            .build();
+                .tableName(tableName)
+                .keyConditionExpression(partitionAlias + " = :" + partitionKeyName)
+                .expressionAttributeNames(attrNameAlias)
+                .expressionAttributeValues(attrValues)
+                .build();
 
         try {
             QueryResponse response = ddb.query(queryReq);

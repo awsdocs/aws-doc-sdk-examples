@@ -1,12 +1,8 @@
-//snippet-sourcedescription:[HelloSQS.java demonstrates how to  list queues by using a paginated response.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Simple Notification Service]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sqs;
+
 // snippet-start:[sqs.java2.hello.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -14,7 +10,8 @@ import software.amazon.awssdk.services.sqs.model.SqsException;
 import software.amazon.awssdk.services.sqs.paginators.ListQueuesIterable;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -23,8 +20,8 @@ import software.amazon.awssdk.services.sqs.paginators.ListQueuesIterable;
 public class HelloSQS {
     public static void main(String[] args) {
         SqsClient sqsClient = SqsClient.builder()
-            .region(Region.US_WEST_2)
-            .build();
+                .region(Region.US_WEST_2)
+                .build();
 
         listQueues(sqsClient);
         sqsClient.close();
@@ -34,8 +31,8 @@ public class HelloSQS {
         try {
             ListQueuesIterable listQueues = sqsClient.listQueuesPaginator();
             listQueues.stream()
-                .flatMap(r -> r.queueUrls().stream())
-                .forEach(content -> System.out.println(" Queue URL: " + content.toLowerCase()));
+                    .flatMap(r -> r.queueUrls().stream())
+                    .forEach(content -> System.out.println(" Queue URL: " + content.toLowerCase()));
 
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

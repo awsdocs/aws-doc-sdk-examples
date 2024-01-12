@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[ListTables.java demonstrates how to return a list of your tables.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Timestream]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.timestream.write;
 
-//snippet-start:[timestream.java2.list_tables.main]
-//snippet-start:[timestream.java2.list_tables.import]
+// snippet-start:[timestream.java2.list_tables.main]
+// snippet-start:[timestream.java2.list_tables.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.timestreamwrite.TimestreamWriteClient;
 import java.util.List;
@@ -19,10 +13,11 @@ import software.amazon.awssdk.services.timestreamwrite.model.ListTablesResponse;
 import software.amazon.awssdk.services.timestreamwrite.model.Table;
 import software.amazon.awssdk.services.timestreamwrite.model.TimestreamWriteException;
 import software.amazon.awssdk.services.timestreamwrite.paginators.ListTablesIterable;
-//snippet-end:[timestream.java2.list_tables.import]
+// snippet-end:[timestream.java2.list_tables.import]
 
 /**
- * Before running this SDK for Java (v2) code example, set up your development environment, including your credentials.
+ * Before running this SDK for Java (v2) code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation:
  *
@@ -32,11 +27,11 @@ public class ListTables {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <dbName>
+                Usage:    <dbName>
 
-            Where:
-               dbName - The name of the database.
-            """;
+                Where:
+                   dbName - The name of the database.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,8 +40,8 @@ public class ListTables {
 
         String dbName = args[0];
         TimestreamWriteClient timestreamWriteClient = TimestreamWriteClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         listAllTables(timestreamWriteClient, dbName);
         timestreamWriteClient.close();
@@ -56,9 +51,9 @@ public class ListTables {
         try {
             System.out.println("Listing tables");
             ListTablesRequest request = ListTablesRequest.builder()
-                .databaseName(dbName)
-                .maxResults(10)
-                .build();
+                    .databaseName(dbName)
+                    .maxResults(10)
+                    .build();
 
             ListTablesIterable listTablesIterable = timestreamWriteClient.listTablesPaginator(request);
             for (ListTablesResponse listTablesResponse : listTablesIterable) {
@@ -72,4 +67,4 @@ public class ListTables {
         }
     }
 }
-//snippet-end:[timestream.java2.list_tables.main]
+// snippet-end:[timestream.java2.list_tables.main]

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.resilient;
 
@@ -40,8 +38,8 @@ public class LoadBalancer {
     public ElasticLoadBalancingV2Client getLoadBalancerClient() {
         if (elasticLoadBalancingV2Client == null) {
             elasticLoadBalancingV2Client = ElasticLoadBalancingV2Client.builder()
-                .region(Region.US_EAST_1)
-                .build();
+                    .region(Region.US_EAST_1)
+                    .build();
         }
 
         return elasticLoadBalancingV2Client;
@@ -51,24 +49,24 @@ public class LoadBalancer {
     // Checks the health of the instances in the target group.
     public List<TargetHealthDescription> checkTargetHealth(String targetGroupName) {
         DescribeTargetGroupsRequest targetGroupsRequest = DescribeTargetGroupsRequest.builder()
-            .names(targetGroupName)
-            .build();
+                .names(targetGroupName)
+                .build();
 
         DescribeTargetGroupsResponse tgResponse = getLoadBalancerClient().describeTargetGroups(targetGroupsRequest);
 
         DescribeTargetHealthRequest healthRequest = DescribeTargetHealthRequest.builder()
-            .targetGroupArn(tgResponse.targetGroups().get(0).targetGroupArn())
-            .build();
+                .targetGroupArn(tgResponse.targetGroups().get(0).targetGroupArn())
+                .build();
 
         DescribeTargetHealthResponse healthResponse = getLoadBalancerClient().describeTargetHealth(healthRequest);
         return healthResponse.targetHealthDescriptions();
     }
     // snippet-end:[javav2.cross_service.resilient_service.elbv2.DescribeTargetHealth]
 
-
     // Gets the HTTP endpoint of the load balancer.
-    public String getEndpoint(String lbName){
-        DescribeLoadBalancersResponse res = getLoadBalancerClient().describeLoadBalancers(describe -> describe.names(lbName));
+    public String getEndpoint(String lbName) {
+        DescribeLoadBalancersResponse res = getLoadBalancerClient()
+                .describeLoadBalancers(describe -> describe.names(lbName));
         return res.loadBalancers().get(0).dnsName();
     }
 
@@ -77,20 +75,23 @@ public class LoadBalancer {
     public void deleteLoadBalancer(String lbName) {
         try {
             // Use a waiter to delete the Load Balancer.
-            DescribeLoadBalancersResponse res = getLoadBalancerClient().describeLoadBalancers(describe -> describe.names(lbName));
+            DescribeLoadBalancersResponse res = getLoadBalancerClient()
+                    .describeLoadBalancers(describe -> describe.names(lbName));
             ElasticLoadBalancingV2Waiter loadBalancerWaiter = getLoadBalancerClient().waiter();
             DescribeLoadBalancersRequest request = DescribeLoadBalancersRequest.builder()
-                .loadBalancerArns(res.loadBalancers().get(0).loadBalancerArn())
-                .build();
+                    .loadBalancerArns(res.loadBalancers().get(0).loadBalancerArn())
+                    .build();
 
-            getLoadBalancerClient().deleteLoadBalancer(builder -> builder.loadBalancerArn(res.loadBalancers().get(0).loadBalancerArn()));
-            WaiterResponse<DescribeLoadBalancersResponse> waiterResponse = loadBalancerWaiter.waitUntilLoadBalancersDeleted(request);
+            getLoadBalancerClient().deleteLoadBalancer(
+                    builder -> builder.loadBalancerArn(res.loadBalancers().get(0).loadBalancerArn()));
+            WaiterResponse<DescribeLoadBalancersResponse> waiterResponse = loadBalancerWaiter
+                    .waitUntilLoadBalancersDeleted(request);
             waiterResponse.matched().response().ifPresent(System.out::println);
 
         } catch (ElasticLoadBalancingV2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
         }
-        System.out.println(lbName +" was deleted.");
+        System.out.println(lbName + " was deleted.");
     }
     // snippet-end:[javav2.cross_service.resilient_service.elbv2.DeleteLoadBalancer]
 
@@ -98,16 +99,19 @@ public class LoadBalancer {
     // Deletes the target group.
     public void deleteTargetGroup(String targetGroupName) {
         try {
-            DescribeTargetGroupsResponse res = getLoadBalancerClient().describeTargetGroups(describe -> describe.names(targetGroupName));
-            getLoadBalancerClient().deleteTargetGroup(builder -> builder.targetGroupArn(res.targetGroups().get(0).targetGroupArn()));
+            DescribeTargetGroupsResponse res = getLoadBalancerClient()
+                    .describeTargetGroups(describe -> describe.names(targetGroupName));
+            getLoadBalancerClient()
+                    .deleteTargetGroup(builder -> builder.targetGroupArn(res.targetGroups().get(0).targetGroupArn()));
         } catch (ElasticLoadBalancingV2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
         }
-        System.out.println(targetGroupName +" was deleted.");
+        System.out.println(targetGroupName + " was deleted.");
     }
     // snippet-end:[javav2.cross_service.resilient_service.elbv2.DeleteTargetGroup]
 
-    // Verify this computer can successfully send a GET request to the load balancer endpoint.
+    // Verify this computer can successfully send a GET request to the load balancer
+    // endpoint.
     public boolean verifyLoadBalancerEndpoint(String elbDnsName) throws IOException, InterruptedException {
         boolean success = false;
         int retries = 3;
@@ -122,9 +126,9 @@ public class LoadBalancer {
                 int statusCode = response.getStatusLine().getStatusCode();
                 System.out.println("HTTP Status Code: " + statusCode);
                 if (statusCode == 200) {
-                    success = true ;
+                    success = true;
                 } else {
-                    retries-- ;
+                    retries--;
                     System.out.println("Got connection error from load balancer endpoint, retrying...");
                     TimeUnit.SECONDS.sleep(15);
                 }
@@ -140,19 +144,20 @@ public class LoadBalancer {
 
     // snippet-start:[javav2.cross_service.resilient_service.elbv2.CreateTargetGroup]
     /*
-        Creates an Elastic Load Balancing target group. The target group specifies how
-        the load balancer forward requests to instances in the group and how instance
-        health is checked.
+     * Creates an Elastic Load Balancing target group. The target group specifies
+     * how
+     * the load balancer forward requests to instances in the group and how instance
+     * health is checked.
      */
     public String createTargetGroup(String protocol, int port, String vpcId, String targetGroupName) {
         CreateTargetGroupRequest targetGroupRequest = CreateTargetGroupRequest.builder()
-            .healthCheckPath("/healthcheck")
-            .healthCheckTimeoutSeconds(5)
-            .port(port)
-            .vpcId(vpcId)
-            .name(targetGroupName)
-            .protocol(protocol)
-            .build();
+                .healthCheckPath("/healthcheck")
+                .healthCheckTimeoutSeconds(5)
+                .port(port)
+                .vpcId(vpcId)
+                .name(targetGroupName)
+                .protocol(protocol)
+                .build();
 
         CreateTargetGroupResponse targetGroupResponse = getLoadBalancerClient().createTargetGroup(targetGroupRequest);
         String targetGroupArn = targetGroupResponse.targetGroups().get(0).targetGroupArn();
@@ -165,20 +170,22 @@ public class LoadBalancer {
     // snippet-start:[javav2.cross_service.resilient_service.elbv2.CreateLoadBalancer]
     // snippet-start:[javav2.cross_service.resilient_service.elbv2.CreateListener]
     /*
-        Creates an Elastic Load Balancing load balancer that uses the specified subnets
-        and forwards requests to the specified target group.
+     * Creates an Elastic Load Balancing load balancer that uses the specified
+     * subnets
+     * and forwards requests to the specified target group.
      */
-    public String createLoadBalancer(List<Subnet> subnetIds, String targetGroupARN, String lbName, int port, String protocol) {
+    public String createLoadBalancer(List<Subnet> subnetIds, String targetGroupARN, String lbName, int port,
+            String protocol) {
         try {
             List<String> subnetIdStrings = subnetIds.stream()
-                .map(Subnet::subnetId)
-                .collect(Collectors.toList());
+                    .map(Subnet::subnetId)
+                    .collect(Collectors.toList());
 
             CreateLoadBalancerRequest balancerRequest = CreateLoadBalancerRequest.builder()
-                .subnets(subnetIdStrings)
-                .name(lbName)
-                .scheme("internet-facing")
-                .build();
+                    .subnets(subnetIdStrings)
+                    .name(lbName)
+                    .scheme("internet-facing")
+                    .build();
 
             // Create and wait for the load balancer to become available.
             CreateLoadBalancerResponse lsResponse = getLoadBalancerClient().createLoadBalancer(balancerRequest);
@@ -186,11 +193,12 @@ public class LoadBalancer {
 
             ElasticLoadBalancingV2Waiter loadBalancerWaiter = getLoadBalancerClient().waiter();
             DescribeLoadBalancersRequest request = DescribeLoadBalancersRequest.builder()
-                .loadBalancerArns(lbARN)
-                .build();
+                    .loadBalancerArns(lbARN)
+                    .build();
 
             System.out.println("Waiting for Load Balancer " + lbName + " to become available.");
-            WaiterResponse<DescribeLoadBalancersResponse> waiterResponse = loadBalancerWaiter.waitUntilLoadBalancerAvailable(request);
+            WaiterResponse<DescribeLoadBalancersResponse> waiterResponse = loadBalancerWaiter
+                    .waitUntilLoadBalancerAvailable(request);
             waiterResponse.matched().response().ifPresent(System.out::println);
             System.out.println("Load Balancer " + lbName + " is available.");
 
@@ -200,20 +208,21 @@ public class LoadBalancer {
 
             // Create a listener for the load balance.
             Action action = Action.builder()
-                .targetGroupArn(targetGroupARN)
-                .type("forward")
-                .build();
+                    .targetGroupArn(targetGroupARN)
+                    .type("forward")
+                    .build();
 
             CreateListenerRequest listenerRequest = CreateListenerRequest.builder()
-                .loadBalancerArn(lsResponse.loadBalancers().get(0).loadBalancerArn())
-                .defaultActions(action)
-                .port(port)
-                .protocol(protocol)
-                .defaultActions(action)
-                .build();
+                    .loadBalancerArn(lsResponse.loadBalancers().get(0).loadBalancerArn())
+                    .defaultActions(action)
+                    .port(port)
+                    .protocol(protocol)
+                    .defaultActions(action)
+                    .build();
 
             getLoadBalancerClient().createListener(listenerRequest);
-            System.out.println( "Created listener to forward traffic from load balancer " + lbName + " to target group " + targetGroupARN);
+            System.out.println("Created listener to forward traffic from load balancer " + lbName + " to target group "
+                    + targetGroupARN);
 
             // Return the load balancer DNS name.
             return lbDNSName;

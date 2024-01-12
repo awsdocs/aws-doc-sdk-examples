@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetIntent.java demonstrates how to return information about an intent.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Lex]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.lex;
 
@@ -19,7 +13,8 @@ import software.amazon.awssdk.services.lexmodelbuilding.model.GetIntentResponse;
 // snippet-end:[lex.java2.get_intent.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,13 +24,13 @@ public class GetIntent {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <intentName> <intentVersion>
+                Usage:    <intentName> <intentVersion>
 
-            Where:
-               intentName - The name of the intent (for example, BookHotel).
+                Where:
+                   intentName - The name of the intent (for example, BookHotel).
 
-               intentVersion - The version of the intent (for example, 1).
-            """;
+                   intentVersion - The version of the intent (for example, 1).
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,8 +41,8 @@ public class GetIntent {
         String intentVersion = args[1];
         Region region = Region.US_WEST_2;
         LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getSpecificIntent(lexClient, intentName, intentVersion);
         lexClient.close();
@@ -56,9 +51,9 @@ public class GetIntent {
     public static void getSpecificIntent(LexModelBuildingClient lexClient, String intentName, String intentVersion) {
         try {
             GetIntentRequest intentRequest = GetIntentRequest.builder()
-                .name(intentName)
-                .version(intentVersion)
-                .build();
+                    .name(intentName)
+                    .version(intentVersion)
+                    .build();
 
             GetIntentResponse intentResponse = lexClient.getIntent(intentRequest);
             System.out.println("The description is " + intentResponse.description());

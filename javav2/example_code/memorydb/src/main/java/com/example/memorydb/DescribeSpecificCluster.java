@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[DescribeSpecificCluster.java demonstrates how to retrieve information about a specific cluster.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon MemoryDB for Redis]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.memorydb;
 
-//snippet-start:[memoryDB.java2.describe_sin_cluster.main]
-//snippet-start:[memoryDB.java2.describe_sin_cluster.import]
+// snippet-start:[memoryDB.java2.describe_sin_cluster.main]
+// snippet-start:[memoryDB.java2.describe_sin_cluster.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.memorydb.MemoryDbClient;
 import software.amazon.awssdk.services.memorydb.model.Cluster;
@@ -18,18 +12,18 @@ import software.amazon.awssdk.services.memorydb.model.DescribeClustersRequest;
 import software.amazon.awssdk.services.memorydb.model.DescribeClustersResponse;
 import software.amazon.awssdk.services.memorydb.model.MemoryDbException;
 import java.util.List;
-//snippet-end:[memoryDB.java2.describe_sin_cluster.import]
+// snippet-end:[memoryDB.java2.describe_sin_cluster.import]
 
 public class DescribeSpecificCluster {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <clusterName>\s
+                Usage:
+                    <clusterName>\s
 
-            Where:
-                clusterName - The name of the cluster.\s
-            """;
+                Where:
+                    clusterName - The name of the cluster.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -39,11 +33,12 @@ public class DescribeSpecificCluster {
         String clusterName = args[0];
         Region region = Region.US_EAST_1;
         MemoryDbClient memoryDbClient = MemoryDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         checkIfAvailable(memoryDbClient, clusterName);
     }
+
     public static void checkIfAvailable(MemoryDbClient memoryDbClient, String clusterName) {
         try {
             String status;
@@ -72,8 +67,8 @@ public class DescribeSpecificCluster {
 
         try {
             DescribeClustersRequest request = DescribeClustersRequest.builder()
-                .clusterName(clusterName)
-                .build();
+                    .clusterName(clusterName)
+                    .build();
 
             DescribeClustersResponse response = memoryDbClient.describeClusters(request);
             List<Cluster> clusters = response.clusters();
@@ -90,4 +85,4 @@ public class DescribeSpecificCluster {
         return null;
     }
 }
- //snippet-end:[memoryDB.java2.describe_sin_cluster.main]
+// snippet-end:[memoryDB.java2.describe_sin_cluster.main]

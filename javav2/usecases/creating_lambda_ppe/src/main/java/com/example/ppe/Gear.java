@@ -1,9 +1,8 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ppe;
+
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
@@ -12,11 +11,11 @@ public class Gear {
 
     private String id;
     private String date;
-    private String item ;
+    private String item;
     private String key;
     private String itemDescription;
-    private String coverDescription ;
-    private String confidence ;
+    private String coverDescription;
+    private String confidence;
 
     @DynamoDbPartitionKey
     public String getId() {
@@ -36,7 +35,6 @@ public class Gear {
     public String getKey() {
         return this.key;
     }
-
 
     public void setDate(String date) {
 
@@ -83,4 +81,3 @@ public class Gear {
         this.confidence = confidence;
     }
 }
-

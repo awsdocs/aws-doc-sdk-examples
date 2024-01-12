@@ -1,16 +1,10 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[PutEventSelectors.java demonstrates how to configure an event selector for your trail.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CloudTrail]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.cloudtrail;
 
-//snippet-start:[cloudtrail.java2._selectors.main]
-//snippet-start:[cloudtrail.java2._selectors.import]
+// snippet-start:[cloudtrail.java2._selectors.main]
+// snippet-start:[cloudtrail.java2._selectors.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudtrail.CloudTrailClient;
@@ -19,10 +13,11 @@ import software.amazon.awssdk.services.cloudtrail.model.PutEventSelectorsRequest
 import software.amazon.awssdk.services.cloudtrail.model.EventSelector;
 import java.util.ArrayList;
 import java.util.List;
-//snippet-end:[cloudtrail.java2._selectors.import]
+// snippet-end:[cloudtrail.java2._selectors.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -35,12 +30,12 @@ public class PutEventSelectors {
 
         final String usage = """
 
-            Usage:
-                <trailName>\s
+                Usage:
+                    <trailName>\s
 
-            Where:
-                trailName - The name of the trail.\s
-            """;
+                Where:
+                    trailName - The name of the trail.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -50,8 +45,8 @@ public class PutEventSelectors {
         String trailName = args[0];
         Region region = Region.US_EAST_1;
         CloudTrailClient cloudTrailClient = CloudTrailClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         setSelector(cloudTrailClient, trailName);
         cloudTrailClient.close();
@@ -60,15 +55,15 @@ public class PutEventSelectors {
     public static void setSelector(CloudTrailClient cloudTrailClientClient, String trailName) {
         try {
             EventSelector selector = EventSelector.builder()
-                .readWriteType("All")
-                .build();
+                    .readWriteType("All")
+                    .build();
 
             List<EventSelector> selList = new ArrayList<>();
             selList.add(selector);
             PutEventSelectorsRequest selectorsRequest = PutEventSelectorsRequest.builder()
-                .trailName(trailName)
-                .eventSelectors(selList)
-                .build();
+                    .trailName(trailName)
+                    .eventSelectors(selList)
+                    .build();
 
             cloudTrailClientClient.putEventSelectors(selectorsRequest);
 
@@ -78,4 +73,4 @@ public class PutEventSelectors {
         }
     }
 }
-//snippet-end:[cloudtrail.java2._selectors.main]
+// snippet-end:[cloudtrail.java2._selectors.main]

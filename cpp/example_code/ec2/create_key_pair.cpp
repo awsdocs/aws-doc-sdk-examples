@@ -1,7 +1,5 @@
-/*
-  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -14,13 +12,13 @@
  *
  **/
 
-//snippet-start:[ec2.cpp.create_key_pair.inc]
+// snippet-start:[ec2.cpp.create_key_pair.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/CreateKeyPairRequest.h>
 #include <aws/ec2/model/CreateKeyPairResponse.h>
 #include <iostream>
-//snippet-end:[ec2.cpp.create_key_pair.inc]
+// snippet-end:[ec2.cpp.create_key_pair.inc]
 #include "ec2_samples.h"
 
 //! Create an Amazon Elastic Compute Cloud (Amazon EC2) instance key pair.

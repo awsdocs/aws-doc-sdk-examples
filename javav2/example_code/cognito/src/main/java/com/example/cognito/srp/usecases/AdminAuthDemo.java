@@ -1,16 +1,6 @@
-/* Copyright 2010-2023 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.cognito.srp.usecases;
 
 import java.util.HashMap;
@@ -21,7 +11,6 @@ import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityPr
 import software.amazon.awssdk.services.cognitoidentityprovider.model.*;
 import software.amazon.awssdk.utils.StringUtils;
 
-
 public class AdminAuthDemo {
 
     private final CognitoIdentityProviderClient cognitoClient;
@@ -29,7 +18,8 @@ public class AdminAuthDemo {
     private final String clientId;
     private final String clientSecret;
 
-    public AdminAuthDemo(CognitoIdentityProviderClient cognitoClient, String poolId, String clientId, String clientSecret) {
+    public AdminAuthDemo(CognitoIdentityProviderClient cognitoClient, String poolId, String clientId,
+            String clientSecret) {
         this.cognitoClient = cognitoClient;
         this.poolId = poolId;
         this.clientId = clientId;
@@ -37,7 +27,7 @@ public class AdminAuthDemo {
     }
 
     public AdminInitiateAuthResponse adminInitiateAuth(String username, String password) {
-        Map<String,String> authParameters = new HashMap<>();
+        Map<String, String> authParameters = new HashMap<>();
         authParameters.put("USERNAME", username);
         authParameters.put("PASSWORD", password);
 
@@ -56,7 +46,7 @@ public class AdminAuthDemo {
         try {
             AdminInitiateAuthResponse response = this.cognitoClient.adminInitiateAuth(authRequest);
             return response;
-        } catch(CognitoIdentityProviderException e) {
+        } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
@@ -82,9 +72,10 @@ public class AdminAuthDemo {
                 .build();
 
         try {
-            AdminRespondToAuthChallengeResponse response = this.cognitoClient.adminRespondToAuthChallenge(challengeRequest);
+            AdminRespondToAuthChallengeResponse response = this.cognitoClient
+                    .adminRespondToAuthChallenge(challengeRequest);
             return response;
-        } catch(CognitoIdentityProviderException e) {
+        } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

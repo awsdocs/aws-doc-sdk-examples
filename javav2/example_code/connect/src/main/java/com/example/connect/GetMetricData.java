@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetMetricData.java demonstrates how to get historical metric data from the specified Amazon Connect instance.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Connect]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.connect;
 
@@ -33,7 +27,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -47,13 +42,13 @@ public class GetMetricData {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <instanceId>
+                Usage:    <instanceId>
 
-            Where:
-               instanceId - The identifier of the Amazon Connect instance.
-               queueId - The identifier of the queue.
+                Where:
+                   instanceId - The identifier of the Amazon Connect instance.
+                   queueId - The identifier of the queue.
 
-            """;
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -64,8 +59,8 @@ public class GetMetricData {
         String queueId = args[1];
         Region region = Region.US_EAST_1;
         ConnectClient connectClient = ConnectClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getHistoricalMetrics(connectClient, instanceId, queueId);
     }
@@ -74,21 +69,21 @@ public class GetMetricData {
         try {
             // Define the metrics to retrieve.
             Threshold threshold = Threshold.builder()
-                .comparison(Comparison.LT)
-                .thresholdValue(10.0)
-                .build();
+                    .comparison(Comparison.LT)
+                    .thresholdValue(10.0)
+                    .build();
 
             HistoricalMetric contactMetric = HistoricalMetric.builder()
-                .name(HistoricalMetricName.CONTACTS_HANDLED)
-                .statistic(Statistic.SUM)
-                .threshold(threshold)
-                .unit(Unit.COUNT)
-                .build();
+                    .name(HistoricalMetricName.CONTACTS_HANDLED)
+                    .statistic(Statistic.SUM)
+                    .threshold(threshold)
+                    .unit(Unit.COUNT)
+                    .build();
 
             Filters filter = Filters.builder()
-                .channels(Channel.VOICE)
-                .queues(queueId)
-                .build();
+                    .channels(Channel.VOICE)
+                    .queues(queueId)
+                    .build();
 
             String stringDate = "09:05:00 AM, Tue 01/03/2023"; // Add a new date value.
             String pattern = "hh:mm:ss a, EEE M/d/uuuu";
@@ -102,13 +97,13 @@ public class GetMetricData {
             Instant endInstant = localDateTime2.toInstant(ZoneOffset.UTC);
 
             GetMetricDataRequest dataRequest = GetMetricDataRequest.builder()
-                .instanceId(instanceId)
-                .endTime(endInstant)
-                .startTime(startInstant)
-                .filters(filter)
-                .maxResults(10)
-                .historicalMetrics(contactMetric)
-                .build();
+                    .instanceId(instanceId)
+                    .endTime(endInstant)
+                    .startTime(startInstant)
+                    .filters(filter)
+                    .maxResults(10)
+                    .historicalMetrics(contactMetric)
+                    .build();
 
             GetMetricDataResponse response = connectClient.getMetricData(dataRequest);
             List<HistoricalMetricResult> resultList = response.metricResults();

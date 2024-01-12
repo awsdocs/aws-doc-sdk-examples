@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[ListEvents.java demonstrates how to list events for a given cluster.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Redshift]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.redshift;
 
@@ -21,7 +16,8 @@ import java.util.List;
 // snippet-end:[redshift.java2._events.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,13 +27,13 @@ public class ListEvents {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                 <clusterId> <eventSourceType>\s
+                Usage:
+                     <clusterId> <eventSourceType>\s
 
-            Where:
-                clusterId - The id of the cluster.\s
-                eventSourceType - The event type (ie, cluster).\s
-            """;
+                Where:
+                    clusterId - The id of the cluster.\s
+                    eventSourceType - The event type (ie, cluster).\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -48,8 +44,8 @@ public class ListEvents {
         String eventSourceType = args[1];
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listRedShiftEvents(redshiftClient, clusterId, eventSourceType);
         redshiftClient.close();
@@ -62,11 +58,11 @@ public class ListEvents {
             oneWeekAgo.setTime(oneWeeksAgoMilli);
 
             DescribeEventsRequest describeEventsRequest = DescribeEventsRequest.builder()
-                .sourceIdentifier(clusterId)
-                .sourceType(eventSourceType)
-                .startTime(oneWeekAgo.toInstant())
-                .maxRecords(20)
-                .build();
+                    .sourceIdentifier(clusterId)
+                    .sourceType(eventSourceType)
+                    .startTime(oneWeekAgo.toInstant())
+                    .maxRecords(20)
+                    .build();
 
             DescribeEventsResponse eventsResponse = redshiftClient.describeEvents(describeEventsRequest);
             List<Event> events = eventsResponse.events();

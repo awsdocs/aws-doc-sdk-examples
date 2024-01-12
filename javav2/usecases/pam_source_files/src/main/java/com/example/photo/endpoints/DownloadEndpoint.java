@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.photo.endpoints;
 
@@ -31,8 +29,8 @@ public class DownloadEndpoint {
         try {
             // Now that there's an image list, place the images into a ZIP and presign it.
             Set<String> images = labels.stream().parallel().flatMap(
-                (label) -> this.dbService.getImagesByLabel(label).stream())
-                .collect(Collectors.toSet());
+                    (label) -> this.dbService.getImagesByLabel(label).stream())
+                    .collect(Collectors.toSet());
             Map<String, byte[]> imageMap = new HashMap<>();
 
             for (String imageName : images) {

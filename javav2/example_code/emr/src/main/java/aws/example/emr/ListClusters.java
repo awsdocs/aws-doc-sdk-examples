@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[ListClusters.java demonstrates how to list clusters.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon EMR]
-//snippet-sourcetype:[full-example]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package aws.example.emr;
 
@@ -22,7 +15,8 @@ import java.util.List;
 // snippet-end:[emr.java2.list_clusters.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,8 +26,8 @@ public class ListClusters {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listAllClusters(emrClient);
         emrClient.close();
@@ -42,7 +36,7 @@ public class ListClusters {
     public static void listAllClusters(EmrClient emrClient) {
         try {
             ListClustersRequest clustersRequest = ListClustersRequest.builder()
-                .build();
+                    .build();
             ListClustersResponse response = emrClient.listClusters(clustersRequest);
             List<ClusterSummary> clusters = response.clusters();
 

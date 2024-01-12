@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -14,11 +12,11 @@
  *
  **/
 
-//snippet-start:[sqs.cpp.long_polling_on_message_receipt.inc]
+// snippet-start:[sqs.cpp.long_polling_on_message_receipt.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
-//snippet-end:[sqs.cpp.long_polling_on_message_receipt.inc]
+// snippet-end:[sqs.cpp.long_polling_on_message_receipt.inc]
 #include <aws/sqs/model/DeleteMessageRequest.h>
 #include <iostream>
 #include "sqs_samples.h"

@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.dynamodb;
 
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
@@ -18,8 +17,9 @@ public class Movies {
     @DynamoDbSecondaryPartitionKey(indexNames = { "year-index" })
     @DynamoDbPartitionKey
     public int getYear() {
-      return this.year;
+        return this.year;
     }
+
     public void setYear(int year) {
         this.year = year;
     }
@@ -28,6 +28,7 @@ public class Movies {
     public String getTitle() {
         return this.title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -40,5 +41,3 @@ public class Movies {
         this.info = info;
     }
 }
-
-

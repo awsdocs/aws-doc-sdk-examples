@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[S3Cors.java demonstrates how to manage cross-origin resource sharing (CORS) for an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -25,7 +19,8 @@ import software.amazon.awssdk.services.s3.model.PutBucketCorsRequest;
 // snippet-end:[s3.java2.cors.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -35,13 +30,13 @@ public class S3Cors {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <bucketName> <accountId>\s
+                Usage:
+                    <bucketName> <accountId>\s
 
-            Where:
-                bucketName - The Amazon S3 bucket to upload an object into.
-                accountId - The id of the account that owns the Amazon S3 bucket.
-            """;
+                Where:
+                    bucketName - The Amazon S3 bucket to upload an object into.
+                    accountId - The id of the account that owns the Amazon S3 bucket.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -52,8 +47,8 @@ public class S3Cors {
         String accountId = args[1];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         setCorsInformation(s3, bucketName, accountId);
         getBucketCorsInformation(s3, bucketName, accountId);
@@ -64,9 +59,9 @@ public class S3Cors {
     public static void deleteBucketCorsInformation(S3Client s3, String bucketName, String accountId) {
         try {
             DeleteBucketCorsRequest bucketCorsRequest = DeleteBucketCorsRequest.builder()
-                .bucket(bucketName)
-                .expectedBucketOwner(accountId)
-                .build();
+                    .bucket(bucketName)
+                    .expectedBucketOwner(accountId)
+                    .build();
 
             s3.deleteBucketCors(bucketCorsRequest);
 
@@ -79,9 +74,9 @@ public class S3Cors {
     public static void getBucketCorsInformation(S3Client s3, String bucketName, String accountId) {
         try {
             GetBucketCorsRequest bucketCorsRequest = GetBucketCorsRequest.builder()
-                .bucket(bucketName)
-                .expectedBucketOwner(accountId)
-                .build();
+                    .bucket(bucketName)
+                    .expectedBucketOwner(accountId)
+                    .build();
 
             GetBucketCorsResponse corsResponse = s3.getBucketCors(bucketCorsRequest);
             List<CORSRule> corsRules = corsResponse.corsRules();
@@ -108,21 +103,21 @@ public class S3Cors {
         try {
             // Define CORS rules.
             CORSRule corsRule = CORSRule.builder()
-                .allowedMethods(allowMethods)
-                .allowedOrigins(allowOrigins)
-                .build();
+                    .allowedMethods(allowMethods)
+                    .allowedOrigins(allowOrigins)
+                    .build();
 
             List<CORSRule> corsRules = new ArrayList<>();
             corsRules.add(corsRule);
             CORSConfiguration configuration = CORSConfiguration.builder()
-                .corsRules(corsRules)
-                .build();
+                    .corsRules(corsRules)
+                    .build();
 
             PutBucketCorsRequest putBucketCorsRequest = PutBucketCorsRequest.builder()
-                .bucket(bucketName)
-                .corsConfiguration(configuration)
-                .expectedBucketOwner(accountId)
-                .build();
+                    .bucket(bucketName)
+                    .corsConfiguration(configuration)
+                    .expectedBucketOwner(accountId)
+                    .build();
 
             s3.putBucketCors(putBucketCorsRequest);
 

@@ -1,14 +1,10 @@
-//snippet-sourcedescription:[UpdateChannel.java demonstrates how to update a channel for an Amazon Pinpoint application.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Pinpoint]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.updatechannel.main]
-//snippet-start:[pinpoint.java2.updatechannel.import]
+// snippet-start:[pinpoint.java2.updatechannel.main]
+// snippet-start:[pinpoint.java2.updatechannel.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.SMSChannelResponse;
@@ -17,10 +13,11 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
 import software.amazon.awssdk.services.pinpoint.model.SMSChannelRequest;
 import software.amazon.awssdk.services.pinpoint.model.UpdateSmsChannelRequest;
 import software.amazon.awssdk.services.pinpoint.model.UpdateSmsChannelResponse;
-//snippet-end:[pinpoint.java2.updatechannel.import]
+// snippet-end:[pinpoint.java2.updatechannel.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +27,12 @@ public class UpdateChannel {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage: CreateChannel <appId>
+                Usage: CreateChannel <appId>
 
-            Where:
-              appId - The name of the application whose channel is updated.
+                Where:
+                  appId - The name of the application whose channel is updated.
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +41,8 @@ public class UpdateChannel {
 
         String appId = args[0];
         PinpointClient pinpoint = PinpointClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         SMSChannelResponse getResponse = getSMSChannel(pinpoint, appId);
         toggleSmsChannel(pinpoint, appId, getResponse);
@@ -55,8 +52,8 @@ public class UpdateChannel {
     private static SMSChannelResponse getSMSChannel(PinpointClient client, String appId) {
         try {
             GetSmsChannelRequest request = GetSmsChannelRequest.builder()
-                .applicationId(appId)
-                .build();
+                    .applicationId(appId)
+                    .build();
 
             SMSChannelResponse response = client.getSmsChannel(request).smsChannelResponse();
             System.out.println("Channel state is " + response.enabled());
@@ -73,13 +70,13 @@ public class UpdateChannel {
         boolean enabled = !getResponse.enabled();
         try {
             SMSChannelRequest request = SMSChannelRequest.builder()
-                .enabled(enabled)
-                .build();
+                    .enabled(enabled)
+                    .build();
 
             UpdateSmsChannelRequest updateRequest = UpdateSmsChannelRequest.builder()
-                .smsChannelRequest(request)
-                .applicationId(appId)
-                .build();
+                    .smsChannelRequest(request)
+                    .applicationId(appId)
+                    .build();
 
             UpdateSmsChannelResponse result = client.updateSmsChannel(updateRequest);
             System.out.println("Channel state: " + result.smsChannelResponse().enabled());
@@ -90,4 +87,4 @@ public class UpdateChannel {
         }
     }
 }
-//snippet-end:[pinpoint.java2.updatechannel.main]
+// snippet-end:[pinpoint.java2.updatechannel.main]

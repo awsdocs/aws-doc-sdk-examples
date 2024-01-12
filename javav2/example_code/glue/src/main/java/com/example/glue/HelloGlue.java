@@ -1,12 +1,7 @@
-//snippet-sourcedescription:[GetDatabase.java demonstrates how to get a database.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS Glue]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-//snippet-start:[glue.java2.hello.main]
+// snippet-start:[glue.java2.hello.main]
 package com.example.glue;
 
 import software.amazon.awssdk.regions.Region;
@@ -16,17 +11,18 @@ import software.amazon.awssdk.services.glue.model.ListJobsResponse;
 import java.util.List;
 
 public class HelloGlue {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         GlueClient glueClient = GlueClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         listJobs(glueClient);
     }
+
     public static void listJobs(GlueClient glueClient) {
         ListJobsRequest request = ListJobsRequest.builder()
                 .maxResults(10)
-                    .build();
+                .build();
         ListJobsResponse response = glueClient.listJobs(request);
         List<String> jobList = response.jobNames();
         jobList.forEach(job -> {
@@ -34,4 +30,4 @@ public class HelloGlue {
         });
     }
 }
-//snippet-end:[glue.java2.hello.main]
+// snippet-end:[glue.java2.hello.main]

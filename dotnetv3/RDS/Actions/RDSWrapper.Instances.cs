@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -47,7 +47,7 @@ public partial class RDSWrapper
 
     /// <summary>
     /// Get a list of orderable DB instance options for a specific
-    /// engine and engine version. 
+    /// engine and engine version.
     /// </summary>
     /// <param name="engine">Name of the engine.</param>
     /// <param name="engineVersion">Version of the engine.</param>

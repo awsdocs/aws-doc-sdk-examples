@@ -1,26 +1,20 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetDetector.java demonstrates how to obtain a detector using its id value.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon GuardDuty]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.guardduty;
 
-//snippet-start:[guard.java2.get_detector.main]
-//snippet-start:[guard.java2.get_detector.import]
+// snippet-start:[guard.java2.get_detector.main]
+// snippet-start:[guard.java2.get_detector.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.guardduty.GuardDutyClient;
 import software.amazon.awssdk.services.guardduty.model.GetDetectorRequest;
 import software.amazon.awssdk.services.guardduty.model.GetDetectorResponse;
 import software.amazon.awssdk.services.guardduty.model.GuardDutyException;
-//snippet-end:[guard.java2.get_detector.import]
+// snippet-end:[guard.java2.get_detector.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,10 +24,10 @@ public class GetDetector {
     public static void main(String[] args) {
         final String usage = """
 
-            To run this example, supply the detector Id value.\s
+                To run this example, supply the detector Id value.\s
 
-            Ex: GetDetector <detectorId>
-            """;
+                Ex: GetDetector <detectorId>
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,8 +37,8 @@ public class GetDetector {
         String detectorId = args[0];
         Region region = Region.US_EAST_1;
         GuardDutyClient guardDutyClient = GuardDutyClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getSpecificDetector(guardDutyClient, detectorId);
         guardDutyClient.close();
@@ -53,8 +47,8 @@ public class GetDetector {
     public static void getSpecificDetector(GuardDutyClient guardDutyClient, String detectorId) {
         try {
             GetDetectorRequest detectorRequest = GetDetectorRequest.builder()
-                .detectorId(detectorId)
-                .build();
+                    .detectorId(detectorId)
+                    .build();
 
             GetDetectorResponse detectorResponse = guardDutyClient.getDetector(detectorRequest);
             System.out.println("The detector status is " + detectorResponse.status().toString());
@@ -65,4 +59,4 @@ public class GetDetector {
         }
     }
 }
-//snippet-end:[guard.java2.get_detector.main]
+// snippet-end:[guard.java2.get_detector.main]

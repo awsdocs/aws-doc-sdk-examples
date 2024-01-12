@@ -1,23 +1,19 @@
-// snippet-sourcedescription:[DeleteApiKey.java demonstrates how to delete a key.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS AppSync]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.appsync;
 
-//snippet-start:[appsync.java2.del_key.main]
-//snippet-start:[appsync.java2.del_key.import]
+// snippet-start:[appsync.java2.del_key.main]
+// snippet-start:[appsync.java2.del_key.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.AppSyncException;
 import software.amazon.awssdk.services.appsync.model.DeleteApiKeyRequest;
-//snippet-end:[appsync.java2.del_key.import]
+// snippet-end:[appsync.java2.del_key.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +24,12 @@ public class DeleteApiKey {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <apiId> <keyId>\s
+                Usage:    <apiId> <keyId>\s
 
-            Where:
-               apiId - the id of the API (You can get this value from the AWS Management Console).\s
-               keyId - The Id of the key to delete.
-            """;
+                Where:
+                   apiId - the id of the API (You can get this value from the AWS Management Console).\s
+                   keyId - The Id of the key to delete.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,7 +41,7 @@ public class DeleteApiKey {
         AppSyncClient appSyncClient = AppSyncClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
-        deleteKey(appSyncClient, keyId, apiId) ;
+        deleteKey(appSyncClient, keyId, apiId);
     }
 
     public static void deleteKey(AppSyncClient appSyncClient, String keyId, String apiId) {
@@ -64,4 +60,4 @@ public class DeleteApiKey {
         }
     }
 }
-//snippet-end:[appsync.java2.del_key.main]
+// snippet-end:[appsync.java2.del_key.main]

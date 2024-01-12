@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { describe, afterAll, it, expect } from "vitest";
 
 import { run, EMAIL_ADDRESS } from "../src/ses_verifyemailidentity";

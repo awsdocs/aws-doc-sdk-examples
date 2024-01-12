@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[DeleteAlias.java demonstrates how to delete an alias.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon KMS]
-//snippet-service:[kms]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-04-09]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package aws.example.kms;
 
@@ -16,10 +9,9 @@ import com.amazonaws.services.kms.model.DeleteAliasRequest;
 
 public class DeleteAlias {
     public static void main(String[] args) {
-        final String USAGE =
-            "To run this example, supply an alias name\n" +
-            "Usage: DeleteAlias <alias-name>\n" +
-            "Example: DeleteAlias alias/projectKey1\n";
+        final String USAGE = "To run this example, supply an alias name\n" +
+                "Usage: DeleteAlias <alias-name>\n" +
+                "Example: DeleteAlias alias/projectKey1\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);

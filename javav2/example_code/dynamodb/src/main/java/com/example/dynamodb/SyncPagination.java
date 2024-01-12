@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[SyncPagination.java demonstrates how to work with paginated functionality.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.dynamodb;
 
@@ -20,7 +14,8 @@ import software.amazon.awssdk.services.dynamodb.paginators.ListTablesIterable;
 // snippet-end:[dynamodb.java2.sync_pagination.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +25,12 @@ public class SyncPagination {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <type>
+                Usage:
+                    <type>
 
-            Where:
-                type - The type of pagination. (auto, manual, or default).\s
-            """;
+                Where:
+                    type - The type of pagination. (auto, manual, or default).\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,8 +40,8 @@ public class SyncPagination {
         String type = args[0];
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         switch (type.toLowerCase()) {
             case "manual" -> manualPagination(ddb);
@@ -66,8 +61,8 @@ public class SyncPagination {
     public static void manualPagination(DynamoDbClient client) {
         System.out.println("running ManualPagination...\n");
         ListTablesRequest listTablesRequest = ListTablesRequest.builder()
-            .limit(3)
-            .build();
+                .limit(3)
+                .build();
 
         boolean done = false;
         while (!done) {
@@ -79,8 +74,8 @@ public class SyncPagination {
             }
 
             listTablesRequest = listTablesRequest.toBuilder()
-                .exclusiveStartTableName(listTablesResponse.lastEvaluatedTableName())
-                .build();
+                    .exclusiveStartTableName(listTablesResponse.lastEvaluatedTableName())
+                    .build();
         }
     }
 
@@ -97,12 +92,13 @@ public class SyncPagination {
         System.out.println("AutoPagination: using stream");
         responses.stream().forEach(response -> System.out.println(response.tableNames()));
 
-        // Convert the stream of responses to stream of table names, then print the table names.
+        // Convert the stream of responses to stream of table names, then print the
+        // table names.
         System.out.println("AutoPagination: using flatmap to get stream of table names");
 
         responses.stream()
-            .flatMap(response -> response.tableNames().stream())
-            .forEach(System.out::println);
+                .flatMap(response -> response.tableNames().stream())
+                .forEach(System.out::println);
 
         System.out.println("AutoPagination: iterating directly on the table names");
         Iterable<String> tableNames = responses.tableNames();
@@ -127,4 +123,3 @@ public class SyncPagination {
     }
 }
 // snippet-end:[dynamodb.java2.sync_pagination.main]
-

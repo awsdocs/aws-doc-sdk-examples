@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { RequestHandler } from "express";
 import { command as createTableCommand } from "../statement-commands/create-table.js";
 import { command as getAllItemsCommand } from "../statement-commands/get-all-items.js";

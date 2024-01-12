@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListApiKeys.kt demonstrates how to get API keys.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS AppSync]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.example.appsync
 
 // snippet-start:[appsync.kotlin.get_keys.import]

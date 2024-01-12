@@ -1,7 +1,7 @@
-# frozen_string_literal: true
-
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+
+# frozen_string_literal: true
 
 # Shows how to get a list of work items from a storage object, render it in both
 # HTML and text formats, and use Amazon Simple Email Service (Amazon SES) to send it as

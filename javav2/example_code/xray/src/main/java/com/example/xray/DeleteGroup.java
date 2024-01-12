@@ -1,13 +1,7 @@
-//snippet-sourcedescription:[DeleteGroup.java demonstrates how to delete an AWS XRay group.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-service:[AWS X-Ray Service]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.xray;
-
 
 // snippet-start:[xray.java2_delete_group.main]
 // snippet-start:[xray.java2_delete_group.import]
@@ -17,9 +11,9 @@ import software.amazon.awssdk.services.xray.model.DeleteGroupRequest;
 import software.amazon.awssdk.services.xray.model.XRayException;
 // snippet-end:[xray.java2_delete_group.import]
 
-
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,12 +23,12 @@ public class DeleteGroup {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <groupName>
+                Usage:    <groupName>
 
-            Where:
-               groupName - The name of the group to delete\s
+                Where:
+                   groupName - The name of the group to delete\s
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -53,8 +47,8 @@ public class DeleteGroup {
     public static void deleteSpecificGroup(XRayClient xRayClient, String groupName) {
         try {
             DeleteGroupRequest groupRequest = DeleteGroupRequest.builder()
-                .groupName(groupName)
-                .build();
+                    .groupName(groupName)
+                    .build();
 
             xRayClient.deleteGroup(groupRequest);
             System.out.println(groupName + " was deleted!");

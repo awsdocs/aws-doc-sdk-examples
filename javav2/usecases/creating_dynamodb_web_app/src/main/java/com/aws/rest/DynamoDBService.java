@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -33,19 +31,20 @@ public class DynamoDBService {
     private DynamoDbClient getClient() {
         Region region = Region.US_EAST_1;
         return DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
     }
+
     // Get All items from the DynamoDB table.
     public List<WorkItem> getAllItems() {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(getClient())
-            .build();
+                .dynamoDbClient(getClient())
+                .build();
 
-        try{
+        try {
             DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
             Iterator<Work> results = table.scan().items().iterator();
-            WorkItem workItem ;
+            WorkItem workItem;
             ArrayList<WorkItem> itemList = new ArrayList<>();
 
             while (results.hasNext()) {
@@ -75,20 +74,20 @@ public class DynamoDBService {
     public void archiveItemEC(String id) {
         try {
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(getClient())
-                .build();
+                    .dynamoDbClient(getClient())
+                    .build();
 
             DynamoDbTable<Work> workTable = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
 
-            //Get the Key object.
+            // Get the Key object.
             Key key = Key.builder()
-                .partitionValue(id)
-                .build();
+                    .partitionValue(id)
+                    .build();
 
             // Get the item by using the key.
-            Work work = workTable.getItem(r->r.key(key));
+            Work work = workTable.getItem(r -> r.key(key));
             work.setArchive(1);
-            workTable.updateItem(r->r.item(work));
+            workTable.updateItem(r -> r.item(work));
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
@@ -99,36 +98,36 @@ public class DynamoDBService {
     // Get Open items from the DynamoDB table.
     public List<WorkItem> getOpenItems() {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(getClient())
-            .build();
-
-        try{
-            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
-            AttributeValue attr = AttributeValue.builder()
-                .n("0")
+                .dynamoDbClient(getClient())
                 .build();
 
+        try {
+            DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
+            AttributeValue attr = AttributeValue.builder()
+                    .n("0")
+                    .build();
+
             Map<String, AttributeValue> myMap = new HashMap<>();
-            myMap.put(":val1",attr);
+            myMap.put(":val1", attr);
 
             Map<String, String> myExMap = new HashMap<>();
             myExMap.put("#archive", "archive");
 
             // Set the Expression so only active items are queried from the Work table.
             Expression expression = Expression.builder()
-                .expressionValues(myMap)
-                .expressionNames(myExMap)
-                .expression("#archive = :val1")
-                .build();
+                    .expressionValues(myMap)
+                    .expressionNames(myExMap)
+                    .expression("#archive = :val1")
+                    .build();
 
             ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
-                .filterExpression(expression)
-                .limit(15)
-                .build();
+                    .filterExpression(expression)
+                    .limit(15)
+                    .build();
 
             // Scan items.
             Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
-            WorkItem workItem ;
+            WorkItem workItem;
             ArrayList<WorkItem> itemList = new ArrayList<>();
 
             while (results.hasNext()) {
@@ -155,38 +154,38 @@ public class DynamoDBService {
     }
 
     // Get Closed Items from the DynamoDB table.
-    public List< WorkItem > getClosedItems() {
+    public List<WorkItem> getClosedItems() {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(getClient())
-            .build();
+                .dynamoDbClient(getClient())
+                .build();
 
-        try{
+        try {
             // Create a DynamoDbTable object.
             DynamoDbTable<Work> table = enhancedClient.table("Work", TableSchema.fromBean(Work.class));
             AttributeValue attr = AttributeValue.builder()
-                .n("1")
-                .build();
+                    .n("1")
+                    .build();
 
             Map<String, AttributeValue> myMap = new HashMap<>();
-            myMap.put(":val1",attr);
+            myMap.put(":val1", attr);
             Map<String, String> myExMap = new HashMap<>();
             myExMap.put("#archive", "archive");
 
             // Set the Expression so only Closed items are queried from the Work table.
             Expression expression = Expression.builder()
-                .expressionValues(myMap)
-                .expressionNames(myExMap)
-                .expression("#archive = :val1")
-                .build();
+                    .expressionValues(myMap)
+                    .expressionNames(myExMap)
+                    .expression("#archive = :val1")
+                    .build();
 
             ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
-                .filterExpression(expression)
-                .limit(15)
-                .build();
+                    .filterExpression(expression)
+                    .limit(15)
+                    .build();
 
             // Get items.
             Iterator<Work> results = table.scan(enhancedRequest).items().iterator();
-            WorkItem workItem ;
+            WorkItem workItem;
             ArrayList<WorkItem> itemList = new ArrayList<>();
 
             while (results.hasNext()) {
@@ -200,7 +199,7 @@ public class DynamoDBService {
                 workItem.setId(work.getId());
                 workItem.setArchived(work.getArchive());
 
-                //Push the workItem to the list.
+                // Push the workItem to the list.
                 itemList.add(workItem);
             }
             return itemList;
@@ -209,15 +208,15 @@ public class DynamoDBService {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        return null ;
+        return null;
     }
 
     public void setItem(WorkItem item) {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(getClient())
-            .build();
+                .dynamoDbClient(getClient())
+                .build();
 
-        putRecord(enhancedClient, item) ;
+        putRecord(enhancedClient, item);
     }
 
     // Put an item into a DynamoDB table.
@@ -230,7 +229,7 @@ public class DynamoDBService {
             record.setUsername(item.getName());
             record.setId(myGuid);
             record.setDescription(item.getDescription());
-            record.setDate(now()) ;
+            record.setDate(now());
             record.setStatus(item.getStatus());
             record.setArchive(0);
             record.setGuide(item.getGuide());

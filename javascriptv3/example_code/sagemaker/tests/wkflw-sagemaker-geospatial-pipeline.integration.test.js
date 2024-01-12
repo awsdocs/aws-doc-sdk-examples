@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { describe, test } from "vitest";
 import { SageMakerPipelinesWkflw } from "../scenarios/wkflw-sagemaker-geospatial-pipeline/SageMakerPipelinesWkflw.js";

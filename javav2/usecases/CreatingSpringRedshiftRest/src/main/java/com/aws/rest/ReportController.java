@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -26,12 +24,12 @@ public class ReportController {
     private final WriteExcel writeExcel;
 
     private final WriteExcel.SendMessages sm;
+
     @Autowired()
     ReportController(
-        WorkItemRepository repository,
-        WriteExcel writeExcel,
-        WriteExcel.SendMessages sm
-    ) {
+            WorkItemRepository repository,
+            WriteExcel writeExcel,
+            WriteExcel.SendMessages sm) {
         this.repository = repository;
         this.writeExcel = writeExcel;
         this.sm = sm;

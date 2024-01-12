@@ -1,4 +1,6 @@
 #!/bin/bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 FIVE_MINUTES_IN_MS=$((1000*60*5))
 START=$(($(date +%s) * 1000))

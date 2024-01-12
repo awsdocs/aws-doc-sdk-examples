@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetObjectContentType.java demonstrates how to determine the content type of an object in an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -20,7 +13,8 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 // snippet-end:[s3.java2.getobjectcontenttype.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,13 +24,13 @@ public class GetObjectContentType {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <bucketName> <keyName>>
+                Usage:
+                    <bucketName> <keyName>>
 
-            Where:
-                bucketName - The Amazon S3 bucket name.\s
-                keyName - The key name.\s
-            """;
+                Where:
+                    bucketName - The Amazon S3 bucket name.\s
+                    keyName - The key name.\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,8 +41,8 @@ public class GetObjectContentType {
         String keyName = args[1];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getContentType(s3, bucketName, keyName);
         s3.close();
@@ -57,9 +51,9 @@ public class GetObjectContentType {
     public static void getContentType(S3Client s3, String bucketName, String keyName) {
         try {
             HeadObjectRequest objectRequest = HeadObjectRequest.builder()
-                .key(keyName)
-                .bucket(bucketName)
-                .build();
+                    .key(keyName)
+                    .bucket(bucketName)
+                    .build();
 
             HeadObjectResponse objectHead = s3.headObject(objectRequest);
             String type = objectHead.contentType();

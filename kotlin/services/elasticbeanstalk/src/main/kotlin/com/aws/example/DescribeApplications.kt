@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[DescribeApplication.kt demonstrates how to describe an AWS Elastic Beanstalk application.]
-// snippet-keyword:[SDK for Kotlin]
-// snippet-service:[AWS Elastic Beanstalk]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.aws.example
 
 // snippet-start:[eb.kotlin.describe_app.import]

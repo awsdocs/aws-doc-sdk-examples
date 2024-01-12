@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[CreateSubscriptionFilter.kt demonstrates how to create an Amazon CloudWatch log subscription filter.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon CloudWatch]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.cloudwatch
 

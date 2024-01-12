@@ -1,17 +1,11 @@
-//snippet-sourcedescription:[GetImageSet.java demonstrates how to retrieve the image set metadata.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS HealthImaging]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.medicalimaging;
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// snippet-start:[medicalimaging.java2.get_imageset_metadata.import]
 
-//snippet-start:[medicalimaging.java2.get_imageset_metadata.import]
-
-//snippet-end:[medicalimaging.java2.get_imageset_metadata.import]
+// snippet-end:[medicalimaging.java2.get_imageset_metadata.import]
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -22,7 +16,8 @@ import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingExcept
 import java.nio.file.FileSystems;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  * <p>
  * For more information, see the following documentation topic:
  * <p>
@@ -65,22 +60,20 @@ public class GetImageSetMetadata {
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.get_imageset_metadata.main]
+    // snippet-start:[medicalimaging.java2.get_imageset_metadata.main]
     public static void getMedicalImageSetMetadata(MedicalImagingClient medicalImagingClient,
-                                                  String destinationPath,
-                                                  String datastoreId,
-                                                  String imagesetId,
-                                                  String versionId) {
+            String destinationPath,
+            String datastoreId,
+            String imagesetId,
+            String versionId) {
 
         try {
-            GetImageSetMetadataRequest.Builder getImageSetMetadataRequestBuilder =
-                    GetImageSetMetadataRequest.builder()
+            GetImageSetMetadataRequest.Builder getImageSetMetadataRequestBuilder = GetImageSetMetadataRequest.builder()
                     .datastoreId(datastoreId)
                     .imageSetId(imagesetId);
 
             if (versionId != null) {
-                getImageSetMetadataRequestBuilder =
-                        getImageSetMetadataRequestBuilder.versionId(versionId);
+                getImageSetMetadataRequestBuilder = getImageSetMetadataRequestBuilder.versionId(versionId);
             }
 
             medicalImagingClient.getImageSetMetadata(getImageSetMetadataRequestBuilder.build(),
@@ -92,5 +85,5 @@ public class GetImageSetMetadata {
             System.exit(1);
         }
     }
-//snippet-end:[medicalimaging.java2.get_imageset_metadata.main]
+    // snippet-end:[medicalimaging.java2.get_imageset_metadata.main]
 }

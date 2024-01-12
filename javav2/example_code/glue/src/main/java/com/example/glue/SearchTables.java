@@ -1,15 +1,10 @@
-//snippet-sourcedescription:[SearchTables.java demonstrates how to search a set of tables based on properties.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS Glue]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.glue;
 
-//snippet-start:[glue.java2.search_table.main]
-//snippet-start:[glue.java2.search_table.import]
+// snippet-start:[glue.java2.search_table.main]
+// snippet-start:[glue.java2.search_table.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GlueException;
@@ -17,7 +12,7 @@ import software.amazon.awssdk.services.glue.model.SearchTablesRequest;
 import software.amazon.awssdk.services.glue.model.SearchTablesResponse;
 import software.amazon.awssdk.services.glue.model.Table;
 import java.util.List;
-//snippet-end:[glue.java2.search_table.import]
+// snippet-end:[glue.java2.search_table.import]
 
 /*
 *   Before running this example, run a crawler to produce a table within a database.
@@ -33,12 +28,12 @@ public class SearchTables {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <text>
+                Usage:
+                    <text>
 
-            Where:
-                text - A string used for a text search.\s
-            """;
+                Where:
+                    text - A string used for a text search.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,8 +43,8 @@ public class SearchTables {
         String text = args[0];
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         searchGlueTable(glueClient, text);
         glueClient.close();
@@ -58,10 +53,10 @@ public class SearchTables {
     public static void searchGlueTable(GlueClient glueClient, String text) {
         try {
             SearchTablesRequest tablesRequest = SearchTablesRequest.builder()
-                .searchText(text)
-                .resourceShareType("ALL")
-                .maxResults(10)
-                .build();
+                    .searchText(text)
+                    .resourceShareType("ALL")
+                    .maxResults(10)
+                    .build();
 
             SearchTablesResponse tablesResponse = glueClient.searchTables(tablesRequest);
             List<Table> tables = tablesResponse.tableList();
@@ -76,4 +71,4 @@ public class SearchTables {
         }
     }
 }
-//snippet-end:[glue.java2.search_table.main]
+// snippet-end:[glue.java2.search_table.main]

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.example;
 
@@ -30,7 +28,7 @@ import java.util.*;
 
 public class ScanEmployees {
 
-      public Boolean sendEmployeMessage() {
+    public Boolean sendEmployeMessage() {
 
         Boolean send = false;
         String myDate = getDate();
@@ -96,7 +94,8 @@ public class ScanEmployees {
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
-        String message = first +" happy one year anniversary. We are very happy that you have been working here for a year! ";
+        String message = first
+                + " happy one year anniversary. We are very happy that you have been working here for a year! ";
 
         try {
             PublishRequest request = PublishRequest.builder()

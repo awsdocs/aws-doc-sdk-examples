@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { describe, it, expect, vi } from "vitest";
 import { getHandler } from "../src/functions/detect-labels.js";
 

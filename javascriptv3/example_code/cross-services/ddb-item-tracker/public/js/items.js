@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 // snippet-start:[cross-service.JavaScript.ddb-item-tracker.items]
 
 $(function () {

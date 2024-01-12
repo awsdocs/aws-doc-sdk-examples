@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteWebsiteConfiguration.java demonstrates how to delete the website configuration for an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 // snippet-end:[s3.java2.delete_website_configuration.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,11 +24,11 @@ public class DeleteWebsiteConfiguration {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:     <bucketName>
+                Usage:     <bucketName>
 
-            Where:
-                bucketName - The Amazon S3 bucket to delete the website configuration from.
-            """;
+                Where:
+                    bucketName - The Amazon S3 bucket to delete the website configuration from.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +39,8 @@ public class DeleteWebsiteConfiguration {
         System.out.format("Deleting website configuration for Amazon S3 bucket: %s\n", bucketName);
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         deleteBucketWebsiteConfig(s3, bucketName);
         System.out.println("Done!");
@@ -54,8 +49,8 @@ public class DeleteWebsiteConfiguration {
 
     public static void deleteBucketWebsiteConfig(S3Client s3, String bucketName) {
         DeleteBucketWebsiteRequest delReq = DeleteBucketWebsiteRequest.builder()
-            .bucket(bucketName)
-            .build();
+                .bucket(bucketName)
+                .build();
 
         try {
             s3.deleteBucketWebsite(delReq);
@@ -68,4 +63,3 @@ public class DeleteWebsiteConfiguration {
     }
 }
 // snippet-end:[s3.java2.delete_website_configuration.main]
-

@@ -1,15 +1,9 @@
-//snippet-sourcedescription:[StartDicomImportJob.java demonstrates how to list import jobs in AWS HealthImaging.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS HealthImaging]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.medicalimaging;
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
-//snippet-start:[medicalimaging.java2.list_dicom_import_jobs.import]
+// snippet-start:[medicalimaging.java2.list_dicom_import_jobs.import]
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -22,10 +16,11 @@ import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingExcept
 import java.util.ArrayList;
 import java.util.List;
 
-//snippet-end:[medicalimaging.java2.list_dicom_import_jobs.import]
+// snippet-end:[medicalimaging.java2.list_dicom_import_jobs.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  * <p>
  * For more information, see the following documentation topic:
  * <p>
@@ -60,9 +55,9 @@ public class ListDicomImportJobs {
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.list_dicom_import_jobs.main]
+    // snippet-start:[medicalimaging.java2.list_dicom_import_jobs.main]
     public static List<DICOMImportJobSummary> listDicomImportJobs(MedicalImagingClient medicalImagingClient,
-                                                                  String datastoreId) {
+            String datastoreId) {
 
         try {
             ListDicomImportJobsRequest listDicomImportJobsRequest = ListDicomImportJobsRequest.builder()
@@ -77,5 +72,5 @@ public class ListDicomImportJobs {
 
         return new ArrayList<>();
     }
-//snippet-end:[medicalimaging.java2.list_dicom_import_jobs.main]
+    // snippet-end:[medicalimaging.java2.list_dicom_import_jobs.main]
 }

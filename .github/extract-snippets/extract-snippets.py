@@ -1,3 +1,5 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 # extract-snippets.py v1.2.0 6/24/2021
 # Jerry Kindall, Amazon Web Services
 

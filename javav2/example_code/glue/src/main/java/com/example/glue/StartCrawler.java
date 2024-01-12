@@ -1,23 +1,19 @@
-//snippet-sourcedescription:[StartCrawler.java demonstrates how to start an AWS Glue crawler.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS Glue]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.glue;
 
-//snippet-start:[glue.java2.start_crawler.main]
-//snippet-start:[glue.java2.start_crawler.import]
+// snippet-start:[glue.java2.start_crawler.main]
+// snippet-start:[glue.java2.start_crawler.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GlueException;
-import software.amazon.awssdk.services.glue.model.StartCrawlerRequest ;
-//snippet-end:[glue.java2.start_crawler.import]
+import software.amazon.awssdk.services.glue.model.StartCrawlerRequest;
+// snippet-end:[glue.java2.start_crawler.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -27,12 +23,12 @@ public class StartCrawler {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <crawlerName>
+                Usage:
+                    <crawlerName>
 
-            Where:
-                crawlerName - The name of the crawler.\s
-            """;
+                Where:
+                    crawlerName - The name of the crawler.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,8 +38,8 @@ public class StartCrawler {
         String crawlerName = args[0];
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         startSpecificCrawler(glueClient, crawlerName);
         glueClient.close();
@@ -52,8 +48,8 @@ public class StartCrawler {
     public static void startSpecificCrawler(GlueClient glueClient, String crawlerName) {
         try {
             StartCrawlerRequest crawlerRequest = StartCrawlerRequest.builder()
-                .name(crawlerName)
-                .build();
+                    .name(crawlerName)
+                    .build();
 
             glueClient.startCrawler(crawlerRequest);
 
@@ -63,5 +59,4 @@ public class StartCrawler {
         }
     }
 }
- //snippet-end:[glue.java2.start_crawler.main]
-
+// snippet-end:[glue.java2.start_crawler.main]

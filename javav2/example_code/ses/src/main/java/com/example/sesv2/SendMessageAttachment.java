@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[SendMessageAttachment.java demonstrates how to send an email message that contains an attachment by using the SesV2Client.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon Simple Email Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sesv2;
 
@@ -37,7 +30,8 @@ import java.util.Properties;
 // snippet-end:[ses.java2.sendmessage.request.sesv2.import]
 
 /**
- * Before running this AWS SDK for Java (v2) example, set up your development environment, including your credentials.
+ * Before running this AWS SDK for Java (v2) example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -48,15 +42,15 @@ public class SendMessageAttachment {
     public static void main(String[] args) throws MessagingException, IOException {
         final String usage = """
 
-            Usage:
-                <sender> <recipient> <subject>\s
+                Usage:
+                    <sender> <recipient> <subject>\s
 
-            Where:
-                sender - An email address that represents the sender.\s
-                recipient - An email address that represents the recipient.\s
-                subject - The subject line.\s
-                fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls).\s
-            """;
+                Where:
+                    sender - An email address that represents the sender.\s
+                    recipient - An email address that represents the recipient.\s
+                    subject - The subject line.\s
+                    fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls).\s
+                """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -70,21 +64,21 @@ public class SendMessageAttachment {
 
         Region region = Region.US_EAST_1;
         SesV2Client sesv2Client = SesV2Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         // The HTML body of the email.
         String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p> See the attachment.</p>" + "</body>" + "</html>";
+                + "<p> See the attachment.</p>" + "</body>" + "</html>";
         sendEmailAttachment(sesv2Client, sender, recipient, subject, bodyHTML, fileLocation);
     }
 
     public static void sendEmailAttachment(SesV2Client sesv2Client,
-                                           String sender,
-                                           String recipient,
-                                           String subject,
-                                           String bodyHTML,
-                                           String fileLocation) throws MessagingException, IOException {
+            String sender,
+            String recipient,
+            String subject,
+            String bodyHTML,
+            String fileLocation) throws MessagingException, IOException {
 
         java.io.File theFile = new java.io.File(fileLocation);
         byte[] fileContent = Files.readAllBytes(theFile.toPath());
@@ -126,7 +120,8 @@ public class SendMessageAttachment {
 
         // Define the attachment.
         MimeBodyPart att = new MimeBodyPart();
-        DataSource fds = new ByteArrayDataSource(fileContent, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        DataSource fds = new ByteArrayDataSource(fileContent,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
 
         String reportName = "WorkReport.xls";
@@ -146,16 +141,16 @@ public class SendMessageAttachment {
 
             SdkBytes data = SdkBytes.fromByteArray(arr);
             RawMessage rawMessage = RawMessage.builder()
-                .data(data)
-                .build();
+                    .data(data)
+                    .build();
 
             EmailContent emailContent = EmailContent.builder()
-                .raw(rawMessage)
-                .build();
+                    .raw(rawMessage)
+                    .build();
 
             SendEmailRequest request = SendEmailRequest.builder()
-                .content(emailContent)
-                .build();
+                    .content(emailContent)
+                    .build();
 
             sesv2Client.sendEmail(request);
 

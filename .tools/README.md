@@ -38,6 +38,7 @@ SDK Code Examples tools team uses Python for our tools because of its cross-plat
 17. Use requests for web calls, but prefer a native wrapper (like boto3 or pygithub) when available.
     - If you http/2, you might consider httpx.
 18. Use subprocess for system calls, but prefer a native wrapper (like gitpython) when available.
+19. When reading project files, use `encoding="utf-8-sig"`, as many `.cs` files have a BOM.
 
 ## Some PEPs you might want to know about:
 

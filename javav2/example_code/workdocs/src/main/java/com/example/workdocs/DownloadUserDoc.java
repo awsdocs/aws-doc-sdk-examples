@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[DownloadUserDoc.java demonstrates how to download a document from Amazon WorkDocs.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon WorkDocs]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[workdocs.java2.download_user_docs.complete]
 
@@ -41,7 +36,8 @@ import software.amazon.awssdk.services.workdocs.model.DocumentSourceType;
 // snippet-end:[workdocs.java2.download_user_docs.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -51,15 +47,15 @@ public class DownloadUserDoc {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <organizationId> <userEmail> <workdocsName> <saveDocFullName>\s
+                Usage:
+                    <organizationId> <userEmail> <workdocsName> <saveDocFullName>\s
 
-            Where:
-                organizationId - Your organization Id value. You can obtain this value from the AWS Management Console.\s
-                userEmail - A user email.\s
-                workdocsName - The name of the document (for example, book.pdf).\s
-                saveDocFullName - The path to save document (for example, C:/AWS/book2.pdf).\s
-            """;
+                Where:
+                    organizationId - Your organization Id value. You can obtain this value from the AWS Management Console.\s
+                    userEmail - A user email.\s
+                    workdocsName - The name of the document (for example, book.pdf).\s
+                    saveDocFullName - The path to save document (for example, C:/AWS/book2.pdf).\s
+                """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -72,18 +68,18 @@ public class DownloadUserDoc {
         String saveDocFullName = args[3];
         Region region = Region.US_WEST_2;
         WorkDocsClient workDocs = WorkDocsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         downloadDoc(workDocs, organizationId, userEmail, workdocsName, saveDocFullName);
         workDocs.close();
     }
 
     public static void downloadDoc(WorkDocsClient workDocs,
-                                   String orgId,
-                                   String userEmail,
-                                   String workdocsName,
-                                   String saveDocFullName) {
+            String orgId,
+            String userEmail,
+            String workdocsName,
+            String saveDocFullName) {
 
         try {
 
@@ -130,9 +126,9 @@ public class DownloadUserDoc {
             String userFolder = "";
             List<User> wdUsers = new ArrayList<>();
             DescribeUsersRequest request = DescribeUsersRequest.builder()
-                .organizationId(orgId)
-                .query(user)
-                .build();
+                    .organizationId(orgId)
+                    .query(user)
+                    .build();
 
             String marker;
 
@@ -151,7 +147,8 @@ public class DownloadUserDoc {
             }
 
             for (User wdUser : wdUsers) {
-                //DescribeFolderContentsRequest dfc_request = new DescribeFolderContentsRequest();
+                // DescribeFolderContentsRequest dfc_request = new
+                // DescribeFolderContentsRequest();
                 userFolder = wdUser.rootFolderId();
             }
 
@@ -174,8 +171,8 @@ public class DownloadUserDoc {
             } else {
 
                 DescribeFolderContentsRequest dfcRequest = DescribeFolderContentsRequest.builder()
-                    .folderId(folderId)
-                    .build();
+                        .folderId(folderId)
+                        .build();
 
                 DescribeFolderContentsResponse response = workDocs.describeFolderContents(dfcRequest);
                 List<DocumentMetadata> userDocs = new ArrayList<>();
@@ -202,10 +199,10 @@ public class DownloadUserDoc {
 
         try {
             GetDocumentVersionRequest request = GetDocumentVersionRequest.builder()
-                .documentId(docId)
-                .versionId(versionId)
-                .fields("SOURCE")
-                .build();
+                    .documentId(docId)
+                    .versionId(versionId)
+                    .fields("SOURCE")
+                    .build();
 
             GetDocumentVersionResponse response = workDocs.getDocumentVersion(request);
             Map<DocumentSourceType, String> sourceDoc = response.metadata().source();

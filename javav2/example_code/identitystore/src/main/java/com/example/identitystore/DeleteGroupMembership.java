@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteGroupMembership.java demonstrates how to Delete a membership within a group given membershipId in AWS Identitystore.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.identitystore;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.identitystore.model.DeleteGroupMembership
 // snippet-end:[Identitystore.java2.delete_group_membership.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,14 +24,14 @@ public class DeleteGroupMembership {
     public static void main(String... args) {
         final String usage = """
 
-            Usage:
-                <identitystoreId> <membershipId>
+                Usage:
+                    <identitystoreId> <membershipId>
 
-            Where:
-                identitystoreId - The id of the identitystore.\s
-                membershipId - The id of the user member of the group.\s
+                Where:
+                    identitystoreId - The id of the identitystore.\s
+                    membershipId - The id of the user member of the group.\s
 
-            """;
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -51,12 +46,13 @@ public class DeleteGroupMembership {
         identitystore.close();
     }
 
-    public static String deleteGroupMembership(IdentitystoreClient identitystore, String identitystoreId, String membershipId) {
+    public static String deleteGroupMembership(IdentitystoreClient identitystore, String identitystoreId,
+            String membershipId) {
         try {
             DeleteGroupMembershipRequest request = DeleteGroupMembershipRequest.builder()
-                .identityStoreId(identitystoreId)
-                .membershipId(membershipId)
-                .build();
+                    .identityStoreId(identitystoreId)
+                    .membershipId(membershipId)
+                    .build();
 
             DeleteGroupMembershipResponse response = identitystore.deleteGroupMembership(request);
             return membershipId;

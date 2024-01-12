@@ -1,29 +1,5 @@
-//snippet-sourcedescription:[XferMgrCopy.java demonstrates how to copy an object from one Amazon S3 bucket to another using S3 TransferManager.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[TransferManager copy]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
-
-
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
-package aws.example.s3;
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0package aws.example.s3;
 // snippet-start:[s3.java1.s3_xfer_mgr_copy.import]
 
 import com.amazonaws.AmazonServiceException;
@@ -42,7 +18,7 @@ import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
  */
 public class XferMgrCopy {
     public static void copyObjectSimple(String from_bucket, String from_key,
-                                        String to_bucket, String to_key) {
+            String to_bucket, String to_key) {
         // snippet-start:[s3.java1.s3_xfer_mgr_copy.copy_object]
         System.out.println("Copying s3 object: " + from_key);
         System.out.println("      from bucket: " + from_bucket);

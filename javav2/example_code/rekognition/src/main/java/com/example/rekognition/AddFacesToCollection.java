@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[AddFacesToCollection.java demonstrates how to add faces to an Amazon Rekognition collection.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Rekognition]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.rekognition;
 
@@ -29,7 +24,8 @@ import java.util.List;
 // snippet-end:[rekognition.java2.add_faces_collection.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -40,12 +36,12 @@ public class AddFacesToCollection {
 
         final String usage = """
 
-            Usage:     <collectionId> <sourceImage>
+                Usage:     <collectionId> <sourceImage>
 
-            Where:
-                collectionName - The name of the collection.
-                sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
-            """;
+                Where:
+                    collectionName - The name of the collection.
+                    sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -56,8 +52,8 @@ public class AddFacesToCollection {
         String sourceImage = args[1];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         addToCollection(rekClient, collectionId, sourceImage);
         rekClient.close();
@@ -68,16 +64,16 @@ public class AddFacesToCollection {
             InputStream sourceStream = new FileInputStream(sourceImage);
             SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
             Image souImage = Image.builder()
-                .bytes(sourceBytes)
-                .build();
+                    .bytes(sourceBytes)
+                    .build();
 
             IndexFacesRequest facesRequest = IndexFacesRequest.builder()
-                .collectionId(collectionId)
-                .image(souImage)
-                .maxFaces(1)
-                .qualityFilter(QualityFilter.AUTO)
-                .detectionAttributes(Attribute.DEFAULT)
-                .build();
+                    .collectionId(collectionId)
+                    .image(souImage)
+                    .maxFaces(1)
+                    .qualityFilter(QualityFilter.AUTO)
+                    .detectionAttributes(Attribute.DEFAULT)
+                    .build();
 
             IndexFacesResponse facesResponse = rekClient.indexFaces(facesRequest);
             System.out.println("Results for the image");
@@ -104,4 +100,4 @@ public class AddFacesToCollection {
         }
     }
 }
- // snippet-end:[rekognition.java2.add_faces_collection.main]
+// snippet-end:[rekognition.java2.add_faces_collection.main]

@@ -1,15 +1,9 @@
-//snippet-sourcedescription:[GetDataStore.java demonstrates how to get a data store's pproperties in AWS HealthImaging.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS HealthImaging]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.medicalimaging;
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
-//snippet-start:[medicalimaging.java2.get_datastore.import]
+// snippet-start:[medicalimaging.java2.get_datastore.import]
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -18,10 +12,11 @@ import software.amazon.awssdk.services.medicalimaging.model.DatastoreProperties;
 import software.amazon.awssdk.services.medicalimaging.model.GetDatastoreRequest;
 import software.amazon.awssdk.services.medicalimaging.model.GetDatastoreResponse;
 import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingException;
-//snippet-end:[medicalimaging.java2.get_datastore.import]
+// snippet-end:[medicalimaging.java2.get_datastore.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  * <p>
  * For more information, see the following documentation topic:
  * <p>
@@ -57,9 +52,9 @@ public class GetDatastore {
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.get_datastore.main]
+    // snippet-start:[medicalimaging.java2.get_datastore.main]
     public static DatastoreProperties getMedicalImageDatastore(MedicalImagingClient medicalImagingClient,
-                                                               String datastoreID) {
+            String datastoreID) {
         try {
             GetDatastoreRequest datastoreRequest = GetDatastoreRequest.builder()
                     .datastoreId(datastoreID)
@@ -73,5 +68,5 @@ public class GetDatastore {
 
         return null;
     }
-    //snippet-end:[medicalimaging.java2.get_datastore.main]
+    // snippet-end:[medicalimaging.java2.get_datastore.main]
 }

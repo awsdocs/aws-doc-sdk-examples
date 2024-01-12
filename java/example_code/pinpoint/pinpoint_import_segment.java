@@ -1,27 +1,6 @@
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[pinpoint_import_segment demonstrates how to create a segment by importing information about the endpoints that belong to the segment.]
-// snippet-service:[Amazon Pinpoint]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Pinpoint]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[CreateImportJob]
-// snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2018-08-07]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[pinpoint.java.pinpoint_import_segment.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -43,18 +22,21 @@ public class ImportSegment {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-        "ImportSegment - Creates a segment by: \n" +
-        "1.) Uploading the endpoint definitions that belong to the segment to an Amazon S3 bucket. \n" +
-        "2.) Importing the endpoint definitions from the bucket to an Amazon Pinpoint application." +
-        "    Amazon Pinpoint creates a segment that has the specified name.\n\n" +
-        "Usage: ImportSegment <endpointsFileLocation> <s3BucketName> <iamImportRoleArn> <segmentName> <applicationId>\n\n" +
-        "Where:\n" +
-        "  endpointsFileLocation - The relative location of the JSON file that contains the endpoint definitions.\n" +
-        "  s3BucketName - The name of the Amazon S3 bucket to upload the JSON file to. If the bucket doesn't " +
-        "exist, a new bucket is created.\n" +
-        "  iamImportRoleArn - The ARN of an IAM role that grants Amazon Pinpoint read permissions so the S3 bucket.\n" +
-        "  segmentName - The name for the segment that you are creating or updating." +
-        "  applicationId - The ID of the Amazon Pinpoint application to add the endpoints to.";
+                "ImportSegment - Creates a segment by: \n" +
+                "1.) Uploading the endpoint definitions that belong to the segment to an Amazon S3 bucket. \n" +
+                "2.) Importing the endpoint definitions from the bucket to an Amazon Pinpoint application." +
+                "    Amazon Pinpoint creates a segment that has the specified name.\n\n" +
+                "Usage: ImportSegment <endpointsFileLocation> <s3BucketName> <iamImportRoleArn> <segmentName> <applicationId>\n\n"
+                +
+                "Where:\n" +
+                "  endpointsFileLocation - The relative location of the JSON file that contains the endpoint definitions.\n"
+                +
+                "  s3BucketName - The name of the Amazon S3 bucket to upload the JSON file to. If the bucket doesn't " +
+                "exist, a new bucket is created.\n" +
+                "  iamImportRoleArn - The ARN of an IAM role that grants Amazon Pinpoint read permissions so the S3 bucket.\n"
+                +
+                "  segmentName - The name for the segment that you are creating or updating." +
+                "  applicationId - The ID of the Amazon Pinpoint application to add the endpoints to.";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -104,7 +86,7 @@ public class ImportSegment {
     }
 
     private static void importSegment(String endpointsFileName, String s3BucketName, String iamImportRoleArn,
-                                      String segmentName, String applicationId) {
+            String segmentName, String applicationId) {
 
         // The S3 URL that Amazon Pinpoint requires to find the endpoints file.
         String s3Url = "s3://" + s3BucketName + "/imports/" + endpointsFileName;

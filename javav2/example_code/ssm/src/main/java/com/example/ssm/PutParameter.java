@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[PutParameter.java demonstrates how to add a parameter to the system.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon Simple Systems Management]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ssm;
 
@@ -22,13 +15,13 @@ public class PutParameter {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <paraName>
+                Usage:
+                    <paraName>
 
-            Where:
-                paraName - The name of the parameter.
-                paraValue - The value of the parameter.
-            """;
+                Where:
+                    paraName - The name of the parameter.
+                    paraValue - The value of the parameter.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -39,8 +32,8 @@ public class PutParameter {
         String paraValue = args[1];
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         putParaValue(ssmClient, paraName, paraValue);
         ssmClient.close();
@@ -49,10 +42,10 @@ public class PutParameter {
     public static void putParaValue(SsmClient ssmClient, String paraName, String value) {
         try {
             PutParameterRequest parameterRequest = PutParameterRequest.builder()
-                .name(paraName)
-                .type(ParameterType.STRING)
-                .value(value)
-                .build();
+                    .name(paraName)
+                    .type(ParameterType.STRING)
+                    .value(value)
+                    .build();
 
             ssmClient.putParameter(parameterRequest);
             System.out.println("The parameter was successfully added.");

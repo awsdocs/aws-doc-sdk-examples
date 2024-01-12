@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListSecrets.kt demonstrates how to list all of the secrets that are stored by Secrets Manager.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[AWS Secrets Manager]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.secrets
 

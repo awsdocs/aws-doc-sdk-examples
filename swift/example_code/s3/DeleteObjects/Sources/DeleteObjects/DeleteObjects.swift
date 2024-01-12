@@ -1,11 +1,10 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 // Swift Example: DeleteObjects
 //
 // An example showing how to use the Amazon S3 `S3Client` function
 // `DeleteObjects()`.
-//
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0.
 
 // snippet-start:[s3.swift.deleteobjects.example]
 // snippet-start:[s3.swift.deleteobjects.main.imports]

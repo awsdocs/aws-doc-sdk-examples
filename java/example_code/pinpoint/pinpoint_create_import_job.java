@@ -1,27 +1,6 @@
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[pinpoint_create_import_job demonstrates how to import a segment of customers using a source file stored in an Amazon S3 bucket.]
-// snippet-service:[Amazon Pinpoint]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Pinpoint]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[CreateImportJob]
-// snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2018-08-07]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[pinpoint.java.pinpoint_create_import_job.complete]
 
 package com.amazonaws.examples.pinpoint;
@@ -50,20 +29,20 @@ public class ImportEndpoints {
     public static void main(String[] args) {
 
         final String USAGE = "\n" +
-        "ImportEndpoints - Adds endpoints to an Amazon Pinpoint application by: \n" +
-        "1.) Uploading the endpoint definitions to an Amazon S3 bucket. \n" +
-        "2.) Importing the endpoint definitions from the bucket to an Amazon Pinpoint " +
+                "ImportEndpoints - Adds endpoints to an Amazon Pinpoint application by: \n" +
+                "1.) Uploading the endpoint definitions to an Amazon S3 bucket. \n" +
+                "2.) Importing the endpoint definitions from the bucket to an Amazon Pinpoint " +
                 "application.\n\n" +
-        "Usage: ImportEndpoints <endpointsFileLocation> <s3BucketName> <iamImportRoleArn> " +
+                "Usage: ImportEndpoints <endpointsFileLocation> <s3BucketName> <iamImportRoleArn> " +
                 "<applicationId>\n\n" +
-        "Where:\n" +
-        "  endpointsFileLocation - The relative location of the JSON file that contains the " +
+                "Where:\n" +
+                "  endpointsFileLocation - The relative location of the JSON file that contains the " +
                 "endpoint definitions.\n" +
-        "  s3BucketName - The name of the Amazon S3 bucket to upload the JSON file to. If the " +
+                "  s3BucketName - The name of the Amazon S3 bucket to upload the JSON file to. If the " +
                 "bucket doesn't exist, a new bucket is created.\n" +
-        "  iamImportRoleArn - The ARN of an IAM role that grants Amazon Pinpoint read " +
+                "  iamImportRoleArn - The ARN of an IAM role that grants Amazon Pinpoint read " +
                 "permissions to the S3 bucket.\n" +
-        "  applicationId - The ID of the Amazon Pinpoint application to add the endpoints to.";
+                "  applicationId - The ID of the Amazon Pinpoint application to add the endpoints to.";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -112,7 +91,7 @@ public class ImportEndpoints {
     }
 
     private static void importToPinpoint(String endpointsFileName, String s3BucketName,
-                                         String iamImportRoleArn, String applicationId) {
+            String iamImportRoleArn, String applicationId) {
 
         // The S3 URL that Amazon Pinpoint requires to find the endpoints file.
         String s3Url = "s3://" + s3BucketName + "/imports/" + endpointsFileName;
@@ -137,8 +116,7 @@ public class ImportEndpoints {
         try {
 
             // Runs the import job with Amazon Pinpoint.
-            CreateImportJobResult importResult =
-                    pinpointClient.createImportJob(createImportJobRequest);
+            CreateImportJobResult importResult = pinpointClient.createImportJob(createImportJobRequest);
 
             String jobId = importResult.getImportJobResponse().getId();
             GetImportJobResult getImportJobResult = null;
@@ -162,7 +140,8 @@ public class ImportEndpoints {
             }
 
             // Checks for entries that failed to import.
-            // getFailures provides up to 100 of the first failed entries for the job, if any exist.
+            // getFailures provides up to 100 of the first failed entries for the job, if
+            // any exist.
             List<String> failedEndpoints = getImportJobResult.getImportJobResponse().getFailures();
             if (failedEndpoints != null) {
                 System.out.println("Failed to import the following entries:");

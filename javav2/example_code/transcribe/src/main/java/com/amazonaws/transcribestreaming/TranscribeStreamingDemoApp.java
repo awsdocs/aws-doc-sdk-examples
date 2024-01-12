@@ -1,15 +1,6 @@
-// snippet-sourcedescription:[TranscribeStreamingDemoApp.java transcribes streaming audio from your computer's microphone or a file upload. The output is presented on your computer's standard output.]
-// snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Transcribe]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
-// snippet-sourceauthor:[scmacdon - AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.amazonaws.transcribestreaming;
 
 import org.reactivestreams.Publisher;
@@ -37,7 +28,8 @@ public class TranscribeStreamingDemoApp {
     private static final Region REGION = Region.US_EAST_1;
     private static TranscribeStreamingAsyncClient client;
 
-    public static void main(String args[]) throws URISyntaxException, ExecutionException, InterruptedException, LineUnavailableException {
+    public static void main(String args[])
+            throws URISyntaxException, ExecutionException, InterruptedException, LineUnavailableException {
 
         client = TranscribeStreamingAsyncClient.builder()
                 .credentialsProvider(getCredentials())
@@ -122,7 +114,6 @@ public class TranscribeStreamingDemoApp {
     private static class AudioStreamPublisher implements Publisher<AudioStream> {
         private final InputStream inputStream;
         private static Subscription currentSubscription;
-
 
         private AudioStreamPublisher(InputStream inputStream) {
             this.inputStream = inputStream;

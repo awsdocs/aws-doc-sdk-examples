@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 #include <aws/core/Aws.h>
 #include <aws/core/utils/threading/Semaphore.h>
@@ -23,7 +21,7 @@ using namespace Aws::TranscribeStreamingService::Model;
 static const Aws::String FILE_NAME{MEDIA_DIR "/transcribe-test-file.wav"};
 static const int BUFFER_SIZE = 1024;
 
-//snippet-start:[transcribe.cpp.stream_transcription_async.code]
+// snippet-start:[transcribe.cpp.stream_transcription_async.code]
 int main() {
     Aws::SDKOptions options;
     options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Trace;
@@ -157,4 +155,4 @@ int main() {
 
     return 0;
 }
-//snippet-end:[transcribe.cpp.stream_transcription_async.code]
+// snippet-end:[transcribe.cpp.stream_transcription_async.code]

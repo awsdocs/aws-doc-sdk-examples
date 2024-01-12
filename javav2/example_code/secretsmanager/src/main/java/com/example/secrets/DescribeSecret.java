@@ -1,15 +1,10 @@
-//snippet-sourcedescription:[DescribeSecret.java demonstrates how to describe a secret.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Secrets Manager]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.secrets;
 
-//snippet-start:[secretsmanager.java2.describe_secret.main]
-//snippet-start:[secretsmanager.java2.describe_secret.import]
+// snippet-start:[secretsmanager.java2.describe_secret.main]
+// snippet-start:[secretsmanager.java2.describe_secret.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.DescribeSecretRequest;
@@ -20,10 +15,11 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Locale;
-//snippet-end:[secretsmanager.java2.describe_secret.import]
+// snippet-end:[secretsmanager.java2.describe_secret.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -33,12 +29,12 @@ public class DescribeSecret {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <secretName>\s
+                Usage:
+                    <secretName>\s
 
-            Where:
-                secretName - The name of the secret (for example, tutorials/MyFirstSecret).\s
-            """;
+                Where:
+                    secretName - The name of the secret (for example, tutorials/MyFirstSecret).\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,8 +44,8 @@ public class DescribeSecret {
         String secretName = args[0];
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         describeGivenSecret(secretsClient, secretName);
         secretsClient.close();
@@ -58,15 +54,14 @@ public class DescribeSecret {
     public static void describeGivenSecret(SecretsManagerClient secretsClient, String secretName) {
         try {
             DescribeSecretRequest secretRequest = DescribeSecretRequest.builder()
-                .secretId(secretName)
-                .build();
+                    .secretId(secretName)
+                    .build();
 
             DescribeSecretResponse secretResponse = secretsClient.describeSecret(secretRequest);
             Instant lastChangedDate = secretResponse.lastChangedDate();
 
             // Convert the Instant to readable date.
-            DateTimeFormatter formatter =
-                DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
                     .withLocale(Locale.US)
                     .withZone(ZoneId.systemDefault());
 
@@ -79,4 +74,4 @@ public class DescribeSecret {
         }
     }
 }
-//snippet-end:[secretsmanager.java2.describe_secret.main]
+// snippet-end:[secretsmanager.java2.describe_secret.main]

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[PutObjectRetention demonstrates how to place an object retention configuration on an Amazon Simple Storage Service (Amazon S3) object.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -14,7 +8,7 @@ package com.example.s3;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRetentionRequest;
-import software.amazon.awssdk.services.s3.model.ObjectLockRetention ;
+import software.amazon.awssdk.services.s3.model.ObjectLockRetention;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -23,7 +17,8 @@ import java.time.ZoneOffset;
 // snippet-end:[s3.java2.retention_object.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -34,13 +29,13 @@ public class PutObjectRetention {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <key> <bucketName>\s
+                Usage:
+                    <key> <bucketName>\s
 
-            Where:
-                key - The name of the object (for example, book.pdf).\s
-                bucketName - The Amazon S3 bucket name that contains the object (for example, bucket1).\s
-            """;
+                Where:
+                    key - The name of the object (for example, book.pdf).\s
+                    bucketName - The Amazon S3 bucket name that contains the object (for example, bucket1).\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -51,8 +46,8 @@ public class PutObjectRetention {
         String bucketName = args[1];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         setRentionPeriod(s3, key, bucketName);
         s3.close();
@@ -65,18 +60,19 @@ public class PutObjectRetention {
             Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
 
             ObjectLockRetention lockRetention = ObjectLockRetention.builder()
-                .mode("COMPLIANCE")
-                .retainUntilDate(instant)
-                .build();
+                    .mode("COMPLIANCE")
+                    .retainUntilDate(instant)
+                    .build();
 
             PutObjectRetentionRequest retentionRequest = PutObjectRetentionRequest.builder()
-                .bucket(bucket)
-                .key(key)
-                .bypassGovernanceRetention(true)
-                .retention(lockRetention)
-                .build();
+                    .bucket(bucket)
+                    .key(key)
+                    .bypassGovernanceRetention(true)
+                    .retention(lockRetention)
+                    .build();
 
-            // To set Retention on an object, the Amazon S3 bucket must support object locking, otherwise an exception is thrown.
+            // To set Retention on an object, the Amazon S3 bucket must support object
+            // locking, otherwise an exception is thrown.
             s3.putObjectRetention(retentionRequest);
             System.out.print("An object retention configuration was successfully placed on the object");
 
@@ -87,5 +83,3 @@ public class PutObjectRetention {
     }
 }
 // snippet-end:[s3.java2.retention_object.main]
-
-

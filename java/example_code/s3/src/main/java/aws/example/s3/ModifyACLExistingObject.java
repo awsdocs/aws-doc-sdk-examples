@@ -1,28 +1,6 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * 
- * http://aws.amazon.com/apache2.0/
- * 
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[ModifyACLExistingObject.java demonstrates how to retrieve, modify, and set the ACL grants for an S3 object.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[GET Object acl]
-// snippet-keyword:[PUT Object acl]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.modify_acl_existing_object.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -58,14 +36,15 @@ public class ModifyACLExistingObject {
             // Clear the existing list of grants.
             acl.getGrantsAsList().clear();
 
-            // Grant a sample set of permissions, using the existing ACL owner for Full Control permissions.
+            // Grant a sample set of permissions, using the existing ACL owner for Full
+            // Control permissions.
             acl.grantPermission(new CanonicalGrantee(acl.getOwner().getId()), Permission.FullControl);
             acl.grantPermission(new EmailAddressGrantee(emailGrantee), Permission.WriteAcp);
 
             // Save the modified ACL back to the object.
             s3Client.setObjectAcl(bucketName, keyName, acl);
         } catch (AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
             e.printStackTrace();
         } catch (SdkClientException e) {

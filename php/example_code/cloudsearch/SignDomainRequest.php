@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudsearch.php.sign_cloudsearch_domain_request.complete]
 // snippet-start:[cloudsearch.php.sign_cloudsearch_domain_request.import]
@@ -92,14 +91,4 @@ function searchADomain()
 // searchADomain();
 // snippet-end:[cloudsearch.php.sign_cloudsearch_domain_request.main]
 // snippet-end:[cloudsearch.php.sign_cloudsearch_domain_request.complete]
-// snippet-sourcedescription:[SignDomainRequest.php demonstrates how to sign a custom Amazon CloudSearch domain request.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon CloudSearch]
-// snippet-keyword:[signRequest]
-// snippet-service:[cloudsearch]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[]
 // snippet-sourceauthor:[jschwarzwalder (AWS)]

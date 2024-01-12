@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ListDataSourceSyncJobs.java demonstrates how to get statistics about synchronizing Amazon Kendra with a data source.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon Kendra]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kendra;
 
@@ -21,7 +15,8 @@ import java.util.List;
 // snippet-end:[kendra.java2.list.sync.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,13 +27,13 @@ public class ListDataSourceSyncJobs {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <indexId> <dataSourceId>\s
+                Usage:
+                    <indexId> <dataSourceId>\s
 
-            Where:
-                indexId - The id value of the index.
-                dataSourceId - The id value of the data source.
-            """;
+                Where:
+                    indexId - The id value of the index.
+                    dataSourceId - The id value of the data source.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -49,8 +44,8 @@ public class ListDataSourceSyncJobs {
         String dataSourceId = args[1];
         System.out.printf("Gets statistics about synchronizing Amazon Kendra with a data source %s%n", dataSourceId);
         KendraClient kendra = KendraClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         listSyncJobs(kendra, indexId, dataSourceId);
     }
@@ -58,10 +53,10 @@ public class ListDataSourceSyncJobs {
     public static void listSyncJobs(KendraClient kendra, String indexId, String dataSourceId) {
         try {
             ListDataSourceSyncJobsRequest jobsRequest = ListDataSourceSyncJobsRequest.builder()
-                .indexId(indexId)
-                .maxResults(10)
-                .id(dataSourceId)
-                .build();
+                    .indexId(indexId)
+                    .maxResults(10)
+                    .id(dataSourceId)
+                    .build();
 
             ListDataSourceSyncJobsResponse response = kendra.listDataSourceSyncJobs(jobsRequest);
             List<DataSourceSyncJob> jobs = response.history();

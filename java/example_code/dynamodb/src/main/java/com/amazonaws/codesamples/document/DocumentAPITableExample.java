@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.DocumentAPITableExample] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.DocumentAPITableExample] 
 
 package com.amazonaws.codesamples.document;
 
@@ -71,8 +50,8 @@ public class DocumentAPITableExample {
                                                                                                      // key
 
             CreateTableRequest request = new CreateTableRequest().withTableName(tableName).withKeySchema(keySchema)
-                .withAttributeDefinitions(attributeDefinitions).withProvisionedThroughput(
-                    new ProvisionedThroughput().withReadCapacityUnits(5L).withWriteCapacityUnits(6L));
+                    .withAttributeDefinitions(attributeDefinitions).withProvisionedThroughput(
+                            new ProvisionedThroughput().withReadCapacityUnits(5L).withWriteCapacityUnits(6L));
 
             System.out.println("Issuing CreateTable request for " + tableName);
             Table table = dynamoDB.createTable(request);
@@ -82,8 +61,7 @@ public class DocumentAPITableExample {
 
             getTableInformation();
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("CreateTable request failed for " + tableName);
             System.err.println(e.getMessage());
         }
@@ -109,11 +87,11 @@ public class DocumentAPITableExample {
 
         TableDescription tableDescription = dynamoDB.getTable(tableName).describe();
         System.out.format(
-            "Name: %s:\n" + "Status: %s \n" + "Provisioned Throughput (read capacity units/sec): %d \n"
-                + "Provisioned Throughput (write capacity units/sec): %d \n",
-            tableDescription.getTableName(), tableDescription.getTableStatus(),
-            tableDescription.getProvisionedThroughput().getReadCapacityUnits(),
-            tableDescription.getProvisionedThroughput().getWriteCapacityUnits());
+                "Name: %s:\n" + "Status: %s \n" + "Provisioned Throughput (read capacity units/sec): %d \n"
+                        + "Provisioned Throughput (write capacity units/sec): %d \n",
+                tableDescription.getTableName(), tableDescription.getTableStatus(),
+                tableDescription.getProvisionedThroughput().getReadCapacityUnits(),
+                tableDescription.getProvisionedThroughput().getWriteCapacityUnits());
     }
 
     static void updateExampleTable() {
@@ -125,8 +103,7 @@ public class DocumentAPITableExample {
             table.updateTable(new ProvisionedThroughput().withReadCapacityUnits(6L).withWriteCapacityUnits(7L));
 
             table.waitForActive();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("UpdateTable request failed for " + tableName);
             System.err.println(e.getMessage());
         }
@@ -142,8 +119,7 @@ public class DocumentAPITableExample {
             System.out.println("Waiting for " + tableName + " to be deleted...this may take a while...");
 
             table.waitForDelete();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("DeleteTable request failed for " + tableName);
             System.err.println(e.getMessage());
         }
@@ -151,4 +127,4 @@ public class DocumentAPITableExample {
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.DocumentAPITableExample] 
+// snippet-end:[dynamodb.java.codeexample.DocumentAPITableExample]

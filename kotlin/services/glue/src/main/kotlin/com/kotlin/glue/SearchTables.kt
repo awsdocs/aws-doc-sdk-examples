@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[SearchTables.kt demonstrates how to search a set of tables based on properties.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[AWS Glue]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.glue
 

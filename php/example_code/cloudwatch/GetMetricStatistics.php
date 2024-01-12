@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudwatch.php.get_metric_stats.complete]
 // snippet-start:[cloudwatch.php.get_metric_stats.import]
@@ -157,14 +156,4 @@ function getTheMetricStatistics()
 // getTheMetricStatistics();
 // snippet-end:[cloudwatch.php.get_metric_stats.main]
 // snippet-end:[cloudwatch.php.get_metric_stats.complete]
-// snippet-sourcedescription:[GetMetricStatistics.php demonstrates how to get statistics for a specified metric in Amazon CloudWatch.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Cloudwatch]
-// snippet-service:[cloudwatch]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-07]
-// snippet-sourceauthor:[pccornel (AWS)]
 

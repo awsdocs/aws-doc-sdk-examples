@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 #ifndef LAMBDA_EXAMPLES_GTESTS_LAMBDA_SAMPLES_H
 #define LAMBDA_EXAMPLES_GTESTS_LAMBDA_SAMPLES_H

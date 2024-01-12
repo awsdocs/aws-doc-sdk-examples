@@ -1,13 +1,5 @@
-//snippet-sourcedescription:[Program.cs can be used to run the examples in this ComprehendSamples1 solution.]
-//snippet-keyword:[dotnet]
-//snippet-keyword:[.NET]
-//snippet-sourcesyntax:[.net]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Comprehend]
-//snippet-service:[comprehend]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;

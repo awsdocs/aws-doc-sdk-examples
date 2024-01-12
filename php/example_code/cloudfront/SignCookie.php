@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudfront.php.signed_cookie.complete]
 // snippet-start:[cloudfront.php.signed_cookie.import]
@@ -84,14 +83,3 @@ function signACookie()
 // signACookie();
 // snippet-end:[cloudfront.php.signed_cookie.main]
 // snippet-end:[cloudfront.php.signed_cookie.complete] 
-// snippet-sourcedescription:[SignCookie.php demonstrates how to grant users access to your private content using signed cookies and an Amazon CloudFront distribution.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[getSignedCookie]
-// snippet-keyword:[Amazon CloudFront]
-// snippet-service:[cloudfront]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-20]
-// snippet-sourceauthor:[pccornel (AWS)]

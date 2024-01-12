@@ -1,5 +1,5 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
-// SPDX-License-Identifier:  Apache-2.0
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[STS.dotnetv3.AssumeRoleMessage]
 using System;
@@ -15,13 +15,13 @@ namespace AssumeRoleExample
         /// <summary>
         /// This example shows how to use the AWS Security Token
         /// Service (AWS STS) to assume an IAM role.
-        /// 
+        ///
         /// NOTE: It is important that the role that will be assumed has a
         /// trust relationship with the account that will assume the role.
-        /// 
+        ///
         /// Before you run the example, you need to create the role you want to
         /// assume and have it trust the IAM account that will assume that role.
-        /// 
+        ///
         /// See https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html
         /// for help in working with roles.
         /// </summary>

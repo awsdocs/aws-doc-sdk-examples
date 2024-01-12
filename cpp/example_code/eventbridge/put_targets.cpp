@@ -1,7 +1,5 @@
-
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
-
+// SPDX-License-Identifier: Apache-2.0
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: put_targets.cpp demonstrates how to create an Amazon CloudWatch Events routing rule target.
  *
@@ -14,14 +12,14 @@
  * Outputs:
  * The routing rule target is created.
    * ///////////////////////////////////////////////////////////////////////// */
-//snippet-start:[cw.cpp.put_targets.inc]
+// snippet-start:[cw.cpp.put_targets.inc]
 #include <aws/core/Aws.h>
 #include <aws/events/EventBridgeClient.h>
 #include <aws/events/model/PutTargetsRequest.h>
 #include <aws/events/model/PutTargetsResult.h>
 #include <aws/core/utils/Outcome.h>
 #include <iostream>
-//snippet-end:[cw.cpp.put_targets.inc]
+// snippet-end:[cw.cpp.put_targets.inc]
 
 /**
  * Creates a cloud watch event routing rule target, based on command line input

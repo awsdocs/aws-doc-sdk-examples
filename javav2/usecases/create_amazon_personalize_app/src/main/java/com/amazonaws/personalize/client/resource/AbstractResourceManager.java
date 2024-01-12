@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.personalize.client.resource;
 
 import java.io.IOException;
@@ -59,7 +58,6 @@ public abstract class AbstractResourceManager implements ResourceManager {
                 && !status.contentEquals("CREATE STOPPING")
                 && !status.contentEquals("CREATE STOPPED");
     }
-
 
     public String createAndWaitForResource(boolean skipIfAlreadyExists) throws IOException, ResourceException {
         String arn = getArnForResource(name);

@@ -1,12 +1,5 @@
-// snippet-sourcedescription:[DetectDocumentText.java demonstrates how to detect text in the input document.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Textract]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.textract;
 
@@ -29,7 +22,8 @@ import java.util.List;
 // snippet-end:[textract.java2._detect_doc_text.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -39,12 +33,12 @@ public class DetectDocumentText {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <sourceDoc>\s
+                Usage:
+                    <sourceDoc>\s
 
-            Where:
-                sourceDoc - The path where the document is located (must be an image, for example, C:/AWS/book.png).\s
-            """;
+                Where:
+                    sourceDoc - The path where the document is located (must be an image, for example, C:/AWS/book.png).\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -54,8 +48,8 @@ public class DetectDocumentText {
         String sourceDoc = args[0];
         Region region = Region.US_EAST_2;
         TextractClient textractClient = TextractClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         detectDocText(textractClient, sourceDoc);
         textractClient.close();
@@ -68,12 +62,12 @@ public class DetectDocumentText {
 
             // Get the input Document object as bytes.
             Document myDoc = Document.builder()
-                .bytes(sourceBytes)
-                .build();
+                    .bytes(sourceBytes)
+                    .build();
 
             DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
-                .document(myDoc)
-                .build();
+                    .document(myDoc)
+                    .build();
 
             // Invoke the Detect operation.
             DetectDocumentTextResponse textResponse = textractClient.detectDocumentText(detectDocumentTextRequest);

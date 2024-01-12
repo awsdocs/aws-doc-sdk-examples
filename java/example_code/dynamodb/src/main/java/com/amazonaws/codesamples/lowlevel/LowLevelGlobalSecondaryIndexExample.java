@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.LowLevelGlobalSecondaryIndexExample] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.LowLevelGlobalSecondaryIndexExample] 
 
 package com.amazonaws.codesamples.lowlevel;
 
@@ -92,39 +71,39 @@ public class LowLevelGlobalSecondaryIndexExample {
 
         // Initial provisioned throughput settings for the indexes
         ProvisionedThroughput ptIndex = new ProvisionedThroughput().withReadCapacityUnits(1L)
-            .withWriteCapacityUnits(1L);
+                .withWriteCapacityUnits(1L);
 
         // CreateDateIndex
         GlobalSecondaryIndex createDateIndex = new GlobalSecondaryIndex().withIndexName("CreateDateIndex")
-            .withProvisionedThroughput(ptIndex)
-            .withKeySchema(new KeySchemaElement().withAttributeName("CreateDate").withKeyType(KeyType.HASH), // Partition
-                                                                                                             // key
-                new KeySchemaElement().withAttributeName("IssueId").withKeyType(KeyType.RANGE)) // Sort
-                                                                                                // key
-            .withProjection(
-                new Projection().withProjectionType("INCLUDE").withNonKeyAttributes("Description", "Status"));
+                .withProvisionedThroughput(ptIndex)
+                .withKeySchema(new KeySchemaElement().withAttributeName("CreateDate").withKeyType(KeyType.HASH), // Partition
+                                                                                                                 // key
+                        new KeySchemaElement().withAttributeName("IssueId").withKeyType(KeyType.RANGE)) // Sort
+                                                                                                        // key
+                .withProjection(
+                        new Projection().withProjectionType("INCLUDE").withNonKeyAttributes("Description", "Status"));
 
         // TitleIndex
         GlobalSecondaryIndex titleIndex = new GlobalSecondaryIndex().withIndexName("TitleIndex")
-            .withProvisionedThroughput(ptIndex)
-            .withKeySchema(new KeySchemaElement().withAttributeName("Title").withKeyType(KeyType.HASH), // Partition
+                .withProvisionedThroughput(ptIndex)
+                .withKeySchema(new KeySchemaElement().withAttributeName("Title").withKeyType(KeyType.HASH), // Partition
+                                                                                                            // key
+                        new KeySchemaElement().withAttributeName("IssueId").withKeyType(KeyType.RANGE)) // Sort
                                                                                                         // key
-                new KeySchemaElement().withAttributeName("IssueId").withKeyType(KeyType.RANGE)) // Sort
-                                                                                                // key
-            .withProjection(new Projection().withProjectionType("KEYS_ONLY"));
+                .withProjection(new Projection().withProjectionType("KEYS_ONLY"));
 
         // DueDateIndex
         GlobalSecondaryIndex dueDateIndex = new GlobalSecondaryIndex().withIndexName("DueDateIndex")
-            .withProvisionedThroughput(ptIndex)
-            .withKeySchema(new KeySchemaElement().withAttributeName("DueDate").withKeyType(KeyType.HASH)) // Partition
-                                                                                                          // key
-            .withProjection(new Projection().withProjectionType("ALL"));
+                .withProvisionedThroughput(ptIndex)
+                .withKeySchema(new KeySchemaElement().withAttributeName("DueDate").withKeyType(KeyType.HASH)) // Partition
+                                                                                                              // key
+                .withProjection(new Projection().withProjectionType("ALL"));
 
         CreateTableRequest createTableRequest = new CreateTableRequest().withTableName(tableName)
-            .withProvisionedThroughput(
-                new ProvisionedThroughput().withReadCapacityUnits((long) 1).withWriteCapacityUnits((long) 1))
-            .withAttributeDefinitions(attributeDefinitions).withKeySchema(tableKeySchema)
-            .withGlobalSecondaryIndexes(createDateIndex, titleIndex, dueDateIndex);
+                .withProvisionedThroughput(
+                        new ProvisionedThroughput().withReadCapacityUnits((long) 1).withWriteCapacityUnits((long) 1))
+                .withAttributeDefinitions(attributeDefinitions).withKeySchema(tableKeySchema)
+                .withGlobalSecondaryIndexes(createDateIndex, titleIndex, dueDateIndex);
 
         System.out.println("Creating table " + tableName + "...");
         System.out.println(client.createTable(createTableRequest));
@@ -137,41 +116,38 @@ public class LowLevelGlobalSecondaryIndexExample {
         System.out.print("Querying index " + indexName + "...");
 
         QueryRequest queryRequest = new QueryRequest().withTableName(tableName).withIndexName(indexName)
-            .withScanIndexForward(true);
+                .withScanIndexForward(true);
 
         HashMap<String, Condition> keyConditions = new HashMap<String, Condition>();
 
         if (indexName == "CreateDateIndex") {
             System.out.println("Issues filed on 2013-11-01");
             keyConditions.put("CreateDate", new Condition().withComparisonOperator(ComparisonOperator.EQ)
-                .withAttributeValueList(new AttributeValue().withS("2013-11-01")));
+                    .withAttributeValueList(new AttributeValue().withS("2013-11-01")));
             keyConditions.put("IssueId", new Condition().withComparisonOperator(ComparisonOperator.BEGINS_WITH)
-                .withAttributeValueList(new AttributeValue().withS("A-")));
+                    .withAttributeValueList(new AttributeValue().withS("A-")));
 
-        }
-        else if (indexName == "TitleIndex") {
+        } else if (indexName == "TitleIndex") {
             System.out.println("Compilation errors");
 
             keyConditions.put("Title", new Condition().withComparisonOperator(ComparisonOperator.EQ)
-                .withAttributeValueList(new AttributeValue().withS("Compilation error")));
+                    .withAttributeValueList(new AttributeValue().withS("Compilation error")));
             keyConditions.put("IssueId", new Condition().withComparisonOperator(ComparisonOperator.BEGINS_WITH)
-                .withAttributeValueList(new AttributeValue().withS("A-")));
+                    .withAttributeValueList(new AttributeValue().withS("A-")));
 
             // Select
             queryRequest.setSelect(Select.ALL_PROJECTED_ATTRIBUTES);
 
-        }
-        else if (indexName == "DueDateIndex") {
+        } else if (indexName == "DueDateIndex") {
             System.out.println("Items that are due on 2013-11-30");
 
             keyConditions.put("DueDate", new Condition().withComparisonOperator(ComparisonOperator.EQ)
-                .withAttributeValueList(new AttributeValue().withS("2013-11-30")));
+                    .withAttributeValueList(new AttributeValue().withS("2013-11-30")));
 
             // Select
             queryRequest.setSelect(Select.ALL_PROJECTED_ATTRIBUTES);
 
-        }
-        else {
+        } else {
             System.out.println("\nNo valid index name provided");
             return;
         }
@@ -193,8 +169,7 @@ public class LowLevelGlobalSecondaryIndexExample {
                 String attr = (String) currentItemIter.next();
                 if (attr == "Priority") {
                     System.out.println(attr + "---> " + currentItem.get(attr).getN());
-                }
-                else {
+                } else {
                     System.out.println(attr + "---> " + currentItem.get(attr).getS());
                 }
             }
@@ -219,24 +194,24 @@ public class LowLevelGlobalSecondaryIndexExample {
         // Priority, Status
 
         putItem("A-101", "Compilation error", "Can't compile Project X - bad version number. What does this mean?",
-            "2013-11-01", "2013-11-02", "2013-11-10", 1, "Assigned");
+                "2013-11-01", "2013-11-02", "2013-11-10", 1, "Assigned");
 
         putItem("A-102", "Can't read data file", "The main data file is missing, or the permissions are incorrect",
-            "2013-11-01", "2013-11-04", "2013-11-30", 2, "In progress");
+                "2013-11-01", "2013-11-04", "2013-11-30", 2, "In progress");
 
         putItem("A-103", "Test failure", "Functional test of Project X produces errors", "2013-11-01", "2013-11-02",
-            "2013-11-10", 1, "In progress");
+                "2013-11-10", 1, "In progress");
 
         putItem("A-104", "Compilation error", "Variable 'messageCount' was not initialized.", "2013-11-15",
-            "2013-11-16", "2013-11-30", 3, "Assigned");
+                "2013-11-16", "2013-11-30", 3, "Assigned");
 
         putItem("A-105", "Network issue", "Can't ping IP address 127.0.0.1. Please fix this.", "2013-11-15",
-            "2013-11-16", "2013-11-19", 5, "Assigned");
+                "2013-11-16", "2013-11-19", 5, "Assigned");
 
     }
 
     public static void putItem(String issueId, String title, String description, String createDate,
-        String lastUpdateDate, String dueDate, Integer priority, String status) {
+            String lastUpdateDate, String dueDate, Integer priority, String status) {
 
         HashMap<String, AttributeValue> item = new HashMap<String, AttributeValue>();
 
@@ -251,8 +226,7 @@ public class LowLevelGlobalSecondaryIndexExample {
 
         try {
             client.putItem(new PutItemRequest().withTableName(tableName).withItem(item));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -274,8 +248,7 @@ public class LowLevelGlobalSecondaryIndexExample {
                 return;
             try {
                 Thread.sleep(1000 * 20);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -298,15 +271,13 @@ public class LowLevelGlobalSecondaryIndexExample {
 
                 if (tableStatus.equals(TableStatus.ACTIVE.toString()))
                     return;
-            }
-            catch (ResourceNotFoundException e) {
+            } catch (ResourceNotFoundException e) {
                 System.out.println("Table " + tableName + " is not found. It was deleted.");
                 return;
             }
             try {
                 Thread.sleep(1000 * 20);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -315,4 +286,4 @@ public class LowLevelGlobalSecondaryIndexExample {
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.LowLevelGlobalSecondaryIndexExample] 
+// snippet-end:[dynamodb.java.codeexample.LowLevelGlobalSecondaryIndexExample]

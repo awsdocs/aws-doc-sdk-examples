@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.resilient;
 
@@ -32,8 +30,8 @@ public class GroupInfo {
     @Override
     public String toString() {
         return "GroupInfo{" +
-            "groupName='" + groupName + '\'' +
-            ", postOpen=" + portOpen +
-            '}';
+                "groupName='" + groupName + '\'' +
+                ", postOpen=" + portOpen +
+                '}';
     }
 }

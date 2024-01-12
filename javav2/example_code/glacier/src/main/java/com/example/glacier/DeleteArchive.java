@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[DeleteVault.java demonstrates how to delete an Amazon Glacier archive.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Glacier]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.glacier;
 
@@ -17,7 +12,8 @@ import software.amazon.awssdk.services.glacier.model.GlacierException;
 // snippet-end:[glacier.java2.delete.archive.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -27,13 +23,13 @@ public class DeleteArchive {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <vaultName> <accountId> <archiveId>
+                Usage:    <vaultName> <accountId> <archiveId>
 
-            Where:
-               vaultName - The name of the vault that contains the archive to delete.
-               accountId - The account ID value.
-               archiveId - The archive ID value.
-            """;
+                Where:
+                   vaultName - The name of the vault that contains the archive to delete.
+                   accountId - The account ID value.
+                   archiveId - The archive ID value.
+                """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -44,20 +40,21 @@ public class DeleteArchive {
         String accountId = args[1];
         String archiveId = args[2];
         GlacierClient glacier = GlacierClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         deleteGlacierArchive(glacier, vaultName, accountId, archiveId);
         glacier.close();
     }
 
-    public static void deleteGlacierArchive(GlacierClient glacier, String vaultName, String accountId, String archiveId) {
+    public static void deleteGlacierArchive(GlacierClient glacier, String vaultName, String accountId,
+            String archiveId) {
         try {
             DeleteArchiveRequest delArcRequest = DeleteArchiveRequest.builder()
-                .vaultName(vaultName)
-                .accountId(accountId)
-                .archiveId(archiveId)
-                .build();
+                    .vaultName(vaultName)
+                    .accountId(accountId)
+                    .archiveId(archiveId)
+                    .build();
 
             glacier.deleteArchive(delArcRequest);
             System.out.println("The archive was deleted.");

@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DescribeKeyPairs.java demonstrates how to get information about all instance key pairs.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon EC2]e]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.describe_key_pairs.main]
@@ -16,7 +12,8 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_key_pairs.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -26,8 +23,8 @@ public class DescribeKeyPairs {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         describeEC2Keys(ec2);
         ec2.close();
@@ -37,11 +34,10 @@ public class DescribeKeyPairs {
         try {
             DescribeKeyPairsResponse response = ec2.describeKeyPairs();
             response.keyPairs().forEach(keyPair -> System.out.printf(
-                "Found key pair with name %s " +
-                    "and fingerprint %s",
-                keyPair.keyName(),
-                keyPair.keyFingerprint())
-            );
+                    "Found key pair with name %s " +
+                            "and fingerprint %s",
+                    keyPair.keyName(),
+                    keyPair.keyFingerprint()));
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -49,4 +45,4 @@ public class DescribeKeyPairs {
         }
     }
 }
- // snippet-end:[ec2.java2.describe_key_pairs.main]
+// snippet-end:[ec2.java2.describe_key_pairs.main]

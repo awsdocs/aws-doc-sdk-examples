@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ListActivities.java demonstrates how to List existing activities for AWS Step Functions.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Step Functions]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.stepfunctions;
 
@@ -21,7 +15,8 @@ import java.util.List;
 // snippet-end:[stepfunctions.java2.list_activities.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,8 +26,8 @@ public class ListActivities {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listAllActivites(sfnClient);
         sfnClient.close();
@@ -41,8 +36,8 @@ public class ListActivities {
     public static void listAllActivites(SfnClient sfnClient) {
         try {
             ListActivitiesRequest activitiesRequest = ListActivitiesRequest.builder()
-                .maxResults(10)
-                .build();
+                    .maxResults(10)
+                    .build();
 
             ListActivitiesResponse response = sfnClient.listActivities(activitiesRequest);
             List<ActivityListItem> items = response.activities();
@@ -58,5 +53,3 @@ public class ListActivities {
     }
 }
 // snippet-end:[stepfunctions.java2.list_activities.main]
-
-

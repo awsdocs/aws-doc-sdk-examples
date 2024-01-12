@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListClusters.kt demonstrates how to list clusters for the Amazon Elastic Container Service (Amazon ECS) service.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Elastic Container Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.ecs
 

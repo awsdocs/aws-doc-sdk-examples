@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudwatch.php.describe_alarms.complete]
 // snippet-start:[cloudwatch.php.describe_alarms.import]
@@ -80,14 +79,4 @@ function describeTheAlarms()
 // describeTheAlarms();
 // snippet-end:[cloudwatch.php.describe_alarms.main]
 // snippet-end:[cloudwatch.php.describe_alarms.complete]
-// snippet-sourcedescription:[DescribeAlarms.php demonstrates how to list available Amazon CloudWatch alarm names.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Cloudwatch]
-// snippet-service:[cloudwatch]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-05]
-// snippet-sourceauthor:[pccornel (AWS)]
 

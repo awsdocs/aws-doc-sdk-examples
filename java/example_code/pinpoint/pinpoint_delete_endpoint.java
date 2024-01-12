@@ -1,27 +1,6 @@
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[pinpoint_delete_endpoint demonstrates how to delete an existing endpoint in Amazon Pinpoint.]
-// snippet-service:[Amazon Pinpoint]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Pinpoint]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[DeleteEndpoint]
-// snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2018-08-07]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[pinpoint.java.pinpoint_delete_endpoint.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -57,9 +36,8 @@ public class DeleteEndpoints {
 
         try {
             // Deletes each of the specified endpoints with the Amazon Pinpoint client.
-            for (String endpointId: endpointIds) {
-                DeleteEndpointResult result =
-                        pinpointClient.deleteEndpoint(new DeleteEndpointRequest()
+            for (String endpointId : endpointIds) {
+                DeleteEndpointResult result = pinpointClient.deleteEndpoint(new DeleteEndpointRequest()
                         .withEndpointId(endpointId)
                         .withApplicationId(applicationId));
                 System.out.format("Deleted endpoint %s.\n", result.getEndpointResponse().getId());

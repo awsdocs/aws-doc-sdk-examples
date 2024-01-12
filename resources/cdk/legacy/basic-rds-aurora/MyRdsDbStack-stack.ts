@@ -1,18 +1,6 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-comment:[This is a full sample when you include MyRdsDbStack.ts, which goes in the bin dir.]
-// snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[Instantiates the stack in MyRdsDbStack.ts.]
-// snippet-keyword:[CDK V1.0.0]
-// snippet-keyword:[AWS CDK]
-// snippet-keyword:[aws-ec2.Vpc function]
-// snippet-keyword:[aws-rds.DatabaseCluster function]
-// snippet-keyword:[TypeScript]
-// snippet-sourcesyntax:[javascript]
-// snippet-service:[cdk]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-7-11]
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License. A copy of the
@@ -39,14 +27,12 @@ export class MyRdsDbStack extends core.Stack {
       // credentials: rds.Credentials.fromGeneratedSecret('clusteradmin'), // Optional - will default to 'admin' username and generated password
       engine: rds.DatabaseClusterEngine.AURORA,
       instanceProps: {
-        instanceType: new ec2.InstanceType(
-          ec2.InstanceClass.BURSTABLE2
-        ),
+        instanceType: new ec2.InstanceType(ec2.InstanceClass.BURSTABLE2),
         vpc: vpc,
         vpcSubnets: {
-          subnetType: ec2.SubnetType.PUBLIC
-        }
-      }
+          subnetType: ec2.SubnetType.PUBLIC,
+        },
+      },
     });
   }
 }

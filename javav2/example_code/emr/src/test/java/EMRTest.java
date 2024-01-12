@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import aws.example.emr.*;
 import com.google.gson.Gson;
@@ -24,19 +22,19 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EMRTest {
     private static EmrClient emrClient;
     private static String jar = "";
-    private static String myClass = "" ;
-    private static String keys = "" ;
-    private static String logUri = "" ;
-    private static String name = "" ;
+    private static String myClass = "";
+    private static String keys = "";
+    private static String logUri = "";
+    private static String name = "";
     private static String jobFlowId = "";
     private static String existingClusterId = "";
 
     @BeforeAll
     public static void setUp() throws IOException {
         emrClient = EmrClient.builder()
-            .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_WEST_2)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -47,31 +45,32 @@ public class EMRTest {
         keys = values.getKeys();
         logUri = values.getLogUri();
         name = values.getName();
-        existingClusterId= values.getExistingClusterId();
+        existingClusterId = values.getExistingClusterId();
 
-
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-        try (InputStream input = EMRTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-            // Populate the data members required for all tests.
-            prop.load(input);
-            jar = prop.getProperty("jar");
-            myClass = prop.getProperty("myClass");
-            keys = prop.getProperty("keys");
-            logUri = prop.getProperty("logUri");
-            name = prop.getProperty("name");
-            existingClusterId= prop.getProperty("existingClusterId");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * EMRTest.class.getClassLoader().getResourceAsStream("config.properties")) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * // Populate the data members required for all tests.
+         * prop.load(input);
+         * jar = prop.getProperty("jar");
+         * myClass = prop.getProperty("myClass");
+         * keys = prop.getProperty("keys");
+         * logUri = prop.getProperty("logUri");
+         * name = prop.getProperty("name");
+         * existingClusterId= prop.getProperty("existingClusterId");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
@@ -85,21 +84,21 @@ public class EMRTest {
     @Test
     @Order(2)
     public void describeClusterTest() {
-        assertDoesNotThrow(() ->DescribeCluster.describeMyCluster(emrClient, existingClusterId));
+        assertDoesNotThrow(() -> DescribeCluster.describeMyCluster(emrClient, existingClusterId));
         System.out.println("Test 2 passed");
     }
 
     @Test
     @Order(3)
     public void listClusterTest() {
-        assertDoesNotThrow(() ->ListClusters.listAllClusters(emrClient));
+        assertDoesNotThrow(() -> ListClusters.listAllClusters(emrClient));
         System.out.println("Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void createEmrFleetTest() {
-        assertDoesNotThrow(() ->CreateEmrFleet.createFleet(emrClient));
+        assertDoesNotThrow(() -> CreateEmrFleet.createFleet(emrClient));
         System.out.println("Test 4 passed");
     }
 
@@ -112,42 +111,43 @@ public class EMRTest {
 
     @Test
     @Order(6)
-    public void createSparkClusterTest(){
-        assertDoesNotThrow(() ->CreateSparkCluster.createCluster(emrClient, jar, myClass, keys, logUri, name));
+    public void createSparkClusterTest() {
+        assertDoesNotThrow(() -> CreateSparkCluster.createCluster(emrClient, jar, myClass, keys, logUri, name));
         System.out.println("Test 6 passed");
     }
 
     @Test
     @Order(7)
     public void createHiveClusterTest() {
-        assertDoesNotThrow(() ->CreateHiveCluster.createCluster(emrClient, jar, myClass, keys, logUri, name));
+        assertDoesNotThrow(() -> CreateHiveCluster.createCluster(emrClient, jar, myClass, keys, logUri, name));
         System.out.println("Test 7 passed");
 
     }
 
     @Test
     @Order(8)
-    public void customEmrfsMaterialsTest(){
-        assertDoesNotThrow(() ->CustomEmrfsMaterials.createEmrfsCluster(emrClient, jar, myClass, keys, logUri, name));
+    public void customEmrfsMaterialsTest() {
+        assertDoesNotThrow(() -> CustomEmrfsMaterials.createEmrfsCluster(emrClient, jar, myClass, keys, logUri, name));
         System.out.println("Test 8 passed");
     }
 
     @Test
     @Order(9)
-    public void terminateJobFlowTest(){
-        assertDoesNotThrow(() ->TerminateJobFlow.terminateFlow(emrClient, existingClusterId));
+    public void terminateJobFlowTest() {
+        assertDoesNotThrow(() -> TerminateJobFlow.terminateFlow(emrClient, existingClusterId));
         System.out.println("Test 9 passed");
     }
+
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "text/emr";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -166,13 +166,14 @@ public class EMRTest {
 
         private String logUri;
 
-
         public String getLogUri() {
             return logUri;
         }
+
         public String getJar() {
             return jar;
         }
+
         public String getMyClass() {
             return myClass;
         }
@@ -190,4 +191,3 @@ public class EMRTest {
         }
     }
 }
-

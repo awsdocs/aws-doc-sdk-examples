@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { Construct } from "constructs";
 import { Code, Function, FunctionProps } from "aws-cdk-lib/aws-lambda";
 

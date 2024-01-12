@@ -1,27 +1,5 @@
-//snippet-sourcedescription:[XferMgrProgress.java demonstrates how to use the S3 transfermanager to upload files to a bucket and show progress of the upload.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[TransferProgress]
-//snippet-keyword:[TransferManager]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.s3;
 // snippet-start:[s3.java1.s3_xfer_mgr_progress.import]
 
@@ -123,7 +101,7 @@ public class XferMgrProgress {
         // snippet-end:[s3.java1.s3_xfer_mgr_progress.substranferes]
     }
 
-    // prints a simple text progressbar: [#####     ]
+    // prints a simple text progressbar: [##### ]
     public static void printProgressBar(double pct) {
         // if bar_size changes, then change erase_bar (in eraseProgressBar) to
         // match.
@@ -143,7 +121,7 @@ public class XferMgrProgress {
     }
 
     public static void uploadFileWithListener(String file_path,
-                                              String bucket_name, String key_prefix, boolean pause) {
+            String bucket_name, String key_prefix, boolean pause) {
         System.out.println("file: " + file_path +
                 (pause ? " (pause)" : ""));
 
@@ -182,10 +160,9 @@ public class XferMgrProgress {
     }
 
     public static void uploadDirWithSubprogress(String dir_path,
-                                                String bucket_name, String key_prefix, boolean recursive,
-                                                boolean pause) {
-        System.out.println("directory: " + dir_path + (recursive ?
-                " (recursive)" : "") + (pause ? " (pause)" : ""));
+            String bucket_name, String key_prefix, boolean recursive,
+            boolean pause) {
+        System.out.println("directory: " + dir_path + (recursive ? " (recursive)" : "") + (pause ? " (pause)" : ""));
 
         TransferManager xfer_mgr = new TransferManager();
         try {

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetBucketPolicy.java demonstrates how to get the bucket policy for an existing Amazon Simple Storage Service (Amazon S3) bucket]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -19,7 +13,8 @@ import software.amazon.awssdk.services.s3.model.GetBucketPolicyResponse;
 // snippet-end:[s3.java2.get_bucket_policy.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +25,12 @@ public class GetBucketPolicy {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <bucketName>
+                Usage:
+                    <bucketName>
 
-            Where:
-                bucketName - The Amazon S3 bucket to get the policy from.
-            """;
+                Where:
+                    bucketName - The Amazon S3 bucket to get the policy from.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,8 +41,8 @@ public class GetBucketPolicy {
         System.out.format("Getting policy for bucket: \"%s\"\n\n", bucketName);
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String polText = getPolicy(s3, bucketName);
         System.out.println("Policy Text: " + polText);
@@ -58,8 +53,8 @@ public class GetBucketPolicy {
         String policyText;
         System.out.format("Getting policy for bucket: \"%s\"\n\n", bucketName);
         GetBucketPolicyRequest policyReq = GetBucketPolicyRequest.builder()
-            .bucket(bucketName)
-            .build();
+                .bucket(bucketName)
+                .build();
 
         try {
             GetBucketPolicyResponse policyRes = s3.getBucketPolicy(policyReq);

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example;
 
@@ -27,7 +25,7 @@ import java.io.StringReader;
 public class SendNotifications {
     public int handleEmailMessage(String myDom) throws JDOMException, IOException, MessagingException {
         String myEmail;
-        String name ;
+        String name;
         SesClient client = SesClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
@@ -50,9 +48,9 @@ public class SendNotifications {
         return countStudents;
     }
 
-    public void handleTextMessage(String myDom) throws JDOMException, IOException{
+    public void handleTextMessage(String myDom) throws JDOMException, IOException {
         String mobileNum;
-        String name ;
+        String name;
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
@@ -73,7 +71,7 @@ public class SendNotifications {
     }
 
     private void publishTextSMS(SnsClient snsClient, String phoneNumber, String name) {
-        String message = "Please be advised that "+name + " was marked absent from school today.";
+        String message = "Please be advised that " + name + " was marked absent from school today.";
         try {
             PublishRequest request = PublishRequest.builder()
                     .message(message)
@@ -89,48 +87,49 @@ public class SendNotifications {
     }
 
     public void sendEmail(SesClient client, String recipient, String name) {
-             // The HTML body of the email.
-            String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-                    + "<p>Please be advised that "+name +" was marked absent from school today.</p>" + "</body>" + "</html>";
+        // The HTML body of the email.
+        String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
+                + "<p>Please be advised that " + name + " was marked absent from school today.</p>" + "</body>"
+                + "</html>";
 
-            String sender = "scmacdon@amazon.com";
-            String subject = "School Attendance";
+        String sender = "scmacdon@amazon.com";
+        String subject = "School Attendance";
 
-            Destination destination = Destination.builder()
-                    .toAddresses(recipient)
-                    .build();
+        Destination destination = Destination.builder()
+                .toAddresses(recipient)
+                .build();
 
-            Content content = Content.builder()
-                    .data(bodyHTML)
-                    .build();
+        Content content = Content.builder()
+                .data(bodyHTML)
+                .build();
 
-            Content sub = Content.builder()
-                    .data(subject)
-                    .build();
+        Content sub = Content.builder()
+                .data(subject)
+                .build();
 
-            Body body = Body.builder()
-                    .html(content)
-                    .build();
+        Body body = Body.builder()
+                .html(content)
+                .build();
 
-            software.amazon.awssdk.services.ses.model.Message msg = software.amazon.awssdk.services.ses.model.Message.builder()
-                    .subject(sub)
-                    .body(body)
-                    .build();
+        software.amazon.awssdk.services.ses.model.Message msg = software.amazon.awssdk.services.ses.model.Message
+                .builder()
+                .subject(sub)
+                .body(body)
+                .build();
 
-            SendEmailRequest emailRequest = SendEmailRequest.builder()
-                    .destination(destination)
-                    .message(msg)
-                    .source(sender)
-                    .build();
+        SendEmailRequest emailRequest = SendEmailRequest.builder()
+                .destination(destination)
+                .message(msg)
+                .source(sender)
+                .build();
 
-            try {
-                System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
-                client.sendEmail(emailRequest);
+        try {
+            System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
+            client.sendEmail(emailRequest);
 
-            } catch (SesException e) {
-                System.err.println(e.awsErrorDetails().errorMessage());
-                System.exit(1);
-            }
+        } catch (SesException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
-
+}

@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[CreateUser.java demonstrates how to create a user within the specified AWS Identitystore.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.identitystore;
 
 // snippet-start:[identitystore.java2.create_user.main]
@@ -17,9 +12,9 @@ import software.amazon.awssdk.services.identitystore.model.CreateUserResponse;
 import software.amazon.awssdk.services.identitystore.model.Name;
 // snippet-end:[Identitystore.java2.create_user.import]
 
-
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,15 +24,15 @@ public class CreateUser {
     public static void main(String... args) {
         final String usage = """
 
-            Usage:
-               <identitystoreId> <userName> <givenName> <familyName>\s
+                Usage:
+                   <identitystoreId> <userName> <givenName> <familyName>\s
 
-            Where:
-                identitystoreId - The id of the identitystore.\s
-                userName - The name of the user to create.\s
-                givenName - The first name of the user to create.\s
-                familyName - The lastName of the user to create.\s
-            """;
+                Where:
+                    identitystoreId - The id of the identitystore.\s
+                    userName - The name of the user to create.\s
+                    givenName - The first name of the user to create.\s
+                    familyName - The lastName of the user to create.\s
+                """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -55,20 +50,21 @@ public class CreateUser {
         identitystore.close();
     }
 
-    public static String createUser(IdentitystoreClient identitystore, String identitystoreId, String userName, String givenName, String familyName) {
+    public static String createUser(IdentitystoreClient identitystore, String identitystoreId, String userName,
+            String givenName, String familyName) {
         try {
             String displayName = givenName + " " + familyName;
             Name name = Name.builder()
-                .givenName(givenName)
-                .familyName(familyName)
-                .build();
+                    .givenName(givenName)
+                    .familyName(familyName)
+                    .build();
 
             CreateUserRequest request = CreateUserRequest.builder()
-                .identityStoreId(identitystoreId)
-                .userName(userName)
-                .displayName(displayName)
-                .name(name)
-                .build();
+                    .identityStoreId(identitystoreId)
+                    .userName(userName)
+                    .displayName(displayName)
+                    .name(name)
+                    .build();
 
             CreateUserResponse response = identitystore.createUser(request);
             return response.userId();

@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[CreateCustomerMasterKey.java demonstrates how to create a customer master key (CMK).]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon KMS]
-//snippet-service:[kms]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-04-08]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package aws.example.kms;
 
@@ -27,10 +20,8 @@ public class CreateCustomerMasterKey {
         CreateKeyResult result = kmsClient.createKey(req);
 
         System.out.printf(
-            "Created a customer master key with id \"%s\"%n",
-            result.getKeyMetadata().getArn()
-        );
+                "Created a customer master key with id \"%s\"%n",
+                result.getKeyMetadata().getArn());
     }
 
 }
-

@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /// The `S3Manager` class provides functions to access Amazon Simple Storage
 /// Service (Amazon S3). `S3Manager` hands off the actual Amazon S3 operations
 /// to a worker object that implements the protocol ``S3SessionProtocol``.

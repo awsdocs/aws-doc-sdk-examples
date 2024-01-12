@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DescribeInstance.java demonstrates how to describe the specified instance.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Connect]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.connect;
 
@@ -17,7 +11,8 @@ import software.amazon.awssdk.services.connect.model.DescribeInstanceRequest;
 import software.amazon.awssdk.services.connect.model.DescribeInstanceResponse;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -27,11 +22,11 @@ public class DescribeInstance {
     public static void main(String[] args) throws InterruptedException {
         final String usage = """
 
-            Usage:    <instanceId>
+                Usage:    <instanceId>
 
-            Where:
-               instanceId - The id of the instance to describe.
-            """;
+                Where:
+                   instanceId - The id of the instance to describe.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -41,18 +36,19 @@ public class DescribeInstance {
         String instanceId = args[0];
         Region region = Region.US_EAST_1;
         ConnectClient connectClient = ConnectClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         describeSpecificInstance(connectClient, instanceId);
     }
 
-    public static void describeSpecificInstance(ConnectClient connectClient, String instanceId) throws InterruptedException {
+    public static void describeSpecificInstance(ConnectClient connectClient, String instanceId)
+            throws InterruptedException {
         boolean status = false;
         try {
             DescribeInstanceRequest instanceRequest = DescribeInstanceRequest.builder()
-                .instanceId(instanceId)
-                .build();
+                    .instanceId(instanceId)
+                    .build();
 
             while (!status) {
                 DescribeInstanceResponse response = connectClient.describeInstance(instanceRequest);

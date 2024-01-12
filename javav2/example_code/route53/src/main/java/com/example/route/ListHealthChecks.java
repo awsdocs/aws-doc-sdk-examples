@@ -1,12 +1,6 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListHealthChecks.java demonstrates how to list health checks.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Route 53]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.route;
 
 // snippet-start:[route53.java2.list_health_checks.main]
@@ -20,7 +14,8 @@ import java.util.List;
 // snippet-end:[route53.java2.list_health_checks.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,8 +25,8 @@ public class ListHealthChecks {
     public static void main(String[] args) {
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listAllHealthChecks(route53Client);
         route53Client.close();

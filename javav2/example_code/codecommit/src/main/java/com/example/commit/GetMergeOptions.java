@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetMergeOptions.java demonstrates how to get merge options.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CodeCommit]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.commit;
 
@@ -20,7 +13,8 @@ import software.amazon.awssdk.services.codecommit.model.GetMergeOptionsResponse;
 // snippet-end:[codecommit.java2.get_merge_options.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -30,14 +24,14 @@ public class GetMergeOptions {
     public static void main(String[] args) {
         final String USAGE = """
 
-            Usage:
-                <repoName> <destinationReference> <sourceReference>\s
+                Usage:
+                    <repoName> <destinationReference> <sourceReference>\s
 
-            Where:
-                repoName - the name of the repository.
-                destinationReference -  the branch of the repository where the pull request changes are merged.
-                sourceReference  - the branch of the repository that contains the changes for the pull request.
-            """;
+                Where:
+                    repoName - the name of the repository.
+                    destinationReference -  the branch of the repository where the pull request changes are merged.
+                    sourceReference  - the branch of the repository that contains the changes for the pull request.
+                """;
 
         if (args.length != 3) {
             System.out.println(USAGE);
@@ -50,8 +44,8 @@ public class GetMergeOptions {
 
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String commitId = getMergeValues(codeCommitClient, repoName, destinationReference, sourceReference);
         System.out.println("The id value is " + commitId);
@@ -59,15 +53,15 @@ public class GetMergeOptions {
     }
 
     public static String getMergeValues(CodeCommitClient codeCommitClient,
-                                        String repoName,
-                                        String destinationReference,
-                                        String sourceReference) {
+            String repoName,
+            String destinationReference,
+            String sourceReference) {
         try {
             GetMergeOptionsRequest optionsRequest = GetMergeOptionsRequest.builder()
-                .repositoryName(repoName)
-                .destinationCommitSpecifier(destinationReference)
-                .sourceCommitSpecifier(sourceReference)
-                .build();
+                    .repositoryName(repoName)
+                    .destinationCommitSpecifier(destinationReference)
+                    .sourceCommitSpecifier(sourceReference)
+                    .build();
 
             GetMergeOptionsResponse response = codeCommitClient.getMergeOptions(optionsRequest);
             return response.baseCommitId();

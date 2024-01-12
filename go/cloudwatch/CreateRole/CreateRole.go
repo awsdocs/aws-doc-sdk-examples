@@ -1,46 +1,39 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 // snippet-start:[cloudwatch.go.create_role]
 package main
 
 // snippet-start:[cloudwatch.go.create_role.imports]
 import (
-    "flag"
-    "fmt"
+	"flag"
+	"fmt"
 
-    "github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/iam"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/iam"
 )
+
 // snippet-end:[cloudwatch.go.create_role.imports]
 
 // CreateRole creates a role that grants permission to Amazon CloudWatch Events
 // Inputs:
-//     sess is the current session, which provides configuration for the SDK's service clients
-//     role is the name of the role
+//
+//	sess is the current session, which provides configuration for the SDK's service clients
+//	role is the name of the role
+//
 // Output:
-//     If successful, a CreateRoleOutput and nil
-//     Otherwise, nil and the error from a call to CreateRole
+//
+//	If successful, a CreateRoleOutput and nil
+//	Otherwise, nil and the error from a call to CreateRole
 func CreateRole(sess *session.Session, roleName *string, policyName *string) (*iam.CreateRoleOutput, error) {
-    // Create the service client
-    // snippet-start:[cloudwatch.go.create_role.client]
-    svc := iam.New(sess)
-    // snippet-end:[cloudwatch.go.create_role.client]    
+	// Create the service client
+	// snippet-start:[cloudwatch.go.create_role.client]
+	svc := iam.New(sess)
+	// snippet-end:[cloudwatch.go.create_role.client]
 
-    // From: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/cw-example-sending-events.html
-    // snippet-start:[cloudwatch.go.create_role.role_policy]
-    rolePolicy := []byte(`{
+	// From: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/cw-example-sending-events.html
+	// snippet-start:[cloudwatch.go.create_role.role_policy]
+	rolePolicy := []byte(`{
         "Version": "2012-10-17",
         "Statement": [
            {
@@ -58,19 +51,19 @@ func CreateRole(sess *session.Session, roleName *string, policyName *string) (*i
         ]
      }`)
 
-    policy := string(rolePolicy[:])
+	policy := string(rolePolicy[:])
 
-    createPolicyResult, err := svc.CreatePolicy(&iam.CreatePolicyInput{
-        PolicyDocument: &policy,
-        PolicyName:     policyName,
-    })
-    // snippet-end:[cloudwatch.go.create_role.role_policy]    
-    if err != nil {
-        return nil, err
-    }
+	createPolicyResult, err := svc.CreatePolicy(&iam.CreatePolicyInput{
+		PolicyDocument: &policy,
+		PolicyName:     policyName,
+	})
+	// snippet-end:[cloudwatch.go.create_role.role_policy]
+	if err != nil {
+		return nil, err
+	}
 
-    // snippet-start:[cloudwatch.go.create_role.role_trust]
-    trustRelationship := []byte(`{
+	// snippet-start:[cloudwatch.go.create_role.role_trust]
+	trustRelationship := []byte(`{
                 "Version": "2012-10-17",
                 "Statement": [
                    {
@@ -83,66 +76,67 @@ func CreateRole(sess *session.Session, roleName *string, policyName *string) (*i
                 ]
              }`)
 
-    trustPolicy := string(trustRelationship[:])
-    
-    createRoleResult, err := svc.CreateRole(&iam.CreateRoleInput{
-        AssumeRolePolicyDocument: aws.String(trustPolicy),
-        RoleName:                 roleName,
-    })
-    // snippet-end:[cloudwatch.go.create_role.role_trust]
-    if err != nil {
-        return nil, err
-    }
+	trustPolicy := string(trustRelationship[:])
 
-    getUserResult, err := svc.GetUser(nil)
-    if err != nil {
-        return nil, err
-    }
+	createRoleResult, err := svc.CreateRole(&iam.CreateRoleInput{
+		AssumeRolePolicyDocument: aws.String(trustPolicy),
+		RoleName:                 roleName,
+	})
+	// snippet-end:[cloudwatch.go.create_role.role_trust]
+	if err != nil {
+		return nil, err
+	}
 
-    userName := getUserResult.User.UserName
+	getUserResult, err := svc.GetUser(nil)
+	if err != nil {
+		return nil, err
+	}
 
-    // snippet-start:[cloudwatch.go.create_role.attach_user_policy]
-    _, err = svc.AttachUserPolicy(&iam.AttachUserPolicyInput{
-        PolicyArn: createPolicyResult.Policy.Arn,
-        UserName:  userName,
-    })
-    // snippet-end:[cloudwatch.go.create_role.attach_user_policy]
-    if err != nil {
-        return nil, err
-    }
+	userName := getUserResult.User.UserName
 
-    return createRoleResult, nil
+	// snippet-start:[cloudwatch.go.create_role.attach_user_policy]
+	_, err = svc.AttachUserPolicy(&iam.AttachUserPolicyInput{
+		PolicyArn: createPolicyResult.Policy.Arn,
+		UserName:  userName,
+	})
+	// snippet-end:[cloudwatch.go.create_role.attach_user_policy]
+	if err != nil {
+		return nil, err
+	}
+
+	return createRoleResult, nil
 }
 
 func main() {
-    // snippet-start:[cloudwatch.go.create_role.args]
-    policyName := flag.String("p", "", "The name of the policy")
-    roleName := flag.String("r", "", "The name of the role")
-    flag.Parse()
+	// snippet-start:[cloudwatch.go.create_role.args]
+	policyName := flag.String("p", "", "The name of the policy")
+	roleName := flag.String("r", "", "The name of the role")
+	flag.Parse()
 
-    if *policyName == "" || *roleName == "" {
-        fmt.Println("You must supply a policy name (-p POLICY) and role name (-r ROLE)")
-        return
-    }
-    // snippet-end:[cloudwatch.go.create_role.args]
+	if *policyName == "" || *roleName == "" {
+		fmt.Println("You must supply a policy name (-p POLICY) and role name (-r ROLE)")
+		return
+	}
+	// snippet-end:[cloudwatch.go.create_role.args]
 
-    // Initialize a session that the SDK uses to load
-    // credentials from the shared credentials file (~/.aws/credentials)
-    // snippet-start:[cloudwatch.go.create_role.session]
-    sess := session.Must(session.NewSessionWithOptions(session.Options{
-        SharedConfigState: session.SharedConfigEnable,
-    }))
-    // snippet-end:[cloudwatch.go.create_role.session]
+	// Initialize a session that the SDK uses to load
+	// credentials from the shared credentials file (~/.aws/credentials)
+	// snippet-start:[cloudwatch.go.create_role.session]
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}))
+	// snippet-end:[cloudwatch.go.create_role.session]
 
-    result, err := CreateRole(sess, roleName, policyName)
-    if err != nil {
-        fmt.Println("Got an error creating the role:")
-        fmt.Println(err)
-        return
-    }
+	result, err := CreateRole(sess, roleName, policyName)
+	if err != nil {
+		fmt.Println("Got an error creating the role:")
+		fmt.Println(err)
+		return
+	}
 
-    // snippet-start:[cloudwatch.go.create_role.print]
-    fmt.Println("Role ARN: " + *result.Role.Arn)
-    // snippet-end:[cloudwatch.go.create_role.print]
+	// snippet-start:[cloudwatch.go.create_role.print]
+	fmt.Println("Role ARN: " + *result.Role.Arn)
+	// snippet-end:[cloudwatch.go.create_role.print]
 }
+
 // snippet-end:[cloudwatch.go.create_role]

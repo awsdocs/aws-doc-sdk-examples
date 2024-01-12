@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[ListQueueTags.java demonstrates how to retrieve tags from an Amazon Simple Queue Service (Amazon SQS) queue.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Simple Queue Service]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sqs;
 
@@ -20,7 +15,8 @@ import software.amazon.awssdk.services.sqs.model.SqsException;
 // snippet-end:[sqs.java2.list_tags.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,11 +26,11 @@ public class ListQueueTags {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:     <queueName>
+                Usage:     <queueName>
 
-            Where:
-               queueName - The name of the queue.
-            """;
+                Where:
+                   queueName - The name of the queue.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,8 +39,8 @@ public class ListQueueTags {
 
         String queueName = args[0];
         SqsClient sqsClient = SqsClient.builder()
-            .region(Region.US_WEST_2)
-            .build();
+                .region(Region.US_WEST_2)
+                .build();
 
         listTags(sqsClient, queueName);
         sqsClient.close();
@@ -53,18 +49,18 @@ public class ListQueueTags {
     public static void listTags(SqsClient sqsClient, String queueName) {
         try {
             GetQueueUrlRequest urlRequest = GetQueueUrlRequest.builder()
-                .queueName(queueName)
-                .build();
+                    .queueName(queueName)
+                    .build();
 
             GetQueueUrlResponse getQueueUrlResponse = sqsClient.getQueueUrl(urlRequest);
             String queueUrl = getQueueUrlResponse.queueUrl();
             ListQueueTagsRequest listQueueTagsRequest = ListQueueTagsRequest.builder()
-                .queueUrl(queueUrl)
-                .build();
+                    .queueUrl(queueUrl)
+                    .build();
 
             ListQueueTagsResponse listQueueTagsResponse = sqsClient.listQueueTags(listQueueTagsRequest);
             System.out.println(String.format("ListQueueTags: \tTags for queue %s are %s.\n",
-                queueName, listQueueTagsResponse.tags()));
+                    queueName, listQueueTagsResponse.tags()));
 
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

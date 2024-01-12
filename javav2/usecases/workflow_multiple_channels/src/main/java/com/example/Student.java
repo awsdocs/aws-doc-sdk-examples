@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example;
 
@@ -9,7 +7,7 @@ public class Student {
 
     private String firstName;
     private String email;
-    private String mobileNumber ;
+    private String mobileNumber;
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
@@ -35,4 +33,3 @@ public class Student {
         return this.firstName;
     }
 }
-

@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[DeleteBucketPolicy.java demonstrates how to delete a policy from an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -17,7 +12,8 @@ import software.amazon.awssdk.services.s3.model.DeleteBucketPolicyRequest;
 // snippet-end:[s3.java2.delete_bucket_policy.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,11 +25,11 @@ public class DeleteBucketPolicy {
 
         final String usage = """
 
-            Usage:
-                <bucketName>
+                Usage:
+                    <bucketName>
 
-            Where:
-                bucketName - The Amazon S3 bucket to delete the policy from (for example, bucket1).""";
+                Where:
+                    bucketName - The Amazon S3 bucket to delete the policy from (for example, bucket1).""";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +40,8 @@ public class DeleteBucketPolicy {
         System.out.format("Deleting policy from bucket: \"%s\"\n\n", bucketName);
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         deleteS3BucketPolicy(s3, bucketName);
         s3.close();
@@ -54,8 +50,8 @@ public class DeleteBucketPolicy {
     // Delete the bucket policy.
     public static void deleteS3BucketPolicy(S3Client s3, String bucketName) {
         DeleteBucketPolicyRequest delReq = DeleteBucketPolicyRequest.builder()
-            .bucket(bucketName)
-            .build();
+                .bucket(bucketName)
+                .build();
 
         try {
             s3.deleteBucketPolicy(delReq);
@@ -68,4 +64,3 @@ public class DeleteBucketPolicy {
     }
 }
 // snippet-end:[s3.java2.delete_bucket_policy.main]
-

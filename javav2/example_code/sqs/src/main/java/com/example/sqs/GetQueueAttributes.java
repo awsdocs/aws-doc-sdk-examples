@@ -1,7 +1,5 @@
-//snippet-sourcedescription:[GetQueueAttributes.java demonstrates how to retrieve Amazon Simple Queue Service (Amazon SQS) queue attributes.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Simple Queue Service]
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.example.sqs;
 
 // snippet-start:[sqs.java2.get_attributes.main]
@@ -20,7 +18,8 @@ import java.util.Map;
 // snippet-end:[sqs.java2.get_attributes.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +29,12 @@ public class GetQueueAttributes {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <queueName>
+                Usage:    <queueName>
 
-            Where:
-               queueName - The name of the queue.
+                Where:
+                   queueName - The name of the queue.
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,17 +43,17 @@ public class GetQueueAttributes {
 
         String queueName = args[0];
         SqsClient sqsClient = SqsClient.builder()
-            .region(Region.US_WEST_2)
-            .build();
+                .region(Region.US_WEST_2)
+                .build();
 
         getAttributes(sqsClient, queueName);
         sqsClient.close();
     }
 
-
     public static void getAttributes(SqsClient sqsClient, String queueName) {
         try {
-            GetQueueUrlResponse getQueueUrlResponse = sqsClient.getQueueUrl(GetQueueUrlRequest.builder().queueName(queueName).build());
+            GetQueueUrlResponse getQueueUrlResponse = sqsClient
+                    .getQueueUrl(GetQueueUrlRequest.builder().queueName(queueName).build());
             String queueUrl = getQueueUrlResponse.queueUrl();
 
             // Specify the attributes to retrieve.
@@ -62,15 +61,15 @@ public class GetQueueAttributes {
             atts.add(QueueAttributeName.APPROXIMATE_NUMBER_OF_MESSAGES);
 
             GetQueueAttributesRequest attributesRequest = GetQueueAttributesRequest.builder()
-                .queueUrl(queueUrl)
-                .attributeNames(atts)
-                .build();
+                    .queueUrl(queueUrl)
+                    .attributeNames(atts)
+                    .build();
 
             GetQueueAttributesResponse response = sqsClient.getQueueAttributes(attributesRequest);
             Map<String, String> queueAtts = response.attributesAsStrings();
             for (Map.Entry<String, String> queueAtt : queueAtts.entrySet())
                 System.out.println("Key = " + queueAtt.getKey() +
-                    ", Value = " + queueAtt.getValue());
+                        ", Value = " + queueAtt.getValue());
 
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

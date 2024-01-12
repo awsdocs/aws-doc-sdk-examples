@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.fsa.handlers;
 
@@ -18,7 +16,7 @@ public class TranslateTextHandler implements RequestHandler<Map<String, Object>,
         TranslateService translateService = new TranslateService();
         String sourceText = (String) requestObject.get("extracted_text");
         String lanCode = (String) requestObject.get("source_language_code");
-        context.getLogger().log("sourceText: " + sourceText + "lang code: "+lanCode);
+        context.getLogger().log("sourceText: " + sourceText + "lang code: " + lanCode);
         String translatedText = translateService.translateText(lanCode, sourceText);
         context.getLogger().log("Translated text : " + translatedText);
         JSONObject jsonResponse = new JSONObject();

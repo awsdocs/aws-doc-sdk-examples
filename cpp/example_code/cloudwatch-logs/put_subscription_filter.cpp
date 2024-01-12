@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: put_subscription_filter.cpp demonstrates how to create an Amazon Cloudwatch Logs subscription filter.
@@ -13,13 +13,13 @@
  * Outputs:
  * A subscription filter is created.
    * ///////////////////////////////////////////////////////////////////////// */
-//snippet-start:[cwl.cpp.put_subscription_filter.inc]
+// snippet-start:[cwl.cpp.put_subscription_filter.inc]
 #include <aws/core/Aws.h>
 #include <aws/logs/CloudWatchLogsClient.h>
 #include <aws/logs/model/PutSubscriptionFilterRequest.h>
 #include <aws/core/utils/Outcome.h>
 #include <iostream>
-//snippet-end:[cwl.cpp.put_subscription_filter.inc]
+// snippet-end:[cwl.cpp.put_subscription_filter.inc]
 /**
  * Create a CloudWatch Logs subscription filter based on command-line input
  */
@@ -41,7 +41,7 @@ int main(int argc, char** argv)
         Aws::String log_group(argv[3]);
         Aws::String dest_arn(argv[4]);
 
-        //snippet-start:[cwl.cpp.put_subscription_filter]
+        // snippet-start:[cwl.cpp.put_subscription_filter]
         Aws::CloudWatchLogs::CloudWatchLogsClient cwl;
         Aws::CloudWatchLogs::Model::PutSubscriptionFilterRequest request;
         request.SetFilterName(filter_name);
@@ -60,7 +60,7 @@ int main(int argc, char** argv)
             std::cout << "Successfully created CloudWatch logs subscription " <<
                 "filter " << filter_name << std::endl;
         }
-        //snippet-end:[cwl.cpp.put_subscription_filter]
+        // snippet-end:[cwl.cpp.put_subscription_filter]
 
     }
     Aws::ShutdownAPI(options);

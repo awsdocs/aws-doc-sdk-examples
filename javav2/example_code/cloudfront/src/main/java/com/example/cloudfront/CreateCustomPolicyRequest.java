@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[CreateCustomPolicyRequest.java demonstrates how to use the CustomSignerRequest class to specify the required properties to sign URLs or cookies to access Amazon CloudFront.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudFront]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.cloudfront;
 
 // snippet-start:[cloudfront.java2.createcustompolicyrequest.import]
@@ -21,8 +16,9 @@ import java.time.temporal.ChronoUnit;
 // snippet-start:[cloudfront.java2.createcustompolicyrequest.main]
 public class CreateCustomPolicyRequest {
 
-    public static CustomSignerRequest createRequestForCustomPolicy(String distributionDomainName, String fileNameToUpload,
-                                                                   String privateKeyFullPath, String publicKeyId) throws Exception {
+    public static CustomSignerRequest createRequestForCustomPolicy(String distributionDomainName,
+            String fileNameToUpload,
+            String privateKeyFullPath, String publicKeyId) throws Exception {
         String protocol = "https";
         String resourcePath = "/" + fileNameToUpload;
 
@@ -37,8 +33,8 @@ public class CreateCustomPolicyRequest {
                 .privateKey(path)
                 .keyPairId(publicKeyId)
                 .expirationDate(expireDate)
-                .activeDate(activeDate)      // Optional.
-                //.ipRange("192.168.0.1/24") // Optional.
+                .activeDate(activeDate) // Optional.
+                // .ipRange("192.168.0.1/24") // Optional.
                 .build();
     }
 }

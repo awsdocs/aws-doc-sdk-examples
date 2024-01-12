@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DescribeReservedInstances.java demonstrates how to get information about Amazon Elastic Compute Cloud (Amazon EC2) Reserved Instances.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon EC2]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.describe_reserved_instances.main]
@@ -18,7 +14,8 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.describe_reserved_instances.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,13 +25,13 @@ public class DescribeReservedInstances {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-               <instanceId>
+                Usage:
+                   <instanceId>
 
-            Where:
-               instanceId - An instance id value that you can obtain from the AWS Console.\s
+                Where:
+                   instanceId - An instance id value that you can obtain from the AWS Console.\s
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +41,8 @@ public class DescribeReservedInstances {
         String instanceId = args[0];
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-             .region(region)
-             .build();
+                .region(region)
+                .build();
 
         describeReservedEC2Instances(ec2, instanceId);
         ec2.close();
@@ -53,7 +50,8 @@ public class DescribeReservedInstances {
 
     public static void describeReservedEC2Instances(Ec2Client ec2, String instanceID) {
         try {
-            DescribeReservedInstancesRequest request = DescribeReservedInstancesRequest.builder().reservedInstancesIds(instanceID).build();
+            DescribeReservedInstancesRequest request = DescribeReservedInstancesRequest.builder()
+                    .reservedInstancesIds(instanceID).build();
             DescribeReservedInstancesResponse response = ec2.describeReservedInstances(request);
             for (ReservedInstances instance : response.reservedInstances()) {
                 System.out.printf(

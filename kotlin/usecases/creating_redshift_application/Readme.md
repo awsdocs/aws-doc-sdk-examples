@@ -2,87 +2,86 @@
 
 ## Overview
 
-| Heading      | Description |
-| ----------- | ----------- |
-| Description | Discusses how to develop a Spring Boot application that queries Amazon Redshift data. The Spring Boot application uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).    |
-| Audience   |  Developer (intermediate)        |
-| Updated   | 11/14/2023        |
-| Required skills   | Kotlin, Gradle, JavaScript  |
+| Heading         | Description                                                                                                                                                                                                                                                                                                                           |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Description     | Discusses how to develop a Spring Boot application that queries Amazon Redshift data. The Spring Boot application uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/). |
+| Audience        | Developer (intermediate)                                                                                                                                                                                                                                                                                                              |
+| Updated         | 11/14/2023                                                                                                                                                                                                                                                                                                                            |
+| Required skills | Kotlin, Gradle, JavaScript                                                                                                                                                                                                                                                                                                            |
 
 ## Purpose
 
 You can develop a dynamic web application that tracks and reports on work items by using the following AWS services:
 
-+ Amazon Redshift
-+ Amazon Simple Email Service (Amazon SES)
+- Amazon Redshift
+- Amazon Simple Email Service (Amazon SES)
 
-The application you create is a decoupled React application that uses a Spring REST API to return Amazon Redshift data. That is, the React application interacts with a Spring API by making RESTful GET and POST requests. The Spring API uses an [RedshiftDataClient](https://sdk.amazonaws.com/kotlin/api/latest/redshiftdata/aws.sdk.kotlin.services.redshiftdata/-redshift-data-client/index.html) object to perform CRUD operations on the database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
+The application you create is a decoupled React application that uses a Spring REST API to return Amazon Redshift data. That is, the React application interacts with a Spring API by making RESTful GET and POST requests. The Spring API uses an [RedshiftDataClient](https://sdk.amazonaws.com/kotlin/api/latest/redshiftdata/aws.sdk.kotlin.services.redshiftdata/-redshift-data-client/index.html) object to perform CRUD operations on the database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration.
 
 ![AWS Tracking Application](images/overviewred.png)
 
 #### Topics
 
-+ Prerequisites
-+ Understand the AWS Tracker application
-+ Create an IntelliJ project
-+ Add the dependencies to your Gradle build file
-+ Create the Kotlin classes
-+ Create the React front end
+- Prerequisites
+- Understand the AWS Tracker application
+- Create an IntelliJ project
+- Add the dependencies to your Gradle build file
+- Create the Kotlin classes
+- Create the React front end
 
 ## Prerequisites
 
 To complete the tutorial, you need the following:
 
-+ An AWS account.
-+ A Kotlin IDE (this tutorial uses the IntelliJ IDE).
-+ Java 17 JDK.
-+ Gradle 8.1 or higher.
-+ You must also set up your development environment. For more information, 
-see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
+- An AWS account.
+- A Kotlin IDE (this tutorial uses the IntelliJ IDE).
+- Java 17 JDK.
+- Gradle 8.1 or higher.
+- You must also set up your development environment. For more information,
+  see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
 
 ### Important
 
-+ The AWS services in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
-+ Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
+- The AWS services in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
+- This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account.
+- Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
 ### Create the resources
 
 To create the required resources, create an Amazon Redshift cluster and then create a database named **dev**. Next, create a table named **Work** that contains the following fields:
 
-+ **idwork** - A VARCHAR(45) value that represents the PK
-+ **date** - A date value that specifies the date the item was created
-+ **description** - A VARCHAR(400) value that describes the item
-+ **guide** - A VARCHAR(45) value that represents the deliverable being worked on
-+ **status** - A VARCHAR(400) value that describes the status
-+ **username** - A VARCHAR(45) value that represents the user who entered the item
-+ **archive** - A TINYINT(4) value that represents whether this is an active or archive item
+- **idwork** - A VARCHAR(45) value that represents the PK
+- **date** - A date value that specifies the date the item was created
+- **description** - A VARCHAR(400) value that describes the item
+- **guide** - A VARCHAR(45) value that represents the deliverable being worked on
+- **status** - A VARCHAR(400) value that describes the status
+- **username** - A VARCHAR(45) value that represents the user who entered the item
+- **archive** - A TINYINT(4) value that represents whether this is an active or archive item
 
 The following image shows the Amazon Redshift **Work** table.
 
 ![AWS Tracking Application](images/worktable.png)
 
-To use the **RedshiftDataClient** object, you must have the following Amazon Redshift values: 
+To use the **RedshiftDataClient** object, you must have the following Amazon Redshift values:
 
-+ The name of the database (for example, dev)
-+ The name of the database user that you configured
-+ The name of the Amazon Redshift cluster (for example, redshift-cluster-1)
+- The name of the database (for example, dev)
+- The name of the database user that you configured
+- The name of the Amazon Redshift cluster (for example, redshift-cluster-1)
 
 For more information, see [Getting started with Amazon Redshift clusters and data loading](https://docs.aws.amazon.com/redshift/latest/gsg/database-tasks.html).
 
-
-## Understand the AWS Tracker React application 
+## Understand the AWS Tracker React application
 
 A user can perform the following tasks using the React application:
 
-+ View all active items
-+ View archived items that are complete
-+ Add a new item
-+ Convert an active item into an archived item
-+ Send a report to an email recipient
+- View all active items
+- View archived items that are complete
+- Add a new item
+- Convert an active item into an archived item
+- Send a report to an email recipient
 
-The React application displays *active* and *archive* items. For example, the following illustration shows the React application displaying active data.
+The React application displays _active_ and _archive_ items. For example, the following illustration shows the React application displaying active data.
 
 ![AWS Tracking Application](images/activeNew.png)
 
@@ -90,11 +89,11 @@ Likewise, the following illustration shows the React application displaying arch
 
 ![AWS Tracking Application](images/archiveShow.png)
 
-The React application lets a user convert an active item to an archived item by choosing the **Archive item(s)** button. 
+The React application lets a user convert an active item to an archived item by choosing the **Archive item(s)** button.
 
 ![AWS Tracking Application](images/archiveNew.png)
 
-The React application also lets a user enter a new item. 
+The React application also lets a user enter a new item.
 
 ![AWS Tracking Application](images/newItem.png)
 
@@ -102,15 +101,15 @@ The user can enter an email recipient into the text field and choose **Send Repo
 
 ![AWS Tracking Application](images/newReport.png)
 
-The application queries active items from the database and sends the data to the selected email recipient. 
+The application queries active items from the database and sends the data to the selected email recipient.
 
 ## Create an IntelliJ project named ItemTrackerKotlinRedshiftRest
 
-Perform the following steps. 
+Perform the following steps.
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 2. In the **New Project** dialog box, choose **Kotlin**.
-3. Enter the name **ItemTrackerKotlinRedshiftRest**. 
+3. Enter the name **ItemTrackerKotlinRedshiftRest**.
 4. Select **Gradle Kotlin** for the Build System.
 5. Select your JVM option and choose **Next**.
 6. Choose **Finish**.
@@ -120,76 +119,73 @@ Perform the following steps.
 At this point, you have a new project. Confirm that the **build.gradle.kts** file looks like the following.
 
 ```yaml
-  import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.0"
-    application
+kotlin("jvm") version "1.9.0"
+application
 }
 
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 }
 
 buildscript {
-    repositories {
-        maven("https://plugins.gradle.org/m2/")
-    }
-    dependencies {
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
-    }
+repositories {
+maven("https://plugins.gradle.org/m2/")
+}
+dependencies {
+classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
+}
 }
 repositories {
-    mavenCentral()
+mavenCentral()
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:redshiftdata:0.33.1-beta")
-    implementation("aws.sdk.kotlin:ses:0.33.1-beta")
-    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
-    implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
-    implementation("org.springframework.boot:spring-boot-starter-web:2.7.3")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("javax.mail:javax.mail-api:1.6.2")
-    implementation("com.sun.mail:javax.mail:1.6.2")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
+implementation("aws.sdk.kotlin:redshiftdata:0.33.1-beta")
+implementation("aws.sdk.kotlin:ses:0.33.1-beta")
+implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
+implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
+implementation("org.springframework.boot:spring-boot-starter-web:2.7.3")
+implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
+implementation("org.jetbrains.kotlin:kotlin-reflect")
+implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+implementation("javax.mail:javax.mail-api:1.6.2")
+implementation("com.sun.mail:javax.mail:1.6.2")
+testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
-    }
+kotlinOptions {
+freeCompilerArgs = listOf("-Xjsr305=strict")
+jvmTarget = "17"
+}
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform()
+useJUnitPlatform()
 }
-
-
 ```
-
 
 ## Create the Kotlin classes
 
 Create a new package in the **main/kotlin** folder named **com.aws.rest**. The following Kotlin classes go into this package.
 
-+ **App** - Used as the base class and Controller for the Spring Boot application
-+ **RedshiftService** - Uses the **RedshiftDataClient** object to perform CRUD operations on the database
-+ **SendMessage** - Uses the **SesClient** object to send email messages
-+ **WorkItem** - Represents the application model
+- **App** - Used as the base class and Controller for the Spring Boot application
+- **RedshiftService** - Uses the **RedshiftDataClient** object to perform CRUD operations on the database
+- **SendMessage** - Uses the **SesClient** object to send email messages
+- **WorkItem** - Represents the application model
 
 **Note:** The **MessageResource** class is located in the **App** file.
 
-### App class 
+### App class
 
-The following Kotlin code represents the **App** class. This is the entry point into a Spring boot application.  
+The following Kotlin code represents the **App** class. This is the entry point into a Spring boot application.
 
 ```kotlin
 package com.aws.rest
@@ -283,18 +279,17 @@ class MessageResource {
 }
 
 
-```    
+```
 
 ### RedshiftService class
+
 The following Kotlin code represents the **RedshiftService** class. You are required to specify three values (database, database user, and clusterId value) to use the **RedshiftDataClient** object (as discussed in the Create the resources section). Without all of these values, your code won't work. To use the **RedshiftDataClient**, you must create an ExecuteStatementRequest object and specify these values.
 
 Also notice the use of [SqlParameter](https://sdk.amazonaws.com/kotlin/api/latest/redshiftdata/aws.sdk.kotlin.services.redshiftdata.model/-sql-parameter/index.html) when using SQL statements. For example, in the **injestNewSubmission** method, you build a list of **SqlParameter** objects that are used to add a new record to the database.
 
 ```kotlin
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest
 
@@ -655,11 +650,12 @@ class RedshiftService {
 ```
 
 ### SendMessage class
-The **SendMessage** class uses the [SesClient](https://sdk.amazonaws.com/kotlin/api/latest/ses/aws.sdk.kotlin.services.ses/-ses-client/index.html) to send an email message. 
+
+The **SendMessage** class uses the [SesClient](https://sdk.amazonaws.com/kotlin/api/latest/ses/aws.sdk.kotlin.services.ses/-ses-client/index.html) to send an email message.
 
 Before you can send the email message, the email address that you're sending it to must be verified. For more information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Kotlin code represents the **SendMessage** class. 
+The following Kotlin code represents the **SendMessage** class.
 
 ```kotlin
 package com.example.demo
@@ -724,12 +720,11 @@ class SendMessage {
 }
 ```
 
-**Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
-
+**Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).
 
 ### WorkItem class
 
-The following Kotlin code represents the **WorkItem** class.   
+The following Kotlin code represents the **WorkItem** class.
 
 ```kotlin
    package com.example.demo
@@ -746,9 +741,9 @@ class WorkItem {
 
 ```
 
-## Run the application 
+## Run the application
 
-Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs. 
+Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs.
 
 - /api/items - A GET request that returns all data items from the **Work** table
 - /api/items?archived=true - A GET request that returns either active or archive data items from the **Work** table
@@ -756,40 +751,40 @@ Using the IntelliJ IDE, you can run your Spring REST API. The first time you run
 - /api/items - A POST request that adds a new item to the database
 - api/items:report - A POST request that creates a report of active items and emails the report
 
-**Note**: The React application created in the next section consumes all of the preceding URLs. 
+**Note**: The React application created in the next section consumes all of the preceding URLs.
 
-Confirm that the Spring REST API works by viewing the Active items. Enter the following URL into a browser. 
+Confirm that the Spring REST API works by viewing the Active items. Enter the following URL into a browser.
 
 http://localhost:8080/api/items
 
-The following illustration shows the JSON data returned from the Spring REST API. 
+The following illustration shows the JSON data returned from the Spring REST API.
 
 ![AWS Tracking Application](images/json2.png)
 
 ### Using cURL Commands
-You can also utilize cURL commands to invoke the functionality of this application. 
 
-You can retrieve items by executing the following cURL command: 
+You can also utilize cURL commands to invoke the functionality of this application.
 
- ```kotlin
- 
-    curl -X GET http://localhost:8080/api/items
+You can retrieve items by executing the following cURL command:
+
+```kotlin
+
+   curl -X GET http://localhost:8080/api/items
 ```
-
 
 Likewise, you can send a report by executing the following cURL command:
- 
- ```kotlin
- 
-    curl -X POST -H "Content-Type: application/json" -d "{\"email\":\"<email address>\"}" http://localhost:8080/api/items:report
+
+```kotlin
+
+   curl -X POST -H "Content-Type: application/json" -d "{\"email\":\"<email address>\"}" http://localhost:8080/api/items:report
 
 ```
 
-**Note**: Make sure that you specify a valid email address. 
+**Note**: Make sure that you specify a valid email address.
 
 ## Create the React front end
 
-You can create the React application that consumes the JSON data returned from the Spring REST API. To create the React application, download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. To access the GitHub location, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).  
+You can create the React application that consumes the JSON data returned from the Spring REST API. To create the React application, download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. To access the GitHub location, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).
 
 ### Update BASE_URL
 
@@ -800,6 +795,7 @@ In the **config.json** file, you must make sure that the **BASE_URL** value refe
   "BASE_URL": "http://localhost:8080/api"
 }
 ```
-  
+
 ### Next steps
+
 Congratulations, you have created a decoupled React application that consumes data from a Spring REST API. The Spring REST API uses the AWS SDK for Kotlin to invoke AWS services. As stated at the beginning of this tutorial, be sure to delete all of the resources that you create during this tutorial so that you won't continue to be charged.

@@ -1,27 +1,6 @@
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[pinpoint_list_endpoint_ids demonstrates how to produce a list of endpoint IDs that are associated with an Amazon Pinpoint project/application. This code example only works if you've already exported a list of endpoints by using the pinpoint_export_endpoints example.]
-// snippet-service:[Amazon Pinpoint]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Pinpoint]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[CreateExportJob]
-// snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2018-08-07]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[pinpoint.java.pinpoint_list_endpoint_ids.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -76,8 +55,7 @@ public class ListEndpointIds {
         String iamExportRoleArn = args[2];
 
         // Exports the endpoints to Amazon S3 and stores the keys of the new objects.
-        List<String> objectKeys =
-                ExportEndpoints.exportEndpointsToS3(s3BucketName, iamExportRoleArn, applicationId);
+        List<String> objectKeys = ExportEndpoints.exportEndpointsToS3(s3BucketName, iamExportRoleArn, applicationId);
 
         // Filters the keys to only those objects that have the endpoint definitions.
         // These objects have the .gz extension.
@@ -130,11 +108,9 @@ public class ListEndpointIds {
                 .create();
 
         // Reads each endpoint entry in the file and adds the ID to the list.
-        try (GZIPInputStream gzipInputStream =
-                     new GZIPInputStream(endpointsFile.getObjectContent());
-             BufferedReader reader =
-                     new BufferedReader(new InputStreamReader(
-                             gzipInputStream, "UTF-8"))) {
+        try (GZIPInputStream gzipInputStream = new GZIPInputStream(endpointsFile.getObjectContent());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        gzipInputStream, "UTF-8"))) {
             String endpointString;
             while ((endpointString = reader.readLine()) != null) {
                 JsonObject endpointJson = gson.fromJson(endpointString, JsonObject.class);

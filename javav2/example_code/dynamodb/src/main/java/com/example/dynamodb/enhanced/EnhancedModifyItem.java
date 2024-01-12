@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[EnhancedModifyItem.java demonstrates how to modify an item located in an Amazon DynamoDB table by using the enhanced client.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.dynamodb.enhanced;
 
 // snippet-start:[dynamodb.java2.mapping.moditem.main]
@@ -36,13 +31,13 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 public class EnhancedModifyItem {
     public static void main(String[] args) {
         String usage = """
-            Usage:
-                <key> <email>\s
+                Usage:
+                    <key> <email>\s
 
-            Where:
-                key - the name of the key in the table (id120).
-                email - the value of the modified email column.
-            """;
+                Where:
+                    key - the name of the key in the table (id120).
+                    email - the value of the modified email column.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,12 +48,12 @@ public class EnhancedModifyItem {
         String email = args[1];
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(ddb)
-            .build();
+                .dynamoDbClient(ddb)
+                .build();
 
         String updatedValue = modifyItem(enhancedClient, key, email);
         System.out.println("The updated name value is " + updatedValue);
@@ -67,10 +62,11 @@ public class EnhancedModifyItem {
 
     public static String modifyItem(DynamoDbEnhancedClient enhancedClient, String keyVal, String email) {
         try {
-            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
+            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer",
+                    TableSchema.fromBean(Customer.class));
             Key key = Key.builder()
-                .partitionValue(keyVal)
-                .build();
+                    .partitionValue(keyVal)
+                    .build();
 
             // Get the item by using the key and update the email value.
             Customer customerRec = mappedTable.getItem(r -> r.key(key));
@@ -86,5 +82,3 @@ public class EnhancedModifyItem {
     }
 }
 // snippet-end:[dynamodb.java2.mapping.moditem.main]
-
-

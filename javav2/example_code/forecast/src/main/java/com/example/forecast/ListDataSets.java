@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ListDataSets.java demonstrates how to list Amazon Forecast data sets.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Forecast]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.forecast;
 
@@ -21,7 +15,8 @@ import java.util.List;
 // snippet-end:[forecast.java2.list_datasets.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,8 +26,8 @@ public class ListDataSets {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listForecastDataSets(forecast);
         forecast.close();
@@ -41,8 +36,8 @@ public class ListDataSets {
     public static void listForecastDataSets(ForecastClient forecast) {
         try {
             ListDatasetsRequest group = ListDatasetsRequest.builder()
-                .maxResults(10)
-                .build();
+                    .maxResults(10)
+                    .build();
 
             ListDatasetsResponse response = forecast.listDatasets(group);
             List<DatasetSummary> groups = response.datasets();

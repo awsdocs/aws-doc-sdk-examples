@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import com.example.polly.DescribeVoicesSample;
 import com.example.polly.ListLexicons;
 import com.example.polly.PollyDemo;

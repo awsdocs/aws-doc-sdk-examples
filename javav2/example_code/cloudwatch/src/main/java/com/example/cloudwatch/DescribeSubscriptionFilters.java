@@ -1,12 +1,8 @@
-//snippet-sourcedescription:[DescribeSubscriptionFilters.java demonstrates how to get a list of Amazon CloudWatch subscription filters associated with a log group.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudWatch]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.cloudwatch;
+
 // snippet-start:[cloudwatch.java2.describe_subscription_filters.main]
 // snippet-start:[cloudwatch.java2.describe_subscription_filters.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
@@ -18,7 +14,8 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.SubscriptionFilter;
 // snippet-end:[cloudwatch.java2.describe_subscription_filters.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,12 +26,12 @@ public class DescribeSubscriptionFilters {
 
         final String usage = """
 
-            Usage:
-              <logGroup>
+                Usage:
+                  <logGroup>
 
-            Where:
-              logGroup - A log group name (for example, myloggroup).
-            """;
+                Where:
+                  logGroup - A log group name (for example, myloggroup).
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,8 +40,8 @@ public class DescribeSubscriptionFilters {
 
         String logGroup = args[0];
         CloudWatchLogsClient logs = CloudWatchLogsClient.builder()
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         describeFilters(logs, logGroup);
         logs.close();
@@ -55,42 +52,41 @@ public class DescribeSubscriptionFilters {
             boolean done = false;
             String newToken = null;
 
-            while(!done) {
+            while (!done) {
                 DescribeSubscriptionFiltersResponse response;
                 if (newToken == null) {
                     DescribeSubscriptionFiltersRequest request = DescribeSubscriptionFiltersRequest.builder()
-                        .logGroupName(logGroup)
-                        .limit(1).build();
+                            .logGroupName(logGroup)
+                            .limit(1).build();
 
                     response = logs.describeSubscriptionFilters(request);
                 } else {
                     DescribeSubscriptionFiltersRequest request = DescribeSubscriptionFiltersRequest.builder()
-                        .nextToken(newToken)
-                        .logGroupName(logGroup)
-                        .limit(1).build();
+                            .nextToken(newToken)
+                            .logGroupName(logGroup)
+                            .limit(1).build();
                     response = logs.describeSubscriptionFilters(request);
                 }
 
-                for(SubscriptionFilter filter : response.subscriptionFilters()) {
+                for (SubscriptionFilter filter : response.subscriptionFilters()) {
                     System.out.printf("Retrieved filter with name %s, " + "pattern %s " + "and destination arn %s",
-                        filter.filterName(),
-                        filter.filterPattern(),
-                        filter.destinationArn());
+                            filter.filterName(),
+                            filter.filterPattern(),
+                            filter.destinationArn());
                 }
 
-                if(response.nextToken() == null) {
+                if (response.nextToken() == null) {
                     done = true;
                 } else {
                     newToken = response.nextToken();
                 }
-           }
+            }
 
         } catch (CloudWatchException e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
         System.out.printf("Done");
     }
 }
 // snippet-end:[cloudwatch.java2.describe_subscription_filters.main]
-

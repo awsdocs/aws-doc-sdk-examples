@@ -1,5 +1,5 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
-// SPDX-License-Identifier:  Apache-2.0
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 using Amazon.AutoScaling;
 using Amazon.AutoScaling.Model;
@@ -770,7 +770,7 @@ public class AutoScalerWrapper
     // snippet-start:[ResilientService.dotnetv3.AutoScaling.AttachLoadBalancer]
     /// <summary>
     /// Attaches an Elastic Load Balancing (ELB) target group to this EC2 Auto Scaling group.
-    /// The 
+    /// The
     /// </summary>
     /// <param name="autoScalingGroupName">The name of the Auto Scaling group.</param>
     /// <param name="targetGroupArn">The Arn for the target group.</param>

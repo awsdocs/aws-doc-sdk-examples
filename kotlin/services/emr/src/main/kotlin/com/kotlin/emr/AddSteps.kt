@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[AddSteps.kt demonstrates how to add new steps to a running cluster.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Amazon EMR]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.emr
 

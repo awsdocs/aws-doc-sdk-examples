@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.s3;
 
 // snippet-start:[s3.java2.basicOpsWithChecksums.import]
@@ -103,20 +102,19 @@ public class BasicOpsWithChecksums {
     // snippet-start:[s3.java2.basicOpsWithChecksums.putObject]
     public void putObjectWithChecksum() {
         s3Client.putObject(b -> b
-                        .bucket(bucketName)
-                        .key(key)
-                        .checksumAlgorithm(ChecksumAlgorithm.CRC32),
-                RequestBody.fromString("This is a test")
-        );
+                .bucket(bucketName)
+                .key(key)
+                .checksumAlgorithm(ChecksumAlgorithm.CRC32),
+                RequestBody.fromString("This is a test"));
     }
     // snippet-end:[s3.java2.basicOpsWithChecksums.putObject]
 
     // snippet-start:[s3.java2.basicOpsWithChecksums.getObject]
     public GetObjectResponse getObjectWithChecksum() {
         return s3Client.getObject(b -> b
-                        .bucket(bucketName)
-                        .key(key)
-                        .checksumMode(ChecksumMode.ENABLED))
+                .bucket(bucketName)
+                .key(key)
+                .checksumMode(ChecksumMode.ENABLED))
                 .response();
     }
     // snippet-end:[s3.java2.basicOpsWithChecksums.getObject]
@@ -125,11 +123,10 @@ public class BasicOpsWithChecksums {
     public void putObjectWithPrecalculatedChecksum(String filePath) {
         String checksum = calculateChecksum(filePath, "SHA-256");
 
-
         s3Client.putObject((b -> b
-                        .bucket(bucketName)
-                        .key(key)
-                        .checksumSHA256(checksum)),
+                .bucket(bucketName)
+                .key(key)
+                .checksumSHA256(checksum)),
                 RequestBody.fromFile(Paths.get(filePath)));
     }
     // snippet-end:[s3.java2.basicOpsWithChecksums.putObjectPreCalc]
@@ -155,11 +152,10 @@ public class BasicOpsWithChecksums {
         ChecksumAlgorithm algorithm = ChecksumAlgorithm.CRC32;
 
         // Initiate the multipart upload.
-        CreateMultipartUploadResponse createMultipartUploadResponse =
-                s3Client.createMultipartUpload(b -> b
-                        .bucket(bucketName)
-                        .key(key)
-                        .checksumAlgorithm(algorithm)); // Checksum specified on initiation.
+        CreateMultipartUploadResponse createMultipartUploadResponse = s3Client.createMultipartUpload(b -> b
+                .bucket(bucketName)
+                .key(key)
+                .checksumAlgorithm(algorithm)); // Checksum specified on initiation.
         String uploadId = createMultipartUploadResponse.uploadId();
 
         // Upload the parts of the file.
@@ -179,7 +175,7 @@ public class BasicOpsWithChecksums {
                         .bucket(bucketName)
                         .key(key)
                         .uploadId(uploadId)
-                        .checksumAlgorithm(algorithm)  //Checksum specified on each part.
+                        .checksumAlgorithm(algorithm) // Checksum specified on each part.
                         .partNumber(partNumber)
                         .build();
 

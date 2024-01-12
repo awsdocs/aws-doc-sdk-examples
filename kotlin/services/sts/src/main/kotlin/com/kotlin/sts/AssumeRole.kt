@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[AssumeRole.kt demonstrates how to obtain a set of temporary security credentials by using AWS Security Token Service (AWS STS).]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[AWS Security Token Service (AWS STS)]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.sts
 

@@ -1,26 +1,21 @@
-//snippet-sourcedescription:[CreateEnvironment.java demonstrates how to create an AWS Elastic Beanstalk environment.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[AWS Elastic Beanstalk ]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.example;
 
-//snippet-start:[eb.java2.create_env.main]
-//snippet-start:[eb.java2.create_env.import]
+// snippet-start:[eb.java2.create_env.main]
+// snippet-start:[eb.java2.create_env.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.elasticbeanstalk.ElasticBeanstalkClient;
 import software.amazon.awssdk.services.elasticbeanstalk.model.ConfigurationOptionSetting;
 import software.amazon.awssdk.services.elasticbeanstalk.model.CreateEnvironmentRequest;
 import software.amazon.awssdk.services.elasticbeanstalk.model.CreateEnvironmentResponse;
 import software.amazon.awssdk.services.elasticbeanstalk.model.ElasticBeanstalkException;
-//snippet-end:[eb.java2.create_env.import]
+// snippet-end:[eb.java2.create_env.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,12 +27,12 @@ public class CreateEnvironment {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <envName>\s
+                Usage:
+                    <envName>\s
 
-            Where:
-                envName - The name of the AWS Elastic Beanstalk environment.\s
-                appName - The name of the AWS Elastic Beanstalk application.""";
+                Where:
+                    envName - The name of the AWS Elastic Beanstalk environment.\s
+                    appName - The name of the AWS Elastic Beanstalk application.""";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,8 +43,8 @@ public class CreateEnvironment {
         String appName = args[1];
         Region region = Region.US_WEST_2;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String environmentArn = createEBEnvironment(beanstalkClient, envName, appName);
         System.out.println("The ARN of the environment is " + environmentArn);
@@ -58,18 +53,18 @@ public class CreateEnvironment {
     public static String createEBEnvironment(ElasticBeanstalkClient beanstalkClient, String envName, String appName) {
         try {
             ConfigurationOptionSetting setting1 = ConfigurationOptionSetting.builder()
-                .namespace("aws:autoscaling:launchconfiguration")
-                .optionName("IamInstanceProfile")
-                .value("aws-elasticbeanstalk-ec2-role")
-                .build();
+                    .namespace("aws:autoscaling:launchconfiguration")
+                    .optionName("IamInstanceProfile")
+                    .value("aws-elasticbeanstalk-ec2-role")
+                    .build();
 
             CreateEnvironmentRequest applicationRequest = CreateEnvironmentRequest.builder()
-                .description("An AWS Elastic Beanstalk environment created using the AWS Java API")
-                .environmentName(envName)
-                .solutionStackName("64bit Amazon Linux 2 v3.2.12 running Corretto 11")
-                .applicationName(appName)
-                .optionSettings(setting1)
-                .build();
+                    .description("An AWS Elastic Beanstalk environment created using the AWS Java API")
+                    .environmentName(envName)
+                    .solutionStackName("64bit Amazon Linux 2 v3.2.12 running Corretto 11")
+                    .applicationName(appName)
+                    .optionSettings(setting1)
+                    .build();
 
             CreateEnvironmentResponse response = beanstalkClient.createEnvironment(applicationRequest);
             return response.environmentArn();
@@ -82,4 +77,4 @@ public class CreateEnvironment {
         return "";
     }
 }
-//snippet-end:[eb.java2.create_env.main]
+// snippet-end:[eb.java2.create_env.main]

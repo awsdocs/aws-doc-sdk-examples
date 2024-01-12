@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DescribeVoicesSample Produces a list of all voices available for use when requesting speech synthesis with Amazon Polly..]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Polly]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.polly;
 
@@ -21,7 +15,8 @@ import java.util.List;
 // snippet-end:[polly.java2.describe_voice.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,8 +25,8 @@ import java.util.List;
 public class DescribeVoicesSample {
     public static void main(String args[]) {
         PollyClient polly = PollyClient.builder()
-            .region(Region.US_WEST_2)
-            .build();
+                .region(Region.US_WEST_2)
+                .build();
 
         describeVoice(polly);
         polly.close();
@@ -40,8 +35,8 @@ public class DescribeVoicesSample {
     public static void describeVoice(PollyClient polly) {
         try {
             DescribeVoicesRequest voicesRequest = DescribeVoicesRequest.builder()
-                .languageCode("en-US")
-                .build();
+                    .languageCode("en-US")
+                    .build();
 
             DescribeVoicesResponse enUsVoicesResult = polly.describeVoices(voicesRequest);
             List<Voice> voices = enUsVoicesResult.voices();

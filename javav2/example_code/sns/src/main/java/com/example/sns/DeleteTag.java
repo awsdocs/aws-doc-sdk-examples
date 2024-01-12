@@ -1,24 +1,19 @@
-//snippet-sourcedescription:[DeleteTag.java demonstrates how to delete tags from an Amazon Simple Notification Service (Amazon SNS) topic.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Simple Notification Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sns;
 
-//snippet-start:[sns.java2.delete_tags.main]
-//snippet-start:[sns.java2.delete_tags.import]
+// snippet-start:[sns.java2.delete_tags.main]
+// snippet-start:[sns.java2.delete_tags.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SnsException;
 import software.amazon.awssdk.services.sns.model.UntagResourceRequest;
-//snippet-end:[sns.java2.delete_tags.import]
+// snippet-end:[sns.java2.delete_tags.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +23,12 @@ public class DeleteTag {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <topicArn> <tagKey>
+                Usage:    <topicArn> <tagKey>
 
-            Where:
-              topicArn - The ARN of the topic to which tags are added.
-              tagKey - The key of the tag to delete.
-              """;
+                Where:
+                  topicArn - The ARN of the topic to which tags are added.
+                  tagKey - The key of the tag to delete.
+                  """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -43,8 +38,8 @@ public class DeleteTag {
         String topicArn = args[0];
         String tagKey = args[1];
         SnsClient snsClient = SnsClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         removeTag(snsClient, topicArn, tagKey);
         snsClient.close();
@@ -53,9 +48,9 @@ public class DeleteTag {
     public static void removeTag(SnsClient snsClient, String topicArn, String tagKey) {
         try {
             UntagResourceRequest resourceRequest = UntagResourceRequest.builder()
-                .resourceArn(topicArn)
-                .tagKeys(tagKey)
-                .build();
+                    .resourceArn(topicArn)
+                    .tagKeys(tagKey)
+                    .build();
 
             snsClient.untagResource(resourceRequest);
             System.out.println(tagKey + " was deleted from " + topicArn);
@@ -66,4 +61,4 @@ public class DeleteTag {
         }
     }
 }
-//snippet-end:[sns.java2.delete_tags.main]
+// snippet-end:[sns.java2.delete_tags.main]

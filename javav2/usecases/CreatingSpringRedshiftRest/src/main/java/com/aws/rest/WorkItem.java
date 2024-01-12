@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -16,12 +14,12 @@ public class WorkItem {
     private String date;
     private String description;
     private String status;
-    private boolean archived ;
+    private boolean archived;
 
     public static WorkItem from(List<Field> fields) {
         var item = new WorkItem();
         for (int i = 0; i <= 6; i++) {
-            String value="";
+            String value = "";
             boolean val = false;
             value = fields.get(i).stringValue();
             if (i == 6)
@@ -85,7 +83,6 @@ public class WorkItem {
     public String getDescription() {
         return this.description;
     }
-
 
     public void setDate(String date) {
         this.date = date;

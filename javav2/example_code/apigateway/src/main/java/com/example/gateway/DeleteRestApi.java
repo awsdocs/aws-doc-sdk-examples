@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteRestApi.java demonstrates how to delete an existing RestApi resource.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon API Gateway]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.gateway;
 
@@ -16,9 +10,9 @@ import software.amazon.awssdk.services.apigateway.model.ApiGatewayException;
 import software.amazon.awssdk.services.apigateway.model.DeleteRestApiRequest;
 // snippet-end:[apigateway.java2.delete_api.import]
 
-
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -33,7 +27,7 @@ public class DeleteRestApi {
                 "Usage:\n" +
                 "    DeleteRestApi <restApiId> \n\n" +
                 "Where:\n" +
-                "    restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).\n" ;
+                "    restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -51,12 +45,12 @@ public class DeleteRestApi {
     }
 
     // snippet-start:[apigateway.java2.delete_api.main]
-    public static void deleteAPI( ApiGatewayClient apiGateway, String restApiId) {
+    public static void deleteAPI(ApiGatewayClient apiGateway, String restApiId) {
 
         try {
             DeleteRestApiRequest request = DeleteRestApiRequest.builder()
-                .restApiId(restApiId)
-                .build();
+                    .restApiId(restApiId)
+                    .build();
 
             apiGateway.deleteRestApi(request);
             System.out.println("The API was successfully deleted");
@@ -68,4 +62,3 @@ public class DeleteRestApi {
     }
     // snippet-end:[apigateway.java2.delete_api.main]
 }
-

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -16,14 +14,14 @@ import com.example.search.*;
 public class OpenSearchTest {
 
     private static OpenSearchClient searchClient;
-    private static String domainName="";
+    private static String domainName = "";
 
     @BeforeAll
     public static void setUp() throws IOException {
         searchClient = OpenSearchClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         try (InputStream input = OpenSearchTest.class.getClassLoader().getResourceAsStream("config.properties")) {
             Properties prop = new Properties();
@@ -34,7 +32,7 @@ public class OpenSearchTest {
 
             // Populate the data members required for all tests
             prop.load(input);
-            domainName ="testdomain";
+            domainName = "testdomain";
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -45,10 +43,9 @@ public class OpenSearchTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void createDomainTest() {
-        CreateDomain. createNewDomain(searchClient, domainName);
+        CreateDomain.createNewDomain(searchClient, domainName);
         System.out.println("Test 1 passed");
     }
-
 
     @Test
     @Tag("IntegrationTest")

@@ -1,25 +1,20 @@
-//snippet-sourcedescription:[GetSegmentById.java demonstrates how to get a segment using its id value.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Pinpoint]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.segment_id.main]
-//snippet-start:[pinpoint.java2.segment_id.import]
+// snippet-start:[pinpoint.java2.segment_id.main]
+// snippet-start:[pinpoint.java2.segment_id.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.GetSegmentRequest;
 import software.amazon.awssdk.services.pinpoint.model.GetSegmentResponse;
 import software.amazon.awssdk.services.pinpoint.model.PinpointException;
-//snippet-end:[pinpoint.java2.segment_id.import]
+// snippet-end:[pinpoint.java2.segment_id.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,14 +25,14 @@ public class GetSegmentById {
 
         final String usage = """
 
-             Usage:   <appId> <segmentId>
+                 Usage:   <appId> <segmentId>
 
-             Where:
-               appId - The id of the application.
+                 Where:
+                   appId - The id of the application.
 
-               segmentId - The id of the segment.
+                   segmentId - The id of the segment.
 
-            """;
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,8 +42,8 @@ public class GetSegmentById {
         String appId = args[0];
         String segmentId = args[1];
         PinpointClient pinpoint = PinpointClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         System.out.println("Name of the segment is " + getSegmentById(pinpoint, appId, segmentId));
         pinpoint.close();
@@ -57,9 +52,9 @@ public class GetSegmentById {
     private static String getSegmentById(PinpointClient client, String applicationId, String segmentId) {
         try {
             GetSegmentRequest request = GetSegmentRequest.builder()
-                .applicationId(applicationId)
-                .segmentId(segmentId)
-                .build();
+                    .applicationId(applicationId)
+                    .segmentId(segmentId)
+                    .build();
 
             GetSegmentResponse segmentResponse = client.getSegment(request);
             return segmentResponse.segmentResponse().name();
@@ -71,4 +66,4 @@ public class GetSegmentById {
         return null;
     }
 }
-//snippet-end:[pinpoint.java2.segment_id.main]
+// snippet-end:[pinpoint.java2.segment_id.main]

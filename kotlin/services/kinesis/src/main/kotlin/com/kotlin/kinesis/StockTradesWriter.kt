@@ -1,13 +1,5 @@
-// snippet-sourcedescription:[StockTradesWriter.kt demonstrates how to write multiple data records into an Amazon Kinesis data stream.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Kinesis]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/27/2022]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.kinesis
 

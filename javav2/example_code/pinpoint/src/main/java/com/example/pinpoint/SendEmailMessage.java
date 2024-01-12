@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[SendEmailMessage.java demonstrates how to send an email message.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Pinpoint]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.send_email.main]
-//snippet-start:[pinpoint.java2.send_email.import]
+// snippet-start:[pinpoint.java2.send_email.main]
+// snippet-start:[pinpoint.java2.send_email.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.AddressConfiguration;
@@ -32,10 +26,11 @@ import software.amazon.awssdk.services.pinpointemail.model.SendEmailRequest;
 
 import java.util.HashMap;
 import java.util.Map;
-//snippet-end:[pinpoint.java2.send_email.import]
+// snippet-end:[pinpoint.java2.send_email.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -43,9 +38,9 @@ import java.util.Map;
  */
 public class SendEmailMessage {
 
-    // The character encoding the you want to use for the subject line and
-    // message body of the email.
-    public static String charset = "UTF-8";
+        // The character encoding the you want to use for the subject line and
+        // message body of the email.
+        public static String charset = "UTF-8";
 
     // The body of the email for recipients whose email clients support HTML content.
     static final String body = """
@@ -55,10 +50,10 @@ public class SendEmailMessage {
                 
         """;
 
-    public static void main(String[] args) {
-        final String usage = """
+        public static void main(String[] args) {
+                final String usage = """
 
-            Usage:    <subject> <appId> <senderAddress> <toAddress>
+                                Usage:    <subject> <appId> <senderAddress> <toAddress>
 
             Where:
                subject - The email subject to use.
@@ -122,4 +117,4 @@ public class SendEmailMessage {
         }
     }
 }
-//snippet-end:[pinpoint.java2.send_email.main]
+// snippet-end:[pinpoint.java2.send_email.main]

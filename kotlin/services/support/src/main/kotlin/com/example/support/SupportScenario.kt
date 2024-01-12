@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[SupportScenario.kt demonstrates how to perform AWS Support operations using the AWS SDK for Java v2.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS Support]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.support
 

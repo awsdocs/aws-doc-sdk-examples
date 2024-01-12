@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /*Example showing processing a document on local machine.*/ 
 
 const aws = require('aws-sdk');

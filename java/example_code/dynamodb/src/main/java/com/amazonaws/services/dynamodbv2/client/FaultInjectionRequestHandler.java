@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.FaultInjectionRequestHandler] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.FaultInjectionRequestHandler] 
 
 package com.amazonaws.services.dynamodbv2.client;
 
@@ -78,8 +57,7 @@ public class FaultInjectionRequestHandler extends RequestHandler2 {
 
                     logger.info("Injecting 500 ms delay");
                     Thread.sleep(500);
-                }
-                catch (InterruptedException ie) {
+                } catch (InterruptedException ie) {
                     logger.info(ie);
                     throw new RuntimeException(ie);
                 }
@@ -114,8 +92,7 @@ public class FaultInjectionRequestHandler extends RequestHandler2 {
                 // Add some delay
                 try {
                     Thread.sleep(500);
-                }
-                catch (InterruptedException ie) {
+                } catch (InterruptedException ie) {
                     logger.info(ie);
                     throw new RuntimeException(ie);
                 }
@@ -129,4 +106,4 @@ public class FaultInjectionRequestHandler extends RequestHandler2 {
     }
 }
 
-// snippet-end:[dynamodb.java.codeexample.FaultInjectionRequestHandler] 
+// snippet-end:[dynamodb.java.codeexample.FaultInjectionRequestHandler]

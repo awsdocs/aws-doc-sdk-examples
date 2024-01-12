@@ -1,7 +1,6 @@
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -13,12 +12,12 @@ SPDX-License-Identifier: Apache-2.0
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  **/
-//snippet-start:[ec2.cpp.delete_key_pair.inc]
+// snippet-start:[ec2.cpp.delete_key_pair.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DeleteKeyPairRequest.h>
 #include <iostream>
-//snippet-end:[ec2.cpp.delete_key_pair.inc]
+// snippet-end:[ec2.cpp.delete_key_pair.inc]
 #include "ec2_samples.h"
 
 

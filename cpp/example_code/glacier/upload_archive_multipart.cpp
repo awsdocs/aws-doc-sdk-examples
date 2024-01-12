@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[upload_archive_multipart.cpp demonstrates how to perform a multipart upload to Amazon S3 Glacier.]
-//snippet-service:[glacier]
-//snippet-keyword:[Amazon S3 Glacier]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[snippet]
-//snippet-sourcedate:[2019-04-26]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /*
    Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.

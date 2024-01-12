@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteDeployment.java demonstrates how to delete a deployment.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon API Gateway]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.gateway;
 
@@ -17,7 +11,8 @@ import software.amazon.awssdk.services.apigateway.model.DeleteDeploymentRequest;
 // snippet-end:[apigateway.java2.delete_deployment.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -33,7 +28,7 @@ public class DeleteDeployment {
                 "    DeleteDeployment <restApiId> <deploymentId>\n\n" +
                 "Where:\n" +
                 "    restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).\n" +
-                "    deploymentId - The string identifier of an existing deployment. \n" ;
+                "    deploymentId - The string identifier of an existing deployment. \n";
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -41,7 +36,7 @@ public class DeleteDeployment {
         }
 
         String restApiId = args[0];
-        String deploymentId =  args[1];
+        String deploymentId = args[1];
         Region region = Region.US_EAST_1;
         ApiGatewayClient apiGateway = ApiGatewayClient.builder()
                 .region(region)
@@ -49,19 +44,19 @@ public class DeleteDeployment {
 
         deleteSpecificDeployment(apiGateway, restApiId, deploymentId);
         apiGateway.close();
-     }
+    }
 
     // snippet-start:[apigateway.java2.delete_deployment.main]
     public static void deleteSpecificDeployment(ApiGatewayClient apiGateway, String restApiId, String deploymentId) {
 
         try {
             DeleteDeploymentRequest request = DeleteDeploymentRequest.builder()
-                .restApiId(restApiId)
-                .deploymentId(deploymentId)
-                .build();
+                    .restApiId(restApiId)
+                    .deploymentId(deploymentId)
+                    .build();
 
             apiGateway.deleteDeployment(request);
-            System.out.println("Deployment was deleted" );
+            System.out.println("Deployment was deleted");
 
         } catch (ApiGatewayException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

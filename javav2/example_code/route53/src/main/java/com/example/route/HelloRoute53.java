@@ -1,14 +1,9 @@
-// snippet-sourcedescription:[HelloRoute53.java demonstrates how to get started using the Route53DomainsClient.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Route 53]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.route;
 
-//snippet-start:[route.java2.hello.main]
+// snippet-start:[route.java2.hello.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53domains.Route53DomainsClient;
 import software.amazon.awssdk.services.route53.model.Route53Exception;
@@ -18,7 +13,8 @@ import software.amazon.awssdk.services.route53domains.model.ListPricesResponse;
 import java.util.List;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -26,17 +22,19 @@ import java.util.List;
  *
  * This Java code examples performs the following operation:
  *
- * 1. Invokes ListPrices for at least one domain type, such as the “com” type and displays the prices for Registration and Renewal.
+ * 1. Invokes ListPrices for at least one domain type, such as the “com” type
+ * and displays the prices for Registration and Renewal.
  *
  */
 public class HelloRoute53 {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
+
     public static void main(String[] args) {
         final String usage = "\n" +
-            "Usage:\n" +
-            "    <hostedZoneId> \n\n" +
-            "Where:\n" +
-            "    hostedZoneId - The id value of an existing hosted zone. \n";
+                "Usage:\n" +
+                "    <hostedZoneId> \n\n" +
+                "Where:\n" +
+                "    hostedZoneId - The id value of an existing hosted zone. \n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,8 +44,8 @@ public class HelloRoute53 {
         String domainType = args[0];
         Region region = Region.US_EAST_1;
         Route53DomainsClient route53DomainsClient = Route53DomainsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         System.out.println(DASHES);
         System.out.println("Invokes ListPrices for at least one domain type.");
@@ -58,20 +56,23 @@ public class HelloRoute53 {
     public static void listPrices(Route53DomainsClient route53DomainsClient, String domainType) {
         try {
             ListPricesRequest pricesRequest = ListPricesRequest.builder()
-                .maxItems(10)
-                .tld(domainType)
-                .build();
+                    .maxItems(10)
+                    .tld(domainType)
+                    .build();
 
             ListPricesResponse response = route53DomainsClient.listPrices(pricesRequest);
             List<DomainPrice> prices = response.prices();
-            for (DomainPrice pr: prices) {
-                System.out.println("Name: "+pr.name());
-                System.out.println("Registration: "+pr.registrationPrice().price() + " " +pr.registrationPrice().currency());
-                System.out.println("Renewal: "+pr.renewalPrice().price() + " " +pr.renewalPrice().currency());
-                System.out.println("Transfer: "+pr.transferPrice().price() + " " +pr.transferPrice().currency());
-                System.out.println("Transfer: "+pr.transferPrice().price() + " " +pr.transferPrice().currency());
-                System.out.println("Change Ownership: "+pr.changeOwnershipPrice().price() + " " +pr.changeOwnershipPrice().currency());
-                System.out.println("Restoration: "+pr.restorationPrice().price() + " " +pr.restorationPrice().currency());
+            for (DomainPrice pr : prices) {
+                System.out.println("Name: " + pr.name());
+                System.out.println(
+                        "Registration: " + pr.registrationPrice().price() + " " + pr.registrationPrice().currency());
+                System.out.println("Renewal: " + pr.renewalPrice().price() + " " + pr.renewalPrice().currency());
+                System.out.println("Transfer: " + pr.transferPrice().price() + " " + pr.transferPrice().currency());
+                System.out.println("Transfer: " + pr.transferPrice().price() + " " + pr.transferPrice().currency());
+                System.out.println("Change Ownership: " + pr.changeOwnershipPrice().price() + " "
+                        + pr.changeOwnershipPrice().currency());
+                System.out.println(
+                        "Restoration: " + pr.restorationPrice().price() + " " + pr.restorationPrice().currency());
                 System.out.println(" ");
             }
 
@@ -81,4 +82,4 @@ public class HelloRoute53 {
         }
     }
 }
-//snippet-end:[route.java2.hello.main]
+// snippet-end:[route.java2.hello.main]

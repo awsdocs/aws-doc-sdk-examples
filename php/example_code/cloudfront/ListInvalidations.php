@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudfront.php.listinvalidation.complete]
 // snippet-start:[cloudfront.php.listinvalidation.import]
@@ -77,14 +76,4 @@ function listTheInvalidations()
 // listTheInvalidations();
 // snippet-end:[cloudfront.php.listinvalidation.main]
 // snippet-end:[cloudfront.php.listinvalidation.complete]
-// snippet-sourcedescription:[ListInvalidations.php demonstrates how to list invalidation batches in an Amazon CloudFront distribution.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[listInvalidations]
-// snippet-keyword:[Amazon CloudFront]
-// snippet-service:[cloudfront]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-04-27]
 // snippet-sourceauthor:[pccornel (AWS)]

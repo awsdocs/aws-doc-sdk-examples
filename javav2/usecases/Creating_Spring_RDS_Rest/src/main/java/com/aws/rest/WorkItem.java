@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -56,7 +54,7 @@ public class WorkItem {
     }
 
     public void setArchived(boolean archived) {
-        this.archived =archived;
+        this.archived = archived;
     }
 
     public boolean getArchived() {
@@ -86,7 +84,6 @@ public class WorkItem {
     public String getDescription() {
         return this.description;
     }
-
 
     public void setDate(String date) {
         this.date = date;

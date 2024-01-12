@@ -1,11 +1,10 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 // Swift Example: ListRolePolicies
 //
 // An example showing how to use the Amazon Identity and Access Management (IAM)
 // `IAMClient` function `listRolePolicies()`.
-//
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0.
 
 // snippet-start:[iam.swift.listrolepolicies.example]
 // snippet-start:[iam.swift.listrolepolicies.main.imports]

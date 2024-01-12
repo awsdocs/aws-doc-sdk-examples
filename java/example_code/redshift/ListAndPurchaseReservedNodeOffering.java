@@ -1,29 +1,6 @@
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[ListAndPurchaseReservedNodeOffering demonstrates how to list and purchase Amazon Redshift reserved node offerings.]
-// snippet-service:[redshift]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Redshift]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[DescribeReservedNodeOfferings]
-// snippet-keyword:[PurchaseReservedNodeOffering]
-// snippet-keyword:[ReservedNode]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-31]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.ListAndPurchaseReservedNodeOffering.complete]
 
 package com.amazonaws.services.redshift;
@@ -45,14 +22,14 @@ public class ListAndPurchaseReservedNodeOffering {
 
     public static void main(String[] args) throws IOException {
 
-        // Default client using the {@link com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
-       client = AmazonRedshiftClientBuilder.defaultClient();
-
+        // Default client using the {@link
+        // com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
+        client = AmazonRedshiftClientBuilder.defaultClient();
 
         try {
-             listReservedNodes();
-             findReservedNodeOffer();
-             purchaseReservedNodeOffer();
+            listReservedNodes();
+            findReservedNodeOffer();
+            purchaseReservedNodeOffer();
 
         } catch (Exception e) {
             System.err.println("Operation failed: " + e.getMessage());
@@ -67,21 +44,19 @@ public class ListAndPurchaseReservedNodeOffering {
         }
     }
 
-    private static void findReservedNodeOffer()
-    {
+    private static void findReservedNodeOffer() {
         DescribeReservedNodeOfferingsRequest request = new DescribeReservedNodeOfferingsRequest();
         DescribeReservedNodeOfferingsResult result = client.describeReservedNodeOfferings(request);
         Integer count = 0;
 
         System.out.println("\nFinding nodes to purchase.");
-        for (ReservedNodeOffering offering : result.getReservedNodeOfferings())
-        {
-            if (offering.getNodeType().equals(nodeTypeToPurchase)){
+        for (ReservedNodeOffering offering : result.getReservedNodeOfferings()) {
+            if (offering.getNodeType().equals(nodeTypeToPurchase)) {
 
                 if (offering.getFixedPrice() < fixedPriceLimit) {
                     matchingNodes.add(offering);
                     printOfferingDetails(offering);
-                    count +=1;
+                    count += 1;
                 }
             }
         }
@@ -104,21 +79,17 @@ public class ListAndPurchaseReservedNodeOffering {
                 System.out.println("Purchase this offering [Y or N]?");
                 DataInput in = new DataInputStream(System.in);
                 String purchaseOpt = in.readLine();
-                if (purchaseOpt.equalsIgnoreCase("y")){
+                if (purchaseOpt.equalsIgnoreCase("y")) {
 
                     try {
                         PurchaseReservedNodeOfferingRequest request = new PurchaseReservedNodeOfferingRequest()
-                            .withReservedNodeOfferingId(offering.getReservedNodeOfferingId());
+                                .withReservedNodeOfferingId(offering.getReservedNodeOfferingId());
                         ReservedNode reservedNode = client.purchaseReservedNodeOffering(request);
                         printReservedNodeDetails(reservedNode);
-                    }
-                    catch (ReservedNodeAlreadyExistsException ex1){
-                    }
-                    catch (ReservedNodeOfferingNotFoundException ex2){
-                    }
-                    catch (ReservedNodeQuotaExceededException ex3){
-                    }
-                    catch (Exception ex4){
+                    } catch (ReservedNodeAlreadyExistsException ex1) {
+                    } catch (ReservedNodeOfferingNotFoundException ex2) {
+                    } catch (ReservedNodeQuotaExceededException ex3) {
+                    } catch (Exception ex4) {
                     }
                 }
             }

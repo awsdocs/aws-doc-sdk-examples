@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 //! Provides scoped HTTP endpoints for a REST WorkItem collection.
 //! This includes the common REST HTTP endpoints and also RPC-like endpoints.

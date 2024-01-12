@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DescribeClusters.kt demonstrates how to describe Amazon Redshift clusters.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Redshift]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.redshift
 
 // snippet-start:[redshift.kotlin.describe_cluster.import]

@@ -1,29 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.trydax.TryDaxHelper] 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
-import java.util.Arrays;
+// snippet-start:[dynamodb.java.trydax.TryDaxHelper] import java.util.Arrays;
 
 import com.amazon.dax.client.dynamodbv2.AmazonDaxClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
@@ -38,7 +16,7 @@ import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 import com.amazonaws.util.EC2MetadataUtils;
 
- public class TryDaxHelper {
+public class TryDaxHelper {
 
     private static final String region = EC2MetadataUtils.getEC2InstanceRegion();
 
@@ -48,7 +26,7 @@ import com.amazonaws.util.EC2MetadataUtils;
                 .withRegion(region)
                 .build();
         return new DynamoDB(client);
-     }
+    }
 
     DynamoDB getDaxClient(String daxEndpoint) {
         System.out.println("Creating a DAX client with cluster endpoint " + daxEndpoint);
@@ -56,16 +34,16 @@ import com.amazonaws.util.EC2MetadataUtils;
         daxClientBuilder.withRegion(region).withEndpointConfiguration(daxEndpoint);
         AmazonDynamoDB client = daxClientBuilder.build();
         return new DynamoDB(client);
-     }
+    }
 
-     void createTable(String tableName, DynamoDB client) {
+    void createTable(String tableName, DynamoDB client) {
         Table table = client.getTable(tableName);
         try {
             System.out.println("Attempting to create table; please wait...");
 
             table = client.createTable(tableName,
                     Arrays.asList(
-                            new KeySchemaElement("pk", KeyType.HASH),   // Partition key
+                            new KeySchemaElement("pk", KeyType.HASH), // Partition key
                             new KeySchemaElement("sk", KeyType.RANGE)), // Sort key
                     Arrays.asList(
                             new AttributeDefinition("pk", ScalarAttributeType.N),
@@ -96,9 +74,9 @@ import com.amazonaws.util.EC2MetadataUtils;
             for (Integer ipk = 1; ipk <= pkmax; ipk++) {
                 System.out.println(("Writing " + skmax + " items for partition key: " + ipk));
                 for (Integer isk = 1; isk <= skmax; isk++) {
-                     table.putItem(new Item()
-                             .withPrimaryKey("pk", ipk, "sk", isk)
-                             .withString("someData", someData));
+                    table.putItem(new Item()
+                            .withPrimaryKey("pk", ipk, "sk", isk)
+                            .withString("someData", someData));
                 }
             }
         } catch (Exception e) {
@@ -123,4 +101,4 @@ import com.amazonaws.util.EC2MetadataUtils;
 
 }
 
-// snippet-end:[dynamodb.java.trydax.TryDaxHelper] 
+// snippet-end:[dynamodb.java.trydax.TryDaxHelper]

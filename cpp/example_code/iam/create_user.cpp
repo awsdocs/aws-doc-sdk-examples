@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -18,17 +16,17 @@
  *
  */
 
-//snippet-start:[iam.cpp.create_user.inc]
+// snippet-start:[iam.cpp.create_user.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateUserRequest.h>
-//snippet-start:[iam.cpp.get_user.inc]
+// snippet-start:[iam.cpp.get_user.inc]
 #include <aws/iam/model/GetUserRequest.h>
 #include <aws/iam/model/GetUserResult.h>
-//snippet-end:[iam.cpp.get_user.inc]
+// snippet-end:[iam.cpp.get_user.inc]
 #include <iostream>
 #include "iam_samples.h"
-//snippet-end:[iam.cpp.create_user.inc]
+// snippet-end:[iam.cpp.create_user.inc]
 
 //! Creates an IAM user.
 /*!

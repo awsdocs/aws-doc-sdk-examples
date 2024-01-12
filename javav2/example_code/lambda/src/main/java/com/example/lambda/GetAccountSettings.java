@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[GetAccountSettings.java demonstrates how to obtain information about your account.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[AWS Lambda]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.lambda;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.lambda.model.LambdaException;
 // snippet-end:[lambda.java2.account.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,8 +23,8 @@ public class GetAccountSettings {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         LambdaClient awsLambda = LambdaClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getSettings(awsLambda);
         awsLambda.close();
@@ -38,7 +33,8 @@ public class GetAccountSettings {
     public static void getSettings(LambdaClient awsLambda) {
         try {
             GetAccountSettingsResponse response = awsLambda.getAccountSettings();
-            System.out.println("Total code size for your account is " + response.accountLimit().totalCodeSize() + " bytes");
+            System.out.println(
+                    "Total code size for your account is " + response.accountLimit().totalCodeSize() + " bytes");
 
         } catch (LambdaException e) {
             System.err.println(e.getMessage());

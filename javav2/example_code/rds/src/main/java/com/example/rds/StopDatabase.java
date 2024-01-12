@@ -1,7 +1,5 @@
-//snippet-sourcedescription:[StopDatabase.java demonstrates how to stop an Amazon Relational Database Service (RDS) instance.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Relational Database Service]
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.example.rds;
 
 // snippet-start:[rds.java2.stop_instance.main]
@@ -13,7 +11,8 @@ import software.amazon.awssdk.services.rds.model.StopDbInstanceRequest;
 // snippet-end:[rds.java2.stop_instance.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -23,12 +22,12 @@ public class StopDatabase {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <dbInstanceIdentifier>\s
+                Usage:
+                    <dbInstanceIdentifier>\s
 
-            Where:
-                dbInstanceIdentifier - The database instance identifier\s
-            """;
+                Where:
+                    dbInstanceIdentifier - The database instance identifier\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -38,8 +37,8 @@ public class StopDatabase {
         String dbInstanceIdentifier = args[0];
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         stopInstance(rdsClient, dbInstanceIdentifier);
         rdsClient.close();
@@ -48,8 +47,8 @@ public class StopDatabase {
     public static void stopInstance(RdsClient rdsClient, String dbInstanceIdentifier) {
         try {
             StopDbInstanceRequest stopDbInstanceRequest = StopDbInstanceRequest.builder()
-                .dbInstanceIdentifier(dbInstanceIdentifier)
-                .build();
+                    .dbInstanceIdentifier(dbInstanceIdentifier)
+                    .build();
 
             rdsClient.stopDBInstance(stopDbInstanceRequest);
             System.out.print("The database was stopped!");
@@ -61,4 +60,3 @@ public class StopDatabase {
     }
 }
 // snippet-end:[rds.java2.stop_instance.main]
-

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example;
 
@@ -29,8 +27,7 @@ public class VideoStreamController {
 
     @Autowired
     VideoStreamController(
-        VideoStreamService vid
-    ) {
+            VideoStreamService vid) {
         this.vid = vid;
     }
 
@@ -57,7 +54,7 @@ public class VideoStreamController {
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam String description) {
         try {
             byte[] bytes = file.getBytes();
-            String name = file.getOriginalFilename() ;
+            String name = file.getOriginalFilename();
 
             // Put the MP4 file into an Amazon S3 bucket.
             vid.putVideo(bytes, bucket, name, description);

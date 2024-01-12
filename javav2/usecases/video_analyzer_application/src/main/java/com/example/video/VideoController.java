@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.video;
 
@@ -24,7 +22,7 @@ public class VideoController {
     S3Service s3Client;
 
     @Autowired
-    WriteExcel excel ;
+    WriteExcel excel;
 
     @Autowired
     SendMessages sendMessage;
@@ -63,11 +61,11 @@ public class VideoController {
 
         try {
             byte[] bytes = file.getBytes();
-            String name =  file.getOriginalFilename() ;
+            String name = file.getOriginalFilename();
 
             // Put the MP4 file into an Amazon S3 bucket
-             s3Client.putObject(bytes, bucketName, name);
-                      
+            s3Client.putObject(bytes, bucketName, name);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,13 +85,13 @@ public class VideoController {
         InputStream excelData = excel.exportExcel(items);
 
         try {
-            //email the report
+            // email the report
             sendMessage.sendReport(excelData, email);
 
         } catch (Exception e) {
 
             e.printStackTrace();
         }
-        return "The "+ myKey +" video has been successfully analyzed and the report is sent to "+email;
+        return "The " + myKey + " video has been successfully analyzed and the report is sent to " + email;
     }
 }

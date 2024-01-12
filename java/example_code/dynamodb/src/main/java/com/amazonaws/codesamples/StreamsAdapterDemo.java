@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.StreamsAdapterDemo] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.StreamsAdapterDemo] 
 
 package com.amazonaws.codesamples;
 
@@ -68,14 +47,14 @@ public class StreamsAdapterDemo {
         System.out.println("Starting demo...");
 
         dynamoDBClient = AmazonDynamoDBClientBuilder.standard()
-                                                    .withRegion(awsRegion)
-                                                    .build();
+                .withRegion(awsRegion)
+                .build();
         cloudWatchClient = AmazonCloudWatchClientBuilder.standard()
-                                                        .withRegion(awsRegion)
-                                                        .build();
+                .withRegion(awsRegion)
+                .build();
         dynamoDBStreamsClient = AmazonDynamoDBStreamsClientBuilder.standard()
-                                                                  .withRegion(awsRegion)
-                                                                  .build();
+                .withRegion(awsRegion)
+                .build();
         adapterClient = new AmazonDynamoDBStreamsAdapterClient(dynamoDBStreamsClient);
         String srcTable = tablePrefix + "-src";
         String destTable = tablePrefix + "-dest";
@@ -84,15 +63,16 @@ public class StreamsAdapterDemo {
         setUpTables();
 
         workerConfig = new KinesisClientLibConfiguration("streams-adapter-demo",
-                                                         streamArn,
-                                                         awsCredentialsProvider,
-                                                         "streams-demo-worker")
+                streamArn,
+                awsCredentialsProvider,
+                "streams-demo-worker")
                 .withMaxRecords(1000)
                 .withIdleTimeBetweenReadsInMillis(500)
                 .withInitialPositionInStream(InitialPositionInStream.TRIM_HORIZON);
 
         System.out.println("Creating worker for stream: " + streamArn);
-        worker = StreamsWorkerFactory.createDynamoDbStreamsWorker(recordProcessorFactory, workerConfig, adapterClient, dynamoDBClient, cloudWatchClient);
+        worker = StreamsWorkerFactory.createDynamoDbStreamsWorker(recordProcessorFactory, workerConfig, adapterClient,
+                dynamoDBClient, cloudWatchClient);
         System.out.println("Starting worker...");
         Thread t = new Thread(worker);
         t.start();
@@ -102,10 +82,9 @@ public class StreamsAdapterDemo {
         t.join();
 
         if (StreamsAdapterDemoHelper.scanTable(dynamoDBClient, srcTable).getItems()
-                                    .equals(StreamsAdapterDemoHelper.scanTable(dynamoDBClient, destTable).getItems())) {
+                .equals(StreamsAdapterDemoHelper.scanTable(dynamoDBClient, destTable).getItems())) {
             System.out.println("Scan result is equal.");
-        }
-        else {
+        } else {
             System.out.println("Tables are different!");
         }
 
@@ -133,13 +112,11 @@ public class StreamsAdapterDemo {
             if (created) {
                 System.out.println("Table is active.");
                 return;
-            }
-            else {
+            } else {
                 retries++;
                 try {
                     Thread.sleep(1000);
-                }
-                catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     // do nothing
                 }
             }
@@ -166,5 +143,4 @@ public class StreamsAdapterDemo {
     }
 }
 
-
-// snippet-end:[dynamodb.java.codeexample.StreamsAdapterDemo] 
+// snippet-end:[dynamodb.java.codeexample.StreamsAdapterDemo]

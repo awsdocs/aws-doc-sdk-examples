@@ -1,7 +1,5 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { it, describe, expect } from "vitest";
 
 import { handler } from "../scenarios/lambda-triggers/functions/token-generation-pre-modify-group.mjs";

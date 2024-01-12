@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.fsa.handlers;
 
@@ -16,11 +14,10 @@ public class AnalyzeSentimentHandler implements RequestHandler<Map<String, Objec
     @Override
     public JSONObject handleRequest(Map<String, Object> requestObject, Context context) {
         String sourceText = (String) requestObject.get("source_text");
-        context.getLogger().log("Extracted text: " +sourceText);
+        context.getLogger().log("Extracted text: " + sourceText);
         DetectSentimentService detectSentimentService = new DetectSentimentService();
         JSONObject jsonOb = detectSentimentService.detectSentiments(sourceText);
         context.getLogger().log("JSON: " + jsonOb.toJSONString());
         return jsonOb;
     }
 }
-

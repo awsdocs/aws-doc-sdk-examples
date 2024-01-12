@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListMigrationTasks.java demonstrates how to list migration tasks.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS Migration Hub]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.migrationhub;
 
@@ -21,7 +15,8 @@ import java.util.List;
 // snippet-end:[migration.java2.list_migration_tasks.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,8 +26,8 @@ public class ListMigrationTasks {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listMigrTasks(migrationClient);
         migrationClient.close();
@@ -41,8 +36,8 @@ public class ListMigrationTasks {
     public static void listMigrTasks(MigrationHubClient migrationClient) {
         try {
             ListMigrationTasksRequest listMigrationTasksRequest = ListMigrationTasksRequest.builder()
-                .maxResults(10)
-                .build();
+                    .maxResults(10)
+                    .build();
 
             ListMigrationTasksResponse response = migrationClient.listMigrationTasks(listMigrationTasksRequest);
             List<MigrationTaskSummary> migrationList = response.migrationTaskSummaryList();

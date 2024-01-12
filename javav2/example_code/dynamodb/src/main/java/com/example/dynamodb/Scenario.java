@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[Scenario.java demonstrates how to perform various Amazon DynamoDB operations.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.dynamodb;
 
@@ -50,16 +45,18 @@ import java.util.Set;
 
 // snippet-start:[dynamodb.java2.scenario.main]
 /**
- *  Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
- *  For more information, see the following documentation topic:
+ * For more information, see the following documentation topic:
  *
- *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- *  This Java example performs these tasks:
+ * This Java example performs these tasks:
  *
  * 1. Creates the Amazon DynamoDB Movie table with partition and sort key.
- * 2. Puts data into the Amazon DynamoDB table from a JSON document using the Enhanced client.
+ * 2. Puts data into the Amazon DynamoDB table from a JSON document using the
+ * Enhanced client.
  * 3. Gets data from the Movie table.
  * 4. Adds a new item.
  * 5. Updates an item.
@@ -70,15 +67,16 @@ import java.util.Set;
 
 public class Scenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
+
     public static void main(String[] args) throws IOException {
         final String usage = """
 
-            Usage:
-                <fileName>
+                Usage:
+                    <fileName>
 
-            Where:
-                fileName - The path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.
-            """;
+                Where:
+                    fileName - The path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -89,15 +87,16 @@ public class Scenario {
         String fileName = args[0];
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         System.out.println(DASHES);
         System.out.println("Welcome to the Amazon DynamoDB example scenario.");
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("1. Creating an Amazon DynamoDB table named Movies with a key named year and a sort key named title.");
+        System.out.println(
+                "1. Creating an Amazon DynamoDB table named Movies with a key named year and a sort key named title.");
         createTable(ddb, tableName);
         System.out.println(DASHES);
 
@@ -108,7 +107,7 @@ public class Scenario {
 
         System.out.println(DASHES);
         System.out.println("3. Getting data from the Movie table.");
-        getItem(ddb) ;
+        getItem(ddb);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -147,51 +146,51 @@ public class Scenario {
 
         // Define attributes.
         attributeDefinitions.add(AttributeDefinition.builder()
-            .attributeName("year")
-            .attributeType("N")
-            .build());
+                .attributeName("year")
+                .attributeType("N")
+                .build());
 
         attributeDefinitions.add(AttributeDefinition.builder()
-            .attributeName("title")
-            .attributeType("S")
-            .build());
+                .attributeName("title")
+                .attributeType("S")
+                .build());
 
         ArrayList<KeySchemaElement> tableKey = new ArrayList<>();
         KeySchemaElement key = KeySchemaElement.builder()
-            .attributeName("year")
-            .keyType(KeyType.HASH)
-            .build();
+                .attributeName("year")
+                .keyType(KeyType.HASH)
+                .build();
 
         KeySchemaElement key2 = KeySchemaElement.builder()
-            .attributeName("title")
-            .keyType(KeyType.RANGE)
-            .build();
+                .attributeName("title")
+                .keyType(KeyType.RANGE)
+                .build();
 
         // Add KeySchemaElement objects to the list.
         tableKey.add(key);
         tableKey.add(key2);
 
         CreateTableRequest request = CreateTableRequest.builder()
-            .keySchema(tableKey)
-            .provisionedThroughput(ProvisionedThroughput.builder()
-                .readCapacityUnits(10L)
-                .writeCapacityUnits(10L)
-                .build())
-            .attributeDefinitions(attributeDefinitions)
-            .tableName(tableName)
-            .build();
+                .keySchema(tableKey)
+                .provisionedThroughput(ProvisionedThroughput.builder()
+                        .readCapacityUnits(10L)
+                        .writeCapacityUnits(10L)
+                        .build())
+                .attributeDefinitions(attributeDefinitions)
+                .tableName(tableName)
+                .build();
 
         try {
             CreateTableResponse response = ddb.createTable(request);
             DescribeTableRequest tableRequest = DescribeTableRequest.builder()
-                .tableName(tableName)
-                .build();
+                    .tableName(tableName)
+                    .build();
 
             // Wait until the Amazon DynamoDB table is created.
             WaiterResponse<DescribeTableResponse> waiterResponse = dbWaiter.waitUntilTableExists(tableRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);
             String newTable = response.tableDescription().tableName();
-            System.out.println("The " +newTable + " was successfully created.");
+            System.out.println("The " + newTable + " was successfully created.");
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
@@ -205,73 +204,73 @@ public class Scenario {
     public static void queryTable(DynamoDbClient ddb) {
         try {
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(ddb)
-                .build();
+                    .dynamoDbClient(ddb)
+                    .build();
 
             DynamoDbTable<Movies> custTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
             QueryConditional queryConditional = QueryConditional
-                .keyEqualTo(Key.builder()
-                .partitionValue(2013)
-                .build());
+                    .keyEqualTo(Key.builder()
+                            .partitionValue(2013)
+                            .build());
 
             // Get items in the table and write out the ID value.
             Iterator<Movies> results = custTable.query(queryConditional).items().iterator();
-            String result="";
+            String result = "";
 
             while (results.hasNext()) {
                 Movies rec = results.next();
-                System.out.println("The title of the movie is "+rec.getTitle());
-                System.out.println("The movie information  is "+rec.getInfo());
+                System.out.println("The title of the movie is " + rec.getTitle());
+                System.out.println("The movie information  is " + rec.getInfo());
             }
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
-            }
         }
-        // snippet-end:[dynamodb.java2.scenario.query.main]
+    }
+    // snippet-end:[dynamodb.java2.scenario.query.main]
 
-        // snippet-start:[dynamodb.java2.scenario.scan.main]
-        // Scan the table.
-        public static void scanMovies(DynamoDbClient ddb, String tableName) {
-            System.out.println("******* Scanning all movies.\n");
-            try{
-                DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                        .dynamoDbClient(ddb)
-                        .build();
+    // snippet-start:[dynamodb.java2.scenario.scan.main]
+    // Scan the table.
+    public static void scanMovies(DynamoDbClient ddb, String tableName) {
+        System.out.println("******* Scanning all movies.\n");
+        try {
+            DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                    .dynamoDbClient(ddb)
+                    .build();
 
-                DynamoDbTable<Movies> custTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
-                Iterator<Movies> results = custTable.scan().items().iterator();
-                while (results.hasNext()) {
-                    Movies rec = results.next();
-                    System.out.println("The movie title is "+rec.getTitle());
-                    System.out.println("The movie year is " +rec.getYear());
-                }
-
-            } catch (DynamoDbException e) {
-                System.err.println(e.getMessage());
-                System.exit(1);
+            DynamoDbTable<Movies> custTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
+            Iterator<Movies> results = custTable.scan().items().iterator();
+            while (results.hasNext()) {
+                Movies rec = results.next();
+                System.out.println("The movie title is " + rec.getTitle());
+                System.out.println("The movie year is " + rec.getYear());
             }
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
+    }
     // snippet-end:[dynamodb.java2.scenario.scan.main]
 
     // snippet-start:[dynamodb.java2.scenario.populate_table.main]
     // Load data into the table.
     public static void loadData(DynamoDbClient ddb, String tableName, String fileName) throws IOException {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(ddb)
-            .build();
+                .dynamoDbClient(ddb)
+                .build();
 
         DynamoDbTable<Movies> mappedTable = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
         JsonParser parser = new JsonFactory().createParser(new File(fileName));
         com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
         Iterator<JsonNode> iter = rootNode.iterator();
         ObjectNode currentNode;
-        int t = 0 ;
+        int t = 0;
         while (iter.hasNext()) {
             // Only add 200 Movies to the table.
             if (t == 200)
-                break ;
+                break;
             currentNode = (ObjectNode) iter.next();
 
             int year = currentNode.path("year").asInt();
@@ -291,22 +290,23 @@ public class Scenario {
     // snippet-end:[dynamodb.java2.scenario.populate_table.main]
 
     // Update the record to include show only directors.
-    public static void updateTableItem(DynamoDbClient ddb, String tableName){
-        HashMap<String,AttributeValue> itemKey = new HashMap<>();
+    public static void updateTableItem(DynamoDbClient ddb, String tableName) {
+        HashMap<String, AttributeValue> itemKey = new HashMap<>();
         itemKey.put("year", AttributeValue.builder().n("1933").build());
         itemKey.put("title", AttributeValue.builder().s("King Kong").build());
 
-        HashMap<String,AttributeValueUpdate> updatedValues = new HashMap<>();
+        HashMap<String, AttributeValueUpdate> updatedValues = new HashMap<>();
         updatedValues.put("info", AttributeValueUpdate.builder()
-            .value(AttributeValue.builder().s("{\"directors\":[\"Merian C. Cooper\",\"Ernest B. Schoedsack\"]").build())
-            .action(AttributeAction.PUT)
-            .build());
+                .value(AttributeValue.builder().s("{\"directors\":[\"Merian C. Cooper\",\"Ernest B. Schoedsack\"]")
+                        .build())
+                .action(AttributeAction.PUT)
+                .build());
 
         UpdateItemRequest request = UpdateItemRequest.builder()
-            .tableName(tableName)
-            .key(itemKey)
-            .attributeUpdates(updatedValues)
-            .build();
+                .tableName(tableName)
+                .key(itemKey)
+                .attributeUpdates(updatedValues)
+                .build();
 
         try {
             ddb.updateItem(request);
@@ -323,8 +323,8 @@ public class Scenario {
 
     public static void deleteDynamoDBTable(DynamoDbClient ddb, String tableName) {
         DeleteTableRequest request = DeleteTableRequest.builder()
-            .tableName(tableName)
-            .build();
+                .tableName(tableName)
+                .build();
 
         try {
             ddb.deleteTable(request);
@@ -333,14 +333,14 @@ public class Scenario {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println(tableName +" was successfully deleted!");
+        System.out.println(tableName + " was successfully deleted!");
     }
 
     public static void putRecord(DynamoDbClient ddb) {
         try {
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(ddb)
-                .build();
+                    .dynamoDbClient(ddb)
+                    .build();
 
             DynamoDbTable<Movies> table = enhancedClient.table("Movies", TableSchema.fromBean(Movies.class));
 
@@ -361,22 +361,22 @@ public class Scenario {
     // snippet-start:[dynamodb.java2.scenario.get_item.main]
     public static void getItem(DynamoDbClient ddb) {
 
-        HashMap<String,AttributeValue> keyToGet = new HashMap<>();
+        HashMap<String, AttributeValue> keyToGet = new HashMap<>();
         keyToGet.put("year", AttributeValue.builder()
-            .n("1933")
-            .build());
+                .n("1933")
+                .build());
 
         keyToGet.put("title", AttributeValue.builder()
-            .s("King Kong")
-            .build());
+                .s("King Kong")
+                .build());
 
         GetItemRequest request = GetItemRequest.builder()
-            .key(keyToGet)
-            .tableName("Movies")
-            .build();
+                .key(keyToGet)
+                .tableName("Movies")
+                .build();
 
         try {
-            Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
+            Map<String, AttributeValue> returnedItem = ddb.getItem(request).item();
 
             if (returnedItem != null) {
                 Set<String> keys = returnedItem.keySet();
@@ -390,11 +390,10 @@ public class Scenario {
             }
 
         } catch (DynamoDbException e) {
-             System.err.println(e.getMessage());
-             System.exit(1);
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
     // snippet-end:[dynamodb.java2.scenario.get_item.main]
 }
 // snippet-end:[dynamodb.java2.scenario.main]
-

@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.LowLevelTableExample] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.LowLevelTableExample] 
 
 package com.amazonaws.codesamples.lowlevel;
 
@@ -64,9 +43,9 @@ public class LowLevelTableExample {
         // Provide the initial provisioned throughput values as Java long data
         // types
         ProvisionedThroughput provisionedThroughput = new ProvisionedThroughput().withReadCapacityUnits(5L)
-            .withWriteCapacityUnits(6L);
+                .withWriteCapacityUnits(6L);
         CreateTableRequest request = new CreateTableRequest().withTableName(tableName)
-            .withProvisionedThroughput(provisionedThroughput);
+                .withProvisionedThroughput(provisionedThroughput);
 
         ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
         attributeDefinitions.add(new AttributeDefinition().withAttributeName("Id").withAttributeType("N"));
@@ -90,7 +69,7 @@ public class LowLevelTableExample {
         do {
 
             ListTablesRequest listTablesRequest = new ListTablesRequest().withLimit(10)
-                .withExclusiveStartTableName(lastEvaluatedTableName);
+                    .withExclusiveStartTableName(lastEvaluatedTableName);
 
             ListTablesResult result = client.listTables(listTablesRequest);
             lastEvaluatedTableName = result.getLastEvaluatedTableName();
@@ -105,22 +84,22 @@ public class LowLevelTableExample {
     static void getTableInformation() {
 
         TableDescription tableDescription = client.describeTable(new DescribeTableRequest().withTableName(tableName))
-            .getTable();
+                .getTable();
         System.out.format(
-            "Name: %s:\n" + "Status: %s \n" + "Provisioned Throughput (read capacity units/sec): %d \n"
-                + "Provisioned Throughput (write capacity units/sec): %d \n",
-            tableDescription.getTableName(), tableDescription.getTableStatus(),
-            tableDescription.getProvisionedThroughput().getReadCapacityUnits(),
-            tableDescription.getProvisionedThroughput().getWriteCapacityUnits());
+                "Name: %s:\n" + "Status: %s \n" + "Provisioned Throughput (read capacity units/sec): %d \n"
+                        + "Provisioned Throughput (write capacity units/sec): %d \n",
+                tableDescription.getTableName(), tableDescription.getTableStatus(),
+                tableDescription.getProvisionedThroughput().getReadCapacityUnits(),
+                tableDescription.getProvisionedThroughput().getWriteCapacityUnits());
     }
 
     static void updateExampleTable() {
 
         ProvisionedThroughput provisionedThroughput = new ProvisionedThroughput().withReadCapacityUnits(6L)
-            .withWriteCapacityUnits(7L);
+                .withWriteCapacityUnits(7L);
 
         UpdateTableRequest updateTableRequest = new UpdateTableRequest().withTableName(tableName)
-            .withProvisionedThroughput(provisionedThroughput);
+                .withProvisionedThroughput(provisionedThroughput);
 
         client.updateTable(updateTableRequest);
         waitForTableToBecomeAvailable(tableName);
@@ -146,8 +125,7 @@ public class LowLevelTableExample {
                 return;
             try {
                 Thread.sleep(1000 * 20);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
         }
         throw new RuntimeException("Table " + tableName + " never went active");
@@ -166,15 +144,13 @@ public class LowLevelTableExample {
                 System.out.println("  - current state: " + tableStatus);
                 if (tableStatus.equals(TableStatus.ACTIVE.toString()))
                     return;
-            }
-            catch (ResourceNotFoundException e) {
+            } catch (ResourceNotFoundException e) {
                 System.out.println("Table " + tableName + " is not found. It was deleted.");
                 return;
             }
             try {
                 Thread.sleep(1000 * 20);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
         }
         throw new RuntimeException("Table " + tableName + " was never deleted");
@@ -182,4 +158,4 @@ public class LowLevelTableExample {
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.LowLevelTableExample] 
+// snippet-end:[dynamodb.java.codeexample.LowLevelTableExample]

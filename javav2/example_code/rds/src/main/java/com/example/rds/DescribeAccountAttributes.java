@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DescribeAccountAttributes.java demonstrates how to retrieve attributes that belongs to an Amazon Relational Database Service (RDS) account.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Relational Database Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.rds;
 
@@ -20,7 +14,8 @@ import java.util.List;
 // snippet-end:[rds.java2.describe_account.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,8 +25,8 @@ public class DescribeAccountAttributes {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getAccountAttributes(rdsClient);
         rdsClient.close();

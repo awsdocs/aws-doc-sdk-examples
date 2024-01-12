@@ -1,9 +1,8 @@
-//
-// Tests for the `ListBuckets` example for Amazon Simple Storage Service
-// (Amazon S3) using the AWS SDK for Swift.
-//
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+// Tests for the `ListBuckets` example for Amazon Simple Storage Service
+// (Amazon S3) using the AWS SDK for Swift.
 //
 
 import XCTest

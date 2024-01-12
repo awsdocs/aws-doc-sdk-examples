@@ -1,12 +1,6 @@
-//snippet-sourcedescription:[DescribeCluster.java demonstrates how to describe a cluster.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon EMR]
-//snippet-sourcetype:[full-example]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package aws.example.emr;
 
 // snippet-start:[emr.java2.describe_cluster.main]
@@ -19,7 +13,8 @@ import software.amazon.awssdk.services.emr.model.EmrException;
 // snippet-end:[emr.java2.describe_cluster.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,11 +24,11 @@ public class DescribeCluster {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <clusterId>\s
+                Usage:    <clusterId>\s
 
-            Where:
-               clusterId - The identifier of the cluster to describe.\s
-            """;
+                Where:
+                   clusterId - The identifier of the cluster to describe.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,8 +38,8 @@ public class DescribeCluster {
         String clusterId = args[0];
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         describeMyCluster(emrClient, clusterId);
         emrClient.close();
@@ -53,8 +48,8 @@ public class DescribeCluster {
     public static void describeMyCluster(EmrClient emrClient, String clusterId) {
         try {
             DescribeClusterRequest clusterRequest = DescribeClusterRequest.builder()
-                .clusterId(clusterId)
-                .build();
+                    .clusterId(clusterId)
+                    .build();
 
             DescribeClusterResponse response = emrClient.describeCluster(clusterRequest);
             System.out.println("The name of the cluster is " + response.cluster().name());
@@ -66,4 +61,3 @@ public class DescribeCluster {
     }
 }
 // snippet-end:[emr.java2.describe_cluster.main]
-

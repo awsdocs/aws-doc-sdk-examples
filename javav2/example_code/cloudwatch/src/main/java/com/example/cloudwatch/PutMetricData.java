@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[PutMetricData.java demonstrates how to put a sample metric data point for a metric defined for a CloudWatch alarm.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudWatch]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.cloudwatch;
 
@@ -25,7 +19,8 @@ import java.time.format.DateTimeFormatter;
 // snippet-end:[cloudwatch.java2.put_metric_data.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -35,12 +30,12 @@ public class PutMetricData {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-              <dataPoint>\s
+                Usage:
+                  <dataPoint>\s
 
-            Where:
-              dataPoint - The value for the metric.
-            """;
+                Where:
+                  dataPoint - The value for the metric.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -50,34 +45,34 @@ public class PutMetricData {
         Double dataPoint = Double.parseDouble(args[0]);
         Region region = Region.US_WEST_2;
         CloudWatchClient cw = CloudWatchClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
-        putMetData(cw, dataPoint) ;
+        putMetData(cw, dataPoint);
         cw.close();
     }
 
-    public static void putMetData(CloudWatchClient cw, Double dataPoint ) {
+    public static void putMetData(CloudWatchClient cw, Double dataPoint) {
         try {
             Dimension dimension = Dimension.builder()
-                .name("UNIQUE_PAGES")
-                .value("URLS")
-                .build();
+                    .name("UNIQUE_PAGES")
+                    .value("URLS")
+                    .build();
 
             // Set an Instant object.
-            String time = ZonedDateTime.now( ZoneOffset.UTC ).format( DateTimeFormatter.ISO_INSTANT );
+            String time = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT);
             Instant instant = Instant.parse(time);
 
             MetricDatum datum = MetricDatum.builder()
-                .metricName("PAGES_VISITED")
-                .unit(StandardUnit.NONE)
-                .value(dataPoint)
-                .timestamp(instant)
-                .dimensions(dimension).build();
+                    .metricName("PAGES_VISITED")
+                    .unit(StandardUnit.NONE)
+                    .value(dataPoint)
+                    .timestamp(instant)
+                    .dimensions(dimension).build();
 
             PutMetricDataRequest request = PutMetricDataRequest.builder()
-                .namespace("SITE/TRAFFIC")
-                .metricData(datum).build();
+                    .namespace("SITE/TRAFFIC")
+                    .metricData(datum).build();
 
             cw.putMetricData(request);
 

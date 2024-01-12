@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListJobs.kt demonstrates how to get information about all completed AWS Elemental MediaConvert jobs.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS Elemental MediaConvert]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.mediaconvert
 

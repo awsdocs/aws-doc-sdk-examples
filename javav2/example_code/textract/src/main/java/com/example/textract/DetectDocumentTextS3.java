@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DetectDocumentText.java demonstrates how to detect text in the input document that is retrieved from an Amazon S3 bucket.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Textract]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.textract;
 
@@ -23,7 +17,8 @@ import software.amazon.awssdk.services.textract.model.TextractException;
 // snippet-end:[textract.java2._detect_s3_text.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -34,14 +29,14 @@ public class DetectDocumentTextS3 {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <bucketName> <docName>\s
+                Usage:
+                    <bucketName> <docName>\s
 
-            Where:
-                bucketName - The name of the Amazon S3 bucket that contains the document.\s
+                Where:
+                    bucketName - The name of the Amazon S3 bucket that contains the document.\s
 
-                docName - The document name (must be an image, i.e., book.png).\s
-            """;
+                    docName - The document name (must be an image, i.e., book.png).\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -52,8 +47,8 @@ public class DetectDocumentTextS3 {
         String docName = args[1];
         Region region = Region.US_WEST_2;
         TextractClient textractClient = TextractClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         detectDocTextS3(textractClient, bucketName, docName);
         textractClient.close();
@@ -62,18 +57,18 @@ public class DetectDocumentTextS3 {
     public static void detectDocTextS3(TextractClient textractClient, String bucketName, String docName) {
         try {
             S3Object s3Object = S3Object.builder()
-                .bucket(bucketName)
-                .name(docName)
-                .build();
+                    .bucket(bucketName)
+                    .name(docName)
+                    .build();
 
             // Create a Document object and reference the s3Object instance.
             Document myDoc = Document.builder()
-                .s3Object(s3Object)
-                .build();
+                    .s3Object(s3Object)
+                    .build();
 
             DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
-                .document(myDoc)
-                .build();
+                    .document(myDoc)
+                    .build();
 
             DetectDocumentTextResponse textResponse = textractClient.detectDocumentText(detectDocumentTextRequest);
             for (Block block : textResponse.blocks()) {

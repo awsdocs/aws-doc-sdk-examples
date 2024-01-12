@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetPullRequest.java demonstrates how to obtain information about a pull request.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CodeCommit]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.commit;
 
@@ -20,7 +13,8 @@ import software.amazon.awssdk.services.codecommit.model.GetPullRequestResponse;
 // snippet-end:[codecommit.java2.get_pull_request.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -31,12 +25,12 @@ public class GetPullRequest {
     public static void main(String[] args) {
         final String USAGE = """
 
-            Usage:
-                <pullRequestId>\s
+                Usage:
+                    <pullRequestId>\s
 
-            Where:
-                pullRequestId - the id of the pull request.\s
-            """;
+                Where:
+                    pullRequestId - the id of the pull request.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -46,8 +40,8 @@ public class GetPullRequest {
         String pullRequestId = args[0];
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getPR(codeCommitClient, pullRequestId);
         codeCommitClient.close();
@@ -56,8 +50,8 @@ public class GetPullRequest {
     public static void getPR(CodeCommitClient codeCommitClient, String pullRequestId) {
         try {
             GetPullRequestRequest pullRequestRequest = GetPullRequestRequest.builder()
-                .pullRequestId(pullRequestId)
-                .build();
+                    .pullRequestId(pullRequestId)
+                    .build();
 
             GetPullRequestResponse pullResponse = codeCommitClient.getPullRequest(pullRequestRequest);
             System.out.println("The title of the pull request is  " + pullResponse.pullRequest().title());

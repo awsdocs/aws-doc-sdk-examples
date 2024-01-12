@@ -1,15 +1,9 @@
-//snippet-sourcedescription:[StartDicomImportJob.java demonstrates how to import bulk data into in an AWS HealthImaging data store.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS HealthImaging]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.medicalimaging;
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
-//snippet-start:[medicalimaging.java2.start_dicom_import_job.import]
+// snippet-start:[medicalimaging.java2.start_dicom_import_job.import]
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -18,10 +12,11 @@ import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingExcept
 import software.amazon.awssdk.services.medicalimaging.model.StartDicomImportJobRequest;
 import software.amazon.awssdk.services.medicalimaging.model.StartDicomImportJobResponse;
 
-//snippet-end:[medicalimaging.java2.start_dicom_import_job.import]
+// snippet-end:[medicalimaging.java2.start_dicom_import_job.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  * <p>
  * For more information, see the following documentation topic:
  * <p>
@@ -36,8 +31,10 @@ public class StartDicomImportJob {
                 "Where:\n" +
                 "    jobName - The import job name.\n" +
                 "    datastoreId - The ID of the data store.\n" +
-                "    dataAccessRoleArn - The Amazon Resource Name (ARN) of the IAM role that grants permission to access medical imaging resource.\n" +
-                "    inputS3Uri - The input prefix path for the S3 bucket that contains the DICOM files to be imported.\n" +
+                "    dataAccessRoleArn - The Amazon Resource Name (ARN) of the IAM role that grants permission to access medical imaging resource.\n"
+                +
+                "    inputS3Uri - The input prefix path for the S3 bucket that contains the DICOM files to be imported.\n"
+                +
                 "    outputS3Uri - The output prefix of the S3 bucket to upload the results of the DICOM import job.\n";
 
         if (args.length != 5) {
@@ -57,20 +54,21 @@ public class StartDicomImportJob {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        String jobID = startDicomImportJob(medicalImagingClient, jobName, datastoreId, dataAccessRoleArn, inputS3Uri, outputS3Uri);
+        String jobID = startDicomImportJob(medicalImagingClient, jobName, datastoreId, dataAccessRoleArn, inputS3Uri,
+                outputS3Uri);
 
         System.out.println("The job ID is " + jobID);
 
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.start_dicom_import_job.main]
+    // snippet-start:[medicalimaging.java2.start_dicom_import_job.main]
     public static String startDicomImportJob(MedicalImagingClient medicalImagingClient,
-                                             String jobName,
-                                             String datastoreId,
-                                             String dataAccessRoleArn,
-                                             String inputS3Uri,
-                                             String outputS3Uri) {
+            String jobName,
+            String datastoreId,
+            String dataAccessRoleArn,
+            String inputS3Uri,
+            String outputS3Uri) {
 
         try {
             StartDicomImportJobRequest startDicomImportJobRequest = StartDicomImportJobRequest.builder()
@@ -89,5 +87,5 @@ public class StartDicomImportJob {
 
         return "";
     }
-//snippet-end:[medicalimaging.java2.start_dicom_import_job.main]
+    // snippet-end:[medicalimaging.java2.start_dicom_import_job.main]
 }

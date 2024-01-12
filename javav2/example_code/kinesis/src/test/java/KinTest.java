@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.kinesis.CreateDataStream;
 import com.example.kinesis.DescribeLimits;
@@ -22,17 +20,17 @@ public class KinTest {
     @BeforeAll
     public static void setUp() {
         kinesisClient = KinesisClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
-        streamName = "streamName"+ java.util.UUID.randomUUID();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
+        streamName = "streamName" + java.util.UUID.randomUUID();
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
     public void CreateDataStream() {
-        assertDoesNotThrow(() ->CreateDataStream.createStream(kinesisClient, streamName));
+        assertDoesNotThrow(() -> CreateDataStream.createStream(kinesisClient, streamName));
         System.out.println("Test 1 passed");
     }
 
@@ -40,7 +38,7 @@ public class KinTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void DescribeLimits() {
-        assertDoesNotThrow(() ->DescribeLimits.describeKinLimits(kinesisClient));
+        assertDoesNotThrow(() -> DescribeLimits.describeKinLimits(kinesisClient));
         System.out.println("Test 2 passed");
     }
 
@@ -49,9 +47,9 @@ public class KinTest {
     @Order(3)
     public void ListShards() {
         try {
-            //Wait 60 secs for table to complete
+            // Wait 60 secs for table to complete
             TimeUnit.SECONDS.sleep(60);
-            assertDoesNotThrow(() ->ListShards.listKinShards(kinesisClient, streamName));
+            assertDoesNotThrow(() -> ListShards.listKinShards(kinesisClient, streamName));
         } catch (InterruptedException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -63,7 +61,7 @@ public class KinTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void PutRecords() {
-        assertDoesNotThrow(() ->StockTradesWriter.setStockData(kinesisClient, streamName));
+        assertDoesNotThrow(() -> StockTradesWriter.setStockData(kinesisClient, streamName));
         System.out.println("Test 4 passed");
     }
 
@@ -71,7 +69,7 @@ public class KinTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void GetRecords() {
-        assertDoesNotThrow(() ->GetRecords.getStockTrades(kinesisClient, streamName));
+        assertDoesNotThrow(() -> GetRecords.getStockTrades(kinesisClient, streamName));
         System.out.println("Test 5 passed");
     }
 
@@ -79,7 +77,7 @@ public class KinTest {
     @Tag("IntegrationTest")
     @Order(6)
     public void DeleteDataStreem() {
-        assertDoesNotThrow(() ->DeleteDataStream.deleteStream(kinesisClient, streamName));
+        assertDoesNotThrow(() -> DeleteDataStream.deleteStream(kinesisClient, streamName));
         System.out.println("Test 6 passed");
     }
 }

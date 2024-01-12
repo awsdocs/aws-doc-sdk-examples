@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -14,13 +12,13 @@
  *
  **/
 
-//snippet-start:[sqs.cpp.change_message_visibility.inc]
+// snippet-start:[sqs.cpp.change_message_visibility.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ChangeMessageVisibilityRequest.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <iostream>
-//snippet-end:[sqs.cpp.change_message_visibility.inc]
+// snippet-end:[sqs.cpp.change_message_visibility.inc]
 #include "sqs_samples.h"
 
 // snippet-start:[cpp.example_code.sqs.ChangeMessageVisibility]

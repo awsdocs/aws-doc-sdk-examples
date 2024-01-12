@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.video;
 
@@ -43,15 +41,16 @@ public class SendMessages {
 
     // The HTML body of the email.
     private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p>Please see the attached file for the report that analyzed a video in the Amazon S3 bucket.</p>" + "</body>" + "</html>";
+            + "<p>Please see the attached file for the report that analyzed a video in the Amazon S3 bucket.</p>"
+            + "</body>" + "</html>";
 
-    public void sendReport(InputStream is, String emailAddress ) throws IOException {
+    public void sendReport(InputStream is, String emailAddress) throws IOException {
 
-        //Convert the InputStream to a byte[]
+        // Convert the InputStream to a byte[]
         byte[] fileContent = IOUtils.toByteArray(is);
 
         try {
-            send(fileContent,emailAddress);
+            send(fileContent, emailAddress);
         } catch (MessagingException e) {
             e.getStackTrace();
         }
@@ -102,7 +101,8 @@ public class SendMessages {
 
         // Define the attachment
         MimeBodyPart att = new MimeBodyPart();
-        DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        DataSource fds = new ByteArrayDataSource(attachment,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
 
         String reportName = "VideoReport.xls";

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /**
  * Before running this C++ code example, set up your development environment,
@@ -19,14 +17,14 @@
  *
  */
 
-//snippet-start:[iam.cpp.access_key_last_used.inc]
+// snippet-start:[iam.cpp.access_key_last_used.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/GetAccessKeyLastUsedRequest.h>
 #include <aws/iam/model/GetAccessKeyLastUsedResult.h>
 #include <iostream>
 #include "iam_samples.h"
-//snippet-end:[iam.cpp.access_key_last_used.inc]
+// snippet-end:[iam.cpp.access_key_last_used.inc]
 
 //! Displays the last time an access key was used.
 /*!

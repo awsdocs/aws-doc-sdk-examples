@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -23,7 +21,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@ComponentScan(basePackages = {"com.aws.services"})
+@ComponentScan(basePackages = { "com.aws.services" })
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/items")
@@ -32,13 +30,12 @@ public class MainController {
 
     @Autowired
     MainController(
-        WorkItemRepository repository
-    ) {
+            WorkItemRepository repository) {
         this.repository = repository;
     }
 
-    @GetMapping("" )
-    public List<WorkItem> getItems(@RequestParam(required=false) String archived) {
+    @GetMapping("")
+    public List<WorkItem> getItems(@RequestParam(required = false) String archived) {
         Iterable<WorkItem> result;
         if (archived != null)
             result = repository.findAllWithStatus(archived);
@@ -46,17 +43,18 @@ public class MainController {
             result = repository.findAllWithStatus("");
 
         return StreamSupport.stream(result.spliterator(), false)
-            .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toUnmodifiableList());
     }
 
-    // Notice the : character which is used for custom methods. More information can be found here:
+    // Notice the : character which is used for custom methods. More information can
+    // be found here:
     // https://cloud.google.com/apis/design/custom_methods
     @PutMapping("{id}:archive")
     public List<WorkItem> modUser(@PathVariable String id) {
         repository.flipItemArchive(id);
         Iterable<WorkItem> result = repository.findAllWithStatus("false");
         return StreamSupport.stream(result.spliterator(), false)
-            .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @PostMapping("")
@@ -80,6 +78,6 @@ public class MainController {
         // Return active records.
         Iterable<WorkItem> result = repository.findAllWithStatus("false");
         return StreamSupport.stream(result.spliterator(), false)
-            .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toUnmodifiableList());
     }
 }

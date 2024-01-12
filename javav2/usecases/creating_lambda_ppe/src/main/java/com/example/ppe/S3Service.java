@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ppe;
 
@@ -67,7 +65,7 @@ public class S3Service {
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
 
-            for (S3Object myValue: objects) {
+            for (S3Object myValue : objects) {
                 keyName = myValue.key();
                 keys.add(keyName);
             }

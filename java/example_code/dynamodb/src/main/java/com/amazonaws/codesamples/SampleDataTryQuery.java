@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.SampleDataTryQuery] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.SampleDataTryQuery] 
 
 package com.amazonaws.codesamples;
 
@@ -58,8 +37,7 @@ public class SampleDataTryQuery {
 
             // Query replies posted in the past 15 days for a forum thread.
             findRepliesInLast15DaysWithConfig("Reply", forumName, threadSubject);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
@@ -69,9 +47,9 @@ public class SampleDataTryQuery {
         Table table = dynamoDB.getTable(tableName);
 
         Item item = table.getItem("Id", // attribute name
-            id, // attribute value
-            "Id, ISBN, Title, Authors", // projection expression
-            null); // name map - don't need this
+                id, // attribute value
+                "Id, ISBN, Title, Authors", // projection expression
+                null); // name map - don't need this
 
         System.out.println("GetItem: printing results...");
         System.out.println(item.toJSONPretty());
@@ -90,8 +68,8 @@ public class SampleDataTryQuery {
         Table table = dynamoDB.getTable(tableName);
 
         QuerySpec querySpec = new QuerySpec().withKeyConditionExpression("Id = :v1 and ReplyDateTime > :v2")
-            .withValueMap(new ValueMap().withString(":v1", replyId).withString(":v2", twoWeeksAgoStr))
-            .withProjectionExpression("Message, ReplyDateTime, PostedBy");
+                .withValueMap(new ValueMap().withString(":v1", replyId).withString(":v2", twoWeeksAgoStr))
+                .withProjectionExpression("Message, ReplyDateTime, PostedBy");
 
         ItemCollection<QueryOutcome> items = table.query(querySpec);
         Iterator<Item> iterator = items.iterator();
@@ -105,4 +83,4 @@ public class SampleDataTryQuery {
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.SampleDataTryQuery] 
+// snippet-end:[dynamodb.java.codeexample.SampleDataTryQuery]

@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[ListMetrics.java demonstrates how to list Amazon CloudWatch metrics.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudWatch]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.list_metrics.main]
@@ -19,7 +14,8 @@ import software.amazon.awssdk.services.cloudwatch.model.Metric;
 // snippet-end:[cloudwatch.java2.list_metrics.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,12 +25,12 @@ public class ListMetrics {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-              <namespace>\s
+                Usage:
+                  <namespace>\s
 
-            Where:
-              namespace - The namespace to filter against (for example, AWS/EC2).\s
-            """;
+                Where:
+                  namespace - The namespace to filter against (for example, AWS/EC2).\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,47 +40,47 @@ public class ListMetrics {
         String namespace = args[0];
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
-        listMets(cw, namespace) ;
+        listMets(cw, namespace);
         cw.close();
     }
 
-    public static void listMets( CloudWatchClient cw, String namespace) {
+    public static void listMets(CloudWatchClient cw, String namespace) {
         boolean done = false;
         String nextToken = null;
 
         try {
-            while(!done) {
+            while (!done) {
 
                 ListMetricsResponse response;
                 if (nextToken == null) {
                     ListMetricsRequest request = ListMetricsRequest.builder()
-                        .namespace(namespace)
-                        .build();
+                            .namespace(namespace)
+                            .build();
 
                     response = cw.listMetrics(request);
                 } else {
                     ListMetricsRequest request = ListMetricsRequest.builder()
-                        .namespace(namespace)
-                        .nextToken(nextToken)
-                        .build();
+                            .namespace(namespace)
+                            .nextToken(nextToken)
+                            .build();
 
                     response = cw.listMetrics(request);
                 }
 
-            for (Metric metric : response.metrics()) {
-                System.out.printf("Retrieved metric %s", metric.metricName());
-                System.out.println();
-            }
+                for (Metric metric : response.metrics()) {
+                    System.out.printf("Retrieved metric %s", metric.metricName());
+                    System.out.println();
+                }
 
-            if(response.nextToken() == null) {
-                done = true;
-            } else {
-                nextToken = response.nextToken();
+                if (response.nextToken() == null) {
+                    done = true;
+                } else {
+                    nextToken = response.nextToken();
+                }
             }
-        }
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[list_user_docs.java demonstrates how to list user docs for the current user.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-service:[workdocs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[Doug-AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,9 +43,11 @@ public class list_user_docs {
 	}
 
 	public static void main(String[] args) throws Exception {
-		// Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-role.html
+		// Based on WorkDocs dev guide code at
+		// http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-role.html
 
-		// Use the default client. Look at Window, Preferences, AWS Toolkit to see the values
+		// Use the default client. Look at Window, Preferences, AWS Toolkit to see the
+		// values
 		AmazonWorkDocs workDocs = AmazonWorkDocsClientBuilder.defaultClient();
 
 		// Set to the OrganizationId of your WorkDocs site.
@@ -73,7 +70,7 @@ public class list_user_docs {
 		System.out.println("Docs for user " + userEmail + ":");
 		System.out.println("");
 
-		for (DocumentMetadata doc: userDocs) {
+		for (DocumentMetadata doc : userDocs) {
 			DocumentVersionMetadata md = doc.getLatestVersionMetadata();
 			System.out.println("Name:          " + md.getName());
 			System.out.println("Size (bytes):  " + md.getSize());

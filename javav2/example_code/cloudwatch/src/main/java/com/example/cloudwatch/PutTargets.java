@@ -1,13 +1,7 @@
-//snippet-sourcedescription:[PutTargets.java demonstrates how to creates an Amazon CloudWatch event-routing rule target.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudWatch]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
- package com.example.cloudwatch;
+package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.put_targets.main]
 // snippet-start:[cloudwatch.java2.put_targets.import]
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.cloudwatchevents.model.Target;
 // snippet-end:[cloudwatch.java2.put_targets.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -28,14 +23,14 @@ public class PutTargets {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-              <ruleName> <functionArn> <targetId>\s
+                Usage:
+                  <ruleName> <functionArn> <targetId>\s
 
-            Where:
-              ruleName - A rule name (for example, myrule).
-              functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1).
-              targetId - A target id value.
-            """;
+                Where:
+                  ruleName - A rule name (for example, myrule).
+                  functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1).
+                  targetId - A target id value.
+                """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -46,28 +41,28 @@ public class PutTargets {
         String functionArn = args[1];
         String targetId = args[2];
         CloudWatchEventsClient cwe = CloudWatchEventsClient.builder()
-            .build();
+                .build();
 
         putCWTargets(cwe, ruleName, functionArn, targetId);
         cwe.close();
     }
 
-    public static void putCWTargets(CloudWatchEventsClient cwe, String ruleName, String functionArn, String targetId ) {
+    public static void putCWTargets(CloudWatchEventsClient cwe, String ruleName, String functionArn, String targetId) {
         try {
             Target target = Target.builder()
-                .arn(functionArn)
-                .id(targetId)
-                .build();
+                    .arn(functionArn)
+                    .id(targetId)
+                    .build();
 
             PutTargetsRequest request = PutTargetsRequest.builder()
-                .targets(target)
-                .rule(ruleName)
-                .build();
+                    .targets(target)
+                    .rule(ruleName)
+                    .build();
 
             cwe.putTargets(request);
             System.out.printf(
-                "Successfully created CloudWatch events target for rule %s",
-                ruleName);
+                    "Successfully created CloudWatch events target for rule %s",
+                    ruleName);
 
         } catch (CloudWatchException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

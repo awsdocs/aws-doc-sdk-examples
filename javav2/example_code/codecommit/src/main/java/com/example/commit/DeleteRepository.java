@@ -1,11 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DeleteRepository.java demonstrates how to delete a repository.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CodeCommit]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.commit;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.codecommit.model.DeleteRepositoryRequest;
 // snippet-end:[codecommit.java2.del_repo.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -29,12 +24,12 @@ public class DeleteRepository {
     public static void main(String[] args) {
         final String USAGE = """
 
-            Usage:
-                <repoName>\s
+                Usage:
+                    <repoName>\s
 
-            Where:
-                repoName - the name of the repository.
-            """;
+                Where:
+                    repoName - the name of the repository.
+                """;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -44,8 +39,8 @@ public class DeleteRepository {
         String repoName = args[0];
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         deleteRepo(codeCommitClient, repoName);
         codeCommitClient.close();
@@ -54,8 +49,8 @@ public class DeleteRepository {
     public static void deleteRepo(CodeCommitClient codeCommitClient, String repoName) {
         try {
             DeleteRepositoryRequest deleteRepositoryRequest = DeleteRepositoryRequest.builder()
-                .repositoryName(repoName)
-                .build();
+                    .repositoryName(repoName)
+                    .build();
 
             codeCommitClient.deleteRepository(deleteRepositoryRequest);
 

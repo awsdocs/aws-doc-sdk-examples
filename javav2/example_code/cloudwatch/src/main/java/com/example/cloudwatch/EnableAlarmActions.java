@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[EnableAlarmActions.java demonstrates how to enable actions on a CloudWatch alarm.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudWatch]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.enable_alarm_actions.main]
@@ -16,7 +12,8 @@ import software.amazon.awssdk.services.cloudwatch.model.EnableAlarmActionsReques
 // snippet-end:[cloudwatch.java2.enable_alarm_actions.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -26,12 +23,12 @@ public class EnableAlarmActions {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-              <alarmName>
+                Usage:
+                  <alarmName>
 
-            Where:
-              alarmName - An alarm name to enable (for example, MyAlarm).
-            """;
+                Where:
+                  alarmName - An alarm name to enable (for example, MyAlarm).
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -41,18 +38,18 @@ public class EnableAlarmActions {
         String alarm = args[0];
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
-        enableActions(cw, alarm) ;
+        enableActions(cw, alarm);
         cw.close();
     }
 
     public static void enableActions(CloudWatchClient cw, String alarm) {
         try {
             EnableAlarmActionsRequest request = EnableAlarmActionsRequest.builder()
-                .alarmNames(alarm)
-                .build();
+                    .alarmNames(alarm)
+                    .build();
 
             cw.enableAlarmActions(request);
             System.out.printf("Successfully enabled actions on alarm %s", alarm);
@@ -61,7 +58,6 @@ public class EnableAlarmActions {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-   }
+    }
 }
 // snippet-end:[cloudwatch.java2.enable_alarm_actions.main]
-

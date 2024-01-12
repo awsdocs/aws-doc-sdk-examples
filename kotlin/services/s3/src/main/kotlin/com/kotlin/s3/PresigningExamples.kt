@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[PresignExamples.kt demonstrates how to presign requests for an Amazon Simple Storage Service (Amazon S3) operations.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.s3
 
 // snippet-start:[s3.kotlin.presign.import]

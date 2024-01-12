@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudwatch.php.describe_alarms_metric.complete]
 // snippet-start:[cloudwatch.php.describe_alarms_metric.import]
@@ -96,14 +95,4 @@ function describeTheAlarmsForMetric()
 // describeTheAlarmsForMetric();
 // snippet-end:[cloudwatch.php.describe_alarms_metric.main]
 // snippet-end:[cloudwatch.php.describe_alarms_metric.complete]
-// snippet-sourcedescription:[DescribeAlarmsForMetric.php demonstrates how to retrieve the alarms for the specified AWS CloudWatch metric.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Cloudwatch]
-// snippet-service:[cloudwatch]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-06]
-// snippet-sourceauthor:[pccornel (AWS)]
 

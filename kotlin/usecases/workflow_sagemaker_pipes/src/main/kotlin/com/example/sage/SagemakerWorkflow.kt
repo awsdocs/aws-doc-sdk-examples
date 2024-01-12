@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[SagemakerWorkflow.kt is a multiple service example that demonstrates how to set up and run an Amazon SageMaker pipeline.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Amazon SageMaker]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sage
 

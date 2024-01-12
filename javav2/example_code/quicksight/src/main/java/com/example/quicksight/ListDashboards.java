@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[ListDashboards.java demonstrates how to list Amazon QuickSight dashboards.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon QuickSight]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.quicksight;
 
 // snippet-start:[quicksight.java2.list_dashboards.main]
@@ -20,7 +15,8 @@ import java.util.List;
 // snippet-end:[quicksight.java2.list_dashboards.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +26,12 @@ public class ListDashboards {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <account>
+                Usage:    <account>
 
-            Where:
-               account - The ID of the AWS account.
+                Where:
+                   account - The ID of the AWS account.
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +40,8 @@ public class ListDashboards {
 
         String account = args[0];
         QuickSightClient qsClient = QuickSightClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         listAllDashboards(qsClient, account);
         qsClient.close();
@@ -54,9 +50,9 @@ public class ListDashboards {
     public static void listAllDashboards(QuickSightClient qsClient, String account) {
         try {
             ListDashboardsRequest dashboardsRequest = ListDashboardsRequest.builder()
-                .awsAccountId(account)
-                .maxResults(20)
-                .build();
+                    .awsAccountId(account)
+                    .maxResults(20)
+                    .build();
 
             ListDashboardsResponse res = qsClient.listDashboards(dashboardsRequest);
             List<DashboardSummary> dashboards = res.dashboardSummaryList();

@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudwatch.php.disable_alarms_actions.complete]
 // snippet-start:[cloudwatch.php.disable_alarms_actions.import]
@@ -65,14 +64,4 @@ function disableTheAlarmActions()
 // disableTheAlarmActions();
 // snippet-end:[cloudwatch.php.disable_alarms_actions.main]
 // snippet-end:[cloudwatch.php.disable_alarms_actions.complete]
-// snippet-sourcedescription:[DisableAlarmActions.php demonstrates how to disable actions for specified Amazon CloudWatch alarms.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Cloudwatch]
-// snippet-service:[cloudwatch]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-07]
-// snippet-sourceauthor:[pccornel (AWS)]
 

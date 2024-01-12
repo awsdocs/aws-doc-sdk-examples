@@ -1,27 +1,8 @@
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[pinpoint_send_email_smtp demonstrates how to send a transactional email message by using the Amazon Pinpoint SMTP interface and the Nodemailer module.]
-// snippet-service:[Amazon Pinpoint]
-// snippet-keyword:[JavaScript]
-// snippet-sourcesyntax:[javascript]
-// snippet-keyword:[Amazon Pinpoint]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[n/a]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-20]
-// snippet-sourceauthor:[AWS]
+/*/
+
 // snippet-start:[pinpoint.javascript.pinpoint_send_email_smtp.complete]
 /* 
 This code uses callbacks to handle asynchronous function responses.

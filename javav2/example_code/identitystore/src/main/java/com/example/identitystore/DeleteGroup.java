@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteGroup.java demonstrates how to delete a group within an AWS Identitystore given groupId.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.identitystore;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.identitystore.model.DeleteGroupResponse;
 // snippet-end:[Identitystore.java2.delete_group.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,13 +24,13 @@ public class DeleteGroup {
     public static void main(String... args) {
         final String usage = """
 
-            Usage:
-                <identitystoreId> <groupId>
+                Usage:
+                    <identitystoreId> <groupId>
 
-            Where:
-                identitystoreId - The id of the identitystore.\s
-                groupId - The id of the group to delete.\s
-            """;
+                Where:
+                    identitystoreId - The id of the identitystore.\s
+                    groupId - The id of the group to delete.\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,9 +48,9 @@ public class DeleteGroup {
     public static String deleteGroup(IdentitystoreClient identitystore, String identitystoreId, String groupId) {
         try {
             DeleteGroupRequest request = DeleteGroupRequest.builder()
-                .identityStoreId(identitystoreId)
-                .groupId(groupId)
-                .build();
+                    .identityStoreId(identitystoreId)
+                    .groupId(groupId)
+                    .build();
 
             DeleteGroupResponse response = identitystore.deleteGroup(request);
 

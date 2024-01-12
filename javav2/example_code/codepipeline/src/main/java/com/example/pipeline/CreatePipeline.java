@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[CreatePipeline.java demonstrates how to create a pipeline.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-service:[AWS CodePipeline]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.pipeline;
 
@@ -30,7 +24,8 @@ import java.util.Map;
 // snippet-end:[pipeline.java2.create_pipeline.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -38,127 +33,128 @@ import java.util.Map;
  */
 
 public class CreatePipeline {
-    public static void main(String[] args) {
-        final String usage = """
+        public static void main(String[] args) {
+                final String usage = """
 
-            Usage:    <name> <roleArn> <s3Bucket> <s3OuputBucket>
+                                Usage:    <name> <roleArn> <s3Bucket> <s3OuputBucket>
 
-            Where:
-               name - The name of the pipeline to create.\s
-               roleArn - The Amazon Resource Name (ARN) for AWS CodePipeline to use. \s
-               s3Bucket - The name of the Amazon S3 bucket where the code is located. \s
-               s3OuputBucket - The name of the Amazon S3 bucket where the code is deployed. \s
-            """;
+                                Where:
+                                   name - The name of the pipeline to create.\s
+                                   roleArn - The Amazon Resource Name (ARN) for AWS CodePipeline to use. \s
+                                   s3Bucket - The name of the Amazon S3 bucket where the code is located. \s
+                                   s3OuputBucket - The name of the Amazon S3 bucket where the code is deployed. \s
+                                """;
 
-        if (args.length != 4) {
-            System.out.println(usage);
-            System.exit(1);
+                if (args.length != 4) {
+                        System.out.println(usage);
+                        System.exit(1);
+                }
+
+                String name = args[0];
+                String roleArn = args[1];
+                String s3Bucket = args[2];
+                String s3OuputBucket = args[3];
+                Region region = Region.US_EAST_1;
+                CodePipelineClient pipelineClient = CodePipelineClient.builder()
+                                .region(region)
+                                .build();
+
+                createNewPipeline(pipelineClient, name, roleArn, s3Bucket, s3OuputBucket);
+                pipelineClient.close();
         }
 
-        String name = args[0];
-        String roleArn = args[1];
-        String s3Bucket = args[2];
-        String s3OuputBucket = args[3];
-        Region region = Region.US_EAST_1;
-        CodePipelineClient pipelineClient = CodePipelineClient.builder()
-            .region(region)
-            .build();
+        public static void createNewPipeline(CodePipelineClient pipelineClient, String name, String roleArn,
+                        String s3Bucket, String s3OuputBucket) {
+                try {
+                        ActionTypeId actionTypeSource = ActionTypeId.builder()
+                                        .category("Source")
+                                        .owner("AWS")
+                                        .provider("S3")
+                                        .version("1")
+                                        .build();
 
-        createNewPipeline(pipelineClient, name, roleArn, s3Bucket, s3OuputBucket);
-        pipelineClient.close();
-    }
+                        // Set Config information
+                        Map<String, String> mapConfig = new HashMap<>();
+                        mapConfig.put("PollForSourceChanges", "false");
+                        mapConfig.put("S3Bucket", s3Bucket);
+                        mapConfig.put("S3ObjectKey", "SampleApp_Windows.zip");
 
-    public static void createNewPipeline(CodePipelineClient pipelineClient, String name, String roleArn, String s3Bucket, String s3OuputBucket) {
-        try {
-            ActionTypeId actionTypeSource = ActionTypeId.builder()
-                .category("Source")
-                .owner("AWS")
-                .provider("S3")
-                .version("1")
-                .build();
+                        OutputArtifact outputArtifact = OutputArtifact.builder()
+                                        .name("SourceArtifact")
+                                        .build();
 
-            // Set Config information
-            Map<String, String> mapConfig = new HashMap<>();
-            mapConfig.put("PollForSourceChanges", "false");
-            mapConfig.put("S3Bucket", s3Bucket);
-            mapConfig.put("S3ObjectKey", "SampleApp_Windows.zip");
+                        ActionDeclaration actionDeclarationSource = ActionDeclaration.builder()
+                                        .actionTypeId(actionTypeSource)
+                                        .region("us-east-1")
+                                        .configuration(mapConfig)
+                                        .runOrder(1)
+                                        .outputArtifacts(outputArtifact)
+                                        .name("Source")
+                                        .build();
 
-            OutputArtifact outputArtifact = OutputArtifact.builder()
-                .name("SourceArtifact")
-                .build();
+                        // Set Config information.
+                        Map<String, String> mapConfig1 = new HashMap<>();
+                        mapConfig1.put("BucketName", s3OuputBucket);
+                        mapConfig1.put("ObjectKey", "SampleApp.zip");
+                        mapConfig1.put("Extract", "false");
 
-            ActionDeclaration actionDeclarationSource = ActionDeclaration.builder()
-                .actionTypeId(actionTypeSource)
-                .region("us-east-1")
-                .configuration(mapConfig)
-                .runOrder(1)
-                .outputArtifacts(outputArtifact)
-                .name("Source")
-                .build();
+                        ActionTypeId actionTypeDeploy = ActionTypeId.builder()
+                                        .category("Deploy")
+                                        .owner("AWS")
+                                        .provider("S3")
+                                        .version("1")
+                                        .build();
 
-            // Set Config information.
-            Map<String, String> mapConfig1 = new HashMap<>();
-            mapConfig1.put("BucketName", s3OuputBucket);
-            mapConfig1.put("ObjectKey", "SampleApp.zip");
-            mapConfig1.put("Extract", "false");
+                        InputArtifact inArtifact = InputArtifact.builder()
+                                        .name("SourceArtifact")
+                                        .build();
 
-            ActionTypeId actionTypeDeploy = ActionTypeId.builder()
-                .category("Deploy")
-                .owner("AWS")
-                .provider("S3")
-                .version("1")
-                .build();
+                        ActionDeclaration actionDeclarationDeploy = ActionDeclaration.builder()
+                                        .actionTypeId(actionTypeDeploy)
+                                        .region("us-east-1")
+                                        .configuration(mapConfig1)
+                                        .inputArtifacts(inArtifact)
+                                        .runOrder(1)
+                                        .name("Deploy")
+                                        .build();
 
-            InputArtifact inArtifact = InputArtifact.builder()
-                .name("SourceArtifact")
-                .build();
+                        StageDeclaration declaration = StageDeclaration.builder()
+                                        .actions(actionDeclarationSource)
+                                        .name("Stage")
+                                        .build();
 
-            ActionDeclaration actionDeclarationDeploy = ActionDeclaration.builder()
-                .actionTypeId(actionTypeDeploy)
-                .region("us-east-1")
-                .configuration(mapConfig1)
-                .inputArtifacts(inArtifact)
-                .runOrder(1)
-                .name("Deploy")
-                .build();
+                        StageDeclaration deploy = StageDeclaration.builder()
+                                        .actions(actionDeclarationDeploy)
+                                        .name("Deploy")
+                                        .build();
 
-            StageDeclaration declaration = StageDeclaration.builder()
-                .actions(actionDeclarationSource)
-                .name("Stage")
-                .build();
+                        List<StageDeclaration> stages = new ArrayList<>();
+                        stages.add(declaration);
+                        stages.add(deploy);
 
-            StageDeclaration deploy = StageDeclaration.builder()
-                .actions(actionDeclarationDeploy)
-                .name("Deploy")
-                .build();
+                        ArtifactStore store = ArtifactStore.builder()
+                                        .location(s3Bucket)
+                                        .type("S3")
+                                        .build();
 
-            List<StageDeclaration> stages = new ArrayList<>();
-            stages.add(declaration);
-            stages.add(deploy);
+                        PipelineDeclaration pipelineDeclaration = PipelineDeclaration.builder()
+                                        .name(name)
+                                        .artifactStore(store)
+                                        .roleArn(roleArn)
+                                        .stages(stages)
+                                        .build();
 
-            ArtifactStore store = ArtifactStore.builder()
-                .location(s3Bucket)
-                .type("S3")
-                .build();
+                        CreatePipelineRequest pipelineRequest = CreatePipelineRequest.builder()
+                                        .pipeline(pipelineDeclaration)
+                                        .build();
 
-            PipelineDeclaration pipelineDeclaration = PipelineDeclaration.builder()
-                .name(name)
-                .artifactStore(store)
-                .roleArn(roleArn)
-                .stages(stages)
-                .build();
+                        CreatePipelineResponse response = pipelineClient.createPipeline(pipelineRequest);
+                        System.out.println("Pipeline " + response.pipeline().name() + " was successfully created");
 
-            CreatePipelineRequest pipelineRequest = CreatePipelineRequest.builder()
-                .pipeline(pipelineDeclaration)
-                .build();
-
-            CreatePipelineResponse response = pipelineClient.createPipeline(pipelineRequest);
-            System.out.println("Pipeline " + response.pipeline().name() + " was successfully created");
-
-        } catch (CodePipelineException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
+                } catch (CodePipelineException e) {
+                        System.err.println(e.getMessage());
+                        System.exit(1);
+                }
         }
-    }
 }
 // snippet-end:[pipeline.java2.create_pipeline.main]

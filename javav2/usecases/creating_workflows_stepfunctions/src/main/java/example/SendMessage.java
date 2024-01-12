@@ -1,16 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-
- */
-
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package example;
 
 import software.amazon.awssdk.regions.Region;
@@ -32,14 +21,12 @@ import software.amazon.awssdk.services.ses.model.SendRawEmailRequest;
 import software.amazon.awssdk.services.ses.model.RawMessage;
 import software.amazon.awssdk.services.ses.model.SesException;
 
-
 public class SendMessage {
 
     public void sendMessage(String email) throws IOException {
 
-
-        //Sender
-        String sender = "<SPECIFY an EMAIL ADDRESS>" ; // REPLACE WITH AN EMAIL ADDRESS
+        // Sender
+        String sender = "<SPECIFY an EMAIL ADDRESS>"; // REPLACE WITH AN EMAIL ADDRESS
 
         String subject = "New Case";
 
@@ -56,7 +43,7 @@ public class SendMessage {
                 .build();
 
         try {
-            send(client, sender,email, subject,bodyText,bodyHTML);
+            send(client, sender, email, subject, bodyText, bodyHTML);
 
         } catch (IOException | MessagingException e) {
             e.getStackTrace();
@@ -64,12 +51,11 @@ public class SendMessage {
     }
 
     public static void send(SesClient client,
-                            String sender,
-                            String recipient,
-                            String subject,
-                            String bodyText,
-                            String bodyHTML
-    ) throws AddressException, MessagingException, IOException {
+            String sender,
+            String recipient,
+            String subject,
+            String bodyText,
+            String bodyHTML) throws AddressException, MessagingException, IOException {
 
         Session session = Session.getDefaultInstance(new Properties());
 
@@ -138,7 +124,6 @@ public class SendMessage {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
 
     }
 }

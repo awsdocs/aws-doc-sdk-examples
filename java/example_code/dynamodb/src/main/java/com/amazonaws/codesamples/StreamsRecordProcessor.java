@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.StreamsRecordProcessor] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.StreamsRecordProcessor] 
 
 package com.amazonaws.codesamples;
 
@@ -66,24 +45,23 @@ public class StreamsRecordProcessor implements IRecordProcessor {
                     case "INSERT":
                     case "MODIFY":
                         StreamsAdapterDemoHelper.putItem(dynamoDBClient, tableName,
-                                                         streamRecord.getDynamodb().getNewImage());
+                                streamRecord.getDynamodb().getNewImage());
                         break;
                     case "REMOVE":
                         StreamsAdapterDemoHelper.deleteItem(dynamoDBClient, tableName,
-                                                            streamRecord.getDynamodb().getKeys().get("Id").getN());
+                                streamRecord.getDynamodb().getKeys().get("Id").getN());
                 }
             }
             checkpointCounter += 1;
             if (checkpointCounter % 10 == 0) {
                 try {
                     processRecordsInput.getCheckpointer().checkpoint();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
-        
+
     }
 
     @Override
@@ -91,13 +69,12 @@ public class StreamsRecordProcessor implements IRecordProcessor {
         if (shutdownInput.getShutdownReason() == ShutdownReason.TERMINATE) {
             try {
                 shutdownInput.getCheckpointer().checkpoint();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        
-    }    
+
+    }
 }
 
-// snippet-end:[dynamodb.java.codeexample.StreamsRecordProcessor] 
+// snippet-end:[dynamodb.java.codeexample.StreamsRecordProcessor]

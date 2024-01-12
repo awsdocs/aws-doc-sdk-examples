@@ -1,28 +1,7 @@
-//snippet-sourcedescription:[Determines if the necessary ports are open from the VPC to your domain, and also verifies the minimum forest and domain functional levels.]
-//snippet-keyword:[dotNET]
-//snippet-keyword:[.NET]
-//snippet-sourcesyntax:[.net]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Directory Service]
-//snippet-keyword:[DirectoryServicePortTest]
-//snippet-service:[ds]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-//snippet-start:[directoryservice.dotNET.directory_service_port_test.complete]
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// snippet-start:[directoryservice.dotNET.directory_service_port_test.complete]
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -286,5 +265,5 @@ namespace DirectoryServicePortTest
         }
     }
 }
-//snippet-end:[directoryservice.dotNET.directory_service_port_test.complete]
+// snippet-end:[directoryservice.dotNET.directory_service_port_test.complete]
 

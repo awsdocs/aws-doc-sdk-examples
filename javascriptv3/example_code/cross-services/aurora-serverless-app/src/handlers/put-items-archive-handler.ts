@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import type { Handler } from "src/types/handler.js";
 import { buildStatementCommand } from "../statement-commands/command-helper.js";
 

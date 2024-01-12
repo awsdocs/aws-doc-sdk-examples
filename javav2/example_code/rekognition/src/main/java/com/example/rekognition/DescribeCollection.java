@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DescribeCollection.java demonstrates how to retrieve the description of an Amazon Rekognition collection.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Rekognition]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.rekognition;
 
@@ -19,7 +13,8 @@ import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 // snippet-end:[rekognition.java2.describe_collection.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,11 +24,11 @@ public class DescribeCollection {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <collectionName>
+                Usage:    <collectionName>
 
-            Where:
-               collectionName - The name of the Amazon Rekognition collection.\s
-            """;
+                Where:
+                   collectionName - The name of the Amazon Rekognition collection.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,8 +38,8 @@ public class DescribeCollection {
         String collectionName = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         describeColl(rekClient, collectionName);
         rekClient.close();
@@ -53,10 +48,11 @@ public class DescribeCollection {
     public static void describeColl(RekognitionClient rekClient, String collectionName) {
         try {
             DescribeCollectionRequest describeCollectionRequest = DescribeCollectionRequest.builder()
-                .collectionId(collectionName)
-                .build();
+                    .collectionId(collectionName)
+                    .build();
 
-            DescribeCollectionResponse describeCollectionResponse = rekClient.describeCollection(describeCollectionRequest);
+            DescribeCollectionResponse describeCollectionResponse = rekClient
+                    .describeCollection(describeCollectionRequest);
             System.out.println("Collection Arn : " + describeCollectionResponse.collectionARN());
             System.out.println("Created : " + describeCollectionResponse.creationTimestamp().toString());
 

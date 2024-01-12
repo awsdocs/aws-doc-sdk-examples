@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ppe;
 
@@ -11,9 +9,9 @@ public class GearItem {
     private String name;
     private String itemDescription;
     private String bodyCoverDescription;
-    private String confidence ;
+    private String confidence;
 
-    public void setItemDescription (String itemDescription) {
+    public void setItemDescription(String itemDescription) {
 
         this.itemDescription = itemDescription;
     }
@@ -23,7 +21,7 @@ public class GearItem {
         return this.itemDescription;
     }
 
-    public void setBodyCoverDescription (String bodyCoverDescription) {
+    public void setBodyCoverDescription(String bodyCoverDescription) {
         this.bodyCoverDescription = bodyCoverDescription;
     }
 
@@ -32,7 +30,7 @@ public class GearItem {
         return this.bodyCoverDescription;
     }
 
-    public void setKey (String key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
@@ -40,7 +38,7 @@ public class GearItem {
         return this.key;
     }
 
-    public void setName (String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -48,7 +46,7 @@ public class GearItem {
         return this.name;
     }
 
-    public void setConfidence (String confidence) {
+    public void setConfidence(String confidence) {
         this.confidence = confidence;
     }
 

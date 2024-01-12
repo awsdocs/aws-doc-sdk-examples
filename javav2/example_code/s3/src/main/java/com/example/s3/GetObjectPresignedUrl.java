@@ -1,12 +1,6 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetObjectUsingPresignedUrl.java demonstrates how to get an object located in an Amazon Simple Storage Service (Amazon S3) bucket by using the S3Presigner client object]
-// snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.s3;
 
 // snippet-start:[presigned.java2.getobjectpresigned.main]
@@ -26,7 +20,8 @@ import software.amazon.awssdk.utils.IoUtils;
 // snippet-end:[presigned.java2.getobjectpresigned.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -36,13 +31,13 @@ public class GetObjectPresignedUrl {
     public static void main(String[] args) {
         final String USAGE = """
 
-            Usage:
-                <bucketName> <keyName>\s
+                Usage:
+                    <bucketName> <keyName>\s
 
-            Where:
-                bucketName - The Amazon S3 bucket name.\s
-                keyName - A key name that represents a text file.\s
-            """;
+                Where:
+                    bucketName - The Amazon S3 bucket name.\s
+                    keyName - A key name that represents a text file.\s
+                """;
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -53,8 +48,8 @@ public class GetObjectPresignedUrl {
         String keyName = args[1];
         Region region = Region.US_EAST_1;
         S3Presigner presigner = S3Presigner.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getPresignedUrl(presigner, bucketName, keyName);
         presigner.close();
@@ -63,14 +58,14 @@ public class GetObjectPresignedUrl {
     public static void getPresignedUrl(S3Presigner presigner, String bucketName, String keyName) {
         try {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                .bucket(bucketName)
-                .key(keyName)
-                .build();
+                    .bucket(bucketName)
+                    .key(keyName)
+                    .build();
 
             GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-                .signatureDuration(Duration.ofMinutes(60))
-                .getObjectRequest(getObjectRequest)
-                .build();
+                    .signatureDuration(Duration.ofMinutes(60))
+                    .getObjectRequest(getObjectRequest)
+                    .build();
 
             PresignedGetObjectRequest presignedGetObjectRequest = presigner.presignGetObject(getObjectPresignRequest);
             String theUrl = presignedGetObjectRequest.url().toString();
@@ -82,12 +77,13 @@ public class GetObjectPresignedUrl {
                 });
             });
 
-            // Send any request payload that the service needs (not needed when isBrowserExecutable is true).
+            // Send any request payload that the service needs (not needed when
+            // isBrowserExecutable is true).
             if (presignedGetObjectRequest.signedPayload().isPresent()) {
                 connection.setDoOutput(true);
 
                 try (InputStream signedPayload = presignedGetObjectRequest.signedPayload().get().asInputStream();
-                     OutputStream httpOutputStream = connection.getOutputStream()) {
+                        OutputStream httpOutputStream = connection.getOutputStream()) {
                     IoUtils.copy(signedPayload, httpOutputStream);
                 }
             }

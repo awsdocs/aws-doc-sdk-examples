@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.DocumentAPIParallelScan] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.DocumentAPIParallelScan] 
 
 package com.amazonaws.codesamples.document;
 
@@ -78,15 +57,14 @@ public class DocumentAPIParallelScan {
 
             // Scan the table using multiple threads
             parallelScan(parallelScanTestTableName, scanItemLimit, parallelScanThreads);
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
             System.err.println(ase.getMessage());
         }
     }
 
     private static void parallelScan(String tableName, int itemLimit, int numberOfThreads) {
         System.out.println(
-            "Scanning " + tableName + " using " + numberOfThreads + " threads " + itemLimit + " items at a time");
+                "Scanning " + tableName + " using " + numberOfThreads + " threads " + itemLimit + " items at a time");
         ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads);
 
         // Divide DynamoDB table into logical segments
@@ -130,14 +108,14 @@ public class DocumentAPIParallelScan {
         @Override
         public void run() {
             System.out.println("Scanning " + tableName + " segment " + segment + " out of " + totalSegments
-                + " segments " + itemLimit + " items at a time...");
+                    + " segments " + itemLimit + " items at a time...");
             int totalScannedItemCount = 0;
 
             Table table = dynamoDB.getTable(tableName);
 
             try {
                 ScanSpec spec = new ScanSpec().withMaxResultSize(itemLimit).withTotalSegments(totalSegments)
-                    .withSegment(segment);
+                        .withSegment(segment);
 
                 ItemCollection<ScanOutcome> items = table.scan(spec);
                 Iterator<Item> iterator = items.iterator();
@@ -149,13 +127,11 @@ public class DocumentAPIParallelScan {
                     System.out.println(currentItem.toString());
                 }
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.err.println(e.getMessage());
-            }
-            finally {
+            } finally {
                 System.out.println("Scanned " + totalScannedItemCount + " items from segment " + segment + " out of "
-                    + totalSegments + " of " + tableName);
+                        + totalSegments + " of " + tableName);
             }
         }
     }
@@ -175,14 +151,13 @@ public class DocumentAPIParallelScan {
             System.out.println("Processing record #" + productIndex);
 
             Item item = new Item().withPrimaryKey("Id", productIndex)
-                .withString("Title", "Book " + productIndex + " Title").withString("ISBN", "111-1111111111")
-                .withStringSet("Authors", new HashSet<String>(Arrays.asList("Author1"))).withNumber("Price", 2)
-                .withString("Dimensions", "8.5 x 11.0 x 0.5").withNumber("PageCount", 500)
-                .withBoolean("InPublication", true).withString("ProductCategory", "Book");
+                    .withString("Title", "Book " + productIndex + " Title").withString("ISBN", "111-1111111111")
+                    .withStringSet("Authors", new HashSet<String>(Arrays.asList("Author1"))).withNumber("Price", 2)
+                    .withString("Dimensions", "8.5 x 11.0 x 0.5").withNumber("PageCount", 500)
+                    .withBoolean("InPublication", true).withString("ProductCategory", "Book");
             table.putItem(item);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Failed to create item " + productIndex + " in " + tableName);
             System.err.println(e.getMessage());
         }
@@ -196,21 +171,20 @@ public class DocumentAPIParallelScan {
             System.out.println("Waiting for " + tableName + " to be deleted...this may take a while...");
             table.waitForDelete();
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Failed to delete table " + tableName);
             e.printStackTrace(System.err);
         }
     }
 
     private static void createTable(String tableName, long readCapacityUnits, long writeCapacityUnits,
-        String partitionKeyName, String partitionKeyType) {
+            String partitionKeyName, String partitionKeyType) {
 
         createTable(tableName, readCapacityUnits, writeCapacityUnits, partitionKeyName, partitionKeyType, null, null);
     }
 
     private static void createTable(String tableName, long readCapacityUnits, long writeCapacityUnits,
-        String partitionKeyName, String partitionKeyType, String sortKeyName, String sortKeyType) {
+            String partitionKeyName, String partitionKeyType, String sortKeyName, String sortKeyType) {
 
         try {
             System.out.println("Creating table " + tableName);
@@ -221,22 +195,22 @@ public class DocumentAPIParallelScan {
 
             List<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
             attributeDefinitions
-                .add(new AttributeDefinition().withAttributeName(partitionKeyName).withAttributeType(partitionKeyType));
+                    .add(new AttributeDefinition().withAttributeName(partitionKeyName)
+                            .withAttributeType(partitionKeyType));
 
             if (sortKeyName != null) {
                 keySchema.add(new KeySchemaElement().withAttributeName(sortKeyName).withKeyType(KeyType.RANGE)); // Sort
                                                                                                                  // key
                 attributeDefinitions
-                    .add(new AttributeDefinition().withAttributeName(sortKeyName).withAttributeType(sortKeyType));
+                        .add(new AttributeDefinition().withAttributeName(sortKeyName).withAttributeType(sortKeyType));
             }
 
             Table table = dynamoDB.createTable(tableName, keySchema, attributeDefinitions, new ProvisionedThroughput()
-                .withReadCapacityUnits(readCapacityUnits).withWriteCapacityUnits(writeCapacityUnits));
+                    .withReadCapacityUnits(readCapacityUnits).withWriteCapacityUnits(writeCapacityUnits));
             System.out.println("Waiting for " + tableName + " to be created...this may take a while...");
             table.waitForActive();
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Failed to create table " + tableName);
             e.printStackTrace(System.err);
         }
@@ -248,8 +222,7 @@ public class DocumentAPIParallelScan {
             if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             executor.shutdownNow();
 
             // Preserve interrupt status
@@ -258,4 +231,4 @@ public class DocumentAPIParallelScan {
     }
 }
 
-// snippet-end:[dynamodb.java.codeexample.DocumentAPIParallelScan] 
+// snippet-end:[dynamodb.java.codeexample.DocumentAPIParallelScan]

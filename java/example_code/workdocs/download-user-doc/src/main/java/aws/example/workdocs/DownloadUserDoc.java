@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[download_user_doc.java demonstrates how to download a document from AWS Workdocs.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-service:[workdocs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-10-28]
-//snippet-sourceauthor:[m-czernek]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.workdocs;
 
 import java.io.InputStream;
@@ -65,40 +59,43 @@ public class DownloadUserDoc {
 		}
 
 		for (User wdUser : wdUsers) {
-			//DescribeFolderContentsRequest dfc_request = new DescribeFolderContentsRequest();
+			// DescribeFolderContentsRequest dfc_request = new
+			// DescribeFolderContentsRequest();
 			user_folder = wdUser.getRootFolderId();
 		}
 
 		return user_folder;
 	}
 
-	private static Map<String, String> getDocInfo(AmazonWorkDocs workDocs, String orgId, String user, String docName) throws Exception {
-		// Java code: http://docs.aws.amazon.com/workdocs/latest/developerguide/download-documents.html
+	private static Map<String, String> getDocInfo(AmazonWorkDocs workDocs, String orgId, String user, String docName)
+			throws Exception {
+		// Java code:
+		// http://docs.aws.amazon.com/workdocs/latest/developerguide/download-documents.html
 		Map<String, String> map = new HashMap<String, String>();
 		String folderId = getUserFolder(workDocs, orgId, user);
 
-        if ("".equals(folderId)) {
-            System.out.println("Could not get user folder");
-        } else {
+		if ("".equals(folderId)) {
+			System.out.println("Could not get user folder");
+		} else {
 
-            DescribeFolderContentsRequest dfc_request = new DescribeFolderContentsRequest();
-            dfc_request.setFolderId(folderId);
+			DescribeFolderContentsRequest dfc_request = new DescribeFolderContentsRequest();
+			dfc_request.setFolderId(folderId);
 
-            DescribeFolderContentsResult result = workDocs.describeFolderContents(dfc_request);
+			DescribeFolderContentsResult result = workDocs.describeFolderContents(dfc_request);
 
-            List<DocumentMetadata> userDocs = new ArrayList<>();
+			List<DocumentMetadata> userDocs = new ArrayList<>();
 
-            userDocs.addAll(result.getDocuments());
+			userDocs.addAll(result.getDocuments());
 
-            for (DocumentMetadata doc: userDocs) {
-                DocumentVersionMetadata md = doc.getLatestVersionMetadata();
+			for (DocumentMetadata doc : userDocs) {
+				DocumentVersionMetadata md = doc.getLatestVersionMetadata();
 
-                if (docName.equals(md.getName())) {
-                    map.put("doc_id", doc.getId());
-                    map.put("version_id", md.getId());
-                }
-            }
-        }
+				if (docName.equals(md.getName())) {
+					map.put("doc_id", doc.getId());
+					map.put("version_id", md.getId());
+				}
+			}
+		}
 
 		return map;
 	}
@@ -128,10 +125,10 @@ public class DownloadUserDoc {
 
 		// Set to the full path to the doc
 		String saveDocFullName;
-		if(System.getProperty("os.name").contains("win")) {
-		  saveDocFullName = "C:\\test.txt";
+		if (System.getProperty("os.name").contains("win")) {
+			saveDocFullName = "C:\\test.txt";
 		} else {
-		  saveDocFullName = "/tmp/test.txt";
+			saveDocFullName = "/tmp/test.txt";
 		}
 
 		Map<String, String> map = getDocInfo(workDocs, orgId, userEmail, workdocsName);
@@ -163,8 +160,8 @@ public class DownloadUserDoc {
 		final Path destination = Paths.get(saveDocFullName);
 
 		try (final InputStream in = url_conn.getInputStream();) {
-		    Files.copy(in, destination);
-		    System.out.println("Downloaded " + workdocsName + " to: "+ saveDocFullName);
+			Files.copy(in, destination);
+			System.out.println("Downloaded " + workdocsName + " to: " + saveDocFullName);
 		}
 	}
 }

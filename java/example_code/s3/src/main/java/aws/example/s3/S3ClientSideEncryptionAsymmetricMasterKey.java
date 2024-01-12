@@ -1,28 +1,6 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * 
- * http://aws.amazon.com/apache2.0/
- * 
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[S3ClientSideEncryptionAsymmetricMasterKey.java demonstrates how to upload and download encrypted objects using S3 with a client-side asymmetric master key.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[PUT Object]
-// snippet-keyword:[GET Object]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.s3_client_side_encryption_asymmetric_master_key.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -91,7 +69,7 @@ public class S3ClientSideEncryptionAsymmetricMasterKey {
             System.out.println("Plaintext: " + new String(plaintext));
             System.out.println("Decrypted text: " + new String(decrypted));
         } catch (AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
             e.printStackTrace();
         } catch (SdkClientException e) {
@@ -102,9 +80,9 @@ public class S3ClientSideEncryptionAsymmetricMasterKey {
     }
 
     private static void saveKeyPair(String dir,
-                                    String publicKeyName,
-                                    String privateKeyName,
-                                    KeyPair keyPair) throws IOException {
+            String publicKeyName,
+            String privateKeyName,
+            KeyPair keyPair) throws IOException {
         PrivateKey privateKey = keyPair.getPrivate();
         PublicKey publicKey = keyPair.getPublic();
 
@@ -122,9 +100,9 @@ public class S3ClientSideEncryptionAsymmetricMasterKey {
     }
 
     private static KeyPair loadKeyPair(String dir,
-                                       String publicKeyName,
-                                       String privateKeyName,
-                                       String algorithm)
+            String publicKeyName,
+            String privateKeyName,
+            String algorithm)
             throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         // Read the public key from the specified file.
         File publicKeyFile = new File(dir + File.separator + publicKeyName);

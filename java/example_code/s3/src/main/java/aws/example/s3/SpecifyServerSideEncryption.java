@@ -1,27 +1,6 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * 
- * http://aws.amazon.com/apache2.0/
- * 
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[SpecifyServerSideEncryption.java demonstrates how to upload an object using S3 server-side encryption.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[PUT Object]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.specify_server_side_encryption.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -60,7 +39,7 @@ public class SpecifyServerSideEncryption {
                     keyNameToCopyAndEncrypt,
                     copiedObjectKeyName);
         } catch (AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
             e.printStackTrace();
         } catch (SdkClientException e) {
@@ -90,15 +69,16 @@ public class SpecifyServerSideEncryption {
     }
 
     private static void changeSSEEncryptionStatusByCopying(AmazonS3 s3Client,
-                                                           String bucketName,
-                                                           String sourceKey,
-                                                           String destKey) {
+            String bucketName,
+            String sourceKey,
+            String destKey) {
         // Upload a new, unencrypted object.
         PutObjectResult putResult = s3Client.putObject(bucketName, sourceKey, "Object example to encrypt by copying");
         System.out.println("Unencrypted object \"" + sourceKey + "\" uploaded.");
         printEncryptionStatus(putResult);
 
-        // Make a copy of the object and use server-side encryption when storing the copy.
+        // Make a copy of the object and use server-side encryption when storing the
+        // copy.
         CopyObjectRequest request = new CopyObjectRequest(bucketName,
                 sourceKey,
                 bucketName,
@@ -112,7 +92,8 @@ public class SpecifyServerSideEncryption {
         System.out.println("Object \"" + destKey + "\" uploaded with SSE.");
         printEncryptionStatus(response);
 
-        // Delete the original, unencrypted object, leaving only the encrypted copy in Amazon S3.
+        // Delete the original, unencrypted object, leaving only the encrypted copy in
+        // Amazon S3.
         s3Client.deleteObject(bucketName, sourceKey);
         System.out.println("Unencrypted object \"" + sourceKey + "\" deleted.");
     }

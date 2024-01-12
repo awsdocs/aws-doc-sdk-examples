@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteDataSource.java demonstrates how to delete an Amazon Kendra data source.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon Kendra]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kendra;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.kendra.model.KendraException;
 // snippet-end:[kendra.java2.delete.datasource.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,13 +23,13 @@ public class DeleteDataSource {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <dataSourceId> <indexId>\s
+                Usage:
+                    <dataSourceId> <indexId>\s
 
-            Where:
-                dataSourceId - The id value of the data source.
-                indexId - The id value of the index.
-            """;
+                Where:
+                    dataSourceId - The id value of the data source.
+                    indexId - The id value of the index.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -44,17 +39,17 @@ public class DeleteDataSource {
         String dataSourceId = args[0];
         String indexId = args[1];
         KendraClient kendra = KendraClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
         deleteSpecificDataSource(kendra, indexId, dataSourceId);
     }
 
     public static void deleteSpecificDataSource(KendraClient kendra, String indexId, String dataSourceId) {
         try {
             DeleteDataSourceRequest dataSourceRequest = DeleteDataSourceRequest.builder()
-                .id(dataSourceId)
-                .indexId(indexId)
-                .build();
+                    .id(dataSourceId)
+                    .indexId(indexId)
+                    .build();
 
             kendra.deleteDataSource(dataSourceRequest);
             System.out.println(dataSourceId + " was successfully deleted.");

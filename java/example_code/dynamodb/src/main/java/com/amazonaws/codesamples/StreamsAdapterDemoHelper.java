@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.StreamsAdapterDemoHelper] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.StreamsAdapterDemoHelper] 
 
 package com.amazonaws.codesamples;
 
@@ -65,21 +44,20 @@ public class StreamsAdapterDemoHelper {
                                                                                                  // key
 
         ProvisionedThroughput provisionedThroughput = new ProvisionedThroughput().withReadCapacityUnits(2L)
-            .withWriteCapacityUnits(2L);
+                .withWriteCapacityUnits(2L);
 
         StreamSpecification streamSpecification = new StreamSpecification();
         streamSpecification.setStreamEnabled(true);
         streamSpecification.setStreamViewType(StreamViewType.NEW_IMAGE);
         CreateTableRequest createTableRequest = new CreateTableRequest().withTableName(tableName)
-            .withAttributeDefinitions(attributeDefinitions).withKeySchema(keySchema)
-            .withProvisionedThroughput(provisionedThroughput).withStreamSpecification(streamSpecification);
+                .withAttributeDefinitions(attributeDefinitions).withKeySchema(keySchema)
+                .withProvisionedThroughput(provisionedThroughput).withStreamSpecification(streamSpecification);
 
         try {
             System.out.println("Creating table " + tableName);
             CreateTableResult result = client.createTable(createTableRequest);
             return result.getTableDescription().getLatestStreamArn();
-        }
-        catch (ResourceInUseException e) {
+        } catch (ResourceInUseException e) {
             System.out.println("Table already exists.");
             return describeTable(client, tableName).getTable().getLatestStreamArn();
         }
@@ -103,7 +81,7 @@ public class StreamsAdapterDemoHelper {
     }
 
     public static void putItem(AmazonDynamoDB dynamoDBClient, String tableName,
-        java.util.Map<String, AttributeValue> items) {
+            java.util.Map<String, AttributeValue> items) {
         PutItemRequest putItemRequest = new PutItemRequest().withTableName(tableName).withItem(items);
         dynamoDBClient.putItem(putItemRequest);
     }
@@ -114,11 +92,11 @@ public class StreamsAdapterDemoHelper {
 
         Map<String, AttributeValueUpdate> attributeUpdates = new HashMap<String, AttributeValueUpdate>();
         AttributeValueUpdate update = new AttributeValueUpdate().withAction(AttributeAction.PUT)
-            .withValue(new AttributeValue().withS(val));
+                .withValue(new AttributeValue().withS(val));
         attributeUpdates.put("attribute-2", update);
 
         UpdateItemRequest updateItemRequest = new UpdateItemRequest().withTableName(tableName).withKey(key)
-            .withAttributeUpdates(attributeUpdates);
+                .withAttributeUpdates(attributeUpdates);
         dynamoDBClient.updateItem(updateItemRequest);
     }
 
@@ -132,4 +110,4 @@ public class StreamsAdapterDemoHelper {
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.StreamsAdapterDemoHelper] 
+// snippet-end:[dynamodb.java.codeexample.StreamsAdapterDemoHelper]

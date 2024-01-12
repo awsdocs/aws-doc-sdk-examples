@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[lookoutvision.java2.projects.complete]
 
@@ -53,7 +51,8 @@ public class Projects {
         }
 
         /**
-         * Lists the Amazon Lookoutfor  Vision projects in the current AWS account and AWS
+         * Lists the Amazon Lookoutfor Vision projects in the current AWS account and
+         * AWS
          * Region.
          * 
          * @param lfvClient   An Amazon Lookout for Vision client.

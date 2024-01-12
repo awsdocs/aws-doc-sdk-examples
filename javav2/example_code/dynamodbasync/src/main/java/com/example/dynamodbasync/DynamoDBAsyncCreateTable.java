@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DynamoDBAsyncCreateTable.java demonstrates how to create an Amazon DynamoDB table using DynamoDbAsyncClient and DynamoDbAsyncWaiter objects.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/15/2020]
-//snippet-sourceauthor:[scmacdon- aws]
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -16,7 +10,6 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
 
 package com.example.dynamodbasync;
 
@@ -56,7 +49,7 @@ public class DynamoDBAsyncCreateTable {
         }
 
         /* Read the name from command args */
-        String tableName =  args[0];
+        String tableName = args[0];
         String key = args[1];
 
         // Create the DynamoDbAsyncClient object
@@ -91,8 +84,8 @@ public class DynamoDBAsyncCreateTable {
                 .tableName(tableName)
                 .build();
 
-         // Create the table by using the DynamoDbAsyncClient object
-         CompletableFuture<CreateTableResponse> response =  client.createTable(request);
+        // Create the table by using the DynamoDbAsyncClient object
+        CompletableFuture<CreateTableResponse> response = client.createTable(request);
 
         // When future is complete (either successfully or in error) handle the response
         response.whenComplete((table, err) -> {
@@ -104,14 +97,15 @@ public class DynamoDBAsyncCreateTable {
                             .tableName(table.tableDescription().tableName())
                             .build();
 
-                    CompletableFuture<WaiterResponse<DescribeTableResponse>> waiterResponse = asyncWaiter.waitUntilTableExists(tableRequest);
+                    CompletableFuture<WaiterResponse<DescribeTableResponse>> waiterResponse = asyncWaiter
+                            .waitUntilTableExists(tableRequest);
 
                     // Fires when the table is ready
                     waiterResponse.whenComplete((r, t) -> {
 
-                            // print out the new table's ARN when its ready
-                            String tableARN =  r.matched().response().get().table().tableArn();
-                            System.out.println("The table "+ tableARN +" is ready");
+                        // print out the new table's ARN when its ready
+                        String tableARN = r.matched().response().get().table().tableArn();
+                        System.out.println("The table " + tableARN + " is ready");
 
                     });
                     waiterResponse.join();
@@ -121,7 +115,8 @@ public class DynamoDBAsyncCreateTable {
                     err.printStackTrace();
                 }
             } finally {
-                // Lets the application shut down. Only close the client when you are completely done with it.
+                // Lets the application shut down. Only close the client when you are completely
+                // done with it.
                 client.close();
             }
         });

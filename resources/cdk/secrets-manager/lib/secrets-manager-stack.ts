@@ -1,3 +1,5 @@
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import {App, Stack, StackProps} from "aws-cdk-lib";
 

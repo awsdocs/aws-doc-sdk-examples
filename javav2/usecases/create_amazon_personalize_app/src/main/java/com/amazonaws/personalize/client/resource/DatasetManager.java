@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.personalize.client.resource;
 
 import java.io.IOException;
@@ -22,7 +21,8 @@ public class DatasetManager extends AbstractResourceManager {
     private final String datasetType;
     private final String schemaArn;
 
-    public DatasetManager(PersonalizeClient personalizeClient, String name, String dsgArn, String schemaArn, String datasetType) {
+    public DatasetManager(PersonalizeClient personalizeClient, String name, String dsgArn, String schemaArn,
+            String datasetType) {
         super(personalizeClient, name);
         this.dsgArn = dsgArn;
         this.datasetType = datasetType;

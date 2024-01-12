@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[CreateGroup.kt demonstrates how to create an AWS X-Ray group with a filter expression.]
-// snippet-keyword:[SDK for Kotlin]
-// snippet-service:[AWS X-Ray Service]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.xray
 

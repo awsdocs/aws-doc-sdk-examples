@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListFoundationModels.java demonstrates how to obtain a list of the available foundation models.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Bedrock]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.bedrock;
 
@@ -22,7 +15,8 @@ import java.util.List;
 // snippet-end:[bedrock.java2.list_foundation_models.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *

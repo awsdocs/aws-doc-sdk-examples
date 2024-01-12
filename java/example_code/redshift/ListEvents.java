@@ -1,27 +1,6 @@
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[ListEvents demonstrates how to list Amazon Redshift events.]
-// snippet-service:[redshift]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Redshift]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[DescribeEvents]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-31]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.ListEvents.complete]
 
 package com.amazonaws.services.redshift;
@@ -39,29 +18,30 @@ public class ListEvents {
 
     public static void main(String[] args) throws IOException {
 
-        // Default client using the {@link com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
+        // Default client using the {@link
+        // com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
 
-       client = AmazonRedshiftClientBuilder.defaultClient();
+        client = AmazonRedshiftClientBuilder.defaultClient();
 
-      try {
-             listEvents();
+        try {
+            listEvents();
         } catch (Exception e) {
             System.err.println("Operation failed: " + e.getMessage());
         }
     }
 
     private static void listEvents() {
-        long oneWeeksAgoMilli = (new Date()).getTime() - (7L*24L*60L*60L*1000L);
+        long oneWeeksAgoMilli = (new Date()).getTime() - (7L * 24L * 60L * 60L * 1000L);
         Date oneWeekAgo = new Date();
         oneWeekAgo.setTime(oneWeeksAgoMilli);
         String marker = null;
 
         do {
             DescribeEventsRequest request = new DescribeEventsRequest()
-            .withSourceIdentifier(clusterIdentifier)
-            .withSourceType(eventSourceType)
-            .withStartTime(oneWeekAgo)
-            .withMaxRecords(20);
+                    .withSourceIdentifier(clusterIdentifier)
+                    .withSourceType(eventSourceType)
+                    .withStartTime(oneWeekAgo)
+                    .withMaxRecords(20);
             DescribeEventsResult result = client.describeEvents(request);
             marker = result.getMarker();
             for (Event event : result.getEvents()) {
@@ -69,12 +49,10 @@ public class ListEvents {
             }
         } while (marker != null);
 
-
     }
-    static void printEvent(Event event)
-    {
-        if (event == null)
-        {
+
+    static void printEvent(Event event) {
+        if (event == null) {
             System.out.println("\nEvent object is null.");
             return;
         }
@@ -87,4 +65,4 @@ public class ListEvents {
     }
 
 }
- // snippet-end:[redshift.java.ListEvents.complete]
+// snippet-end:[redshift.java.ListEvents.complete]

@@ -1,9 +1,7 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-//snippet-start:[javascript.v3.cross_service.supplement.list_widgets]
+// snippet-start:[javascript.v3.cross_service.supplement.list_widgets]
 import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 
 // The following code uses the AWS SDK for JavaScript (v3).
@@ -104,4 +102,4 @@ export const handler = async (event) => {
     return buildResponseBody(500, err.message || "Unknown server error");
   }
 };
-//snippet-end:[javascript.v3.cross_service.supplement.list_widgets]
+// snippet-end:[javascript.v3.cross_service.supplement.list_widgets]

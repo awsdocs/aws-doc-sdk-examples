@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ppe;
 
@@ -52,7 +50,7 @@ public class DynamoDBService {
             // Persist the data into a DynamoDB table.
             for (Object o : gearList) {
 
-                //Need to get the WorkItem from each list.
+                // Need to get the WorkItem from each list.
                 List innerList = (List) o;
 
                 for (Object value : innerList) {
@@ -78,5 +76,5 @@ public class DynamoDBService {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-   }
+    }
 }

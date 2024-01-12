@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[CreateInstance.java demonstrates how to create an Amazon Elastic Compute Cloud (Amazon EC2) instance.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon EC2]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ec2;
 
@@ -22,13 +16,15 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.create_instance.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- * This code example requires an AMI value. You can learn more about this value by reading this documentation topic:
+ * This code example requires an AMI value. You can learn more about this value
+ * by reading this documentation topic:
  *
  * https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/AMIs.html
  */
@@ -36,13 +32,13 @@ public class CreateInstance {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-               <name> <amiId>
+                Usage:
+                   <name> <amiId>
 
-            Where:
-               name - An instance name value that you can obtain from the AWS Console (for example, ami-xxxxxx5c8b987b1a0).\s
-               amiId - An Amazon Machine Image (AMI) value that you can obtain from the AWS Console (for example, i-xxxxxx2734106d0ab).\s
-            """;
+                Where:
+                   name - An instance name value that you can obtain from the AWS Console (for example, ami-xxxxxx5c8b987b1a0).\s
+                   amiId - An Amazon Machine Image (AMI) value that you can obtain from the AWS Console (for example, i-xxxxxx2734106d0ab).\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,8 +49,8 @@ public class CreateInstance {
         String amiId = args[1];
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String instanceId = createEC2Instance(ec2, name, amiId);
         System.out.println("The Amazon EC2 Instance ID is " + instanceId);
@@ -63,23 +59,23 @@ public class CreateInstance {
 
     public static String createEC2Instance(Ec2Client ec2, String name, String amiId) {
         RunInstancesRequest runRequest = RunInstancesRequest.builder()
-            .imageId(amiId)
-            .instanceType(InstanceType.T1_MICRO)
-            .maxCount(1)
-            .minCount(1)
-            .build();
+                .imageId(amiId)
+                .instanceType(InstanceType.T1_MICRO)
+                .maxCount(1)
+                .minCount(1)
+                .build();
 
         RunInstancesResponse response = ec2.runInstances(runRequest);
         String instanceId = response.instances().get(0).instanceId();
         Tag tag = Tag.builder()
-            .key("Name")
-            .value(name)
-            .build();
+                .key("Name")
+                .value(name)
+                .build();
 
         CreateTagsRequest tagRequest = CreateTagsRequest.builder()
-            .resources(instanceId)
-            .tags(tag)
-            .build();
+                .resources(instanceId)
+                .tags(tag)
+                .build();
 
         try {
             ec2.createTags(tagRequest);

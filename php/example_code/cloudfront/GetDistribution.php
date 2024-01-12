@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudfront.php.getdistribution.complete]
 // snippet-start:[cloudfront.php.getdistribution.import]
@@ -76,14 +75,4 @@ function getsADistribution()
 // getsADistribution();
 // snippet-end:[cloudfront.php.getdistribution.main]
 // snippet-end:[cloudfront.php.getdistribution.complete]
-// snippet-sourcedescription:[GetDistribution.php demonstrates how to retrieve an Amazon CloudFront distribution.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[getDistribution]
-// snippet-keyword:[Amazon CloudFront]
-// snippet-service:[cloudfront]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-04-24]
 // snippet-sourceauthor:[pccornel (AWS)]

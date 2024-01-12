@@ -1,32 +1,7 @@
-// snippet-sourcedescription:[rekognition-collection-java-add-faces-to-collection.java demonstrates how to add faces, detected in an image, to an Amazon Rekognition collection.]
-// snippet-service:[rekognition]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[IndexFaces]
-// snippet-keyword:[Collection]
-// snippet-keyword:[Image]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-18]
-// snippet-sourceauthor:[reesch(AWS)]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // snippet-start:[rekognition.java.rekognition-collection-java-add-faces-to-collection.complete]
-
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
-
-
 package aws.example.rekognition.collection;
 
 import com.amazonaws.services.rekognition.AmazonRekognition;
@@ -52,9 +27,9 @@ public class AddFacesToCollection {
 
         Image image = new Image()
                 .withS3Object(new S3Object()
-                .withBucket(bucket)
-                .withName(photo));
-        
+                        .withBucket(bucket)
+                        .withName(photo));
+
         IndexFacesRequest indexFacesRequest = new IndexFacesRequest()
                 .withImage(image)
                 .withQualityFilter(QualityFilter.AUTO)
@@ -64,7 +39,7 @@ public class AddFacesToCollection {
                 .withDetectionAttributes("DEFAULT");
 
         IndexFacesResult indexFacesResult = rekognitionClient.indexFaces(indexFacesRequest);
-        
+
         System.out.println("Results for " + photo);
         System.out.println("Faces indexed:");
         List<FaceRecord> faceRecords = indexFacesResult.getFaceRecords();
@@ -72,7 +47,7 @@ public class AddFacesToCollection {
             System.out.println("  Face ID: " + faceRecord.getFace().getFaceId());
             System.out.println("  Location:" + faceRecord.getFaceDetail().getBoundingBox().toString());
         }
-        
+
         List<UnindexedFace> unindexedFaces = indexFacesResult.getUnindexedFaces();
         System.out.println("Faces not indexed:");
         for (UnindexedFace unindexedFace : unindexedFaces) {

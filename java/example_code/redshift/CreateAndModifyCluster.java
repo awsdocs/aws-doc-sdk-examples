@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -12,18 +14,6 @@
  * specific language governing permissions and limitations under the License.
 
  */
-// snippet-sourcedescription:[CreateAndModifyCluster demonstrates how to create and modify an Amazon Redshift cluster.]
-// snippet-service:[redshift]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Redshift]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[CreateCluster]
-// snippet-keyword:[DescribeClusters]
-// snippet-keyword:[ModifyCluster]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-02-01]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[redshift.java.CreateAndModifyCluster.complete]
 
 package com.amazonaws.services.redshift;
@@ -43,7 +33,8 @@ public class CreateAndModifyCluster {
 
     public static void main(String[] args) throws IOException {
 
-        // Default client using the {@link com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
+        // Default client using the {@link
+        // com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
         client = AmazonRedshiftClientBuilder.defaultClient();
 
         try {
@@ -68,7 +59,6 @@ public class CreateAndModifyCluster {
                 .withNumberOfNodes(2)
                 .withClusterSubnetGroupName("subnetgroup1");
 
-
         Cluster createResponse = client.createCluster(request);
         System.out.println("Created cluster " + createResponse.getClusterIdentifier());
     }
@@ -91,16 +81,15 @@ public class CreateAndModifyCluster {
 
     }
 
-    private static void printResult(DescribeClustersResult result)
-    {
-        if (result == null)
-        {
+    private static void printResult(DescribeClustersResult result) {
+        if (result == null) {
             System.out.println("Describe clusters result is null.");
             return;
         }
 
         System.out.println("Cluster property:");
-        System.out.format("Preferred Maintenance Window: %s\n", result.getClusters().get(0).getPreferredMaintenanceWindow());
+        System.out.format("Preferred Maintenance Window: %s\n",
+                result.getClusters().get(0).getPreferredMaintenanceWindow());
     }
 
     private static void waitForClusterReady() throws InterruptedException {
@@ -108,15 +97,14 @@ public class CreateAndModifyCluster {
         System.out.println("Waiting for cluster to become available.");
         while (!clusterReady) {
             DescribeClustersResult result = client.describeClusters(new DescribeClustersRequest()
-        .withClusterIdentifier(clusterIdentifier));
+                    .withClusterIdentifier(clusterIdentifier));
 
             String status = (result.getClusters()).get(0).getClusterStatus();
             if (status.equalsIgnoreCase("available")) {
                 clusterReady = true;
-            }
-            else {
+            } else {
                 System.out.print(".");
-                Thread.sleep(sleepTime*1000);
+                Thread.sleep(sleepTime * 1000);
             }
         }
     }

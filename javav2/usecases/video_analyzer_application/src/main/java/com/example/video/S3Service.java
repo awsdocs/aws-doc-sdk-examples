@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.video;
 
@@ -29,20 +27,21 @@ import java.util.List;
 
 @Component
 public class S3Service {
-    private  S3Client s3 ;
+    private S3Client s3;
+
     private S3Client getClient() {
         Region region = Region.US_EAST_1;
         return S3Client.builder()
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .region(region)
-            .build();
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(region)
+                .build();
     }
 
     public String ListAllObjects(String bucketName) {
         s3 = getClient();
         long sizeLg;
         Instant DateIn;
-        BucketItem myItem ;
+        BucketItem myItem;
         List<BucketItem> bucketItems = new ArrayList<>();
         try {
             ListObjectsRequest listObjects = ListObjectsRequest
@@ -70,16 +69,16 @@ public class S3Service {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        return null ;
+        return null;
     }
 
     public String getKeyName(String bucketName) {
         s3 = getClient();
-        String keyName="";
+        String keyName = "";
         try {
             ListObjectsRequest listObjects = ListObjectsRequest.builder()
-                .bucket(bucketName)
-                .build();
+                    .bucket(bucketName)
+                    .build();
 
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
@@ -92,7 +91,7 @@ public class S3Service {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        return null ;
+        return null;
     }
 
     // Convert Bucket item data into XML to pass back to the view.
@@ -104,8 +103,8 @@ public class S3Service {
             Document doc = builder.newDocument();
 
             // Start building the XML.
-            Element root = doc.createElement( "Items" );
-            doc.appendChild( root );
+            Element root = doc.createElement("Items");
+            doc.appendChild(root);
 
             // Iterate through the collection.
             for (BucketItem myItem : itemList) {
@@ -135,7 +134,7 @@ public class S3Service {
             }
 
             return doc;
-        } catch(ParserConfigurationException e) {
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
@@ -150,7 +149,7 @@ public class S3Service {
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+        } catch (TransformerException ex) {
             ex.printStackTrace();
         }
         return null;

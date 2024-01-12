@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.aws.rest.RetrieveItems;
 import com.aws.rest.SendMessage;
@@ -24,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SpringTests {
 
-    private static String id="";
-    private static String email="";
+    private static String id = "";
+    private static String email = "";
 
     @BeforeAll
     public static void setUp() {
@@ -75,7 +73,7 @@ public class SpringTests {
 
     @Test
     @Order(4)
-    public void flipItem(){
+    public void flipItem() {
         RetrieveItems ri = new RetrieveItems();
         assertDoesNotThrow(() -> ri.flipItemArchive(id));
         System.out.println("Test 4 passed");
@@ -92,5 +90,5 @@ public class SpringTests {
         java.io.InputStream is = writeExcel.exportExcel(theList);
         assertDoesNotThrow(() -> sm.sendReport(is, email));
         System.out.println("Test 5 passed");
-       }
+    }
 }

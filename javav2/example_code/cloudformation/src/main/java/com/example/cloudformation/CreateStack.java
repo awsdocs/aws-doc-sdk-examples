@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateStack.java demonstrates how to create a stack based on a template and wait until it's ready by using a waiter.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CloudFormation]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.cloudformation;
 
@@ -25,15 +18,19 @@ import software.amazon.awssdk.services.cloudformation.waiters.CloudFormationWait
 // snippet-end:[cf.java2.create_stack.import]
 
 /**
- *  To run this example, you must have a valid template that is located in an Amazon S3 bucket.
- *  For example:
+ * To run this example, you must have a valid template that is located in an
+ * Amazon S3 bucket.
+ * For example:
  *
- *  https://s3.amazonaws.com/<bucketname>/template.yml
+ * https://s3.amazonaws.com/<bucketname>/template.yml
  *
- *  Also, the role that you use must have CloudFormation permissions as well as Amazon S3 and Amazon EC2 permissions. For more information,
- *  see "Getting started with AWS CloudFormation" in the AWS CloudFormation User Guide.
+ * Also, the role that you use must have CloudFormation permissions as well as
+ * Amazon S3 and Amazon EC2 permissions. For more information,
+ * see "Getting started with AWS CloudFormation" in the AWS CloudFormation User
+ * Guide.
  *
- * Also, before running this Java V2 code example, set up your development environment, including your credentials.
+ * Also, before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -45,16 +42,16 @@ public class CreateStack {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <stackName> <roleARN> <location> <key> <value>\s
+                Usage:
+                    <stackName> <roleARN> <location> <key> <value>\s
 
-            Where:
-                stackName - The name of the AWS CloudFormation stack.\s
-                roleARN - The ARN of the role that has AWS CloudFormation permissions.\s
-                location - The location of file containing the template body. (for example, https://s3.amazonaws.com/<bucketname>/template.yml).\s
-                key - The key associated with the parameter.\s
-                value - The value associated with the parameter.\s
-            """;
+                Where:
+                    stackName - The name of the AWS CloudFormation stack.\s
+                    roleARN - The ARN of the role that has AWS CloudFormation permissions.\s
+                    location - The location of file containing the template body. (for example, https://s3.amazonaws.com/<bucketname>/template.yml).\s
+                    key - The key associated with the parameter.\s
+                    value - The value associated with the parameter.\s
+                """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -69,38 +66,38 @@ public class CreateStack {
 
         Region region = Region.US_EAST_1;
         CloudFormationClient cfClient = CloudFormationClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         createCFStack(cfClient, stackName, roleARN, location, key, value);
         cfClient.close();
     }
 
     public static void createCFStack(CloudFormationClient cfClient,
-                                     String stackName,
-                                     String roleARN,
-                                     String location,
-                                     String key,
-                                     String value) {
+            String stackName,
+            String roleARN,
+            String location,
+            String key,
+            String value) {
         try {
             CloudFormationWaiter waiter = cfClient.waiter();
             Parameter myParameter = Parameter.builder()
-                .parameterKey(key)
-                .parameterValue(value)
-                .build();
+                    .parameterKey(key)
+                    .parameterValue(value)
+                    .build();
 
             CreateStackRequest stackRequest = CreateStackRequest.builder()
-                .stackName(stackName)
-                .templateURL(location)
-                .roleARN(roleARN)
-                .onFailure(OnFailure.ROLLBACK)
-                .parameters(myParameter)
-                .build();
+                    .stackName(stackName)
+                    .templateURL(location)
+                    .roleARN(roleARN)
+                    .onFailure(OnFailure.ROLLBACK)
+                    .parameters(myParameter)
+                    .build();
 
             cfClient.createStack(stackRequest);
             DescribeStacksRequest stacksRequest = DescribeStacksRequest.builder()
-                .stackName(stackName)
-                .build();
+                    .stackName(stackName)
+                    .build();
 
             WaiterResponse<DescribeStacksResponse> waiterResponse = waiter.waitUntilStackCreateComplete(stacksRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);

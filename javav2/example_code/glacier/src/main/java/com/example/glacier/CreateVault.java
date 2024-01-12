@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[CreateVault.java demonstrates how to create an Amazon Glacier vault.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Glacier]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.glacier;
 
@@ -18,7 +13,8 @@ import software.amazon.awssdk.services.glacier.model.GlacierException;
 // snippet-end:[glacier.java2.create.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +24,12 @@ public class CreateVault {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <vaultName>
+                Usage:    <vaultName>
 
-            Where:
-               vaultName - The name of the vault to create.
+                Where:
+                   vaultName - The name of the vault to create.
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,8 +38,8 @@ public class CreateVault {
 
         String vaultName = args[0];
         GlacierClient glacier = GlacierClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         createGlacierVault(glacier, vaultName);
         glacier.close();
@@ -52,8 +48,8 @@ public class CreateVault {
     public static void createGlacierVault(GlacierClient glacier, String vaultName) {
         try {
             CreateVaultRequest vaultRequest = CreateVaultRequest.builder()
-                .vaultName(vaultName)
-                .build();
+                    .vaultName(vaultName)
+                    .build();
 
             CreateVaultResponse createVaultResult = glacier.createVault(vaultRequest);
             System.out.println("The URI of the new vault is " + createVaultResult.location());

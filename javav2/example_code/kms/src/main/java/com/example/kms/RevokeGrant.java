@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[RevokeGrant.java demonstrates how to revoke a grant for the specified customer master key (CMK).]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Key Management Service]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.kms;
 
 // snippet-start:[kms.java2_revoke_grant.main]
@@ -16,7 +12,8 @@ import software.amazon.awssdk.services.kms.model.RevokeGrantRequest;
 // snippet-end:[kms.java2_revoke_grant.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -26,13 +23,13 @@ public class RevokeGrant {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <keyId> <grantId>\s
+                Usage:
+                    <keyId> <grantId>\s
 
-            Where:
-                keyId - A unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).\s
-                grantId - A grant id value of the grant revoke.\s
-            """;
+                Where:
+                    keyId - A unique identifier for the customer master key associated with the grant (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).\s
+                    grantId - A grant id value of the grant revoke.\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -43,8 +40,8 @@ public class RevokeGrant {
         String grantId = args[1];
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         revokeKeyGrant(kmsClient, keyId, grantId);
         kmsClient.close();
@@ -53,9 +50,9 @@ public class RevokeGrant {
     public static void revokeKeyGrant(KmsClient kmsClient, String keyId, String grantId) {
         try {
             RevokeGrantRequest grantRequest = RevokeGrantRequest.builder()
-                .keyId(keyId)
-                .grantId(grantId)
-                .build();
+                    .keyId(keyId)
+                    .grantId(grantId)
+                    .build();
 
             kmsClient.revokeGrant(grantRequest);
 
@@ -65,4 +62,4 @@ public class RevokeGrant {
         }
     }
 }
- // snippet-end:[kms.java2_revoke_grant.main]
+// snippet-end:[kms.java2_revoke_grant.main]

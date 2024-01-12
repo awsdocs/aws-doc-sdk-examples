@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DescribeContact.java demonstrates how to describe the specified contact.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Connect]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.connect;
 
@@ -17,7 +11,8 @@ import software.amazon.awssdk.services.connect.model.DescribeContactRequest;
 import software.amazon.awssdk.services.connect.model.DescribeContactResponse;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,13 +23,13 @@ public class DescribeContact {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <instanceId> <contactId>
+                Usage:    <instanceId> <contactId>
 
-            Where:
-               instanceId - The id of your instance.
-               contactId - The id of the contact to describe.
+                Where:
+                   instanceId - The id of your instance.
+                   contactId - The id of the contact to describe.
 
-            """;
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,8 +40,8 @@ public class DescribeContact {
         String contactId = args[1];
         Region region = Region.US_EAST_1;
         ConnectClient connectClient = ConnectClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         describeSpecificContact(connectClient, instanceId, contactId);
     }
@@ -54,9 +49,9 @@ public class DescribeContact {
     public static void describeSpecificContact(ConnectClient connectClient, String instanceId, String contactId) {
         try {
             DescribeContactRequest contactRequest = DescribeContactRequest.builder()
-                .contactId(contactId)
-                .instanceId(instanceId)
-                .build();
+                    .contactId(contactId)
+                    .instanceId(instanceId)
+                    .build();
 
             DescribeContactResponse response = connectClient.describeContact(contactRequest);
             System.out.println("The queue info is " + response.contact().queueInfo().toString());

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.etl.example;
 
@@ -15,17 +13,17 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 public class S3Service {
     private S3Client getClient() {
         return S3Client.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
     }
 
-    public byte[] getObjectBytes (String bucketName, String keyName) {
+    public byte[] getObjectBytes(String bucketName, String keyName) {
         try {
             S3Client s3 = getClient();
             GetObjectRequest objectRequest = GetObjectRequest.builder()
-                .key(keyName)
-                .bucket(bucketName)
-                .build();
+                    .key(keyName)
+                    .bucket(bucketName)
+                    .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             byte[] data = objectBytes.asByteArray();

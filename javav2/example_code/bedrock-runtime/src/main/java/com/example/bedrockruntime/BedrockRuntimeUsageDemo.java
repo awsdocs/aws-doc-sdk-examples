@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.bedrockruntime;
 
@@ -19,7 +17,8 @@ import static com.example.bedrockruntime.InvokeModel.*;
 
 /**
  * Demonstrates the invocation of the following models:
- * Anthropic Claude 2, AI21 Labs Jurassic-2, Meta Llama 2 Chat, and Stability.ai Stable Diffusion XL.
+ * Anthropic Claude 2, AI21 Labs Jurassic-2, Meta Llama 2 Chat, and Stability.ai
+ * Stable Diffusion XL.
  */
 public class BedrockRuntimeUsageDemo {
 

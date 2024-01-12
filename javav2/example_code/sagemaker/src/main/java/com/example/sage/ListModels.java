@@ -1,17 +1,10 @@
-//snippet-sourcedescription:[ListModels.java demonstrates how to retrieve a list of models.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon SageMaker]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sage;
 
-//snippet-start:[sagemaker.java2.list_models.main]
-//snippet-start:[sagemaker.java2.list_models.import]
+// snippet-start:[sagemaker.java2.list_models.main]
+// snippet-start:[sagemaker.java2.list_models.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import software.amazon.awssdk.services.sagemaker.model.ListModelsRequest;
@@ -19,10 +12,11 @@ import software.amazon.awssdk.services.sagemaker.model.ListModelsResponse;
 import software.amazon.awssdk.services.sagemaker.model.ModelSummary;
 import software.amazon.awssdk.services.sagemaker.model.SageMakerException;
 import java.util.List;
-//snippet-end:[sagemaker.java2.list_models.import]
+// snippet-end:[sagemaker.java2.list_models.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -33,19 +27,18 @@ public class ListModels {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listAllModels(sageMakerClient);
         sageMakerClient.close();
     }
 
-
     public static void listAllModels(SageMakerClient sageMakerClient) {
         try {
             ListModelsRequest modelsRequest = ListModelsRequest.builder()
-                .maxResults(15)
-                .build();
+                    .maxResults(15)
+                    .build();
 
             ListModelsResponse modelResponse = sageMakerClient.listModels(modelsRequest);
             List<ModelSummary> items = modelResponse.models();
@@ -59,4 +52,4 @@ public class ListModels {
         }
     }
 }
-//snippet-end:[sagemaker.java2.list_models.main]
+// snippet-end:[sagemaker.java2.list_models.main]

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.resilient;
 
@@ -35,19 +33,19 @@ public class Database {
     public static DynamoDbClient getDynamoDbClient() {
         if (dynamoDbClient == null) {
             dynamoDbClient = DynamoDbClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+                    .region(Region.US_EAST_1)
+                    .build();
         }
         return dynamoDbClient;
     }
 
     // Checks to see if the Amazon DynamoDB table exists.
-    private boolean doesTableExist(String tableName){
+    private boolean doesTableExist(String tableName) {
         try {
             // Describe the table and catch any exceptions.
             DescribeTableRequest describeTableRequest = DescribeTableRequest.builder()
-                .tableName(tableName)
-                .build();
+                    .tableName(tableName)
+                    .build();
 
             getDynamoDbClient().describeTable(describeTableRequest);
             System.out.println("Table '" + tableName + "' exists.");
@@ -62,10 +60,12 @@ public class Database {
     }
 
     /*
-        Creates a DynamoDB table to use a recommendation service. The table has a
-        hash key named 'MediaType' that defines the type of media recommended, such as
-        Book or Movie, and a range key named 'ItemId' that, combined with the MediaType,
-        forms a unique identifier for the recommended item.
+     * Creates a DynamoDB table to use a recommendation service. The table has a
+     * hash key named 'MediaType' that defines the type of media recommended, such
+     * as
+     * Book or Movie, and a range key named 'ItemId' that, combined with the
+     * MediaType,
+     * forms a unique identifier for the recommended item.
      */
     public void createTable(String tableName, String fileName) throws IOException {
         // First check to see if the table exists.
@@ -73,39 +73,39 @@ public class Database {
         if (!doesExist) {
             DynamoDbWaiter dbWaiter = getDynamoDbClient().waiter();
             CreateTableRequest createTableRequest = CreateTableRequest.builder()
-                .tableName(tableName)
-                .attributeDefinitions(
-                    AttributeDefinition.builder()
-                        .attributeName("MediaType")
-                        .attributeType(ScalarAttributeType.S)
-                        .build(),
-                    AttributeDefinition.builder()
-                        .attributeName("ItemId")
-                        .attributeType(ScalarAttributeType.N)
-                        .build())
-                .keySchema(
-                    KeySchemaElement.builder()
-                        .attributeName("MediaType")
-                        .keyType(KeyType.HASH)
-                        .build(),
-                    KeySchemaElement.builder()
-                        .attributeName("ItemId")
-                        .keyType(KeyType.RANGE)
-                        .build())
-                .provisionedThroughput(
-                    ProvisionedThroughput.builder()
-                        .readCapacityUnits(5L)
-                        .writeCapacityUnits(5L)
-                        .build())
-                .build();
+                    .tableName(tableName)
+                    .attributeDefinitions(
+                            AttributeDefinition.builder()
+                                    .attributeName("MediaType")
+                                    .attributeType(ScalarAttributeType.S)
+                                    .build(),
+                            AttributeDefinition.builder()
+                                    .attributeName("ItemId")
+                                    .attributeType(ScalarAttributeType.N)
+                                    .build())
+                    .keySchema(
+                            KeySchemaElement.builder()
+                                    .attributeName("MediaType")
+                                    .keyType(KeyType.HASH)
+                                    .build(),
+                            KeySchemaElement.builder()
+                                    .attributeName("ItemId")
+                                    .keyType(KeyType.RANGE)
+                                    .build())
+                    .provisionedThroughput(
+                            ProvisionedThroughput.builder()
+                                    .readCapacityUnits(5L)
+                                    .writeCapacityUnits(5L)
+                                    .build())
+                    .build();
 
             getDynamoDbClient().createTable(createTableRequest);
             System.out.println("Creating table " + tableName + "...");
 
             // Wait until the Amazon DynamoDB table is created.
             DescribeTableRequest tableRequest = DescribeTableRequest.builder()
-                .tableName(tableName)
-                .build();
+                    .tableName(tableName)
+                    .build();
 
             WaiterResponse<DescribeTableResponse> waiterResponse = dbWaiter.waitUntilTableExists(tableRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);
@@ -117,20 +117,22 @@ public class Database {
     }
 
     public void deleteTable(String tableName) {
-        getDynamoDbClient().deleteTable(table->table.tableName(tableName));
+        getDynamoDbClient().deleteTable(table -> table.tableName(tableName));
         System.out.println("Table " + tableName + " deleted.");
     }
 
-    // Populates the table with data located in a JSON file using the DynamoDB enhanced client.
+    // Populates the table with data located in a JSON file using the DynamoDB
+    // enhanced client.
     public void populateTable(String fileName, String tableName) throws IOException {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(getDynamoDbClient())
-            .build();
+                .dynamoDbClient(getDynamoDbClient())
+                .build();
         ObjectMapper objectMapper = new ObjectMapper();
         File jsonFile = new File(fileName);
         JsonNode rootNode = objectMapper.readTree(jsonFile);
 
-        DynamoDbTable<Recommendation> mappedTable = enhancedClient.table(tableName, TableSchema.fromBean(Recommendation.class));
+        DynamoDbTable<Recommendation> mappedTable = enhancedClient.table(tableName,
+                TableSchema.fromBean(Recommendation.class));
         for (JsonNode currentNode : rootNode) {
             String mediaType = currentNode.path("MediaType").path("S").asText();
             int itemId = currentNode.path("ItemId").path("N").asInt();
@@ -147,7 +149,7 @@ public class Database {
             // Put the item into the DynamoDB table.
             mappedTable.putItem(rec); // Add the Recommendation to the list.
         }
-        System.out.println("Added all records to the "+tableName);
+        System.out.println("Added all records to the " + tableName);
     }
 }
 // snippet-end:[javav2.example_code.workflow.ResilientService_RecommendationService]

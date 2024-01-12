@@ -1,28 +1,6 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * 
- * http://aws.amazon.com/apache2.0/
- * 
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[CreateBucketWithACL.java demonstrates how to create a bucket with a canned ACL and how to modify a bucket's ACL grants.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[GET Bucket acl]
-// snippet-keyword:[PUT Bucket acl]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.create_bucket_with_acl.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -47,7 +25,8 @@ public class CreateBucketWithACL {
                     .withRegion(clientRegion)
                     .build();
 
-            // Create a bucket with a canned ACL. This ACL will be replaced by the setBucketAcl()
+            // Create a bucket with a canned ACL. This ACL will be replaced by the
+            // setBucketAcl()
             // calls below. It is included here for demonstration purposes.
             CreateBucketRequest createBucketRequest = new CreateBucketRequest(bucketName, clientRegion.getName())
                     .withCannedAcl(CannedAccessControlList.LogDeliveryWrite);
@@ -57,7 +36,8 @@ public class CreateBucketWithACL {
             ArrayList<Grant> grantCollection = new ArrayList<Grant>();
 
             // Grant the account owner full control.
-            Grant grant1 = new Grant(new CanonicalGrantee(s3Client.getS3AccountOwner().getId()), Permission.FullControl);
+            Grant grant1 = new Grant(new CanonicalGrantee(s3Client.getS3AccountOwner().getId()),
+                    Permission.FullControl);
             grantCollection.add(grant1);
 
             // Grant the LogDelivery group permission to write to the bucket.
@@ -75,7 +55,7 @@ public class CreateBucketWithACL {
             newBucketAcl.grantAllPermissions(grant3);
             s3Client.setBucketAcl(bucketName, newBucketAcl);
         } catch (AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // The call was transmitted successfully, but Amazon S3 couldn't process
             // it and returned an error response.
             e.printStackTrace();
         } catch (SdkClientException e) {

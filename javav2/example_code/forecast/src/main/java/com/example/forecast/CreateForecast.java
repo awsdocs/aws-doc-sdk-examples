@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[CreateForecast.java demonstrates how to create a forecast for the Amazon Forecast service.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Forecast]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.forecast;
 
@@ -18,7 +13,8 @@ import software.amazon.awssdk.services.forecast.model.ForecastException;
 // snippet-end:[forecast.java2.create_forecast.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,14 +24,14 @@ public class CreateForecast {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <name> <predictorArn>\s
+                Usage:
+                    <name> <predictorArn>\s
 
-            Where:
-                name - The name of the forecast.\s
-                predictorArn - The arn of the predictor to use.\s
+                Where:
+                    name - The name of the forecast.\s
+                    predictorArn - The arn of the predictor to use.\s
 
-            """;
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -46,8 +42,8 @@ public class CreateForecast {
         String predictorArn = args[1];
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String forecastArn = createNewForecast(forecast, name, predictorArn);
         System.out.println("The ARN of the new forecast is " + forecastArn);
@@ -57,9 +53,9 @@ public class CreateForecast {
     public static String createNewForecast(ForecastClient forecast, String name, String predictorArn) {
         try {
             CreateForecastRequest forecastRequest = CreateForecastRequest.builder()
-                .forecastName(name)
-                .predictorArn(predictorArn)
-                .build();
+                    .forecastName(name)
+                    .predictorArn(predictorArn)
+                    .build();
 
             CreateForecastResponse response = forecast.createForecast(forecastRequest);
             return response.forecastArn();
@@ -71,4 +67,4 @@ public class CreateForecast {
         return "";
     }
 }
- // snippet-end:[forecast.java2.create_forecast.main]
+// snippet-end:[forecast.java2.create_forecast.main]

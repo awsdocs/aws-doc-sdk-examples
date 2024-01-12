@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -14,7 +12,7 @@ public class ConnectionHelper {
     public static Connection getConnection(String host, String user, String password) throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url2 = "jdbc:mysql://"+host+":3306/mydb?useSSL=false";
+            String url2 = "jdbc:mysql://" + host + ":3306/mydb?useSSL=false";
             return DriverManager.getConnection(url2, user, password);
 
         } catch (SQLException | ClassNotFoundException e) {

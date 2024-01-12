@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListTopics.kt demonstrates how to get a list of existing Amazon Simple Notification Service (Amazon SNS) topics.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Amazon Simple Notification Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.sns
 

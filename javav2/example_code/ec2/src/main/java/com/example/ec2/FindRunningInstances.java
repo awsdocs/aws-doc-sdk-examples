@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-//snippet-sourcedescription:[FindRunningInstances.java demonstrates how to find running Amazon Elastic Compute Cloud (Amazon EC2) instances by using a filter.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon EC2]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ec2;
 
@@ -23,7 +16,8 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.running_instances.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -33,8 +27,8 @@ public class FindRunningInstances {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         findRunningEC2Instances(ec2);
         ec2.close();
@@ -45,13 +39,13 @@ public class FindRunningInstances {
             String nextToken;
             do {
                 Filter filter = Filter.builder()
-                    .name("instance-state-name")
-                    .values("running")
-                    .build();
+                        .name("instance-state-name")
+                        .values("running")
+                        .build();
 
                 DescribeInstancesRequest request = DescribeInstancesRequest.builder()
-                    .filters(filter)
-                    .build();
+                        .filters(filter)
+                        .build();
 
                 DescribeInstancesResponse response = ec2.describeInstances(request);
                 for (Reservation reservation : response.reservations()) {
@@ -61,11 +55,11 @@ public class FindRunningInstances {
                                 "type %s, " +
                                 "state %s " +
                                 "and monitoring state %s",
-                            instance.instanceId(),
-                            instance.imageId(),
-                            instance.instanceType(),
-                            instance.state().name(),
-                            instance.monitoring().state());
+                                instance.instanceId(),
+                                instance.imageId(),
+                                instance.instanceType(),
+                                instance.state().name(),
+                                instance.monitoring().state());
                     }
                 }
                 nextToken = response.nextToken();

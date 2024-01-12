@@ -1,12 +1,6 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DeleteHostedZone.java demonstrates how to delete a hosted zone.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Route 53]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.route;
 
 // snippet-start:[route53.java2.delete_hosted_zone.main]
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.route53.model.Route53Exception;
 // snippet-end:[route53.java2.delete_hosted_zone.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +23,12 @@ public class DeleteHostedZone {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <hostedZoneId>\s
+                Usage:
+                    <hostedZoneId>\s
 
-            Where:
-                hostedZoneId - The hosted zone id.\s
-            """;
+                Where:
+                    hostedZoneId - The hosted zone id.\s
+                """;
 
         if (args.length < 1) {
             System.out.println(usage);
@@ -43,8 +38,8 @@ public class DeleteHostedZone {
         String hostedZoneId = args[0];
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         delHostedZone(route53Client, hostedZoneId);
         route53Client.close();
@@ -53,8 +48,8 @@ public class DeleteHostedZone {
     public static void delHostedZone(Route53Client route53Client, String hostedZoneId) {
         try {
             DeleteHostedZoneRequest deleteHostedZoneRequestRequest = DeleteHostedZoneRequest.builder()
-                .id(hostedZoneId)
-                .build();
+                    .id(hostedZoneId)
+                    .build();
 
             route53Client.deleteHostedZone(deleteHostedZoneRequestRequest);
             System.out.println("The hosted zone was deleted");
@@ -66,4 +61,3 @@ public class DeleteHostedZone {
     }
 }
 // snippet-end:[route53.java2.delete_hosted_zone.main]
-

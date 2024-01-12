@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DescribeClusters.java demonstrates how to describe a cluster for the Amazon Elastic Container Service (Amazon ECS) service.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Elastic Container Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ecs;
 
@@ -21,7 +15,8 @@ import java.util.List;
 // snippet-end:[ecs.java2.des_cluster.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,12 +26,12 @@ public class DescribeClusters {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-              <clusterArn> \s
+                Usage:
+                  <clusterArn> \s
 
-            Where:
-              clusterArn - The ARN of the ECS cluster to describe.
-            """;
+                Where:
+                  clusterArn - The ARN of the ECS cluster to describe.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,8 +41,8 @@ public class DescribeClusters {
         String clusterArn = args[0];
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         descCluster(ecsClient, clusterArn);
     }
@@ -55,8 +50,8 @@ public class DescribeClusters {
     public static void descCluster(EcsClient ecsClient, String clusterArn) {
         try {
             DescribeClustersRequest clustersRequest = DescribeClustersRequest.builder()
-                .clusters(clusterArn)
-                .build();
+                    .clusters(clusterArn)
+                    .build();
 
             DescribeClustersResponse response = ecsClient.describeClusters(clustersRequest);
             List<Cluster> clusters = response.clusters();

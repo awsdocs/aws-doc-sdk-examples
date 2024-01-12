@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[VisibilityTimeout.java demonstrates how to change the visibility timeout for messages in an Amazon Simple Queue Service (Amazon SQS) queue.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Simple Queue Service]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.sqs;
 
 // snippet-start:[sqs.java2.visibility_timeout.main]
@@ -25,7 +20,8 @@ import java.util.Date;
 // snippet-end:[sqs.java2.visibility_timeout.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -35,13 +31,13 @@ public class VisibilityTimeout {
     public static void main(String[] args) {
         final String queueName = "testQueue" + new Date().getTime();
         SqsClient sqs = SqsClient.builder()
-            .region(Region.US_WEST_2)
-            .build();
+                .region(Region.US_WEST_2)
+                .build();
 
         // First, create a queue (unless it exists already)
         CreateQueueRequest createRequest = CreateQueueRequest.builder()
-            .queueName(queueName)
-            .build();
+                .queueName(queueName)
+                .build();
         try {
             sqs.createQueue(createRequest);
         } catch (SqsException e) {
@@ -52,9 +48,9 @@ public class VisibilityTimeout {
         // Send some messages to the queue
         for (int i = 0; i < 20; i++) {
             SendMessageRequest sendRequest = SendMessageRequest.builder()
-                .queueUrl(queueName)
-                .messageBody("This is message " + i)
-                .build();
+                    .queueUrl(queueName)
+                    .messageBody("This is message " + i)
+                    .build();
             sqs.sendMessage(sendRequest);
         }
 
@@ -71,18 +67,18 @@ public class VisibilityTimeout {
         try {
             // Get the receipt handle for the first message in the queue.
             ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
-                .queueUrl(queueName)
-                .build();
+                    .queueUrl(queueName)
+                    .build();
             String receipt = sqs.receiveMessage(receiveRequest)
-                .messages()
-                .get(0)
-                .receiptHandle();
+                    .messages()
+                    .get(0)
+                    .receiptHandle();
 
             ChangeMessageVisibilityRequest visibilityRequest = ChangeMessageVisibilityRequest.builder()
-                .queueUrl(queueName)
-                .receiptHandle(receipt)
-                .visibilityTimeout(timeout)
-                .build();
+                    .queueUrl(queueName)
+                    .receiptHandle(receipt)
+                    .visibilityTimeout(timeout)
+                    .build();
             sqs.changeMessageVisibility(visibilityRequest);
 
         } catch (SqsException e) {
@@ -96,30 +92,30 @@ public class VisibilityTimeout {
         try {
             List<ChangeMessageVisibilityBatchRequestEntry> entries = new ArrayList<>();
             ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
-                .queueUrl(queue_url)
-                .build();
+                    .queueUrl(queue_url)
+                    .build();
 
             String receipt = sqs.receiveMessage(receiveRequest)
-                .messages()
-                .get(0)
-                .receiptHandle();
+                    .messages()
+                    .get(0)
+                    .receiptHandle();
 
             entries.add(ChangeMessageVisibilityBatchRequestEntry.builder()
-                .id("unique_id_msg1")
-                .receiptHandle(receipt)
-                .visibilityTimeout(timeout)
-                .build());
+                    .id("unique_id_msg1")
+                    .receiptHandle(receipt)
+                    .visibilityTimeout(timeout)
+                    .build());
 
             entries.add(ChangeMessageVisibilityBatchRequestEntry.builder()
-                .id("unique_id_msg2")
-                .receiptHandle(receipt)
-                .visibilityTimeout(timeout + 200)
-                .build());
+                    .id("unique_id_msg2")
+                    .receiptHandle(receipt)
+                    .visibilityTimeout(timeout + 200)
+                    .build());
 
             ChangeMessageVisibilityBatchRequest batchRequest = ChangeMessageVisibilityBatchRequest.builder()
-                .queueUrl(queue_url)
-                .entries(entries)
-                .build();
+                    .queueUrl(queue_url)
+                    .entries(entries)
+                    .build();
 
             sqs.changeMessageVisibilityBatch(batchRequest);
 
@@ -130,4 +126,3 @@ public class VisibilityTimeout {
     }
 }
 // snippet-end:[sqs.java2.visibility_timeout.main]
-

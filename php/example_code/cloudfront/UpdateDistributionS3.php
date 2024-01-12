@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudfront.php.updatedistribution.complete]
 // snippet-start:[cloudfront.php.updatedistribution.import]
@@ -165,15 +164,4 @@ function updateADistribution()
 // updateADistribution();
 // snippet-end:[cloudfront.php.updatedistribution.main]
 // snippet-end:[cloudfront.php.updatedistribution.complete]
-// snippet-sourcedescription:[UpdateDistribution.php demonstrates how to get an Amazon CloudFront distribution and change any of the configurations. To make changes, replace the current configuration value with a new value.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[updateDistribution]
-// snippet-keyword:[getDistribution]
-// snippet-keyword:[Amazon CloudFront]
-// snippet-service:[cloudfront]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-18]
 // snippet-sourceauthor:[pccornel (AWS)]

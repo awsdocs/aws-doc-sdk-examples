@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[SetWebsiteConfiguration.java demonstrates how to set the website configuration for an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.s3;
 
 // snippet-start:[s3.java2.set_website_configuration.main]
@@ -19,7 +14,8 @@ import software.amazon.awssdk.regions.Region;
 // snippet-end:[s3.java2.set_website_configuration.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,13 +26,13 @@ public class SetWebsiteConfiguration {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <bucketName> [indexdoc]\s
+                Usage:    <bucketName> [indexdoc]\s
 
-            Where:
-               bucketName   - The Amazon S3 bucket to set the website configuration on.\s
-               indexdoc - The index document, ex. 'index.html'
-                          If not specified, 'index.html' will be set.
-            """;
+                Where:
+                   bucketName   - The Amazon S3 bucket to set the website configuration on.\s
+                   indexdoc - The index document, ex. 'index.html'
+                              If not specified, 'index.html' will be set.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,24 +43,23 @@ public class SetWebsiteConfiguration {
         String indexDoc = "index.html";
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         setWebsiteConfig(s3, bucketName, indexDoc);
         s3.close();
     }
 
-
     public static void setWebsiteConfig(S3Client s3, String bucketName, String indexDoc) {
         try {
             WebsiteConfiguration websiteConfig = WebsiteConfiguration.builder()
-                .indexDocument(IndexDocument.builder().suffix(indexDoc).build())
-                .build();
+                    .indexDocument(IndexDocument.builder().suffix(indexDoc).build())
+                    .build();
 
             PutBucketWebsiteRequest pubWebsiteReq = PutBucketWebsiteRequest.builder()
-                .bucket(bucketName)
-                .websiteConfiguration(websiteConfig)
-                .build();
+                    .bucket(bucketName)
+                    .websiteConfiguration(websiteConfig)
+                    .build();
 
             s3.putBucketWebsite(pubWebsiteReq);
             System.out.println("The call was successful");
@@ -76,4 +71,3 @@ public class SetWebsiteConfiguration {
     }
 }
 // snippet-end:[s3.java2.set_website_configuration.main]
-

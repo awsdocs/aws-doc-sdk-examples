@@ -95,4 +95,3 @@ sns.publish(
         .withMessageDeduplicationId(dedupId)
         .withMessageAttributes(attributes);
 // snippet-end:[sns.java.fifo_topics.publish]
-

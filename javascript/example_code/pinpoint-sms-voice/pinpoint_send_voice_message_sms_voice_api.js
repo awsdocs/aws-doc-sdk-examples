@@ -1,32 +1,11 @@
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[pinpoint_send_voice_message_sms_voice_api demonstrates how to send a transactional voice message by using the SendVoiceMessage operation in the Amazon Pinpoint SMS and Voice API.]
-// snippet-service:[Amazon Pinpoint]
-// snippet-keyword:[JavaScript]
-// snippet-sourcesyntax:[javascript]
-// snippet-keyword:[Amazon Pinpoint SMS and Voice API]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[SendVoiceMessage]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-20]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[pinpoint.javascript.pinpoint_send_voice_message_sms_voice_api.complete]
 
-'use strict'
+"use strict";
 
-var AWS = require('aws-sdk');
+var AWS = require("aws-sdk");
 
 // The AWS Region that you want to use to send the voice message. For a list of
 // AWS Regions where the Amazon Pinpoint SMS and Voice API is available, see
@@ -53,12 +32,13 @@ var voiceId = "Matthew";
 // The content of the message. This example uses SSML to customize and control
 // certain aspects of the message, such as the volume or the speech rate.
 // The message can't contain any line breaks.
-var ssmlMessage = "<speak>"
-    + "This is a test message sent from <emphasis>Amazon Pinpoint</emphasis> "
-    + "using the <break strength='weak'/>AWS SDK for JavaScript in Node.js. "
-    + "<amazon:effect phonation='soft'>Thank you for listening."
-    + "</amazon:effect>"
-    + "</speak>";
+var ssmlMessage =
+  "<speak>" +
+  "This is a test message sent from <emphasis>Amazon Pinpoint</emphasis> " +
+  "using the <break strength='weak'/>AWS SDK for JavaScript in Node.js. " +
+  "<amazon:effect phonation='soft'>Thank you for listening." +
+  "</amazon:effect>" +
+  "</speak>";
 
 // The phone number that you want to appear on the recipient's device. The phone
 // number that you specify has to be associated with your Amazon Pinpoint account.
@@ -69,11 +49,11 @@ var configurationSet = "ConfigSet";
 
 // Specify that you're using a shared credentials file, and optionally specify
 // the profile that you want to use.
-var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+var credentials = new AWS.SharedIniFileCredentials({ profile: "default" });
 AWS.config.credentials = credentials;
 
 // Specify the region.
-AWS.config.update({region:aws_region});
+AWS.config.update({ region: aws_region });
 
 //Create a new Pinpoint object.
 var pinpointsmsvoice = new AWS.PinpointSMSVoice();
@@ -85,21 +65,21 @@ var params = {
     SSMLMessage: {
       LanguageCode: languageCode,
       Text: ssmlMessage,
-      VoiceId: voiceId
-    }
+      VoiceId: voiceId,
+    },
   },
   DestinationPhoneNumber: destinationNumber,
-  OriginationPhoneNumber: originationNumber
+  OriginationPhoneNumber: originationNumber,
 };
 
 //Try to send the message.
-pinpointsmsvoice.sendVoiceMessage(params, function(err, data) {
+pinpointsmsvoice.sendVoiceMessage(params, function (err, data) {
   // If something goes wrong, print an error message.
-  if(err) {
+  if (err) {
     console.log(err.message);
-  // Otherwise, show the unique ID for the message.
+    // Otherwise, show the unique ID for the message.
   } else {
-    console.log("Message sent! Message ID: " + data['MessageId']);
+    console.log("Message sent! Message ID: " + data["MessageId"]);
   }
 });
 

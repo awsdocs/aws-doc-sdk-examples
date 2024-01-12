@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetTemplate.java demonstrates how to retrieve a template.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CloudFormation]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.cloudformation;
 
@@ -20,7 +13,8 @@ import software.amazon.awssdk.services.cloudformation.model.GetTemplateResponse;
 // snippet-end:[cf.java2._template.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,12 +25,12 @@ public class GetTemplate {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <stackName>\s
+                Usage:
+                    <stackName>\s
 
-            Where:
-                stackName - The name of the AWS CloudFormation stack.\s
-            """;
+                Where:
+                    stackName - The name of the AWS CloudFormation stack.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,8 +40,8 @@ public class GetTemplate {
         String stackName = args[0];
         Region region = Region.US_WEST_2;
         CloudFormationClient cfClient = CloudFormationClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getSpecificTemplate(cfClient, stackName);
         cfClient.close();
@@ -56,8 +50,8 @@ public class GetTemplate {
     public static void getSpecificTemplate(CloudFormationClient cfClient, String stackName) {
         try {
             GetTemplateRequest typeRequest = GetTemplateRequest.builder()
-                .stackName(stackName)
-                .build();
+                    .stackName(stackName)
+                    .build();
 
             GetTemplateResponse response = cfClient.getTemplate(typeRequest);
             String body = response.templateBody();

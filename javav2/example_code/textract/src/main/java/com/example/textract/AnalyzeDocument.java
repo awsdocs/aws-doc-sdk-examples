@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[AnalyzeDocument.java demonstrates how to analyze a document.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Textract]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.textract;
 
@@ -30,7 +24,8 @@ import java.util.List;
 // snippet-end:[textract.java2._analyze_doc.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -40,12 +35,12 @@ public class AnalyzeDocument {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <sourceDoc>\s
+                Usage:
+                    <sourceDoc>\s
 
-            Where:
-                sourceDoc - The path where the document is located (must be an image, for example, C:/AWS/book.png).\s
-            """;
+                Where:
+                    sourceDoc - The path where the document is located (must be an image, for example, C:/AWS/book.png).\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -55,8 +50,8 @@ public class AnalyzeDocument {
         String sourceDoc = args[0];
         Region region = Region.US_EAST_2;
         TextractClient textractClient = TextractClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         analyzeDoc(textractClient, sourceDoc);
         textractClient.close();
@@ -69,17 +64,17 @@ public class AnalyzeDocument {
 
             // Get the input Document object as bytes
             Document myDoc = Document.builder()
-                .bytes(sourceBytes)
-                .build();
+                    .bytes(sourceBytes)
+                    .build();
 
             List<FeatureType> featureTypes = new ArrayList<FeatureType>();
             featureTypes.add(FeatureType.FORMS);
             featureTypes.add(FeatureType.TABLES);
 
             AnalyzeDocumentRequest analyzeDocumentRequest = AnalyzeDocumentRequest.builder()
-                .featureTypes(featureTypes)
-                .document(myDoc)
-                .build();
+                    .featureTypes(featureTypes)
+                    .document(myDoc)
+                    .build();
 
             AnalyzeDocumentResponse analyzeDocument = textractClient.analyzeDocument(analyzeDocumentRequest);
             List<Block> docInfo = analyzeDocument.blocks();

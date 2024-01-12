@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[DeleteAccountAlias.java demonstrates how to delete an alias from an AWS account.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[IAM]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.iam;
 
 // snippet-start:[iam.java2.delete_account_alias.main]
@@ -17,7 +12,8 @@ import software.amazon.awssdk.services.iam.model.IamException;
 // snippet-end:[iam.java2.delete_account_alias.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -27,12 +23,12 @@ public class DeleteAccountAlias {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <alias>\s
+                Usage:
+                    <alias>\s
 
-            Where:
-                alias - The account alias to delete.\s
-            """;
+                Where:
+                    alias - The account alias to delete.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,8 +38,8 @@ public class DeleteAccountAlias {
         String alias = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         deleteIAMAccountAlias(iam, alias);
         iam.close();
@@ -52,8 +48,8 @@ public class DeleteAccountAlias {
     public static void deleteIAMAccountAlias(IamClient iam, String alias) {
         try {
             DeleteAccountAliasRequest request = DeleteAccountAliasRequest.builder()
-                .accountAlias(alias)
-                .build();
+                    .accountAlias(alias)
+                    .build();
 
             iam.deleteAccountAlias(request);
             System.out.println("Successfully deleted account alias " + alias);

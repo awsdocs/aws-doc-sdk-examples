@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ListTables.java demonstrates how to list all Amazon DynamoDB tables.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.dynamodb;
 
@@ -20,7 +14,8 @@ import java.util.List;
 // snippet-end:[dynamodb.java2.list_tables.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,8 +26,8 @@ public class ListTables {
         System.out.println("Listing your Amazon DynamoDB tables:\n");
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
         listAllTables(ddb);
         ddb.close();
     }
@@ -49,7 +44,7 @@ public class ListTables {
                     response = ddb.listTables(request);
                 } else {
                     ListTablesRequest request = ListTablesRequest.builder()
-                        .exclusiveStartTableName(lastName).build();
+                            .exclusiveStartTableName(lastName).build();
                     response = ddb.listTables(request);
                 }
 

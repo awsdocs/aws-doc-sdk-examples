@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -18,14 +16,14 @@
  *
  */
 
-//snippet-start:[iam.cpp.get_policy.inc]
+// snippet-start:[iam.cpp.get_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/GetPolicyRequest.h>
 #include <aws/iam/model/GetPolicyResult.h>
 #include <iostream>
 #include "iam_samples.h"
-//snippet-end:[iam.cpp.get_policy.inc]
+// snippet-end:[iam.cpp.get_policy.inc]
 
 //! Gets an IAM policy's information.
 /*!

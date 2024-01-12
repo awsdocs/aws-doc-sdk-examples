@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListEvents.kt demonstrates how to list events for a given cluster.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Redshift]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.redshift
 
 // snippet-start:[redshift.kotlin._events.import]

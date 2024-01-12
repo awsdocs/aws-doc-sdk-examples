@@ -1,7 +1,5 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { InvokeCommand, LambdaClient, LogType } from "@aws-sdk/client-lambda";
 
 /** snippet-start:[javascript.v3.lambda.actions.Invoke] */

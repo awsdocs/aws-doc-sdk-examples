@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 jest.mock("../src/libs/transcribeClient");
 jest.mock("@aws-sdk/client-transcribe");
 

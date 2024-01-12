@@ -1,26 +1,20 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateOpsItem.java demonstrates how to create a new OpsItem for Amazon Simple Systems Management (Amazon SSM).]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon Simple Systems Management]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ssm;
 
-//snippet-start:[ssm.java2.create_ops.main]
-//snippet-start:[ssm.java2.create_ops.import]
+// snippet-start:[ssm.java2.create_ops.main]
+// snippet-start:[ssm.java2.create_ops.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.CreateOpsItemRequest;
 import software.amazon.awssdk.services.ssm.model.CreateOpsItemResponse;
 import software.amazon.awssdk.services.ssm.model.SsmException;
-//snippet-end:[ssm.java2.create_ops.import]
+// snippet-end:[ssm.java2.create_ops.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,15 +25,15 @@ public class CreateOpsItem {
 
         final String USAGE = """
 
-            Usage:
-                <title> <source> <category> <severity>
+                Usage:
+                    <title> <source> <category> <severity>
 
-            Where:
-                title - The OpsItem title.
-                source - The origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.
-                category - A category to assign to an OpsItem.
-                severity - A severity to assign to an OpsItem.
-            """;
+                Where:
+                    title - The OpsItem title.
+                    source - The origin of the OpsItem, such as Amazon EC2 or AWS Systems Manager.
+                    category - A category to assign to an OpsItem.
+                    severity - A severity to assign to an OpsItem.
+                """;
 
         if (args.length != 4) {
             System.out.println(USAGE);
@@ -53,27 +47,28 @@ public class CreateOpsItem {
 
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
-        System.out.println("The Id of the OpsItem is " + createNewOpsItem(ssmClient, title, source, category, severity));
+        System.out
+                .println("The Id of the OpsItem is " + createNewOpsItem(ssmClient, title, source, category, severity));
         ssmClient.close();
     }
 
     public static String createNewOpsItem(SsmClient ssmClient,
-                                          String title,
-                                          String source,
-                                          String category,
-                                          String severity) {
+            String title,
+            String source,
+            String category,
+            String severity) {
 
         try {
             CreateOpsItemRequest opsItemRequest = CreateOpsItemRequest.builder()
-                .description("Created by the SSM Java API")
-                .title(title)
-                .source(source)
-                .category(category)
-                .severity(severity)
-                .build();
+                    .description("Created by the SSM Java API")
+                    .title(title)
+                    .source(source)
+                    .category(category)
+                    .severity(severity)
+                    .build();
 
             CreateOpsItemResponse itemResponse = ssmClient.createOpsItem(opsItemRequest);
             return itemResponse.opsItemId();
@@ -85,4 +80,4 @@ public class CreateOpsItem {
         return "";
     }
 }
-//snippet-end:[ssm.java2.create_ops.main]
+// snippet-end:[ssm.java2.create_ops.main]

@@ -1,23 +1,20 @@
-//snippet-sourcedescription:[GetIdentityCredentials.java demonstrates how to retrieve credentials for an identity in an Amazon Cognito identity pool.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Cognito]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.cognito;
 
-//snippet-start:[cognito.java2.GetIdentityCredentials.main]
-//snippet-start:[cognito.java2.GetIdentityCredentials.import]
+// snippet-start:[cognito.java2.GetIdentityCredentials.main]
+// snippet-start:[cognito.java2.GetIdentityCredentials.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentity.model.GetCredentialsForIdentityRequest;
 import software.amazon.awssdk.services.cognitoidentity.model.GetCredentialsForIdentityResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
-//snippet-end:[cognito.java2.GetIdentityCredentials.import]
+// snippet-end:[cognito.java2.GetIdentityCredentials.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,8 +25,8 @@ public class GetIdentityCredentials {
 
         final String usage = """
 
-            Usage:
-                <identityId>\s
+                Usage:
+                    <identityId>\s
 
             Where:
                 identityId - The Id of an existing identity in the format REGION:GUID.
@@ -42,22 +39,29 @@ public class GetIdentityCredentials {
 
         String identityId = args[0];
         CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         getCredsForIdentity(cognitoClient, identityId);
         cognitoClient.close();
     }
 
-
     public static void getCredsForIdentity(CognitoIdentityClient cognitoClient, String identityId) {
         try {
-            GetCredentialsForIdentityRequest getCredentialsForIdentityRequest = GetCredentialsForIdentityRequest.builder()
-                .identityId(identityId)
-                .build();
+            GetCredentialsForIdentityRequest getCredentialsForIdentityRequest = GetCredentialsForIdentityRequest
+                    .builder()
+                    .identityId(identityId)
+                    .build();
 
+<<<<<<< HEAD
             GetCredentialsForIdentityResponse response = cognitoClient.getCredentialsForIdentity(getCredentialsForIdentityRequest);
             System.out.println("Identity ID " + response.identityId() + ", Expiration " + response.credentials().expiration());
+=======
+            GetCredentialsForIdentityResponse response = cognitoClient
+                    .getCredentialsForIdentity(getCredentialsForIdentityRequest);
+            System.out.println(
+                    "Identity ID " + response.identityId() + ", Access key ID " + response.credentials().accessKeyId());
+>>>>>>> 965f9e416 (Tools: Normalize & enforce SPDX headers)
 
         } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -65,4 +69,4 @@ public class GetIdentityCredentials {
         }
     }
 }
-//snippet-end:[cognito.java2.GetIdentityCredentials.main]
+// snippet-end:[cognito.java2.GetIdentityCredentials.main]

@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.personalize.client.demo.movielens;
 
 import java.awt.Desktop;
@@ -35,7 +34,8 @@ public class WebHandler extends AbstractHandler {
         this.recommender = recommender;
     }
 
-    public void handle(String target, HttpServletRequest request, HttpServletResponse response, int dispatch) throws IOException, ServletException {
+    public void handle(String target, HttpServletRequest request, HttpServletResponse response, int dispatch)
+            throws IOException, ServletException {
 
         System.out.println(target);
         try {
@@ -81,11 +81,11 @@ public class WebHandler extends AbstractHandler {
         server.addConnector(connector);
 
         ResourceHandler resource_handler = new ResourceHandler();
-        resource_handler.setWelcomeFiles(new String[]{"homepage.html"});
+        resource_handler.setWelcomeFiles(new String[] { "homepage.html" });
         resource_handler.setResourceBase("static/web/");
 
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{resource_handler, new WebHandler(new DummyRecommender())});
+        handlers.setHandlers(new Handler[] { resource_handler, new WebHandler(new DummyRecommender()) });
         server.setHandler(handlers);
 
         server.start();
@@ -163,6 +163,5 @@ public class WebHandler extends AbstractHandler {
         }
 
     }
-
 
 }

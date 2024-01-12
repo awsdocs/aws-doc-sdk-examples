@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DescribeAnalysis.java demonstrates how to obtain information about a dashboard.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon QuickSight]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.quicksight;
 
@@ -19,7 +13,8 @@ import software.amazon.awssdk.services.quicksight.model.QuickSightException;
 // snippet-end:[quicksight.java2.describe_dashboard.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +25,12 @@ public class DescribeDashboard {
 
         final String usage = """
 
-            Usage:    <account> <dashboardId>
+                Usage:    <account> <dashboardId>
 
-            Where:
-              account - The ID of the AWS account.
-              dashboardId - The ID of the Amazon QuickSight Dashboard to describe.
-            """;
+                Where:
+                  account - The ID of the AWS account.
+                  dashboardId - The ID of the Amazon QuickSight Dashboard to describe.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -45,8 +40,8 @@ public class DescribeDashboard {
         String account = args[0];
         String dashboardId = args[1];
         QuickSightClient qsClient = QuickSightClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         describeSpecificDashboard(qsClient, account, dashboardId);
         qsClient.close();
@@ -55,9 +50,9 @@ public class DescribeDashboard {
     public static void describeSpecificDashboard(QuickSightClient qsClient, String account, String dashboardId) {
         try {
             DescribeDashboardRequest analysesRequest = DescribeDashboardRequest.builder()
-                .awsAccountId(account)
-                .dashboardId(dashboardId)
-                .build();
+                    .awsAccountId(account)
+                    .dashboardId(dashboardId)
+                    .build();
 
             DescribeDashboardResponse res = qsClient.describeDashboard(analysesRequest);
             System.out.println("The display name is " + res.dashboard().name());
@@ -69,4 +64,3 @@ public class DescribeDashboard {
     }
 }
 // snippet-end:[quicksight.java2.describe_dashboard.main]
-

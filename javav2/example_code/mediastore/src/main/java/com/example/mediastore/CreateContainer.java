@@ -1,25 +1,20 @@
-//snippet-sourcedescription:[CreateContainer.java demonstrates how to create an AWS Elemental MediaStore container.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Elemental MediaStore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.mediastore;
 
-//snippet-start:[mediastore.java2.create_container.main]
-//snippet-start:[mediastore.java2.create_container.import]
+// snippet-start:[mediastore.java2.create_container.main]
+// snippet-start:[mediastore.java2.create_container.import]
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.model.CreateContainerRequest;
 import software.amazon.awssdk.services.mediastore.model.CreateContainerResponse;
 import software.amazon.awssdk.services.mediastore.model.MediaStoreException;
-//snippet-end:[mediastore.java2.create_container.import]
+// snippet-end:[mediastore.java2.create_container.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,11 +26,11 @@ public class CreateContainer {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <containerName>
+                Usage:    <containerName>
 
-            Where:
-               containerName - The name of the container to create.
-            """;
+                Where:
+                   containerName - The name of the container to create.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,8 +40,8 @@ public class CreateContainer {
         String containerName = args[0];
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         createMediaContainer(mediaStoreClient, containerName);
         mediaStoreClient.close();
@@ -55,8 +50,8 @@ public class CreateContainer {
     public static void createMediaContainer(MediaStoreClient mediaStoreClient, String containerName) {
         try {
             CreateContainerRequest containerRequest = CreateContainerRequest.builder()
-                .containerName(containerName)
-                .build();
+                    .containerName(containerName)
+                    .build();
 
             CreateContainerResponse containerResponse = mediaStoreClient.createContainer(containerRequest);
             String status = containerResponse.container().status().toString();
@@ -75,4 +70,4 @@ public class CreateContainer {
         }
     }
 }
-//snippet-end:[mediastore.java2.create_container.main]
+// snippet-end:[mediastore.java2.create_container.main]

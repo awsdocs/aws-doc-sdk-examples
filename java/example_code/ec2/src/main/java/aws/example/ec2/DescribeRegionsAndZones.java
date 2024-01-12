@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[DescribeRegionsAndZones.java demonstrates how to get a description of all regions and zones.]
-//snippet-keyword:[SDK for Java 1.0]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon EC2]
-//snippet-service:[ec2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-05-22]
-//snippet-sourceauthor:[soo-aws]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /*
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -22,6 +15,7 @@
  * permissions and limitations under the License.
  */
 package aws.example.ec2;
+
 // snippet-start:[ec2.java1.describe_region_and_zones.import]
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
@@ -34,37 +28,34 @@ import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
 /**
  * Describes all regions and zones
  */
-public class DescribeRegionsAndZones
-{
-    public static void main(String[] args)
-    {
+public class DescribeRegionsAndZones {
+    public static void main(String[] args) {
         final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
 
-// snippet-start:[ec2.java1.describe_region_and_zones.regions]
+        // snippet-start:[ec2.java1.describe_region_and_zones.regions]
         DescribeRegionsResult regions_response = ec2.describeRegions();
 
-        for(Region region : regions_response.getRegions()) {
+        for (Region region : regions_response.getRegions()) {
             System.out.printf(
-                "Found region %s " +
-                "with endpoint %s",
-                region.getRegionName(),
-                region.getEndpoint());
+                    "Found region %s " +
+                            "with endpoint %s",
+                    region.getRegionName(),
+                    region.getEndpoint());
         }
-// snippet-end:[ec2.java1.describe_region_and_zones.regions]
+        // snippet-end:[ec2.java1.describe_region_and_zones.regions]
 
-// snippet-start:[ec2.java1.describe_region_and_zones.zones]
-        DescribeAvailabilityZonesResult zones_response =
-            ec2.describeAvailabilityZones();
+        // snippet-start:[ec2.java1.describe_region_and_zones.zones]
+        DescribeAvailabilityZonesResult zones_response = ec2.describeAvailabilityZones();
 
-        for(AvailabilityZone zone : zones_response.getAvailabilityZones()) {
+        for (AvailabilityZone zone : zones_response.getAvailabilityZones()) {
             System.out.printf(
-                "Found availability zone %s " +
-                "with status %s " +
-                "in region %s",
-                zone.getZoneName(),
-                zone.getState(),
-                zone.getRegionName());
+                    "Found availability zone %s " +
+                            "with status %s " +
+                            "in region %s",
+                    zone.getZoneName(),
+                    zone.getState(),
+                    zone.getRegionName());
         }
-// snippet-end:[ec2.java1.describe_region_and_zones.zones]
+        // snippet-end:[ec2.java1.describe_region_and_zones.zones]
     }
 }

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.photo;
 
@@ -42,6 +40,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @Component
 public class S3Service {
     S3AsyncClient s3AsyncClient;
+
     private S3AsyncClient getClient() {
         return S3AsyncClient.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -49,7 +48,7 @@ public class S3Service {
                 .build();
     }
 
-    public byte[] getObjectBytes (String bucketName, String keyName) {
+    public byte[] getObjectBytes(String bucketName, String keyName) {
         s3AsyncClient = getClient();
         final AtomicReference<byte[]> reference = new AtomicReference<>();
         try {
@@ -59,14 +58,15 @@ public class S3Service {
                     .build();
 
             // Get the Object from the Amazon S3 bucket using the Amazon S3 Async Client.
-            final CompletableFuture<ResponseBytes<GetObjectResponse>>[] futureGet = new CompletableFuture[]{s3AsyncClient.getObject(objectRequest,
-                    AsyncResponseTransformer.toBytes())};
+            final CompletableFuture<ResponseBytes<GetObjectResponse>>[] futureGet = new CompletableFuture[] {
+                    s3AsyncClient.getObject(objectRequest,
+                            AsyncResponseTransformer.toBytes()) };
 
             futureGet[0].whenComplete((resp, err) -> {
                 try {
                     if (resp != null) {
-                        //  Set the AtomicReference object.
-                         reference.set(resp.asByteArray());
+                        // Set the AtomicReference object.
+                        reference.set(resp.asByteArray());
 
                     } else {
                         err.printStackTrace();
@@ -98,11 +98,11 @@ public class S3Service {
                     .bucket(bucketName)
                     .build();
 
-            CompletableFuture<ListObjectsResponse> futureGet  = s3AsyncClient.listObjects(listObjects);
+            CompletableFuture<ListObjectsResponse> futureGet = s3AsyncClient.listObjects(listObjects);
             futureGet.whenComplete((resp, err) -> {
                 try {
                     List<String> keys = new ArrayList<>();
-                    String keyName ;
+                    String keyName;
                     if (resp != null) {
                         List<S3Object> objects = resp.contents();
                         for (S3Object myValue : objects) {
@@ -110,8 +110,8 @@ public class S3Service {
                             keys.add(keyName);
                         }
 
-                        //  Set the AtomicReference object.
-                        reference.set(keys) ;
+                        // Set the AtomicReference object.
+                        reference.set(keys);
                     } else {
                         err.printStackTrace();
                     }
@@ -129,14 +129,14 @@ public class S3Service {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        return null ;
+        return null;
     }
 
     // Places an image into a S3 bucket.
     public void putObject(byte[] data, String bucketName, String objectKey) {
         s3AsyncClient = getClient();
         try {
-            PutObjectRequest objectRequest =  PutObjectRequest.builder()
+            PutObjectRequest objectRequest = PutObjectRequest.builder()
                     .bucket(bucketName)
                     .key(objectKey)
                     .build();
@@ -180,15 +180,15 @@ public class S3Service {
             future.whenComplete((resp, err) -> {
                 try {
                     if (resp != null) {
-                        BucketItem myItem ;
+                        BucketItem myItem;
                         long sizeLg;
                         Instant DateIn;
                         List<S3Object> objects = resp.contents();
-                        for (S3Object myValue: objects) {
+                        for (S3Object myValue : objects) {
                             myItem = new BucketItem();
                             myItem.setKey(myValue.key());
                             myItem.setOwner(myValue.owner().displayName());
-                            sizeLg = myValue.size() / 1024 ;
+                            sizeLg = myValue.size() / 1024;
                             myItem.setSize(String.valueOf(sizeLg));
                             DateIn = myValue.lastModified();
                             myItem.setDate(String.valueOf(DateIn));
@@ -196,7 +196,7 @@ public class S3Service {
                             // Push the items to the list.
                             bucketItems.add(myItem);
                         }
-                        reference.set(bucketItems) ;
+                        reference.set(bucketItems);
 
                     } else {
                         err.printStackTrace();
@@ -213,7 +213,7 @@ public class S3Service {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        return null ;
+        return null;
     }
 
     // Convert items into XML to pass back to the view.
@@ -225,8 +225,8 @@ public class S3Service {
             Document doc = builder.newDocument();
 
             // Start building the XML.
-            Element root = doc.createElement( "Items" );
-            doc.appendChild( root );
+            Element root = doc.createElement("Items");
+            doc.appendChild(root);
 
             // Iterate through the collection.
             for (BucketItem myItem : itemList) {
@@ -255,7 +255,7 @@ public class S3Service {
             }
 
             return doc;
-        } catch(ParserConfigurationException e) {
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
@@ -270,7 +270,7 @@ public class S3Service {
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+        } catch (TransformerException ex) {
             ex.printStackTrace();
         }
         return null;

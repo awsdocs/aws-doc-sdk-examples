@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[ListQueryExecutionsExample.java demonstrates how to obtain a list of query execution IDs.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Athena]
-//snippet-service:[athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-06-25]
-//snippet-sourceauthor:[soo-aws]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.athena;
 
 import com.amazonaws.services.athena.AmazonAthena;
@@ -16,40 +9,39 @@ import com.amazonaws.services.athena.model.ListQueryExecutionsResult;
 import java.util.List;
 
 /**
-* ListQueryExecutionsExample
-* -------------------------------------
-* This code shows how to obtain a list of query execution IDs.
-*/
-public class ListQueryExecutionsExample
-{
-  public static void main(String[] args) throws Exception
-  {
-      // Build an Athena client
-      AthenaClientFactory factory = new AthenaClientFactory();
-      AmazonAthena athenaClient = factory.createClient();
+ * ListQueryExecutionsExample
+ * -------------------------------------
+ * This code shows how to obtain a list of query execution IDs.
+ */
+public class ListQueryExecutionsExample {
+    public static void main(String[] args) throws Exception {
+        // Build an Athena client
+        AthenaClientFactory factory = new AthenaClientFactory();
+        AmazonAthena athenaClient = factory.createClient();
 
-      // Build the request
-      ListQueryExecutionsRequest listQueryExecutionsRequest = new ListQueryExecutionsRequest();
+        // Build the request
+        ListQueryExecutionsRequest listQueryExecutionsRequest = new ListQueryExecutionsRequest();
 
-      // Get the list results.
-      ListQueryExecutionsResult listQueryExecutionsResult = athenaClient.listQueryExecutions(listQueryExecutionsRequest);
+        // Get the list results.
+        ListQueryExecutionsResult listQueryExecutionsResult = athenaClient
+                .listQueryExecutions(listQueryExecutionsRequest);
 
-      // Process the results.
-      boolean hasMoreResults = true;
-      while (hasMoreResults) {
-          List<String> queryExecutionIds = listQueryExecutionsResult.getQueryExecutionIds();
-          // process queryExecutionIds.
+        // Process the results.
+        boolean hasMoreResults = true;
+        while (hasMoreResults) {
+            List<String> queryExecutionIds = listQueryExecutionsResult.getQueryExecutionIds();
+            // process queryExecutionIds.
 
-          System.out.println(queryExecutionIds);
+            System.out.println(queryExecutionIds);
 
-          //If nextToken is not null, then there are more results. Get the next page of results.
-          if (listQueryExecutionsResult.getNextToken() != null) {
-              listQueryExecutionsResult = athenaClient.listQueryExecutions(
-                      listQueryExecutionsRequest.withNextToken(listQueryExecutionsResult.getNextToken()));
-          }
-          else {
-              hasMoreResults = false;
-          }
-      }
-  }
+            // If nextToken is not null, then there are more results. Get the next page of
+            // results.
+            if (listQueryExecutionsResult.getNextToken() != null) {
+                listQueryExecutionsResult = athenaClient.listQueryExecutions(
+                        listQueryExecutionsRequest.withNextToken(listQueryExecutionsResult.getNextToken()));
+            } else {
+                hasMoreResults = false;
+            }
+        }
+    }
 }

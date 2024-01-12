@@ -1,12 +1,8 @@
-//snippet-sourcedescription:[CreateAutoScalingGroup.java creates an Auto Scaling group with the specified name and attributes using a waiter.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon EC2 Auto Scaling]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.autoscaling;
+
 // snippet-start:[autoscale.java2.create_scaling_group.main]
 // snippet-start:[autoscale.java2.create_scaling_group.import]
 import software.amazon.awssdk.core.waiters.WaiterResponse;
@@ -21,7 +17,8 @@ import software.amazon.awssdk.services.autoscaling.waiters.AutoScalingWaiter;
 // snippet-end:[autoscale.java2.create_scaling_group.import]
 
 /**
- * Before running this SDK for Java (v2) code example, set up your development environment, including your credentials.
+ * Before running this SDK for Java (v2) code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation:
  *
@@ -31,14 +28,14 @@ public class CreateAutoScalingGroup {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>
+                Usage:
+                    <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>
 
-            Where:
-                groupName - The name of the Auto Scaling group.
-                launchTemplateName - The name of the launch template.\s
-                vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.
-            """;
+                Where:
+                    groupName - The name of the Auto Scaling group.
+                    launchTemplateName - The name of the launch template.\s
+                    vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.
+                """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -49,39 +46,40 @@ public class CreateAutoScalingGroup {
         String launchTemplateName = args[1];
         String vpcZoneId = args[2];
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, vpcZoneId);
         autoScalingClient.close();
     }
 
     public static void createAutoScalingGroup(AutoScalingClient autoScalingClient,
-                                              String groupName,
-                                              String launchTemplateName,
-                                              String vpcZoneId) {
+            String groupName,
+            String launchTemplateName,
+            String vpcZoneId) {
 
         try {
             AutoScalingWaiter waiter = autoScalingClient.waiter();
             LaunchTemplateSpecification templateSpecification = LaunchTemplateSpecification.builder()
-                .launchTemplateName(launchTemplateName)
-                .build();
+                    .launchTemplateName(launchTemplateName)
+                    .build();
 
             CreateAutoScalingGroupRequest request = CreateAutoScalingGroupRequest.builder()
-                .autoScalingGroupName(groupName)
-                .availabilityZones("us-east-1a")
-                .launchTemplate(templateSpecification)
-                .maxSize(1)
-                .minSize(1)
-                .vpcZoneIdentifier(vpcZoneId)
-                .build();
+                    .autoScalingGroupName(groupName)
+                    .availabilityZones("us-east-1a")
+                    .launchTemplate(templateSpecification)
+                    .maxSize(1)
+                    .minSize(1)
+                    .vpcZoneIdentifier(vpcZoneId)
+                    .build();
 
             autoScalingClient.createAutoScalingGroup(request);
             DescribeAutoScalingGroupsRequest groupsRequest = DescribeAutoScalingGroupsRequest.builder()
-                .autoScalingGroupNames(groupName)
-                .build();
+                    .autoScalingGroupNames(groupName)
+                    .build();
 
-            WaiterResponse<DescribeAutoScalingGroupsResponse> waiterResponse = waiter.waitUntilGroupExists(groupsRequest);
+            WaiterResponse<DescribeAutoScalingGroupsResponse> waiterResponse = waiter
+                    .waitUntilGroupExists(groupsRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);
             System.out.println("Auto Scaling Group created");
 

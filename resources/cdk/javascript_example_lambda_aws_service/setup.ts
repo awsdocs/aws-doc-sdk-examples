@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -43,19 +42,31 @@ export class SetupStackCreateTable extends cdk.Stack {
       }
     );
 
-      const unauthenticatedRole = new iam.Role(this, 'CognitoDefaultUnauthenticatedRole', ({
-          assumedBy: new iam.FederatedPrincipal('cognito-identity.amazonaws.com', {
-              "StringEquals": {"cognito-identity.amazonaws.com:aud": myIdentityPool.ref},
-              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "unauthenticated"},
-          }, "sts:AssumeRoleWithWebIdentity")
-      }));
-      unauthenticatedRole.assumeRolePolicy?.addStatements(
-          new iam.PolicyStatement({
-              effect: iam.Effect.ALLOW,
-              principals: [new iam.ServicePrincipal('lambda.amazonaws.com')],
-              actions: ['sts:AssumeRole'],
-          }),
-      )
+    const unauthenticatedRole = new iam.Role(
+      this,
+      "CognitoDefaultUnauthenticatedRole",
+      {
+        assumedBy: new iam.FederatedPrincipal(
+          "cognito-identity.amazonaws.com",
+          {
+            StringEquals: {
+              "cognito-identity.amazonaws.com:aud": myIdentityPool.ref,
+            },
+            "ForAnyValue:StringLike": {
+              "cognito-identity.amazonaws.com:amr": "unauthenticated",
+            },
+          },
+          "sts:AssumeRoleWithWebIdentity"
+        ),
+      }
+    );
+    unauthenticatedRole.assumeRolePolicy?.addStatements(
+      new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        principals: [new iam.ServicePrincipal("lambda.amazonaws.com")],
+        actions: ["sts:AssumeRole"],
+      })
+    );
 
     unauthenticatedRole.addToPolicy(
       new PolicyStatement({

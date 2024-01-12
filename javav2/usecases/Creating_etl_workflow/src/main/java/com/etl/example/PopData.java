@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.etl.example;
 
@@ -20,7 +18,6 @@ public class PopData {
     private String pop2018;
     private String pop2019;
 
-
     public void set2019(String num) {
         this.pop2019 = num;
     }
@@ -37,7 +34,6 @@ public class PopData {
         return this.pop2018;
     }
 
-
     public void set2017(String num) {
         this.pop2017 = num;
     }
@@ -45,7 +41,6 @@ public class PopData {
     public String get2017() {
         return this.pop2017;
     }
-
 
     public void set2016(String num) {
         this.pop2016 = num;
@@ -63,7 +58,6 @@ public class PopData {
         return this.pop2015;
     }
 
-
     public void set2014(String num) {
         this.pop2014 = num;
     }
@@ -72,7 +66,6 @@ public class PopData {
         return this.pop2014;
     }
 
-
     public void set2013(String num) {
         this.pop2013 = num;
     }
@@ -80,7 +73,6 @@ public class PopData {
     public String get2013() {
         return this.pop2013;
     }
-
 
     public void set2012(String num) {
         this.pop2012 = num;
@@ -97,7 +89,6 @@ public class PopData {
     public String get2011() {
         return this.pop2011;
     }
-
 
     public void set2010(String num) {
         this.pop2010 = num;
@@ -120,9 +111,6 @@ public class PopData {
     }
 
     public String getName() {
-        return this.countryName ;
+        return this.countryName;
     }
 }
-
-
-

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetPipeline.java demonstrates how to retrieve a specific pipeline.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-service:[AWS CodePipeline]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.pipeline;
 
@@ -22,7 +16,8 @@ import java.util.List;
 // snippet-end:[pipeline.java2.get_pipeline.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,11 +27,11 @@ public class GetPipeline {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <name>\s
+                Usage:    <name>\s
 
-            Where:
-               name - The name of the pipeline to retrieve\s
-            """;
+                Where:
+                   name - The name of the pipeline to retrieve\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,8 +41,8 @@ public class GetPipeline {
         String name = args[0];
         Region region = Region.US_EAST_1;
         CodePipelineClient pipelineClient = CodePipelineClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getSpecificPipeline(pipelineClient, name);
         pipelineClient.close();
@@ -56,16 +51,16 @@ public class GetPipeline {
     public static void getSpecificPipeline(CodePipelineClient pipelineClient, String name) {
         try {
             GetPipelineRequest pipelineRequest = GetPipelineRequest.builder()
-                .name(name)
-                .version(1)
-                .build();
+                    .name(name)
+                    .version(1)
+                    .build();
 
             GetPipelineResponse response = pipelineClient.getPipeline(pipelineRequest);
             List<StageDeclaration> stages = response.pipeline().stages();
             for (StageDeclaration stage : stages) {
                 System.out.println("Stage name is " + stage.name() + " and actions are:");
 
-                //Get the stage actions.
+                // Get the stage actions.
                 List<ActionDeclaration> actions = stage.actions();
                 for (ActionDeclaration action : actions) {
                     System.out.println("Action name is " + action.name());

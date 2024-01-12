@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 interface AppEnv extends Window {
   APP_ENV: {
     COGNITO_SIGN_IN_URL: string;

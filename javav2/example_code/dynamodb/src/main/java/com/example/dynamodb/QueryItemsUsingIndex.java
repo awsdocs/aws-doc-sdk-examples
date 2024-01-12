@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetItemIndex.java demonstrates how to retrieve an item from an Amazon DynamoDB table using a secondary index.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.dynamodb;
 
@@ -22,14 +16,17 @@ import java.util.Map;
 // snippet-end:[dynamodb.java2.query_items_sec_index.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- * Create the Movies table by running the Scenario example and loading the Movie data from the JSON file. Next create a secondary
- * index for the Movies table that uses only the year column. Name the index **year-index**. For more information, see:
+ * Create the Movies table by running the Scenario example and loading the Movie
+ * data from the JSON file. Next create a secondary
+ * index for the Movies table that uses only the year column. Name the index
+ * **year-index**. For more information, see:
  *
  * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html
  */
@@ -38,8 +35,8 @@ public class QueryItemsUsingIndex {
         String tableName = "Movies";
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         queryIndex(ddb, tableName);
         ddb.close();
@@ -53,17 +50,17 @@ public class QueryItemsUsingIndex {
             expressionAttributeValues.put(":yearValue", AttributeValue.builder().n("2013").build());
 
             QueryRequest request = QueryRequest.builder()
-                .tableName(tableName)
-                .indexName("year-index")
-                .keyConditionExpression("#year = :yearValue")
-                .expressionAttributeNames(expressionAttributesNames)
-                .expressionAttributeValues(expressionAttributeValues)
-                .build();
+                    .tableName(tableName)
+                    .indexName("year-index")
+                    .keyConditionExpression("#year = :yearValue")
+                    .expressionAttributeNames(expressionAttributesNames)
+                    .expressionAttributeValues(expressionAttributeValues)
+                    .build();
 
             System.out.println("=== Movie Titles ===");
             QueryResponse response = ddb.query(request);
             response.items()
-                .forEach(movie -> System.out.println(movie.get("title").s()));
+                    .forEach(movie -> System.out.println(movie.get("title").s()));
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
@@ -72,4 +69,3 @@ public class QueryItemsUsingIndex {
     }
 }
 // snippet-end:[dynamodb.java2.query_items_sec_index.main]
-

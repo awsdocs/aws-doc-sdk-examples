@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 #include <memory>
 #include <aws/lambda-runtime/runtime.h>
 #include <aws/logging/logging.h>

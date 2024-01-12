@@ -1,20 +1,10 @@
-//snippet-sourcedescription:[BidirectionalStreaming.java demonstrates how to use the AWS Transcribe service to transcribe an audio input.]
-// snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Transcribe]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
-// snippet-sourceauthor:[scmacdon - AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
-//snippet-start:[transcribe.java2.bidir_streaming_audiopublisher.complete]
+// snippet-start:[transcribe.java2.bidir_streaming_audiopublisher.complete]
 package com.amazonaws.transcribe;
 
-//snippet-start:[transcribe.java2.bidir_streaming_audiopublisher.import]
+// snippet-start:[transcribe.java2.bidir_streaming_audiopublisher.import]
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
@@ -29,9 +19,9 @@ import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.transcribestreaming.model.AudioEvent;
 import software.amazon.awssdk.services.transcribestreaming.model.AudioStream;
 import software.amazon.awssdk.services.transcribestreaming.model.TranscribeStreamingException;
-//snippet-end:[transcribe.java2.bidir_streaming_audiopublisher.import]
+// snippet-end:[transcribe.java2.bidir_streaming_audiopublisher.import]
 
-//snippet-start:[transcribe.java2.bidir_streaming_audiopublisher.class]
+// snippet-start:[transcribe.java2.bidir_streaming_audiopublisher.class]
 
 public class AudioStreamPublisher implements Publisher<AudioStream> {
     private final InputStream inputStream;
@@ -116,5 +106,5 @@ public class AudioStreamPublisher implements Publisher<AudioStream> {
         }
     }
 }
-//snippet-end:[transcribe.java2.bidir_streaming_audiopublisher.class]
-//snippet-end:[transcribe.java2.bidir_streaming_audiopublisher.complete]
+// snippet-end:[transcribe.java2.bidir_streaming_audiopublisher.class]
+// snippet-end:[transcribe.java2.bidir_streaming_audiopublisher.complete]

@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListPipelineExecutions.kt demonstrates how to all executions for a specific pipeline.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS CodePipeline]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.pipeline
 

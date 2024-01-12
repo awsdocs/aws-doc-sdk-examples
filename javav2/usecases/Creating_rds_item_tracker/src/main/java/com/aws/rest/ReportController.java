@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -29,10 +27,9 @@ public class ReportController {
 
     @Autowired()
     ReportController(
-        DatabaseService dbService,
-        WriteExcel writeExcel,
-        WriteExcel.SendMessages sm
-    ) {
+            DatabaseService dbService,
+            WriteExcel writeExcel,
+            WriteExcel.SendMessages sm) {
         this.dbService = dbService;
         this.writeExcel = writeExcel;
         this.sm = sm;

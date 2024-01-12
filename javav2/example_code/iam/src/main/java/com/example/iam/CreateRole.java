@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[CreateRole.java demonstrates how to create an AWS Identity and Access Management (IAM) role.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[IAM]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.iam;
 
@@ -36,13 +30,13 @@ import java.io.FileReader;
 public class CreateRole {
     public static void main(String[] args) throws Exception {
         final String usage = """
-            Usage:
-                <rolename> <fileLocation>\s
+                Usage:
+                    <rolename> <fileLocation>\s
 
-            Where:
-                rolename - The name of the role to create.\s
-                fileLocation - The location of the JSON document that represents the trust policy.\s
-            """;
+                Where:
+                    rolename - The name of the role to create.\s
+                    fileLocation - The location of the JSON document that represents the trust policy.\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,8 +47,8 @@ public class CreateRole {
         String fileLocation = args[1];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String result = createIAMRole(iam, rolename, fileLocation);
         System.out.println("Successfully created user: " + result);
@@ -65,10 +59,10 @@ public class CreateRole {
         try {
             JSONObject jsonObject = (JSONObject) readJsonSimpleDemo(fileLocation);
             CreateRoleRequest request = CreateRoleRequest.builder()
-                .roleName(rolename)
-                .assumeRolePolicyDocument(jsonObject.toJSONString())
-                .description("Created using the AWS SDK for Java")
-                .build();
+                    .roleName(rolename)
+                    .assumeRolePolicyDocument(jsonObject.toJSONString())
+                    .description("Created using the AWS SDK for Java")
+                    .build();
 
             CreateRoleResponse response = iam.createRole(request);
             System.out.println("The ARN of the role is " + response.role().arn());

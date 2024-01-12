@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example;
 
@@ -16,7 +14,7 @@ public class StudentData {
     private String firstName;
 
     private String email;
-    private String mobileNumber ;
+    private String mobileNumber;
 
     private Instant date;
 
@@ -27,13 +25,14 @@ public class StudentData {
     public void setDate(Instant date) {
         this.date = date;
     }
+
     @DynamoDbPartitionKey
     public String getId() {
         return this.id;
     }
 
     public void setId(String id) {
-      this.id = id;
+        this.id = id;
     }
 
     public void setMobileNumber(String mobileNumber) {
