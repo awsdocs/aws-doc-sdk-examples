@@ -102,7 +102,8 @@ You must configure the app client. For example, you need to define OAuth scope v
 
 6. For the **Allowed sign-out URLs**, add *http://localhost:8080/logout*. 
 
-7. Add **Authorization code grant** to **OAuth 2.0 grant types**.
+7. Add **Authorization code grant** under **OAuth 2.0 grant types**.
+![AWS Tracking Application](images/clientapp2.png) 
 
 8. Add **email** and **openid** to **OpenID Connect scopes**.
 
