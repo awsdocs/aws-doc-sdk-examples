@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -29,13 +28,13 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from file_utils import get_files
-from metadata_errors import MetadataErrors, MetadataParseError, DuplicateItemException
+from metadata_errors import MetadataErrors, MetadataError, DuplicateItemException
 import validator_config
 
 logger = logging.getLogger(__name__)
 
 
-def check_files(root: Path, errors: MetadataErrors):
+def check_files(root: Path, errors: MetadataErrors, check_spdx: bool):
     """
     Walk a folder system, scanning all files with specified extensions.
     Errors are logged and counted and the count of errors is returned.
@@ -48,13 +47,15 @@ def check_files(root: Path, errors: MetadataErrors):
         file_count += 1
         logger.info("\nChecking File: %s", file_path)
 
-        with open(file_path, encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8-sig") as f:
             file_contents = f.read()
 
         verify_no_deny_list_words(file_contents, file_path, errors)
         verify_no_secret_keys(file_contents, file_path, errors)
         verify_no_secret_keys(file_contents, file_path, errors)
         verify_snippet_start_end(file_contents, file_path, errors)
+        if check_spdx:
+            verify_spdx(file_contents, file_path, errors)
 
     print(f"{file_count} files scanned in {root}.\n")
 
@@ -68,7 +69,7 @@ def word_parts(contents: str):
 
 
 @dataclass
-class DenyListWord(MetadataParseError):
+class DenyListWord(MetadataError):
     word: str = field(default="")
 
 
@@ -85,7 +86,7 @@ def verify_no_deny_list_words(
 
 
 @dataclass
-class UnknownSampleFile(MetadataParseError):
+class UnknownSampleFile(MetadataError):
     def message(self):
         return (
             f"File {self.file} was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in {__package__}.{__file__}.",
@@ -93,7 +94,7 @@ class UnknownSampleFile(MetadataParseError):
 
 
 @dataclass
-class InvalidSampleDirectory(MetadataParseError):
+class InvalidSampleDirectory(MetadataError):
     dir: str = field(default=-1)
 
     def message(self):
@@ -105,7 +106,7 @@ MAX_FILE_SIZE_MB = 10
 
 
 @dataclass
-class SampleFileTooLarge(MetadataParseError):
+class SampleFileTooLarge(MetadataError):
     size_in_mb: float = field(default="")
 
     def message(self):
@@ -113,7 +114,7 @@ class SampleFileTooLarge(MetadataParseError):
 
 
 @dataclass
-class MissingSampleFile(MetadataParseError):
+class MissingSampleFile(MetadataError):
     samples_dir: str = field(default="")
 
     def message(self):
@@ -122,7 +123,7 @@ class MissingSampleFile(MetadataParseError):
         )
 
 
-def verify_sample_files(root_path: Path, errors: MetadataParseError) -> None:
+def verify_sample_files(root_path: Path, errors: MetadataError) -> None:
     """Verify sample files meet the requirements and have not moved."""
     sample_files_folder = os.path.join(root_path, "resources/sample_files")
     media_folder = ".sample_media"
@@ -151,7 +152,7 @@ def verify_sample_files(root_path: Path, errors: MetadataParseError) -> None:
 
 
 @dataclass
-class PossibleSecretKey(MetadataParseError):
+class PossibleSecretKey(MetadataError):
     word: str = field(default="")
 
     def message(self):
@@ -181,7 +182,81 @@ def verify_no_secret_keys(
 
 
 @dataclass
-class SnippetParseError(MetadataParseError):
+class InvalidSPDX(MetadataError):
+    has_copyright: bool = True
+    has_license: bool = True
+    has_bom: bool = False
+
+    def message(self):
+        message = "Invalid SPDX"
+        if not self.has_copyright:
+            message += " Missing Copyright line"
+        if not self.has_license:
+            message += " Missing License line"
+        if self.has_bom:
+            message += " Has BOM"
+        return message
+
+
+@dataclass
+class MissingSPDX(MetadataError):
+    def message(self):
+        return "Missing SPDX"
+
+
+def verify_spdx(file_contents: str, file_location: Path, errors: MetadataErrors):
+    """Verify the file starts with an SPDX comment, possibly following a shebang line"""
+    if file_location.suffix in validator_config.IGNORE_SPDX_SUFFIXES:
+        return
+    has_bom = file_contents.startswith("\uFEFF")
+    lines = file_contents.splitlines()
+    if len(lines) < 2:
+        return
+    if (
+        lines[0].startswith("#!")
+        or lines[0] == "<?php"
+        or lines[0].startswith("// swift-tools-version:")
+    ):
+        lines = lines[1:]
+    if len(lines) < 2:
+        return
+    # First line may be a start of comment
+    has_copyright = (
+        False if re.match(validator_config.SPDX_COPYRIGHT, lines[0]) is None else True
+    )
+    has_license = (
+        False if re.match(validator_config.SPDX_LICENSE, lines[1]) is None else True
+    )
+    if not (has_copyright and has_license) or has_bom:
+        file_has_copyright = (
+            False
+            if re.match(validator_config.SPDX_COPYRIGHT, file_contents) is None
+            else True
+        )
+        file_has_license = (
+            False
+            if re.match(validator_config.SPDX_LICENSE, file_contents) is None
+            else True
+        )
+        if file_has_copyright or file_has_license or has_bom:
+            errors.append(
+                InvalidSPDX(
+                    file=file_location,
+                    has_copyright=has_copyright,
+                    has_license=has_license,
+                    has_bom=has_bom,
+                )
+            )
+        else:
+            errors.append(
+                MissingSPDX(
+                    file=file_location,
+                )
+            )
+
+
+@dataclass
+class SnippetParseError(MetadataError):
     tag: str = field(default="")
 
 
