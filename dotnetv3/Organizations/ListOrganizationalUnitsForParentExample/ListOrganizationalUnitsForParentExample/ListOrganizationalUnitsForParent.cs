@@ -11,8 +11,7 @@ namespace ListOrganizationalUnitsForParentExample
 
     /// <summary>
     /// Lists the AWS Organizations organizational units that belong to an
-    /// organization. The example was created using the AWS SDK for .NET
-    /// version 3.7 and .NET Core 5.0.
+    /// organization.
     /// </summary>
     public class ListOrganizationalUnitsForParent
     {

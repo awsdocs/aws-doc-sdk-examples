@@ -11,8 +11,7 @@ namespace ListCollectionsExample
 
     /// <summary>
     /// Uses Amazon Rekognition to list the collection IDs in the
-    /// current account. This example was created using the AWS SDK for
-    /// .NET version 3.7 and .NET Core 5.0.
+    /// current account.
     /// </summary>
     public class ListCollections
     {

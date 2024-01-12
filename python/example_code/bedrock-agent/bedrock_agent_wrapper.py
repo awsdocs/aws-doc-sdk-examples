@@ -206,6 +206,64 @@ class BedrockAgentWrapper:
 
     # snippet-end:[python.example_code.bedrock-agent.ListAgents]
 
+    # snippet-start:[python.example_code.bedrock-agent.ListAgentActionGroups]
+    def list_agent_action_groups(self, agent_id, agent_version):
+        """
+        List the action groups for a version of an Amazon Bedrock Agent.
+
+        :param agent_id: The unique identifier of the agent.
+        :param agent_version: The version of the agent.
+        :return: The list of action group summaries for the version of the agent.
+        """
+
+        try:
+            action_groups = []
+
+            paginator = self.client.get_paginator("list_agent_action_groups")
+            for page in paginator.paginate(
+                agentId=agent_id,
+                agentVersion=agent_version,
+                PaginationConfig={"PageSize": 10},
+            ):
+                action_groups.extend(page["actionGroupSummaries"])
+
+        except ClientError as e:
+            logger.error(f"Couldn't list action groups. {e}")
+            raise
+        else:
+            return action_groups
+
+    # snippet-end:[python.example_code.bedrock-agent.ListAgentActionGroups]
+
+    # snippet-start:[python.example_code.bedrock-agent.ListAgentKnowledgeBases]
+    def list_agent_knowledge_bases(self, agent_id, agent_version):
+        """
+        List the knowledge bases associated with a version of an Amazon Bedrock Agent.
+
+        :param agent_id: The unique identifier of the agent.
+        :param agent_version: The version of the agent.
+        :return: The list of knowledge base summaries for the version of the agent.
+        """
+
+        try:
+            knowledge_bases = []
+
+            paginator = self.client.get_paginator("list_agent_knowledge_bases")
+            for page in paginator.paginate(
+                agentId=agent_id,
+                agentVersion=agent_version,
+                PaginationConfig={"PageSize": 10},
+            ):
+                knowledge_bases.extend(page["agentKnowledgeBaseSummaries"])
+
+        except ClientError as e:
+            logger.error(f"Couldn't list knowledge bases. {e}")
+            raise
+        else:
+            return knowledge_bases
+
+    # snippet-end:[python.example_code.bedrock-agent.ListAgentKnowledgeBases]
+
     # snippet-start:[python.example_code.bedrock-agent.PrepareAgent]
     def prepare_agent(self, agent_id):
         """

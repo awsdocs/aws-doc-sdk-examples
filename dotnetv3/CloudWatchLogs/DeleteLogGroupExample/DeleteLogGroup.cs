@@ -11,8 +11,7 @@ namespace DeleteLogGroupExample
 
     /// <summary>
     /// Uses the Amazon CloudWatch Logs Service to delete an existing
-    /// CloudWatch Logs log group. The example was created using the
-    /// AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// CloudWatch Logs log group.
     /// </summary>
     public class DeleteLogGroup
     {

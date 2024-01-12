@@ -33,11 +33,11 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Describe a translation job](DescribeTextTranslationExample/DescribeTextTranslation.cs#L11) (`DescribeTextTranslationJob`)
-- [List translation jobs](ListTranslationJobsExample/ListTranslationJobs.cs#L11) (`ListTextTranslationJobs`)
-- [Start a translation job](BatchTranslateExample/BatchTranslate.cs#L12) (`StartTextTranslationJob`)
-- [Stop a translation job](StopTextTranslationJobExample/StopTextTranslationJob.cs#L11) (`StopTextTranslationJob`)
-- [Translate text](TranslateTextExample/TranslateText.cs#L11) (`TranslateText`)
+- [Describe a translation job](DescribeTextTranslationExample/DescribeTextTranslation.cs#L6) (`DescribeTextTranslationJob`)
+- [List translation jobs](ListTranslationJobsExample/ListTranslationJobs.cs#L6) (`ListTextTranslationJobs`)
+- [Start a translation job](BatchTranslateExample/BatchTranslate.cs#L6) (`StartTextTranslationJob`)
+- [Stop a translation job](StopTextTranslationJobExample/StopTextTranslationJob.cs#L6) (`StopTextTranslationJob`)
+- [Translate text](TranslateTextExample/TranslateText.cs#L6) (`TranslateText`)
 
 ### Cross-service examples
 

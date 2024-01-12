@@ -11,8 +11,7 @@ namespace AssociateKmsKeyExample
 
     /// <summary>
     /// Shows how to associate an AWS Key Management Service (AWS KMS) key with
-    /// an Amazon CloudWatch Logs log group. The example was created using the
-    /// AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// an Amazon CloudWatch Logs log group.
     /// </summary>
     public class AssociateKmsKey
     {

@@ -1,13 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import config
 import datetime
-from jinja2 import Environment, FileSystemLoader, select_autoescape
 import logging
 import os
-from operator import itemgetter
 import re
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+from operator import itemgetter
+from pathlib import Path
+
+import config
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +32,12 @@ class Renderer:
         self.template.globals["now"] = datetime.datetime.utcnow
         self.scanner = scanner
         self.sdk_ver = int(sdk_ver)
-        self.lang_config = config.language[self.scanner.lang_name][self.sdk_ver].copy()
+        self.lang_config = config.language.get(self.scanner.lang_name, {}).get(
+            self.sdk_ver, None
+        )
+        if self.lang_config is None:
+            return
+        self.lang_config = self.lang_config.copy()
         service_info = {
             "name": self.scanner.svc_name,
             "sort": self.scanner.service()["sort"].replace(" ", ""),
@@ -54,7 +61,7 @@ class Renderer:
                     "Service folder not found. You must either specify a service_folder template in config.py or\n"
                     "as a command line --svc_folder argument."
                 )
-        sdk_api_ref_tmpl = env.from_string(self.lang_config["sdk_api_ref"])
+        sdk_api_ref_tmpl = env.from_string(self.lang_config.get("sdk_api_ref", ""))
         self.lang_config["sdk_api_ref"] = sdk_api_ref_tmpl.render(service=service_info)
         self.safe = safe
 
@@ -230,6 +237,8 @@ class Renderer:
         return customs
 
     def render(self):
+        if self.lang_config is None:
+            return None
         sdk = self._transform_sdk()
         svc = self._transform_service()
         hello = self._transform_actions(self.scanner.hello())
@@ -241,15 +250,17 @@ class Renderer:
         self.lang_config["readme"] = f"{self._lang_level_double_dots()}README.md"
         unsupported = self.lang_config.get("unsupported", False)
 
-        readme_filename = f'{self.lang_config["service_folder"]}/{config.readme}'
-        readme_exists = os.path.exists(readme_filename)
+        self.readme_filename = f'{self.lang_config["service_folder"]}/{config.readme}'
+        readme_exists = os.path.exists(self.readme_filename)
         customs = (
-            self._scrape_customs(readme_filename, sdk["short"]) if readme_exists else {}
+            self._scrape_customs(self.readme_filename, sdk["short"])
+            if readme_exists
+            else {}
         )
         if "examples" not in customs:
             customs["examples"] = ""
 
-        readme_text = self.template.render(
+        self.readme_text = self.template.render(
             lang_config=self.lang_config,
             sdk=sdk,
             service=svc,
@@ -260,6 +271,19 @@ class Renderer:
             customs=customs,
             unsupported=unsupported,
         )
-        readme_text = self._expand_entities(readme_text)
+        self.readme_text = self._expand_entities(self.readme_text)
 
-        return readme_filename, readme_text
+    def write(self):
+        if self.safe and Path(self.readme_filename).exists():
+            os.rename(
+                self.readme_filename,
+                f'{self.lang_config["service_folder"]}/{config.saved_readme}',
+            )
+        with open(self.readme_filename, "w", encoding="utf-8") as f:
+            f.write(self.readme_text)
+        print(f"Updated {self.readme_filename}.")
+
+    def check(self):
+        with open(self.readme_filename, "r", encoding="utf-8") as f:
+            readme_current = f.read()
+            readme_current != self.readme_text

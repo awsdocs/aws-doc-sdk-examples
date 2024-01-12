@@ -12,8 +12,7 @@ namespace DetectLabelsLocalFileExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to detect labels within an image
-    /// stored locally. This example was created using the AWS SDK for .NET
-    /// and .NET Core 5.0.
+    /// stored locally.
     /// </summary>
     public class DetectLabelsLocalFile
     {

@@ -15,8 +15,6 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
 )
 
-const region ="us-east-1"
-
 func CallFoundationModelActions(sdkConfig aws.Config, ) {
 	defer func() {
 		if r := recover(); r != nil {

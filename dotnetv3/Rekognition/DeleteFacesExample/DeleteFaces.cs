@@ -12,8 +12,7 @@ namespace DeleteFacesExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to delete one or more faces from
-    /// a Rekognition collection. This example was created using the AWS SDK
-    /// for .NET version 3.7 and .NET Core 5.0.
+    /// a Rekognition collection.
     /// </summary>
     public class DeleteFaces
     {

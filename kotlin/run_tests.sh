@@ -15,9 +15,7 @@ run_gradle_tests() {
 }
 
 # Root directory
-root_dir="services"
-
-cd kotlin
+root_dir="/kotlin/services"
 
 # Error if the root directory does not exist
 if [[ ! -d "$root_dir" ]]; then
