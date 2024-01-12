@@ -9,7 +9,7 @@ In this tutorial, OAuth2 and Amazon Cognito are used to protect a web applicatio
 
 When the user clicks the log in button, they are presented with a log in form where they can enter their user credentials.
 
-![AWS Tracking Application](images/pic2.png)
+![AWS Tracking Application](images/webui1.png)
 
 After the user enters their credentials, they can access the secured web application. 
 
