@@ -151,7 +151,7 @@ aws cognito-idp admin-set-user-password --user-pool-id us-east-1_EXAMPLE --usern
 
 6. Review the **Users** tab. Ensure that your new user is verified and confirmed.
 
-![AWS Tracking Application](images/pic12-updated.png)
+![AWS Tracking Application](images/user5.png)
 
 At this point, you need the following values to proceed: client id, client secret, pool id value, and the AWS region you are using. Without all of these values, you cannot use Amazon Cognito to require a user to log into your web application. 
 
