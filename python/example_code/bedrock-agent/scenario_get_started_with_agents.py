@@ -268,7 +268,9 @@ class BedrockAgentScenarioWrapper:
                     }
                 ),
             )
-            role.attach_policy(PolicyArn='arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole')
+            role.attach_policy(
+                PolicyArn="arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+            )
             print(f"Created role {role_name}")
         except ClientError as e:
             logger.error(f"Couldn't create role {role_name}. Here's why: {e}")
