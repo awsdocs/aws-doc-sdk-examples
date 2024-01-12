@@ -34,7 +34,7 @@ import validator_config
 logger = logging.getLogger(__name__)
 
 
-def check_files(root: Path, errors: MetadataErrors):
+def check_files(root: Path, errors: MetadataErrors, check_spdx: bool):
     """
     Walk a folder system, scanning all files with specified extensions.
     Errors are logged and counted and the count of errors is returned.
@@ -54,7 +54,8 @@ def check_files(root: Path, errors: MetadataErrors):
         verify_no_secret_keys(file_contents, file_path, errors)
         verify_no_secret_keys(file_contents, file_path, errors)
         verify_snippet_start_end(file_contents, file_path, errors)
-        verify_spdx(file_contents, file_path, errors)
+        if check_spdx:
+            verify_spdx(file_contents, file_path, errors)
 
     print(f"{file_count} files scanned in {root}.\n")
 
