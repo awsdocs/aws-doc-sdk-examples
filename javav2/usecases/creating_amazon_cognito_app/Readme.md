@@ -82,9 +82,9 @@ Create a User Pool in the AWS Management Console named **spring-example**. Once 
 
 ## Configure the app client
 
-You must configure the app client. For example, you need to define the allowed OAuth scope values, as shown in this illustration.
+You must configure the app client. For example, you need to define OAuth scope values, such as **OpenID**, as shown in this illustration.
 
-![AWS Tracking Application](images/pic8-updated.png)
+![AWS Tracking Application](images/clientapp.png)
 
 1. Choose your **spring-example** user pool from the **User pools** page. 
 
