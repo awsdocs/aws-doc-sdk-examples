@@ -69,13 +69,16 @@ Create a User Pool in the AWS Management Console named **spring-example**. Once 
 3. Choose the **Create user pool** button and provide your preferred settings.
 ![AWS Tracking Application](images/userpool.png)
  
-4. In the **User pool name** field, enter **spring-example**. 
+4. Keep the default settings expect for MFA. In the **Multi-factor authentication** section, select **No MFA**. 
 
-5. In the **App client name** field, enter **spring-boot**.
+5. In the **User pool name** field, enter **spring-example**.
+![AWS Tracking Application](images/userpool1.png) 
 
-![AWS Tracking Application](images/pic7-updated.png)
+6. In the **Initial app client** field, enter **spring-boot** and select **Generate a client secret**.
 
-6. Choose **Next**, review your choices, then choose **Create user pool**. 
+![AWS Tracking Application](images/userpool2.png)
+
+7. Choose **Next**, review your choices, then choose **Create user pool**. 
 
 ## Configure the app client
 
