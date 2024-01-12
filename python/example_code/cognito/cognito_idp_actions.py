@@ -496,4 +496,6 @@ class CognitoIdentityProviderWrapper:
 
     # snippet-end:[python.example_code.cognito-idp.RespondToAuthChallenge]
     # snippet-end:[python.example_code.cognito-idp.InitiateAuth]
+
+
 # snippet-end:[python.example_code.cognito-idp.CognitoIdentityProviderWrapper.full]
