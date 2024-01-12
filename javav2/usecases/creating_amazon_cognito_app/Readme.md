@@ -1,5 +1,14 @@
 # Using Amazon Cognito to require a user to log into a Java web application
 
+## Overview
+
+| Heading      | Description                                                             |
+| ----------- |-------------------------------------------------------------------------|
+| Description | Discusses how to secure a Java Web application by using Amazon Cognito. |
+| Audience   | Developer (beginner)                                                    |
+| Required skills   | Java, Maven                                                             |
+
+
 ## Purpose
 Amazon Cognito lets you add user sign-up, sign-in, and access control to your web applications. Amazon Cognito scales to millions of users and supports sign-in with social identity providers, such as Facebook, Google, and enterprise identity providers such as OAuth2. 
 
