@@ -16,7 +16,8 @@ import {BedrockRuntimeClient, InvokeModelCommand} from "@aws-sdk/client-bedrock-
  * Invokes the Anthropic Claude 2 model to run an inference using the input
  * provided in the request body.
  *
- * @returns Inference response (completion) from the model.
+ * @param {string} prompt - The prompt that you want Claude to complete.
+ * @returns {string} The inference response (completion) from the model.
  */
 export const invokeClaude = async (prompt) => {
     const client = new BedrockRuntimeClient( { region: 'us-east-1' } );
@@ -32,7 +33,7 @@ export const invokeClaude = async (prompt) => {
      */
     const payload = {
         prompt: enclosedPrompt,
-        max_tokens_to_sample: 200,
+        max_tokens_to_sample: 500,
         temperature: 0.5,
         stop_sequences: [ '\n\nHuman:' ],
     };
@@ -44,16 +45,19 @@ export const invokeClaude = async (prompt) => {
         accept: 'application/json',
     });
 
-    const response = await client.send(command);
+    try {
+        const response = await client.send(command);
+        const decodedResponseBody = new TextDecoder().decode(response.body);
 
-    const decodedResponseBody = new TextDecoder().decode(response.body);
+        /** @type {ResponseBody} */
+        const responseBody = JSON.parse(decodedResponseBody);
+        const completion = responseBody.completion;
 
-    /** @type {ResponseBody} */
-    const responseBody = JSON.parse(decodedResponseBody);
+        return completion;
 
-    const completion = responseBody.completion;
-
-    return completion;
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 // Invoke the function if this file was run directly.

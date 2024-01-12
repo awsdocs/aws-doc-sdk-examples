@@ -22,7 +22,8 @@ import {BedrockRuntimeClient, InvokeModelCommand} from "@aws-sdk/client-bedrock-
  * Invokes the AI21 Labs Jurassic-2 large-language model to run an inference
  * using the input provided in the request body.
  *
- * @returns Inference response from the model.
+ * @param {string} prompt - The prompt that you want Jurassic-2 to complete.
+ * @returns {string} The inference response (completion) from the model.
  */
 export const invokeJurassic2 = async (prompt) => {
     const client = new BedrockRuntimeClient( { region: 'us-east-1' } );
@@ -35,7 +36,7 @@ export const invokeJurassic2 = async (prompt) => {
      */
     const payload = {
         prompt: prompt,
-        maxTokens: 200,
+        maxTokens: 500,
         temperature: 0.5,
     };
 
@@ -46,16 +47,19 @@ export const invokeJurassic2 = async (prompt) => {
         accept: 'application/json',
     });
 
-    const response = await client.send(command);
+    try {
+        const response = await client.send(command);
+        const decodedResponseBody = new TextDecoder().decode(response.body);
 
-    const decodedResponseBody = new TextDecoder().decode(response.body);
+        /** @type {ResponseBody} */
+        const responseBody = JSON.parse(decodedResponseBody);
+        const completion = responseBody.completions[0].data.text;
 
-    /** @type {ResponseBody} */
-    const responseBody = JSON.parse(decodedResponseBody);
+        return completion;
 
-    const completion = responseBody.completions[0].data.text;
-
-    return completion;
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 // Invoke the function if this file was run directly.
