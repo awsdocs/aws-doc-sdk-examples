@@ -38,20 +38,27 @@ def main():
         help="The folder that contains schema and metadata files. The default is .doc_gen in the root of this repo.",
         required=False,
     )
+    parser.add_argument(
+        "--check-spdx",
+        default=False,
+        help="Verify all files start with SPDX header",
+        required=False,
+    )
     args = parser.parse_args()
     root_path = Path(args.root).resolve()
     doc_gen = Path(args.doc_gen).resolve()
 
     errors = MetadataErrors()
 
-    check_files(root_path, errors)
+    check_files(root_path, errors, args.check_spdx)
     verify_sample_files(root_path, errors)
     validate_metadata(doc_gen, errors)
     validate_zexii(doc_gen / "metadata", errors)
 
     error_count = len(errors)
     if error_count > 0:
-        print(errors)
+        for error in errors:
+            print(str(error))
         print(f"{error_count} errors found, please fix them.")
     else:
         print("All checks passed, you are cleared to check in.")
