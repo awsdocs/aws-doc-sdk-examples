@@ -14,6 +14,13 @@ AWS SDK for Java Documentation Examples
 
 These are examples for the `AWS SDK for Java public documentation <javasdk-docs_>`_.
 
+NOTE
+====
+
+In alignment with our SDKs and Tools Maintenance Policy, the AWS SDK for Java v1.x will enter maintenance mode on July 31, 2024, and reach end-of-support on December 31, 2025.
+
+For more information, see `AAnnouncing end-of-support for AWS SDK for Java v1.x effective December 31, 2025 <https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-java-v1-x-on-december-31-2025/>`
+
 Prerequisites
 =============
 
