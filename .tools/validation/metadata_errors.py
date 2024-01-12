@@ -72,8 +72,8 @@ class MetadataErrors:
     def append(self, item: MetadataError):
         if not isinstance(item, MetadataError):
             raise InvalidItemException(item)
-        if item in self._errors:
-            raise DuplicateItemException(item)
+        # if item in self._errors:
+        #     raise DuplicateItemException(item)
         self._errors.append(item)
 
     def extend(self, errors: Iterable[MetadataError]):

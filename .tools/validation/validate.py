@@ -51,7 +51,8 @@ def main():
 
     error_count = len(errors)
     if error_count > 0:
-        print(errors)
+        for error in errors:
+            print(str(error))
         print(f"{error_count} errors found, please fix them.")
     else:
         print("All checks passed, you are cleared to check in.")
