@@ -54,7 +54,7 @@ Complete the **Creating your first AWS Java web application** tutorial. For info
 
 ## Update the POM file
 
-Make sure that your project's pom.xml file looks like the POM file in this Github repository.
+Make sure that your project's pom.xml file looks like the POM file in this Github repository. Make sure to use Spring BOOT version 2.6.0. 
 
 ## Create an Amazon Cognito user pool and app client
 
@@ -66,8 +66,9 @@ Create a User Pool in the AWS Management Console named **spring-example**. Once 
 
 2. Choose **User Pools** from the left navigation pane. 
 
-3. Choose the **Create user pool** button and provide your preferred settings through the wizard.
-
+3. Choose the **Create user pool** button and provide your preferred settings.
+![AWS Tracking Application](images/userpool.png)
+ 
 4. In the **User pool name** field, enter **spring-example**. 
 
 5. In the **App client name** field, enter **spring-boot**.
