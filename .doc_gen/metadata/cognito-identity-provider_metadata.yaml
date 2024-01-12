@@ -672,9 +672,9 @@ cognito-identity-provider_ConfirmDevice:
   services:
     cognito-identity-provider: {ConfirmDevice}
 cognito-identity-provider_InitiateAuth:
-  title: Start authentication with a device tracked by &COG; using an &AWS; SDK
-  title_abbrev: Start authentication with a tracked device
-  synopsis: start authentication with a device tracked by &COG;.
+  title: Start authentication using an &AWS; SDK
+  title_abbrev: Start authentication
+  synopsis: start authentication with &COG;.
   category:
   languages:
     .NET:
@@ -692,9 +692,8 @@ cognito-identity-provider_InitiateAuth:
           github: python/example_code/cognito
           sdkguide:
           excerpts:
-            - description: Sign in with a tracked device. To complete sign-in,
-                the client must respond correctly to Secure Remote Password (SRP)
-                challenges.
+            - description: This example shows you how to start authentication with a tracked device. To complete 
+                sign-in, the client must respond correctly to Secure Remote Password (SRP) challenges.
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.InitiateAuth
@@ -833,7 +832,10 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
           github: python/example_code/cognito
           sdkguide:
           excerpts:
-            - description: In addition to the previously listed steps, this example
+            - description: Create a class that wraps &COG; functions used in the scenario.
+              snippet_tags:
+                - python.example_code.cognito-idp.CognitoIdentityProviderWrapper.full
+            - description: Create a class that runs the scenario. This example
                 also registers an MFA device to be tracked by &COG; and shows you
                 how to sign in by using a password and information from the tracked
                 device. This avoids the need to enter a new MFA code.

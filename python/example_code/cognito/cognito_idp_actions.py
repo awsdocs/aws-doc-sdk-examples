@@ -19,6 +19,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.cognito-idp.CognitoIdentityProviderWrapper.full]
 # snippet-start:[python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl]
 class CognitoIdentityProviderWrapper:
     """Encapsulates Amazon Cognito actions"""
@@ -495,3 +496,4 @@ class CognitoIdentityProviderWrapper:
 
     # snippet-end:[python.example_code.cognito-idp.RespondToAuthChallenge]
     # snippet-end:[python.example_code.cognito-idp.InitiateAuth]
+# snippet-end:[python.example_code.cognito-idp.CognitoIdentityProviderWrapper.full]

@@ -1772,15 +1772,15 @@ kinesis:
 kinesis-analytics-v2:
   long: '&AKAlong;'
   short: '&AKA;'
-  sort: Kinesis Data Analytics
+  sort: Managed Service for Apache Flink
   expanded:
-    long: Amazon Kinesis Data Analytics
-    short: Kinesis Data Analytics
+    long: Amazon Managed Service for Apache Flink
+    short: Managed Service for Apache Flink
   blurb: processes and analyzes streaming data using SQL or Java.
   guide:
     subtitle: Developer Guide
-    url: kinesisanalytics/latest/dev/what-is.html
-  api_ref: kinesisanalytics/latest/apiv2/Welcome.html
+    url: managed-flink/latest/java/what-is.html
+  api_ref: managed-flink/latest/apiv2/Welcome.html
   tags:
     product_categories: {'Analytics'}
   version: kinesisanalyticsv2-2018-05-23
