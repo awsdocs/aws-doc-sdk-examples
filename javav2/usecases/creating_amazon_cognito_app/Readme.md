@@ -106,7 +106,8 @@ You must configure the app client. For example, you need to define OAuth scope v
 ![AWS Tracking Application](images/clientapp2.png) 
 
 8. Add **email** and **openid** to **OpenID Connect scopes**.
-
+![AWS Tracking Application](images/clientapp3.png)
+ 
 9. Choose **Save Changes**. 
 
 ## Configure a domain name
