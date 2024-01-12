@@ -124,7 +124,7 @@ In order for a Spring Boot application to use the log in form that is provided b
 
 3. Next to **Domain**, choose **Actions**, then **Create Cognito domain**.
 
-![AWS Tracking Application](images/pic9-updated.png)
+![AWS Tracking Application](images/clientapp5.png)
 
 2. Enter a domain name.
 
