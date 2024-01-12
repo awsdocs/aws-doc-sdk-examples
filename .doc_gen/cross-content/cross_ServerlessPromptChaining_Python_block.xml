@@ -20,7 +20,7 @@
         </listitem>
         <listitem>
             <para>
-                Generate a short story about a given topic. This example illustrates how the AI can iteratively process a list of items.
+                Generate a short story about a given topic. This example illustrates how the AI can iteratively process a list of items that it previously generated.
             </para>
         </listitem>
         <listitem>
