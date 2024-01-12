@@ -161,7 +161,9 @@ If you do not have a web project, create one by following [Creating your first A
 
 ### Create the WebSecurityConfig Java class
 
-Add the **WebSecurityConfig** class to the **com.example.handlingformsubmission** package. This file ensures that the application rerquires a user to log into it. The following Java code represents this class. 
+Add the **WebSecurityConfig** class to the **com.example.handlingformsubmission** package. This file ensures that the application requires a user to log into it. 
+
+The following Java code represents this class. 
 
 ```java
      package com.example.handlingformsubmission;
