@@ -13,14 +13,6 @@ bedrock-runtime_Hello:
             - description:
               snippet_tags:
                 - gov2.bedrock-runtime.Hello
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description:
-              snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/hello.js
   services:
     bedrock-runtime: {InvokeModel}
 
@@ -143,7 +135,7 @@ bedrock-runtime_InvokeClaude:
           excerpts:
             - description: Invoke the Anthropic Claude 2 foundation model to generate text.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/action/invoke-model.js
+                - javascriptv3/example_code/bedrock-runtime/action/invoke-claude.js
     PHP:
       versions:
         - sdk_version: 3
@@ -205,6 +197,14 @@ bedrock-runtime_InvokeJurassic2:
             - description: Invoke the AI21 Labs Jurassic-2 foundation model to generate text.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_jurassic2.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the AI21 Labs Jurassic-2 foundation model to generate text.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-runtime/action/invoke-jurassic2.js
     PHP:
       versions:
         - sdk_version: 3

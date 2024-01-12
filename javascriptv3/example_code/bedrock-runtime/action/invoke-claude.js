@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { fileURLToPath } from "url";
+
+import {BedrockRuntimeClient, InvokeModelCommand} from "@aws-sdk/client-bedrock-runtime";
+
 /**
  * @typedef {Object} ResponseBody
  * @property {string} completion
  */
-
-import { fileURLToPath } from "url";
-
-import {BedrockRuntimeClient, InvokeModelCommand} from "@aws-sdk/client-bedrock-runtime";
 
 /**
  * Invokes the Anthropic Claude 2 model to run an inference using the input
@@ -18,11 +18,10 @@ import {BedrockRuntimeClient, InvokeModelCommand} from "@aws-sdk/client-bedrock-
  *
  * @returns Inference response (completion) from the model.
  */
-export const invokeClaude = async () => {
+export const invokeClaude = async (prompt) => {
     const client = new BedrockRuntimeClient( { region: 'us-east-1' } );
 
     const modelId = 'anthropic.claude-v2';
-    const prompt = 'Hello Jurassic, how are you?';
 
     /* Claude requires you to enclose the prompt as follows: */
     const enclosedPrompt = `Human: ${prompt}\n\nAssistant:`;
@@ -47,21 +46,24 @@ export const invokeClaude = async () => {
 
     const response = await client.send(command);
 
-    const responseBody = new TextDecoder().decode(response.body);
+    const decodedResponseBody = new TextDecoder().decode(response.body);
 
     /** @type {ResponseBody} */
-    const parsedResponseBody = JSON.parse(responseBody);
+    const responseBody = JSON.parse(decodedResponseBody);
 
-    const completion = parsedResponseBody.completion;
+    const completion = responseBody.completion;
 
     return completion;
 };
 
-export const main = async () => {
-    await invokeClaude();
-};
-
-// Invoke main function if this file was run directly.
+// Invoke the function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    await main();
+    const prompt = 'Complete the following: "Once upon a time..."';
+    console.log('\nModel: Anthropic Claude v2');
+    console.log(`Prompt: ${prompt}`);
+
+    const completion = await invokeClaude(prompt);
+    console.log('Completion:');
+    console.log(completion);
+    console.log('\n');
 }
