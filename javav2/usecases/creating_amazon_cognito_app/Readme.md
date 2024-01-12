@@ -1,4 +1,4 @@
-# Using Amazon Cognito to require a user to log into a web application
+# Using Amazon Cognito to require a user to log into a Java web application
 
 ## Purpose
 Amazon Cognito lets you add user sign-up, sign-in, and access control to your web applications. Amazon Cognito scales to millions of users and supports sign-in with social identity providers, such as Facebook, Google, and enterprise identity providers such as OAuth2. 
@@ -11,7 +11,7 @@ When the user clicks the log in button, they are presented with a log in form wh
 
 ![AWS Tracking Application](images/pic2.png)
 
-After the user enters their credentials, they can access the web application. 
+After the user enters their credentials, they can access the secured web application. 
 
 ![AWS Tracking Application](images/pic3.png)
 

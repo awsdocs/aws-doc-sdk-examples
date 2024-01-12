@@ -1,0 +1,14 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito:
+            clientId: 60euqroqsbsnsrocidlvsd88v2
+            clientSecret: rakur64r3b6cibcns459en922a75amsd7436274ufvbtul4rd4i
+            scope: openid, email
+            redirectUriTemplate: http://localhost:8080/login/oauth2/code/cognito
+            clientName: spring-boot-backend
+        provider:
+          cognito:
+            issuerUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Taz4YtkM2
