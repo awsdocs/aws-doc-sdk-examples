@@ -94,7 +94,7 @@ You must configure the app client. For example, you need to define OAuth scope v
 
 4. Under **Hosted UI**, choose **Edit**.
 
-![AWS Tracking Application](images/pic6a-updated.png)
+![AWS Tracking Application](images/clientapp1.png)
 
 5. Add an **Allowed callback URL**. For example, with Spring Security, you can define the path as *http://localhost:8080/login/oauth2/code/cognito*. For local development, the localhost URL is all that is required. 
 
