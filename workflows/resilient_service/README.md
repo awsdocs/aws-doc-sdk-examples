@@ -4,7 +4,7 @@
 
 This example shows how to use AWS SDKs to create a load-balanced
 web service that returns book, movie, and song recommendations. It shows
-how the service responds to failures, and how to restructure the service for
+how the service responds to failures and how to restructure the service for
 more resilience when failures occur.
 
 Several components are used to demonstrate the resilience of the example web service:
@@ -32,7 +32,10 @@ an interactive demo that runs at a command prompt.
 
 This example is implemented in the following languages:
 
-* [Python](../../python/cross_service/resilient_service/README.md)
+* [Python](../../python/cross_service/resilient_service)
+* [.NET](../../dotnetv3/cross-service/ResilientService)
+* [JavaScript](../../javascriptv3/example_code/cross-services/wkflw-resilient-service)
+* [Java](../../javav2/usecases/resilient_service)
 
 ## Additional reading
 
