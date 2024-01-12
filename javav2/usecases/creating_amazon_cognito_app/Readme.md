@@ -142,7 +142,7 @@ Create a user that you can use to log into the application. In this example, the
 
 3. In the **Create user** dialog, enter the user name and any additional information you want to provide. Choose **Mark email address as verified**. 
 
-![AWS Tracking Application](images/pic11-updated.png)
+![AWS Tracking Application](images/user1.png)
 
 4. Choose **Create user**.
 
