@@ -21,8 +21,7 @@ public class PublishTextSMS {
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
-        String phoneNumber="<Specify a valid mobile number>" ; //Replace with a mobile phone number
-
+        String phoneNumber="Replace with a mobile phone number" ;
         try {
             PublishRequest request = PublishRequest.builder()
                     .message(message)
