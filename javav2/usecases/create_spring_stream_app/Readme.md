@@ -231,8 +231,8 @@ public class VideoStreamController {
     }
 
     // Returns the video in the bucket specified by the ID value.
-    @RequestMapping(value = "/{id}/stream", method = RequestMethod.GET)
-    public Mono<ResponseEntity<byte[]>> streamVideo(@PathVariable String id) {
+    @GetMapping("/{id}/stream")
+    public Mono<ResponseEntity<StreamingResponseBody>> streamVideo(@PathVariable String id) {
         String fileName = id;
         return Mono.just(vid.getObjectBytes(bucket, fileName));
     }
@@ -244,16 +244,24 @@ public class VideoStreamController {
 
 ### VideoStreamService class
 
-The following Java code represents the **VideoStreamService** class. This class uses the Amazon S3 Java API (V2) to interact with content located in an Amazon S3 bucket. For example, the **getTags** method returns a collection of tags that are used to create the video menu. Likewise, the **getObjectBytes** reads bytes from a MP4 video. The byte array is used to create a **ResponseEntity** object. This object sets HTTP header information and the HTTP status code required to stream the video. 
+The following Java code represents the **VideoStreamService** class. This class uses the Amazon S3 Java API (V2) to interact with content located in an Amazon S3 bucket. For example, the **getTags** method returns a collection of tags that are used to create the video menu. 
+
+The **getObjectBytes** Java function is a part of a Spring application designed to retrieve video content from an Amazon S3 bucket and efficiently stream it as a response. 
+It utilizes the AWS SDK for Java to create an S3 client, sends a request to obtain an S3 object stream for the specified bucket and key, and then sets up HTTP headers for the response, including content type, length, and disposition. 
+The content is streamed in chunks using the **StreamingResponseBody** interface, enhancing efficiency and responsiveness. 
+
+The method includes proper exception handling to manage potential errors, closing the S3 object stream in a finally block. Overall, it serves as an effective solution for dynamically streaming video content from an S3 bucket in a Spring-based application.
 
 ```java
     package com.example;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.core.ResponseBytes;
+import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -282,6 +290,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.ArrayList;
+import org.springframework.http.HttpHeaders;
 
 @Service
 public class VideoStreamService {
@@ -293,23 +302,23 @@ public class VideoStreamService {
     private S3Client getClient() {
 
         return S3Client.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(Region.US_WEST_2)
-                .build();
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .region(Region.US_WEST_2)
+            .build();
     }
 
     // Places a new video into an Amazon S3 bucket.
     public void putVideo(byte[] bytes, String bucketName, String fileName, String description) {
         S3Client s3 = getClient();
-
         try {
             // Set the tags to apply to the object.
             String theTags = "name="+fileName+"&description="+description;
+
             PutObjectRequest putOb = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(fileName)
-                    .tagging(theTags)
-                    .build();
+                .bucket(bucketName)
+                .key(fileName)
+                .tagging(theTags)
+                .build();
 
             s3.putObject(putOb, RequestBody.fromBytes(bytes));
 
@@ -328,30 +337,30 @@ public class VideoStreamService {
                 .bucket(bucketName)
                 .build();
 
-          ListObjectsResponse res = s3.listObjects(listObjects);
-          List<S3Object> objects = res.contents();
-          List<String> keys = new ArrayList<>();
-          for (S3Object myValue: objects) {
-              String key = myValue.key(); // We need the key to get the tags.
-              GetObjectTaggingRequest getTaggingRequest = GetObjectTaggingRequest.builder()
-                  .key(key)
-                  .bucket(bucketName)
-                  .build();
+            ListObjectsResponse res = s3.listObjects(listObjects);
+            List<S3Object> objects = res.contents();
+            List<String> keys = new ArrayList<>();
+            for (S3Object myValue: objects) {
+                String key = myValue.key(); // We need the key to get the tags.
+                GetObjectTaggingRequest getTaggingRequest = GetObjectTaggingRequest.builder()
+                    .key(key)
+                    .bucket(bucketName)
+                    .build();
 
-              GetObjectTaggingResponse tags = s3.getObjectTagging(getTaggingRequest);
-              List<Tag> tagSet= tags.tagSet();
-              for (Tag tag : tagSet) {
-                  keys.add(tag.value());
-              }
-          }
+                GetObjectTaggingResponse tags = s3.getObjectTagging(getTaggingRequest);
+                List<Tag> tagSet= tags.tagSet();
+                for (Tag tag : tagSet) {
+                    keys.add(tag.value());
+                }
+            }
 
-          List<Tags> tagList = modList(keys);
-          return convertToString(toXml(tagList));
+            List<Tags> tagList = modList(keys);
+            return convertToString(toXml(tagList));
 
-    } catch (S3Exception e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
-    }
+        } catch (S3Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
         return "";
     }
 
@@ -369,47 +378,67 @@ public class VideoStreamService {
                 keys.add(myList.get(index));
             else
                 values.add(myList.get(index));
-           }
+        }
 
-           // Create a list where each element is a Tags object.
-           for (int r=0; r<keys.size(); r++){
-               myTag = new Tags();
-               myTag.setName(keys.get(r));
-               myTag.setDesc(values.get(r));
-               allTags.add(myTag);
-           }
+        // Create a list where each element is a Tags object.
+        for (int r=0; r<keys.size(); r++){
+            myTag = new Tags();
+            myTag.setName(keys.get(r));
+            myTag.setDesc(values.get(r));
+            allTags.add(myTag);
+        }
         return allTags;
     }
 
 
     // Reads a video from a bucket and returns a ResponseEntity.
-    public ResponseEntity<byte[]> getObjectBytes (String bucketName, String keyName) {
+    public ResponseEntity<StreamingResponseBody> getObjectBytes(String bucketName, String keyName) {
         S3Client s3 = getClient();
         try {
-            // create a GetObjectRequest instance.
-            GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+            // Create an S3 object request.
+            GetObjectRequest objectRequest = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(keyName)
+                .build();
 
-            // get the byte[] from this AWS S3 object and return a ResponseEntity.
-            ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
-            return ResponseEntity.status(HttpStatus.OK)
-                    .header(CONTENT_TYPE, VIDEO_CONTENT + "mp4")
-                    .header(CONTENT_LENGTH, String.valueOf(objectBytes.asByteArray().length))
-                    .body(objectBytes.asByteArray());
+            // Get the S3 object stream.
+            ResponseInputStream<GetObjectResponse> objectStream = s3.getObject(objectRequest);
 
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            // Set content type and length headers.
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.valueOf(VIDEO_CONTENT + "mp4"));
+
+            // Set content length if available.
+            Long contentLength = objectStream.response().contentLength();
+            if (contentLength != null) {
+                headers.setContentLength(contentLength);
+            }
+
+            // Set disposition as inline to display content in the browser.
+            headers.setContentDispositionFormData("inline", keyName);
+
+            // Create a StreamingResponseBody to stream the content.
+            StreamingResponseBody responseBody = outputStream -> {
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                try {
+                    while ((bytesRead = objectStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                } finally {
+                    objectStream.close();
+                }
+            };
+
+            return new ResponseEntity<>(responseBody, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            // Handle exceptions and return an appropriate ResponseEntity.
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return null;
     }
 
-
     // Convert a LIST to XML data.
-     private Document toXml(List<Tags> itemList) {
+    private Document toXml(List<Tags> itemList) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
@@ -469,6 +498,7 @@ public class VideoStreamService {
         return transformerFactory;
     }
 }
+
 
 ```
 
