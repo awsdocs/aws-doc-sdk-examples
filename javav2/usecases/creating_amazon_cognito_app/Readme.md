@@ -318,7 +318,7 @@ The final step in the AWS tutorial is to modify the **greeting.html** file locat
 
  <div class="main-content" sec:authorize="isAuthenticated()">
   <h1>A secure AWS Web application</h1>
-  <p>Hello user <strong th:text="${#authentication.getPrincipal().attributes['cognito:username']}"></strong></p>
+  <p>Hello <strong th:text="${#authentication.getPrincipal().attributes['cognito:username']}"></strong></p>
   <p>You can submit data to a DynamoDB table by using the Enhanced Client. A mobile notification is sent alerting a user a new submission occurred.</p>
   <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
    <div class="form-group">
