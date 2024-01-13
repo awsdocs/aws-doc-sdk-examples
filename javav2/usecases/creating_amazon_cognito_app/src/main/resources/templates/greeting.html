@@ -23,7 +23,19 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-primary {
+        .main-content {
+            max-width: 600px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger {
             margin-top: 10px;
         }
 
@@ -32,12 +44,7 @@
         }
 
         form {
-            max-width: 600px;
-            margin: auto;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
 
         .form-group {
@@ -50,7 +57,8 @@
             box-sizing: border-box;
         }
 
-        input[type="submit"], input[type="reset"] {
+        input[type="submit"],
+        input[type="reset"] {
             background-color: #007bff;
             color: #fff;
             padding: 10px 20px;
@@ -59,7 +67,8 @@
             cursor: pointer;
         }
 
-        input[type="submit"]:hover, input[type="reset"]:hover {
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
             background-color: #0056b3;
         }
 
@@ -82,8 +91,8 @@
     </div>
 
     <div class="main-content" sec:authorize="isAuthenticated()">
-        <h1 class="text-center">A secure AWS Web application</h1>
-        <p>Hello user <strong th:text="${#authentication.getName()}"></strong></p>
+        <h1>A secure AWS Web application</h1>
+        <p>Hello user <strong th:text="${#authentication.getPrincipal().attributes['cognito:username']}"></strong></p>
         <p>You can submit data to a DynamoDB table by using the Enhanced Client. A mobile notification is sent alerting a user a new submission occurred.</p>
         <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
             <div class="form-group">
@@ -106,7 +115,10 @@
                 <input type="text" class="form-control" th:field="*{body}" id="body" />
             </div>
 
-            <p><input type="submit" class="btn btn-primary" value="Submit" /> <input type="reset" class="btn btn-secondary" value="Reset" /></p>
+            <p>
+                <input type="submit" class="btn btn-primary" value="Submit" />
+                <input type="reset" class="btn btn-secondary" value="Reset" />
+            </p>
         </form>
 
         <form method="post" th:action="@{/logout}">

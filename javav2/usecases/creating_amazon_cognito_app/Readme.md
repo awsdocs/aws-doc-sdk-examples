@@ -22,7 +22,7 @@ When the user clicks the log in button, they are presented with a login form whe
 
 After the user enters their credentials, they can access the secured web application. 
 
-![AWS Tracking Application](images/webui1.png)
+![AWS Tracking Application](images/clientapp10.png)
 
 The following illustration shows the project files created in this tutorial (most of these files were created by following the tutorial referenced in the **Creating the resources** section). The files circled in red are the new files specific to this tutorial. 
 
@@ -224,7 +224,7 @@ Under your project’s resource folder, add a new file named **application.yml**
 The final step in the AWS tutorial is to modify the **greeting.html** file located under resources/templates folder. You have to add logic to inform the application what content is available for anonymous users and what content can be viewed by authenticated users. Add the following code to the **greeting.html** file. 
 
 ```html
-    <!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
  <title>Getting Started: Spring Boot and the Enhanced DynamoDB Client</title>
@@ -249,7 +249,19 @@ The final step in the AWS tutorial is to modify the **greeting.html** file locat
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
-  .btn-primary {
+  .main-content {
+   max-width: 600px;
+   margin: auto;
+   background-color: #ffffff;
+   padding: 20px;
+   border-radius: 10px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   text-align: center;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger {
    margin-top: 10px;
   }
 
@@ -258,12 +270,7 @@ The final step in the AWS tutorial is to modify the **greeting.html** file locat
   }
 
   form {
-   max-width: 600px;
-   margin: auto;
-   background-color: #ffffff;
-   padding: 20px;
-   border-radius: 10px;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   margin-top: 20px;
   }
 
   .form-group {
@@ -276,7 +283,8 @@ The final step in the AWS tutorial is to modify the **greeting.html** file locat
    box-sizing: border-box;
   }
 
-  input[type="submit"], input[type="reset"] {
+  input[type="submit"],
+  input[type="reset"] {
    background-color: #007bff;
    color: #fff;
    padding: 10px 20px;
@@ -285,7 +293,8 @@ The final step in the AWS tutorial is to modify the **greeting.html** file locat
    cursor: pointer;
   }
 
-  input[type="submit"]:hover, input[type="reset"]:hover {
+  input[type="submit"]:hover,
+  input[type="reset"]:hover {
    background-color: #0056b3;
   }
 
@@ -308,8 +317,8 @@ The final step in the AWS tutorial is to modify the **greeting.html** file locat
  </div>
 
  <div class="main-content" sec:authorize="isAuthenticated()">
-  <h1 class="text-center">A secure AWS Web application</h1>
-  <p>Hello user <strong th:text="${#authentication.getName()}"></strong></p>
+  <h1>A secure AWS Web application</h1>
+  <p>Hello user <strong th:text="${#authentication.getPrincipal().attributes['cognito:username']}"></strong></p>
   <p>You can submit data to a DynamoDB table by using the Enhanced Client. A mobile notification is sent alerting a user a new submission occurred.</p>
   <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
    <div class="form-group">
@@ -332,7 +341,10 @@ The final step in the AWS tutorial is to modify the **greeting.html** file locat
     <input type="text" class="form-control" th:field="*{body}" id="body" />
    </div>
 
-   <p><input type="submit" class="btn btn-primary" value="Submit" /> <input type="reset" class="btn btn-secondary" value="Reset" /></p>
+   <p>
+    <input type="submit" class="btn btn-primary" value="Submit" />
+    <input type="reset" class="btn btn-secondary" value="Reset" />
+   </p>
   </form>
 
   <form method="post" th:action="@{/logout}">
