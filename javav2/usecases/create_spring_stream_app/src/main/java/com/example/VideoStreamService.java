@@ -40,6 +40,9 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import org.springframework.http.HttpHeaders;
 
 @Service
@@ -115,29 +118,16 @@ public class VideoStreamService {
     }
 
     // Return a List where each element is a Tags object.
-    private List<Tags> modList(List<String> myList){
-        // Get the elements from the collection.
+    private List<Tags> modList(List<String> myList) {
         int count = myList.size();
-        List<Tags> allTags = new ArrayList<>();
-        Tags myTag ;
-        ArrayList<String> keys = new ArrayList<>();
-        ArrayList<String> values = new ArrayList<>();
-
-        for ( int index=0; index < count; index++) {
-            if (index % 2 == 0)
-                keys.add(myList.get(index));
-            else
-                values.add(myList.get(index));
-        }
-
-        // Create a list where each element is a Tags object.
-        for (int r=0; r<keys.size(); r++){
-            myTag = new Tags();
-            myTag.setName(keys.get(r));
-            myTag.setDesc(values.get(r));
-            allTags.add(myTag);
-        }
-        return allTags;
+        return IntStream.range(0, count / 2)
+            .mapToObj(index -> {
+                Tags myTag = new Tags();
+                myTag.setName(myList.get(index * 2));
+                myTag.setDesc(myList.get(index * 2 + 1));
+                return myTag;
+            })
+            .collect(Collectors.toList());
     }
 
 
