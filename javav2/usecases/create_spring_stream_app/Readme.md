@@ -250,8 +250,6 @@ The **getObjectBytes** Java function is a part of a Spring application designed 
 It utilizes the AWS SDK for Java to create an S3 client, sends a request to obtain an S3 object stream for the specified bucket and key, and then sets up HTTP headers for the response, including content type, length, and disposition. 
 The content is streamed in chunks using the **StreamingResponseBody** interface, enhancing efficiency and responsiveness. 
 
-The method includes proper exception handling to manage potential errors, closing the S3 object stream in a finally block. Overall, it serves as an effective solution for dynamically streaming video content from an S3 bucket in a Spring-based application.
-
 ```java
     package com.example;
 
