@@ -135,9 +135,9 @@ In order for a Spring Boot application to use the log in form that is provided b
 
 ![AWS Tracking Application](images/clientapp5.png)
 
-2. Enter a domain name.
+4. Enter a domain name.
 
-3. Choose **Save Changes**. 
+5. Choose **Save Changes**. 
 
 ## Create a user
 
