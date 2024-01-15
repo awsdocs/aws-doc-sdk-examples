@@ -374,7 +374,7 @@ public class VideoStreamService {
             })
             .collect(Collectors.toList());
     }
-    
+
     // Reads a video from a bucket and returns a ResponseEntity.
     public ResponseEntity<StreamingResponseBody> getObjectBytes(String bucketName, String keyName) {
         S3Client s3 = getClient();
@@ -402,13 +402,15 @@ public class VideoStreamService {
             headers.setContentDispositionFormData("inline", keyName);
 
             // Create a StreamingResponseBody to stream the content.
+
             StreamingResponseBody responseBody = outputStream -> {
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                try {
+                try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream)) {
+                    byte[] buffer = new byte[1024 * 1024];
+                    int bytesRead;
                     while ((bytesRead = objectStream.read(buffer)) != -1) {
-                        outputStream.write(buffer, 0, bytesRead);
+                        bufferedOutputStream.write(buffer, 0, bytesRead);
                     }
+                    bufferedOutputStream.flush();
                 } finally {
                     objectStream.close();
                 }
