@@ -490,7 +490,7 @@ public class VideoStreamService {
 
 ## Create the HTML file
 
-At this point, you have created all of the Java files required for this example Spring Boot application. Now you create HTML files that are required for the application's view. Under the resource folder, create a **templates** folder, and then create the following HTML files:
+At this point, you have created the Java files required for this example Spring Boot application. Now you create HTML files that are required for the application's view. Under the resource folder, create a **templates** folder, and then create the following HTML files:
 
 + index.html
 + layout.html
