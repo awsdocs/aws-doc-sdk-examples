@@ -37,6 +37,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.BufferedOutputStream;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.ArrayList;
@@ -47,9 +48,6 @@ import org.springframework.http.HttpHeaders;
 
 @Service
 public class VideoStreamService {
-
-    public static final String CONTENT_TYPE = "Content-Type";
-    public static final String CONTENT_LENGTH = "Content-Length";
     public static final String VIDEO_CONTENT = "video/";
 
     private S3Client getClient() {
@@ -159,12 +157,13 @@ public class VideoStreamService {
 
             // Create a StreamingResponseBody to stream the content.
             StreamingResponseBody responseBody = outputStream -> {
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                try {
+                try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream)) {
+                    byte[] buffer = new byte[1024 * 1024];
+                    int bytesRead;
                     while ((bytesRead = objectStream.read(buffer)) != -1) {
-                        outputStream.write(buffer, 0, bytesRead);
+                        bufferedOutputStream.write(buffer, 0, bytesRead);
                     }
+                    bufferedOutputStream.flush();
                 } finally {
                     objectStream.close();
                 }
@@ -176,6 +175,7 @@ public class VideoStreamService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 
     // Convert a LIST to XML data.
     private Document toXml(List<Tags> itemList) {

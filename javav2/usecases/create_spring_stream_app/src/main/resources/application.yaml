@@ -1,5 +1,9 @@
-spring:
+server:
   servlet:
-    multipart:
-      max-file-size: -1
-      max-request-size: -1
+    session:
+      timeout: 180m # Set session timeout to 180 minutes
+
+spring:
+  mvc:
+    async:
+      request-timeout: 1800000 # Set the asynchronous request timeout to 1800000 milliseconds (30 minutes)
