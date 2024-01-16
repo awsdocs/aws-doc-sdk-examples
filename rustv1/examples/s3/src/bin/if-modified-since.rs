@@ -56,7 +56,7 @@ async fn main() -> Result<(), Error> {
     // If the `PutObject` succeeded, get the eTag string from it. Otherwise,
     // report an error and return an empty string.
     let e_tag_1 = match put_object_output {
-        Ok(output) => output.e_tag.unwrap(),
+        Ok(put_object) => put_object.e_tag.unwrap(),
         Err(err) => {
             error!("{err:?}");
             String::new()
@@ -75,9 +75,9 @@ async fn main() -> Result<(), Error> {
     // values of the headers `last-modified` and `etag`. If the request
     // failed, return the error in a tuple instead.
     let (last_modified, e_tag_2) = match head_object_output {
-        Ok(output) => (
-            Ok(output.last_modified().cloned().unwrap()),
-            output.e_tag.unwrap(),
+        Ok(head_object) => (
+            Ok(head_object.last_modified().cloned().unwrap()),
+            head_object.e_tag.unwrap(),
         ),
         Err(err) => (Err(err), String::new()),
     };
@@ -124,9 +124,9 @@ async fn main() -> Result<(), Error> {
     // snippet-start:[s3.rust.if-modified-since.result-handler]
     let (last_modified, e_tag_2): (Result<DateTime, SdkError<HeadObjectError>>, String) =
         match head_object_output {
-            Ok(output) => (
-                Ok(output.last_modified().cloned().unwrap()),
-                output.e_tag.unwrap(),
+            Ok(head_object) => (
+                Ok(head_object.last_modified().cloned().unwrap()),
+                head_object.e_tag.unwrap(),
             ),
             Err(err) => match err {
                 SdkError::ServiceError(err) => {
