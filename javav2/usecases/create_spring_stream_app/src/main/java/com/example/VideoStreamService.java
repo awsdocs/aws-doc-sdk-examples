@@ -5,12 +5,14 @@
 
 package com.example;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
@@ -41,21 +43,20 @@ import java.io.BufferedOutputStream;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import org.springframework.http.HttpHeaders;
 
 @Service
 public class VideoStreamService {
+
+    public static final String CONTENT_TYPE = "Content-Type";
+    public static final String CONTENT_LENGTH = "Content-Length";
     public static final String VIDEO_CONTENT = "video/";
 
     private S3Client getClient() {
 
         return S3Client.builder()
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .region(Region.US_WEST_2)
-            .build();
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(Region.US_WEST_2)
+                .build();
     }
 
     // Places a new video into an Amazon S3 bucket.
@@ -66,10 +67,10 @@ public class VideoStreamService {
             String theTags = "name="+fileName+"&description="+description;
 
             PutObjectRequest putOb = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key(fileName)
-                .tagging(theTags)
-                .build();
+                    .bucket(bucketName)
+                    .key(fileName)
+                    .tagging(theTags)
+                    .build();
 
             s3.putObject(putOb, RequestBody.fromBytes(bytes));
 
@@ -88,44 +89,57 @@ public class VideoStreamService {
                 .bucket(bucketName)
                 .build();
 
-            ListObjectsResponse res = s3.listObjects(listObjects);
-            List<S3Object> objects = res.contents();
-            List<String> keys = new ArrayList<>();
-            for (S3Object myValue: objects) {
-                String key = myValue.key(); // We need the key to get the tags.
-                GetObjectTaggingRequest getTaggingRequest = GetObjectTaggingRequest.builder()
-                    .key(key)
-                    .bucket(bucketName)
-                    .build();
+          ListObjectsResponse res = s3.listObjects(listObjects);
+          List<S3Object> objects = res.contents();
+          List<String> keys = new ArrayList<>();
+          for (S3Object myValue: objects) {
+              String key = myValue.key(); // We need the key to get the tags.
+              GetObjectTaggingRequest getTaggingRequest = GetObjectTaggingRequest.builder()
+                  .key(key)
+                  .bucket(bucketName)
+                  .build();
 
-                GetObjectTaggingResponse tags = s3.getObjectTagging(getTaggingRequest);
-                List<Tag> tagSet= tags.tagSet();
-                for (Tag tag : tagSet) {
-                    keys.add(tag.value());
-                }
-            }
+              GetObjectTaggingResponse tags = s3.getObjectTagging(getTaggingRequest);
+              List<Tag> tagSet= tags.tagSet();
+              for (Tag tag : tagSet) {
+                  keys.add(tag.value());
+              }
+          }
 
-            List<Tags> tagList = modList(keys);
-            return convertToString(toXml(tagList));
+          List<Tags> tagList = modList(keys);
+          return convertToString(toXml(tagList));
 
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+    } catch (S3Exception e) {
+        System.err.println(e.awsErrorDetails().errorMessage());
+        System.exit(1);
+    }
         return "";
     }
 
     // Return a List where each element is a Tags object.
-    private List<Tags> modList(List<String> myList) {
+    private List<Tags> modList(List<String> myList){
+        // Get the elements from the collection.
         int count = myList.size();
-        return IntStream.range(0, count / 2)
-            .mapToObj(index -> {
-                Tags myTag = new Tags();
-                myTag.setName(myList.get(index * 2));
-                myTag.setDesc(myList.get(index * 2 + 1));
-                return myTag;
-            })
-            .collect(Collectors.toList());
+        List<Tags> allTags = new ArrayList<>();
+        Tags myTag ;
+        ArrayList<String> keys = new ArrayList<>();
+        ArrayList<String> values = new ArrayList<>();
+
+        for ( int index=0; index < count; index++) {
+            if (index % 2 == 0)
+                keys.add(myList.get(index));
+            else
+                values.add(myList.get(index));
+           }
+
+           // Create a list where each element is a Tags object.
+           for (int r=0; r<keys.size(); r++){
+               myTag = new Tags();
+               myTag.setName(keys.get(r));
+               myTag.setDesc(values.get(r));
+               allTags.add(myTag);
+           }
+        return allTags;
     }
 
 
@@ -177,8 +191,9 @@ public class VideoStreamService {
     }
 
 
+
     // Convert a LIST to XML data.
-    private Document toXml(List<Tags> itemList) {
+     private Document toXml(List<Tags> itemList) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
