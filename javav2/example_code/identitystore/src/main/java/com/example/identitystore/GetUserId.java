@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetUserId.java demonstrates how to retrieve the userid based on other unique keys from AWS Identitystore.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.identitystore;
 
@@ -21,7 +15,8 @@ import software.amazon.awssdk.core.document.Document;
 // snippet-end:[Identitystore.java2.get_userid.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,15 +27,15 @@ public class GetUserId {
 
         final String usage = """
 
-            Usage:
-                <identitystoreId> <userAttributeName> <userAttributeValue>\s
+                Usage:
+                    <identitystoreId> <userAttributeName> <userAttributeValue>\s
 
-            Where:
-                identitystoreId - The id of the identitystore.\s
-                userAttributeName - The name of the unique attribute of the user.\s
-                userAttributeValue - The value of the specified user attribute.\s
+                Where:
+                    identitystoreId - The id of the identitystore.\s
+                    userAttributeName - The name of the unique attribute of the user.\s
+                    userAttributeValue - The value of the specified user attribute.\s
 
-            """;
+                """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -56,24 +51,25 @@ public class GetUserId {
         identitystore.close();
     }
 
-    public static String getUserId(IdentitystoreClient identitystore, String identitystoreId, String userAttributeName, String userAttributeValue) {
+    public static String getUserId(IdentitystoreClient identitystore, String identitystoreId, String userAttributeName,
+            String userAttributeValue) {
         try {
             String attributePath = userAttributeName;
             Document attributeValue = Document.fromString(userAttributeValue);
 
             UniqueAttribute uniqueAttribute = UniqueAttribute.builder()
-                .attributePath(attributePath)
-                .attributeValue(attributeValue)
-                .build();
+                    .attributePath(attributePath)
+                    .attributeValue(attributeValue)
+                    .build();
 
             AlternateIdentifier alternateIdentifier = AlternateIdentifier.builder()
-                .uniqueAttribute(uniqueAttribute)
-                .build();
+                    .uniqueAttribute(uniqueAttribute)
+                    .build();
 
             GetUserIdRequest request = GetUserIdRequest.builder()
-                .identityStoreId(identitystoreId)
-                .alternateIdentifier(alternateIdentifier)
-                .build();
+                    .identityStoreId(identitystoreId)
+                    .alternateIdentifier(alternateIdentifier)
+                    .build();
 
             GetUserIdResponse response = identitystore.getUserId(request);
             return response.userId();

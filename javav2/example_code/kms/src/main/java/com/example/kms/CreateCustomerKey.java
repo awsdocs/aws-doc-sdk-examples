@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[CreateCustomerKey.java demonstrates how to create an AWS Key Management Service (AWS KMS) key.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Key Management Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kms;
 
@@ -20,7 +14,8 @@ import software.amazon.awssdk.services.kms.model.KmsException;
 // snippet-end:[kms.java2_create_key.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,8 +25,8 @@ public class CreateCustomerKey {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String keyDesc = "Created by the AWS KMS API";
         System.out.println("The key id is " + createKey(kmsClient, keyDesc));
@@ -41,10 +36,10 @@ public class CreateCustomerKey {
     public static String createKey(KmsClient kmsClient, String keyDesc) {
         try {
             CreateKeyRequest keyRequest = CreateKeyRequest.builder()
-                .description(keyDesc)
-                .customerMasterKeySpec(CustomerMasterKeySpec.SYMMETRIC_DEFAULT)
-                .keyUsage("ENCRYPT_DECRYPT")
-                .build();
+                    .description(keyDesc)
+                    .customerMasterKeySpec(CustomerMasterKeySpec.SYMMETRIC_DEFAULT)
+                    .keyUsage("ENCRYPT_DECRYPT")
+                    .build();
 
             CreateKeyResponse result = kmsClient.createKey(keyRequest);
             System.out.printf("Created a customer key with id \"%s\"%n", result.keyMetadata().arn());

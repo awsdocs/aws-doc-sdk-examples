@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.personalize.client.demo.movielens;
 
 import software.amazon.awssdk.core.waiters.WaiterResponse;
@@ -53,7 +52,6 @@ public class DemoUtils {
             "    ]" +
             "}";
 
-
     private static final String ASSUME_ROLE_POLICY = "{" +
             "    \"Version\": \"2012-10-17\"," +
             "    \"Statement\": [" +
@@ -66,35 +64,34 @@ public class DemoUtils {
             "        }" +
             "    ]" +
             "}";
-    public static final String PERSONALIZE_POLICY =
-            "{" +
-                    "  \"Version\": \"2012-10-17\"," +
-                    "  \"Statement\": [" +
-                    "    {" +
-                    "        \"Effect\": \"Allow\",\n" +
-                    "        \"Action\": [\n" +
-                    "                \"personalize:*\"\n" +
-                    "            ]," +
-                    "       \"Resource\": \"*\"\n" +
-                    "    },\n" +
-                    "	 {" +
-                    "            \"Effect\": \"Allow\",\n" +
-                    "            \"Action\": [\n" +
-                    "                \"iam:PassRole\"\n" +
-                    "            ],\n" +
-                    "            \"Resource\": \"*\",\n" +
-                    "            \"Condition\": {\n" +
-                    "                \"StringEquals\": {\n" +
-                    "                    \"iam:PassedToService\": \"personalize.amazonaws.com\"\n" +
-                    "                }\n" +
-                    "            }\n" +
-                    "        }" +
-                    "   ]" +
-                    "}";
+    public static final String PERSONALIZE_POLICY = "{" +
+            "  \"Version\": \"2012-10-17\"," +
+            "  \"Statement\": [" +
+            "    {" +
+            "        \"Effect\": \"Allow\",\n" +
+            "        \"Action\": [\n" +
+            "                \"personalize:*\"\n" +
+            "            ]," +
+            "       \"Resource\": \"*\"\n" +
+            "    },\n" +
+            "	 {" +
+            "            \"Effect\": \"Allow\",\n" +
+            "            \"Action\": [\n" +
+            "                \"iam:PassRole\"\n" +
+            "            ],\n" +
+            "            \"Resource\": \"*\",\n" +
+            "            \"Condition\": {\n" +
+            "                \"StringEquals\": {\n" +
+            "                    \"iam:PassedToService\": \"personalize.amazonaws.com\"\n" +
+            "                }\n" +
+            "            }\n" +
+            "        }" +
+            "   ]" +
+            "}";
 
     public static void ensurePersonalizePermissionsOnS3Bucket(S3Client s3, String bucket) {
         final String bucketPolicy = BUCKET_POLICY_TEMPLATE.replace("{bucket}", bucket);
-        //System.out.println("Bucket policy: " + bucketPolicy);
+        // System.out.println("Bucket policy: " + bucketPolicy);
 
         PutBucketPolicyRequest policyRequest = PutBucketPolicyRequest.builder()
                 .bucket(bucket)
@@ -169,11 +166,10 @@ public class DemoUtils {
                     return;
                 }
             }
-            AttachRolePolicyRequest attachRequest =
-                    AttachRolePolicyRequest.builder()
-                            .roleName(roleName)
-                            .policyArn(policyArn)
-                            .build();
+            AttachRolePolicyRequest attachRequest = AttachRolePolicyRequest.builder()
+                    .roleName(roleName)
+                    .policyArn(policyArn)
+                    .build();
 
             iam.attachRolePolicy(attachRequest);
             System.out.println("Successfully attached policy " + policyArn +

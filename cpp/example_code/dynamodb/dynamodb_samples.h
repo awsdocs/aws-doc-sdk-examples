@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 #ifndef DYNAMODB_EXAMPLES_DYNAMODB_SAMPLES_H
 #define DYNAMODB_EXAMPLES_DYNAMODB_SAMPLES_H

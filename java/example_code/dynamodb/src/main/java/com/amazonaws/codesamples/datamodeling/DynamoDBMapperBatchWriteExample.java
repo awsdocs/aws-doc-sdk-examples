@@ -1,27 +1,5 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.amazonaws.codesamples.datamodeling;
 
@@ -59,8 +37,7 @@ public class DynamoDBMapperBatchWriteExample {
 
             System.out.println("Example complete!");
 
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             System.err.println("Error running the DynamoDBMapperBatchWriteExample: " + t);
             t.printStackTrace();
         }
@@ -132,8 +109,8 @@ public class DynamoDBMapperBatchWriteExample {
         List<Book> objectsToDelete = Arrays.asList(book3);
 
         DynamoDBMapperConfig config = DynamoDBMapperConfig.builder()
-            .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.CLOBBER)
-            .build();
+                .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.CLOBBER)
+                .build();
 
         mapper.batchWrite(objectsToWrite, objectsToDelete, config);
     }
@@ -215,7 +192,7 @@ public class DynamoDBMapperBatchWriteExample {
         @Override
         public String toString() {
             return "Book [ISBN=" + ISBN + ", price=" + price + ", product category=" + productCategory + ", id=" + id
-                + ", title=" + title + "]";
+                    + ", title=" + title + "]";
         }
 
     }
@@ -399,4 +376,4 @@ public class DynamoDBMapperBatchWriteExample {
     }
 }
 
-// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample] 
+// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample]

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /* Unit tests for Amazon Lookout for Vision API examples */
 
@@ -312,7 +310,7 @@ public class LookoutVisionTest {
     public void detectAnomaliesPanel_thenNotNull() throws IOException, LookoutVisionException {
 
         float minConfidence = (float) 0.5;
-    
+
         // Check normal classification
         DetectAnomalyResult prediction = DetectAnomalies.detectAnomalies(lfvClient, projectName, modelVersion, photo);
         boolean reject = DetectAnomalies.rejectOnClassification(photo, prediction, minConfidence);

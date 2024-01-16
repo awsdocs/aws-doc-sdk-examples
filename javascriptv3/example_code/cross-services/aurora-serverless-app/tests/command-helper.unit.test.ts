@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { describe, it, expect } from "vitest";
 import { buildStatementCommand } from "../src/statement-commands/command-helper.js";
 

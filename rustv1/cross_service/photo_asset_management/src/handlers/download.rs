@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 use std::collections::HashSet;
 
 use crate::{apig_response, common::Common, uploader::ZipUpload};

@@ -1,15 +1,6 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-comment:[This is a full sample when you include SecretsManager-stack.ts, which goes in the lib dir.]
-// snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[SecretsManager.ts creates a stack using SecretsManager-stack.ts.]
-// snippet-keyword:[CDK V1.0.0]
-// snippet-keyword:[TypeScript]
-// snippet-sourcesyntax:[javascript]
-// snippet-service:[cdk]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-7-11]
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License. A copy of the

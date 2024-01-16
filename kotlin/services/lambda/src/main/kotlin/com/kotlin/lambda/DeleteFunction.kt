@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DeleteFunction.kt demonstrates how to delete an AWS Lambda function by using the LambdaClient object.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[AWS Lambda]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.lambda
 

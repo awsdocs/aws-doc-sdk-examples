@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.medicalimaging.*;
 import com.google.gson.Gson;
@@ -45,8 +43,6 @@ public class AWSMedicalImagingTest {
 
     private static String importJobId = "";
 
-
-
     @BeforeAll
     public static void setUp() {
 
@@ -69,32 +65,34 @@ public class AWSMedicalImagingTest {
         importJobId = values.getImportJobId();
         dataResourceArn = values.getDataResourceArn();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-    /*
-
-        try (InputStream input = AWSMedicalImagingTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            prop.load(input);
-            dataAccessRoleArn = prop.getProperty("dataAccessRoleArn");
-            inputS3Uri= prop.getProperty("inputS3Uri");
-            outputS3Uri= prop.getProperty("outputS3Uri");
-
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-       */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * AWSMedicalImagingTest.class.getClassLoader().getResourceAsStream(
+         * "config.properties")) {
+         * Properties prop = new Properties();
+         * prop.load(input);
+         * dataAccessRoleArn = prop.getProperty("dataAccessRoleArn");
+         * inputS3Uri= prop.getProperty("inputS3Uri");
+         * outputS3Uri= prop.getProperty("outputS3Uri");
+         * 
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
-
 
     @SuppressWarnings("resource")
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-                .region(Region.US_WEST_2)  // TODO: change back to US-EAST-1
+                .region(Region.US_WEST_2) // TODO: change back to US-EAST-1
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/medicalimaging";
@@ -111,7 +109,8 @@ public class AWSMedicalImagingTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void createDatastoreTest() {
-        assertDoesNotThrow(() -> createdDatastoreId = CreateDatastore.createMedicalImageDatastore(medicalImagingClient, datastoreName));
+        assertDoesNotThrow(() -> createdDatastoreId = CreateDatastore.createMedicalImageDatastore(medicalImagingClient,
+                datastoreName));
         assert (!createdDatastoreId.isEmpty());
 
     }
@@ -120,8 +119,9 @@ public class AWSMedicalImagingTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void getDatastoreTest() {
-        final DatastoreProperties[] datastoreProperties = {null};
-        assertDoesNotThrow(() -> datastoreProperties[0] = GetDatastore.getMedicalImageDatastore(medicalImagingClient, workingDatastoreId));
+        final DatastoreProperties[] datastoreProperties = { null };
+        assertDoesNotThrow(() -> datastoreProperties[0] = GetDatastore.getMedicalImageDatastore(medicalImagingClient,
+                workingDatastoreId));
         assertNotNull(datastoreProperties[0]);
 
         System.out.println("Test 2 passed");
@@ -132,8 +132,10 @@ public class AWSMedicalImagingTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void listDatastoresTest() {
-        @SuppressWarnings("rawtypes") final List[] dataStoreSummaries = {null};
-        assertDoesNotThrow(() -> dataStoreSummaries[0] = ListDatastores.listMedicalImagingDatastores(medicalImagingClient));
+        @SuppressWarnings("rawtypes")
+        final List[] dataStoreSummaries = { null };
+        assertDoesNotThrow(
+                () -> dataStoreSummaries[0] = ListDatastores.listMedicalImagingDatastores(medicalImagingClient));
         assertNotNull(dataStoreSummaries[0]);
 
         System.out.println("Test 3 passed");
@@ -144,7 +146,7 @@ public class AWSMedicalImagingTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void getDicomImportJobTest() {
-        final DICOMImportJobProperties[] dicomImportJobSummaries = {null};
+        final DICOMImportJobProperties[] dicomImportJobSummaries = { null };
         assertDoesNotThrow(() -> dicomImportJobSummaries[0] = GetDicomImportJob.getDicomImportJob(medicalImagingClient,
                 workingDatastoreId, importJobId));
         assertNotNull(dicomImportJobSummaries[0]);
@@ -156,9 +158,11 @@ public class AWSMedicalImagingTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void listDicomImportJobsTest() {
-        @SuppressWarnings("rawtypes") final List[] dicomImportJobSummaries = {null};
-        assertDoesNotThrow(() -> dicomImportJobSummaries[0] = ListDicomImportJobs.listDicomImportJobs(medicalImagingClient,
-                workingDatastoreId));
+        @SuppressWarnings("rawtypes")
+        final List[] dicomImportJobSummaries = { null };
+        assertDoesNotThrow(
+                () -> dicomImportJobSummaries[0] = ListDicomImportJobs.listDicomImportJobs(medicalImagingClient,
+                        workingDatastoreId));
         assertNotNull(dicomImportJobSummaries[0]);
 
         System.out.println("Test 5 passed");
@@ -171,14 +175,15 @@ public class AWSMedicalImagingTest {
         List<SearchFilter> searchFilters = Collections.singletonList(SearchFilter.builder()
                 .operator(Operator.BETWEEN)
                 .values(SearchByAttributeValue.builder()
-                                .createdAt(Instant.parse("1985-04-12T23:20:50.52Z"))
-                                .build(),
+                        .createdAt(Instant.parse("1985-04-12T23:20:50.52Z"))
+                        .build(),
                         SearchByAttributeValue.builder()
                                 .createdAt(Instant.now())
                                 .build())
                 .build());
 
-        @SuppressWarnings("rawtypes") final List[] searchResults = {null};
+        @SuppressWarnings("rawtypes")
+        final List[] searchResults = { null };
         assertDoesNotThrow(() -> searchResults[0] = SearchImageSets.searchMedicalImagingImageSets(medicalImagingClient,
                 workingDatastoreId, searchFilters));
         assertNotNull(searchResults[0]);
@@ -190,7 +195,7 @@ public class AWSMedicalImagingTest {
     @Tag("IntegrationTest")
     @Order(7)
     public void getImageSetTest() {
-        final GetImageSetResponse[] imageSetResponses = {null};
+        final GetImageSetResponse[] imageSetResponses = { null };
         assertDoesNotThrow(() -> imageSetResponses[0] = GetImageSet.getMedicalImageSet(medicalImagingClient,
                 workingDatastoreId, imageSetId, "1"));
         assertNotNull(imageSetResponses[0]);
@@ -208,7 +213,7 @@ public class AWSMedicalImagingTest {
 
         File metadataFile = new File(metadataFileName);
         assert (metadataFile.exists());
-        //noinspection ResultOfMethodCallIgnored
+        // noinspection ResultOfMethodCallIgnored
         metadataFile.delete();
 
         System.out.println("Test 8 passed");
@@ -224,7 +229,7 @@ public class AWSMedicalImagingTest {
 
         File imageFile = new File(imageFileName);
         assert (imageFile.exists());
-        //noinspection ResultOfMethodCallIgnored
+        // noinspection ResultOfMethodCallIgnored
         imageFile.delete();
 
         System.out.println("Test 9 passed");
@@ -234,8 +239,10 @@ public class AWSMedicalImagingTest {
     @Tag("IntegrationTest")
     @Order(10)
     public void listImageSetVersionsTest() {
-        @SuppressWarnings("rawtypes") List[] imageSetVersions = new List[1];
-        assertDoesNotThrow(() -> imageSetVersions[0] = ListImageSetVersions.listMedicalImageSetVersions(medicalImagingClient, workingDatastoreId, imageSetId));
+        @SuppressWarnings("rawtypes")
+        List[] imageSetVersions = new List[1];
+        assertDoesNotThrow(() -> imageSetVersions[0] = ListImageSetVersions
+                .listMedicalImageSetVersions(medicalImagingClient, workingDatastoreId, imageSetId));
         assertNotNull(imageSetVersions[0]);
 
         System.out.println("Test 10 passed");
@@ -245,8 +252,8 @@ public class AWSMedicalImagingTest {
     @Tag("IntegrationTest")
     @Order(11)
     public void tagResourceTest() {
-        assertDoesNotThrow(() -> TagResource.tagMedicalImagingResource(medicalImagingClient, dataResourceArn, ImmutableMap.of("Deployment", "Development")));
-
+        assertDoesNotThrow(() -> TagResource.tagMedicalImagingResource(medicalImagingClient, dataResourceArn,
+                ImmutableMap.of("Deployment", "Development")));
 
         System.out.println("Test 11 passed");
     }
@@ -255,8 +262,9 @@ public class AWSMedicalImagingTest {
     @Tag("IntegrationTest")
     @Order(12)
     public void listTagsForResourceTest() {
-        ListTagsForResourceResponse[] listTagsForResourceResponses = {null};
-        assertDoesNotThrow(() -> listTagsForResourceResponses[0] = ListTagsForResource.listMedicalImagingResourceTags(medicalImagingClient, dataResourceArn));
+        ListTagsForResourceResponse[] listTagsForResourceResponses = { null };
+        assertDoesNotThrow(() -> listTagsForResourceResponses[0] = ListTagsForResource
+                .listMedicalImagingResourceTags(medicalImagingClient, dataResourceArn));
         assertNotNull(listTagsForResourceResponses[0]);
 
         System.out.println("Test 12 passed");
@@ -266,11 +274,11 @@ public class AWSMedicalImagingTest {
     @Tag("IntegrationTest")
     @Order(13)
     public void untagResourceTest() {
-        assertDoesNotThrow(() -> UntagResource.untagMedicalImagingResource(medicalImagingClient, dataResourceArn, Collections.singletonList("Deployment")));
+        assertDoesNotThrow(() -> UntagResource.untagMedicalImagingResource(medicalImagingClient, dataResourceArn,
+                Collections.singletonList("Deployment")));
 
         System.out.println("Test 13 passed");
     }
-
 
     @Test
     @Tag("IntegrationTest")
@@ -279,15 +287,17 @@ public class AWSMedicalImagingTest {
         assert (!createdDatastoreId.isEmpty());
         int count = 0;
         while (count < 20) {
-            final DatastoreProperties[] datastoreProperties = {null};
-            assertDoesNotThrow(() -> datastoreProperties[0] = GetDatastore.getMedicalImageDatastore(medicalImagingClient, workingDatastoreId));
+            final DatastoreProperties[] datastoreProperties = { null };
+            assertDoesNotThrow(() -> datastoreProperties[0] = GetDatastore
+                    .getMedicalImageDatastore(medicalImagingClient, workingDatastoreId));
             if (datastoreProperties[0].datastoreStatus().toString().equals("ACTIVE")) {
                 break;
             }
             assertDoesNotThrow(() -> Thread.sleep(1000));
             count++;
         }
-        assertDoesNotThrow(() -> DeleteDatastore.deleteMedicalImagingDatastore(medicalImagingClient, createdDatastoreId));
+        assertDoesNotThrow(
+                () -> DeleteDatastore.deleteMedicalImagingDatastore(medicalImagingClient, createdDatastoreId));
         System.out.println("Test 14 passed");
     }
 

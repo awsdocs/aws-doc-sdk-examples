@@ -1,29 +1,6 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * 
- * http://aws.amazon.com/apache2.0/
- * 
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[CORS.java demonstrates how to set, get, and delete S3 bucket cross-origin resource sharing configurations.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[GET Bucket cors]
-// snippet-keyword:[PUT Bucket cors]
-// snippet-keyword:[DELETE Bucket cors]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.cors.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -92,7 +69,8 @@ public class CORS {
             configuration.setRules(rules);
             s3Client.setBucketCrossOriginConfiguration(bucketName, configuration);
 
-            // Verify that the new rule was added by checking the number of rules in the configuration.
+            // Verify that the new rule was added by checking the number of rules in the
+            // configuration.
             configuration = s3Client.getBucketCrossOriginConfiguration(bucketName);
             System.out.println("Expected # of rules = 3, found " + configuration.getRules().size());
 
@@ -105,7 +83,7 @@ public class CORS {
             configuration = s3Client.getBucketCrossOriginConfiguration(bucketName);
             printCORSConfiguration(configuration);
         } catch (AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
             e.printStackTrace();
         } catch (SdkClientException e) {

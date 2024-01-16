@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[GetDistrubutions.java demonstrates how to get information about a distribution.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon CloudFront]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.cloudfront;
 
@@ -20,7 +15,8 @@ import java.util.List;
 // snippet-end:[cloudfront.java2.dis.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,24 +25,24 @@ import java.util.List;
 public class GetDistributions {
     public static void main(String[] args) {
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
-            .region(Region.AWS_GLOBAL)
-            .build();
+                .region(Region.AWS_GLOBAL)
+                .build();
 
         getCFDistributions(cloudFrontClient);
         cloudFrontClient.close();
     }
 
     public static void getCFDistributions(CloudFrontClient cloudFrontClient) {
-         try {
-             ListDistributionsResponse response = cloudFrontClient.listDistributions();
-             DistributionList list = response.distributionList();
-             List<DistributionSummary> dists = list.items();
-             dists.forEach(dist -> System.out.println("The Distribution ARN is "+dist.arn()));
+        try {
+            ListDistributionsResponse response = cloudFrontClient.listDistributions();
+            DistributionList list = response.distributionList();
+            List<DistributionSummary> dists = list.items();
+            dists.forEach(dist -> System.out.println("The Distribution ARN is " + dist.arn()));
 
-         } catch (CloudFrontException e){
-             System.err.println(e.awsErrorDetails().errorMessage());
-             System.exit(1);
-         }
+        } catch (CloudFrontException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
 }
 // snippet-end:[cloudfront.java2.dis.main]

@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[GetExecutionHistory.kt demonstrates how to retrieve the history of the specified execution as a list of events.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS Step Functions]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.stepfunctions
 

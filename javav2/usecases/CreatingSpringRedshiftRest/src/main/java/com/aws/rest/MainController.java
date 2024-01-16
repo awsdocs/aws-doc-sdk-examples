@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -23,7 +21,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@ComponentScan(basePackages = {"com.aws.rest"})
+@ComponentScan(basePackages = { "com.aws.rest" })
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/items")
@@ -32,32 +30,31 @@ public class MainController {
 
     @Autowired
     MainController(
-        WorkItemRepository repository
-    ) {
+            WorkItemRepository repository) {
         this.repository = repository;
     }
 
-    @GetMapping("" )
-    public List<WorkItem> getItems(@RequestParam(required=false) String archived) {
+    @GetMapping("")
+    public List<WorkItem> getItems(@RequestParam(required = false) String archived) {
         Iterable<WorkItem> result;
-        if (archived != null && archived.compareTo("false")==0)
-           result = repository.getData("0");
-        else if (archived != null && archived.compareTo("true")==0)
+        if (archived != null && archived.compareTo("false") == 0)
+            result = repository.getData("0");
+        else if (archived != null && archived.compareTo("true") == 0)
             result = repository.getData("1");
         else
             result = repository.getData("");
 
         return StreamSupport.stream(result.spliterator(), false)
-            .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toUnmodifiableList());
     }
 
-
-    // Notice the : character which is used for custom methods. More information can be found here:
+    // Notice the : character which is used for custom methods. More information can
+    // be found here:
     // https://cloud.google.com/apis/design/custom_methods
     @PutMapping("{id}:archive")
     public String modUser(@PathVariable String id) {
         repository.flipItemArchive(id);
-        return id +" was archived";
+        return id + " was archived";
     }
 
     @PostMapping("")

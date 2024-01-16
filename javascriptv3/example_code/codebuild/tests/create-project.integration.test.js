@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { S3Client, CreateBucketCommand } from "@aws-sdk/client-s3";
 import { DeleteBucketCommand } from "@aws-sdk/client-s3";

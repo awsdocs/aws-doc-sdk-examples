@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[UpdateService.kt demonstrates how to update the task placement strategies and constraints on an Amazon Elastic Container Service (Amazon ECS) service.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Elastic Container Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.ecs
 

@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListIdentities.java demonstrates how to obtain a list of identities for your AWS account.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon Simple Email Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ses;
 
@@ -21,7 +14,8 @@ import java.util.List;
 // snippet-end:[ses.java2.identities.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,8 +26,8 @@ public class ListIdentities {
     public static void main(String[] args) throws IOException {
         Region region = Region.US_WEST_2;
         SesClient client = SesClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listSESIdentities(client);
     }

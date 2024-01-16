@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[CreateCampaign.java demonstrates how to create a campaign for an application in Amazon Pinpoint.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Pinpoint]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.createcampaign.main]
-//snippet-start:[pinpoint.java2.createcampaign.import]
+// snippet-start:[pinpoint.java2.createcampaign.main]
+// snippet-start:[pinpoint.java2.createcampaign.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.CampaignResponse;
@@ -22,10 +16,11 @@ import software.amazon.awssdk.services.pinpoint.model.WriteCampaignRequest;
 import software.amazon.awssdk.services.pinpoint.model.CreateCampaignResponse;
 import software.amazon.awssdk.services.pinpoint.model.CreateCampaignRequest;
 import software.amazon.awssdk.services.pinpoint.model.PinpointException;
-//snippet-end:[pinpoint.java2.createcampaign.import]
+// snippet-end:[pinpoint.java2.createcampaign.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -36,12 +31,12 @@ public class CreateCampaign {
 
         final String usage = """
 
-            Usage:   <appId> <segmentId>
+                Usage:   <appId> <segmentId>
 
-            Where:
-              appId - The ID of the application to create the campaign in.
-              segmentId - The ID of the segment to create the campaign from.
-            """;
+                Where:
+                  appId - The ID of the application to create the campaign in.
+                  segmentId - The ID of the segment to create the campaign from.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -51,8 +46,8 @@ public class CreateCampaign {
         String appId = args[0];
         String segmentId = args[1];
         PinpointClient pinpoint = PinpointClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         createPinCampaign(pinpoint, appId, segmentId);
         pinpoint.close();
@@ -68,31 +63,30 @@ public class CreateCampaign {
 
         try {
             Schedule schedule = Schedule.builder()
-                .startTime("IMMEDIATE")
-                .build();
+                    .startTime("IMMEDIATE")
+                    .build();
 
             Message defaultMessage = Message.builder()
-                .action(Action.OPEN_APP)
-                .body("My message body.")
-                .title("My message title.")
-                .build();
+                    .action(Action.OPEN_APP)
+                    .body("My message body.")
+                    .title("My message title.")
+                    .build();
 
             MessageConfiguration messageConfiguration = MessageConfiguration.builder()
-                .defaultMessage(defaultMessage)
-                .build();
+                    .defaultMessage(defaultMessage)
+                    .build();
 
             WriteCampaignRequest request = WriteCampaignRequest.builder()
-                .description("My description")
-                .schedule(schedule)
-                .name("MyCampaign")
-                .segmentId(segmentID)
-                .messageConfiguration(messageConfiguration)
-                .build();
+                    .description("My description")
+                    .schedule(schedule)
+                    .name("MyCampaign")
+                    .segmentId(segmentID)
+                    .messageConfiguration(messageConfiguration)
+                    .build();
 
             CreateCampaignResponse result = client.createCampaign(CreateCampaignRequest.builder()
-                .applicationId(appID)
-                .writeCampaignRequest(request).build()
-            );
+                    .applicationId(appID)
+                    .writeCampaignRequest(request).build());
 
             System.out.println("Campaign ID: " + result.campaignResponse().id());
             return result.campaignResponse();
@@ -105,4 +99,4 @@ public class CreateCampaign {
         return null;
     }
 }
-//snippet-end:[pinpoint.java2.createcampaign.main]
+// snippet-end:[pinpoint.java2.createcampaign.main]

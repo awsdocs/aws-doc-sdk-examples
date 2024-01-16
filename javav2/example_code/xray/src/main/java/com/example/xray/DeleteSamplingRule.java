@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[DeleteSamplingRule.java demonstrates how to delete an AWS X-Ray Service rule.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-service:[AWS X-Ray Service]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.xray;
 
@@ -16,9 +11,9 @@ import software.amazon.awssdk.services.xray.model.DeleteSamplingRuleRequest;
 import software.amazon.awssdk.services.xray.model.XRayException;
 // snippet-end:[xray.java2_delete_rule.import]
 
-
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +23,12 @@ public class DeleteSamplingRule {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <ruleName>
+                Usage:    <ruleName>
 
-            Where:
-               ruleName - The name of the rule to delete\s
+                Where:
+                   ruleName - The name of the rule to delete\s
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,8 +38,8 @@ public class DeleteSamplingRule {
         String ruleName = args[0];
         Region region = Region.US_EAST_1;
         XRayClient xRayClient = XRayClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         deleteRule(xRayClient, ruleName);
     }
@@ -52,8 +47,8 @@ public class DeleteSamplingRule {
     public static void deleteRule(XRayClient xRayClient, String ruleName) {
         try {
             DeleteSamplingRuleRequest ruleRequest = DeleteSamplingRuleRequest.builder()
-                .ruleName(ruleName)
-                .build();
+                    .ruleName(ruleName)
+                    .build();
 
             xRayClient.deleteSamplingRule(ruleRequest);
         } catch (XRayException e) {

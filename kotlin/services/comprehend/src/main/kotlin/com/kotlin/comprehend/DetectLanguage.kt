@@ -1,6 +1,5 @@
-// snippet-sourcedescription:[DetectSentiment.kt demonstrates how to detect sentiments in the text.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Comprehend]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.comprehend
 

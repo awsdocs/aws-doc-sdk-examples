@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 use super::Movie;
 use crate::scenario::error::Error;
 use aws_sdk_dynamodb::{

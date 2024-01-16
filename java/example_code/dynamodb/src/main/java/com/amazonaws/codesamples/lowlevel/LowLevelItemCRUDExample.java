@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.LowLevelItemCRUDExample] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.LowLevelItemCRUDExample] 
 
 package com.amazonaws.codesamples.lowlevel;
 
@@ -93,8 +72,7 @@ public class LowLevelItemCRUDExample {
 
             PutItemRequest putItemRequest2 = new PutItemRequest().withTableName(tableName).withItem(item2);
             client.putItem(putItemRequest2);
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
             System.err.println("Create items failed.");
         }
     }
@@ -105,7 +83,7 @@ public class LowLevelItemCRUDExample {
             HashMap<String, AttributeValue> key = new HashMap<String, AttributeValue>();
             key.put("Id", new AttributeValue().withN("120"));
             GetItemRequest getItemRequest = new GetItemRequest().withTableName(tableName).withKey(key)
-                .withProjectionExpression("Id, ISBN, Title, Authors");
+                    .withProjectionExpression("Id, ISBN, Title, Authors");
 
             GetItemResult result = client.getItem(getItemRequest);
 
@@ -113,8 +91,7 @@ public class LowLevelItemCRUDExample {
             System.out.println("Printing item after retrieving it....");
             printItem(result.getItem());
 
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
             System.err.println("Failed to retrieve item in " + tableName);
         }
 
@@ -131,8 +108,8 @@ public class LowLevelItemCRUDExample {
             ReturnValue returnValues = ReturnValue.ALL_NEW;
 
             UpdateItemRequest updateItemRequest = new UpdateItemRequest().withTableName(tableName).withKey(key)
-                .withUpdateExpression("set NewAttribute = :val1")
-                .withExpressionAttributeValues(expressionAttributeValues).withReturnValues(returnValues);
+                    .withUpdateExpression("set NewAttribute = :val1")
+                    .withExpressionAttributeValues(expressionAttributeValues).withReturnValues(returnValues);
 
             UpdateItemResult result = client.updateItem(updateItemRequest);
 
@@ -140,8 +117,7 @@ public class LowLevelItemCRUDExample {
             System.out.println("Printing item after adding new attribute...");
             printItem(result.getAttributes());
 
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
             System.err.println("Failed to add new attribute in " + tableName);
             System.err.println(ase.getMessage());
         }
@@ -160,8 +136,8 @@ public class LowLevelItemCRUDExample {
             ReturnValue returnValues = ReturnValue.ALL_NEW;
 
             UpdateItemRequest updateItemRequest = new UpdateItemRequest().withTableName(tableName).withKey(key)
-                .withUpdateExpression("add Authors :val1 set NewAttribute=:val2")
-                .withExpressionAttributeValues(expressionAttributeValues).withReturnValues(returnValues);
+                    .withUpdateExpression("add Authors :val1 set NewAttribute=:val2")
+                    .withExpressionAttributeValues(expressionAttributeValues).withReturnValues(returnValues);
 
             UpdateItemResult result = client.updateItem(updateItemRequest);
 
@@ -169,8 +145,7 @@ public class LowLevelItemCRUDExample {
             System.out.println("Printing item after multiple attribute update...");
             printItem(result.getAttributes());
 
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
             System.err.println("Failed to update multiple attributes in " + tableName);
             System.out.println(ase.getMessage()); // DELETEME
             System.err.println("Failed to update multiple attributes in " + tableName); // DELETEME
@@ -193,20 +168,18 @@ public class LowLevelItemCRUDExample {
             ReturnValue returnValues = ReturnValue.ALL_NEW;
 
             UpdateItemRequest updateItemRequest = new UpdateItemRequest().withTableName(tableName).withKey(key)
-                .withUpdateExpression("set Price = :val1").withConditionExpression("Price = :val2")
-                .withExpressionAttributeValues(expressionAttributeValues).withReturnValues(returnValues);
+                    .withUpdateExpression("set Price = :val1").withConditionExpression("Price = :val2")
+                    .withExpressionAttributeValues(expressionAttributeValues).withReturnValues(returnValues);
 
             UpdateItemResult result = client.updateItem(updateItemRequest);
 
             // Check the response.
             System.out.println("Printing item after conditional update to new attribute...");
             printItem(result.getAttributes());
-        }
-        catch (ConditionalCheckFailedException cse) {
+        } catch (ConditionalCheckFailedException cse) {
             // Reload object and retry code.
             System.err.println("Conditional check failed in " + tableName);
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
             System.err.println("Error updating item in " + tableName);
         }
     }
@@ -223,8 +196,8 @@ public class LowLevelItemCRUDExample {
             ReturnValue returnValues = ReturnValue.ALL_OLD;
 
             DeleteItemRequest deleteItemRequest = new DeleteItemRequest().withTableName(tableName).withKey(key)
-                .withConditionExpression("InPublication = :val")
-                .withExpressionAttributeValues(expressionAttributeValues).withReturnValues(returnValues);
+                    .withConditionExpression("InPublication = :val")
+                    .withExpressionAttributeValues(expressionAttributeValues).withReturnValues(returnValues);
 
             DeleteItemResult result = client.deleteItem(deleteItemRequest);
 
@@ -232,8 +205,7 @@ public class LowLevelItemCRUDExample {
             System.out.println("Printing item that was deleted...");
             printItem(result.getAttributes());
 
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
             System.err.println("Failed to get item after deletion " + tableName);
         }
 
@@ -244,13 +216,13 @@ public class LowLevelItemCRUDExample {
             String attributeName = item.getKey();
             AttributeValue value = item.getValue();
             System.out.println(attributeName + " " + (value.getS() == null ? "" : "S=[" + value.getS() + "]")
-                + (value.getN() == null ? "" : "N=[" + value.getN() + "]")
-                + (value.getB() == null ? "" : "B=[" + value.getB() + "]")
-                + (value.getSS() == null ? "" : "SS=[" + value.getSS() + "]")
-                + (value.getNS() == null ? "" : "NS=[" + value.getNS() + "]")
-                + (value.getBS() == null ? "" : "BS=[" + value.getBS() + "] \n"));
+                    + (value.getN() == null ? "" : "N=[" + value.getN() + "]")
+                    + (value.getB() == null ? "" : "B=[" + value.getB() + "]")
+                    + (value.getSS() == null ? "" : "SS=[" + value.getSS() + "]")
+                    + (value.getNS() == null ? "" : "NS=[" + value.getNS() + "]")
+                    + (value.getBS() == null ? "" : "BS=[" + value.getBS() + "] \n"));
         }
     }
 }
 
-// snippet-end:[dynamodb.java.codeexample.LowLevelItemCRUDExample] 
+// snippet-end:[dynamodb.java.codeexample.LowLevelItemCRUDExample]

@@ -1,23 +1,20 @@
-//snippet-sourcedescription:[DeleteUserPool.java demonstrates how to delete an existing user pool.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Cognito]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.cognito;
 
-//snippet-start:[cognito.java2.DeleteUserPool.main]
-//snippet-start:[cognito.java2.DeleteUserPool.import]
+// snippet-start:[cognito.java2.DeleteUserPool.main]
+// snippet-start:[cognito.java2.DeleteUserPool.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.DeleteUserPoolRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.DeleteUserPoolResponse;
-//snippet-end:[cognito.java2.DeleteUserPool.import]
+// snippet-end:[cognito.java2.DeleteUserPool.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +25,12 @@ public class DeleteUserPool {
 
         final String usage = """
 
-            Usage:
-                <userPoolId>\s
+                Usage:
+                    <userPoolId>\s
 
-            Where:
-                userPoolId - The Id value given to your user pool.
-            """;
+                Where:
+                    userPoolId - The Id value given to your user pool.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,8 +39,8 @@ public class DeleteUserPool {
 
         String userPoolId = args[0];
         CognitoIdentityProviderClient cognitoClient = CognitoIdentityProviderClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         deletePool(cognitoClient, userPoolId);
         cognitoClient.close();
@@ -52,8 +49,8 @@ public class DeleteUserPool {
     public static void deletePool(CognitoIdentityProviderClient cognitoClient, String userPoolId) {
         try {
             DeleteUserPoolRequest request = DeleteUserPoolRequest.builder()
-                .userPoolId(userPoolId)
-                .build();
+                    .userPoolId(userPoolId)
+                    .build();
 
             DeleteUserPoolResponse response = cognitoClient.deleteUserPool(request);
             System.out.println("User pool " + response.toString() + " deleted. ID: " + request.userPoolId());
@@ -64,4 +61,4 @@ public class DeleteUserPool {
         }
     }
 }
-//snippet-end:[cognito.java2.DeleteUserPool.main]
+// snippet-end:[cognito.java2.DeleteUserPool.main]

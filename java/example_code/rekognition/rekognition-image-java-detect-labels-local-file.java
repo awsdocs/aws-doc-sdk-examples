@@ -1,32 +1,9 @@
-// snippet-sourcedescription:[rekognition-image-java-detect-labels-local-file.java demonstrates how to detect unsafe content in an image loaded from a local file.]
-// snippet-service:[rekognition]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[DetectLabels]
-// snippet-keyword:[Local]
-// snippet-keyword:[Image]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-18]
-// snippet-sourceauthor:[reesch(AWS)]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // snippet-start:[rekognition.java.rekognition-image-java-detect-labels-local-file.complete]
-
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
-
 package aws.example.rekognition.image;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -45,14 +22,12 @@ import com.amazonaws.util.IOUtils;
 public class DetectLabelsLocalFile {
     public static void main(String[] args) throws Exception {
         // Change photo to the path and filename of your image.
-    	String photo="input.jpg";
-
+        String photo = "input.jpg";
 
         ByteBuffer imageBytes;
         try (InputStream inputStream = new FileInputStream(new File(photo))) {
             imageBytes = ByteBuffer.wrap(IOUtils.toByteArray(inputStream));
         }
-
 
         AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder.defaultClient();
 
@@ -65,11 +40,11 @@ public class DetectLabelsLocalFile {
         try {
 
             DetectLabelsResult result = rekognitionClient.detectLabels(request);
-            List <Label> labels = result.getLabels();
+            List<Label> labels = result.getLabels();
 
             System.out.println("Detected labels for " + photo);
-            for (Label label: labels) {
-               System.out.println(label.getName() + ": " + label.getConfidence().toString());
+            for (Label label : labels) {
+                System.out.println(label.getName() + ": " + label.getConfidence().toString());
             }
 
         } catch (AmazonRekognitionException e) {

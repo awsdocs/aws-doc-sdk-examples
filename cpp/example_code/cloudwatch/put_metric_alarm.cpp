@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: put_metric_alarm.cpp demonstrates how to attach an Amazon CloudWatch metrics alarm.
@@ -15,12 +15,12 @@
  * Output:
  * The alarm is added to the metric.
  * ///////////////////////////////////////////////////////////////////////// */
-//snippet-start:[cw.cpp.put_metric_alarm.inc]
+// snippet-start:[cw.cpp.put_metric_alarm.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/PutMetricAlarmRequest.h>
 #include <iostream>
-//snippet-end:[cw.cpp.put_metric_alarm.inc]
+// snippet-end:[cw.cpp.put_metric_alarm.inc]
 
 /**
  * Adds a CloudWatch alarm to an instance based on CPU utilization.

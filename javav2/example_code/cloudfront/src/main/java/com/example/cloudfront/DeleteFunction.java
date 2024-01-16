@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[DeleteFunction.java demonstrates how to delete a CloudFront function.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon CloudFront]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.cloudfront;
 
@@ -17,7 +12,8 @@ import software.amazon.awssdk.services.cloudfront.model.DeleteFunctionRequest;
 // snippet-end:[cloudfront.java2.del_function.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,13 +24,13 @@ public class DeleteFunction {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <functionName> <ifMatchVal>
+                Usage:
+                    <functionName> <ifMatchVal>
 
-            Where:
-                functionName - The name of the function to delete.\s
-                ifMatchVal - The current version (ETag value) of the function that you are deleting, which you can get using DescribeFunction.\s
-            """;
+                Where:
+                    functionName - The name of the function to delete.\s
+                    ifMatchVal - The current version (ETag value) of the function that you are deleting, which you can get using DescribeFunction.\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -44,19 +40,20 @@ public class DeleteFunction {
         String functionName = args[0];
         String ifMatchVal = args[1];
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
-            .region(Region.AWS_GLOBAL)
-            .build();
+                .region(Region.AWS_GLOBAL)
+                .build();
 
         deleteSpecificFunction(cloudFrontClient, functionName, ifMatchVal);
         cloudFrontClient.close();
     }
 
-    public static void deleteSpecificFunction(CloudFrontClient cloudFrontClient, String functionName, String ifMatchVal) {
+    public static void deleteSpecificFunction(CloudFrontClient cloudFrontClient, String functionName,
+            String ifMatchVal) {
         try {
             DeleteFunctionRequest functionRequest = DeleteFunctionRequest.builder()
-                .name(functionName)
-                .ifMatch(ifMatchVal)
-                .build();
+                    .name(functionName)
+                    .ifMatch(ifMatchVal)
+                    .build();
 
             cloudFrontClient.deleteFunction(functionRequest);
             System.out.println(functionName + " was successfully deleted.");

@@ -1,7 +1,5 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import axios from "axios";
 import configData from "./config.json";
@@ -19,5 +17,5 @@ export const postMessage = async (item) => {
 };
 
 export const purgeMessages = async () => {
-  await axios.get(`${configData.BASE_URL}/chat/purge`)
-}
+  await axios.get(`${configData.BASE_URL}/chat/purge`);
+};

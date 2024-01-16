@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[VideoDetectInappropriate.kt demonstrates how to detect inappropriate or offensive content in a video stored in an Amazon S3 bucket.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Rekognition]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.rekognition
 
 // snippet-start:[rekognition.kotlin.recognize_video_moderation.import]

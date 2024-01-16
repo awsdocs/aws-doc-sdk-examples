@@ -1,7 +1,6 @@
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -14,14 +13,14 @@ SPDX-License-Identifier: Apache-2.0
  *
  **/
 
-//snippet-start:[dynamodb.cpp.list_tables.inc]
+// snippet-start:[dynamodb.cpp.list_tables.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/ListTablesRequest.h>
 #include <aws/dynamodb/model/ListTablesResult.h>
 #include <iostream>
-//snippet-end:[dynamodb.cpp.list_tables.inc]
+// snippet-end:[dynamodb.cpp.list_tables.inc]
 #include "dynamodb_samples.h"
 
 // snippet-start:[dynamodb.cpp.list_tables.code]

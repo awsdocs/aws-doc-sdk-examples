@@ -1,15 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-
- */
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package example;
 
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -26,12 +16,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-       /*
-        Prior to running this code example, create a table named Case with a PK named id
-       */
+/*
+ Prior to running this code example, create a table named Case with a PK named id
+*/
 
 public class PersistCase {
-
 
     // Puts an item into a DynamoDB table
     public void putRecord(String caseId, String employeeName, String email) {
@@ -47,7 +36,6 @@ public class PersistCase {
                 .dynamoDbClient(ddb)
                 .build();
 
-
         try {
             // Create a DynamoDbTable object
             DynamoDbTable<Case> caseTable = enhancedClient.table("Case", TableSchema.fromBean(Case.class));
@@ -62,7 +50,7 @@ public class PersistCase {
             caseRecord.setName(employeeName);
             caseRecord.setId(caseId);
             caseRecord.setEmail(email);
-            caseRecord.setRegistrationDate(instant) ;
+            caseRecord.setRegistrationDate(instant);
 
             // Put the case data into a DynamoDB table
             caseTable.putItem(caseRecord);
@@ -73,7 +61,6 @@ public class PersistCase {
         }
         System.out.println("done");
     }
-
 
     // Create the Case table to track open cases created in the workflow
     @DynamoDbBean
@@ -117,6 +104,7 @@ public class PersistCase {
         public Instant getRegistrationDate() {
             return regDate;
         }
+
         public void setRegistrationDate(Instant registrationDate) {
 
             this.regDate = registrationDate;

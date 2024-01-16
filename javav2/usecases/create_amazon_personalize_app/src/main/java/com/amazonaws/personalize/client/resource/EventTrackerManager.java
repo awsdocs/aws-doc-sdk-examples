@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.personalize.client.resource;
 
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
@@ -33,7 +32,8 @@ public class EventTrackerManager extends AbstractResourceManager {
                     .datasetGroupArn(datasetGroupArn)
                     .build();
 
-            CreateEventTrackerResponse createEventTrackerResponse = getPersonalize().createEventTracker(createEventTrackerRequest);
+            CreateEventTrackerResponse createEventTrackerResponse = getPersonalize()
+                    .createEventTracker(createEventTrackerRequest);
             eventTrackerArn = createEventTrackerResponse.eventTrackerArn();
         } catch (PersonalizeException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -90,7 +90,8 @@ public class EventTrackerManager extends AbstractResourceManager {
             ListEventTrackersRequest listEventTrackersRequest = ListEventTrackersRequest.builder()
                     .maxResults(100)
                     .build();
-            ListEventTrackersResponse listEventTrackersResponse = getPersonalize().listEventTrackers(listEventTrackersRequest);
+            ListEventTrackersResponse listEventTrackersResponse = getPersonalize()
+                    .listEventTrackers(listEventTrackersRequest);
 
             for (EventTrackerSummary eventTracker : listEventTrackersResponse.eventTrackers()) {
                 if (eventTracker.name().equals(name)) {

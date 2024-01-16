@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.etl.example;
 
@@ -36,87 +34,87 @@ public class ExcelService {
         byte[] data = s3Service.getObjectBytes(bucketName, object);
         InputStream inputStrean = new ByteArrayInputStream(data);
 
-        List<PopData> myList = new ArrayList<>() ;
+        List<PopData> myList = new ArrayList<>();
         System.out.println("Retrieving data from the Excel Spreadsheet");
         Workbook wb = Workbook.getWorkbook(inputStrean);
         Sheet sheet = wb.getSheet(0);
-        try{
+        try {
             // Read the data from the excel spreadsheet.
-            Sheet s=wb.getSheet(0);
+            Sheet s = wb.getSheet(0);
             int b = s.getColumns();
             System.out.println("The No. of Columns in the Sheet are = " + b);
             int a = s.getRows();
-            System.out.println("The No. of Rows in the sheet are = " +a);
+            System.out.println("The No. of Rows in the sheet are = " + a);
             PopData popData = null;
             // Loop through the rows in the spreadsheet.
-            for (int zz = 0 ; zz <a; zz++) {
+            for (int zz = 0; zz < a; zz++) {
                 // Get the first cell.
                 System.out.println(zz);
                 Cell[] row = sheet.getRow(zz);
-                if (zz ==0)
+                if (zz == 0)
                     System.out.println("Not 1st row");
                 else {
                     popData = new PopData();
-                   for (Cell cell : row) {
-                       int colIndex =  cell.getColumn();
-                       String val = cell.getContents();
-                       switch(colIndex) {
-                           case 0:
-                               popData.setName(val);
-                               break;
+                    for (Cell cell : row) {
+                        int colIndex = cell.getColumn();
+                        String val = cell.getContents();
+                        switch (colIndex) {
+                            case 0:
+                                popData.setName(val);
+                                break;
 
-                           case 1:
-                               popData.setCode(val);
-                               break;
+                            case 1:
+                                popData.setCode(val);
+                                break;
 
-                           case 2:
-                               popData.set2010(val);
-                               break;
+                            case 2:
+                                popData.set2010(val);
+                                break;
 
-                           case 3:
-                               popData.set2011(val);
-                               break;
+                            case 3:
+                                popData.set2011(val);
+                                break;
 
-                           case 4:
-                               popData.set2012(val);
-                               break;
+                            case 4:
+                                popData.set2012(val);
+                                break;
 
-                           case 5:
-                               popData.set2013(val);
-                               break;
+                            case 5:
+                                popData.set2013(val);
+                                break;
 
-                           case 6:
-                               popData.set2014(val);
-                               break;
+                            case 6:
+                                popData.set2014(val);
+                                break;
 
-                           case 7:
-                               popData.set2015(val);
-                               break;
+                            case 7:
+                                popData.set2015(val);
+                                break;
 
-                           case 8:
-                               popData.set2016(val);
-                               break;
+                            case 8:
+                                popData.set2016(val);
+                                break;
 
-                           case 9:
-                               popData.set2017(val);
-                               break;
+                            case 9:
+                                popData.set2017(val);
+                                break;
 
-                           case 10:
-                               popData.set2018(val);
-                               break;
+                            case 10:
+                                popData.set2018(val);
+                                break;
 
-                           default: {
-                               popData.set2019(val);
-                               myList.add(popData);
-                           }
-                       }
-                   }
+                            default: {
+                                popData.set2019(val);
+                                myList.add(popData);
+                            }
+                        }
+                    }
                 }
             }
             myList.sort(Comparator.comparing(PopData::getName));
             return convertToString(toXml(myList));
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
@@ -131,8 +129,8 @@ public class ExcelService {
             Document doc = builder.newDocument();
 
             // Start building the XML.
-            Element root = doc.createElement( "Items" );
-            doc.appendChild( root );
+            Element root = doc.createElement("Items");
+            doc.appendChild(root);
 
             // Iterate through the collection.
             for (PopData myItem : itemList) {
@@ -203,7 +201,7 @@ public class ExcelService {
 
             return doc;
 
-        } catch(ParserConfigurationException e) {
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
@@ -218,7 +216,7 @@ public class ExcelService {
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+        } catch (TransformerException ex) {
             ex.printStackTrace();
         }
         return null;
@@ -233,6 +231,4 @@ public class ExcelService {
         }
         return transformerFactory;
     }
-  }
-
-
+}

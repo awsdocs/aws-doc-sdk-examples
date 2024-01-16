@@ -1,15 +1,6 @@
-// snippet-sourcedescription:[RetryClient.java is a client that manages the connection to Amazon Transcribe and retries sending data when there are errors on the connection.]
-// snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Transcribe]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
-// snippet-sourceauthor:[scmacdon - AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.amazonaws.transcribestreaming;
 
 import org.reactivestreams.Publisher;
@@ -47,10 +38,11 @@ public class TranscribeStreamingRetryClient {
     private int sleepTime = DEFAULT_MAX_SLEEP_TIME_MILLS;
 
     /**
-     * Create a TranscribeStreamingRetryClient with given credential and configuration
+     * Create a TranscribeStreamingRetryClient with given credential and
+     * configuration
      */
     public TranscribeStreamingRetryClient(AwsCredentialsProvider creds,
-                                          String endpoint, Region region) throws URISyntaxException {
+            String endpoint, Region region) throws URISyntaxException {
         this(TranscribeStreamingAsyncClient.builder()
                 .overrideConfiguration(
                         c -> c.putAdvancedOption(
@@ -103,8 +95,8 @@ public class TranscribeStreamingRetryClient {
      */
 
     public CompletableFuture<Void> startStreamTranscription(final StartStreamTranscriptionRequest request,
-                                                            final Publisher<AudioStream> publisher,
-                                                            final StreamTranscriptionBehavior responseHandler) {
+            final Publisher<AudioStream> publisher,
+            final StreamTranscriptionBehavior responseHandler) {
 
         CompletableFuture<Void> finalFuture = new CompletableFuture<>();
 
@@ -114,14 +106,15 @@ public class TranscribeStreamingRetryClient {
     }
 
     /**
-     * Recursively call startStreamTranscription() until the request is completed or we run out of retries.
+     * Recursively call startStreamTranscription() until the request is completed or
+     * we run out of retries.
      *
      */
     private void recursiveStartStream(final StartStreamTranscriptionRequest request,
-                                      final Publisher<AudioStream> publisher,
-                                      final StreamTranscriptionBehavior responseHandler,
-                                      final CompletableFuture<Void> finalFuture,
-                                      final int retryAttempt) {
+            final Publisher<AudioStream> publisher,
+            final StreamTranscriptionBehavior responseHandler,
+            final CompletableFuture<Void> finalFuture,
+            final int retryAttempt) {
         CompletableFuture<Void> result = client.startStreamTranscription(request, publisher,
                 getResponseHandler(responseHandler));
         result.whenComplete((r, e) -> {
@@ -161,7 +154,8 @@ public class TranscribeStreamingRetryClient {
     }
 
     /**
-     * StartStreamTranscriptionResponseHandler implements subscriber of transcript stream
+     * StartStreamTranscriptionResponseHandler implements subscriber of transcript
+     * stream
      * Output is printed to standard output
      */
     private StartStreamTranscriptionResponseHandler getResponseHandler(
@@ -171,10 +165,10 @@ public class TranscribeStreamingRetryClient {
                     transcriptionBehavior.onResponse(r);
                 })
                 .onError(e -> {
-                    //Do nothing here. Don't close any streams that shouldn't be cleaned up yet.
+                    // Do nothing here. Don't close any streams that shouldn't be cleaned up yet.
                 })
                 .onComplete(() -> {
-                    //Do nothing here. Don't close any streams that shouldn't be cleaned up yet.
+                    // Do nothing here. Don't close any streams that shouldn't be cleaned up yet.
                 })
 
                 .subscriber(event -> transcriptionBehavior.onStream(event))

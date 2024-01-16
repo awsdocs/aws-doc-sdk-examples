@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example;
 
@@ -59,7 +57,7 @@ public class VideoStreamService {
         S3Client s3 = getClient();
         try {
             // Set the tags to apply to the object.
-            String theTags = "name="+fileName+"&description="+description;
+            String theTags = "name=" + fileName + "&description=" + description;
 
             PutObjectRequest putOb = PutObjectRequest.builder()
                     .bucket(bucketName)
@@ -76,70 +74,69 @@ public class VideoStreamService {
     }
 
     // Returns a schema that describes all tags for all videos in the given bucket.
-    public String getTags(String bucketName){
+    public String getTags(String bucketName) {
         S3Client s3 = getClient();
 
         try {
             ListObjectsRequest listObjects = ListObjectsRequest.builder()
-                .bucket(bucketName)
-                .build();
+                    .bucket(bucketName)
+                    .build();
 
-          ListObjectsResponse res = s3.listObjects(listObjects);
-          List<S3Object> objects = res.contents();
-          List<String> keys = new ArrayList<>();
-          for (S3Object myValue: objects) {
-              String key = myValue.key(); // We need the key to get the tags.
-              GetObjectTaggingRequest getTaggingRequest = GetObjectTaggingRequest.builder()
-                  .key(key)
-                  .bucket(bucketName)
-                  .build();
+            ListObjectsResponse res = s3.listObjects(listObjects);
+            List<S3Object> objects = res.contents();
+            List<String> keys = new ArrayList<>();
+            for (S3Object myValue : objects) {
+                String key = myValue.key(); // We need the key to get the tags.
+                GetObjectTaggingRequest getTaggingRequest = GetObjectTaggingRequest.builder()
+                        .key(key)
+                        .bucket(bucketName)
+                        .build();
 
-              GetObjectTaggingResponse tags = s3.getObjectTagging(getTaggingRequest);
-              List<Tag> tagSet= tags.tagSet();
-              for (Tag tag : tagSet) {
-                  keys.add(tag.value());
-              }
-          }
+                GetObjectTaggingResponse tags = s3.getObjectTagging(getTaggingRequest);
+                List<Tag> tagSet = tags.tagSet();
+                for (Tag tag : tagSet) {
+                    keys.add(tag.value());
+                }
+            }
 
-          List<Tags> tagList = modList(keys);
-          return convertToString(toXml(tagList));
+            List<Tags> tagList = modList(keys);
+            return convertToString(toXml(tagList));
 
-    } catch (S3Exception e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
-    }
+        } catch (S3Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
         return "";
     }
 
     // Return a List where each element is a Tags object.
-    private List<Tags> modList(List<String> myList){
+    private List<Tags> modList(List<String> myList) {
         // Get the elements from the collection.
         int count = myList.size();
         List<Tags> allTags = new ArrayList<>();
-        Tags myTag ;
+        Tags myTag;
         ArrayList<String> keys = new ArrayList<>();
         ArrayList<String> values = new ArrayList<>();
 
-        for ( int index=0; index < count; index++) {
+        for (int index = 0; index < count; index++) {
             if (index % 2 == 0)
                 keys.add(myList.get(index));
             else
                 values.add(myList.get(index));
-           }
+        }
 
-           // Create a list where each element is a Tags object.
-           for (int r=0; r<keys.size(); r++){
-               myTag = new Tags();
-               myTag.setName(keys.get(r));
-               myTag.setDesc(values.get(r));
-               allTags.add(myTag);
-           }
+        // Create a list where each element is a Tags object.
+        for (int r = 0; r < keys.size(); r++) {
+            myTag = new Tags();
+            myTag.setName(keys.get(r));
+            myTag.setDesc(values.get(r));
+            allTags.add(myTag);
+        }
         return allTags;
     }
 
-
     // Reads a video from a bucket and returns a ResponseEntity.
-    public ResponseEntity<byte[]> getObjectBytes (String bucketName, String keyName) {
+    public ResponseEntity<byte[]> getObjectBytes(String bucketName, String keyName) {
         S3Client s3 = getClient();
         try {
             // create a GetObjectRequest instance.
@@ -163,9 +160,8 @@ public class VideoStreamService {
         return null;
     }
 
-
     // Convert a LIST to XML data.
-     private Document toXml(List<Tags> itemList) {
+    private Document toXml(List<Tags> itemList) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
@@ -173,28 +169,28 @@ public class VideoStreamService {
             Document doc = builder.newDocument();
 
             // Start building the XML
-            Element root = doc.createElement( "Tags" );
-            doc.appendChild( root );
+            Element root = doc.createElement("Tags");
+            doc.appendChild(root);
 
             // Iterate through the list.
-            for (Tags myItem: itemList) {
+            for (Tags myItem : itemList) {
 
-                Element item = doc.createElement( "Tag" );
-                root.appendChild( item );
+                Element item = doc.createElement("Tag");
+                root.appendChild(item);
 
                 // Set Name
-                Element id = doc.createElement( "Name" );
-                id.appendChild( doc.createTextNode(myItem.getName() ) );
-                item.appendChild( id );
+                Element id = doc.createElement("Name");
+                id.appendChild(doc.createTextNode(myItem.getName()));
+                item.appendChild(id);
 
                 // Set Description
-                Element name = doc.createElement( "Description" );
-                name.appendChild( doc.createTextNode(myItem.getDesc() ) );
-                item.appendChild( name );
+                Element name = doc.createElement("Description");
+                name.appendChild(doc.createTextNode(myItem.getDesc()));
+                item.appendChild(name);
             }
 
             return doc;
-        } catch(ParserConfigurationException e) {
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
@@ -209,7 +205,7 @@ public class VideoStreamService {
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+        } catch (TransformerException ex) {
             ex.printStackTrace();
         }
         return null;

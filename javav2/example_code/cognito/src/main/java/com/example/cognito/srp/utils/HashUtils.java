@@ -1,16 +1,6 @@
-/* Copyright 2010-2023 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.cognito.srp.utils;
 
 import javax.crypto.Mac;
@@ -25,8 +15,10 @@ import java.util.Base64;
 public class HashUtils {
     private static final String HMAC_ALGORITHM = "HmacSHA256";
     private static final String HASH_ALGORITHM = "SHA-256";
+
     public static String computeSecretHash(String clientId, String clientSecret, String username) {
-        byte[] output = hmac(clientSecret.getBytes(StandardCharsets.UTF_8), username.getBytes(StandardCharsets.UTF_8), clientId.getBytes(StandardCharsets.UTF_8));
+        byte[] output = hmac(clientSecret.getBytes(StandardCharsets.UTF_8), username.getBytes(StandardCharsets.UTF_8),
+                clientId.getBytes(StandardCharsets.UTF_8));
         return Base64.getEncoder().encodeToString(output);
     }
 
@@ -41,7 +33,7 @@ public class HashUtils {
         } catch (InvalidKeyException e) {
             throw new RuntimeException(e);
         }
-        for (byte[] input :  inputs) {
+        for (byte[] input : inputs) {
             mac.update(input);
         }
         return mac.doFinal();

@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import com.example.dynamodbasync.DynamoDBAsyncCreateTable;
 import com.example.dynamodbasync.DynamoDBAsyncGetItem;
 import com.example.dynamodbasync.DynamoDBAsyncListTables;

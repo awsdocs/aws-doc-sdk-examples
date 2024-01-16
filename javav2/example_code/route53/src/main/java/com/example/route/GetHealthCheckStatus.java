@@ -1,11 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DeleteHostedZone.java demonstrates how to get the status of a specific health check.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Route 53]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.route;
 
@@ -21,7 +15,8 @@ import java.util.List;
 // snippet-end:[route53.java2.get_health_check_status.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,12 +26,12 @@ public class GetHealthCheckStatus {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <healthCheckId>\s
+                Usage:
+                    <healthCheckId>\s
 
-            Where:
-                healthCheckId - The health check id.\s
-            """;
+                Where:
+                    healthCheckId - The health check id.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,8 +41,8 @@ public class GetHealthCheckStatus {
         String healthCheckId = args[0];
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getHealthStatus(route53Client, healthCheckId);
         route53Client.close();
@@ -56,8 +51,8 @@ public class GetHealthCheckStatus {
     public static void getHealthStatus(Route53Client route53Client, String healthCheckId) {
         try {
             GetHealthCheckStatusRequest statusRequest = GetHealthCheckStatusRequest.builder()
-                .healthCheckId(healthCheckId)
-                .build();
+                    .healthCheckId(healthCheckId)
+                    .build();
 
             GetHealthCheckStatusResponse statusResponse = route53Client.getHealthCheckStatus(statusRequest);
             List<HealthCheckObservation> observations = statusResponse.healthCheckObservations();
@@ -72,4 +67,3 @@ public class GetHealthCheckStatus {
     }
 }
 // snippet-end:[route53.java2.get_health_check_status.main]
-

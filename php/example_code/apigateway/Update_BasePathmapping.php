@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[apigateway.php.update_base_path_mapping.complete]
 // snippet-start:[apigateway.php.update_base_path_mapping.import]
@@ -71,14 +70,4 @@ function updateTheBasePathMapping()
 // updateTheBasePathMapping();
 // snippet-end:[apigateway.php.update_base_path_mapping.main]
 // snippet-end:[apigateway.php.update_base_path_mapping.complete]
-// snippet-sourcedescription:[Update_BasePathmapping.php demonstrates how to change a base path mapping in Amazon API Gateway.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon API Gateway]
-// snippet-service:[apigateway]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-04-02]
-// snippet-sourceauthor:[pccornel (AWS)]
 

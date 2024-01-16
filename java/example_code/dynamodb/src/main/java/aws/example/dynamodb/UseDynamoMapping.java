@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /*
    Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
    This file is licensed under the Apache License, Version 2.0 (the "License").
@@ -8,16 +10,6 @@
    CONDITIONS OF ANY KIND, either express or implied. See the License for the
    specific language governing permissions and limitations under the License.
 */
-
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[UseDynamoMapping.java demonstrates how to use the DynamoDB mapping functionality]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-12-16]
-// snippet-sourceauthor:[scmacdon-AWS]
 
 // snippet-start:[dynamodb.java.dynamoDB_mapping.complete]
 package aws.example.dynamodb;
@@ -54,17 +46,16 @@ public class UseDynamoMapping {
         String albumTitle = args[2];
         String awards = args[3];
 
-
         // snippet-start:[dynamodb.java.dynamoDB_mapping.main]
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
         MusicItems items = new MusicItems();
 
-        try{
+        try {
             // Add new content to the Music table
             items.setArtist(artist);
             items.setSongTitle(songTitle);
             items.setAlbumTitle(albumTitle);
-            items.setAwards(Integer.parseInt(awards)); //convert to an int
+            items.setAwards(Integer.parseInt(awards)); // convert to an int
 
             // Save the item
             DynamoDBMapper mapper = new DynamoDBMapper(client);
@@ -92,16 +83,16 @@ public class UseDynamoMapping {
         }
     }
 
-    @DynamoDBTable(tableName="Music")
+    @DynamoDBTable(tableName = "Music")
     public static class MusicItems {
 
-        //Set up Data Members that correspond to columns in the Music table
+        // Set up Data Members that correspond to columns in the Music table
         private String artist;
         private String songTitle;
         private String albumTitle;
         private int awards;
 
-        @DynamoDBHashKey(attributeName="Artist")
+        @DynamoDBHashKey(attributeName = "Artist")
         public String getArtist() {
             return this.artist;
         }
@@ -110,7 +101,7 @@ public class UseDynamoMapping {
             this.artist = artist;
         }
 
-        @DynamoDBRangeKey(attributeName="SongTitle")
+        @DynamoDBRangeKey(attributeName = "SongTitle")
         public String getSongTitle() {
             return this.songTitle;
         }
@@ -119,7 +110,7 @@ public class UseDynamoMapping {
             this.songTitle = title;
         }
 
-        @DynamoDBAttribute(attributeName="AlbumTitle")
+        @DynamoDBAttribute(attributeName = "AlbumTitle")
         public String getAlbumTitle() {
             return this.albumTitle;
         }
@@ -128,7 +119,7 @@ public class UseDynamoMapping {
             this.albumTitle = title;
         }
 
-        @DynamoDBAttribute(attributeName="Awards")
+        @DynamoDBAttribute(attributeName = "Awards")
         public int getAwards() {
             return this.awards;
         }

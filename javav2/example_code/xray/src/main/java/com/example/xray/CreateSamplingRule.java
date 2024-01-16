@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[CreateSamplingRule.java demonstrates how to create a rule to control sampling behavior for instrumented applications.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-service:[AWS X-Ray Service]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.xray;
 
@@ -19,7 +14,8 @@ import software.amazon.awssdk.services.xray.model.CreateSamplingRuleResponse;
 // snippet-end:[xray.java2_create_rule.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,12 +25,12 @@ public class CreateSamplingRule {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <ruleName>
+                Usage:    <ruleName>
 
-            Where:
-               ruleName - The name of the rule\s
+                Where:
+                   ruleName - The name of the rule\s
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +40,8 @@ public class CreateSamplingRule {
         String ruleName = args[0];
         Region region = Region.US_EAST_1;
         XRayClient xRayClient = XRayClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         createRule(xRayClient, ruleName);
     }
@@ -54,23 +50,24 @@ public class CreateSamplingRule {
         try {
 
             SamplingRule rule = SamplingRule.builder()
-                .ruleName(ruleName)
-                .priority(1)
-                .httpMethod("*")
-                .serviceType("*")
-                .serviceName("*")
-                .urlPath("*")
-                .version(1)
-                .host("*")
-                .resourceARN("*")
-                .build();
+                    .ruleName(ruleName)
+                    .priority(1)
+                    .httpMethod("*")
+                    .serviceType("*")
+                    .serviceName("*")
+                    .urlPath("*")
+                    .version(1)
+                    .host("*")
+                    .resourceARN("*")
+                    .build();
 
             CreateSamplingRuleRequest ruleRequest = CreateSamplingRuleRequest.builder()
-                .samplingRule(rule)
-                .build();
+                    .samplingRule(rule)
+                    .build();
 
             CreateSamplingRuleResponse ruleResponse = xRayClient.createSamplingRule(ruleRequest);
-            System.out.println("The ARN of the new rule is " + ruleResponse.samplingRuleRecord().samplingRule().ruleARN());
+            System.out.println(
+                    "The ARN of the new rule is " + ruleResponse.samplingRuleRecord().samplingRule().ruleARN());
 
         } catch (XRayException e) {
             System.err.println(e.getMessage());
@@ -79,4 +76,3 @@ public class CreateSamplingRule {
     }
 }
 // snippet-end:[xray.java2_create_rule.main]
-

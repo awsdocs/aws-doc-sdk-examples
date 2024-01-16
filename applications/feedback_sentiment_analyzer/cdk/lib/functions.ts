@@ -1,12 +1,10 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-import {resolve} from "path";
-import {BundlingOutput, Duration} from "aws-cdk-lib";
-import {Code, Runtime} from "aws-cdk-lib/aws-lambda";
-import {AppFunctionConfig} from "./constructs/app-lambdas";
+import { resolve } from "path";
+import { BundlingOutput, Duration } from "aws-cdk-lib";
+import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
+import { AppFunctionConfig } from "./constructs/app-lambdas";
 
 const BASE_APP_FUNCTION: AppFunctionConfig = {
   name: "TestLambda",
@@ -45,9 +43,9 @@ const BASE_APP_FUNCTION: AppFunctionConfig = {
 
 const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
   // The 'name' property must match the examples below in new examples.
-  {...BASE_APP_FUNCTION, name: "ExtractText"},
+  { ...BASE_APP_FUNCTION, name: "ExtractText" },
   // Override properties by including them after expanding the function object.
-  {...BASE_APP_FUNCTION, memorySize: 256, name: "AnalyzeSentiment"},
+  { ...BASE_APP_FUNCTION, memorySize: 256, name: "AnalyzeSentiment" },
   {
     ...BASE_APP_FUNCTION,
     codeAsset() {
@@ -60,7 +58,7 @@ const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
     },
     name: "TranslateText",
   },
-  {...BASE_APP_FUNCTION, name: "SynthesizeAudio"},
+  { ...BASE_APP_FUNCTION, name: "SynthesizeAudio" },
 ];
 
 const RUBY_ROOT =
@@ -218,11 +216,12 @@ const DOTNET_FUNCTIONS = [
   {
     ...BASE_APP_FUNCTION,
     name: "ExtractText",
-    handler: "FsaExtractText::FsaExtractText.ExtractTextFunction::FunctionHandler",
+    handler:
+      "FsaExtractText::FsaExtractText.ExtractTextFunction::FunctionHandler",
     runtime: Runtime.DOTNET_6,
     codeAsset() {
       const source = resolve(
-          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
+        "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
       );
       return Code.fromAsset(source, {
         bundling: {
@@ -230,9 +229,9 @@ const DOTNET_FUNCTIONS = [
             "/bin/sh",
             "-c",
             " dotnet tool install -g Amazon.Lambda.Tools" +
-            " && dotnet build" +
-            " && cd FsaExtractText" +
-            " && dotnet lambda package --output-package /asset-output/function.zip",
+              " && dotnet build" +
+              " && cd FsaExtractText" +
+              " && dotnet lambda package --output-package /asset-output/function.zip",
           ],
           image: Runtime.DOTNET_6.bundlingImage,
           user: "root",
@@ -244,11 +243,12 @@ const DOTNET_FUNCTIONS = [
   {
     ...BASE_APP_FUNCTION,
     name: "AnalyzeSentiment",
-    handler: "FsaAnalyzeSentiment::FsaAnalyzeSentiment.AnalyzeSentimentFunction::FunctionHandler",
+    handler:
+      "FsaAnalyzeSentiment::FsaAnalyzeSentiment.AnalyzeSentimentFunction::FunctionHandler",
     runtime: Runtime.DOTNET_6,
     codeAsset() {
       const source = resolve(
-          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
+        "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
       );
       return Code.fromAsset(source, {
         bundling: {
@@ -256,9 +256,9 @@ const DOTNET_FUNCTIONS = [
             "/bin/sh",
             "-c",
             " dotnet tool install -g Amazon.Lambda.Tools" +
-            " && dotnet build" +
-            " && cd FsaAnalyzeSentiment" +
-            " && dotnet lambda package --output-package /asset-output/function.zip",
+              " && dotnet build" +
+              " && cd FsaAnalyzeSentiment" +
+              " && dotnet lambda package --output-package /asset-output/function.zip",
           ],
           image: Runtime.DOTNET_6.bundlingImage,
           user: "root",
@@ -270,11 +270,12 @@ const DOTNET_FUNCTIONS = [
   {
     ...BASE_APP_FUNCTION,
     name: "TranslateText",
-    handler: "FsaTranslateText::FsaTranslateText.TranslateTextFunction::FunctionHandler",
+    handler:
+      "FsaTranslateText::FsaTranslateText.TranslateTextFunction::FunctionHandler",
     runtime: Runtime.DOTNET_6,
     codeAsset() {
       const source = resolve(
-          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
+        "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
       );
       return Code.fromAsset(source, {
         bundling: {
@@ -282,9 +283,9 @@ const DOTNET_FUNCTIONS = [
             "/bin/sh",
             "-c",
             " dotnet tool install -g Amazon.Lambda.Tools" +
-            " && dotnet build" +
-            " && cd FsaTranslateText" +
-            " && dotnet lambda package --output-package /asset-output/function.zip",
+              " && dotnet build" +
+              " && cd FsaTranslateText" +
+              " && dotnet lambda package --output-package /asset-output/function.zip",
           ],
           image: Runtime.DOTNET_6.bundlingImage,
           user: "root",
@@ -296,11 +297,12 @@ const DOTNET_FUNCTIONS = [
   {
     ...BASE_APP_FUNCTION,
     name: "SynthesizeAudio",
-    handler: "FsaSynthesizeAudio::FsaSynthesizeAudio.SynthesizeAudioFunction::FunctionHandler",
+    handler:
+      "FsaSynthesizeAudio::FsaSynthesizeAudio.SynthesizeAudioFunction::FunctionHandler",
     runtime: Runtime.DOTNET_6,
     codeAsset() {
       const source = resolve(
-          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
+        "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
       );
       return Code.fromAsset(source, {
         bundling: {
@@ -308,9 +310,9 @@ const DOTNET_FUNCTIONS = [
             "/bin/sh",
             "-c",
             " dotnet tool install -g Amazon.Lambda.Tools" +
-            " && dotnet build" +
-            " && cd FsaSynthesizeAudio" +
-            " && dotnet lambda package --output-package /asset-output/function.zip",
+              " && dotnet build" +
+              " && cd FsaSynthesizeAudio" +
+              " && dotnet lambda package --output-package /asset-output/function.zip",
           ],
           image: Runtime.DOTNET_6.bundlingImage,
           user: "root",

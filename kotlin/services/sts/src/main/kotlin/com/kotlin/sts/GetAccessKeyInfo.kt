@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetAccessKeyInfo.kt demonstrates how to return the account identifier for the specified access key ID by using AWS Security Token Service (AWS STS).]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[AWS Security Token Service (AWS STS)]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.sts
 

@@ -1,3 +1,5 @@
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { test, expect } from "vitest";
 import { splitDateRange } from "../utils/util-date.js";
 

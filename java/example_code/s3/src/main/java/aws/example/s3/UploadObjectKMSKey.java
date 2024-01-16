@@ -1,28 +1,6 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * 
- * http://aws.amazon.com/apache2.0/
- * 
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[UploadObjectKMSKey.java demonstrates how to upload and download S3 objects using a KMS key.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[GET Object]
-// snippet-keyword:[PUT Object]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.upload_object_kms_key.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -97,7 +75,7 @@ public class UploadObjectKMSKey {
             System.out.println("Original content length: " + origContentLength);
             System.out.println("Decrypted content length: " + decryptedContentLength);
         } catch (AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
             e.printStackTrace();
         } catch (SdkClientException e) {

@@ -1,17 +1,14 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.photo;
 
 public class WorkItem {
     private String key;
     private String name;
-    private String confidence ;
+    private String confidence;
 
-
-    public void setKey (String key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
@@ -19,7 +16,7 @@ public class WorkItem {
         return this.key;
     }
 
-       public void setName (String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -27,7 +24,7 @@ public class WorkItem {
         return this.name;
     }
 
-    public void setConfidence (String confidence) {
+    public void setConfidence(String confidence) {
         this.confidence = confidence;
     }
 

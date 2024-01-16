@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DescribeCampaign.kt demonstrates how to describe an Amazon Personalize campaign.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Personalize]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.personalize
 

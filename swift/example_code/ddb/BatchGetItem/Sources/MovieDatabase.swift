@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /// A class to manage access to the movie database and its entries.
 ///
 /// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

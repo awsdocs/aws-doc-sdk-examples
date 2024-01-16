@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[CreateTableCompositeKey.java demonstrates how to create an Amazon DynamoDB table with a composite key.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.dynamodb;
 
@@ -24,7 +18,8 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 // snippet-end:[dynamodb.java2.create_table_composite_key.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -35,12 +30,12 @@ public class CreateTableCompositeKey {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <tableName>
+                Usage:
+                    <tableName>
 
-            Where:
-                tableName - The Amazon DynamoDB table to create (for example, Music3).
-            """;
+                Where:
+                    tableName - The Amazon DynamoDB table to create (for example, Music3).
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -50,8 +45,8 @@ public class CreateTableCompositeKey {
         String tableName = args[0];
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         System.out.format("Creating Amazon DynamoDB table %s\n with a composite primary key:\n", tableName);
         System.out.format("* Language - partition key\n");
@@ -63,27 +58,27 @@ public class CreateTableCompositeKey {
 
     public static String createTableComKey(DynamoDbClient ddb, String tableName) {
         CreateTableRequest request = CreateTableRequest.builder()
-            .attributeDefinitions(AttributeDefinition.builder()
-                    .attributeName("Language")
-                    .attributeType(ScalarAttributeType.S)
-                    .build(),
-                AttributeDefinition.builder()
-                    .attributeName("Greeting")
-                    .attributeType(ScalarAttributeType.S)
-                    .build())
-            .keySchema(KeySchemaElement.builder()
-                    .attributeName("Language")
-                    .keyType(KeyType.HASH)
-                    .build(),
-                KeySchemaElement.builder()
-                    .attributeName("Greeting")
-                    .keyType(KeyType.RANGE)
-                    .build())
-            .provisionedThroughput(ProvisionedThroughput.builder()
-                .readCapacityUnits(10L)
-                .writeCapacityUnits(10L).build())
-            .tableName(tableName)
-            .build();
+                .attributeDefinitions(AttributeDefinition.builder()
+                        .attributeName("Language")
+                        .attributeType(ScalarAttributeType.S)
+                        .build(),
+                        AttributeDefinition.builder()
+                                .attributeName("Greeting")
+                                .attributeType(ScalarAttributeType.S)
+                                .build())
+                .keySchema(KeySchemaElement.builder()
+                        .attributeName("Language")
+                        .keyType(KeyType.HASH)
+                        .build(),
+                        KeySchemaElement.builder()
+                                .attributeName("Greeting")
+                                .keyType(KeyType.RANGE)
+                                .build())
+                .provisionedThroughput(ProvisionedThroughput.builder()
+                        .readCapacityUnits(10L)
+                        .writeCapacityUnits(10L).build())
+                .tableName(tableName)
+                .build();
 
         String tableId;
         try {

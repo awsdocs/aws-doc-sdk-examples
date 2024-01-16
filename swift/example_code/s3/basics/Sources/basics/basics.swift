@@ -1,4 +1,6 @@
-//
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0.
+
 // Amazon S3 Basics
 //
 // A demonstration program that follows the actions listed in the article
@@ -13,9 +15,6 @@
 // 5. List the objects in the bucket.
 // 6. Delete all the objects in the bucket.
 // 7. Delete the bucket.
-//
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0.
 
 // snippet-start:[s3.swift.basics.example]
 // snippet-start:[s3.swift.basics.main.imports]

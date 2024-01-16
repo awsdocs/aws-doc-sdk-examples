@@ -1,26 +1,5 @@
-//snippet-sourcedescription:[GetWebsiteConfiguration.java demonstrates how to get the website configuration for an S3 bucket.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[getBucketWebsiteConfiguration]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.s3;
 // snippet-start:[s3.java1.s3_get_website_config.import]
 
@@ -43,8 +22,7 @@ public class GetWebsiteConfiguration {
         // snippet-start:[s3.java1.s3_get_website_config.main]
         final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
         try {
-            BucketWebsiteConfiguration config =
-                    s3.getBucketWebsiteConfiguration(bucket_name);
+            BucketWebsiteConfiguration config = s3.getBucketWebsiteConfiguration(bucket_name);
             if (config == null) {
                 System.out.println("No website configuration found!");
             } else {

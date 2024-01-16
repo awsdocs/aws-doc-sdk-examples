@@ -1,26 +1,5 @@
-//snippet-sourcedescription:[GeneratePresignedPutUrl.java demonstrates how to generatee a pre-signed PUT URL for  uploading a file to an Amazon S3 bucket.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[GeneratePresignedUrlRequest]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-11-01]
-//snippet-sourceauthor:[walkerk1980]
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.s3;
 
 import com.amazonaws.AmazonServiceException;
@@ -64,19 +43,20 @@ public class GeneratePresignedPutUrl {
         expiration.setTime(expirationInMs);
 
         try {
-            GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucket_name, key_name)
+            GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucket_name,
+                    key_name)
                     .withMethod(HttpMethod.PUT)
                     .withExpiration(expiration);
             URL url = s3.generatePresignedUrl(generatePresignedUrlRequest);
-            //print URL
+            // print URL
             System.out.println("\n\rGenerated URL: " + url.toString());
-            //Print curl command to consume URL
+            // Print curl command to consume URL
             System.out.println("\n\rExample command to use URL for file upload: \n\r");
-            System.out.println("curl --request PUT --upload-file /path/to/" + key_name + " '" + url.toString() + "' -# > /dev/null");
+            System.out.println("curl --request PUT --upload-file /path/to/" + key_name + " '" + url.toString()
+                    + "' -# > /dev/null");
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
     }
 }
-

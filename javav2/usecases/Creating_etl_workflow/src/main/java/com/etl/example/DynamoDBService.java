@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.etl.example;
 
@@ -24,11 +22,11 @@ public class DynamoDBService {
 
     private DynamoDbClient getClient() {
         return DynamoDbClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
     }
 
-    public void injectETLData(String myDom)  throws JDOMException, IOException {
+    public void injectETLData(String myDom) throws JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();
         builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         Document jdomDocument = builder.build(new InputSource(new StringReader(myDom)));
@@ -48,7 +46,7 @@ public class DynamoDBService {
             pop.set2017(element.getChildText("Date2017"));
             pop.set2018(element.getChildText("Date2018"));
             pop.set2019(element.getChildText("Date2019"));
-            setItem(pop) ;
+            setItem(pop);
         }
     }
 
@@ -60,9 +58,10 @@ public class DynamoDBService {
                 .build();
         try {
             // Create a DynamoDbTable object.
-            DynamoDbTable<Population> workTable = enhancedClient.table("Country", TableSchema.fromBean(Population.class));
+            DynamoDbTable<Population> workTable = enhancedClient.table("Country",
+                    TableSchema.fromBean(Population.class));
 
-             // Populate the table.
+            // Populate the table.
             Population record = new Population();
             String name = pop.getName();
             String code = pop.getCode();
@@ -82,8 +81,8 @@ public class DynamoDBService {
 
             // Put the data into the Amazon DynamoDB table.
             workTable.putItem(record);
-            System.out.println("Added record "+recNum);
-            recNum ++;
+            System.out.println("Added record " + recNum);
+            recNum++;
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());

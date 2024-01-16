@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[SetBucketEventBridgeNotification.java demonstrates how to enable notifications of specified events for an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -23,14 +18,14 @@ public class SetBucketEventBridgeNotification {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <bucketName>\s
+                Usage:
+                    <bucketName>\s
 
-            Where:
-                bucketName - The Amazon S3 bucket.\s
-                topicArn - The Simple Notification Service topic ARN.\s
-                id - An id value used for the topic configuration. This value is displayed in the AWS Management Console.\s
-            """;
+                Where:
+                    bucketName - The Amazon S3 bucket.\s
+                    topicArn - The Simple Notification Service topic ARN.\s
+                    id - An id value used for the topic configuration. This value is displayed in the AWS Management Console.\s
+                """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -42,8 +37,8 @@ public class SetBucketEventBridgeNotification {
         String id = args[2];
         Region region = Region.US_EAST_1;
         S3Client s3Client = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         setBucketNotification(s3Client, bucketName, topicArn, id);
         s3Client.close();
@@ -55,23 +50,24 @@ public class SetBucketEventBridgeNotification {
             events.add(Event.S3_OBJECT_CREATED_PUT);
 
             TopicConfiguration config = TopicConfiguration.builder()
-                .topicArn(topicArn)
-                .events(events)
-                .id(id)
-                .build();
+                    .topicArn(topicArn)
+                    .events(events)
+                    .id(id)
+                    .build();
 
             List<TopicConfiguration> topics = new ArrayList<>();
             topics.add(config);
 
             NotificationConfiguration configuration = NotificationConfiguration.builder()
-                .topicConfigurations(topics)
-                .build();
+                    .topicConfigurations(topics)
+                    .build();
 
-            PutBucketNotificationConfigurationRequest configurationRequest = PutBucketNotificationConfigurationRequest.builder()
-                .bucket(bucketName)
-                .notificationConfiguration(configuration)
-                .skipDestinationValidation(true)
-                .build();
+            PutBucketNotificationConfigurationRequest configurationRequest = PutBucketNotificationConfigurationRequest
+                    .builder()
+                    .bucket(bucketName)
+                    .notificationConfiguration(configuration)
+                    .skipDestinationValidation(true)
+                    .build();
 
             // Set the bucket notification configuration.
             s3Client.putBucketNotificationConfiguration(configurationRequest);

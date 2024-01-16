@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-
-# Original copyright (c) 2020 Peter Hill
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+# Original copyright (c) 2020 Peter Hill
 
 # The original source was part of the GitHub action Clang Tidy Review, https://github.com/ZedThree/clang-tidy-review.
 # This is an alteration of Clang Tidy Review which posts to annotations instead of pull-request

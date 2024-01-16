@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[PutBatchRecords.kt demonstrates how to write multiple data records into a delivery stream and check each record using the response object.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Kinesis Data Firehose]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.firehose
 

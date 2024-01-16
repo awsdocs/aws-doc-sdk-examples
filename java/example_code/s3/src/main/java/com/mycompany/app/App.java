@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
@@ -12,18 +14,6 @@
  * specific language governing permissions and limitations under the License.
  */
 
-// snippet-sourcedescription:[App.java demonstrates how to list, create, and delete a bucket in Amazon S3.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[listBuckets]
-// snippet-keyword:[createBucket]
-// snippet-keyword:[deleteBucket]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-05-29]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.bucket_operations.list_create_delete]
 package com.mycompany.app;
 

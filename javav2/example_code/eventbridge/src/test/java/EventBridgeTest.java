@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.eventbridge.HelloEventBridge;
 import org.junit.jupiter.api.TestInstance;
@@ -19,14 +17,14 @@ import java.io.IOException;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EventBridgeTest {
 
-    private static  EventBridgeClient eventBrClient;
+    private static EventBridgeClient eventBrClient;
 
     @BeforeAll
     public static void setUp() throws IOException {
         eventBrClient = EventBridgeClient.builder()
-            .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_WEST_2)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
     }
 
     @Test

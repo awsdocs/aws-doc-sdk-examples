@@ -1,7 +1,7 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0 */
 
 package com.aws.spring;
 
@@ -31,8 +31,8 @@ public class BotController {
     @ResponseBody
     String addItems(HttpServletRequest request, HttpServletResponse response) {
 
-       String text = request.getParameter("text");
-       String message = lex.getText(text);
-       return message;
+        String text = request.getParameter("text");
+        String message = lex.getText(text);
+        return message;
     }
 }

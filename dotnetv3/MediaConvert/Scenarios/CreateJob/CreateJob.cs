@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using Amazon.MediaConvert;
 using Amazon.MediaConvert.Model;
@@ -23,7 +23,7 @@ public class CreateJob
 
         // snippet-start:[MediaConvert.dotnetv3.Setup]
 
-        // MediaConvert role Amazon Resource Name (ARN). 
+        // MediaConvert role Amazon Resource Name (ARN).
         // For information on creating this role, see
         // https://docs.aws.amazon.com/mediaconvert/latest/ug/creating-the-iam-role-in-mediaconvert-configured.html.
         var mediaConvertRole = _configuration["mediaConvertRoleARN"];

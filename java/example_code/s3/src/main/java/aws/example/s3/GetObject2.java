@@ -1,27 +1,6 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * 
- * http://aws.amazon.com/apache2.0/
- * 
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[GetObject.java demonstrates several ways to retrieve an entire or partial S3 object.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[GET Object]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.get_object.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -67,7 +46,8 @@ public class GetObject2 {
             System.out.println("Printing bytes retrieved.");
             displayTextInputStream(objectPortion.getObjectContent());
 
-            // Get an entire object, overriding the specified response headers, and print the object's content.
+            // Get an entire object, overriding the specified response headers, and print
+            // the object's content.
             ResponseHeaderOverrides headerOverrides = new ResponseHeaderOverrides()
                     .withCacheControl("No-cache")
                     .withContentDisposition("attachment; filename=example.txt");
@@ -76,7 +56,7 @@ public class GetObject2 {
             headerOverrideObject = s3Client.getObject(getObjectRequestHeaderOverride);
             displayTextInputStream(headerOverrideObject.getObjectContent());
         } catch (AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
             e.printStackTrace();
         } catch (SdkClientException e) {
@@ -84,7 +64,8 @@ public class GetObject2 {
             // couldn't parse the response from Amazon S3.
             e.printStackTrace();
         } finally {
-            // To ensure that the network connection doesn't remain open, close any open input streams.
+            // To ensure that the network connection doesn't remain open, close any open
+            // input streams.
             if (fullObject != null) {
                 fullObject.close();
             }

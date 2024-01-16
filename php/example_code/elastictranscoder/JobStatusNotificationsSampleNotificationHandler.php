@@ -1,17 +1,8 @@
 <?php
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+/*
  *  ABOUT THIS PHP SAMPLE: This sample is part of the Elastic Transcoder Developer Guide topic at
  *  https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/introduction.html
  *
@@ -46,16 +37,5 @@ if ($notification['Type'] == 'SubscriptionConfirmation') {
   file_put_contents("$tmp_path/unknown_notification.txt", "$data\n", FILE_APPEND | LOCK_EX);
 }
 // snippet-end:[elastictranscoder.php.create_job_status_notification_handler.import]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[JobStatusNotificationsSampleNotificationHandler.php demonstrates how to create a notification handler for an Elastic Transcoder job.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Elastic Transcoder]
-// snippet-service:[elastictranscoder]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[]
-// snippet-sourceauthor:[AWS]
 
 ?>

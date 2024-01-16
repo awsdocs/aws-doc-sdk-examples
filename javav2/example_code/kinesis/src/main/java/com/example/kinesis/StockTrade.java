@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[StockTrade.java is a helper class.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Kinesis]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kinesis;
 
@@ -14,7 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Captures the key elements of a stock trade, such as the ticker symbol, price,
- * number of shares, the type of the trade (buy or sell), and an id uniquely identifying
+ * number of shares, the type of the trade (buy or sell), and an id uniquely
+ * identifying
  * the trade.
  */
 public class StockTrade {

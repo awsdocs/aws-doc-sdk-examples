@@ -1,27 +1,5 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.amazonaws.codesamples.datamodeling;
 
@@ -76,8 +54,7 @@ public class DynamoDBMapperQueryScanExample {
 
             System.out.println("Example complete!");
 
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             System.err.println("Error running the DynamoDBMapperQueryScanExample: " + t);
             t.printStackTrace();
         }
@@ -91,7 +68,7 @@ public class DynamoDBMapperQueryScanExample {
     }
 
     private static void FindRepliesInLast15Days(DynamoDBMapper mapper, String forumName, String threadSubject)
-        throws Exception {
+            throws Exception {
         System.out.println("FindRepliesInLast15Days: Replies within last 15 days.");
 
         String partitionKey = forumName + "#" + threadSubject;
@@ -108,22 +85,22 @@ public class DynamoDBMapperQueryScanExample {
         eav.put(":val2", new AttributeValue().withS(twoWeeksAgoStr.toString()));
 
         DynamoDBQueryExpression<Reply> queryExpression = new DynamoDBQueryExpression<Reply>()
-            .withKeyConditionExpression("Id = :val1 and ReplyDateTime > :val2").withExpressionAttributeValues(eav);
+                .withKeyConditionExpression("Id = :val1 and ReplyDateTime > :val2").withExpressionAttributeValues(eav);
 
         List<Reply> latestReplies = mapper.query(Reply.class, queryExpression);
 
         for (Reply reply : latestReplies) {
             System.out.format("Id=%s, Message=%s, PostedBy=%s %n, ReplyDateTime=%s %n", reply.getId(),
-                reply.getMessage(), reply.getPostedBy(), reply.getReplyDateTime());
+                    reply.getMessage(), reply.getPostedBy(), reply.getReplyDateTime());
         }
     }
 
     private static void FindRepliesPostedWithinTimePeriod(DynamoDBMapper mapper, String forumName, String threadSubject)
-        throws Exception {
+            throws Exception {
         String partitionKey = forumName + "#" + threadSubject;
 
         System.out.println(
-            "FindRepliesPostedWithinTimePeriod: Find replies for thread Message = 'DynamoDB Thread 2' posted within a period.");
+                "FindRepliesPostedWithinTimePeriod: Find replies for thread Message = 'DynamoDB Thread 2' posted within a period.");
         long startDateMilli = (new Date()).getTime() - (14L * 24L * 60L * 60L * 1000L); // Two
                                                                                         // weeks
                                                                                         // ago.
@@ -141,14 +118,14 @@ public class DynamoDBMapperQueryScanExample {
         eav.put(":val3", new AttributeValue().withS(endDate));
 
         DynamoDBQueryExpression<Reply> queryExpression = new DynamoDBQueryExpression<Reply>()
-            .withKeyConditionExpression("Id = :val1 and ReplyDateTime between :val2 and :val3")
-            .withExpressionAttributeValues(eav);
+                .withKeyConditionExpression("Id = :val1 and ReplyDateTime between :val2 and :val3")
+                .withExpressionAttributeValues(eav);
 
         List<Reply> betweenReplies = mapper.query(Reply.class, queryExpression);
 
         for (Reply reply : betweenReplies) {
             System.out.format("Id=%s, Message=%s, PostedBy=%s %n, PostedDateTime=%s %n", reply.getId(),
-                reply.getMessage(), reply.getPostedBy(), reply.getReplyDateTime());
+                    reply.getMessage(), reply.getPostedBy(), reply.getReplyDateTime());
         }
 
     }
@@ -162,7 +139,7 @@ public class DynamoDBMapperQueryScanExample {
         eav.put(":val2", new AttributeValue().withS("Book"));
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-            .withFilterExpression("Price < :val1 and ProductCategory = :val2").withExpressionAttributeValues(eav);
+                .withFilterExpression("Price < :val1 and ProductCategory = :val2").withExpressionAttributeValues(eav);
 
         List<Book> scanResult = mapper.scan(Book.class, scanExpression);
 
@@ -172,7 +149,7 @@ public class DynamoDBMapperQueryScanExample {
     }
 
     private static void FindBicyclesOfSpecificTypeWithMultipleThreads(DynamoDBMapper mapper, int numberOfThreads,
-        String bicycleType) throws Exception {
+            String bicycleType) throws Exception {
 
         System.out.println("FindBicyclesOfSpecificTypeWithMultipleThreads: Scan ProductCatalog With Multiple Threads.");
         Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
@@ -180,7 +157,8 @@ public class DynamoDBMapperQueryScanExample {
         eav.put(":val2", new AttributeValue().withS(bicycleType));
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-            .withFilterExpression("ProductCategory = :val1 and BicycleType = :val2").withExpressionAttributeValues(eav);
+                .withFilterExpression("ProductCategory = :val1 and BicycleType = :val2")
+                .withExpressionAttributeValues(eav);
 
         List<Bicycle> scanResult = mapper.parallelScan(Bicycle.class, scanExpression, numberOfThreads);
         for (Bicycle bicycle : scanResult) {
@@ -264,7 +242,7 @@ public class DynamoDBMapperQueryScanExample {
         @Override
         public String toString() {
             return "Book [ISBN=" + ISBN + ", price=" + price + ", product category=" + productCategory + ", id=" + id
-                + ", title=" + title + "]";
+                    + ", title=" + title + "]";
         }
 
     }
@@ -355,7 +333,7 @@ public class DynamoDBMapperQueryScanExample {
         @Override
         public String toString() {
             return "Bicycle [Type=" + bicycleType + ", color=" + color + ", price=" + price + ", product category="
-                + productCategory + ", id=" + id + ", title=" + title + "]";
+                    + productCategory + ", id=" + id + ", title=" + title + "]";
         }
 
     }
@@ -538,4 +516,4 @@ public class DynamoDBMapperQueryScanExample {
     }
 }
 
-// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperQueryScanExample] 
+// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperQueryScanExample]

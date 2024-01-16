@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.personalize.client.resource;
 
 public class ResourceException extends Exception {
@@ -19,7 +18,8 @@ public class ResourceException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Resource creation completed unsuccessfully. Resource name: " + name + ", Arn: " + arn + ". Please check you resource status and retry.";
+        return "Resource creation completed unsuccessfully. Resource name: " + name + ", Arn: " + arn
+                + ". Please check you resource status and retry.";
     }
 
 }

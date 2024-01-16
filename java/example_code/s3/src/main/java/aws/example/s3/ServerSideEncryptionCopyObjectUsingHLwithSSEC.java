@@ -1,27 +1,6 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * 
- * http://aws.amazon.com/apache2.0/
- * 
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[ServerSideEncryptionCopyObjectUsingHLwithSSEC.java demonstrates how to perform various operations with the high-level TransferManager class using S3 server-side encryption with a customer-generated encryption key.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[PUT Object]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.server_side_encryption_copy_object_using_hl_with_sse_c.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -68,7 +47,8 @@ public class ServerSideEncryptionCopyObjectUsingHLwithSSEC {
             keyGenerator.init(256, new SecureRandom());
             SSECustomerKey sseCustomerEncryptionKey = new SSECustomerKey(keyGenerator.generateKey());
 
-            // Upload the object. TransferManager uploads asynchronously, so this call returns immediately.
+            // Upload the object. TransferManager uploads asynchronously, so this call
+            // returns immediately.
             putObjectRequest.setSSECustomerKey(sseCustomerEncryptionKey);
             Upload upload = tm.upload(putObjectRequest);
 
@@ -82,14 +62,15 @@ public class ServerSideEncryptionCopyObjectUsingHLwithSSEC {
             copyObjectRequest.setSourceSSECustomerKey(sseCustomerEncryptionKey);
             copyObjectRequest.setDestinationSSECustomerKey(sseTargetObjectEncryptionKey);
 
-            // Copy the object. TransferManager copies asynchronously, so this call returns immediately.
+            // Copy the object. TransferManager copies asynchronously, so this call returns
+            // immediately.
             Copy copy = tm.copy(copyObjectRequest);
 
             // Optionally, wait for the upload to finish before continuing.
             copy.waitForCompletion();
             System.out.println("Copy complete.");
         } catch (AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
             e.printStackTrace();
         } catch (SdkClientException e) {

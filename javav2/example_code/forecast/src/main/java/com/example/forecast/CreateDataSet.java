@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[CreateDataSet.java demonstrates how to create a data set for the Amazon Forecast service.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Forecast]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.forecast;
 
@@ -22,7 +17,8 @@ import java.util.List;
 // snippet-end:[forecast.java2.create_forecast_dataset.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,12 +28,12 @@ public class CreateDataSet {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <name>\s
+                Usage:
+                    <name>\s
 
-            Where:
-                name - The name of the data set.\s
-            """;
+                Where:
+                    name - The name of the data set.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,26 +43,27 @@ public class CreateDataSet {
         String name = args[0];
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String myDataSetARN = createForecastDataSet(forecast, name);
         System.out.println("The ARN of the new data set is " + myDataSetARN);
         forecast.close();
     }
+
     public static String createForecastDataSet(ForecastClient forecast, String name) {
         try {
             Schema schema = Schema.builder()
-                .attributes(getSchema())
-                .build();
+                    .attributes(getSchema())
+                    .build();
 
             CreateDatasetRequest datasetRequest = CreateDatasetRequest.builder()
-                .datasetName(name)
-                .domain("CUSTOM")
-                .datasetType("RELATED_TIME_SERIES")
-                .dataFrequency("D")
-                .schema(schema)
-                .build();
+                    .datasetName(name)
+                    .domain("CUSTOM")
+                    .datasetType("RELATED_TIME_SERIES")
+                    .dataFrequency("D")
+                    .schema(schema)
+                    .build();
 
             CreateDatasetResponse response = forecast.createDataset(datasetRequest);
             return response.datasetArn();
@@ -84,19 +81,19 @@ public class CreateDataSet {
 
         List<SchemaAttribute> schemaList = new ArrayList<>();
         SchemaAttribute att1 = SchemaAttribute.builder()
-            .attributeName("item_id")
-            .attributeType("string")
-            .build();
+                .attributeName("item_id")
+                .attributeType("string")
+                .build();
 
         SchemaAttribute att2 = SchemaAttribute.builder()
-            .attributeName("timestamp")
-            .attributeType("timestamp")
-            .build();
+                .attributeName("timestamp")
+                .attributeType("timestamp")
+                .build();
 
         SchemaAttribute att3 = SchemaAttribute.builder()
-            .attributeName("target_value")
-            .attributeType("float")
-            .build();
+                .attributeName("target_value")
+                .attributeType("float")
+                .build();
 
         // Push the SchemaAttribute objects to the List.
         schemaList.add(att1);

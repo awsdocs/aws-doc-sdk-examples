@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[CreateTable.java demonstrates how to create an Amazon DynamoDB table by using a waiter.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.dynamodb;
 
@@ -28,7 +22,8 @@ import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 // snippet-end:[dynamodb.java2.create_table.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -38,13 +33,13 @@ public class CreateTable {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <tableName> <key>
+                Usage:
+                    <tableName> <key>
 
-            Where:
-                tableName - The Amazon DynamoDB table to create (for example, Music3).
-                key - The key for the Amazon DynamoDB table (for example, Artist).
-            """;
+                Where:
+                    tableName - The Amazon DynamoDB table to create (for example, Music3).
+                    key - The key for the Amazon DynamoDB table (for example, Artist).
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -56,8 +51,8 @@ public class CreateTable {
         System.out.println("Creating an Amazon DynamoDB table " + tableName + " with a simple primary key: " + key);
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String result = createTable(ddb, tableName, key);
         System.out.println("New table is " + result);
@@ -67,27 +62,27 @@ public class CreateTable {
     public static String createTable(DynamoDbClient ddb, String tableName, String key) {
         DynamoDbWaiter dbWaiter = ddb.waiter();
         CreateTableRequest request = CreateTableRequest.builder()
-            .attributeDefinitions(AttributeDefinition.builder()
-                .attributeName(key)
-                .attributeType(ScalarAttributeType.S)
-                .build())
-            .keySchema(KeySchemaElement.builder()
-                .attributeName(key)
-                .keyType(KeyType.HASH)
-                .build())
-            .provisionedThroughput(ProvisionedThroughput.builder()
-                .readCapacityUnits(10L)
-                .writeCapacityUnits(10L)
-                .build())
-            .tableName(tableName)
-            .build();
+                .attributeDefinitions(AttributeDefinition.builder()
+                        .attributeName(key)
+                        .attributeType(ScalarAttributeType.S)
+                        .build())
+                .keySchema(KeySchemaElement.builder()
+                        .attributeName(key)
+                        .keyType(KeyType.HASH)
+                        .build())
+                .provisionedThroughput(ProvisionedThroughput.builder()
+                        .readCapacityUnits(10L)
+                        .writeCapacityUnits(10L)
+                        .build())
+                .tableName(tableName)
+                .build();
 
         String newTable;
         try {
             CreateTableResponse response = ddb.createTable(request);
             DescribeTableRequest tableRequest = DescribeTableRequest.builder()
-                .tableName(tableName)
-                .build();
+                    .tableName(tableName)
+                    .build();
 
             // Wait until the Amazon DynamoDB table is created.
             WaiterResponse<DescribeTableResponse> waiterResponse = dbWaiter.waitUntilTableExists(tableRequest);

@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[DetectFaces.kt demonstrates how to detect faces in an image.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Rekognition]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.rekognition
 
 // snippet-start:[rekognition.kotlin.detect_faces.import]

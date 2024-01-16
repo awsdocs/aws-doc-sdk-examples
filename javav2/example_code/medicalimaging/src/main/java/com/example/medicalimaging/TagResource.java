@@ -1,15 +1,9 @@
-//snippet-sourcedescription:[GetImageSet.java demonstrates how to tag a resource.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS HealthImaging]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.medicalimaging;
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
-//snippet-start:[medicalimaging.java2.tag_resource.import]
+// snippet-start:[medicalimaging.java2.tag_resource.import]
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -20,10 +14,11 @@ import software.amazon.awssdk.utils.ImmutableMap;
 
 import java.util.Map;
 
-//snippet-end:[medicalimaging.java2.tag_resource.import]
+// snippet-end:[medicalimaging.java2.tag_resource.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  * <p>
  * For more information, see the following documentation topic:
  * <p>
@@ -53,14 +48,13 @@ public class TagResource {
 
         tagMedicalImagingResource(medicalImagingClient, resourceArn, ImmutableMap.of("Deployment", "Development"));
 
-
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.tag_resource.main]
+    // snippet-start:[medicalimaging.java2.tag_resource.main]
     public static void tagMedicalImagingResource(MedicalImagingClient medicalImagingClient,
-                                                 String resourceArn,
-                                                 Map<String, String> tags) {
+            String resourceArn,
+            Map<String, String> tags) {
         try {
             TagResourceRequest tagResourceRequest = TagResourceRequest.builder()
                     .resourceArn(resourceArn)
@@ -75,5 +69,5 @@ public class TagResource {
             System.exit(1);
         }
     }
-//snippet-end:[medicalimaging.java2.tag_resource.main]
+    // snippet-end:[medicalimaging.java2.tag_resource.main]
 }

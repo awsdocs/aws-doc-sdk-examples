@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[LookUpEndpoint.kt demonstrates how to display information about an existing endpoint in Amazon Pinpoint.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Amazon Pinpoint]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.pinpoint
 

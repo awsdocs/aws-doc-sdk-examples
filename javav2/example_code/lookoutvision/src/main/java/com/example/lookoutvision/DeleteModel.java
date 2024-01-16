@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.lookoutvision;
 
@@ -42,8 +40,8 @@ public class DeleteModel {
 
             System.out.printf(
                     "You are charged each time you successfully train a model.%n"
-                    +"Are you sure you want to delete model version %s in project %s?%n"
-                    +"Enter YES to delete the model.%n",
+                            + "Are you sure you want to delete model version %s in project %s?%n"
+                            + "Enter YES to delete the model.%n",
                     modelVersion, projectName);
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(System.in));
@@ -59,9 +57,9 @@ public class DeleteModel {
                 System.out.printf("Deleting model version %s in project %s%n", modelVersion, projectName);
                 Models.deleteModel(lfvClient, projectName, modelVersion);
                 System.out.printf("Deleted model version %s in project %s%n", modelVersion, projectName);
-            }
-            else{
-                System.out.printf("Request cancelled. Not deleting model version %s in project %s%n", modelVersion, projectName);
+            } else {
+                System.out.printf("Request cancelled. Not deleting model version %s in project %s%n", modelVersion,
+                        projectName);
             }
 
         } catch (LookoutVisionException lfvError) {
@@ -73,4 +71,3 @@ public class DeleteModel {
         }
     }
 }
-

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[UpdateUser.java demonstrates how to update the user metadata and attributes in AWS Identitystore]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.identitystore;
 
@@ -20,7 +14,8 @@ import software.amazon.awssdk.services.identitystore.model.AttributeOperation;
 // snippet-end:[Identitystore.java2.update_user.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,15 +25,15 @@ public class UpdateUser {
     public static void main(String... args) {
         final String usage = """
 
-            Usage:
-                <identitystoreId> <userId> <userAttributeName> <userAttributeValue>\s
+                Usage:
+                    <identitystoreId> <userId> <userAttributeName> <userAttributeValue>\s
 
-            Where:
-                identitystoreId - The id of the identitystore.\s
-                userId - The id of the user.\s
-                userAttributeName - The name of the unique attribute of the user.\s
-                userAttributeValue - The value of the specified user attribute.\s
-            """;
+                Where:
+                    identitystoreId - The id of the identitystore.\s
+                    userId - The id of the user.\s
+                    userAttributeName - The name of the unique attribute of the user.\s
+                    userAttributeValue - The value of the specified user attribute.\s
+                """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -55,24 +50,26 @@ public class UpdateUser {
         identitystore.close();
     }
 
-    public static String updateUser(IdentitystoreClient identitystore, String identitystoreId, String userId, String userAttributePath, String userAttributeValue) {
+    public static String updateUser(IdentitystoreClient identitystore, String identitystoreId, String userId,
+            String userAttributePath, String userAttributeValue) {
         try {
             String attributePath = userAttributePath;
             Document attributeValue = Document.fromString(userAttributeValue);
 
             AttributeOperation attributeOperation = AttributeOperation.builder()
-                .attributePath(attributePath)
-                .attributeValue(attributeValue)
-                .build();
+                    .attributePath(attributePath)
+                    .attributeValue(attributeValue)
+                    .build();
 
             UpdateUserRequest request = UpdateUserRequest.builder()
-                .identityStoreId(identitystoreId)
-                .userId(userId)
-                .operations(attributeOperation)
-                .build();
+                    .identityStoreId(identitystoreId)
+                    .userId(userId)
+                    .operations(attributeOperation)
+                    .build();
 
             identitystore.updateUser(request);
-            System.out.format("User Field Name %s is updated with new value %s for userId %s\n", attributePath, attributeValue, userId);
+            System.out.format("User Field Name %s is updated with new value %s for userId %s\n", attributePath,
+                    attributeValue, userId);
             return "Updated";
 
         } catch (IdentitystoreException e) {
@@ -83,4 +80,4 @@ public class UpdateUser {
         return "";
     }
 }
- // snippet-end:[identitystore.java2.update_user.main]
+// snippet-end:[identitystore.java2.update_user.main]

@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import com.example.mq.*;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mq.MqClient;
@@ -18,7 +17,7 @@ import java.util.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonMQTest {
 
-    private static MqClient mqClient ;
+    private static MqClient mqClient;
     private static Region region;
     private static String engineType = "";
     private static String brokerName = "";
@@ -43,7 +42,7 @@ public class AmazonMQTest {
                 return;
             }
 
-            //load a properties file from class path, inside static method
+            // load a properties file from class path, inside static method
             prop.load(input);
 
             // Populate the data members required for all tests

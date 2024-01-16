@@ -1,13 +1,5 @@
-//snippet-sourcedescription:[AddSteps.java demonstrates how to add new steps to a running cluster.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon EMR]
-//snippet-sourcetype:[full-example]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package aws.example.emr;
 
@@ -22,7 +14,8 @@ import software.amazon.awssdk.services.emr.model.StepConfig;
 // snippet-end:[emr.java2._add_steps.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -33,14 +26,14 @@ public class AddSteps {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <jar> <myClass> <jobFlowId>\s
+                Usage:    <jar> <myClass> <jobFlowId>\s
 
-            Where:
-               jar - A path to a JAR file run during the step.\s
-               myClass - The name of the main class in the specified Java file.\s
-               jobFlowId - The id of the job flow.\s
+                Where:
+                   jar - A path to a JAR file run during the step.\s
+                   myClass - The name of the main class in the specified Java file.\s
+                   jobFlowId - The id of the job flow.\s
 
-            """;
+                """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -52,8 +45,8 @@ public class AddSteps {
         String jobFlowId = args[2];
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         addNewStep(emrClient, jobFlowId, jar, myClass);
         emrClient.close();
@@ -62,19 +55,19 @@ public class AddSteps {
     public static void addNewStep(EmrClient emrClient, String jobFlowId, String jar, String myClass) {
         try {
             HadoopJarStepConfig jarStepConfig = HadoopJarStepConfig.builder()
-                .jar(jar)
-                .mainClass(myClass)
-                .build();
+                    .jar(jar)
+                    .mainClass(myClass)
+                    .build();
 
             StepConfig stepConfig = StepConfig.builder()
-                .hadoopJarStep(jarStepConfig)
-                .name("Run a bash script")
-                .build();
+                    .hadoopJarStep(jarStepConfig)
+                    .name("Run a bash script")
+                    .build();
 
             AddJobFlowStepsRequest jobFlowStepsRequest = AddJobFlowStepsRequest.builder()
-                .jobFlowId(jobFlowId)
-                .steps(stepConfig)
-                .build();
+                    .jobFlowId(jobFlowId)
+                    .steps(stepConfig)
+                    .build();
 
             emrClient.addJobFlowSteps(jobFlowStepsRequest);
             System.out.println("You have successfully added a step!");

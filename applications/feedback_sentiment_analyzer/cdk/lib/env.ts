@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 let APP_NAME: string, APP_EMAIL: string, APP_LANG: string;
 
 if (!process.env.FSA_NAME) {

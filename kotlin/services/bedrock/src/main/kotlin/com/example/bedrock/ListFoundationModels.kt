@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListFoundationModels.kt demonstrates how to list the available foundation models.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Bedrock]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.bedrock
 

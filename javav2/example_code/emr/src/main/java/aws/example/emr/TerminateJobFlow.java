@@ -1,12 +1,6 @@
-//snippet-sourcedescription:[TerminateJobFlow.java demonstrates how to terminate a given job flow.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon EMR]
-//snippet-sourcetype:[full-example]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package aws.example.emr;
 
 // snippet-start:[emr.java2.terminate_job.main]
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.emr.model.EmrException;
 // snippet-end:[emr.java2.terminate_job.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +23,12 @@ public class TerminateJobFlow {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <id>
+                Usage:    <id>
 
-            Where:
-               id - An id of a job flow to shut down.
+                Where:
+                   id - An id of a job flow to shut down.
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,8 +38,8 @@ public class TerminateJobFlow {
         String id = args[0];
         Region region = Region.US_WEST_2;
         EmrClient emrClient = EmrClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         terminateFlow(emrClient, id);
         emrClient.close();
@@ -53,8 +48,8 @@ public class TerminateJobFlow {
     public static void terminateFlow(EmrClient emrClient, String id) {
         try {
             TerminateJobFlowsRequest jobFlowsRequest = TerminateJobFlowsRequest.builder()
-                .jobFlowIds(id)
-                .build();
+                    .jobFlowIds(id)
+                    .build();
 
             emrClient.terminateJobFlows(jobFlowsRequest);
             System.out.println("You have successfully terminated " + id);

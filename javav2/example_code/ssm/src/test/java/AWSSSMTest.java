@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.ssm.*;
 import com.google.gson.Gson;
@@ -22,20 +20,20 @@ import software.amazon.awssdk.services.ssm.SsmClient;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AWSSSMTest {
     private static SsmClient ssmClient;
-    private static String paraName="";
-    private static String title="";
-    private static String source="";
-    private static String category="";
-    private static String severity="";
-    private static String opsItemId ="";
+    private static String paraName = "";
+    private static String title = "";
+    private static String source = "";
+    private static String category = "";
+    private static String severity = "";
+    private static String opsItemId = "";
 
     @BeforeAll
-    public static void setUp(){
+    public static void setUp() {
         Region region = Region.US_EAST_1;
         ssmClient = SsmClient.builder()
-            .region(region)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -47,34 +45,36 @@ public class AWSSSMTest {
         category = values.getCategory();
         severity = values.getSeverity();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-        try (InputStream input = AWSSSMTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            // Populate the data members required for all tests.
-            prop.load(input);
-            paraName = prop.getProperty("paraName");
-            title = prop.getProperty("title");
-            source = prop.getProperty("source");
-            category = prop.getProperty("category");
-            severity = prop.getProperty("severity");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * try (InputStream input =
+         * AWSSSMTest.class.getClassLoader().getResourceAsStream("config.properties")) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * // Populate the data members required for all tests.
+         * prop.load(input);
+         * paraName = prop.getProperty("paraName");
+         * title = prop.getProperty("title");
+         * source = prop.getProperty("source");
+         * category = prop.getProperty("category");
+         * severity = prop.getProperty("severity");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateOpsItem(){
-        opsItemId = CreateOpsItem.createNewOpsItem(ssmClient, title, source, category, severity) ;
+    public void CreateOpsItem() {
+        opsItemId = CreateOpsItem.createNewOpsItem(ssmClient, title, source, category, severity);
         assertFalse(opsItemId.isEmpty());
         System.out.println("Test 1 passed");
     }
@@ -82,8 +82,8 @@ public class AWSSSMTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void GetOpsItem(){
-        assertDoesNotThrow(() ->GetOpsItem.getOpsItem(ssmClient, opsItemId));
+    public void GetOpsItem() {
+        assertDoesNotThrow(() -> GetOpsItem.getOpsItem(ssmClient, opsItemId));
         System.out.println("Test 2 passed");
     }
 
@@ -91,7 +91,7 @@ public class AWSSSMTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void DescribeOpsItems() {
-        assertDoesNotThrow(() ->DescribeOpsItems.describeItems(ssmClient));
+        assertDoesNotThrow(() -> DescribeOpsItems.describeItems(ssmClient));
         System.out.println("Test 3 passed");
     }
 
@@ -99,7 +99,7 @@ public class AWSSSMTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void DescribeParameters() {
-        assertDoesNotThrow(() ->DescribeParameters.describeParams(ssmClient));
+        assertDoesNotThrow(() -> DescribeParameters.describeParams(ssmClient));
         System.out.println("Test 4 passed");
     }
 
@@ -107,7 +107,7 @@ public class AWSSSMTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void GetParameter() {
-        assertDoesNotThrow(() ->GetParameter.getParaValue(ssmClient, paraName));
+        assertDoesNotThrow(() -> GetParameter.getParaValue(ssmClient, paraName));
         System.out.println("Test 5 passed");
     }
 
@@ -115,19 +115,20 @@ public class AWSSSMTest {
     @Tag("IntegrationTest")
     @Order(6)
     public void ResolveOpsItem() {
-        assertDoesNotThrow(() ->ResolveOpsItem.setOpsItemStatus(ssmClient, opsItemId));
+        assertDoesNotThrow(() -> ResolveOpsItem.setOpsItemStatus(ssmClient, opsItemId));
         System.out.println("Test 6 passed");
     }
+
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/ssm";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();

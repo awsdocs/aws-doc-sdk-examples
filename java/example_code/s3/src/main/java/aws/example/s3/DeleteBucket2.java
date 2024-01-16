@@ -1,29 +1,6 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * 
- * http://aws.amazon.com/apache2.0/
- * 
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[DeleteBucket.java demonstrates how to empty and then delete an S3 bucket.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[DELETE Bucket]
-// snippet-keyword:[GET Bucket]
-// snippet-keyword:[DELETE Object]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.delete_bucket.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -49,9 +26,11 @@ public class DeleteBucket2 {
                     .build();
 
             // Delete all objects from the bucket. This is sufficient
-            // for unversioned buckets. For versioned buckets, when you attempt to delete objects, Amazon S3 inserts
+            // for unversioned buckets. For versioned buckets, when you attempt to delete
+            // objects, Amazon S3 inserts
             // delete markers for all objects, but doesn't delete the object versions.
-            // To delete objects from versioned buckets, delete all of the object versions before deleting
+            // To delete objects from versioned buckets, delete all of the object versions
+            // before deleting
             // the bucket (see below for an example).
             ObjectListing objectListing = s3Client.listObjects(bucketName);
             while (true) {
@@ -62,7 +41,8 @@ public class DeleteBucket2 {
 
                 // If the bucket contains many objects, the listObjects() call
                 // might not return all of the objects in the first listing. Check to
-                // see whether the listing was truncated. If so, retrieve the next page of objects 
+                // see whether the listing was truncated. If so, retrieve the next page of
+                // objects
                 // and delete them.
                 if (objectListing.isTruncated()) {
                     objectListing = s3Client.listNextBatchOfObjects(objectListing);
@@ -90,7 +70,7 @@ public class DeleteBucket2 {
             // After all objects and object versions are deleted, delete the bucket.
             s3Client.deleteBucket(bucketName);
         } catch (AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
             e.printStackTrace();
         } catch (SdkClientException e) {

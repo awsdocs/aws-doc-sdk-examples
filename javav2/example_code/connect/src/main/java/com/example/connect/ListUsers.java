@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ListUsers.java demonstrates how to list Amazon Connect instance users.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Connect]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.connect;
 
@@ -20,7 +14,8 @@ import software.amazon.awssdk.services.connect.model.UserSummary;
 import java.util.List;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +25,12 @@ public class ListUsers {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <instanceId>
+                Usage:    <instanceId>
 
-            Where:
-               instanceId - The id of the Amazon Connect instance.
+                Where:
+                   instanceId - The id of the Amazon Connect instance.
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,8 +40,8 @@ public class ListUsers {
         String instanceId = args[0];
         Region region = Region.US_EAST_1;
         ConnectClient connectClient = ConnectClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getUsers(connectClient, instanceId);
     }
@@ -54,9 +49,9 @@ public class ListUsers {
     public static void getUsers(ConnectClient connectClient, String instanceId) {
         try {
             ListUsersRequest usersRequest = ListUsersRequest.builder()
-                .instanceId(instanceId)
-                .maxResults(10)
-                .build();
+                    .instanceId(instanceId)
+                    .maxResults(10)
+                    .build();
 
             ListUsersResponse response = connectClient.listUsers(usersRequest);
             List<UserSummary> users = response.userSummaryList();
@@ -72,4 +67,3 @@ public class ListUsers {
     }
 }
 // snippet-end:[connect.java2.list.users.main]
-

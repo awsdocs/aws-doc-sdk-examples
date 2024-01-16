@@ -1,15 +1,6 @@
-//snippet-sourcedescription:[StreamTranscriptionBehaviorImpl.java demonstrates how to implement StreamTranscriptionBehavior.]
-// snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Transcribe]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[11/06/2020]
-// snippet-sourceauthor:[scmacdon - AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.amazonaws.transcribestreaming;
 
 import software.amazon.awssdk.services.transcribestreaming.model.Result;
@@ -20,7 +11,6 @@ import java.util.List;
 
 // snippet-start:[transcribe.java-streaming-client-behavior-imp]
 public class StreamTranscriptionBehaviorImpl implements StreamTranscriptionBehavior {
-
 
     @Override
     public void onError(Throwable e) {

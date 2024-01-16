@@ -1,8 +1,8 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /*
    A class containing functions that interact with AWS services.
-   
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
 */
 
 // snippet-start:[iam.swift.listrolepolicies.handler]

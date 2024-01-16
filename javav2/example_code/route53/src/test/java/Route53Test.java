@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import com.example.route.CreateHealthCheck;
 import com.example.route.CreateHostedZone;
 import com.example.route.DeleteHealthCheck;
@@ -44,25 +43,25 @@ public class Route53Test {
     private static String hostedZoneId = "";
     private static Route53Client route53Client;
     private static Route53DomainsClient route53DomainsClient;
-    private static String domainSuggestionSc = "" ;
-    private static String domainTypeSc = "" ;
-    private static String phoneNumerSc = "" ;
-    private static String emailSc = "" ;
-    private static String firstNameSc = "" ;
-    private static String lastNameSc = "" ;
-    private static String citySc = "" ;
+    private static String domainSuggestionSc = "";
+    private static String domainTypeSc = "";
+    private static String phoneNumerSc = "";
+    private static String emailSc = "";
+    private static String firstNameSc = "";
+    private static String lastNameSc = "";
+    private static String citySc = "";
 
     @BeforeAll
     public static void setUp() {
         route53Client = Route53Client.builder()
-            .region(Region.AWS_GLOBAL)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.AWS_GLOBAL)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         route53DomainsClient = Route53DomainsClient.builder()
-            .region(Region.AWS_GLOBAL)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.AWS_GLOBAL)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -72,43 +71,46 @@ public class Route53Test {
         domainSuggestionSc = values.getDomainSuggestionSc();
         domainTypeSc = values.getDomainTypeSc();
         phoneNumerSc = values.getPhoneNumerSc();
-        emailSc =values.getEmailSc();
+        emailSc = values.getEmailSc();
         firstNameSc = values.getFirstNameSc();
         lastNameSc = values.getLastNameSc();
         citySc = values.getCitySc();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-        try (InputStream input = Route53Test.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            // Populate the data members required for all tests
-            prop.load(input);
-            domainName = prop.getProperty("domainName");
-            domainSuggestionSc = prop.getProperty("domainSuggestionSc");
-            domainTypeSc = prop.getProperty("domainTypeSc");
-            phoneNumerSc = prop.getProperty("phoneNumerSc");
-            emailSc = prop.getProperty("emailSc");
-            firstNameSc = prop.getProperty("firstNameSc");
-            lastNameSc = prop.getProperty("lastNameSc");
-            citySc = prop.getProperty("citySc");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * Route53Test.class.getClassLoader().getResourceAsStream("config.properties"))
+         * {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * // Populate the data members required for all tests
+         * prop.load(input);
+         * domainName = prop.getProperty("domainName");
+         * domainSuggestionSc = prop.getProperty("domainSuggestionSc");
+         * domainTypeSc = prop.getProperty("domainTypeSc");
+         * phoneNumerSc = prop.getProperty("phoneNumerSc");
+         * emailSc = prop.getProperty("emailSc");
+         * firstNameSc = prop.getProperty("firstNameSc");
+         * lastNameSc = prop.getProperty("lastNameSc");
+         * citySc = prop.getProperty("citySc");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
     public void createHealthCheck() {
-        healthCheckId= CreateHealthCheck.createCheck(route53Client, domainName);
+        healthCheckId = CreateHealthCheck.createCheck(route53Client, domainName);
         assertFalse(healthCheckId.isEmpty());
         System.out.println("Test 1 passed");
     }
@@ -117,7 +119,7 @@ public class Route53Test {
     @Tag("IntegrationTest")
     @Order(2)
     public void createHostedZone() {
-        hostedZoneId= CreateHostedZone.createZone(route53Client, domainName);
+        hostedZoneId = CreateHostedZone.createZone(route53Client, domainName);
         assertFalse(hostedZoneId.isEmpty());
         System.out.println("Test 2 passed");
     }
@@ -126,21 +128,21 @@ public class Route53Test {
     @Tag("IntegrationTest")
     @Order(3)
     public void getHealthCheckStatus() {
-    try{
-        TimeUnit.SECONDS.sleep(20); // wait for the new health check
-        assertDoesNotThrow(() ->GetHealthCheckStatus.getHealthStatus(route53Client, healthCheckId));
+        try {
+            TimeUnit.SECONDS.sleep(20); // wait for the new health check
+            assertDoesNotThrow(() -> GetHealthCheckStatus.getHealthStatus(route53Client, healthCheckId));
 
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-      System.out.println("Test 3 passed");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
     public void listHealthChecks() {
-        assertDoesNotThrow(() ->ListHealthChecks.listAllHealthChecks(route53Client));
+        assertDoesNotThrow(() -> ListHealthChecks.listAllHealthChecks(route53Client));
         System.out.println("Test 4 passed");
     }
 
@@ -148,7 +150,7 @@ public class Route53Test {
     @Tag("IntegrationTest")
     @Order(5)
     public void updateHealthCheck() {
-        assertDoesNotThrow(() ->UpdateHealthCheck.updateSpecificHealthCheck(route53Client, healthCheckId));
+        assertDoesNotThrow(() -> UpdateHealthCheck.updateSpecificHealthCheck(route53Client, healthCheckId));
         System.out.println("Test 5 passed");
     }
 
@@ -156,15 +158,15 @@ public class Route53Test {
     @Tag("IntegrationTest")
     @Order(6)
     public void listHostedZones() {
-       assertDoesNotThrow(() ->ListHostedZones.listZones(route53Client));
-       System.out.println("Test 6 passed");
+        assertDoesNotThrow(() -> ListHostedZones.listZones(route53Client));
+        System.out.println("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
     public void deleteHealthCheck() {
-        assertDoesNotThrow(() ->DeleteHealthCheck.delHealthCheck(route53Client, healthCheckId));
+        assertDoesNotThrow(() -> DeleteHealthCheck.delHealthCheck(route53Client, healthCheckId));
         System.out.println("Test 7 passed");
     }
 
@@ -172,20 +174,20 @@ public class Route53Test {
     @Tag("IntegrationTest")
     @Order(8)
     public void deleteHostedZone() {
-        assertDoesNotThrow(() ->DeleteHostedZone.delHostedZone(route53Client, hostedZoneId));
+        assertDoesNotThrow(() -> DeleteHostedZone.delHostedZone(route53Client, hostedZoneId));
         System.out.println("Test 8 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/route53";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -223,6 +225,7 @@ public class Route53Test {
         public String getPhoneNumerSc() {
             return phoneNumerSc;
         }
+
         public String getEmailSc() {
             return emailSc;
         }

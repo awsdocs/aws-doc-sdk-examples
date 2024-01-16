@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.fsa.services;
 
@@ -20,24 +18,25 @@ import java.util.concurrent.CompletableFuture;
 public class DetectSentimentService {
 
     private static ComprehendAsyncClient comprehendAsyncClient;
+
     private static synchronized ComprehendAsyncClient getComprehendAsyncClient() {
         if (comprehendAsyncClient == null) {
             comprehendAsyncClient = ComprehendAsyncClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+                    .region(Region.US_EAST_1)
+                    .build();
         }
         return comprehendAsyncClient;
     }
 
-    public JSONObject detectSentiments(String text){
+    public JSONObject detectSentiments(String text) {
         try {
             String languageCode = detectTheDominantLanguage(text);
             DetectSentimentRequest detectSentimentRequest = DetectSentimentRequest.builder()
-                .text(text)
-                .languageCode(languageCode)
-                .build();
+                    .text(text)
+                    .languageCode(languageCode)
+                    .build();
 
-            CompletableFuture<?> future  = getComprehendAsyncClient().detectSentiment(detectSentimentRequest);
+            CompletableFuture<?> future = getComprehendAsyncClient().detectSentiment(detectSentimentRequest);
             future.join();
 
             // Wait for the operation to complete and get the result
@@ -53,13 +52,13 @@ public class DetectSentimentService {
         }
     }
 
-    public String detectTheDominantLanguage(String text){
+    public String detectTheDominantLanguage(String text) {
         try {
             DetectDominantLanguageRequest request = DetectDominantLanguageRequest.builder()
-                .text(text)
-                .build();
+                    .text(text)
+                    .build();
 
-            CompletableFuture<?> future  = getComprehendAsyncClient().detectDominantLanguage(request);
+            CompletableFuture<?> future = getComprehendAsyncClient().detectDominantLanguage(request);
             future.join();
 
             DetectDominantLanguageResponse resp = (DetectDominantLanguageResponse) future.join();

@@ -1,27 +1,6 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * 
- * http://aws.amazon.com/apache2.0/
- * 
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[EnableNotificationsOnABucket.java demonstrates how to configure an S3 bucket to work with Amazon Simple Notification Service and Simple Queue Service.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[PUT Bucket notification]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.enable_notification_on_a_bucket.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -58,12 +37,13 @@ public class EnableNotificationOnABucket {
             notificationConfiguration.addConfiguration("sqsQueueConfig",
                     new QueueConfiguration(sqsQueueARN, EnumSet.of(S3Event.ObjectCreated)));
 
-            // Create the notification configuration request and set the bucket notification configuration.
+            // Create the notification configuration request and set the bucket notification
+            // configuration.
             SetBucketNotificationConfigurationRequest request = new SetBucketNotificationConfigurationRequest(
                     bucketName, notificationConfiguration);
             s3Client.setBucketNotificationConfiguration(request);
         } catch (AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
             e.printStackTrace();
         } catch (SdkClientException e) {
@@ -74,4 +54,4 @@ public class EnableNotificationOnABucket {
     }
 }
 
-//snippet-end:[s3.java.enable_notification_on_a_bucket.complete]
+// snippet-end:[s3.java.enable_notification_on_a_bucket.complete]

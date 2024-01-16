@@ -1,24 +1,19 @@
-//snippet-sourcedescription:[UseMessageFilterPolicy.java demonstrates how to initialize and use the example SNSMessageFilterPolicy class.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Simple Notification Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sns;
 
-//snippet-start:[sns.java2.message_policy.main]
-//snippet-start:[sns.java2.message_policy.import]
+// snippet-start:[sns.java2.message_policy.main]
+// snippet-start:[sns.java2.message_policy.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.SnsException;
 import java.util.ArrayList;
-//snippet-end:[sns.java2.message_policy.import]
+// snippet-end:[sns.java2.message_policy.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +23,12 @@ public class UseMessageFilterPolicy {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <subscriptionArn>
+                Usage:    <subscriptionArn>
 
-            Where:
-               subscriptionArn - The ARN of a subscription.
+                Where:
+                   subscriptionArn - The ARN of a subscription.
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,8 +37,8 @@ public class UseMessageFilterPolicy {
 
         String subscriptionArn = args[0];
         SnsClient snsClient = SnsClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         usePolicy(snsClient, subscriptionArn);
         snsClient.close();
@@ -84,4 +79,4 @@ public class UseMessageFilterPolicy {
         }
     }
 }
-//snippet-end:[sns.java2.message_policy.main]
+// snippet-end:[sns.java2.message_policy.main]

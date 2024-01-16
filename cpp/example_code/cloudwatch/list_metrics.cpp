@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 /*
 
 /* ////////////////////////////////////////////////////////////////////////////
@@ -15,14 +15,14 @@
  * Outputs:
  * A list of metrics.
  * ///////////////////////////////////////////////////////////////////////// */
-//snippet-start:[cw.cpp.list_metrics.inc]
+// snippet-start:[cw.cpp.list_metrics.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/ListMetricsRequest.h>
 #include <aws/monitoring/model/ListMetricsResult.h>
 #include <iomanip>
 #include <iostream>
-//snippet-end:[cw.cpp.list_metrics.inc]
+// snippet-end:[cw.cpp.list_metrics.inc]
 
 static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
 

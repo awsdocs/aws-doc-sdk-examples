@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[DeleteServerCertificate.java demonstrates how to delete an AWS Identity and Access Management (IAM) server certificate.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[IAM]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.iam;
 
 // snippet-start:[iam.java2.delete_server_certificate.main]
@@ -17,7 +12,8 @@ import software.amazon.awssdk.services.iam.model.IamException;
 // snippet-end:[iam.java2.delete_server_certificate.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -27,12 +23,12 @@ public class DeleteServerCertificate {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <certName>\s
+                Usage:
+                    <certName>\s
 
-            Where:
-                certName - A certificate name to delete.\s
-            """;
+                Where:
+                    certName - A certificate name to delete.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,19 +38,19 @@ public class DeleteServerCertificate {
         String certName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
-        deleteCert(iam, certName) ;
+        deleteCert(iam, certName);
         System.out.println("Done");
         iam.close();
     }
 
-    public static void deleteCert(IamClient iam,String certName ) {
+    public static void deleteCert(IamClient iam, String certName) {
         try {
             DeleteServerCertificateRequest request = DeleteServerCertificateRequest.builder()
-                .serverCertificateName(certName)
-                .build();
+                    .serverCertificateName(certName)
+                    .build();
 
             iam.deleteServerCertificate(request);
             System.out.println("Successfully deleted server certificate " + certName);
@@ -66,4 +62,3 @@ public class DeleteServerCertificate {
     }
 }
 // snippet-end:[iam.java2.delete_server_certificate.main]
-

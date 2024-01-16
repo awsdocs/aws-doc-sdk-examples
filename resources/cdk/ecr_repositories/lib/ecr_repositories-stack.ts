@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { Construct, Stack, StackProps } from "@aws-cdk/core";
 import * as ecr from "@aws-cdk/aws-ecr";
 

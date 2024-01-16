@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[StepFunctionsScenario.java demonstrates how to perform various operations using the AWS SDK for Java v2.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS Step Functions]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.stepfunctions
 

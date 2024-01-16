@@ -1,13 +1,5 @@
-// snippet-sourcedescription:[ListCreatedArtifacts.java demonstrates how to List the created artifacts attached to a given migration task.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS Migration Hub]
-// snippet-keyword:[Code Sample]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.migrationhub;
 
@@ -23,7 +15,8 @@ import java.util.List;
 // snippet-end:[migration.java2.list_artifacts.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -33,8 +26,8 @@ public class ListCreatedArtifacts {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         MigrationHubClient migrationClient = MigrationHubClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listArtifacts(migrationClient);
         migrationClient.close();
@@ -43,10 +36,10 @@ public class ListCreatedArtifacts {
     public static void listArtifacts(MigrationHubClient migrationClient) {
         try {
             ListCreatedArtifactsRequest listCreatedArtifactsRequest = ListCreatedArtifactsRequest.builder()
-                .maxResults(10)
-                .migrationTaskName("SampleApp5")
-                .progressUpdateStream("ProgressSteamB")
-                .build();
+                    .maxResults(10)
+                    .migrationTaskName("SampleApp5")
+                    .progressUpdateStream("ProgressSteamB")
+                    .build();
 
             ListCreatedArtifactsResponse response = migrationClient.listCreatedArtifacts(listCreatedArtifactsRequest);
             List<CreatedArtifact> apps = response.createdArtifactList();
@@ -61,4 +54,4 @@ public class ListCreatedArtifacts {
         }
     }
 }
- // snippet-end:[migration.java2.list_artifacts.main]
+// snippet-end:[migration.java2.list_artifacts.main]

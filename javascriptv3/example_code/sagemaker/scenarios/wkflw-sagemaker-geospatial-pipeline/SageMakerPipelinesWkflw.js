@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[javascript.v3.sagemaker.wkflw.pipeline]
 import { retry, wait } from "@aws-sdk-examples/libs/utils/util-timers.js";

@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[EnhancedBatchDeleteItems.java demonstrates how to delete many items from an Amazon DynamoDB table by using the enhanced client.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.dynamodb.enhanced;
 
 // snippet-start:[dynamodb.java2.mapping.batchdelete.main]
@@ -38,53 +33,55 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
  */
 public class EnhancedBatchDeleteItems {
 
-    public static void main(String[] args) {
-        Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+        public static void main(String[] args) {
+                Region region = Region.US_EAST_1;
+                DynamoDbClient ddb = DynamoDbClient.builder()
+                                .region(region)
+                                .build();
 
-        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(ddb)
-            .build();
-        deleteBatchRecords(enhancedClient);
-        ddb.close();
-    }
-
-    public static void deleteBatchRecords(DynamoDbEnhancedClient enhancedClient) {
-        try {
-            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
-            Key key1 = Key.builder()
-                .partitionValue("id110")
-                .build();
-
-            Key key2 = Key.builder()
-                .partitionValue("id120")
-                .build();
-
-            BatchWriteItemEnhancedRequest request = BatchWriteItemEnhancedRequest.builder()
-                .writeBatches(WriteBatch.builder(Customer.class)
-                        .mappedTableResource(mappedTable)
-                        .addDeleteItem(DeleteItemEnhancedRequest.builder()
-                            .key(key1)
-                            .build())
-                        .build(),
-                    WriteBatch.builder(Customer.class)
-                        .mappedTableResource(mappedTable)
-                        .addDeleteItem(DeleteItemEnhancedRequest.builder()
-                            .key(key2)
-                            .build())
-                        .build())
-                .build();
-
-            // Delete these two items from the table.
-            enhancedClient.batchWriteItem(request);
-            System.out.println("Records deleted");
-
-        } catch (DynamoDbException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
+                DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                                .dynamoDbClient(ddb)
+                                .build();
+                deleteBatchRecords(enhancedClient);
+                ddb.close();
         }
-    }
+
+        public static void deleteBatchRecords(DynamoDbEnhancedClient enhancedClient) {
+                try {
+                        DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer",
+                                        TableSchema.fromBean(Customer.class));
+                        Key key1 = Key.builder()
+                                        .partitionValue("id110")
+                                        .build();
+
+                        Key key2 = Key.builder()
+                                        .partitionValue("id120")
+                                        .build();
+
+                        BatchWriteItemEnhancedRequest request = BatchWriteItemEnhancedRequest.builder()
+                                        .writeBatches(WriteBatch.builder(Customer.class)
+                                                        .mappedTableResource(mappedTable)
+                                                        .addDeleteItem(DeleteItemEnhancedRequest.builder()
+                                                                        .key(key1)
+                                                                        .build())
+                                                        .build(),
+                                                        WriteBatch.builder(Customer.class)
+                                                                        .mappedTableResource(mappedTable)
+                                                                        .addDeleteItem(DeleteItemEnhancedRequest
+                                                                                        .builder()
+                                                                                        .key(key2)
+                                                                                        .build())
+                                                                        .build())
+                                        .build();
+
+                        // Delete these two items from the table.
+                        enhancedClient.batchWriteItem(request);
+                        System.out.println("Records deleted");
+
+                } catch (DynamoDbException e) {
+                        System.err.println(e.getMessage());
+                        System.exit(1);
+                }
+        }
 }
- // snippet-end:[dynamodb.java2.mapping.batchdelete.main]
+// snippet-end:[dynamodb.java2.mapping.batchdelete.main]

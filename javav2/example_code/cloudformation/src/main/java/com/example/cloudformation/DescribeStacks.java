@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DescribeStacks.java demonstrates how to obtain information about stacks.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CloudFormation]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.cloudformation;
 
@@ -21,7 +14,8 @@ import java.util.List;
 // snippet-end:[cf.java2.get_stacks.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,12 +25,13 @@ public class DescribeStacks {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         CloudFormationClient cfClient = CloudFormationClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         describeAllStacks(cfClient);
         cfClient.close();
     }
+
     public static void describeAllStacks(CloudFormationClient cfClient) {
         try {
             DescribeStacksResponse stacksResponse = cfClient.describeStacks();

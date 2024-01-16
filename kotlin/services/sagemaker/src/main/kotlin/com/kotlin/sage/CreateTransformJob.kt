@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[CreateTransformJob.kt demonstrates how to start a transform job that uses a trained model to get inferences on a dataset.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Amazon SageMaker]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.sage
 

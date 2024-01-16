@@ -1,7 +1,7 @@
-# frozen_string_literal: true
-
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+
+# frozen_string_literal: true
 
 # snippet-start:[rds.ruby.listInstanceSnapshots]
 require "aws-sdk-rds" # v2: require 'aws-sdk'

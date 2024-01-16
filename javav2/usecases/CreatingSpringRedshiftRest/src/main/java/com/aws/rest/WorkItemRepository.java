@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -33,15 +31,15 @@ public class WorkItemRepository {
 
     // Specify the database name, the database user, and the cluster Id value.
     private static final String database = "dev";
-    private static final String dbUser ="awsuser";
+    private static final String dbUser = "awsuser";
     private static final String clusterId = "redshift-cluster-1";
 
     RedshiftDataClient getClient() {
         Region region = Region.US_WEST_2;
         return RedshiftDataClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
     }
 
     // Return items from the work table.
@@ -54,20 +52,19 @@ public class WorkItemRepository {
             sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work";
             ExecuteStatementResponse response = executeAll(sqlStatement);
             String id = response.id();
-            System.out.println("The identifier of the statement is "+id);
+            System.out.println("The identifier of the statement is " + id);
             checkStatement(id);
             return getResults(id);
         } else {
             sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
-                "FROM work WHERE username = :username and archive = :arch ;";
+                    "FROM work WHERE username = :username and archive = :arch ;";
 
             parameters = List.of(
-                param("username", username),
-                param("arch", arch)
-            );
-            ExecuteStatementResponse response = execute(sqlStatement,parameters);
+                    param("username", username),
+                    param("arch", arch));
+            ExecuteStatementResponse response = execute(sqlStatement, parameters);
             String id = response.id();
-            System.out.println("The identifier of the statement is "+id);
+            System.out.println("The identifier of the statement is " + id);
             checkStatement(id);
             return getResults(id);
         }
@@ -76,15 +73,15 @@ public class WorkItemRepository {
     List<WorkItem> getResults(String statementId) {
         try {
             GetStatementResultRequest resultRequest = GetStatementResultRequest.builder()
-                .id(statementId)
-                .build();
+                    .id(statementId)
+                    .build();
 
             GetStatementResultResponse response = getClient().getStatementResult(resultRequest);
             return response
-                .records()
-                .stream()
-                .map(WorkItem::from)
-                .collect(Collectors.toUnmodifiableList());
+                    .records()
+                    .stream()
+                    .map(WorkItem::from)
+                    .collect(Collectors.toUnmodifiableList());
 
         } catch (RedshiftDataException e) {
             System.err.println(e.getMessage());
@@ -94,15 +91,15 @@ public class WorkItemRepository {
     }
 
     // Update the work table.
-    void flipItemArchive(String sqlStatement, List<SqlParameter> parameters ) {
+    void flipItemArchive(String sqlStatement, List<SqlParameter> parameters) {
         try {
             ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
-                .clusterIdentifier(clusterId)
-                .database(database)
-                .dbUser(dbUser)
-                .sql(sqlStatement)
-                .parameters(parameters)
-                .build();
+                    .clusterIdentifier(clusterId)
+                    .database(database)
+                    .dbUser(dbUser)
+                    .sql(sqlStatement)
+                    .parameters(parameters)
+                    .build();
 
             getClient().executeStatement(statementRequest);
 
@@ -112,18 +109,18 @@ public class WorkItemRepository {
         }
     }
 
-    void checkStatement(String sqlId ) {
+    void checkStatement(String sqlId) {
         try {
             DescribeStatementRequest statementRequest = DescribeStatementRequest.builder()
-                .id(sqlId)
-                .build() ;
+                    .id(sqlId)
+                    .build();
 
             // Wait until the sql statement processing is finished.
             String status;
             while (true) {
                 DescribeStatementResponse response = getClient().describeStatement(statementRequest);
                 status = response.statusAsString();
-                System.out.println("..."+status);
+                System.out.println("..." + status);
 
                 if (status.compareTo("FINISHED") == 0) {
                     break;
@@ -140,22 +137,22 @@ public class WorkItemRepository {
 
     ExecuteStatementResponse execute(String sqlStatement, List<SqlParameter> parameters) {
         ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
-            .clusterIdentifier(clusterId)
-            .database(database)
-            .dbUser(dbUser)
-            .sql(sqlStatement)
-            .parameters(parameters)
-            .build();
+                .clusterIdentifier(clusterId)
+                .database(database)
+                .dbUser(dbUser)
+                .sql(sqlStatement)
+                .parameters(parameters)
+                .build();
         return getClient().executeStatement(sqlRequest);
     }
 
     ExecuteStatementResponse executeAll(String sqlStatement) {
         ExecuteStatementRequest sqlRequest = ExecuteStatementRequest.builder()
-            .clusterIdentifier(clusterId)
-            .database(database)
-            .dbUser(dbUser)
-            .sql(sqlStatement)
-            .build();
+                .clusterIdentifier(clusterId)
+                .database(database)
+                .dbUser(dbUser)
+                .sql(sqlStatement)
+                .build();
         return getClient().executeStatement(sqlRequest);
     }
 
@@ -164,15 +161,14 @@ public class WorkItemRepository {
     }
 
     // Update the work table.
-    public void flipItemArchive(String id ) {
+    public void flipItemArchive(String id) {
         String arc = "1";
         String sqlStatement = "update work set archive = :arc where idwork =:id ";
         List<SqlParameter> parameters = List.of(
-            param("arc", arc),
-            param("id", id)
-        );
+                param("arc", arc),
+                param("id", id));
 
-        flipItemArchive(sqlStatement,parameters);
+        flipItemArchive(sqlStatement, parameters);
     }
 
     public String injectNewSubmission(WorkItem item) {
@@ -192,16 +188,15 @@ public class WorkItemRepository {
             java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
 
             String sql = "INSERT INTO work (idwork, username, date, description, guide, status, archive) VALUES" +
-                "(:idwork, :username, :date, :description, :guide, :status, :archive);";
+                    "(:idwork, :username, :date, :description, :guide, :status, :archive);";
             List<SqlParameter> paremeters = List.of(
-                param("idwork", workId),
-                param("username", name),
-                param("date", sqlDate.toString()),
-                param("description", description),
-                param("guide", guide),
-                param("status", status),
-                param("archive", archived)
-            );
+                    param("idwork", workId),
+                    param("username", name),
+                    param("date", sqlDate.toString()),
+                    param("description", description),
+                    param("guide", guide),
+                    param("status", status),
+                    param("archive", archived));
 
             ExecuteStatementResponse result = execute(sql, paremeters);
             System.out.println(result.toString());
@@ -212,4 +207,3 @@ public class WorkItemRepository {
         return "";
     }
 }
-

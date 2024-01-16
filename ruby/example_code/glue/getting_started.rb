@@ -1,7 +1,7 @@
-# frozen_string_literal: true
-
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+
+# frozen_string_literal: true
 
 # To run this demo, you will need Ruby 2.6 or later, plus dependencies.
 # For more information, see:

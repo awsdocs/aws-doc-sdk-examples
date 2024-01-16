@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[ListCollections.kt demonstrates how to list the available Amazon Rekognition collections.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Rekognition]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.rekognition
 
 // snippet-start:[rekognition.kotlin.list_collections.import]

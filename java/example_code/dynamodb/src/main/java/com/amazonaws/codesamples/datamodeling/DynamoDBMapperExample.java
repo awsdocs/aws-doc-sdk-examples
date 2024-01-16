@@ -1,26 +1,5 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.amazonaws.codesamples.datamodeling;
 
 // snippet-start:[dynamodb.java.codeexample.DynamoDBMapperExample.import]
@@ -138,8 +117,9 @@ public class DynamoDBMapperExample {
         @Override
         public String toString() {
             return "Book [ISBN=" + ISBN + ", bookAuthors=" + bookAuthors + ", dimensionType= "
-                + dimensionType.getHeight() + " X " + dimensionType.getLength() + " X " + dimensionType.getThickness()
-                + ", Id=" + id + ", Title=" + title + "]";
+                    + dimensionType.getHeight() + " X " + dimensionType.getLength() + " X "
+                    + dimensionType.getThickness()
+                    + ", Id=" + id + ", Title=" + title + "]";
         }
     }
 
@@ -184,10 +164,9 @@ public class DynamoDBMapperExample {
             try {
                 if (itemDimensions != null) {
                     dimension = String.format("%s x %s x %s", itemDimensions.getLength(), itemDimensions.getHeight(),
-                        itemDimensions.getThickness());
+                            itemDimensions.getThickness());
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return dimension;
@@ -204,8 +183,7 @@ public class DynamoDBMapperExample {
                     itemDimension.setHeight(data[1].trim());
                     itemDimension.setThickness(data[2].trim());
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -213,4 +191,4 @@ public class DynamoDBMapperExample {
         }
     }
 }
-// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperExample] 
+// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperExample]

@@ -1,7 +1,5 @@
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[lookoutvision.java2.list_model_packaging_jobs.complete]
 
@@ -41,7 +39,8 @@ public class ListModelPackagingJobs {
             LookoutVisionClient lfvClient = LookoutVisionClient.builder().build();
 
             // Get a list of model packaging jobs in the supplied project.
-            List<ModelPackagingJobMetadata> modelPackagingJobs = EdgePackages.listModelPackagingJobs(lfvClient, projectName);
+            List<ModelPackagingJobMetadata> modelPackagingJobs = EdgePackages.listModelPackagingJobs(lfvClient,
+                    projectName);
 
             System.out.println(String.format("Project: %s", projectName));
 

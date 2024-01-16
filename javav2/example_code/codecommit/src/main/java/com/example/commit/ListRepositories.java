@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListRepositories.java demonstrates how to obtain information about all repositories.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CodeCommit]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.commit;
 
@@ -21,7 +14,8 @@ import java.util.List;
 // snippet-end:[codecommit.java2.get_repos.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -32,8 +26,8 @@ public class ListRepositories {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listRepos(codeCommitClient);
         codeCommitClient.close();
@@ -55,4 +49,3 @@ public class ListRepositories {
     }
 }
 // snippet-end:[codecommit.java2.get_repos.main]
-

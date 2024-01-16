@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -16,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/items:report")
@@ -27,12 +24,12 @@ public class ReportController {
     private final WriteExcel writeExcel;
 
     private final WriteExcel.SendMessages sm;
+
     @Autowired()
     ReportController(
-        WorkItemRepository repository,
-        WriteExcel writeExcel,
-        WriteExcel.SendMessages sm
-    ) {
+            WorkItemRepository repository,
+            WriteExcel writeExcel,
+            WriteExcel.SendMessages sm) {
         this.repository = repository;
         this.writeExcel = writeExcel;
         this.sm = sm;

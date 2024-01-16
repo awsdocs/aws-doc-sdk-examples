@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[CreateDBInstance.kt demonstrates how to create an Amazon Relational Database Service (RDS) instance and wait for it to be in an available state.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Relational Database Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.rds
 

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[SetBucketPolicy.java demonstrates how to add a bucket policy to an existing Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -25,7 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 // snippet-end:[s3.java2.set_bucket_policy.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -35,13 +30,13 @@ public class SetBucketPolicy {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <bucketName> <polFile>
+                Usage:
+                    <bucketName> <polFile>
 
-            Where:
-                bucketName - The Amazon S3 bucket to set the policy on.
-                polFile - A JSON file containing the policy (see the Amazon S3 Readme for an example).\s
-            """;
+                Where:
+                    bucketName - The Amazon S3 bucket to set the policy on.
+                    polFile - A JSON file containing the policy (see the Amazon S3 Readme for an example).\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,8 +48,8 @@ public class SetBucketPolicy {
         String policyText = getBucketPolicyFromFile(polFile);
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         setPolicy(s3, bucketName, policyText);
         s3.close();
@@ -69,9 +64,9 @@ public class SetBucketPolicy {
 
         try {
             PutBucketPolicyRequest policyReq = PutBucketPolicyRequest.builder()
-                .bucket(bucketName)
-                .policy(policyText)
-                .build();
+                    .bucket(bucketName)
+                    .policy(policyText)
+                    .build();
 
             s3.putBucketPolicy(policyReq);
 
@@ -110,4 +105,3 @@ public class SetBucketPolicy {
     }
 }
 // snippet-end:[s3.java2.set_bucket_policy.main]
-

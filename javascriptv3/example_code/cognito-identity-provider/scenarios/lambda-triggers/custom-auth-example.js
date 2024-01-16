@@ -1,6 +1,7 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+/*
 Use this script to verify the custom authentication flow Lambda triggers.
 
 Several Lambda triggers must be turned on and set up in Amazon Cognito

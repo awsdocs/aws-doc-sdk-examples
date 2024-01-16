@@ -1,13 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DeleteStack.java demonstrates how to delete an existing stack.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CloudFormation]
-
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.cloudformation;
 
@@ -20,7 +12,8 @@ import software.amazon.awssdk.services.cloudformation.model.DeleteStackRequest;
 // snippet-end:[cf.java2.delete_stack.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,12 +24,12 @@ public class DeleteStack {
 
         final String usage = """
 
-            Usage:
-                <stackName>\s
+                Usage:
+                    <stackName>\s
 
-            Where:
-                stackName - The name of the AWS CloudFormation stack.\s
-            """;
+                Where:
+                    stackName - The name of the AWS CloudFormation stack.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,8 +39,8 @@ public class DeleteStack {
         String stackName = args[0];
         Region region = Region.US_EAST_1;
         CloudFormationClient cfClient = CloudFormationClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         deleteSpecificTemplate(cfClient, stackName);
         cfClient.close();
@@ -56,8 +49,8 @@ public class DeleteStack {
     public static void deleteSpecificTemplate(CloudFormationClient cfClient, String stackName) {
         try {
             DeleteStackRequest stackRequest = DeleteStackRequest.builder()
-                .stackName(stackName)
-                .build();
+                    .stackName(stackName)
+                    .build();
 
             cfClient.deleteStack(stackRequest);
             System.out.println("The AWS CloudFormation stack was successfully deleted!");

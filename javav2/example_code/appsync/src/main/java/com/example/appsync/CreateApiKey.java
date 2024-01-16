@@ -1,24 +1,20 @@
-// snippet-sourcedescription:[CreateApiKey.java demonstrates how to create a unique key.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS AppSync]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.appsync;
 
-//snippet-start:[appsync.java2.create_key.main]
-//snippet-start:[appsync.java2.create_key.import]
+// snippet-start:[appsync.java2.create_key.main]
+// snippet-start:[appsync.java2.create_key.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.AppSyncException;
 import software.amazon.awssdk.services.appsync.model.CreateApiKeyRequest;
 import software.amazon.awssdk.services.appsync.model.CreateApiKeyResponse;
-//snippet-end:[appsync.java2.create_key.import]
+// snippet-end:[appsync.java2.create_key.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +24,12 @@ public class CreateApiKey {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:     <apiId>\s
+                Usage:     <apiId>\s
 
-            Where:
-                apiId - the id of the API (You can get this value from the AWS Management Console).\s
+                Where:
+                    apiId - the id of the API (You can get this value from the AWS Management Console).\s
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,16 +41,16 @@ public class CreateApiKey {
                 .region(Region.US_EAST_1)
                 .build();
 
-        String id = createKey(appSyncClient, apiId) ;
-        System.out.println("The Id of the new Key is "+id);
+        String id = createKey(appSyncClient, apiId);
+        System.out.println("The Id of the new Key is " + id);
     }
 
     public static String createKey(AppSyncClient appSyncClient, String apiId) {
         try {
             CreateApiKeyRequest apiKeyRequest = CreateApiKeyRequest.builder()
-                .apiId(apiId)
-                .description("Created using the AWS SDK for Java")
-                .build();
+                    .apiId(apiId)
+                    .description("Created using the AWS SDK for Java")
+                    .build();
 
             CreateApiKeyResponse response = appSyncClient.createApiKey(apiKeyRequest);
             return response.apiKey().id();
@@ -66,4 +62,4 @@ public class CreateApiKey {
         return "";
     }
 }
-//snippet-end:[appsync.java2.create_key.main]
+// snippet-end:[appsync.java2.create_key.main]

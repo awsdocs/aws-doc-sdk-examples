@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.lex.*;
 import com.google.gson.Gson;
@@ -31,9 +29,9 @@ public class AmazonLexTest {
     @BeforeAll
     public static void setUp() {
         lexClient = LexModelBuildingClient.builder()
-           .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_WEST_2)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -43,85 +41,89 @@ public class AmazonLexTest {
         intentName = values.getIntentName();
         intentVersion = values.getIntentVersion();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-        try (InputStream input = AmazonLexTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            prop.load(input);
-            botName = prop.getProperty("botName");
-            intentName = prop.getProperty("intentName");
-            intentVersion = prop.getProperty("intentVersion");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * AmazonLexTest.class.getClassLoader().getResourceAsStream("config.properties")
+         * ) {
+         * Properties prop = new Properties();
+         * 
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * prop.load(input);
+         * botName = prop.getProperty("botName");
+         * intentName = prop.getProperty("intentName");
+         * intentVersion = prop.getProperty("intentVersion");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
-   @Test
-   @Tag("IntegrationTest")
-   @Order(1)
-   public void PutBot() {
-       assertDoesNotThrow(() ->PutBot.createBot(lexClient, botName, intentName, intentVersion));
-       System.out.println("Test 1 passed");
-   }
+    @Test
+    @Tag("IntegrationTest")
+    @Order(1)
+    public void PutBot() {
+        assertDoesNotThrow(() -> PutBot.createBot(lexClient, botName, intentName, intentVersion));
+        System.out.println("Test 1 passed");
+    }
 
-  @Test
-  @Tag("IntegrationTest")
-  @Order(2)
-   public void GetBots() {
-       assertDoesNotThrow(() -> GetBots.getAllBots(lexClient));
-       System.out.println("Test 2 passed");
-   }
+    @Test
+    @Tag("IntegrationTest")
+    @Order(2)
+    public void GetBots() {
+        assertDoesNotThrow(() -> GetBots.getAllBots(lexClient));
+        System.out.println("Test 2 passed");
+    }
 
-   @Test
-   @Tag("IntegrationTest")
-   @Order(3)
-   public void GetIntent() {
-       assertDoesNotThrow(() ->GetIntent.getSpecificIntent(lexClient, intentName, intentVersion));
-       System.out.println("Test 3 passed");
-   }
+    @Test
+    @Tag("IntegrationTest")
+    @Order(3)
+    public void GetIntent() {
+        assertDoesNotThrow(() -> GetIntent.getSpecificIntent(lexClient, intentName, intentVersion));
+        System.out.println("Test 3 passed");
+    }
 
-   @Test
-   @Tag("IntegrationTest")
-   @Order(4)
-   public void GetSlotTypes() {
-       assertDoesNotThrow(() ->GetSlotTypes.getSlotsInfo(lexClient));
-       System.out.println("Test 4 passed");
-   }
+    @Test
+    @Tag("IntegrationTest")
+    @Order(4)
+    public void GetSlotTypes() {
+        assertDoesNotThrow(() -> GetSlotTypes.getSlotsInfo(lexClient));
+        System.out.println("Test 4 passed");
+    }
 
-   @Test
-   @Tag("IntegrationTest")
-   @Order(5)
-   public void GetBotStatus() {
-       assertDoesNotThrow(() ->GetBotStatus.getStatus(lexClient,botName));
-       System.out.println("Test 5 passed");
-   }
+    @Test
+    @Tag("IntegrationTest")
+    @Order(5)
+    public void GetBotStatus() {
+        assertDoesNotThrow(() -> GetBotStatus.getStatus(lexClient, botName));
+        System.out.println("Test 5 passed");
+    }
 
-   @Test
-   @Tag("IntegrationTest")
-   @Order(6)
-   public void DeleteBot() {
-       assertDoesNotThrow(() ->DeleteBot.deleteSpecificBot(lexClient, botName));
-       System.out.println("Test 6 passed");
-   }
+    @Test
+    @Tag("IntegrationTest")
+    @Order(6)
+    public void DeleteBot() {
+        assertDoesNotThrow(() -> DeleteBot.deleteSpecificBot(lexClient, botName));
+        System.out.println("Test 6 passed");
+    }
+
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/lex";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -148,4 +150,3 @@ public class AmazonLexTest {
 
     }
 }
-

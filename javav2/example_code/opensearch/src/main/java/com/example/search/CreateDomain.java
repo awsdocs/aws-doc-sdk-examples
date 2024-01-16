@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[CreateDomain.java demonstrates how to create a new Amazon OpenSearch Service domain.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon OpenSearch Service]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.search;
 
 // snippet-start:[opensearch.java2.create_domain.main]
@@ -22,7 +17,8 @@ import software.amazon.awssdk.services.opensearch.model.OpenSearchException;
 // snippet-end:[opensearch.java2.create_domain.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,12 +28,12 @@ public class CreateDomain {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <domainName>
+                Usage:
+                    <domainName>
 
-            Where:
-                domainName - The name of the domain to create.
-            """;
+                Where:
+                    domainName - The name of the domain to create.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,8 +43,8 @@ public class CreateDomain {
         String domainName = args[0];
         Region region = Region.US_EAST_1;
         OpenSearchClient searchClient = OpenSearchClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         createNewDomain(searchClient, domainName);
         System.out.println("Done");
@@ -57,30 +53,30 @@ public class CreateDomain {
     public static void createNewDomain(OpenSearchClient searchClient, String domainName) {
         try {
             ClusterConfig clusterConfig = ClusterConfig.builder()
-                .dedicatedMasterEnabled(true)
-                .dedicatedMasterCount(3)
-                .dedicatedMasterType("t2.small.search")
-                .instanceType("t2.small.search")
-                .instanceCount(5)
-                .build();
+                    .dedicatedMasterEnabled(true)
+                    .dedicatedMasterCount(3)
+                    .dedicatedMasterType("t2.small.search")
+                    .instanceType("t2.small.search")
+                    .instanceCount(5)
+                    .build();
 
             EBSOptions ebsOptions = EBSOptions.builder()
-                .ebsEnabled(true)
-                .volumeSize(10)
-                .volumeType(VolumeType.GP2)
-                .build();
+                    .ebsEnabled(true)
+                    .volumeSize(10)
+                    .volumeType(VolumeType.GP2)
+                    .build();
 
             NodeToNodeEncryptionOptions encryptionOptions = NodeToNodeEncryptionOptions.builder()
-                .enabled(true)
-                .build();
+                    .enabled(true)
+                    .build();
 
             CreateDomainRequest domainRequest = CreateDomainRequest.builder()
-                .domainName(domainName)
-                .engineVersion("OpenSearch_1.0")
-                .clusterConfig(clusterConfig)
-                .ebsOptions(ebsOptions)
-                .nodeToNodeEncryptionOptions(encryptionOptions)
-                .build();
+                    .domainName(domainName)
+                    .engineVersion("OpenSearch_1.0")
+                    .clusterConfig(clusterConfig)
+                    .ebsOptions(ebsOptions)
+                    .nodeToNodeEncryptionOptions(encryptionOptions)
+                    .build();
 
             System.out.println("Sending domain creation request...");
             CreateDomainResponse createResponse = searchClient.createDomain(domainRequest);

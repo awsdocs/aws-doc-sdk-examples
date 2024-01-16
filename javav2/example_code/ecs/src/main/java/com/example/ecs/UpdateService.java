@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[UpdateService.java demonstrates how to update the task placement strategies and constraints on an Amazon Elastic Container Service (Amazon ECS) service.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Elastic Container Service]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ecs;
 
@@ -17,7 +12,8 @@ import software.amazon.awssdk.services.ecs.model.UpdateServiceRequest;
 // snippet-end:[ecs.java2.update_service.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,13 +26,13 @@ public class UpdateService {
 
         final String usage = """
 
-            Usage:
-               <clusterName> <serviceArn>\s
+                Usage:
+                   <clusterName> <serviceArn>\s
 
-            Where:
-              clusterName - The cluster name.
-              serviceArn - The service ARN value.
-            """;
+                Where:
+                  clusterName - The cluster name.
+                  serviceArn - The service ARN value.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,8 +43,8 @@ public class UpdateService {
         String serviceArn = args[1];
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         updateSpecificService(ecsClient, clusterName, serviceArn);
         ecsClient.close();
@@ -57,10 +53,10 @@ public class UpdateService {
     public static void updateSpecificService(EcsClient ecsClient, String clusterName, String serviceArn) {
         try {
             UpdateServiceRequest serviceRequest = UpdateServiceRequest.builder()
-                .cluster(clusterName)
-                .service(serviceArn)
-                .desiredCount(0)
-                .build();
+                    .cluster(clusterName)
+                    .service(serviceArn)
+                    .desiredCount(0)
+                    .build();
 
             ecsClient.updateService(serviceRequest);
             System.out.println("The service was modified");

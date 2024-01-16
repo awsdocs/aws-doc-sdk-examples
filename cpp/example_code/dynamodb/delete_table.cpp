@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -13,12 +11,12 @@
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  **/
-//snippet-start:[dynamodb.cpp.delete_table.inc]
+// snippet-start:[dynamodb.cpp.delete_table.inc]
 #include <aws/core/Aws.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/DeleteTableRequest.h>
 #include <iostream>
-//snippet-end:[dynamodb.cpp.delete_table.inc]
+// snippet-end:[dynamodb.cpp.delete_table.inc]
 #include "dynamodb_samples.h"
 
 

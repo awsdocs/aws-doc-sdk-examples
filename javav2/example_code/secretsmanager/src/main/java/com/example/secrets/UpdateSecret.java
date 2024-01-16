@@ -1,24 +1,19 @@
-//snippet-sourcedescription:[UpdateSecret.java demonstrates how to update a secret for AWS Secrets Manager.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Secrets Manager]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.secrets;
 
-//snippet-start:[secretsmanager.java2.update_secret.main]
-//snippet-start:[secretsmanager.java2.update_secret.import]
+// snippet-start:[secretsmanager.java2.update_secret.main]
+// snippet-start:[secretsmanager.java2.update_secret.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerException;
 import software.amazon.awssdk.services.secretsmanager.model.UpdateSecretRequest;
-//snippet-end:[secretsmanager.java2.update_secret.import]
+// snippet-end:[secretsmanager.java2.update_secret.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,13 +23,13 @@ public class UpdateSecret {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <secretName> <secretValue>
+                Usage:
+                    <secretName> <secretValue>
 
-            Where:
-                secretName - The name of the secret (for example, tutorials/MyFirstSecret).\s
-                secretValue - The secret value that is updated.\s
-            """;
+                Where:
+                    secretName - The name of the secret (for example, tutorials/MyFirstSecret).\s
+                    secretValue - The secret value that is updated.\s
+                """;
 
         if (args.length < 2) {
             System.out.println(usage);
@@ -45,8 +40,8 @@ public class UpdateSecret {
         String secretValue = args[1];
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         updateMySecret(secretsClient, secretName, secretValue);
         secretsClient.close();
@@ -55,9 +50,9 @@ public class UpdateSecret {
     public static void updateMySecret(SecretsManagerClient secretsClient, String secretName, String secretValue) {
         try {
             UpdateSecretRequest secretRequest = UpdateSecretRequest.builder()
-                .secretId(secretName)
-                .secretString(secretValue)
-                .build();
+                    .secretId(secretName)
+                    .secretString(secretValue)
+                    .build();
 
             secretsClient.updateSecret(secretRequest);
 
@@ -67,4 +62,4 @@ public class UpdateSecret {
         }
     }
 }
-//snippet-end:[secretsmanager.java2.update_secret.main]
+// snippet-end:[secretsmanager.java2.update_secret.main]

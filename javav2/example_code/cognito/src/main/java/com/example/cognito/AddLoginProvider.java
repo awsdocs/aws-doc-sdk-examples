@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[AddLoginProvider.java demonstrates how to associate an Amazon Cognito identity pool with an identity provider.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Cognito]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.cognito;
 
-//snippet-start:[cognito.java2.add_login_provider.main]
-//snippet-start:[cognito.java2.add_login_provider.import]
+// snippet-start:[cognito.java2.add_login_provider.main]
+// snippet-start:[cognito.java2.add_login_provider.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentity.model.CognitoIdentityProvider;
@@ -19,10 +13,11 @@ import software.amazon.awssdk.services.cognitoidentity.model.UpdateIdentityPoolR
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 import java.util.ArrayList;
 import java.util.List;
-//snippet-end:[cognito.java2.add_login_provider.import]
+// snippet-end:[cognito.java2.add_login_provider.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,15 +27,15 @@ public class AddLoginProvider {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <appId> <identityPoolName> <identityPoolId> <providerName>
+                Usage:
+                    <appId> <identityPoolName> <identityPoolId> <providerName>
 
-            Where:
-                appId - The application ID value from the login provider.
-                identityPoolName - The name of your identity pool.
-                identityPoolId - The Id value of your identity pool.
-                providerName - The provider name (i.e., cognito-idp.us-east-1.amazonaws.com/us-east-1_Taz4Yxxxx).
-            """;
+                Where:
+                    appId - The application ID value from the login provider.
+                    identityPoolName - The name of your identity pool.
+                    identityPoolId - The Id value of your identity pool.
+                    providerName - The provider name (i.e., cognito-idp.us-east-1.amazonaws.com/us-east-1_Taz4Yxxxx).
+                """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -53,33 +48,33 @@ public class AddLoginProvider {
         String providerName = args[3];
 
         CognitoIdentityClient cognitoclient = CognitoIdentityClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         setLoginProvider(cognitoclient, appId, identityPoolName, identityPoolId, providerName);
         cognitoclient.close();
     }
 
     public static void setLoginProvider(CognitoIdentityClient cognitoclient,
-                                        String appId,
-                                        String identityPoolName,
-                                        String identityPoolId,
-                                        String providerName) {
+            String appId,
+            String identityPoolName,
+            String identityPoolId,
+            String providerName) {
 
         CognitoIdentityProvider identityProvider = CognitoIdentityProvider.builder()
-            .providerName(providerName)
-            .clientId(appId)
-            .build();
+                .providerName(providerName)
+                .clientId(appId)
+                .build();
 
         List<CognitoIdentityProvider> proList = new ArrayList<>();
         proList.add(identityProvider);
         try {
             UpdateIdentityPoolRequest poolRequest = UpdateIdentityPoolRequest.builder()
-                .allowUnauthenticatedIdentities(true)
-                .identityPoolName(identityPoolName)
-                .identityPoolId(identityPoolId)
-                .cognitoIdentityProviders(proList)
-                .build();
+                    .allowUnauthenticatedIdentities(true)
+                    .identityPoolName(identityPoolName)
+                    .identityPoolId(identityPoolId)
+                    .cognitoIdentityProviders(proList)
+                    .build();
 
             UpdateIdentityPoolResponse response = cognitoclient.updateIdentityPool(poolRequest);
             List<CognitoIdentityProvider> providers = response.cognitoIdentityProviders();
@@ -94,4 +89,4 @@ public class AddLoginProvider {
         }
     }
 }
-//snippet-end:[cognito.java2.add_login_provider.main]
+// snippet-end:[cognito.java2.add_login_provider.main]

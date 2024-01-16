@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListAccountAliases.kt demonstrates how to list all aliases associated with an AWS account.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Identity and Access Management (IAM)]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.iam
 

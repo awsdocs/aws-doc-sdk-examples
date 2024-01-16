@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[DescribeLimits.kt demonstrates how to display the shard limit and usage for a given account.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Amazon Kinesis]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.kinesis
 

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetBots.java demonstrates how to return information about Amazon Lex chatbots.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Lex]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.lex;
 
@@ -20,7 +14,8 @@ import java.util.List;
 // snippet-end:[lex.java2.get_bots.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,8 +25,8 @@ public class GetBots {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getAllBots(lexClient);
         lexClient.close();

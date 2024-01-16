@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.fsa.services;
 
@@ -20,8 +18,8 @@ public class TranslateService {
     private static synchronized TranslateAsyncClient getTranslateAsyncClient() {
         if (translateAsyncClient == null) {
             translateAsyncClient = TranslateAsyncClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+                    .region(Region.US_EAST_1)
+                    .build();
         }
         return translateAsyncClient;
     }
@@ -29,10 +27,10 @@ public class TranslateService {
     public String translateText(String lanCode, String text) {
         try {
             TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                .sourceLanguageCode(lanCode)
-                .targetLanguageCode("en")
-                .text(text)
-                .build();
+                    .sourceLanguageCode(lanCode)
+                    .targetLanguageCode("en")
+                    .text(text)
+                    .build();
 
             CompletableFuture<?> future = getTranslateAsyncClient().translateText(textRequest);
             TranslateTextResponse textResponse = (TranslateTextResponse) future.join();

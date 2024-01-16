@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteDomain.java demonstrates how to delete an Amazon OpenSearch Service domain.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon OpenSearch Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.search;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.opensearch.model.DeleteDomainRequest;
 // snippet-end:[opensearch.java2.delete_domain.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +23,12 @@ public class DeleteDomain {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <domainName>
+                Usage:
+                    <domainName>
 
-            Where:
-                domainName - The name of the domain to delete.
-            """;
+                Where:
+                    domainName - The name of the domain to delete.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,8 +38,8 @@ public class DeleteDomain {
         String domainName = args[0];
         Region region = Region.US_EAST_1;
         OpenSearchClient searchClient = OpenSearchClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         deleteSpecificDomain(searchClient, domainName);
         System.out.println("Done");
@@ -53,8 +48,8 @@ public class DeleteDomain {
     public static void deleteSpecificDomain(OpenSearchClient searchClient, String domainName) {
         try {
             DeleteDomainRequest domainRequest = DeleteDomainRequest.builder()
-                .domainName(domainName)
-                .build();
+                    .domainName(domainName)
+                    .build();
 
             searchClient.deleteDomain(domainRequest);
             System.out.println(domainName + " was successfully deleted.");

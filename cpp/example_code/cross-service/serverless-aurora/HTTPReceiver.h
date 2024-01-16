@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 #ifndef AWSDOC_CROSSSERVICE_HTTPRECEIVER_H
 #define AWSDOC_CROSSSERVICE_HTTPRECEIVER_H

@@ -1,3 +1,8 @@
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import { describe, it, vi, expect } from "vitest";
 import { CloudWatchQuery } from "../scenarios/large-query/cloud-watch-query.js";
 import {

@@ -1,11 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[AWS Lambda]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[lambda.java2.ListLambdaFunctions.complete]
 package com.example.lambda;
@@ -21,7 +15,8 @@ import java.util.List;
 // snippet-end:[lambda.java2.list.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,8 +26,8 @@ public class ListLambdaFunctions {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listFunctions(awsLambda);
         awsLambda.close();

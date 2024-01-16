@@ -1,7 +1,7 @@
-// snippet-start:[dynamodb.dotNET.trydax.05-Scan-Test] 
-
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+// snippet-start:[dynamodb.dotNET.trydax.05-Scan-Test] 
 
 using System;
 using System.Threading.Tasks;

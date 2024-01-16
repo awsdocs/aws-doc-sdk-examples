@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import com.example.fsa.services.DetectSentimentService;
 import com.example.fsa.services.ExtractTextService;
 import com.example.fsa.services.PollyService;
@@ -22,9 +21,9 @@ import java.io.InputStream;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FSATests {
 
-    // Specify the key to use. 
+    // Specify the key to use.
     private static final String objectName = "Enter the object name here";
-    
+
     // Specify the bucket name.
     private static final String bucketName = "Enter the bucket name here";
 

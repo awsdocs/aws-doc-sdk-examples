@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ResolveOpsItem.java demonstrates how to resolve an OpsItem for Amazon Simple Systems Management (Amazon SSM).]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon Simple Systems Management]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ssm;
 
@@ -20,7 +13,8 @@ import software.amazon.awssdk.services.ssm.model.OpsItemStatus;
 // snippet-end:[ssm.Java2.resolve_ops.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +24,12 @@ public class ResolveOpsItem {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <opsID>
+                Usage:
+                    <opsID>
 
-            Where:
-                opsID - The Ops item ID value.
-            """;
+                Where:
+                    opsID - The Ops item ID value.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,17 +39,17 @@ public class ResolveOpsItem {
         String opsID = args[0];
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
         setOpsItemStatus(ssmClient, opsID);
     }
 
     public static void setOpsItemStatus(SsmClient ssmClient, String opsID) {
         try {
             UpdateOpsItemRequest opsItemRequest = UpdateOpsItemRequest.builder()
-                .opsItemId(opsID)
-                .status(OpsItemStatus.RESOLVED)
-                .build();
+                    .opsItemId(opsID)
+                    .status(OpsItemStatus.RESOLVED)
+                    .build();
 
             ssmClient.updateOpsItem(opsItemRequest);
 

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ListUsers.java demonstrates how to get list of users in AWS Identitystore.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.identitystore;
 
@@ -19,7 +13,8 @@ import software.amazon.awssdk.services.identitystore.model.User;
 // snippet-end:[Identitystore.java2.list_users.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,14 +25,13 @@ public class ListUsers {
     public static void main(String... args) {
         final String usage = """
 
-            Usage:
-                <identitystoreId>\s
+                Usage:
+                    <identitystoreId>\s
 
-            Where:
-                identitystoreId - The id of the identitystore.\s
+                Where:
+                    identitystoreId - The id of the identitystore.\s
 
-            """;
-
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -64,7 +58,8 @@ public class ListUsers {
                     ListUsersRequest request = ListUsersRequest.builder().identityStoreId(identitystoreId).build();
                     response = identitystore.listUsers(request);
                 } else {
-                    ListUsersRequest request = ListUsersRequest.builder().nextToken(nextToken).identityStoreId(identitystoreId).build();
+                    ListUsersRequest request = ListUsersRequest.builder().nextToken(nextToken)
+                            .identityStoreId(identitystoreId).build();
                     response = identitystore.listUsers(request);
                 }
 
@@ -87,4 +82,4 @@ public class ListUsers {
         return 0;
     }
 }
- // snippet-end:[identitystore.java2.list_users.main]
+// snippet-end:[identitystore.java2.list_users.main]

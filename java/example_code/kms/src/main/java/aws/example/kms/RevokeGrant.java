@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[RevokeGrant.java demonstrates how to evoke a grant to an AWS KMS customer master key.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon KMS]
-//snippet-service:[kms]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-04-08]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package aws.example.kms;
 
@@ -16,10 +9,9 @@ import com.amazonaws.services.kms.model.RevokeGrantRequest;
 
 public class RevokeGrant {
     public static void main(String[] args) {
-        final String USAGE =
-            "To run this example, supply a key id or ARN and a grant id\n" +
-            "Usage: RevokeGrant <key-id> <grant-id>\n" +
-            "Example: RevokeGrant 1234abcd-12ab-34cd-56ef-1234567890ab grant1\n";
+        final String USAGE = "To run this example, supply a key id or ARN and a grant id\n" +
+                "Usage: RevokeGrant <key-id> <grant-id>\n" +
+                "Example: RevokeGrant 1234abcd-12ab-34cd-56ef-1234567890ab grant1\n";
 
         if (args.length != 2) {
             System.out.println(USAGE);

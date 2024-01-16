@@ -1,26 +1,7 @@
-//snippet-sourcedescription:[CreateTableCompositeKey.java demonstrates how to create a DynamoDB table with a composite key.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon DynamoDB]
-//snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-01-15]
-//snippet-sourceauthor:[soo-aws]
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.dynamodb;
+
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -41,17 +22,15 @@ import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class CreateTableCompositeKey
-{
-    public static void main(String[] args)
-    {
+public class CreateTableCompositeKey {
+    public static void main(String[] args) {
         final String USAGE = "\n" +
-            "Usage:\n" +
-            "    CreateTable <table>\n\n" +
-            "Where:\n" +
-            "    table - the table to create.\n\n" +
-            "Example:\n" +
-            "    CreateTable GreetingsTable\n";
+                "Usage:\n" +
+                "    CreateTable <table>\n\n" +
+                "Where:\n" +
+                "    table - the table to create.\n\n" +
+                "Example:\n" +
+                "    CreateTable GreetingsTable\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -66,15 +45,15 @@ public class CreateTableCompositeKey
         System.out.format("* Greeting - sort key\n");
 
         CreateTableRequest request = new CreateTableRequest()
-            .withAttributeDefinitions(
-                  new AttributeDefinition("Language", ScalarAttributeType.S),
-                  new AttributeDefinition("Greeting", ScalarAttributeType.S))
-            .withKeySchema(
-                  new KeySchemaElement("Language", KeyType.HASH),
-                  new KeySchemaElement("Greeting", KeyType.RANGE))
-            .withProvisionedThroughput(
-                  new ProvisionedThroughput(new Long(10), new Long(10)))
-            .withTableName(table_name);
+                .withAttributeDefinitions(
+                        new AttributeDefinition("Language", ScalarAttributeType.S),
+                        new AttributeDefinition("Greeting", ScalarAttributeType.S))
+                .withKeySchema(
+                        new KeySchemaElement("Language", KeyType.HASH),
+                        new KeySchemaElement("Greeting", KeyType.RANGE))
+                .withProvisionedThroughput(
+                        new ProvisionedThroughput(new Long(10), new Long(10)))
+                .withTableName(table_name);
 
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 

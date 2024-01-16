@@ -1,4 +1,6 @@
 #!/bin/bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 if [[ -z $* ]] ; then
     echo 'Supply the name of one of the example classes as an argument.'
     echo 'If there are arguments to the class, put them in quotes after the class name.'

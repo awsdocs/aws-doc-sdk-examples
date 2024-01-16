@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -14,16 +12,16 @@
  *
  **/
 
-//snippet-start:[ec2.cpp.describe_regions.inc]
+// snippet-start:[ec2.cpp.describe_regions.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeRegionsRequest.h>
 #include <aws/ec2/model/DescribeRegionsResponse.h>
-//snippet-end:[ec2.cpp.describe_regions.inc]
-//snippet-start:[ec2.cpp.describe_zones.inc]
+// snippet-end:[ec2.cpp.describe_regions.inc]
+// snippet-start:[ec2.cpp.describe_zones.inc]
 #include <aws/ec2/model/DescribeAvailabilityZonesRequest.h>
 #include <aws/ec2/model/DescribeAvailabilityZonesResponse.h>
-//snippet-end:[ec2.cpp.describe_zones.inc]
+// snippet-end:[ec2.cpp.describe_zones.inc]
 #include <iomanip>
 #include <iostream>
 #include "ec2_samples.h"

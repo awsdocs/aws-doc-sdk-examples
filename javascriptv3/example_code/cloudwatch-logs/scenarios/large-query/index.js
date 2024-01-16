@@ -1,3 +1,5 @@
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { CloudWatchLogsClient } from "@aws-sdk/client-cloudwatch-logs";
 import { CloudWatchQuery } from "./cloud-watch-query.js";
 

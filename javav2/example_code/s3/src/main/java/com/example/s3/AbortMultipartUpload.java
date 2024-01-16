@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[AbortMultipartUpload.java demonstrates how to abort a multipart upload to an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -23,7 +16,8 @@ import java.util.List;
 // snippet-end:[s3.java2.abort_upload.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -34,13 +28,13 @@ public class AbortMultipartUpload {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-              <bucketName> <accountId>\s
+                Usage:
+                  <bucketName> <accountId>\s
 
-            Where:
-              bucketName - the Amazon Simple Storage Service (Amazon S3) bucket.
-              accountId - the id of the account that owns the Amazon S3 bucket.
-            """;
+                Where:
+                  bucketName - the Amazon Simple Storage Service (Amazon S3) bucket.
+                  accountId - the id of the account that owns the Amazon S3 bucket.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -51,8 +45,8 @@ public class AbortMultipartUpload {
         String accountId = args[1];
         Region region = Region.US_WEST_2;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         abortUploads(s3, bucketName, accountId);
         s3.close();
@@ -61,8 +55,8 @@ public class AbortMultipartUpload {
     public static void abortUploads(S3Client s3, String bucketName, String accountId) {
         try {
             ListMultipartUploadsRequest listMultipartUploadsRequest = ListMultipartUploadsRequest.builder()
-                .bucket(bucketName)
-                .build();
+                    .bucket(bucketName)
+                    .build();
 
             ListMultipartUploadsResponse response = s3.listMultipartUploads(listMultipartUploadsRequest);
             List<MultipartUpload> uploads = response.uploads();
@@ -70,11 +64,11 @@ public class AbortMultipartUpload {
             AbortMultipartUploadRequest abortMultipartUploadRequest;
             for (MultipartUpload upload : uploads) {
                 abortMultipartUploadRequest = AbortMultipartUploadRequest.builder()
-                    .bucket(bucketName)
-                    .key(upload.key())
-                    .expectedBucketOwner(accountId)
-                    .uploadId(upload.uploadId())
-                    .build();
+                        .bucket(bucketName)
+                        .key(upload.key())
+                        .expectedBucketOwner(accountId)
+                        .uploadId(upload.uploadId())
+                        .build();
 
                 s3.abortMultipartUpload(abortMultipartUploadRequest);
             }

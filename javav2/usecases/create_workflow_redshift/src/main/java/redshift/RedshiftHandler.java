@@ -1,8 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package redshift;
 
@@ -19,14 +16,14 @@ public class RedshiftHandler implements RequestHandler<String, String> {
     String database = "dev";
     String dbUser = "awsuser";
 
-@Override
-public String handleRequest(String event, Context context) {
+    @Override
+    public String handleRequest(String event, Context context) {
         LambdaLogger logger = context.getLogger();
-        String val = event ;
+        String val = event;
         delPost(val);
-        logger.log("The Amazon Redshift record that was deleted is " +val);
+        logger.log("The Amazon Redshift record that was deleted is " + val);
         return val;
-        }
+    }
 
     private RedshiftDataClient getClient() {
 

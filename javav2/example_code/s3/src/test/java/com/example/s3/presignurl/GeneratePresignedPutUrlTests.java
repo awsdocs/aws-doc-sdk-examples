@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.s3.presignurl;
 
 import com.example.s3.GeneratePresignedUrlAndPutFileWithMetadata;
@@ -21,8 +24,8 @@ class GeneratePresignedPutUrlTests {
     private static final String KEY_NAME = "k-" + UUID.randomUUID();
     private static final S3Client s3Client = S3Client.create();
     private static final Map<String, String> METADATA = Map.of("meta1", "value1");
-    private static final File PDF_FILE = GeneratePresignedUrlAndPutFileWithMetadata.getFileForForClasspathResource("multipartUploadFiles/s3-userguide.pdf");
-
+    private static final File PDF_FILE = GeneratePresignedUrlAndPutFileWithMetadata
+            .getFileForForClasspathResource("multipartUploadFiles/s3-userguide.pdf");
 
     @BeforeAll
     static void beforeAll() {

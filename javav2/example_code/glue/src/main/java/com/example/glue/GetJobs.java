@@ -1,15 +1,10 @@
-//snippet-sourcedescription:[GetJobs.java demonstrates how to list all AWS Glue jobs.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS Glue]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.glue;
 
-//snippet-start:[glue.java2.get_jobs.main]
-//snippet-start:[glue.java2.get_jobs.import]
+// snippet-start:[glue.java2.get_jobs.main]
+// snippet-start:[glue.java2.get_jobs.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.glue.model.GetJobsRequest;
@@ -17,10 +12,11 @@ import software.amazon.awssdk.services.glue.model.GetJobsResponse;
 import software.amazon.awssdk.services.glue.model.GlueException;
 import software.amazon.awssdk.services.glue.model.Job;
 import java.util.List;
-//snippet-end:[glue.java2.get_jobs.import]
+// snippet-end:[glue.java2.get_jobs.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,8 +26,8 @@ public class GetJobs {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getAllJobs(glueClient);
         glueClient.close();
@@ -40,8 +36,8 @@ public class GetJobs {
     public static void getAllJobs(GlueClient glueClient) {
         try {
             GetJobsRequest jobsRequest = GetJobsRequest.builder()
-                .maxResults(10)
-                .build();
+                    .maxResults(10)
+                    .build();
 
             GetJobsResponse jobsResponse = glueClient.getJobs(jobsRequest);
             List<Job> jobs = jobsResponse.jobs();
@@ -56,4 +52,4 @@ public class GetJobs {
         }
     }
 }
-//snippet-end:[glue.java2.get_jobs.main]
+// snippet-end:[glue.java2.get_jobs.main]

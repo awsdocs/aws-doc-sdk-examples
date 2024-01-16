@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteForecast.java demonstrates how to delete a forecast that belongs to the Amazon Forecast service.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Forecast]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.forecast;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.forecast.model.ForecastException;
 // snippet-end:[forecast.java2.delete_forecast.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,12 +24,12 @@ public class DeleteForecast {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <forecastArn>\s
+                Usage:
+                    <forecastArn>\s
 
-            Where:
-                forecastArn - The ARN that belongs to the forecast to delete.\s
-            """;
+                Where:
+                    forecastArn - The ARN that belongs to the forecast to delete.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +39,8 @@ public class DeleteForecast {
         String forecastArn = args[0];
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         delForecast(forecast, forecastArn);
         forecast.close();
@@ -54,8 +49,8 @@ public class DeleteForecast {
     public static void delForecast(ForecastClient forecast, String forecastArn) {
         try {
             DeleteForecastRequest forecastRequest = DeleteForecastRequest.builder()
-                .forecastArn(forecastArn)
-                .build();
+                    .forecastArn(forecastArn)
+                    .build();
 
             forecast.deleteForecast(forecastRequest);
             System.out.println("The forecast was successfully deleted");

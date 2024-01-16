@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DescribeGroup.java demonstrates how to retrieves the group metadata and attributes from groupId in an AWS Identitystore.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.identitystore;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.identitystore.model.DescribeGroupResponse
 // snippet-end:[Identitystore.java2.describe_group.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,14 +25,14 @@ public class DescribeGroup {
 
         final String usage = """
 
-            Usage:
-                <identitystoreId> <groupId>
+                Usage:
+                    <identitystoreId> <groupId>
 
-            Where:
-                identitystoreId - The id of the identitystore.\s
-                groupId - The id of the group.\s
+                Where:
+                    identitystoreId - The id of the identitystore.\s
+                    groupId - The id of the group.\s
 
-            """;
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -56,9 +51,9 @@ public class DescribeGroup {
         try {
 
             DescribeGroupRequest request = DescribeGroupRequest.builder()
-                .identityStoreId(identitystoreId)
-                .groupId(groupId)
-                .build();
+                    .identityStoreId(identitystoreId)
+                    .groupId(groupId)
+                    .build();
 
             DescribeGroupResponse response = identitystore.describeGroup(request);
             return response.displayName() + " " + response.description();

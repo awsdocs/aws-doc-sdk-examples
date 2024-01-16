@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[DeleteAlarm.java demonstrates how to delete an Amazon CloudWatch alarm.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudWatch]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.delete_metrics.main]
@@ -16,7 +12,8 @@ import software.amazon.awssdk.services.cloudwatch.model.DeleteAlarmsRequest;
 // snippet-end:[cloudwatch.java2.delete_metrics.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -27,12 +24,12 @@ public class DeleteAlarm {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-              <alarmName>
+                Usage:
+                  <alarmName>
 
-            Where:
-              alarmName - An alarm name to delete (for example, MyAlarm).
-            """;
+                Where:
+                  alarmName - An alarm name to delete (for example, MyAlarm).
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,18 +39,18 @@ public class DeleteAlarm {
         String alarmName = args[0];
         Region region = Region.US_EAST_2;
         CloudWatchClient cw = CloudWatchClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
-        deleteCWAlarm(cw, alarmName) ;
+        deleteCWAlarm(cw, alarmName);
         cw.close();
     }
 
     public static void deleteCWAlarm(CloudWatchClient cw, String alarmName) {
         try {
             DeleteAlarmsRequest request = DeleteAlarmsRequest.builder()
-                .alarmNames(alarmName)
-                .build();
+                    .alarmNames(alarmName)
+                    .build();
 
             cw.deleteAlarms(request);
             System.out.printf("Successfully deleted alarm %s", alarmName);

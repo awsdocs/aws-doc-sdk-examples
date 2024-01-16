@@ -1,24 +1,5 @@
-//snippet-sourcedescription:[AsyncPagination.java demonstrates how to use auto pagination with the asynchronous DynamoDB client for responses with multiple pages of data.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[10/15/2020]
-//snippet-sourceauthor:[scmacdon]
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at:
- *
- *    http://aws.amazon.com/apache2.0
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
- * OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.example.dynamodbasync;
 
 // snippet-start:[dynamodb.java2.async_pagination.complete]
@@ -79,7 +60,8 @@ public class AsyncPagination {
     private static void ManualPagination() throws InterruptedException {
         System.out.println("running ManualPagination...\n");
 
-        // Creates a default async client with credentials and regions loaded from the environment
+        // Creates a default async client with credentials and regions loaded from the
+        // environment
         DynamoDbAsyncClient client = DynamoDbAsyncClient.create();
         CompletableFuture<ListTablesResponse> response = client.listTables(ListTablesRequest.builder()
                 .build());
@@ -102,7 +84,8 @@ public class AsyncPagination {
         System.out.println("running AutoPagination...\n");
 
         // snippet-start:[dynamodb.java2.async_pagination.pagesclient]
-        // Creates a default client with credentials and region loaded from the environment.
+        // Creates a default client with credentials and region loaded from the
+        // environment.
         final DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
 
         ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
@@ -118,22 +101,26 @@ public class AsyncPagination {
         future.get();
 
         // snippet-start:[dynamodb.java2.async_pagination.pagessubscribe]
-        // A Subscription represents a one-to-one life-cycle of a Subscriber subscribing to a Publisher.
+        // A Subscription represents a one-to-one life-cycle of a Subscriber subscribing
+        // to a Publisher.
         publisher.subscribe(new Subscriber<ListTablesResponse>() {
-            // Maintain a reference to the subscription object, which is required to request data from the publisher.
+            // Maintain a reference to the subscription object, which is required to request
+            // data from the publisher.
             private Subscription subscription;
 
             @Override
             public void onSubscribe(Subscription s) {
                 subscription = s;
-                // Request method should be called to demand data. Here we request a single page.
+                // Request method should be called to demand data. Here we request a single
+                // page.
                 subscription.request(1);
             }
 
             @Override
             public void onNext(ListTablesResponse response) {
                 response.tableNames().forEach(System.out::println);
-                // After you process the current page, call the request method to signal that you are ready for next page.
+                // After you process the current page, call the request method to signal that
+                // you are ready for next page.
                 subscription.request(1);
             }
 
@@ -144,20 +131,24 @@ public class AsyncPagination {
 
             @Override
             public void onComplete() {
-                // This indicates all the results are delivered and there are no more pages left.
+                // This indicates all the results are delivered and there are no more pages
+                // left.
             }
         });
         // snippet-end:[dynamodb.java2.async_pagination.pagessubscribe]
 
-        // Since the code above  is non-blocking, make sure your application doesn't end immediately.
-        // For this example, I am using Thread.sleep to wait for all pages to get delivered.
+        // Since the code above is non-blocking, make sure your application doesn't end
+        // immediately.
+        // For this example, I am using Thread.sleep to wait for all pages to get
+        // delivered.
         Thread.sleep(3_000);
     }
 
     private static void AutoPaginationOnCollection() throws InterruptedException, ExecutionException {
         System.out.println("running AutoPagination - iterating on item collection...\n");
         // snippet-start:[dynamodb.java2.async_pagination.asyncclient]
-        // Create a default client with credentials and region loaded from the environment.
+        // Create a default client with credentials and region loaded from the
+        // environment.
         final DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
 
         ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
@@ -198,7 +189,8 @@ public class AsyncPagination {
         });
         // snippet-end:[dynamodb.java2.async_pagination.subscriber]
 
-        // Since the code above is non-blocking, make sure your application doesn't end immediately.
+        // Since the code above is non-blocking, make sure your application doesn't end
+        // immediately.
         // For this example, I use Thread.sleep to wait for all pages to get delivered.
         Thread.sleep(3_000);
     }
@@ -227,7 +219,8 @@ public class AsyncPagination {
         ListTablesPublisher publisher = asyncClient.listTablesPaginator(ListTablesRequest.builder()
                 .build());
 
-        // The Flux class has many helper methods that work with any reactive streams compatible publisher implementation
+        // The Flux class has many helper methods that work with any reactive streams
+        // compatible publisher implementation
         List<String> tables = Flux.from(publisher)
                 .flatMapIterable(ListTablesResponse::tableNames)
                 .collectList()

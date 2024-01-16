@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example;
 
@@ -36,38 +34,38 @@ public class GetStudents {
     private DynamoDbClient getDynamoDBClient() {
         Region region = Region.US_WEST_2;
         return DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
     }
 
     public String getStudentsData(String date) {
         DynamoDbClient ddbClient = getDynamoDBClient();
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(ddbClient)
-            .build();
+                .dynamoDbClient(ddbClient)
+                .build();
 
         DynamoDbTable<StudentData> table = enhancedClient.table("Students", TableSchema.fromBean(StudentData.class));
         AttributeValue attr = AttributeValue.builder()
-            .s(date)
-            .build();
+                .s(date)
+                .build();
 
         Map<String, AttributeValue> myMap = new HashMap<>();
-        myMap.put(":val1",attr);
+        myMap.put(":val1", attr);
 
         Map<String, String> myExMap = new HashMap<>();
         myExMap.put("#mydate", "date");
 
         // Set the Expression so only active items are queried from the Work table.
         Expression expression = Expression.builder()
-            .expressionValues(myMap)
-            .expressionNames(myExMap)
-            .expression("#mydate = :val1")
-            .build();
+                .expressionValues(myMap)
+                .expressionNames(myExMap)
+                .expression("#mydate = :val1")
+                .build();
 
         ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
-            .filterExpression(expression)
-            .limit(15)
-            .build();
+                .filterExpression(expression)
+                .limit(15)
+                .build();
 
         List<Student> studentList = new ArrayList<>();
         for (StudentData singleStudent : table.scan(enhancedRequest).items()) {
@@ -91,32 +89,32 @@ public class GetStudents {
             Document doc = builder.newDocument();
 
             // Start building the XML.
-            Element root = doc.createElement( "Students" );
-            doc.appendChild( root );
+            Element root = doc.createElement("Students");
+            doc.appendChild(root);
 
             // Loop through the list.
-            for (Student myStudent: itemList) {
-                Element item = doc.createElement( "Student" );
-                root.appendChild( item );
+            for (Student myStudent : itemList) {
+                Element item = doc.createElement("Student");
+                root.appendChild(item);
 
                 // Set Name.
-                Element name = doc.createElement( "Name" );
-                name.appendChild( doc.createTextNode(myStudent.getFirstName()) );
-                item.appendChild( name );
+                Element name = doc.createElement("Name");
+                name.appendChild(doc.createTextNode(myStudent.getFirstName()));
+                item.appendChild(name);
 
                 // Set Mobile.
-                Element mobile = doc.createElement( "Mobile" );
-                mobile.appendChild( doc.createTextNode(myStudent.getMobileNumber()) );
-                item.appendChild( mobile );
+                Element mobile = doc.createElement("Mobile");
+                mobile.appendChild(doc.createTextNode(myStudent.getMobileNumber()));
+                item.appendChild(mobile);
 
                 // Set Email.
-                Element email = doc.createElement( "Email" );
-                email.appendChild( doc.createTextNode(myStudent.getEmail() ) );
-                item.appendChild( email );
+                Element email = doc.createElement("Email");
+                email.appendChild(doc.createTextNode(myStudent.getEmail()));
+                item.appendChild(email);
             }
 
-         return doc;
-        } catch(ParserConfigurationException e) {
+            return doc;
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
@@ -131,7 +129,7 @@ public class GetStudents {
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+        } catch (TransformerException ex) {
             ex.printStackTrace();
         }
         return null;

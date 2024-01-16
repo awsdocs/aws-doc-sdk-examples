@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudfront.php.createinvalidation.complete]
 // snippet-start:[cloudfront.php.createinvalidation.import]
@@ -85,14 +84,3 @@ function createTheInvalidation()
 // createTheInvalidation();
 // snippet-end:[cloudfront.php.createinvalidation.main]
 // snippet-end:[cloudfront.php.createinvalidation.complete] 
-// snippet-sourcedescription:[CreateInvalidation.php demonstrates how to invalidate cached objects in an Amazon CloudFront distribution.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[createInvalidation]
-// snippet-keyword:[Amazon CloudFront]
-// snippet-service:[cloudfront]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-04-21]
-// snippet-sourceauthor:[pccornel (AWS)]

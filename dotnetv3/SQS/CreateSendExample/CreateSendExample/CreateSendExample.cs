@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 // The following example creates a queue using the Amazon Simple Queue
 // Service (Amazon SQS) and then sends a message to the queue.

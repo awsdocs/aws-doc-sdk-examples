@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[sqs.JavaScript.createclientv3]
 import { SQSClient } from "@aws-sdk/client-sqs";

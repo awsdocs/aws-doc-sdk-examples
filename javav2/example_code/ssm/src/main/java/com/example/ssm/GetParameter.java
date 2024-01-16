@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetParameter.java demonstrates how to get a parameter value for Amazon Simple Systems Management (Amazon SSM).]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon Simple Systems Management]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ssm;
 
@@ -20,7 +13,8 @@ import software.amazon.awssdk.services.ssm.model.SsmException;
 // snippet-end:[ssm.Java2.get_para_value.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +24,12 @@ public class GetParameter {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <paraName>
+                Usage:
+                    <paraName>
 
-            Where:
-                paraName - The name of the parameter.
-            """;
+                Where:
+                    paraName - The name of the parameter.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,8 +39,8 @@ public class GetParameter {
         String paraName = args[0];
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getParaValue(ssmClient, paraName);
         ssmClient.close();
@@ -55,8 +49,8 @@ public class GetParameter {
     public static void getParaValue(SsmClient ssmClient, String paraName) {
         try {
             GetParameterRequest parameterRequest = GetParameterRequest.builder()
-                .name(paraName)
-                .build();
+                    .name(paraName)
+                    .build();
 
             GetParameterResponse parameterResponse = ssmClient.getParameter(parameterRequest);
             System.out.println("The parameter value is " + parameterResponse.parameter().value());
@@ -68,4 +62,3 @@ public class GetParameter {
     }
 }
 // snippet-end:[ssm.Java2.get_para_value.main]
-

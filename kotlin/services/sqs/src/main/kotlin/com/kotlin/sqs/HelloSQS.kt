@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[HelloSQS.java demonstrates how to list Amazon Simple Queue Service (Amazon SQS) queues using a paginated response.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Simple Queue Service]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[sqs.kotlin.hellosqs.main]
 package com.kotlin.sqs

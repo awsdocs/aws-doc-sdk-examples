@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.ecs.*;
 import com.google.gson.Gson;
@@ -23,7 +21,7 @@ import java.io.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EcsTest {
-    private static  EcsClient ecsClient;
+    private static EcsClient ecsClient;
     private static String clusterName = "";
     private static String clusterARN = "";
     private static String taskId = "";
@@ -38,44 +36,46 @@ public class EcsTest {
 
         // Run tests on Real AWS Resources
         ecsClient = EcsClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        clusterName = values.getClusterName()+java.util.UUID.randomUUID();
+        clusterName = values.getClusterName() + java.util.UUID.randomUUID();
         taskId = values.getTaskId();
         subnet = values.getSubnet();
         securityGroups = values.getSecurityGroups();
-        serviceName = values.getServiceName() +java.util.UUID.randomUUID();
+        serviceName = values.getServiceName() + java.util.UUID.randomUUID();
         taskDefinition = values.getTaskDefinition();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-        try (InputStream input = EcsTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            // Populate the data members required for all tests.
-            prop.load(input);
-            clusterName = prop.getProperty("clusterName")+java.util.UUID.randomUUID();
-            taskId = prop.getProperty("taskId");
-            subnet = prop.getProperty("subnet");
-            securityGroups = prop.getProperty("securityGroups");
-            serviceName = prop.getProperty("serviceName")+java.util.UUID.randomUUID();
-            taskDefinition = prop.getProperty("taskDefinition");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * EcsTest.class.getClassLoader().getResourceAsStream("config.properties")) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * // Populate the data members required for all tests.
+         * prop.load(input);
+         * clusterName = prop.getProperty("clusterName")+java.util.UUID.randomUUID();
+         * taskId = prop.getProperty("taskId");
+         * subnet = prop.getProperty("subnet");
+         * securityGroups = prop.getProperty("securityGroups");
+         * serviceName = prop.getProperty("serviceName")+java.util.UUID.randomUUID();
+         * taskDefinition = prop.getProperty("taskDefinition");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
@@ -91,7 +91,7 @@ public class EcsTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void ListClusters() {
-        assertDoesNotThrow(() ->ListClusters.listAllClusters(ecsClient));
+        assertDoesNotThrow(() -> ListClusters.listAllClusters(ecsClient));
         System.out.println("Test 3 passed");
     }
 
@@ -99,7 +99,7 @@ public class EcsTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void DescribeClusters() {
-        assertDoesNotThrow(() ->DescribeClusters.descCluster(ecsClient, clusterARN));
+        assertDoesNotThrow(() -> DescribeClusters.descCluster(ecsClient, clusterARN));
         System.out.println("Test 4 passed");
     }
 
@@ -107,7 +107,7 @@ public class EcsTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void ListTaskDefinitions() {
-        assertDoesNotThrow(() ->ListTaskDefinitions.getAllTasks(ecsClient, clusterARN, taskId));
+        assertDoesNotThrow(() -> ListTaskDefinitions.getAllTasks(ecsClient, clusterARN, taskId));
         System.out.println("Test 5 passed");
     }
 
@@ -115,7 +115,8 @@ public class EcsTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void CreateService() {
-        serviceArn  = CreateService.createNewService(ecsClient, clusterName, serviceName, securityGroups, subnet, taskDefinition);
+        serviceArn = CreateService.createNewService(ecsClient, clusterName, serviceName, securityGroups, subnet,
+                taskDefinition);
         assertFalse(serviceArn.isEmpty());
         System.out.println("Test 6 passed");
     }
@@ -125,7 +126,7 @@ public class EcsTest {
     @Order(6)
     public void UpdateService() throws InterruptedException {
         Thread.sleep(20000);
-        assertDoesNotThrow(() ->UpdateService.updateSpecificService(ecsClient, clusterName, serviceArn));
+        assertDoesNotThrow(() -> UpdateService.updateSpecificService(ecsClient, clusterName, serviceArn));
         System.out.println("Test 7 passed");
     }
 
@@ -133,20 +134,20 @@ public class EcsTest {
     @Tag("IntegrationTest")
     @Order(7)
     public void DeleteService() {
-        assertDoesNotThrow(() ->DeleteService.deleteSpecificService(ecsClient, clusterName, serviceArn));
+        assertDoesNotThrow(() -> DeleteService.deleteSpecificService(ecsClient, clusterName, serviceArn));
         System.out.println("Test 8 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/ecs";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -190,4 +191,3 @@ public class EcsTest {
         }
     }
 }
-

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ListPipelineExecutions.java demonstrates how to get all executions for a specific pipeline.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-service:[AWS CodePipeline]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.pipeline;
 
@@ -21,7 +15,8 @@ import java.util.List;
 // snippet-end:[pipeline.java2.list_pipeline_exe.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,12 +27,12 @@ public class ListPipelineExecutions {
 
         final String usage = """
 
-            Usage:    <name>
+                Usage:    <name>
 
-            Where:
-               name - The name of the pipeline.\s
+                Where:
+                   name - The name of the pipeline.\s
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,8 +42,8 @@ public class ListPipelineExecutions {
         String name = args[0];
         Region region = Region.US_EAST_1;
         CodePipelineClient pipelineClient = CodePipelineClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listExecutions(pipelineClient, name);
         pipelineClient.close();
@@ -57,9 +52,9 @@ public class ListPipelineExecutions {
     public static void listExecutions(CodePipelineClient pipelineClient, String name) {
         try {
             ListPipelineExecutionsRequest executionsRequest = ListPipelineExecutionsRequest.builder()
-                .maxResults(10)
-                .pipelineName(name)
-                .build();
+                    .maxResults(10)
+                    .pipelineName(name)
+                    .build();
 
             ListPipelineExecutionsResponse response = pipelineClient.listPipelineExecutions(executionsRequest);
             List<PipelineExecutionSummary> executionSummaryList = response.pipelineExecutionSummaries();

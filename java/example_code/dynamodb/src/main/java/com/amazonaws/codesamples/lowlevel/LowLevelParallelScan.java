@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.LowLevelParallelScan] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.LowLevelParallelScan] 
 
 package com.amazonaws.codesamples.lowlevel;
 
@@ -82,15 +61,14 @@ public class LowLevelParallelScan {
 
             // Scan the table using multiple threads
             parallelScan(productCatalogTableName, scanItemLimit, parallelScanThreads);
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
             System.err.println(ase.getMessage());
         }
     }
 
     private static void parallelScan(String tableName, int itemLimit, int numberOfThreads) {
         System.out.println(
-            "Scanning " + tableName + " using " + numberOfThreads + " threads " + itemLimit + " items at a time");
+                "Scanning " + tableName + " using " + numberOfThreads + " threads " + itemLimit + " items at a time");
         ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads);
 
         // Divide DynamoDB table into logical segments
@@ -134,14 +112,15 @@ public class LowLevelParallelScan {
         @Override
         public void run() {
             System.out.println("Scanning " + tableName + " segment " + segment + " out of " + totalSegments
-                + " segments " + itemLimit + " items at a time...");
+                    + " segments " + itemLimit + " items at a time...");
             Map<String, AttributeValue> exclusiveStartKey = null;
             int totalScannedItemCount = 0;
             int totalScanRequestCount = 0;
             try {
                 while (true) {
                     ScanRequest scanRequest = new ScanRequest().withTableName(tableName).withLimit(itemLimit)
-                        .withExclusiveStartKey(exclusiveStartKey).withTotalSegments(totalSegments).withSegment(segment);
+                            .withExclusiveStartKey(exclusiveStartKey).withTotalSegments(totalSegments)
+                            .withSegment(segment);
 
                     ScanResult result = client.scan(scanRequest);
 
@@ -156,13 +135,11 @@ public class LowLevelParallelScan {
                         break;
                     }
                 }
-            }
-            catch (AmazonServiceException ase) {
+            } catch (AmazonServiceException ase) {
                 System.err.println(ase.getMessage());
-            }
-            finally {
+            } finally {
                 System.out.println("Scanned " + totalScannedItemCount + " items from segment " + segment + " out of "
-                    + totalSegments + " of " + tableName + " with " + totalScanRequestCount + " scan requests");
+                        + totalSegments + " of " + tableName + " with " + totalScanRequestCount + " scan requests");
             }
         }
     }
@@ -198,8 +175,7 @@ public class LowLevelParallelScan {
             client.putItem(itemRequest);
             item.clear();
 
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
             System.err.println("Failed to create item " + productIndex + " in " + tableName);
         }
     }
@@ -211,20 +187,19 @@ public class LowLevelParallelScan {
 
             client.deleteTable(request);
 
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
             System.err.println("Failed to delete table " + tableName + " " + ase);
         }
     }
 
     private static void createTable(String tableName, long readCapacityUnits, long writeCapacityUnits,
-        String partitionKeyName, String partitionKeyType) {
+            String partitionKeyName, String partitionKeyType) {
 
         createTable(tableName, readCapacityUnits, writeCapacityUnits, partitionKeyName, partitionKeyType, null, null);
     }
 
     private static void createTable(String tableName, long readCapacityUnits, long writeCapacityUnits,
-        String partitionKeyName, String partitionKeyType, String sortKeyName, String sortKeyType) {
+            String partitionKeyName, String partitionKeyType, String sortKeyName, String sortKeyType) {
 
         try {
             System.out.println("Creating table " + tableName);
@@ -234,27 +209,27 @@ public class LowLevelParallelScan {
             ks.add(new KeySchemaElement().withAttributeName(partitionKeyName).withKeyType(KeyType.HASH)); // Partition
                                                                                                           // key
             attributeDefinitions
-                .add(new AttributeDefinition().withAttributeName(partitionKeyName).withAttributeType(partitionKeyType));
+                    .add(new AttributeDefinition().withAttributeName(partitionKeyName)
+                            .withAttributeType(partitionKeyType));
 
             if (sortKeyName != null) {
                 ks.add(new KeySchemaElement().withAttributeName(sortKeyName).withKeyType(KeyType.RANGE)); // Sort
                                                                                                           // key
                 attributeDefinitions
-                    .add(new AttributeDefinition().withAttributeName(sortKeyName).withAttributeType(sortKeyType));
+                        .add(new AttributeDefinition().withAttributeName(sortKeyName).withAttributeType(sortKeyType));
             }
 
             // Provide initial provisioned throughput values as Java long data
             // types
             ProvisionedThroughput provisionedthroughput = new ProvisionedThroughput()
-                .withReadCapacityUnits(readCapacityUnits).withWriteCapacityUnits(writeCapacityUnits);
+                    .withReadCapacityUnits(readCapacityUnits).withWriteCapacityUnits(writeCapacityUnits);
 
             CreateTableRequest request = new CreateTableRequest().withTableName(tableName).withKeySchema(ks)
-                .withProvisionedThroughput(provisionedthroughput).withAttributeDefinitions(attributeDefinitions);
+                    .withProvisionedThroughput(provisionedthroughput).withAttributeDefinitions(attributeDefinitions);
 
             client.createTable(request);
 
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
             System.err.println("Failed to create table " + tableName + " " + ase);
         }
     }
@@ -273,8 +248,7 @@ public class LowLevelParallelScan {
                 return;
             try {
                 Thread.sleep(1000 * 20);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
         }
         throw new RuntimeException("Table " + tableName + " never went active");
@@ -293,15 +267,13 @@ public class LowLevelParallelScan {
                 System.out.println("  - current state: " + tableStatus);
                 if (tableStatus.equals(TableStatus.ACTIVE.toString()))
                     return;
-            }
-            catch (ResourceNotFoundException e) {
+            } catch (ResourceNotFoundException e) {
                 System.out.println("Table " + tableName + " is not found. It was deleted.");
                 return;
             }
             try {
                 Thread.sleep(1000 * 20);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
         }
         throw new RuntimeException("Table " + tableName + " was never deleted");
@@ -313,11 +285,11 @@ public class LowLevelParallelScan {
             String attributeName = item.getKey();
             AttributeValue value = item.getValue();
             System.out.print(attributeName + " " + (value.getS() == null ? "" : "S=[" + value.getS() + "]")
-                + (value.getN() == null ? "" : "N=[" + value.getN() + "]")
-                + (value.getB() == null ? "" : "B=[" + value.getB() + "]")
-                + (value.getSS() == null ? "" : "SS=[" + value.getSS() + "]")
-                + (value.getNS() == null ? "" : "NS=[" + value.getNS() + "]")
-                + (value.getBS() == null ? "" : "BS=[" + value.getBS() + "]") + ", ");
+                    + (value.getN() == null ? "" : "N=[" + value.getN() + "]")
+                    + (value.getB() == null ? "" : "B=[" + value.getB() + "]")
+                    + (value.getSS() == null ? "" : "SS=[" + value.getSS() + "]")
+                    + (value.getNS() == null ? "" : "NS=[" + value.getNS() + "]")
+                    + (value.getBS() == null ? "" : "BS=[" + value.getBS() + "]") + ", ");
         }
         // Move to next line
         System.out.println();
@@ -329,8 +301,7 @@ public class LowLevelParallelScan {
             if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             executor.shutdownNow();
 
             // Preserve interrupt status
@@ -339,4 +310,4 @@ public class LowLevelParallelScan {
     }
 }
 
-// snippet-end:[dynamodb.java.codeexample.LowLevelParallelScan] 
+// snippet-end:[dynamodb.java.codeexample.LowLevelParallelScan]

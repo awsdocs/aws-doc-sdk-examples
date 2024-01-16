@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { handler as upload } from "./functions/upload.js";
 import { handler as detectLabels } from "./functions/detect-labels.js";

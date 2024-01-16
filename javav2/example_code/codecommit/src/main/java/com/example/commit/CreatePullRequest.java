@@ -1,12 +1,6 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreatePullRequest.java demonstrates how to create a pull request.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CodeCommit]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.commit;
 
 // snippet-start:[codecommit.java2.create_pr.main]
@@ -22,7 +16,8 @@ import java.util.List;
 // snippet-end:[codecommit.java2.create_pr.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -33,14 +28,14 @@ public class CreatePullRequest {
     public static void main(String[] args) {
         final String USAGE = """
 
-            Usage:
-                <repoName> <destinationReference> <sourceReference>\s
+                Usage:
+                    <repoName> <destinationReference> <sourceReference>\s
 
-            Where:
-                repoName - the name of the repository.
-                destinationReference -  the branch of the repository where the pull request changes are merged.
-                sourceReference - the branch of the repository that contains the changes for the pull request.
-            """;
+                Where:
+                    repoName - the name of the repository.
+                    destinationReference -  the branch of the repository where the pull request changes are merged.
+                    sourceReference - the branch of the repository that contains the changes for the pull request.
+                """;
 
         if (args.length != 3) {
             System.out.println(USAGE);
@@ -52,8 +47,8 @@ public class CreatePullRequest {
         String sourceReference = args[2];
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String prId = createPR(codeCommitClient, repoName, destinationReference, sourceReference);
         System.out.println("The pull request id is " + prId);
@@ -61,23 +56,23 @@ public class CreatePullRequest {
     }
 
     public static String createPR(CodeCommitClient codeCommitClient,
-                                  String repoName,
-                                  String destinationReference,
-                                  String sourceReference) {
+            String repoName,
+            String destinationReference,
+            String sourceReference) {
         try {
             Target target = Target.builder()
-                .repositoryName(repoName)
-                .destinationReference(destinationReference)
-                .sourceReference(sourceReference)
-                .build();
+                    .repositoryName(repoName)
+                    .destinationReference(destinationReference)
+                    .sourceReference(sourceReference)
+                    .build();
 
             List<Target> myList = new ArrayList<>();
             myList.add(target);
             CreatePullRequestRequest pullRequestRequest = CreatePullRequestRequest.builder()
-                .description("A Pull request created by the Java API")
-                .title("Example Pull Request")
-                .targets(myList)
-                .build();
+                    .description("A Pull request created by the Java API")
+                    .title("Example Pull Request")
+                    .targets(myList)
+                    .build();
 
             CreatePullRequestResponse requestResponse = codeCommitClient.createPullRequest(pullRequestRequest);
             return requestResponse.pullRequest().pullRequestId();

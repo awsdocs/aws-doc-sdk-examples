@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ActivityWorkerWithGracefulShutdown.java demonstrates how to implement an activity worker with a graceful shutdown.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Simple Workflow Service (Amazon SWF)]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[swf.java2.poll_tasks.complete]
 package com.example.helloswf;
@@ -25,7 +19,8 @@ import software.amazon.awssdk.services.swf.model.TaskList;
 // snippet-start:[swf.java2.poll_tasks.main]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -36,13 +31,14 @@ public class ActivityWorkerWithGracefulShutdown {
 
     private static CountDownLatch waitForTermination = new CountDownLatch(1);
     private static volatile boolean terminate = false;
+
     public static void main(String[] args) {
         final String USAGE = "\n" +
-            "Usage:\n" +
-            "    <domain> <taskList> \n\n" +
-            "Where:\n" +
-            "    domain - The domain to use (ie, mydomain). \n" +
-            "    taskList - The taskList to use (ie, HelloTasklist).  \n" ;
+                "Usage:\n" +
+                "    <domain> <taskList> \n\n" +
+                "Where:\n" +
+                "    domain - The domain to use (ie, mydomain). \n" +
+                "    taskList - The taskList to use (ie, HelloTasklist).  \n";
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -53,8 +49,8 @@ public class ActivityWorkerWithGracefulShutdown {
         String taskList = args[1];
         Region region = Region.US_EAST_1;
         SwfClient swf = SwfClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
@@ -77,7 +73,7 @@ public class ActivityWorkerWithGracefulShutdown {
         }
     }
 
-    public static void pollAndExecute(SwfClient swf, String domain, String taskList ) {
+    public static void pollAndExecute(SwfClient swf, String domain, String taskList) {
         while (!terminate) {
             System.out.println("Polling for an activity task from the tasklist '"
                     + taskList + "' in the domain '" +

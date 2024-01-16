@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[GetServerCertificate.java demonstrates how to get information about the specified AWS Identity and Access Management (IAM) role..]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[IAM]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.iam;
 
 // snippet-start:[iam.java2.get_server_certificate.main]
@@ -18,7 +13,8 @@ import software.amazon.awssdk.services.iam.model.IamException;
 // snippet-end:[iam.java2.get_server_certificate.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +24,12 @@ public class GetServerCertificate {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <certName>\s
+                Usage:
+                    <certName>\s
 
-            Where:
-                certName - A certificate name.\s
-            """;
+                Where:
+                    certName - A certificate name.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,8 +39,8 @@ public class GetServerCertificate {
         String certName = args[0];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getCertificate(iam, certName);
         System.out.println("Done");
@@ -54,12 +50,12 @@ public class GetServerCertificate {
     public static void getCertificate(IamClient iam, String certName) {
         try {
             GetServerCertificateRequest request = GetServerCertificateRequest.builder()
-                .serverCertificateName(certName)
-                .build();
+                    .serverCertificateName(certName)
+                    .build();
 
             GetServerCertificateResponse response = iam.getServerCertificate(request);
             System.out.format("Successfully retrieved certificate with body %s",
-                response.serverCertificate().certificateBody());
+                    response.serverCertificate().certificateBody());
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

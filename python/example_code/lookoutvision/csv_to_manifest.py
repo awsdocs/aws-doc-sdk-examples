@@ -1,5 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier:  Apache-2.0
+# SPDX-License-Identifier: Apache-2.0
 """
 Purpose
 Shows how to create an Amazon Lookout for Vision manifest file from a CSV file.

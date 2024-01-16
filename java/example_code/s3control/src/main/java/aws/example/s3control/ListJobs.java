@@ -1,32 +1,11 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * <p>
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * <p>
- * http://aws.amazon.com/apache2.0/
- * <p>
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[ListJobs.java demonstrates how to list active and complete Amazon S3 Batch Operations.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-04-30]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
 // snippet-start:[s3.java.list_batch_jobs.complete]
 
 package aws.example.s3control;
 
 // snippet-start:[s3.java.list_batch_jobs.import]
-
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
@@ -51,21 +30,18 @@ public class ListJobs {
                     .withRegion(US_WEST_2)
                     .build();
 
-
             ListJobsResult result = s3ControlClient.listJobs(new ListJobsRequest()
 
                     .withAccountId(accountId)
                     .withMaxResults(20)
-                    .withJobStatuses("Active", "Complete")
-            ).withJobs(new JobListDescriptor()
-                    .withStatus("Active")
-                    .withStatus("Complete"));
-            
-            for (JobListDescriptor jobSummary : result.getJobs()) {
-                    System.out.printf("%s - %s (status: %s)\n", jobSummary.getJobId(), jobSummary.getCreationTime(), jobSummary.getStatus());
-                }
-                   
+                    .withJobStatuses("Active", "Complete")).withJobs(new JobListDescriptor()
+                            .withStatus("Active")
+                            .withStatus("Complete"));
 
+            for (JobListDescriptor jobSummary : result.getJobs()) {
+                System.out.printf("%s - %s (status: %s)\n", jobSummary.getJobId(), jobSummary.getCreationTime(),
+                        jobSummary.getStatus());
+            }
 
             // snippet-end:[s3.java.list_batch_jobs.main]
         } catch (AmazonServiceException e) {

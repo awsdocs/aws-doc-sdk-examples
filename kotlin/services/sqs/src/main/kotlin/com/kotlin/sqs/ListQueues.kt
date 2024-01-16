@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListQueues.kt demonstrates how to list Amazon Simple Queue Service (Amazon SQS) queues.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Simple Queue Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.sqs
 

@@ -1,15 +1,5 @@
-//snippet-sourcedescription:[PresignedSwing.java demonstrates how to a presigned object using a Java Swing app.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon S3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[12/15/2021]
-//snippet-sourceauthor:[scmacdon-aws]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -23,32 +13,33 @@ import java.io.InputStream;
 import java.net.URL;
 
 class Swing implements ActionListener {
-    JFrame frame=new JFrame();
-    JButton button=new JButton("Get Presigned Amazon S3 Object");
+    JFrame frame = new JFrame();
+    JButton button = new JButton("Get Presigned Amazon S3 Object");
 
-    Swing(){
+    Swing() {
         prepareGUI();
         buttonProperties();
     }
 
-    public void prepareGUI(){
+    public void prepareGUI() {
         frame.setTitle("My Window");
         frame.getContentPane().setLayout(null);
         frame.setVisible(true);
-        frame.setBounds(200,200,400,400);
+        frame.setBounds(200, 200, 400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    public void buttonProperties(){
-        button.setBounds(130,200,200,100);
+
+    public void buttonProperties() {
+        button.setBounds(130, 200, 200, 100);
         frame.add(button);
         button.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Get a presigned PDF from an Amazon S3 bucket.
+        // Get a presigned PDF from an Amazon S3 bucket.
         try {
-            URL url = new URL("<Enter URL>") ;
+            URL url = new URL("<Enter URL>");
             InputStream in;
             in = url.openStream();
             FileOutputStream fos = new FileOutputStream("C:\\AWS\\allpeople.png");

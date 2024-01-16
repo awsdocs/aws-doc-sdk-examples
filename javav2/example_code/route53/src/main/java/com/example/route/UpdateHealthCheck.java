@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[UpdateHealthCheck.java demonstrates how to update a health check.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Route 53]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.route;
 
@@ -20,7 +13,8 @@ import software.amazon.awssdk.services.route53.model.UpdateHealthCheckRequest;
 // snippet-end:[route53.java2.update_health_check.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +24,12 @@ public class UpdateHealthCheck {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <id>\s
+                Usage:
+                    <id>\s
 
-            Where:
-                id - The health check id.\s
-            """;
+                Where:
+                    id - The health check id.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,8 +39,8 @@ public class UpdateHealthCheck {
         String id = args[0];
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         updateSpecificHealthCheck(route53Client, id);
         route53Client.close();
@@ -56,9 +50,9 @@ public class UpdateHealthCheck {
 
         try {
             UpdateHealthCheckRequest checkRequest = UpdateHealthCheckRequest.builder()
-                .healthCheckId(id)
-                .disabled(true)
-                .build();
+                    .healthCheckId(id)
+                    .disabled(true)
+                    .build();
 
             UpdateHealthCheckResponse healthResponse = route53Client.updateHealthCheck(checkRequest);
             System.out.println("The health check with id " + healthResponse.healthCheck().id() + " was updated!");
@@ -70,5 +64,3 @@ public class UpdateHealthCheck {
     }
 }
 // snippet-end:[route53.java2.update_health_check.main]
-
-

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[StockTrade.java is a helper class.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Kinesis]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kinesis;
 
@@ -15,7 +9,8 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Generates random stock trades by picking randomly from a collection of stocks, assigning a
+ * Generates random stock trades by picking randomly from a collection of
+ * stocks, assigning a
  * random price based on the mean, and picking a random quantity for the shares.
  *
  */

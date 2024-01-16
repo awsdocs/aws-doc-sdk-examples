@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[ListFunctions.java demonstrates how to list CloudFront functions.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon CloudFront]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.cloudfront;
 
@@ -22,7 +17,8 @@ import java.util.List;
 // snippet-end:[cloudfront.java2.list.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,32 +27,32 @@ import java.util.List;
 public class ListFunctions {
     public static void main(String[] args) {
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
-            .region(Region.AWS_GLOBAL)
-            .build();
+                .region(Region.AWS_GLOBAL)
+                .build();
 
         listAllFunctions(cloudFrontClient);
         cloudFrontClient.close();
     }
 
-    public static void listAllFunctions( CloudFrontClient cloudFrontClient) {
+    public static void listAllFunctions(CloudFrontClient cloudFrontClient) {
         try {
             ListFunctionsRequest functionsRequest = ListFunctionsRequest.builder()
-                .stage(FunctionStage.DEVELOPMENT)
-                .maxItems("10")
-                .build();
+                    .stage(FunctionStage.DEVELOPMENT)
+                    .maxItems("10")
+                    .build();
 
             ListFunctionsResponse response = cloudFrontClient.listFunctions(functionsRequest);
             FunctionList allFunctions = response.functionList();
             List<FunctionSummary> functions = allFunctions.items();
-            for (FunctionSummary funSummary: functions) {
-                System.out.println("Function name is "+funSummary.name());
-                System.out.println("Function runtime is "+funSummary.functionConfig().runtime().toString());
+            for (FunctionSummary funSummary : functions) {
+                System.out.println("Function name is " + funSummary.name());
+                System.out.println("Function runtime is " + funSummary.functionConfig().runtime().toString());
             }
 
-       } catch (CloudFrontException e){
-           System.err.println(e.awsErrorDetails().errorMessage());
-           System.exit(1);
-       }
+        } catch (CloudFrontException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
 }
 // snippet-end:[cloudfront.java2.list.main]

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[SearchQueues.java demonstrates how to search queues in an Amazon Connect instance.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Connect]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.connect;
 
@@ -19,7 +13,8 @@ import software.amazon.awssdk.services.connect.model.SearchQueuesResponse;
 import java.util.List;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,11 +25,11 @@ public class SearchQueues {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <instanceId>
+                Usage:    <instanceId>
 
-            Where:
-               instanceId - The id of the Amazon Connect instance.
-            """;
+                Where:
+                   instanceId - The id of the Amazon Connect instance.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +39,8 @@ public class SearchQueues {
         String instanceId = args[0];
         Region region = Region.US_EAST_1;
         ConnectClient connectClient = ConnectClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         searchQueue(connectClient, instanceId);
     }
@@ -53,9 +48,9 @@ public class SearchQueues {
     public static void searchQueue(ConnectClient connectClient, String instanceId) {
         try {
             SearchQueuesRequest queuesRequest = SearchQueuesRequest.builder()
-                .instanceId(instanceId)
-                .maxResults(10)
-                .build();
+                    .instanceId(instanceId)
+                    .maxResults(10)
+                    .build();
 
             SearchQueuesResponse response = connectClient.searchQueues(queuesRequest);
             List<Queue> queuesList = response.queues();

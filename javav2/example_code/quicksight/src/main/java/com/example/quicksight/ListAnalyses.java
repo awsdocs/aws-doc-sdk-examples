@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[ListAnalyses.java demonstrates how to list Amazon QuickSight analyses.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon QuickSight]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.quicksight;
 
@@ -22,7 +15,8 @@ import java.util.List;
 // snippet-end:[quicksight.java2.list_analyses.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,12 +26,12 @@ public class ListAnalyses {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <account>
+                Usage:    <account>
 
-            Where:
-               account - The ID of the AWS account.
+                Where:
+                   account - The ID of the AWS account.
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,8 +40,8 @@ public class ListAnalyses {
 
         String account = args[0];
         QuickSightClient qsClient = QuickSightClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         listAllAnAnalyses(qsClient, account);
         qsClient.close();
@@ -56,9 +50,9 @@ public class ListAnalyses {
     public static void listAllAnAnalyses(QuickSightClient qsClient, String account) {
         try {
             ListAnalysesRequest analysesRequest = ListAnalysesRequest.builder()
-                .awsAccountId(account)
-                .maxResults(20)
-                .build();
+                    .awsAccountId(account)
+                    .maxResults(20)
+                    .build();
 
             ListAnalysesResponse res = qsClient.listAnalyses(analysesRequest);
             List<AnalysisSummary> analysisList = res.analysisSummaryList();

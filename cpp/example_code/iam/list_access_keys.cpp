@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /**
  * Before running this C++ code example, set up your development environment,
@@ -19,7 +17,7 @@
  *
  */
 
-//snippet-start:[iam.cpp.list_access_keys.inc]
+// snippet-start:[iam.cpp.list_access_keys.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/ListAccessKeysRequest.h>
@@ -27,7 +25,7 @@
 #include <iomanip>
 #include <iostream>
 #include "iam_samples.h"
-//snippet-end:[iam.cpp.list_access_keys.inc]
+// snippet-end:[iam.cpp.list_access_keys.inc]
 
 //! Lists all access keys associated with an IAM user.
 /*!

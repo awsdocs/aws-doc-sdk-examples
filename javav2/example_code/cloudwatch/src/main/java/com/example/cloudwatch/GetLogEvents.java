@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[GetLogEvents.java demonstrates how to get log events from Amazon CloudWatch.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudWatch]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.get_logs.main]
@@ -17,7 +12,8 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.GetLogEventsRequest;
 // snippet-end:[cloudwatch.java2.get_logs.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,13 +25,13 @@ public class GetLogEvents {
 
         final String usage = """
 
-            Usage:
-              <logStreamName> <logGroupName>
+                Usage:
+                  <logStreamName> <logGroupName>
 
-            Where:
-              logStreamName - The name of the log stream (for example, mystream).
-              logGroupName - The name of the log group (for example, myloggroup).
-            """;
+                Where:
+                  logStreamName - The name of the log stream (for example, mystream).
+                  logGroupName - The name of the log group (for example, myloggroup).
+                """;
 
         if (args.length != 2) {
             System.out.print(usage);
@@ -46,20 +42,21 @@ public class GetLogEvents {
         String logGroupName = args[1];
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cloudWatchLogsClient = CloudWatchLogsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getCWLogEvents(cloudWatchLogsClient, logGroupName, logStreamName);
         cloudWatchLogsClient.close();
     }
 
-    public static void getCWLogEvents(CloudWatchLogsClient cloudWatchLogsClient, String logGroupName, String logStreamName) {
+    public static void getCWLogEvents(CloudWatchLogsClient cloudWatchLogsClient, String logGroupName,
+            String logStreamName) {
         try {
             GetLogEventsRequest getLogEventsRequest = GetLogEventsRequest.builder()
-                .logGroupName(logGroupName)
-                .logStreamName(logStreamName)
-                .startFromHead(true)
-                .build();
+                    .logGroupName(logGroupName)
+                    .logStreamName(logStreamName)
+                    .startFromHead(true)
+                    .build();
 
             int logLimit = cloudWatchLogsClient.getLogEvents(getLogEventsRequest).events().size();
             for (int c = 0; c < logLimit; c++) {

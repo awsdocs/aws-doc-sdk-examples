@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.example.dynamodb.enhanced;
 
 // snippet-start:[dynamodb.java2.mapping.scanEx.import]

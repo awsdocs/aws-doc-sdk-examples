@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudfront.php.listdistribution.complete]
 // snippet-start:[cloudfront.php.listdistribution.import]
@@ -62,14 +61,4 @@ function listTheDistributions()
 // listTheDistributions();
 // snippet-end:[cloudfront.php.listdistribution.main]
 // snippet-end:[cloudfront.php.listdistribution.complete]
-// snippet-sourcedescription:[ListDistributions.php demonstrates how to list Amazon CloudFront distributions.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[listDistributions]
-// snippet-keyword:[Amazon CloudFront]
-// snippet-service:[cloudfront]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-04-24]
 // snippet-sourceauthor:[pccornel (AWS)]

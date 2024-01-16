@@ -1,3 +1,5 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[SqsQueueNotificationWorker.py demonstrates how to create a separate process to handle notification messages for an Elastic Transcoder job.]
 # snippet-service:[elastictranscoder]

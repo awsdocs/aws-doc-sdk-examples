@@ -46,8 +46,8 @@ export function Readme() {
           </li>
           <li>
             <Link
-                external
-                href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/cross-service/serverless-aurora"
+              external
+              href="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/cross-service/serverless-aurora"
             >
               C++
             </Link>

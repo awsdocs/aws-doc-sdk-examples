@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.DynamoDBDynamicFaultInjection] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.DynamoDBDynamicFaultInjection] 
 
 package com.amazonaws.services.dynamodbv2.client;
 
@@ -123,19 +102,17 @@ public class DynamoDBDynamicFaultInjection {
             // Scan items for movies with a year attribute greater than 1985
             Map<String, Condition> scanFilter = new HashMap<String, Condition>();
             Condition condition = new Condition().withComparisonOperator(ComparisonOperator.GT.toString())
-                .withAttributeValueList(new AttributeValue().withN("1985"));
+                    .withAttributeValueList(new AttributeValue().withN("1985"));
             scanFilter.put("year", condition);
             ScanRequest scanRequest = new ScanRequest(TABLENAME).withScanFilter(scanFilter);
             ScanResult scanResult = dynamoDBClient.scan(scanRequest);
             logger.info("Result: " + scanResult);
 
-        }
-        catch (AmazonServiceException ase) {
+        } catch (AmazonServiceException ase) {
 
             logger.error("Service Exception: " + ase);
 
-        }
-        catch (AmazonClientException ace) {
+        } catch (AmazonClientException ace) {
 
             logger.error("Client Exception: " + ace);
         }
@@ -177,8 +154,7 @@ public class DynamoDBDynamicFaultInjection {
             PutItemRequest putItemRequest = new PutItemRequest(TABLENAME, item);
             PutItemResult putItemResult = dynamoDBClient.putItem(putItemRequest);
             logger.info("Result: " + putItemResult);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // TODO: handle exception
         }
     }
@@ -195,19 +171,18 @@ public class DynamoDBDynamicFaultInjection {
                                                                                             // key
 
         ProvisionedThroughput provisionedThroughput = new ProvisionedThroughput().withReadCapacityUnits(10L)
-            .withWriteCapacityUnits(10L);
+                .withWriteCapacityUnits(10L);
 
         CreateTableRequest request = new CreateTableRequest().withTableName(TABLENAME)
-            .withAttributeDefinitions(attributeDefinitions).withKeySchema(ks)
-            .withProvisionedThroughput(provisionedThroughput);
+                .withAttributeDefinitions(attributeDefinitions).withKeySchema(ks)
+                .withProvisionedThroughput(provisionedThroughput);
 
         try {
             CreateTableResult createdTableDescription = dynamoDBClient.createTable(request);
             logger.info("Created Table: " + createdTableDescription);
             // Wait for it to become active
             waitForTableToBecomeAvailable(TABLENAME);
-        }
-        catch (ResourceInUseException e) {
+        } catch (ResourceInUseException e) {
             logger.warn("Table already existed", e);
         }
     }
@@ -236,8 +211,7 @@ public class DynamoDBDynamicFaultInjection {
         while (System.currentTimeMillis() < endTime) {
             try {
                 Thread.sleep(1000 * 20);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
             try {
                 DescribeTableRequest request = new DescribeTableRequest().withTableName(tableName);
@@ -246,8 +220,7 @@ public class DynamoDBDynamicFaultInjection {
                 logger.info("  - current state: " + tableStatus);
                 if (tableStatus.equals(TableStatus.ACTIVE.toString()))
                     return;
-            }
-            catch (AmazonServiceException ase) {
+            } catch (AmazonServiceException ase) {
                 if (ase.getErrorCode().equalsIgnoreCase("ResourceNotFoundException") == false)
                     throw ase;
             }
@@ -258,4 +231,4 @@ public class DynamoDBDynamicFaultInjection {
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.DynamoDBDynamicFaultInjection] 
+// snippet-end:[dynamodb.java.codeexample.DynamoDBDynamicFaultInjection]

@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[S3EncryptV2.java demonstrates how to encrypt S3 content by using the AmazonS3EncryptionV2 object]
-//snippet-keyword:[SDK for Java]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/6/2020]
-//snippet-sourceauthor:[scmacdon]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -58,7 +53,8 @@ public class S3EncryptV2 {
                 .withRegion(Regions.DEFAULT_REGION)
                 .build();
 
-        // create a bucket for testing; will be deleted automatically upon successful completion
+        // create a bucket for testing; will be deleted automatically upon successful
+        // completion
         // of this example
         try {
             s3Client.createBucket(bucketName);
@@ -73,9 +69,7 @@ public class S3EncryptV2 {
         try {
             ObjectListing objectListing = s3Client.listObjects(bucketName);
             while (true) {
-                for (Iterator<?> iterator =
-                     objectListing.getObjectSummaries().iterator();
-                     iterator.hasNext(); ) {
+                for (Iterator<?> iterator = objectListing.getObjectSummaries().iterator(); iterator.hasNext();) {
                     S3ObjectSummary summary = (S3ObjectSummary) iterator.next();
                     s3Client.deleteObject(bucketName, summary.getKey());
                 }
@@ -116,8 +110,10 @@ public class S3EncryptV2 {
         AmazonS3EncryptionV2 s3Encryption = AmazonS3EncryptionClientV2Builder.standard()
                 .withRegion(Regions.DEFAULT_REGION)
                 .withClientConfiguration(new ClientConfiguration())
-                .withCryptoConfiguration(new CryptoConfigurationV2().withCryptoMode(CryptoMode.StrictAuthenticatedEncryption))
-                .withEncryptionMaterialsProvider(new StaticEncryptionMaterialsProvider(new EncryptionMaterials(secretKey)))
+                .withCryptoConfiguration(
+                        new CryptoConfigurationV2().withCryptoMode(CryptoMode.StrictAuthenticatedEncryption))
+                .withEncryptionMaterialsProvider(
+                        new StaticEncryptionMaterialsProvider(new EncryptionMaterials(secretKey)))
                 .build();
 
         s3Encryption.putObject(bucketName, s3ObjectKey, s3ObjectContent);
@@ -142,8 +138,10 @@ public class S3EncryptV2 {
 
         AmazonS3EncryptionV2 s3Encryption = AmazonS3EncryptionClientV2Builder.standard()
                 .withRegion(Regions.US_WEST_2)
-                .withCryptoConfiguration(new CryptoConfigurationV2().withCryptoMode(CryptoMode.StrictAuthenticatedEncryption))
-                .withEncryptionMaterialsProvider(new StaticEncryptionMaterialsProvider(new EncryptionMaterials(keyPair)))
+                .withCryptoConfiguration(
+                        new CryptoConfigurationV2().withCryptoMode(CryptoMode.StrictAuthenticatedEncryption))
+                .withEncryptionMaterialsProvider(
+                        new StaticEncryptionMaterialsProvider(new EncryptionMaterials(keyPair)))
                 .build();
 
         s3Encryption.putObject(bucketName, s3ObjectKey, s3ObjectContent);
@@ -172,7 +170,8 @@ public class S3EncryptV2 {
 
         AmazonS3EncryptionV2 s3Encryption = AmazonS3EncryptionClientV2Builder.standard()
                 .withRegion(Regions.US_WEST_2)
-                .withCryptoConfiguration(new CryptoConfigurationV2().withCryptoMode(CryptoMode.StrictAuthenticatedEncryption))
+                .withCryptoConfiguration(
+                        new CryptoConfigurationV2().withCryptoMode(CryptoMode.StrictAuthenticatedEncryption))
                 .withEncryptionMaterialsProvider(new KMSEncryptionMaterialsProvider(keyId))
                 .build();
 
@@ -180,12 +179,12 @@ public class S3EncryptV2 {
         System.out.println(s3Encryption.getObjectAsString(bucketName, s3ObjectKey));
 
         // schedule deletion of CMK generated for testing
-        ScheduleKeyDeletionRequest scheduleKeyDeletionRequest =
-                new ScheduleKeyDeletionRequest().withKeyId(keyId).withPendingWindowInDays(7);
+        ScheduleKeyDeletionRequest scheduleKeyDeletionRequest = new ScheduleKeyDeletionRequest().withKeyId(keyId)
+                .withPendingWindowInDays(7);
         kmsClient.scheduleKeyDeletion(scheduleKeyDeletionRequest);
 
         s3Encryption.shutdown();
         kmsClient.shutdown();
-       // snippet-end:[s3.java.s3_cse-v2.kms]
+        // snippet-end:[s3.java.s3_cse-v2.kms]
     }
 }

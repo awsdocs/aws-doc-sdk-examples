@@ -1,26 +1,21 @@
-//snippet-sourcedescription:[ListSecrets.java demonstrates how to list all of the secrets that are stored by Secrets Manager.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Secrets Manager]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.secrets;
 
-//snippet-start:[secretsmanager.java2.list_secrets.main]
-//snippet-start:[secretsmanager.java2.list_secrets.import]
+// snippet-start:[secretsmanager.java2.list_secrets.main]
+// snippet-start:[secretsmanager.java2.list_secrets.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.ListSecretsResponse;
 import software.amazon.awssdk.services.secretsmanager.model.SecretListEntry;
 import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerException;
 import java.util.List;
-//snippet-end:[secretsmanager.java2.list_secrets.import]
+// snippet-end:[secretsmanager.java2.list_secrets.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,8 +25,8 @@ public class ListSecrets {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listAllSecrets(secretsClient);
         secretsClient.close();
@@ -52,4 +47,4 @@ public class ListSecrets {
         }
     }
 }
-//snippet-end:[secretsmanager.java2.list_secrets.main]
+// snippet-end:[secretsmanager.java2.list_secrets.main]

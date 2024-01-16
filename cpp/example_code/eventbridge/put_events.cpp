@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: put_events.cpp demonstrates how to post an Amazon CloudWatch event.
@@ -12,14 +12,14 @@
  * Outputs:
  * The event is posted.
    * ///////////////////////////////////////////////////////////////////////// */
-//snippet-start:[cw.cpp.put_events.inc]
+// snippet-start:[cw.cpp.put_events.inc]
 #include <aws/core/Aws.h>
 #include <aws/events/EventBridgeClient.h>
 #include <aws/events/model/PutEventsRequest.h>
 #include <aws/events/model/PutEventsResult.h>
 #include <aws/core/utils/Outcome.h>
 #include <iostream>
-//snippet-end:[cw.cpp.put_events.inc]
+// snippet-end:[cw.cpp.put_events.inc]
 
 Aws::String MakeDetails(const Aws::String &key, const Aws::String& value)
 {

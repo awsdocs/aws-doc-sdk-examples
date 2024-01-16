@@ -22,3 +22,5 @@ xcuserdata
 
 # Ignore rust_dev_preview as it's no longer part of the project
 rust_dev_preview
+.vectors
+.snippets

@@ -1,3 +1,5 @@
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 use aws_config::SdkConfig;
 use aws_sdk_cloudwatchlogs::{Client, Error, GetQueryResultsRequest, StartQueryRequest};
 use std::time::{Duration, SystemTime};

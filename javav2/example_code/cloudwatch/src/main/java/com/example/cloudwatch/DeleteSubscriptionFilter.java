@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[DeleteSubscriptionFilter.java demonstrates how to delete Amazon CloudWatch log subscription filters.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudWatch]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.delete_subscription_filter.main]
@@ -16,7 +11,8 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.DeleteSubscriptionFi
 // snippet-end:[cloudwatch.java2.delete_subscription_filter.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -26,13 +22,13 @@ public class DeleteSubscriptionFilter {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-              <filter> <logGroup>
+                Usage:
+                  <filter> <logGroup>
 
-            Where:
-              filter - The name of the subscription filter (for example, MyFilter).
-              logGroup - The name of the log group. (for example, testgroup).
-            """;
+                Where:
+                  filter - The name of the subscription filter (for example, MyFilter).
+                  logGroup - The name of the log group. (for example, testgroup).
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -42,18 +38,18 @@ public class DeleteSubscriptionFilter {
         String filter = args[0];
         String logGroup = args[1];
         CloudWatchLogsClient logs = CloudWatchLogsClient.builder()
-            .build();
+                .build();
 
-        deleteSubFilter(logs, filter, logGroup );
+        deleteSubFilter(logs, filter, logGroup);
         logs.close();
     }
 
     public static void deleteSubFilter(CloudWatchLogsClient logs, String filter, String logGroup) {
         try {
             DeleteSubscriptionFilterRequest request = DeleteSubscriptionFilterRequest.builder()
-                .filterName(filter)
-                .logGroupName(logGroup)
-                .build();
+                    .filterName(filter)
+                    .logGroupName(logGroup)
+                    .build();
 
             logs.deleteSubscriptionFilter(request);
             System.out.printf("Successfully deleted CloudWatch logs subscription filter %s", filter);
@@ -62,7 +58,6 @@ public class DeleteSubscriptionFilter {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-   }
+    }
 }
 // snippet-end:[cloudwatch.java2.delete_subscription_filter.main]
-

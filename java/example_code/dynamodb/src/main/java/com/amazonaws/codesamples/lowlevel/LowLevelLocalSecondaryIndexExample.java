@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.LowLevelLocalSecondaryIndexExample] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.LowLevelLocalSecondaryIndexExample] 
 
 package com.amazonaws.codesamples.lowlevel;
 
@@ -80,8 +59,8 @@ public class LowLevelLocalSecondaryIndexExample {
     public static void createTable() {
 
         CreateTableRequest createTableRequest = new CreateTableRequest().withTableName(tableName)
-            .withProvisionedThroughput(
-                new ProvisionedThroughput().withReadCapacityUnits((long) 1).withWriteCapacityUnits((long) 1));
+                .withProvisionedThroughput(
+                        new ProvisionedThroughput().withReadCapacityUnits((long) 1).withWriteCapacityUnits((long) 1));
 
         // Attribute definitions for table partition key and sort key
         ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
@@ -90,7 +69,7 @@ public class LowLevelLocalSecondaryIndexExample {
 
         // Attribute definition for index sort key attributes
         attributeDefinitions
-            .add(new AttributeDefinition().withAttributeName("OrderCreationDate").withAttributeType("N"));
+                .add(new AttributeDefinition().withAttributeName("OrderCreationDate").withAttributeType("N"));
         attributeDefinitions.add(new AttributeDefinition().withAttributeName("IsOpen").withAttributeType("N"));
 
         createTableRequest.setAttributeDefinitions(attributeDefinitions);
@@ -162,12 +141,12 @@ public class LowLevelLocalSecondaryIndexExample {
         System.out.println("Querying table " + tableName + "...");
 
         QueryRequest queryRequest = new QueryRequest().withTableName(tableName).withConsistentRead(true)
-            .withScanIndexForward(true).withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);
+                .withScanIndexForward(true).withReturnConsumedCapacity(ReturnConsumedCapacity.TOTAL);
 
         HashMap<String, Condition> keyConditions = new HashMap<String, Condition>();
 
         keyConditions.put("CustomerId", new Condition().withComparisonOperator(ComparisonOperator.EQ)
-            .withAttributeValueList(new AttributeValue().withS("bob@example.com")));
+                .withAttributeValueList(new AttributeValue().withS("bob@example.com")));
 
         if (indexName == "IsOpenIndex") {
             System.out.println("\nUsing index: '" + indexName + "': Bob's orders that are open.");
@@ -175,25 +154,23 @@ public class LowLevelLocalSecondaryIndexExample {
             queryRequest.setIndexName(indexName);
 
             keyConditions.put("IsOpen", new Condition().withComparisonOperator(ComparisonOperator.EQ)
-                .withAttributeValueList(new AttributeValue().withN("1")));
+                    .withAttributeValueList(new AttributeValue().withN("1")));
 
             // ProjectionExpression
             queryRequest.setProjectionExpression("OrderCreationDate, ProductCategory, ProductName, OrderStatus");
 
-        }
-        else if (indexName == "OrderCreationDateIndex") {
+        } else if (indexName == "OrderCreationDateIndex") {
             System.out.println("\nUsing index: '" + indexName + "': Bob's orders that were placed after 01/31/2013.");
             System.out.println("Only the projected attributes are returned\n");
             queryRequest.setIndexName(indexName);
 
             keyConditions.put("OrderCreationDate", new Condition().withComparisonOperator(ComparisonOperator.GT)
-                .withAttributeValueList(new AttributeValue().withN("20130131")));
+                    .withAttributeValueList(new AttributeValue().withN("20130131")));
 
             // Select
             queryRequest.setSelect(Select.ALL_PROJECTED_ATTRIBUTES);
 
-        }
-        else {
+        } else {
             System.out.println("\nNo index: All of Bob's orders, by OrderId:\n");
         }
 
@@ -210,8 +187,7 @@ public class LowLevelLocalSecondaryIndexExample {
                 String attr = (String) currentItemIter.next();
                 if (attr == "OrderId" || attr == "IsOpen" || attr == "OrderCreationDate") {
                     System.out.println(attr + "---> " + currentItem.get(attr).getN());
-                }
-                else {
+                } else {
                     System.out.println(attr + "---> " + currentItem.get(attr).getS());
                 }
             }
@@ -241,7 +217,7 @@ public class LowLevelLocalSecondaryIndexExample {
         item.put("OrderStatus", new AttributeValue().withS("PACKING ITEMS"));
         /* no ShipmentTrackingId attribute */
         PutItemRequest putItemRequest = new PutItemRequest().withTableName(tableName).withItem(item)
-            .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
+                .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
         PutItemResult result = client.putItem(putItemRequest);
         System.out.println("Item collection metrics: " + result.getItemCollectionMetrics());
 
@@ -255,7 +231,7 @@ public class LowLevelLocalSecondaryIndexExample {
         item.put("OrderStatus", new AttributeValue().withS("ORDER RECEIVED"));
         /* no ShipmentTrackingId attribute */
         putItemRequest = new PutItemRequest().withTableName(tableName).withItem(item)
-            .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
+                .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
         result = client.putItem(putItemRequest);
         System.out.println("Item collection metrics: " + result.getItemCollectionMetrics());
 
@@ -269,7 +245,7 @@ public class LowLevelLocalSecondaryIndexExample {
         item.put("OrderStatus", new AttributeValue().withS("IN TRANSIT"));
         item.put("ShipmentTrackingId", new AttributeValue().withS("176493"));
         putItemRequest = new PutItemRequest().withTableName(tableName).withItem(item)
-            .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
+                .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
         result = client.putItem(putItemRequest);
         System.out.println("Item collection metrics: " + result.getItemCollectionMetrics());
 
@@ -283,7 +259,7 @@ public class LowLevelLocalSecondaryIndexExample {
         item.put("OrderStatus", new AttributeValue().withS("SHIPPING DELAY"));
         item.put("ShipmentTrackingId", new AttributeValue().withS("859323"));
         putItemRequest = new PutItemRequest().withTableName(tableName).withItem(item)
-            .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
+                .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
         result = client.putItem(putItemRequest);
         System.out.println("Item collection metrics: " + result.getItemCollectionMetrics());
 
@@ -297,7 +273,7 @@ public class LowLevelLocalSecondaryIndexExample {
         item.put("OrderStatus", new AttributeValue().withS("DELIVERED"));
         item.put("ShipmentTrackingId", new AttributeValue().withS("756943"));
         putItemRequest = new PutItemRequest().withTableName(tableName).withItem(item)
-            .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
+                .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
         result = client.putItem(putItemRequest);
         System.out.println("Item collection metrics: " + result.getItemCollectionMetrics());
 
@@ -311,7 +287,7 @@ public class LowLevelLocalSecondaryIndexExample {
         item.put("OrderStatus", new AttributeValue().withS("DELIVERED"));
         item.put("ShipmentTrackingId", new AttributeValue().withS("645193"));
         putItemRequest = new PutItemRequest().withTableName(tableName).withItem(item)
-            .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
+                .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
         result = client.putItem(putItemRequest);
         System.out.println("Item collection metrics: " + result.getItemCollectionMetrics());
 
@@ -325,7 +301,7 @@ public class LowLevelLocalSecondaryIndexExample {
         item.put("OrderStatus", new AttributeValue().withS("PACKING ITEMS"));
         /* no ShipmentTrackingId attribute */
         putItemRequest = new PutItemRequest().withTableName(tableName).withItem(item)
-            .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
+                .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
         result = client.putItem(putItemRequest);
         System.out.println("Item collection metrics: " + result.getItemCollectionMetrics());
 
@@ -339,7 +315,7 @@ public class LowLevelLocalSecondaryIndexExample {
         item.put("OrderStatus", new AttributeValue().withS("IN TRANSIT"));
         item.put("ShipmentTrackingId", new AttributeValue().withS("440185"));
         putItemRequest = new PutItemRequest().withTableName(tableName).withItem(item)
-            .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
+                .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
         result = client.putItem(putItemRequest);
         System.out.println("Item collection metrics: " + result.getItemCollectionMetrics());
 
@@ -353,7 +329,7 @@ public class LowLevelLocalSecondaryIndexExample {
         item.put("OrderStatus", new AttributeValue().withS("DELIVERED"));
         item.put("ShipmentTrackingId", new AttributeValue().withS("893927"));
         putItemRequest = new PutItemRequest().withTableName(tableName).withItem(item)
-            .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
+                .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
         result = client.putItem(putItemRequest);
         System.out.println("Item collection metrics: " + result.getItemCollectionMetrics());
 
@@ -367,7 +343,7 @@ public class LowLevelLocalSecondaryIndexExample {
         item.put("OrderStatus", new AttributeValue().withS("OUT FOR DELIVERY"));
         item.put("ShipmentTrackingId", new AttributeValue().withS("383283"));
         putItemRequest = new PutItemRequest().withTableName(tableName).withItem(item)
-            .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
+                .withReturnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE);
         result = client.putItem(putItemRequest);
         System.out.println("Item collection metrics: " + result.getItemCollectionMetrics());
 
@@ -387,8 +363,7 @@ public class LowLevelLocalSecondaryIndexExample {
                 return;
             try {
                 Thread.sleep(1000 * 20);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
         }
         throw new RuntimeException("Table " + tableName + " never went active");
@@ -407,15 +382,13 @@ public class LowLevelLocalSecondaryIndexExample {
                 System.out.println("  - current state: " + tableStatus);
                 if (tableStatus.equals(TableStatus.ACTIVE.toString()))
                     return;
-            }
-            catch (ResourceNotFoundException e) {
+            } catch (ResourceNotFoundException e) {
                 System.out.println("Table " + tableName + " is not found. It was deleted.");
                 return;
             }
             try {
                 Thread.sleep(1000 * 20);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
         }
         throw new RuntimeException("Table " + tableName + " was never deleted");
@@ -423,4 +396,4 @@ public class LowLevelLocalSecondaryIndexExample {
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.LowLevelLocalSecondaryIndexExample] 
+// snippet-end:[dynamodb.java.codeexample.LowLevelLocalSecondaryIndexExample]

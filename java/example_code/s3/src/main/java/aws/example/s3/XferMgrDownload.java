@@ -1,26 +1,5 @@
-//snippet-sourcedescription:[XferMgrDownload.java demonstrates how to download objects from an Amazon S3 bucket using S3 TransferManager.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[TransferManager downloadDirectory]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.s3;
 // snippet-start:[s3.java1.s3_xfer_mgr_download.import]
 
@@ -43,7 +22,7 @@ import java.io.File;
  */
 public class XferMgrDownload {
     public static void downloadDir(String bucket_name, String key_prefix,
-                                   String dir_path, boolean pause) {
+            String dir_path, boolean pause) {
         System.out.println("downloading to directory: " + dir_path +
                 (pause ? " (pause)" : ""));
 
@@ -66,7 +45,7 @@ public class XferMgrDownload {
     }
 
     public static void downloadFile(String bucket_name, String key_name,
-                                    String file_path, boolean pause) {
+            String file_path, boolean pause) {
         System.out.println("Downloading to file: " + file_path +
                 (pause ? " (pause)" : ""));
 
@@ -148,7 +127,6 @@ public class XferMgrDownload {
         String key_name = s3_path[1];
         boolean s3_path_is_prefix = (key_name.lastIndexOf('/') == key_name.length() - 1);
         cur_arg += 1;
-
 
         // The final argument is either a local directory or file to copy to.
         // If there is no final arg, use the key (object) name as the local file

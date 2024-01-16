@@ -1,10 +1,6 @@
-// snippet-sourcedescription:[VideoDetect.java demonstrates how to detect labels in a video by using Amazon Rekognition Video label detection operation and an Amazon SNS topic.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Rekognition]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.rekognition;
 
 // snippet-start:[rekognition.java2.recognize_video_detect.main]
@@ -37,7 +33,8 @@ import java.util.List;
 // snippet-end:[rekognition.java2.recognize_video_detect.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -49,15 +46,15 @@ public class VideoDetect {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <bucket> <video> <queueUrl> <topicArn> <roleArn>
+                Usage:    <bucket> <video> <queueUrl> <topicArn> <roleArn>
 
-            Where:
-               bucket - The name of the bucket in which the video is located (for example, (for example, myBucket).\s
-               video - The name of the video (for example, people.mp4).\s
-               queueUrl- The URL of a SQS queue.\s
-               topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic.\s
-               roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use.\s
-            """;
+                Where:
+                   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket).\s
+                   video - The name of the video (for example, people.mp4).\s
+                   queueUrl- The URL of a SQS queue.\s
+                   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic.\s
+                   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use.\s
+                """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -71,17 +68,17 @@ public class VideoDetect {
         String roleArn = args[4];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         SqsClient sqs = SqsClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         NotificationChannel channel = NotificationChannel.builder()
-            .snsTopicArn(topicArn)
-            .roleArn(roleArn)
-            .build();
+                .snsTopicArn(topicArn)
+                .roleArn(roleArn)
+                .build();
 
         startLabels(rekClient, channel, bucket, video);
         getLabelJob(rekClient, sqs, queueUrl);
@@ -91,25 +88,25 @@ public class VideoDetect {
     }
 
     public static void startLabels(RekognitionClient rekClient,
-                                   NotificationChannel channel,
-                                   String bucket,
-                                   String video) {
+            NotificationChannel channel,
+            String bucket,
+            String video) {
         try {
             S3Object s3Obj = S3Object.builder()
-                .bucket(bucket)
-                .name(video)
-                .build();
+                    .bucket(bucket)
+                    .name(video)
+                    .build();
 
             Video vidOb = Video.builder()
-                .s3Object(s3Obj)
-                .build();
+                    .s3Object(s3Obj)
+                    .build();
 
             StartLabelDetectionRequest labelDetectionRequest = StartLabelDetectionRequest.builder()
-                .jobTag("DetectingLabels")
-                .notificationChannel(channel)
-                .video(vidOb)
-                .minConfidence(50F)
-                .build();
+                    .jobTag("DetectingLabels")
+                    .notificationChannel(channel)
+                    .video(vidOb)
+                    .minConfidence(50F)
+                    .build();
 
             StartLabelDetectionResponse labelDetectionResponse = rekClient.startLabelDetection(labelDetectionRequest);
             startJobId = labelDetectionResponse.jobId();
@@ -120,9 +117,9 @@ public class VideoDetect {
             while (ans) {
 
                 GetLabelDetectionRequest detectionRequest = GetLabelDetectionRequest.builder()
-                    .jobId(startJobId)
-                    .maxResults(10)
-                    .build();
+                        .jobId(startJobId)
+                        .maxResults(10)
+                        .build();
 
                 GetLabelDetectionResponse result = rekClient.getLabelDetection(detectionRequest);
                 status = result.jobStatusAsString();
@@ -147,8 +144,8 @@ public class VideoDetect {
     public static void getLabelJob(RekognitionClient rekClient, SqsClient sqs, String queueUrl) {
         List<Message> messages;
         ReceiveMessageRequest messageRequest = ReceiveMessageRequest.builder()
-            .queueUrl(queueUrl)
-            .build();
+                .queueUrl(queueUrl)
+                .build();
 
         try {
             messages = sqs.receiveMessage(messageRequest).messages();
@@ -168,8 +165,8 @@ public class VideoDetect {
                     System.out.println("Job found in JSON is " + operationJobId);
 
                     DeleteMessageRequest deleteMessageRequest = DeleteMessageRequest.builder()
-                        .queueUrl(queueUrl)
-                        .build();
+                            .queueUrl(queueUrl)
+                            .build();
 
                     String jobId = operationJobId.textValue();
                     if (startJobId.compareTo(jobId) == 0) {
@@ -211,13 +208,12 @@ public class VideoDetect {
                 if (labelDetectionResult != null)
                     paginationToken = labelDetectionResult.nextToken();
 
-
                 GetLabelDetectionRequest labelDetectionRequest = GetLabelDetectionRequest.builder()
-                    .jobId(startJobId)
-                    .sortBy(LabelDetectionSortBy.TIMESTAMP)
-                    .maxResults(maxResults)
-                    .nextToken(paginationToken)
-                    .build();
+                        .jobId(startJobId)
+                        .sortBy(LabelDetectionSortBy.TIMESTAMP)
+                        .maxResults(maxResults)
+                        .nextToken(paginationToken)
+                        .build();
 
                 labelDetectionResult = rekClient.getLabelDetection(labelDetectionRequest);
                 VideoMetadata videoMetaData = labelDetectionResult.videoMetadata();

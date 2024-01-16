@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudwatch.php.put_metric_alarm.complete]
 // snippet-start:[cloudwatch.php.put_metric_alarm.import]
@@ -117,13 +116,3 @@ function putTheMetricAlarm()
 // putTheMetricAlarm();
 // snippet-end:[cloudwatch.php.put_metric_alarm.main]
 // snippet-end:[cloudwatch.php.put_metric_alarm.complete]
-// snippet-sourcedescription:[PutMetricAlarm.php demonstrates how to create or update an alarm and associate it with the specified Amazon CloudWatch metric.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Cloudwatch]
-// snippet-service:[cloudwatch]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-08]
-// snippet-sourceauthor:[pccornel (AWS)]

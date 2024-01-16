@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 use aws_sdk_dynamodb::error::SdkError;
 use aws_sdk_dynamodb::types::{AttributeValue, PutRequest};
 use aws_smithy_types::error::operation::BuildError;

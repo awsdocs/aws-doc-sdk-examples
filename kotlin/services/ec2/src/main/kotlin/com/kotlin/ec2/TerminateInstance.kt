@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[TerminateInstance.kt demonstrates how to terminate an Amazon Elastic Compute Cloud (Amazon EC2) instance.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon EC2]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.ec2
 
 // snippet-start:[ec2.kotlin.terminate_instance.import]

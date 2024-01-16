@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ListTextTranslationJobs.java demonstrates how to list all translation jobs.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-service:[Amazon Translate]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.translate;
 
@@ -22,7 +16,8 @@ import software.amazon.awssdk.services.translate.model.TranslateException;
 import java.util.List;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,8 +27,8 @@ public class ListTextTranslationJobs {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getTranslationJobs(translateClient);
         translateClient.close();
@@ -42,10 +37,11 @@ public class ListTextTranslationJobs {
     public static void getTranslationJobs(TranslateClient translateClient) {
         try {
             ListTextTranslationJobsRequest textTranslationJobsRequest = ListTextTranslationJobsRequest.builder()
-                .maxResults(10)
-                .build();
+                    .maxResults(10)
+                    .build();
 
-            ListTextTranslationJobsResponse jobsResponse = translateClient.listTextTranslationJobs(textTranslationJobsRequest);
+            ListTextTranslationJobsResponse jobsResponse = translateClient
+                    .listTextTranslationJobs(textTranslationJobsRequest);
             List<TextTranslationJobProperties> props = jobsResponse.textTranslationJobPropertiesList();
             for (TextTranslationJobProperties prop : props) {
                 System.out.println("The job name is: " + prop.jobName());

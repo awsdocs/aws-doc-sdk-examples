@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[CreateCluster.java demonstrates how to create a cluster for the Amazon Elastic Container Service (Amazon ECS) service.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Elastic Container Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ecs;
 
@@ -22,7 +16,8 @@ import software.amazon.awssdk.services.ecs.model.CreateClusterRequest;
 // snippet-end:[ecs.java2.create_cluster.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,12 +27,12 @@ public class CreateCluster {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-               <clusterName>\s
+                Usage:
+                   <clusterName>\s
 
-            Where:
-               clusterName - The name of the ECS cluster to create.
-            """;
+                Where:
+                   clusterName - The name of the ECS cluster to create.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,8 +42,8 @@ public class CreateCluster {
         String clusterName = args[0];
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String clusterArn = createGivenCluster(ecsClient, clusterName);
         System.out.println("The cluster ARN is " + clusterArn);
@@ -58,17 +53,17 @@ public class CreateCluster {
     public static String createGivenCluster(EcsClient ecsClient, String clusterName) {
         try {
             ExecuteCommandConfiguration commandConfiguration = ExecuteCommandConfiguration.builder()
-                .logging(ExecuteCommandLogging.DEFAULT)
-                .build();
+                    .logging(ExecuteCommandLogging.DEFAULT)
+                    .build();
 
             ClusterConfiguration clusterConfiguration = ClusterConfiguration.builder()
-                .executeCommandConfiguration(commandConfiguration)
-                .build();
+                    .executeCommandConfiguration(commandConfiguration)
+                    .build();
 
             CreateClusterRequest clusterRequest = CreateClusterRequest.builder()
-                .clusterName(clusterName)
-                .configuration(clusterConfiguration)
-                .build();
+                    .clusterName(clusterName)
+                    .configuration(clusterConfiguration)
+                    .build();
 
             CreateClusterResponse response = ecsClient.createCluster(clusterRequest);
             return response.cluster().clusterArn();

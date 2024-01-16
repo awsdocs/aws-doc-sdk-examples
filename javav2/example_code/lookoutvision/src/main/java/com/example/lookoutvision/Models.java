@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[lookoutvision.java2.models.complete]
 
@@ -41,7 +39,8 @@ public class Models {
         /**
          * Creates an Amazon Lookout for Vision model. The function returns after model
          * training completes. Model training can take multiple hours to complete.
-         * You are charged for the amount of time it takes to successfully train a model.
+         * You are charged for the amount of time it takes to successfully train a
+         * model.
          * Returns after Lookout for Vision creates the dataset.
          * 
          * @param lfvClient   An Amazon Lookout for Vision client.
@@ -196,7 +195,6 @@ public class Models {
 
         }
 
-
         /**
          * Lists the tags attached to an Amazon Lookout for Vision model.
          * 
@@ -240,15 +238,17 @@ public class Models {
                 return response.tags();
 
         }
+
         /**
-        * Unattaches a tag from an Amazon Lookout for Vision model.
-        * 
-        * @param lfvClient    An Amazon Lookout for Vision client.
-        * @param projectName  The name of the project that contains the model for which
-        *                     you want to unattach a tag.
-        * @param modelVersion The version of the model for which you want to unattach a tag.
-        * @return void
-        */
+         * Unattaches a tag from an Amazon Lookout for Vision model.
+         * 
+         * @param lfvClient    An Amazon Lookout for Vision client.
+         * @param projectName  The name of the project that contains the model for which
+         *                     you want to unattach a tag.
+         * @param modelVersion The version of the model for which you want to unattach a
+         *                     tag.
+         * @return void
+         */
 
         public static void untagModel(LookoutVisionClient lfvClient, String projectName, String modelVersion,
                         String key) throws LookoutVisionException {
@@ -282,14 +282,15 @@ public class Models {
         }
 
         /**
-        * Attaches a tag to an Amazon Lookout for Vision model.
-        * 
-        * @param lfvClient    An Amazon Lookout for Vision client.
-        * @param projectName  The name of the project that contains the model for which
-        *                     you want to attach a tag.
-        * @param modelVersion The version of the model for which you want to attach a tag.
-        * @return void
-        */
+         * Attaches a tag to an Amazon Lookout for Vision model.
+         * 
+         * @param lfvClient    An Amazon Lookout for Vision client.
+         * @param projectName  The name of the project that contains the model for which
+         *                     you want to attach a tag.
+         * @param modelVersion The version of the model for which you want to attach a
+         *                     tag.
+         * @return void
+         */
 
         public static void tagModel(LookoutVisionClient lfvClient, String projectName, String modelVersion,
                         String key, String value) throws LookoutVisionException {
@@ -329,13 +330,15 @@ public class Models {
         }
 
         /**
-        * Deletes an Amazon Lookout for Vision model.
-        * 
-        * @param lfvClient    An Amazon Lookout for Vision client. Returns after the model is deleted.
-        * @param projectName  The name of the project that contains the model that you want to delete.
-        * @param modelVersion The version of the model that you want to delete.
-        * @return void
-        */
+         * Deletes an Amazon Lookout for Vision model.
+         * 
+         * @param lfvClient    An Amazon Lookout for Vision client. Returns after the
+         *                     model is deleted.
+         * @param projectName  The name of the project that contains the model that you
+         *                     want to delete.
+         * @param modelVersion The version of the model that you want to delete.
+         * @return void
+         */
         public static void deleteModel(LookoutVisionClient lfvClient,
                         String projectName,
                         String modelVersion) throws LookoutVisionException, InterruptedException {

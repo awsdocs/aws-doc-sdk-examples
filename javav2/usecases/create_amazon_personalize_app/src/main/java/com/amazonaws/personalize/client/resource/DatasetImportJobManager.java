@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.personalize.client.resource;
 
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
@@ -21,7 +20,8 @@ class DatasetImportJobManager extends AbstractResourceManager {
     private final String bucket;
     private final String s3Path;
 
-    public DatasetImportJobManager(PersonalizeClient personalizeClient, String name, String dsArn, String roleArn, String bucket, String s3Path) {
+    public DatasetImportJobManager(PersonalizeClient personalizeClient, String name, String dsArn, String roleArn,
+            String bucket, String s3Path) {
         super(personalizeClient, name);
         this.dsArn = dsArn;
         this.roleArn = roleArn;
@@ -90,7 +90,8 @@ class DatasetImportJobManager extends AbstractResourceManager {
             ListDatasetImportJobsRequest listDatasetImportJobsRequest = ListDatasetImportJobsRequest.builder()
                     .maxResults(100)
                     .build();
-            ListDatasetImportJobsResponse listDatasetImportJobsResponse = getPersonalize().listDatasetImportJobs(listDatasetImportJobsRequest);
+            ListDatasetImportJobsResponse listDatasetImportJobsResponse = getPersonalize()
+                    .listDatasetImportJobs(listDatasetImportJobsRequest);
 
             for (DatasetImportJobSummary job : listDatasetImportJobsResponse.datasetImportJobs()) {
                 if (job.jobName().equals(name)) {

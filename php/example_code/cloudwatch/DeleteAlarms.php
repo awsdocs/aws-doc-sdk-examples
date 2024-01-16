@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudwatch.php.delete_alarm.complete]
 // snippet-start:[cloudwatch.php.delete_alarm.import]
@@ -59,14 +58,4 @@ function deleteTheAlarms()
 // deleteTheAlarms();
 // snippet-end:[cloudwatch.php.delete_alarm.main]
 // snippet-end:[cloudwatch.php.delete_alarm.complete]
-// snippet-sourcedescription:[DeleteAlarms.php demonstrates how to delete one or more specified Amazon CloudWatch alarms.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Cloudwatch]
-// snippet-service:[cloudwatch]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-05]
-// snippet-sourceauthor:[pccornel (AWS)]
 

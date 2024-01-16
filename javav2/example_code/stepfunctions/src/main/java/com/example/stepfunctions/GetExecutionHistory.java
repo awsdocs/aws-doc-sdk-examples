@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetExecutionHistory.java demonstrates how to retrieve the history of the specified execution as a list of events.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Step Functions]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.stepfunctions;
 
@@ -20,7 +14,8 @@ import java.util.List;
 // snippet-end:[stepfunctions.java2.get_history.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +25,12 @@ public class GetExecutionHistory {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <exeARN>\s
+                Usage:
+                    <exeARN>\s
 
-            Where:
-                exeARN - The Amazon Resource Name (ARN) of the execution.
-            """;
+                Where:
+                    exeARN - The Amazon Resource Name (ARN) of the execution.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,8 +40,8 @@ public class GetExecutionHistory {
         String exeARN = args[0];
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getExeHistory(sfnClient, exeARN);
         sfnClient.close();
@@ -56,14 +51,14 @@ public class GetExecutionHistory {
     public static void getExeHistory(SfnClient sfnClient, String exeARN) {
         try {
             GetExecutionHistoryRequest historyRequest = GetExecutionHistoryRequest.builder()
-                .executionArn(exeARN)
-                .maxResults(10)
-                .build();
+                    .executionArn(exeARN)
+                    .maxResults(10)
+                    .build();
 
             GetExecutionHistoryResponse historyResponse = sfnClient.getExecutionHistory(historyRequest);
             List<HistoryEvent> events = historyResponse.events();
-            for (HistoryEvent event: events) {
-                System.out.println("The event type is "+event.type().toString());
+            for (HistoryEvent event : events) {
+                System.out.println("The event type is " + event.type().toString());
             }
 
         } catch (SfnException e) {
@@ -73,4 +68,3 @@ public class GetExecutionHistory {
     }
     // snippet-end:[stepfunctions.java2.get_history.main]
 }
-

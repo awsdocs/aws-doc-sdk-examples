@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[list_users.java demonstrates how to list the users for an organization.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-service:[workdocs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[Doug-AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +13,11 @@ import com.amazonaws.services.workdocs.model.User;
 public class list_users {
 
 	public static void main(String[] args) {
-		// Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-iam.html
+		// Based on WorkDocs dev guide code at
+		// http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-iam.html
 
-		// Use the default client. Look at Window, Preferences, AWS Toolkit to see the values
+		// Use the default client. Look at Window, Preferences, AWS Toolkit to see the
+		// values
 		AmazonWorkDocs workDocs = AmazonWorkDocsClientBuilder.defaultClient();
 
 		List<User> wdUsers = new ArrayList<>();

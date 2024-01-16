@@ -1,13 +1,5 @@
-//snippet-sourcedescription:[SynthesizeSpeechSample.cs demonstrates how to get a synthesized audio file as a stream of bytes from a text input.]
-//snippet-keyword:[dotnet]
-//snippet-keyword:[.NET]
-//snippet-sourcesyntax:[.net]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Polly]
-//snippet-service:[polly]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;

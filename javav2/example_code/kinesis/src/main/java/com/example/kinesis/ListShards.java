@@ -1,24 +1,20 @@
-//snippet-sourcedescription:[ListShards.java demonstrates how to list the shards in an Amazon Kinesis data stream.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Kinesis]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kinesis;
 
 // snippet-start:[kinesis.java2.ListShards.main]
-//snippet-start:[kinesis.java2.ListShards.import]
+// snippet-start:[kinesis.java2.ListShards.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
 import software.amazon.awssdk.services.kinesis.model.KinesisException;
 import software.amazon.awssdk.services.kinesis.model.ListShardsRequest;
 import software.amazon.awssdk.services.kinesis.model.ListShardsResponse;
-//snippet-end:[kinesis.java2.ListShards.import]
+// snippet-end:[kinesis.java2.ListShards.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,13 +25,13 @@ public class ListShards {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <streamName>
+                Usage:
+                    <streamName>
 
-            Where:
-                streamName - The Amazon Kinesis data stream (for example, StockTradeStream)
+                Where:
+                    streamName - The Amazon Kinesis data stream (for example, StockTradeStream)
 
-            """;
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,8 +42,8 @@ public class ListShards {
         // snippet-start:[kinesis.java2.ListShards.client]
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
         // snippet-end:[kinesis.java2.ListShards.client]
 
         listKinShards(kinesisClient, name);
@@ -57,8 +53,8 @@ public class ListShards {
     public static void listKinShards(KinesisClient kinesisClient, String name) {
         try {
             ListShardsRequest request = ListShardsRequest.builder()
-                .streamName(name)
-                .build();
+                    .streamName(name)
+                    .build();
 
             ListShardsResponse response = kinesisClient.listShards(request);
             System.out.println(request.streamName() + " has " + response.shards());

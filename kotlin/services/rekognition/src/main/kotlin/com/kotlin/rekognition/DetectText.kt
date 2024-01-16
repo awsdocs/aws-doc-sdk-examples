@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[DetectText.kt demonstrates how to display words that were detected in an image.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Rekognition]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.rekognition
 
 // snippet-start:[rekognition.kotlin.detect_text.import]

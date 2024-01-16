@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ListGroupMemberships.java demonstrates how to retrieve the list of users attached to a group in AWS Identitystore.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.identitystore;
 
@@ -19,25 +13,25 @@ import software.amazon.awssdk.services.identitystore.model.GroupMembership;
 // snippet-end:[Identitystore.java2.list_group_memberships.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
-
 public class ListGroupMemberships {
     public static void main(String... args) {
         final String usage = """
 
-            Usage:
-                <identitystoreId> <groupId>\s
+                Usage:
+                    <identitystoreId> <groupId>\s
 
-            Where:
-                identitystoreId - The id of the identitystore.\s
-                groupId - The id of the group.\s
-            """;
+                Where:
+                    identitystoreId - The id of the identitystore.\s
+                    groupId - The id of the group.\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -63,22 +57,23 @@ public class ListGroupMemberships {
                 ListGroupMembershipsResponse response;
                 if (nextToken == null) {
                     ListGroupMembershipsRequest request = ListGroupMembershipsRequest.builder()
-                        .identityStoreId(identitystoreId)
-                        .groupId(groupId)
-                        .build();
+                            .identityStoreId(identitystoreId)
+                            .groupId(groupId)
+                            .build();
                     response = identitystore.listGroupMemberships(request);
                 } else {
                     ListGroupMembershipsRequest request = ListGroupMembershipsRequest.builder()
-                        .nextToken(nextToken)
-                        .identityStoreId(identitystoreId)
-                        .groupId(groupId)
-                        .build();
+                            .nextToken(nextToken)
+                            .identityStoreId(identitystoreId)
+                            .groupId(groupId)
+                            .build();
                     response = identitystore.listGroupMemberships(request);
                 }
 
                 for (GroupMembership groupmembership : response.groupMemberships()) {
                     count++;
-                    System.out.format("GroupId: %s, UserId: %s, MembershipId: %s\n", groupmembership.groupId(), groupmembership.memberId().userId(), groupmembership.membershipId());
+                    System.out.format("GroupId: %s, UserId: %s, MembershipId: %s\n", groupmembership.groupId(),
+                            groupmembership.memberId().userId(), groupmembership.membershipId());
                 }
 
                 nextToken = response.nextToken();
@@ -96,4 +91,4 @@ public class ListGroupMemberships {
         return 0;
     }
 }
- // snippet-end:[identitystore.java2.list_group_memberships.main]
+// snippet-end:[identitystore.java2.list_group_memberships.main]

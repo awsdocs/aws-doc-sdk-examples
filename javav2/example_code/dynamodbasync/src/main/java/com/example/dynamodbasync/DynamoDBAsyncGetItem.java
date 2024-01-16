@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DynamoDBAsyncGetItem.java demonstrates how to get an item by using the DynamoDbAsyncClient object]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[8/7/2020]
-//snippet-sourceauthor:[scmacdon-aws]
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -23,6 +16,7 @@
  */
 // snippet-start:[dynamodb.Java.DynamoDBAsyncGetItem.complete]
 package com.example.dynamodbasync;
+
 // snippet-start:[dynamoasyn.java2.get_item.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
@@ -66,15 +60,14 @@ public class DynamoDBAsyncGetItem {
                 .region(region)
                 .build();
 
-        System.out.format("Retrieving item \"%s\" from \"%s\"\n", keyVal, tableName );
+        System.out.format("Retrieving item \"%s\" from \"%s\"\n", keyVal, tableName);
         getItem(client, tableName, key, keyVal);
     }
 
     // snippet-start:[dynamoasyc.java2.get_item.main]
-    public static void getItem(DynamoDbAsyncClient client, String tableName, String key,  String keyVal) {
+    public static void getItem(DynamoDbAsyncClient client, String tableName, String key, String keyVal) {
 
-        HashMap<String, AttributeValue> keyToGet =
-                new HashMap<String, AttributeValue>();
+        HashMap<String, AttributeValue> keyToGet = new HashMap<String, AttributeValue>();
 
         keyToGet.put(key, AttributeValue.builder()
                 .s(keyVal).build());
@@ -91,7 +84,8 @@ public class DynamoDBAsyncGetItem {
             java.util.Collection<AttributeValue> returnedItem = client.getItem(request).join().item().values();
 
             // Convert Set to Map
-            Map<String, AttributeValue> map = returnedItem.stream().collect(Collectors.toMap(AttributeValue::s, s->s));
+            Map<String, AttributeValue> map = returnedItem.stream()
+                    .collect(Collectors.toMap(AttributeValue::s, s -> s));
             Set<String> keys = map.keySet();
             for (String sinKey : keys) {
                 System.out.format("%s: %s\n", sinKey, map.get(sinKey).toString());

@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 function handler(event) {
     // NOTE: This example function is for a viewer request event trigger.
     // Choose viewer request for event trigger when you associate this function with a distribution.

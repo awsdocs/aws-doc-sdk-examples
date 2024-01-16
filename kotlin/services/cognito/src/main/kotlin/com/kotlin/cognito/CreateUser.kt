@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[CreateUser.kt demonstrates how to add a new user to your user pool.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Cognito]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.cognito
 
 // snippet-start:[cognito.kotlin.new_admin_user.import]

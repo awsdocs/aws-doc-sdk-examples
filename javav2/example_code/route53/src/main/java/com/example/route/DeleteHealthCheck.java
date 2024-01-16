@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DeleteHealthCheck.java demonstrates how to delete a health check.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Route 53]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.route;
 
@@ -19,7 +12,8 @@ import software.amazon.awssdk.services.route53.model.DeleteHealthCheckRequest;
 // snippet-end:[route53.java2.delete_health_check.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,12 +23,12 @@ public class DeleteHealthCheck {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <id>\s
+                Usage:
+                    <id>\s
 
-            Where:
-                id - The health check id.\s
-            """;
+                Where:
+                    id - The health check id.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,18 +38,18 @@ public class DeleteHealthCheck {
         String id = args[0];
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         delHealthCheck(route53Client, id);
         route53Client.close();
     }
 
-    public static void delHealthCheck( Route53Client route53Client, String id) {
+    public static void delHealthCheck(Route53Client route53Client, String id) {
         try {
             DeleteHealthCheckRequest delRequest = DeleteHealthCheckRequest.builder()
-                .healthCheckId(id)
-                .build();
+                    .healthCheckId(id)
+                    .build();
 
             route53Client.deleteHealthCheck(delRequest);
             System.out.println("The hosted zone was deleted");
@@ -67,5 +61,3 @@ public class DeleteHealthCheck {
     }
     // snippet-end:[route53.java2.delete_health_check.main]
 }
-
-

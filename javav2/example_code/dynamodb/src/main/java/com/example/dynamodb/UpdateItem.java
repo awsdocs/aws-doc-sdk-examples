@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[UpdateItem.java demonstrates how to update a value located in an Amazon DynamoDB table.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.dynamodb;
 
@@ -22,31 +16,33 @@ import java.util.HashMap;
 // snippet-end:[dynamodb.java2.update_item.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- * To update an Amazon DynamoDB table using the AWS SDK for Java V2, its better practice to use the
+ * To update an Amazon DynamoDB table using the AWS SDK for Java V2, its better
+ * practice to use the
  * Enhanced Client, See the EnhancedModifyItem example.
  */
 public class UpdateItem {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <tableName> <key> <keyVal> <name> <updateVal>
+                Usage:
+                    <tableName> <key> <keyVal> <name> <updateVal>
 
-            Where:
-                tableName - The Amazon DynamoDB table (for example, Music3).
-                key - The name of the key in the table (for example, Artist).
-                keyVal - The value of the key (for example, Famous Band).
-                name - The name of the column where the value is updated (for example, Awards).
-                updateVal - The value used to update an item (for example, 14).
-             Example:
-                UpdateItem Music3 Artist Famous Band Awards 14
-            """;
+                Where:
+                    tableName - The Amazon DynamoDB table (for example, Music3).
+                    key - The name of the key in the table (for example, Artist).
+                    keyVal - The value of the key (for example, Famous Band).
+                    name - The name of the column where the value is updated (for example, Awards).
+                    updateVal - The value used to update an item (for example, 14).
+                 Example:
+                    UpdateItem Music3 Artist Famous Band Awards 14
+                """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -61,35 +57,35 @@ public class UpdateItem {
 
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
         updateTableItem(ddb, tableName, key, keyVal, name, updateVal);
         ddb.close();
     }
 
     public static void updateTableItem(DynamoDbClient ddb,
-                                       String tableName,
-                                       String key,
-                                       String keyVal,
-                                       String name,
-                                       String updateVal) {
+            String tableName,
+            String key,
+            String keyVal,
+            String name,
+            String updateVal) {
 
         HashMap<String, AttributeValue> itemKey = new HashMap<>();
         itemKey.put(key, AttributeValue.builder()
-            .s(keyVal)
-            .build());
+                .s(keyVal)
+                .build());
 
         HashMap<String, AttributeValueUpdate> updatedValues = new HashMap<>();
         updatedValues.put(name, AttributeValueUpdate.builder()
-            .value(AttributeValue.builder().s(updateVal).build())
-            .action(AttributeAction.PUT)
-            .build());
+                .value(AttributeValue.builder().s(updateVal).build())
+                .action(AttributeAction.PUT)
+                .build());
 
         UpdateItemRequest request = UpdateItemRequest.builder()
-            .tableName(tableName)
-            .key(itemKey)
-            .attributeUpdates(updatedValues)
-            .build();
+                .tableName(tableName)
+                .key(itemKey)
+                .attributeUpdates(updatedValues)
+                .build();
 
         try {
             ddb.updateItem(request);

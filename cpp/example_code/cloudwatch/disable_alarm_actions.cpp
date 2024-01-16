@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 /*
 
 */
@@ -15,12 +15,12 @@
  * Outputs:
  * The alarm is disabled.
  * ///////////////////////////////////////////////////////////////////////// */
-//snippet-start:[cw.cpp.disable_alarm_actions.inc]
+// snippet-start:[cw.cpp.disable_alarm_actions.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/DisableAlarmActionsRequest.h>
 #include <iostream>
-//snippet-end:[cw.cpp.disable_alarm_actions.inc]
+// snippet-end:[cw.cpp.disable_alarm_actions.inc]
 
 /**
  * Disable actions on a CloudWatch alarm based on command-line input
@@ -40,7 +40,7 @@ int main(int argc, char** argv)
     {
         Aws::String alarm_name(argv[1]);
 
-        //snippet-start:[cw.cpp.disable_alarm_actions.code]
+        // snippet-start:[cw.cpp.disable_alarm_actions.code]
         Aws::CloudWatch::CloudWatchClient cw;
 
         Aws::CloudWatch::Model::DisableAlarmActionsRequest disableAlarmActionsRequest;
@@ -58,7 +58,7 @@ int main(int argc, char** argv)
             std::cout << "Successfully disabled actions for alarm " <<
                 alarm_name << std::endl;
         }
-        //snippet-end:[cw.cpp.disable_alarm_actions.code]
+        // snippet-end:[cw.cpp.disable_alarm_actions.code]
     }
     Aws::ShutdownAPI(options);
     return 0;

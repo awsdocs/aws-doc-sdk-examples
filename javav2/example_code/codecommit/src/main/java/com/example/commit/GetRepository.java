@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetRepository.java demonstrates how to obtain information about a repository.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CodeCommit]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.commit;
 
@@ -20,7 +13,8 @@ import software.amazon.awssdk.services.codecommit.model.GetRepositoryResponse;
 // snippet-end:[codecommit.java2.get_repo.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -31,12 +25,12 @@ public class GetRepository {
     public static void main(String[] args) {
         final String USAGE = """
 
-            Usage:
-                <repoName>\s
+                Usage:
+                    <repoName>\s
 
-            Where:
-                repoName - the name of the repository.
-            """;
+                Where:
+                    repoName - the name of the repository.
+                """;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -46,8 +40,8 @@ public class GetRepository {
         String repoName = args[0];
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getRepInformation(codeCommitClient, repoName);
         codeCommitClient.close();
@@ -56,8 +50,8 @@ public class GetRepository {
     public static void getRepInformation(CodeCommitClient codeCommitClient, String repoName) {
         try {
             GetRepositoryRequest repositoryRequest = GetRepositoryRequest.builder()
-                .repositoryName(repoName)
-                .build();
+                    .repositoryName(repoName)
+                    .build();
 
             GetRepositoryResponse repositoryResponse = codeCommitClient.getRepository(repositoryRequest);
             System.out.println("The ARN of the " + repoName + " is " + repositoryResponse.repositoryMetadata().arn());

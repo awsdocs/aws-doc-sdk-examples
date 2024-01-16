@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import com.example.rds.*;
 import com.google.gson.Gson;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -24,21 +23,21 @@ import java.util.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonRDSTest {
 
-    private static  RdsClient rdsClient ;
+    private static RdsClient rdsClient;
 
-    private static String dbInstanceIdentifier = "" ;
-    private static String dbSnapshotIdentifier = "" ;
-    private static String dbName = "" ;
+    private static String dbInstanceIdentifier = "";
+    private static String dbSnapshotIdentifier = "";
+    private static String dbName = "";
 
-    private static String newMasterUserPassword = "" ;
+    private static String newMasterUserPassword = "";
 
     // Set data members required for the Scenario test.
-    private static String  dbGroupNameSc = "" ;
-    private static String  dbParameterGroupFamilySc = "" ;
-    private  static String  dbInstanceIdentifierSc = "" ;
-    private static String secretDBName = "" ;
-    private static String  dbSnapshotIdentifierSc = "" ;
-    private static String  dbNameSc = "" ;
+    private static String dbGroupNameSc = "";
+    private static String dbParameterGroupFamilySc = "";
+    private static String dbInstanceIdentifierSc = "";
+    private static String secretDBName = "";
+    private static String dbSnapshotIdentifierSc = "";
+    private static String dbNameSc = "";
 
     private static String dbClusterGroupName;
 
@@ -49,9 +48,9 @@ public class AmazonRDSTest {
     @BeforeAll
     public static void setUp() throws IOException {
         rdsClient = RdsClient.builder()
-            .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_WEST_2)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         Random rand = new Random();
         int randomNum = rand.nextInt((10000 - 1) + 1) + 1;
@@ -60,48 +59,56 @@ public class AmazonRDSTest {
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        dbInstanceIdentifier = values.getDbInstanceIdentifier()+ java.util.UUID.randomUUID();
-        dbSnapshotIdentifier = values.getDbSnapshotIdentifier()+ java.util.UUID.randomUUID();
-        dbName = values.getDbName()+ randomNum;
+        dbInstanceIdentifier = values.getDbInstanceIdentifier() + java.util.UUID.randomUUID();
+        dbSnapshotIdentifier = values.getDbSnapshotIdentifier() + java.util.UUID.randomUUID();
+        dbName = values.getDbName() + randomNum;
         newMasterUserPassword = values.getNewMasterUserPassword();
-        dbGroupNameSc = values.getDbGroupNameSc()+ java.util.UUID.randomUUID();
+        dbGroupNameSc = values.getDbGroupNameSc() + java.util.UUID.randomUUID();
         dbParameterGroupFamilySc = values.getDbParameterGroupFamilySc();
-        dbInstanceIdentifierSc = values.getDbInstanceIdentifierSc()+ java.util.UUID.randomUUID();
-        dbSnapshotIdentifierSc = values.getDbSnapshotIdentifierSc()+ java.util.UUID.randomUUID();
-        dbNameSc = values.getDbNameSc()+ randomNum ;
-        dbClusterGroupName = values.getDbClusterGroupName()+randomNum;
+        dbInstanceIdentifierSc = values.getDbInstanceIdentifierSc() + java.util.UUID.randomUUID();
+        dbSnapshotIdentifierSc = values.getDbSnapshotIdentifierSc() + java.util.UUID.randomUUID();
+        dbNameSc = values.getDbNameSc() + randomNum;
+        dbClusterGroupName = values.getDbClusterGroupName() + randomNum;
         dbParameterGroupFamily = values.getDbParameterGroupFamily();
         dbInstanceClusterIdentifier = values.getDbInstanceClusterIdentifier();
         secretDBName = values.getSecretName();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-        try (InputStream input = AmazonRDSTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            prop.load(input);
-            dbInstanceIdentifier = prop.getProperty("dbInstanceIdentifier")+ java.util.UUID.randomUUID();
-            dbSnapshotIdentifier = prop.getProperty("dbSnapshotIdentifier")+ java.util.UUID.randomUUID();
-            dbName = prop.getProperty("dbName")+ randomNum;
-            masterUsername = prop.getProperty("masterUsername");
-            masterUserPassword = prop.getProperty("masterUserPassword");
-            newMasterUserPassword = prop.getProperty("newMasterUserPassword");
-            dbGroupNameSc = prop.getProperty("dbGroupNameSc")+ java.util.UUID.randomUUID();;
-            dbParameterGroupFamilySc = prop.getProperty("dbParameterGroupFamilySc");
-            dbInstanceIdentifierSc = prop.getProperty("dbInstanceIdentifierSc")+ java.util.UUID.randomUUID();;
-            masterUsernameSc = prop.getProperty("masterUsernameSc");
-            masterUserPasswordSc = prop.getProperty("masterUserPasswordSc");
-            dbSnapshotIdentifierSc = prop.getProperty("dbSnapshotIdentifierSc")+ java.util.UUID.randomUUID();;
-            dbNameSc = prop.getProperty("dbNameSc")+ randomNum ;
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * try (InputStream input =
+         * AmazonRDSTest.class.getClassLoader().getResourceAsStream("config.properties")
+         * ) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * prop.load(input);
+         * dbInstanceIdentifier = prop.getProperty("dbInstanceIdentifier")+
+         * java.util.UUID.randomUUID();
+         * dbSnapshotIdentifier = prop.getProperty("dbSnapshotIdentifier")+
+         * java.util.UUID.randomUUID();
+         * dbName = prop.getProperty("dbName")+ randomNum;
+         * masterUsername = prop.getProperty("masterUsername");
+         * masterUserPassword = prop.getProperty("masterUserPassword");
+         * newMasterUserPassword = prop.getProperty("newMasterUserPassword");
+         * dbGroupNameSc = prop.getProperty("dbGroupNameSc")+
+         * java.util.UUID.randomUUID();;
+         * dbParameterGroupFamilySc = prop.getProperty("dbParameterGroupFamilySc");
+         * dbInstanceIdentifierSc = prop.getProperty("dbInstanceIdentifierSc")+
+         * java.util.UUID.randomUUID();;
+         * masterUsernameSc = prop.getProperty("masterUsernameSc");
+         * masterUserPasswordSc = prop.getProperty("masterUserPasswordSc");
+         * dbSnapshotIdentifierSc = prop.getProperty("dbSnapshotIdentifierSc")+
+         * java.util.UUID.randomUUID();;
+         * dbNameSc = prop.getProperty("dbNameSc")+ randomNum ;
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
@@ -110,7 +117,8 @@ public class AmazonRDSTest {
     public void CreateDBInstance() {
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
-        assertDoesNotThrow(() ->CreateDBInstance.createDatabaseInstance(rdsClient, dbInstanceIdentifier, dbName, user.getUsername(), user.getPassword()));
+        assertDoesNotThrow(() -> CreateDBInstance.createDatabaseInstance(rdsClient, dbInstanceIdentifier, dbName,
+                user.getUsername(), user.getPassword()));
         System.out.println("CreateDBInstance test passed");
     }
 
@@ -118,7 +126,7 @@ public class AmazonRDSTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void waitForInstanceReady() {
-        assertDoesNotThrow(() ->CreateDBInstance.waitForInstanceReady(rdsClient, dbInstanceIdentifier));
+        assertDoesNotThrow(() -> CreateDBInstance.waitForInstanceReady(rdsClient, dbInstanceIdentifier));
         System.out.println("waitForInstanceReady test passed");
     }
 
@@ -126,7 +134,7 @@ public class AmazonRDSTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void DescribeAccountAttributes() {
-        assertDoesNotThrow(() ->DescribeAccountAttributes.getAccountAttributes(rdsClient));
+        assertDoesNotThrow(() -> DescribeAccountAttributes.getAccountAttributes(rdsClient));
         System.out.println("DescribeAccountAttributes test passed");
     }
 
@@ -134,7 +142,7 @@ public class AmazonRDSTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void DescribeDBInstances() {
-        assertDoesNotThrow(() ->DescribeDBInstances.describeInstances(rdsClient));
+        assertDoesNotThrow(() -> DescribeDBInstances.describeInstances(rdsClient));
         System.out.println("DescribeDBInstances test passed");
     }
 
@@ -142,14 +150,16 @@ public class AmazonRDSTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void ModifyDBInstance() {
-        assertDoesNotThrow(() ->ModifyDBInstance.updateIntance(rdsClient, dbInstanceIdentifier, newMasterUserPassword));
+        assertDoesNotThrow(
+                () -> ModifyDBInstance.updateIntance(rdsClient, dbInstanceIdentifier, newMasterUserPassword));
         System.out.println("ModifyDBInstance test passed");
     }
 
     @Test
     @Order(6)
     public void CreateDBSnapshot() {
-        assertDoesNotThrow(() ->CreateDBSnapshot.createSnapshot(rdsClient, dbInstanceIdentifier, dbSnapshotIdentifier));
+        assertDoesNotThrow(
+                () -> CreateDBSnapshot.createSnapshot(rdsClient, dbInstanceIdentifier, dbSnapshotIdentifier));
         System.out.println("CreateDBSnapshot test passed");
     }
 
@@ -157,7 +167,7 @@ public class AmazonRDSTest {
     @Tag("IntegrationTest")
     @Order(7)
     public void DeleteDBInstance() {
-        assertDoesNotThrow(() ->DeleteDBInstance.deleteDatabaseInstance(rdsClient, dbInstanceIdentifier));
+        assertDoesNotThrow(() -> DeleteDBInstance.deleteDatabaseInstance(rdsClient, dbInstanceIdentifier));
         System.out.println("DeleteDBInstance test passed");
     }
 
@@ -167,21 +177,24 @@ public class AmazonRDSTest {
     public void TestRDSScenario() throws InterruptedException {
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
-        assertDoesNotThrow(() ->RDSScenario.describeDBEngines(rdsClient));
-        assertDoesNotThrow(() ->RDSScenario.createDBParameterGroup(rdsClient, dbGroupNameSc, dbParameterGroupFamilySc));
-        assertDoesNotThrow(() ->RDSScenario.describeDbParameterGroups(rdsClient, dbGroupNameSc));
-        assertDoesNotThrow(() ->RDSScenario.describeDbParameters(rdsClient, dbGroupNameSc, 0));
-        assertDoesNotThrow(() ->RDSScenario.modifyDBParas(rdsClient, dbGroupNameSc));
-        assertDoesNotThrow(() ->RDSScenario.describeDbParameters(rdsClient, dbGroupNameSc, -1));
-        assertDoesNotThrow(() ->RDSScenario.getAllowedEngines(rdsClient, dbParameterGroupFamilySc));
-        assertDoesNotThrow(() ->RDSScenario.getMicroInstances(rdsClient));
-        String dbARN = RDSScenario.createDatabaseInstance(rdsClient, dbGroupNameSc, dbInstanceIdentifierSc, dbNameSc, user.getUsername(), user.getPassword());
+        assertDoesNotThrow(() -> RDSScenario.describeDBEngines(rdsClient));
+        assertDoesNotThrow(
+                () -> RDSScenario.createDBParameterGroup(rdsClient, dbGroupNameSc, dbParameterGroupFamilySc));
+        assertDoesNotThrow(() -> RDSScenario.describeDbParameterGroups(rdsClient, dbGroupNameSc));
+        assertDoesNotThrow(() -> RDSScenario.describeDbParameters(rdsClient, dbGroupNameSc, 0));
+        assertDoesNotThrow(() -> RDSScenario.modifyDBParas(rdsClient, dbGroupNameSc));
+        assertDoesNotThrow(() -> RDSScenario.describeDbParameters(rdsClient, dbGroupNameSc, -1));
+        assertDoesNotThrow(() -> RDSScenario.getAllowedEngines(rdsClient, dbParameterGroupFamilySc));
+        assertDoesNotThrow(() -> RDSScenario.getMicroInstances(rdsClient));
+        String dbARN = RDSScenario.createDatabaseInstance(rdsClient, dbGroupNameSc, dbInstanceIdentifierSc, dbNameSc,
+                user.getUsername(), user.getPassword());
         assertFalse(dbARN.isEmpty());
-        assertDoesNotThrow(() ->RDSScenario.waitForInstanceReady(rdsClient, dbInstanceIdentifierSc));
-        assertDoesNotThrow(() ->RDSScenario.createSnapshot(rdsClient, dbInstanceIdentifierSc, dbSnapshotIdentifierSc));
-        assertDoesNotThrow(() ->RDSScenario.waitForSnapshotReady(rdsClient, dbInstanceIdentifierSc, dbSnapshotIdentifierSc));
-        assertDoesNotThrow(() ->RDSScenario.deleteDatabaseInstance(rdsClient, dbInstanceIdentifierSc));
-        assertDoesNotThrow(() ->RDSScenario.deleteParaGroup(rdsClient, dbGroupNameSc, dbARN));
+        assertDoesNotThrow(() -> RDSScenario.waitForInstanceReady(rdsClient, dbInstanceIdentifierSc));
+        assertDoesNotThrow(() -> RDSScenario.createSnapshot(rdsClient, dbInstanceIdentifierSc, dbSnapshotIdentifierSc));
+        assertDoesNotThrow(
+                () -> RDSScenario.waitForSnapshotReady(rdsClient, dbInstanceIdentifierSc, dbSnapshotIdentifierSc));
+        assertDoesNotThrow(() -> RDSScenario.deleteDatabaseInstance(rdsClient, dbInstanceIdentifierSc));
+        assertDoesNotThrow(() -> RDSScenario.deleteParaGroup(rdsClient, dbGroupNameSc, dbARN));
         System.out.println("TestRDSScenario test passed");
     }
 
@@ -192,37 +205,42 @@ public class AmazonRDSTest {
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
         System.out.println("1. Return a list of the available DB engines");
-        assertDoesNotThrow(() ->AuroraScenario.describeDBEngines(rdsClient));
+        assertDoesNotThrow(() -> AuroraScenario.describeDBEngines(rdsClient));
         System.out.println("2. Create a custom parameter group");
-        assertDoesNotThrow(() ->AuroraScenario.createDBClusterParameterGroup(rdsClient, dbClusterGroupName, dbParameterGroupFamily));
+        assertDoesNotThrow(() -> AuroraScenario.createDBClusterParameterGroup(rdsClient, dbClusterGroupName,
+                dbParameterGroupFamily));
         System.out.println("3. Get the parameter group");
-        assertDoesNotThrow(() ->AuroraScenario.describeDbClusterParameterGroups(rdsClient, dbClusterGroupName));
+        assertDoesNotThrow(() -> AuroraScenario.describeDbClusterParameterGroups(rdsClient, dbClusterGroupName));
         System.out.println("4. Get the parameters in the group");
-        assertDoesNotThrow(() ->AuroraScenario.describeDbClusterParameters(rdsClient, dbClusterGroupName, 0));
+        assertDoesNotThrow(() -> AuroraScenario.describeDbClusterParameters(rdsClient, dbClusterGroupName, 0));
         System.out.println("5. Modify the auto_increment_offset parameter");
-        assertDoesNotThrow(() ->AuroraScenario.modifyDBClusterParas(rdsClient, dbClusterGroupName));
+        assertDoesNotThrow(() -> AuroraScenario.modifyDBClusterParas(rdsClient, dbClusterGroupName));
         System.out.println("6. Display the updated parameter value");
         assertDoesNotThrow(() -> AuroraScenario.describeDbClusterParameters(rdsClient, dbClusterGroupName, -1));
         System.out.println("7. Get a list of allowed engine versions");
-        assertDoesNotThrow(() ->AuroraScenario.getAllowedEngines(rdsClient, dbParameterGroupFamily));
+        assertDoesNotThrow(() -> AuroraScenario.getAllowedEngines(rdsClient, dbParameterGroupFamily));
         System.out.println("8. Create an Aurora DB cluster database");
-        String arnClusterVal = AuroraScenario.createDBCluster(rdsClient, dbClusterGroupName, dbName, dbInstanceClusterIdentifier, user.getUsername(), user.getPassword()) ;
-        System.out.println("The ARN of the cluster is "+arnClusterVal);
-        System.out.println("9. Wait for DB instance to be ready" );
-        assertDoesNotThrow(() ->AuroraScenario.waitForInstanceReady(rdsClient, dbInstanceClusterIdentifier));
+        String arnClusterVal = AuroraScenario.createDBCluster(rdsClient, dbClusterGroupName, dbName,
+                dbInstanceClusterIdentifier, user.getUsername(), user.getPassword());
+        System.out.println("The ARN of the cluster is " + arnClusterVal);
+        System.out.println("9. Wait for DB instance to be ready");
+        assertDoesNotThrow(() -> AuroraScenario.waitForInstanceReady(rdsClient, dbInstanceClusterIdentifier));
         System.out.println("10. Get a list of instance classes available for the selected engine");
         String instanceClass = AuroraScenario.getListInstanceClasses(rdsClient);
         System.out.println("11. Create a database instance in the cluster.");
-        String clusterDBARN = AuroraScenario.createDBInstanceCluster(rdsClient, dbInstanceIdentifier, dbInstanceClusterIdentifier, instanceClass);
-        System.out.println("The ARN of the database is "+clusterDBARN);
-        System.out.println("12. Wait for DB instance to be ready" );
-        assertDoesNotThrow(() ->AuroraScenario.waitDBInstanceReady(rdsClient, dbInstanceIdentifier));
+        String clusterDBARN = AuroraScenario.createDBInstanceCluster(rdsClient, dbInstanceIdentifier,
+                dbInstanceClusterIdentifier, instanceClass);
+        System.out.println("The ARN of the database is " + clusterDBARN);
+        System.out.println("12. Wait for DB instance to be ready");
+        assertDoesNotThrow(() -> AuroraScenario.waitDBInstanceReady(rdsClient, dbInstanceIdentifier));
         System.out.println("13. Create a snapshot");
-        assertDoesNotThrow(() ->AuroraScenario.createDBClusterSnapshot(rdsClient, dbInstanceClusterIdentifier, dbSnapshotIdentifier));
-        System.out.println("14. Wait for DB snapshot to be ready" );
-        assertDoesNotThrow(() ->AuroraScenario.waitForSnapshotReady(rdsClient, dbSnapshotIdentifier, dbInstanceClusterIdentifier));
-        System.out.println("14. Delete the DB instance" );
-        assertDoesNotThrow(() ->AuroraScenario.deleteDatabaseInstance(rdsClient, dbInstanceIdentifier));
+        assertDoesNotThrow(() -> AuroraScenario.createDBClusterSnapshot(rdsClient, dbInstanceClusterIdentifier,
+                dbSnapshotIdentifier));
+        System.out.println("14. Wait for DB snapshot to be ready");
+        assertDoesNotThrow(() -> AuroraScenario.waitForSnapshotReady(rdsClient, dbSnapshotIdentifier,
+                dbInstanceClusterIdentifier));
+        System.out.println("14. Delete the DB instance");
+        assertDoesNotThrow(() -> AuroraScenario.deleteDatabaseInstance(rdsClient, dbInstanceIdentifier));
         System.out.println("15. Delete the DB cluster");
         assertDoesNotThrow(() -> AuroraScenario.deleteCluster(rdsClient, dbInstanceClusterIdentifier));
         System.out.println("16. Delete the DB cluster group");
@@ -232,14 +250,14 @@ public class AmazonRDSTest {
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/rds";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -280,10 +298,10 @@ public class AmazonRDSTest {
 
         private String secretName;
 
-
         public String getSecretName() {
             return secretName;
         }
+
         public String getDbInstanceClusterIdentifier() {
             return dbInstanceClusterIdentifier;
         }
@@ -349,7 +367,3 @@ public class AmazonRDSTest {
         }
     }
 }
-
-
-
-

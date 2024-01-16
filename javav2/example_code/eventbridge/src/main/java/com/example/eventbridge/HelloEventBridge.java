@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[HelloEventBridge.java demonstrates how to list your Amazon EventBridge buses.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon EventBridge]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.eventbridge;
 
@@ -21,7 +15,8 @@ import java.util.List;
 
 // snippet-start:[eventbridge.java2._list_buses.main]
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,17 +27,18 @@ public class HelloEventBridge {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listBuses(eventBrClient);
         eventBrClient.close();
     }
+
     public static void listBuses(EventBridgeClient eventBrClient) {
         try {
             ListEventBusesRequest busesRequest = ListEventBusesRequest.builder()
-                .limit(10)
-                .build();
+                    .limit(10)
+                    .build();
 
             ListEventBusesResponse response = eventBrClient.listEventBuses(busesRequest);
             List<EventBus> buses = response.eventBuses();
@@ -58,4 +54,3 @@ public class HelloEventBridge {
     }
 }
 // snippet-end:[eventbridge.java2._list_buses.main]
-

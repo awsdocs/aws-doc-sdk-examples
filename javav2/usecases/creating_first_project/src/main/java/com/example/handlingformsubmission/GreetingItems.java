@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.handlingformsubmission;
 
@@ -16,8 +14,7 @@ public class GreetingItems {
     private String message;
     private String title;
 
-    public GreetingItems()
-    {
+    public GreetingItems() {
     }
 
     public String getId() {
@@ -37,11 +34,11 @@ public class GreetingItems {
         this.name = name;
     }
 
-    public String getMessage(){
+    public String getMessage() {
         return this.message;
     }
 
-    public void setMessage(String message){
+    public void setMessage(String message) {
         this.message = message;
     }
 

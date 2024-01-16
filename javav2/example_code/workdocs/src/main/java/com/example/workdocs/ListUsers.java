@@ -1,15 +1,10 @@
-//snippet-sourcedescription:[ListUsers.java demonstrates how to list the users for an organization.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon WorkDocs]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[workdocs.java2.list_users.complete]
 
 package com.example.workdocs;
+
 // snippet-start:[workdocs.java2.list_users.import]
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +16,8 @@ import software.amazon.awssdk.services.workdocs.model.User;
 // snippet-end:[workdocs.java2.list_users.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,40 +25,41 @@ import software.amazon.awssdk.services.workdocs.model.User;
  */
 public class ListUsers {
     public static void main(String[] args) {
-        // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-iam.html
+        // Based on WorkDocs dev guide code at
+        // http://docs.aws.amazon.com/workdocs/latest/developerguide/connect-workdocs-iam.html
 
         final String usage = """
-            Usage:
-                <organizationId>  \s
+                Usage:
+                    <organizationId>  \s
 
-            Where:
-                organizationId - Your organization Id value. You can obtain this value from the AWS Management Console.\s
-            """;
+                Where:
+                    organizationId - Your organization Id value. You can obtain this value from the AWS Management Console.\s
+                """;
 
-       if (args.length != 1) {
-           System.out.println(usage);
-           System.exit(1);
-       }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-       String orgId = args[0];
-       Region region = Region.US_WEST_2;
-       WorkDocsClient workDocs = WorkDocsClient.builder()
-           .region(region)
-           .build();
+        String orgId = args[0];
+        Region region = Region.US_WEST_2;
+        WorkDocsClient workDocs = WorkDocsClient.builder()
+                .region(region)
+                .build();
 
-       getAllUsers(workDocs, orgId);
-       workDocs.close();
+        getAllUsers(workDocs, orgId);
+        workDocs.close();
     }
 
     // snippet-start:[workdocs.java2.list_users.main]
-    public static void getAllUsers(WorkDocsClient workDocs,String orgId) {
+    public static void getAllUsers(WorkDocsClient workDocs, String orgId) {
 
         List<User> wdUsers = new ArrayList<>();
         String marker = null;
 
         do {
             DescribeUsersResponse result;
-            if(marker == null) {
+            if (marker == null) {
                 DescribeUsersRequest request = DescribeUsersRequest.builder()
                         .organizationId(orgId)
                         .build();

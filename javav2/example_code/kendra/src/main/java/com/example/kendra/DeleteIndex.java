@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteIndex.java demonstrates how to delete an Amazon Kendra index.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon Kendra]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kendra;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.kendra.model.DeleteIndexRequest;
 // snippet-end:[kendra.java2.delete.index.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,12 +24,12 @@ public class DeleteIndex {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <indexId>\s
+                Usage:
+                    <indexId>\s
 
-            Where:
-                indexId - The id value of the index.
-            """;
+                Where:
+                    indexId - The id value of the index.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -43,8 +38,8 @@ public class DeleteIndex {
 
         String indexId = args[0];
         KendraClient kendra = KendraClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         deleteSpecificIndex(kendra, indexId);
     }
@@ -52,8 +47,8 @@ public class DeleteIndex {
     public static void deleteSpecificIndex(KendraClient kendra, String indexId) {
         try {
             DeleteIndexRequest deleteIndexRequest = DeleteIndexRequest.builder()
-                .id(indexId)
-                .build();
+                    .id(indexId)
+                    .build();
 
             kendra.deleteIndex(deleteIndexRequest);
             System.out.println(indexId + " was successfully deleted.");

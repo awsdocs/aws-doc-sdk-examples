@@ -1,4 +1,6 @@
 #!/bin/bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 find src -name "*.java" -print0 | xargs -0 \
 sed -i -e '/Copyright/,/Licensed under the Apache License, Version 2.0/c\

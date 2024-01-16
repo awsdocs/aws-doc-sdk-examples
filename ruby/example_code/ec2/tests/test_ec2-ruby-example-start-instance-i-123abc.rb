@@ -1,5 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
 require_relative "../ec2-ruby-example-start-instance-i-123abc"
 

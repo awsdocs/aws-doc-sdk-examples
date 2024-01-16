@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DescribeTable.java demonstrates how to retrieve information about an Amazon DynamoDB table.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.dynamodb;
 
@@ -22,7 +16,8 @@ import java.util.List;
 // snippet-end:[dynamodb.java2.describe_table.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,12 +27,12 @@ public class DescribeTable {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <tableName>
+                Usage:
+                    <tableName>
 
-            Where:
-                tableName - The Amazon DynamoDB table to get information about (for example, Music3).
-            """;
+                Where:
+                    tableName - The Amazon DynamoDB table to get information about (for example, Music3).
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -48,8 +43,8 @@ public class DescribeTable {
         System.out.format("Getting description for %s\n\n", tableName);
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         describeDymamoDBTable(ddb, tableName);
         ddb.close();
@@ -57,8 +52,8 @@ public class DescribeTable {
 
     public static void describeDymamoDBTable(DynamoDbClient ddb, String tableName) {
         DescribeTableRequest request = DescribeTableRequest.builder()
-            .tableName(tableName)
-            .build();
+                .tableName(tableName)
+                .build();
 
         try {
             TableDescription tableInfo = ddb.describeTable(request).table();
@@ -88,6 +83,4 @@ public class DescribeTable {
         System.out.println("\nDone!");
     }
 }
- // snippet-end:[dynamodb.java2.describe_table.main]
-
-
+// snippet-end:[dynamodb.java2.describe_table.main]

@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[StartDocumentAnalysis.java demonstrates how to start the asynchronous analysis of a document.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Textract]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.textract;
 
@@ -26,7 +20,8 @@ import java.util.List;
 // snippet-end:[textract.java2._start_doc_analysis.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -36,13 +31,13 @@ public class StartDocumentAnalysis {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <bucketName> <docName>\s
+                Usage:
+                    <bucketName> <docName>\s
 
-            Where:
-                bucketName - The name of the Amazon S3 bucket that contains the document.\s
-                docName - The document name (must be an image, for example, book.png).\s
-            """;
+                Where:
+                    bucketName - The name of the Amazon S3 bucket that contains the document.\s
+                    docName - The document name (must be an image, for example, book.png).\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,8 +48,8 @@ public class StartDocumentAnalysis {
         String docName = args[1];
         Region region = Region.US_WEST_2;
         TextractClient textractClient = TextractClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String jobId = startDocAnalysisS3(textractClient, bucketName, docName);
         System.out.println("Getting results for job " + jobId);
@@ -70,18 +65,18 @@ public class StartDocumentAnalysis {
             myList.add(FeatureType.FORMS);
 
             S3Object s3Object = S3Object.builder()
-                .bucket(bucketName)
-                .name(docName)
-                .build();
+                    .bucket(bucketName)
+                    .name(docName)
+                    .build();
 
             DocumentLocation location = DocumentLocation.builder()
-                .s3Object(s3Object)
-                .build();
+                    .s3Object(s3Object)
+                    .build();
 
             StartDocumentAnalysisRequest documentAnalysisRequest = StartDocumentAnalysisRequest.builder()
-                .documentLocation(location)
-                .featureTypes(myList)
-                .build();
+                    .documentLocation(location)
+                    .featureTypes(myList)
+                    .build();
 
             StartDocumentAnalysisResponse response = textractClient.startDocumentAnalysis(documentAnalysisRequest);
 
@@ -104,9 +99,9 @@ public class StartDocumentAnalysis {
         try {
             while (!finished) {
                 GetDocumentAnalysisRequest analysisRequest = GetDocumentAnalysisRequest.builder()
-                    .jobId(jobId)
-                    .maxResults(1000)
-                    .build();
+                        .jobId(jobId)
+                        .maxResults(1000)
+                        .build();
 
                 GetDocumentAnalysisResponse response = textractClient.getDocumentAnalysis(analysisRequest);
                 status = response.jobStatus().toString();

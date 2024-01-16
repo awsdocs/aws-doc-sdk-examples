@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.gateway.*;
 import com.google.gson.Gson;
@@ -45,34 +43,37 @@ public class APIGatewayTest {
         SecretValues values = gson.fromJson(json, SecretValues.class);
         restApiId = values.getRestApiId();
         httpMethod = values.getHttpMethod();
-        restApiName = values.getRestApiName()+randomNum;
+        restApiName = values.getRestApiName() + randomNum;
         stageName = values.getStageName();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-        try (InputStream input = APIGatewayTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-
-            Properties prop = new Properties();
-
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            //load a properties file from class path, inside static method
-            prop.load(input);
-
-            // Populate the data members required for all tests
-            restApiId = prop.getProperty("restApiId");
-            resourceId = prop.getProperty("resourceId");
-            httpMethod = prop.getProperty("httpMethod");
-            restApiName = prop.getProperty("restApiName");
-            stageName = prop.getProperty("stageName");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * try (InputStream input =
+         * APIGatewayTest.class.getClassLoader().getResourceAsStream("config.properties"
+         * )) {
+         * 
+         * Properties prop = new Properties();
+         * 
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * //load a properties file from class path, inside static method
+         * prop.load(input);
+         * 
+         * // Populate the data members required for all tests
+         * restApiId = prop.getProperty("restApiId");
+         * resourceId = prop.getProperty("resourceId");
+         * httpMethod = prop.getProperty("httpMethod");
+         * restApiName = prop.getProperty("restApiName");
+         * stageName = prop.getProperty("stageName");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
@@ -94,33 +95,34 @@ public class APIGatewayTest {
     @Test
     @Order(3)
     public void GetDeployments() {
-        assertDoesNotThrow(() ->GetDeployments.getAllDeployments(apiGateway, newApiId));
+        assertDoesNotThrow(() -> GetDeployments.getAllDeployments(apiGateway, newApiId));
         System.out.println("Test 4 passed");
     }
 
     @Test
     @Order(4)
     public void GetStages() {
-        assertDoesNotThrow(() ->GetStages.getAllStages(apiGateway, newApiId));
+        assertDoesNotThrow(() -> GetStages.getAllStages(apiGateway, newApiId));
         System.out.println("Test 7 passed");
     }
 
     @Test
     @Order(5)
     public void DeleteRestApi() {
-        assertDoesNotThrow(() ->DeleteRestApi.deleteAPI(apiGateway, newApiId));
+        assertDoesNotThrow(() -> DeleteRestApi.deleteAPI(apiGateway, newApiId));
         System.out.println("Test 9 passed");
     }
+
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/apigateway";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -152,4 +154,3 @@ public class APIGatewayTest {
         }
     }
 }
-

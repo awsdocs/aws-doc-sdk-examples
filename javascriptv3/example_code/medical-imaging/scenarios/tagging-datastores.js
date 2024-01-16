@@ -1,9 +1,6 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// Snippet for README link.
 // snippet-start:[medical-imaging.JavaScript.medical-imaging_tagging_datastores.V3]
 // snippet-end:[medical-imaging.JavaScript.medical-imaging_tagging_datastores.V3]
 

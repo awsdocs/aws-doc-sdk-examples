@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.LowLevelItemBinaryExample] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.LowLevelItemBinaryExample] 
 
 package com.amazonaws.codesamples.lowlevel;
 
@@ -69,8 +48,7 @@ public class LowLevelItemBinaryExample {
 
             // clean up by deleting the item
             deleteItem(threadId, replyDateTime);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Error running the binary attribute type example: " + e);
             e.printStackTrace(System.err);
         }
@@ -102,7 +80,7 @@ public class LowLevelItemBinaryExample {
         key.put("ReplyDateTime", new AttributeValue().withS(replyDateTime));
 
         GetItemRequest getReplyRequest = new GetItemRequest().withTableName(tableName).withKey(key)
-            .withConsistentRead(true);
+                .withConsistentRead(true);
 
         GetItemResult getReplyResult = client.getItem(getReplyRequest);
 
@@ -110,8 +88,8 @@ public class LowLevelItemBinaryExample {
         Map<String, AttributeValue> reply = getReplyResult.getItem();
         String message = decompressString(reply.get("ExtendedMessage").getB());
         System.out.println("Reply message:\n" + " Id: " + reply.get("Id").getS() + "\n" + " ReplyDateTime: "
-            + reply.get("ReplyDateTime").getS() + "\n" + " PostedBy: " + reply.get("PostedBy").getS() + "\n"
-            + " Message: " + reply.get("Message").getS() + "\n" + " ExtendedMessage (decompressed): " + message);
+                + reply.get("ReplyDateTime").getS() + "\n" + " PostedBy: " + reply.get("PostedBy").getS() + "\n"
+                + " Message: " + reply.get("Message").getS() + "\n" + " ExtendedMessage (decompressed): " + message);
     }
 
     public static void deleteItem(String threadId, String replyDateTime) {
@@ -165,4 +143,4 @@ public class LowLevelItemBinaryExample {
     }
 }
 
-// snippet-end:[dynamodb.java.codeexample.LowLevelItemBinaryExample] 
+// snippet-end:[dynamodb.java.codeexample.LowLevelItemBinaryExample]

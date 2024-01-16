@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 try:
     from tomlkit import dumps, parse, TOMLDocument
-except:
+except Exception:
     print("Couldn't import tomlkit, either install it directly or instantiate a venv.")
     exit(1)
 

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteDataset.java demonstrates how to delete a data set that belongs to the Amazon Forecast service.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Forecast]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.forecast;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.forecast.model.ForecastException;
 // snippet-end:[forecast.java2.delete_forecast_dataset.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,12 +24,12 @@ public class DeleteDataset {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <datasetARN>\s
+                Usage:
+                    <datasetARN>\s
 
-            Where:
-                datasetARN - The ARN of the data set to delete.\s
-            """;
+                Where:
+                    datasetARN - The ARN of the data set to delete.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +39,8 @@ public class DeleteDataset {
         String datasetARN = args[0];
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         deleteForecastDataSet(forecast, datasetARN);
         forecast.close();
@@ -54,8 +49,8 @@ public class DeleteDataset {
     public static void deleteForecastDataSet(ForecastClient forecast, String myDataSetARN) {
         try {
             DeleteDatasetRequest deleteRequest = DeleteDatasetRequest.builder()
-                .datasetArn(myDataSetARN)
-                .build();
+                    .datasetArn(myDataSetARN)
+                    .build();
 
             forecast.deleteDataset(deleteRequest);
             System.out.println("The Data Set was deleted");

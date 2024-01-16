@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[ListUsers.java demonstrates how to list all AWS Identity and Access Management (IAM) users.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[IAM]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.iam;
 
 // snippet-start:[iam.java2.list_users.main]
@@ -20,7 +15,8 @@ import software.amazon.awssdk.services.iam.model.User;
 // snippet-end:[iam.java2.list_users.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,8 +26,8 @@ public class ListUsers {
     public static void main(String[] args) {
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listAllUsers(iam);
         System.out.println("Done");
@@ -49,8 +45,8 @@ public class ListUsers {
                     response = iam.listUsers(request);
                 } else {
                     ListUsersRequest request = ListUsersRequest.builder()
-                        .marker(newMarker)
-                        .build();
+                            .marker(newMarker)
+                            .build();
 
                     response = iam.listUsers(request);
                 }
@@ -59,7 +55,8 @@ public class ListUsers {
                     System.out.format("\n Retrieved user %s", user.userName());
                     AttachedPermissionsBoundary permissionsBoundary = user.permissionsBoundary();
                     if (permissionsBoundary != null)
-                        System.out.format("\n Permissions boundary details %s", permissionsBoundary.permissionsBoundaryTypeAsString());
+                        System.out.format("\n Permissions boundary details %s",
+                                permissionsBoundary.permissionsBoundaryTypeAsString());
                 }
 
                 if (!response.isTruncated()) {

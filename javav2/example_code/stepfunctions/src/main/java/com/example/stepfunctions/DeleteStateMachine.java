@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[DeleteStateMachine.java demonstrates how to delete a state machine for AWS Step Functions.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Step Functions]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.stepfunctions;
 
@@ -16,7 +11,8 @@ import software.amazon.awssdk.services.sfn.model.DeleteStateMachineRequest;
 // snippet-end:[stepfunctions.java2.delete_machine.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -27,12 +23,12 @@ public class DeleteStateMachine {
 
         final String usage = """
 
-            Usage:
-                <stateMachineArn>
+                Usage:
+                    <stateMachineArn>
 
-            Where:
-                stateMachineArn - The ARN of the state machine to delete.
-            """;
+                Where:
+                    stateMachineArn - The ARN of the state machine to delete.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,8 +38,8 @@ public class DeleteStateMachine {
         String stateMachineArn = args[0];
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         deleteMachine(sfnClient, stateMachineArn);
         sfnClient.close();
@@ -52,11 +48,11 @@ public class DeleteStateMachine {
     public static void deleteMachine(SfnClient sfnClient, String stateMachineArn) {
         try {
             DeleteStateMachineRequest deleteStateMachineRequest = DeleteStateMachineRequest.builder()
-                .stateMachineArn(stateMachineArn)
-                .build();
+                    .stateMachineArn(stateMachineArn)
+                    .build();
 
             sfnClient.deleteStateMachine(deleteStateMachineRequest);
-            System.out.println(stateMachineArn +" was successfully deleted.");
+            System.out.println(stateMachineArn + " was successfully deleted.");
 
         } catch (SfnException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -64,4 +60,3 @@ public class DeleteStateMachine {
         }
     }
 }
-

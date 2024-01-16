@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ListForecasts.java demonstrates how to list forecasts for the Amazon Forecast service.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Forecast]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.forecast;
 
@@ -21,7 +15,8 @@ import java.util.List;
 // snippet-end:[forecast.java2.list_forecasts.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,17 +27,18 @@ public class ListForecasts {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listAllForeCasts(forecast);
         forecast.close();
     }
+
     public static void listAllForeCasts(ForecastClient forecast) {
         try {
             ListForecastsRequest request = ListForecastsRequest.builder()
-                .maxResults(10)
-                .build();
+                    .maxResults(10)
+                    .build();
 
             ListForecastsResponse response = forecast.listForecasts(request);
             List<ForecastSummary> forecasts = response.forecasts();

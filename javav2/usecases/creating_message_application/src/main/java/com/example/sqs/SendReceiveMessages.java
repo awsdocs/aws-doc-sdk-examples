@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sqs;
 
@@ -32,29 +30,29 @@ public class SendReceiveMessages {
 
     private SqsClient getClient() {
         return SqsClient.builder()
-            .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
     }
 
     // Get a Comprehend client.
     private ComprehendClient getComClient() {
 
         return ComprehendClient.builder()
-            .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
     }
 
     public void purgeMyQueue() {
         SqsClient sqsClient = getClient();
         GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
-            .queueName(queueName)
-            .build();
+                .queueName(queueName)
+                .build();
 
         PurgeQueueRequest queueRequest = PurgeQueueRequest.builder()
-            .queueUrl(sqsClient.getQueueUrl(getQueueRequest).queueUrl())
-            .build();
+                .queueUrl(sqsClient.getQueueUrl(getQueueRequest).queueUrl())
+                .build();
 
         sqsClient.purgeQueue(queueRequest);
     }
@@ -66,16 +64,16 @@ public class SendReceiveMessages {
 
         try {
             GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
-                .queueName(queueName)
-                .build();
+                    .queueName(queueName)
+                    .build();
 
             String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
             ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
-                .queueUrl(queueUrl)
-                .maxNumberOfMessages(10)
-                .waitTimeSeconds(20)
-                .messageAttributeNames(attr)
-                .build();
+                    .queueUrl(queueUrl)
+                    .maxNumberOfMessages(10)
+                    .waitTimeSeconds(20)
+                    .messageAttributeNames(attr)
+                    .build();
 
             List<Message> messages = sqsClient.receiveMessage(receiveRequest).messages();
             MessageData myMessage;
@@ -83,12 +81,12 @@ public class SendReceiveMessages {
 
             // Push the messages to a list.
             for (Message m : messages) {
-                myMessage=new MessageData();
+                myMessage = new MessageData();
                 myMessage.setBody(m.body());
                 myMessage.setId(m.messageId());
 
                 Map<String, MessageAttributeValue> map = m.messageAttributes();
-                MessageAttributeValue val= map.get("Name");
+                MessageAttributeValue val = map.get("Name");
                 myMessage.setName(val.stringValue());
                 allMessages.add(myMessage);
             }
@@ -106,24 +104,24 @@ public class SendReceiveMessages {
 
         try {
             MessageAttributeValue attributeValue = MessageAttributeValue.builder()
-                .stringValue(msg.getName())
-                .dataType("String")
-                .build();
+                    .stringValue(msg.getName())
+                    .dataType("String")
+                    .build();
 
             Map<String, MessageAttributeValue> myMap = new HashMap<>();
             myMap.put("Name", attributeValue);
             GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
-                .queueName(queueName)
-                .build();
+                    .queueName(queueName)
+                    .build();
 
             // We will get the language code for the incoming message.
-            ComprehendClient comClient =  getComClient();
+            ComprehendClient comClient = getComClient();
 
             // Specify the Langauge code of the incoming message.
-            String lanCode = "" ;
+            String lanCode = "";
             DetectDominantLanguageRequest request = DetectDominantLanguageRequest.builder()
-                .text(msg.getBody())
-                .build();
+                    .text(msg.getBody())
+                    .build();
 
             DetectDominantLanguageResponse resp = comClient.detectDominantLanguage(request);
             List<DominantLanguage> allLanList = resp.languages();
@@ -134,12 +132,12 @@ public class SendReceiveMessages {
 
             String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
             SendMessageRequest sendMsgRequest = SendMessageRequest.builder()
-                .queueUrl(queueUrl)
-                .messageAttributes(myMap)
-                .messageGroupId("GroupA_"+lanCode)
-                .messageDeduplicationId(msg.getId())
-                .messageBody(msg.getBody())
-                .build();
+                    .queueUrl(queueUrl)
+                    .messageAttributes(myMap)
+                    .messageGroupId("GroupA_" + lanCode)
+                    .messageDeduplicationId(msg.getId())
+                    .messageBody(msg.getBody())
+                    .build();
 
             sqsClient.sendMessage(sendMsgRequest);
 

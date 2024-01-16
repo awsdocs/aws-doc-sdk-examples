@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[AddQueueTags.java demonstrates how to add tags to an Amazon Simple Queue Service (Amazon SQS) queue.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Simple Queue Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sqs;
 
@@ -21,7 +15,8 @@ import java.util.HashMap;
 // snippet-end:[sqs.java2.add_tags.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,11 +26,11 @@ public class AddQueueTags {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <queueName>
+                Usage:    <queueName>
 
-            Where:
-               queueName - The name of the queue to which tags are applied.
-            """;
+                Where:
+                   queueName - The name of the queue to which tags are applied.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +39,8 @@ public class AddQueueTags {
 
         String queueName = args[0];
         SqsClient sqsClient = SqsClient.builder()
-            .region(Region.US_WEST_2)
-            .build();
+                .region(Region.US_WEST_2)
+                .build();
         addTags(sqsClient, queueName);
         sqsClient.close();
     }
@@ -53,8 +48,8 @@ public class AddQueueTags {
     public static void addTags(SqsClient sqsClient, String queueName) {
         try {
             GetQueueUrlRequest urlRequest = GetQueueUrlRequest.builder()
-                .queueName(queueName)
-                .build();
+                    .queueName(queueName)
+                    .build();
 
             GetQueueUrlResponse getQueueUrlResponse = sqsClient.getQueueUrl(urlRequest);
             String queueUrl = getQueueUrlResponse.queueUrl();
@@ -64,9 +59,9 @@ public class AddQueueTags {
             addedTags.put("Accounting ID", "456def");
 
             TagQueueRequest tagQueueRequest = TagQueueRequest.builder()
-                .queueUrl(queueUrl)
-                .tags(addedTags)
-                .build();
+                    .queueUrl(queueUrl)
+                    .tags(addedTags)
+                    .build();
 
             sqsClient.tagQueue(tagQueueRequest);
             System.out.println("Tags have been applied to " + queueName);

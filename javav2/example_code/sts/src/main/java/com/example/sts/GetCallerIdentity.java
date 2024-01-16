@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetCallerIdentity.java demonstrates how to obtain details about the IAM user whose credentials are used to call the operation.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[AWS Security Token Service (AWS STS)]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sts;
 
@@ -18,7 +11,8 @@ import software.amazon.awssdk.services.sts.model.StsException;
 // snippet-end:[sts.java2.get_call_id.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,8 +22,8 @@ public class GetCallerIdentity {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         StsClient stsClient = StsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getCallerId(stsClient);
         stsClient.close();

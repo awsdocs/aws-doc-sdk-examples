@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[RebootInstance.java demonstrates how to reboot an Amazon Elastic Compute Cloud (Amazon EC2) instance.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon EC2]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.reboot_instance.main]
@@ -17,7 +12,8 @@ import software.amazon.awssdk.services.ec2.model.RebootInstancesRequest;
 // snippet-end:[ec2.java2.reboot_instance.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -27,12 +23,12 @@ public class RebootInstance {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-               <instanceId>\s
+                Usage:
+                   <instanceId>\s
 
-            Where:
-               instanceId - An instance id value that you can obtain from the AWS Console.\s
-            """;
+                Where:
+                   instanceId - An instance id value that you can obtain from the AWS Console.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -42,8 +38,8 @@ public class RebootInstance {
         String instanceId = args[0];
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         rebootEC2Instance(ec2, instanceId);
         ec2.close();
@@ -52,8 +48,8 @@ public class RebootInstance {
     public static void rebootEC2Instance(Ec2Client ec2, String instanceId) {
         try {
             RebootInstancesRequest request = RebootInstancesRequest.builder()
-                .instanceIds(instanceId)
-                .build();
+                    .instanceIds(instanceId)
+                    .build();
 
             ec2.rebootInstances(request);
             System.out.printf("Successfully rebooted instance %s", instanceId);
@@ -65,5 +61,3 @@ public class RebootInstance {
     }
 }
 // snippet-end:[ec2.java2.reboot_instance.main]
-
-

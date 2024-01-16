@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -27,10 +25,9 @@ public class ReportController {
 
     @Autowired()
     ReportController(
-        DynamoDBService dynamoDBService,
-        WriteExcel writeExcel,
-        WriteExcel.SendMessages sm
-    ) {
+            DynamoDBService dynamoDBService,
+            WriteExcel writeExcel,
+            WriteExcel.SendMessages sm) {
         this.dynamoDBService = dynamoDBService;
         this.writeExcel = writeExcel;
         this.sm = sm;
@@ -39,7 +36,7 @@ public class ReportController {
     @PostMapping("")
     public String sendReport(@RequestBody Map<String, String> body) {
         var list = dynamoDBService.getOpenItems();
-       try {
+        try {
             InputStream is = writeExcel.write(list);
             sm.sendReport(is, body.get("email"));
             return "Report generated & sent";

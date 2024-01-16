@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.spring.sns;
 
@@ -45,9 +43,9 @@ public class SnsService {
 
     private SnsAsyncClient getSnsClient() {
         return SnsAsyncClient.builder()
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .region(Region.US_WEST_2)
-            .build();
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(Region.US_WEST_2)
+                .build();
     }
 
     public void unSubEmail(String emailEndpoint) {
@@ -55,8 +53,8 @@ public class SnsService {
             String subscriptionArn = getTopicArnValue(emailEndpoint);
             SnsAsyncClient snsAsyncClient = getSnsClient();
             UnsubscribeRequest request = UnsubscribeRequest.builder()
-                .subscriptionArn(subscriptionArn)
-                .build();
+                    .subscriptionArn(subscriptionArn)
+                    .build();
 
             snsAsyncClient.unsubscribe(request);
 
@@ -67,20 +65,21 @@ public class SnsService {
     }
 
     // Returns the Sub ARN based on the given endpoint
-    private String getTopicArnValue(String endpoint){
+    private String getTopicArnValue(String endpoint) {
         final AtomicReference<String> reference = new AtomicReference<>();
         SnsAsyncClient snsAsyncClient = getSnsClient();
         try {
             ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
-                .topicArn(topicArn)
-                .build();
+                    .topicArn(topicArn)
+                    .build();
 
-            CompletableFuture<ListSubscriptionsByTopicResponse> futureGet  = snsAsyncClient.listSubscriptionsByTopic(request);
+            CompletableFuture<ListSubscriptionsByTopicResponse> futureGet = snsAsyncClient
+                    .listSubscriptionsByTopic(request);
             futureGet.whenComplete((resp, err) -> {
-                List<Subscription> allSubs  = resp.subscriptions();
-                for (Subscription sub: allSubs) {
+                List<Subscription> allSubs = resp.subscriptions();
+                for (Subscription sub : allSubs) {
 
-                    if (sub.endpoint().compareTo(endpoint)==0)
+                    if (sub.endpoint().compareTo(endpoint) == 0)
                         reference.set(sub.subscriptionArn());
                 }
             });
@@ -100,13 +99,13 @@ public class SnsService {
         try {
             SnsAsyncClient snsAsyncClient = getSnsClient();
             SubscribeRequest request = SubscribeRequest.builder()
-                .protocol("email")
-                .endpoint(email)
-                .returnSubscriptionArn(true)
-                .topicArn(topicArn)
-                .build();
+                    .protocol("email")
+                    .endpoint(email)
+                    .returnSubscriptionArn(true)
+                    .topicArn(topicArn)
+                    .build();
 
-            CompletableFuture<SubscribeResponse> futureGet  = snsAsyncClient.subscribe(request);
+            CompletableFuture<SubscribeResponse> futureGet = snsAsyncClient.subscribe(request);
             futureGet.whenComplete((resp, err) -> {
                 String subscriptionArn = resp.subscriptionArn();
                 reference.set(subscriptionArn);
@@ -124,18 +123,19 @@ public class SnsService {
 
     public String getAllSubscriptions() {
         final AtomicReference<List<String>> reference = new AtomicReference<>();
-        List<String> subList = new ArrayList<>() ;
+        List<String> subList = new ArrayList<>();
         try {
             SnsAsyncClient snsAsyncClient = getSnsClient();
             ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
-                .topicArn(topicArn)
-                .build();
+                    .topicArn(topicArn)
+                    .build();
 
-            CompletableFuture<ListSubscriptionsByTopicResponse> futureGet  = snsAsyncClient.listSubscriptionsByTopic(request);
+            CompletableFuture<ListSubscriptionsByTopicResponse> futureGet = snsAsyncClient
+                    .listSubscriptionsByTopic(request);
             futureGet.whenComplete((resp, err) -> {
 
-                List<Subscription> allSubs  = resp.subscriptions();
-                for (Subscription sub: allSubs) {
+                List<Subscription> allSubs = resp.subscriptions();
+                for (Subscription sub : allSubs) {
                     subList.add(sub.endpoint());
                 }
                 reference.set(subList);
@@ -150,16 +150,14 @@ public class SnsService {
         return convertToString(toXml(reference.get()));
     }
 
-
-
-      public String pubTopic(String message, String lang) {
+    public String pubTopic(String message, String lang) {
 
         final AtomicReference<Integer> reference = new AtomicReference<>();
         String body;
 
-        if (lang.compareTo("English")==0)
+        if (lang.compareTo("English") == 0)
             body = message;
-        else if(lang.compareTo("French")==0)
+        else if (lang.compareTo("French") == 0)
             body = translateBody(message, "fr");
         else
             body = translateBody(message, "es");
@@ -167,16 +165,16 @@ public class SnsService {
         try {
             SnsAsyncClient snsAsyncClient = getSnsClient();
             PublishRequest request = PublishRequest.builder()
-                .message(body)
-                .topicArn(topicArn)
-                .build();
+                    .message(body)
+                    .topicArn(topicArn)
+                    .build();
 
-            CompletableFuture<PublishResponse> futureGet  = snsAsyncClient.publish(request);
+            CompletableFuture<PublishResponse> futureGet = snsAsyncClient.publish(request);
             futureGet.whenComplete((resp, err) -> {
                 reference.set(resp.sdkHttpResponse().statusCode());
             });
             futureGet.join();
-            return " Message sent in " +lang +". Status was " + reference.get();
+            return " Message sent in " + lang + ". Status was " + reference.get();
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -185,22 +183,22 @@ public class SnsService {
         return "Error - msg not sent";
     }
 
-    private String translateBody(String message, String lan)
-    {
+    private String translateBody(String message, String lan) {
         final AtomicReference<String> reference = new AtomicReference<>();
         Region region = Region.US_WEST_2;
         TranslateAsyncClient translateClient = TranslateAsyncClient.builder()
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .region(region)
-            .build();
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(region)
+                .build();
 
         TranslateTextRequest textRequest = TranslateTextRequest.builder()
-            .sourceLanguageCode("en")
-            .targetLanguageCode(lan)
-            .text(message)
-            .build();
+                .sourceLanguageCode("en")
+                .targetLanguageCode(lan)
+                .text(message)
+                .build();
 
-        CompletableFuture<TranslateTextResponse> futureGet = translateClient.translateText(textRequest);;
+        CompletableFuture<TranslateTextResponse> futureGet = translateClient.translateText(textRequest);
+        ;
         futureGet.whenComplete((resp, err) -> {
             reference.set(resp.translatedText());
         });
@@ -231,11 +229,12 @@ public class SnsService {
             }
             return doc;
 
-        }catch(ParserConfigurationException e){
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     private String convertToString(Document xml) {
         try {
             TransformerFactory transformerFactory = getSecureTransformerFactory();
@@ -245,7 +244,7 @@ public class SnsService {
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+        } catch (TransformerException ex) {
             ex.printStackTrace();
         }
         return null;

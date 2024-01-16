@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[CreateFunction.java demonstrates how to create a CloudFront function.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon CloudFront]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.cloudfront;
 
@@ -23,7 +17,8 @@ import java.io.InputStream;
 // snippet-end:[cloudfront.java2.function.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -34,27 +29,27 @@ public class CreateFunction {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <functionName> <filePath>
+                Usage:
+                    <functionName> <filePath>
 
-            Where:
-                functionName - The name of the function to create.\s
-                filePath - The path to a file that contains the application logic for the function.\s
-            """;
+                Where:
+                    functionName - The name of the function to create.\s
+                    filePath - The path to a file that contains the application logic for the function.\s
+                """;
 
-         if (args.length != 2) {
-             System.out.println(usage);
-             System.exit(1);
-         }
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String functionName = args[0];
-        String filePath = args[1] ;
+        String filePath = args[1];
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
-            .region(Region.AWS_GLOBAL)
-            .build();
+                .region(Region.AWS_GLOBAL)
+                .build();
 
         String funArn = createNewFunction(cloudFrontClient, functionName, filePath);
-        System.out.println("The function ARN is "+funArn);
+        System.out.println("The function ARN is " + funArn);
         cloudFrontClient.close();
     }
 
@@ -64,20 +59,20 @@ public class CreateFunction {
             SdkBytes functionCode = SdkBytes.fromInputStream(fileIs);
 
             FunctionConfig config = FunctionConfig.builder()
-                .comment("Created by using the CloudFront Java API")
-                .runtime(FunctionRuntime.CLOUDFRONT_JS_1_0)
-                .build();
+                    .comment("Created by using the CloudFront Java API")
+                    .runtime(FunctionRuntime.CLOUDFRONT_JS_1_0)
+                    .build();
 
             CreateFunctionRequest functionRequest = CreateFunctionRequest.builder()
-                .name(functionName)
-                .functionCode(functionCode)
-                .functionConfig(config)
-                .build();
+                    .name(functionName)
+                    .functionCode(functionCode)
+                    .functionConfig(config)
+                    .build();
 
             CreateFunctionResponse response = cloudFrontClient.createFunction(functionRequest);
             return response.functionSummary().functionMetadata().functionARN();
 
-        } catch (CloudFrontException e){
+        } catch (CloudFrontException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
@@ -85,4 +80,3 @@ public class CreateFunction {
     }
 }
 // snippet-end:[cloudfront.java2.function.main]
-

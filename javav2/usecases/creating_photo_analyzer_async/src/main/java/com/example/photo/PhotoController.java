@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.photo;
 
@@ -27,17 +25,16 @@ public class PhotoController {
     private final S3Service s3Service;
     private final AnalyzePhotos photos;
 
-    private final  WriteExcel excel;
+    private final WriteExcel excel;
 
     private final SendMessages sendMessage;
 
     @Autowired
     PhotoController(
-        S3Service s3Service,
-        AnalyzePhotos photos,
-        WriteExcel excel,
-        SendMessages sendMessage
-    ) {
+            S3Service s3Service,
+            AnalyzePhotos photos,
+            WriteExcel excel,
+            SendMessages sendMessage) {
         this.s3Service = s3Service;
         this.photos = photos;
         this.excel = excel;
@@ -62,7 +59,7 @@ public class PhotoController {
     // Generates a report that analyzes photos in a given bucket.
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
-    String report (HttpServletRequest request, HttpServletResponse response) {
+    String report(HttpServletRequest request, HttpServletResponse response) {
         // Get a list of key names in the given bucket.
         String email = request.getParameter("email");
         ArrayList<String> myKeys = (ArrayList<String>) s3Service.ListBucketObjects(bucketName);
@@ -91,7 +88,7 @@ public class PhotoController {
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
         try {
             byte[] bytes = file.getBytes();
-            String name =  file.getOriginalFilename() ;
+            String name = file.getOriginalFilename();
 
             // Put the file into the bucket.
             s3Service.putObject(bytes, bucketName, name);
@@ -113,12 +110,12 @@ public class PhotoController {
     void buildDynamicReportDownload(HttpServletRequest request, HttpServletResponse response) {
         try {
             String photoKey = request.getParameter("photoKey");
-            byte[] photoBytes = s3Service.getObjectBytes(bucketName, photoKey) ;
+            byte[] photoBytes = s3Service.getObjectBytes(bucketName, photoKey);
             InputStream is = new ByteArrayInputStream(photoBytes);
 
             // Define the required information here.
             response.setContentType("image/png");
-            response.setHeader("Content-disposition", "attachment; filename="+photoKey);
+            response.setHeader("Content-disposition", "attachment; filename=" + photoKey);
             org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
             response.flushBuffer();
 

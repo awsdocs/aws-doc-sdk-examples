@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[AddExampleEndpoints.java demonstrates how to update several existing endpoints in a single call to the API.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Pinpoint]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.update_batch.main]
-//snippet-start:[pinpoint.java2.update_batch.import]
+// snippet-start:[pinpoint.java2.update_batch.main]
+// snippet-start:[pinpoint.java2.update_batch.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.UpdateEndpointsBatchResponse;
@@ -24,10 +18,11 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
-//snippet-end:[pinpoint.java2.update_batch.import]
+// snippet-end:[pinpoint.java2.update_batch.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -35,109 +30,109 @@ import java.util.HashMap;
  */
 public class AddExampleEndpoints {
 
-    public static void main(String[] args) {
-        final String usage = """
+        public static void main(String[] args) {
+                final String usage = """
 
-            Usage:    <appId>
+                                Usage:    <appId>
 
-            Where:
-               appId - The ID of the application.
+                                Where:
+                                   appId - The ID of the application.
 
-            """;
+                                """;
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
+                if (args.length != 1) {
+                        System.out.println(usage);
+                        System.exit(1);
+                }
+
+                String applicationId = args[0];
+                PinpointClient pinpoint = PinpointClient.builder()
+                                .region(Region.US_EAST_1)
+                                .build();
+
+                updateEndpointsViaBatch(pinpoint, applicationId);
+                pinpoint.close();
         }
 
-        String applicationId = args[0];
-        PinpointClient pinpoint = PinpointClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+        public static void updateEndpointsViaBatch(PinpointClient pinpoint, String applicationId) {
+                try {
+                        List<String> myList = new ArrayList<>();
+                        myList.add("music");
+                        myList.add("books");
 
-        updateEndpointsViaBatch(pinpoint, applicationId);
-        pinpoint.close();
-    }
+                        Map myMap = new HashMap<String, List>();
+                        myMap.put("attributes", myList);
 
-    public static void updateEndpointsViaBatch(PinpointClient pinpoint, String applicationId) {
-        try {
-            List<String> myList = new ArrayList<>();
-            myList.add("music");
-            myList.add("books");
+                        List<String> myNames = new ArrayList<String>();
+                        myList.add("Richard");
+                        myList.add("Roe");
 
-            Map myMap = new HashMap<String, List>();
-            myMap.put("attributes", myList);
+                        Map myMap2 = new HashMap<String, List>();
+                        myMap2.put("name", myNames);
 
-            List<String> myNames = new ArrayList<String>();
-            myList.add("Richard");
-            myList.add("Roe");
+                        EndpointUser richardRoe = EndpointUser.builder()
+                                        .userId("example_user_1")
+                                        .userAttributes(myMap2)
+                                        .build();
 
-            Map myMap2 = new HashMap<String, List>();
-            myMap2.put("name", myNames);
+                        // Create an EndpointBatchItem object for Richard Roe.
+                        EndpointBatchItem richardRoesEmailEndpoint = EndpointBatchItem.builder()
+                                        .channelType(ChannelType.EMAIL)
+                                        .address("richard_roe@example.com")
+                                        .id("example_endpoint_1")
+                                        .attributes(myMap)
+                                        .user(richardRoe)
+                                        .build();
 
-            EndpointUser richardRoe = EndpointUser.builder()
-                .userId("example_user_1")
-                .userAttributes(myMap2)
-                .build();
+                        List<String> myListMary = new ArrayList<String>();
+                        myListMary.add("cooking");
+                        myListMary.add("politics");
+                        myListMary.add("finance");
 
-            // Create an EndpointBatchItem object for Richard Roe.
-            EndpointBatchItem richardRoesEmailEndpoint = EndpointBatchItem.builder()
-                .channelType(ChannelType.EMAIL)
-                .address("richard_roe@example.com")
-                .id("example_endpoint_1")
-                .attributes(myMap)
-                .user(richardRoe)
-                .build();
+                        Map myMapMary = new HashMap<String, List>();
+                        myMapMary.put("interests", myListMary);
 
-            List<String> myListMary = new ArrayList<String>();
-            myListMary.add("cooking");
-            myListMary.add("politics");
-            myListMary.add("finance");
+                        List<String> myNameMary = new ArrayList<String>();
+                        myNameMary.add("Mary ");
+                        myNameMary.add("Major");
 
-            Map myMapMary = new HashMap<String, List>();
-            myMapMary.put("interests", myListMary);
+                        Map maryName = new HashMap<String, List>();
+                        myMapMary.put("name", myNameMary);
 
-            List<String> myNameMary = new ArrayList<String>();
-            myNameMary.add("Mary ");
-            myNameMary.add("Major");
+                        EndpointUser maryMajor = EndpointUser.builder()
+                                        .userId("example_user_2")
+                                        .userAttributes(maryName)
+                                        .build();
 
-            Map maryName = new HashMap<String, List>();
-            myMapMary.put("name", myNameMary);
+                        // Create an EndpointBatchItem object for Mary Major.
+                        EndpointBatchItem maryMajorsSmsEndpoint = EndpointBatchItem.builder()
+                                        .channelType(ChannelType.SMS)
+                                        .address("+16145550100")
+                                        .id("example_endpoint_2")
+                                        .attributes(myMapMary)
+                                        .user(maryMajor)
+                                        .build();
 
-            EndpointUser maryMajor = EndpointUser.builder()
-                .userId("example_user_2")
-                .userAttributes(maryName)
-                .build();
+                        // Adds multiple endpoint definitions to a single request object.
+                        EndpointBatchRequest endpointList = EndpointBatchRequest.builder()
+                                        .item(richardRoesEmailEndpoint)
+                                        .item(maryMajorsSmsEndpoint)
+                                        .build();
 
-            // Create an EndpointBatchItem object for Mary Major.
-            EndpointBatchItem maryMajorsSmsEndpoint = EndpointBatchItem.builder()
-                .channelType(ChannelType.SMS)
-                .address("+16145550100")
-                .id("example_endpoint_2")
-                .attributes(myMapMary)
-                .user(maryMajor)
-                .build();
+                        // Create the UpdateEndpointsBatchRequest.
+                        UpdateEndpointsBatchRequest batchRequest = UpdateEndpointsBatchRequest.builder()
+                                        .applicationId(applicationId)
+                                        .endpointBatchRequest(endpointList)
+                                        .build();
 
-            // Adds multiple endpoint definitions to a single request object.
-            EndpointBatchRequest endpointList = EndpointBatchRequest.builder()
-                .item(richardRoesEmailEndpoint)
-                .item(maryMajorsSmsEndpoint)
-                .build();
+                        // Updates the endpoints with Amazon Pinpoint.
+                        UpdateEndpointsBatchResponse result = pinpoint.updateEndpointsBatch(batchRequest);
+                        System.out.format("Update endpoints batch result: %s\n", result.messageBody().message());
 
-            // Create the UpdateEndpointsBatchRequest.
-            UpdateEndpointsBatchRequest batchRequest = UpdateEndpointsBatchRequest.builder()
-                .applicationId(applicationId)
-                .endpointBatchRequest(endpointList)
-                .build();
-
-            //  Updates the endpoints with Amazon Pinpoint.
-            UpdateEndpointsBatchResponse result = pinpoint.updateEndpointsBatch(batchRequest);
-            System.out.format("Update endpoints batch result: %s\n", result.messageBody().message());
-
-        } catch (PinpointException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+                } catch (PinpointException e) {
+                        System.err.println(e.awsErrorDetails().errorMessage());
+                        System.exit(1);
+                }
         }
-    }
 }
-//snippet-end:[pinpoint.java2.update_batch.main]
+// snippet-end:[pinpoint.java2.update_batch.main]

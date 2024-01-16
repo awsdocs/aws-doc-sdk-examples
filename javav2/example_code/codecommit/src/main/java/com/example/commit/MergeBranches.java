@@ -1,12 +1,6 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[MergeBranches.java demonstrates how to merge two branches.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CodeCommit]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.commit;
 
 // snippet-start:[codecommit.java2.merge.main]
@@ -19,7 +13,8 @@ import software.amazon.awssdk.services.codecommit.model.MergeBranchesByFastForwa
 // snippet-end:[codecommit.java2.merge.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -30,15 +25,15 @@ public class MergeBranches {
     public static void main(String[] args) {
         final String USAGE = """
 
-            Usage:
-                <repoName> <targetBranch> <sourceReference> <destinationCommitId>
+                Usage:
+                    <repoName> <targetBranch> <sourceReference> <destinationCommitId>
 
-            Where:
-                repoName - the name of the repository.
-                targetBranch -  the branch where the merge is applied.
-                sourceReference  - the branch of the repository that contains the changes.
-                destinationCommitId  - a full commit ID.
-            """;
+                Where:
+                    repoName - the name of the repository.
+                    targetBranch -  the branch where the merge is applied.
+                    sourceReference  - the branch of the repository that contains the changes.
+                    destinationCommitId  - a full commit ID.
+                """;
 
         if (args.length != 4) {
             System.out.println(USAGE);
@@ -55,26 +50,27 @@ public class MergeBranches {
                 .region(region)
                 .build();
 
-        merge(codeCommitClient, repoName, targetBranch, sourceReference, destinationCommitId) ;
+        merge(codeCommitClient, repoName, targetBranch, sourceReference, destinationCommitId);
         codeCommitClient.close();
     }
 
     public static void merge(CodeCommitClient codeCommitClient,
-                      String repoName,
-                      String targetBranch,
-                      String sourceReference,
-                      String destinationCommitId) {
+            String repoName,
+            String targetBranch,
+            String sourceReference,
+            String destinationCommitId) {
 
         try {
             MergeBranchesByFastForwardRequest fastForwardRequest = MergeBranchesByFastForwardRequest.builder()
-                .destinationCommitSpecifier(destinationCommitId)
-                .targetBranch(targetBranch)
-                .sourceCommitSpecifier(sourceReference)
-                .repositoryName(repoName)
-                .build();
+                    .destinationCommitSpecifier(destinationCommitId)
+                    .targetBranch(targetBranch)
+                    .sourceCommitSpecifier(sourceReference)
+                    .repositoryName(repoName)
+                    .build();
 
-            MergeBranchesByFastForwardResponse response = codeCommitClient.mergeBranchesByFastForward(fastForwardRequest);
-            System.out.println("The commit id is "+response.commitId());
+            MergeBranchesByFastForwardResponse response = codeCommitClient
+                    .mergeBranchesByFastForward(fastForwardRequest);
+            System.out.println("The commit id is " + response.commitId());
 
         } catch (CodeCommitException e) {
             System.err.println(e.getMessage());

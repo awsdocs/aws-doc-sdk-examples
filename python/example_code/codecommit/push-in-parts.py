@@ -1,3 +1,5 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 # snippet-sourcedescription:[push-in-parts.py demonstrates how to migrate a Git repository in increments and repushes only those increments that did not succeed until the migration is complete.]
 # snippet-service:[codecommit]
 # snippet-keyword:[Python]

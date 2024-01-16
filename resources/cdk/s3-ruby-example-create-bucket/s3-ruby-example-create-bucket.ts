@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -19,7 +18,7 @@
 //
 // 1. To run this app with the AWS Cloud Development Kit (AWS CDK), run the
 //    following command:
-// 
+//
 //    npm install && cdk synth && cdk deploy
 //
 //    The names of the generated AWS resources will display in the output.
@@ -67,7 +66,7 @@
 //       https://console.aws.amazon.com/cloudformation
 //
 //    d. Choose Create stack, and then follow
-//       the on-screen instructions to create a stack based on this 
+//       the on-screen instructions to create a stack based on this
 //       AWS CloudFormation template. This stack will create the specified
 //       AWS resources.
 //
@@ -79,24 +78,25 @@
 //       choose the stack in the console, choose Delete, and then follow
 //       the on-screen instructions.
 
-import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
-import * as s3 from '@aws-cdk/aws-s3'; // npm install @aws-cdk/aws-s3
+import "source-map-support/register";
+import * as cdk from "@aws-cdk/core";
+import * as s3 from "@aws-cdk/aws-s3"; // npm install @aws-cdk/aws-s3
 
 export class S3RubyExampleCreateBucketStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-  
+
     // Create the Amazon S3 bucket.
-    let myBucket = new s3.Bucket(this, 'bucket', {
-      removalPolicy: cdk.RemovalPolicy.DESTROY
+    let myBucket = new s3.Bucket(this, "bucket", {
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
     // Output the name of the new bucket.
-    new cdk.CfnOutput(this, 'BucketName', {
-      value: myBucket.bucketName});
+    new cdk.CfnOutput(this, "BucketName", {
+      value: myBucket.bucketName,
+    });
   }
 }
 
 const app = new cdk.App();
-new S3RubyExampleCreateBucketStack(app, 'S3RubyExampleCreateBucketStack');
+new S3RubyExampleCreateBucketStack(app, "S3RubyExampleCreateBucketStack");

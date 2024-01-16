@@ -128,7 +128,7 @@ csharp_space_between_square_brackets = false
 # Custom Rules                #
 ###############################
 # File header.
-file_header_template = Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. \nSPDX-License-Identifier:  Apache-2.0
+file_header_template = Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. \nSPDX-License-Identifier: Apache-2.0
 # SA0001: XML comment disable is allowed.
 dotnet_diagnostic.SA0001.severity = none
 # SA1600: Elements must be documented is disabled.

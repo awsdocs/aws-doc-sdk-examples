@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[SNSScenario.kt demonstrates how to perform various Amazon Simple Notification Service (Amazon SNS) operations.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Amazon SNS]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[sns.kotlin.workflow.main]
 package com.example.sns

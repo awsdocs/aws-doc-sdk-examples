@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.fsa.services;
 
@@ -27,8 +25,8 @@ public class PollyService {
         if (pollyAsyncClient == null) {
             Region region = Region.US_EAST_1;
             pollyAsyncClient = PollyAsyncClient.builder()
-                .region(region)
-                .build();
+                    .region(region)
+                    .build();
         }
         return pollyAsyncClient;
     }
@@ -36,23 +34,24 @@ public class PollyService {
     public InputStream synthesize(String text) throws IOException {
         try {
             DescribeVoicesRequest describeVoicesRequest = DescribeVoicesRequest.builder()
-                .engine("neural")
-                .build();
+                    .engine("neural")
+                    .build();
 
-            CompletableFuture<?> future  = getPollyAsyncClient().describeVoices(describeVoicesRequest);
+            CompletableFuture<?> future = getPollyAsyncClient().describeVoices(describeVoicesRequest);
             DescribeVoicesResponse describeVoicesResult = (DescribeVoicesResponse) future.join();
             Voice voice = describeVoicesResult.voices().stream()
-                .filter(v -> v.name().equals("Joanna"))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Voice not found"));
+                    .filter(v -> v.name().equals("Joanna"))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Voice not found"));
 
             SynthesizeSpeechRequest request = SynthesizeSpeechRequest.builder()
-                .text(text)
-                .outputFormat(OutputFormat.MP3)
-                .voiceId(voice.id())
-                .build();
+                    .text(text)
+                    .outputFormat(OutputFormat.MP3)
+                    .voiceId(voice.id())
+                    .build();
 
-            CompletableFuture<ResponseInputStream<SynthesizeSpeechResponse>> audioFuture = getPollyAsyncClient().synthesizeSpeech(request, AsyncResponseTransformer.toBlockingInputStream());
+            CompletableFuture<ResponseInputStream<SynthesizeSpeechResponse>> audioFuture = getPollyAsyncClient()
+                    .synthesizeSpeech(request, AsyncResponseTransformer.toBlockingInputStream());
             InputStream audioInputStream = audioFuture.join();
             return audioInputStream;
 

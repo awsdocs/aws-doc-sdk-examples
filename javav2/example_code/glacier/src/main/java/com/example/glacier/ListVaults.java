@@ -1,10 +1,6 @@
-//snippet-sourcedescription:[ListVaults.java demonstrates how to list all the Amazon Glacier vaults.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Glacier]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.glacier;
 
 // snippet-start:[glacier.java2.list_vaults.main]
@@ -19,7 +15,8 @@ import java.util.List;
 // snippet-end:[glacier.java2.list_vaults.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,8 +25,8 @@ import java.util.List;
 public class ListVaults {
     public static void main(String[] args) {
         GlacierClient glacier = GlacierClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         listAllVault(glacier);
         glacier.close();
@@ -45,13 +42,13 @@ public class ListVaults {
                 ListVaultsResponse response = null;
                 if (newMarker != null) {
                     ListVaultsRequest request = ListVaultsRequest.builder()
-                        .marker(newMarker)
-                        .build();
+                            .marker(newMarker)
+                            .build();
 
                     response = glacier.listVaults(request);
                 } else {
                     ListVaultsRequest request = ListVaultsRequest.builder()
-                        .build();
+                            .build();
                     response = glacier.listVaults(request);
                 }
 
@@ -79,4 +76,3 @@ public class ListVaults {
     }
 }
 // snippet-end:[glacier.java2.list_vaults.main]
-

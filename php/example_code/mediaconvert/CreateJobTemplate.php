@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[mediaconvert.php.create_job_template.complete]
 // snippet-start:[mediaconvert.php.create_job_template.import]
@@ -141,15 +140,4 @@ try {
 }
 // snippet-end:[mediaconvert.php.create_job_template.main]
 // snippet-end:[mediaconvert.php.create_job_template.complete] 
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateJobTemplate.php demonstrates how to create template that can be used to create a AWS Elemental MediaConvert Job.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[AWS Elemental MediaConvert]
-// snippet-service:[mediaconvert]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-06-01]
-// snippet-sourceauthor:[pccornel (AWS)]
 

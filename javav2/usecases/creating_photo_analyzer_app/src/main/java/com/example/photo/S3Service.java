@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.example.photo;
 
 import org.springframework.stereotype.Component;
@@ -31,7 +29,7 @@ import java.util.List;
 @Component
 public class S3Service {
 
-    S3Client s3 ;
+    S3Client s3;
 
     // Create the S3Client object.
     private S3Client getClient() {
@@ -42,7 +40,7 @@ public class S3Service {
     }
 
     // Get the byte[] from this Amazon S3 object.
-    public byte[] getObjectBytes (String bucketName, String keyName) {
+    public byte[] getObjectBytes(String bucketName, String keyName) {
         s3 = getClient();
         try {
             GetObjectRequest objectRequest = GetObjectRequest
@@ -66,7 +64,7 @@ public class S3Service {
         s3 = getClient();
         long sizeLg;
         Instant DateIn;
-        BucketItem myItem ;
+        BucketItem myItem;
 
         List<BucketItem> bucketItems = new ArrayList<>();
         try {
@@ -97,13 +95,13 @@ public class S3Service {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        return null ;
+        return null;
     }
 
     // Returns the names of all images in the given bucket.
     public ArrayList<String> ListBucketObjects(String bucketName) {
         s3 = getClient();
-        String keyName ;
+        String keyName;
         ArrayList<String> keys = new ArrayList<String>();
         try {
             ListObjectsRequest listObjects = ListObjectsRequest
@@ -123,19 +121,18 @@ public class S3Service {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        return null ;
+        return null;
     }
-
 
     // Places an image into a S3 bucket.
     public void putObject(byte[] data, String bucketName, String objectKey) {
         s3 = getClient();
         try {
             s3.putObject(PutObjectRequest.builder()
-                .bucket(bucketName)
+                    .bucket(bucketName)
                     .key(objectKey)
                     .build(),
-                RequestBody.fromBytes(data));
+                    RequestBody.fromBytes(data));
 
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
@@ -152,8 +149,8 @@ public class S3Service {
             Document doc = builder.newDocument();
 
             // Start building the XML.
-            Element root = doc.createElement( "Items" );
-            doc.appendChild( root );
+            Element root = doc.createElement("Items");
+            doc.appendChild(root);
 
             // Iterate through the collection.
             for (BucketItem myItem : itemList) {
@@ -183,7 +180,7 @@ public class S3Service {
             }
 
             return doc;
-        } catch(ParserConfigurationException e) {
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
@@ -198,7 +195,7 @@ public class S3Service {
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+        } catch (TransformerException ex) {
             ex.printStackTrace();
         }
         return null;

@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListLexicons demonstrates how to produce a list of pronunciation lexicons stored in an AWS Region.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Polly]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.polly;
 
@@ -16,12 +10,13 @@ import software.amazon.awssdk.services.polly.PollyClient;
 import software.amazon.awssdk.services.polly.model.ListLexiconsResponse;
 import software.amazon.awssdk.services.polly.model.ListLexiconsRequest;
 import software.amazon.awssdk.services.polly.model.LexiconDescription;
-import software.amazon.awssdk.services.polly.model.PollyException ;
+import software.amazon.awssdk.services.polly.model.PollyException;
 import java.util.List;
 // snippet-end:[polly.java2.list_icons.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,8 +25,8 @@ import java.util.List;
 public class ListLexicons {
     public static void main(String args[]) {
         PollyClient polly = PollyClient.builder()
-            .region(Region.US_WEST_2)
-            .build();
+                .region(Region.US_WEST_2)
+                .build();
 
         listLexicons(polly);
         polly.close();
@@ -40,7 +35,7 @@ public class ListLexicons {
     public static void listLexicons(PollyClient client) {
         try {
             ListLexiconsRequest listLexiconsRequest = ListLexiconsRequest.builder()
-                .build();
+                    .build();
 
             ListLexiconsResponse listLexiconsResult = client.listLexicons(listLexiconsRequest);
             List<LexiconDescription> lexiconDescription = listLexiconsResult.lexicons();

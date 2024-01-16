@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[ListGrants.java demonstrates how to get information about AWS Key Management Service (AWS KMS) grants related to a key.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Key Management Service]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.kms;
 
 // snippet-start:[kms.java2_list_grant.main]
@@ -20,7 +15,8 @@ import java.util.List;
 // snippet-end:[kms.java2_list_grant.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +26,12 @@ public class ListGrants {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <keyId>\s
+                Usage:
+                    <keyId>\s
 
-            Where:
-                keyId - a key id value to use (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).\s
-            """;
+                Where:
+                    keyId - a key id value to use (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,8 +41,8 @@ public class ListGrants {
         String keyId = args[0];
         Region region = Region.US_WEST_2;
         KmsClient kmsClient = KmsClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         displayGrantIds(kmsClient, keyId);
         kmsClient.close();
@@ -55,9 +51,9 @@ public class ListGrants {
     public static void displayGrantIds(KmsClient kmsClient, String keyId) {
         try {
             ListGrantsRequest grantsRequest = ListGrantsRequest.builder()
-                .keyId(keyId)
-                .limit(15)
-                .build();
+                    .keyId(keyId)
+                    .limit(15)
+                    .build();
 
             ListGrantsResponse response = kmsClient.listGrants(grantsRequest);
             List<GrantListEntry> grants = response.grants();

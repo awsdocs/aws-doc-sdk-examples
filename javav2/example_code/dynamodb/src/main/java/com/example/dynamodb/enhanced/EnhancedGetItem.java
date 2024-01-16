@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[EnhancedGetItem.java demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.dynamodb.enhanced;
 
 // snippet-start:[dynamodb.java2.mapping.getitem.main]
@@ -40,12 +35,12 @@ public class EnhancedGetItem {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(ddb)
-            .build();
+                .dynamoDbClient(ddb)
+                .build();
 
         getItem(enhancedClient);
         ddb.close();
@@ -56,12 +51,12 @@ public class EnhancedGetItem {
         try {
             DynamoDbTable<Customer> table = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             Key key = Key.builder()
-                .partitionValue("id101").sortValue("tred@noserver.com")
-                .build();
+                    .partitionValue("id101").sortValue("tred@noserver.com")
+                    .build();
 
             // Get the item by using the key.
             result = table.getItem(
-                (GetItemEnhancedRequest.Builder requestBuilder) -> requestBuilder.key(key));
+                    (GetItemEnhancedRequest.Builder requestBuilder) -> requestBuilder.key(key));
             System.out.println("******* The description value is " + result.getCustName());
 
         } catch (DynamoDbException e) {

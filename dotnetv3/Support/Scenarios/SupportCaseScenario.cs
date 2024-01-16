@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using System.Text;
 using Amazon.AWSSupport;
@@ -43,7 +43,7 @@ public static class SupportCaseScenario
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the AWS Support service. 
+        // Set up dependency injection for the AWS Support service.
         // Use your AWS profile name, or leave it blank to use the default profile.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>

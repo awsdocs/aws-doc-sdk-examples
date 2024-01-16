@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[RestoreObject.java demonstrates how to restores an archived copy of an object back into an Amazon S3 Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -35,14 +28,14 @@ public class RestoreObject {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <bucketName> <keyName> <expectedBucketOwner>
+                Usage:
+                    <bucketName> <keyName> <expectedBucketOwner>
 
-            Where:
-                bucketName - The Amazon S3 bucket name.\s
-                keyName - The key name of an object with a Storage class value of Glacier.\s
-                expectedBucketOwner - The account that owns the bucket (you can obtain this value from the AWS Management Console).\s
-            """;
+                Where:
+                    bucketName - The Amazon S3 bucket name.\s
+                    keyName - The key name of an object with a Storage class value of Glacier.\s
+                    expectedBucketOwner - The account that owns the bucket (you can obtain this value from the AWS Management Console).\s
+                """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -54,8 +47,8 @@ public class RestoreObject {
         String expectedBucketOwner = args[2];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         restoreS3Object(s3, bucketName, keyName, expectedBucketOwner);
         s3.close();
@@ -64,16 +57,16 @@ public class RestoreObject {
     public static void restoreS3Object(S3Client s3, String bucketName, String keyName, String expectedBucketOwner) {
         try {
             RestoreRequest restoreRequest = RestoreRequest.builder()
-                .days(10)
-                .glacierJobParameters(GlacierJobParameters.builder().tier(Tier.STANDARD).build())
-                .build();
+                    .days(10)
+                    .glacierJobParameters(GlacierJobParameters.builder().tier(Tier.STANDARD).build())
+                    .build();
 
             RestoreObjectRequest objectRequest = RestoreObjectRequest.builder()
-                .expectedBucketOwner(expectedBucketOwner)
-                .bucket(bucketName)
-                .key(keyName)
-                .restoreRequest(restoreRequest)
-                .build();
+                    .expectedBucketOwner(expectedBucketOwner)
+                    .bucket(bucketName)
+                    .key(keyName)
+                    .restoreRequest(restoreRequest)
+                    .build();
 
             s3.restoreObject(objectRequest);
 

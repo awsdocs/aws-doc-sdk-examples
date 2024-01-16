@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 //! WorkItemArchived represents several ways to specify the archival status of a WorkItem.
 
 use serde::{de, Deserialize, Serialize};

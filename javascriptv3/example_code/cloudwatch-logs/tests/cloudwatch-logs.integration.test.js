@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { DescribeSubscriptionFiltersCommand } from "@aws-sdk/client-cloudwatch-logs";
 import { LambdaClient, waitUntilFunctionUpdated } from "@aws-sdk/client-lambda";

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[EnhancedPutItem.java demonstrates how to put an item into an Amazon DynamoDB table by using the enhanced client.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.dynamodb.enhanced;
 
@@ -41,12 +35,12 @@ public class EnhancedPutItem {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(ddb)
-            .build();
+                .dynamoDbClient(ddb)
+                .build();
 
         putRecord(enhancedClient);
         ddb.close();

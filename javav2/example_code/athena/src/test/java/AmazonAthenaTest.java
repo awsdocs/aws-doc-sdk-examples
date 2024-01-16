@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import aws.example.athena.*;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;

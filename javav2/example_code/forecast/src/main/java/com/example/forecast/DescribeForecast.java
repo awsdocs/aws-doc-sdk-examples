@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DescribeForecast.java demonstrates how to describe a forecast for the Amazon Forecast service.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Forecast]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.forecast;
 
@@ -19,7 +13,8 @@ import software.amazon.awssdk.services.forecast.model.ForecastException;
 // snippet-end:[forecast.java2.describe_forecast.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,12 +24,12 @@ public class DescribeForecast {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-                <forecastarn>\s
+                Usage:
+                    <forecastarn>\s
 
-            Where:
-                forecastarn - The arn of the forecast (for example, "arn:aws:forecast:us-west-2:xxxxx322:forecast/my_forecast)
-            """;
+                Where:
+                    forecastarn - The arn of the forecast (for example, "arn:aws:forecast:us-west-2:xxxxx322:forecast/my_forecast)
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +39,8 @@ public class DescribeForecast {
         String forecastarn = args[0];
         Region region = Region.US_WEST_2;
         ForecastClient forecast = ForecastClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         describe(forecast, forecastarn);
         forecast.close();
@@ -54,8 +49,8 @@ public class DescribeForecast {
     public static void describe(ForecastClient forecast, String forecastarn) {
         try {
             DescribeForecastRequest request = DescribeForecastRequest.builder()
-                .forecastArn(forecastarn)
-                .build();
+                    .forecastArn(forecastarn)
+                    .build();
 
             DescribeForecastResponse response = forecast.describeForecast(request);
             System.out.println("The name of the forecast is " + response.forecastName());
@@ -66,4 +61,4 @@ public class DescribeForecast {
         }
     }
 }
- // snippet-end:[forecast.java2.describe_forecast.main]
+// snippet-end:[forecast.java2.describe_forecast.main]

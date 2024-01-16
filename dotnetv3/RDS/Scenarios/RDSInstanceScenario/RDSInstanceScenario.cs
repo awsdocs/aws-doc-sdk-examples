@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using Amazon.RDS;
 using Amazon.RDS.Model;
@@ -33,7 +33,7 @@ public class RDSInstanceScenario
     7.  Gets and displays the updated parameters using the DescribeDBParameters method with a source of "user".
     8.  Gets a list of allowed engine versions using the DescribeDBEngineVersionsAsync method.
     9.  Displays and selects from a list of micro instance classes available for the selected engine and version.
-    10. Creates an RDS DB instance that contains a MySql database and uses the parameter group 
+    10. Creates an RDS DB instance that contains a MySql database and uses the parameter group
         using the CreateDBInstanceAsync method.
     11. Waits for DB instance to be ready using the DescribeDBInstancesAsync method.
     12. Prints out the connection endpoint string for the new DB instance.

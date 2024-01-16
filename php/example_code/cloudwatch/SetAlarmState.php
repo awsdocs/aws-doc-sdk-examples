@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudwatch.php.set_alarm.complete]
 // snippet-start:[cloudwatch.php.set_alarm.import]
@@ -78,14 +77,4 @@ function setTheAlarmState()
 // setTheAlarmState();
 // snippet-end:[cloudwatch.php.set_alarm.main]
 // snippet-end:[cloudwatch.php.set_alarm.complete]
-// snippet-sourcedescription:[SetAlarmState.php demonstrates how to set the state of an alarm in Amazon CloudWatch.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Cloudwatch]
-// snippet-service:[cloudwatch]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-08]
-// snippet-sourceauthor:[pccornel (AWS)]
 

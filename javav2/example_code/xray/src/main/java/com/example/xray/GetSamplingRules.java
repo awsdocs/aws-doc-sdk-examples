@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetSamplingRules.java demonstrates how to retrieve all sampling rules.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-service:[AWS X-Ray Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.xray;
 
@@ -20,9 +14,9 @@ import software.amazon.awssdk.services.xray.model.XRayException;
 import java.util.List;
 // snippet-end:[xray.java2_get_rules.import]
 
-
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,9 +26,9 @@ public class GetSamplingRules {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         XRayClient xRayClient = XRayClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         getRules(xRayClient);
     }

@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListEndpointIds.kt demonstrates how to retrieve information about all the endpoints that are associated with a specific user ID.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Amazon Pinpoint]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.pinpoint
 

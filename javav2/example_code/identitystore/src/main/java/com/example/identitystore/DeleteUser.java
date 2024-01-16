@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DeleteUser.java demonstrates how to delete a user within an AWS Identitystore given UserId.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.identitystore;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.identitystore.model.DeleteUserResponse;
 // snippet-end:[Identitystore.java2.delete_user.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,13 +24,13 @@ public class DeleteUser {
     public static void main(String... args) {
         final String usage = """
 
-            Usage:
-                <identitystoreId> <userId>\s
+                Usage:
+                    <identitystoreId> <userId>\s
 
-            Where:
-                identitystoreId - The id of the identitystore.\s
-                userId - The id of the user to delete.\s
-            """;
+                Where:
+                    identitystoreId - The id of the identitystore.\s
+                    userId - The id of the user to delete.\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -53,9 +48,9 @@ public class DeleteUser {
         try {
 
             DeleteUserRequest request = DeleteUserRequest.builder()
-                .identityStoreId(identitystoreId)
-                .userId(userId)
-                .build();
+                    .identityStoreId(identitystoreId)
+                    .userId(userId)
+                    .build();
 
             DeleteUserResponse response = identitystore.deleteUser(request);
 
@@ -69,4 +64,4 @@ public class DeleteUser {
         return "";
     }
 }
- // snippet-end:[identitystore.java2.delete_user.main]
+// snippet-end:[identitystore.java2.delete_user.main]

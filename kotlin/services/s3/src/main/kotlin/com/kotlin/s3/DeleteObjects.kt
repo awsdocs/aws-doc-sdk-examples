@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DeleteObjects.kt demonstrates how to delete an object from an Amazon Simple Storage Service (Amazon S3) bucket.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.s3
 

@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetSlotTypes.java demonstrates how to returns slot type information.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Lex]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.lex;
 
@@ -21,7 +15,8 @@ import java.util.List;
 // snippet-end:[lex.java2.get_slot_types.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,9 +26,9 @@ public class GetSlotTypes {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         LexModelBuildingClient lexClient = LexModelBuildingClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         getSlotsInfo(lexClient);
         lexClient.close();

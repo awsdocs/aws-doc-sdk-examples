@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[DescribeInstanceTags.java demonstrates how to describe the specified tags for your Amazon Elastic Compute Cloud (Amazon EC2) resource.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon EC2]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ec2;
 
@@ -20,7 +14,8 @@ import software.amazon.awssdk.services.ec2.model.DescribeTagsRequest;
 // snippet-end:[ec2.java2.describe_tags.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +25,12 @@ public class DescribeInstanceTags {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:
-               <resourceId>\s
+                Usage:
+                   <resourceId>\s
 
-            Where:
-               resourceId - The instance ID value that you can obtain from the AWS Management Console (for example, i-xxxxxx0913e05f482).\s
-            """;
+                Where:
+                   resourceId - The instance ID value that you can obtain from the AWS Management Console (for example, i-xxxxxx0913e05f482).\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,8 +40,8 @@ public class DescribeInstanceTags {
         String resourceId = args[0];
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         describeEC2Tags(ec2, resourceId);
         ec2.close();
@@ -55,9 +50,9 @@ public class DescribeInstanceTags {
     public static void describeEC2Tags(Ec2Client ec2, String resourceId) {
         try {
             Filter filter = Filter.builder()
-                .name("resource-id")
-                .values(resourceId)
-                .build();
+                    .name("resource-id")
+                    .values(resourceId)
+                    .build();
 
             DescribeTagsResponse response = ec2.describeTags(DescribeTagsRequest.builder().filters(filter).build());
             response.tags().forEach(tag -> {
@@ -71,5 +66,4 @@ public class DescribeInstanceTags {
         }
     }
 }
- // snippet-end:[ec2.java2.describe_tags.main]
-
+// snippet-end:[ec2.java2.describe_tags.main]

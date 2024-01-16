@@ -1,17 +1,11 @@
-//snippet-sourcedescription:[GetImageSet.java demonstrates how to delete an image set.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS HealthImaging]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.medicalimaging;
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// snippet-start:[medicalimaging.java2.delete_imageset.import]
 
-//snippet-start:[medicalimaging.java2.delete_imageset.import]
-
-//snippet-end:[medicalimaging.java2.delete_imageset.import]
+// snippet-end:[medicalimaging.java2.delete_imageset.import]
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -20,7 +14,8 @@ import software.amazon.awssdk.services.medicalimaging.model.DeleteImageSetReques
 import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingException;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  * <p>
  * For more information, see the following documentation topic:
  * <p>
@@ -55,10 +50,10 @@ public class DeleteImageSet {
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.delete_imageset.main]
+    // snippet-start:[medicalimaging.java2.delete_imageset.main]
     public static void deleteMedicalImageSet(MedicalImagingClient medicalImagingClient,
-                                             String datastoreId,
-                                             String imagesetId) {
+            String datastoreId,
+            String imagesetId) {
         try {
             DeleteImageSetRequest deleteImageSetRequest = DeleteImageSetRequest.builder()
                     .datastoreId(datastoreId)
@@ -73,5 +68,5 @@ public class DeleteImageSet {
             System.exit(1);
         }
     }
-//snippet-end:[medicalimaging.java2.delete_imageset.main]
+    // snippet-end:[medicalimaging.java2.delete_imageset.main]
 }

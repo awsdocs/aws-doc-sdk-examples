@@ -1,25 +1,20 @@
-// snippet-sourcedescription:[GetDataSource.java demonstrates how to retrieve an AWS AppSync data source.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS AppSync]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.appsync;
 
-//snippet-start:[appsync.java2.get_ds.main]
-//snippet-start:[appsync.java2.get_ds.import]
+// snippet-start:[appsync.java2.get_ds.main]
+// snippet-start:[appsync.java2.get_ds.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.GetDataSourceRequest;
 import software.amazon.awssdk.services.appsync.model.GetDataSourceResponse;
 import software.amazon.awssdk.services.appsync.model.AppSyncException;
-//snippet-end:[appsync.java2.get_ds.import]
+// snippet-end:[appsync.java2.get_ds.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,16 +24,16 @@ public class GetDataSource {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <apiId> <name>
+                Usage:    <apiId> <name>
 
-            Where:
-               apiId - The id of the API (You can get this value from the AWS Management Console).\s
-               name - The name of the data source.\s
-            """;
+                Where:
+                   apiId - The id of the API (You can get this value from the AWS Management Console).\s
+                   name - The name of the data source.\s
+                """;
 
         if (args.length != 2) {
-             System.out.println(usage);
-             System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         String apiId = args[0];
@@ -50,15 +45,15 @@ public class GetDataSource {
         getDS(appSyncClient, apiId, name);
     }
 
-    public static void getDS(AppSyncClient appSyncClient, String apiId, String name ) {
+    public static void getDS(AppSyncClient appSyncClient, String apiId, String name) {
         try {
             GetDataSourceRequest request = GetDataSourceRequest.builder()
-                .apiId(apiId)
-                .name(name)
-                .build();
+                    .apiId(apiId)
+                    .name(name)
+                    .build();
 
             GetDataSourceResponse response = appSyncClient.getDataSource(request);
-            System.out.println("The DataSource ARN is "+response.dataSource().dataSourceArn());
+            System.out.println("The DataSource ARN is " + response.dataSource().dataSourceArn());
 
         } catch (AppSyncException e) {
             System.out.println(e.getMessage());
@@ -66,4 +61,4 @@ public class GetDataSource {
         }
     }
 }
-//snippet-end:[appsync.java2.get_ds.main]
+// snippet-end:[appsync.java2.get_ds.main]

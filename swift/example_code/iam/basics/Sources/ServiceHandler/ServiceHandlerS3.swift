@@ -1,9 +1,9 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /*
    A class containing functions that interact with the AWS Simple Storage
    Service (Amazon S3).
-
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
 */
 
 // snippet-start:[iam.swift.basics.s3]

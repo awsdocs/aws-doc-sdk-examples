@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[FindReservedNodeOffer.java demonstrates how to find additional Amazon Redshift nodes for purchase.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Redshift]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.redshift;
 
@@ -18,13 +12,13 @@ import software.amazon.awssdk.services.redshift.model.ReservedNode;
 import software.amazon.awssdk.services.redshift.model.DescribeReservedNodeOfferingsRequest;
 import software.amazon.awssdk.services.redshift.model.DescribeReservedNodeOfferingsResponse;
 import software.amazon.awssdk.services.redshift.model.ReservedNodeOffering;
-import software.amazon.awssdk.services.redshift.model.RedshiftException ;
+import software.amazon.awssdk.services.redshift.model.RedshiftException;
 import java.util.ArrayList;
 // snippet-end:[redshift.java2._nodes.import]
 
-
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -39,8 +33,8 @@ public class FindReservedNodeOffer {
 
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         listReservedNodes(redshiftClient);
         findReservedNodeOffer(redshiftClient);
@@ -64,7 +58,7 @@ public class FindReservedNodeOffer {
     public static void findReservedNodeOffer(RedshiftClient redshiftClient) {
         try {
             DescribeReservedNodeOfferingsRequest request = DescribeReservedNodeOfferingsRequest.builder()
-                .build();
+                    .build();
 
             DescribeReservedNodeOfferingsResponse response = redshiftClient.describeReservedNodeOfferings(request);
             int count = 0;

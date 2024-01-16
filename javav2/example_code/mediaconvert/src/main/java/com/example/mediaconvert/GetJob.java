@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetJob.java demonstrates how to get information about a specific AWS Elemental MediaConvert job.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Elemental MediaConvert]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.mediaconvert;
 
@@ -22,7 +16,8 @@ import java.net.URI;
 // snippet-end:[mediaconvert.java.get_job.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -33,9 +28,9 @@ public class GetJob {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-            "  <jobId> \n\n" +
-            "Where:\n" +
-            "  jobId - The job id value.\n\n";
+                "  <jobId> \n\n" +
+                "Where:\n" +
+                "  jobId - The job id value.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,8 +40,8 @@ public class GetJob {
         String jobId = args[0];
         Region region = Region.US_WEST_2;
         MediaConvertClient mc = MediaConvertClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getSpecificJob(mc, jobId);
         mc.close();
@@ -55,8 +50,8 @@ public class GetJob {
     public static void getSpecificJob(MediaConvertClient mc, String jobId) {
         try {
             DescribeEndpointsResponse res = mc.describeEndpoints(DescribeEndpointsRequest.builder()
-                .maxResults(20)
-                .build());
+                    .maxResults(20)
+                    .build());
 
             if (res.endpoints().size() <= 0) {
                 System.out.println("Cannot find MediaConvert service endpoint URL!");
@@ -64,13 +59,13 @@ public class GetJob {
             }
             String endpointURL = res.endpoints().get(0).url();
             MediaConvertClient emc = MediaConvertClient.builder()
-                .region(Region.US_WEST_2)
-                .endpointOverride(URI.create(endpointURL))
-                .build();
+                    .region(Region.US_WEST_2)
+                    .endpointOverride(URI.create(endpointURL))
+                    .build();
 
             GetJobRequest jobRequest = GetJobRequest.builder()
-                .id(jobId)
-                .build();
+                    .id(jobId)
+                    .build();
 
             GetJobResponse response = emc.getJob(jobRequest);
             System.out.println("The ARN of the job is " + response.job().arn());

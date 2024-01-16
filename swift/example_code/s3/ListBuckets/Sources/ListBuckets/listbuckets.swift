@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /// An example that shows how to use the AWS SDK for Swift with the Amazon
 /// Simple Storage Service (Amazon S3) function `ListBuckets`.
 ///

@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[Glue.dotnetv3.GlueWrapper]
 
@@ -305,7 +305,7 @@ public class GlueWrapper
 
     // snippet-end:[Glue.dotnetv3.GetTables]
 
-    //snippet-start:[Glue.dotnetv3.ListJobs]
+    // snippet-start:[Glue.dotnetv3.ListJobs]
     /// <summary>
     /// List AWS Glue jobs using a paginator.
     /// </summary>
@@ -323,9 +323,9 @@ public class GlueWrapper
         return jobNames;
     }
 
-    //snippet-end:[Glue.dotnetv3.ListJobs]
+    // snippet-end:[Glue.dotnetv3.ListJobs]
 
-    //snippet-start:[Glue.dotnetv3.StartCrawler]
+    // snippet-start:[Glue.dotnetv3.StartCrawler]
     /// <summary>
     /// Start an AWS Glue crawler.
     /// </summary>

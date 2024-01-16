@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { PersonalizeClient } from "@aws-sdk/client-personalize";
 import { PersonalizeRuntimeClient } from "@aws-sdk/client-personalize-runtime";
 import { PersonalizeEventsClient } from "@aws-sdk/client-personalize-events";

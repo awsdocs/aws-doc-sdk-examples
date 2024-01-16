@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[ListGroupMembershipsForMember.java demonstrates how to get the list of groups that a user is attached to in AWS Identitystore.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.identitystore;
 
@@ -20,7 +14,8 @@ import software.amazon.awssdk.services.identitystore.model.GroupMembership;
 // snippet-end:[Identitystore.java2.list_group_memberships_For_Member.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,15 +26,14 @@ public class ListGroupMembershipsForMember {
     public static void main(String... args) {
         final String usage = """
 
-            Usage:
-                <identitystoreId> <userId>\s
+                Usage:
+                    <identitystoreId> <userId>\s
 
-            Where:
-                identitystoreId - The id of the identitystore.\s
-                userId - The id of the user.\s
+                Where:
+                    identitystoreId - The id of the identitystore.\s
+                    userId - The id of the user.\s
 
-            """;
-
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -54,36 +48,38 @@ public class ListGroupMembershipsForMember {
         identitystore.close();
     }
 
-    public static int listGroupMembershipsForMember(IdentitystoreClient identitystore, String identitystoreId, String userId) {
+    public static int listGroupMembershipsForMember(IdentitystoreClient identitystore, String identitystoreId,
+            String userId) {
         try {
             boolean done = false;
             int count = 0;
             String nextToken = null;
 
             MemberId memberId = MemberId.builder()
-                .userId(userId)
-                .build();
+                    .userId(userId)
+                    .build();
 
             while (!done) {
                 ListGroupMembershipsForMemberResponse response;
                 if (nextToken == null) {
                     ListGroupMembershipsForMemberRequest request = ListGroupMembershipsForMemberRequest.builder()
-                        .identityStoreId(identitystoreId)
-                        .memberId(memberId)
-                        .build();
+                            .identityStoreId(identitystoreId)
+                            .memberId(memberId)
+                            .build();
                     response = identitystore.listGroupMembershipsForMember(request);
                 } else {
                     ListGroupMembershipsForMemberRequest request = ListGroupMembershipsForMemberRequest.builder()
-                        .nextToken(nextToken)
-                        .identityStoreId(identitystoreId)
-                        .memberId(memberId)
-                        .build();
+                            .nextToken(nextToken)
+                            .identityStoreId(identitystoreId)
+                            .memberId(memberId)
+                            .build();
                     response = identitystore.listGroupMembershipsForMember(request);
                 }
 
                 for (GroupMembership groupMemberShip : response.groupMemberships()) {
                     count++;
-                    System.out.format("GroupId: %s, UserId: %s, MembershipId: %s\n", groupMemberShip.groupId(), groupMemberShip.memberId().userId(), groupMemberShip.membershipId());
+                    System.out.format("GroupId: %s, UserId: %s, MembershipId: %s\n", groupMemberShip.groupId(),
+                            groupMemberShip.memberId().userId(), groupMemberShip.membershipId());
                 }
 
                 nextToken = response.nextToken();
@@ -101,4 +97,4 @@ public class ListGroupMembershipsForMember {
         return 0;
     }
 }
- // snippet-end:[identitystore.java2.list_group_memberships_For_Member.main]
+// snippet-end:[identitystore.java2.list_group_memberships_For_Member.main]

@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[PutFile.java demonstrates how to upload a file to a branch.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CodeCommit]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.commit;
 
@@ -25,30 +18,30 @@ import java.io.InputStream;
 // snippet-end:[codecommit.java2.put_file.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
-
 public class PutFile {
     public static void main(String[] args) {
         final String USAGE = """
 
-            Usage:
-                <repoName> <branchName> <filePath> <email> <name> <repoPath> <commitId>
+                Usage:
+                    <repoName> <branchName> <filePath> <email> <name> <repoPath> <commitId>
 
-            Where:
-                repoName - the name of the repository.
-                branchName -  the name of the branch.
-                filePath  - the location of the file on the local drive (i.e., C:/AWS/uploadGlacier.txt).
-                email -  the email of the user whom uploads the file.
-                name -  the name of the user.
-                repoPath -  the location in the repo to store the file.
-                commitId -  the full commit ID of the head commit in the branch (you can retrieve this value from the AWS CodeCommit Console).
-            """;
+                Where:
+                    repoName - the name of the repository.
+                    branchName -  the name of the branch.
+                    filePath  - the location of the file on the local drive (i.e., C:/AWS/uploadGlacier.txt).
+                    email -  the email of the user whom uploads the file.
+                    name -  the name of the user.
+                    repoPath -  the location in the repo to store the file.
+                    commitId -  the full commit ID of the head commit in the branch (you can retrieve this value from the AWS CodeCommit Console).
+                """;
 
         if (args.length != 7) {
             System.out.println(USAGE);
@@ -65,36 +58,36 @@ public class PutFile {
 
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         uploadFile(codeCommitClient, filePath, repoName, branchName, email, name, repoPath, commitId);
         codeCommitClient.close();
     }
 
     public static void uploadFile(CodeCommitClient codeCommitClient,
-                                  String filePath,
-                                  String repoName,
-                                  String branchName,
-                                  String email,
-                                  String name,
-                                  String repoPath,
-                                  String commitId) {
+            String filePath,
+            String repoName,
+            String branchName,
+            String email,
+            String name,
+            String repoPath,
+            String commitId) {
         try {
             File myFile = new File(filePath);
             InputStream is = new FileInputStream(myFile);
             SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
 
             PutFileRequest fileRequest = PutFileRequest.builder()
-                .fileContent(fileToUpload)
-                .repositoryName(repoName)
-                .commitMessage("Uploaded via the Java API")
-                .branchName(branchName)
-                .filePath(repoPath)
-                .parentCommitId(commitId)
-                .email(email)
-                .name(name)
-                .build();
+                    .fileContent(fileToUpload)
+                    .repositoryName(repoName)
+                    .commitMessage("Uploaded via the Java API")
+                    .branchName(branchName)
+                    .filePath(repoPath)
+                    .parentCommitId(commitId)
+                    .email(email)
+                    .name(name)
+                    .build();
 
             PutFileResponse fileResponse = codeCommitClient.putFile(fileRequest);
             System.out.println("The commit ID is " + fileResponse.commitId());

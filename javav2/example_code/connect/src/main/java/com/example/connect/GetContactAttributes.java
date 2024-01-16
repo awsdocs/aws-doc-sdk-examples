@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[GetContactAttributes.java demonstrates how to describe the specified contact attributes.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Connect]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.connect;
 
@@ -18,7 +12,8 @@ import software.amazon.awssdk.services.connect.model.GetContactAttributesRespons
 import java.util.Map;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,12 +23,12 @@ public class GetContactAttributes {
     public static void main(String[] args) {
         final String usage = """
 
-            Usage:    <instanceId>
+                Usage:    <instanceId>
 
-            Where:
-               instanceId - The identifier of the Amazon Connect instance.
-               contactId - The identifier of the contact.
-            """;
+                Where:
+                   instanceId - The identifier of the Amazon Connect instance.
+                   contactId - The identifier of the contact.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -44,8 +39,8 @@ public class GetContactAttributes {
         String contactId = args[1];
         Region region = Region.US_EAST_1;
         ConnectClient connectClient = ConnectClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         getContactAttrs(connectClient, instanceId, contactId);
     }
@@ -53,9 +48,9 @@ public class GetContactAttributes {
     public static void getContactAttrs(ConnectClient connectClient, String instanceId, String contactId) {
         try {
             GetContactAttributesRequest attributesRequest = GetContactAttributesRequest.builder()
-                .instanceId(instanceId)
-                .initialContactId(contactId)
-                .build();
+                    .instanceId(instanceId)
+                    .initialContactId(contactId)
+                    .build();
 
             GetContactAttributesResponse response = connectClient.getContactAttributes(attributesRequest);
             Map<String, String> attributeMap = response.attributes();
@@ -69,4 +64,3 @@ public class GetContactAttributes {
     }
 }
 // snippet-end:[connect.java2.contact.attr.main]
-

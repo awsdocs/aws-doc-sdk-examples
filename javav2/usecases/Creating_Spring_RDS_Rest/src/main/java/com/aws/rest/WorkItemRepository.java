@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -38,12 +36,12 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
 
     static ExecuteStatementResponse execute(String sqlStatement, List<SqlParameter> parameters) {
         var sqlRequest = ExecuteStatementRequest.builder()
-            .resourceArn(resourceArn)
-            .secretArn(secretArn)
-            .database(database)
-            .sql(sqlStatement)
-            .parameters(parameters)
-            .build();
+                .resourceArn(resourceArn)
+                .secretArn(secretArn)
+                .database(database)
+                .sql(sqlStatement)
+                .parameters(parameters)
+                .build();
         return getClient().executeStatement(sqlRequest);
     }
 
@@ -75,16 +73,15 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
         java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
 
         String sql = "INSERT INTO work (idwork, username, date, description, guide, status, archive) VALUES" +
-            "(:idwork, :username, :date, :description, :guide, :status, :archive);";
+                "(:idwork, :username, :date, :description, :guide, :status, :archive);";
         List<SqlParameter> paremeters = List.of(
-            param("idwork", workId),
-            param("username", name),
-            param("date", sqlDate.toString()),
-            param("description", description),
-            param("guide", guide),
-            param("status", status),
-            param("archive", archived)
-        );
+                param("idwork", workId),
+                param("username", name),
+                param("date", sqlDate.toString()),
+                param("description", description),
+                param("guide", guide),
+                param("status", status),
+                param("archive", archived));
 
         ExecuteStatementResponse result = execute(sql, paremeters);
         System.out.println(result.toString());
@@ -101,10 +98,10 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
         String sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work WHERE idwork = :id;";
         List<SqlParameter> parameters = List.of(param("id", s));
         var result = execute(sqlStatement, parameters)
-            .records()
-            .stream()
-            .map(WorkItem::from)
-            .collect(Collectors.toUnmodifiableList());
+                .records()
+                .stream()
+                .map(WorkItem::from)
+                .collect(Collectors.toUnmodifiableList());
         if (result.isEmpty()) {
             return Optional.empty();
         } else {
@@ -126,15 +123,13 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
         try {
             String sqlStatement = "UPDATE work SET archive = (:arch) WHERE idwork = (:id);";
             List<SqlParameter> parameters = List.of(
-                param("id", id),
-                param("arch", archived)
-            );
+                    param("id", id),
+                    param("arch", archived));
             execute(sqlStatement, parameters);
         } catch (RdsDataException e) {
             e.printStackTrace();
         }
     }
-
 
     public Iterable<WorkItem> findAllWithStatus(String status) {
         String sqlStatement;
@@ -142,29 +137,27 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
 
         if (status.compareTo("true") == 0) {
             sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
-                "FROM work WHERE archive = :arch ;";
+                    "FROM work WHERE archive = :arch ;";
             isArc = "1";
             List<SqlParameter> parameters = List.of(
-                param("arch", isArc)
-            );
+                    param("arch", isArc));
             return execute(sqlStatement, parameters)
-                .records()
-                .stream()
-                .map(WorkItem::from)
-                .collect(Collectors.toUnmodifiableList());
+                    .records()
+                    .stream()
+                    .map(WorkItem::from)
+                    .collect(Collectors.toUnmodifiableList());
 
         } else if (status.compareTo("false") == 0) {
             sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
-                "FROM work WHERE archive = :arch ;";
+                    "FROM work WHERE archive = :arch ;";
             isArc = "0";
             List<SqlParameter> parameters = List.of(
-                param("arch", isArc)
-            );
+                    param("arch", isArc));
             return execute(sqlStatement, parameters)
-                .records()
-                .stream()
-                .map(WorkItem::from)
-                .collect(Collectors.toUnmodifiableList());
+                    .records()
+                    .stream()
+                    .map(WorkItem::from)
+                    .collect(Collectors.toUnmodifiableList());
 
         } else {
             sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work ;";
@@ -172,10 +165,10 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
 
             );
             return execute(sqlStatement, parameters)
-                .records()
-                .stream()
-                .map(WorkItem::from)
-                .collect(Collectors.toUnmodifiableList());
+                    .records()
+                    .stream()
+                    .map(WorkItem::from)
+                    .collect(Collectors.toUnmodifiableList());
         }
     }
 
@@ -193,9 +186,9 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
         String sqlStatement = "SELECT COUNT(idwork) AS count FROM work;";
         List<SqlParameter> parameters = List.of();
         return execute(sqlStatement, parameters)
-            .records()
-            .stream()
-            .map(fields -> fields.get(0).longValue()).iterator().next();
+                .records()
+                .stream()
+                .map(fields -> fields.get(0).longValue()).iterator().next();
     }
 
     @Override

@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[CreateDataSource.kt demonstrates how to create an AWS AppSync data source that uses Amazon DynamoDB.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS AppSync]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.appsync
 

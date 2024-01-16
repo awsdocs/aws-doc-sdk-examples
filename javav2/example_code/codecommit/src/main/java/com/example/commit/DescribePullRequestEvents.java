@@ -1,11 +1,6 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[DescribePullRequestEvents.java demonstrates how to obtain information about pull request events.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CodeCommit]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.commit;
 
 // snippet-start:[codecommit.java2.describe_pr_events.main]
@@ -20,7 +15,8 @@ import java.util.List;
 // snippet-end:[codecommit.java2.describe_pr_events.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -32,12 +28,12 @@ public class DescribePullRequestEvents {
 
         final String USAGE = """
 
-            Usage:
-                <prId>\s
+                Usage:
+                    <prId>\s
 
-            Where:
-                prId - the id of the pull request.\s
-            """;
+                Where:
+                    prId - the id of the pull request.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -47,8 +43,8 @@ public class DescribePullRequestEvents {
         String prId = args[0];
         Region region = Region.US_EAST_1;
         CodeCommitClient codeCommitClient = CodeCommitClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         describePREvents(codeCommitClient, prId);
         codeCommitClient.close();
@@ -57,10 +53,11 @@ public class DescribePullRequestEvents {
     public static void describePREvents(CodeCommitClient codeCommitClient, String prId) {
         try {
             DescribePullRequestEventsRequest eventsRequest = DescribePullRequestEventsRequest.builder()
-                .pullRequestId(prId)
-                .build();
+                    .pullRequestId(prId)
+                    .build();
 
-            DescribePullRequestEventsResponse eventsResponse = codeCommitClient.describePullRequestEvents(eventsRequest);
+            DescribePullRequestEventsResponse eventsResponse = codeCommitClient
+                    .describePullRequestEvents(eventsRequest);
             List<PullRequestEvent> events = eventsResponse.pullRequestEvents();
             for (PullRequestEvent event : events) {
                 System.out.println("The event name is: " + event.pullRequestEventType().toString());

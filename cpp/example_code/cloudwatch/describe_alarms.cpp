@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 /*
 
 /* ////////////////////////////////////////////////////////////////////////////
@@ -10,14 +10,14 @@
  * Outputs:
  * The name, Amazon Resource Name (ARN), description and date last updated of your alarms.
  * ///////////////////////////////////////////////////////////////////////// */
-//snippet-start:[cw.cpp.describe_alarms.inc]
+// snippet-start:[cw.cpp.describe_alarms.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/DescribeAlarmsRequest.h>
 #include <aws/monitoring/model/DescribeAlarmsResult.h>
 #include <iomanip>
 #include <iostream>
-//snippet-end:[cw.cpp.describe_alarms.inc]
+// snippet-end:[cw.cpp.describe_alarms.inc]
 
 static const char* SIMPLE_DATE_FORMAT_STR = "%Y-%m-%d";
 

@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[upload_user_doc.java demonstrates how to upload a document to AWS Workdocs.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-service:[workdocs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[Doug-AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -60,7 +55,8 @@ public class upload_user_doc {
 		return "";
 	}
 
-	private static Map<String, String> get_doc_info(AmazonWorkDocs workDocs, String orgId, String user, String doc) throws Exception {
+	private static Map<String, String> get_doc_info(AmazonWorkDocs workDocs, String orgId, String user, String doc)
+			throws Exception {
 		String folderId = get_user_folder(workDocs, orgId, user);
 
 		InitiateDocumentVersionUploadRequest request = new InitiateDocumentVersionUploadRequest();
@@ -88,15 +84,16 @@ public class upload_user_doc {
 		connection.setRequestMethod("PUT");
 		// Content-Type supplied here should match with the Content-Type set
 		// in the InitiateDocumentVersionUpload request.
-		connection.setRequestProperty("Content-Type","application/octet-stream");
+		connection.setRequestProperty("Content-Type", "application/octet-stream");
 		connection.setRequestProperty("x-amz-server-side-encryption", "AES256");
 		File file = new File(doc);
 		FileInputStream fileInputStream = new FileInputStream(file);
 		OutputStream outputStream = connection.getOutputStream();
 		com.amazonaws.util.IOUtils.copy(fileInputStream, outputStream);
 
-		// Very misleading. Getting a 200 only means the call succeeded, not that the copy worked.
-		return connection.getResponseCode();  // int where 200 == success
+		// Very misleading. Getting a 200 only means the call succeeded, not that the
+		// copy worked.
+		return connection.getResponseCode(); // int where 200 == success
 	}
 
 	private static void complete_upload(AmazonWorkDocs workDocs, String doc_id, String version_id) throws Exception {
@@ -108,9 +105,11 @@ public class upload_user_doc {
 	}
 
 	public static void main(String[] args) throws Exception {
-		// Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
+		// Based on WorkDocs dev guide code at
+		// http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
 
-		// Use the default client. Look at Window, Preferences, AWS Toolkit to see the values
+		// Use the default client. Look at Window, Preferences, AWS Toolkit to see the
+		// values
 		AmazonWorkDocs workDocs = AmazonWorkDocsClientBuilder.defaultClient();
 
 		// Set to the OrganizationId of your WorkDocs site.

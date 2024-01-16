@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[IAM.dotnetv3.IAMCommon.S3Wrapper]
 namespace IamScenariosCommon;
@@ -27,8 +27,7 @@ public class S3Wrapper
         _stsService = stsService;
     }
 
-    // snippet.start:[STS.dotnetv3.AssumeS3Role]
-    /// <summary>
+        /// <summary>
     /// Assumes an AWS Identity and Access Management (IAM) role that allows
     /// Amazon S3 access for the current session.
     /// </summary>
@@ -49,7 +48,6 @@ public class S3Wrapper
         return response.Credentials;
     }
 
-    // snippet.end:[STS.dotnetv3.AssumeS3Role]
 
     /// <summary>
     /// Delete an S3 bucket.

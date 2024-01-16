@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 // snippet-start:[rust.example_code.iam.hello_bin]
 
 use aws_sdk_iam::error::SdkError;
