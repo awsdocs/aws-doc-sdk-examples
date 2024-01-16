@@ -1,14 +1,12 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { fileURLToPath } from 'url';
 
 import { BedrockClient, ListFoundationModelsCommand } from '@aws-sdk/client-bedrock';
 
 const REGION = 'us-east-1';
-const client = new BedrockClient( { region: REGION } );
+const client = new BedrockClient({ region: REGION });
 
 export const main = async () => {
     const command = new ListFoundationModelsCommand({});

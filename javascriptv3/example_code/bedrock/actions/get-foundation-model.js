@@ -1,11 +1,9 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { fileURLToPath } from 'url';
 
-import { BedrockClient, GetFoundationModelCommand  } from '@aws-sdk/client-bedrock';
+import { BedrockClient, GetFoundationModelCommand } from '@aws-sdk/client-bedrock';
 
 /**
  * Get details about an Amazon Bedrock foundation model.

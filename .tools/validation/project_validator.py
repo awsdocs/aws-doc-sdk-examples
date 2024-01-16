@@ -29,7 +29,7 @@ from pathlib import Path
 
 from file_utils import get_files
 from metadata_errors import MetadataErrors, MetadataError, DuplicateItemException
-from sdpx import verify_spdx
+from spdx import verify_spdx
 import validator_config
 
 logger = logging.getLogger(__name__)

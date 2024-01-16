@@ -15,16 +15,13 @@ import validator_config
 class InvalidSPDX(MetadataError):
     has_copyright: bool = True
     has_license: bool = True
-    has_bom: bool = False
 
     def message(self):
         message = "Invalid SPDX"
-        if not self.has_copyright:
-            message += " Missing Copyright line"
-        if not self.has_license:
-            message += " Missing License line"
-        if self.has_bom:
-            message += " Has BOM"
+        if self.has_copyright:
+            message += " Invalid Copyright line"
+        if self.has_license:
+            message += " Invalid License line"
         return message
 
 
@@ -38,7 +35,6 @@ def verify_spdx(file_contents: str, file_location: Path, errors: MetadataErrors)
     """Verify the file starts with an SPDX comment, possibly following a shebang line"""
     if file_location.suffix in validator_config.IGNORE_SPDX_SUFFIXES:
         return
-    has_bom = file_contents.startswith("\uFEFF")
     lines = file_contents.splitlines()
     if len(lines) < 2:
         return
@@ -52,29 +48,38 @@ def verify_spdx(file_contents: str, file_location: Path, errors: MetadataErrors)
         return
     # First line may be a start of comment
     has_copyright = (
-        False if re.match(validator_config.SPDX_COPYRIGHT, lines[0]) is None else True
+        False
+        if re.match(
+            validator_config.SPDX_LEADER + validator_config.SPDX_COPYRIGHT, lines[0]
+        )
+        is None
+        else True
     )
     has_license = (
-        False if re.match(validator_config.SPDX_LICENSE, lines[1]) is None else True
+        False
+        if re.match(
+            validator_config.SPDX_LEADER + validator_config.SPDX_LICENSE, lines[1]
+        )
+        is None
+        else True
     )
-    if not (has_copyright and has_license) or has_bom:
+    if not (has_copyright and has_license):
         file_has_copyright = (
-            False
+            True
             if re.match(validator_config.SPDX_COPYRIGHT, file_contents) is None
-            else True
+            else False
         )
         file_has_license = (
-            False
+            True
             if re.match(validator_config.SPDX_LICENSE, file_contents) is None
-            else True
+            else False
         )
-        if file_has_copyright or file_has_license or has_bom:
+        if file_has_copyright or file_has_license:
             errors.append(
                 InvalidSPDX(
                     file=file_location,
                     has_copyright=has_copyright,
                     has_license=has_license,
-                    has_bom=has_bom,
                 )
             )
         else:
