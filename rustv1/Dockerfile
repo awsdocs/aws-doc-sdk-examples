@@ -5,20 +5,13 @@ FROM rust:$MSRV
 # Update image
 RUN apt-get update && \
     apt-get install -y libclang-dev && \
+    rustup component add clippy rustfmt && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf ${CARGO_HOME}/registry/* ; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ; \
+    :
 
 # Copy source code
 COPY . /rustv1/
-
-# Perform build steps
-RUN cargo clippy --manifest-path /rustv1/examples/Cargo.toml && \
-    rustup component add clippy && \
-    cargo clippy --manifest-path /rustv1/cross_service/Cargo.toml
-
-# Set non-root user
-RUN useradd -m automation && \
-    chown -R automation:automation /rustv1 \
-USER automation:automation
-
-CMD ["bash"]
+ENV PATH="${PATH}:/${CARGO_HOME}/bin"
+CMD ["/bin/bash", "-x", "/rustv1/run_all.sh"]

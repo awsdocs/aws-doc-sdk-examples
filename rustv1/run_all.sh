@@ -25,17 +25,14 @@ fi
 export RUSTFLAGS="-D warnings" ;
 export APP_ENVIRONMENT="test"
 
-CARGO="$HOME/.cargo/bin/cargo"
-
 FAIL=()
 for f in "${DIRS[@]}" ; do
   # we _do_ want to break out the flags in $a
   # shellcheck disable=SC2086
   for a in "${ACTIONS[@]}" ; do
-    "$CARGO" $a --manifest-path "$f/Cargo.toml" || FAIL+=("${a}:$f")
+    cargo $a --manifest-path "$f/Cargo.toml" || FAIL+=("${a}:$f")
   done
 done
 
 echo "${FAIL[@]}"
 exit ${#FAIL[@]}
-
