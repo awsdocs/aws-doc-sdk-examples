@@ -17,7 +17,6 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
 @Component("DynamoDBEnhanced")
 public class DynamoDBEnhanced {
-
     public void injectDynamoItem(Greeting item){
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
