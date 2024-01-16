@@ -4,7 +4,7 @@ import datetime
 import json
 
 
-def lambda_handler(event):
+def lambda_handler(event, context):
     now = datetime.datetime.now()
 
     response = {"date": now.strftime("%Y-%m-%d"), "time": now.strftime("%H:%M:%S")}
