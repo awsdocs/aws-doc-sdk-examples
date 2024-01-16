@@ -231,13 +231,14 @@ public class VideoStreamService {
     private String convertToString(Document xml) {
         try {
             TransformerFactory transformerFactory = getSecureTransformerFactory();
+            transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             Transformer transformer = transformerFactory.newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+        } catch (TransformerException ex) {
             ex.printStackTrace();
         }
         return null;

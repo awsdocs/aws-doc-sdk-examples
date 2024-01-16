@@ -404,7 +404,6 @@ public class VideoStreamService {
             headers.setContentDispositionFormData("inline", keyName);
 
             // Create a StreamingResponseBody to stream the content.
-
             StreamingResponseBody responseBody = outputStream -> {
                 try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream)) {
                     byte[] buffer = new byte[1024 * 1024];
@@ -464,13 +463,14 @@ public class VideoStreamService {
     private String convertToString(Document xml) {
         try {
             TransformerFactory transformerFactory = getSecureTransformerFactory();
+            transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             Transformer transformer = transformerFactory.newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+        } catch (TransformerException ex) {
             ex.printStackTrace();
         }
         return null;
