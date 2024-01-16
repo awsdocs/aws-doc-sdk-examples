@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Spring Boot and the Enhanced DynamoDB Client</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="|https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css|"/>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: auto;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content {
+            max-width: 600px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger {
+            margin-top: 10px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="login-container" sec:authorize="isAnonymous()">
+        <p>You must log in with Amazon Cognito to access this AWS Web Application.</p>
+        <a class="btn btn-primary" th:href="@{/oauth2/authorization/cognito}" role="button">
+            Log in using <b>Amazon Cognito</b>
+        </a>
+    </div>
+
+    <div class="main-content" sec:authorize="isAuthenticated()">
+        <h1>A secure AWS Web application</h1>
+        <p>Hello <strong th:text="${#authentication.getPrincipal().attributes['cognito:username']}"></strong></p>
+        <p>You can submit data to a DynamoDB table by using the Enhanced Client. A mobile notification is sent alerting a user a new submission occurred.</p>
+        <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
+            <div class="form-group">
+                <label for="id">Id:</label>
+                <input type="text" class="form-control" th:field="*{id}" id="id" />
+            </div>
+
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" th:field="*{title}" id="title" />
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" th:field="*{name}" id="name" />
+            </div>
+
+            <div class="form-group">
+                <label for="body">Body:</label>
+                <input type="text" class="form-control" th:field="*{body}" id="body" />
+            </div>
+
+            <p>
+                <input type="submit" class="btn btn-primary" value="Submit" />
+                <input type="reset" class="btn btn-secondary" value="Reset" />
+            </p>
+        </form>
+
+        <form method="post" th:action="@{/logout}">
+            <input type="submit" class="btn btn-danger" value="Logout"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>
