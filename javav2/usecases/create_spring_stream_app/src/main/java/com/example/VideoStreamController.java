@@ -77,8 +77,7 @@ public class VideoStreamController {
         return xml;
     }
 
-    // Returns the video in the bucket specified by the ID value.
-    @RequestMapping(value = "/{id}/stream", method = RequestMethod.GET)
+    @GetMapping("/{id}/stream")
     public Mono<ResponseEntity<StreamingResponseBody>> streamVideo(@PathVariable String id) {
         String fileName = id;
         return Mono.just(vid.getObjectBytes(bucket, fileName));
