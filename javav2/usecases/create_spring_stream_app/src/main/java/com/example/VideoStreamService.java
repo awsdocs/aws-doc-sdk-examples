@@ -186,7 +186,7 @@ public class VideoStreamService {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            // Start building the XML
+            // Start building the XML.
             Element root = doc.createElement( "Tags" );
             doc.appendChild( root );
 
@@ -195,12 +195,12 @@ public class VideoStreamService {
                 Element item = doc.createElement( "Tag" );
                 root.appendChild( item );
 
-                // Set Name
+                // Set Name.
                 Element id = doc.createElement( "Name" );
                 id.appendChild( doc.createTextNode(myItem.getName() ) );
                 item.appendChild( id );
 
-                // Set Description
+                // Set Description.
                 Element name = doc.createElement( "Description" );
                 name.appendChild( doc.createTextNode(myItem.getDesc() ) );
                 item.appendChild( name );
