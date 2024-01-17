@@ -32,6 +32,12 @@ dependencies {
     implementation("aws.sdk.kotlin:secretsmanager:1.0.0")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
+    implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("aws.smithy.kotlin:aws-signing-crt:0.21.0")
+    testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("aws.smithy.kotlin:aws-signing-crt:0.30.0")
     implementation("com.google.code.gson:gson:2.10")
@@ -45,7 +51,7 @@ tasks.withType<KotlinCompile>() {
 }
 
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "17"
     kotlinOptions.freeCompilerArgs += "-Xlint:-deprecation"
 }
 

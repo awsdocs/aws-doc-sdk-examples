@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <bucketName> <objectKey>
@@ -36,9 +35,9 @@ suspend fun main(args: Array<String>) {
     val objectKey = args[1]
     getBucketACL(objectKey, bucketName)
 }
+
 // snippet-start:[s3.kotlin.get_acl.main]
 suspend fun getBucketACL(objectKey: String, bucketName: String) {
-
     val request = GetObjectAclRequest {
         bucket = bucketName
         key = objectKey

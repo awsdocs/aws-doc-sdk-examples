@@ -6,6 +6,7 @@ import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.GetObjectRequest
 import aws.smithy.kotlin.runtime.client.LogMode
 import aws.smithy.kotlin.runtime.content.decodeToString
+import aws.smithy.kotlin.runtime.text.encoding.Encodable
 import aws.smithy.kotlin.runtime.time.Instant
 import aws.smithy.kotlin.runtime.time.toJvmInstant
 import kotlinx.coroutines.runBlocking
@@ -20,6 +21,7 @@ import java.time.temporal.ChronoUnit
 import java.util.UUID
 import kotlin.test.Test
 import kotlin.time.Duration.Companion.hours
+
 
 @TestMethodOrder(OrderAnnotation::class)
 class PresignTests {
@@ -77,14 +79,16 @@ class PresignTests {
         logger.info("putObjectPresigned returned the same content")
     }
 
+
     @Test
     @Order(3)
     fun getObjectPresignMoreOptionsTest() = runBlocking {
         // The example under test sets a future signing date of 12 hours from now.
         // The signing date ends up as the 'X-Amz-Date' query parameter on the URL.
         val presignedRequest = getObjectPresignedMoreOptions(s3, bucketName, keyName)
-
-        val stringDate: String? = presignedRequest.url.parameters.get("X-Amz-Date")
+        val myMap = presignedRequest.url.parameters.encodedParameters
+        val stringDate = myMap["X-Amz-Date"]?.firstOrNull()
+        println(stringDate);
 
         if (!stringDate.isNullOrEmpty()) {
             val signingDate = Instant.fromIso8601(stringDate.toString())
@@ -98,4 +102,5 @@ class PresignTests {
             Assertions.assertTrue(difference < 5000)
         }
     }
+
 }

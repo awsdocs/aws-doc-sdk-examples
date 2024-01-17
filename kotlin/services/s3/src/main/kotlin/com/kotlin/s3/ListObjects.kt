@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <bucketName> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.list_objects.main]
 suspend fun listBucketObjects(bucketName: String) {
-
     val request = ListObjectsRequest {
         bucket = bucketName
     }
@@ -47,7 +45,7 @@ suspend fun listBucketObjects(bucketName: String) {
         val response = s3.listObjects(request)
         response.contents?.forEach { myObject ->
             println("The name of the key is ${myObject.key}")
-            println("The object is ${calKb(myObject.size)} KBs")
+            println("The object is ${myObject.size?.let { calKb(it) }} KBs")
             println("The owner is ${myObject.owner}")
         }
     }

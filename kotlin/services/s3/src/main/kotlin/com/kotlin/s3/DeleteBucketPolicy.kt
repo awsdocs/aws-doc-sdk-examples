@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
          <bucketName>  
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.delete_bucket_policy.main]
 suspend fun deleteS3BucketPolicy(bucketName: String?) {
-
     val request = DeleteBucketPolicyRequest {
         bucket = bucketName
     }
