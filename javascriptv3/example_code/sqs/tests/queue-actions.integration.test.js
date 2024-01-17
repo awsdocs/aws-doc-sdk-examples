@@ -35,8 +35,8 @@ describe("queue actions", () => {
 
     await retry({ intervalInMs: 1000, maxRetries: 60 }, async () => {
       const urls = await listQueues();
-
-      expect(urls[0]).toEqual(expect.stringContaining(queueName));
+      const queueNameFound = urls.some((url) => url.indexOf(queueName) > -1);
+      expect(queueNameFound).toBe(true);
     });
 
     await setQueueAttributes(queueUrl);

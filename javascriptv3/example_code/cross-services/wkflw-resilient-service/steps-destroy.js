@@ -239,7 +239,7 @@ export const destroySteps = [
   new ScenarioAction("deleteAutoScalingGroup", async (state) => {
     try {
       await terminateGroupInstances(NAMES.autoScalingGroupName);
-      await retry({ intervalInMs: 30000, maxRetries: 60 }, async () => {
+      await retry({ intervalInMs: 60000, maxRetries: 60 }, async () => {
         await deleteAutoScalingGroup(NAMES.autoScalingGroupName);
       });
     } catch (e) {
