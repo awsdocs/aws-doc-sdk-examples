@@ -23,7 +23,7 @@ _Amazon Cognito Identity Provider handles user authentication and authorization 
 
 ### Prerequisites
 
-For prerequisites, see the [README](README.md#Prerequisites) in the `python` folder.
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `python` folder.
 
 Install the packages required by these examples by running the following in a virtual environment:
 
@@ -107,7 +107,7 @@ python scenario_signup_user_with_mfa.py
 ⚠ Running tests might result in charges to your AWS account.
 
 
-To find instructions for running these tests, see the [README](README.md#Tests)
+To find instructions for running these tests, see the [README](../../README.md#Tests)
 in the `python` folder.
 
 
