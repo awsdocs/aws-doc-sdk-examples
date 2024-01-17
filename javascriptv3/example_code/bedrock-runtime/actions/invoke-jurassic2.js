@@ -35,16 +35,16 @@ export const invokeJurassic2 = async (prompt) => {
      * https://docs.ai21.com/reference/j2-complete-ref
      */
     const payload = {
-        prompt: prompt,
+        prompt,
         maxTokens: 500,
         temperature: 0.5,
     };
 
     const command = new InvokeModelCommand({
         body: JSON.stringify(payload),
-        modelId: modelId,
         contentType: 'application/json',
         accept: 'application/json',
+        modelId,
     });
 
     try {

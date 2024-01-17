@@ -40,9 +40,9 @@ export const invokeClaude = async (prompt) => {
 
     const command = new InvokeModelCommand({
         body: JSON.stringify(payload),
-        modelId: modelId,
         contentType: 'application/json',
         accept: 'application/json',
+        modelId,
     });
 
     try {
