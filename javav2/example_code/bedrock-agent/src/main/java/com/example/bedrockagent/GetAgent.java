@@ -7,6 +7,8 @@ package com.example.bedrockagent;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockagent.BedrockAgentClient;
+import software.amazon.awssdk.services.bedrockagent.model.Agent;
+import software.amazon.awssdk.services.bedrockagent.model.BedrockAgentException;
 import software.amazon.awssdk.services.bedrockagent.model.GetAgentRequest;
 import software.amazon.awssdk.services.bedrockagent.model.GetAgentResponse;
 // snippet-end:[bedrock-agent.java2.get_agent.import]
@@ -47,12 +49,38 @@ public class GetAgent {
     }
 
     // snippet-start:[bedrock-agent.java2.get_agent.main]
-    public static void getAgent(BedrockAgentClient client, String agentId) {
-        var request = GetAgentRequest.builder()
-                .agentId(agentId)
-                .build();
-        GetAgentResponse response = client.getAgent(request);
-        System.out.println(response);
+    /**
+     * Gets information about an agent.
+     *
+     * <p>This method retrieves agent details by making a call to the
+     * GetAgent API operation and passing the agent ID. It prints out
+     * basic information about the agent to the console for demonstration
+     * purposes.</p>
+     *
+     * @param client  Client for accessing Agents for Amazon Bedrock
+     * @param agentId The unique identifier of the agent
+     * @return The Agent object
+     * @throws BedrockAgentException If the API call fails
+     */
+    public static Agent getAgent(BedrockAgentClient client, String agentId) {
+        try {
+            GetAgentRequest request = GetAgentRequest.builder()
+                    .agentId(agentId)
+                    .build();
+            GetAgentResponse response = client.getAgent(request);
+
+            Agent agent = response.agent();
+
+            System.out.println("Name     : " + agent.agentName());
+            System.out.println("Agent ID : " + agent.agentId());
+            System.out.println("Status   : " + agent.agentStatus());
+            System.out.println();
+
+            return agent;
+        } catch (BedrockAgentException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            throw e;
+        }
     }
     // snippet-start:[bedrock-agent.java2.get_agent.main]
 }

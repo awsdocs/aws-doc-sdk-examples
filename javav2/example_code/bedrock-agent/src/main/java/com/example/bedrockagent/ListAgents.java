@@ -10,6 +10,7 @@ import software.amazon.awssdk.services.bedrockagent.BedrockAgentClient;
 import software.amazon.awssdk.services.bedrockagent.model.AgentSummary;
 import software.amazon.awssdk.services.bedrockagent.model.BedrockAgentException;
 import software.amazon.awssdk.services.bedrockagent.model.ListAgentsRequest;
+import software.amazon.awssdk.services.bedrockagent.model.ListAgentsResponse;
 
 import java.util.List;
 // snippet-end:[bedrock-agent.java2.list_agents.import]
@@ -47,14 +48,15 @@ public class ListAgents {
      */
     public static List<AgentSummary> listAgents(BedrockAgentClient client) {
         try {
-            var request = ListAgentsRequest.builder().build();
-            var response = client.listAgents(request);
+            ListAgentsRequest request = ListAgentsRequest.builder().build();
+            ListAgentsResponse response = client.listAgents(request);
+
             List<AgentSummary> agents = response.agentSummaries();
 
             for (AgentSummary agent : agents) {
-                System.out.println("Name       : " + agent.agentName());
-                System.out.println("Agent ID   : " + agent.agentId());
-                System.out.println("Status     : " + agent.agentStatus());
+                System.out.println("Name     : " + agent.agentName());
+                System.out.println("Agent ID : " + agent.agentId());
+                System.out.println("Status   : " + agent.agentStatus());
                 System.out.println();
             }
 
