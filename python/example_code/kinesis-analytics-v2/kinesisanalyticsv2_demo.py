@@ -19,7 +19,8 @@ import boto3
 from botocore.exceptions import ClientError
 
 from analytics_application import KinesisAnalyticsApplicationV2
-sys.path.append(os.path.abspath('../kinesis'))
+
+sys.path.append(os.path.abspath("../kinesis"))
 from streams.kinesis_stream import KinesisStream
 from streams.dg_anomaly import generate
 
