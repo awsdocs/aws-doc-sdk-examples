@@ -40,11 +40,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Image generation with Amazon Titan Image Generator G1](BedrockRuntimeService.php#L185) (`InvokeModel`)
-- [Image generation with Stability.ai Stable Diffusion XL](BedrockRuntimeService.php#L143) (`InvokeModel`)
-- [Text generation with AI21 Labs Jurassic-2;](BedrockRuntimeService.php#L73) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2](BedrockRuntimeService.php#L34) (`InvokeModel`)
-- [Text generation with Meta Llama 2 Chat](BedrockRuntimeService.php#L108) (`InvokeModel`)
+- [Image generation with Amazon Titan Image Generator G1](BedrockRuntimeService.php#L184) (`InvokeModel`)
+- [Image generation with Stability.ai Stable Diffusion XL](BedrockRuntimeService.php#L142) (`InvokeModel`)
+- [Text generation with AI21 Labs Jurassic-2](BedrockRuntimeService.php#L72) (`InvokeModel`)
+- [Text generation with Anthropic Claude 2](BedrockRuntimeService.php#L33) (`InvokeModel`)
+- [Text generation with Meta Llama 2 Chat](BedrockRuntimeService.php#L107) (`InvokeModel`)
 
 ### Scenarios
 

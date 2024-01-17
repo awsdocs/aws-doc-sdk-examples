@@ -34,12 +34,12 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Image generation with Amazon Titan Image Generator G1](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L286) (`InvokeModel`)
-- [Image generation with Stability.ai Stable Diffusion XL](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L220) (`InvokeModel`)
-- [Text generation with AI21 Labs Jurassic-2;](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L99) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L38) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2 with a response stream](src/main/java/com/example/bedrockruntime/InvokeModelWithResponseStream.java#L34) (`InvokeModelWithResponseStream`)
-- [Text generation with Meta Llama 2 Chat](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L161) (`InvokeModel`)
+- [Image generation with Amazon Titan Image Generator G1](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L288) (`InvokeModel`)
+- [Image generation with Stability.ai Stable Diffusion XL](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L218) (`InvokeModel`)
+- [Text generation with AI21 Labs Jurassic-2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L94) (`InvokeModel`)
+- [Text generation with Anthropic Claude 2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L32) (`InvokeModel`)
+- [Text generation with Anthropic Claude 2 with a response stream](src/main/java/com/example/bedrockruntime/InvokeModelWithResponseStream.java#L28) (`InvokeModelWithResponseStream`)
+- [Text generation with Meta Llama 2 Chat](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L157) (`InvokeModel`)
 
 
 <!--custom.examples.start-->
