@@ -342,7 +342,7 @@ cloudwatch-logs_Scenario_BigQuery:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cloudwatch-logs/scenarios/query-logs
+          github: javascriptv3/example_code/cloudwatch-logs/scenarios/large-query
           excerpts:
             - description: This is the entry point.
               snippet_files:
