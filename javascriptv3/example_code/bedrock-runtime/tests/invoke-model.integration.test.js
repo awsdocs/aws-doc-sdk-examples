@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 
-import { invokeClaude } from '../action/invoke-claude.js';
-import { invokeJurassic2 } from '../action/invoke-jurassic2.js';
+import { invokeClaude } from '../actions/invoke-claude.js';
+import { invokeJurassic2 } from '../actions/invoke-jurassic2.js';
 
 const TEST_PROMPT = 'Hello, this is a test prompt';
 
