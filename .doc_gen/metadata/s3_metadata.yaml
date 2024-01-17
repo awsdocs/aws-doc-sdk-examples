@@ -51,6 +51,15 @@ s3_Hello:
             - description:
               snippet_tags:
                 - javascript.v3.s3.hello
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.s3.basics.helloService
   services:
     s3: {ListBuckets}
 s3_CreateBucket:
@@ -116,7 +125,7 @@ s3_CreateBucket:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Create a bucket.
               snippet_tags:
@@ -248,7 +257,7 @@ s3_CopyObject:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Simple copy of an object.
               snippet_tags:
@@ -518,7 +527,7 @@ s3_DeleteObjects:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Delete a set of objects from a list of keys.
               snippet_tags:
@@ -828,7 +837,7 @@ s3_GetObject:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Get an object.
               snippet_tags:
@@ -1150,7 +1159,7 @@ s3_ListObjects:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: List objects in a bucket.
               snippet_tags:
@@ -1318,7 +1327,7 @@ s3_PutObject:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Upload an object to a bucket.
               snippet_tags:
@@ -1466,7 +1475,7 @@ s3_DeleteBucket:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Delete an empty bucket.
               snippet_tags:
@@ -2570,7 +2579,7 @@ s3_Scenario_GettingStarted:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           sdkguide:
           excerpts:
             - description:

@@ -2,48 +2,58 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/*
- * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
- *
- */
-// snippet-start:[s3.php.command_pool.complete]
-// snippet-start:[s3.php.command_pool.import]
-require 'vendor/autoload.php';
-
-use Aws\Exception\AwsException;
-use Aws\S3\S3Client;
-use Aws\CommandPool;
-use Aws\CommandInterface;
-use Aws\ResultInterface;
-use GuzzleHttp\Promise\PromiseInterface;
-// snippet-end:[s3.php.command_pool.import]
 /**
- * Use Command Pool to upload a file to an Amazon S3 bucket.
+ * This file shows how to use the CommandPool class provided with the AWS SDK for PHP.
+ * It uses the S3Client for this example, but the CommandPool class can be used with
+ * many SDK clients. See https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_commands.html
+ * for more information.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
+ *
+ * It also assumes it will be run in a *nix environment.
  */
-// Create the client
-// snippet-start:[s3.php.command_pool.main] 
-$client = new S3Client([
-    'region'  => 'us-standard',
-    'version' => '2006-03-01'
+
+namespace ClassExamples;
+
+# snippet-start:[php.class_examples.command_pool.complete]
+# snippet-start:[php.class_examples.command_pool.import]
+include __DIR__ . "/vendor/autoload.php";
+
+use Aws\CommandInterface;
+use Aws\CommandPool;
+use Aws\Exception\AwsException;
+use Aws\ResultInterface;
+use Aws\S3\S3Client;
+use DirectoryIterator;
+use GuzzleHttp\Promise\PromiseInterface;
+use Iterator;
+use S3\S3Service;
+
+# snippet-end:[php.class_examples.command_pool.import]
+
+# snippet-start:[php.class_examples.command_pool.main]
+$client = new S3Client([]);
+
+$s3Service = new S3Service($client, true);
+
+$bucket = 'my-bucket-' . uniqid(); // This bucket will be deleted at the end of this example.
+
+$client->createBucket([
+    "Bucket" => $bucket,
 ]);
 
-$fromDir = '/path/to/dir';
-$toBucket = 'my-bucket';
-
 // Create an iterator that yields files from a directory
-$files = new DirectoryIterator($fromDir);
+$files = new DirectoryIterator(__DIR__);
 
 // Create a generator that converts the SplFileInfo objects into
 // Aws\CommandInterface objects. This generator accepts the iterator that
 // yields files and the name of the bucket to upload the files to.
-$commandGenerator = function (\Iterator $files, $bucket) use ($client) {
+$commandGenerator = function (Iterator $files, $bucket) use ($client) {
+    /** @var DirectoryIterator $file */
     foreach ($files as $file) {
-        // Skip "." and ".." files
-        if ($file->isDot()) {
+        // Skip "." and ".." files as well as directories
+        if ($file->isDot() || $file->isDir()) {
             continue;
         }
         $filename = $file->getPath() . '/' . $file->getFilename();
@@ -57,9 +67,9 @@ $commandGenerator = function (\Iterator $files, $bucket) use ($client) {
 };
 
 // Now create the generator using the files iterator
-$commands = $commandGenerator($files, $toBucket);
+$commands = $commandGenerator($files, $bucket);
 
-// Create a pool and provide an optional array of configuration
+// Create a pool and provide an optional configuration array
 $pool = new CommandPool($client, $commands, [
     // Only send 5 files at a time (this is set to 25 by default)
     'concurrency' => 5,
@@ -93,6 +103,11 @@ $promise = $pool->promise();
 $promise->wait();
 
 // Or you can chain the calls off of the pool
-$promise->then(function() { echo "Done\n"; });
-// snippet-end:[s3.php.command_pool.main]
-// snippet-end:[s3.php.command_pool.complete]
+$promise->then(function () {
+    echo "Done\n";
+});
+
+//Clean up the created bucket
+$s3Service->emptyAndDeleteBucket($bucket);
+# snippet-end:[php.class_examples.command_pool.main]
+# snippet-end:[php.class_examples.command_pool.complete]
