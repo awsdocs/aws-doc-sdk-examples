@@ -3,7 +3,6 @@
 
 #![allow(clippy::result_large_err)]
 
-use anyhow::bail;
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::types::{
     CompressionType, CsvInput, ExpressionType, FileHeaderInfo, InputSerialization, JsonOutput,
@@ -44,12 +43,12 @@ struct Opt {
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase")]
-struct Record {
-    name: String,
-    phone_number: String,
-    city: String,
-    occupation: String,
-    description: String,
+pub struct Record {
+    pub name: String,
+    pub phone_number: String,
+    pub city: String,
+    pub occupation: String,
+    pub description: String,
 }
 
 fn is_valid_json(data: impl AsRef<str>) -> bool {
@@ -65,7 +64,7 @@ async fn get_content(
     name: &str,
 ) -> Result<(), anyhow::Error> {
     // To escape a single quote, use two single quotes.
-    let name = name.replace("'", "''");
+    let name = name.replace('\'', "''");
     let person: String = format!("SELECT * FROM s3object s where s.Name like '{name}%'");
     tracing::info!(query = %person);
 
@@ -131,11 +130,11 @@ async fn get_content(
 /// Parse a new line &str, potentially using content from the previous line
 fn parse_line_buffered(buf: &mut String, line: &str) -> Result<Option<Record>, anyhow::Error> {
     if buf.is_empty() && is_valid_json(line) {
-        return Ok(Some(serde_json::from_str(line)?));
+        Ok(Some(serde_json::from_str(line)?))
     } else {
         buf.push_str(line);
         if is_valid_json(&buf) {
-            let result = serde_json::from_str(&buf);
+            let result = serde_json::from_str(buf);
             buf.clear();
             Ok(Some(result?))
         } else {
