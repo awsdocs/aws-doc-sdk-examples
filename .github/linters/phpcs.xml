@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <ruleset name="PHP_CodeSniffer">
-    <rule ref="PSR12" />
+    <rule ref="PSR12">
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
+    </rule>
 
     <file>app</file>
     <file>bootstrap</file>
@@ -23,5 +25,6 @@
     <rule ref="PSR1.Methods.CamelCapsMethodName">
         <exclude-pattern>./tests/*</exclude-pattern>
     </rule>
+
     <arg value="p"/>
 </ruleset>
