@@ -167,7 +167,7 @@ bedrock-runtime_InvokeClaude:
 
 bedrock-runtime_InvokeJurassic2:
   title: Invoke the AI21 Labs Jurassic-2 model on &BR; for text generation
-  title_abbrev: Text generation with AI21 Labs Jurassic-2;
+  title_abbrev: Text generation with AI21 Labs Jurassic-2
   synopsis: invoke the AI21 Labs Jurassic-2 model on &BR; for text generation.
   category:
   languages:

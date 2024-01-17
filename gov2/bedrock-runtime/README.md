@@ -40,7 +40,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 Code excerpts that show you how to call individual service functions.
 
 - [Image generation with Amazon Titan Image Generator G1](actions/invoke_model.go#L178) (`InvokeModel`)
-- [Text generation with AI21 Labs Jurassic-2;](actions/invoke_model.go#L78) (`InvokeModel`)
+- [Text generation with AI21 Labs Jurassic-2](actions/invoke_model.go#L78) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2](actions/invoke_model.go#L27) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2 with a response stream](actions/invoke_model_with_response_stream.go#L30) (`InvokeModelWithResponseStream`)
 - [Text generation with Meta Llama 2 Chat](actions/invoke_model.go#L130) (`InvokeModel`)
