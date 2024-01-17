@@ -8,7 +8,7 @@ kinesis-analytics-v2_CreateApplication:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/kinesis
+          github: python/example_code/kinesis-analytics-v2
           sdkguide:
           excerpts:
             - description:
@@ -26,7 +26,7 @@ kinesis-analytics-v2_DeleteApplication:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/kinesis
+          github: python/example_code/kinesis-analytics-v2
           sdkguide:
           excerpts:
             - description:
@@ -44,7 +44,7 @@ kinesis-analytics-v2_DescribeApplication:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/kinesis
+          github: python/example_code/kinesis-analytics-v2
           sdkguide:
           excerpts:
             - description:
@@ -62,7 +62,7 @@ kinesis-analytics-v2_DescribeApplicationSnapshot:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/kinesis
+          github: python/example_code/kinesis-analytics-v2
           sdkguide:
           excerpts:
             - description:
@@ -80,7 +80,7 @@ kinesis-analytics-v2_DiscoverInputSchema:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/kinesis
+          github: python/example_code/kinesis-analytics-v2
           sdkguide:
           excerpts:
             - description:
@@ -98,7 +98,7 @@ kinesis-analytics-v2_AddApplicationInput:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/kinesis
+          github: python/example_code/kinesis-analytics-v2
           sdkguide:
           excerpts:
             - description:
@@ -116,7 +116,7 @@ kinesis-analytics-v2_AddApplicationOutput:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/kinesis
+          github: python/example_code/kinesis-analytics-v2
           sdkguide:
           excerpts:
             - description:
@@ -134,7 +134,7 @@ kinesis-analytics-v2_UpdateApplication:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/kinesis
+          github: python/example_code/kinesis-analytics-v2
           sdkguide:
           excerpts:
             - description: This example updates the code that runs in an existing application.
@@ -152,7 +152,7 @@ kinesis-analytics-v2_StartApplication:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/kinesis
+          github: python/example_code/kinesis-analytics-v2
           sdkguide:
           excerpts:
             - description:
@@ -170,7 +170,7 @@ kinesis-analytics-v2_StopApplication:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/kinesis
+          github: python/example_code/kinesis-analytics-v2
           sdkguide:
           excerpts:
             - description:
@@ -183,9 +183,6 @@ kinesis-analytics-v2_DataGenerator_Anomaly:
   title: Generate a &AK; stream with heart rate anomalies using an &AWS; SDK
   title_abbrev: Generate a stream with heart rate anomalies
   synopsis: generate a &AK; stream with heart rate anomalies.
-  guide_topic:
-    title: "Example: Detecting data anomalies on a stream"
-    url: kinesisanalytics/latest/dev/app-anomaly-detection.html
   category: Data generator
   languages:
     Python:
@@ -204,9 +201,6 @@ kinesis-analytics-v2_DataGenerator_AnomalyEx:
   title_abbrev: Generate a stream with blood pressure anomalies
   synopsis: generate a &AK; stream with blood pressure anomalies.
   category: Data generator
-  guide_topic:
-    title: "Example: Detecting data anomalies and getting an explanation"
-    url: kinesisanalytics/latest/dev/app-anomaly-detection-with-explanation.html
   languages:
     Python:
       versions:
@@ -224,9 +218,6 @@ kinesis-analytics-v2_DataGenerator_ColumnLog:
   title_abbrev: Generate a stream with data in columns
   synopsis: generate a &AK; stream with data in columns.
   category: Data generator
-  guide_topic:
-    title: "Example: Split strings into multiple fields"
-    url: kinesisanalytics/latest/dev/examples-transforming-strings-variablecolumnlogparse.html
   languages:
     Python:
       versions:
@@ -244,9 +235,6 @@ kinesis-analytics-v2_DataGenerator_Hotspots:
   title_abbrev: Generate a stream with hotspots
   synopsis: generate a &AK; stream with hotspots.
   category: Data generator
-  guide_topic:
-    title: "Example: Detecting hotspot on a stream"
-    url: kinesisanalytics/latest/dev/app-hotspots-detection.html
   languages:
     Python:
       versions:
@@ -264,9 +252,6 @@ kinesis-analytics-v2_DataGenerator_Referrer:
   title_abbrev: Generate a stream with a referrer
   synopsis: generate a &AK; stream with a referrer.
   category: Data generator
-  guide_topic:
-    title: "Example: Extracting a portion of a stream"
-    url: kinesisanalytics/latest/dev/examples-transforming-strings-substring.html
   languages:
     Python:
       versions:
@@ -284,9 +269,6 @@ kinesis-analytics-v2_DataGenerator_RegexLog:
   title_abbrev: Generate a stream with log entries
   synopsis: generate a &AK; stream with log entries.
   category: Data generator
-  guide_topic:
-    title: "Example: Parsing log strings based on regular expressions"
-    url: kinesisanalytics/latest/dev/examples-transforming-strings-regexlogparse.html
   languages:
     Python:
       versions:
@@ -304,9 +286,6 @@ kinesis-analytics-v2_DataGenerator_Stagger:
   title_abbrev: Generate a stream with stagger data
   synopsis: generate a &AK; stream with stagger data.
   category: Data generator
-  guide_topic:
-    title: "Example: Stagger window"
-    url: kinesisanalytics/latest/dev/examples-window-stagger.html
   languages:
     Python:
       versions:
@@ -324,9 +303,6 @@ kinesis-analytics-v2_DataGenerator_StockTicker:
   title_abbrev: Generate a stream with stock ticker data
   synopsis: generate a &AK; stream with stock ticker data.
   category: Data generator
-  guide_topic:
-    title: "Examples: Windows and aggregation"
-    url: kinesisanalytics/latest/dev/examples-window.html
   languages:
     Python:
       versions:
@@ -344,9 +320,6 @@ kinesis-analytics-v2_DataGenerator_TwoRecordTypes:
   title_abbrev: Generate a stream with two data types
   synopsis: generate a &AK; stream with two data types.
   category: Data generator
-  guide_topic:
-    title: "Example: Transforming multiple data types"
-    url: kinesisanalytics/latest/dev/app-tworecordtypes.html
   languages:
     Python:
       versions:
@@ -364,9 +337,6 @@ kinesis-analytics-v2_DataGenerator_WebLog:
   title_abbrev: Generate a stream with web log data
   synopsis: generate a &AK; stream with web log data.
   category: Data generator
-  guide_topic:
-    title: "Example: Parsing web logs"
-    url: kinesisanalytics/latest/dev/examples-transforming-strings-w3clogparse.html
   languages:
     Python:
       versions:
