@@ -21,7 +21,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <bucketName> <polFile>
@@ -43,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.set_bucket_policy.main]
 suspend fun setPolicy(bucketName: String, polText: String) {
-
     val policyText = getBucketPolicyFromFile(polText)
     println("Setting policy:")
     println("----")
@@ -67,7 +65,8 @@ fun getBucketPolicyFromFile(policyFile: String): String {
     val fileText = StringBuilder()
     try {
         val lines = Files.readAllLines(
-            Paths.get(policyFile), Charset.forName("UTF-8")
+            Paths.get(policyFile),
+            Charset.forName("UTF-8")
         )
         for (line in lines) {
             fileText.append(line)

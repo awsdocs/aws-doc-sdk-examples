@@ -21,7 +21,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
          <objectKey> <fromBucket> <toBucket> 
@@ -49,7 +48,6 @@ suspend fun copyBucketObject(
     objectKey: String,
     toBucket: String
 ) {
-
     var encodedUrl = ""
     try {
         encodedUrl = URLEncoder.encode("$fromBucket/$objectKey", StandardCharsets.UTF_8.toString())

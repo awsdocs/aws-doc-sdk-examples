@@ -19,7 +19,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
      Usage:
          <bucketName> <objectKey> <objectPath>
@@ -43,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.getobjectdata.main]
 suspend fun getObjectBytes(bucketName: String, keyName: String, path: String) {
-
     val request = GetObjectRequest {
         key = keyName
         bucket = bucketName
