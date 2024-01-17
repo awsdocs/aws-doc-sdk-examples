@@ -23,6 +23,9 @@ Parameters:
   SSMTableName:
     Type: String
     Default: ""
+  LaunchTemplateVersion:
+    Type: String
+    Default: "1.0.0"
 
 Conditions:
   EmptySSMTableName: !Equals ["", !Ref SSMTableName]
@@ -197,6 +200,11 @@ Resources:
     Type: AWS::EC2::LaunchTemplate
     Properties:
       LaunchTemplateName: doc-example-resilience-template
+      TagSpecifications:
+        - ResourceType: launch-template
+          Tags:
+            - Key: InternalVersion
+              Value: !Ref LaunchTemplateVersion # Increment this value & update the stack to trigger a rolling update of the group
       LaunchTemplateData:
         InstanceType: !Ref InstanceType
         ImageId: resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
@@ -219,6 +227,10 @@ Resources:
   # 4. An Auto Scaling group that starts EC2 instances, one in each of three Availability Zones.
   DocExampleRecommendationServiceAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
+    UpdatePolicy:
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 2
+        MinInstancesInService: 1
     Properties:
       AutoScalingGroupName: doc-example-resilience-group
       AvailabilityZones: { "Fn::GetAZs": { "Ref": "AWS::Region" } }
