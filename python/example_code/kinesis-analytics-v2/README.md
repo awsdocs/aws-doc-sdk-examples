@@ -1,13 +1,13 @@
-# Kinesis code examples for the SDK for Python
+# Managed Service for Apache Flink code examples for the SDK for Python
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Kinesis.
+Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Managed Service for Apache Flink.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Kinesis makes it easy to collect, process, and analyze video and data streams in real time._
+_Managed Service for Apache Flink processes and analyzes streaming data using SQL or Java._
 
 ## ⚠ Important
 
@@ -38,11 +38,16 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a stream](streams/kinesis_stream.py#L46) (`CreateStream`)
-- [Delete a stream](streams/kinesis_stream.py#L90) (`DeleteStream`)
-- [Describe a stream](streams/kinesis_stream.py#L69) (`DescribeStream`)
-- [Get data in batches from a stream](streams/kinesis_stream.py#L128) (`GetRecords`)
-- [Put data into a stream](streams/kinesis_stream.py#L105) (`PutRecord`)
+- [Add an input stream to an application](analytics_application.py#L257) (`AddApplicationInput`)
+- [Add an output stream to an application](analytics_application.py#L294) (`AddApplicationOutput`)
+- [Create an application](analytics_application.py#L129) (`CreateApplication`)
+- [Delete an application](analytics_application.py#L158) (`DeleteApplication`)
+- [Describe an application](analytics_application.py#L174) (`DescribeApplication`)
+- [Describe an application snapshot](analytics_application.py#L195) (`DescribeApplicationSnapshot`)
+- [Discover a data format for a stream](analytics_application.py#L226) (`DiscoverInputSchema`)
+- [Start an application](analytics_application.py#L365) (`StartApplication`)
+- [Stop an application](analytics_application.py#L394) (`StopApplication`)
+- [Update an application](analytics_application.py#L332) (`UpdateApplication`)
 
 
 <!--custom.examples.start-->
@@ -54,10 +59,9 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
-The action examples in this section are demonstrated as part of an Amazon Managed Service 
-for Apache Flink scenario that reads data from an input stream, uses SQL code to transform 
-the data, and writes it to an output stream. Run the scenario at a command prompt in 
-the `kinesis-analytics-v2` folder with the following command:
+The action examples in this section are demonstrated as part of a scenario that reads 
+data from an input stream, uses SQL code to transform the data, and writes it to an 
+output stream. Run the scenario at a command prompt with the following command:
 
 ```
 python kinesisanalyticsv2_demo.py
@@ -81,12 +85,11 @@ in the `python` folder.
 
 ## Additional resources
 
-- [Kinesis Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/introduction.html)
-- [Kinesis API Reference](https://docs.aws.amazon.com/kinesis/latest/APIReference/Welcome.html)
-- [SDK for Python Kinesis reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesisanalyticsv2.html)
+- [Managed Service for Apache Flink Developer Guide](https://docs.aws.amazon.com/managed-flink/latest/java/what-is.html)
+- [Managed Service for Apache Flink API Reference](https://docs.aws.amazon.com/managed-flink/latest/apiv2/Welcome.html)
+- [SDK for Python Managed Service for Apache Flink reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesis-analytics-v2.html)
 
 <!--custom.resources.start-->
-* [SDK for Python Kinesis Data Analytics reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesisanalyticsv2.html)
 <!--custom.resources.end-->
 
 ---

@@ -4,27 +4,28 @@
 """
 Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) with Amazon Kinesis and version 2 of
-the Amazon Kinesis Data Analytics API to create an application that reads data from
-an input stream, uses SQL code to transform the data, and writes it to an output
-stream.
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Managed Service for Apache Flink
+and Amazon Kinesis to create an application that reads data from an input stream, uses
+SQL code to transform the data, and writes it to an output stream.
 """
 
 import logging
+import os
 from pprint import pprint
 import sys
 import threading
 import time
 import boto3
+from botocore.exceptions import ClientError
 
-from analyticsv2.analytics_application import KinesisAnalyticsApplicationV2
+from analytics_application import KinesisAnalyticsApplicationV2
+sys.path.append(os.path.abspath('../kinesis'))
 from streams.kinesis_stream import KinesisStream
 from streams.dg_anomaly import generate
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
 from demo_tools.custom_waiter import CustomWaiter, WaitState
-from demo_tools.retries import exponential_retry
 
 logger = logging.getLogger(__name__)
 
@@ -98,9 +99,16 @@ def usage_demo():
     print(f"Creating application {app_name}.")
     # Sometimes the role is still not ready and InvalidArgumentException is raised, so
     # continue to retry if this happens.
-    app_data = exponential_retry("InvalidArgumentException")(application.create)(
-        app_name, role.arn
-    )
+    app_data = None
+    while app_data is None:
+        try:
+            app_data = application.create(app_name, role.arn)
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "InvalidArgumentException":
+                print("Waiting for 5 seconds to give AWS time to connect resources.")
+                time.sleep(5)
+            else:
+                raise
     pprint(app_data)
     print(f"Discovering schema of input stream {input_stream.name}.")
     input_schema = application.discover_input_schema(input_stream.arn(), role.arn)
@@ -114,7 +122,7 @@ def usage_demo():
     pprint(input_details)
 
     print("Uploading SQL code to the application to process the input stream.")
-    with open("analyticsv2/example.sql") as code_file:
+    with open("example.sql") as code_file:
         code = code_file.read()
     application.update_code(code)
 
