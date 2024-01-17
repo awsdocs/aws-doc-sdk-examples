@@ -2,20 +2,11 @@
 - name: On Call Review needed
   color: "AD1C21"
   description: "This work needs an on-call review"
-- name: Text Review needed
-  color: "AD1C21"
-  description: "This work needs editorial (text) review"
 
 # Labels to affirm the merge button can be green
 - name: On Call Review complete
   color: "1FC058"
   description: "On call review complete"
-- name: Text Review complete
-  color: "1FC058"
-  description: "Text review complete"
-- name: Text Review not needed
-  color: "1FC058"
-  description: "This contains no text which needs review"
 
 # Labels for tracking statistics and history
 - name: MVP
@@ -29,9 +20,12 @@
   description: "An example with multiple AWS Services and SDKs to show how to build a complete, working application."
 - name: Task
   color: f5f7f9
-  description: "A general update to the code base for bug fixes, language clarification, typos, etc."
-  from_name: Bug
+  description: "A general update to the code base for language clarification, missing actions, tests, etc."
+- name: Bug
+  color: f5f7f9
+  description: "An update to fix incorrect code or typos."
 
+# Labels for general which aren't tracked
 - name: Scout
   color: f5f7f9
   description: "An example which other languages will use for reference later on."
@@ -93,7 +87,6 @@
 - name: Tools
   color: "f5f7f9"
   description: "This issue relates to a custom tooling to streamline development tasks"
-
 - name: CLI
   description: "Relates to the AWS CLI"
   color: "f5f7f9"
@@ -120,3 +113,16 @@
 - name: Internal
   color: "f2bb22"
   description: "To help track internal tickets in a single location."
+
+# DEPRECATED labels
+# Text review labels - now optional, kept for history
+- name: Text Review complete
+  color: "f5f7f9"
+  description: "Text review complete"
+- name: Text Review needed
+  color: "f5f7f9"
+  description: "This work needs editorial (text) review"
+- name: Text Review not needed
+  color: "f5f7f9"
+  description: "This contains no text which needs review"
+
