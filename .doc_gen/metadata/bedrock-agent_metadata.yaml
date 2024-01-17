@@ -84,6 +84,14 @@ bedrock-agent_GetAgent:
   title_abbrev: Get information about an agent
   synopsis: get information about an &BR; agent.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock_agent
+          excerpts:
+            - description: Get an agent.
+              snippet_tags:
+                - bedrock-agent.java2.get_agent.main
     Python:
       versions:
         - sdk_version: 3
@@ -100,6 +108,14 @@ bedrock-agent_ListAgents:
   title_abbrev: List the agents
   synopsis: list the Agents for &BR; belonging to an account.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock_agent
+          excerpts:
+            - description: List the agents belonging to an account.
+              snippet_tags:
+                - bedrock-agent.java2.list_agents.main
     Python:
       versions:
         - sdk_version: 3

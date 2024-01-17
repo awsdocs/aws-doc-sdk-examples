@@ -82,5 +82,5 @@ public class GetAgent {
             throw e;
         }
     }
-    // snippet-start:[bedrock-agent.java2.get_agent.main]
+    // snippet-end:[bedrock-agent.java2.get_agent.main]
 }
