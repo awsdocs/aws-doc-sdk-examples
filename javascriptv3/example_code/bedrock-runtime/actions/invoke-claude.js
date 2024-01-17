@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { fileURLToPath } from "url";
+import {fileURLToPath} from "url";
 
 import {BedrockRuntimeClient, InvokeModelCommand} from "@aws-sdk/client-bedrock-runtime";
 
@@ -51,9 +51,8 @@ export const invokeClaude = async (prompt) => {
 
         /** @type {ResponseBody} */
         const responseBody = JSON.parse(decodedResponseBody);
-        const completion = responseBody.completion;
 
-        return completion;
+        return responseBody.completion;
 
     } catch (err) {
         console.error(err);
