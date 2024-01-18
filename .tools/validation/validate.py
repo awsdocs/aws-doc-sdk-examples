@@ -40,7 +40,7 @@ def main():
     )
     parser.add_argument(
         "--check-spdx",
-        default=False,
+        default=True,
         help="Verify all files start with SPDX header",
         required=False,
     )

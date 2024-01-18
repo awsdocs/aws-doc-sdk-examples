@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.handlingformsubmission;
 
@@ -18,7 +16,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 @Component("DynamoDBEnhanced")
 public class DynamoDBEnhanced {
 
-     public void injectDynamoItem(Greeting item){
+    public void injectDynamoItem(Greeting item) {
 
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
@@ -31,7 +29,8 @@ public class DynamoDBEnhanced {
                     .dynamoDbClient(ddb)
                     .build();
 
-            DynamoDbTable<GreetingItems> mappedTable = enhancedClient.table("Greeting", TableSchema.fromBean(GreetingItems.class));
+            DynamoDbTable<GreetingItems> mappedTable = enhancedClient.table("Greeting",
+                    TableSchema.fromBean(GreetingItems.class));
             GreetingItems gi = new GreetingItems();
             gi.setName(item.getName());
             gi.setMessage(item.getBody());

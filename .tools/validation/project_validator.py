@@ -29,12 +29,13 @@ from pathlib import Path
 
 from file_utils import get_files
 from metadata_errors import MetadataErrors, MetadataError, DuplicateItemException
+from spdx import verify_spdx
 import validator_config
 
 logger = logging.getLogger(__name__)
 
 
-def check_files(root: Path, errors: MetadataErrors, check_spdx: bool):
+def check_files(root: Path, errors: MetadataErrors, do_check_spdx: bool):
     """
     Walk a folder system, scanning all files with specified extensions.
     Errors are logged and counted and the count of errors is returned.
@@ -54,7 +55,7 @@ def check_files(root: Path, errors: MetadataErrors, check_spdx: bool):
         verify_no_secret_keys(file_contents, file_path, errors)
         verify_no_secret_keys(file_contents, file_path, errors)
         verify_snippet_start_end(file_contents, file_path, errors)
-        if check_spdx:
+        if do_check_spdx:
             verify_spdx(file_contents, file_path, errors)
 
     print(f"{file_count} files scanned in {root}.\n")
@@ -179,80 +180,6 @@ def verify_no_secret_keys(
     keys -= validator_config.ALLOW_LIST
     for word in keys:
         errors.append(PossibleSecretKey(file=str(file_location), word=word))
-
-
-@dataclass
-class InvalidSPDX(MetadataError):
-    has_copyright: bool = True
-    has_license: bool = True
-    has_bom: bool = False
-
-    def message(self):
-        message = "Invalid SPDX"
-        if not self.has_copyright:
-            message += " Missing Copyright line"
-        if not self.has_license:
-            message += " Missing License line"
-        if self.has_bom:
-            message += " Has BOM"
-        return message
-
-
-@dataclass
-class MissingSPDX(MetadataError):
-    def message(self):
-        return "Missing SPDX"
-
-
-def verify_spdx(file_contents: str, file_location: Path, errors: MetadataErrors):
-    """Verify the file starts with an SPDX comment, possibly following a shebang line"""
-    if file_location.suffix in validator_config.IGNORE_SPDX_SUFFIXES:
-        return
-    has_bom = file_contents.startswith("\uFEFF")
-    lines = file_contents.splitlines()
-    if len(lines) < 2:
-        return
-    if (
-        lines[0].startswith("#!")
-        or lines[0] == "<?php"
-        or lines[0].startswith("// swift-tools-version:")
-    ):
-        lines = lines[1:]
-    if len(lines) < 2:
-        return
-    # First line may be a start of comment
-    has_copyright = (
-        False if re.match(validator_config.SPDX_COPYRIGHT, lines[0]) is None else True
-    )
-    has_license = (
-        False if re.match(validator_config.SPDX_LICENSE, lines[1]) is None else True
-    )
-    if not (has_copyright and has_license) or has_bom:
-        file_has_copyright = (
-            False
-            if re.match(validator_config.SPDX_COPYRIGHT, file_contents) is None
-            else True
-        )
-        file_has_license = (
-            False
-            if re.match(validator_config.SPDX_LICENSE, file_contents) is None
-            else True
-        )
-        if file_has_copyright or file_has_license or has_bom:
-            errors.append(
-                InvalidSPDX(
-                    file=file_location,
-                    has_copyright=has_copyright,
-                    has_license=has_license,
-                    has_bom=has_bom,
-                )
-            )
-        else:
-            errors.append(
-                MissingSPDX(
-                    file=file_location,
-                )
-            )
 
 
 @dataclass
