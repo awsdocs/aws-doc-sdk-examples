@@ -1,0 +1,8 @@
+# Yamale Schema for curated sources metadata, which is the sources.yaml file in the metadata/curated folder.
+
+map(include('source'), key=regex('^[-a-z0-9]+$', name='source name'))
+---
+source:
+  name: str(upper_start=True, no_end_punc=True)
+  description: str(upper_start=True, end_punc=True)
+  url: regex('^http', name="URL")

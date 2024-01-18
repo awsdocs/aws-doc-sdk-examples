@@ -13,7 +13,7 @@ from scanner import Scanner
 
 
 def main():
-    scanner = Scanner(".tools/validation", ".doc_gen/metadata")
+    scanner = Scanner(".doc_gen/metadata")
     sdks = scanner.sdks()
     lang_vers = []
     for sdk in sdks:

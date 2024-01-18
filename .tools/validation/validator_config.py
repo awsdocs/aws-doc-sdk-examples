@@ -1,40 +1,35 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from pathlib import Path
 from urllib.request import urlopen
 import json
 
 # Only files with these extensions are scanned.
 EXT_LOOKUP = {
-    ".abap": "SAP ABAP",
     ".c": "C",
-    ".cmd": "AWS-CLI",
     ".cpp": "C++",
     ".cs": "C#",
     ".go": "Go",
     ".html": "JavaScript",
     ".java": "Java",
     ".js": "JavaScript",
-    ".json": "JSON",
-    ".jsx": "JavaScript",
     ".kt": "Kotlin",
-    ".md": "Markdown",
     ".php": "PHP",
     ".py": "Python",
     ".rb": "Ruby",
     ".rs": "Rust",
-    ".sh": "AWS-CLI",
     ".swift": "Swift",
     ".ts": "TypeScript",
-    ".tsx": "TypeScript",
-    ".txt": "CMake",
-    ".yaml": "YAML",
+    ".sh": "AWS-CLI",
+    ".cmd": "AWS-CLI",
+    ".json": "JSON",
     ".yml": "YAML",
+    ".yaml": "YAML",
+    ".md": "Markdown",
 }
 
 
-def skip(path: Path) -> bool:
+def skip(path):
     return path.suffix.lower() not in EXT_LOOKUP or path.name in IGNORE_FILES
 
 
@@ -74,7 +69,6 @@ GOOD_WORDS = {
     "crash",
     "dp",
     "dummy",
-    "massa",
     "jerry",
     "throat",
 }
@@ -199,7 +193,6 @@ ALLOW_LIST = {
     "cloudsearch/latest/developerguide/search",
     "cloudsearch/latest/developerguide/search",
     "codeartifact/latest/APIReference/Welcome",
-    "code/codepipeline/MyCodePipelineFunction",
     "codepipeline/latest/APIReference/Welcome",
     "datapipeline/latest/APIReference/Welcome",
     "imagebuilder/latest/APIReference/Welcome",
