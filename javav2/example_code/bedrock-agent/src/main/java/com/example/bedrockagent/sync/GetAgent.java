@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[bedrock-agent.java2.get_agent.import]
-package com.example.bedrockagent;
+package com.example.bedrockagent.sync;
 
+// snippet-start:[bedrock-agent.java2.get_agent.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockagent.BedrockAgentClient;
@@ -40,8 +40,7 @@ public class GetAgent {
         String agentName = args[0];
 
         Region region = Region.US_EAST_1;
-        BedrockAgentClient client = BedrockAgentClient.builder()
-                .region(region)
+        var client = BedrockAgentClient.builder().region(region)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
@@ -57,16 +56,17 @@ public class GetAgent {
      * basic information about the agent to the console for demonstration
      * purposes.</p>
      *
-     * @param client  Client for accessing Agents for Amazon Bedrock
+     * @param client  Client to manage Agents for Amazon Bedrock
      * @param agentId The unique identifier of the agent
      * @return The Agent object
-     * @throws BedrockAgentException If the API call fails
      */
     public static Agent getAgent(BedrockAgentClient client, String agentId) {
+
         try {
             GetAgentRequest request = GetAgentRequest.builder()
                     .agentId(agentId)
                     .build();
+
             GetAgentResponse response = client.getAgent(request);
 
             Agent agent = response.agent();
@@ -77,10 +77,12 @@ public class GetAgent {
             System.out.println();
 
             return agent;
+
         } catch (BedrockAgentException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            throw e;
         }
+
+        return null;
     }
     // snippet-end:[bedrock-agent.java2.get_agent.main]
 }

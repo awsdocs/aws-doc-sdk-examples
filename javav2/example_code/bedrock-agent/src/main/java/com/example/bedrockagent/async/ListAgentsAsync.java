@@ -1,19 +1,22 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[bedrock-agent.java2.list_agents.import]
-package com.example.bedrockagent;
+package com.example.bedrockagent.async;
 
+// snippet-start:[bedrock-agent.java2.list_agents_async.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.bedrockagent.BedrockAgentClient;
+import software.amazon.awssdk.services.bedrockagent.BedrockAgentAsyncClient;
 import software.amazon.awssdk.services.bedrockagent.model.AgentSummary;
 import software.amazon.awssdk.services.bedrockagent.model.BedrockAgentException;
 import software.amazon.awssdk.services.bedrockagent.model.ListAgentsRequest;
 import software.amazon.awssdk.services.bedrockagent.model.ListAgentsResponse;
 
+import java.util.Collections;
 import java.util.List;
-// snippet-end:[bedrock-agent.java2.list_agents.import]
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+// snippet-end:[bedrock-agent.java2.list_agents_async.import]
 
 /**
  * Before running this Java V2 code example, set up your development
@@ -23,35 +26,42 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-public class ListAgents {
+public class ListAgentsAsync {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
-        BedrockAgentClient client = BedrockAgentClient.builder()
-                .region(region)
+        var client = BedrockAgentAsyncClient.builder().region(region)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         listAgents(client);
     }
 
-    // snippet-start:[bedrock-agent.java2.list_agents.main]
+    // snippet-start:[bedrock-agent.java2.list_agents_async.main]
     /**
-     * Lists the agents belonging to an account and information about each agent.
+     * Lists the agents in an account.
      *
      * <p>This method retrieves a list of all agents by making a call
      * to the ListAgents API operation. It prints out basic information
      * about each agent to the console for demonstration purposes.</p>
      *
-     * @param client Client for accessing Agents for Amazon Bedrock
+     * @param client Asynchronous client to manage Agents for Amazon Bedrock
      * @return A list of AgentSummary objects containing details about each agent
      * @throws BedrockAgentException If the API call fails
      */
-    public static List<AgentSummary> listAgents(BedrockAgentClient client) {
-        try {
-            ListAgentsRequest request = ListAgentsRequest.builder().build();
-            ListAgentsResponse response = client.listAgents(request);
+    public static List<AgentSummary> listAgents(BedrockAgentAsyncClient client) {
+        List<AgentSummary> agents = Collections.emptyList();
 
-            List<AgentSummary> agents = response.agentSummaries();
+        ListAgentsRequest request = ListAgentsRequest.builder().build();
+        CompletableFuture<ListAgentsResponse> future = client.listAgents(request)
+                .whenComplete((response, exception) -> {
+                    if (exception != null) {
+                        System.out.println(exception.getMessage());
+                    }
+                });
+
+        try {
+            ListAgentsResponse response = future.get();
+            agents = response.agentSummaries();
 
             for (AgentSummary agent : agents) {
                 System.out.println("Name     : " + agent.agentName());
@@ -60,11 +70,14 @@ public class ListAgents {
                 System.out.println();
             }
 
-            return agents;
-        } catch (BedrockAgentException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            throw e;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println(e.getMessage());
+        } catch (ExecutionException e) {
+            System.err.println(e.getMessage());
         }
+
+        return agents;
     }
-    // snippet-end:[bedrock-agent.java2.list_agents.main]
+    // snippet-end:[bedrock-agent.java2.list_agents_async.main]
 }
