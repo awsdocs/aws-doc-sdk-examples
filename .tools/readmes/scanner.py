@@ -13,7 +13,8 @@ logger = logging.getLogger(__name__)
 
 
 class Scanner:
-    def __init__(self, meta_folder):
+    def __init__(self, validation_folder, meta_folder):
+        self.validation_folder = validation_folder
         self.meta_folder = meta_folder
         self.lang_name = None
         self.svc_name = None
@@ -22,6 +23,14 @@ class Scanner:
         self.example_meta = None
         self.cross_meta = None
         self.snippets = None
+
+    def _load_validation(self, file_name, field):
+        if field is not None:
+            return field
+        sdk_file_name = f"{self.validation_folder}/{file_name}"
+        with open(sdk_file_name) as sdk_file:
+            meta = yaml.safe_load(sdk_file)
+        return meta
 
     def _load_meta(self, file_name, field):
         if field is not None:
@@ -32,10 +41,10 @@ class Scanner:
         return meta
 
     def _load_sdks(self):
-        self.sdk_meta = self._load_meta("sdks.yaml", self.sdk_meta)
+        self.sdk_meta = self._load_validation("sdks.yaml", self.sdk_meta)
 
     def _load_services(self):
-        self.svc_meta = self._load_meta("services.yaml", self.svc_meta)
+        self.svc_meta = self._load_validation("services.yaml", self.svc_meta)
 
     def _load_cross(self):
         self.cross_meta = self._load_meta("cross_metadata.yaml", self.cross_meta)
