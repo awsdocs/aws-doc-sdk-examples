@@ -34,7 +34,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Text generation with AI21 Labs Jurassic-2;](javascriptv3/example_code/bedrock-runtime/actions/invoke-jurassic2.js) (`InvokeModel`)
+- [Text generation with AI21 Labs Jurassic-2](javascriptv3/example_code/bedrock-runtime/actions/invoke-jurassic2.js) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2](javascriptv3/example_code/bedrock-runtime/actions/invoke-claude.js) (`InvokeModel`)
 
 
