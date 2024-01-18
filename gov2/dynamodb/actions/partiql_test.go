@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/stubs"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
@@ -34,7 +35,7 @@ func AddMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubExecuteStatement(
 		fmt.Sprintf("INSERT INTO \"%v\" VALUE {'title': ?, 'year': ?, 'info': ?}", runner.TableName),
-		[]interface{}{movie.Title, movie.Year, movie.Info}, nil, raiseErr))
+		[]interface{}{movie.Title, movie.Year, movie.Info}, nil, nil, nil, nil, raiseErr))
 
 	err := runner.AddMovie(movie)
 
@@ -55,7 +56,7 @@ func GetMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubExecuteStatement(
 		fmt.Sprintf("SELECT * FROM \"%v\" WHERE title=? AND year=?", runner.TableName),
-		[]interface{}{movie.Title, movie.Year}, movie, raiseErr))
+		[]interface{}{movie.Title, movie.Year}, nil, nil, movie, nil, raiseErr))
 
 	gotMovie, err := runner.GetMovie(movie.Title, movie.Year)
 
@@ -81,9 +82,9 @@ func GetAllMoviesPartiQL(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubExecuteStatement(
 		fmt.Sprintf("SELECT title, info.rating FROM \"%v\"", runner.TableName),
-		nil, outProjection, raiseErr))
+		nil, aws.Int32(2), nil, outProjection, nil, raiseErr))
 
-	gotProjections, err := runner.GetAllMovies()
+	gotProjections, err := runner.GetAllMovies(2)
 
 	testtools.VerifyError(err, raiseErr, t)
 	if err == nil {
@@ -111,7 +112,7 @@ func UpdateMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubExecuteStatement(
 		fmt.Sprintf("UPDATE \"%v\" SET info.rating=? WHERE title=? AND year=?", runner.TableName),
-		[]interface{}{newRating, movie.Title, movie.Year}, movie, raiseErr))
+		[]interface{}{newRating, movie.Title, movie.Year}, nil, nil, movie, nil, raiseErr))
 
 	err := runner.UpdateMovie(movie, newRating)
 
@@ -132,7 +133,7 @@ func DeleteMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubExecuteStatement(
 		fmt.Sprintf("DELETE FROM \"%v\" WHERE title=? AND year=?", runner.TableName),
-		[]interface{}{movie.Title, movie.Year}, movie, raiseErr))
+		[]interface{}{movie.Title, movie.Year}, nil, nil, movie, nil, raiseErr))
 
 	err := runner.DeleteMovie(movie)
 
