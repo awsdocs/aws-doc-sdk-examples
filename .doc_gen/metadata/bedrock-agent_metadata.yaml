@@ -4,6 +4,17 @@ bedrock-agent_CreateAgent:
   title_abbrev: Create an agent
   synopsis: create an &BR; agent.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock_agent
+          excerpts:
+            - description: Create an agent.
+              snippet_tags:
+                - bedrock-agent.java2.create_agent.main
+            - description: Create an agent using the async client.
+              snippet_tags:
+                - bedrock-agent.java2.create_agent_async.main
     Python:
       versions:
         - sdk_version: 3
@@ -52,6 +63,17 @@ bedrock-agent_DeleteAgent:
   title_abbrev: Delete an agent
   synopsis: delete an &BR; agent.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock_agent
+          excerpts:
+            - description: Delete an agent.
+              snippet_tags:
+                - bedrock-agent.java2.delete_agent.main
+            - description: Delete an agent using the async client.
+              snippet_tags:
+                - bedrock-agent.java2.delete_agent_async.main
     Python:
       versions:
         - sdk_version: 3
@@ -92,6 +114,9 @@ bedrock-agent_GetAgent:
             - description: Get an agent.
               snippet_tags:
                 - bedrock-agent.java2.get_agent.main
+            - description: Get an agent using the async client.
+              snippet_tags:
+                - bedrock-agent.java2.get_agent_async.main
     Python:
       versions:
         - sdk_version: 3
@@ -116,6 +141,9 @@ bedrock-agent_ListAgents:
             - description: List the agents belonging to an account.
               snippet_tags:
                 - bedrock-agent.java2.list_agents.main
+            - description: List the agents belonging to an account using the async client.
+              snippet_tags:
+                - bedrock-agent.java2.list_agents_async.main
     Python:
       versions:
         - sdk_version: 3
@@ -132,6 +160,17 @@ bedrock-agent_ListAgentActionGroups:
   title_abbrev: List the action groups for an agent
   synopsis: list the action groups for a &BR; agent.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock_agent
+          excerpts:
+            - description: List the action groups for an agent.
+              snippet_tags:
+                - bedrock-agent.java2.list_agent_action_groups.main
+            - description: List the action groups for an agent using the async client.
+              snippet_tags:
+                - bedrock-agent.java2.list_agent_action_groups_async.main
     Python:
       versions:
         - sdk_version: 3
@@ -174,6 +213,7 @@ bedrock-agent_PrepareAgent:
                 - python.example_code.bedrock-agent.PrepareAgent
   services:
     bedrock-agent: {PrepareAgent}
+
 bedrock-agent_GettingStartedWithBedrockAgents:
   title: An end-to-end example showing how to create and invoke &BR; agents using an &AWS; SDK
   title_abbrev: Create and invoke an agent

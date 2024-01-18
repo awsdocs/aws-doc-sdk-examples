@@ -34,8 +34,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get information about an agent](src/main/java/com/example/bedrockagent/GetAgent.java#L51) (`GetAgent`)
-- [List the agents](src/main/java/com/example/bedrockagent/ListAgents.java#L37) (`ListAgents`)
+- [Create an agent](src/main/java/com/example/bedrockagent/sync/CreateAgent.java#L61) (`CreateAgent`)
+- [Delete an agent](src/main/java/com/example/bedrockagent/sync/DeleteAgent.java#L56) (`DeleteAgent`)
+- [Get information about an agent](src/main/java/com/example/bedrockagent/sync/GetAgent.java#L56) (`GetAgent`)
+- [List the action groups for an agent](src/main/java/com/example/bedrockagent/sync/ListAgentActionGroups.java#L59) (`ListAgentActionGroups`)
+- [List the agents](src/main/java/com/example/bedrockagent/sync/ListAgents.java#L54) (`ListAgents`)
 
 
 <!--custom.examples.start-->
