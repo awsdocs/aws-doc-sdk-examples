@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.handlingformsubmission;
 
@@ -17,9 +15,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf()
                 .and()
-                .authorizeRequests(authorize ->
-                        authorize.mvcMatchers("/").permitAll()
-                                .anyRequest().authenticated())
+                .authorizeRequests(authorize -> authorize.mvcMatchers("/").permitAll()
+                        .anyRequest().authenticated())
                 .oauth2Login()
                 .and()
                 .logout()
