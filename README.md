@@ -32,6 +32,12 @@ Code examples for each language's SDK can be found within the following subdirec
 
 Within each directory, you will find SDK-specific instructions for understanding and invoking example code.
 
+### NOTE
+In alignment with our SDKs and Tools Maintenance Policy, the AWS SDK for Java v1.x will enter maintenance mode on July 31, 2024, and reach end-of-support on December 31, 2025.
+
+For more information, see [Announcing end-of-support for AWS SDK for Java v1.x](https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-java-v1-x-on-december-31-2025/).
+
+
 ### Additional directories
 
 | directory                     | purpose                                                                                                                                                     | usage                                                                                                                                                                                  |
