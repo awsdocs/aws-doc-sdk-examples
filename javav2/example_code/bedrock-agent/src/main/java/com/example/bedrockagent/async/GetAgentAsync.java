@@ -52,8 +52,6 @@ public class GetAgentAsync {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        System.out.printf("Retrieving Amazon Bedrock Agent with ID: %s...%n", agentId);
-
         getAgent(client, agentId);
     }
 
@@ -71,18 +69,20 @@ public class GetAgentAsync {
      * @return The Agent object
      */
     public static Agent getAgent(BedrockAgentAsyncClient client, String agentId) {
-        GetAgentRequest request = GetAgentRequest.builder()
-                .agentId(agentId)
-                .build();
-
-        CompletableFuture<GetAgentResponse> future = client.getAgent(request)
-                .whenComplete((response, exception) -> {
-                    if (exception != null) {
-                        System.out.println(exception.getMessage());
-                    }
-                });
+        System.out.printf("Retrieving Amazon Bedrock Agent with ID: %s...%n", agentId);
 
         try {
+            GetAgentRequest request = GetAgentRequest.builder()
+                    .agentId(agentId)
+                    .build();
+
+            CompletableFuture<GetAgentResponse> future = client.getAgent(request)
+                    .whenComplete((response, exception) -> {
+                        if (exception != null) {
+                            System.out.println(exception.getMessage());
+                        }
+                    });
+
             GetAgentResponse response = future.get();
 
             Agent agent = response.agent();
@@ -98,11 +98,11 @@ public class GetAgentAsync {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.err.println(e.getMessage());
+            throw new RuntimeException(e);
         } catch (ExecutionException e) {
             System.err.println(e.getMessage());
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
     // snippet-end:[bedrock-agent.java2.get_agent_async.main]
 }

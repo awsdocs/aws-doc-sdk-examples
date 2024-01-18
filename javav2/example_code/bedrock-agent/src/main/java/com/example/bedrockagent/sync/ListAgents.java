@@ -48,8 +48,6 @@ public class ListAgents {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        System.out.println("Retrieving Amazon Bedrock Agent List");
-
         listAgents(client);
     }
 
@@ -63,9 +61,10 @@ public class ListAgents {
      *
      * @param client Client to manage Agents for Amazon Bedrock
      * @return A list of AgentSummary objects containing details about each agent
-     * @throws BedrockAgentException If the API call fails
      */
     public static List<AgentSummary> listAgents(BedrockAgentClient client) {
+        System.out.println("Retrieving Amazon Bedrock Agent List");
+
         try {
             ListAgentsRequest request = ListAgentsRequest.builder().build();
             ListAgentsResponse response = client.listAgents(request);

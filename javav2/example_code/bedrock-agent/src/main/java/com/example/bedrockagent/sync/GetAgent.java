@@ -50,8 +50,6 @@ public class GetAgent {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        System.out.printf("Retrieving Amazon Bedrock Agent with ID: %s...%n", agentId);
-
         getAgent(client, agentId);
     }
 
@@ -69,6 +67,7 @@ public class GetAgent {
      * @return The Agent object
      */
     public static Agent getAgent(BedrockAgentClient client, String agentId) {
+        System.out.printf("Retrieving Amazon Bedrock Agent with ID: %s...%n", agentId);
 
         try {
             GetAgentRequest request = GetAgentRequest.builder()

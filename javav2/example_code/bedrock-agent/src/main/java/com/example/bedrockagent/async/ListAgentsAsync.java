@@ -8,11 +8,9 @@ import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockagent.BedrockAgentAsyncClient;
 import software.amazon.awssdk.services.bedrockagent.model.AgentSummary;
-import software.amazon.awssdk.services.bedrockagent.model.BedrockAgentException;
 import software.amazon.awssdk.services.bedrockagent.model.ListAgentsRequest;
 import software.amazon.awssdk.services.bedrockagent.model.ListAgentsResponse;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -52,8 +50,6 @@ public class ListAgentsAsync {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        System.out.println("Retrieving Amazon Bedrock Agent List");
-
         listAgents(client);
     }
 
@@ -67,22 +63,23 @@ public class ListAgentsAsync {
      *
      * @param client Asynchronous client to manage Agents for Amazon Bedrock
      * @return A list of AgentSummary objects containing details about each agent
-     * @throws BedrockAgentException If the API call fails
      */
     public static List<AgentSummary> listAgents(BedrockAgentAsyncClient client) {
-        List<AgentSummary> agents = Collections.emptyList();
-
-        ListAgentsRequest request = ListAgentsRequest.builder().build();
-        CompletableFuture<ListAgentsResponse> future = client.listAgents(request)
-                .whenComplete((response, exception) -> {
-                    if (exception != null) {
-                        System.out.println(exception.getMessage());
-                    }
-                });
+        System.out.println("Retrieving Amazon Bedrock Agent List");
 
         try {
+            ListAgentsRequest request = ListAgentsRequest.builder().build();
+
+            CompletableFuture<ListAgentsResponse> future = client.listAgents(request)
+                    .whenComplete((response, exception) -> {
+                        if (exception != null) {
+                            System.out.println(exception.getMessage());
+                        }
+                    });
+
             ListAgentsResponse response = future.get();
-            agents = response.agentSummaries();
+
+            List<AgentSummary> agents = response.agentSummaries();
 
             for (AgentSummary agent : agents) {
                 System.out.println("Name     : " + agent.agentName());
@@ -91,14 +88,16 @@ public class ListAgentsAsync {
                 System.out.println();
             }
 
+            return agents;
+
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.err.println(e.getMessage());
+            throw new RuntimeException(e);
         } catch (ExecutionException e) {
             System.err.println(e.getMessage());
+            throw new RuntimeException(e);
         }
-
-        return agents;
     }
     // snippet-end:[bedrock-agent.java2.list_agents_async.main]
 }
