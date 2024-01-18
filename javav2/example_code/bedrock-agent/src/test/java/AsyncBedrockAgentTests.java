@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import com.example.bedrockagent.async.ListAgentsAsync;
 import com.example.bedrockagent.async.GetAgentAsync;
+import com.example.bedrockagent.async.ListAgentsAsync;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -20,25 +20,26 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class AsyncBedrockAgentTests {
 
     private static BedrockAgentAsyncClient client;
+    private static String region = "us-east-1";
     private static String agentId = "";
 
     @BeforeAll
     static void setup() {
-        Region region = Region.US_EAST_1;
-        client = BedrockAgentAsyncClient.builder()
-                .region(region)
-                .credentialsProvider(DefaultCredentialsProvider.create())
-                .build();
-
         try (InputStream input = AsyncBedrockAgentTests.class
                 .getClassLoader()
                 .getResourceAsStream("config.properties")) {
             var prop = new Properties();
             prop.load(input);
+            region = prop.getProperty("region");
             agentId = prop.getProperty("agentId");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+        client = BedrockAgentAsyncClient.builder()
+                .region(Region.of(region))
+                .credentialsProvider(DefaultCredentialsProvider.create())
+                .build();
     }
 
     @Test

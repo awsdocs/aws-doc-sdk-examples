@@ -26,25 +26,33 @@ public class GetAgent {
         final String usage = """
             
             Usage:
-                <agentId>\s
+                <agentId> [<region>]\s
                 
             Where:
-                agentId - The ID of an existing Amazon Bedrock Agent in your AWS account
+                agentId - The ID of an existing Agent in your AWS account
+                region - (Optional) The AWS region where the Agent is located. Default is 'us-east-1'
         """;
 
-        if (args.length != 1) {
+        if (args.length < 1 || args.length > 2) {
             System.out.println(usage);
             System.exit(1);
         }
 
-        String agentName = args[0];
+        String agentId = args[0];
 
-        Region region = Region.US_EAST_1;
-        var client = BedrockAgentClient.builder().region(region)
+        Region region = args.length == 2 ? Region.of(args[1]) : Region.US_EAST_1;
+
+        System.out.println("Initializing Amazon Bedrock Agent Client...");
+        System.out.printf("Region: %s%n", region.toString());
+
+        var client = BedrockAgentClient.builder()
+                .region(region)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        getAgent(client, agentName);
+        System.out.printf("Retrieving Amazon Bedrock Agent with ID: %s...%n", agentId);
+
+        getAgent(client, agentId);
     }
 
     // snippet-start:[bedrock-agent.java2.get_agent.main]
@@ -71,9 +79,10 @@ public class GetAgent {
 
             Agent agent = response.agent();
 
-            System.out.println("Name     : " + agent.agentName());
-            System.out.println("Agent ID : " + agent.agentId());
-            System.out.println("Status   : " + agent.agentStatus());
+            System.out.println(" Agent ID : " + agent.agentId());
+            System.out.println(" Name     : " + agent.agentName());
+            System.out.println(" Model    : " + agent.foundationModel());
+            System.out.println(" Status   : " + agent.agentStatus());
             System.out.println();
 
             return agent;

@@ -19,25 +19,26 @@ import static org.junit.jupiter.api.Assertions.*;
 class SyncBedrockAgentTests {
 
     private static BedrockAgentClient client;
+    private static String region = "us-east-1";
     private static String agentId = "";
 
     @BeforeAll
     static void setup() {
-        Region region = Region.US_EAST_1;
-        client = BedrockAgentClient.builder()
-                .region(region)
-                .credentialsProvider(DefaultCredentialsProvider.create())
-                .build();
-
         try (InputStream input = SyncBedrockAgentTests.class
                 .getClassLoader()
                 .getResourceAsStream("config.properties")) {
             var prop = new Properties();
             prop.load(input);
+            region = prop.getProperty("region");
             agentId = prop.getProperty("agentId");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+        client = BedrockAgentClient.builder()
+                .region(Region.of(region))
+                .credentialsProvider(DefaultCredentialsProvider.create())
+                .build();
     }
 
     @Test

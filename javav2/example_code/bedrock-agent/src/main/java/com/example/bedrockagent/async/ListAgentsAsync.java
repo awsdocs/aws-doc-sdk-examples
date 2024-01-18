@@ -28,10 +28,31 @@ import java.util.concurrent.ExecutionException;
  */
 public class ListAgentsAsync {
     public static void main(String[] args) {
-        Region region = Region.US_EAST_1;
-        var client = BedrockAgentAsyncClient.builder().region(region)
+        final String usage = """
+            
+            Usage:
+                [<region>]\s
+                
+            Where:
+                region - (Optional) The AWS region where the Agent is located. Default is 'us-east-1'
+        """;
+
+        if (args.length > 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
+
+        Region region = args.length == 1 ? Region.of(args[0]) : Region.US_EAST_1;
+
+        System.out.println("Initializing Amazon Bedrock Agent Client...");
+        System.out.printf("Region: %s%n", region.toString());
+
+        var client = BedrockAgentAsyncClient.builder()
+                .region(region)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
+
+        System.out.println("Retrieving Amazon Bedrock Agent List");
 
         listAgents(client);
     }
