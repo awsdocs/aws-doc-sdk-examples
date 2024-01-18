@@ -737,9 +737,9 @@ cross_ResilientService:
       CreateLoadBalancer, CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
     iam: {CreateInstanceProfile, DeleteInstanceProfile}
 cross_FMPlayground:
-  title: A sample playground application to interact with &BR; foundation models using an &AWS; SDK
-  title_abbrev: A playground application to interact with foundation models on &BR;
-  synopsis: interact with various &BR; foundation models through different modalities.
+  title: Create a sample application that offers playgrounds to interact with &BR; foundation models using an &AWS; SDK
+  title_abbrev: Create a playground application to interact with &BR; foundation models
+  synopsis: create playgrounds to interact with &BR; foundation models through different modalities.
   category: Scenarios
   languages:
     .NET:
@@ -754,9 +754,8 @@ cross_FMPlayground:
       versions:
         - sdk_version: 3
           block_content: cross_FMPlayground_Python_block.xml
-  service_main: bedrock
+  service_main: bedrock-runtime
   services:
-    bedrock:
     bedrock-runtime:
 cross_Testing:
   title: Example approaches for unit and integration testing with an &AWS; SDK

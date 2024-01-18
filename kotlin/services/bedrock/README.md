@@ -34,7 +34,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [List Amazon Bedrock foundation models](src/main/kotlin/com/example/bedrock/ListFoundationModels.kt#L31) (`ListFoundationModels`)
+- [List available Amazon Bedrock foundation models](src/main/kotlin/com/example/bedrock/ListFoundationModels.kt#L31) (`ListFoundationModels`)
 
 
 <!--custom.examples.start-->

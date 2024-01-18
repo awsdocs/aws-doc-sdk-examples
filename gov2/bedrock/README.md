@@ -39,7 +39,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 Code excerpts that show you how to call individual service functions.
 
-- [List Amazon Bedrock foundation models](actions/foundation_model.go#L25) (`ListFoundationModels`)
+- [List available Amazon Bedrock foundation models](actions/foundation_model.go#L25) (`ListFoundationModels`)
 
 
 <!--custom.examples.start-->
