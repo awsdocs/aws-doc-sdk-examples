@@ -3,14 +3,12 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from dataclasses import dataclass, field
-from typing import Any, Optional, Self
+from typing import Optional, Self
 from os.path import splitext
 import metadata_errors
-
+from doc_gen import DocGen
 from metadata_errors import MetadataErrors, MetadataParseError, DuplicateItemException
 from metadata_validator import StringExtension
-from services import Service
-from sdks import Sdk
 
 
 @dataclass
@@ -18,19 +16,17 @@ class Url:
     title: str
     url: Optional[str]
 
-    @classmethod
-    def from_yaml(
-        cls, yaml: None | dict[str, str | None]
-    ) -> None | Self | MetadataParseError:
+    @staticmethod
+    def from_yaml(yaml: any) -> None | Self | MetadataParseError:
         if yaml is None:
             return None
-        title = yaml.get("title", "")
-        url = yaml.get("url", "")
+        title = yaml.get("title")
+        url = yaml.get("url")
 
         if title is None:
-            return metadata_errors.URLMissingTitle(url=str(url))
+            return metadata_errors.URLMissingTitle(url=url)
 
-        return cls(title, url)
+        return Url(title, url)
 
 
 @dataclass
@@ -41,12 +37,12 @@ class Excerpt:
     # A path within the repo to extract the entire file as a snippet.
     snippet_files: list[str] = field(default_factory=list)
 
-    @classmethod
-    def from_yaml(cls, yaml: Any) -> Self:
+    @staticmethod
+    def from_yaml(yaml: any) -> Self:
         description = yaml.get("description")
         snippet_files = [str(file) for file in yaml.get("snippet_files", [])]
         snippet_tags = [str(tag) for tag in yaml.get("snippet_tags", [])]
-        return cls(description, snippet_tags, snippet_files)
+        return Excerpt(description, snippet_tags, snippet_files)
 
 
 @dataclass
@@ -55,23 +51,17 @@ class Version:
     # Additional ZonBook XML to include in the tab for this sample.
     block_content: Optional[str] = field(default=None)
     # The specific code samples to include in the example.
-    excerpts: list[Excerpt] = field(default_factory=list)
+    excerpts: Optional[list[Excerpt]] = field(default=None)
     # Link to the source code for this example. TODO rename.
     github: Optional[str] = field(default=None)
-    add_services: dict[str, list[str]] = field(default_factory=dict)
+    add_services: dict[str, str] = field(default_factory=dict)
     # Deprecated. Replace with guide_topic list.
     sdkguide: Optional[str] = field(default=None)
     # Link to additional topic places. TODO: Overwritten by aws-doc-sdk-example when merging.
     more_info: list[Url] = field(default_factory=list)
 
-    @classmethod
-    def from_yaml(
-        cls,
-        yaml: dict[str, Any],
-        services: dict[str, Service],
-        cross_content_blocks: set[str],
-        is_action: bool,
-    ) -> tuple[Self, MetadataErrors]:
+    @staticmethod
+    def from_yaml(yaml: dict[str, any], doc_gen: DocGen) -> Self | MetadataParseError:
         errors = MetadataErrors()
 
         sdk_version = int(yaml.get("sdk_version", 0))
@@ -95,15 +85,18 @@ class Version:
                     )
                 )
 
-        excerpts = [Excerpt.from_yaml(excerpt) for excerpt in yaml.get("excerpts", [])]
+        excerpts = yaml.get("excerpts", [])
+        if len(excerpts) == 0:
+            excerpts = None
+        else:
+            excerpts = [Excerpt.from_yaml(excerpt) for excerpt in excerpts]
 
-        if len(excerpts) == 0 and block_content is None:
+        if excerpts is None and block_content is None:
             errors.append(metadata_errors.MissingBlockContentAndExcerpt())
-            excerpts = []
-        if len(excerpts) > 0 and block_content is not None:
+        if excerpts is not None and block_content is not None:
             errors.append(metadata_errors.BlockContentAndExcerptConflict())
 
-        more_info: list[Url] = []
+        more_info = []
         for url in yaml.get("more_info", []):
             url = Url.from_yaml(url)
             if isinstance(url, Url):
@@ -111,24 +104,21 @@ class Version:
             elif url is not None:
                 errors.append(url)
 
-        add_services = parse_services(yaml.get("add_services", {}), errors, services)
-        if add_services and is_action:
+        add_services = parse_services(yaml.get("add_services", {}), errors, doc_gen)
+        if add_services and block_content is not None:
             errors.append(metadata_errors.APIExampleCannotAddService())
 
-        if block_content is not None and block_content not in cross_content_blocks:
-            errors.append(metadata_errors.MissingCrossContent(block=block_content))
+        if len(errors) > 0:
+            return errors
 
-        return (
-            cls(
-                sdk_version,
-                block_content,
-                excerpts,
-                github,
-                add_services,
-                sdkguide,
-                more_info,
-            ),
-            errors,
+        return Version(
+            sdk_version,
+            block_content,
+            excerpts,
+            github,
+            add_services,
+            sdkguide,
+            more_info,
         )
 
 
@@ -137,37 +127,31 @@ class Language:
     name: str
     versions: list[Version]
 
-    @classmethod
-    def from_yaml(
-        cls,
-        name: str,
-        yaml: Any,
-        sdks: dict[str, Sdk],
-        services: dict[str, Service],
-        blocks: set[str],
-        is_action: bool,
-    ) -> tuple[Self, MetadataErrors]:
+    @staticmethod
+    def from_yaml(name: str, yaml: any, doc_gen: DocGen) -> Self | MetadataErrors:
         errors = MetadataErrors()
-        if name not in sdks:
+        if name not in doc_gen.sdks:
             errors.append(metadata_errors.UnknownLanguage(language=name))
 
-        yaml_versions: list[dict[str, Any]] | None = yaml.get("versions")
+        yaml_versions = yaml.get("versions")
         if yaml_versions is None or len(yaml_versions) == 0:
             errors.append(metadata_errors.MissingField(field="versions"))
             yaml_versions = []
 
         versions: list[Version] = []
         for version in yaml_versions:
-            version, version_errors = Version.from_yaml(
-                version, services, blocks, is_action
-            )
-            errors.extend(version_errors)
-            versions.append(version)
+            version = Version.from_yaml(version, doc_gen)
+            if isinstance(version, Version):
+                versions.append(version)
+            else:
+                for error in version:
+                    error.language = name
+                    errors.append(error)
 
-        for error in errors:
-            error.language = name
+        if len(errors) > 0:
+            return errors
 
-        return cls(name, versions), errors
+        return Language(name, versions)
 
 
 @dataclass
@@ -188,92 +172,82 @@ class Example:
     # TODO document service_main and services. Not to be used by tributaries. Part of Cross Service.
     # List of services used by the examples. Lines up with those in services.yaml.
     service_main: Optional[str] = field(default=None)
-    services: dict[str, list[str]] = field(default_factory=dict)
+    services: dict[str, dict[str, str]] = field(default_factory=dict)
     synopsis_list: list[str] = field(default_factory=list)
     source_key: Optional[str] = field(default=None)
 
-    @classmethod
-    def from_yaml(
-        cls,
-        yaml: Any,
-        sdks: dict[str, Sdk],
-        services: dict[str, Service],
-        blocks: set[str],
-    ) -> tuple[Self, MetadataErrors]:
+    @staticmethod
+    def from_yaml(yaml: any, doc_gen: DocGen) -> Self | MetadataErrors:
         errors = MetadataErrors()
 
         title = get_with_valid_entities("title", yaml, errors)
         title_abbrev = get_with_valid_entities("title_abbrev", yaml, errors)
         synopsis = get_with_valid_entities("synopsis", yaml, errors, opt=True)
 
-        category = yaml.get("category", "")
+        category = yaml.get("category")
         source_key = yaml.get("source_key")
-        parsed_services = parse_services(yaml.get("services", {}), errors, services)
+        services = parse_services(yaml.get("services", {}), errors, doc_gen)
         synopsis_list = [str(syn) for syn in yaml.get("synopsis_list", [])]
+
         guide_topic = Url.from_yaml(yaml.get("guide_topic"))
         if isinstance(guide_topic, MetadataParseError):
             errors.append(guide_topic)
             guide_topic = None
 
+        yaml_languages = yaml.get("languages")
+        languages = []
+        if yaml_languages is None:
+            errors.append(metadata_errors.MissingField(field="languages"))
+        else:
+            for name in yaml_languages:
+                language = Language.from_yaml(name, yaml_languages[name], doc_gen)
+                if isinstance(language, Language):
+                    languages.append(language)
+                else:
+                    errors.extend(language)
+
         service_main = yaml.get("service_main", None)
-        if service_main is not None and service_main not in services:
+        if service_main is not None and service_main not in doc_gen.services:
             try:
                 errors.append(metadata_errors.UnknownService(service=service_main))
             except DuplicateItemException:
                 pass
 
-        if category == "":
-            category = "Api" if len(parsed_services) == 1 else "Cross"
+        if len(errors) > 0:
+            return errors
 
-        is_action = category == "Api"
-
-        yaml_languages = yaml.get("languages")
-        languages: dict[str, Language] = {}
-        if yaml_languages is None:
-            errors.append(metadata_errors.MissingField(field="languages"))
-        else:
-            for name in yaml_languages:
-                language, errs = Language.from_yaml(
-                    name, yaml_languages[name], sdks, services, blocks, is_action
-                )
-                languages[language.name] = language
-                errors.extend(errs)
-
-        return (
-            cls(
-                id="",
-                file="",
-                title=title,
-                title_abbrev=title_abbrev,
-                category=category,
-                guide_topic=guide_topic,
-                languages=languages,
-                service_main=service_main,
-                services=parsed_services,
-                synopsis=synopsis,
-                synopsis_list=synopsis_list,
-                source_key=source_key,
-            ),
-            errors,
+        return Example(
+            id="",
+            file="",
+            title=title,
+            title_abbrev=title_abbrev,
+            category=category,
+            guide_topic=guide_topic,
+            languages=languages,
+            service_main=service_main,
+            services=services,
+            synopsis=synopsis,
+            synopsis_list=synopsis_list,
+            source_key=source_key,
         )
 
 
 def parse_services(
-    yaml: Any, errors: MetadataErrors, known_services: dict[str, Service]
-) -> dict[str, list[str]]:
+    yaml: any, errors: MetadataErrors, doc_gen: DocGen
+) -> dict[str, dict[str, str]]:
     if yaml is None:
         return {}
-    services: dict[str, list[str]] = {}
+    services = {}
     for name in yaml:
-        if name not in known_services:
+        if name not in doc_gen.services:
             errors.append(metadata_errors.UnknownService(service=name))
         else:
-            service: dict[str, None] | None = yaml.get(name)
+            service = yaml.get(name, {})
             # While .get replaces missing with {}, `sqs: ` in yaml parses a literal `None`
             if service is None:
                 service = {}
             # Make a copy of the dict
-            services[name] = [*service.keys()]
+            services[name] = dict(service)
     return services
 
 
@@ -282,58 +256,58 @@ ALLOWED = ["&AWS;", "&AWS-Region;", "&AWS-Regions;" "AWSJavaScriptSDK"]
 
 def get_with_valid_entities(
     name: str, d: dict[str, str], errors: MetadataErrors, opt: bool = False
-) -> str:
+) -> Optional[str]:
     field = d.get(name)
     if field is None:
         if not opt:
             errors.append(metadata_errors.MissingField(field=name))
-        return ""
+        return None
 
     checker = StringExtension()
     if not checker.is_valid(field):
         errors.append(
             metadata_errors.AwsNotEntity(
-                field=name, value=field, check_err=checker.get_name()
+                field_name=name, field_value=field, check_err=checker.get_name()
             )
         )
-        return ""
+        return None
     return field
 
 
-def idFormat(id: str, services: dict[str, Service]) -> bool:
+def idFormat(id: str, doc_gen: DocGen) -> bool:
     [service, *rest] = id.split("_")
     if len(rest) == 0:
         return False
-    return service in services or service == "cross"
+    return service in doc_gen.services or service == "cross"
 
 
 def parse(
-    file: str,
-    yaml: dict[str, Any],
-    sdks: dict[str, Sdk],
-    services: dict[str, Service],
-    blocks: set[str],
-) -> tuple[list[Example], MetadataErrors]:
+    file: str, yaml: dict[str, any], doc_gen: DocGen
+) -> list[Example] | MetadataErrors:
     examples: list[Example] = []
     errors = MetadataErrors()
     for id in yaml:
-        if not idFormat(id, services):
+        if not idFormat(id, doc_gen):
             errors.append(metadata_errors.NameFormat(file=file, id=id))
-        example, example_errors = Example.from_yaml(yaml[id], sdks, services, blocks)
-        for error in example_errors:
-            error.file = file
-            error.id = id
-        errors.extend(example_errors)
-        example.file = file
-        example.id = id
-        examples.append(example)
+        example = Example.from_yaml(yaml[id], doc_gen)
+        if isinstance(example, Example):
+            example.file = file
+            example.id = id
+            examples.append(example)
+        else:
+            for error in example:
+                error.file = file
+                error.id = id
+                errors.append(error)
 
-    return examples, errors
+    return examples if len(errors) == 0 else errors
 
 
-def main():
+if __name__ == "__main__":
     import yaml
     from pathlib import Path
+
+    doc_gen = DocGen()
 
     path = (
         Path(__file__).parent.parent.parent
@@ -343,12 +317,5 @@ def main():
     )
     with open(path) as file:
         meta = yaml.safe_load(file)
-    (examples, errors) = parse(path.name, meta, {}, {}, set())
-    if len(errors) > 0:
-        print(f"{errors}")
-    else:
-        print(f"{examples!r}")
-
-
-if __name__ == "__main__":
-    main()
+    examples = parse(path.name, meta, doc_gen)
+    print(f"{examples!r}")

@@ -9,7 +9,7 @@ import metadata_errors
 from services import parse, Service, ServiceGuide
 
 
-def load(path: str) -> tuple[dict[str, Service], metadata_errors.MetadataErrors]:
+def load(path: Path) -> list[Service] | metadata_errors.MetadataErrors:
     root = Path(__file__).parent
     filename = root / "test_resources" / path
     with open(filename) as file:
@@ -18,15 +18,15 @@ def load(path: str) -> tuple[dict[str, Service], metadata_errors.MetadataErrors]
 
 
 def test_empty_services():
-    _, errs = load("empty_services.yaml")
-    assert [*errs] == [
+    examples = load("empty_services.yaml")
+    assert examples._errors == [
         metadata_errors.MissingServiceBody(file="empty_services.yaml", id="sns")
     ]
 
 
 def test_services_entity_usage():
-    _, errs = load("entityusage_services.yaml")
-    assert [*errs] == [
+    examples = load("entityusage_services.yaml")
+    assert examples._errors == [
         metadata_errors.MappingMustBeEntity(
             file="entityusage_services.yaml", id="sns", field="long", value="SNSlong"
         ),
@@ -42,7 +42,7 @@ def test_services_entity_usage():
 
 
 def test_services():
-    examples, _ = load("services.yaml")
+    examples = load("services.yaml")
     assert examples == {
         "s3": Service(
             short="&S3;",
