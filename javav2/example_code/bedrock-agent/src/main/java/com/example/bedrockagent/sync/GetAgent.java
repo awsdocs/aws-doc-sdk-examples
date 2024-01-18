@@ -42,7 +42,7 @@ public class GetAgent {
 
         Region region = args.length == 2 ? Region.of(args[1]) : Region.US_EAST_1;
 
-        System.out.println("Initializing Amazon Bedrock Agent Client...");
+        System.out.println("Initializing the Amazon Bedrock Agent Client...");
         System.out.printf("Region: %s%n", region.toString());
 
         var client = BedrockAgentClient.builder()

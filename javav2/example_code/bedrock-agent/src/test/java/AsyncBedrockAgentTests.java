@@ -2,14 +2,17 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.bedrockagent.async.GetAgentAsync;
+import com.example.bedrockagent.async.ListAgentActionGroupsAsync;
 import com.example.bedrockagent.async.ListAgentsAsync;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockagent.BedrockAgentAsyncClient;
+import software.amazon.awssdk.services.bedrockagent.model.ActionGroupSummary;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -22,6 +25,7 @@ class AsyncBedrockAgentTests {
     private static BedrockAgentAsyncClient client;
     private static String region = "us-east-1";
     private static String agentId = "";
+    private static String agentVersion = "";
 
     @BeforeAll
     static void setup() {
@@ -32,6 +36,7 @@ class AsyncBedrockAgentTests {
             prop.load(input);
             region = prop.getProperty("region");
             agentId = prop.getProperty("agentId");
+            agentVersion = prop.getProperty("agentVersion");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -57,5 +62,16 @@ class AsyncBedrockAgentTests {
     void getAgent() {
         assertDoesNotThrow(() -> GetAgentAsync.getAgent(client, agentId));
         System.out.println("Test GetAgentAsync passed.");
+    }
+
+    @Test
+    @Order(3)
+    @Tag("IntegrationTest")
+    void listAgentActionGroups() {
+        List<ActionGroupSummary> actionGroups = ListAgentActionGroupsAsync.listAgentActionGroups(
+                client, agentId, agentVersion
+        );
+        assertNotNull(actionGroups);
+        System.out.println("Test ListAgentActionGroups passed.");
     }
 }
