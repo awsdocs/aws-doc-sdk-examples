@@ -158,7 +158,6 @@ bedrock-agent_PrepareAgent:
                 - python.example_code.bedrock-agent.PrepareAgent
   services:
     bedrock-agent: {PrepareAgent}
-
 bedrock-agent_GettingStartedWithBedrockAgents:
   title: An end-to-end example showing how to create and invoke &BR; agents using an &AWS; SDK
   title_abbrev: Create and invoke an agent

@@ -50,7 +50,7 @@ bedrock_GetFoundationModel:
 
 bedrock_ListFoundationModels:
   title: List the available &BRlong; foundation models using an &AWS; SDK
-  title_abbrev: List &BR; foundation models
+  title_abbrev: List available &BR; foundation models
   synopsis: list available &BR; foundation models.
   category:
   languages:
