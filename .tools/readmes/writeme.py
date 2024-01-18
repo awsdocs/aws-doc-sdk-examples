@@ -11,7 +11,7 @@ import os
 
 
 def main():
-    scanner = Scanner(".doc_gen/metadata")
+    scanner = Scanner(".tools/validation", ".doc_gen/metadata")
     sdks = scanner.sdks()
     lang_vers = []
     for sdk in sdks:
