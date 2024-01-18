@@ -182,10 +182,14 @@ def validate_files(
 
 
 def validate_metadata(doc_gen_root: Path, errors: MetadataErrors) -> MetadataErrors:
-    with open(Path(__file__).parent / "sdks.yaml") as sdks_file:
+    with open(
+        Path(__file__).parent.parent.parent / ".doc_gen" / "metadata" / "sdks.yaml"
+    ) as sdks_file:
         sdks_yaml: dict[str, Any] = yaml.safe_load(sdks_file)
 
-    with open(Path(__file__).parent / "services.yaml") as services_file:
+    with open(
+        Path(__file__).parent.parent.parent / ".doc_gen" / "metadata" / "services.yaml"
+    ) as services_file:
         services_yaml = yaml.safe_load(services_file)
 
     SdkVersion.sdks = sdks_yaml

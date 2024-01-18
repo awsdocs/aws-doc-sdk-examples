@@ -40,17 +40,18 @@ class DocGen:
     def from_root(cls, root: Path) -> Self:
         errors = MetadataErrors()
 
-        with open(Path(__file__).parent / "sdks.yaml", encoding="utf-8") as file:
+        metadata = root / ".doc_gen/metadata"
+
+        with open(metadata / "sdks.yaml", encoding="utf-8") as file:
             meta = yaml.safe_load(file)
             sdks, errs = parse_sdks("sdks.yaml", meta)
             errors.extend(errs)
 
-        with open(Path(__file__).parent / "services.yaml", encoding="utf-8") as file:
+        with open(metadata / "services.yaml", encoding="utf-8") as file:
             meta = yaml.safe_load(file)
             services, service_errors = parse_services("services.yaml", meta)
             errors.extend(service_errors)
 
-        metadata = root / ".doc_gen/metadata"
         cross = set(
             [path.name for path in (metadata.parent / "cross-content").glob("*.xml")]
         )
