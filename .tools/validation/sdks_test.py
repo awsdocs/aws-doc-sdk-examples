@@ -13,7 +13,7 @@ import metadata_errors
 from sdks import parse, Sdk, SdkVersion, SdkApiRef, SdkTitleOverride
 
 
-def load(path: Path) -> list[Sdk] | metadata_errors.MetadataErrors:
+def load(path: str) -> tuple[dict[str, Sdk], metadata_errors.MetadataErrors]:
     root = Path(__file__).parent
     filename = root / "test_resources" / path
     with open(filename) as file:
@@ -22,8 +22,8 @@ def load(path: Path) -> list[Sdk] | metadata_errors.MetadataErrors:
 
 
 def test_empty_sdks():
-    examples = load("empty_sdks.yaml")
-    assert examples._errors == [
+    _, errors = load("empty_sdks.yaml")
+    assert [*errors] == [
         metadata_errors.MissingField(
             file="empty_sdks.yaml",
             id="C++",
@@ -35,7 +35,7 @@ def test_empty_sdks():
 
 
 def test_entityusage():
-    actual = load("entityusage_sdks.yaml")
+    _, actual = load("entityusage_sdks.yaml")
     expected = [
         metadata_errors.MappingMustBeEntity(
             file="entityusage_sdks.yaml",
@@ -56,11 +56,11 @@ def test_entityusage():
             value="CPP",
         ),
     ]
-    assert actual._errors == expected
+    assert [*actual] == expected
 
 
 def test_sdks():
-    actual = load("sdks.yaml")
+    actual, _ = load("sdks.yaml")
     expected = {
         "C++": Sdk(
             name="C++",

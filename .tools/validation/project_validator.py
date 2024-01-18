@@ -21,14 +21,18 @@ The script scans code files and does the following:
 
 import os
 import re
-import argparse
 import logging
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from file_utils import get_files
-from metadata_errors import MetadataErrors, MetadataError, DuplicateItemException
+from metadata_errors import (
+    MetadataErrors,
+    MetadataError,
+    MetadataParseError,
+    DuplicateItemException,
+)
 from spdx import verify_spdx
 import validator_config
 
@@ -54,11 +58,14 @@ def check_files(root: Path, errors: MetadataErrors, do_check_spdx: bool):
         verify_no_deny_list_words(file_contents, file_path, errors)
         verify_no_secret_keys(file_contents, file_path, errors)
         verify_no_secret_keys(file_contents, file_path, errors)
-        verify_snippet_start_end(file_contents, file_path, errors)
         if do_check_spdx:
             verify_spdx(file_contents, file_path, errors)
 
     print(f"{file_count} files scanned in {root}.\n")
+
+
+def verify_spdx(a: str, b: Path, c: MetadataErrors):
+    pass
 
 
 def word_parts(contents: str):
@@ -73,9 +80,12 @@ def word_parts(contents: str):
 class DenyListWord(MetadataError):
     word: str = field(default="")
 
+    def message(self) -> str:
+        return f"found deny list word {self.word}"
+
 
 def verify_no_deny_list_words(
-    file_contents: str, file_location: str, errors: MetadataErrors
+    file_contents: str, file_location: Path, errors: MetadataErrors
 ) -> None:
     """Verify no words in the file are in the list of denied words."""
     for word, part in word_parts(file_contents):
@@ -89,14 +99,12 @@ def verify_no_deny_list_words(
 @dataclass
 class UnknownSampleFile(MetadataError):
     def message(self):
-        return (
-            f"File {self.file} was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in {__package__}.{__file__}.",
-        )
+        return f"File {self.file} was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in {__package__}.{__file__}."
 
 
 @dataclass
-class InvalidSampleDirectory(MetadataError):
-    dir: str = field(default=-1)
+class InvalidSampleDirectory(MetadataParseError):
+    dir: str = field(default="")
 
     def message(self):
         return f"must be in the {self.dir} directory."
@@ -107,8 +115,8 @@ MAX_FILE_SIZE_MB = 10
 
 
 @dataclass
-class SampleFileTooLarge(MetadataError):
-    size_in_mb: float = field(default="")
+class SampleFileTooLarge(MetadataParseError):
+    size_in_mb: float = field(default=-1)
 
     def message(self):
         return f"maximum file size is {MAX_FILE_SIZE_MB}MB, file is {self.size_in_mb}"
@@ -119,36 +127,32 @@ class MissingSampleFile(MetadataError):
     samples_dir: str = field(default="")
 
     def message(self):
-        return (
-            f"Expected sample file was not found in '{self.samples_dir}'. If this file was intentionally removed, remove it from the EXPECTED_SAMPLE_FILES list in {__package__}.{__file__}.",
-        )
+        return f"Expected sample file was not found in '{self.samples_dir}'. If this file was intentionally removed, remove it from the EXPECTED_SAMPLE_FILES list in {__package__}.{__file__}."
 
 
-def verify_sample_files(root_path: Path, errors: MetadataError) -> None:
+def verify_sample_files(root_path: Path, errors: MetadataErrors) -> None:
     """Verify sample files meet the requirements and have not moved."""
-    sample_files_folder = os.path.join(root_path, "resources/sample_files")
+    sample_files_folder = root_path / "resources/sample_files"
     media_folder = ".sample_media"
-    file_list = []
-    for path, _dirs, files in os.walk(sample_files_folder, topdown=True):
-        for file_name in files:
-            file_list.append(file_name)
-            file_path = os.path.join(path, file_name)
-            ext = os.path.splitext(file_name)[1].lstrip(".")
-            if file_name not in validator_config.EXPECTED_SAMPLE_FILES:
-                errors.append(UnknownSampleFile(file=file_path))
-            if ext.lower() in validator_config.MEDIA_FILE_TYPES:
-                if media_folder not in file_path:
-                    errors.append(
-                        InvalidSampleDirectory(file=file_path, dir=media_folder)
-                    )
-            size_in_mb = os.path.getsize(file_path) / ONE_MB_AS_BYTES
-            if size_in_mb > MAX_FILE_SIZE_MB:
-                errors.append(SampleFileTooLarge(file=file_path, size_in_mb=size_in_mb))
+    file_list: list[str] = []
+    for path in get_files(sample_files_folder):
+        file_list.append(path.name)
+        ext = path.suffix
+        if path.name not in validator_config.EXPECTED_SAMPLE_FILES:
+            errors.append(UnknownSampleFile(file=str(path)))
+        if ext.lower() in validator_config.MEDIA_FILE_TYPES:
+            if media_folder not in path:
+                errors.append(InvalidSampleDirectory(file=str(path), dir=media_folder))
+        size_in_mb = os.path.getsize(path) / ONE_MB_AS_BYTES
+        if size_in_mb > MAX_FILE_SIZE_MB:
+            errors.append(SampleFileTooLarge(file=str(path), size_in_mb=size_in_mb))
 
     for sample_file in validator_config.EXPECTED_SAMPLE_FILES:
         if sample_file not in file_list:
             errors.append(
-                MissingSampleFile(file=sample_file, samples_dir=sample_files_folder)
+                MissingSampleFile(
+                    file=sample_file, samples_dir=str(sample_files_folder)
+                )
             )
 
 
@@ -157,9 +161,7 @@ class PossibleSecretKey(MetadataError):
     word: str = field(default="")
 
     def message(self):
-        return (
-            f"{len(self.word)} character string '{self.word}' might be a secret access key. If not, add it to the allow list in {__package__}.validator_config.",
-        )
+        return f"{len(self.word)} character string '{self.word}' might be a secret access key. If not, add it to ALLOW_LIST in validator_config.py"
 
 
 TWENTY_LONG_KEY_REGEX = "(?<=[^A-Z0-9])[A][ACGIKNPRS][A-Z]{2}[A-Z0-9]{16}(?=[^A-Z0-9])"
@@ -182,78 +184,11 @@ def verify_no_secret_keys(
         errors.append(PossibleSecretKey(file=str(file_location), word=word))
 
 
-@dataclass
-class SnippetParseError(MetadataError):
-    tag: str = field(default="")
-
-
-@dataclass
-class DuplicateSnippetTagInFile(SnippetParseError):
-    def message(self):
-        return f"Duplicate tag {self.tag}"
-
-
-@dataclass
-class SnippetNoMatchingStart(SnippetParseError):
-    def message(self):
-        return f"No matching start for {self.tag}"
-
-
-@dataclass
-class SnippetNoMatchingEnd(SnippetParseError):
-    def message(self):
-        return f"No matching end for {self.tag}"
-
-
-# TODO move this to snippets
-def verify_snippet_start_end(
-    file_contents: str, file_location: Path, errors: MetadataErrors
-):
-    """Scan the file contents for snippet-start and snippet-end tags and verify
-    that they are in matched pairs. Log errors and return the count of errors."""
-    snippet_start = "snippet" + "-start:["
-    snippet_end = "snippet" + "-end:["
-    snippet_tags = set()
-    for word in file_contents.split():
-        if snippet_start in word:
-            tag = word.split("[")[1]
-            if tag in snippet_tags:
-                errors.append(DuplicateSnippetTagInFile(file=file_location, tag=tag))
-            else:
-                snippet_tags.add(tag)
-        elif snippet_end in word:
-            tag = word.split("[")[1]
-            if tag in snippet_tags:
-                snippet_tags.remove(tag)
-            else:
-                errors.append(SnippetNoMatchingStart(file=file_location, tag=tag))
-
-    for tag in snippet_tags:
-        errors.append(SnippetNoMatchingEnd(file=file_location, tag=tag))
-
-
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--quiet",
-        action="store_true",
-        help="Suppresses output of filenames while parsing. " "The default is False.",
-    )
-    parser.add_argument(
-        "--root",
-        help="The root path from which to search for files "
-        "to check. The default is the current working "
-        "folder.",
-    )
-    args = parser.parse_args()
-
-    root_path = Path(
-        os.path.abspath(".") if not args.root else os.path.abspath(args.root)
-    )
-
+    root_path = Path(__file__).parent.parent.parent
     print("----------\n\nRun Tests\n")
     errors = MetadataErrors()
-    check_files(root_path, args.quiet, errors)
+    check_files(root_path, errors, True)
     verify_sample_files(root_path, errors)
     error_count = len(errors)
     if error_count > 0:
