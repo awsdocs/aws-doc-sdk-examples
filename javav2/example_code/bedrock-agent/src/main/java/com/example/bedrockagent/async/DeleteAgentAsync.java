@@ -3,17 +3,17 @@
 
 package com.example.bedrockagent.async;
 
-// snippet-start:[bedrock-agent.java2.get_agent_async.import]
+// snippet-start:[bedrock-agent.java2.delete_agent_async.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockagent.BedrockAgentAsyncClient;
-import software.amazon.awssdk.services.bedrockagent.model.Agent;
-import software.amazon.awssdk.services.bedrockagent.model.GetAgentRequest;
-import software.amazon.awssdk.services.bedrockagent.model.GetAgentResponse;
+import software.amazon.awssdk.services.bedrockagent.model.AgentStatus;
+import software.amazon.awssdk.services.bedrockagent.model.DeleteAgentRequest;
+import software.amazon.awssdk.services.bedrockagent.model.DeleteAgentResponse;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-// snippet-end:[bedrock-agent.java2.get_agent_async.import]
+// snippet-end:[bedrock-agent.java2.delete_agent_async.import]
 
 /**
  * Before running this Java V2 code example, set up your development
@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-public class GetAgentAsync {
+public class DeleteAgentAsync {
     public static void main(String[] args) {
         final String usage = """
             
@@ -52,48 +52,35 @@ public class GetAgentAsync {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        getAgent(client, agentId);
+        deleteAgent(client, agentId);
     }
 
-    // snippet-start:[bedrock-agent.java2.get_agent_async.main]
+    // snippet-start:[bedrock-agent.java2.delete_agent_async.main]
     /**
-     * Gets information about an agent.
-     *
-     * <p>This method retrieves agent details by making a call to the
-     * GetAgent API operation and passing the agent ID. It prints out
-     * basic information about the agent to the console for demonstration
-     * purposes.</p>
+     * Deletes an agent.
      *
      * @param client  The client to manage Agents for Amazon Bedrock
      * @param agentId The unique identifier of the agent
-     * @return The Agent object
+     * @return An AgentStatus object
      */
-    public static Agent getAgent(BedrockAgentAsyncClient client, String agentId) {
-        System.out.printf("Retrieving Amazon Bedrock Agent with ID: %s...%n", agentId);
+    public static AgentStatus deleteAgent(BedrockAgentAsyncClient client, String agentId) {
+        System.out.printf("Deleting the Amazon Bedrock Agent with ID: %s...%n", agentId);
 
         try {
-            GetAgentRequest request = GetAgentRequest.builder()
+            DeleteAgentRequest request = DeleteAgentRequest.builder()
                     .agentId(agentId)
                     .build();
 
-            CompletableFuture<GetAgentResponse> future = client.getAgent(request)
+            CompletableFuture<DeleteAgentResponse> future = client.deleteAgent(request)
                     .whenComplete((response, exception) -> {
                         if (exception != null) {
                             System.out.println(exception.getMessage());
                         }
                     });
 
-            GetAgentResponse response = future.get();
+            DeleteAgentResponse response = future.get();
 
-            Agent agent = response.agent();
-
-            System.out.println(" Agent ID : " + agent.agentId());
-            System.out.println(" Name     : " + agent.agentName());
-            System.out.println(" Model    : " + agent.foundationModel());
-            System.out.println(" Status   : " + agent.agentStatus());
-            System.out.println();
-
-            return agent;
+            return response.agentStatus();
 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -104,5 +91,5 @@ public class GetAgentAsync {
             throw new RuntimeException(e);
         }
     }
-    // snippet-end:[bedrock-agent.java2.get_agent_async.main]
+    // snippet-end:[bedrock-agent.java2.delete_agent_async.main]
 }

@@ -3,7 +3,7 @@
 
 package com.example.bedrockagent.async;
 
-// snippet-start:[bedrock-agent.java2.create_agent.import]
+// snippet-start:[bedrock-agent.java2.create_agent_async.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockagent.BedrockAgentAsyncClient;
@@ -13,7 +13,7 @@ import software.amazon.awssdk.services.bedrockagent.model.CreateAgentResponse;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-// snippet-end:[bedrock-agent.java2.create_agent.import]
+// snippet-end:[bedrock-agent.java2.create_agent_async.import]
 
 /**
  * Before running this Java V2 code example, set up your development
@@ -59,7 +59,7 @@ public class CreateAgentAsync {
         createAgent(client, agentName, roleArn, foundationModel);
     }
 
-    // snippet-start:[bedrock-agent.java2.create_agent.main]
+    // snippet-start:[bedrock-agent.java2.create_agent_async.main]
     /**
      * Creates an agent that can orchestrate interactions between foundation models,
      * data sources, software applications, user conversations, and APIs to carry
@@ -107,5 +107,5 @@ public class CreateAgentAsync {
             throw new RuntimeException(e);
         }
     }
-    // snippet-end:[bedrock-agent.java2.create_agent.main]
+    // snippet-end:[bedrock-agent.java2.create_agent_async.main]
 }

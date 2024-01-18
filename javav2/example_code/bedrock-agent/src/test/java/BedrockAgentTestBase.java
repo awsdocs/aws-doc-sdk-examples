@@ -17,11 +17,10 @@ public class BedrockAgentTestBase {
     protected static String agentId;
     protected static String agentVersion;
     protected static String agentRoleArn;
-    protected static String newAgentName;
 
     private final Object lock = new Object();
 
-    protected static String createRandomPostfix() {
+    protected static String randomPostfix() {
         String chars = "abcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder randomString = new StringBuilder(6);
 

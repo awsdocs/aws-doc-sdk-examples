@@ -1,16 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import com.example.bedrockagent.async.CreateAgentAsync;
-import com.example.bedrockagent.async.GetAgentAsync;
-import com.example.bedrockagent.async.ListAgentActionGroupsAsync;
-import com.example.bedrockagent.async.ListAgentsAsync;
+import com.example.bedrockagent.async.*;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockagent.BedrockAgentAsyncClient;
 import software.amazon.awssdk.services.bedrockagent.model.ActionGroupSummary;
 import software.amazon.awssdk.services.bedrockagent.model.Agent;
+import software.amazon.awssdk.services.bedrockagent.model.AgentStatus;
 import software.amazon.awssdk.services.bedrockagent.model.DeleteAgentRequest;
 
 import java.io.IOException;
@@ -19,8 +17,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -41,8 +38,6 @@ class AsyncBedrockAgentTests extends BedrockAgentTestBase {
             ex.printStackTrace();
         }
 
-        newAgentName = "TestAgent_" + createRandomPostfix();
-
         asyncClient = BedrockAgentAsyncClient.builder()
                 .region(Region.of(region))
                 .credentialsProvider(DefaultCredentialsProvider.create())
@@ -62,10 +57,12 @@ class AsyncBedrockAgentTests extends BedrockAgentTestBase {
     @Order(2)
     @Tag("IntegrationTest")
     void createAgent() {
-        Agent agent = CreateAgentAsync.createAgent(asyncClient, newAgentName, agentRoleArn, foundationModel);
+        // Run test
+        String agentName = "TestAgent_" + randomPostfix();
+        Agent agent = CreateAgentAsync.createAgent(asyncClient, agentName, agentRoleArn, foundationModel);
         assertNotNull(agent);
 
-        // Clean up
+        // Delete created resources
         System.out.print("Deleting agent... ");
         waitForStatus(asyncClient, agent, "NOT_PREPARED");
         try {
@@ -104,5 +101,20 @@ class AsyncBedrockAgentTests extends BedrockAgentTestBase {
         );
         assertNotNull(actionGroups);
         System.out.println("Test ListAgentActionGroups passed.");
+    }
+
+    @Test
+    @Order(5)
+    @Tag("IntegrationTest")
+    void deleteAgent() {
+        // Prepare test state
+        String agentName = "TestAgent_" + randomPostfix();
+        Agent agent = CreateAgentAsync.createAgent(asyncClient, agentName, agentRoleArn, foundationModel);
+        waitForStatus(asyncClient, agent, "NOT_PREPARED");
+
+        // Run test
+        AgentStatus agentStatus = DeleteAgentAsync.deleteAgent(asyncClient, agent.agentId());
+        assertEquals("DELETING", agentStatus.toString());
+        System.out.println("Test DeleteAgent passed.");
     }
 }

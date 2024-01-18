@@ -1,10 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import com.example.bedrockagent.sync.CreateAgent;
-import com.example.bedrockagent.sync.GetAgent;
-import com.example.bedrockagent.sync.ListAgentActionGroups;
-import com.example.bedrockagent.sync.ListAgents;
+import com.example.bedrockagent.sync.*;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -16,8 +13,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -39,8 +35,6 @@ class SyncBedrockAgentTests extends BedrockAgentTestBase {
             ex.printStackTrace();
         }
 
-        newAgentName = "TestAgent_" + createRandomPostfix();
-
         client = BedrockAgentClient.builder()
                 .region(Region.of(region))
                 .credentialsProvider(DefaultCredentialsProvider.create())
@@ -60,16 +54,14 @@ class SyncBedrockAgentTests extends BedrockAgentTestBase {
     @Order(2)
     @Tag("IntegrationTest")
     void createAgent() {
-        Agent agent = CreateAgent.createAgent(client, newAgentName, agentRoleArn, foundationModel);
+        // Run test
+        String agentName = "TestAgent_" + randomPostfix();
+        Agent agent = CreateAgent.createAgent(client, agentName, agentRoleArn, foundationModel);
         assertNotNull(agent);
 
-        // Clean up
-        System.out.print("Deleting agent... ");
+        // Delete created resources
         waitForStatus(client, agent, "NOT_PREPARED");
-        client.deleteAgent(DeleteAgentRequest.builder()
-                .agentId(agent.agentId())
-                .build());
-        System.out.print("Done.\n");
+        DeleteAgent.deleteAgent(client, agent.agentId());
         System.out.println("Test CreateAgent passed.");
     }
 
@@ -90,5 +82,20 @@ class SyncBedrockAgentTests extends BedrockAgentTestBase {
         );
         assertNotNull(actionGroups);
         System.out.println("Test ListAgentActionGroups passed.");
+    }
+
+    @Test
+    @Order(5)
+    @Tag("IntegrationTest")
+    void deleteAgent() {
+        // Prepare test state
+        String agentName = "TestAgent_" + randomPostfix();
+        Agent agent = CreateAgent.createAgent(client, agentName, agentRoleArn, foundationModel);
+        waitForStatus(client, agent, "NOT_PREPARED");
+
+        // Run test
+        AgentStatus agentStatus = DeleteAgent.deleteAgent(client, agent.agentId());
+        assertEquals("DELETING", agentStatus.toString());
+        System.out.println("Test DeleteAgent passed.");
     }
 }
