@@ -51,7 +51,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Invoke multiple LLMs on Amazon Bedrock](GettingStartedWithBedrockRuntime.php)
+- [Invoke multiple foundation models on Amazon Bedrock](GettingStartedWithBedrockRuntime.php)
 
 
 <!--custom.examples.start-->
@@ -67,9 +67,9 @@ functions within the same service.
 
 
 
-#### Invoke multiple LLMs on Amazon Bedrock
+#### Invoke multiple foundation models on Amazon Bedrock
 
-This example shows you how to invoke multiple large-language-models (LLMs) on Amazon Bedrock.
+This example shows you how to invoke multiple foundation models on Amazon Bedrock.
 
 - Generate text with Anthropic Claude.
 - Generate text with AI21 Labs Jurassic-2.
