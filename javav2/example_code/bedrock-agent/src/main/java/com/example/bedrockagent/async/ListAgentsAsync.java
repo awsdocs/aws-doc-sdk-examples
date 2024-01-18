@@ -61,7 +61,7 @@ public class ListAgentsAsync {
      * to the ListAgents API operation. It prints out basic information
      * about each agent to the console for demonstration purposes.</p>
      *
-     * @param client Asynchronous client to manage Agents for Amazon Bedrock
+     * @param client The client to manage Agents for Amazon Bedrock
      * @return A list of AgentSummary objects containing details about each agent
      */
     public static List<AgentSummary> listAgents(BedrockAgentAsyncClient client) {

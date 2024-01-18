@@ -62,7 +62,7 @@ public class GetAgent {
      * basic information about the agent to the console for demonstration
      * purposes.</p>
      *
-     * @param client  Client to manage Agents for Amazon Bedrock
+     * @param client  The client to manage Agents for Amazon Bedrock
      * @param agentId The unique identifier of the agent
      * @return The Agent object
      */
@@ -88,9 +88,8 @@ public class GetAgent {
 
         } catch (BedrockAgentException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
+            throw e;
         }
-
-        return null;
     }
     // snippet-end:[bedrock-agent.java2.get_agent.main]
 }

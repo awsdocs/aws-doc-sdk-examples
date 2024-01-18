@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import com.example.bedrockagent.sync.CreateAgent;
 import com.example.bedrockagent.sync.GetAgent;
 import com.example.bedrockagent.sync.ListAgentActionGroups;
 import com.example.bedrockagent.sync.ListAgents;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockagent.BedrockAgentClient;
-import software.amazon.awssdk.services.bedrockagent.model.ActionGroupSummary;
+import software.amazon.awssdk.services.bedrockagent.model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,12 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class SyncBedrockAgentTests {
-
-    private static BedrockAgentClient client;
-    private static String region = "us-east-1";
-    private static String agentId = "";
-    private static String agentVersion = "";
+class SyncBedrockAgentTests extends BedrockAgentTestBase {
 
     @BeforeAll
     static void setup() {
@@ -35,11 +31,15 @@ class SyncBedrockAgentTests {
             var prop = new Properties();
             prop.load(input);
             region = prop.getProperty("region");
+            foundationModel = prop.getProperty("foundationModel");
             agentId = prop.getProperty("agentId");
             agentVersion = prop.getProperty("agentVersion");
+            agentRoleArn = prop.getProperty("agentRoleArn");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+        newAgentName = "TestAgent_" + createRandomPostfix();
 
         client = BedrockAgentClient.builder()
                 .region(Region.of(region))
@@ -59,13 +59,30 @@ class SyncBedrockAgentTests {
     @Test
     @Order(2)
     @Tag("IntegrationTest")
+    void createAgent() {
+        Agent agent = CreateAgent.createAgent(client, newAgentName, agentRoleArn, foundationModel);
+        assertNotNull(agent);
+
+        // Clean up
+        System.out.print("Deleting agent... ");
+        waitForStatus(client, agent, "NOT_PREPARED");
+        client.deleteAgent(DeleteAgentRequest.builder()
+                .agentId(agent.agentId())
+                .build());
+        System.out.print("Done.\n");
+        System.out.println("Test CreateAgent passed.");
+    }
+
+    @Test
+    @Order(3)
+    @Tag("IntegrationTest")
     void getAgent() {
         assertDoesNotThrow(() -> GetAgent.getAgent(client, agentId));
         System.out.println("Test GetAgent passed.");
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @Tag("IntegrationTest")
     void listAgentActionGroups() {
         List<ActionGroupSummary> actionGroups = ListAgentActionGroups.listAgentActionGroups(

@@ -64,8 +64,8 @@ public class ListAgentActionGroups {
      * by making a call to the ListAgentActionGroups API operation. It prints out basic
      * information about each action group to the console for demonstration purposes.</p>
      *
-     * @param client Client to manage Agents for Amazon Bedrock
-     * @param agentId The unique identifier of the agent
+     * @param client       The client to manage Agents for Amazon Bedrock
+     * @param agentId      The unique identifier of the agent
      * @param agentVersion The version of the agent
      * @return A list of ActionGroupSummary objects containing details about each action group
      */
