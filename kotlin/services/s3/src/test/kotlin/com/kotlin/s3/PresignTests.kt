@@ -48,8 +48,14 @@ class PresignTests {
         logger.info("start getObjectPresignTest")
         // Put an object into the bucket.
         putObject(s3, bucketName, keyName, contents)
-        val returnedContent = getObjectPresigned(s3, bucketName, keyName)
-        deleteObject(s3, bucketName, keyName)
+        var returnedContent: String? = null
+        try {
+            returnedContent = getObjectPresigned(s3, bucketName, keyName)
+        } catch (e: Exception) {
+            logger.error("Exception thrown: ${e.message}")
+        } finally {
+            deleteObject(s3, bucketName, keyName)
+        }
         Assertions.assertEquals(contents, returnedContent)
         logger.info("getObjectPresigned returned the same content")
     }
@@ -59,19 +65,24 @@ class PresignTests {
     fun putObjectPresignTest() = runBlocking {
         val contents = "Hello World"
         logger.info("start putObjectPresignTest")
-        putObjectPresigned(s3, bucketName, keyName, contents)
+        var returnedContent: String? = null
+        try {
+            putObjectPresigned(s3, bucketName, keyName, contents)
 
-        val returnedContent = s3.getObject(
-            GetObjectRequest {
-                bucket = bucketName
-                key = keyName
+            returnedContent = s3.getObject(
+                GetObjectRequest {
+                    bucket = bucketName
+                    key = keyName
+                }
+            ) { resp ->
+                val respString = resp.body?.decodeToString()
+                respString
             }
-        ) { resp ->
-            val respString = resp.body?.decodeToString()
-            respString
+        } catch (e: Exception) {
+            logger.error("Exception thrown: ${e.message}")
+        } finally {
+            deleteObject(s3, bucketName, keyName)
         }
-
-        deleteObject(s3, bucketName, keyName)
         Assertions.assertEquals(contents, returnedContent)
         logger.info("putObjectPresigned returned the same content")
     }

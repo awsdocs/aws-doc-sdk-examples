@@ -27,27 +27,25 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
+val kotlinSdkVersion = "1.0.41"
+val smithyKotlinVersion = "1.0.10"
 dependencies {
-    implementation("aws.sdk.kotlin:s3:1.0.0")
-    implementation("aws.sdk.kotlin:secretsmanager:1.0.0")
-    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
-    implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
+    implementation("aws.sdk.kotlin:s3:$kotlinSdkVersion")
+    implementation("aws.sdk.kotlin:s3control:$kotlinSdkVersion")
+    implementation("aws.sdk.kotlin:sts:$kotlinSdkVersion")
+    implementation("aws.sdk.kotlin:secretsmanager:$kotlinSdkVersion")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp:$smithyKotlinVersion")
+    implementation("aws.smithy.kotlin:http-client-engine-crt:$smithyKotlinVersion")
+    implementation("aws.smithy.kotlin:aws-signing-crt:$smithyKotlinVersion")
+    implementation("aws.smithy.kotlin:http-auth-aws:$smithyKotlinVersion")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0")
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation("aws.smithy.kotlin:aws-signing-crt:0.21.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation("com.google.code.gson:gson:2.10")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
     testImplementation(kotlin("test"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation("aws.smithy.kotlin:aws-signing-crt:0.30.0")
-    implementation("com.google.code.gson:gson:2.10")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
-}
-
-tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "17"
 }
 
 tasks.withType<KotlinCompile>() {
