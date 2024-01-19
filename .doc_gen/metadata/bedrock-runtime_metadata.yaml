@@ -108,7 +108,6 @@ bedrock-runtime_InvokeClaude:
   title: Invoke the Anthropic Claude 2 model on &BR; for text generation
   title_abbrev: Text generation with Anthropic Claude 2
   synopsis: invoke the Anthropic Claude 2 model on &BR; for text generation.
-  category:
   languages:
     Go:
       versions:
@@ -129,6 +128,14 @@ bedrock-runtime_InvokeClaude:
             - description: Invoke the Anthropic Claude 2 foundation model to generate text.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_claude.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the Anthropic Claude 2 foundation model to generate text.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-runtime/actions/invoke-claude.js
     PHP:
       versions:
         - sdk_version: 3
@@ -190,6 +197,14 @@ bedrock-runtime_InvokeJurassic2:
             - description: Invoke the AI21 Labs Jurassic-2 foundation model to generate text.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_jurassic2.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the AI21 Labs Jurassic-2 foundation model to generate text.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-runtime/actions/invoke-jurassic2.js
     PHP:
       versions:
         - sdk_version: 3

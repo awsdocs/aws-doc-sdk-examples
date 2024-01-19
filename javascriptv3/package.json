@@ -19,6 +19,7 @@
   "workspaces": [
     "example_code/auto-scaling",
     "example_code/bedrock",
+    "example_code/bedrock-runtime",
     "example_code/cloudwatch",
     "example_code/cloudwatch-events",
     "example_code/cloudwatch-logs",
