@@ -10,7 +10,7 @@ import boto3
 from botocore.exceptions import ClientError, WaiterError
 import pytest
 
-from analyticsv2.analytics_application import KinesisAnalyticsApplicationV2
+from analytics_application import KinesisAnalyticsApplicationV2
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])
