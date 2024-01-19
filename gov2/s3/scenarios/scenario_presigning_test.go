@@ -53,7 +53,9 @@ type PresigningScenarioTest struct {
 func (scenTest *PresigningScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	bucketName := "test-bucket-1"
 	testConfig, err := config.LoadDefaultConfig(context.TODO())
-	if err != nil {panic(err)}
+	if err != nil {
+		panic(err)
+	}
 	objectKey := "doc-example-key"
 	scenTest.TestBody = io.NopCloser(strings.NewReader("Test data!"))
 	scenTest.Answers = []string{
