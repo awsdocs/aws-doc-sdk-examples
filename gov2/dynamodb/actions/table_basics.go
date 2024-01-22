@@ -101,12 +101,17 @@ func (basics TableBasics) CreateMovieTable() (*types.TableDescription, error) {
 // ListTables lists the DynamoDB table names for the current account.
 func (basics TableBasics) ListTables() ([]string, error) {
 	var tableNames []string
-	tables, err := basics.DynamoDbClient.ListTables(
-		context.TODO(), &dynamodb.ListTablesInput{})
-	if err != nil {
-		log.Printf("Couldn't list tables. Here's why: %v\n", err)
-	} else {
-		tableNames = tables.TableNames
+	var output *dynamodb.ListTablesOutput
+	var err error
+	tablePaginator := dynamodb.NewListTablesPaginator(basics.DynamoDbClient, &dynamodb.ListTablesInput{})
+	for tablePaginator.HasMorePages() {
+		output, err = tablePaginator.NextPage(context.TODO())
+		if err != nil {
+			log.Printf("Couldn't list tables. Here's why: %v\n", err)
+			break
+		} else {
+			tableNames = append(tableNames, output.TableNames...)
+		}
 	}
 	return tableNames, err
 }
@@ -249,18 +254,26 @@ func (basics TableBasics) Query(releaseYear int) ([]Movie, error) {
 	if err != nil {
 		log.Printf("Couldn't build expression for query. Here's why: %v\n", err)
 	} else {
-		response, err = basics.DynamoDbClient.Query(context.TODO(), &dynamodb.QueryInput{
+		queryPaginator := dynamodb.NewQueryPaginator(basics.DynamoDbClient, &dynamodb.QueryInput{
 			TableName:                 aws.String(basics.TableName),
 			ExpressionAttributeNames:  expr.Names(),
 			ExpressionAttributeValues: expr.Values(),
 			KeyConditionExpression:    expr.KeyCondition(),
 		})
-		if err != nil {
-			log.Printf("Couldn't query for movies released in %v. Here's why: %v\n", releaseYear, err)
-		} else {
-			err = attributevalue.UnmarshalListOfMaps(response.Items, &movies)
+		for queryPaginator.HasMorePages() {
+			response, err = queryPaginator.NextPage(context.TODO())
 			if err != nil {
-				log.Printf("Couldn't unmarshal query response. Here's why: %v\n", err)
+				log.Printf("Couldn't query for movies released in %v. Here's why: %v\n", releaseYear, err)
+				break
+			} else {
+				var moviePage []Movie
+				err = attributevalue.UnmarshalListOfMaps(response.Items, &moviePage)
+				if err != nil {
+					log.Printf("Couldn't unmarshal query response. Here's why: %v\n", err)
+					break
+				} else {
+					movies = append(movies, moviePage...)
+				}
 			}
 		}
 	}
@@ -286,20 +299,28 @@ func (basics TableBasics) Scan(startYear int, endYear int) ([]Movie, error) {
 	if err != nil {
 		log.Printf("Couldn't build expressions for scan. Here's why: %v\n", err)
 	} else {
-		response, err = basics.DynamoDbClient.Scan(context.TODO(), &dynamodb.ScanInput{
+		scanPaginator := dynamodb.NewScanPaginator(basics.DynamoDbClient, &dynamodb.ScanInput{
 			TableName:                 aws.String(basics.TableName),
 			ExpressionAttributeNames:  expr.Names(),
 			ExpressionAttributeValues: expr.Values(),
 			FilterExpression:          expr.Filter(),
 			ProjectionExpression:      expr.Projection(),
 		})
-		if err != nil {
-			log.Printf("Couldn't scan for movies released between %v and %v. Here's why: %v\n",
-				startYear, endYear, err)
-		} else {
-			err = attributevalue.UnmarshalListOfMaps(response.Items, &movies)
+		for scanPaginator.HasMorePages() {
+			response, err = scanPaginator.NextPage(context.TODO())
 			if err != nil {
-				log.Printf("Couldn't unmarshal query response. Here's why: %v\n", err)
+				log.Printf("Couldn't scan for movies released between %v and %v. Here's why: %v\n",
+					startYear, endYear, err)
+				break
+			} else {
+				var moviePage []Movie
+				err = attributevalue.UnmarshalListOfMaps(response.Items, &moviePage)
+				if err != nil {
+					log.Printf("Couldn't unmarshal query response. Here's why: %v\n", err)
+					break
+				} else {
+					movies = append(movies, moviePage...)
+				}
 			}
 		}
 	}

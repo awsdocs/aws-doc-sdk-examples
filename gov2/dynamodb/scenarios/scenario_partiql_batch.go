@@ -19,8 +19,8 @@ import (
 // RunPartiQLBatchScenario shows you how to use the AWS SDK for Go
 // to run batches of PartiQL statements to query a table that stores data about movies.
 //
-// * Use batches of PartiQL statements to add, get, update, and delete data for
-//   individual movies.
+//   - Use batches of PartiQL statements to add, get, update, and delete data for
+//     individual movies.
 //
 // This example creates an Amazon DynamoDB service client from the specified sdkConfig so that
 // you can replace it with a mocked or stubbed config for unit testing.
@@ -108,8 +108,10 @@ func RunPartiQLBatchScenario(sdkConfig aws.Config, tableName string) {
 	log.Println(strings.Repeat("-", 88))
 
 	log.Println("Getting projected data from the table to verify our update.")
-	projections, err := runner.GetAllMovies()
+	log.Println("Using a page size of 2 to demonstrate paging.")
+	projections, err := runner.GetAllMovies(2)
 	if err == nil {
+		log.Println("All movies:")
 		for _, projection := range projections {
 			log.Println(projection)
 		}
