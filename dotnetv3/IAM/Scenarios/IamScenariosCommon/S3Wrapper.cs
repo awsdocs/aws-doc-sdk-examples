@@ -27,7 +27,7 @@ public class S3Wrapper
         _stsService = stsService;
     }
 
-        /// <summary>
+    /// <summary>
     /// Assumes an AWS Identity and Access Management (IAM) role that allows
     /// Amazon S3 access for the current session.
     /// </summary>
