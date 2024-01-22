@@ -193,5 +193,3 @@ bedrock-agent_GettingStartedWithBedrockAgents:
         ListAgentKnowledgeBases,
         PrepareAgent,
       }
-    bedrock-agent-runtime:
-      {InvokeAgent}
