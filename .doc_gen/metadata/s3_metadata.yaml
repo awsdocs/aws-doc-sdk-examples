@@ -210,7 +210,7 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
-                - gov2.s3.CopyObject
+                - gov2.s3.CopyObject.ToBucket
     Kotlin:
       versions:
         - sdk_version: 1
