@@ -52,9 +52,9 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with tables, items, and queries](actions/table_basics.go)
-- [Query a table by using batches of PartiQL statements](actions/partiql.go)
-- [Query a table using PartiQL](actions/partiql.go)
+- [Get started with tables, items, and queries](scenarios/scenario_movie_table.go)
+- [Query a table by using batches of PartiQL statements](scenarios/scenario_partiql_batch.go)
+- [Query a table using PartiQL](scenarios/scenario_partiql_single.go)
 
 
 <!--custom.examples.start-->
