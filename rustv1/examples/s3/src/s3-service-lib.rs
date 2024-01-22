@@ -42,7 +42,7 @@ pub async fn delete_objects(client: &Client, bucket_name: &str) -> Result<Vec<St
     }
 
     let return_keys = delete_objects.iter().map(|o| o.key.clone()).collect();
-    
+
     if !delete_objects.is_empty() {
         client
             .delete_objects()
