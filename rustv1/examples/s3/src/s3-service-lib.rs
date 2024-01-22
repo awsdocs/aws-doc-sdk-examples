@@ -42,18 +42,20 @@ pub async fn delete_objects(client: &Client, bucket_name: &str) -> Result<Vec<St
     }
 
     let return_keys = delete_objects.iter().map(|o| o.key.clone()).collect();
-
-    client
-        .delete_objects()
-        .bucket(bucket_name)
-        .delete(
-            Delete::builder()
-                .set_objects(Some(delete_objects))
-                .build()
-                .map_err(Error::from)?,
-        )
-        .send()
-        .await?;
+    
+    if !delete_objects.is_empty() {
+        client
+            .delete_objects()
+            .bucket(bucket_name)
+            .delete(
+                Delete::builder()
+                    .set_objects(Some(delete_objects))
+                    .build()
+                    .map_err(Error::from)?,
+            )
+            .send()
+            .await?;
+    }
 
     let objects: ListObjectsV2Output = client.list_objects_v2().bucket(bucket_name).send().await?;
 
