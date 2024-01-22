@@ -26,7 +26,7 @@ public class SsmWrapper
         var parameters = new List<Parameter>();
         var request = new GetParametersByPathRequest { Path = path };
 
-        // Make sure we get the whole list with a paginator.
+        // Get the whole list with a paginator.
         var paginatedParametersByPath = _amazonSSM.Paginators.GetParametersByPath(request);
 
         await foreach (var parametersPage in paginatedParametersByPath.Responses)
