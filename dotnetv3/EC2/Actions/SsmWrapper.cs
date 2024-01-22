@@ -25,21 +25,19 @@ public class SsmWrapper
     {
         var parameters = new List<Parameter>();
         var request = new GetParametersByPathRequest { Path = path };
-        var response = await _amazonSSM.GetParametersByPathAsync(request);
 
-        // Make sure we get the whole list.
-        do
+        // Get the whole list with a paginator.
+        var paginatedParametersByPath = _amazonSSM.Paginators.GetParametersByPath(request);
+
+        await foreach (var parametersPage in paginatedParametersByPath.Responses)
         {
-            parameters.AddRange(response.Parameters);
-            request.NextToken = response.NextToken;
-            response = await _amazonSSM.GetParametersByPathAsync(request);
+            parameters.AddRange(parametersPage.Parameters);
         }
-        while (response.NextToken is not null);
 
         // Filter out everything except items that
         // have "amzn2" in the name property.
         var paramList =
-            from parameter in response.Parameters
+            from parameter in parameters
             where parameter.Name.Contains("amzn2")
             select parameter;
         return paramList.ToList();
