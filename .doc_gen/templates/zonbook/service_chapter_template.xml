@@ -17,7 +17,7 @@
 {{- end}}
 {{- if .Bundle}}
 {{- $doc_id = printf "service_code_examples_%s" .Model }}
-{{- $title_abbrev = printf "%s examples" .ServiceEntity.Short }}
+{{- $title_abbrev = .ServiceEntity.Short }}
 <section id="{{$doc_id}}" role="topic">
 {{- else}}
 <chapter id="{{$doc_id}}" role="topic">
