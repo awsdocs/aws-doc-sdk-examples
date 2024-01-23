@@ -11,7 +11,7 @@ import {BedrockRuntimeClient, InvokeModelCommand} from "@aws-sdk/client-bedrock-
  */
 
 /**
- * Invokes the Meta Llama 2 large-language model to run an inference
+ * Invokes the Meta Llama 2 Chat model to run an inference
  * using the input provided in the request body.
  *
  * @param {string} prompt - The prompt that you want Llama-2 to complete.
