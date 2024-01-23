@@ -94,7 +94,7 @@ class BedrockAgentScenarioWrapper:
         self._allow_agent_to_invoke_function()
         self._let_function_accept_invocations_from_agent()
 
-        # Create an action group to connects the agent with the Lambda function
+        # Create an action group to connect the agent with the Lambda function
         self._create_agent_action_group()
 
         # If the agent has been modified or any components have been added, prepare the agent again
