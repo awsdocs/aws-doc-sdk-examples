@@ -236,7 +236,7 @@ class ConsumerStack(Stack):
         # Update bucket permissions to allow Lambda
         statement = iam.PolicyStatement()
         statement.add_actions(
-            "s3:PutObject", "s3:PutObjectAcl", "s3:DeleteObject", "s3:ListBucket"
+            "s3:PutObject", "s3:PutObjectAcl", "s3:DeleteObject", "s3:ListBucket", "s3:GetObject"
         )
         statement.add_resources(f"{bucket.bucket_arn}/*")
         statement.add_resources(bucket.bucket_arn)
