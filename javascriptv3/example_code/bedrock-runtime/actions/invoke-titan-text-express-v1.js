@@ -81,7 +81,6 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     console.log('\nModel: Titan Text Express v1');
     console.log(`Prompt: ${prompt}`);
 
-    /** @type {object[]} */
     const results = await invokeTitanTextExpressV1(prompt);
     console.log('Completion:');
     for (const result of results) {
