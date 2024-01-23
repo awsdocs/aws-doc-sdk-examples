@@ -10,7 +10,7 @@
     <para>
         For complete source code and instructions on how to set up a Spring REST API that queries Amazon Aurora Serverless data and for use by
         a React application, see the full example on
-        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_Spring_RDS_%20Rest">GitHub</ulink>.
+        <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_Spring_RDS_Rest">GitHub</ulink>.
     </para>
     <para>
         For complete source code and instructions on how to set up and run an example that uses the JDBC API, see the full example on
