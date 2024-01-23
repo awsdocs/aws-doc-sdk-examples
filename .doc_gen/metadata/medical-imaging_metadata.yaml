@@ -18,6 +18,7 @@ medical-imaging_Hello:
       versions:
         - sdk_version: 1
           github: cpp/example_code/medical-imaging/hello_health_imaging
+          github_note_at_bottom: true
           excerpts:
             - description: Code for the CMakeLists.txt CMake file.
               snippet_tags:
@@ -243,6 +244,7 @@ medical-imaging_StartDICOMImportJob:
       versions:
         - sdk_version: 1
           github: cpp/example_code/medical-imaging/
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -286,6 +288,7 @@ medical-imaging_GetDICOMImportJob:
       versions:
         - sdk_version: 1
           github: cpp/example_code/medical-imaging/
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -394,6 +397,7 @@ medical-imaging_SearchImageSets:
       versions:
         - sdk_version: 1
           github: cpp/example_code/medical-imaging/
+          github_note_at_bottom: true
           excerpts:
             - description: The utility function for searching image sets.
               snippet_tags:
@@ -493,6 +497,7 @@ medical-imaging_GetImageSetMetadata:
       versions:
         - sdk_version: 1
           github: cpp/example_code/medical-imaging/
+          github_note_at_bottom: true
           excerpts:
             - description: Utility function to get image set metadata.
               snippet_tags:
@@ -542,6 +547,7 @@ medical-imaging_GetImageFrame:
       versions:
         - sdk_version: 1
           github: cpp/example_code/medical-imaging/
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -708,6 +714,7 @@ medical-imaging_DeleteImageSet:
       versions:
         - sdk_version: 1
           github: cpp/example_code/medical-imaging/
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -994,7 +1001,7 @@ medical-imaging_Scenario_TaggingImageSets:
 medical-imaging_Scenario_ImageSetsAndFrames:
   title: Get started with &AHI; image sets and image frames using an &AWS; SDK
   title_abbrev: Get started with image sets and image frames
-  synopsis: get started with &AHI; image sets and image frames.
+  synopsis: get started with &AHI; image sets and image frames.\nA workflow to demonstrate importing DICOM files and accessing the image sets and image frames.
   synopsis_list:
     - Set up resources for a DICOM import.
     - Import DICOM files into a data store.
@@ -1008,6 +1015,7 @@ medical-imaging_Scenario_ImageSetsAndFrames:
       versions:
         - sdk_version: 1
           github: cpp/example_code/medical-imaging/imaging_set_and_frames_workflow
+          github_note_at_bottom: true
           excerpts:
             - description: Create a &CFN; stack with the necessary resources.
               snippet_tags:
