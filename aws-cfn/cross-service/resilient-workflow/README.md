@@ -153,11 +153,11 @@ aws elbv2 describe-target-health --target-group-arn "arn:aws:elasticloadbalancin
 
 All stack outputs:
 
-| OutputKey | OutputValue                               | Usage                                             |
-| --------- | ----------------------------------------- | ------------------------------------------------- |
-| `LB`      | The DNS Name of the primary load balancer | `curl` or Browser                                 |
+| OutputKey | OutputValue                                | Usage                                             |
+| --------- | ------------------------------------------ | ------------------------------------------------- |
+| `LB`      | The DNS Name of the primary load balancer  | `curl` or Browser                                 |
 | `Key`     | The ID of a .pem format private key in SSM | `ssh` after downloading from SSM                  |
-| `TGArn`   | The ARN of the target group of instances  | Check various additional information from the CLI |
+| `TGArn`   | The ARN of the target group of instances   | Check various additional information from the CLI |
 
 #### Demonstrate resiliency
 
@@ -182,6 +182,7 @@ aws cloudformation update-stack \
 
 1. **Initial state: healthy** — Sends requests to the endpoint to get recommendations and verify that instances
    are healthy.
+
 2. **Broken dependency** — Sets a parameter that specifies a nonexistent DynamoDB table name. This simulates a
    failure of the recommendation service. Requests for recommendations now return a failure
    code. All instances still report as healthy because they only implement shallow health checks. For this
@@ -231,7 +232,8 @@ aws cloudformation update-stack \
 
    Using the AWS Management Console, open the CloudFormation page. Navigate to the `resilience-demo` stack. Choose the `Resources`
    tab. Find the `DocExampleRecommendationServiceTargetGroup` line. Choose the `Physical Resource ID` link.
-   From this EC2 page, find the list of instances in the target group. Select one and navigate to it. Choose `Actions`,  `Terminate instance`. See EC2 terminate the instance, and watch the Auto Scaling group start a new instance.
+   From this EC2 page, find the list of instances in the target group. Select one and navigate to it. Choose `Actions`, `Terminate instance`.
+   See EC2 terminate the instance, and watch the Auto Scaling group start a new instance.
 
 7. **Fail open** — Sets the table name parameter so the recommendations service fails for all instances.
    Because all instances are using deep health checks, they all report as unhealthy. In this
@@ -241,6 +243,10 @@ aws cloudformation update-stack \
 
    Edit `params.json`. Add a new entry with `ParameterKey` as `SSMTableName` and `ParameterValue` as `unknown`.
    After updating, the service should report unhealthy but return static responses.
+
+8. **Rolling Update** If necessary, you can trigger rolling updates to all instances by changing the Launch Template.
+   To change a non-functional aspect of the Launch Template, which will trigger a rolling update without needing to modify any functional configuration, change the `LaunchTemplateVersion` parameter.
+   This has a default value of `1.0.0`, but can be any string. Any change to this string will trigger an `AutoScalingRollingUpdate` in the `DocExampleRecommendationServiceAutoScalingGroup`.
 
 ##### Destroy resources
 
