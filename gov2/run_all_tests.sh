@@ -9,9 +9,14 @@ function runCommand() {
     kind='unit'
   fi
   echo "Running $kind tests..."
-  for d in /gov2/*/ ; do
-    /bin/bash -c "(cd '$d' && go test -tags='$1' -timeout=60m ./...)"
-  done
+  for d in /"$2"/*/
+    do
+      (cd "$d" || exit
+      if [ -f go.mod ]; then
+        /bin/bash -c "(go test -tags='$1' -timeout=60m ./...)"
+      fi)
+    done
 }
 
-runCommand "$1"
+runCommand "$1" "gov2"
+runCommand "$1" "gov2/workflows"
