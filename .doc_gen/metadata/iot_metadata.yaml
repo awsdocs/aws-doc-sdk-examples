@@ -51,8 +51,6 @@ iot_ListThings:
 iot_Scenario:
   title: Performing device management use cases using &IoT; SDK
   title_abbrev: Performing device management use cases
-  synopsis_list:
-    -  Creates an AWS IoT Thing.
   category: Scenarios
   languages:
     Java:
@@ -64,5 +62,5 @@ iot_Scenario:
             - description:
               snippet_tags:
                 - iot.java2.scenario.main
-   services:
+  services:
     iot: {getThingShadow}
