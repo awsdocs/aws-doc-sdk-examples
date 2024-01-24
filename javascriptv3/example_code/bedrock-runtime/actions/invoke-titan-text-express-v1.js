@@ -48,7 +48,6 @@ export const invokeTitanTextExpressV1 = async (prompt) => {
     try {
         const response = await client.send(command);
         const decodedResponseBody = new TextDecoder().decode(response.body);
-        console.log(decodedResponseBody);
 
         /** @type {ResponseBody} */
         const responseBody = JSON.parse(decodedResponseBody);
