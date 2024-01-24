@@ -492,7 +492,7 @@ medical-imaging_GetImageSetMetadata:
           excerpts:
             - description:
               snippet_tags:
-                - medicalimaging.java2.get_imageset.main
+                - medicalimaging.java2.get_imageset_metadata.main
     C++:
       versions:
         - sdk_version: 1
