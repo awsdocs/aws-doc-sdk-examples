@@ -9,6 +9,7 @@
 
 package com.example.iot;
 
+// snippet-start:[iot.java2.scenario.main]
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iot.IotClient;
@@ -19,17 +20,14 @@ import software.amazon.awssdk.services.iot.model.AttributePayload;
 import software.amazon.awssdk.services.iot.model.CreateKeysAndCertificateResponse;
 import software.amazon.awssdk.services.iot.model.CreateThingRequest;
 import software.amazon.awssdk.services.iot.model.CreateTopicRuleRequest;
-import software.amazon.awssdk.services.iot.model.CreateTopicRuleResponse;
 import software.amazon.awssdk.services.iot.model.DeleteCertificateRequest;
 import software.amazon.awssdk.services.iot.model.CreateThingResponse;
 import software.amazon.awssdk.services.iot.model.DeleteThingRequest;
-import software.amazon.awssdk.services.iot.model.DeleteTopicRuleRequest;
 import software.amazon.awssdk.services.iot.model.DescribeEndpointRequest;
 import software.amazon.awssdk.services.iot.model.DescribeEndpointResponse;
 import software.amazon.awssdk.services.iot.model.DescribeThingRequest;
 import software.amazon.awssdk.services.iot.model.DescribeThingResponse;
 import software.amazon.awssdk.services.iot.model.DetachThingPrincipalRequest;
-import software.amazon.awssdk.services.iot.model.DisableTopicRuleRequest;
 import software.amazon.awssdk.services.iot.model.IotException;
 import software.amazon.awssdk.services.iot.model.ListTopicRulesRequest;
 import software.amazon.awssdk.services.iot.model.ListTopicRulesResponse;
@@ -64,7 +62,7 @@ import java.util.regex.Pattern;
  * 3. Attach the certificate to the AWS IoT Thing.
  * 4. Update an AWS IoT Thing with Attributes.
  * 5. Get an AWS IoT Endpoint.
- * 6 Detach the certificate from the AWS IoT thing.
+ * 6  Detach the certificate from the AWS IoT thing.
  * 7. Delete the certificate.
  * 8. Updates the shadow for the specified thing.
  * 9. Write out the state information, in JSON format.
@@ -471,3 +469,4 @@ public class IotScenario {
         return "" ;
     }
 }
+// snippet-end:[iot.java2.scenario.main]

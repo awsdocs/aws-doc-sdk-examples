@@ -15,12 +15,11 @@ import software.amazon.awssdk.services.iot.IotClient;
 import software.amazon.awssdk.services.iot.model.ListThingsRequest;
 import software.amazon.awssdk.services.iot.model.ListThingsResponse;
 import software.amazon.awssdk.services.iot.model.ThingAttribute;
-
 import java.util.List;
 
 public class HelloIoT {
     public static void main(String[] args) {
-        System.out.println("Hello AWS IoT");
+        System.out.println("Hello AWS IoT. Here is a listing of your AWS IoT Things:");
         IotClient iotClient = IotClient.builder()
             .region(Region.US_EAST_1)
             .build();

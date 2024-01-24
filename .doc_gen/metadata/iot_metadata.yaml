@@ -48,3 +48,21 @@ iot_ListThings:
                 - iot.rust.list-things
   services:
     iot: {ListThings}
+iot_Scenario:
+  title: Performing device management use cases using &IoT; SDK
+  title_abbrev: Performing device management use cases
+  synopsis_list:
+    -  Creates an AWS IoT Thing.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.scenario.main
+   services:
+    iot: {getThingShadow}
