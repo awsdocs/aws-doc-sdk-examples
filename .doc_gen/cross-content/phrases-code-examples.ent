@@ -82,17 +82,13 @@
 <!--Elastic Load Balancing-->
 <!ENTITY ELBacro 'ELB'>
 
-<!--Bedrock-->
-<!ENTITY BRlong 'Amazon Bedrock'>
-<!ENTITY BR 'Amazon Bedrock'>
-
 <!--Bedrock Runtime-->
 <!ENTITY BRRUNlong '&BRlong; Runtime'>
 <!ENTITY BRRUN '&BR; Runtime'>
 
 <!--Bedrock-->
-<!ENTITY BRAlong 'Agent for Amazon Bedrock'>
-<!ENTITY BRA 'Amazon Bedrock Agent'>
+<!ENTITY BRAlong 'Agents for Amazon Bedrock'>
+<!ENTITY BRA 'Agents for Amazon Bedrock'>
 
 <!--Bedrock Runtime-->
 <!ENTITY BRARUNlong '&BRAlong; Runtime'>
