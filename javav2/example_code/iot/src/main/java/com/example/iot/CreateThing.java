@@ -9,7 +9,7 @@
 
 package com.example.iot;
 
-// snippet-start:[iot.java2.create_thing.main]
+// snippet-start:[iot.java2.create.thing.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iot.IotClient;
 import software.amazon.awssdk.services.iot.model.CreateThingRequest;
@@ -54,4 +54,4 @@ public class CreateThing {
         }
     }
 }
-// snippet-start:[iot.java2.create_thing.main]
+// snippet-end:[iot.java2.create.thing.main]
