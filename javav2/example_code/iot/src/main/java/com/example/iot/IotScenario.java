@@ -73,16 +73,13 @@ public class IotScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     private static final String TOPIC = "your-iot-topic";
     public static void main(String[] args) {
-        final String usage = """
-
-            Usage:
-                <thingName>
-
-            Where:
-                thingName - The name of the AWS IoT Thing.
-                roleARN - The ARN of an IAM role that has permission to work with AWS IOT.  
-                ruleName  - The name of the AWS IoT rule.
-            """;
+        final String    usage =
+            "Usage:\n" +
+                "    <thingName>\n\n" +
+                "Where:\n" +
+                "    thingName - The name of the AWS IoT Thing.\n" +
+                "    roleARN - The ARN of an IAM role that has permission to work with AWS IOT.\n" +
+                "    ruleName  - The name of the AWS IoT rule.";
 
         //   if (args.length != 2) {
         //        System.out.println(usage);
@@ -93,6 +90,7 @@ public class IotScenario {
         String thingName = "foo125";
         String roleARN = "arn:aws:iam::814548047983:role/AssumeRoleSNS";
         String ruleName = "YourRuleName";
+        String snsAction = "arn:aws:sns:us-east-1:814548047983:scott1111";
 
         IotClient iotClient = IotClient.builder()
             .region(Region.US_EAST_1)
@@ -163,7 +161,7 @@ public class IotScenario {
         Creates a rule that is an administrator-level action. 
         Any user who has permission to create rules will be able to access data processed by the rule.
         """);
-        createIoTRule(iotClient, roleARN, ruleName);
+        createIoTRule(iotClient, roleARN, ruleName, snsAction);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -182,52 +180,52 @@ public class IotScenario {
     }
 
     private static void listIoTRules(IotClient iotClient) {
-        ListTopicRulesRequest listTopicRulesRequest = ListTopicRulesRequest.builder().build();
-        ListTopicRulesResponse listTopicRulesResponse = iotClient.listTopicRules(listTopicRulesRequest);
+        try {
+            ListTopicRulesRequest listTopicRulesRequest = ListTopicRulesRequest.builder().build();
+            ListTopicRulesResponse listTopicRulesResponse = iotClient.listTopicRules(listTopicRulesRequest);
+            System.out.println("List of IoT Rules:");
+            List<TopicRuleListItem> ruleList = listTopicRulesResponse.rules();
+            for (TopicRuleListItem rule : ruleList) {
+                System.out.println("Rule Name: " + rule.ruleName());
+                System.out.println("Rule ARN: " + rule.ruleArn());
+                System.out.println("--------------");
+            }
 
-        System.out.println("List of IoT Rules:");
-        List<TopicRuleListItem> ruleList = listTopicRulesResponse.rules();
-        for (TopicRuleListItem rule : ruleList) {
-            System.out.println("Rule Name: " + rule.ruleName());
-            System.out.println("Rule ARN: " + rule.ruleArn());
-            System.out.println("--------------");
+        } catch (IotException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
 
-    private static void createIoTRule(IotClient iotClient, String roleARN, String ruleName) {
+    private static void createIoTRule(IotClient iotClient, String roleARN, String ruleName, String action) {
         try {
             // Set the rule SQL statement
             String sql = "SELECT * FROM '" + TOPIC + "'";
-
-            // Set the action to be taken when the rule is triggered
-            String action = "arn:aws:sns:us-east-1:814548047983:scott1111";
-
-
             SnsAction action1 = SnsAction.builder()
                 .targetArn(action)
                 .roleArn(roleARN)
                 .build();
 
-            // Create the action
+            // Create the action.
             Action myAction = Action.builder()
                 .sns(action1)
                 .build();
 
-            // Create the topic rule payload
+            // Create the topic rule payload.
             TopicRulePayload topicRulePayload = TopicRulePayload.builder()
                 .sql(sql)
                 .actions(myAction)
                 .build();
 
-            // Create the topic rule request
+            // Create the topic rule request.
             CreateTopicRuleRequest topicRuleRequest = CreateTopicRuleRequest.builder()
                 .ruleName(ruleName)
                 .topicRulePayload(topicRulePayload)
                 .build();
 
-            // Create the rule
+            // Create the rule.
             iotClient.createTopicRule(topicRuleRequest);
-            System.out.println("IoT Rule created successfully. ");
+            System.out.println("IoT Rule created successfully.");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -245,38 +243,38 @@ public class IotScenario {
             // Extracting payload from response
             SdkBytes payload = getThingShadowResponse.payload();
             String payloadString = payload.asUtf8String();
-
             System.out.println("Received Shadow Data: " + payloadString);
 
         } catch (IotException e) {
-            System.err.println("Error reading from IoT Thing: " + e.getMessage());
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
-
     }
 
     public static void updateShawdowThing(IotDataPlaneClient iotPlaneClient, String thingName) {
         try {
-            // Create Thing Shadow State Document
+            // Create Thing Shadow State Document.
             String stateDocument = "{\"state\":{\"reported\":{\"temperature\":25, \"humidity\":50}}}";
             SdkBytes data= SdkBytes.fromString(stateDocument, StandardCharsets.UTF_8 );
 
-            // Update Thing Shadow Request
+            // Update Thing Shadow Request.
             UpdateThingShadowRequest updateThingShadowRequest = UpdateThingShadowRequest.builder()
                 .thingName(thingName)
                 .payload(data)
                 .build();
 
-            // Update Thing Shadow
+            // Update Thing Shadow.
             iotPlaneClient.updateThingShadow(updateThingShadowRequest);
             System.out.println("Thing Shadow updated successfully.");
 
-        } catch (Exception e) {
-            System.err.println("Error updating Thing Shadow: " + e.getMessage());
+        } catch (IotException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
 
     public static void updateThing(IotClient iotClient, String thingName) {
-        // Specify the new attribute values
+        // Specify the new attribute values.
         String newLocation = "Office";
         String newFirmwareVersion = "v2.0";
 
@@ -295,36 +293,49 @@ public class IotScenario {
             .build();
 
         try {
-            // Update the IoT Thing attributes
+            // Update the IoT Thing attributes.
             iotClient.updateThing(updateThingRequest);
             System.out.println("Thing attributes updated successfully.");
 
         } catch (IotException e) {
-            System.err.println("Error updating Thing attributes: " + e.getMessage());
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
 
     public static String describeEndpoint(IotClient iotClient) {
-       // Describe the endpoint
-    DescribeEndpointResponse endpointResponse = iotClient.describeEndpoint(
-        DescribeEndpointRequest.builder().build());
+        try {
+            DescribeEndpointResponse endpointResponse = iotClient.describeEndpoint(DescribeEndpointRequest.builder().build());
 
-    // Get the endpoint URL
-    String endpointUrl = endpointResponse.endpointAddress();
-    String exString = getValue(endpointUrl);
-    String fullEndpoint = "https://"+exString+"-ats.iot.us-east-1.amazonaws.com";
+            // Get the endpoint URL.
+            String endpointUrl = endpointResponse.endpointAddress();
+            String exString = getValue(endpointUrl);
+            String fullEndpoint = "https://"+exString+"-ats.iot.us-east-1.amazonaws.com";
 
-    System.out.println("Full Endpoint URL: "+fullEndpoint);
-    return fullEndpoint;
+           System.out.println("Full Endpoint URL: "+fullEndpoint);
+           return fullEndpoint;
+
+        } catch (IotException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        return "" ;
     }
 
     public static void detachThingPrincipal(IotClient iotClient, String thingName, String certificateArn){
-        DetachThingPrincipalRequest thingPrincipalRequest = DetachThingPrincipalRequest.builder()
-            .principal(certificateArn)
-            .thingName(thingName)
-            .build();
-        iotClient.detachThingPrincipal(thingPrincipalRequest);
-        System.out.println(certificateArn +" was successfully removed from " +thingName);
+        try {
+            DetachThingPrincipalRequest thingPrincipalRequest = DetachThingPrincipalRequest.builder()
+                .principal(certificateArn)
+                .thingName(thingName)
+                .build();
+
+            iotClient.detachThingPrincipal(thingPrincipalRequest);
+            System.out.println(certificateArn +" was successfully removed from " +thingName);
+
+        } catch (IotException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
 
     public static void deleteCertificate(IotClient iotClient, String certificateArn ) {
@@ -395,31 +406,35 @@ public class IotScenario {
     }
 
     private static void describeThing(IotClient iotClient, String thingName) {
-        // Describe the Thing to get more information.
-        DescribeThingRequest thingRequest = DescribeThingRequest.builder()
-            .thingName(thingName)
-            .build() ;
+        try {
+            // Describe the Thing to get more information.
+            DescribeThingRequest thingRequest = DescribeThingRequest.builder()
+                .thingName(thingName)
+                .build() ;
 
-        DescribeThingResponse describeResponse = iotClient.describeThing(thingRequest);
+            // Print Thing details.
+            DescribeThingResponse describeResponse = iotClient.describeThing(thingRequest);
+            System.out.println("Thing Details:");
+            System.out.println("Thing Name: " + describeResponse.thingName());
+            System.out.println("Thing ARN: " + describeResponse.thingArn());
 
-        // Print Thing details.
-        System.out.println("Thing Details:");
-        System.out.println("Thing Name: " + describeResponse.thingName());
-        System.out.println("Thing ARN: " + describeResponse.thingArn());
-        // Add more details as needed
+        } catch (IotException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
     }
 
      public static void deleteIoTThing(IotClient iotClient, String thingName) {
          try {
-             // Create Thing Request
+             // Create Thing Request.
              DeleteThingRequest deleteThingRequest = DeleteThingRequest.builder()
                  .thingName(thingName)
                  .build();
 
-             // Delete Thing Response
+             // Delete Thing Response.
              iotClient.deleteThing(deleteThingRequest);
 
-             // Print ARN of the created thing
+             // Print ARN of the created thing.
              System.out.println("Deleted Thing " + thingName);
 
          } catch (IotException e) {
@@ -450,16 +465,15 @@ public class IotScenario {
     // snippet-end:[iot.java2.create_thing.main]
 
     private static String getValue(String input) {
-
-        // Define a regular expression pattern for extracting the subdomain
+        // Define a regular expression pattern for extracting the subdomain.
         Pattern pattern = Pattern.compile("^(.*?)\\.iot\\.us-east-1\\.amazonaws\\.com");
 
-        // Match the pattern against the input string
+        // Match the pattern against the input string.
         Matcher matcher = pattern.matcher(input);
 
-        // Check if a match is found
+        // Check if a match is found.
         if (matcher.find()) {
-            // Extract the subdomain from the first capturing group
+            // Extract the subdomain from the first capturing group.
             String subdomain = matcher.group(1);
             System.out.println("Extracted subdomain: " + subdomain);
             return  subdomain ;

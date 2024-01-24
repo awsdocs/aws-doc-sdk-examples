@@ -48,6 +48,22 @@ iot_ListThings:
                 - iot.rust.list-things
   services:
     iot: {ListThings}
+iot_CreateThings:
+  title: Create &IoT; things using an &AWS; SDK
+  title_abbrev: Create a thing
+  synopsis: create an &IoT; thing.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.create_thing.main
+  services:
+    iot: {CreateThing}    
 iot_Scenario:
   title: Performing device management use cases using &IoT; SDK
   title_abbrev: Performing device management use cases

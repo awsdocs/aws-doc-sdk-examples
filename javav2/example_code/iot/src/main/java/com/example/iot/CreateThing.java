@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SendEmailMessageCC.java demonstrates how to send an email message which includes CC values.]
+//snippet-sourcedescription:[CreateThing.java demonstrates how to create an AWS IoT Thing.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:AWS IoT]
 
@@ -9,10 +9,21 @@
 
 package com.example.iot;
 
-
+// snippet-start:[iot.java2.create_thing.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iot.IotClient;
-import software.amazon.awssdk.services.iot.model.*;
+import software.amazon.awssdk.services.iot.model.CreateThingRequest;
+import software.amazon.awssdk.services.iot.model.CreateThingResponse;
+import software.amazon.awssdk.services.iot.model.IotException;
+
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ */
 public class CreateThing {
 
     public static void main(String[] args) {
@@ -23,20 +34,24 @@ public class CreateThing {
 
         // Specify the thing name
         String thingName = "foo100";
-
-        // Create Thing Request
-        CreateThingRequest createThingRequest = CreateThingRequest.builder()
-            .thingName(thingName)
-            .build();
-
-        // Create Thing Response
-        CreateThingResponse createThingResponse = iotClient.createThing(createThingRequest);
-
-        // Print ARN of the created thing
-        System.out.println("Created Thing ARN: " + createThingResponse.thingArn());
-
-        // Close the IoT client
+        createThing(iotClient, thingName);
         iotClient.close();
     }
 
+    public static void createThing(IotClient iotClient, String thingName) {
+        try {
+            CreateThingRequest createThingRequest = CreateThingRequest.builder()
+                .thingName(thingName)
+                .build();
+
+            // Create Thing Response.
+            CreateThingResponse createThingResponse = iotClient.createThing(createThingRequest);
+            System.out.println("Created Thing ARN: " + createThingResponse.thingArn());
+
+        } catch (IotException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
 }
+// snippet-start:[iot.java2.create_thing.main]

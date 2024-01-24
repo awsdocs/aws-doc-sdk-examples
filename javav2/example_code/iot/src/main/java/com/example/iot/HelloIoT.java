@@ -33,7 +33,7 @@ public class HelloIoT {
             .build();
 
         ListThingsResponse response = iotClient.listThings(thingsRequest) ;
-        List<ThingAttribute> thingList =  response.things();
+        List<ThingAttribute> thingList = response.things();
         for (ThingAttribute attribute : thingList) {
             System.out.println("Thing name: "+attribute.thingName());
             System.out.println("Thing ARN: "+attribute.thingArn());
