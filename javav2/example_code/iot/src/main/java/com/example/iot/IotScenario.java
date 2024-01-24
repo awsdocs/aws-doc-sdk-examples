@@ -443,8 +443,6 @@ public class IotScenario {
          }
      }
 
-
-    // snippet-start:[iot.java2.create_thing.main]
     public static void createIoTThing(IotClient iotClient, String thingName) {
         try {
             // Create Thing Request.
@@ -462,7 +460,6 @@ public class IotScenario {
             System.exit(1);
         }
     }
-    // snippet-end:[iot.java2.create_thing.main]
 
     private static String getValue(String input) {
         // Define a regular expression pattern for extracting the subdomain.
