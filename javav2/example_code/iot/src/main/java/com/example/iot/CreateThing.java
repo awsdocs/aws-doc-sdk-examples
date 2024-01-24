@@ -27,13 +27,27 @@ import software.amazon.awssdk.services.iot.model.IotException;
 public class CreateThing {
 
     public static void main(String[] args) {
+        final String usage = """
+
+            Usage:
+               <thingName>\s
+
+            Where:
+               thingName - The name of the AWS IoT Thing.\s
+            """;
+
+        //if (args.length != 1) {
+        //    System.out.println(usage);
+        //    System.exit(1);
+       // }
+
+        // Specify the thing name.
+        String thingName = "foo100"; // args[0];
         System.out.println("Creating a new AWS IoT");
         IotClient iotClient = IotClient.builder()
             .region(Region.US_EAST_1)
             .build();
 
-        // Specify the thing name
-        String thingName = "foo100";
         createThing(iotClient, thingName);
         iotClient.close();
     }

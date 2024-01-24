@@ -303,6 +303,7 @@ public class IotScenario {
         }
     }
 
+    // snippet-start:[iot.java2.describe.endpoint.main]
     public static String describeEndpoint(IotClient iotClient) {
         try {
             DescribeEndpointResponse endpointResponse = iotClient.describeEndpoint(DescribeEndpointRequest.builder().build());
@@ -321,6 +322,7 @@ public class IotScenario {
         }
         return "" ;
     }
+    // snippet-end:[iot.java2.describe.endpoint.main]
 
     public static void detachThingPrincipal(IotClient iotClient, String thingName, String certificateArn){
         try {
