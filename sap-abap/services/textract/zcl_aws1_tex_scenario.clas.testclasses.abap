@@ -8,15 +8,15 @@ CLASS ltc_zcl_aws1_tex_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL
 
   PRIVATE SECTION.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA ao_tex TYPE REF TO /aws1/if_tex.
     DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA ao_tex_scenario TYPE REF TO zcl_aws1_tex_scenario.
     DATA lv_found TYPE abap_bool VALUE abap_false.
 
-    METHODS: setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
-    METHODS: getting_started_with_tex FOR TESTING.
+    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS getting_started_with_tex FOR TESTING.
 
 ENDCLASS.       "ltc_Zcl_Aws1_Tex_Scenario
 
@@ -31,28 +31,19 @@ CLASS ltc_zcl_aws1_tex_scenario IMPLEMENTATION.
 
   METHOD getting_started_with_tex.
 
-    DATA lv_found TYPE abap_bool VALUE abap_false.
-    DATA lo_output TYPE REF TO /aws1/cl_texgetdocalyresponse.
-    DATA lt_blocks TYPE /aws1/cl_texblock=>tt_blocklist.
-    DATA lo_block TYPE REF TO  /aws1/cl_texblock.
-
     "Using an image from the Public Amazon Berkeley Objects Dataset.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
     CONSTANTS cv_key_name TYPE /aws1/s3_bucketname VALUE 'images/small/e0/e0feb1eb.jpg'.
 
     "Analyze document.
-    ao_tex_scenario->getting_started_with_tex(
-      EXPORTING
+    DATA(lo_output) = ao_tex_scenario->getting_started_with_tex(
         iv_s3object          = cv_key_name
-        iv_s3bucket          = cv_bucket_name
-      IMPORTING
-        oo_result           = lo_output
-      ).
+        iv_s3bucket          = cv_bucket_name ).
 
     "Validation check.
-    lv_found = abap_false.
-    lt_blocks = lo_output->get_blocks( ).
-    LOOP AT lt_blocks INTO lo_block.
+    DATA(lv_found) = abap_false.
+    DATA(lt_blocks) = lo_output->get_blocks( ).
+    LOOP AT lt_blocks INTO DATA(lo_block).
       IF lo_block->get_text( ) = 'INGREDIENTS: POWDERED SUGAR* (CANE SUGAR,'.
         lv_found = abap_true.
       ENDIF.
@@ -60,8 +51,7 @@ CLASS ltc_zcl_aws1_tex_scenario IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Analyze document failed|
-    ).
+      msg = |Analyze document failed| ).
 
   ENDMETHOD.
 ENDCLASS.

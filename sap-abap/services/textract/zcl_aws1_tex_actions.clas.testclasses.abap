@@ -16,11 +16,11 @@ CLASS ltc_zcl_aws1_tex_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL H
     DATA ao_tex_actions TYPE REF TO zcl_aws1_tex_actions.
 
     METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
-    METHODS: analyze_document FOR TESTING.
-    METHODS: detect_document_text FOR TESTING.
-    METHODS: start_document_analysis FOR TESTING.
-    METHODS: start_document_text_detection FOR TESTING.
-    METHODS: get_document_analysis FOR TESTING.
+    METHODS analyze_document FOR TESTING.
+    METHODS detect_document_text FOR TESTING.
+    METHODS start_document_analysis FOR TESTING.
+    METHODS start_document_text_detection FOR TESTING.
+    METHODS get_document_analysis FOR TESTING.
 
 ENDCLASS.       "ltc_Zcl_Aws1_Tex_Actions
 
@@ -29,17 +29,20 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
   METHOD setup.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
-    ao_tex = /aws1/cl_tex_factory=>create( ao_session ).
+
+    ao_tex = /aws1/cl_tex_factory=>create(
+      io_session = ao_session
+      iv_region = 'us-east-1' ).
     ao_s3 = /aws1/cl_s3_factory=>create( ao_session ).
     ao_tex_actions = NEW zcl_aws1_tex_actions( ).
   ENDMETHOD.
 
   METHOD analyze_document.
 
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_output TYPE REF TO /aws1/cl_texanalyzedocresponse.
     DATA lt_blocks TYPE /aws1/cl_texblock=>tt_blocklist.
-    DATA lo_block TYPE REF TO  /aws1/cl_texblock.
+    DATA lo_block TYPE REF TO /aws1/cl_texblock.
 
     "Using an image from the Public Amazon Berkeley Objects Dataset.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
@@ -51,11 +54,10 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
         iv_s3object          = cv_key_name
         iv_s3bucket          = cv_bucket_name
       IMPORTING
-        oo_result           = lo_output
-      ).
+        oo_result           = lo_output ).
 
     "Validation check.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     lt_blocks = lo_output->get_blocks( ).
 
     LOOP AT lt_blocks INTO lo_block.
@@ -66,18 +68,17 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Analyze document failed|
-    ).
+      msg = |Analyze document failed| ).
 
   ENDMETHOD.
 
 
   METHOD detect_document_text.
 
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_output TYPE REF TO /aws1/cl_texdetectdoctextrsp.
     DATA lt_blocks TYPE /aws1/cl_texblock=>tt_blocklist.
-    DATA lo_block TYPE REF TO  /aws1/cl_texblock.
+    DATA lo_block TYPE REF TO /aws1/cl_texblock.
 
     "Using an image from the Public Amazon Berkeley Objects Dataset.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
@@ -89,11 +90,10 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
         iv_s3object          = cv_key_name
         iv_s3bucket          = cv_bucket_name
       IMPORTING
-        oo_result           = lo_output
-      ).
+        oo_result           = lo_output ).
 
     "Validation check.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     lt_blocks = lo_output->get_blocks( ).
 
     LOOP AT lt_blocks INTO lo_block.
@@ -104,20 +104,19 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Analyze document failed|
-    ).
+      msg = |Analyze document failed| ).
 
   ENDMETHOD.
 
   METHOD start_document_analysis.
 
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_output TYPE REF TO /aws1/cl_texstartdocalyrsp.
     DATA lv_jobid TYPE /aws1/texjobid.
     DATA lo_document_analysis_output TYPE REF TO /aws1/cl_texgetdocalyresponse.
     DATA lo_jobstatus TYPE /aws1/texjobstatus.
     DATA lt_blocks TYPE /aws1/cl_texblock=>tt_blocklist.
-    DATA lo_block TYPE REF TO  /aws1/cl_texblock.
+    DATA lo_block TYPE REF TO /aws1/cl_texblock.
 
     "Using an image from the Public Amazon Berkeley Objects Dataset.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
@@ -129,8 +128,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
         iv_s3object          = cv_key_name
         iv_s3bucket          = cv_bucket_name
       IMPORTING
-        oo_result           = lo_output
-      ).
+        oo_result           = lo_output ).
 
     "Wait for job to complete.
     lv_jobid = lo_output->get_jobid( ).
@@ -145,7 +143,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     ENDWHILE.
 
     "Validation check.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     lt_blocks = lo_document_analysis_output->get_blocks( ).
     LOOP AT lt_blocks INTO lo_block.
       IF lo_block->get_text( ) = 'INGREDIENTS: POWDERED SUGAR* (CANE SUGAR,'.
@@ -155,20 +153,19 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Analyze document failed|
-    ).
+      msg = |Analyze document failed| ).
 
   ENDMETHOD.
 
   METHOD start_document_text_detection.
 
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_output TYPE REF TO /aws1/cl_texstartdoctextdetrsp.
     DATA lv_jobid TYPE /aws1/texjobid.
     DATA lo_text_detection_output TYPE REF TO /aws1/cl_texgetdoctxtdetectrsp.
     DATA lo_jobstatus TYPE /aws1/texjobstatus.
     DATA lt_blocks TYPE /aws1/cl_texblock=>tt_blocklist.
-    DATA lo_block TYPE REF TO  /aws1/cl_texblock.
+    DATA lo_block TYPE REF TO /aws1/cl_texblock.
 
     "Using an image from the Public Amazon Berkeley Objects Dataset.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
@@ -180,8 +177,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
         iv_s3object          = cv_key_name
         iv_s3bucket          = cv_bucket_name
       IMPORTING
-        oo_result           = lo_output
-      ).
+        oo_result           = lo_output ).
 
     lv_jobid = lo_output->get_jobid( ).
 
@@ -196,7 +192,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     ENDWHILE.
 
     "Validation check.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     lt_blocks = lo_text_detection_output->get_blocks( ).
     LOOP AT lt_blocks INTO lo_block.
       IF lo_block->get_text( ) = 'INGREDIENTS: POWDERED SUGAR* (CANE SUGAR,'.
@@ -206,20 +202,19 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Analyze document failed|
-    ).
+      msg = |Analyze document failed| ).
 
   ENDMETHOD.
 
   METHOD get_document_analysis.
 
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_output TYPE REF TO /aws1/cl_texstartdocalyrsp.
     DATA lv_jobid TYPE /aws1/texjobid.
     DATA lo_document_analysis_output TYPE REF TO /aws1/cl_texgetdocalyresponse.
     DATA lo_jobstatus TYPE /aws1/texjobstatus.
     DATA lt_blocks TYPE /aws1/cl_texblock=>tt_blocklist.
-    DATA lo_block TYPE REF TO  /aws1/cl_texblock.
+    DATA lo_block TYPE REF TO /aws1/cl_texblock.
     DATA lo_documentlocation TYPE REF TO /aws1/cl_texdocumentlocation.
     DATA lo_s3object TYPE REF TO /aws1/cl_texs3object.
     DATA lo_featuretypes TYPE REF TO /aws1/cl_texfeaturetypes_w.
@@ -229,33 +224,23 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'amazon-berkeley-objects'.
     CONSTANTS cv_key_name TYPE /aws1/s3_bucketname VALUE 'images/small/e0/e0feb1eb.jpg'.
 
-    CREATE OBJECT lo_featuretypes
-      EXPORTING
-        iv_value = 'FORMS'.
+    lo_featuretypes = NEW #( iv_value = 'FORMS' ).
     INSERT lo_featuretypes INTO TABLE lt_featuretypes.
 
-    CREATE OBJECT lo_featuretypes
-      EXPORTING
-        iv_value = 'TABLES'.
+    lo_featuretypes = NEW #( iv_value = 'TABLES' ).
     INSERT lo_featuretypes INTO TABLE lt_featuretypes.
 
     "Create a ABAP object for the Amazon Simple Storage Service (Amazon S3) object.
-    CREATE OBJECT lo_s3object
-      EXPORTING
-        iv_bucket = cv_bucket_name
-        iv_name   = cv_key_name.
+    lo_s3object = NEW #( iv_bucket = cv_bucket_name
+                         iv_name = cv_key_name ).
 
     "Create a ABAP object for the document.
-    CREATE OBJECT lo_documentlocation
-      EXPORTING
-        io_s3object = lo_s3object.
+    lo_documentlocation = NEW #( io_s3object = lo_s3object ).
 
     "Start document analysis.
     lo_output = ao_tex->startdocumentanalysis(
-      EXPORTING
-        io_documentlocation     = lo_documentlocation
-        it_featuretypes         = lt_featuretypes
-      ).
+      io_documentlocation     = lo_documentlocation
+        it_featuretypes         = lt_featuretypes ).
 
     "Get job ID.
     lv_jobid = lo_output->get_jobid( ).
@@ -271,7 +256,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     ENDWHILE.
 
     "Validation check.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     lt_blocks = lo_document_analysis_output->get_blocks( ).
     LOOP AT lt_blocks INTO lo_block.
       IF lo_block->get_text( ) = 'INGREDIENTS: POWDERED SUGAR* (CANE SUGAR,'.
@@ -281,8 +266,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Analyze document failed|
-    ).
+      msg = |Analyze document failed| ).
 
   ENDMETHOD.
 
