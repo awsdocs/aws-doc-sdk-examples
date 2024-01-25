@@ -72,7 +72,7 @@ public class CreateRule {
                 System.out.println("IoT Rule created successfully. ");
 
             } catch (IotException e) {
-                System.err.println(e.getMessage());
+                System.err.println(e.awsErrorDetails().errorMessage());
                 System.exit(1);
             }
         }

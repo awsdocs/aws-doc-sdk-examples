@@ -2,12 +2,10 @@ package com.example.iot;
 
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.iot.IotClient;
-import software.amazon.awssdk.services.iot.model.*;
+import software.amazon.awssdk.services.iot.model.IotException;
 import software.amazon.awssdk.services.iotdataplane.IotDataPlaneClient;
 import software.amazon.awssdk.services.iotdataplane.model.GetThingShadowRequest;
 import software.amazon.awssdk.services.iotdataplane.model.GetThingShadowResponse;
-
 import java.net.URI;
 
 public class IoTThingReader {

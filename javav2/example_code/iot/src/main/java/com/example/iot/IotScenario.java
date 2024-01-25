@@ -73,7 +73,7 @@ public class IotScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     private static final String TOPIC = "your-iot-topic";
     public static void main(String[] args) {
-        final String    usage =
+        final String usage =
             "Usage:\n" +
                 "    <thingName>\n\n" +
                 "Where:\n" +
@@ -227,8 +227,9 @@ public class IotScenario {
             iotClient.createTopicRule(topicRuleRequest);
             System.out.println("IoT Rule created successfully.");
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IotException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 
@@ -475,7 +476,7 @@ public class IotScenario {
             // Extract the subdomain from the first capturing group.
             String subdomain = matcher.group(1);
             System.out.println("Extracted subdomain: " + subdomain);
-            return  subdomain ;
+            return subdomain ;
         } else {
             System.out.println("No match found");
         }

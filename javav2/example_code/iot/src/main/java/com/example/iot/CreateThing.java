@@ -42,7 +42,7 @@ public class CreateThing {
        // }
 
         // Specify the thing name.
-        String thingName = "foo100"; // args[0];
+        String thingName = "foo200"; // args[0];
         System.out.println("Creating a new AWS IoT");
         IotClient iotClient = IotClient.builder()
             .region(Region.US_EAST_1)

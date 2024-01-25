@@ -72,6 +72,22 @@ iot_CreateThings:
                 - iot.java2.create.thing.main
   services:
     iot: {CreateThing}   
+iot_UpdateShawdow:
+  title: Updates the shadow for the specified thing using an &AWS; SDK
+  title_abbrev: Updates the shadow
+  synopsis: updates the shadow for an &IoT; thing.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.shadow.writer.main
+  services:
+    iot: {updateThingShadow}       
 iot_Scenario:
   title: Performing device management use cases using &IoT; SDK
   title_abbrev: Performing device management use cases
