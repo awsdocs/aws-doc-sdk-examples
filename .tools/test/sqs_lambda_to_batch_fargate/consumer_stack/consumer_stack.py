@@ -75,9 +75,7 @@ class ConsumerStack(Stack):
                 )
             },
             managed_policies=[
-                iam.ManagedPolicy.from_aws_managed_policy_name(
-                    "job-function/SystemAdministrator"
-                ),
+                iam.ManagedPolicy.from_aws_managed_policy_name("AdministratorAccess"),
                 iam.ManagedPolicy.from_aws_managed_policy_name(
                     "service-role/AmazonECSTaskExecutionRolePolicy"
                 ),
@@ -236,7 +234,11 @@ class ConsumerStack(Stack):
         # Update bucket permissions to allow Lambda
         statement = iam.PolicyStatement()
         statement.add_actions(
-            "s3:PutObject", "s3:PutObjectAcl", "s3:DeleteObject", "s3:ListBucket", "s3:GetObject"
+            "s3:PutObject",
+            "s3:PutObjectAcl",
+            "s3:DeleteObject",
+            "s3:ListBucket",
+            "s3:GetObject",
         )
         statement.add_resources(f"{bucket.bucket_arn}/*")
         statement.add_resources(bucket.bucket_arn)
@@ -303,6 +305,7 @@ class ConsumerStack(Stack):
             handler="export_logs.handler",
             role=execution_role,
             code=_lambda.Code.from_asset("lambda"),
+            timeout=Duration.seconds(60),
             environment={
                 "TOOL_NAME": tool_name,
                 "LOCAL_BUCKET_NAME": bucket.bucket_name,

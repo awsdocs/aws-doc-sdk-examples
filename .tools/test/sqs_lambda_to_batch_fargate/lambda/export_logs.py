@@ -14,9 +14,9 @@ log_group_name = "/aws/batch/job"
 s3_client = boto3.client("s3")
 logs_client = boto3.client("logs")
 
-tool_name = os.environ['TOOL_NAME']
+tool_name = os.environ["TOOL_NAME"]
 admin_bucket_name = os.environ["ADMIN_BUCKET_NAME"]
-local_bucket_name = os.environ['LOCAL_BUCKET_NAME']
+local_bucket_name = os.environ["LOCAL_BUCKET_NAME"]
 
 
 def handler(event, context):
@@ -86,9 +86,12 @@ def get_and_put_logs(job_detail, bucket):
         objects = response.get("Contents", [])
         for obj in objects:
             key = obj["Key"]
-            if key.endswith(f"SUCCEEDED") or key.endswith(f"FAILED") or key.endswith(
-                    f"SUCCEEDED-{tool_name}.log") or key.endswith(
-                    f"FAILED-{tool_name}.log"):
+            if (
+                key.endswith(f"SUCCEEDED")
+                or key.endswith(f"FAILED")
+                or key.endswith(f"SUCCEEDED-{tool_name}.log")
+                or key.endswith(f"FAILED-{tool_name}.log")
+            ):
                 s3_client.delete_object(Bucket=bucket, Key=key)
                 logger.info(f"Deleted: {key}")
 
@@ -114,10 +117,8 @@ def get_and_put_logs(job_detail, bucket):
         logger.error(f"Error writing logs to S3:\n{e}")
         raise
 
-    logger.info(
-        f"Log data saved successfully: {tool_name}/{log_file_name}"
-    )
-    return response
+    logger.info(f"Log data saved successfully: {tool_name}/{log_file_name}")
+    # return response
 
 
 def put_status(status, bucket):
@@ -127,11 +128,11 @@ def put_status(status, bucket):
     :param bucket:
     :return:
     """
-    key = 'consolidated-results.csv'
+    key = "consolidated-results.csv"
     try:
         # get CSV from s3
         response = s3_client.get_object(Bucket=bucket, Key=key)
-        data = response['Body'].read().decode('utf-8')
+        data = response["Body"].read().decode("utf-8")
     except Exception as e:
         logger.error(f"Error reading CSV from S3:\n{e}")
         raise
