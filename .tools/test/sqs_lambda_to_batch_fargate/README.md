@@ -18,11 +18,11 @@ Specifically, an Amazon Simple Queue Service (Amazon SQS) topic consumes message
 * AWS access key and secret for AWS user with permissions to create the preceding resources
 
 ### Environment variables
-Before continuing, save your language name as an environment variable called `LANGUAGE_NAME`.
+Before continuing, save your language name as an environment variable called `TOOL_NAME`.
 
 For example, if your language is Java, use:
 ```
-export LANGUAGE_NAME=javav2
+export TOOL_NAME=javav2
 ```
 ---
 

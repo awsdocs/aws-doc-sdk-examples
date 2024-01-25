@@ -20,24 +20,24 @@ from aws_cdk import aws_sqs as sqs
 from constructs import Construct
 
 # Raises KeyError if environment variable doesn't exist.
-language_name = os.environ["LANGUAGE_NAME"]
+tool_name = os.environ["TOOL_NAME"]
 
 
 class ConsumerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
         resource_config = self.get_yaml_config("../config/resources.yaml")
-        topic_name = resource_config["topic_name"]
-        producer_bucket_name = resource_config["bucket_name"]
+        admin_topic_name = resource_config["topic_name"]
+        admin_bucket_name = resource_config["bucket_name"]
         self.aws_region = resource_config["aws_region"]
-        self.producer_account_id = resource_config["admin_acct"]
-        sns_topic = self.init_get_topic(topic_name)
-        sqs_queue = sqs.Queue(self, f"BatchJobQueue-{language_name}")
+        self.admin_account_id = resource_config["admin_acct"]
+        sns_topic = self.init_get_topic(admin_topic_name)
+        sqs_queue = sqs.Queue(self, f"BatchJobQueue-{tool_name}")
         self.init_subscribe_sns(sqs_queue, sns_topic)
         job_definition, job_queue = self.init_batch_fargte()
         batch_function = self.init_batch_lambda(job_queue, job_definition)
         self.init_sqs_lambda_integration(batch_function, sqs_queue)
-        self.init_log_function(producer_bucket_name)
+        self.init_log_function(admin_bucket_name)
 
     def get_yaml_config(self, filepath):
         with open(filepath, "r") as file:
@@ -46,7 +46,7 @@ class ConsumerStack(Stack):
 
     def init_get_topic(self, topic_name):
         external_sns_topic_arn = (
-            f"arn:aws:sns:{self.aws_region}:{self.producer_account_id}:{topic_name}"
+            f"arn:aws:sns:{self.aws_region}:{self.admin_account_id}:{topic_name}"
         )
         topic = sns.Topic.from_topic_arn(
             self, "ExternalSNSTopic", external_sns_topic_arn
@@ -56,7 +56,7 @@ class ConsumerStack(Stack):
     def init_batch_fargte(self):
         batch_execution_role = iam.Role(
             self,
-            f"BatchExecutionRole-{language_name}",
+            f"BatchExecutionRole-{tool_name}",
             assumed_by=iam.ServicePrincipal("ecs-tasks.amazonaws.com"),
             inline_policies={
                 "BatchLoggingPolicy": iam.PolicyDocument(
@@ -75,9 +75,7 @@ class ConsumerStack(Stack):
                 )
             },
             managed_policies=[
-                iam.ManagedPolicy.from_aws_managed_policy_name(
-                    "job-function/SystemAdministrator"
-                ),
+                iam.ManagedPolicy.from_aws_managed_policy_name("AdministratorAccess"),
                 iam.ManagedPolicy.from_aws_managed_policy_name(
                     "service-role/AmazonECSTaskExecutionRolePolicy"
                 ),
@@ -86,20 +84,20 @@ class ConsumerStack(Stack):
 
         fargate_environment = batch_alpha.FargateComputeEnvironment(
             self,
-            f"FargateEnv-{language_name}",
+            f"FargateEnv-{tool_name}",
             vpc=ec2.Vpc.from_lookup(self, "Vpc", is_default=True),
         )
 
         container_image = ecs.EcrImage.from_registry(
-            f"public.ecr.aws/b4v4v1s0/{language_name}:latest"
+            f"public.ecr.aws/b4v4v1s0/{tool_name}:latest"
         )
 
         job_definition = batch_alpha.EcsJobDefinition(
             self,
-            f"JobDefinition-{language_name}",
+            f"JobDefinition-{tool_name}",
             container=batch_alpha.EcsFargateContainerDefinition(
                 self,
-                f"ContainerDefinition-{language_name}",
+                f"ContainerDefinition-{tool_name}",
                 image=container_image,
                 execution_role=batch_execution_role,
                 job_role=batch_execution_role,
@@ -110,7 +108,7 @@ class ConsumerStack(Stack):
             timeout=Duration.minutes(500),
         )
 
-        job_queue = batch_alpha.JobQueue(self, f"JobQueue-{language_name}", priority=1)
+        job_queue = batch_alpha.JobQueue(self, f"JobQueue-{tool_name}", priority=1)
 
         job_queue.add_compute_environment(fargate_environment, 1)
 
@@ -118,17 +116,17 @@ class ConsumerStack(Stack):
 
     def init_sqs_queue(self):
         # Define the Amazon Simple Queue Service (Amazon SQS) queue in this account.
-        sqs_queue = sqs.Queue(self, f"BatchJobQueue-{language_name}")
+        sqs_queue = sqs.Queue(self, f"BatchJobQueue-{tool_name}")
         return sqs_queue
 
     def init_subscribe_sns(self, sqs_queue, sns_topic):
         # Create an AWS Identity and Access Management (IAM) role for the SNS topic to send messages to the SQS queue.
         sns_topic_role = iam.Role(
             self,
-            f"SNSTopicRole-{language_name}",
+            f"SNSTopicRole-{tool_name}",
             assumed_by=iam.ServicePrincipal("sns.amazonaws.com"),
             description="Allows the SNS topic to send messages to the SQS queue in this account",
-            role_name=f"SNSTopicRole-{language_name}",
+            role_name=f"SNSTopicRole-{tool_name}",
         )
 
         # Policy to allow existing SNS topic to publish to new SQS queue.
@@ -150,7 +148,7 @@ class ConsumerStack(Stack):
         statement = iam.PolicyStatement()
         statement.add_resources(sqs_queue.queue_arn)
         statement.add_actions("sqs:*")
-        statement.add_arn_principal(f"arn:aws:iam::{self.producer_account_id}:root")
+        statement.add_arn_principal(f"arn:aws:iam::{self.admin_account_id}:root")
         statement.add_arn_principal(f"arn:aws:iam::{Aws.ACCOUNT_ID}:root")
         statement.add_condition("ArnLike", {"aws:SourceArn": sns_topic.topic_arn})
         sqs_queue.add_to_resource_policy(statement)
@@ -159,10 +157,10 @@ class ConsumerStack(Stack):
         # Execution role for AWS Lambda function to use.
         execution_role = iam.Role(
             self,
-            f"BatchLambdaExecutionRole-{language_name}",
+            f"BatchLambdaExecutionRole-{tool_name}",
             assumed_by=iam.ServicePrincipal("lambda.amazonaws.com"),
             description="Allows Lambda function to submit jobs to Batch",
-            role_name=f"BatchLambdaExecutionRole-{language_name}",
+            role_name=f"BatchLambdaExecutionRole-{tool_name}",
         )
 
         execution_role.add_to_policy(
@@ -179,16 +177,16 @@ class ConsumerStack(Stack):
         # Define the Lambda function.
         function = _lambda.Function(
             self,
-            f"SubmitBatchJob-{language_name}",
+            f"SubmitBatchJob-{tool_name}",
             runtime=_lambda.Runtime.PYTHON_3_8,
             handler="submit_job.handler",
             role=execution_role,
             code=_lambda.Code.from_asset("lambda"),
             environment={
-                "LANGUAGE_NAME": language_name,
+                "LANGUAGE_NAME": tool_name,
                 "JOB_QUEUE": job_queue.job_queue_arn,
                 "JOB_DEFINITION": job_definition.job_definition_arn,
-                "JOB_NAME": f"job-{language_name}",
+                "JOB_NAME": f"job-{tool_name}",
             },
         )
         return function
@@ -215,7 +213,7 @@ class ConsumerStack(Stack):
             )
         )
 
-    def init_log_function(self, producer_bucket_name):
+    def init_log_function(self, admin_bucket_name):
         # S3 Bucket to store logs within this account.
         bucket = s3.Bucket(
             self,
@@ -233,9 +231,14 @@ class ConsumerStack(Stack):
             role_name=f"LogsLambdaExecutionRole",
         )
 
+        # Update bucket permissions to allow Lambda
         statement = iam.PolicyStatement()
         statement.add_actions(
-            "s3:PutObject", "s3:PutObjectAcl", "s3:DeleteObject", "s3:ListBucket"
+            "s3:PutObject",
+            "s3:PutObjectAcl",
+            "s3:DeleteObject",
+            "s3:ListBucket",
+            "s3:GetObject",
         )
         statement.add_resources(f"{bucket.bucket_arn}/*")
         statement.add_resources(bucket.bucket_arn)
@@ -252,7 +255,7 @@ class ConsumerStack(Stack):
             )
         )
 
-        # Grants ability to get logs from CloudWatch.
+        # Attach custom policy to allow Lambda to get logs from CloudWatch.
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
                 actions=["logs:GetLogEvents", "logs:DescribeLogStreams"],
@@ -260,7 +263,7 @@ class ConsumerStack(Stack):
             )
         )
 
-        # Grants ability to get and put to local logs bucket.
+        # Attach custom policy to allow Lambda to get and put to local logs bucket.
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
                 actions=[
@@ -277,7 +280,7 @@ class ConsumerStack(Stack):
             )
         )
 
-        # Grants ability to write to cross-account log bucket.
+        # Attach custom policy to allow Lambda to get and put to admin logs bucket.
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
                 actions=[
@@ -288,8 +291,8 @@ class ConsumerStack(Stack):
                     "s3:DeleteObject",
                 ],
                 resources=[
-                    f"arn:aws:s3:::{producer_bucket_name}/*",
-                    f"arn:aws:s3:::{producer_bucket_name}",
+                    f"arn:aws:s3:::{admin_bucket_name}/*",
+                    f"arn:aws:s3:::{admin_bucket_name}",
                 ],
             )
         )
@@ -302,10 +305,11 @@ class ConsumerStack(Stack):
             handler="export_logs.handler",
             role=execution_role,
             code=_lambda.Code.from_asset("lambda"),
+            timeout=Duration.seconds(60),
             environment={
-                "LANGUAGE_NAME": language_name,
-                "BUCKET_NAME": bucket.bucket_name,
-                "PRODUCER_BUCKET_NAME": f"{producer_bucket_name}",
+                "TOOL_NAME": tool_name,
+                "LOCAL_BUCKET_NAME": bucket.bucket_name,
+                "ADMIN_BUCKET_NAME": f"{admin_bucket_name}",
             },
         )
 
