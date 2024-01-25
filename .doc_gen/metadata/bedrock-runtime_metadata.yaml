@@ -60,6 +60,23 @@ bedrock-runtime_InvokeAmazonTitanImageGeneratorForImageGeneration:
   services:
     bedrock-runtime: {InvokeModel}
 
+bedrock-runtime_InvokeAmazonTitanImageGeneratorForTextGeneration:
+  title: Invoke the Amazon Titan Text G1 model on &BR; for text generation
+  title_abbrev: Text generation with Amazon Titan Text G1
+  synopsis: invoke the Amazon Titan Text G1 model on &BR; for text generation.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the Amazon Titan Text G1 foundation model to generate text.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-runtime/actions/invoke-titan-text-express-v1.js
+  services:
+    bedrock-runtime: {InvokeModel}
+
 bedrock-runtime_InvokeStableDiffusionForImageGeneration:
   title: Invoke the Stability.ai Stable Diffusion XL model on &BR; for image generation
   title_abbrev: Image generation with Stability.ai Stable Diffusion XL
@@ -257,6 +274,14 @@ bedrock-runtime_InvokeLlama2:
             - description: Invoke the Meta Llama 2 Chat foundation model to generate text.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_llama2.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the Meta Llama 2 Chat foundation model to generate text.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-runtime/actions/invoke-llama2.js
     PHP:
       versions:
         - sdk_version: 3
