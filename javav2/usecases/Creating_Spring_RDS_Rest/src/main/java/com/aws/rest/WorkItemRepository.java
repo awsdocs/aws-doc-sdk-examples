@@ -76,7 +76,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
 
         String sql = "INSERT INTO work (idwork, username, date, description, guide, status, archive) VALUES" +
             "(:idwork, :username, :date, :description, :guide, :status, :archive);";
-        List<SqlParameter> paremeters = List.of(
+        List<SqlParameter> parameters = List.of(
             param("idwork", workId),
             param("username", name),
             param("date", sqlDate.toString()),
@@ -86,7 +86,7 @@ public class WorkItemRepository implements CrudRepository<WorkItem, String> {
             param("archive", archived)
         );
 
-        ExecuteStatementResponse result = execute(sql, paremeters);
+        ExecuteStatementResponse result = execute(sql, parameters);
         System.out.println(result.toString());
         return (S) findById(workId).get();
     }
