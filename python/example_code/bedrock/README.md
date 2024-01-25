@@ -43,6 +43,12 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.examples.start-->
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Build and orchestrate generative AI applications with AWS Step Functions](https://github.com/aws-samples/amazon-bedrock-serverless-prompt-chaining)
 <!--custom.examples.end-->
 
 ## Run the examples

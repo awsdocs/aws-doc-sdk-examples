@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd" [
+        <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+        %phrases-shared;
+        ]>
+<block>
+    <para>
+        The Amazon Bedrock Serverless Prompt Chaining scenario demonstrates how
+        <ulink url="https://aws.amazon.com/step-functions/">AWS Step Functions</ulink>,
+        <ulink url="https://aws.amazon.com/bedrock/">Amazon Bedrock</ulink>,
+        and <ulink url="https://aws.amazon.com/bedrock/agents/">Amazon Bedrock Agents</ulink>
+        can be used to build and orchestrate complex, serverless, and highly scalable generative AI applications.
+        It contains the following working examples:
+    </para>
+    <itemizedlist>
+        <listitem>
+            <para>
+                Write an analysis of a given novel for a literature blog. This example illustrates a simple, sequential chain of prompts.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                Generate a short story about a given topic. This example illustrates how the AI can iteratively process a list of items that it previously generated.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                Create an itinerary for a weekend vacation to a given destination. This example illustrates how to parallelize multiple distinct prompts.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                Pitch movie ideas to a human user acting as a movie producer. This example illustrates how to parallelize the same prompt with different inference parameters, how to backtrack to a previous step in the chain, and how to include human input as part of the workflow.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                Plan a meal based on ingredients the user has at hand. This example illustrates how prompt chains can incorporate two distinct AI conversations, with two AI personas engaging in a debate with each other to improve the final outcome.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                Find and summarize today's highest trending GitHub repository. This example illustrates chaining multiple AI agents that interact with external APIs.
+            </para>
+        </listitem>
+    </itemizedlist>
+    <para>
+        For complete source code and instructions to set up and run, see the full project on <ulink url="https://github.com/aws-samples/amazon-bedrock-serverless-prompt-chaining">GitHub</ulink>.
+    </para>
+</block>
