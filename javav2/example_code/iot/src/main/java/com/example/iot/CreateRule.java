@@ -1,5 +1,16 @@
+//snippet-sourcedescription:[CreateRule.java demonstrates how to create an AWS IoT rule.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-keyword:AWS IoT]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
+
 package com.example.iot;
 
+// snippet-start:[iot.java2.create.rule.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iot.IotClient;
 import software.amazon.awssdk.services.iot.model.Action;
@@ -22,19 +33,20 @@ public class CreateRule {
         final String usage = """
 
             Usage:
-               <thingName>
+               <roleARN> <ruleName> <action>
 
             Where:
-               thingName - The name of the AWS IoT Thing.\s
+               roleARN - The ARN of the role that assumes a SNS role.
+               ruleName - The name of the AWS IoT rule. 
+               action - The action. In this example, a SNS topic ARN (for example, arn:aws:sns:us-east-1:xxxxx047983:[topic name]).\s
             """;
 
         String roleARN = "arn:aws:iam::814548047983:role/AssumeRoleSNS";
-        String ruleName = "YourRuleName";
+        String ruleName = "YourRuleName11";
         String action = "arn:aws:sns:us-east-1:814548047983:scott1111";
         IotClient iotClient = IotClient.builder()
             .region(Region.US_EAST_1)
             .build();
-
 
         createTopicRule(iotClient, roleARN, ruleName, action);
     }
@@ -77,3 +89,4 @@ public class CreateRule {
             }
         }
     }
+// snippet-end:[iot.java2.create.rule.main]

@@ -87,9 +87,9 @@ public class IotScenario {
         //  }
 
         // Specify the thing name
-        String thingName = "foo125";
+        String thingName = "foo127";
         String roleARN = "arn:aws:iam::814548047983:role/AssumeRoleSNS";
-        String ruleName = "YourRuleName";
+        String ruleName = "YourRuleName27";
         String snsAction = "arn:aws:sns:us-east-1:814548047983:scott1111";
 
         IotClient iotClient = IotClient.builder()
