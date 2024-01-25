@@ -1017,7 +1017,7 @@ medical-imaging_Scenario_ImageSetsAndFrames:
           github: cpp/example_code/medical-imaging/imaging_set_and_frames_workflow
           github_note_at_bottom: true
           excerpts:
-            - description: Create a &CFN; stack with the necessary resources.
+            - description: Create an &CFN; stack with the necessary resources.
               snippet_tags:
                 - cpp.example_code.medical-imaging.image-sets-workflow.createstack
             - description: Copy DICOM files to the &S3; import bucket.
@@ -1036,7 +1036,7 @@ medical-imaging_Scenario_ImageSetsAndFrames:
               snippet_tags:
                 - cpp.example_code.medical-imaging.image-sets-workflow.get_image_frames
                 - cpp.example_code.medical_imaging.GetImageSetMetadata
-            - description: Download decode and verify image frames.
+            - description: Download, decode and verify image frames.
               snippet_tags:
                 - cpp.example_code.medical-imaging.image-sets-workflow.download_frames
                 - cpp.example_code.medical-imaging.image-sets-workflow.decode_and_check
