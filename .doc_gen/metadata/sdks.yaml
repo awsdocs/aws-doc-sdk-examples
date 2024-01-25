@@ -143,6 +143,21 @@ PHP:
         uid: "SdkForPHPV3"
         name: "&guide-php-api;"
   guide: "&guide-php-dev;"
+PowerShell:
+  property: powershell
+  sdk:
+    4:
+      long: "&TWPALLlong;"
+      short: "&TWPALL;"
+      expanded:
+        long: "AWS Tools for PowerShell"
+        short: "Tools for PowerShell"
+      guide: "powershell/latest/userguide/pstools-welcome.html"
+      api_ref:
+        uid: "ToolsForPowerShell4"
+        name: "&guide-twp-ref;"
+        link_template: "https://docs.aws.amazon.com/powershell/latest/reference"
+  guide: "&guide-twp-ug;"
 Python:
   property: python
   sdk:
