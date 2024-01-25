@@ -6,9 +6,9 @@
 <block>
     <para>
         The &BRlong; Serverless Prompt Chaining scenario demonstrates how
-        <ulink url="https://aws.amazon.com/step-functions/">&SFNLong;</ulink>,
-        <ulink url="https://aws.amazon.com/bedrock/">&BRlong;k</ulink>,
-        and <ulink url="https://aws.amazon.com/bedrock/agents/">&BRAlong;</ulink>
+        <ulink  type="documentation"  url="https://aws.amazon.com/step-functions/">&SFNlong;</ulink>,
+        <ulink  type="documentation"  url="https://aws.amazon.com/bedrock/">&BRlong;</ulink>,
+        and <ulink  type="documentation"  url="https://aws.amazon.com/bedrock/agents/">Agents for &BRlong;</ulink>
         can be used to build and orchestrate complex, serverless, and highly scalable generative AI applications.
         It contains the following working examples:
     </para>
