@@ -52,7 +52,6 @@ public class IoTThingReader {
             GetThingShadowRequest getThingShadowRequest = GetThingShadowRequest.builder()
                 .thingName(thingName)
                 .build();
-
             GetThingShadowResponse getThingShadowResponse = iotPlaneClient.getThingShadow(getThingShadowRequest);
 
             // Extracting payload from response.

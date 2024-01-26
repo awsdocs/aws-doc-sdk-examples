@@ -105,9 +105,9 @@ iot_GetShawdow:
   services:
     iot: {getThingShadow}       
 iot_UpdateShawdow:
-  title: Updates the shadow for the specified thing using an &AWS; SDK
-  title_abbrev: Updates the shadow
-  synopsis: updates the shadow for an &IoT; thing.
+  title: Update the shadow for the specified thing using an &AWS; SDK
+  title_abbrev: Update the shadow
+  synopsis: update the shadow for an &IoT; thing.
   category:
   languages:
     Java:
