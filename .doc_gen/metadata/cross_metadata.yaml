@@ -791,7 +791,3 @@ cross_ServerlessPromptChaining:
   service_main: bedrock
   services:
     bedrock:
-    bedrock-runtime:
-    bedrock-agent:
-    bedrock-agent-runtime:
-    sfn:
