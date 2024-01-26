@@ -1971,6 +1971,15 @@ s3_ListBuckets:
   synopsis: list S3 buckets.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.list.buckets.main
     .NET:
       versions:
         - sdk_version: 3
