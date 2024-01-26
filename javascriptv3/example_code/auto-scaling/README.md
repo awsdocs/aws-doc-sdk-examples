@@ -33,14 +33,14 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach an ELB target group to an Auto Scaling group](../cross-services/wkflw-resilient-service/steps-deploy.js#L494) (`AttachLoadBalancerTargetGroups`)
+- [Attach an ELB target group to an Auto Scaling group](../cross-services/wkflw-resilient-service/steps-deploy.js#L492) (`AttachLoadBalancerTargetGroups`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Build and manage a resilient service](javascriptv3/example_code/cross-services/wkflw-resilient-service/index.js)
+- [Build and manage a resilient service](../cross-services/wkflw-resilient-service/index.js)
 
 
 <!--custom.examples.start-->
