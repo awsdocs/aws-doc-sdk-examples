@@ -3,43 +3,42 @@
 " "  Reserved.
 " "  SPDX-License-Identifier: MIT-0
 " """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+class ZCL_AWS1_TEX_ACTIONS definition
+  public
+  final
+  create public .
 
-CLASS zcl_aws1_tex_actions DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC .
+public section.
 
-  PUBLIC SECTION.
-
-    METHODS analyze_document
-      IMPORTING
-      !iv_s3object TYPE /aws1/texs3objectname OPTIONAL
-      !iv_s3bucket TYPE /aws1/texs3bucket OPTIONAL
-      EXPORTING
-      !oo_result TYPE REF TO /aws1/cl_texanalyzedocresponse .
-    METHODS detect_document_text
-      IMPORTING
-      !iv_s3object TYPE /aws1/texs3objectname
-      !iv_s3bucket TYPE /aws1/texs3bucket
-      EXPORTING
-      !oo_result TYPE REF TO /aws1/cl_texdetectdoctextrsp .
-    METHODS get_document_analysis
-      IMPORTING
-      !iv_jobid TYPE /aws1/texjobid
-      EXPORTING
-      !oo_result TYPE REF TO /aws1/cl_texgetdocalyresponse .
-    METHODS start_document_analysis
-      IMPORTING
-      !iv_s3object TYPE /aws1/texs3objectname
-      !iv_s3bucket TYPE /aws1/texs3bucket
-      EXPORTING
-      !oo_result TYPE REF TO /aws1/cl_texstartdocalyrsp .
-    METHODS start_document_text_detection
-      IMPORTING
-      !iv_s3object TYPE /aws1/texs3objectname
-      !iv_s3bucket TYPE /aws1/texs3bucket
-      EXPORTING
-      !oo_result TYPE REF TO /aws1/cl_texstartdoctextdetrsp .
+  methods ANALYZE_DOCUMENT
+    importing
+      !IV_S3OBJECT type /AWS1/TEXS3OBJECTNAME optional
+      !IV_S3BUCKET type /AWS1/TEXS3BUCKET optional
+    returning
+      value(OO_RESULT) type ref to /AWS1/CL_TEXANALYZEDOCRESPONSE .
+  methods DETECT_DOCUMENT_TEXT
+    importing
+      !IV_S3OBJECT type /AWS1/TEXS3OBJECTNAME
+      !IV_S3BUCKET type /AWS1/TEXS3BUCKET
+    returning
+      value(OO_RESULT) type ref to /AWS1/CL_TEXDETECTDOCTEXTRSP .
+  methods GET_DOCUMENT_ANALYSIS
+    importing
+      !IV_JOBID type /AWS1/TEXJOBID
+    returning
+      value(OO_RESULT) type ref to /AWS1/CL_TEXGETDOCALYRESPONSE .
+  methods START_DOCUMENT_ANALYSIS
+    importing
+      !IV_S3OBJECT type /AWS1/TEXS3OBJECTNAME
+      !IV_S3BUCKET type /AWS1/TEXS3BUCKET
+    returning
+      value(OO_RESULT) type ref to /AWS1/CL_TEXSTARTDOCALYRSP .
+  methods START_DOCUMENT_TEXT_DETECTION
+    importing
+      !IV_S3OBJECT type /AWS1/TEXS3OBJECTNAME
+      !IV_S3BUCKET type /AWS1/TEXS3BUCKET
+    returning
+      value(OO_RESULT) type ref to /AWS1/CL_TEXSTARTDOCTEXTDETRSP .
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
@@ -52,11 +51,16 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
   METHOD analyze_document.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
-
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+
+    "Textract requires endpoint region to be same as the bucket region.
+    "Retrieve the region name defined as a logical resource in SDK configuration.
+    CONSTANTS cv_lbucket TYPE string VALUE 'ZEX_TEX_BUCKET_REGION'.
+    DATA lv_bucket_region TYPE /AWS1/RT_REGION_ID.
+    lv_bucket_region = lo_session->resolve_lresource( cv_lbucket ).
     DATA(lo_tex) = /aws1/cl_tex_factory=>create(
       io_session = lo_session
-      iv_region = 'us-east-1' ).
+      iv_region = lv_bucket_region ).
     "snippet-start:[tex.abapv1.analyze_document]
 
     "Detects text and additional elements, such as forms or tables,"
@@ -122,9 +126,15 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+
+    "Textract requires endpoint region to be same as the bucket region.
+    "Retrieve the region name defined as a logical resource in SDK configuration.
+    CONSTANTS cv_lbucket TYPE string VALUE 'ZEX_TEX_BUCKET_REGION'.
+    DATA lv_bucket_region TYPE /AWS1/RT_REGION_ID.
+    lv_bucket_region = lo_session->resolve_lresource( cv_lbucket ).
     DATA(lo_tex) = /aws1/cl_tex_factory=>create(
       io_session = lo_session
-      iv_region = 'us-east-1' ).
+      iv_region = lv_bucket_region ).
 
     "snippet-start:[tex.abapv1.detect_document_text]
 
@@ -177,9 +187,15 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+
+    "Textract requires endpoint region to be same as the bucket region.
+    "Retrieve the region name defined as a logical resource in SDK configuration.
+    CONSTANTS cv_lbucket TYPE string VALUE 'ZEX_TEX_BUCKET_REGION'.
+    DATA lv_bucket_region TYPE /AWS1/RT_REGION_ID.
+    lv_bucket_region = lo_session->resolve_lresource( cv_lbucket ).
     DATA(lo_tex) = /aws1/cl_tex_factory=>create(
       io_session = lo_session
-      iv_region = 'us-east-1' ).
+      iv_region = lv_bucket_region ).
 
     "snippet-start:[tex.abapv1.get_document_analysis]
 
@@ -229,9 +245,15 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+
+    "Textract requires endpoint region to be same as the bucket region.
+    "Retrieve the region name defined as a logical resource in SDK configuration.
+    CONSTANTS cv_lbucket TYPE string VALUE 'ZEX_TEX_BUCKET_REGION'.
+    DATA lv_bucket_region TYPE /AWS1/RT_REGION_ID.
+    lv_bucket_region = lo_session->resolve_lresource( cv_lbucket ).
     DATA(lo_tex) = /aws1/cl_tex_factory=>create(
       io_session = lo_session
-      iv_region = 'us-east-1' ).
+      iv_region = lv_bucket_region ).
 
     "snippet-start:[tex.abapv1.start_document_analysis]
 
@@ -294,9 +316,15 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+
+    "Textract requires endpoint region to be same as the bucket region.
+    "Retrieve the region name defined as a logical resource in SDK configuration.
+    CONSTANTS cv_lbucket TYPE string VALUE 'ZEX_TEX_BUCKET_REGION'.
+    DATA lv_bucket_region TYPE /AWS1/RT_REGION_ID.
+    lv_bucket_region = lo_session->resolve_lresource( cv_lbucket ).
     DATA(lo_tex) = /aws1/cl_tex_factory=>create(
       io_session = lo_session
-      iv_region = 'us-east-1' ).
+      iv_region = lv_bucket_region ).
 
     "snippet-start:[tex.abapv1.start_document_text_detection]
 

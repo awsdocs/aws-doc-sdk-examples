@@ -30,9 +30,15 @@ CLASS ZCL_AWS1_TEX_SCENARIO IMPLEMENTATION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+
+    "Textract requires endpoint region to be same as the bucket region.
+    "Retrieve the region name defined as a logical resource in SDK configuration.
+    CONSTANTS cv_lbucket TYPE string VALUE 'ZEX_TEX_BUCKET_REGION'.
+    DATA lv_bucket_region TYPE /AWS1/RT_REGION_ID.
+    lv_bucket_region = lo_session->resolve_lresource( cv_lbucket ).
     DATA(lo_tex) = /aws1/cl_tex_factory=>create(
       io_session = lo_session
-      iv_region = 'us-east-1' ).
+      iv_region = lv_bucket_region ).
     " 1. Starts the asynchronous analysis. "
     " 2. Wait for the analysis to complete. "
 
