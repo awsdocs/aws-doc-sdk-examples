@@ -16,11 +16,11 @@ CLASS ltc_zcl_aws1_tex_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL H
     DATA ao_tex_actions TYPE REF TO zcl_aws1_tex_actions.
 
     METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
-    METHODS: analyze_document FOR TESTING.
-    METHODS: detect_document_text FOR TESTING.
-    METHODS: start_document_analysis FOR TESTING.
-    METHODS: start_document_text_detection FOR TESTING.
-    METHODS: get_document_analysis FOR TESTING.
+    METHODS analyze_document FOR TESTING.
+    METHODS detect_document_text FOR TESTING.
+    METHODS start_document_analysis FOR TESTING.
+    METHODS start_document_text_detection FOR TESTING.
+    METHODS get_document_analysis FOR TESTING.
 
 ENDCLASS.       "ltc_Zcl_Aws1_Tex_Actions
 
@@ -29,7 +29,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
   METHOD setup.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
-    " ao_tex = /aws1/cl_tex_factory=>create( ao_session ).
+
     ao_tex = /aws1/cl_tex_factory=>create(
       io_session = ao_session
       iv_region = 'us-east-1' ).
@@ -46,8 +46,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     "Analyze document.
     DATA(lo_output) = ao_tex_actions->analyze_document(
         iv_s3object          = cv_key_name
-        iv_s3bucket          = cv_bucket_name
-      ).
+        iv_s3bucket          = cv_bucket_name ).
 
     "Validation check.
     DATA(lv_found) = abap_false.
@@ -61,8 +60,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Analyze document failed|
-    ).
+      msg = |Analyze document failed| ).
 
   ENDMETHOD.
 
@@ -76,8 +74,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     "Testing.
     DATA(lo_output) = ao_tex_actions->detect_document_text(
         iv_s3object          = cv_key_name
-        iv_s3bucket          = cv_bucket_name
-      ).
+        iv_s3bucket          = cv_bucket_name ).
 
     "Validation check.
     DATA(lv_found) = abap_false.
@@ -91,8 +88,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Analyze document failed|
-    ).
+      msg = |Analyze document failed| ).
 
   ENDMETHOD.
 
@@ -105,8 +101,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     "Testing.
     DATA(lo_output) = ao_tex_actions->start_document_analysis(
         iv_s3object          = cv_key_name
-        iv_s3bucket          = cv_bucket_name
-      ).
+        iv_s3bucket          = cv_bucket_name ).
 
     "Wait for job to complete.
     DATA(lv_jobid) = lo_output->get_jobid( ).
@@ -131,8 +126,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Analyze document failed|
-    ).
+      msg = |Analyze document failed| ).
 
   ENDMETHOD.
 
@@ -145,8 +139,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     "Testing.
     DATA(lo_output) = ao_tex_actions->start_document_text_detection(
         iv_s3object          = cv_key_name
-        iv_s3bucket          = cv_bucket_name
-      ).
+        iv_s3bucket          = cv_bucket_name ).
 
     DATA(lv_jobid) = lo_output->get_jobid( ).
 
@@ -171,8 +164,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Analyze document failed|
-    ).
+      msg = |Analyze document failed| ).
 
   ENDMETHOD.
 
@@ -196,20 +188,19 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
     "Start document analysis.
     DATA(lo_output) = ao_tex->startdocumentanalysis(
         io_documentlocation     = lo_documentlocation
-        it_featuretypes         = lt_featuretypes
-      ).
+        it_featuretypes         = lt_featuretypes ).
 
     "Get job ID.
     DATA(lv_jobid) = lo_output->get_jobid( ).
 
     "Testing.
-    DATA(lo_document_analysis_output) = ao_tex_actions->get_document_analysis( iv_jobid = lv_jobid ).
+    DATA(lo_document_analysis_output) = ao_tex_actions->get_document_analysis( lv_jobid ).
     WHILE lo_document_analysis_output->get_jobstatus( ) <> 'SUCCEEDED'.
       IF sy-index = 10.
         EXIT.               "Maximum 300 seconds.
       ENDIF.
       WAIT UP TO 30 SECONDS.
-      lo_document_analysis_output = ao_tex_actions->get_document_analysis( iv_jobid = lv_jobid ).
+      lo_document_analysis_output = ao_tex_actions->get_document_analysis( lv_jobid ).
     ENDWHILE.
 
     "Validation check.
@@ -223,8 +214,7 @@ CLASS ltc_zcl_aws1_tex_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Analyze document failed|
-    ).
+      msg = |Analyze document failed| ).
 
   ENDMETHOD.
 

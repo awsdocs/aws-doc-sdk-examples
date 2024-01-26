@@ -34,7 +34,7 @@ CLASS ZCL_AWS1_TEX_SCENARIO IMPLEMENTATION.
     "Textract requires endpoint region to be same as the bucket region.
     "Retrieve the region name defined as a logical resource in SDK configuration.
     CONSTANTS cv_lbucket TYPE string VALUE 'ZEX_TEX_BUCKET_REGION'.
-    DATA lv_bucket_region TYPE /AWS1/RT_REGION_ID.
+    DATA lv_bucket_region TYPE /aws1/rt_region_id.
     lv_bucket_region = lo_session->resolve_lresource( cv_lbucket ).
     DATA(lo_tex) = /aws1/cl_tex_factory=>create(
       io_session = lo_session
