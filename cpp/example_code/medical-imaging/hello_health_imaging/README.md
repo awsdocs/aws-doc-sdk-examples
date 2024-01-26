@@ -55,7 +55,7 @@ For more information, see https://cmake.org/cmake/help/latest/manual/cmake-gener
 
 The [CMakeLists.txt](CMakeLists.txt) file contains the build settings. If your build is failing (particularly on Windows), you might need to modify this file.
 
-The [hello_medical-imaging.cpp](hello_medical-imaging.cpp) file contains the C++ source code, including a "main" function.
+The [hello_health_imaging.cpp](hello_health_imaging.cpp) file contains the C++ source code, including a "main" function.
 
 
 
