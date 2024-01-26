@@ -145,9 +145,9 @@ class Scanner:
                             snippet_files = excerpt["snippet_files"]
                             # TODO: Find the best (or all?) snippet files, not the first.
                             full_path = snippet_files[0]
-                            tag_path = '/'.join(full_path.split('/')[3:])
+                            tag_path = "/".join(full_path.split("/")[3:])
                             if "cross-services" in full_path:
-                                tag_path = '../cross-services/' + tag_path
+                                tag_path = "../cross-services/" + tag_path
                     elif "block_content" in ex_ver:
                         tag_path = github
         if github is not None and tag_path is None:
