@@ -1,5 +1,6 @@
 {{- template "prologue"}}
 {{- $omitted_sdks := makeSlice "java_1" "cli_2"}}
+{{- $html_only_sdks := makeSlice "cli_2"}}
 {{- $chapter_id := "code_example_library_by_sdk"}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
@@ -47,8 +48,14 @@
             {{- $skip_sdk = true}}
         {{- end}}
     {{- end}}
+    {{- $html_only := ""}}
+    {{- range $only := $html_only_sdks}}
+        {{- if eq $only $sdk_ver}}
+            {{- $html_only = "buildtype=\"html\""}}
+        {{- end}}
+    {{- end}}
     {{- if not $skip_sdk}}
-    <section id="{{$sdk_ver}}_code_examples" role="topic">
+    <section id="{{$sdk_ver}}_code_examples" role="topic" {{$html_only}}>
         <info>
             <title id="{{$sdk_ver}}_code_examples.title">Code examples for {{$sdk_examples.SdkEntity.Short}}</title>
             <titleabbrev id="{{$sdk_ver}}_code_examples.titleabbrev">{{$sdk_examples.SdkEntity.Short}}</titleabbrev>
