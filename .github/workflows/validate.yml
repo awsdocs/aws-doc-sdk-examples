@@ -15,7 +15,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  validate:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -23,16 +23,9 @@ jobs:
     steps:
       - name: checkout repo content
         uses: actions/checkout@v3 # checkout the repository content to github runner.
-      - name: setup python
-        uses: actions/setup-python@v3
         with:
-          python-version: 3.11 #install the python needed
-      - name: Install dependencies
-        run: >-
-          python3 -m pip install -r .tools/base_requirements.txt
-      - name: Lint metadata files
-        run: >-
-          yamllint --format standard -c .tools/validation/.yamllint.yaml .doc_gen/metadata
-      - name: Validate metadata and repo
-        run: >-
-          python3 .tools/validation/validate.py --doc-gen .doc_gen
+          path: aws-doc-sdk-examples
+      - name: validate metadata
+        uses: awsdocs/aws-doc-sdk-examples-tools@main
+        with:
+          root: "${{ github.workspace }}/aws-doc-sdk-examples"
