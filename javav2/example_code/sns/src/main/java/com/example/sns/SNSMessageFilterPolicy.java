@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[SNSMessageFilterPolicy.java stores the filterPolicy field as a map.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Simple Notification Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sns;
 
@@ -27,7 +20,8 @@ import software.amazon.awssdk.services.sns.model.SetSubscriptionAttributesReques
  */
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -36,7 +30,6 @@ import software.amazon.awssdk.services.sns.model.SetSubscriptionAttributesReques
 public class SNSMessageFilterPolicy {
 
     private final Map<String, Attribute> filterPolicy = new HashMap<>();
-
 
     public void addAttribute(final String attributeName, final String attributeValue) {
         filterPolicy.put(attributeName, new Attribute<>(AttributeType.String, attributeValue));
@@ -72,7 +65,8 @@ public class SNSMessageFilterPolicy {
                 new Attribute<>(AttributeType.Numeric, new NumericValue<>(lowerOp, lower, upperOp, upper)));
     }
 
-    // This method produces a policy string from the contents of the filterPolicy map,
+    // This method produces a policy string from the contents of the filterPolicy
+    // map,
     // and then applies the policy to the specified subscription.
     public void apply(SnsClient snsClient, String subscriptionArn) {
 
@@ -112,7 +106,7 @@ public class SNSMessageFilterPolicy {
                 case Numeric:
                     return String.format("{\"numeric\":%s}", value.toString());
                 case List:
-                    final List list = (List)value;
+                    final List list = (List) value;
                     final ArrayList<T> values = new ArrayList<T>(list);
                     return values
                             .stream()
@@ -154,9 +148,7 @@ public class SNSMessageFilterPolicy {
                     .append(lower);
             if (upper != null) {
                 s.append(",\"")
-                        .append(upperOp).
-                        append("\",").
-                        append(upper);
+                        .append(upperOp).append("\",").append(upper);
             }
             s.append("]");
             return s.toString();

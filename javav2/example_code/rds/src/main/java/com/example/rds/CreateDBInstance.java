@@ -1,18 +1,12 @@
-//snippet-sourcedescription:[CreateDBInstance.java demonstrates how to create an Amazon Relational Database Service (RDS) instance and wait for it to be in an available state.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Relational Database Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.rds;
 
+// snippet-start:[rds.java2.create_instance.main]
 // snippet-start:[rds.java2.create_instance.import]
 import com.google.gson.Gson;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
 import software.amazon.awssdk.services.rds.model.DescribeDbInstancesRequest;
@@ -29,30 +23,36 @@ import java.util.List;
 // snippet-end:[rds.java2.create_instance.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- *  This example requires an AWS Secrets Manager secret that contains the database credentials. If you do not create a
- *  secret, this example will not work. For more details, see:
+ * This example requires an AWS Secrets Manager secret that contains the
+ * database credentials. If you do not create a
+ * secret, this example will not work. For more details, see:
  *
- *  https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
+ * https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
  *
  *
  */
-// snippet-start:[rds.java2.create_instance.main]
+
 public class CreateDBInstance {
     public static long sleepTime = 20;
+
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <dbInstanceIdentifier> <dbName> <secretName>\n\n" +
-            "Where:\n" +
-            "    dbInstanceIdentifier - The database instance identifier. \n" +
-            "    dbName - The database name. \n" +
-            "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials.\"\n" ;
+        final String usage = """
+
+                Usage:
+                    <dbInstanceIdentifier> <dbName> <secretName>
+
+                Where:
+                    dbInstanceIdentifier - The database instance identifier.\s
+                    dbName - The database name.\s
+                    secretName - The name of the AWS Secrets Manager secret that contains the database credentials."
+                """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -66,58 +66,57 @@ public class CreateDBInstance {
         User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
-            .region(region)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
-        createDatabaseInstance(rdsClient, dbInstanceIdentifier, dbName, user.getUsername(), user.getPassword()) ;
-        waitForInstanceReady(rdsClient, dbInstanceIdentifier) ;
+        createDatabaseInstance(rdsClient, dbInstanceIdentifier, dbName, user.getUsername(), user.getPassword());
+        waitForInstanceReady(rdsClient, dbInstanceIdentifier);
         rdsClient.close();
     }
 
     private static SecretsManagerClient getSecretClient() {
         Region region = Region.US_WEST_2;
         return SecretsManagerClient.builder()
-            .region(region)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
     }
 
     private static String getSecretValues(String secretName) {
         SecretsManagerClient secretClient = getSecretClient();
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
     }
 
     public static void createDatabaseInstance(RdsClient rdsClient,
-                                                  String dbInstanceIdentifier,
-                                                  String dbName,
-                                                  String userName,
-                                                  String userPassword) {
+            String dbInstanceIdentifier,
+            String dbName,
+            String userName,
+            String userPassword) {
 
         try {
             CreateDbInstanceRequest instanceRequest = CreateDbInstanceRequest.builder()
-                .dbInstanceIdentifier(dbInstanceIdentifier)
-                .allocatedStorage(100)
-                .dbName(dbName)
-                .engine("mysql")
-                .dbInstanceClass("db.m4.large")
-                .engineVersion("8.0")
-                .storageType("standard")
-                .masterUsername(userName)
-                .masterUserPassword(userPassword)
-                .build();
+                    .dbInstanceIdentifier(dbInstanceIdentifier)
+                    .allocatedStorage(100)
+                    .dbName(dbName)
+                    .engine("mysql")
+                    .dbInstanceClass("db.m4.large")
+                    .engineVersion("8.0")
+                    .storageType("standard")
+                    .masterUsername(userName)
+                    .masterUserPassword(userPassword)
+                    .build();
 
             CreateDbInstanceResponse response = rdsClient.createDBInstance(instanceRequest);
             System.out.print("The status is " + response.dbInstance().dbInstanceStatus());
 
         } catch (RdsException e) {
-           System.out.println(e.getLocalizedMessage());
-           System.exit(1);
+            System.out.println(e.getLocalizedMessage());
+            System.exit(1);
         }
     }
 
@@ -128,8 +127,8 @@ public class CreateDBInstance {
         System.out.println("Waiting for instance to become available.");
         try {
             DescribeDbInstancesRequest instanceRequest = DescribeDbInstancesRequest.builder()
-                .dbInstanceIdentifier(dbInstanceIdentifier)
-                .build();
+                    .dbInstanceIdentifier(dbInstanceIdentifier)
+                    .build();
 
             // Loop until the cluster is ready.
             while (!instanceReady) {
@@ -154,4 +153,3 @@ public class CreateDBInstance {
     }
     // snippet-end:[rds.java2.create_instance.main]
 }
-

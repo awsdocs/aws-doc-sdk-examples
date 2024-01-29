@@ -1,0 +1,23 @@
+<DescribeAutoScalingInstancesResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">   <DescribeAutoScalingInstancesResult>
+     <AutoScalingInstances>
+       <member>
+         <LifecycleState>Terminating</LifecycleState>
+         <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+         <InstanceId>i-0a23fc0e38f39ca25</InstanceId>
+         <HealthStatus>HEALTHY</HealthStatus>
+         <InstanceType>t1.micro</InstanceType>
+         <LaunchTemplate>
+           <LaunchTemplateId>lt-02b49ee89dd48f1a9</LaunchTemplateId>
+           <Version>1</Version>
+           <LaunchTemplateName>integration_tests_template</LaunchTemplateName>
+         </LaunchTemplate>
+         <ProtectedFromScaleIn>false</ProtectedFromScaleIn>
+         <AvailabilityZone>us-east-1a</AvailabilityZone>
+       </member>
+     </AutoScalingInstances>
+   </DescribeAutoScalingInstancesResult>
+   <ResponseMetadata>
+     <RequestId>5d717997-97ec-4186-a176-77f742105fac</RequestId>
+   </ResponseMetadata>
+ </DescribeAutoScalingInstancesResponse>
+ 

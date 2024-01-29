@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -14,14 +12,14 @@
  *
  **/
 
-//snippet-start:[dynamodb.cpp.update_table.inc]
+// snippet-start:[dynamodb.cpp.update_table.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/ProvisionedThroughput.h>
 #include <aws/dynamodb/model/UpdateTableRequest.h>
 #include <iostream>
-//snippet-end:[dynamodb.cpp.update_table.inc]
+// snippet-end:[dynamodb.cpp.update_table.inc]
 #include "dynamodb_samples.h"
 
 /**

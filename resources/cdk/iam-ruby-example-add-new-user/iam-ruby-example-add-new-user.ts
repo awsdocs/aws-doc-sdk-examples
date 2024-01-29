@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -17,7 +16,7 @@
 //
 // 1. To run this app with the AWS Cloud Development Kit (AWS CDK), run the
 //    following command:
-// 
+//
 //    npm install && cdk synth && cdk deploy --parameters UserName=my-user --parameters InitialPassword=my-!p@55w0rd!
 //
 //    You can replace the UserName and InitialPassword values with your own.
@@ -69,7 +68,7 @@
 //       https://console.aws.amazon.com/cloudformation
 //
 //    d. Choose Create stack, and then follow
-//       the on-screen instructions to create a stack based on this 
+//       the on-screen instructions to create a stack based on this
 //       AWS CloudFormation template. This stack will create the specified
 //       AWS resources.
 //
@@ -81,41 +80,47 @@
 //       choose the stack in the console, choose Delete, and then follow
 //       the on-screen instructions.
 
-import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
-import * as iam from '@aws-cdk/aws-iam' // npm install @aws-cdk/aws-iam
+import "source-map-support/register";
+import * as cdk from "@aws-cdk/core";
+import * as iam from "@aws-cdk/aws-iam"; // npm install @aws-cdk/aws-iam
 
 export class IamRubyExampleAddNewUserStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // Get the name of the new user from the caller.
-    const userName = new cdk.CfnParameter(this, 'UserName', {
-      type: 'String',
-      description: 'The name of the user to be created.'});
+    const userName = new cdk.CfnParameter(this, "UserName", {
+      type: "String",
+      description: "The name of the user to be created.",
+    });
 
     // Get the initial sign-in password for the new user from the caller.
-    const initialPassword = new cdk.CfnParameter(this, 'InitialPassword', {
-      type: 'String',
-      description: 'The initial sign-in password for the user.'});
+    const initialPassword = new cdk.CfnParameter(this, "InitialPassword", {
+      type: "String",
+      description: "The initial sign-in password for the user.",
+    });
 
-    const secretValue = cdk.SecretValue.plainText(initialPassword.valueAsString);
+    const secretValue = cdk.SecretValue.plainText(
+      initialPassword.valueAsString
+    );
 
     // Create the new user.
-    const user = new iam.User(this, 'user', {
+    const user = new iam.User(this, "user", {
       userName: userName.valueAsString,
       password: secretValue,
-      passwordResetRequired: true // Require the new user's password to be reset after initial sign-in.
+      passwordResetRequired: true, // Require the new user's password to be reset after initial sign-in.
     });
 
     // Confirm the new user's name and initial sign-in password by outputting their values.
-    new cdk.CfnOutput(this, 'Name', {
-      value: user.userName});
+    new cdk.CfnOutput(this, "Name", {
+      value: user.userName,
+    });
 
-    new cdk.CfnOutput(this, 'InitialSignInPassword', {
-      value: secretValue.toString()});
+    new cdk.CfnOutput(this, "InitialSignInPassword", {
+      value: secretValue.toString(),
+    });
   }
 }
 
 const app = new cdk.App();
-new IamRubyExampleAddNewUserStack(app, 'IamRubyExampleAddNewUserStack');
+new IamRubyExampleAddNewUserStack(app, "IamRubyExampleAddNewUserStack");

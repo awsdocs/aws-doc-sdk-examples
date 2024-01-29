@@ -1,4 +1,1 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0.
-
-mod clients;
+// This file has been moved to https://github.com/awsdocs/aws-doc-sdk-examples/blob/rust_dev_preview/rustv1/examples/glue/tests/main.rs

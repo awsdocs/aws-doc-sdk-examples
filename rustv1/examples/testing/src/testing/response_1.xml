@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+  <Name>test-bucket</Name>
+  <Prefix>test-prefix</Prefix>
+  <KeyCount>2</KeyCount>
+  <MaxKeys>1000</MaxKeys>
+  <IsTruncated>false</IsTruncated>
+  <Contents>
+    <Key>test-prefix/A</Key>
+    <LastModified>2023-04-10T21:33:28.000Z</LastModified>
+    <ETag>&quot;a2&quot;</ETag>
+    <Size>2</Size>
+    <StorageClass>STANDARD</StorageClass>
+  </Contents>
+  <Contents>
+    <Key>test-prefix/B</Key>
+    <LastModified>2023-04-10T21:33:28.000Z</LastModified>
+    <ETag>&quot;b5&quot;</ETag>
+    <Size>5</Size>
+    <StorageClass>STANDARD</StorageClass>
+  </Contents>
+</ListBucketResult>

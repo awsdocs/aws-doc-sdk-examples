@@ -1,16 +1,10 @@
-// snippet-sourcedescription:[DetectLabels.java demonstrates how to capture labels (like water and mountains)  from a given image located in an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Rekognition]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.detect_labels_s3.main]
 // snippet-start:[rekognition.java2.detect_labels_s3.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.Image;
@@ -23,7 +17,8 @@ import java.util.List;
 // snippet-end:[rekognition.java2.detect_labels_s3.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -31,15 +26,14 @@ import java.util.List;
  */
 
 public class DetectLabelsS3 {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <bucket> <image>\n\n" +
-            "Where:\n" +
-            "   bucket - The name of the Amazon S3 bucket that contains the image (for example, ,ImageBucket)." +
-            "   image - The name of the image located in the Amazon S3 bucket (for example, Lake.png). \n\n";
+                Usage:    <bucket> <image>
+
+                Where:
+                   bucket - The name of the Amazon S3 bucket that contains the image (for example, ,ImageBucket).   image - The name of the image located in the Amazon S3 bucket (for example, Lake.png).\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -50,36 +44,33 @@ public class DetectLabelsS3 {
         String image = args[1];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         getLabelsfromImage(rekClient, bucket, image);
         rekClient.close();
     }
 
-    // snippet-start:[rekognition.java2.detect_labels_s3.main]
     public static void getLabelsfromImage(RekognitionClient rekClient, String bucket, String image) {
-
         try {
             S3Object s3Object = S3Object.builder()
-                .bucket(bucket)
-                .name(image)
-                .build() ;
+                    .bucket(bucket)
+                    .name(image)
+                    .build();
 
             Image myImage = Image.builder()
-                .s3Object(s3Object)
-                .build();
+                    .s3Object(s3Object)
+                    .build();
 
             DetectLabelsRequest detectLabelsRequest = DetectLabelsRequest.builder()
-                .image(myImage)
-                .maxLabels(10)
-                .build();
+                    .image(myImage)
+                    .maxLabels(10)
+                    .build();
 
             DetectLabelsResponse labelsResponse = rekClient.detectLabels(detectLabelsRequest);
             List<Label> labels = labelsResponse.labels();
             System.out.println("Detected labels for the given photo");
-            for (Label label: labels) {
+            for (Label label : labels) {
                 System.out.println(label.name() + ": " + label.confidence().toString());
             }
 
@@ -88,5 +79,5 @@ public class DetectLabelsS3 {
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.detect_labels_s3.main]
 }
+// snippet-end:[rekognition.java2.detect_labels_s3.main]

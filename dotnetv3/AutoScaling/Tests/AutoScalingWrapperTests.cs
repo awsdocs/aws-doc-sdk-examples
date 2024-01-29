@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using Amazon.AutoScaling;
 using Amazon.AutoScaling.Model;
@@ -70,6 +70,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(1)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task CreateLaunchTemplateAsyncTest()
         {
             _launchTemplateId = await _ec2Wrapper.CreateLaunchTemplateAsync(_imageId!, _instanceType!, _launchTemplateName!);
@@ -83,6 +84,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(2)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task DescribeLaunchTemplateAsyncTest()
         {
             var success = await _ec2Wrapper.DescribeLaunchTemplateAsync(_launchTemplateName!);
@@ -97,6 +99,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(3)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task CreateAutoScalingGroupTest()
         {
             var availabilityZone =
@@ -114,6 +117,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(4)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task DescribeAutoScalingInstancesAsyncTest()
         {
             var instanceDetails = await _autoScalingWrapper.DescribeAutoScalingInstancesAsync(_groupName!);
@@ -127,6 +131,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(5)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task EnableMetricsCollectionAsyncTest()
         {
             var success = await _autoScalingWrapper.EnableMetricsCollectionAsync(_groupName!);
@@ -143,6 +148,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(6)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task SetDesiredCapacityAsyncTest()
         {
             var newMax = 3;
@@ -167,6 +173,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(7)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task UpdateAutoScalingGroupTest()
         {
             var newMax = 3;
@@ -189,6 +196,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(8)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task DescribeAutoScalingGroupsAsyncTest()
         {
             var details = await _autoScalingWrapper.DescribeAutoScalingGroupsAsync(_groupName!);
@@ -203,6 +211,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(9)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task DescribeScalingActivitiesAsyncTest()
         {
             var activities = await _autoScalingWrapper.DescribeScalingActivitiesAsync(_groupName!);
@@ -217,6 +226,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(10)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task GetCloudWatchMetricsAsyncTest()
         {
             var metrics = await _cloudWatchWrapper.GetCloudWatchMetricsAsync(_groupName!);
@@ -231,6 +241,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(11)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task GetMetricStatisticsAsyncTest()
         {
             var dataPoints = await _cloudWatchWrapper.GetMetricStatisticsAsync(_groupName!);
@@ -245,6 +256,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(12)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task DisableMetricsCollectionAsyncTest()
         {
             var success = await _autoScalingWrapper.DisableMetricsCollectionAsync(_groupName!);
@@ -260,6 +272,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(13)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task TerminateInstanceInAutoScalingGroupAsyncTest()
         {
             foreach (var group in _groups!)
@@ -268,7 +281,20 @@ namespace AutoScalingTests
                 {
                     foreach (Amazon.AutoScaling.Model.Instance instance in group.Instances)
                     {
-                        var success = await _autoScalingWrapper.TerminateInstanceInAutoScalingGroupAsync(instance.InstanceId);
+                        var retries = 3;
+                        var success = false;
+                        while (retries > 0 && !success)
+                            try
+                            {
+                                success =
+                                    await _autoScalingWrapper
+                                        .TerminateInstanceInAutoScalingGroupAsync(
+                                            instance.InstanceId);
+                            }
+                            catch (ScalingActivityInProgressException)
+                            {
+                                retries--;
+                            }
                         Assert.True(success, "Could not terminate the instance.");
                     }
                 }
@@ -283,6 +309,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(14)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task DeleteAutoScalingGroupTest()
         {
             var success = await _autoScalingWrapper.DeleteAutoScalingGroupAsync(_groupName!);
@@ -299,6 +326,7 @@ namespace AutoScalingTests
         [Fact()]
         [Order(15)]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task DeleteLaunchTemplateAsyncTest()
         {
             var templateName = await _ec2Wrapper.DeleteLaunchTemplateAsync(_launchTemplateId!);
@@ -313,6 +341,7 @@ namespace AutoScalingTests
         /// <returns>Async Task.</returns>
         [Fact()]
         [Trait("Category", "Integration")]
+        [Trait("Category", "Weathertop")]
         public async Task DescribeAccountLimitsTest()
         {
             var success = await _autoScalingWrapper.DescribeAccountLimitsAsync();

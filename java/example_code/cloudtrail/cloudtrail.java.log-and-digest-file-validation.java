@@ -1,24 +1,6 @@
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//
-// This file is licensed under the Apache License, Version 2.0 (the "License").
-// You may not use this file except in compliance with the License. A copy of
-// the License is located at
-//
-// http://aws.amazon.com/apache2.0/
-//
-// This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-// CONDITIONS OF ANY KIND, either express or implied. See the License for the
-// specific language governing permissions and limitations under the License.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[cloudtrail.java.log-and-digest-file-validation demonstrates how to validate CloudTrail log and digest files.]
-// snippet-service:[cloudtrail]
-// snippet-keyword:[java]
-// snippet-keyword:[AWS CloudTrail]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[none]
-// snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2015-10-01]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[cloudtrail.java.log-and-digest-file-validation.complete]
 
 import java.util.Arrays;
@@ -31,9 +13,9 @@ import java.security.spec.X509EncodedKeySpec;
 import org.json.JSONObject;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.apache.commons.codec.binary.Hex;
- 
+
 public class DigestFileValidator {
- 
+
     public void validateDigestFile(String digestS3Bucket, String digestS3Object, String digestSignature) {
  
         // Using the Bouncy Castle provider as a JCE security provider - http://www.bouncycastle.org/

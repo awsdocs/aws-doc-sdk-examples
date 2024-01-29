@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.identitystore.*;
 import org.junit.jupiter.api.*;
@@ -12,7 +10,6 @@ import software.amazon.awssdk.services.identitystore.IdentitystoreClient;
 import software.amazon.awssdk.services.identitystore.model.IdentitystoreException;
 import software.amazon.awssdk.services.identitystore.model.Group;
 
-
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -22,23 +19,23 @@ import java.util.concurrent.TimeUnit;
 public class IdentitystoreServiceTest {
 
     private static IdentitystoreClient identitystore;
-    private static String identitystoreId="";
-    private static String groupName="";
-    private static String groupDesc="";
-    private static String groupId="";
-    private static String userName="";
-    private static String givenName="";
-    private static String familyName="";
-    private static String userId="";
-    private static String membershipId="";
+    private static String identitystoreId = "";
+    private static String groupName = "";
+    private static String groupDesc = "";
+    private static String groupId = "";
+    private static String userName = "";
+    private static String givenName = "";
+    private static String familyName = "";
+    private static String userId = "";
+    private static String membershipId = "";
 
     @BeforeAll
     public static void setUp() throws IOException {
-        identitystore =  IdentitystoreClient.builder()
-                        .build();
+        identitystore = IdentitystoreClient.builder()
+                .build();
 
-
-        try (InputStream input = IdentitystoreServiceTest.class.getClassLoader().getResourceAsStream("config.properties")) {
+        try (InputStream input = IdentitystoreServiceTest.class.getClassLoader()
+                .getResourceAsStream("config.properties")) {
 
             Properties prop = new Properties();
             prop.load(input);
@@ -85,7 +82,7 @@ public class IdentitystoreServiceTest {
         assertTrue(!groupId.isEmpty());
         System.out.println("\n Test 3 passed");
     }
-  
+
     @Test
     @Order(4)
     public void DescribeGroup() {
@@ -97,7 +94,8 @@ public class IdentitystoreServiceTest {
     @Test
     @Order(5)
     public void UpdateGroup() {
-        String result5 = UpdateGroup.updateGroup(identitystore, identitystoreId, groupId, "Description", "TestingUpdateAPI");
+        String result5 = UpdateGroup.updateGroup(identitystore, identitystoreId, groupId, "Description",
+                "TestingUpdateAPI");
         assertTrue(!result5.isEmpty());
         System.out.println("\n Test 5 passed");
     }
@@ -106,7 +104,7 @@ public class IdentitystoreServiceTest {
     @Order(6)
     public void ListGroups() {
         int result6 = ListGroups.listGroups(identitystore, identitystoreId);
-        assertTrue(result6>=0);
+        assertTrue(result6 >= 0);
         System.out.println("\n Test 6 passed");
     }
 
@@ -137,7 +135,8 @@ public class IdentitystoreServiceTest {
     @Test
     @Order(10)
     public void UpdateUser() {
-        String result10 = UpdateUser.updateUser(identitystore, identitystoreId, userId, "displayName", "TestingUpdateAPI");
+        String result10 = UpdateUser.updateUser(identitystore, identitystoreId, userId, "displayName",
+                "TestingUpdateAPI");
         assertTrue(!result10.isEmpty());
         System.out.println("\n Test 10 passed");
     }
@@ -146,7 +145,7 @@ public class IdentitystoreServiceTest {
     @Order(11)
     public void ListUsers() {
         int result11 = ListUsers.listUsers(identitystore, identitystoreId);
-        assertTrue(result11>=0);
+        assertTrue(result11 >= 0);
         System.out.println("\n Test 11 passed");
     }
 
@@ -169,7 +168,8 @@ public class IdentitystoreServiceTest {
     @Test
     @Order(14)
     public void DescribeGroupMembership() {
-        String result14 = DescribeGroupMembership.describeGroupMembershipId(identitystore, identitystoreId, membershipId);
+        String result14 = DescribeGroupMembership.describeGroupMembershipId(identitystore, identitystoreId,
+                membershipId);
         assertTrue(!result14.isEmpty());
         System.out.println("\n Test 14 passed");
     }
@@ -188,15 +188,16 @@ public class IdentitystoreServiceTest {
     @Order(16)
     public void ListGroupMemberships() {
         int result16 = ListGroupMemberships.listGroupMemberships(identitystore, identitystoreId, groupId);
-        assertTrue(result16>=0);
+        assertTrue(result16 >= 0);
         System.out.println("\n Test 16 passed");
     }
 
     @Test
     @Order(17)
     public void ListGroupMembershipsForMember() {
-        int result17 = ListGroupMembershipsForMember.listGroupMembershipsForMember(identitystore, identitystoreId, userId);
-        assertTrue(result17>=0);
+        int result17 = ListGroupMembershipsForMember.listGroupMembershipsForMember(identitystore, identitystoreId,
+                userId);
+        assertTrue(result17 >= 0);
         System.out.println("\n Test 17 passed");
     }
 

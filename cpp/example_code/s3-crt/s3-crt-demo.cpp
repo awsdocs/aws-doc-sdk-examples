@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 
 #include <awsdoc/s3-crt/s3-crt-demo.h>
 // snippet-start:[s3-crt.cpp.bucket_operations.list_create_delete]

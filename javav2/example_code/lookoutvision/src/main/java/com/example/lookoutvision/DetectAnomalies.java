@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[lookoutvision.java2.detect_anomalies.complete]
 
@@ -208,12 +206,13 @@ public class DetectAnomalies {
         /**
          * Rejects an image based on a maximum allowable number of anomaly types.
          *
-         * @param image           The file name of the analyzed image.
-         * @param prediction      The prediction for an image analyzed with
-         *                        DetectAnomalies.
-         * @param minConfidence   The minimum acceptable confidence for the predictio
-         *                        (0-1).
-         * @param maxAnomalyLabels The maximum allowable number of anomaly labels (types).
+         * @param image            The file name of the analyzed image.
+         * @param prediction       The prediction for an image analyzed with
+         *                         DetectAnomalies.
+         * @param minConfidence    The minimum acceptable confidence for the predictio
+         *                         (0-1).
+         * @param maxAnomalyLabels The maximum allowable number of anomaly labels
+         *                         (types).
          * 
          * @return boolean True if the image contains more than the maximum allowed
          *         anomaly types, otherwise False.
@@ -306,7 +305,6 @@ public class DetectAnomalies {
                 "Where:\n" +
                 "    image - The image file to analyze.\n\n" +
                 "    config - The configuration JSON file to use. See resources/analysis-config.json\n\n";
-               
 
         try {
 
@@ -326,7 +324,6 @@ public class DetectAnomalies {
             coverageLimit = config.getFloat("coverage_limit");
             anomalyLabelsLimit = config.getInt("anomaly_labels_limit");
             anomalyType = config.getString("anomaly_label");
-
 
             // Get the Lookout for Vision client.
             LookoutVisionClient lfvClient = LookoutVisionClient.builder().build();

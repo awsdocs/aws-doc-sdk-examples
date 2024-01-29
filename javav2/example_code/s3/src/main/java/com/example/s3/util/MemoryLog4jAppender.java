@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.example.s3.util;
 
 import org.apache.logging.log4j.core.Appender;
@@ -39,7 +41,7 @@ public class MemoryLog4jAppender extends AbstractAppender {
         if (eventWithParameters.getParameterCount() == 2) {
             eventMap.put(eventWithParameters.getParameters()[0].toString(), eventWithParameters.getParameters()[1].toString());
         } else {
-            eventMap.put (eventWithParameters.getFormattedMessage(), null);
+            eventMap.put (eventWithParameters.toString(), null);
         }
     }
 

@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace AddFacesExample
 {
@@ -13,8 +13,7 @@ namespace AddFacesExample
     /// <summary>
     /// Uses the Amazon Rekognition Service to detect faces in an image
     /// that has been uploaded to an Amazon Simple Storage Service (Amazon S3)
-    /// bucket and then adds the information to a collection. The example was
-    /// created using the AWS SDK for .NET and .NET Core 5.0.
+    /// bucket and then adds the information to a collection.
     /// </summary>
     public class AddFaces
     {

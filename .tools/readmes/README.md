@@ -17,7 +17,7 @@ required packages.
 
 We recommend a virtual environment. Create a virtual environment
 and install packages by running the following commands in the
-`.doc_gen/readmes` folder:
+`.tools/readmes` folder:
 
 ```
 python -m venv .venv
@@ -46,7 +46,7 @@ folder for the specified language, version, and service.
 For example, to generate an S3 README for Python:
 
 ```
-python .doc_gen/readmes/writeme.py Python 3 s3
+python .tools/readmes/writeme.py Python 3 s3
 ```
 
 This creates a README.md file in the `python/example_code/s3` folder.
@@ -63,7 +63,7 @@ This creates a README.md file in the `python/example_code/s3` folder.
 You can get inline usage info by using the `-h` flag:
 
 ```
-python .doc_gen/readmes/writeme.py -h
+python .tools/readmes/writeme.py -h
 ```
 
 ### Configuration
@@ -113,13 +113,13 @@ empty if you don't need custom content.
 versions, and services.
 
 ```
-python .doc_gen/readmes/multi.py --language <language1>:<version> <language2>:<version> --service <service1> <service2>
+python .tools/readmes/multi.py --languages <language1>:<version> <language2>:<version> --service <service1> <service2>
 ```
 
 For example, to generate S3 and STS READMEs for Python sdk version 3 and Go sdk version 2:
 
 ```
-python .doc_gen/readmes/multi.py --languages Python:3 Go:2 --services s3 sts
+python .tools/readmes/multi.py --languages Python:3 Go:2 --services s3 sts
 ```
 
 This creates the README.md files in `python/example_code/s3` and other folders.
@@ -127,7 +127,7 @@ This creates the README.md files in `python/example_code/s3` and other folders.
 To build all READMEs for Rust:
 
 ```
-$ python .doc_gen/readmes/multi.py --languages Rust:1
+$ python .tools/readmes/multi.py --languages Rust:1
 INFO:root:Dry run, no changes will be made.
 DEBUG:root:Rendering Rust:1:acm
 DEBUG:root:Rendering Rust:1:api-gateway
@@ -144,7 +144,7 @@ and complete folder override as the value. See dotnetv3 for an example.
 And yes, building all readmes for all languages after changing metadta or templates is now as easy as
 
 ```
-python .doc_gen/readmes/multi.py
+python .tools/readmes/multi.py
 ```
 
 ### Parameters
@@ -152,10 +152,10 @@ python .doc_gen/readmes/multi.py
 - `--languages` a list of `<language>:<sdk_version>` pairs. Each pair must be valid as defined for the languages in [`sdks.yaml`](../metadata/sdks.yaml).
 - `--services` a list where each must match a top-level service in [`services.yaml`](../metadata/services.yaml).
 - `--safe` (optional) when specified, the existing README.md is renamed to the `saved_readme` value in config.py (such as README.old.md).
-- `--dry_run` (default True) because the tool is experimental, you must explicitly opt in with `--no_dry_run` to execute today. This will change in the future.
+- `--dry-run` (default True) because the tool is experimental, you must explicitly opt in with `--no-dry-run` to execute today. This will change in the future.
 
 You can get inline usage info by using the `-h` flag:
 
 ```
-python .doc_gen/readmes/multi.py -h
+python .tools/readmes/multi.py -h
 ```

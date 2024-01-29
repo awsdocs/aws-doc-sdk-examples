@@ -1,10 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// Shows how to create a new AWS Key Management Service (AWS KMS)
-/// key. It uses the AWS SDK for .NET version 3.7 and .NET Core 5.0.
-/// </summary>
 namespace CreateKeyExample
 {
     // snippet-start:[KMS.dotnetv3.CreateKeyExample]
@@ -13,6 +9,10 @@ namespace CreateKeyExample
     using Amazon.KeyManagementService;
     using Amazon.KeyManagementService.Model;
 
+    /// <summary>
+    /// Shows how to create a new AWS Key Management Service (AWS KMS)
+    /// key.
+    /// </summary>
     public class CreateKey
     {
         public static async Task Main()

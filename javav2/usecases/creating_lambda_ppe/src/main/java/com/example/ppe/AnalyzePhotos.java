@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ppe;
 
@@ -40,7 +38,8 @@ public class AnalyzePhotos {
                     .bytes(sourceBytes)
                     .build();
 
-            ProtectiveEquipmentSummarizationAttributes summarizationAttributes = ProtectiveEquipmentSummarizationAttributes.builder()
+            ProtectiveEquipmentSummarizationAttributes summarizationAttributes = ProtectiveEquipmentSummarizationAttributes
+                    .builder()
                     .minConfidence(80F)
                     .requiredEquipmentTypesWithStrings("FACE_COVER", "HAND_COVER", "HEAD_COVER")
                     .build();
@@ -76,9 +75,11 @@ public class AnalyzePhotos {
 
                                 String itemType = item.type().toString();
                                 String confidence = item.confidence().toString();
-                                String myDesc = "Item: " + item.type() + ". Confidence: " + item.confidence().toString();
+                                String myDesc = "Item: " + item.type() + ". Confidence: "
+                                        + item.confidence().toString();
                                 String bodyPartDes = "Covers body part: "
-                                        + item.coversBodyPart().value().toString() + ". Confidence: " + item.coversBodyPart().confidence().toString();
+                                        + item.coversBodyPart().value().toString() + ". Confidence: "
+                                        + item.coversBodyPart().confidence().toString();
 
                                 gear.setName(itemType);
                                 gear.setConfidence(confidence);
@@ -93,7 +94,7 @@ public class AnalyzePhotos {
             }
 
             if (gearList.isEmpty())
-                    return null ;
+                return null;
             else
                 return gearList;
 
@@ -104,4 +105,3 @@ public class AnalyzePhotos {
         return null;
     }
 }
-

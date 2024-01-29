@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DeleteBucket.kt demonstrates how to delete an Amazon Simple Storage Service (Amazon S3) bucket.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.s3
 
@@ -23,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <bucketName> 
@@ -43,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.del_bucket.main]
 suspend fun deleteExistingBucket(bucketName: String?) {
-
     val request = DeleteBucketRequest {
         bucket = bucketName
     }

@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using Amazon.CognitoIdentityProvider;
 using Microsoft.Extensions.Configuration;
@@ -16,8 +16,8 @@ namespace CognitoWrapperTests
         private readonly string _email;
         private readonly string _clientId;
         private readonly string _userPoolId;
-        private static string _mfaToken;
-        private static string _session;
+        private static string _mfaToken = null!;
+        private static string _session = null!;
 
         /// <summary>
         /// Constructor for the test class.
@@ -34,11 +34,11 @@ namespace CognitoWrapperTests
             _client = new AmazonCognitoIdentityProviderClient();
             _wrapper = new CognitoWrapper(_client);
 
-            _userName = _configuration["UserName"];
-            _email = _configuration["Email"];
-            _password = _configuration["Password"];
-            _clientId = _configuration["ClientId"];
-            _userPoolId = _configuration["UserPoolId"];
+            _userName = _configuration["UserName"]!;
+            _email = _configuration["Email"]!;
+            _password = _configuration["Password"]!;
+            _clientId = _configuration["ClientId"]!;
+            _userPoolId = _configuration["UserPoolId"]!;
         }
 
         [Fact(Skip = "Requires user intervention.")]

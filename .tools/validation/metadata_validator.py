@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """
 Validator for mapping and example metadata used to generate code example documentation.
 This validator uses Yamale (https://github.com/23andMe/Yamale) to compare a schema
@@ -11,10 +14,23 @@ import os
 import re
 import yaml
 import yamale
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable
+from typing import Any, Iterable, Optional
 from yamale import YamaleError
 from yamale.validators import DefaultValidators, Validator, String
+
+from metadata_errors import MetadataErrors, MetadataParseError
+
+
+class SdkVersion(Validator):
+    """Validate that sdk version appears in sdks.yaml."""
+
+    tag = "sdk_version"
+    sdks: dict[str, Any] = {}
+
+    def _is_valid(self, value: str):
+        return value in self.sdks
 
 
 class ServiceName(Validator):
@@ -48,19 +64,6 @@ class ServiceVersion(Validator):
         return isdate
 
 
-class SourceKey(Validator):
-    """Validate that curated source keys appear in curated/sources.yaml."""
-
-    tag = "source_key"
-    curated_sources: dict[str, any] = {}
-
-    def get_name(self):
-        return "source key found in curated/sources.yaml"
-
-    def _is_valid(self, value):
-        return value in self.curated_sources
-
-
 class ExampleId(Validator):
     """
     Validate an example ID starts with a service ID and has underscore-separated
@@ -90,7 +93,7 @@ class BlockContent(Validator):
     def get_name(self):
         return "file found in the cross-content folder"
 
-    def _is_valid(self, value):
+    def _is_valid(self, value: str):
         return value in self.block_names
 
 
@@ -111,7 +114,7 @@ class StringExtension(String):
     def get_name(self):
         return self.last_err
 
-    def _is_valid(self, value):
+    def _is_valid(self, value: str):
         if value == "":
             return True
         valid = True
@@ -151,9 +154,21 @@ class StringExtension(String):
         return valid
 
 
-def validate_files(schema_name: Path, meta_names: Iterable[Path], validators):
+@dataclass
+class ValidateYamaleError(MetadataParseError):
+    yamale_error: Optional[YamaleError] = field(default=None)
+
+    def message(self):
+        return f"Yamale Error: {self.yamale_error.message}"
+
+
+def validate_files(
+    schema_name: Path,
+    meta_names: Iterable[Path],
+    validators: dict[str, Validator],
+    errors: MetadataErrors,
+):
     """Iterate a list of files and validate each one against a schema."""
-    errors = 0
 
     schema = yamale.make_schema(schema_name, validators=validators)
     for meta_name in meta_names:
@@ -162,32 +177,29 @@ def validate_files(schema_name: Path, meta_names: Iterable[Path], validators):
             yamale.validate(schema, data)
             print(f"{meta_name.resolve()} validation success! 👍")
         except YamaleError as e:
-            print(e.message)
-            errors += 1
+            errors.append(ValidateYamaleError(file=str(meta_name), yamale_error=e))
     return errors
 
 
-def validate_metadata(doc_gen: Path):
-    # with open(doc_gen / "metadata" / "sdks.yaml") as sdks_file:
-    #     sdks_yaml: dict[str, any] = yaml.safe_load(sdks_file)
-
-    with open(doc_gen / "metadata" / "services.yaml") as services_file:
-        services_yaml = yaml.safe_load(services_file)
+def validate_metadata(doc_gen_root: Path, errors: MetadataErrors) -> MetadataErrors:
+    with open(
+        Path(__file__).parent.parent.parent / ".doc_gen" / "metadata" / "sdks.yaml"
+    ) as sdks_file:
+        sdks_yaml: dict[str, Any] = yaml.safe_load(sdks_file)
 
     with open(
-        doc_gen / "metadata" / "curated" / "sources.yaml"
-    ) as curated_sources_file:
-        curated_sources_yaml = yaml.safe_load(curated_sources_file)
+        Path(__file__).parent.parent.parent / ".doc_gen" / "metadata" / "services.yaml"
+    ) as services_file:
+        services_yaml = yaml.safe_load(services_file)
 
+    SdkVersion.sdks = sdks_yaml
     ServiceName.services = services_yaml
-    SourceKey.curated_sources = curated_sources_yaml
     ExampleId.services = services_yaml
-    BlockContent.block_names = os.listdir(doc_gen / "cross-content")
+    BlockContent.block_names = os.listdir(doc_gen_root / ".doc_gen" / "cross-content")
 
     validators = DefaultValidators.copy()
     validators[ServiceName.tag] = ServiceName
     validators[ServiceVersion.tag] = ServiceVersion
-    validators[SourceKey.tag] = SourceKey
     validators[ExampleId.tag] = ExampleId
     validators[BlockContent.tag] = BlockContent
     validators[String.tag] = StringExtension
@@ -200,13 +212,13 @@ def validate_metadata(doc_gen: Path):
         ("services_schema.yaml", "services.yaml"),
         # TODO: Switch between strict schema for aws-doc-sdk-examples and loose schema for tributaries
         ("example_strict_schema.yaml", "*_metadata.yaml"),
-        ("curated_sources_schema.yaml", "curated/sources.yaml"),
-        ("curated_example_schema.yaml", "curated/*_metadata.yaml"),
     ]
-    errors = 0
     for schema, metadata in to_validate:
-        errors += validate_files(
-            schema_root / schema, (doc_gen / "metadata").glob(metadata), validators
+        validate_files(
+            schema_root / schema,
+            (doc_gen_root / "metadata").glob(metadata),
+            validators,
+            errors,
         )
 
     return errors
@@ -222,9 +234,9 @@ def main():
     )
     args = parser.parse_args()
 
-    errors = validate_metadata(Path(args.doc_gen))
+    errors = validate_metadata(Path(args.doc_gen), MetadataErrors())
 
-    if errors == 0:
+    if len(errors) == 0:
         print("Validation succeeded! 👍👍👍")
     else:
         print("\n********************************************")

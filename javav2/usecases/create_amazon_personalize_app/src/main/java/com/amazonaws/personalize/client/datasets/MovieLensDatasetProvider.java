@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.personalize.client.datasets;
 
 import java.io.BufferedOutputStream;
@@ -54,7 +53,8 @@ public class MovieLensDatasetProvider implements DatasetProvider {
 
     public Map<String, String> getItemIdToNameMapping() throws IOException {
         downloadMovieLensDataset();
-        CSVReader reader = new CSVReader(new BufferedReader(new InputStreamReader(new FileInputStream("./movie-lens-ds/ml-100k/u.item"))), '|');
+        CSVReader reader = new CSVReader(
+                new BufferedReader(new InputStreamReader(new FileInputStream("./movie-lens-ds/ml-100k/u.item"))), '|');
         Map<String, String> map = new HashMap<String, String>();
         String[] row = null;
         while ((row = reader.readNext()) != null) {
@@ -63,7 +63,8 @@ public class MovieLensDatasetProvider implements DatasetProvider {
         return map;
     }
 
-    public void exportDatasetToS3(DatasetType type, S3Client s3Client, String bucketName, boolean skipIfAlreadyExists) throws IOException {
+    public void exportDatasetToS3(DatasetType type, S3Client s3Client, String bucketName, boolean skipIfAlreadyExists)
+            throws IOException {
 
         // Check if bucket exists. If not exist create bucket, skip getting by bytes.
         if (skipIfAlreadyExists && !checkBucketExists(s3Client, bucketName)) {
@@ -85,16 +86,18 @@ public class MovieLensDatasetProvider implements DatasetProvider {
         return "movie-lens/" + type.toString() + "/" + type + ".csv";
     }
 
-    public static void uploadMovieLensDatasetToS3(S3Client s3Client, String bucket, DatasetType type, String path) throws IOException {
-        CSVReader reader = new CSVReader(new BufferedReader(new InputStreamReader(new FileInputStream("./movie-lens-ds/ml-100k/u.data"))), '\t');
+    public static void uploadMovieLensDatasetToS3(S3Client s3Client, String bucket, DatasetType type, String path)
+            throws IOException {
+        CSVReader reader = new CSVReader(
+                new BufferedReader(new InputStreamReader(new FileInputStream("./movie-lens-ds/ml-100k/u.data"))), '\t');
         StringWriter sw = new StringWriter();
         CSVWriter pw = new CSVWriter(sw);
-        pw.writeNext(new String[]{"USER_ID", "ITEM_ID", "TIMESTAMP"});
+        pw.writeNext(new String[] { "USER_ID", "ITEM_ID", "TIMESTAMP" });
         String[] row = null;
         while ((row = reader.readNext()) != null) {
             int rating = Integer.parseInt(row[2]);
             if (rating > 3) {
-                pw.writeNext(new String[]{row[0], row[1], row[3]});
+                pw.writeNext(new String[] { row[0], row[1], row[3] });
             }
         }
         reader.close();
@@ -115,7 +118,6 @@ public class MovieLensDatasetProvider implements DatasetProvider {
 
     }
 
-
     private static ByteBuffer getRandomByteBuffer(int size) throws IOException {
         byte[] b = new byte[size];
         new Random().nextBytes(b);
@@ -134,8 +136,7 @@ public class MovieLensDatasetProvider implements DatasetProvider {
         } catch (S3Exception ex) {
             if (ex.statusCode() == 403 || ex.statusCode() == 400) {
                 System.out.println(ex.getMessage());
-            }
-            else if (ex.statusCode() == 404){
+            } else if (ex.statusCode() == 404) {
                 System.out.println("This bucket doesn't exist, creating bucket...");
                 return false;
             }
@@ -157,7 +158,6 @@ public class MovieLensDatasetProvider implements DatasetProvider {
                     .bucket(bucketName)
                     .build();
 
-
             // Wait until the bucket is created and print out the response
             WaiterResponse<HeadBucketResponse> waiterResponse = s3Waiter.waitUntilBucketExists(bucketRequestWait);
             waiterResponse.matched().response().ifPresent(System.out::println);
@@ -169,7 +169,7 @@ public class MovieLensDatasetProvider implements DatasetProvider {
         }
     }
 
-    //Checks to see if the dataset is already uploaded to s3.
+    // Checks to see if the dataset is already uploaded to s3.
     public static boolean getObjectBytes(S3Client s3Client, String bucketName, String keyName) {
 
         try {
@@ -190,7 +190,6 @@ public class MovieLensDatasetProvider implements DatasetProvider {
         }
         return false;
     }
-
 
     private static void unzip(InputStream is, String destDirectory) throws IOException {
         File destDir = new File(destDirectory);

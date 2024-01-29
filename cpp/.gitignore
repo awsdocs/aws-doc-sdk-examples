@@ -3,3 +3,4 @@ cmake-build*/
 .vs/
 build_tests
 CMakeSettings.json
+vcpkg_installed/

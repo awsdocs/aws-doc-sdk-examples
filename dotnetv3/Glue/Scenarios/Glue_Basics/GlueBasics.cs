@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[Glue.dotnetv3.GlueBasics.Main]
 
@@ -12,7 +12,7 @@ namespace GlueBasics;
 public class GlueBasics
 {
     private static ILogger logger = null!;
-    private static IConfiguration _configuration;
+    private static IConfiguration _configuration = null!;
 
     static async Task Main(string[] args)
     {
@@ -44,15 +44,15 @@ public class GlueBasics
         // edit the file to set "BucketName", "RoleName", and "ScriptURL"
         // to the appropriate values. Also set "CrawlerName" to the name
         // you want to give the crawler when it is created.
-        string bucketName = _configuration["BucketName"];
-        string bucketUrl = _configuration["BucketUrl"];
-        string crawlerName = _configuration["CrawlerName"];
-        string roleName = _configuration["RoleName"];
-        string sourceData = _configuration["SourceData"];
-        string dbName = _configuration["DbName"];
-        string cron = _configuration["Cron"];
-        string scriptUrl = _configuration["ScriptURL"];
-        string jobName = _configuration["JobName"];
+        string bucketName = _configuration["BucketName"]!;
+        string bucketUrl = _configuration["BucketUrl"]!;
+        string crawlerName = _configuration["CrawlerName"]!;
+        string roleName = _configuration["RoleName"]!;
+        string sourceData = _configuration["SourceData"]!;
+        string dbName = _configuration["DbName"]!;
+        string cron = _configuration["Cron"]!;
+        string scriptUrl = _configuration["ScriptURL"]!;
+        string jobName = _configuration["JobName"]!;
 
         var wrapper = host.Services.GetRequiredService<GlueWrapper>();
         var uiWrapper = host.Services.GetRequiredService<UiWrapper>();

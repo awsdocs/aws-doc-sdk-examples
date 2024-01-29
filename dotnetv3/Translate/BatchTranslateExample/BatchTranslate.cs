@@ -1,11 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
-/// <summary>
-/// This example shows how to use Amazon Translate to process the files in
-/// an Amazon Simple Storage Service (Amazon S3) bucket. The translated results
-/// will also be stored in an Amazon S3 bucket. The example was created using
-/// the AWS SDK for .NET version 3.7 and .NET Core 5.0.
-/// </summary>
+// SPDX-License-Identifier: Apache-2.0
 
 namespace BatchTranslateExample
 {
@@ -16,6 +10,11 @@ namespace BatchTranslateExample
     using Amazon.Translate;
     using Amazon.Translate.Model;
 
+    /// <summary>
+    /// This example shows how to use Amazon Translate to process the files in
+    /// an Amazon Simple Storage Service (Amazon S3) bucket. The translated results
+    /// will also be stored in an Amazon S3 bucket.
+    /// </summary>
     public class BatchTranslate
     {
         public static async Task Main()

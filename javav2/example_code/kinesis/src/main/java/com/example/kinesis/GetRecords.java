@@ -1,15 +1,10 @@
-//snippet-sourcedescription:[GetRecords.java demonstrates how to read multiple data records from an Amazon Kinesis data stream.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Kinesis]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kinesis;
 
-//snippet-start:[kinesis.java2.getrecord.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+// snippet-start:[kinesis.java2.getrecord.main]
+// snippet-start:[kinesis.java2.getrecord.import]
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
@@ -23,52 +18,48 @@ import software.amazon.awssdk.services.kinesis.model.GetRecordsRequest;
 import software.amazon.awssdk.services.kinesis.model.GetRecordsResponse;
 import java.util.ArrayList;
 import java.util.List;
-//snippet-end:[kinesis.java2.getrecord.import]
+// snippet-end:[kinesis.java2.getrecord.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class GetRecords {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <streamName>\n\n" +
-            "Where:\n" +
-            "    streamName - The Amazon Kinesis data stream to read from (for example, StockTradeStream).\n\n" ;
+                Usage:
+                    <streamName>
 
-       if (args.length != 1) {
+                Where:
+                    streamName - The Amazon Kinesis data stream to read from (for example, StockTradeStream).
+                """;
+
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
-       }
+        }
 
         String streamName = args[0];
         Region region = Region.US_EAST_1;
         KinesisClient kinesisClient = KinesisClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
-        getStockTrades(kinesisClient,streamName);
+        getStockTrades(kinesisClient, streamName);
         kinesisClient.close();
     }
 
-    // snippet-start:[kinesis.java2.getrecord.main]
     public static void getStockTrades(KinesisClient kinesisClient, String streamName) {
-
         String shardIterator;
         String lastShardId = null;
-
-        // Retrieve the Shards from a Stream
         DescribeStreamRequest describeStreamRequest = DescribeStreamRequest.builder()
-            .streamName(streamName)
-            .build();
+                .streamName(streamName)
+                .build();
 
         List<Shard> shards = new ArrayList<>();
         DescribeStreamResponse streamRes;
@@ -79,13 +70,13 @@ public class GetRecords {
             if (shards.size() > 0) {
                 lastShardId = shards.get(shards.size() - 1).shardId();
             }
-            } while (streamRes.streamDescription().hasMoreShards());
+        } while (streamRes.streamDescription().hasMoreShards());
 
         GetShardIteratorRequest itReq = GetShardIteratorRequest.builder()
-            .streamName(streamName)
-            .shardIteratorType("TRIM_HORIZON")
-            .shardId(lastShardId)
-            .build();
+                .streamName(streamName)
+                .shardIteratorType("TRIM_HORIZON")
+                .shardId(lastShardId)
+                .build();
 
         GetShardIteratorResponse shardIteratorResult = kinesisClient.getShardIterator(itReq);
         shardIterator = shardIteratorResult.shardIterator();
@@ -96,9 +87,9 @@ public class GetRecords {
         // Create new GetRecordsRequest with existing shardIterator.
         // Set maximum records to return to 1000.
         GetRecordsRequest recordsRequest = GetRecordsRequest.builder()
-            .shardIterator(shardIterator)
-            .limit(1000)
-            .build();
+                .shardIterator(shardIterator)
+                .limit(1000)
+                .build();
 
         GetRecordsResponse result = kinesisClient.getRecords(recordsRequest);
 
@@ -111,6 +102,5 @@ public class GetRecords {
             System.out.printf("Seq No: %s - %s%n", record.sequenceNumber(), new String(byteBuffer.asByteArray()));
         }
     }
-    // snippet-end:[kinesis.java2.getrecord.main]
 }
-
+// snippet-end:[kinesis.java2.getrecord.main]

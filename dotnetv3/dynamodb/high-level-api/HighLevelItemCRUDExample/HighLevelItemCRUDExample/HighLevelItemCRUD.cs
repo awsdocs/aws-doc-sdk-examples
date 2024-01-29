@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace HighLevelItemCRUDExample
 {
@@ -13,8 +13,7 @@ namespace HighLevelItemCRUDExample
 
     /// <summary>
     /// Shows how to perform high-level CRUD operations on an Amazon DynamoDB
-    /// table. The example was created with the AWS SDK for .NET version 3.7
-    /// and .NET Core 5.0.
+    /// table.
     /// </summary>
     public class HighLevelItemCrud
     {

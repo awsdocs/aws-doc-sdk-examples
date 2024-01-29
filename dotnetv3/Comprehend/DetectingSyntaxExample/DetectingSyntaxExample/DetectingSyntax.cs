@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DetectingSyntaxExample
 {
@@ -11,8 +11,7 @@ namespace DetectingSyntaxExample
 
     /// <summary>
     /// This example shows how to use Amazon Comprehend to detect syntax
-    /// elements by calling the DetectSyntaxAsync method. This example was
-    /// created using the AWS SDK for .NET 3.7 and .NET Core 5.0.
+    /// elements by calling the DetectSyntaxAsync method.
     /// </summary>
     public class DetectingSyntax
     {

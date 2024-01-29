@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DescribeExportTasksExample
 {
@@ -11,8 +11,7 @@ namespace DescribeExportTasksExample
 
     /// <summary>
     /// Shows how to retrieve a list of information about Amazon CloudWatch
-    /// Logs export tasks. The example was created using the AWS SDK for .NET
-    /// version 3.7 and .NET Core 5.0.
+    /// Logs export tasks.
     /// </summary>
     public class DescribeExportTasks
     {

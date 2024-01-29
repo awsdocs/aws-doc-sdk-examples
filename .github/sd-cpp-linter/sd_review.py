@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-
-# Original copyright (c) 2020 Peter Hill
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
+# Original copyright (c) 2020 Peter Hill
 
 # The original source was part of the GitHub action Clang Tidy Review, https://github.com/ZedThree/clang-tidy-review.
 # This is an alteration of Clang Tidy Review which posts to annotations instead of pull-request
@@ -37,7 +36,6 @@ AWS_DOCS_ACCOUNT = "awsdocs"
 
 
 class Commit:
-
     def __init__(self, pr_repo: str, head_ref: str, token: str):
         self.pr_repo = pr_repo  # account/repository
         self.head_ref = head_ref
@@ -64,12 +62,12 @@ class Commit:
         """Download the compare diff, return a list of PatchedFile"""
         diffs = self.get_for_compare("diff", f"/main...{self.head_ref}")
 
-    # PatchSet is the easiest way to construct what we want, but the
-    # diff_line_no property on lines is counted from the top of the
-    # whole PatchSet, whereas GitHub is expecting the "position"
-    # property to be line count within each file's diff. So we need to
-    # do this  bit of faff to get a list of file-diffs with
-    # their own diff_line_no range
+        # PatchSet is the easiest way to construct what we want, but the
+        # diff_line_no property on lines is counted from the top of the
+        # whole PatchSet, whereas GitHub is expecting the "position"
+        # property to be line count within each file's diff. So we need to
+        # do this  bit of faff to get a list of file-diffs with
+        # their own diff_line_no range
         diff = [unidiff.PatchSet(str(file))[0] for file in unidiff.PatchSet(diffs)]
 
         return diff
@@ -172,13 +170,14 @@ def make_file_offset_lookup(filenames):
 
 
 def get_diagnostic_file_path(clang_tidy_diagnostic, build_dir):
-    
     # Sometimes, clang-tidy gives us an absolute path, so everything is fine.
     # Sometimes however it gives us a relative path that is relative to the
     # build directory, so we prepend that.
-    
+
     # Modern clang-tidy
-    if ("DiagnosticMessage" in clang_tidy_diagnostic) and ("FilePath" in clang_tidy_diagnostic["DiagnosticMessage"]):
+    if ("DiagnosticMessage" in clang_tidy_diagnostic) and (
+        "FilePath" in clang_tidy_diagnostic["DiagnosticMessage"]
+    ):
         file_path = clang_tidy_diagnostic["DiagnosticMessage"]["FilePath"]
         if file_path == "":
             return ""
@@ -187,11 +186,14 @@ def get_diagnostic_file_path(clang_tidy_diagnostic, build_dir):
         else:
             # Make the relative path absolute with the build dir
             if "BuildDirectory" in clang_tidy_diagnostic:
-                return os.path.normpath(os.path.abspath(os.path.join(clang_tidy_diagnostic["BuildDirectory"],
-                                                                     file_path)))
+                return os.path.normpath(
+                    os.path.abspath(
+                        os.path.join(clang_tidy_diagnostic["BuildDirectory"], file_path)
+                    )
+                )
             else:
                 return os.path.normpath(os.path.abspath(file_path))
-      
+
     # Pre-clang-tidy-9 format
     elif "FilePath" in clang_tidy_diagnostic:
         file_path = clang_tidy_diagnostic["FilePath"]
@@ -199,7 +201,7 @@ def get_diagnostic_file_path(clang_tidy_diagnostic, build_dir):
             return ""
         else:
             return os.path.normpath(os.path.abspath(os.path.join(build_dir, file_path)))
-        
+
     else:
         return ""
 
@@ -425,7 +427,9 @@ def format_notes(notes, offset_lookup):
     return code_blocks
 
 
-def make_comment_from_diagnostic(diagnostic_name, diagnostic, filename, offset_lookup, notes):
+def make_comment_from_diagnostic(
+    diagnostic_name, diagnostic, filename, offset_lookup, notes
+):
     """Create a comment from a diagnostic
 
     Comment contains the diagnostic message, plus its name, along with
@@ -449,9 +453,7 @@ def make_comment_from_diagnostic(diagnostic_name, diagnostic, filename, offset_l
     )
 
     if diagnostic["Replacements"]:
-        code_blocks, end_line = format_diff_line(
-            diagnostic, offset_lookup, line_num
-        )
+        code_blocks, end_line = format_diff_line(diagnostic, offset_lookup, line_num)
     else:
         # No fixit, so just point at the problem
         code_blocks = format_ordinary_line(source_line, line_offset)
@@ -466,14 +468,15 @@ def make_comment_from_diagnostic(diagnostic_name, diagnostic, filename, offset_l
 
 
 def comment_diagnostic_to_log(diagnostic, source_line, log_messages, http_prefix):
-
-    if 'DiagnosticMessage' in diagnostic:
-        diagnostic_message = diagnostic['DiagnosticMessage']
-        message = diagnostic_message['Message'] + " (" + diagnostic['DiagnosticName'] + ")"
-        file_path = diagnostic_message['FilePath']
+    if "DiagnosticMessage" in diagnostic:
+        diagnostic_message = diagnostic["DiagnosticMessage"]
+        message = (
+            diagnostic_message["Message"] + " (" + diagnostic["DiagnosticName"] + ")"
+        )
+        file_path = diagnostic_message["FilePath"]
     else:
-        message = diagnostic['Message']
-        file_path = diagnostic['FilePath']
+        message = diagnostic["Message"]
+        file_path = diagnostic["FilePath"]
 
     try:
         index = file_path.index("cpp/")
@@ -485,11 +488,18 @@ def comment_diagnostic_to_log(diagnostic, source_line, log_messages, http_prefix
         http_path = file_path
 
     log_messages.append(
-        f"::error ::{message} {http_path}#L{source_line} {file_path}:{source_line}")
+        f"::error ::{message} {http_path}#L{source_line} {file_path}:{source_line}"
+    )
 
 
-def make_comments(diagnostics, diff_lookup, offset_lookup, build_dir, has_compile_commands, http_prefix):
-
+def make_comments(
+    diagnostics,
+    diff_lookup,
+    offset_lookup,
+    build_dir,
+    has_compile_commands,
+    http_prefix,
+):
     ignored_diagnostics = []
     if not has_compile_commands:
         # Clang-tidy will not be able to find aws-sdk headers. Ignore the error generated for missing headers.
@@ -576,7 +586,7 @@ def get_clang_tidy_warnings(
     """Get the clang-tidy warnings"""
 
     if config_file != "":
-        config = f"-config-file=\"{config_file}\""
+        config = f'-config-file="{config_file}"'
     else:
         config = f"-checks={clang_tidy_checks}"
 
@@ -597,7 +607,11 @@ def get_clang_tidy_warnings(
     try:
         with message_group(f"Running:\n\t{command}"):
             subprocess.run(
-                command.split(), capture_output=True, shell=False, check=True, encoding="utf-8"
+                command.split(),
+                capture_output=True,
+                shell=False,
+                check=True,
+                encoding="utf-8",
             )
     except subprocess.CalledProcessError:
         pass
@@ -616,27 +630,27 @@ def get_clang_tidy_warnings(
 
 
 def main(
-        repo,
-        pr_number,
-        build_dir,
-        clang_tidy_checks,
-        clang_tidy_binary,
-        config_file,
-        token,
-        include_pattern,
-        exclude_pattern,
-        max_comments,
-        lgtm_comment_body,
-        ref,  # set during workflow runs, not set for PR
-        head_ref,  # set for PR, not set during workflows
+    repo,
+    pr_number,
+    build_dir,
+    clang_tidy_checks,
+    clang_tidy_binary,
+    config_file,
+    token,
+    include_pattern,
+    exclude_pattern,
+    max_comments,
+    lgtm_comment_body,
+    ref,  # set during workflow runs, not set for PR
+    head_ref,  # set for PR, not set during workflows
 ):
-    source_actor = os.getenv('GITHUB_ACTOR')
+    source_actor = os.getenv("GITHUB_ACTOR")
     if pr_number is not None and pr_number != "":
         pull_request = PullRequest(repo, int(pr_number), token)
         diff = pull_request.get_pr_diff()
         branch = head_ref.replace("'", "")
     elif ref is not None:
-        branch = ref[ref.rindex("/") + 1:]
+        branch = ref[ref.rindex("/") + 1 :]
         branch = branch.replace("'", "")
         commit = Commit(repo, branch, token)
         diff = commit.get_commit_diff()
@@ -644,7 +658,7 @@ def main(
         print("No pull request or workflow reference. Unable to review.")
         return 0
 
-    source_repo = source_actor + repo[repo.find("/"):]
+    source_repo = source_actor + repo[repo.find("/") :]
     http_prefix = f"https://github.com/{source_repo}/tree/{branch}"
 
     changed_files = [filename.target_file[2:] for filename in diff]
@@ -683,8 +697,12 @@ def main(
 
     with message_group("Creating annotations from warnings"):
         log_messages = make_comments(
-            clang_tidy_warnings["Diagnostics"], diff_lookup, offset_lookup, build_dir,
-            clang_tidy_warnings[HAS_COMPILE_COMMANDS], http_prefix
+            clang_tidy_warnings["Diagnostics"],
+            diff_lookup,
+            offset_lookup,
+            build_dir,
+            clang_tidy_warnings[HAS_COMPILE_COMMANDS],
+            http_prefix,
         )
 
     if not log_messages:
@@ -847,7 +865,7 @@ if __name__ == "__main__":
         lgtm_comment_body=strip_enclosing_quotes(args.lgtm_comment_body),
         head_ref=args.head_ref,
         ref=args.ref,
-     )
+    )
 
     if result == 1:
         exit(1)

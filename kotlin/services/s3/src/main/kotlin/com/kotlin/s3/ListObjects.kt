@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListObjects.kt demonstrates how to list objects located in a given Amazon Simple Storage Service (Amazon S3) bucket.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.s3
 
@@ -23,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <bucketName> 
@@ -43,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.list_objects.main]
 suspend fun listBucketObjects(bucketName: String) {
-
     val request = ListObjectsRequest {
         bucket = bucketName
     }
@@ -53,7 +45,7 @@ suspend fun listBucketObjects(bucketName: String) {
         val response = s3.listObjects(request)
         response.contents?.forEach { myObject ->
             println("The name of the key is ${myObject.key}")
-            println("The object is ${calKb(myObject.size)} KBs")
+            println("The object is ${myObject.size?.let { calKb(it) }} KBs")
             println("The owner is ${myObject.owner}")
         }
     }

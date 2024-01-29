@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.DocumentAPIItemBinaryExample] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.DocumentAPIItemBinaryExample] 
 
 package com.amazonaws.codesamples.document;
 
@@ -68,8 +47,7 @@ public class DocumentAPIItemBinaryExample {
 
             // clean up by deleting the item
             deleteItem(threadId, replyDateTime);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Error running the binary attribute type example: " + e);
             e.printStackTrace(System.err);
         }
@@ -86,8 +64,8 @@ public class DocumentAPIItemBinaryExample {
         ByteBuffer compressedMessage = compressString(messageInput.toString());
 
         table.putItem(new Item().withPrimaryKey("Id", threadId).withString("ReplyDateTime", replyDateTime)
-            .withString("Message", "Long message follows").withBinary("ExtendedMessage", compressedMessage)
-            .withString("PostedBy", "User A"));
+                .withString("Message", "Long message follows").withBinary("ExtendedMessage", compressedMessage)
+                .withString("PostedBy", "User A"));
     }
 
     public static void retrieveItem(String threadId, String replyDateTime) throws IOException {
@@ -95,7 +73,7 @@ public class DocumentAPIItemBinaryExample {
         Table table = dynamoDB.getTable(tableName);
 
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("Id", threadId, "ReplyDateTime", replyDateTime)
-            .withConsistentRead(true);
+                .withConsistentRead(true);
 
         Item item = table.getItem(spec);
 
@@ -103,8 +81,9 @@ public class DocumentAPIItemBinaryExample {
         String uncompressed = uncompressString(ByteBuffer.wrap(item.getBinary("ExtendedMessage")));
 
         System.out.println("Reply message:\n" + " Id: " + item.getString("Id") + "\n" + " ReplyDateTime: "
-            + item.getString("ReplyDateTime") + "\n" + " PostedBy: " + item.getString("PostedBy") + "\n" + " Message: "
-            + item.getString("Message") + "\n" + " ExtendedMessage (uncompressed): " + uncompressed + "\n");
+                + item.getString("ReplyDateTime") + "\n" + " PostedBy: " + item.getString("PostedBy") + "\n"
+                + " Message: "
+                + item.getString("Message") + "\n" + " ExtendedMessage (uncompressed): " + uncompressed + "\n");
     }
 
     public static void deleteItem(String threadId, String replyDateTime) {
@@ -162,4 +141,4 @@ public class DocumentAPIItemBinaryExample {
     }
 }
 
-// snippet-end:[dynamodb.java.codeexample.DocumentAPIItemBinaryExample] 
+// snippet-end:[dynamodb.java.codeexample.DocumentAPIItemBinaryExample]

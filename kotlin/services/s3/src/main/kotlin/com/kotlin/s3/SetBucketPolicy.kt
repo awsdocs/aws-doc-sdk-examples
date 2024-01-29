@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[SetBucketPolicy.kt demonstrates how to add a bucket policy to an existing Amazon Simple Storage Service (Amazon S3) bucket.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.s3
 
@@ -27,7 +21,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <bucketName> <polFile>
@@ -49,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.set_bucket_policy.main]
 suspend fun setPolicy(bucketName: String, polText: String) {
-
     val policyText = getBucketPolicyFromFile(polText)
     println("Setting policy:")
     println("----")
@@ -73,7 +65,8 @@ fun getBucketPolicyFromFile(policyFile: String): String {
     val fileText = StringBuilder()
     try {
         val lines = Files.readAllLines(
-            Paths.get(policyFile), Charset.forName("UTF-8")
+            Paths.get(policyFile),
+            Charset.forName("UTF-8")
         )
         for (line in lines) {
             fileText.append(line)

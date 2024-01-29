@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[ObjectCopy.java demonstrates how to copy an object between Amazon Simple Storage Service (Amazon S3) buckets using the Amazon S3 TransferManager.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.s3.transfermanager;
 
 // snippet-start:[s3.tm.java2.objectcopy.import]
@@ -22,7 +17,8 @@ import java.util.UUID;
 // snippet-end:[s3.tm.java2.objectcopy.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -43,25 +39,25 @@ public class ObjectCopy {
     public static void main(String[] args) {
         ObjectCopy copy = new ObjectCopy();
 
-        String etag = copy.copyObject(S3ClientFactory.transferManager,copy.bucketName,
-            copy.key, copy.destinationBucket, copy.destinationKey);
+        String etag = copy.copyObject(S3ClientFactory.transferManager, copy.bucketName,
+                copy.key, copy.destinationBucket, copy.destinationKey);
         logger.info("etag [{}]", etag);
         copy.cleanUp();
     }
 
     // snippet-start:[s3.tm.java2.objectcopy.main]
     public String copyObject(S3TransferManager transferManager, String bucketName,
-                             String key, String destinationBucket, String destinationKey){
+            String key, String destinationBucket, String destinationKey) {
         CopyObjectRequest copyObjectRequest = CopyObjectRequest.builder()
-            .sourceBucket(bucketName)
-            .sourceKey(key)
-            .destinationBucket(destinationBucket)
-            .destinationKey(destinationKey)
-            .build();
+                .sourceBucket(bucketName)
+                .sourceKey(key)
+                .destinationBucket(destinationBucket)
+                .destinationKey(destinationKey)
+                .build();
 
         CopyRequest copyRequest = CopyRequest.builder()
-            .copyObjectRequest(copyObjectRequest)
-            .build();
+                .copyObjectRequest(copyObjectRequest)
+                .build();
 
         Copy copy = transferManager.copy(copyRequest);
 
@@ -73,12 +69,12 @@ public class ObjectCopy {
     private void setUp() {
         S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
         S3ClientFactory.s3Client.putObject(builder -> builder
-            .bucket(bucketName)
-            .key(key), RequestBody.fromString("Hello World"));
+                .bucket(bucketName)
+                .key(key), RequestBody.fromString("Hello World"));
         S3ClientFactory.s3Client.createBucket(b -> b.bucket(destinationBucket));
     }
 
-    public void cleanUp(){
+    public void cleanUp() {
         S3ClientFactory.s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
         S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
         S3ClientFactory.s3Client.deleteObject(b -> b.bucket(destinationBucket).key(destinationKey));

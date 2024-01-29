@@ -1,3 +1,5 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 # extract-snippets.sh v1.1.0
 # Jerry Kindall, Amazon Web Services
 

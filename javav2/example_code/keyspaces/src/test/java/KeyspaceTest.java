@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.config.DriverConfigLoader;
@@ -31,13 +29,13 @@ import java.util.Random;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class KeyspaceTest {
-    public static final String DASHES = new String(new char[80]).replace("\0", "-") ;
-    private static String fileName = "" ;
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
+    private static String fileName = "";
     private static String keyspaceName = "";
     private static String titleUpdate = "The Family";
-    private static int yearUpdate = 2013 ;
-    private static String tableName = "Movie" ;
-    private static String tableNameRestore = "MovieRestore" ;
+    private static int yearUpdate = 2013;
+    private static String tableName = "Movie";
+    private static String tableNameRestore = "MovieRestore";
     private static KeyspacesClient keyClient;
     private static CqlSession session;
 
@@ -45,25 +43,25 @@ public class KeyspaceTest {
     public static void setUp() {
         Random rand = new Random();
         int randomNum = rand.nextInt((10000 - 1) + 1) + 1;
-        keyspaceName = "key"+randomNum;
+        keyspaceName = "key" + randomNum;
         Region region = Region.US_EAST_1;
         keyClient = KeyspacesClient.builder()
-            .region(region)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         DriverConfigLoader loader = DriverConfigLoader.fromClasspath("application.conf");
         session = CqlSession.builder()
-            .withConfigLoader(loader)
-            .build();
+                .withConfigLoader(loader)
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
         fileName = values.getFileName();
-        keyspaceName =  values.getKeyspaceName()+randomNum;
-   }
+        keyspaceName = values.getKeyspaceName() + randomNum;
+    }
 
     @Test
     @Tag("IntegrationTest")
@@ -163,17 +161,18 @@ public class KeyspaceTest {
         ScenarioKeyspaces.deleteKeyspace(keyClient, keyspaceName);
         System.out.println(DASHES);
     }
+
     public static String getSecretValues() {
         // Get the Amazon RDS creds from Secrets Manager.
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/keyspace";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -194,12 +193,3 @@ public class KeyspaceTest {
         }
     }
 }
-
-
-
-
-
-
-
-
-

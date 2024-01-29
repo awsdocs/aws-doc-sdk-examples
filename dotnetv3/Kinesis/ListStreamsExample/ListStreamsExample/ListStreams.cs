@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace ListStreamsExample
 {
@@ -11,8 +11,7 @@ namespace ListStreamsExample
     using Amazon.Kinesis.Model;
 
     /// <summary>
-    /// Retrieves and displays a list of existing Amazon Kinesis streams. The
-    /// example uses the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// Retrieves and displays a list of existing Amazon Kinesis streams.
     /// </summary>
     public class ListStreams
     {

@@ -1,33 +1,105 @@
-# Amazon SNS Kotlin code examples
+# Amazon SNS code examples for the SDK for Kotlin
 
-This README discusses how to run the Kotlin code examples for Amazon Simple Notification Service (Amazon SNS).
+## Overview
 
-## Running the Amazon SNS Kotlin files
+Shows how to use the AWS SDK for Kotlin to work with Amazon Simple Notification Service (Amazon SNS).
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Kotlin code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_Amazon SNS is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud._
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting an SNS topic. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+## ⚠ Important
 
-You will find these examples: 
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-- **AddTags** - Demonstrates how to add tags to an Amazon SNS topic.
-- **CreateTopic** - Demonstrates how to create an Amazon SNS topic.
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotlin` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Get started
+
+- [Hello Amazon SNS](src/main/kotlin/com/kotlin/sns/HelloSNS.kt#L11) (`ListTopics`)
+
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Add tags to a topic](src/main/kotlin/com/kotlin/sns/AddTags.kt#L46) (`TagResource`)
+- [Create a topic](src/main/kotlin/com/kotlin/sns/CreateTopic.kt#L46) (`CreateTopic`)
+- [Delete a subscription](src/main/kotlin/com/kotlin/sns/Unsubscribe.kt#L44) (`Unsubscribe`)
+- [Delete a topic](src/main/kotlin/com/kotlin/sns/DeleteTopic.kt#L45) (`DeleteTopic`)
+- [Get the properties of a topic](src/main/kotlin/com/kotlin/sns/GetTopicAttributes.kt#L45) (`GetTopicAttributes`)
+- [List the subscribers of a topic](src/main/kotlin/com/kotlin/sns/ListSubscriptions.kt#L27) (`ListSubscriptions`)
+- [List topics](src/main/kotlin/com/kotlin/sns/ListTopics.kt#L29) (`ListTopics`)
+- [Publish an SMS text message](src/main/kotlin/com/kotlin/sns/PublishTextSMS.kt#L47) (`Publish`)
+- [Publish to a topic](src/main/kotlin/com/kotlin/sns/PublishTopic.kt#L45) (`Publish`)
+- [Set topic attributes](src/main/kotlin/com/kotlin/sns/SetTopicAttributes.kt#L48) (`SetTopicAttributes`)
+- [Subscribe a Lambda function to a topic](src/main/kotlin/com/kotlin/sns/SubscribeLambda.kt#L46) (`Subscribe`)
+- [Subscribe an email address to a topic](src/main/kotlin/com/kotlin/sns/SubscribeEmail.kt#L47) (`Subscribe`)
+
+
+<!--custom.examples.start-->
+
+### Custom Examples
+
 - **DeleteTag** - Demonstrates how to delete tags from an Amazon SNS topic.
-- **DeleteTopic** - Demonstrates how to delete an Amazon SNS topic.
-- **GetTopicAttributes** - Demonstrates how to retrieve the defaults for an Amazon SNS topic.
-- **ListSubscriptions** - Demonstrates how to list existing Amazon SNS subscriptions.
 - **ListTags** - Demonstrates how to retrieve tags from an Amazon SNS topic.
-- **ListTopics** - Demonstrates how to get a list of existing Amazon SNS topics.
-- **PublishTextSMS** - Demonstrates how to send an Amazon SNS text message.
-- **PublishTopic** - Demonstrates how to publish an Amazon SNS topic.
-- **SetTopicAttributes** - Demonstrates how to set attributes for an Amazon SNS topic.
-- **SubscribeEmail** - Demonstrates how to subscribe to an Amazon SNS email endpoint.
-- **SubscribeLambda** - Demonstrates how to subscribe to an Amazon SNS lambda function.
-- **SubscribeTextSMS** - Demonstrates how to subscribe to an Amazon SNS text endpoint.
 - **SubscribeTextSMS** - Demonstrates how to subscribe to an Amazon SNS text endpoint.
 - **Unsubscribe** - Demonstrates how to remove an Amazon SNS subscription.
+<!--custom.examples.end-->
 
-To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
-see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
+## Run the examples
+
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+#### Hello Amazon SNS
+
+This example shows you how to get started using Amazon SNS.
+
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `kotlin` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
+- [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
+- [SDK for Kotlin Amazon SNS reference](https://sdk.amazonaws.com/kotlin/api/latest/sns/index.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

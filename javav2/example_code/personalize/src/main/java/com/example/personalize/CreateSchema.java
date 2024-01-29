@@ -1,20 +1,9 @@
-//snippet-sourcedescription:[CreateSchema.java demonstrates how to create
-// an Amazon Personalize schema.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/13/2021]
-//snippet-sourceauthor:[seashman - AWS]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.personalize;
 
-//snippet-start:[personalize.java2.create_schema.import]
+// snippet-start:[personalize.java2.create_schema.import]
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.model.CreateSchemaRequest;
@@ -24,17 +13,21 @@ import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-//snippet-end:[personalize.java2.create_schema.import]
+// snippet-end:[personalize.java2.create_schema.import]
 
 public class CreateSchema {
 
     public static void main(String[] args) {
 
-        final String USAGE = "Usage:\n" +
-                "    CreateSchema <name, schemaLocation>\n\n" +
-                "Where:\n" +
-                "   name - The name for the schema.\n" +
-                "   schemaLocation - the location of the schema JSON file.\n\n";
+        final String USAGE = """
+                Usage:
+                    CreateSchema <name, schemaLocation>
+
+                Where:
+                   name - The name for the schema.
+                   schemaLocation - the location of the schema JSON file.
+
+                """;
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -43,7 +36,6 @@ public class CreateSchema {
 
         String schemaName = args[0];
         String filePath = args[1];
-
 
         Region region = Region.US_WEST_2;
 
@@ -56,7 +48,8 @@ public class CreateSchema {
         personalizeClient.close();
 
     }
-    //snippet-start:[personalize.java2.create_schema.main]
+
+    // snippet-start:[personalize.java2.create_schema.main]
     public static String createSchema(PersonalizeClient personalizeClient, String schemaName, String filePath) {
 
         String schema = null;
@@ -84,7 +77,6 @@ public class CreateSchema {
         }
         return "";
     }
-    //snippet-end:[personalize.java2.create_schema.main]
-
+    // snippet-end:[personalize.java2.create_schema.main]
 
 }

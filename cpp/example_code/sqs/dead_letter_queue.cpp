@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -14,15 +12,15 @@
  *
  **/
 
-//snippet-start:[sqs.cpp.make_redrive_policy.inc]
+// snippet-start:[sqs.cpp.make_redrive_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/json/JsonSerializer.h>
-//snippet-end:[sqs.cpp.make_redrive_policy.inc]
-//snippet-start:[sqs.cpp.set_redrive_policy.inc]
+// snippet-end:[sqs.cpp.make_redrive_policy.inc]
+// snippet-start:[sqs.cpp.set_redrive_policy.inc]
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/SetQueueAttributesRequest.h>
 #include <iostream>
-//snippet-end:[sqs.cpp.set_redrive_policy.inc]
+// snippet-end:[sqs.cpp.set_redrive_policy.inc]
 #include "sqs_samples.h"
 
 static Aws::String MakeRedrivePolicy(const Aws::String &queueArn, int maxReceiveCount);

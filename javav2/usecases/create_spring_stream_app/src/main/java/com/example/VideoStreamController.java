@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 import reactor.core.publisher.Mono;
 import javax.servlet.http.HttpServletRequest;
@@ -77,8 +78,8 @@ public class VideoStreamController {
     }
 
     // Returns the video in the bucket specified by the ID value.
-    @RequestMapping(value = "/{id}/stream", method = RequestMethod.GET)
-    public Mono<ResponseEntity<byte[]>> streamVideo(@PathVariable String id) {
+    @GetMapping("/{id}/stream")
+    public Mono<ResponseEntity<StreamingResponseBody>> streamVideo(@PathVariable String id) {
         String fileName = id;
         return Mono.just(vid.getObjectBytes(bucket, fileName));
     }

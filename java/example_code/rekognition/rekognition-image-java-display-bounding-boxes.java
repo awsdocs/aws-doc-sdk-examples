@@ -1,31 +1,7 @@
-// snippet-sourcedescription:[rekognition-image-java-display-bounding-boxes.java demonstrates how to detect display bounding boxes around faces detected in an image loaded from an S3 Bucket.]
-// snippet-service:[rekognition]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Rekognition]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[DetectFaces]
-// snippet-keyword:[Bounding Box]
-// snippet-keyword:[S3 Bucket]
-// snippet-keyword:[Image]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-18]
-// snippet-sourceauthor:[reesch(AWS)]
-// snippet-start:[rekognition.java.rekognition-image-java-display-bounding-boxes.complete]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// snippet-start:[rekognition.java.rekognition-image-java-display-bounding-boxes.complete]
 //Loads images, detects faces and draws bounding boxes.Determines exif orientation, if necessary.
 
 package aws.example.rekognition.image;
@@ -66,8 +42,8 @@ public class DisplayFaces extends JPanel {
         result = facesResult;
         image = bufImage;
 
-        
     }
+
     // Draws the bounding box around the detected faces.
     public void paintComponent(Graphics g) {
         float left = 0;
@@ -84,20 +60,19 @@ public class DisplayFaces extends JPanel {
         // Iterate through faces and display bounding boxes.
         List<FaceDetail> faceDetails = result.getFaceDetails();
         for (FaceDetail face : faceDetails) {
-            
+
             BoundingBox box = face.getBoundingBox();
             left = width * box.getLeft();
             top = height * box.getTop();
             g2d.drawRect(Math.round(left / scale), Math.round(top / scale),
                     Math.round((width * box.getWidth()) / scale), Math.round((height * box.getHeight())) / scale);
-            
+
         }
     }
 
-
     public static void main(String arg[]) throws Exception {
-        //Change the value of bucket to the S3 bucket that contains your image file.
-        //Change the value of photo to your image file name.
+        // Change the value of bucket to the S3 bucket that contains your image file.
+        // Change the value of photo to your image file name.
         String photo = "input.png";
         String bucket = "bucket";
         int height = 0;
@@ -115,11 +90,11 @@ public class DisplayFaces extends JPanel {
         width = image.getWidth();
         height = image.getHeight();
 
-        // Call DetectFaces    
+        // Call DetectFaces
         AmazonRekognition amazonRekognition = AmazonRekognitionClientBuilder.defaultClient();
         DetectFacesResult result = amazonRekognition.detectFaces(request);
-        
-        //Show the bounding box info for each face.
+
+        // Show the bounding box info for each face.
         List<FaceDetail> faceDetails = result.getFaceDetails();
         for (FaceDetail face : faceDetails) {
 
@@ -148,5 +123,3 @@ public class DisplayFaces extends JPanel {
     }
 }
 // snippet-end:[rekognition.java.rekognition-image-java-display-bounding-boxes.complete]
-
-

@@ -1,18 +1,11 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[SendMessage.java demonstrates how to send an email message by using the Amazon Simple Email Service (Amazon SES).]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon Simple Email Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[ses.java2.sendmessage.complete]
 package com.example.ses;
 
+// snippet-start:[ses.java2.sendmessage.main]
 // snippet-start:[ses.java2.sendmessage.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.awscore.AwsRequestOverrideConfiguration;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
@@ -34,37 +27,38 @@ import javax.mail.internet.MimeMultipart;
 // snippet-end:[ses.java2.sendmessage.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class SendMessage {
-
     public static void main(String[] args) throws IOException {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <sender> <recipient> <subject> \n\n" +
-            "Where:\n" +
-            "    sender - An email address that represents the sender. \n"+
-            "    recipient -  An email address that represents the recipient. \n"+
-            "    subject - The  subject line. \n" ;
+                Usage:
+                    <sender> <recipient> <subject>\s
 
-       if (args.length != 3) {
-           System.out.println(usage);
-           System.exit(1);
-       }
+                Where:
+                    sender - An email address that represents the sender.\s
+                    recipient -  An email address that represents the recipient.\s
+                    subject - The  subject line.\s
+                """;
+
+        if (args.length != 3) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String sender = args[0];
         String recipient = args[1];
         String subject = args[2];
         Region region = Region.US_EAST_1;
         SesClient client = SesClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         // The email body for non-HTML email clients.
         String bodyText = "Hello,\r\n" + "See the list of customers. ";
@@ -83,14 +77,12 @@ public class SendMessage {
         }
     }
 
-    // snippet-start:[ses.java2.sendmessage.main]
     public static void send(SesClient client,
-                            String sender,
-                            String recipient,
-                            String subject,
-                            String bodyText,
-                            String bodyHTML
-                            ) throws MessagingException, IOException {
+            String sender,
+            String recipient,
+            String subject,
+            String bodyText,
+            String bodyHTML) throws MessagingException, IOException {
 
         Session session = Session.getDefaultInstance(new Properties());
         MimeMessage message = new MimeMessage(session);
@@ -141,17 +133,16 @@ public class SendMessage {
 
             SdkBytes data = SdkBytes.fromByteArray(arr);
             RawMessage rawMessage = RawMessage.builder()
-                .data(data)
-                .build();
+                    .data(data)
+                    .build();
 
             AwsRequestOverrideConfiguration myConf = AwsRequestOverrideConfiguration.builder()
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build() ;
+                    .build();
 
             SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
-                .rawMessage(rawMessage)
-                .overrideConfiguration(myConf)
-                .build();
+                    .rawMessage(rawMessage)
+                    .overrideConfiguration(myConf)
+                    .build();
 
             client.sendRawEmail(rawEmailRequest);
             System.out.println("Email message Sent");
@@ -161,6 +152,6 @@ public class SendMessage {
             System.exit(1);
         }
     }
-    // snippet-end:[ses.java2.sendmessage.main]
 }
+// snippet-end:[ses.java2.sendmessage.main]
 // snippet-end:[ses.java2.sendmessage.complete]

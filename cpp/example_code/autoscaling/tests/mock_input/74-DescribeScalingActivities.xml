@@ -1,0 +1,21 @@
+<DescribeScalingActivitiesResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">   <DescribeScalingActivitiesResult>
+     <Activities>
+       <member>
+         <Description>Launching a new EC2 instance: i-0a23fc0e38f39ca25</Description>
+         <AutoScalingGroupARN>arn:aws:autoscaling:us-test:123456789012:autoScalingGroup:a234567-89ab-cdef-0123-4567890abcd:autoScalingGroupName/integration_tests_group</AutoScalingGroupARN>
+         <Cause>At 2023-11-06T19:46:45Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 1 to 2.</Cause>
+         <ActivityId>8ce62e98-b171-d705-5671-490fa7226bb6</ActivityId>
+         <AutoScalingGroupName>integration_tests_group</AutoScalingGroupName>
+         <Progress>100</Progress>
+         <StartTime>2023-11-06T19:46:47.029Z</StartTime>
+         <Details>{&quot;Availability Zone&quot;:&quot;us-east-1a&quot;}</Details>
+         <EndTime>2023-11-06T19:47:18Z</EndTime>
+         <StatusCode>Successful</StatusCode>
+       </member>
+     </Activities>
+   </DescribeScalingActivitiesResult>
+   <ResponseMetadata>
+     <RequestId>9155b0e8-6a67-47a8-8e31-70cd6cff1b64</RequestId>
+   </ResponseMetadata>
+ </DescribeScalingActivitiesResponse>
+ 

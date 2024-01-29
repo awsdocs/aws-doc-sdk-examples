@@ -1,15 +1,10 @@
-// snippet-sourcedescription:[CompareFaces.java demonstrates how to compare 2 faces.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Rekognition]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.rekognition;
 
+// snippet-start:[rekognition.java2.compare_faces.main]
 // snippet-start:[rekognition.java2.compare_faces.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
@@ -27,22 +22,23 @@ import java.util.List;
 // snippet-end:[rekognition.java2.compare_faces.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CompareFaces {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <pathSource> <pathTarget>\n\n" +
-            "Where:\n" +
-            "   pathSource - The path to the source image (for example, C:\\AWS\\pic1.png). \n " +
-            "   pathTarget - The path to the target image (for example, C:\\AWS\\pic2.png). \n\n";
+                Usage:    <pathSource> <pathTarget>
+
+                Where:
+                   pathSource - The path to the source image (for example, C:\\AWS\\pic1.png).\s
+                    pathTarget - The path to the target image (for example, C:\\AWS\\pic2.png).\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -54,16 +50,15 @@ public class CompareFaces {
         String targetImage = args[1];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         compareTwoFaces(rekClient, similarityThreshold, sourceImage, targetImage);
         rekClient.close();
-   }
+    }
 
-    // snippet-start:[rekognition.java2.compare_faces.main]
-    public static void compareTwoFaces(RekognitionClient rekClient, Float similarityThreshold, String sourceImage, String targetImage) {
+    public static void compareTwoFaces(RekognitionClient rekClient, Float similarityThreshold, String sourceImage,
+            String targetImage) {
         try {
             InputStream sourceStream = new FileInputStream(sourceImage);
             InputStream tarStream = new FileInputStream(targetImage);
@@ -72,24 +67,24 @@ public class CompareFaces {
 
             // Create an Image object for the source image.
             Image souImage = Image.builder()
-                .bytes(sourceBytes)
-                .build();
+                    .bytes(sourceBytes)
+                    .build();
 
             Image tarImage = Image.builder()
-                .bytes(targetBytes)
-                .build();
+                    .bytes(targetBytes)
+                    .build();
 
             CompareFacesRequest facesRequest = CompareFacesRequest.builder()
-                .sourceImage(souImage)
-                .targetImage(tarImage)
-                .similarityThreshold(similarityThreshold)
-                .build();
+                    .sourceImage(souImage)
+                    .targetImage(tarImage)
+                    .similarityThreshold(similarityThreshold)
+                    .build();
 
             // Compare the two images.
             CompareFacesResponse compareFacesResult = rekClient.compareFaces(facesRequest);
             List<CompareFacesMatch> faceDetails = compareFacesResult.faceMatches();
-            for (CompareFacesMatch match: faceDetails){
-                ComparedFace face= match.face();
+            for (CompareFacesMatch match : faceDetails) {
+                ComparedFace face = match.face();
                 BoundingBox position = face.boundingBox();
                 System.out.println("Face at " + position.left().toString()
                         + " " + position.top()
@@ -102,10 +97,10 @@ public class CompareFaces {
             System.out.println("Source image rotation: " + compareFacesResult.sourceImageOrientationCorrection());
             System.out.println("target image rotation: " + compareFacesResult.targetImageOrientationCorrection());
 
-        } catch(RekognitionException | FileNotFoundException e) {
+        } catch (RekognitionException | FileNotFoundException e) {
             System.out.println("Failed to load source image " + sourceImage);
             System.exit(1);
         }
     }
-    // snippet-end:[rekognition.java2.compare_faces.main]
 }
+// snippet-end:[rekognition.java2.compare_faces.main]

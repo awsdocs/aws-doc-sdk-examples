@@ -1,15 +1,5 @@
-//snippet-sourcedescription:[ListBrokers.java demonstrates how to list existing Amazon MQ brokers.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon MQ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/18/2021]
-//snippet-sourceauthor:[fararmin-aws]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[mq.java2.list_brokers.complete]
 package com.example.mq;
@@ -28,20 +18,19 @@ import software.amazon.awssdk.services.mq.model.MqException;
 public class ListBrokers {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
-    
         MqClient mqClient = MqClient.builder()
                 .region(region)
                 .build();
 
         List<BrokerSummary> results = listBrokers(mqClient);
-
         for (BrokerSummary result : results) {
             System.out.print("Name: " + result.brokerName() + " | " +
-                "ID: " + result.brokerId() + " | " + result.brokerState() + "\n");
+                    "ID: " + result.brokerId() + " | " + result.brokerState() + "\n");
         }
-    
+
         mqClient.close();
     }
+
     // snippet-start:[mq.java2.list_brokers.main]
     public static List<BrokerSummary> listBrokers(MqClient mqClient) {
         List<BrokerSummary> brokerList = new ArrayList<>();

@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace CreateOrganizationalUnitExample
 {
@@ -10,8 +10,7 @@ namespace CreateOrganizationalUnitExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Creates a new organizational unit in AWS Organizations. The example was
-    /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// Creates a new organizational unit in AWS Organizations.
     /// </summary>
     public class CreateOrganizationalUnit
     {

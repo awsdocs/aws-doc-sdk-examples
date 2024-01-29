@@ -1,11 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// The following example shows how to retrieve the details of
-/// a text translation job using Amazon Translate. The example was
-/// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
-/// </summary>
 namespace DescribeTextTranslationExample
 {
     // snippet-start:[Translate.dotnetv3.DescribeTextTranslationJobExample]
@@ -14,6 +9,10 @@ namespace DescribeTextTranslationExample
     using Amazon.Translate;
     using Amazon.Translate.Model;
 
+    /// <summary>
+    /// The following example shows how to retrieve the details of
+    /// a text translation job using Amazon Translate.
+    /// </summary>
     public class DescribeTextTranslation
     {
         public static async Task Main()

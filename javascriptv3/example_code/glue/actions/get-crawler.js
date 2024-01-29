@@ -1,14 +1,11 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { GetCrawlerCommand, GlueClient } from "@aws-sdk/client-glue";
-import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 
 /** snippet-start:[javascript.v3.glue.actions.GetCrawler] */
 const getCrawler = (name) => {
-  const client = new GlueClient({ region: DEFAULT_REGION });
+  const client = new GlueClient({});
 
   const command = new GetCrawlerCommand({
     Name: name,

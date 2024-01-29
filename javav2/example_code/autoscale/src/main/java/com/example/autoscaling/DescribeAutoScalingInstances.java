@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[DescribeAutoScalingInstances.java gets information about the Auto Scaling groups in the account and Region.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon EC2 Auto Scaling]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.autoscaling;
 
+// snippet-start:[autoscale.java2.describe_instances.main]
 // snippet-start:[autoscale.java2.describe_instances.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.autoscaling.AutoScalingClient;
 import software.amazon.awssdk.services.autoscaling.model.AutoScalingException;
@@ -22,21 +16,23 @@ import java.util.List;
 // snippet-end:[autoscale.java2.describe_instances.import]
 
 /**
- * Before running this SDK for Java (v2) code example, set up your development environment, including your credentials.
+ * Before running this SDK for Java (v2) code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DescribeAutoScalingInstances {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <groupName>\n\n" +
-            "Where:\n" +
-            "    groupName - The name of the Auto Scaling group.\n" ;
+                Usage:
+                    <groupName>
+
+                Where:
+                    groupName - The name of the Auto Scaling group.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,26 +41,25 @@ public class DescribeAutoScalingInstances {
 
         String groupName = args[0];
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         String instanceId = getAutoScaling(autoScalingClient, groupName);
         System.out.println(instanceId);
         autoScalingClient.close();
     }
 
-    // snippet-start:[autoscale.java2.describe_instances.main]
-    public static String getAutoScaling( AutoScalingClient autoScalingClient, String groupName) {
-        try{
+    public static String getAutoScaling(AutoScalingClient autoScalingClient, String groupName) {
+        try {
             String instanceId = "";
             DescribeAutoScalingGroupsRequest scalingGroupsRequest = DescribeAutoScalingGroupsRequest.builder()
-                .autoScalingGroupNames(groupName)
-                .build();
+                    .autoScalingGroupNames(groupName)
+                    .build();
 
-            DescribeAutoScalingGroupsResponse response = autoScalingClient.describeAutoScalingGroups(scalingGroupsRequest);
+            DescribeAutoScalingGroupsResponse response = autoScalingClient
+                    .describeAutoScalingGroups(scalingGroupsRequest);
             List<AutoScalingGroup> groups = response.autoScalingGroups();
-            for (AutoScalingGroup group: groups) {
+            for (AutoScalingGroup group : groups) {
                 System.out.println("The group name is " + group.autoScalingGroupName());
                 System.out.println("The group ARN is " + group.autoScalingGroupARN());
 
@@ -80,5 +75,5 @@ public class DescribeAutoScalingInstances {
         }
         return "";
     }
-    // snippet-end:[autoscale.java2.describe_instances.main]
 }
+// snippet-end:[autoscale.java2.describe_instances.main]

@@ -30,10 +30,20 @@
 <!ENTITY Bashlong '&CLIlong; with Bash script'>
 <!ENTITY Bash '&CLI; with Bash script'>
 
+<!-- CLI v2 -->
+
+<!ENTITY CLI2long '&CLIlong; version 2'>
+<!ENTITY CLI2 '&CLI; version 2'>
+
 <!-- API Gateway Management API -->
 
 <!ENTITY ABPMA '&ABP; Management API'>
 <!ENTITY ABPMAlong '&ABPlong; Management API'>
+
+<!-- API Gateway API V2-->
+
+<!ENTITY ABPV2 '&ABP; HTTP and WebSocket API'>
+<!ENTITY ABPV2long '&ABPlong; HTTP and WebSocket API'>
 
 <!-- Route 53 Application Recovery Controller -->
 
@@ -72,10 +82,59 @@
 <!--Elastic Load Balancing-->
 <!ENTITY ELBacro 'ELB'>
 
-<!--Bedrock-->
-<!ENTITY BRlong 'Amazon Bedrock'>
-<!ENTITY BR 'Amazon Bedrock'>
-
 <!--Bedrock Runtime-->
 <!ENTITY BRRUNlong '&BRlong; Runtime'>
 <!ENTITY BRRUN '&BR; Runtime'>
+
+<!--Bedrock-->
+<!ENTITY BRAlong 'Agents for Amazon Bedrock'>
+<!ENTITY BRA 'Agents for Amazon Bedrock'>
+
+<!--Bedrock Runtime-->
+<!ENTITY BRARUNlong '&BRAlong; Runtime'>
+<!ENTITY BRARUN '&BRA; Runtime'>
+
+<!-- CodeStar Notifications -->
+<!ENTITY CSNlong '&ACSlong; Notifications'>
+<!ENTITY CSN '&ACS; Notifications'>
+
+<!-- EC2 Instance Connect -->
+<!ENTITY EC2InstConnlong '&EC2long; Instance Connect'>
+<!ENTITY EC2InstConn '&EC2; Instance Connect'>
+
+<!-- IoT 1-Click -->
+<!ENTITY ITOCDevlong '&ITOClong; Devices'>
+<!ENTITY ITOCDev '&ITOC; Devices'>
+<!ENTITY ITOCProjlong '&ITOClong; Projects'>
+<!ENTITY ITOCProj '&ITOC; Projects'>
+
+<!-- Interactive Video Service -->
+<!ENTITY IVSReallong '&IVSlong; Real-Time Streaming'>
+<!ENTITY IVSReal '&IVS; Real-Time Streaming'>
+<!ENTITY IVSChatlong '&IVSlong; Chat'>
+<!ENTITY IVSChat '&IVS; Chat'>
+
+<!-- Elemental MediaPackage VOD -->
+<!ENTITY EMPVODlong '&EMPlong; Video on Demand'>
+<!ENTITY EMPVOD '&EMP; VOD'>
+
+<!-- Elemental MediaStore Data Plane -->
+<!ENTITY EMSDPlong '&EMSlong; Data Plane'>
+<!ENTITY EMSDP '&EMS; Data Plane'>
+
+<!-- Payment Cryptography Data Plane -->
+<!ENTITY PAYCRDatalong '&PAYCRlong; Data Plane'>
+<!ENTITY PAYCRData '&PAYCR; Data Plane'>
+
+<!-- RDS Performance Insights -->
+<!ENTITY RDSPerflong '&RDSlong; Performance Insights'>
+<!ENTITY RDSPerf '&RDS; Performance Insights'>
+
+<!-- SSM Incidents Manager Contacts -->
+<!ENTITY commander-contacts-long '&commander-long; Contacts'>
+<!ENTITY commander-contacts '&commander; Contacts'>
+
+<!-- Workmail Message Flow -->
+<!ENTITY WMFlowlong '&WMlong; Message Flow'>
+<!ENTITY WMFlow '&WM; Message Flow'>
+

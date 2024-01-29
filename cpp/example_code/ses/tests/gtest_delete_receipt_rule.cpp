@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /*
  * Test types are indicated by the test label ending.
  *
@@ -17,7 +15,7 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SES_GTests, delete_receipt_rule_1_) {
+    TEST_F(SES_GTests, delete_receipt_rule_3_) {
         MockHTTP mockHttp;
         bool result = mockHttp.addResponseWithBody("mock_input/DeleteReceiptRule.xml");
         ASSERT_TRUE(result) << preconditionError() << std::endl;

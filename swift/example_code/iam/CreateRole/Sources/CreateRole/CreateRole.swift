@@ -1,11 +1,10 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 // Swift Example: CreateRole
 //
 // An example showing how to use the Amazon Identity and Access Management (IAM)
 // `IAMClient` function `createRole()`.
-//
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0.
 
 // snippet-start:[iam.swift.createrole.example]
 // snippet-start:[iam.swift.createrole.main.imports]

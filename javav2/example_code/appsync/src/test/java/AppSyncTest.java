@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.appsync.*;
 import com.google.gson.Gson;
@@ -11,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import java.io.*;
-import  software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
@@ -24,11 +22,11 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AppSyncTest {
     private static AppSyncClient appSyncClient;
-    private static String apiId="";
-    private static String dsName="";
-    private static String dsRole="";
-    private static String tableName="";
-    private static String keyId = "";  // Gets dynamically set in a test.
+    private static String apiId = "";
+    private static String dsName = "";
+    private static String dsRole = "";
+    private static String tableName = "";
+    private static String keyId = ""; // Gets dynamically set in a test.
     private static String dsARN = ""; // Gets dynamically set in a test.
     private static String reg = "";
 
@@ -37,9 +35,9 @@ public class AppSyncTest {
         Region region = Region.US_EAST_1;
         reg = region.toString();
         appSyncClient = AppSyncClient.builder()
-            .region(region)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -47,28 +45,31 @@ public class AppSyncTest {
         SecretValues values = gson.fromJson(json, SecretValues.class);
         apiId = values.getApiId();
         dsName = values.getDsName();
-        dsRole= values.getDsRole();
-        tableName= values.getTableName();
+        dsRole = values.getDsRole();
+        tableName = values.getTableName();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-        try (InputStream input = AppSyncTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            prop.load(input);
-            apiId = prop.getProperty("apiId");
-            dsName = prop.getProperty("dsName");
-            dsRole= prop.getProperty("dsRole");
-            tableName= prop.getProperty("tableName");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * try (InputStream input =
+         * AppSyncTest.class.getClassLoader().getResourceAsStream("config.properties"))
+         * {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * prop.load(input);
+         * apiId = prop.getProperty("apiId");
+         * dsName = prop.getProperty("dsName");
+         * dsRole= prop.getProperty("dsRole");
+         * tableName= prop.getProperty("tableName");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
@@ -93,7 +94,7 @@ public class AppSyncTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void GetDataSource() {
-        assertDoesNotThrow(()->GetDataSource.getDS(appSyncClient, apiId, dsName));
+        assertDoesNotThrow(() -> GetDataSource.getDS(appSyncClient, apiId, dsName));
         System.out.println("Test 4 passed");
     }
 
@@ -101,7 +102,7 @@ public class AppSyncTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void ListGraphqlApis() {
-        assertDoesNotThrow(()->ListGraphqlApis.getApis(appSyncClient));
+        assertDoesNotThrow(() -> ListGraphqlApis.getApis(appSyncClient));
         System.out.println("Test 5 passed");
     }
 
@@ -109,36 +110,36 @@ public class AppSyncTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void ListApiKeys() {
-        assertDoesNotThrow(()->ListApiKeys.getKeys(appSyncClient,apiId));
+        assertDoesNotThrow(() -> ListApiKeys.getKeys(appSyncClient, apiId));
         System.out.println("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-     public void DeleteDataSource() {
-        assertDoesNotThrow(()->DeleteDataSource.deleteDS(appSyncClient, apiId, dsName));
+    public void DeleteDataSource() {
+        assertDoesNotThrow(() -> DeleteDataSource.deleteDS(appSyncClient, apiId, dsName));
         System.out.println("Test 7 passed");
-     }
+    }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-     public void DeleteApiKey() {
-         assertDoesNotThrow(()->DeleteApiKey.deleteKey(appSyncClient, keyId, apiId)) ;
-         System.out.println("Test 8 passed");
-     }
+    public void DeleteApiKey() {
+        assertDoesNotThrow(() -> DeleteApiKey.deleteKey(appSyncClient, keyId, apiId));
+        System.out.println("Test 8 passed");
+    }
 
     private static String getSecretValues() {
-         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+        SecretsManagerClient secretClient = SecretsManagerClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/appsync";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();

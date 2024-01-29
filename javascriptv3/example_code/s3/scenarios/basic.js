@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /* This example code shows you how to use Amazon S3 can be used as a core component of an application.
  * You'll do the following:
@@ -21,10 +19,7 @@ import { readdirSync, readFileSync, writeFileSync } from "fs";
 
 // Local helper utils.
 import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
-import {
-  promptForText,
-  promptToContinue,
-} from "@aws-sdk-examples/libs/utils/util-io.js";
+import { Prompter } from "@aws-sdk-examples/libs/prompter.js";
 import { wrapText } from "@aws-sdk-examples/libs/utils/util-string.js";
 
 import {
@@ -39,6 +34,9 @@ import {
 } from "@aws-sdk/client-s3";
 // snippet-end:[javascript.v3.s3.scenarios.basic.imports]
 
+const prompter = new Prompter();
+const continueMessage = "Continue?";
+
 // snippet-start:[javascript.v3.s3.scenarios.basic.S3Client]
 // The Region can be provided as an argument to S3Client or
 // declared in the AWS configuration file. In this case
@@ -48,9 +46,9 @@ const s3Client = new S3Client({});
 
 // snippet-start:[javascript.v3.s3.scenarios.basic.CreateBucket]
 export const createBucket = async () => {
-  const bucketName = await promptForText(
-    "Enter a bucket name. Bucket names must be globally unique:",
-  );
+  const bucketName = await prompter.input({
+    message: "Enter a bucket name. Bucket names must be globally unique:",
+  });
   const command = new CreateBucketCommand({ Bucket: bucketName });
   await s3Client.send(command);
   console.log("Bucket created successfully.\n");
@@ -96,18 +94,24 @@ export const listFilesInBucket = async ({ bucketName }) => {
 
 // snippet-start:[javascript.v3.s3.scenarios.basic.CopyObject]
 export const copyFileFromBucket = async ({ destinationBucket }) => {
-  const answer = await promptForText(
-    "Would you like to copy an object from another bucket? (yes/no)",
-  );
+  const proceed = await prompter.confirm({
+    message: "Would you like to copy an object from another bucket?",
+  });
 
-  if (answer === "no") {
+  if (!proceed) {
     return;
   } else {
     const copy = async () => {
       try {
-        const sourceBucket = await promptForText("Enter source bucket name:");
-        const sourceKey = await promptForText("Enter source key:");
-        const destinationKey = await promptForText("Enter destination key:");
+        const sourceBucket = await prompter.input({
+          message: "Enter source bucket name:",
+        });
+        const sourceKey = await prompter.input({
+          message: "Enter source key:",
+        });
+        const destinationKey = await prompter.input({
+          message: "Enter destination key:",
+        });
 
         const command = new CopyObjectCommand({
           Bucket: destinationBucket,
@@ -119,8 +123,8 @@ export const copyFileFromBucket = async ({ destinationBucket }) => {
       } catch (err) {
         console.error(`Copy error.`);
         console.error(err);
-        const retryAnswer = await promptForText("Try again? (yes/no)");
-        if (retryAnswer !== "no") {
+        const retryAnswer = await prompter.confirm({ message: "Try again?" });
+        if (retryAnswer) {
           await copy();
         }
       }
@@ -135,7 +139,9 @@ export const downloadFilesFromBucket = async ({ bucketName }) => {
   const { Contents } = await s3Client.send(
     new ListObjectsCommand({ Bucket: bucketName }),
   );
-  const path = await promptForText("Enter destination path for files:");
+  const path = await prompter.input({
+    message: "Enter destination path for files:",
+  });
 
   for (let content of Contents) {
     const obj = await s3Client.send(
@@ -181,7 +187,7 @@ const main = async () => {
     console.log(wrapText("Welcome to the Amazon S3 getting started example."));
     console.log("Let's create a bucket.");
     const bucketName = await createBucket();
-    await promptToContinue();
+    await prompter.confirm({ message: continueMessage });
 
     console.log(wrapText("File upload."));
     console.log(
@@ -193,12 +199,12 @@ const main = async () => {
     });
 
     await listFilesInBucket({ bucketName });
-    await promptToContinue();
+    await prompter.confirm({ message: continueMessage });
 
     console.log(wrapText("Copy files."));
     await copyFileFromBucket({ destinationBucket: bucketName });
     await listFilesInBucket({ bucketName });
-    await promptToContinue();
+    await prompter.confirm({ message: continueMessage });
 
     console.log(wrapText("Download files."));
     await downloadFilesFromBucket({ bucketName });

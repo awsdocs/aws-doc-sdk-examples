@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ScenarioKeyspaces.kt demonstrates how to perform various Amazon Keyspaces operations.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Keyspaces]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.keyspace
 

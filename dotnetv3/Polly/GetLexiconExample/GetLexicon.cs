@@ -1,10 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// Retrieves information about a specific Amazon Polly lexicon using the
-/// AWS SDK for .NET version 3.7 and .NET Core 5.0.
-/// </summary>
 namespace GetLexiconExample
 {
     // snippet-start:[Polly.dotnetv3.GetLexiconExample]
@@ -13,6 +9,9 @@ namespace GetLexiconExample
     using Amazon.Polly;
     using Amazon.Polly.Model;
 
+    /// <summary>
+    /// Retrieves information about a specific Amazon Polly lexicon.
+    /// </summary>
     public class GetLexicon
     {
         public static async Task Main(string[] args)

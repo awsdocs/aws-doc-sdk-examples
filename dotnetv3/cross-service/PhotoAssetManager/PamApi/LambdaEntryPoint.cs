@@ -1,12 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace PamApi;
 
 /// <summary>
-/// This class extends from APIGatewayProxyFunction which contains the method FunctionHandlerAsync which is the 
+/// This class extends from APIGatewayProxyFunction which contains the method FunctionHandlerAsync which is the
 /// actual AWS Lambda function entry point. The Lambda handler field should be set to
-/// 
+///
 /// PamApi::PamApi.LambdaEntryPoint::FunctionHandlerAsync
 /// </summary>
 public class LambdaEntryPoint :
@@ -18,7 +18,7 @@ public class LambdaEntryPoint :
     // API Gateway HTTP API payload version 1.0     -> Amazon.Lambda.AspNetCoreServer.APIGatewayProxyFunction
     // API Gateway HTTP API payload version 2.0     -> Amazon.Lambda.AspNetCoreServer.APIGatewayHttpApiV2ProxyFunction
     // Application Load Balancer                    -> Amazon.Lambda.AspNetCoreServer.ApplicationLoadBalancerFunction
-    // 
+    //
     // Note: When using the AWS::Serverless::Function resource with an event type of "HttpApi" then payload version 2.0
     // will be the default and you must make Amazon.Lambda.AspNetCoreServer.APIGatewayHttpApiV2ProxyFunction the base class.
 

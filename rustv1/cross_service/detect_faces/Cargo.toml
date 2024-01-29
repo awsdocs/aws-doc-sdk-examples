@@ -1,0 +1,19 @@
+#
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0.
+#
+[package]
+name = "detect-faces-code-example"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = { version = "1.0.1" }
+aws-sdk-rekognition = { version = "1.3.0" }
+aws-sdk-s3 = { version = "1.4.0" }
+aws-smithy-types = { version = "1.0.1", features = ["rt-tokio"] }
+tokio = { version = "1.20.1", features = ["full"] }
+clap = { version = "~4.4", features = ["derive"] }
+tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }

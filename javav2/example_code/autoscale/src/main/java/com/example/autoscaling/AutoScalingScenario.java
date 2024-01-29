@@ -1,17 +1,9 @@
-//snippet-sourcedescription:[AutoScalingScenario.java performs multiple Auto Scaling operations.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon EC2 Auto Scaling]
-
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.autoscaling;
 
 // snippet-start:[autoscale.java2.create_scaling_scenario.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.autoscaling.AutoScalingClient;
@@ -41,15 +33,17 @@ import java.util.List;
 
 // snippet-start:[autoscale.java2.create_scaling_scenario.main]
 /**
- *  Before running this SDK for Java (v2) code example, set up your development environment, including your credentials.
+ * Before running this SDK for Java (v2) code example, set up your development
+ * environment, including your credentials.
  *
- *  For more information, see the following documentation:
+ * For more information, see the following documentation:
  *
- *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- *  In addition, create a launch template. For more information, see the following topic:
+ * In addition, create a launch template. For more information, see the
+ * following topic:
  *
- *  https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template
+ * https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template
  *
  * This code example performs the following operations:
  * 1. Creates an Auto Scaling group using an AutoScalingWaiter.
@@ -69,14 +63,18 @@ import java.util.List;
 
 public class AutoScalingScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
+
     public static void main(String[] args) throws InterruptedException {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <groupName> <launchTemplateName> <vpcZoneId>\n\n" +
-            "Where:\n" +
-            "    groupName - The name of the Auto Scaling group.\n" +
-            "    launchTemplateName - The name of the launch template. \n" +
-            "    vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.\n" ;
+        final String usage = """
+
+                Usage:
+                    <groupName> <launchTemplateName> <vpcZoneId>
+
+                Where:
+                    groupName - The name of the Auto Scaling group.
+                    launchTemplateName - The name of the launch template.\s
+                    vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.
+                """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -87,39 +85,39 @@ public class AutoScalingScenario {
         String launchTemplateName = args[1];
         String vpcZoneId = args[2];
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         System.out.println(DASHES);
         System.out.println("Welcome to the Amazon EC2 Auto Scaling example scenario.");
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("1. Create an Auto Scaling group named "+groupName);
+        System.out.println("1. Create an Auto Scaling group named " + groupName);
         createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, vpcZoneId);
-        System.out.println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
+        System.out.println(
+                "Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
         Thread.sleep(60000);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("2. Get Auto Scale group Id value");
         String instanceId = getSpecificAutoScalingGroups(autoScalingClient, groupName);
-        if (instanceId.compareTo("") ==0) {
+        if (instanceId.compareTo("") == 0) {
             System.out.println("Error - no instance Id value");
             System.exit(1);
         } else {
-            System.out.println("The instance Id value is "+instanceId);
+            System.out.println("The instance Id value is " + instanceId);
         }
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("3. Describe Auto Scaling with the Id value "+instanceId);
-        describeAutoScalingInstance( autoScalingClient, instanceId);
+        System.out.println("3. Describe Auto Scaling with the Id value " + instanceId);
+        describeAutoScalingInstance(autoScalingClient, instanceId);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("4. Enable metrics collection "+instanceId);
+        System.out.println("4. Enable metrics collection " + instanceId);
         enableMetricsCollection(autoScalingClient, groupName);
         System.out.println(DASHES);
 
@@ -136,7 +134,8 @@ public class AutoScalingScenario {
         System.out.println(DASHES);
         System.out.println("7. Describe account details");
         describeAccountLimits(autoScalingClient);
-        System.out.println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
+        System.out.println(
+                "Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
         Thread.sleep(60000);
         System.out.println(DASHES);
 
@@ -171,7 +170,7 @@ public class AutoScalingScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("The Scenario has successfully completed." );
+        System.out.println("The Scenario has successfully completed.");
         System.out.println(DASHES);
 
         autoScalingClient.close();
@@ -181,15 +180,16 @@ public class AutoScalingScenario {
     public static void describeScalingActivities(AutoScalingClient autoScalingClient, String groupName) {
         try {
             DescribeScalingActivitiesRequest scalingActivitiesRequest = DescribeScalingActivitiesRequest.builder()
-                .autoScalingGroupName(groupName)
-                .maxRecords(10)
-                .build();
+                    .autoScalingGroupName(groupName)
+                    .maxRecords(10)
+                    .build();
 
-            DescribeScalingActivitiesResponse response = autoScalingClient.describeScalingActivities(scalingActivitiesRequest);
+            DescribeScalingActivitiesResponse response = autoScalingClient
+                    .describeScalingActivities(scalingActivitiesRequest);
             List<Activity> activities = response.activities();
-            for (Activity activity: activities) {
-                System.out.println("The activity Id is "+activity.activityId());
-                System.out.println("The activity details are "+activity.details());
+            for (Activity activity : activities) {
+                System.out.println("The activity Id is " + activity.activityId());
+                System.out.println("The activity details are " + activity.details());
             }
 
         } catch (AutoScalingException e) {
@@ -203,9 +203,9 @@ public class AutoScalingScenario {
     public static void setDesiredCapacity(AutoScalingClient autoScalingClient, String groupName) {
         try {
             SetDesiredCapacityRequest capacityRequest = SetDesiredCapacityRequest.builder()
-                .autoScalingGroupName(groupName)
-                .desiredCapacity(2)
-                .build();
+                    .autoScalingGroupName(groupName)
+                    .desiredCapacity(2)
+                    .build();
 
             autoScalingClient.setDesiredCapacity(capacityRequest);
             System.out.println("You have set the DesiredCapacity to 2");
@@ -219,30 +219,31 @@ public class AutoScalingScenario {
 
     // snippet-start:[autoscale.java2.create_autoscalinggroup.main]
     public static void createAutoScalingGroup(AutoScalingClient autoScalingClient,
-                                              String groupName,
-                                              String launchTemplateName,
-                                              String vpcZoneId) {
+            String groupName,
+            String launchTemplateName,
+            String vpcZoneId) {
         try {
             AutoScalingWaiter waiter = autoScalingClient.waiter();
             LaunchTemplateSpecification templateSpecification = LaunchTemplateSpecification.builder()
-                .launchTemplateName(launchTemplateName)
-                .build();
+                    .launchTemplateName(launchTemplateName)
+                    .build();
 
             CreateAutoScalingGroupRequest request = CreateAutoScalingGroupRequest.builder()
-                .autoScalingGroupName(groupName)
-                .availabilityZones("us-east-1a")
-                .launchTemplate(templateSpecification)
-                .maxSize(1)
-                .minSize(1)
-                .vpcZoneIdentifier(vpcZoneId)
-                .build();
+                    .autoScalingGroupName(groupName)
+                    .availabilityZones("us-east-1a")
+                    .launchTemplate(templateSpecification)
+                    .maxSize(1)
+                    .minSize(1)
+                    .vpcZoneIdentifier(vpcZoneId)
+                    .build();
 
             autoScalingClient.createAutoScalingGroup(request);
             DescribeAutoScalingGroupsRequest groupsRequest = DescribeAutoScalingGroupsRequest.builder()
-                .autoScalingGroupNames(groupName)
-                .build();
+                    .autoScalingGroupNames(groupName)
+                    .build();
 
-            WaiterResponse<DescribeAutoScalingGroupsResponse> waiterResponse = waiter.waitUntilGroupExists(groupsRequest);
+            WaiterResponse<DescribeAutoScalingGroupsResponse> waiterResponse = waiter
+                    .waitUntilGroupExists(groupsRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);
             System.out.println("Auto Scaling Group created");
 
@@ -254,16 +255,18 @@ public class AutoScalingScenario {
     // snippet-end:[autoscale.java2.create_autoscalinggroup.main]
 
     // snippet-start:[autoscale.java2.describe_autoscalinggroup.main]
-    public static void describeAutoScalingInstance( AutoScalingClient autoScalingClient, String id) {
+    public static void describeAutoScalingInstance(AutoScalingClient autoScalingClient, String id) {
         try {
-            DescribeAutoScalingInstancesRequest describeAutoScalingInstancesRequest = DescribeAutoScalingInstancesRequest.builder()
-                .instanceIds(id)
-                .build();
+            DescribeAutoScalingInstancesRequest describeAutoScalingInstancesRequest = DescribeAutoScalingInstancesRequest
+                    .builder()
+                    .instanceIds(id)
+                    .build();
 
-            DescribeAutoScalingInstancesResponse response = autoScalingClient.describeAutoScalingInstances(describeAutoScalingInstancesRequest);
+            DescribeAutoScalingInstancesResponse response = autoScalingClient
+                    .describeAutoScalingInstances(describeAutoScalingInstancesRequest);
             List<AutoScalingInstanceDetails> instances = response.autoScalingInstances();
-            for (AutoScalingInstanceDetails instance:instances ) {
-                System.out.println("The instance lifecycle state is: "+instance.lifecycleState());
+            for (AutoScalingInstanceDetails instance : instances) {
+                System.out.println("The instance lifecycle state is: " + instance.lifecycleState());
             }
 
         } catch (AutoScalingException e) {
@@ -277,14 +280,14 @@ public class AutoScalingScenario {
     public static void describeAutoScalingGroups(AutoScalingClient autoScalingClient, String groupName) {
         try {
             DescribeAutoScalingGroupsRequest groupsRequest = DescribeAutoScalingGroupsRequest.builder()
-                .autoScalingGroupNames(groupName)
-                .maxRecords(10)
-                .build();
+                    .autoScalingGroupNames(groupName)
+                    .maxRecords(10)
+                    .build();
 
             DescribeAutoScalingGroupsResponse response = autoScalingClient.describeAutoScalingGroups(groupsRequest);
             List<AutoScalingGroup> groups = response.autoScalingGroups();
-            for (AutoScalingGroup group: groups) {
-                System.out.println("*** The service to use for the health checks: "+ group.healthCheckType());
+            for (AutoScalingGroup group : groups) {
+                System.out.println("*** The service to use for the health checks: " + group.healthCheckType());
             }
 
         } catch (AutoScalingException e) {
@@ -296,15 +299,16 @@ public class AutoScalingScenario {
 
     // snippet-start:[autoscale.java2.get_autoscalinggroup.main]
     public static String getSpecificAutoScalingGroups(AutoScalingClient autoScalingClient, String groupName) {
-        try{
+        try {
             String instanceId = "";
             DescribeAutoScalingGroupsRequest scalingGroupsRequest = DescribeAutoScalingGroupsRequest.builder()
-                .autoScalingGroupNames(groupName)
-                .build();
+                    .autoScalingGroupNames(groupName)
+                    .build();
 
-            DescribeAutoScalingGroupsResponse response = autoScalingClient.describeAutoScalingGroups(scalingGroupsRequest);
+            DescribeAutoScalingGroupsResponse response = autoScalingClient
+                    .describeAutoScalingGroups(scalingGroupsRequest);
             List<AutoScalingGroup> groups = response.autoScalingGroups();
-            for (AutoScalingGroup group: groups) {
+            for (AutoScalingGroup group : groups) {
                 System.out.println("The group name is " + group.autoScalingGroupName());
                 System.out.println("The group ARN is " + group.autoScalingGroupARN());
                 List<Instance> instances = group.instances();
@@ -312,16 +316,16 @@ public class AutoScalingScenario {
                 for (Instance instance : instances) {
                     instanceId = instance.instanceId();
                     System.out.println("The instance id is " + instanceId);
-                    System.out.println("The lifecycle state is " +instance.lifecycleState());
+                    System.out.println("The lifecycle state is " + instance.lifecycleState());
                 }
             }
 
-            return instanceId ;
+            return instanceId;
         } catch (AutoScalingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        return "" ;
+        return "";
     }
     // snippet-end:[autoscale.java2.get_autoscalinggroup.main]
 
@@ -329,10 +333,10 @@ public class AutoScalingScenario {
     public static void enableMetricsCollection(AutoScalingClient autoScalingClient, String groupName) {
         try {
             EnableMetricsCollectionRequest collectionRequest = EnableMetricsCollectionRequest.builder()
-                .autoScalingGroupName(groupName)
-                .metrics("GroupMaxSize")
-                .granularity("1Minute")
-                .build();
+                    .autoScalingGroupName(groupName)
+                    .metrics("GroupMaxSize")
+                    .granularity("1Minute")
+                    .build();
 
             autoScalingClient.enableMetricsCollection(collectionRequest);
             System.out.println("The enable metrics collection operation was successful");
@@ -348,9 +352,9 @@ public class AutoScalingScenario {
     public static void disableMetricsCollection(AutoScalingClient autoScalingClient, String groupName) {
         try {
             DisableMetricsCollectionRequest disableMetricsCollectionRequest = DisableMetricsCollectionRequest.builder()
-                .autoScalingGroupName(groupName)
-                .metrics("GroupMaxSize")
-                .build();
+                    .autoScalingGroupName(groupName)
+                    .metrics("GroupMaxSize")
+                    .build();
 
             autoScalingClient.disableMetricsCollection(disableMetricsCollectionRequest);
             System.out.println("The disable metrics collection operation was successful");
@@ -366,8 +370,8 @@ public class AutoScalingScenario {
     public static void describeAccountLimits(AutoScalingClient autoScalingClient) {
         try {
             DescribeAccountLimitsResponse response = autoScalingClient.describeAccountLimits();
-            System.out.println("The max number of auto scaling groups is "+response.maxNumberOfAutoScalingGroups());
-            System.out.println("The current number of auto scaling groups is "+response.numberOfAutoScalingGroups());
+            System.out.println("The max number of auto scaling groups is " + response.maxNumberOfAutoScalingGroups());
+            System.out.println("The current number of auto scaling groups is " + response.numberOfAutoScalingGroups());
 
         } catch (AutoScalingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -377,27 +381,29 @@ public class AutoScalingScenario {
     // snippet-end:[autoscale.java2.describe_account.main]
 
     // snippet-start:[autoscale.java2.update_autoscalinggroup.main]
-    public static void updateAutoScalingGroup(AutoScalingClient autoScalingClient, String groupName, String launchTemplateName) {
+    public static void updateAutoScalingGroup(AutoScalingClient autoScalingClient, String groupName,
+            String launchTemplateName) {
         try {
             AutoScalingWaiter waiter = autoScalingClient.waiter();
             LaunchTemplateSpecification templateSpecification = LaunchTemplateSpecification.builder()
-                .launchTemplateName(launchTemplateName)
-                .build();
+                    .launchTemplateName(launchTemplateName)
+                    .build();
 
             UpdateAutoScalingGroupRequest groupRequest = UpdateAutoScalingGroupRequest.builder()
-                .maxSize(3)
-                .autoScalingGroupName(groupName)
-                .launchTemplate(templateSpecification)
-                .build();
+                    .maxSize(3)
+                    .autoScalingGroupName(groupName)
+                    .launchTemplate(templateSpecification)
+                    .build();
 
             autoScalingClient.updateAutoScalingGroup(groupRequest);
             DescribeAutoScalingGroupsRequest groupsRequest = DescribeAutoScalingGroupsRequest.builder()
-                .autoScalingGroupNames(groupName)
-                .build();
+                    .autoScalingGroupNames(groupName)
+                    .build();
 
-            WaiterResponse<DescribeAutoScalingGroupsResponse> waiterResponse = waiter.waitUntilGroupInService(groupsRequest);
+            WaiterResponse<DescribeAutoScalingGroupsResponse> waiterResponse = waiter
+                    .waitUntilGroupInService(groupsRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);
-            System.out.println("You successfully updated the auto scaling group  "+groupName);
+            System.out.println("You successfully updated the auto scaling group  " + groupName);
 
         } catch (AutoScalingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -407,15 +413,15 @@ public class AutoScalingScenario {
     // snippet-end:[autoscale.java2.update_autoscalinggroup.main]
 
     // snippet-start:[autoscale.java2.terminate_instance.main]
-    public static void terminateInstanceInAutoScalingGroup(AutoScalingClient autoScalingClient, String instanceId){
+    public static void terminateInstanceInAutoScalingGroup(AutoScalingClient autoScalingClient, String instanceId) {
         try {
             TerminateInstanceInAutoScalingGroupRequest request = TerminateInstanceInAutoScalingGroupRequest.builder()
-                .instanceId(instanceId)
-                .shouldDecrementDesiredCapacity(false)
-                .build();
+                    .instanceId(instanceId)
+                    .shouldDecrementDesiredCapacity(false)
+                    .build();
 
             autoScalingClient.terminateInstanceInAutoScalingGroup(request);
-            System.out.println("You have terminated instance "+instanceId);
+            System.out.println("You have terminated instance " + instanceId);
 
         } catch (AutoScalingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -428,12 +434,12 @@ public class AutoScalingScenario {
     public static void deleteAutoScalingGroup(AutoScalingClient autoScalingClient, String groupName) {
         try {
             DeleteAutoScalingGroupRequest deleteAutoScalingGroupRequest = DeleteAutoScalingGroupRequest.builder()
-                .autoScalingGroupName(groupName)
-                .forceDelete(true)
-                .build() ;
+                    .autoScalingGroupName(groupName)
+                    .forceDelete(true)
+                    .build();
 
-            autoScalingClient.deleteAutoScalingGroup(deleteAutoScalingGroupRequest) ;
-            System.out.println("You successfully deleted "+groupName);
+            autoScalingClient.deleteAutoScalingGroup(deleteAutoScalingGroupRequest);
+            System.out.println("You successfully deleted " + groupName);
 
         } catch (AutoScalingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

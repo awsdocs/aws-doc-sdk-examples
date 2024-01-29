@@ -217,6 +217,24 @@ func (basics BucketBasics) CopyToFolder(bucketName string, objectKey string, fol
 
 // snippet-end:[gov2.s3.CopyObject]
 
+// snippet-start:[gov2.s3.CopyObject.ToBucket]
+
+// CopyToBucket copies an object in a bucket to another bucket.
+func (basics BucketBasics) CopyToBucket(sourceBucket string, destinationBucket string, objectKey string) error {
+	_, err := basics.S3Client.CopyObject(context.TODO(), &s3.CopyObjectInput{
+		Bucket:     aws.String(destinationBucket),
+		CopySource: aws.String(fmt.Sprintf("%v/%v", sourceBucket, objectKey)),
+		Key:        aws.String(objectKey),
+	})
+	if err != nil {
+		log.Printf("Couldn't copy object from %v:%v to %v:%v. Here's why: %v\n",
+			sourceBucket, objectKey, destinationBucket, objectKey, err)
+	}
+	return err
+}
+
+// snippet-end:[gov2.s3.CopyObject.ToBucket]
+
 // snippet-start:[gov2.s3.ListObjectsV2]
 
 // ListObjects lists the objects in a bucket.
@@ -243,12 +261,14 @@ func (basics BucketBasics) DeleteObjects(bucketName string, objectKeys []string)
 	for _, key := range objectKeys {
 		objectIds = append(objectIds, types.ObjectIdentifier{Key: aws.String(key)})
 	}
-	_, err := basics.S3Client.DeleteObjects(context.TODO(), &s3.DeleteObjectsInput{
+	output, err := basics.S3Client.DeleteObjects(context.TODO(), &s3.DeleteObjectsInput{
 		Bucket: aws.String(bucketName),
 		Delete: &types.Delete{Objects: objectIds},
 	})
 	if err != nil {
 		log.Printf("Couldn't delete objects from bucket %v. Here's why: %v\n", bucketName, err)
+	} else {
+		log.Printf("Deleted %v objects.\n", len(output.Deleted))
 	}
 	return err
 }

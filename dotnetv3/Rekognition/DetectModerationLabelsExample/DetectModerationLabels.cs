@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DetectModerationLabelsExample
 {
@@ -11,8 +11,7 @@ namespace DetectModerationLabelsExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to detect unsafe content in a
-    /// JPEG or PNG format image. This example was created using the AWS SDK
-    /// for .NET version 3.7 and .NET Core 5.0.
+    /// JPEG or PNG format image.
     /// </summary>
     public class DetectModerationLabels
     {

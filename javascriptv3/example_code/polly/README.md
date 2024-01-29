@@ -1,37 +1,85 @@
-# Amazon Polly JavaScript SDK v3 code examples
+# Amazon Polly code examples for the SDK for JavaScript (v3)
 
-Amazon Polly is a service that turns text into lifelike speech, allowing you to create applications that talk,
-and build entirely new categories of speech-enabled products.
+## Overview
+
+Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Polly.
+
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_Amazon Polly is a Text-to-Speech (TTS) cloud service that converts text into lifelike speech._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
 
-This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Polly examples.
+### Prerequisites
 
-- [Convert text to speech - Node.js](./general-examples/src/polly_synthesize_to_s3.js)
-- [Convert text to speech - Browser](./src/polly.js)
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javascriptv3` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
-[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
 
-## Getting started
+**Run a single action**
 
-1. Clone the [AWS SDK Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for instructions.
-
-2. Install the dependencies listed in the package.json.
-
-**Note**: These include the client module for the AWS services required in these example,
-which are _@aws-sdk/client-cognito-identity_, _@aws-sdk/credential-provider-cognito-identity_,
-_@aws-sdk/client-polly_, and _@aws-sdk/polly-request-presigner_.
-
-```
-npm install node -g
-cd javascriptv3/example_code/polly
-npm install
+```bash
+node ./actions/<fileName>
 ```
 
-3. Follow the instructions in the [Getting Started in the browser topic of the AWS SDK for JavaScript (V3) DeveloperGuide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-browser.html).
+**Run a scenario**
+Most scenarios can be run with the following command:
+```bash
+node ./scenarios/<fileName>
+```
 
-## Resources
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)
-- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/polly/index.html)
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javascriptv3` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Amazon Polly Developer Guide](https://docs.aws.amazon.com/polly/latest/dg/what-is.html)
+- [Amazon Polly API Reference](https://docs.aws.amazon.com/polly/latest/dg/API_Reference.html)
+- [SDK for JavaScript (v3) Amazon Polly reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/polly)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

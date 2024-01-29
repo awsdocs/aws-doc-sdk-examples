@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DeleteBucketPolicy.kt demonstrates how to delete a policy from an Amazon Simple Storage Service (Amazon S3) bucket.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.s3
 
@@ -24,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
          <bucketName>  
@@ -44,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.delete_bucket_policy.main]
 suspend fun deleteS3BucketPolicy(bucketName: String?) {
-
     val request = DeleteBucketPolicyRequest {
         bucket = bucketName
     }

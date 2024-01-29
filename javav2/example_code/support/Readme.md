@@ -1,74 +1,130 @@
-# AWS Support code examples for the SDK for Java
+# Support code examples for the SDK for Java 2.x
 
 ## Overview
-This README discusses how to run and test the AWS SDK for Java (v2) examples for AWS Support.
 
-AWS Support is one-on-one, fast-response support from experienced technical support engineers. The service helps customers use AWS's products and features. With pay-by-the-month pricing and unlimited support cases, customers are freed from long-term commitments.
+Shows how to use the AWS SDK for Java 2.x to work with AWS Support.
 
-## ⚠️ Important
-* The SDK for Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. 
-* Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_Support provides support for users of Amazon Web Services._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
 
-The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
 ### Get started
 
-- [Hello service](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/HelloSupport.java) (describeServices command)
+- [Hello Support](src/main/java/com/example/support/HelloSupport.java#L12) (`DescribeServices`)
 
-### Single action
+
+### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a communication to a case](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (addCommunicationToCase command)
-- [Add an attachment to a set](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (addAttachmentsToSet command)
-- [Create a case](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (createCase command)
-- [Describe an attachment](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeAttachment command)
-- [Describe services](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeServices command)
-- [Describe severity levels](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeSeverityLevels command)
-- [Describe cases](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeCases command)
-- [Describe communications](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (describeCommunications command)
-- [Resolve case](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (resolveCase command)
+- [Add a communication to a case](src/main/java/com/example/support/SupportScenario.java#L256) (`AddCommunicationToCase`)
+- [Add an attachment to a set](src/main/java/com/example/support/SupportScenario.java#L278) (`AddAttachmentsToSet`)
+- [Create a case](src/main/java/com/example/support/SupportScenario.java#L334) (`CreateCase`)
+- [Describe an attachment](src/main/java/com/example/support/SupportScenario.java#L209) (`DescribeAttachment`)
+- [Describe cases](src/main/java/com/example/support/SupportScenario.java#L305) (`DescribeCases`)
+- [Describe communications](src/main/java/com/example/support/SupportScenario.java#L226) (`DescribeCommunications`)
+- [Describe services](src/main/java/com/example/support/SupportScenario.java#L385) (`DescribeServices`)
+- [Describe severity levels](src/main/java/com/example/support/SupportScenario.java#L360) (`DescribeSeverityLevels`)
+- [Resolve case](src/main/java/com/example/support/SupportScenario.java#L192) (`ResolveCase`)
 
-### Scenario 
+### Scenarios
 
-Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
-- [Get started with cases](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/java/com/example/support/SupportScenario.java) (Multiple commands)
-
-## Run the AWS Support Java file
-
-**Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
-
-To run these examples, set up your development environment. For more information, 
-see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
-
-In addition, you must have the AWS Business Support Plan to use the AWS Support Java API. For more information, see: https://aws.amazon.com/premiumsupport/plans/.
+- [Get started with cases](src/main/java/com/example/support/SupportScenario.java)
 
 
- ## Test the AWS Support Java file
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-You can test the Java code example for AWS Support by running a test file named **SupportTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+## Run the examples
 
-You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+### Instructions
 
-	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulates real AWS resources and might incur charges on your account._
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
- ### Properties file
+#### Hello Support
+
+This example shows you how to get started using Support.
+
+
+
+#### Get started with cases
+
+This example shows you how to do the following:
+
+- Get and display available services and severity levels for cases.
+- Create a support case using a selected service, category, and severity level.
+- Get and display a list of open cases for the current day.
+- Add an attachment set and a communication to the new case.
+- Describe the new attachment and communication for the case.
+- Resolve the case.
+- Get and display a list of resolved cases for the current day.
+
+<!--custom.scenario_prereqs.support_Scenario_GetStartedSupportCases.start-->
+<!--custom.scenario_prereqs.support_Scenario_GetStartedSupportCases.end-->
+
+
+<!--custom.scenarios.support_Scenario_GetStartedSupportCases.start-->
+<!--custom.scenarios.support_Scenario_GetStartedSupportCases.end-->
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
+
+
+
+<!--custom.tests.start-->
+
+#### Properties file
+
 Before running the JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. If you do not define all values, the JUnit tests fail.
 
 Define this value to successfully run the JUnit tests:
 
-- **fileAttachment** - The file can be a simple saved .txt file to use as an email attachment.  
+- **fileAttachment** - The file can be a simple saved .txt file to use as an email attachment.
+
+<!--custom.tests.end-->
 
 ## Additional resources
-* [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
-* [Developer Guide - AWS Support](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html).
-* [Interface SupportClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/support/SupportClient.html).
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+- [Support User Guide](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html)
+- [Support API Reference](https://docs.aws.amazon.com/awssupport/latest/APIReference/welcome.html)
+- [SDK for Java 2.x Support reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/support/package-summary.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[CreateCluster.java demonstrates how to create a cluster for the Amazon Elastic Container Service (Amazon ECS) service.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Elastic Container Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ecs;
 
+// snippet-start:[ecs.java2.create_cluster.main]
 // snippet-start:[ecs.java2.create_cluster.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.ecs.model.ExecuteCommandConfiguration;
@@ -22,7 +16,8 @@ import software.amazon.awssdk.services.ecs.model.CreateClusterRequest;
 // snippet-end:[ecs.java2.create_cluster.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,12 +25,14 @@ import software.amazon.awssdk.services.ecs.model.CreateClusterRequest;
  */
 public class CreateCluster {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "   <clusterName> \n\n" +
-            "Where:\n" +
-            "   clusterName - The name of the ECS cluster to create.\n" ;
+                Usage:
+                   <clusterName>\s
+
+                Where:
+                   clusterName - The name of the ECS cluster to create.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,33 +42,30 @@ public class CreateCluster {
         String clusterName = args[0];
         Region region = Region.US_EAST_1;
         EcsClient ecsClient = EcsClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         String clusterArn = createGivenCluster(ecsClient, clusterName);
-        System.out.println("The cluster ARN is "+clusterArn) ;
+        System.out.println("The cluster ARN is " + clusterArn);
         ecsClient.close();
     }
 
-    // snippet-start:[ecs.java2.create_cluster.main]
-    public static String createGivenCluster( EcsClient ecsClient, String clusterName) {
-
+    public static String createGivenCluster(EcsClient ecsClient, String clusterName) {
         try {
             ExecuteCommandConfiguration commandConfiguration = ExecuteCommandConfiguration.builder()
-                .logging(ExecuteCommandLogging.DEFAULT)
-                .build();
+                    .logging(ExecuteCommandLogging.DEFAULT)
+                    .build();
 
             ClusterConfiguration clusterConfiguration = ClusterConfiguration.builder()
-                .executeCommandConfiguration(commandConfiguration)
-                .build();
+                    .executeCommandConfiguration(commandConfiguration)
+                    .build();
 
             CreateClusterRequest clusterRequest = CreateClusterRequest.builder()
-                .clusterName(clusterName)
-                .configuration(clusterConfiguration)
-                .build();
+                    .clusterName(clusterName)
+                    .configuration(clusterConfiguration)
+                    .build();
 
-            CreateClusterResponse response = ecsClient.createCluster(clusterRequest) ;
+            CreateClusterResponse response = ecsClient.createCluster(clusterRequest);
             return response.cluster().clusterArn();
 
         } catch (EcsException e) {
@@ -80,5 +74,5 @@ public class CreateCluster {
         }
         return "";
     }
-    // snippet-end:[ecs.java2.create_cluster.main]
 }
+// snippet-end:[ecs.java2.create_cluster.main]

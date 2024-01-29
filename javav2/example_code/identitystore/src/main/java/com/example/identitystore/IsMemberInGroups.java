@@ -1,14 +1,9 @@
-//snippet-sourcedescription:[IsMemberInGroups.java checks the user's membership in all requested groups and returns if the member exists in all queried groups in a AWS Identitystore.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.identitystore;
 
+// snippet-start:[identitystore.java2.is_member_in_groups.main]
 // snippet-start:[Identitystore.java2.is_member_in_groups.import]
 import software.amazon.awssdk.services.identitystore.IdentitystoreClient;
 import software.amazon.awssdk.services.identitystore.model.IdentitystoreException;
@@ -21,7 +16,8 @@ import java.util.List;
 // snippet-end:[Identitystore.java2.is_member_in_groups.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,13 +28,17 @@ public class IsMemberInGroups {
 
     public static void main(String... args) {
 
-        final String usage = "\n" +
-        "Usage:\n" +
-        "    <identitystoreId> <userId> <list of groupIds> \n\n" +
-        "Where:\n" +
-        "    identitystoreId - The id of the identitystore. \n" +
-        "    userId - The id of the user. \n" +
-        "    list of groupIds - The list of groupids of one or more groups. \n\n" ;
+        final String usage = """
+
+                Usage:
+                    <identitystoreId> <userId> <list of groupIds>\s
+
+                Where:
+                    identitystoreId - The id of the identitystore.\s
+                    userId - The id of the user.\s
+                    list of groupIds - The list of groupids of one or more groups.\s
+
+                """;
 
         if (args.length < 3) {
             System.out.println(usage);
@@ -48,46 +48,44 @@ public class IsMemberInGroups {
         List<String> groupIdList = new ArrayList<>();
         String identitystoreId = args[0];
         String userId = args[1];
-
-        for (int i=2; i < args.length; i++) {
+        for (int i = 2; i < args.length; i++) {
             groupIdList.add(args[i]);
         }
 
         IdentitystoreClient identitystore = IdentitystoreClient.builder().build();
-
         String result = isMemberInGroups(identitystore, identitystoreId, userId, groupIdList);
         System.out.println("Results: \n " + result);
         identitystore.close();
     }
 
-    // snippet-start:[identitystore.java2.is_member_in_groups.main]
-    public static String isMemberInGroups(IdentitystoreClient identitystore, String identitystoreId, String userId, List<String> groupIdList) {
+    public static String isMemberInGroups(IdentitystoreClient identitystore, String identitystoreId, String userId,
+            List<String> groupIdList) {
         try {
-            
             MemberId memberId = MemberId.builder()
-            .userId(userId)
-            .build();
+                    .userId(userId)
+                    .build();
 
             IsMemberInGroupsRequest request = IsMemberInGroupsRequest.builder()
-                              .identityStoreId(identitystoreId)
-                              .memberId(memberId)
-                              .groupIds(groupIdList)
-                              .build();
+                    .identityStoreId(identitystoreId)
+                    .memberId(memberId)
+                    .groupIds(groupIdList)
+                    .build();
 
             IsMemberInGroupsResponse response = identitystore.isMemberInGroups(request);
             System.out.format("Results: \n");
-            for(GroupMembershipExistenceResult result: response.results()) {
-                System.out.format("GroupId: %s, UserId: %s, MembershipExists: %s\n", result.groupId(), result.memberId().userId(), result.membershipExists());
+            for (GroupMembershipExistenceResult result : response.results()) {
+                System.out.format("GroupId: %s, UserId: %s, MembershipExists: %s\n", result.groupId(),
+                        result.memberId().userId(), result.membershipExists());
 
             }
             return "Done";
 
-        } catch (IdentitystoreException e) {  
+        } catch (IdentitystoreException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
 
         return "";
-     }
-     // snippet-end:[identitystore.java2.is_member_in_groups.main]
+    }
 }
+// snippet-end:[identitystore.java2.is_member_in_groups.main]

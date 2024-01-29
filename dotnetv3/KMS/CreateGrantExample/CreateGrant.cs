@@ -1,10 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// Create a new AWS Key Management Service grant (AWS KMS). This example
-/// was created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
-/// </summary>
 namespace CreateGrantExample
 {
     using System;
@@ -13,6 +9,9 @@ namespace CreateGrantExample
     using Amazon.KeyManagementService;
     using Amazon.KeyManagementService.Model;
 
+    /// <summary>
+    /// Create a new AWS Key Management Service grant (AWS KMS).
+    /// </summary>
     public class CreateGrant
     {
         // snippet-start:[KMS.dotnetv3.CreateGrantExample]

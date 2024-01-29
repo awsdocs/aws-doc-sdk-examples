@@ -1,15 +1,5 @@
-//snippet-sourcedescription:[ListConfigurations.java demonstrates how to list existing Amazon MQ configurations.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon MQ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/18/2021]
-//snippet-sourceauthor:[fararmin-aws]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[mq.java2.list_configurations.complete]
 package com.example.mq;
@@ -26,22 +16,22 @@ import software.amazon.awssdk.services.mq.model.*;
 public class ListConfigurations {
     public static void main(String[] args) {
         Region region = Region.US_WEST_2;
-    
         MqClient mqClient = MqClient.builder()
                 .region(region)
                 .build();
-        
+
         // Applies only to Amazon MQ for ActiveMQ brokers.
         List<Configuration> results = listConfigurations(mqClient);
 
         for (Configuration result : results) {
             System.out.println("Name: " + result.name() + " | " +
-                "ID: " + result.id() + "\n");
+                    "ID: " + result.id() + "\n");
         }
 
         mqClient.close();
 
     }
+
     // snippet-start:[mq.java2.list_configurations.main]
     public static List<Configuration> listConfigurations(MqClient mqClient) {
 

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.tags;
 
@@ -12,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Handler implements RequestHandler<Map<String,String>, String> {
+public class Handler implements RequestHandler<Map<String, String>, String> {
 
     @Override
     public String handleRequest(Map<String, String> event, Context context) {
@@ -49,7 +47,7 @@ public class Handler implements RequestHandler<Map<String,String>, String> {
                 s3Service.deleteTagFromObject(bucketName, key);
                 logger.log("All Assets in the bucket are deleted!");
             }
-         }
+        }
         return delFag;
     }
 }

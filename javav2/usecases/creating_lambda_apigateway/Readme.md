@@ -5,7 +5,6 @@
 | ----------- | ----------- |
 | Description | Dicusses how to develop an AWS Lambda function using the Java run-time API and then how to invoke it by using Amazon API Gateway.  |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 1/14/2022        |
 | Required Skills   | Java, Maven  |
 
 ## Purpose

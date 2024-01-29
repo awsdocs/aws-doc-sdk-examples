@@ -1,14 +1,9 @@
-//snippet-sourcedescription:[GetMetricData.java demonstrates how to get historical metric data from the specified Amazon Connect instance.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Connect]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.connect;
 
+// snippet-start:[connect.java2.historical.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.connect.ConnectClient;
 import software.amazon.awssdk.services.connect.model.Channel;
@@ -32,7 +27,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -44,12 +40,15 @@ import java.util.Locale;
  */
 public class GetMetricData {
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage: " +
-            "   <instanceId>\n\n" +
-            "Where:\n" +
-            "   instanceId - The identifier of the Amazon Connect instance.\n\n" +
-            "   queueId - The identifier of the queue.\n\n" ;
+        final String usage = """
+
+                Usage:    <instanceId>
+
+                Where:
+                   instanceId - The identifier of the Amazon Connect instance.
+                   queueId - The identifier of the queue.
+
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -60,32 +59,31 @@ public class GetMetricData {
         String queueId = args[1];
         Region region = Region.US_EAST_1;
         ConnectClient connectClient = ConnectClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
-        getHistoricalMetrics (connectClient, instanceId, queueId);
+        getHistoricalMetrics(connectClient, instanceId, queueId);
     }
 
-    // snippet-start:[connect.java2.historical.main]
-    public static void getHistoricalMetrics (ConnectClient connectClient, String instanceId, String queueId) {
+    public static void getHistoricalMetrics(ConnectClient connectClient, String instanceId, String queueId) {
         try {
             // Define the metrics to retrieve.
             Threshold threshold = Threshold.builder()
-                .comparison(Comparison.LT)
-                .thresholdValue(10.0)
-                .build();
+                    .comparison(Comparison.LT)
+                    .thresholdValue(10.0)
+                    .build();
 
             HistoricalMetric contactMetric = HistoricalMetric.builder()
-                .name(HistoricalMetricName.CONTACTS_HANDLED)
-                .statistic(Statistic.SUM)
-                .threshold(threshold)
-                .unit(Unit.COUNT)
-                .build();
+                    .name(HistoricalMetricName.CONTACTS_HANDLED)
+                    .statistic(Statistic.SUM)
+                    .threshold(threshold)
+                    .unit(Unit.COUNT)
+                    .build();
 
             Filters filter = Filters.builder()
-                .channels(Channel.VOICE)
-                .queues(queueId)
-                .build();
+                    .channels(Channel.VOICE)
+                    .queues(queueId)
+                    .build();
 
             String stringDate = "09:05:00 AM, Tue 01/03/2023"; // Add a new date value.
             String pattern = "hh:mm:ss a, EEE M/d/uuuu";
@@ -99,21 +97,21 @@ public class GetMetricData {
             Instant endInstant = localDateTime2.toInstant(ZoneOffset.UTC);
 
             GetMetricDataRequest dataRequest = GetMetricDataRequest.builder()
-                .instanceId(instanceId)
-                .endTime(endInstant)
-                .startTime(startInstant)
-                .filters(filter)
-                .maxResults(10)
-                .historicalMetrics(contactMetric)
-                 .build();
+                    .instanceId(instanceId)
+                    .endTime(endInstant)
+                    .startTime(startInstant)
+                    .filters(filter)
+                    .maxResults(10)
+                    .historicalMetrics(contactMetric)
+                    .build();
 
             GetMetricDataResponse response = connectClient.getMetricData(dataRequest);
             List<HistoricalMetricResult> resultList = response.metricResults();
-            for (HistoricalMetricResult result: resultList) {
+            for (HistoricalMetricResult result : resultList) {
                 List<HistoricalMetricData> colls = result.collections();
-                   for (HistoricalMetricData data: colls) {
-                       System.out.println("The statistic name is "+ data.metric().statistic().name());
-                   }
+                for (HistoricalMetricData data : colls) {
+                    System.out.println("The statistic name is " + data.metric().statistic().name());
+                }
             }
 
         } catch (ConnectException e) {
@@ -121,5 +119,5 @@ public class GetMetricData {
             System.exit(1);
         }
     }
-    // snippet-end:[connect.java2.historical.main]
 }
+// snippet-end:[connect.java2.historical.main]

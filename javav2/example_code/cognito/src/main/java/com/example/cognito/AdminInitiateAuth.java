@@ -1,10 +1,10 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.example.cognito;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitiateAuthRequest;
-
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -13,20 +13,20 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitia
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class AdminInitiateAuth {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage:\n" +
-                "    <AuthFlow> <ClientId> <UserPoolId>\n\n" +
-                "Where:\n" +
-                "    AuthFlow - The authentication flow for this call to run. \n\n" +
-                "    ClientId - The app client ID.\n\n" +
-                "    UserPoolId - The user name of the user whose registration you want to confirm.\n\n";
+            Usage:
+                <AuthFlow> <ClientId> <UserPoolId>
 
-        if (args.length != 1) {
+            Where:
+                AuthFlow - The authentication flow for this call to run.\s
+                ClientId - The app client ID.
+                UserPoolId - The user name of the user whose registration you want to confirm.
+            """;
+
+        if (args.length != 3) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -37,16 +37,12 @@ public class AdminInitiateAuth {
 
         CognitoIdentityProviderClient identityProviderClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
-
         adminInitiateAuth(identityProviderClient, authFlow, clientId, userPoolId);
-
         identityProviderClient.close();
     }
 
     public static void adminInitiateAuth(CognitoIdentityProviderClient identityProviderClient, String authFlow, String clientId, String userPoolId){
-
         AdminInitiateAuthRequest req = AdminInitiateAuthRequest.builder()
                 .authFlow(authFlow)
                 .clientId(clientId)
@@ -54,8 +50,6 @@ public class AdminInitiateAuth {
                 .build();
 
         identityProviderClient.adminInitiateAuth(req);
-
         System.out.println("Admin initiate auth");
     }
-
 }

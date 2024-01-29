@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /**
  * Before running this C++ code example, set up your development environment,
@@ -19,13 +17,13 @@
  *
  */
 
-//snippet-start:[iam.cpp.create_access_key.inc]
+// snippet-start:[iam.cpp.create_access_key.inc]
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateAccessKeyRequest.h>
 #include <aws/iam/model/CreateAccessKeyResult.h>
 #include <iostream>
 #include "iam_samples.h"
-//snippet-end:[iam.cpp.create_access_key.inc]
+// snippet-end:[iam.cpp.create_access_key.inc]
 
 //! Creates an access key for an IAM user.
 /*!

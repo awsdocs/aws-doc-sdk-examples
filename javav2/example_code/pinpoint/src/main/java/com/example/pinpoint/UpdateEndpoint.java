@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[CreateEndpoint.java demonstrates how to update an endpoint for an application in Amazon Pinpoint.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Pinpoint]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.createendpoint.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+// snippet-start:[pinpoint.java2.createendpoint.main]
+// snippet-start:[pinpoint.java2.createendpoint.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.EndpointResponse;
@@ -31,11 +25,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Date;
-//snippet-end:[pinpoint.java2.createendpoint.import]
-
+// snippet-end:[pinpoint.java2.createendpoint.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -43,12 +37,14 @@ import java.util.Date;
  */
 public class UpdateEndpoint {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            " <appId>\n\n" +
-            "Where:\n" +
-            "  appId - The ID of the application to create an endpoint for.\n\n";
+                Usage:  <appId>
+
+                Where:
+                  appId - The ID of the application to create an endpoint for.
+
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -57,17 +53,15 @@ public class UpdateEndpoint {
 
         String appId = args[0];
         PinpointClient pinpoint = PinpointClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         EndpointResponse response = createEndpoint(pinpoint, appId);
         System.out.println("Got Endpoint: " + response.id());
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.createendpoint.main]
-    //snippet-start:[pinpoint.java2.createendpoint.helper]
+    // snippet-start:[pinpoint.java2.createendpoint.helper]
     public static EndpointResponse createEndpoint(PinpointClient client, String appId) {
         String endpointId = UUID.randomUUID().toString();
         System.out.println("Endpoint ID: " + endpointId);
@@ -75,18 +69,18 @@ public class UpdateEndpoint {
         try {
             EndpointRequest endpointRequest = createEndpointRequestData();
             UpdateEndpointRequest updateEndpointRequest = UpdateEndpointRequest.builder()
-                .applicationId(appId)
-                .endpointId(endpointId)
-                .endpointRequest(endpointRequest)
-                .build();
+                    .applicationId(appId)
+                    .endpointId(endpointId)
+                    .endpointRequest(endpointRequest)
+                    .build();
 
             UpdateEndpointResponse updateEndpointResponse = client.updateEndpoint(updateEndpointRequest);
             System.out.println("Update Endpoint Response: " + updateEndpointResponse.messageBody());
 
             GetEndpointRequest getEndpointRequest = GetEndpointRequest.builder()
-                .applicationId(appId)
-                .endpointId(endpointId)
-                .build();
+                    .applicationId(appId)
+                    .endpointId(endpointId)
+                    .build();
 
             GetEndpointResponse getEndpointResponse = client.getEndpoint(getEndpointRequest);
             System.out.println(getEndpointResponse.endpointResponse().address());
@@ -106,7 +100,6 @@ public class UpdateEndpoint {
     }
 
     private static EndpointRequest createEndpointRequestData() {
-
         try {
             List<String> favoriteTeams = new ArrayList<>();
             favoriteTeams.add("Lakers");
@@ -115,47 +108,48 @@ public class UpdateEndpoint {
             customAttributes.put("team", favoriteTeams);
 
             EndpointDemographic demographic = EndpointDemographic.builder()
-                .appVersion("1.0")
-                .make("apple")
-                .model("iPhone")
-                .modelVersion("7")
-                .platform("ios")
-                .platformVersion("10.1.1")
-                .timezone("America/Los_Angeles")
-                .build();
+                    .appVersion("1.0")
+                    .make("apple")
+                    .model("iPhone")
+                    .modelVersion("7")
+                    .platform("ios")
+                    .platformVersion("10.1.1")
+                    .timezone("America/Los_Angeles")
+                    .build();
 
             EndpointLocation location = EndpointLocation.builder()
-                .city("Los Angeles")
-                .country("US")
-                .latitude(34.0)
-                .longitude(-118.2)
-                .postalCode("90068")
-                .region("CA")
-                .build();
+                    .city("Los Angeles")
+                    .country("US")
+                    .latitude(34.0)
+                    .longitude(-118.2)
+                    .postalCode("90068")
+                    .region("CA")
+                    .build();
 
-            Map<String,Double> metrics = new HashMap<>();
+            Map<String, Double> metrics = new HashMap<>();
             metrics.put("health", 100.00);
             metrics.put("luck", 75.00);
 
             EndpointUser user = EndpointUser.builder()
-                .userId(UUID.randomUUID().toString())
-                .build();
+                    .userId(UUID.randomUUID().toString())
+                    .build();
 
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone
+                                                                           // offset
             String nowAsISO = df.format(new Date());
 
             return EndpointRequest.builder()
-                .address(UUID.randomUUID().toString())
-                .attributes(customAttributes)
-                .channelType("APNS")
-                .demographic(demographic)
-                .effectiveDate(nowAsISO)
-                .location(location)
-                .metrics(metrics)
-                .optOut("NONE")
-                .requestId(UUID.randomUUID().toString())
-                .user(user)
-                .build();
+                    .address(UUID.randomUUID().toString())
+                    .attributes(customAttributes)
+                    .channelType("APNS")
+                    .demographic(demographic)
+                    .effectiveDate(nowAsISO)
+                    .location(location)
+                    .metrics(metrics)
+                    .optOut("NONE")
+                    .requestId(UUID.randomUUID().toString())
+                    .user(user)
+                    .build();
 
         } catch (PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -163,6 +157,6 @@ public class UpdateEndpoint {
         }
         return null;
     }
-    //snippet-end:[pinpoint.java2.createendpoint.helper]
-    //snippet-end:[pinpoint.java2.createendpoint.main]
+    // snippet-end:[pinpoint.java2.createendpoint.helper]
 }
+// snippet-end:[pinpoint.java2.createendpoint.main]

@@ -1,0 +1,12 @@
+﻿toolname,status
+ruby,FAILED
+rustv1,FAILED
+javascriptv3,FAILED
+javav2,FAILED
+cpp,FAILED
+kotlin,FAILED
+php,FAILED
+python,FAILED
+swift,FAILED
+dotnetv3,FAILED
+sap-abap,FAILED

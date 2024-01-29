@@ -1,15 +1,1 @@
-{
-  "name": "env",
-  "collaborators": [
-    "Eduardo Rodrigues <16357187+eduardomourar@users.noreply.github.com>"
-  ],
-  "version": "0.1.0",
-  "files": [
-    "credentials.js",
-    "index.js"
-  ],
-  "type": "module",
-  "module": "index.js",
-  "browser": "index.js",
-  "sideEffects": false
-}
+"This file has been moved to https://github.com/awsdocs/aws-doc-sdk-examples/blob/rust_dev_preview/rustv1/webassembly/www/env/package.json"

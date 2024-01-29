@@ -1,0 +1,25 @@
+openapi: 3.0.0
+info:
+  title: Time API
+  version: 1.0.0
+  description: API to get the current date and time.
+paths:
+  /get-current-date-and-time:
+    get:
+      summary: Gets the current date and time.
+      description: Gets the current date and time.
+      operationId: getDateAndTime
+      responses:
+        '200':
+          description: Gets the current date and time.
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    description: The current date
+                  time:
+                    type: string
+                    description: The current time

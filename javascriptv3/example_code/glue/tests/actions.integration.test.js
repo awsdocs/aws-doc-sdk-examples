@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { readFile } from "fs/promises";
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
@@ -21,7 +19,6 @@ import {
 } from "@aws-sdk/client-s3";
 
 import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
-import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 import { createCrawler } from "../actions/create-crawler.js";
 import { getCrawler } from "../actions/get-crawler.js";
 import { deleteCrawler } from "../actions/delete-crawler.js";
@@ -63,7 +60,7 @@ const getResourceNames = ({ Outputs }) =>
   }, {});
 
 const createStack = async () => {
-  const client = new CloudFormationClient({ region: DEFAULT_REGION });
+  const client = new CloudFormationClient({});
   const templateBody = (await readFile(cdkAppPath)).toString("utf-8");
   const command = new CreateStackCommand({
     StackName: stackName,
@@ -81,7 +78,7 @@ const createStack = async () => {
 };
 
 const emptyS3Bucket = async (bucketName) => {
-  const client = new S3Client({ region: DEFAULT_REGION });
+  const client = new S3Client({});
   const listCommand = new ListObjectsCommand({ Bucket: bucketName });
   const { Contents } = await client.send(listCommand);
 
@@ -93,7 +90,7 @@ const emptyS3Bucket = async (bucketName) => {
 };
 
 const deleteStack = async () => {
-  const client = new CloudFormationClient({ region: DEFAULT_REGION });
+  const client = new CloudFormationClient({});
   const command = new DeleteStackCommand({ StackName: stackName });
   await client.send(command);
   await waitUntilStackDeleteComplete(
@@ -131,7 +128,7 @@ describe("actions", () => {
   }, fiveMinutesInMs);
 
   const addPythonScriptToBucket = async () => {
-    const client = new S3Client({ region: DEFAULT_REGION });
+    const client = new S3Client({});
     const pyScriptPath = `${dirname}../../../../python/example_code/glue/flight_etl_job_script.py`;
     const pyScript = (await readFile(pyScriptPath)).toString("utf-8");
     const command = new PutObjectCommand({

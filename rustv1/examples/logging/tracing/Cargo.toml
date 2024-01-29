@@ -1,0 +1,21 @@
+# snippet-start:[logging.rust.tracing-cargo.toml]
+[package]
+authors = [
+  "Russell Cohen <rcoh@amazon.com>",
+  "Doug Schwartz <dougsch@amazon.com>",
+]
+edition = "2021"
+name = "tracing-example"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = { version = "1.0.1", features = ["behavior-version-latest"] }
+aws-sdk-dynamodb = { version = "1.3.0" }
+clap = { version = "~4.4", features = ["derive"] }
+tokio = { version = "1.20.1", features = ["full"] }
+# snippet-start:[logging.rust.tracing-cargo.toml-tracing_subscriber]
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+# snippet-end:[logging.rust.tracing-cargo.toml-tracing_subscriber]
+# snippet-end:[logging.rust.tracing-cargo.toml]

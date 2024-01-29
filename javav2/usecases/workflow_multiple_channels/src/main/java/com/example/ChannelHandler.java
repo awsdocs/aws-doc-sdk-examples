@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example;
 
 import com.amazonaws.services.lambda.runtime.Context;
@@ -16,15 +15,15 @@ public class ChannelHandler implements RequestHandler<String, String> {
     public String handleRequest(String event, Context context) {
         LambdaLogger logger = context.getLogger();
         String xml = event;
-        int num =0;
+        int num = 0;
         SendNotifications sn = new SendNotifications();
         try {
-           sn.handleTextMessage(xml);
-           num = sn.handleEmailMessage(xml);
-           logger.log("The workflow sent "+num +" email messages");
+            sn.handleTextMessage(xml);
+            num = sn.handleEmailMessage(xml);
+            logger.log("The workflow sent " + num + " email messages");
         } catch (JDOMException | IOException | MessagingException e) {
             e.printStackTrace();
         }
-        return "The workflow sent "+num +" email messages";
+        return "The workflow sent " + num + " email messages";
     }
 }

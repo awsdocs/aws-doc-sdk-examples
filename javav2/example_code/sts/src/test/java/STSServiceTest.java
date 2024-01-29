@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.sts.AssumeRole;
 import com.example.sts.GetAccessKeyInfo;
@@ -33,9 +31,9 @@ public class STSServiceTest {
     public static void setUp() {
         Region region = Region.US_EAST_1;
         stsClient = StsClient.builder()
-            .region(region)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -45,33 +43,35 @@ public class STSServiceTest {
         accessKeyId = values.getAccessKeyId();
         roleSessionName = values.getRoleSessionName();
 
-
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-        try (InputStream input = STSServiceTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            // Populate the data members required for all tests.
-            prop.load(input);
-            roleArn = prop.getProperty("roleArn");
-            accessKeyId = prop.getProperty("accessKeyId");
-            roleSessionName = prop.getProperty("roleSessionName");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * try (InputStream input =
+         * STSServiceTest.class.getClassLoader().getResourceAsStream("config.properties"
+         * )) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * // Populate the data members required for all tests.
+         * prop.load(input);
+         * roleArn = prop.getProperty("roleArn");
+         * accessKeyId = prop.getProperty("accessKeyId");
+         * roleSessionName = prop.getProperty("roleSessionName");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
     public void AssumeRole() {
-        assertDoesNotThrow(() ->AssumeRole.assumeGivenRole(stsClient, roleArn, roleSessionName));
+        assertDoesNotThrow(() -> AssumeRole.assumeGivenRole(stsClient, roleArn, roleSessionName));
         System.out.println("Test 1 passed");
     }
 
@@ -79,7 +79,7 @@ public class STSServiceTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void GetSessionToken() {
-        assertDoesNotThrow(() ->GetSessionToken.getToken(stsClient));
+        assertDoesNotThrow(() -> GetSessionToken.getToken(stsClient));
         System.out.println("Test 2 passed");
     }
 
@@ -87,7 +87,7 @@ public class STSServiceTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void GetCallerIdentity() {
-        assertDoesNotThrow(() ->GetCallerIdentity.getCallerId(stsClient));
+        assertDoesNotThrow(() -> GetCallerIdentity.getCallerId(stsClient));
         System.out.println("Test 3 passed");
     }
 
@@ -95,19 +95,20 @@ public class STSServiceTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void GetAccessKeyInfo() {
-        assertDoesNotThrow(() ->GetAccessKeyInfo.getKeyInfo(stsClient, accessKeyId));
+        assertDoesNotThrow(() -> GetAccessKeyInfo.getKeyInfo(stsClient, accessKeyId));
         System.out.println("Test 4 passed");
     }
+
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/sts";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -119,7 +120,6 @@ public class STSServiceTest {
         private String roleArn;
         private String accessKeyId;
         private String roleSessionName;
-
 
         public String getRoleArn() {
             return roleArn;
@@ -134,4 +134,3 @@ public class STSServiceTest {
         }
     }
 }
-

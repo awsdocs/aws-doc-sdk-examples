@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace CreateLogStreamExample
 {
@@ -11,8 +11,7 @@ namespace CreateLogStreamExample
 
     /// <summary>
     /// Shows how to create an Amazon CloudWatch Logs stream for a CloudWatch
-    /// log group. The example was created using the AWS SDK for .NET version
-    /// 3.7 and .NET Core 5.0.
+    /// log group.
     /// </summary>
     public class CreateLogStream
     {

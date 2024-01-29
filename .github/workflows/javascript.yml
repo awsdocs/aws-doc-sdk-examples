@@ -19,14 +19,14 @@ jobs:
         name: Checkout files
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v35
+        uses: tj-actions/changed-files@v41
         with:
           files: "javascriptv3/**/*.{js,ts,jsx,tsx}"
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: "18.x"
-      - run: npm ci --prefix javascriptv3
+          node-version: "20.x"
+      - run: npm i --prefix javascriptv3
         name: Install dependencies
       - run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})

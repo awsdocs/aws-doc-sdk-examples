@@ -1,0 +1,10 @@
+Resources:
+  LargeQueryLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /workflows/cloudwatch-logs/large-query
+  LargeQueryLogGroupStream1:
+    Type: AWS::Logs::LogStream
+    Properties:
+      LogGroupName: !Ref LargeQueryLogGroup
+      LogStreamName: stream1

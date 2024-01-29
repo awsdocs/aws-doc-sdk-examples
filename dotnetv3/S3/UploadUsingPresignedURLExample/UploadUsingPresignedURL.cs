@@ -1,25 +1,28 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// This example shows how to upload an object to an Amazon Simple Storage
-/// Service (Amazon S3) bucket using a presigned URL. The code first
-/// creates a presigned URL and then uses it to upload an object to an
-/// Amazon S3 bucket using that URL.
-/// </summary>
 namespace UploadUsingPresignedURLExample
 {
     // snippet-start:[S3.dotnetv3.UploadUsingPresignedURLExample]
     using System;
     using System.IO;
-    using System.Net;
+    using System.Net.Http;
+    using System.Threading.Tasks;
     using Amazon;
     using Amazon.S3;
     using Amazon.S3.Model;
 
+    /// <summary>
+    /// This example shows how to upload an object to an Amazon Simple Storage
+    /// Service (Amazon S3) bucket using a presigned URL. The code first
+    /// creates a presigned URL and then uses it to upload an object to an
+    /// Amazon S3 bucket using that URL.
+    /// </summary>
     public class UploadUsingPresignedURL
     {
-        public static void Main()
+        private static HttpClient httpClient = new HttpClient();
+
+        public static async Task Main()
         {
             string bucketName = "doc-example-bucket";
             string keyName = "samplefile.txt";
@@ -41,7 +44,7 @@ namespace UploadUsingPresignedURLExample
             IAmazonS3 client = new AmazonS3Client(RegionEndpoint.USEast1);
 
             var url = GeneratePreSignedURL(client, bucketName, keyName, timeoutDuration);
-            var success = UploadObject(filePath, url);
+            var success = await UploadObject(filePath, url);
 
             if (success)
             {
@@ -63,25 +66,13 @@ namespace UploadUsingPresignedURLExample
         /// file to the Amazon S3 bucket.</param>
         /// <returns>A Boolean value indicating the success or failure of the
         /// operation, based on the HttpWebResponse.</returns>
-        public static bool UploadObject(string filePath, string url)
+        public static async Task<bool> UploadObject(string filePath, string url)
         {
-            HttpWebRequest httpRequest = WebRequest.Create(url) as HttpWebRequest;
-            httpRequest.Method = "PUT";
-            using (Stream dataStream = httpRequest.GetRequestStream())
-            {
-                var buffer = new byte[8000];
-                using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                {
-                    int bytesRead = 0;
-                    while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        dataStream.Write(buffer, 0, bytesRead);
-                    }
-                }
-            }
+            using var streamContent = new StreamContent(
+                new FileStream(filePath, FileMode.Open, FileAccess.Read));
 
-            HttpWebResponse response = httpRequest.GetResponse() as HttpWebResponse;
-            return response.StatusCode == HttpStatusCode.OK;
+            var response = await httpClient.PutAsync(url, streamContent);
+            return response.IsSuccessStatusCode;
         }
 
         /// <summary>

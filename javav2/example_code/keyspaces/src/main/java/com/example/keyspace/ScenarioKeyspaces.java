@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ScenarioKeyspaces.java demonstrates how to perform various Amazon Keyspace operations.]
-///snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Keyspaces]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.keyspace;
 
@@ -22,7 +16,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.keyspaces.KeyspacesClient;
 import software.amazon.awssdk.services.keyspaces.model.ColumnDefinition;
@@ -59,9 +52,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-//snippet-start:[keyspace.java2.scenario.main]
+// snippet-start:[keyspace.java2.scenario.main]
 /**
- * Before running this Java (v2) code example, set up your development environment, including your credentials.
+ * Before running this Java (v2) code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -81,7 +75,8 @@ import java.util.List;
  * 1. Create a keyspace.
  * 2. Check for keyspace existence.
  * 3. List keyspaces using a paginator.
- * 4. Create a table with a simple movie data schema and enable point-in-time recovery.
+ * 4. Create a table with a simple movie data schema and enable point-in-time
+ * recovery.
  * 5. Check for the table to be in an Active state.
  * 6. List all tables in the keyspace.
  * 7. Use a Cassandra driver to insert some records into the Movie table.
@@ -99,30 +94,30 @@ import java.util.List;
  */
 
 public class ScenarioKeyspaces {
-    public static final String DASHES = new String(new char[80]).replace("\0", "-") ;
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
 
     /*
-    Usage:
-      fileName - The name of the JSON file that contains movie data. (Get this file from the GitHub repo at resources/sample_file.)
-      keyspaceName - The name of the keyspace to create.
-   */
-    public static void main(String[]args) throws InterruptedException, IOException {
-        String fileName = "<Replace with the JSON file that contains movie data>" ;
+     * Usage:
+     * fileName - The name of the JSON file that contains movie data. (Get this file
+     * from the GitHub repo at resources/sample_file.)
+     * keyspaceName - The name of the keyspace to create.
+     */
+    public static void main(String[] args) throws InterruptedException, IOException {
+        String fileName = "<Replace with the JSON file that contains movie data>";
         String keyspaceName = "<Replace with the name of the keyspace to create>";
         String titleUpdate = "The Family";
-        int yearUpdate = 2013 ;
-        String tableName = "Movie" ;
-        String tableNameRestore = "MovieRestore" ;
+        int yearUpdate = 2013;
+        String tableName = "Movie";
+        String tableNameRestore = "MovieRestore";
         Region region = Region.US_EAST_1;
         KeyspacesClient keyClient = KeyspacesClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         DriverConfigLoader loader = DriverConfigLoader.fromClasspath("application.conf");
         CqlSession session = CqlSession.builder()
-            .withConfigLoader(loader)
-            .build();
+                .withConfigLoader(loader)
+                .build();
 
         System.out.println(DASHES);
         System.out.println("Welcome to the Amazon Keyspaces example scenario.");
@@ -232,12 +227,12 @@ public class ScenarioKeyspaces {
         System.out.println(DASHES);
     }
 
-    //snippet-start:[keyspace.java2.scenario.delete.keyspace.main]
+    // snippet-start:[keyspace.java2.scenario.delete.keyspace.main]
     public static void deleteKeyspace(KeyspacesClient keyClient, String keyspaceName) {
         try {
             DeleteKeyspaceRequest deleteKeyspaceRequest = DeleteKeyspaceRequest.builder()
-                .keyspaceName(keyspaceName)
-                .build();
+                    .keyspaceName(keyspaceName)
+                    .build();
 
             keyClient.deleteKeyspace(deleteKeyspaceRequest);
 
@@ -246,22 +241,24 @@ public class ScenarioKeyspaces {
             System.exit(1);
         }
     }
-    //snippet-end:[keyspace.java2.scenario.delete.keyspace.main]
+    // snippet-end:[keyspace.java2.scenario.delete.keyspace.main]
 
-    public static void checkTableDelete(KeyspacesClient keyClient, String keyspaceName, String tableName)throws InterruptedException {
+    public static void checkTableDelete(KeyspacesClient keyClient, String keyspaceName, String tableName)
+            throws InterruptedException {
         try {
             String status;
             GetTableResponse response;
             GetTableRequest tableRequest = GetTableRequest.builder()
-                .keyspaceName(keyspaceName)
-                .tableName(tableName)
-                .build();
+                    .keyspaceName(keyspaceName)
+                    .tableName(tableName)
+                    .build();
 
-            // Keep looping until table cannot be found and a ResourceNotFoundException is thrown.
+            // Keep looping until table cannot be found and a ResourceNotFoundException is
+            // thrown.
             while (true) {
                 response = keyClient.getTable(tableRequest);
                 status = response.statusAsString();
-                System.out.println(". The table status is "+status);
+                System.out.println(". The table status is " + status);
                 Thread.sleep(500);
             }
 
@@ -271,13 +268,13 @@ public class ScenarioKeyspaces {
         System.out.println("The table is deleted");
     }
 
-    //snippet-start:[keyspace.java2.scenario.delete.table.main]
-    public static void deleteTable(KeyspacesClient keyClient, String keyspaceName, String tableName){
+    // snippet-start:[keyspace.java2.scenario.delete.table.main]
+    public static void deleteTable(KeyspacesClient keyClient, String keyspaceName, String tableName) {
         try {
             DeleteTableRequest tableRequest = DeleteTableRequest.builder()
-                .keyspaceName(keyspaceName)
-                .tableName(tableName)
-                .build();
+                    .keyspaceName(keyspaceName)
+                    .tableName(tableName)
+                    .build();
 
             keyClient.deleteTable(tableRequest);
 
@@ -286,33 +283,34 @@ public class ScenarioKeyspaces {
             System.exit(1);
         }
     }
-    //snippet-end:[keyspace.java2.scenario.delete.table.main]
+    // snippet-end:[keyspace.java2.scenario.delete.table.main]
 
-    public static void checkRestoredTable(KeyspacesClient keyClient, String keyspaceName, String tableName)throws InterruptedException {
+    public static void checkRestoredTable(KeyspacesClient keyClient, String keyspaceName, String tableName)
+            throws InterruptedException {
         try {
             boolean tableStatus = false;
             String status;
             GetTableResponse response = null;
             GetTableRequest tableRequest = GetTableRequest.builder()
-                .keyspaceName(keyspaceName)
-                .tableName(tableName)
-                .build();
+                    .keyspaceName(keyspaceName)
+                    .tableName(tableName)
+                    .build();
 
             while (!tableStatus) {
                 response = keyClient.getTable(tableRequest);
                 status = response.statusAsString();
-                System.out.println("The table status is "+status);
+                System.out.println("The table status is " + status);
 
-                if (status.compareTo("ACTIVE") ==0) {
+                if (status.compareTo("ACTIVE") == 0) {
                     tableStatus = true;
                 }
                 Thread.sleep(500);
             }
 
             List<ColumnDefinition> cols = response.schemaDefinition().allColumns();
-            for (ColumnDefinition def: cols) {
-                System.out.println("The column name is "+def.name());
-                System.out.println("The column type is "+def.type());
+            for (ColumnDefinition def : cols) {
+                System.out.println("The column name is " + def.name());
+                System.out.println("The column type is " + def.type());
             }
 
         } catch (KeyspacesException e) {
@@ -321,30 +319,31 @@ public class ScenarioKeyspaces {
         }
     }
 
-    //snippet-start:[keyspace.java2.scenario.restore.table.main]
+    // snippet-start:[keyspace.java2.scenario.restore.table.main]
     public static void restoreTable(KeyspacesClient keyClient, String keyspaceName, ZonedDateTime utc) {
         try {
             Instant myTime = utc.toInstant();
             RestoreTableRequest restoreTableRequest = RestoreTableRequest.builder()
-                .restoreTimestamp(myTime)
-                .sourceTableName("Movie")
-                .targetKeyspaceName(keyspaceName)
-                .targetTableName("MovieRestore")
-                .sourceKeyspaceName(keyspaceName)
-                .build();
+                    .restoreTimestamp(myTime)
+                    .sourceTableName("Movie")
+                    .targetKeyspaceName(keyspaceName)
+                    .targetTableName("MovieRestore")
+                    .sourceKeyspaceName(keyspaceName)
+                    .build();
 
             RestoreTableResponse response = keyClient.restoreTable(restoreTableRequest);
-            System.out.println("The ARN of the restored table is "+response.restoredTableARN());
+            System.out.println("The ARN of the restored table is " + response.restoredTableARN());
 
         } catch (KeyspacesException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[keyspace.java2.scenario.restore.table.main]
+    // snippet-end:[keyspace.java2.scenario.restore.table.main]
 
     public static void getWatchedData(CqlSession session, String keyspaceName) {
-        ResultSet resultSet = session.execute("SELECT * FROM \""+keyspaceName+"\".\"Movie\" WHERE watched = true ALLOW FILTERING;");
+        ResultSet resultSet = session
+                .execute("SELECT * FROM \"" + keyspaceName + "\".\"Movie\" WHERE watched = true ALLOW FILTERING;");
         resultSet.forEach(item -> {
             System.out.println("The Movie title is " + item.getString("title"));
             System.out.println("The Movie year is " + item.getInt("year"));
@@ -353,32 +352,33 @@ public class ScenarioKeyspaces {
     }
 
     public static void updateRecord(CqlSession session, String keySpace, String titleUpdate, int yearUpdate) {
-        String sqlStatement = "UPDATE \""+keySpace+"\".\"Movie\" SET watched=true WHERE title = :k0 AND year = :k1;";
+        String sqlStatement = "UPDATE \"" + keySpace
+                + "\".\"Movie\" SET watched=true WHERE title = :k0 AND year = :k1;";
         BatchStatementBuilder builder = BatchStatement.builder(DefaultBatchType.UNLOGGED);
         builder.setConsistencyLevel(ConsistencyLevel.LOCAL_QUORUM);
         PreparedStatement preparedStatement = session.prepare(sqlStatement);
         builder.addStatement(preparedStatement.boundStatementBuilder()
-            .setString("k0", titleUpdate)
-            .setInt("k1", yearUpdate)
-            .build());
+                .setString("k0", titleUpdate)
+                .setInt("k1", yearUpdate)
+                .build());
 
         BatchStatement batchStatement = builder.build();
         session.execute(batchStatement);
     }
 
-    //snippet-start:[keyspace.java2.scenario.update.table.main]
-    public static void updateTable(KeyspacesClient keyClient, String keySpace, String tableName){
+    // snippet-start:[keyspace.java2.scenario.update.table.main]
+    public static void updateTable(KeyspacesClient keyClient, String keySpace, String tableName) {
         try {
             ColumnDefinition def = ColumnDefinition.builder()
-                .name("watched")
-                .type("boolean")
-                .build();
+                    .name("watched")
+                    .type("boolean")
+                    .build();
 
             UpdateTableRequest tableRequest = UpdateTableRequest.builder()
-                .keyspaceName(keySpace)
-                .tableName(tableName)
-                .addColumns(def)
-                .build();
+                    .keyspaceName(keySpace)
+                    .tableName(tableName)
+                    .addColumns(def)
+                    .build();
 
             keyClient.updateTable(tableRequest);
 
@@ -387,10 +387,11 @@ public class ScenarioKeyspaces {
             System.exit(1);
         }
     }
-    //snippet-end:[keyspace.java2.scenario.update.table.main]
+    // snippet-end:[keyspace.java2.scenario.update.table.main]
 
     public static void getSpecificMovie(CqlSession session, String keyspaceName) {
-        ResultSet resultSet = session.execute("SELECT * FROM \""+keyspaceName+"\".\"Movie\" WHERE title = 'The Family' ALLOW FILTERING ;");
+        ResultSet resultSet = session.execute(
+                "SELECT * FROM \"" + keyspaceName + "\".\"Movie\" WHERE title = 'The Family' ALLOW FILTERING ;");
         resultSet.forEach(item -> {
             System.out.println("The Movie title is " + item.getString("title"));
             System.out.println("The Movie year is " + item.getInt("year"));
@@ -400,7 +401,7 @@ public class ScenarioKeyspaces {
 
     // Get records from the Movie table.
     public static void getMovieData(CqlSession session, String keyspaceName) {
-        ResultSet resultSet = session.execute("SELECT * FROM \""+keyspaceName+"\".\"Movie\";");
+        ResultSet resultSet = session.execute("SELECT * FROM \"" + keyspaceName + "\".\"Movie\";");
         resultSet.forEach(item -> {
             System.out.println("The Movie title is " + item.getString("title"));
             System.out.println("The Movie year is " + item.getInt("year"));
@@ -410,17 +411,17 @@ public class ScenarioKeyspaces {
 
     // Load data into the table.
     public static void loadData(CqlSession session, String fileName, String keySpace) throws IOException {
-        String sqlStatement = "INSERT INTO \""+keySpace +"\".\"Movie\" (title, year, plot) values (:k0, :k1, :k2)";
+        String sqlStatement = "INSERT INTO \"" + keySpace + "\".\"Movie\" (title, year, plot) values (:k0, :k1, :k2)";
         JsonParser parser = new JsonFactory().createParser(new File(fileName));
         com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
         Iterator<JsonNode> iter = rootNode.iterator();
         ObjectNode currentNode;
-        int t = 0 ;
+        int t = 0;
         while (iter.hasNext()) {
 
             // Add 20 movies to the table.
             if (t == 20)
-                break ;
+                break;
             currentNode = (ObjectNode) iter.next();
 
             int year = currentNode.path("year").asInt();
@@ -432,65 +433,66 @@ public class ScenarioKeyspaces {
             builder.setConsistencyLevel(ConsistencyLevel.LOCAL_QUORUM);
             PreparedStatement preparedStatement = session.prepare(sqlStatement);
             builder.addStatement(preparedStatement.boundStatementBuilder()
-                .setString("k0", title)
-                .setInt("k1", year)
-                .setString("k2", plot)
-                .build());
+                    .setString("k0", title)
+                    .setInt("k1", year)
+                    .setString("k2", plot)
+                    .build());
 
             BatchStatement batchStatement = builder.build();
             session.execute(batchStatement);
             t++;
         }
 
-        System.out.println("You have added " +t +" records successfully!");
+        System.out.println("You have added " + t + " records successfully!");
     }
 
-    //snippet-start:[keyspace.java2.scenario.list.tables.main]
+    // snippet-start:[keyspace.java2.scenario.list.tables.main]
     public static void listTables(KeyspacesClient keyClient, String keyspaceName) {
         try {
             ListTablesRequest tablesRequest = ListTablesRequest.builder()
-                .keyspaceName(keyspaceName)
-                .build();
+                    .keyspaceName(keyspaceName)
+                    .build();
 
             ListTablesIterable listRes = keyClient.listTablesPaginator(tablesRequest);
             listRes.stream()
-                .flatMap(r -> r.tables().stream())
-                .forEach(content -> System.out.println(" ARN: " + content.resourceArn() +
-                    " Table name: " + content.tableName()));
+                    .flatMap(r -> r.tables().stream())
+                    .forEach(content -> System.out.println(" ARN: " + content.resourceArn() +
+                            " Table name: " + content.tableName()));
 
         } catch (KeyspacesException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[keyspace.java2.scenario.list.tables.main]
+    // snippet-end:[keyspace.java2.scenario.list.tables.main]
 
-    //snippet-start:[keyspace.java2.scenario.get.table.main]
-    public static void checkTable(KeyspacesClient keyClient, String keyspaceName, String tableName)throws InterruptedException {
+    // snippet-start:[keyspace.java2.scenario.get.table.main]
+    public static void checkTable(KeyspacesClient keyClient, String keyspaceName, String tableName)
+            throws InterruptedException {
         try {
             boolean tableStatus = false;
             String status;
             GetTableResponse response = null;
             GetTableRequest tableRequest = GetTableRequest.builder()
-                .keyspaceName(keyspaceName)
-                .tableName(tableName)
-                .build();
+                    .keyspaceName(keyspaceName)
+                    .tableName(tableName)
+                    .build();
 
             while (!tableStatus) {
                 response = keyClient.getTable(tableRequest);
                 status = response.statusAsString();
-                System.out.println(". The table status is "+status);
+                System.out.println(". The table status is " + status);
 
-                if (status.compareTo("ACTIVE") ==0) {
+                if (status.compareTo("ACTIVE") == 0) {
                     tableStatus = true;
                 }
                 Thread.sleep(500);
             }
 
             List<ColumnDefinition> cols = response.schemaDefinition().allColumns();
-            for (ColumnDefinition def: cols) {
-                System.out.println("The column name is "+def.name());
-                System.out.println("The column type is "+def.type());
+            for (ColumnDefinition def : cols) {
+                System.out.println("The column name is " + def.name());
+                System.out.println("The column type is " + def.type());
             }
 
         } catch (KeyspacesException e) {
@@ -498,31 +500,31 @@ public class ScenarioKeyspaces {
             System.exit(1);
         }
     }
-    //snippet-end:[keyspace.java2.scenario.get.table.main]
+    // snippet-end:[keyspace.java2.scenario.get.table.main]
 
-    //snippet-start:[keyspace.java2.scenario.create.table.main]
+    // snippet-start:[keyspace.java2.scenario.create.table.main]
     public static void createTable(KeyspacesClient keyClient, String keySpace, String tableName) {
         try {
             // Set the columns.
             ColumnDefinition defTitle = ColumnDefinition.builder()
-                .name("title")
-                .type("text")
-                .build();
+                    .name("title")
+                    .type("text")
+                    .build();
 
             ColumnDefinition defYear = ColumnDefinition.builder()
-                .name("year")
-                .type("int")
-                .build();
+                    .name("year")
+                    .type("int")
+                    .build();
 
             ColumnDefinition defReleaseDate = ColumnDefinition.builder()
-                .name("release_date")
-                .type("timestamp")
-                .build();
+                    .name("release_date")
+                    .type("timestamp")
+                    .build();
 
             ColumnDefinition defPlot = ColumnDefinition.builder()
-                .name("plot")
-                .type("text")
-                .build();
+                    .name("plot")
+                    .type("text")
+                    .build();
 
             List<ColumnDefinition> colList = new ArrayList<>();
             colList.add(defTitle);
@@ -532,95 +534,95 @@ public class ScenarioKeyspaces {
 
             // Set the keys.
             PartitionKey yearKey = PartitionKey.builder()
-                .name("year")
-                .build();
+                    .name("year")
+                    .build();
 
             PartitionKey titleKey = PartitionKey.builder()
-                .name("title")
-                .build();
+                    .name("title")
+                    .build();
 
             List<PartitionKey> keyList = new ArrayList<>();
             keyList.add(yearKey);
             keyList.add(titleKey);
 
             SchemaDefinition schemaDefinition = SchemaDefinition.builder()
-                .partitionKeys(keyList)
-                .allColumns(colList)
-                .build();
+                    .partitionKeys(keyList)
+                    .allColumns(colList)
+                    .build();
 
             PointInTimeRecovery timeRecovery = PointInTimeRecovery.builder()
-                .status(PointInTimeRecoveryStatus.ENABLED)
-                .build();
+                    .status(PointInTimeRecoveryStatus.ENABLED)
+                    .build();
 
             CreateTableRequest tableRequest = CreateTableRequest.builder()
-                .keyspaceName(keySpace)
-                .tableName(tableName)
-                .schemaDefinition(schemaDefinition)
-                .pointInTimeRecovery(timeRecovery)
-                .build();
+                    .keyspaceName(keySpace)
+                    .tableName(tableName)
+                    .schemaDefinition(schemaDefinition)
+                    .pointInTimeRecovery(timeRecovery)
+                    .build();
 
             CreateTableResponse response = keyClient.createTable(tableRequest);
-            System.out.println("The table ARN is "+response.resourceArn());
+            System.out.println("The table ARN is " + response.resourceArn());
 
         } catch (KeyspacesException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[keyspace.java2.scenario.create.table.main]
+    // snippet-end:[keyspace.java2.scenario.create.table.main]
 
-    //snippet-start:[keyspace.java2.scenario.list.keyspaces.main]
+    // snippet-start:[keyspace.java2.scenario.list.keyspaces.main]
     public static void listKeyspacesPaginator(KeyspacesClient keyClient) {
         try {
             ListKeyspacesRequest keyspacesRequest = ListKeyspacesRequest.builder()
-                .maxResults(10)
-                .build();
+                    .maxResults(10)
+                    .build();
 
             ListKeyspacesIterable listRes = keyClient.listKeyspacesPaginator(keyspacesRequest);
             listRes.stream()
-                .flatMap(r -> r.keyspaces().stream())
-                .forEach(content -> System.out.println(" Name: " + content.keyspaceName()));
+                    .flatMap(r -> r.keyspaces().stream())
+                    .forEach(content -> System.out.println(" Name: " + content.keyspaceName()));
 
         } catch (KeyspacesException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[keyspace.java2.scenario.list.keyspaces.main]
+    // snippet-end:[keyspace.java2.scenario.list.keyspaces.main]
 
-    //snippet-start:[keyspace.java2.scenario.get.keyspace.main]
+    // snippet-start:[keyspace.java2.scenario.get.keyspace.main]
     public static void checkKeyspaceExistence(KeyspacesClient keyClient, String keyspaceName) {
         try {
             GetKeyspaceRequest keyspaceRequest = GetKeyspaceRequest.builder()
-                .keyspaceName(keyspaceName)
-                .build();
+                    .keyspaceName(keyspaceName)
+                    .build();
 
             GetKeyspaceResponse response = keyClient.getKeyspace(keyspaceRequest);
             String name = response.keyspaceName();
-            System.out.println("The "+ name+ " KeySpace is ready");
+            System.out.println("The " + name + " KeySpace is ready");
 
         } catch (KeyspacesException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[keyspace.java2.scenario.get.keyspace.main]
+    // snippet-end:[keyspace.java2.scenario.get.keyspace.main]
 
-    //snippet-start:[keyspace.java2.scenario.create.keyspace.main]
+    // snippet-start:[keyspace.java2.scenario.create.keyspace.main]
     public static void createKeySpace(KeyspacesClient keyClient, String keyspaceName) {
         try {
             CreateKeyspaceRequest keyspaceRequest = CreateKeyspaceRequest.builder()
-                .keyspaceName(keyspaceName)
-                .build();
+                    .keyspaceName(keyspaceName)
+                    .build();
 
             CreateKeyspaceResponse response = keyClient.createKeyspace(keyspaceRequest);
-            System.out.println("The ARN of the KeySpace is "+response.resourceArn());
+            System.out.println("The ARN of the KeySpace is " + response.resourceArn());
 
         } catch (KeyspacesException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[keyspace.java2.scenario.create.keyspace.main]
+    // snippet-end:[keyspace.java2.scenario.create.keyspace.main]
 }
-//snippet-end:[keyspace.java2.scenario.main]
+// snippet-end:[keyspace.java2.scenario.main]

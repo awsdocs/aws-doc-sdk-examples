@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using Xunit.Abstractions;
 using Xunit.Sdk;
@@ -37,7 +37,7 @@ namespace PartiQL_Basics_Scenario_Tests
             IDictionary<TKey, TValue> dictionary, TKey key)
             where TKey : struct
             where TValue : new() =>
-            dictionary.TryGetValue(key, out TValue result)
+            dictionary.TryGetValue(key, out var result)
                 ? result
                 : (dictionary[key] = new TValue());
     }

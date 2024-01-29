@@ -1,11 +1,10 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 // Swift Example: ListGroups
 //
 // An example showing how to use the Amazon Identity and Access Management (IAM)
 // `IamClient` function `listGroups()`.
-//
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0.
 
 // snippet-start:[iam.swift.listgroups.example]
 // snippet-start:[iam.swift.listgroups.main.imports]

@@ -4,6 +4,7 @@
 .DS_Store
 ._*
 .idea
+*.iml
 .metadata
 .phpunit.result.cache
 .recommenders
@@ -18,3 +19,10 @@ target
 vendor
 venv
 xcuserdata
+
+# Ignore rust_dev_preview as it's no longer part of the project
+rust_dev_preview
+# .vectors are created by the Ailly RAG process
+.vectors
+# .snippets are created temporarily as build artifacts
+.snippets

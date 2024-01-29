@@ -1,8 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.lookoutvision;
 
@@ -36,9 +33,9 @@ import java.util.logging.Logger;
 
 // Finds anomalies on a supplied image.
 public class ShowAnomalies extends JPanel {
-/**
- * Finds and displays anomalies on a supplied image.
- */
+    /**
+     * Finds and displays anomalies on a supplied image.
+     */
 
     private static final long serialVersionUID = 1L;
     private transient BufferedImage image;
@@ -81,8 +78,7 @@ public class ShowAnomalies extends JPanel {
          */
         DetectAnomalyResult result = response.detectAnomalyResult();
 
-        
-        if (result.anomalyMask() != null){
+        if (result.anomalyMask() != null) {
             SdkBytes maskSDKBytes = result.anomalyMask();
 
             ByteArrayInputStream maskInputStream = new ByteArrayInputStream(maskSDKBytes.asByteArray());
@@ -109,17 +105,17 @@ public class ShowAnomalies extends JPanel {
     }
 
     private int drawLine(Graphics2D g2d, String line, FontMetrics metrics, int yPos, Color color) {
-    /**
-    * Draws a line of text at the spsecified y position and color.
-    * confidence
-    * 
-    * @param g2D The Graphics2D object for the image.
-    * @param line The line of text to draw.
-    * @param metrics The font information to use.
-    * @param yPos The y position for the line of text.
-    * 
-    * @return  The yPos for the next line of text.
-    */
+        /**
+         * Draws a line of text at the spsecified y position and color.
+         * confidence
+         * 
+         * @param g2D     The Graphics2D object for the image.
+         * @param line    The line of text to draw.
+         * @param metrics The font information to use.
+         * @param yPos    The y position for the line of text.
+         * 
+         * @return The yPos for the next line of text.
+         */
 
         int indent = 10;
 
@@ -146,18 +142,18 @@ public class ShowAnomalies extends JPanel {
     }
 
     public void drawImageInfo(DetectAnomalyResult result) {
-    /** 
-     * Draws the results from DetectAnomalies onto the output image.
-     * 
-     * @param result The response from a call to
-     *               DetectAnomalies.
-     * 
-     */
+        /**
+         * Draws the results from DetectAnomalies onto the output image.
+         * 
+         * @param result The response from a call to
+         *               DetectAnomalies.
+         * 
+         */
 
         // Set up drawing.
         Graphics2D g2d = image.createGraphics();
-        
-        if (result.anomalyMask() != null){
+
+        if (result.anomalyMask() != null) {
             Composite composite = g2d.getComposite();
             g2d.setComposite(AlphaComposite.SrcOver.derive(0.5f));
             int x = (image.getWidth() - maskImage.getWidth()) / 2;
@@ -167,9 +163,8 @@ public class ShowAnomalies extends JPanel {
             g2d.setComposite(composite);
         }
 
-        //Calculate font size based on arbitary 32 pixel image width.
+        // Calculate font size based on arbitary 32 pixel image width.
         int fontSize = (image.getWidth() / 32);
-      
 
         g2d.setFont(new Font("Tahoma", Font.PLAIN, fontSize));
         Font font = g2d.getFont();
@@ -302,7 +297,6 @@ public class ShowAnomalies extends JPanel {
             frame.pack();
             frame.setVisible(true);
 
-
         } catch (LookoutVisionException lfvError) {
             logger.log(Level.SEVERE, "Lookout for Vision client error: {0}: {1}",
                     new Object[] { lfvError.awsErrorDetails().errorCode(),
@@ -323,4 +317,3 @@ public class ShowAnomalies extends JPanel {
 
     }
 }
-

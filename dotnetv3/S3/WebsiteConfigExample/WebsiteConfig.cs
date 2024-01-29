@@ -1,11 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// This example uses Amazon Simple Storage Service (Amazon S3) to
-/// configure a static website in an Amazon S3 bucket. The example was
-/// created using AWS SDK for .NET version 3.7 and .NET Core 5.0.
-/// </summary>
 namespace WebsiteConfigExample
 {
     // snippet-start:[S3.dotnetv3.WebsiteConfigExample]
@@ -15,6 +10,10 @@ namespace WebsiteConfigExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
+    /// <summary>
+    /// This example uses Amazon Simple Storage Service (Amazon S3) to
+    /// configure a static website in an Amazon S3 bucket.
+    /// </summary>
     public class WebsiteConfig
     {
         /// <summary>

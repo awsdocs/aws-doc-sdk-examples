@@ -1,5 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
 require_relative "../s3_get_cskms_decrypt_item"
 
@@ -52,7 +52,7 @@ describe "#get_decrypted_object_content" do
             expect(context.params[:key_id]).to eq(opts[:response][:key_id])
           end
         end
-      opts[:response]
+        opts[:response]
       end
     )
   end

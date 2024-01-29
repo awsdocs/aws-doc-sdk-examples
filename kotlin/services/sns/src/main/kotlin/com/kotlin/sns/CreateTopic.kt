@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[CreateTopic.kt demonstrates how to create an Amazon Simple Notification Service (Amazon SNS) topic.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Amazon Simple Notification Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.sns
 

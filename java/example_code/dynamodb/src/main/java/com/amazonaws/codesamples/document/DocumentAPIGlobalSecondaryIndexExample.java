@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.DocumentAPIGlobalSecondaryIndexExample] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.DocumentAPIGlobalSecondaryIndexExample] 
 
 package com.amazonaws.codesamples.document;
 
@@ -86,39 +65,39 @@ public class DocumentAPIGlobalSecondaryIndexExample {
 
         // Initial provisioned throughput settings for the indexes
         ProvisionedThroughput ptIndex = new ProvisionedThroughput().withReadCapacityUnits(1L)
-            .withWriteCapacityUnits(1L);
+                .withWriteCapacityUnits(1L);
 
         // CreateDateIndex
         GlobalSecondaryIndex createDateIndex = new GlobalSecondaryIndex().withIndexName("CreateDateIndex")
-            .withProvisionedThroughput(ptIndex)
-            .withKeySchema(new KeySchemaElement().withAttributeName("CreateDate").withKeyType(KeyType.HASH), // Partition
-                                                                                                             // key
-                new KeySchemaElement().withAttributeName("IssueId").withKeyType(KeyType.RANGE)) // Sort
-                                                                                                // key
-            .withProjection(
-                new Projection().withProjectionType("INCLUDE").withNonKeyAttributes("Description", "Status"));
+                .withProvisionedThroughput(ptIndex)
+                .withKeySchema(new KeySchemaElement().withAttributeName("CreateDate").withKeyType(KeyType.HASH), // Partition
+                                                                                                                 // key
+                        new KeySchemaElement().withAttributeName("IssueId").withKeyType(KeyType.RANGE)) // Sort
+                                                                                                        // key
+                .withProjection(
+                        new Projection().withProjectionType("INCLUDE").withNonKeyAttributes("Description", "Status"));
 
         // TitleIndex
         GlobalSecondaryIndex titleIndex = new GlobalSecondaryIndex().withIndexName("TitleIndex")
-            .withProvisionedThroughput(ptIndex)
-            .withKeySchema(new KeySchemaElement().withAttributeName("Title").withKeyType(KeyType.HASH), // Partition
+                .withProvisionedThroughput(ptIndex)
+                .withKeySchema(new KeySchemaElement().withAttributeName("Title").withKeyType(KeyType.HASH), // Partition
+                                                                                                            // key
+                        new KeySchemaElement().withAttributeName("IssueId").withKeyType(KeyType.RANGE)) // Sort
                                                                                                         // key
-                new KeySchemaElement().withAttributeName("IssueId").withKeyType(KeyType.RANGE)) // Sort
-                                                                                                // key
-            .withProjection(new Projection().withProjectionType("KEYS_ONLY"));
+                .withProjection(new Projection().withProjectionType("KEYS_ONLY"));
 
         // DueDateIndex
         GlobalSecondaryIndex dueDateIndex = new GlobalSecondaryIndex().withIndexName("DueDateIndex")
-            .withProvisionedThroughput(ptIndex)
-            .withKeySchema(new KeySchemaElement().withAttributeName("DueDate").withKeyType(KeyType.HASH)) // Partition
-                                                                                                          // key
-            .withProjection(new Projection().withProjectionType("ALL"));
+                .withProvisionedThroughput(ptIndex)
+                .withKeySchema(new KeySchemaElement().withAttributeName("DueDate").withKeyType(KeyType.HASH)) // Partition
+                                                                                                              // key
+                .withProjection(new Projection().withProjectionType("ALL"));
 
         CreateTableRequest createTableRequest = new CreateTableRequest().withTableName(tableName)
-            .withProvisionedThroughput(
-                new ProvisionedThroughput().withReadCapacityUnits((long) 1).withWriteCapacityUnits((long) 1))
-            .withAttributeDefinitions(attributeDefinitions).withKeySchema(tableKeySchema)
-            .withGlobalSecondaryIndexes(createDateIndex, titleIndex, dueDateIndex);
+                .withProvisionedThroughput(
+                        new ProvisionedThroughput().withReadCapacityUnits((long) 1).withWriteCapacityUnits((long) 1))
+                .withAttributeDefinitions(attributeDefinitions).withKeySchema(tableKeySchema)
+                .withGlobalSecondaryIndexes(createDateIndex, titleIndex, dueDateIndex);
 
         System.out.println("Creating table " + tableName + "...");
         dynamoDB.createTable(createTableRequest);
@@ -128,8 +107,7 @@ public class DocumentAPIGlobalSecondaryIndexExample {
         try {
             Table table = dynamoDB.getTable(tableName);
             table.waitForActive();
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -150,22 +128,20 @@ public class DocumentAPIGlobalSecondaryIndexExample {
         if (indexName == "CreateDateIndex") {
             System.out.println("Issues filed on 2013-11-01");
             querySpec.withKeyConditionExpression("CreateDate = :v_date and begins_with(IssueId, :v_issue)")
-                .withValueMap(new ValueMap().withString(":v_date", "2013-11-01").withString(":v_issue", "A-"));
+                    .withValueMap(new ValueMap().withString(":v_date", "2013-11-01").withString(":v_issue", "A-"));
             items = index.query(querySpec);
-        }
-        else if (indexName == "TitleIndex") {
+        } else if (indexName == "TitleIndex") {
             System.out.println("Compilation errors");
             querySpec.withKeyConditionExpression("Title = :v_title and begins_with(IssueId, :v_issue)")
-                .withValueMap(new ValueMap().withString(":v_title", "Compilation error").withString(":v_issue", "A-"));
+                    .withValueMap(
+                            new ValueMap().withString(":v_title", "Compilation error").withString(":v_issue", "A-"));
             items = index.query(querySpec);
-        }
-        else if (indexName == "DueDateIndex") {
+        } else if (indexName == "DueDateIndex") {
             System.out.println("Items that are due on 2013-11-30");
             querySpec.withKeyConditionExpression("DueDate = :v_date")
-                .withValueMap(new ValueMap().withString(":v_date", "2013-11-30"));
+                    .withValueMap(new ValueMap().withString(":v_date", "2013-11-30"));
             items = index.query(querySpec);
-        }
-        else {
+        } else {
             System.out.println("\nNo valid index name provided");
             return;
         }
@@ -191,8 +167,7 @@ public class DocumentAPIGlobalSecondaryIndexExample {
         System.out.println("Waiting for " + tableName + " to be deleted...");
         try {
             table.waitForDelete();
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -207,37 +182,37 @@ public class DocumentAPIGlobalSecondaryIndexExample {
         // Priority, Status
 
         putItem("A-101", "Compilation error", "Can't compile Project X - bad version number. What does this mean?",
-            "2013-11-01", "2013-11-02", "2013-11-10", 1, "Assigned");
+                "2013-11-01", "2013-11-02", "2013-11-10", 1, "Assigned");
 
         putItem("A-102", "Can't read data file", "The main data file is missing, or the permissions are incorrect",
-            "2013-11-01", "2013-11-04", "2013-11-30", 2, "In progress");
+                "2013-11-01", "2013-11-04", "2013-11-30", 2, "In progress");
 
         putItem("A-103", "Test failure", "Functional test of Project X produces errors", "2013-11-01", "2013-11-02",
-            "2013-11-10", 1, "In progress");
+                "2013-11-10", 1, "In progress");
 
         putItem("A-104", "Compilation error", "Variable 'messageCount' was not initialized.", "2013-11-15",
-            "2013-11-16", "2013-11-30", 3, "Assigned");
+                "2013-11-16", "2013-11-30", 3, "Assigned");
 
         putItem("A-105", "Network issue", "Can't ping IP address 127.0.0.1. Please fix this.", "2013-11-15",
-            "2013-11-16", "2013-11-19", 5, "Assigned");
+                "2013-11-16", "2013-11-19", 5, "Assigned");
 
     }
 
     public static void putItem(
 
-        String issueId, String title, String description, String createDate, String lastUpdateDate, String dueDate,
-        Integer priority, String status) {
+            String issueId, String title, String description, String createDate, String lastUpdateDate, String dueDate,
+            Integer priority, String status) {
 
         Table table = dynamoDB.getTable(tableName);
 
         Item item = new Item().withPrimaryKey("IssueId", issueId).withString("Title", title)
-            .withString("Description", description).withString("CreateDate", createDate)
-            .withString("LastUpdateDate", lastUpdateDate).withString("DueDate", dueDate)
-            .withNumber("Priority", priority).withString("Status", status);
+                .withString("Description", description).withString("CreateDate", createDate)
+                .withString("LastUpdateDate", lastUpdateDate).withString("DueDate", dueDate)
+                .withNumber("Priority", priority).withString("Status", status);
 
         table.putItem(item);
     }
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.DocumentAPIGlobalSecondaryIndexExample] 
+// snippet-end:[dynamodb.java.codeexample.DocumentAPIGlobalSecondaryIndexExample]

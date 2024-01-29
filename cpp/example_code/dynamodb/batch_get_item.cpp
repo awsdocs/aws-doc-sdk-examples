@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -29,7 +27,7 @@
  *  This example uses the "Forum.json" and "ProductCatalog.json" sample data.
  */
 
-//snippet-start:[cpp.example_code.dynamodb.batch_get_item]
+// snippet-start:[cpp.example_code.dynamodb.batch_get_item]
 //! Batch get items from different Amazon DynamoDB tables.
 /*!
   \sa batchGetItem()
@@ -141,7 +139,7 @@ bool AwsDoc::DynamoDB::batchGetItem(
 
     return result;
 }
-//snippet-end:[cpp.example_code.dynamodb.batch_get_item]
+// snippet-end:[cpp.example_code.dynamodb.batch_get_item]
 
 /*
  *

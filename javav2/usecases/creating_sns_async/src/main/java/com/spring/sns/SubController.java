@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.spring.sns;
 
@@ -17,8 +15,7 @@ public class SubController {
 
     @Autowired
     SubController(
-        SnsService sns
-    ) {
+            SnsService sns) {
         this.sns = sns;
     }
 
@@ -44,7 +41,7 @@ public class SubController {
     String delSub(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getParameter("email");
         sns.unSubEmail(email);
-        return email +" was successfully deleted!";
+        return email + " was successfully deleted!";
     }
 
     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
@@ -53,7 +50,7 @@ public class SubController {
 
         String body = request.getParameter("body");
         String lang = request.getParameter("lang");
-        return sns.pubTopic(body,lang);
+        return sns.pubTopic(body, lang);
     }
 
     @RequestMapping(value = "/getSubs", method = RequestMethod.GET)

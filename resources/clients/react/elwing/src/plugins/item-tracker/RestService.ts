@@ -52,10 +52,7 @@ export class RestService<T extends { id: string }> {
    * @returns a promise resolved with the response data, if the response is
    *          status 200, or a promise rejected with the entire response.
    */
-  protected async fetch(
-    url: string,
-    request: RequestInit = {}
-  ) {
+  protected async fetch(url: string, request: RequestInit = {}) {
     const headers: Record<string, string> = Array.isArray(request.headers)
       ? request.headers.reduce((h, [k, v]) => {
           h[k] = v;

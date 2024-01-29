@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.photo;
 
@@ -43,39 +41,39 @@ public class AnalyzePhotos {
 
             CompletableFuture<DetectLabelsResponse> futureGet = rekAsyncClient.detectLabels(detectLabelsRequest);
             futureGet.whenComplete((resp, err) -> {
-             try {
-                if (resp != null) {
-                    List<Label> labels =  resp.labels();
-                    System.out.println("Detected labels for the given photo");
-                    ArrayList<WorkItem> list = new ArrayList<>();
-                    WorkItem item ;
-                    for (Label label: labels) {
-                        item = new WorkItem();
-                        item.setKey(key); // identifies the photo.
-                        item.setConfidence(label.confidence().toString());
-                        item.setName(label.name());
-                        list.add(item);
+                try {
+                    if (resp != null) {
+                        List<Label> labels = resp.labels();
+                        System.out.println("Detected labels for the given photo");
+                        ArrayList<WorkItem> list = new ArrayList<>();
+                        WorkItem item;
+                        for (Label label : labels) {
+                            item = new WorkItem();
+                            item.setKey(key); // identifies the photo.
+                            item.setConfidence(label.confidence().toString());
+                            item.setName(label.name());
+                            list.add(item);
+                        }
+                        reference.set(list);
+
+                    } else {
+                        err.printStackTrace();
                     }
-                    reference.set(list);
 
-                } else {
-                    err.printStackTrace();
+                } finally {
+                    // Only close the client when you are completely done with it.
+                    rekAsyncClient.close();
                 }
+            });
+            futureGet.join();
 
-            } finally {
-                // Only close the client when you are completely done with it.
-                rekAsyncClient.close();
-            }
-          });
-          futureGet.join();
-
-          // Use the AtomicReference object to return the ArrayList<WorkItem> collection.
-          return reference.get();
+            // Use the AtomicReference object to return the ArrayList<WorkItem> collection.
+            return reference.get();
 
         } catch (RekognitionException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-        return null ;
+        return null;
     }
 }

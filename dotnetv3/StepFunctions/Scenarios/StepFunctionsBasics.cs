@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[StepFunctions.dotnetv3.StepFunctionsBasics]
 
@@ -12,8 +12,8 @@ namespace StepFunctionsBasics;
 public class StepFunctionsBasics
 {
     private static ILogger _logger = null!;
-    private static IConfigurationRoot _configuration;
-    private static IAmazonIdentityManagementService _iamService;
+    private static IConfigurationRoot _configuration = null!;
+    private static IAmazonIdentityManagementService _iamService = null!;
 
     static async Task Main(string[] args)
     {
@@ -137,7 +137,6 @@ public class StepFunctionsBasics
         uiMethods.DisplayTitle("ChatSFN");
 
         var isDone = false;
-        var actionList = new List<string>();
         var response = new GetActivityTaskResponse();
         var taskToken = string.Empty;
         var userChoice = string.Empty;
@@ -159,7 +158,7 @@ public class StepFunctionsBasics
             actions.ForEach(action => Console.WriteLine($"\t{action}"));
             Console.Write($"\n{userName}, tell me your choice: ");
             userChoice = Console.ReadLine();
-            if (userChoice.ToLower() == "done")
+            if (userChoice?.ToLower() == "done")
             {
                 isDone = true;
             }
@@ -167,10 +166,10 @@ public class StepFunctionsBasics
             Console.WriteLine($"You have selected: {userChoice}");
             var jsonResponse = @"{""action"": """ + userChoice + @"""}";
 
-            var taskSuccess = await stepFunctionsWrapper.SendTaskSuccessAsync(taskToken, jsonResponse);
+            await stepFunctionsWrapper.SendTaskSuccessAsync(taskToken, jsonResponse);
         }
 
-        var success = await stepFunctionsWrapper.StopExecution(executionArn);
+        await stepFunctionsWrapper.StopExecution(executionArn);
         Console.WriteLine("Now we will wait for the execution to stop.");
         DescribeExecutionResponse executionResponse;
         do
@@ -199,11 +198,11 @@ public class StepFunctionsBasics
         uiMethods.DisplayTitle("Clean up resources");
         Console.WriteLine("Deleting the state machine...");
 
-        success = await stepFunctionsWrapper.DeleteStateMachine(stateMachineArn);
+        await stepFunctionsWrapper.DeleteStateMachine(stateMachineArn);
         Console.WriteLine("State machine deleted.");
 
         Console.WriteLine("Deleting the activity...");
-        success = await stepFunctionsWrapper.DeleteActivity(activityArn);
+        await stepFunctionsWrapper.DeleteActivity(activityArn);
         Console.WriteLine("Activity deleted.");
 
         Console.WriteLine("The Amazon Step Functions scenario is now complete.");

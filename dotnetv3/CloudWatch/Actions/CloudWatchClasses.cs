@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using System.Text.Json.Serialization;
 
@@ -83,7 +83,7 @@ public class Widget
     public int Height { get; set; }
 
     [JsonPropertyName("properties")]
-    public Properties Properties { get; set; }
+    public Properties Properties { get; set; } = null!;
 }
 
 public class YAxis

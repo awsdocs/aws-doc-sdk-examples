@@ -8,7 +8,7 @@ sesv2_CreateContactList:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ses
+          github: rustv1/examples/ses
           excerpts:
             - description:
               snippet_tags:
@@ -24,7 +24,7 @@ sesv2_CreateContact:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ses
+          github: rustv1/examples/ses
           excerpts:
             - description:
               snippet_tags:
@@ -40,7 +40,7 @@ sesv2_GetEmailIdentity:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ses
+          github: rustv1/examples/ses
           excerpts:
             - description: Determines whether an email address has been verified.
               snippet_tags:
@@ -56,7 +56,7 @@ sesv2_ListContactLists:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ses
+          github: rustv1/examples/ses
           excerpts:
             - description:
               snippet_tags:
@@ -72,7 +72,7 @@ sesv2_ListContacts:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ses
+          github: rustv1/examples/ses
           excerpts:
             - description:
               snippet_tags:
@@ -96,7 +96,7 @@ sesv2_SendEmail:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/ses
+          github: rustv1/examples/ses
           excerpts:
             - description: Sends a message to all members of the contact list.
               snippet_tags:

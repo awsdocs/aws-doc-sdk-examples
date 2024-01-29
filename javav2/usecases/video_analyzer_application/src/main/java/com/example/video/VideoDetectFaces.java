@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.video;
 
@@ -38,9 +36,9 @@ public class VideoDetectFaces {
         return channel;
     }
 
- public String StartFaceDetection(String bucket, String video) {
+    public String StartFaceDetection(String bucket, String video) {
 
-     String startJobId="";
+        String startJobId = "";
 
         try {
 
@@ -62,10 +60,10 @@ public class VideoDetectFaces {
                     .build();
 
             StartFaceDetectionResponse startLabelDetectionResult = rekClient.startFaceDetection(faceDetectionRequest);
-            startJobId=startLabelDetectionResult.jobId();
+            startJobId = startLabelDetectionResult.jobId();
             return startJobId;
 
-        } catch(RekognitionException e) {
+        } catch (RekognitionException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
@@ -75,17 +73,17 @@ public class VideoDetectFaces {
     // Processes the Job and returns of List of labels
     public List<FaceItems> GetFaceResults(String startJobId) {
 
-        List<FaceItems> items =new ArrayList<>();
+        List<FaceItems> items = new ArrayList<>();
         try {
             RekognitionClient rekClient = getRecClient();
-            String paginationToken=null;
-            GetFaceDetectionResponse faceDetectionResponse=null;
+            String paginationToken = null;
+            GetFaceDetectionResponse faceDetectionResponse = null;
             Boolean finished = false;
-            String status="";
-            int yy=0 ;
+            String status = "";
+            int yy = 0;
 
-            do{
-                if (faceDetectionResponse !=null)
+            do {
+                if (faceDetectionResponse != null)
                     paginationToken = faceDetectionResponse.nextToken();
 
                 GetFaceDetectionRequest recognitionRequest = GetFaceDetectionRequest.builder()
@@ -111,10 +109,10 @@ public class VideoDetectFaces {
                 finished = false;
 
                 // Push face information to the list
-                List<FaceDetection> faces= faceDetectionResponse.faces();
+                List<FaceDetection> faces = faceDetectionResponse.faces();
 
                 FaceItems faceItem;
-                for (FaceDetection face: faces) {
+                for (FaceDetection face : faces) {
 
                     faceItem = new FaceItems();
 
@@ -133,14 +131,13 @@ public class VideoDetectFaces {
                     faceItem.setSmile(smile);
 
                     items.add(faceItem);
-                   }
+                }
 
-            } while (faceDetectionResponse !=null && faceDetectionResponse.nextToken() != null);
+            } while (faceDetectionResponse != null && faceDetectionResponse.nextToken() != null);
 
             return items;
 
-
-        } catch(RekognitionException | InterruptedException e) {
+        } catch (RekognitionException | InterruptedException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }

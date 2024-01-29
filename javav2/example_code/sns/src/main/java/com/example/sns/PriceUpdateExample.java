@@ -1,11 +1,9 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sns;
 
-//snippet-start:[sns.java2.PriceUpdateExample.import]
+// snippet-start:[sns.java2.PriceUpdateExample.import]
 import software.amazon.awssdk.policybuilder.iam.IamConditionOperator;
 import software.amazon.awssdk.policybuilder.iam.IamEffect;
 import software.amazon.awssdk.policybuilder.iam.IamPolicy;
@@ -29,11 +27,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-//snippet-end:[sns.java2.PriceUpdateExample.import]
+// snippet-end:[sns.java2.PriceUpdateExample.import]
 
-//snippet-start:[sns.java2.PriceUpdateExample.main]
-//snippet-start:[sns.java2.PriceUpdateExample.display]
-//snippet-start:[sns.java2.PriceUpdateExample.full]
+// snippet-start:[sns.java2.PriceUpdateExample.main]
+// snippet-start:[sns.java2.PriceUpdateExample.display]
+// snippet-start:[sns.java2.PriceUpdateExample.full]
 public class PriceUpdateExample {
     public final static SnsClient snsClient = SnsClient.create();
     public final static SqsClient sqsClient = SqsClient.create();
@@ -45,7 +43,8 @@ public class PriceUpdateExample {
                 "    <topicName> <wholesaleQueueFifoName> <retailQueueFifoName> <analyticsQueueName>\n\n" +
                 "Where:\n" +
                 "   fifoTopicName - The name of the FIFO topic that you want to create. \n\n" +
-                "   wholesaleQueueARN - The name of a SQS FIFO queue that will be created for the wholesale consumer. \n\n" +
+                "   wholesaleQueueARN - The name of a SQS FIFO queue that will be created for the wholesale consumer. \n\n"
+                +
                 "   retailQueueARN - The name of a SQS FIFO queue that will created for the retail consumer. \n\n" +
                 "   analyticsQueueARN - The name of a SQS standard queue that will be created for the analytics consumer. \n\n";
         if (args.length != 4) {
@@ -58,12 +57,12 @@ public class PriceUpdateExample {
         final String retailQueueName = args[2];
         final String analyticsQueueName = args[3];
 
-        // For convenience, the QueueData class holds metadata about a queue: ARN, URL, name and type.
+        // For convenience, the QueueData class holds metadata about a queue: ARN, URL,
+        // name and type.
         List<QueueData> queues = List.of(
                 new QueueData(wholeSaleQueueName, QueueType.FIFO),
                 new QueueData(retailQueueName, QueueType.FIFO),
                 new QueueData(analyticsQueueName, QueueType.Standard));
-
 
         // Create queues.
         createQueues(queues);
@@ -85,7 +84,7 @@ public class PriceUpdateExample {
         deleteQueues(queues);
         deleteTopic(topicARN);
     }
-//snippet-end:[sns.java2.PriceUpdateExample.main]
+    // snippet-end:[sns.java2.PriceUpdateExample.main]
 
     public static String createFIFOTopic(String topicName) {
         try {
@@ -121,7 +120,8 @@ public class PriceUpdateExample {
                     .build();
 
             // Subscribe to the endpoint by using the SNS service client.
-            // Only Amazon SQS queues can receive notifications from an Amazon SNS FIFO topic.
+            // Only Amazon SQS queues can receive notifications from an Amazon SNS FIFO
+            // topic.
             SubscribeResponse subscribeResponse = snsClient.subscribe(subscribeRequest);
             System.out.println("The queue [" + queue.queueARN + "] subscribed to the topic [" + topicARN + "]");
             queue.subscriptionARN = subscribeResponse.subscriptionArn();
@@ -163,7 +163,7 @@ public class PriceUpdateExample {
             System.exit(1);
         }
     }
-//snippet-end:[sns.java2.PriceUpdateExample.display]
+    // snippet-end:[sns.java2.PriceUpdateExample.display]
 
     public static void createQueues(List<QueueData> queueData) {
         queueData.forEach(queue -> {
@@ -187,19 +187,19 @@ public class PriceUpdateExample {
         });
     }
 
-    public static void addAccessPolicyToQueuesFINAL(List<QueueData> queues, String topicARN){
+    public static void addAccessPolicyToQueuesFINAL(List<QueueData> queues, String topicARN) {
         String account;
         try (StsClient stsClient = StsClient.create()) {
             account = stsClient.getCallerIdentity().account();
         }
         queues.forEach(queue -> {
             IamPolicy policy = IamPolicy.builder()
-                    .addStatement(b -> b  // Allow account user to send messages to the queue.
+                    .addStatement(b -> b // Allow account user to send messages to the queue.
                             .effect(IamEffect.ALLOW)
                             .addPrincipal(IamPrincipalType.AWS, account)
                             .addAction("SQS:*")
                             .addResource(queue.queueARN))
-                    .addStatement(b -> b  // Allow the SNS FIFO topic to send messages to the queue.
+                    .addStatement(b -> b // Allow the SNS FIFO topic to send messages to the queue.
                             .effect(IamEffect.ALLOW)
                             .addPrincipal(IamPrincipalType.AWS, "*")
                             .addAction("SQS:SendMessage")
@@ -221,9 +221,7 @@ public class PriceUpdateExample {
     }
 
     public static void deleteQueues(List<QueueData> queues) {
-        queues.forEach(queue ->
-                sqsClient.deleteQueue(b -> b.queueUrl(queue.queueURL))
-        );
+        queues.forEach(queue -> sqsClient.deleteQueue(b -> b.queueUrl(queue.queueURL)));
     }
 
     public static void deleteTopic(String topicArn) {
@@ -248,4 +246,4 @@ public class PriceUpdateExample {
         }
     }
 }
-//snippet-end:[sns.java2.PriceUpdateExample.full]
+// snippet-end:[sns.java2.PriceUpdateExample.full]

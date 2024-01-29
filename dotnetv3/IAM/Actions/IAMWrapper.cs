@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using System.Net;
 
@@ -543,7 +543,7 @@ public class IAMWrapper
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
-    //snippet-end:[IAM.dotnetv3.RemoveUserFromGroup]
+    // snippet-end:[IAM.dotnetv3.RemoveUserFromGroup]
 
     // snippet-start:[IAM.dotnetv3.PutGroupPolicy]
     /// <summary>

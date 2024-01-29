@@ -1,14 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
-
-/// <summary>
-/// This example shows how to enable logging on an Amazon Simple Storage
-/// Service (Amazon S3) bucket. You need to have two Amazon S3 buckets for
-/// this example. The first is the bucket for which you wish to enable
-/// logging, and the second is the location where you want to store the
-/// logs. The example was created using the AWS SDK for .NET version 3.7
-/// and .NET Core 5.0.
-/// </summary>
+// SPDX-License-Identifier: Apache-2.0
 
 namespace ServerAccessLoggingExample
 {
@@ -20,6 +11,13 @@ namespace ServerAccessLoggingExample
     using Amazon.S3.Model;
     using Microsoft.Extensions.Configuration;
 
+    /// <summary>
+    /// This example shows how to enable logging on an Amazon Simple Storage
+    /// Service (Amazon S3) bucket. You need to have two Amazon S3 buckets for
+    /// this example. The first is the bucket for which you wish to enable
+    /// logging, and the second is the location where you want to store the
+    /// logs.
+    /// </summary>
     public class ServerAccessLogging
     {
         private static IConfiguration _configuration = null!;

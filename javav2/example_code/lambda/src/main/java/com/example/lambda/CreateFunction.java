@@ -1,16 +1,10 @@
-// snippet-sourcedescription:[CreateFunction.java demonstrates how to create an AWS Lambda function by using the LambdaClient object.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[AWS Lambda]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.lambda;
 
+// snippet-start:[lambda.java2.create.main]
 // snippet-start:[lambda.java2.create.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -29,10 +23,11 @@ import java.io.InputStream;
 // snippet-end:[lambda.java2.create.import]
 
 /**
- *  This code example requires a ZIP or JAR that represents the code of the Lambda function.
- *  If you do not have a ZIP or JAR, please refer to the following document:
+ * This code example requires a ZIP or JAR that represents the code of the
+ * Lambda function.
+ * If you do not have a ZIP or JAR, please refer to the following document:
  *
- *  https://github.com/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_workflows_stepfunctions
+ * https://github.com/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_workflows_stepfunctions
  *
  * Also, set up your development environment, including your credentials.
  *
@@ -42,17 +37,19 @@ import java.io.InputStream;
  */
 
 public class CreateFunction {
-
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <functionName> <filePath> <role> <handler> \n\n" +
-            "Where:\n" +
-            "    functionName - The name of the Lambda function. \n"+
-            "    filePath - The path to the ZIP or JAR where the code is located. \n"+
-            "    role - The role ARN that has Lambda permissions. \n"+
-            "    handler - The fully qualified method name (for example, example.Handler::handleRequest).  \n";
+        final String usage = """
+
+                Usage:
+                    <functionName> <filePath> <role> <handler>\s
+
+                Where:
+                    functionName - The name of the Lambda function.\s
+                    filePath - The path to the ZIP or JAR where the code is located.\s
+                    role - The role ARN that has Lambda permissions.\s
+                    handler - The fully qualified method name (for example, example.Handler::handleRequest). \s
+                """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -65,20 +62,18 @@ public class CreateFunction {
         String handler = args[3];
         Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         createLambdaFunction(awsLambda, functionName, filePath, role, handler);
         awsLambda.close();
     }
 
-    // snippet-start:[lambda.java2.create.main]
     public static void createLambdaFunction(LambdaClient awsLambda,
-                                            String functionName,
-                                            String filePath,
-                                            String role,
-                                            String handler) {
+            String functionName,
+            String filePath,
+            String role,
+            String handler) {
 
         try {
             LambdaWaiter waiter = awsLambda.waiter();
@@ -86,31 +81,31 @@ public class CreateFunction {
             SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
 
             FunctionCode code = FunctionCode.builder()
-                .zipFile(fileToUpload)
-                .build();
+                    .zipFile(fileToUpload)
+                    .build();
 
             CreateFunctionRequest functionRequest = CreateFunctionRequest.builder()
-                .functionName(functionName)
-                .description("Created by the Lambda Java API")
-                .code(code)
-                .handler(handler)
-                .runtime(Runtime.JAVA8)
-                .role(role)
-                .build();
+                    .functionName(functionName)
+                    .description("Created by the Lambda Java API")
+                    .code(code)
+                    .handler(handler)
+                    .runtime(Runtime.JAVA8)
+                    .role(role)
+                    .build();
 
             // Create a Lambda function using a waiter.
             CreateFunctionResponse functionResponse = awsLambda.createFunction(functionRequest);
             GetFunctionRequest getFunctionRequest = GetFunctionRequest.builder()
-                .functionName(functionName)
-                .build();
+                    .functionName(functionName)
+                    .build();
             WaiterResponse<GetFunctionResponse> waiterResponse = waiter.waitUntilFunctionExists(getFunctionRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);
             System.out.println("The function ARN is " + functionResponse.functionArn());
 
-        } catch(LambdaException | FileNotFoundException e) {
+        } catch (LambdaException | FileNotFoundException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[lambda.java2.create.main]
 }
+// snippet-end:[lambda.java2.create.main]

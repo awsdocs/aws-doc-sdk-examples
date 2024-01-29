@@ -1,14 +1,5 @@
-// snippet-sourcedescription:[GetSlotTypes.kt demonstrates how to return slot type information.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
-// snippet-service:[Amazon Lex]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/27/2022]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.lex
 

@@ -1,16 +1,11 @@
-//snippet-sourcedescription:[EnhancedScanRecords.java demonstrates how to scan an Amazon DynamoDB table by using the enhanced client.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.dynamodb.enhanced;
 
+// snippet-start:[dynamodb.java2.mapping.scan.main]
 // snippet-start:[dynamodb.java2.mapping.scan.import]
 import com.example.dynamodb.Customer;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -35,32 +30,28 @@ import java.util.Iterator;
  */
 public class EnhancedScanRecords {
 
-   public static void main(String[] args) {
+    public static void main(String[] args) {
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+                .region(region)
+                .build();
 
-       ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
-       Region region = Region.US_EAST_1;
-       DynamoDbClient ddb = DynamoDbClient.builder()
-           .credentialsProvider(credentialsProvider)
-           .region(region)
-           .build();
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+                .dynamoDbClient(ddb)
+                .build();
 
-       DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-           .dynamoDbClient(ddb)
-           .build();
+        scan(enhancedClient);
+        ddb.close();
+    }
 
-       scan(enhancedClient);
-       ddb.close();
-   }
-
-    // snippet-start:[dynamodb.java2.mapping.scan.main]
-    public static void scan( DynamoDbEnhancedClient enhancedClient) {
-        try{
+    public static void scan(DynamoDbEnhancedClient enhancedClient) {
+        try {
             DynamoDbTable<Customer> custTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
             Iterator<Customer> results = custTable.scan().items().iterator();
             while (results.hasNext()) {
                 Customer rec = results.next();
-                System.out.println("The record id is "+rec.getId());
-                System.out.println("The name is " +rec.getCustName());
+                System.out.println("The record id is " + rec.getId());
+                System.out.println("The name is " + rec.getCustName());
             }
 
         } catch (DynamoDbException e) {
@@ -69,5 +60,5 @@ public class EnhancedScanRecords {
         }
         System.out.println("Done");
     }
-    // snippet-end:[dynamodb.java2.mapping.scan.main]
 }
+// snippet-end:[dynamodb.java2.mapping.scan.main]

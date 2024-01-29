@@ -1,7 +1,8 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 //go:build integration
 // +build integration
 
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 // Integration test for the assume role scenario.
@@ -30,7 +31,7 @@ type IntegHelper struct {
 // Pause increases all pause durations by 5 seconds. This is needed during integration
 // testing to make sure that AWS has enough time to create all resources.
 func (helper IntegHelper) Pause(secs int) {
-	time.Sleep(time.Duration(secs + 5) * time.Second)
+	time.Sleep(time.Duration(secs+5) * time.Second)
 }
 
 func TestRunAssumeRoleScenario_Integration(t *testing.T) {

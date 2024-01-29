@@ -58,7 +58,7 @@ def scan_for_snippets(root):
         dirs[:] = [
             d
             for d in dirs
-            if d not in IGNORE_FOLDERS or ("rust_dev_preview" in root and "src" in root)
+            if d not in IGNORE_FOLDERS or ("rustv1" in root and "src" in root)
         ]
         for f in files:
             ext = os.path.splitext(f)[1].lower()

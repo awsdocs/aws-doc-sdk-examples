@@ -1,15 +1,9 @@
-//snippet-sourcedescription:[StartDicomImportJob.java demonstrates how to get an import job's properties.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS HealthImaging]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.medicalimaging;
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
-//snippet-start:[medicalimaging.java2.get_dicom_import_job.import]
+// snippet-start:[medicalimaging.java2.get_dicom_import_job.import]
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -32,10 +26,11 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-//snippet-end:[medicalimaging.java2.get_dicom_import_job.import]
+// snippet-end:[medicalimaging.java2.get_dicom_import_job.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  * <p>
  * For more information, see the following documentation topic:
  * <p>
@@ -81,10 +76,10 @@ public class GetDicomImportJob {
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.get_dicom_import_job.main]
+    // snippet-start:[medicalimaging.java2.get_dicom_import_job.main]
     public static DICOMImportJobProperties getDicomImportJob(MedicalImagingClient medicalImagingClient,
-                                                             String datastoreId,
-                                                             String jobId) {
+            String datastoreId,
+            String jobId) {
 
         try {
             GetDicomImportJobRequest getDicomImportJobRequest = GetDicomImportJobRequest.builder()
@@ -100,10 +95,10 @@ public class GetDicomImportJob {
 
         return null;
     }
-//snippet-end:[medicalimaging.java2.get_dicom_import_job.main]
+    // snippet-end:[medicalimaging.java2.get_dicom_import_job.main]
 
     public static List<String> getImageSetsForImportJobProperties(S3Client s3client,
-                                                                  DICOMImportJobProperties jobProperties) {
+            DICOMImportJobProperties jobProperties) {
         try {
             S3Utilities s3Utilities = s3client.utilities();
             URI manifestUri = URI.create(jobProperties.outputS3Uri() + "job-output-manifest.json");

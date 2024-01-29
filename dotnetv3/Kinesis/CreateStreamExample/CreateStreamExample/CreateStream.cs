@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace CreateStreamExample
 {
@@ -10,8 +10,7 @@ namespace CreateStreamExample
     using Amazon.Kinesis.Model;
 
     /// <summary>
-    /// This example shows how to create a new Amazon Kinesis stream. The
-    /// example was created using AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// This example shows how to create a new Amazon Kinesis stream.
     /// </summary>
     public class CreateStream
     {

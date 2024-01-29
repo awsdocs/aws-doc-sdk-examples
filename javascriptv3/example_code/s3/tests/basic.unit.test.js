@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
@@ -26,13 +24,13 @@ vi.doMock("fs", async () => {
   };
 });
 
-vi.doMock("@aws-sdk-examples/libs/utils/util-io.js", async () => {
-  const actual = await vi.importActual(
-    "@aws-sdk-examples/libs/utils/util-io.js",
-  );
+vi.doMock("@aws-sdk-examples/libs/prompter.js", () => {
   return {
-    ...actual,
-    promptForText: () => Promise.resolve("my-bucket"),
+    Prompter: class MockPrompter {
+      input() {
+        return Promise.resolve("name");
+      }
+    },
   };
 });
 

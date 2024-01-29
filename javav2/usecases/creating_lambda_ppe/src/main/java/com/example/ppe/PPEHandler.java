@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.ppe;
 
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 
-public class PPEHandler implements RequestHandler<Map<String,String>, String> {
+public class PPEHandler implements RequestHandler<Map<String, String>, String> {
 
     @Override
     public String handleRequest(Map<String, String> event, Context context) {
@@ -22,7 +20,7 @@ public class PPEHandler implements RequestHandler<Map<String,String>, String> {
         String bucketName = event.get("bucketName");
         logger.log("Bucket name is: " + bucketName);
 
-        S3Service s3Service = new S3Service() ;
+        S3Service s3Service = new S3Service();
         DynamoDBService ddb = new DynamoDBService();
         AnalyzePhotos photos = new AnalyzePhotos();
         SendEmail email = new SendEmail();
@@ -53,13 +51,12 @@ public class PPEHandler implements RequestHandler<Map<String,String>, String> {
     // Create a list of unique keys.
     private static Set<String> createUniqueList(List<ArrayList<GearItem>> gearList) {
 
-
         List<String> keys = new ArrayList<>();
 
         // Persist the data into a DynamoDB table.
         for (Object o : gearList) {
 
-            //Need to get the WorkItem from each list.
+            // Need to get the WorkItem from each list.
             List innerList = (List) o;
 
             for (Object value : innerList) {
@@ -73,5 +70,3 @@ public class PPEHandler implements RequestHandler<Map<String,String>, String> {
         return uniqueKeys;
     }
 }
-
-

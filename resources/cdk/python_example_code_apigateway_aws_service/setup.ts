@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -11,42 +10,49 @@
 //
 // This stack is used by the python/example_code/apigateway/aws_service example.
 
-import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
-import {AttributeType, Table} from '@aws-cdk/aws-dynamodb';
-import {Effect, PolicyStatement, Role, ServicePrincipal} from '@aws-cdk/aws-iam';
+import "source-map-support/register";
+import * as cdk from "@aws-cdk/core";
+import { AttributeType, Table } from "@aws-cdk/aws-dynamodb";
+import {
+  Effect,
+  PolicyStatement,
+  Role,
+  ServicePrincipal,
+} from "@aws-cdk/aws-iam";
 
 export class SetupStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const table: Table = new Table(this, 'doc-example-profiles', {
-      tableName: 'doc-example-profiles',
+    const table: Table = new Table(this, "doc-example-profiles", {
+      tableName: "doc-example-profiles",
       partitionKey: {
-        name: 'username',
-        type: AttributeType.STRING
+        name: "username",
+        type: AttributeType.STRING,
       },
-      removalPolicy: cdk.RemovalPolicy.DESTROY
-    })
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+    });
 
-    const role: Role = new Role(this, 'doc-example-apigateway-dynamodb-profiles', {
-      roleName: 'doc-example-apigateway-dynamodb-profiles',
-      assumedBy: new ServicePrincipal('apigateway.amazonaws.com')
-    })
+    const role: Role = new Role(
+      this,
+      "doc-example-apigateway-dynamodb-profiles",
+      {
+        roleName: "doc-example-apigateway-dynamodb-profiles",
+        assumedBy: new ServicePrincipal("apigateway.amazonaws.com"),
+      }
+    );
 
-    role.addToPolicy(new PolicyStatement({
-      effect: Effect.ALLOW,
-      resources: [table.tableArn],
-      actions: [
-          'dynamodb:GetItem',
-          'dynamodb:PutItem',
-          'dynamodb:Scan'
-      ]
-    }))
+    role.addToPolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        resources: [table.tableArn],
+        actions: ["dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:Scan"],
+      })
+    );
   }
 }
 
-const stackName = 'python-example-code-apigateway-dynamodb-profiles'
+const stackName = "python-example-code-apigateway-dynamodb-profiles";
 
 const app = new cdk.App();
 

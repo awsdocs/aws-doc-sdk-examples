@@ -1,15 +1,10 @@
-//snippet-sourcedescription:[ExportEndpoints.java demonstrates how to export endpoints to an Amazon Simple Storage Service (Amazon S3) bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Pinpoint]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.export_endpoint.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+// snippet-start:[pinpoint.java2.export_endpoint.main]
+// snippet-start:[pinpoint.java2.export_endpoint.import]
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
@@ -36,11 +31,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-//snippet-end:[pinpoint.java2.export_endpoint.import]
+// snippet-end:[pinpoint.java2.export_endpoint.import]
 
 /**
- *  To run this code example, you need to create an AWS Identity and Access Management (IAM) role with the correct policy as described in this documentation:
- *  https://docs.aws.amazon.com/pinpoint/latest/developerguide/audience-data-export.html
+ * To run this code example, you need to create an AWS Identity and Access
+ * Management (IAM) role with the correct policy as described in this
+ * documentation:
+ * https://docs.aws.amazon.com/pinpoint/latest/developerguide/audience-data-export.html
  *
  * Also, set up your development environment, including your credentials.
  *
@@ -50,22 +47,21 @@ import java.util.stream.Collectors;
  */
 
 public class ExportEndpoints {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "This program performs the following steps:\n\n" +
+                This program performs the following steps:
 
-            "1. Exports the endpoints to an Amazon S3 bucket.\n" +
-            "2. Downloads the exported endpoints files from Amazon S3.\n" +
-            "3. Parses the endpoints files to obtain the endpoint IDs and prints them.\n" +
+                1. Exports the endpoints to an Amazon S3 bucket.
+                2. Downloads the exported endpoints files from Amazon S3.
+                3. Parses the endpoints files to obtain the endpoint IDs and prints them.
+                Usage: ExportEndpoints <applicationId> <s3BucketName> <iamExportRoleArn> <path>
 
-            "Usage: ExportEndpoints <applicationId> <s3BucketName> <iamExportRoleArn> <path>\n\n" +
-            "Where:\n" +
-            "  applicationId - The ID of the Amazon Pinpoint application that has the endpoint.\n" +
-            "  s3BucketName - The name of the Amazon S3 bucket to export the JSON file to. \n" +
-            "  iamExportRoleArn - The ARN of an IAM role that grants Amazon Pinpoint write permissions to the S3 bucket."+
-            "  path - The path where the files downloaded from the Amazon S3 bucket are written (for example, C:/AWS/).\n" ;
+                Where:
+                  applicationId - The ID of the Amazon Pinpoint application that has the endpoint.
+                  s3BucketName - The name of the Amazon S3 bucket to export the JSON file to.\s
+                  iamExportRoleArn - The ARN of an IAM role that grants Amazon Pinpoint write permissions to the S3 bucket.  path - The path where the files downloaded from the Amazon S3 bucket are written (for example, C:/AWS/).
+                """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -80,39 +76,40 @@ public class ExportEndpoints {
 
         Region region = Region.US_EAST_1;
         PinpointClient pinpoint = PinpointClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         S3Client s3Client = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         exportAllEndpoints(pinpoint, s3Client, applicationId, s3BucketName, path, iamExportRoleArn);
         pinpoint.close();
         s3Client.close();
     }
 
-    //snippet-start:[pinpoint.java2.export_endpoint.main]
     public static void exportAllEndpoints(PinpointClient pinpoint,
-                                          S3Client s3Client,
-                                          String applicationId,
-                                          String s3BucketName,
-                                          String path,
-                                          String iamExportRoleArn) {
+            S3Client s3Client,
+            String applicationId,
+            String s3BucketName,
+            String path,
+            String iamExportRoleArn) {
 
         try {
-            List<String> objectKeys = exportEndpointsToS3(pinpoint, s3Client, s3BucketName, iamExportRoleArn, applicationId);
-            List<String> endpointFileKeys = objectKeys.stream().filter(o -> o.endsWith(".gz")).collect(Collectors.toList());
+            List<String> objectKeys = exportEndpointsToS3(pinpoint, s3Client, s3BucketName, iamExportRoleArn,
+                    applicationId);
+            List<String> endpointFileKeys = objectKeys.stream().filter(o -> o.endsWith(".gz"))
+                    .collect(Collectors.toList());
             downloadFromS3(s3Client, path, s3BucketName, endpointFileKeys);
 
-        } catch ( PinpointException e) {
+        } catch (PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
 
-    public static List<String> exportEndpointsToS3(PinpointClient pinpoint, S3Client s3Client, String s3BucketName, String iamExportRoleArn, String applicationId) {
+    public static List<String> exportEndpointsToS3(PinpointClient pinpoint, S3Client s3Client, String s3BucketName,
+            String iamExportRoleArn, String applicationId) {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH_mm:ss.SSS_z");
         String endpointsKeyPrefix = "exports/" + applicationId + "_" + dateFormat.format(new Date());
@@ -123,14 +120,14 @@ public class ExportEndpoints {
         try {
             // Defines the export job that Amazon Pinpoint runs.
             ExportJobRequest jobRequest = ExportJobRequest.builder()
-                .roleArn(iamExportRoleArn)
-                .s3UrlPrefix(s3UrlPrefix)
-                .build();
+                    .roleArn(iamExportRoleArn)
+                    .s3UrlPrefix(s3UrlPrefix)
+                    .build();
 
             CreateExportJobRequest exportJobRequest = CreateExportJobRequest.builder()
-                .applicationId(applicationId)
-                .exportJobRequest(jobRequest)
-                .build();
+                    .applicationId(applicationId)
+                    .exportJobRequest(jobRequest)
+                    .build();
 
             System.out.format("Exporting endpoints from Amazon Pinpoint application %s to Amazon S3 " +
                     "bucket %s . . .\n", applicationId, s3BucketName);
@@ -141,21 +138,21 @@ public class ExportEndpoints {
             printExportJobStatus(pinpoint, applicationId, jobId);
 
             ListObjectsV2Request v2Request = ListObjectsV2Request.builder()
-                .bucket(s3BucketName)
-                .prefix(endpointsKeyPrefix)
-                .build();
+                    .bucket(s3BucketName)
+                    .prefix(endpointsKeyPrefix)
+                    .build();
 
             // Create a list of object keys.
             ListObjectsV2Response v2Response = s3Client.listObjectsV2(v2Request);
             List<S3Object> objects = v2Response.contents();
-            for (S3Object object: objects) {
+            for (S3Object object : objects) {
                 key = object.key();
                 objectKeys.add(key);
             }
 
             return objectKeys;
 
-        } catch ( PinpointException e) {
+        } catch (PinpointException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
@@ -163,8 +160,8 @@ public class ExportEndpoints {
     }
 
     private static void printExportJobStatus(PinpointClient pinpointClient,
-                                             String applicationId,
-                                             String jobId) {
+            String applicationId,
+            String jobId) {
 
         GetExportJobResponse getExportJobResult;
         String status;
@@ -172,9 +169,9 @@ public class ExportEndpoints {
         try {
             // Checks the job status until the job completes or fails.
             GetExportJobRequest exportJobRequest = GetExportJobRequest.builder()
-                .jobId(jobId)
-                .applicationId(applicationId)
-                .build();
+                    .jobId(jobId)
+                    .applicationId(applicationId)
+                    .build();
 
             do {
                 getExportJobResult = pinpointClient.getExportJob(exportJobRequest);
@@ -204,16 +201,16 @@ public class ExportEndpoints {
         try {
             for (String key : objectKeys) {
                 GetObjectRequest objectRequest = GetObjectRequest.builder()
-                    .bucket(s3BucketName)
-                    .key(key)
-                    .build();
+                        .bucket(s3BucketName)
+                        .key(key)
+                        .build();
 
                 ResponseBytes<GetObjectResponse> objectBytes = s3Client.getObjectAsBytes(objectRequest);
                 byte[] data = objectBytes.asByteArray();
 
                 // Write the data to a local file.
                 String fileSuffix = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-                newPath = path + fileSuffix+".gz";
+                newPath = path + fileSuffix + ".gz";
                 File myFile = new File(newPath);
                 OutputStream os = new FileOutputStream(myFile);
                 os.write(data);
@@ -225,5 +222,5 @@ public class ExportEndpoints {
             System.exit(1);
         }
     }
-    //snippet-end:[pinpoint.java2.export_endpoint.main]
 }
+// snippet-end:[pinpoint.java2.export_endpoint.main]

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.glue.*;
 import com.google.gson.Gson;
@@ -25,29 +23,29 @@ import java.util.concurrent.TimeUnit;
 public class GlueTest {
 
     private static GlueClient glueClient;
-    private static String crawlerName="";
-    private static String cron="";
-    private static String s3Path="";
-    private static String IAM="";
-    private static String databaseName="";
-    private static String tableName="";
-    private static String text="";
-    private static String existingDatabaseName="";
-    private static String existingCrawlerName="";
-    private static String jobNameSc="";
-    private static String s3PathSc="";
-    private static String dbNameSc="";
-    private static String crawlerNameSc="";
-    private static String scriptLocationSc="";
-    private static String locationUri="";
-    private static String bucketNameSc="";
+    private static String crawlerName = "";
+    private static String cron = "";
+    private static String s3Path = "";
+    private static String IAM = "";
+    private static String databaseName = "";
+    private static String tableName = "";
+    private static String text = "";
+    private static String existingDatabaseName = "";
+    private static String existingCrawlerName = "";
+    private static String jobNameSc = "";
+    private static String s3PathSc = "";
+    private static String dbNameSc = "";
+    private static String crawlerNameSc = "";
+    private static String scriptLocationSc = "";
+    private static String locationUri = "";
+    private static String bucketNameSc = "";
 
     @BeforeAll
     public static void setUp() throws IOException, URISyntaxException {
         glueClient = GlueClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -59,48 +57,53 @@ public class GlueTest {
         IAM = values.getIAM();
         databaseName = values.getDatabaseName();
         tableName = values.getTableName();
-        text =  values.getText();
+        text = values.getText();
         existingDatabaseName = values.getExistingDatabaseName();
         existingCrawlerName = values.getExistingCrawlerName();
-        jobNameSc =  values.getJobNameSc()+ java.util.UUID.randomUUID();;
-        s3PathSc = values.getS3PathSc()+ java.util.UUID.randomUUID();;
-        dbNameSc = values.getDbNameSc()+ java.util.UUID.randomUUID();
-        crawlerNameSc = values.getCrawlerNameSc()+ java.util.UUID.randomUUID();
+        jobNameSc = values.getJobNameSc() + java.util.UUID.randomUUID();
+        ;
+        s3PathSc = values.getS3PathSc() + java.util.UUID.randomUUID();
+        ;
+        dbNameSc = values.getDbNameSc() + java.util.UUID.randomUUID();
+        crawlerNameSc = values.getCrawlerNameSc() + java.util.UUID.randomUUID();
         scriptLocationSc = values.getScriptLocationSc();
         locationUri = values.getLocationUri();
         bucketNameSc = values.getBucketNameSc();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-        try (InputStream input = GlueTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-            prop.load(input);
-            crawlerName = prop.getProperty("crawlerName");
-            s3Path = prop.getProperty("s3Path");
-            cron = prop.getProperty("cron");
-            IAM = prop.getProperty("IAM");
-            databaseName = prop.getProperty("databaseName");
-            tableName = prop.getProperty("tableName");
-            text = prop.getProperty("text");
-            existingDatabaseName = prop.getProperty("existingDatabaseName");
-            existingCrawlerName = prop.getProperty("existingCrawlerName");
-            jobNameSc = prop.getProperty("jobNameSc")+ java.util.UUID.randomUUID();;
-            s3PathSc = prop.getProperty("s3PathSc")+ java.util.UUID.randomUUID();;
-            dbNameSc = prop.getProperty("dbNameSc")+ java.util.UUID.randomUUID();
-            crawlerNameSc = prop.getProperty("crawlerNameSc")+ java.util.UUID.randomUUID();
-            scriptLocationSc = prop.getProperty("scriptLocationSc");
-            locationUri = prop.getProperty("locationUri");
-            bucketNameSc = prop.getProperty("bucketNameSc");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * GlueTest.class.getClassLoader().getResourceAsStream("config.properties")) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * prop.load(input);
+         * crawlerName = prop.getProperty("crawlerName");
+         * s3Path = prop.getProperty("s3Path");
+         * cron = prop.getProperty("cron");
+         * IAM = prop.getProperty("IAM");
+         * databaseName = prop.getProperty("databaseName");
+         * tableName = prop.getProperty("tableName");
+         * text = prop.getProperty("text");
+         * existingDatabaseName = prop.getProperty("existingDatabaseName");
+         * existingCrawlerName = prop.getProperty("existingCrawlerName");
+         * jobNameSc = prop.getProperty("jobNameSc")+ java.util.UUID.randomUUID();;
+         * s3PathSc = prop.getProperty("s3PathSc")+ java.util.UUID.randomUUID();;
+         * dbNameSc = prop.getProperty("dbNameSc")+ java.util.UUID.randomUUID();
+         * crawlerNameSc = prop.getProperty("crawlerNameSc")+
+         * java.util.UUID.randomUUID();
+         * scriptLocationSc = prop.getProperty("scriptLocationSc");
+         * locationUri = prop.getProperty("locationUri");
+         * bucketNameSc = prop.getProperty("bucketNameSc");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
@@ -117,26 +120,27 @@ public class GlueTest {
         TimeUnit.MINUTES.sleep(5);// Sleep for 5 minute to get tables ready
         String myTableName = GlueScenario.getGlueTables(glueClient, dbNameSc);
         GlueScenario.createJob(glueClient, jobNameSc, IAM, scriptLocationSc);
-        GlueScenario.startJob(glueClient, jobNameSc, dbNameSc, myTableName, bucketNameSc );
+        GlueScenario.startJob(glueClient, jobNameSc, dbNameSc, myTableName, bucketNameSc);
         GlueScenario.getAllJobs(glueClient);
         GlueScenario.getJobRuns(glueClient, jobNameSc);
         GlueScenario.deleteJob(glueClient, jobNameSc);
-        System.out.println("*** Wait 5 MIN for the "+crawlerNameSc +" to stop");
+        System.out.println("*** Wait 5 MIN for the " + crawlerNameSc + " to stop");
         TimeUnit.MINUTES.sleep(5);
         GlueScenario.deleteDatabase(glueClient, dbNameSc);
         GlueScenario.deleteSpecificCrawler(glueClient, crawlerNameSc);
     }
+
     private static String getSecretValues() {
         // Get the Amazon RDS creds from Secrets Manager.
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/glue";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -172,7 +176,6 @@ public class GlueTest {
         private String locationUri;
 
         private String bucketNameSc;
-
 
         public String getIAM() {
             return IAM;
@@ -240,4 +243,3 @@ public class GlueTest {
     }
 
 }
-

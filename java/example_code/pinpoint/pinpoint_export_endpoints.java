@@ -1,27 +1,6 @@
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[pinpoint_export_endpoints demonstrates how to export information about several existing endpoints to an Amazon S3 bucket that you specify.]
-// snippet-service:[Amazon Pinpoint]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Pinpoint]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[CreateExportJob]
-// snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2019-01-20]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[pinpoint.java.pinpoint_export_endpoints.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -77,8 +56,7 @@ public class ExportEndpoints {
         String applicationId = args[3];
 
         // Exports the endpoints to Amazon S3 and stores the keys of the new objects.
-        List<String> objectKeys =
-                exportEndpointsToS3(s3BucketName, iamExportRoleArn, applicationId);
+        List<String> objectKeys = exportEndpointsToS3(s3BucketName, iamExportRoleArn, applicationId);
 
         // Filters the keys to only those objects that have the endpoint definitions.
         // These objects have the .gz extension.
@@ -92,12 +70,11 @@ public class ExportEndpoints {
     }
 
     public static List<String> exportEndpointsToS3(String s3BucketName, String iamExportRoleArn,
-                                                   String applicationId) {
+            String applicationId) {
 
         // The S3 path that Amazon Pinpoint exports the endpoints to.
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH_mm:ss.SSS_z");
-        String endpointsKeyPrefix = "exports/" + applicationId + "_" + dateFormat.format(new Date
-                ());
+        String endpointsKeyPrefix = "exports/" + applicationId + "_" + dateFormat.format(new Date());
         String s3UrlPrefix = "s3://" + s3BucketName + "/" + endpointsKeyPrefix + "/";
 
         // Defines the export job that Amazon Pinpoint runs.
@@ -119,8 +96,7 @@ public class ExportEndpoints {
 
         try {
             // Runs the export job with Amazon Pinpoint.
-            CreateExportJobResult exportResult =
-                    pinpointClient.createExportJob(createExportJobRequest);
+            CreateExportJobResult exportResult = pinpointClient.createExportJob(createExportJobRequest);
 
             // Prints the export job status to the console while the job runs.
             String jobId = exportResult.getExportJobResponse().getId();
@@ -146,7 +122,7 @@ public class ExportEndpoints {
     }
 
     private static void printExportJobStatus(AmazonPinpoint pinpointClient,
-                                             String applicationId, String jobId) {
+            String applicationId, String jobId) {
 
         GetExportJobResult getExportJobResult;
         String jobStatus;
@@ -170,7 +146,8 @@ public class ExportEndpoints {
             }
 
             // Checks for entries that failed to import.
-            // getFailures provides up to 100 of the first failed entries for the job, if any exist.
+            // getFailures provides up to 100 of the first failed entries for the job, if
+            // any exist.
             List<String> failedEndpoints = getExportJobResult.getExportJobResponse().getFailures();
             if (failedEndpoints != null) {
                 System.out.println("Failed to import the following entries:");
@@ -185,7 +162,7 @@ public class ExportEndpoints {
     }
 
     public static void downloadFromS3(String s3BucketName, List<String> objectKeys,
-                                      String downloadDirectory) {
+            String downloadDirectory) {
 
         // Initializes the Amazon S3 client.
         AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
@@ -215,7 +192,7 @@ public class ExportEndpoints {
         // Writes the contents of the S3 object to a file.
         File endpointsFile = new File(filePath.toAbsolutePath().toString());
         try (FileOutputStream fos = new FileOutputStream(endpointsFile);
-             S3ObjectInputStream s3is = object.getObjectContent()) {
+                S3ObjectInputStream s3is = object.getObjectContent()) {
             byte[] read_buf = new byte[1024];
             int read_len = 0;
             while ((read_len = s3is.read(read_buf)) > 0) {
@@ -229,4 +206,3 @@ public class ExportEndpoints {
 }
 
 // snippet-end:[pinpoint.java.pinpoint_export_endpoints.complete]
-

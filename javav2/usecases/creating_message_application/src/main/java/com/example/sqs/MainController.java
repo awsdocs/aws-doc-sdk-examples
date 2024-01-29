@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.sqs;
 
@@ -42,7 +40,7 @@ public class MainController {
         return msgService.getMessages();
     }
 
-    //  Purge the queue.
+    // Purge the queue.
     @RequestMapping(value = "/purge", method = RequestMethod.GET)
     @ResponseBody
     String purgeMessages(HttpServletRequest request, HttpServletResponse response) {
@@ -54,7 +52,7 @@ public class MainController {
     @RequestMapping(value = "/msgs", method = RequestMethod.GET)
     @ResponseBody
     List<MessageData> getItems(HttpServletRequest request, HttpServletResponse response) {
-        List<MessageData> data =  msgService.getMessages();
+        List<MessageData> data = msgService.getMessages();
         return data;
     }
 }

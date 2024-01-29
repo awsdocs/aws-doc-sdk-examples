@@ -1,4 +1,6 @@
 <?php
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 use App\Http\Controllers\ItemsController;
 use Illuminate\Support\Facades\Route;

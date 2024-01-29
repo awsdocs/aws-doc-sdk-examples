@@ -1,13 +1,18 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.s3;
 
 // snippet-start:[presigned.java2.generatepresignedurlandputfilewithmetadata.import]
-
 import com.example.s3.util.PresignUrlUtils;
 import org.slf4j.Logger;
+import software.amazon.awssdk.core.internal.sync.FileContentStreamProvider;
+import software.amazon.awssdk.http.HttpExecuteRequest;
+import software.amazon.awssdk.http.HttpExecuteResponse;
+import software.amazon.awssdk.http.SdkHttpClient;
+import software.amazon.awssdk.http.SdkHttpMethod;
+import software.amazon.awssdk.http.SdkHttpRequest;
+import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -43,30 +48,36 @@ import java.util.UUID;
  */
 
 public class GeneratePresignedUrlAndPutFileWithMetadata {
-    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(GeneratePresignedUrlAndUploadObject.class);
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(GeneratePresignedUrlAndPutFileWithMetadata.class);
     private final static S3Client s3Client = S3Client.create();
 
     public static void main(String[] args) {
         String bucketName = "b-" + UUID.randomUUID();
         String keyName = "k-" + UUID.randomUUID();
         String resourcePath = "multipartUploadFiles/s3-userguide.pdf";
-        String contentType = "application/pdf";
         // Uncomment the following two lines and comment out the previous two lines to use an image file instead of a PDF file.
         //String resourcePath = "image.png";
         //String contentType = "image/png";
 
         Map<String, String> metadata = Map.of(
-                "author", "Mary Doe",
+                "author", "Bob",
                 "version", "1.0.0.0"
         );
-
 
         PresignUrlUtils.createBucket(bucketName, s3Client);
         GeneratePresignedUrlAndPutFileWithMetadata presign = new GeneratePresignedUrlAndPutFileWithMetadata();
         try {
-            URL presignedUrl = presign.createPresignedUrl(bucketName, keyName, contentType, metadata);
-            presign.useHttpUrlConnectionToPut(presignedUrl, getFileForForClasspathResource(resourcePath), contentType, metadata);
-            presign.useHttpClientToPut(presignedUrl, getFileForForClasspathResource(resourcePath), contentType, metadata);
+            String presignedUrlString = presign.createPresignedUrl(bucketName, keyName, metadata);
+
+            presign.useHttpUrlConnectionToPut(presignedUrlString, getFileForForClasspathResource(resourcePath), metadata);
+            PresignUrlUtils.deleteObject(bucketName, keyName, s3Client);
+
+            presign.useHttpClientToPut(presignedUrlString, getFileForForClasspathResource(resourcePath), metadata);
+            PresignUrlUtils.deleteObject(bucketName, keyName, s3Client);
+
+            presign.useSdkHttpClientToPut(presignedUrlString, getFileForForClasspathResource(resourcePath), metadata);
+
+
         } finally {
             PresignUrlUtils.deleteObject(bucketName, keyName, s3Client);
             PresignUrlUtils.deleteBucket(bucketName, s3Client);
@@ -74,53 +85,41 @@ public class GeneratePresignedUrlAndPutFileWithMetadata {
     }
 
     // snippet-start:[presigned.java2.generatepresignedurlandputfilewithmetadata.main]
-    /**
-     * Create a presigned URL for uploading with a PUT request.
-     * @param bucketName  - The name of the bucket.
-     * @param keyName     - The name of the object.
-     * @param contentType - The content type of the object.
-     * @param metadata    - The metadata to store with the object.
-     * @return - The presigned URL for an HTTP PUT.
-     */
-    public URL createPresignedUrl(String bucketName, String keyName, String contentType, Map<String, String> metadata) {
+    // snippet-start:[presigned.java2.generatepresignedurlandputfilewithmetadata.createpresignedurl]
+    /* Create a presigned URL to use in a subsequent PUT request */
+    public String createPresignedUrl(String bucketName, String keyName, Map<String, String> metadata) {
         try (S3Presigner presigner = S3Presigner.create()) {
 
             PutObjectRequest objectRequest = PutObjectRequest.builder()
                     .bucket(bucketName)
                     .key(keyName)
-                    .contentType(contentType)
                     .metadata(metadata)
                     .build();
 
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10))  // The URL will expire in 10 minutes.
+                    .signatureDuration(Duration.ofMinutes(10))  // The URL expires in 10 minutes.
                     .putObjectRequest(objectRequest)
                     .build();
+
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
             String myURL = presignedRequest.url().toString();
             logger.info("Presigned URL to upload a file to: [{}]", myURL);
-            logger.info("Which HTTP method needs to be used when uploading a file: [{}]", presignedRequest.httpRequest().method());
+            logger.info("HTTP method: [{}]", presignedRequest.httpRequest().method());
 
-            return presignedRequest.url();
+            return presignedRequest.url().toExternalForm();
         }
     }
+    // snippet-end:[presigned.java2.generatepresignedurlandputfilewithmetadata.createpresignedurl]
 
-    /**
-     * Use the JDK HttpURLConnection (since v1.1) class to do the upload, but you can
-     * use any HTTP client.
-     *
-     * @param presignedUrl - The presigned URL.
-     * @param fileToPut    - The file to upload.
-     * @param contentType  - The content type of the file.
-     * @param metadata    - The metadata to store with the object.
-     */
-    public void useHttpUrlConnectionToPut(URL presignedUrl, File fileToPut, String contentType, Map<String, String> metadata) {
-        logger.info("Begin [{}] upload", contentType);
+    // snippet-start:[presigned.java2.generatepresignedurlandputfilewithmetadata.basichttpclient]
+    /* Use the JDK HttpURLConnection (since v1.1) class to do the upload. */
+    public void useHttpUrlConnectionToPut(String presignedUrlString, File fileToPut, Map<String, String> metadata) {
+        logger.info("Begin [{}] upload", fileToPut.toString());
         try {
+            URL presignedUrl = new URL(presignedUrlString);
             HttpURLConnection connection = (HttpURLConnection) presignedUrl.openConnection();
             connection.setDoOutput(true);
-            connection.setRequestProperty("Content-Type", contentType);
             metadata.forEach((k, v) -> connection.setRequestProperty("x-amz-meta-" + k, v));
             connection.setRequestMethod("PUT");
             OutputStream out = connection.getOutputStream();
@@ -148,18 +147,12 @@ public class GeneratePresignedUrlAndPutFileWithMetadata {
             logger.error(e.getMessage(), e);
         }
     }
+    // snippet-end:[presigned.java2.generatepresignedurlandputfilewithmetadata.basichttpclient]
 
-    /**
-     * Use the JDK HttpClient (since v11) class to do the upload, but you can
-     * use any HTTP client.
-     *
-     * @param presignedUrl - The presigned URL.
-     * @param fileToPut    - The file to upload.
-     * @param contentType  - The content type of the file.
-     * @param metadata    - The metadata to store with the object.
-     */
-    public void useHttpClientToPut(URL presignedUrl, File fileToPut, String contentType, Map<String, String> metadata) {
-        logger.info("Begin [{}] upload", contentType);
+    // snippet-start:[presigned.java2.generatepresignedurlandputfilewithmetadata.jdkhttpclient]
+    /* Use the JDK HttpClient (since v11) class to do the upload. */
+    public void useHttpClientToPut(String presignedUrlString, File fileToPut, Map<String, String> metadata) {
+        logger.info("Begin [{}] upload", fileToPut.toString());
 
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder();
         metadata.forEach((k, v) -> requestBuilder.header("x-amz-meta-" + k, v));
@@ -167,8 +160,7 @@ public class GeneratePresignedUrlAndPutFileWithMetadata {
         HttpClient httpClient = HttpClient.newHttpClient();
         try {
             final HttpResponse<Void> response = httpClient.send(requestBuilder
-                            .uri(presignedUrl.toURI())
-                            .header("Content-Type", contentType)
+                            .uri(new URL(presignedUrlString).toURI())
                             .PUT(HttpRequest.BodyPublishers.ofFile(Path.of(fileToPut.toURI())))
                             .build(),
                     HttpResponse.BodyHandlers.discarding());
@@ -179,6 +171,38 @@ public class GeneratePresignedUrlAndPutFileWithMetadata {
             logger.error(e.getMessage(), e);
         }
     }
+    // snippet-end:[presigned.java2.generatepresignedurlandputfilewithmetadata.jdkhttpclient]
+
+    // snippet-start:[presigned.java2.generatepresignedurlandputfilewithmetadata.sdkhttpclient]
+    /* Use the AWS SDK for Java V2 SdkHttpClient class to do the upload. */
+    public void useSdkHttpClientToPut(String presignedUrlString, File fileToPut, Map<String, String> metadata) {
+        logger.info("Begin [{}] upload", fileToPut.toString());
+
+        try {
+            URL presignedUrl = new URL(presignedUrlString);
+
+            SdkHttpRequest.Builder requestBuilder = SdkHttpRequest.builder()
+                    .method(SdkHttpMethod.PUT)
+                    .uri(presignedUrl.toURI());
+            // Add headers
+            metadata.forEach((k, v) -> requestBuilder.putHeader("x-amz-meta-" + k, v));
+            // Finish building the request.
+            SdkHttpRequest request = requestBuilder.build();
+
+            HttpExecuteRequest executeRequest = HttpExecuteRequest.builder()
+                    .request(request)
+                    .contentStreamProvider(new FileContentStreamProvider(fileToPut.toPath()))
+                    .build();
+
+            try (SdkHttpClient sdkHttpClient = ApacheHttpClient.create()) {
+                HttpExecuteResponse response = sdkHttpClient.prepareRequest(executeRequest).call();
+                logger.info("Response code: {}", response.httpResponse().statusCode());
+            }
+        } catch (URISyntaxException | IOException e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+    // snippet-end:[presigned.java2.generatepresignedurlandputfilewithmetadata.sdkhttpclient]
     // snippet-end:[presigned.java2.generatepresignedurlandputfilewithmetadata.main]
 
     public static File getFileForForClasspathResource(String resourcePath) {

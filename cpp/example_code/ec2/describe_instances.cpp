@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -14,14 +12,14 @@
  *
  **/
 
-//snippet-start:[ec2.cpp.describe_instances.inc]
+// snippet-start:[ec2.cpp.describe_instances.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeInstancesRequest.h>
 #include <aws/ec2/model/DescribeInstancesResponse.h>
 #include <iomanip>
 #include <iostream>
-//snippet-end:[ec2.cpp.describe_instances.inc]
+// snippet-end:[ec2.cpp.describe_instances.inc]
 #include "ec2_samples.h"
 
 //! Describe all Amazon Elastic Compute Cloud (Amazon EC2) instances associated with an account.

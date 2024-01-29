@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DescribeInstanceTags.kt demonstrates how to describe the specified tags for your Amazon Elastic Compute Cloud (Amazon EC2) resource.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon EC2]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.ec2
 
 // snippet-start:[ec2.kotlin.describe_instances_tags.import]

@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace ListCollectionsExample
 {
@@ -11,8 +11,7 @@ namespace ListCollectionsExample
 
     /// <summary>
     /// Uses Amazon Rekognition to list the collection IDs in the
-    /// current account. This example was created using the AWS SDK for
-    /// .NET version 3.7 and .NET Core 5.0.
+    /// current account.
     /// </summary>
     public class ListCollections
     {

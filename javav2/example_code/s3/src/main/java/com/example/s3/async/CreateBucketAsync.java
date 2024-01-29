@@ -1,12 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateBucketAsync.java demonstrates how to create an Amazon Simple Storage Service (Amazon S3) object using the Async client.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3.async;
 
@@ -20,7 +13,8 @@ import java.net.URISyntaxException;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,12 +23,14 @@ import java.util.concurrent.CompletableFuture;
 public class CreateBucketAsync {
 
     public static void main(String[] args) throws URISyntaxException {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage:\n" +
-                "    <bucketName> \n\n" +
-                "Where:\n" +
-                "    bucketName - The name of the bucket to create. The bucket name must be unique, or an error occurs.\n\n" ;
+                Usage:
+                    <bucketName>\s
+
+                Where:
+                    bucketName - The name of the bucket to create. The bucket name must be unique, or an error occurs.
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,18 +41,15 @@ public class CreateBucketAsync {
         System.out.format("Creating a bucket named %s\n",
                 bucketName);
 
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
                 .region(region)
-                .credentialsProvider(credentialsProvider)
                 .build();
 
-        createBucket (s3AsyncClient, bucketName);
+        createBucket(s3AsyncClient, bucketName);
     }
 
-    public static void createBucket( S3AsyncClient s3AsyncClient, String bucketName) {
-
+    public static void createBucket(S3AsyncClient s3AsyncClient, String bucketName) {
         try {
             CreateBucketRequest bucketRequest = CreateBucketRequest.builder()
                     .bucket(bucketName)
@@ -66,7 +59,7 @@ public class CreateBucketAsync {
             futureGet.whenComplete((resp, err) -> {
                 try {
                     if (resp != null) {
-                        System.out.println(bucketName +" is ready~");
+                        System.out.println(bucketName + " is ready~");
                     } else {
                         err.printStackTrace();
                     }
@@ -83,4 +76,3 @@ public class CreateBucketAsync {
         }
     }
 }
-

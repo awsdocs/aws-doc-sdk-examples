@@ -1,16 +1,6 @@
-/* Copyright 2010-2023 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.cognito.srp.usecases;
 
 import com.example.cognito.srp.utils.SRPUtils;
@@ -54,14 +44,15 @@ public class UserAuthDemo {
                 a, A, B, salt,
                 Base64.getDecoder().decode(secretBlock));
 
-        RespondToAuthChallengeResponse challengeResponse = respondToAuthChallengeResponse(userId, secretBlock, timestamp,
+        RespondToAuthChallengeResponse challengeResponse = respondToAuthChallengeResponse(userId, secretBlock,
+                timestamp,
                 Base64.getEncoder().encodeToString(passwordClaimSignature), deviceKey);
         System.out.println("RespondToAuthChallenge response: " + challengeResponse);
         return challengeResponse;
     }
 
     public InitiateAuthResponse initiateAuth(String username, String A) {
-        Map<String,String> authParameters = new HashMap<>();
+        Map<String, String> authParameters = new HashMap<>();
         authParameters.put("USERNAME", username);
         authParameters.put("SRP_A", A);
 
@@ -74,7 +65,7 @@ public class UserAuthDemo {
         try {
             InitiateAuthResponse response = this.cognitoClient.initiateAuth(authRequest);
             return response;
-        } catch(CognitoIdentityProviderException e) {
+        } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
@@ -82,15 +73,15 @@ public class UserAuthDemo {
         return null;
     }
 
-    public RespondToAuthChallengeResponse respondToAuthChallengeResponse(String userId, String secretBlock, String timestamp,
-                                                                         String passwordClaimSignature, String deviceKey) {
+    public RespondToAuthChallengeResponse respondToAuthChallengeResponse(String userId, String secretBlock,
+            String timestamp,
+            String passwordClaimSignature, String deviceKey) {
         Map<String, String> challengeResponses = new HashMap<>();
         challengeResponses.put("USERNAME", userId);
         challengeResponses.put("PASSWORD_CLAIM_SECRET_BLOCK", secretBlock);
         challengeResponses.put("PASSWORD_CLAIM_SIGNATURE", passwordClaimSignature);
         challengeResponses.put("TIMESTAMP", timestamp);
         challengeResponses.put("DEVICE_KEY", deviceKey);
-
 
         RespondToAuthChallengeRequest challengeRequest = RespondToAuthChallengeRequest.builder()
                 .clientId(clientId)
@@ -101,7 +92,7 @@ public class UserAuthDemo {
         try {
             RespondToAuthChallengeResponse response = this.cognitoClient.respondToAuthChallenge(challengeRequest);
             return response;
-        } catch(CognitoIdentityProviderException e) {
+        } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

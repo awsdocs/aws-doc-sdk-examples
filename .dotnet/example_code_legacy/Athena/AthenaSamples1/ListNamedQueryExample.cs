@@ -1,13 +1,5 @@
-//snippet-sourcedescription:[ListNamedQueryExample.cs demonstrates how to obtain a list of named query IDs.]
-//snippet-keyword:[dotnet]
-//snippet-keyword:[.NET]
-//snippet-sourcesyntax:[.net]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Athena]
-//snippet-service:[athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 ﻿using System;
 using Amazon;
 using Amazon.Athena;

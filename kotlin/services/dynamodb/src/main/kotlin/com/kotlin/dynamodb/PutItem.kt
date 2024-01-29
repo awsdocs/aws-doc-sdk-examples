@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[PutItem.kt demonstrates how to place an item into an Amazon DynamoDB table.]
-// snippet-keyword:[SDK for Kotlin]
-// snippet-service:[Amazon DynamoDB]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.dynamodb
 

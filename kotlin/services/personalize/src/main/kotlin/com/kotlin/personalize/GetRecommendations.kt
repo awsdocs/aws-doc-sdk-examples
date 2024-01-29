@@ -1,14 +1,5 @@
-// snippet-sourcedescription:[GetRecommendations.kt demonstrates how to return a list of recommended items.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-keyword:[Code Sample]
-// snippet-service:[Amazon Personalize]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[05/27/2022]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.personalize
 
 // snippet-start:[personalize.kotlin.get_recommendations.import]

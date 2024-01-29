@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DeletePolicyExample
 {
@@ -10,8 +10,7 @@ namespace DeletePolicyExample
     using Amazon.Organizations.Model;
 
     /// <summary>
-    /// Deletes an existing AWS Organizations policy. This example was
-    /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// Deletes an existing AWS Organizations policy.
     /// </summary>
     public class DeletePolicy
     {

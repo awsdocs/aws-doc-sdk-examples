@@ -1,26 +1,7 @@
-//snippet-sourcedescription:[Query.java demonstrates how to query a DynamoDB table.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon DynamoDB]
-//snippet-service:[dynamodb]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-01-15]
-//snippet-sourceauthor:[soo-aws]
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.dynamodb;
+
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
@@ -42,11 +23,9 @@ import com.amazonaws.AmazonServiceException;
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class Query
-{
-    public static void main(String[] args)
-    {
-    	final String USAGE = "\n" +
+public class Query {
+    public static void main(String[] args) {
+        final String USAGE = "\n" +
                 "Usage:\n" +
                 "    Query <table> <partitionkey> <partitionkeyvalue>\n\n" +
                 "Where:\n" +
@@ -71,25 +50,23 @@ public class Query
 
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
 
-        //set up an alias for the partition key name in case it's a reserved word
-        HashMap<String,String> attrNameAlias =
-                new HashMap<String,String>();
+        // set up an alias for the partition key name in case it's a reserved word
+        HashMap<String, String> attrNameAlias = new HashMap<String, String>();
         attrNameAlias.put(partition_alias, partition_key_name);
 
-        //set up mapping of the partition name with the value
-        HashMap<String, AttributeValue> attrValues =
-                new HashMap<String,AttributeValue>();
-        attrValues.put(":"+partition_key_name, new AttributeValue().withS(partition_key_val));
+        // set up mapping of the partition name with the value
+        HashMap<String, AttributeValue> attrValues = new HashMap<String, AttributeValue>();
+        attrValues.put(":" + partition_key_name, new AttributeValue().withS(partition_key_val));
 
         QueryRequest queryReq = new QueryRequest()
-        		.withTableName(table_name)
-        		.withKeyConditionExpression(partition_alias + " = :" + partition_key_name)
-        		.withExpressionAttributeNames(attrNameAlias)
-        		.withExpressionAttributeValues(attrValues);
+                .withTableName(table_name)
+                .withKeyConditionExpression(partition_alias + " = :" + partition_key_name)
+                .withExpressionAttributeNames(attrNameAlias)
+                .withExpressionAttributeValues(attrValues);
 
         try {
-        	QueryResult response = ddb.query(queryReq);
-        	System.out.println(response.getCount());
+            QueryResult response = ddb.query(queryReq);
+            System.out.println(response.getCount());
         } catch (AmazonDynamoDBException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);

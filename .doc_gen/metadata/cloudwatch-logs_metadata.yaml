@@ -301,4 +301,54 @@ cloudwatch-logs_PutSubscriptionFilter:
                 - cwLogs.JavaScript.cwl.putSubscriptionFilter
   services:
     cloudwatch-logs: {PutSubscriptionFilter}
-    
+cloudwatch-logs_GetQueryResults:
+  title: Get the results of a &CWL; query using an &AWS; SDK
+  title_abbrev: Get the results of a query
+  synopsis: get the results of a query.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatch-logs.actions.GetQueryResults
+  services:
+    cloudwatch-logs: {GetQueryResults}
+cloudwatch-logs_StartQuery:
+  title: Start a &CWL; query using an &AWS; SDK
+  title_abbrev: Start a query
+  synopsis: start a query.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatch-logs.actions.StartQuery
+  services:
+    cloudwatch-logs: {StartQuery}
+cloudwatch-logs_Scenario_BigQuery:
+  title: Use &CWL; to run a large query
+  title_abbrev: Run a large query
+  synopsis: use &CWL; to query more than 10,000 records.
+  category: Scenarios
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs/scenarios/large-query
+          excerpts:
+            - description: This is the entry point.
+              snippet_files:
+                - javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/index.js
+            - description: This is a class that splits queries into multiple steps if necessary.
+            - snippet_files:
+                - javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/cloud-watch-query.js
+  services:
+    cloudwatch-logs: {StartQuery, GetQueryResults}

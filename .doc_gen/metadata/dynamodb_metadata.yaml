@@ -5,6 +5,15 @@ dynamodb_Hello:
   synopsis: get started using &DDB;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.java2.list_tables.main
     .NET:
       versions:
         - sdk_version: 3
@@ -116,7 +125,7 @@ dynamodb_CreateTable:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/dynamodb
+          github: rustv1/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -360,6 +369,7 @@ dynamodb_BatchWriteItem:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.BatchWriteItem
+                - gov2.dynamodb.Movie.struct
     Java:
       versions:
         - sdk_version: 2
@@ -524,7 +534,7 @@ dynamodb_DeleteTable:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/dynamodb
+          github: rustv1/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -607,6 +617,7 @@ dynamodb_PutItem:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.PutItem
+                - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
         - sdk_version: 1
@@ -656,7 +667,7 @@ dynamodb_PutItem:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/dynamodb
+          github: rustv1/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -744,6 +755,7 @@ dynamodb_GetItem:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.GetItem
+                - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
         - sdk_version: 1
@@ -871,6 +883,7 @@ dynamodb_UpdateItem:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.UpdateItem
+                - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
         - sdk_version: 1
@@ -990,6 +1003,7 @@ dynamodb_DeleteItem:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.DeleteItem
+                - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1037,7 +1051,7 @@ dynamodb_DeleteItem:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/dynamodb
+          github: rustv1/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1192,7 +1206,7 @@ dynamodb_ListTables:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/dynamodb
+          github: rustv1/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1278,6 +1292,7 @@ dynamodb_Query:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.Query
+                - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1334,7 +1349,7 @@ dynamodb_Query:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/dynamodb
+          github: rustv1/examples/dynamodb
           excerpts:
             - description: Find the movies made in the specified year.
               snippet_tags:
@@ -1418,6 +1433,7 @@ dynamodb_Scan:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.Scan
+                - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1467,7 +1483,7 @@ dynamodb_Scan:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/dynamodb
+          github: rustv1/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1566,6 +1582,9 @@ dynamodb_ExecuteStatement:
             - description: Use a DELETE statement to delete an item.
               snippet_tags:
                 - gov2.dynamodb.ExecuteStatement.Delete
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
+                - gov2.dynamodb.Movie.struct
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1685,6 +1704,9 @@ dynamodb_BatchExecuteStatement:
             - description: Use batches of DELETE statements to delete items.
               snippet_tags:
                 - gov2.dynamodb.BatchExecuteStatement.Delete
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
+                - gov2.dynamodb.Movie.struct
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1845,14 +1867,17 @@ dynamodb_Scenario_GettingStartedMovies:
         - sdk_version: 2
           github: gov2/dynamodb
           excerpts:
-            - description: Create a struct and methods that call &DDB; actions.
-              snippet_tags:
-                - gov2.dynamodb.TableBasics.complete
             - description:
                 Run an interactive scenario to create the table and perform
                 actions on it.
               snippet_tags:
                 - gov2.dynamodb.Scenario_GettingStartedMovies
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
+                - gov2.dynamodb.Movie.struct
+            - description: Create a struct and methods that call &DDB; actions.
+              snippet_tags:
+                - gov2.dynamodb.TableBasics.complete
     Kotlin:
       versions:
         - sdk_version: 1
@@ -2052,18 +2077,20 @@ dynamodb_Scenario_PartiQLSingle:
         - sdk_version: 2
           github: gov2/dynamodb
           excerpts:
+            - description: Run a scenario that creates a table and runs PartiQL queries.
+              snippet_tags:
+                - gov2.dynamodb.Scenario_PartiQLSingle
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
+                - gov2.dynamodb.Movie.struct
             - description:
-                Create a struct that is a receiver for methods that can run
-                PartiQL statements.
+                Create a struct and methods that run PartiQL statements.
               snippet_tags:
                 - gov2.dynamodb.PartiQLRunner.struct
                 - gov2.dynamodb.ExecuteStatement.Insert
                 - gov2.dynamodb.ExecuteStatement.Select
                 - gov2.dynamodb.ExecuteStatement.Update
                 - gov2.dynamodb.ExecuteStatement.Delete
-            - description: Run a scenario that creates a table and runs PartiQL queries.
-              snippet_tags:
-                - gov2.dynamodb.Scenario_PartiQLSingle
     Kotlin:
       versions:
         - sdk_version: 1
@@ -2139,7 +2166,7 @@ dynamodb_Scenario_PartiQLSingle:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/dynamodb
+          github: rustv1/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -2178,8 +2205,15 @@ dynamodb_Scenario_PartiQLBatch:
           github: gov2/dynamodb
           excerpts:
             - description:
-                Create a struct that is a receiver for methods that can run
-                PartiQL statements.
+                Run a scenario that creates a table and runs batches of
+                PartiQL queries.
+              snippet_tags:
+                - gov2.dynamodb.Scenario_PartiQLBatch
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
+                - gov2.dynamodb.Movie.struct
+            - description:
+                Create a struct and methods that run PartiQL statements.
               snippet_tags:
                 - gov2.dynamodb.PartiQLRunner.struct
                 - gov2.dynamodb.BatchExecuteStatement.Insert
@@ -2187,11 +2221,6 @@ dynamodb_Scenario_PartiQLBatch:
                 - gov2.dynamodb.ExecuteStatement.Select.Projected
                 - gov2.dynamodb.BatchExecuteStatement.Update
                 - gov2.dynamodb.BatchExecuteStatement.Delete
-            - description:
-                Run a scenario that creates a table and runs batches of
-                PartiQL queries.
-              snippet_tags:
-                - gov2.dynamodb.Scenario_PartiQLBatch
     Kotlin:
       versions:
         - sdk_version: 1

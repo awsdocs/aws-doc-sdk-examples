@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DetectDominantLanguageExample
 {
@@ -11,8 +11,7 @@ namespace DetectDominantLanguageExample
 
     /// <summary>
     /// This example calls the Amazon Comprehend service to determine the
-    /// dominant language. The example was created using the AWS SDK for .NET
-    /// 3.7 and .NET Core 5.0.
+    /// dominant language.
     /// </summary>
     public static class DetectDominantLanguage
     {

@@ -1,11 +1,6 @@
 #!/bin/bash
-
-###############################################################################
-#
-#    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#    SPDX-License-Identifier: Apache-2.0
-#
-###############################################################################
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 ###############################################################################
 #
@@ -35,7 +30,9 @@ function main() {
     local current_directory
     current_directory=$(pwd)
     cd ..
+
     source ./iam_operations.sh
+
     source ./iam_create_user_assume_role_scenario.sh
     # shellcheck disable=SC2164
     cd "$current_directory"

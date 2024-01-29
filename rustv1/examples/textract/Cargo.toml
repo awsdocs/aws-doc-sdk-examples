@@ -1,0 +1,18 @@
+[package]
+name = "textract-code-examples"
+version = "0.1.0"
+authors = [
+    "Zelda Hessler <zhessler@amazon.com>",
+]
+edition = "2021"
+
+# For more keys and their definitions, see https://doc.rust-lang.org/cargo/reference/manifest.html.
+
+[dependencies]
+aws-config = { version = "1.0.1", features = ["behavior-version-latest"] }
+aws-sdk-textract = { version = "1.3.0" }
+tokio = { version = "1.27", features = ["full"] }
+structopt = { version = "0.3", default-features = false }
+tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
+thiserror = "1.0.49"
+aws-types = { version = "1.0.1" }

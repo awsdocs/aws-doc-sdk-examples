@@ -35,7 +35,7 @@ class BucketCreateWrapper
   # @return [String] The location of the bucket.
   def location
     if @bucket.nil?
-      "None. You must create a bucket before you can get it's location!"
+      "None. You must create a bucket before you can get its location!"
     else
       @bucket.client.get_bucket_location(bucket: @bucket.name).location_constraint
     end

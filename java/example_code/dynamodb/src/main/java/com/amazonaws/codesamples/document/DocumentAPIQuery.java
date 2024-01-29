@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.DocumentAPIQuery] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.DocumentAPIQuery] 
 
 package com.amazonaws.codesamples.document;
 
@@ -67,7 +46,7 @@ public class DocumentAPIQuery {
         String replyId = forumName + "#" + threadSubject;
 
         QuerySpec spec = new QuerySpec().withKeyConditionExpression("Id = :v_id")
-            .withValueMap(new ValueMap().withString(":v_id", replyId));
+                .withValueMap(new ValueMap().withString(":v_id", replyId));
 
         ItemCollection<QueryOutcome> items = table.query(spec);
 
@@ -87,7 +66,7 @@ public class DocumentAPIQuery {
         String replyId = forumName + "#" + threadSubject;
 
         QuerySpec spec = new QuerySpec().withKeyConditionExpression("Id = :v_id")
-            .withValueMap(new ValueMap().withString(":v_id", replyId)).withMaxPageSize(1);
+                .withValueMap(new ValueMap().withString(":v_id", replyId)).withMaxPageSize(1);
 
         ItemCollection<QueryOutcome> items = table.query(spec);
 
@@ -120,8 +99,8 @@ public class DocumentAPIQuery {
         String replyId = forumName + "#" + threadSubject;
 
         QuerySpec spec = new QuerySpec().withProjectionExpression("Message, ReplyDateTime, PostedBy")
-            .withKeyConditionExpression("Id = :v_id and ReplyDateTime <= :v_reply_dt_tm")
-            .withValueMap(new ValueMap().withString(":v_id", replyId).withString(":v_reply_dt_tm", twoWeeksAgoStr));
+                .withKeyConditionExpression("Id = :v_id and ReplyDateTime <= :v_reply_dt_tm")
+                .withValueMap(new ValueMap().withString(":v_id", replyId).withString(":v_reply_dt_tm", twoWeeksAgoStr));
 
         ItemCollection<QueryOutcome> items = table.query(spec);
 
@@ -146,9 +125,9 @@ public class DocumentAPIQuery {
         String replyId = forumName + "#" + threadSubject;
 
         QuerySpec spec = new QuerySpec().withProjectionExpression("Message, ReplyDateTime, PostedBy")
-            .withKeyConditionExpression("Id = :v_id and ReplyDateTime between :v_start_dt and :v_end_dt")
-            .withValueMap(new ValueMap().withString(":v_id", replyId).withString(":v_start_dt", startDate)
-                .withString(":v_end_dt", endDate));
+                .withKeyConditionExpression("Id = :v_id and ReplyDateTime between :v_start_dt and :v_end_dt")
+                .withValueMap(new ValueMap().withString(":v_id", replyId).withString(":v_start_dt", startDate)
+                        .withString(":v_end_dt", endDate));
 
         ItemCollection<QueryOutcome> items = table.query(spec);
 
@@ -166,8 +145,8 @@ public class DocumentAPIQuery {
         String replyId = forumName + "#" + threadSubject;
 
         QuerySpec spec = new QuerySpec().withProjectionExpression("Message, ReplyDateTime, PostedBy")
-            .withKeyConditionExpression("Id = :v_id").withFilterExpression("PostedBy = :v_postedby")
-            .withValueMap(new ValueMap().withString(":v_id", replyId).withString(":v_postedby", "User B"));
+                .withKeyConditionExpression("Id = :v_id").withFilterExpression("PostedBy = :v_postedby")
+                .withValueMap(new ValueMap().withString(":v_id", replyId).withString(":v_postedby", "User B"));
 
         ItemCollection<QueryOutcome> items = table.query(spec);
 
@@ -180,4 +159,4 @@ public class DocumentAPIQuery {
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.DocumentAPIQuery] 
+// snippet-end:[dynamodb.java.codeexample.DocumentAPIQuery]

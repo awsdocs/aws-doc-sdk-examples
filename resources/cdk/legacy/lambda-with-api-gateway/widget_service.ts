@@ -1,22 +1,6 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-comment:[This should be in the lib/ directory]
-// snippet-comment:[and only works with my_widget_service.ts in the bin/ directory]
-// snippet-comment:[and widgets.js in the resources/ directory.]
-// snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[Creates an S3 bucket, handler for HTTP requests, and API Gateway to Lambda functions.]
-// snippet-keyword:[CDK V1.0.0]
-// snippet-keyword:[ApiGateway.LambdaIntegration function]
-// snippet-keyword:[ApiGateway.RestApi function]
-// snippet-keyword:[Bucket.grantReadWrite function]
-// snippet-keyword:[Lambda.Function function]
-// snippet-keyword:[S3.Bucket function]
-// snippet-keyword:[TypeScript]
-// snippet-sourcesyntax:[javascript]
-// snippet-service:[cdk]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-7-11]
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License. A copy of the
@@ -44,19 +28,19 @@ export class WidgetService extends core.Construct {
       code: lambda.Code.asset("resources"),
       handler: "widgets.main",
       environment: {
-        BUCKET: bucket.bucketName
-      }
+        BUCKET: bucket.bucketName,
+      },
     });
 
     bucket.grantReadWrite(handler); // was: handler.role);
 
     const api = new apigateway.RestApi(this, "widgets-api", {
       restApiName: "Widget Service",
-      description: "This service serves widgets."
+      description: "This service serves widgets.",
     });
 
     const getWidgetsIntegration = new apigateway.LambdaIntegration(handler, {
-      requestTemplates: { "application/json": '{ "statusCode": "200" }' }
+      requestTemplates: { "application/json": '{ "statusCode": "200" }' },
     });
 
     api.root.addMethod("GET", getWidgetsIntegration); // GET /

@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[FindRunningInstances.kt demonstrates how to find running Amazon Elastic Compute Cloud (Amazon EC2) instances by using a filter.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon EC2]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.ec2
 

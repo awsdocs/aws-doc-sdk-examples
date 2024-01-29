@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DeregisterConsumerExample
 {
@@ -10,8 +10,7 @@ namespace DeregisterConsumerExample
     using Amazon.Kinesis.Model;
 
     /// <summary>
-    /// Shows how to deregister a consumer from an Amazon Kinesis stream. The
-    /// example was written using the AWS SDK for .NET 3.7 and .NET Core 5.0.
+    /// Shows how to deregister a consumer from an Amazon Kinesis stream.
     /// </summary>
     public class DeregisterConsumer
     {

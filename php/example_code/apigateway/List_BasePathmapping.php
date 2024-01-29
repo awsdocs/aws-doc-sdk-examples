@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[apigateway.php.list_base_path_mapping.complete]
 // snippet-start:[apigateway.php.list_base_path_mapping.import]
@@ -57,14 +56,4 @@ function listTheBasePathMappings()
 // listTheBasePathMappings();
 // snippet-end:[apigateway.php.list_base_path_mapping.main]
 // snippet-end:[apigateway.php.list_base_path_mapping.complete]
-// snippet-sourcedescription:[List_BasePathmapping.php demonstrates how to list base path mappings for a given domain in Amazon API Gateway.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon API Gateway]
-// snippet-service:[apigateway]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-03-31]
-// snippet-sourceauthor:[pccornel (AWS)]
 

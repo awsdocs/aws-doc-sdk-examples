@@ -1,11 +1,9 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.route53recoverycluster;
 
-//snippet-start:[route53_rec.java2.get_routing.import]
+// snippet-start:[route53_rec.java2.get_routing.import]
 import com.fasterxml.jackson.databind.ObjectMapper;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53recoverycluster.Route53RecoveryClusterClient;
@@ -20,10 +18,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-//snippet-end:[route53_rec.java2.get_routing.import]
+// snippet-end:[route53_rec.java2.get_routing.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -53,23 +52,26 @@ public class GetRoutingControlState {
 
     private static List<ClusterEndpoint> getClusterEndpoints(final String endpointsFile) {
         try {
-            ClusterEndpoints endpoints =
-                    (new ObjectMapper().readValue(new File(endpointsFile), ClusterEndpoints.class));
+            ClusterEndpoints endpoints = (new ObjectMapper().readValue(new File(endpointsFile),
+                    ClusterEndpoints.class));
             return Arrays.asList(endpoints.getClusterEndpoints()).stream().map(
                     endpoint -> ClusterEndpoint.builder().endpoint(endpoint.getEndpoint()).region(endpoint.getRegion())
-                            .build()).collect(
-                    Collectors.toList());
+                            .build())
+                    .collect(
+                            Collectors.toList());
         } catch (IOException e) {
             System.out.println(e);
             return new ArrayList<>();
         }
     }
 
-    //snippet-start:[route53_rec.java2.get_routing.main]
+    // snippet-start:[route53_rec.java2.get_routing.main]
     public static GetRoutingControlStateResponse getRoutingControlState(List<ClusterEndpoint> clusterEndpoints,
-                                                                        String routingControlArn) {
-        // As a best practice, we recommend choosing a random cluster endpoint to get or set routing control states.
-        // For more information, see https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
+            String routingControlArn) {
+        // As a best practice, we recommend choosing a random cluster endpoint to get or
+        // set routing control states.
+        // For more information, see
+        // https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
         Collections.shuffle(clusterEndpoints);
         for (ClusterEndpoint clusterEndpoint : clusterEndpoints) {
             try {
@@ -86,5 +88,5 @@ public class GetRoutingControlState {
         }
         return null;
     }
-    //snippet-end:[route53_rec.java2.get_routing.main]
+    // snippet-end:[route53_rec.java2.get_routing.main]
 }

@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace EC2Actions;
 
@@ -675,7 +675,7 @@ public class EC2Wrapper
             });
         }
     }
-    //snippet-end:[EC2.dotnetv3.StopInstances]
+    // snippet-end:[EC2.dotnetv3.StopInstances]
 
     // snippet-start:[EC2.dotnetv3.TerminateInstances]
     /// <summary>

@@ -14,6 +14,10 @@ from test_tools.apigatewaymanagementapi_stubber import ApiGatewayManagementApiSt
 from test_tools.apigateway_v2_stubber import ApiGatewayV2Stubber
 from test_tools.auditmanager_stubber import AuditManagerStubber
 from test_tools.autoscaling_stubber import AutoScalingStubber
+from test_tools.bedrock_stubber import BedrockStubber
+from test_tools.bedrock_runtime_stubber import BedrockRuntimeStubber
+from test_tools.bedrock_agent_stubber import BedrockAgentStubber
+from test_tools.bedrock_agent_runtime_stubber import BedrockAgentRuntimeStubber
 from test_tools.cloudformation_stubber import CloudFormationStubber
 from test_tools.cloudfront_stubber import CloudFrontStubber
 from test_tools.cloudwatch_stubber import CloudWatchStubber
@@ -76,6 +80,14 @@ def stubber_factory(service_name):
         return AuditManagerStubber
     elif service_name == "autoscaling":
         return AutoScalingStubber
+    elif service_name == "bedrock":
+        return BedrockStubber
+    elif service_name == "bedrock-runtime":
+        return BedrockRuntimeStubber
+    elif service_name == "bedrock-agent":
+        return BedrockAgentStubber
+    elif service_name == "bedrock-agent-runtime":
+        return BedrockAgentRuntimeStubber
     elif service_name == "cloudformation":
         return CloudFormationStubber
     elif service_name == "cloudfront":

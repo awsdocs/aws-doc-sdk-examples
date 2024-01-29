@@ -52,6 +52,10 @@ cross_PAM:
       versions:
         - sdk_version: 3
           block_content: cross_PAM_JavaScript_block.xml
+    PHP:
+      versions:
+        - sdk_version: 3
+          block_content: cross_PAM_PHP_block.xml
     Rust:
       versions:
         - sdk_version: 1
@@ -68,6 +72,7 @@ cross_PAM:
     dynamodb:
     rekognition:
     lambda:
+    api-gateway:
 cross_RedshiftDataTracker:
   title: Create an &RSlong; item tracker
   title_abbrev: Create a web application to track &RS; data
@@ -417,6 +422,7 @@ cross_ServerlessWorkflows:
     JavaScript:
       versions:
         - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/lambda-step-functions
           block_content: cross_ServerlessWorkflows_JavaScript_block.xml
   service_main: sfn
   services:
@@ -641,6 +647,26 @@ cross_ResilientService:
     - Control web server response to requests and health checks by updating &SYSlong; parameters.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/ResilientService
+          excerpts:
+            - description: Run the interactive scenario at a command prompt.
+              snippet_tags:
+                - ResilientService.dotnetv3.Scenario
+            - description: Create a class that wraps &AS; and &EC2; actions.
+              snippet_tags:
+                - ResilientService.dotnetv3.AutoScalerWrapper
+            - description: Create a class that wraps &ELB; actions.
+              snippet_tags:
+                - ResilientService.dotnetv3.ELB.ElasticLoadBalancerWrapper
+            - description: Create a class that uses &DDB; to simulate a recommendation service.
+              snippet_tags:
+                - ResilientService.dotnetv3.RecommendationService
+            - description: Create a class that wraps &SYS; actions.
+              snippet_tags:
+                - ResilientService.dotnetv3.SmParameterWrapper
     Java:
       versions:
         - sdk_version: 2
@@ -681,11 +707,27 @@ cross_ResilientService:
             - description: Create a class that wraps &SYS; actions.
               snippet_tags:
                 - python.example_code.workflow.ResilientService_ParameterHelper
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-resilient-service
+          excerpts:
+            - description: Run the interactive scenario at a command prompt.
+              snippet_files:
+                - javascriptv3/example_code/cross-services/wkflw-resilient-service/index.js
+            - description: Create steps to deploy all of the resources.
+              snippet_files:
+                - javascriptv3/example_code/cross-services/wkflw-resilient-service/steps-deploy.js
+            - description: Create steps to run the demo.
+              snippet_files:
+                - javascriptv3/example_code/cross-services/wkflw-resilient-service/steps-demo.js
+            - description: Create steps to destroy all of the resources.
+              snippet_files:
+                - javascriptv3/example_code/cross-services/wkflw-resilient-service/steps-destroy.js
   services:
     auto-scaling: {
       CreateAutoScalingGroup, DescribeAutoScalingGroups, TerminateInstanceInAutoScalingGroup,
-      AttachLoadBalancerTargetGroups, DeleteAutoScalingGroup, DescribeAutoScalingGroups,
-      UpdateAutoScalingGroup}
+      AttachLoadBalancerTargetGroups, DeleteAutoScalingGroup, UpdateAutoScalingGroup}
     ec2: {
       DescribeIamInstanceProfileAssociations, ReplaceIamInstanceProfileAssociation, RebootInstances,
       CreateLaunchTemplate, DeleteLaunchTemplate, DescribeAvailabilityZones, DescribeInstances,
@@ -694,3 +736,58 @@ cross_ResilientService:
       DescribeLoadBalancers, CreateTargetGroup, DescribeTargetGroups, DeleteTargetGroup,
       CreateLoadBalancer, CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
     iam: {CreateInstanceProfile, DeleteInstanceProfile}
+cross_FMPlayground:
+  title: Create a sample application that offers playgrounds to interact with &BR; foundation models using an &AWS; SDK
+  title_abbrev: Create a playground application to interact with &BR; foundation models
+  synopsis: create playgrounds to interact with &BR; foundation models through different modalities.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_FMPlayground_NetV3_block.xml
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_FMPlayground_Java_block.xml
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_FMPlayground_Python_block.xml
+  service_main: bedrock-runtime
+  services:
+    bedrock-runtime:
+cross_Testing:
+  title: Example approaches for unit and integration testing with an &AWS; SDK
+  title_abbrev: Unit and integration test with an SDK
+  synopsis: examples for best-practice techniques when writing unit and integration tests using an &AWS; SDK.
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/testing
+          excerpts:
+            - description: Cargo.toml for testing examples.
+              snippet_files:
+                - rustv1/examples/testing/Cargo.toml
+            - description: Unit testing example using automock and a service wrapper.
+              snippet_files:
+                - rustv1/examples/testing/src/wrapper.rs
+            - description: Integration testing example using StaticReplayClient.
+              snippet_files:
+                - rustv1/examples/testing/src/replay.rs
+  services:
+    s3:
+cross_ServerlessPromptChaining:
+  title: Build and orchestrate generative AI applications with &BR; and &SFN;
+  title_abbrev: Orchestrate generative AI applications with &SFN;
+  synopsis: build and orchestrate generative AI applications with &BR; and &SFN;.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_ServerlessPromptChaining_Python_block.xml
+  service_main: bedrock
+  services:
+    bedrock:

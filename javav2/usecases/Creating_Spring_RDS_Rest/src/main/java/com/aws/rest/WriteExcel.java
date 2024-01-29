@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.aws.rest;
 
 import jxl.CellView;
@@ -42,7 +41,7 @@ import java.util.Properties;
 
 @Component
 public class WriteExcel {
-    static WritableCellFormat times ;
+    static WritableCellFormat times;
     static WritableCellFormat timesBoldUnderline;
 
     static {
@@ -51,7 +50,8 @@ public class WriteExcel {
             times = new WritableCellFormat(times10pt);
             times.setWrap(true);
 
-            WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false, UnderlineStyle.SINGLE);
+            WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
+                    UnderlineStyle.SINGLE);
             timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
             timesBoldUnderline.setWrap(true);
         } catch (WriteException e) {
@@ -178,7 +178,8 @@ public class WriteExcel {
             msg.addBodyPart(wrap);
 
             MimeBodyPart att = new MimeBodyPart();
-            DataSource fds = new ByteArrayDataSource(attachment, "application/vnc.openxmlformats-officedocument.spreadsheetml.sheet");
+            DataSource fds = new ByteArrayDataSource(attachment,
+                    "application/vnc.openxmlformats-officedocument.spreadsheetml.sheet");
             att.setDataHandler(new DataHandler(fds));
             att.setFileName(attachmentName);
 

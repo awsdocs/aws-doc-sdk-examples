@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace S3_BasicsScenario.Tests
 {
@@ -8,7 +8,6 @@ namespace S3_BasicsScenario.Tests
         private string newBucket = "";
         private string keyName = "sample.txt";
         private string destinationFolderName = "saved_pictures";
-        private string sourceFolderPath = "~/pictures";
 
         public IAmazonS3 CreateMockS3Client()
         {

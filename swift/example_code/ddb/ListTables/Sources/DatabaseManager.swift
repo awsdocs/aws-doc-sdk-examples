@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /// A class containing functions to access Amazon DynamoDB.
 ///
 /// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

@@ -1,11 +1,1 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0.
- */
-
-pub mod add;
-pub mod create;
-pub mod delete;
-pub mod error;
-pub mod list;
-pub mod movies;
+// This file has been moved to https://github.com/awsdocs/aws-doc-sdk-examples/blob/rust_dev_preview/rustv1/examples/dynamodb/src/scenario/mod.rs

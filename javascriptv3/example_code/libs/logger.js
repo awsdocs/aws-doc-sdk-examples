@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import wrap from "fast-word-wrap";
 
@@ -18,8 +16,12 @@ export class Logger {
     return Promise.resolve();
   }
 
-  hr() {
-    return ["\n", "*".repeat(this.lineLength), "\n"].join("");
+  /**
+   * @param {{ oneLineOnly: boolean }} options
+   */
+  hr({ oneLineOnly } = { oneLineOnly: false }) {
+    const rule = "*".repeat(this.lineLength);
+    return oneLineOnly ? rule : ["\n", rule, "\n"].join("");
   }
 
   /**

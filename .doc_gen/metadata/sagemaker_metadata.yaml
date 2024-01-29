@@ -233,7 +233,7 @@ sagemaker_ListNotebookInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sagemaker
+          github: rustv1/examples/sagemaker
           excerpts:
             - description:
               snippet_tags:
@@ -257,7 +257,7 @@ sagemaker_ListTrainingJobs:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sagemaker
+          github: rustv1/examples/sagemaker
           excerpts:
             - description:
               snippet_tags:

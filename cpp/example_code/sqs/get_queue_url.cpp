@@ -1,7 +1,5 @@
-/*
-  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -14,12 +12,12 @@
  *
  **/
 
-//snippet-start:[sqs.cpp.get_queue_url.inc]
+// snippet-start:[sqs.cpp.get_queue_url.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/GetQueueUrlRequest.h>
 #include <iostream>
-//snippet-end:[sqs.cpp.get_queue_url.inc]
+// snippet-end:[sqs.cpp.get_queue_url.inc]
 #include "sqs_samples.h"
 
 // snippet-start:[cpp.example_code.sqs.GetQueueUrl]

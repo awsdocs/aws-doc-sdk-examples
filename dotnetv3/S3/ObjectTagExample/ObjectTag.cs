@@ -1,11 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// This example shows how to work with tags in Amazon Simple Storage
-/// Service (Amazon S3) objects. The example was created using the AWS SDK
-/// for .NET version 3.7 and .NET Core 5.0.
-/// </summary>
 namespace ObjectTagExample
 {
     // snippet-start:[S3.dotnetv3.ObjectTagExample]
@@ -16,6 +11,10 @@ namespace ObjectTagExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
+    /// <summary>
+    /// This example shows how to work with tags in Amazon Simple Storage
+    /// Service (Amazon S3) objects.
+    /// </summary>
     public class ObjectTag
     {
         public static async Task Main()

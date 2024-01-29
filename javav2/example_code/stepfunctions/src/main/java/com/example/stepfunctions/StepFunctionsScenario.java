@@ -1,17 +1,11 @@
-//snippet-sourcedescription:[StepFunctionsScenario.java demonstrates how to runs an interactive scenario that shows how to get started using Step Functions using the AWS SDK for Java v2.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS Step Functions]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.stepfunctions;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.CreateRoleRequest;
@@ -43,11 +37,13 @@ import java.util.UUID;
 
 // snippet-start:[stepfunctions.java2.scenario.main]
 /**
- * You can obtain the JSON file to create a state machine in the following GitHub location.
+ * You can obtain the JSON file to create a state machine in the following
+ * GitHub location.
  *
  * https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files
  *
- * To run this code example, place the chat_sfn_state_machine.json file into your project's resources folder.
+ * To run this code example, place the chat_sfn_state_machine.json file into
+ * your project's resources folder.
  *
  * Also, set up your development environment, including your credentials.
  *
@@ -67,51 +63,53 @@ import java.util.UUID;
  */
 public class StepFunctionsScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    public static void main(String[]args) throws Exception {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <roleARN> <activityName> <stateMachineName>\n\n" +
-            "Where:\n" +
-            "    roleName - The name of the IAM role to create for this state machine.\n" +
-            "    activityName - The name of an activity to create." +
-            "    stateMachineName - The name of the state machine to create.\n";
 
-       if (args.length != 3) {
-           System.out.println(usage);
-           System.exit(1);
-       }
+    public static void main(String[] args) throws Exception {
+        final String usage = """
+
+                Usage:
+                    <roleARN> <activityName> <stateMachineName>
+
+                Where:
+                    roleName - The name of the IAM role to create for this state machine.
+                    activityName - The name of an activity to create.
+                    stateMachineName - The name of the state machine to create.
+                """;
+
+        if (args.length != 3) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         String roleName = args[0];
         String activityName = args[1];
         String stateMachineName = args[2];
         String polJSON = "{\n" +
-            "    \"Version\": \"2012-10-17\",\n" +
-            "    \"Statement\": [\n" +
-            "        {\n" +
-            "            \"Sid\": \"\",\n" +
-            "            \"Effect\": \"Allow\",\n" +
-            "            \"Principal\": {\n" +
-            "                \"Service\": \"states.amazonaws.com\"\n" +
-            "            },\n" +
-            "            \"Action\": \"sts:AssumeRole\"\n" +
-            "        }\n" +
-            "    ]\n" +
-            "}" ;
+                "    \"Version\": \"2012-10-17\",\n" +
+                "    \"Statement\": [\n" +
+                "        {\n" +
+                "            \"Sid\": \"\",\n" +
+                "            \"Effect\": \"Allow\",\n" +
+                "            \"Principal\": {\n" +
+                "                \"Service\": \"states.amazonaws.com\"\n" +
+                "            },\n" +
+                "            \"Action\": \"sts:AssumeRole\"\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
 
         Scanner sc = new Scanner(System.in);
-        boolean action = false ;
+        boolean action = false;
 
         Region region = Region.US_EAST_1;
         SfnClient sfnClient = SfnClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         Region regionGl = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(regionGl)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(regionGl)
+                .build();
 
         System.out.println(DASHES);
         System.out.println("Welcome to the AWS Step Functions example scenario.");
@@ -120,11 +118,13 @@ public class StepFunctionsScenario {
         System.out.println(DASHES);
         System.out.println("1. Create an activity.");
         String activityArn = createActivity(sfnClient, activityName);
-        System.out.println("The ARN of the activity is "+activityArn);
+        System.out.println("The ARN of the activity is " + activityArn);
         System.out.println(DASHES);
 
-        // Get JSON to use for the state machine and place the activityArn value into it.
-        InputStream input = StepFunctionsScenario.class.getClassLoader().getResourceAsStream("chat_sfn_state_machine.json");
+        // Get JSON to use for the state machine and place the activityArn value into
+        // it.
+        InputStream input = StepFunctionsScenario.class.getClassLoader()
+                .getResourceAsStream("chat_sfn_state_machine.json");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readValue(input, JsonNode.class);
         String jsonString = mapper.writeValueAsString(jsonNode);
@@ -140,9 +140,9 @@ public class StepFunctionsScenario {
 
         System.out.println(DASHES);
         System.out.println("2. Create a state machine.");
-        String roleARN = createIAMRole(iam, roleName, polJSON );
+        String roleARN = createIAMRole(iam, roleName, polJSON);
         String stateMachineArn = createMachine(sfnClient, roleARN, stateMachineName, stateDefinition);
-        System.out.println("The ARN of the state machine is "+stateMachineArn);
+        System.out.println("The ARN of the state machine is " + stateMachineArn);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -150,17 +150,17 @@ public class StepFunctionsScenario {
         describeStateMachine(sfnClient, stateMachineArn);
         System.out.println("What should ChatSFN call you?");
         String userName = sc.nextLine();
-        System.out.println("Hello "+userName);
+        System.out.println("Hello " + userName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         // The JSON to pass to the StartExecution call.
-        String executionJson = "{ \"name\" : \""+userName +"\" }";
+        String executionJson = "{ \"name\" : \"" + userName + "\" }";
         System.out.println(executionJson);
         System.out.println("4. Start execution of the state machine and interact with it.");
         String runArn = startWorkflow(sfnClient, stateMachineArn, executionJson);
-        System.out.println("The ARN of the state machine execution is "+runArn);
-        List<String> myList ;
+        System.out.println("The ARN of the state machine execution is " + runArn);
+        List<String> myList;
         while (!action) {
             myList = getActivityTask(sfnClient, activityArn);
             System.out.println("ChatSFN: " + myList.get(1));
@@ -196,13 +196,13 @@ public class StepFunctionsScenario {
         System.out.println(DASHES);
     }
 
-    public static String createIAMRole(IamClient iam, String rolename, String polJSON ) {
+    public static String createIAMRole(IamClient iam, String rolename, String polJSON) {
         try {
             CreateRoleRequest request = CreateRoleRequest.builder()
-                .roleName(rolename)
-                .assumeRolePolicyDocument(polJSON)
-                .description("Created using the AWS SDK for Java")
-                .build();
+                    .roleName(rolename)
+                    .assumeRolePolicyDocument(polJSON)
+                    .description("Created using the AWS SDK for Java")
+                    .build();
 
             CreateRoleResponse response = iam.createRole(request);
             return response.role().arn();
@@ -218,25 +218,25 @@ public class StepFunctionsScenario {
     public static void describeExe(SfnClient sfnClient, String executionArn) {
         try {
             DescribeExecutionRequest executionRequest = DescribeExecutionRequest.builder()
-                .executionArn(executionArn)
-                .build();
+                    .executionArn(executionArn)
+                    .build();
 
             String status = "";
             boolean hasSucceeded = false;
             while (!hasSucceeded) {
                 DescribeExecutionResponse response = sfnClient.describeExecution(executionRequest);
                 status = response.statusAsString();
-                if (status.compareTo("RUNNING") ==0) {
+                if (status.compareTo("RUNNING") == 0) {
                     System.out.println("The state machine is still running, let's wait for it to finish.");
                     Thread.sleep(2000);
-                } else if (status.compareTo("SUCCEEDED") ==0) {
+                } else if (status.compareTo("SUCCEEDED") == 0) {
                     System.out.println("The Step Function workflow has succeeded");
                     hasSucceeded = true;
                 } else {
                     System.out.println("The Status is neither running or succeeded");
                 }
             }
-            System.out.println("The Status is "+status);
+            System.out.println("The Status is " + status);
 
         } catch (SfnException | InterruptedException e) {
             System.err.println(e.getMessage());
@@ -249,11 +249,11 @@ public class StepFunctionsScenario {
     public static void sendTaskSuccess(SfnClient sfnClient, String token, String json) {
         try {
             SendTaskSuccessRequest successRequest = SendTaskSuccessRequest.builder()
-            .taskToken(token)
-            .output(json)
-            .build();
+                    .taskToken(token)
+                    .output(json)
+                    .build();
 
-           sfnClient.sendTaskSuccess(successRequest);
+            sfnClient.sendTaskSuccess(successRequest);
 
         } catch (SfnException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -263,11 +263,11 @@ public class StepFunctionsScenario {
     // snippet-end:[stepfunctions.java2.task_success.main]
 
     // snippet-start:[stepfunctions.java2.activity_task.main]
-    public static List<String> getActivityTask(SfnClient sfnClient, String actArn){
+    public static List<String> getActivityTask(SfnClient sfnClient, String actArn) {
         List<String> myList = new ArrayList<>();
         GetActivityTaskRequest getActivityTaskRequest = GetActivityTaskRequest.builder()
-            .activityArn(actArn)
-            .build();
+                .activityArn(actArn)
+                .build();
 
         GetActivityTaskResponse response = sfnClient.getActivityTask(getActivityTaskRequest);
         myList.add(response.taskToken());
@@ -280,11 +280,11 @@ public class StepFunctionsScenario {
     public static void deleteActivity(SfnClient sfnClient, String actArn) {
         try {
             DeleteActivityRequest activityRequest = DeleteActivityRequest.builder()
-                .activityArn(actArn)
-                .build();
+                    .activityArn(actArn)
+                    .build();
 
             sfnClient.deleteActivity(activityRequest);
-            System.out.println("You have deleted "+actArn);
+            System.out.println("You have deleted " + actArn);
 
         } catch (SfnException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -297,14 +297,14 @@ public class StepFunctionsScenario {
     public static void describeStateMachine(SfnClient sfnClient, String stateMachineArn) {
         try {
             DescribeStateMachineRequest stateMachineRequest = DescribeStateMachineRequest.builder()
-                .stateMachineArn(stateMachineArn)
-                .build();
+                    .stateMachineArn(stateMachineArn)
+                    .build();
 
             DescribeStateMachineResponse response = sfnClient.describeStateMachine(stateMachineRequest);
-            System.out.println("The name of the State machine is "+ response.name());
-            System.out.println("The status of the State machine is "+ response.status());
-            System.out.println("The ARN value of the State machine is "+ response.stateMachineArn());
-            System.out.println("The role ARN value is "+ response.roleArn());
+            System.out.println("The name of the State machine is " + response.name());
+            System.out.println("The status of the State machine is " + response.status());
+            System.out.println("The ARN value of the State machine is " + response.stateMachineArn());
+            System.out.println("The role ARN value is " + response.roleArn());
 
         } catch (SfnException e) {
             System.err.println(e.getMessage());
@@ -316,24 +316,24 @@ public class StepFunctionsScenario {
     public static void deleteMachine(SfnClient sfnClient, String stateMachineArn) {
         try {
             DeleteStateMachineRequest deleteStateMachineRequest = DeleteStateMachineRequest.builder()
-                .stateMachineArn(stateMachineArn)
-                .build();
+                    .stateMachineArn(stateMachineArn)
+                    .build();
 
             sfnClient.deleteStateMachine(deleteStateMachineRequest);
             DescribeStateMachineRequest describeStateMachine = DescribeStateMachineRequest.builder()
-                .stateMachineArn(stateMachineArn)
-                .build();
+                    .stateMachineArn(stateMachineArn)
+                    .build();
 
             while (true) {
                 DescribeStateMachineResponse response = sfnClient.describeStateMachine(describeStateMachine);
-                System.out.println("The state machine is not deleted yet. The status is "+response.status());
+                System.out.println("The state machine is not deleted yet. The status is " + response.status());
                 Thread.sleep(3000);
             }
 
         } catch (SfnException | InterruptedException e) {
             System.err.println(e.getMessage());
         }
-        System.out.println(stateMachineArn +" was successfully deleted.");
+        System.out.println(stateMachineArn + " was successfully deleted.");
     }
     // snippet-end:[stepfunctions.java2.delete_machine.main]
 
@@ -343,10 +343,10 @@ public class StepFunctionsScenario {
         String uuidValue = uuid.toString();
         try {
             StartExecutionRequest executionRequest = StartExecutionRequest.builder()
-                .input(jsonEx)
-                .stateMachineArn(stateMachineArn)
-                .name(uuidValue)
-                .build();
+                    .input(jsonEx)
+                    .stateMachineArn(stateMachineArn)
+                    .name(uuidValue)
+                    .build();
 
             StartExecutionResponse response = sfnClient.startExecution(executionRequest);
             return response.executionArn();
@@ -360,14 +360,14 @@ public class StepFunctionsScenario {
     // snippet-end:[stepfunctions.java2.start_execute.main]
 
     // snippet-start:[stepfunctions.java2.create_machine.main]
-    public static String createMachine( SfnClient sfnClient, String roleARN, String stateMachineName, String json) {
+    public static String createMachine(SfnClient sfnClient, String roleARN, String stateMachineName, String json) {
         try {
             CreateStateMachineRequest machineRequest = CreateStateMachineRequest.builder()
-                .definition(json)
-                .name(stateMachineName)
-                .roleArn(roleARN)
-                .type(StateMachineType.STANDARD)
-                .build();
+                    .definition(json)
+                    .name(stateMachineName)
+                    .roleArn(roleARN)
+                    .type(StateMachineType.STANDARD)
+                    .build();
 
             CreateStateMachineResponse response = sfnClient.createStateMachine(machineRequest);
             return response.stateMachineArn();
@@ -384,8 +384,8 @@ public class StepFunctionsScenario {
     public static String createActivity(SfnClient sfnClient, String activityName) {
         try {
             CreateActivityRequest activityRequest = CreateActivityRequest.builder()
-                .name(activityName)
-                .build();
+                    .name(activityName)
+                    .build();
 
             CreateActivityResponse response = sfnClient.createActivity(activityRequest);
             return response.activityArn();

@@ -1,16 +1,11 @@
-//snippet-sourcedescription:[EnhancedModifyItem.java demonstrates how to modify an item located in an Amazon DynamoDB table by using the enhanced client.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon DynamoDB]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.dynamodb.enhanced;
 
+// snippet-start:[dynamodb.java2.mapping.moditem.main]
 // snippet-start:[dynamodb.java2.mapping.moditem.import]
 import com.example.dynamodb.Customer;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
@@ -33,51 +28,48 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
  *
  *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-
 public class EnhancedModifyItem {
-
     public static void main(String[] args) {
-        String usage = "Usage:\n" +
-            "    <key> <email> \n\n" +
-            "Where:\n" +
-            "    key - the name of the key in the table (id120).\n" +
-            "    email - the value of the modified email column.\n" ;
+        String usage = """
+                Usage:
+                    <key> <email>\s
 
-       if (args.length != 2) {
+                Where:
+                    key - the name of the key in the table (id120).
+                    email - the value of the modified email column.
+                """;
+
+        if (args.length != 2) {
             System.out.println(usage);
             System.exit(1);
-       }
+        }
 
         String key = args[0];
         String email = args[1];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-            .credentialsProvider(credentialsProvider)
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-            .dynamoDbClient(ddb)
-            .build();
+                .dynamoDbClient(ddb)
+                .build();
 
-        String updatedValue = modifyItem(enhancedClient,key,email);
-        System.out.println("The updated name value is "+updatedValue);
+        String updatedValue = modifyItem(enhancedClient, key, email);
+        System.out.println("The updated name value is " + updatedValue);
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.mapping.moditem.main]
     public static String modifyItem(DynamoDbEnhancedClient enhancedClient, String keyVal, String email) {
-
         try {
-
-            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
+            DynamoDbTable<Customer> mappedTable = enhancedClient.table("Customer",
+                    TableSchema.fromBean(Customer.class));
             Key key = Key.builder()
-                .partitionValue(keyVal)
-                .build();
+                    .partitionValue(keyVal)
+                    .build();
 
             // Get the item by using the key and update the email value.
-            Customer customerRec = mappedTable.getItem(r->r.key(key));
+            Customer customerRec = mappedTable.getItem(r -> r.key(key));
             customerRec.setEmail(email);
             mappedTable.updateItem(customerRec);
             return customerRec.getEmail();
@@ -88,7 +80,5 @@ public class EnhancedModifyItem {
         }
         return "";
     }
-    // snippet-end:[dynamodb.java2.mapping.moditem.main]
 }
-
-
+// snippet-end:[dynamodb.java2.mapping.moditem.main]

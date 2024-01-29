@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[DeleteNamedQueryExample.java demonstrates how to delete a named query by using the named query ID.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Athena]
-//snippet-service:[athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-06-25]
-//snippet-sourceauthor:[soo-aws]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.athena;
 
 import com.amazonaws.services.athena.AmazonAthena;
@@ -20,10 +13,8 @@ import com.amazonaws.services.athena.model.DeleteNamedQueryResult;
  * -------------------------------------
  * This code shows how to delete a named query by using the named query ID.
  */
-public class DeleteNamedQueryExample
-{
-    private static String getNamedQueryId(AmazonAthena athenaClient)
-    {
+public class DeleteNamedQueryExample {
+    private static String getNamedQueryId(AmazonAthena athenaClient) {
         // Create the NameQuery Request.
         CreateNamedQueryRequest createNamedQueryRequest = new CreateNamedQueryRequest()
                 .withDatabase(ExampleConstants.ATHENA_DEFAULT_DATABASE)
@@ -36,8 +27,7 @@ public class DeleteNamedQueryExample
         return createNamedQueryResult.getNamedQueryId();
     }
 
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         // Build an Athena client
         AthenaClientFactory factory = new AthenaClientFactory();
         AmazonAthena athenaClient = factory.createClient();

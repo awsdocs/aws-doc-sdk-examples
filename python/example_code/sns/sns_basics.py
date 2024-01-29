@@ -246,8 +246,8 @@ class SnsWrapper:
         """
         Publishes a multi-format message to a topic. A multi-format message takes
         different forms based on the protocol of the subscriber. For example,
-        an SMS subscriber might receive a short, text-only version of the message
-        while an email subscriber could receive an HTML version of the message.
+        an SMS subscriber might receive a short version of the message
+        while an email subscriber could receive a longer version.
 
         :param topic: The topic to publish to.
         :param subject: The subject of the message.

@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[GetObjectData.kt demonstrates how to read data from an Amazon Simple Storage Service (Amazon S3) object.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon S3]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.s3
 
@@ -25,7 +19,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
      Usage:
          <bucketName> <objectKey> <objectPath>
@@ -49,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.getobjectdata.main]
 suspend fun getObjectBytes(bucketName: String, keyName: String, path: String) {
-
     val request = GetObjectRequest {
         key = keyName
         bucket = bucketName

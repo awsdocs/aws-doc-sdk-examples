@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Copyright 2018-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -12,15 +14,6 @@
  * specific language governing permissions and limitations under the License.
  */
 
-// snippet-sourcedescription:[DynamoDBScanItems demonstrates how to return one or more items and item attributes by accessing every item in a table.]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Code Sample]]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-01-27]
-// snippet-sourceauthor:[AWS-scmacdon]
-
 // snippet-start:[dynamodb.java.dynamoDB_scan.complete]
 package aws.example.dynamodb;
 
@@ -34,7 +27,6 @@ import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import java.util.Map;
 import java.util.Set;
 // snippet-end:[dynamodb.java.dynamoDB_scan.import]
-
 
 public class DynamoDBScanItems {
 
@@ -61,12 +53,11 @@ public class DynamoDBScanItems {
 
                 for (String key : keys) {
 
-                    System.out.println ("The key name is "+key +"\n" );
-                    System.out.println("The value is "+item.get(key).getS());
+                    System.out.println("The key name is " + key + "\n");
+                    System.out.println("The value is " + item.get(key).getS());
 
                 }
             }
-
 
         } catch (AmazonDynamoDBException e) {
             e.getStackTrace();

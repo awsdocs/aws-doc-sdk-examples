@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.dynamodb;
 
 import software.amazon.awssdk.enhanced.dynamodb.EnhancedType;
@@ -16,21 +15,20 @@ import static software.amazon.awssdk.enhanced.dynamodb.mapper.StaticAttributeTag
 
 @DynamoDbBean
 public class Contact {
-    public static final StaticTableSchema.Builder<Contact> TABLE_SCHEMA =
-            StaticTableSchema.builder(Contact.class)
-                    .newItemSupplier(Contact::new)
-                    .addAttribute(String.class, a -> a.name("id")
-                            .getter(Contact::getId)
-                            .setter(Contact::setId)
-                            .tags(primaryPartitionKey()))
-                    .addAttribute(EnhancedType.listOf(String.class),
-                            a -> a.name("pid")
-                                    .getter(Contact::getPid)
-                                    .setter(Contact::setPid)
-                                    .attributeConverter(ListAttributeConverter.builder(EnhancedType.listOf(String.class))
-                                            .collectionConstructor(ArrayList::new)
-                                            .elementConverter(StringAttributeConverter.create())
-                                            .build()));
+    public static final StaticTableSchema.Builder<Contact> TABLE_SCHEMA = StaticTableSchema.builder(Contact.class)
+            .newItemSupplier(Contact::new)
+            .addAttribute(String.class, a -> a.name("id")
+                    .getter(Contact::getId)
+                    .setter(Contact::setId)
+                    .tags(primaryPartitionKey()))
+            .addAttribute(EnhancedType.listOf(String.class),
+                    a -> a.name("pid")
+                            .getter(Contact::getPid)
+                            .setter(Contact::setPid)
+                            .attributeConverter(ListAttributeConverter.builder(EnhancedType.listOf(String.class))
+                                    .collectionConstructor(ArrayList::new)
+                                    .elementConverter(StringAttributeConverter.create())
+                                    .build()));
 
     private String id;
     private List<String> pid;

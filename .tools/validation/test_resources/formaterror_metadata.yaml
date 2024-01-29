@@ -1,0 +1,25 @@
+WrongNameFormat:
+  title: Test title
+  title_abbrev: Test title abbrev
+  synopsis: Test synopsis
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: test/block
+          github: javav2/example_code/sns
+  services:
+    sns:
+cross_TestExample:
+  title: Test title
+  title_abbrev: Test title abbrev
+  synopsis: Test synopsis
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: test/block
+          add_services:
+            garbage:
+  services:
+    sns:

@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { BundlingOutput, Duration } from "aws-cdk-lib";
 import { Architecture, Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { resolve } from "path";
@@ -183,7 +185,7 @@ export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   ...EMPTY_LAMBDAS_STRATEGY,
   codeAsset() {
     const rustSources = resolve(
-      "../../../rust_dev_preview/cross_service/photo_asset_management"
+      "../../../rustv1/cross_service/photo_asset_management"
     );
 
     console.log(
@@ -193,7 +195,7 @@ export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
       cwd: rustSources,
     });
     const rustZip = resolve(
-      "../../../rust_dev_preview/target/lambda/pam/bootstrap.zip"
+      "../../../rustv1/target/lambda/pam/bootstrap.zip"
     );
     return Code.fromAsset(rustZip);
 
@@ -223,6 +225,7 @@ export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
     upload: "upload",
   },
 };
+
 export const CPP_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(90),
   memorySize: 1024,
@@ -248,6 +251,26 @@ export const CPP_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
 };
 
+export const PHP_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  ...EMPTY_LAMBDAS_STRATEGY,
+  memorySize: 256,
+  timeout: Duration.minutes(5),
+  codeAsset() {
+    let phpPAMZip = resolve(
+        "../../../php/applications/photo_asset_manager/bootstrap.zip"
+    );
+    return Code.fromAsset(phpPAMZip);
+  },
+  runtime: Runtime.PROVIDED_AL2,
+  architecture: Architecture.X86_64,
+  handlers: {
+    detectLabels: "detectLabels",
+    download: "download",
+    labels: "labels",
+    upload: "upload",
+  },
+};
+
 export const STRATEGIES: Record<string, PamLambdasStrategy> = {
   java: JAVA_LAMBDAS_STRATEGY,
   javascript: JAVASCRIPT_LAMBDAS_STRATEGY,
@@ -256,6 +279,7 @@ export const STRATEGIES: Record<string, PamLambdasStrategy> = {
   dotnetla: DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY,
   rust: RUST_LAMBDAS_STRATEGY,
   cpp: CPP_LAMBDAS_STRATEGY,
+  php: PHP_LAMBDAS_STRATEGY,
   empty: EMPTY_LAMBDAS_STRATEGY,
 };
 

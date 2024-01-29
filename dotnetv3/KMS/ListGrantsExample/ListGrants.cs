@@ -1,11 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// List the AWS Key Management Service (AWS KMS) grants that are associated with
-/// a specific key. This example was created using the AWS SDK for .NET version
-/// 3.7 and .NET Core 5.0.
-/// </summary>
 namespace ListGrantsExample
 {
     // snippet-start:[KMS.dotnetv3.ListGrantsExample]
@@ -14,6 +9,10 @@ namespace ListGrantsExample
     using Amazon.KeyManagementService;
     using Amazon.KeyManagementService.Model;
 
+    /// <summary>
+    /// List the AWS Key Management Service (AWS KMS) grants that are associated with
+    /// a specific key.
+    /// </summary>
     public class ListGrants
     {
         public static async Task Main()

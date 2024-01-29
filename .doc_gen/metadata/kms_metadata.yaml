@@ -52,19 +52,11 @@ kms_CreateKey:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kms
+          github: rustv1/examples/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.create-key
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/kms
-          excerpts:
-            - description: ''
-              snippet_tags:
-                - kms.go-v2.CreateKey
   services:
     kms: {CreateKey}
 kms_Decrypt:
@@ -111,20 +103,11 @@ kms_Decrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kms
+          github: rustv1/examples/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.decrypt
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/kms
-          excerpts:
-            - description: ''
-              snippet_tags:
-                - kms.go-v2.DecryptData
-
   services:
     kms: {Decrypt}
 kms_Encrypt:
@@ -171,19 +154,11 @@ kms_Encrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kms
+          github: rustv1/examples/kms
           excerpts:
             - description:
               snippet_tags:
                 - kms.rust.encrypt
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/kms
-          excerpts:
-            - description: ''
-              snippet_tags:
-                - kms.go-v2.EncryptData
   services:
     kms: {Encrypt}
 kms_GenerateDataKey:
@@ -205,7 +180,7 @@ kms_GenerateDataKey:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kms
+          github: rustv1/examples/kms
           excerpts:
             - description:
               snippet_tags:
@@ -222,7 +197,7 @@ kms_GenerateDataKeyWithoutPlaintext:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kms
+          github: rustv1/examples/kms
           excerpts:
             - description:
               snippet_tags:
@@ -238,7 +213,7 @@ kms_GenerateRandom:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kms
+          github: rustv1/examples/kms
           excerpts:
             - description:
               snippet_tags:
@@ -290,7 +265,7 @@ kms_ListKeys:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kms
+          github: rustv1/examples/kms
           excerpts:
             - description:
               snippet_tags:
@@ -315,7 +290,7 @@ kms_ReEncrypt:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/kms
+          github: rustv1/examples/kms
           excerpts:
             - description:
               snippet_tags:
@@ -328,14 +303,6 @@ kms_ReEncrypt:
             - description:
               snippet_tags:
                 - kms.ruby.reEncryptData
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/kms
-          excerpts:
-            - description: ''
-              snippet_tags:
-                - kms.go-v2.ReencryptData
   services:
     kms: {ReEncrypt}
 kms_CreateAlias:

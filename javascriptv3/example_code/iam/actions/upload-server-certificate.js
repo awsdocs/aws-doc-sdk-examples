@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { fileURLToPath } from "url";
 
@@ -13,40 +11,43 @@ import * as path from "path";
 
 const client = new IAMClient({});
 
-/**
- * The certificate body and private key were generated with the
- * following command.
- *
- * ```
- * openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \
- * -keyout example.key -out example.crt -subj "/CN=example.com" \
- * -addext "subjectAltName=DNS:example.com,DNS:www.example.net,IP:10.0.0.1"
- * ```
- */
+const certMessage = `Generate a certificate and key with the following command, or the equivalent for your system.
 
-const certBody = readFileSync(
-  path.join(
-    dirnameFromMetaUrl(import.meta.url),
-    "../../../../resources/sample_files/sample_cert.pem",
-  ),
-);
+openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \
+-keyout example.key -out example.crt -subj "/CN=example.com" \
+-addext "subjectAltName=DNS:example.com,DNS:www.example.net,IP:10.0.0.1"
+`;
 
-const privateKey = readFileSync(
-  path.join(
-    dirnameFromMetaUrl(import.meta.url),
-    "../../../../resources/sample_files/sample_private_key.pem",
-  ),
-);
+const getCertAndKey = () => {
+  try {
+    const cert = readFileSync(
+      path.join(dirnameFromMetaUrl(import.meta.url), "./example.crt")
+    );
+    const key = readFileSync(
+      path.join(dirnameFromMetaUrl(import.meta.url), "./example.key")
+    );
+    return { cert, key };
+  } catch (err) {
+    if (err.code === "ENOENT") {
+      throw new Error(
+        `Certificate and/or private key not found. ${certMessage}`
+      );
+    }
+
+    throw err;
+  }
+};
 
 /**
  *
  * @param {string} certificateName
  */
 export const uploadServerCertificate = (certificateName) => {
+  const { cert, key } = getCertAndKey();
   const command = new UploadServerCertificateCommand({
     ServerCertificateName: certificateName,
-    CertificateBody: certBody.toString(),
-    PrivateKey: privateKey.toString(),
+    CertificateBody: cert.toString(),
+    PrivateKey: key.toString(),
   });
 
   return client.send(command);

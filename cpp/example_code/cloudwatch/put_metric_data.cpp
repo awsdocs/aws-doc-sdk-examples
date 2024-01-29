@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: put_metric_data.cpp demonstrates how to submit Amazon CloudWatch metric data.
@@ -11,12 +11,12 @@
  * - value_stream: The CloudWatch metric stream (entered as the second argument in the command line).
  *
  * ///////////////////////////////////////////////////////////////////////// */
-//snippet-start:[cw.cpp.put_metric_data.inc]
+// snippet-start:[cw.cpp.put_metric_data.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/PutMetricDataRequest.h>
 #include <iostream>
-//snippet-end:[cw.cpp.put_metric_data.inc]
+// snippet-end:[cw.cpp.put_metric_data.inc]
 
 /**
  * Attempts to put a sample metric data point with value based on command line input

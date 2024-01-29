@@ -1,4 +1,4 @@
-# Create a React and Spring REST application that queries Aurora Serverless data using the SDK for Kotlin
+# Create a Spring REST application that queries Aurora Serverless data using the SDK for Kotlin
 
 ## Overview
 
@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a Spring Boot application that queries Amazon Aurora Serverless data. The Spring Boot application uses the AWS SDK for Kotlin to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).    |
 | Audience   |  Developer (intermediate)        |
-| Updated   | 11/14/2022        |
+| Updated   | 11/14/2023        |
 | Required skills   | Kotlin, Gradle, JavaScript  |
 
 ## Purpose
@@ -37,8 +37,8 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Kotlin IDE (this tutorial uses the IntelliJ IDE).
-+ Java 1.8 JDK.
-+ Gradle 6.8 or higher.
++ Java 17 JDK.
++ Gradle 8.1 or higher.
 + You must also set up your development environment. For more information, 
 see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
 
@@ -135,15 +135,20 @@ Perform these steps.
 At this point, you have a new project. Confirm that the **build.gradle.kts** file looks like the following.
 
 ```yaml
-  import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.9.0"
     application
 }
 
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 buildscript {
     repositories {
@@ -156,31 +161,33 @@ buildscript {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
+    implementation("aws.sdk.kotlin:rdsdata:0.33.1-beta")
+    implementation("aws.sdk.kotlin:ses:0.33.1-beta")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.28.0")
+    implementation("aws.smithy.kotlin:http-client-engine-crt:0.28.0")
     implementation("org.springframework.boot:spring-boot-starter-web:2.7.5")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("com.sun.mail:javax.mail:1.6.2")
-    implementation("aws.sdk.kotlin:rdsdata:0.17.1-beta")
-    implementation("aws.sdk.kotlin:ses:0.17.1-beta")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.5")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
 
 ```
 
@@ -296,12 +303,14 @@ The following Kotlin code represents the **WorkItemRepository** class. You are r
 Also notice the use of [SqlParameter](https://sdk.amazonaws.com/kotlin/api/latest/rdsdata/aws.sdk.kotlin.services.rdsdata.model/-sql-parameter/index.html) when using SQL statements. For example, in the **injestNewSubmission** method, you build a list of **SqlParameter** objects that are used to add a new record to the database.
 
 ```kotlin
+
 package com.example.demo
 
 import aws.sdk.kotlin.services.rdsdata.RdsDataClient
 import aws.sdk.kotlin.services.rdsdata.model.ExecuteStatementRequest
 import aws.sdk.kotlin.services.rdsdata.model.Field
 import aws.sdk.kotlin.services.rdsdata.model.SqlParameter
+import org.springframework.stereotype.Component
 import org.w3c.dom.Document
 import java.io.StringWriter
 import java.sql.Date
@@ -316,8 +325,8 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
+@Component
 class WorkItemRepository {
-
     private val secretArnVal = "<Enter value>"
     private val resourceArnVal = "<Enter value>"
 
@@ -355,12 +364,12 @@ class WorkItemRepository {
     }
 
     // Get items from the database.
-    suspend fun getItemsDataSQL(status: String): MutableList<WorkItem> {
+    suspend fun getItemsDataSQL(statusVal: String): MutableList<WorkItem> {
         val records = mutableListOf<WorkItem>()
         val sqlStatement: String
         val sqlRequest: ExecuteStatementRequest
         val isArc: String
-        if (status.compareTo("true") == 0) {
+        if (statusVal.compareTo("true") == 0) {
             sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
                 "FROM work WHERE archive = :arch ;"
             isArc = "1"
@@ -372,7 +381,7 @@ class WorkItemRepository {
                 resourceArn = resourceArnVal
                 parameters = parametersVal
             }
-        } else if (status.compareTo("false") == 0) {
+        } else if (statusVal.compareTo("false") == 0) {
             sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
                 "FROM work WHERE archive = :arch ;"
             isArc = "0"
@@ -398,47 +407,20 @@ class WorkItemRepository {
         RdsDataClient { region = "us-east-1" }.use { rdsDataClient ->
             val response = rdsDataClient.executeStatement(sqlRequest)
             val dataList: List<List<Field>>? = response.records
-            var workItem: WorkItem
-            var index: Int
 
-            // Get the records.
-            if (dataList != null) {
-                for (list in dataList) {
-                    workItem = WorkItem()
-                    index = 0
-                    for (myField in list) {
-                        val field: Field = myField
-                        val result = field.toString()
-                        val value = result.substringAfter("=").substringBefore(')')
-                        when (index) {
-                            0 -> {
-                                workItem.id = value
-                            }
-                            1 -> {
-                                workItem.date = value
-                            }
-                            2 -> {
-                                workItem.description = value
-                            }
-                            3 -> {
-                                workItem.guide = value
-                            }
-                            4 -> {
-                                workItem.status = value
-                            }
-                            5 -> {
-                                workItem.name = value
-                            }
-                            6 -> {
-                                workItem.archived = value != "false"
-                            }
-                        }
-                       index++
-                    }
-
-                    // Push the object to the list.
-                    records.add(workItem)
+            // Process records using Kotlin collection operations.
+            dataList?.forEach { record ->
+                val workItem = WorkItem().apply {
+                    id = record[0].toString().substringAfter("=").substringBefore(')')
+                    date = record[1].toString().substringAfter("=").substringBefore(')')
+                    description = record[2].toString().substringAfter("=").substringBefore(')')
+                    guide = record[3].toString().substringAfter("=").substringBefore(')')
+                    status = record[4].toString().substringAfter("=").substringBefore(')')
+                    name = record[5].toString().substringAfter("=").substringBefore(')')
+                    archived = record[6].toString().substringAfter("=").substringBefore(')').toBoolean()
                 }
+
+                records.add(workItem)
             }
         }
         return records
@@ -496,9 +478,8 @@ class WorkItemRepository {
     // Get Items data for the content that is sent using Amazon SES.
     suspend fun getItemsDataSQLReport(arch: String): String? {
         val records = mutableListOf<WorkItem>()
-        val sqlStatement = "SELECT idwork, date, description, guide, status, username, archive " +
-            "FROM work WHERE archive = :arch ;"
 
+        val sqlStatement = "SELECT idwork, date, description, guide, status, username, archive FROM work WHERE archive = :arch ;"
         val parametersVal = listOf(param("arch", arch))
         val sqlRequest = ExecuteStatementRequest {
             secretArn = secretArnVal
@@ -511,48 +492,25 @@ class WorkItemRepository {
         RdsDataClient { region = "us-east-1" }.use { rdsDataClient ->
             val response = rdsDataClient.executeStatement(sqlRequest)
             val dataList: List<List<Field>>? = response.records
-            var workItem: WorkItem
-            var index: Int
 
-            // Get the records.
-            if (dataList != null) {
-                for (list in dataList) {
-                    workItem = WorkItem()
-                    index = 0
-                    for (myField in list) {
-                        val field: Field = myField
-                        val result = field.toString()
-                        val value = result.substringAfter("=").substringBefore(')')
-                        when (index) {
-                            0 -> {
-                                workItem.id = value
-                            }
-                            1 -> {
-                                workItem.date = value
-                            }
-                            2 -> {
-                                workItem.description = value
-                            }
-                            3 -> {
-                                workItem.guide = value
-                            }
-                            4 -> {
-                                workItem.status = value
-                            }
-                            5 -> {
-                                workItem.name = value
-                            }
-                        }
-                        index++
-                    }
-
-                    // Push the object to the list.
-                    records.add(workItem)
+            // Process records using Kotlin collection operations.
+            dataList?.forEach { record ->
+                val workItem = WorkItem().apply {
+                    id = record[0].toString().substringAfter("=").substringBefore(')')
+                    date = record[1].toString().substringAfter("=").substringBefore(')')
+                    description = record[2].toString().substringAfter("=").substringBefore(')')
+                    guide = record[3].toString().substringAfter("=").substringBefore(')')
+                    status = record[4].toString().substringAfter("=").substringBefore(')')
+                    name = record[5].toString().substringAfter("=").substringBefore(')')
+                    archived = record[6].toString().substringAfter("=").substringBefore(')').toBoolean()
                 }
+
+                records.add(workItem)
             }
         }
         return convertToString(toXml(records))
     }
+
 
     // Convert Work data into XML to use in the report.
     fun toXml(itemList: List<WorkItem>): Document? {
@@ -568,7 +526,6 @@ class WorkItemRepository {
 
             // Iterate through the collection.
             for (index in 0 until custCount) {
-
                 // Get the WorkItem object from the collection.
                 val myItem = itemList[index]
                 val item = doc.createElement("Item")
@@ -624,7 +581,6 @@ class WorkItemRepository {
         return null
     }
 }
-
 
 
 ```
@@ -740,6 +696,28 @@ http://localhost:8080/api/items
 The following illustration shows the JSON data returned from the Spring REST API. 
 
 ![AWS Tracking Application](images/json2.png)
+
+
+### Using cURL Commands
+You can also utilize cURL commands to invoke the functionality of this application. 
+
+You can retrieve items by executing the following cURL command: 
+
+ ```kotlin
+ 
+    curl -X GET http://localhost:8080/api/items
+```
+
+
+Likewise, you can send a report by executing the following cURL command:
+ 
+ ```kotlin
+ 
+    curl -X POST -H "Content-Type: application/json" -d "{\"email\":\"<email address>\"}" http://localhost:8080/api/items:report
+
+```
+
+**Note**: Make sure that you specify a valid email address. 
 
 ## Create the React front end
 

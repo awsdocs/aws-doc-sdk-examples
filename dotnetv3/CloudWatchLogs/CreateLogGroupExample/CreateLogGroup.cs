@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace CreateLogGroupExample
 {
@@ -10,8 +10,7 @@ namespace CreateLogGroupExample
     using Amazon.CloudWatchLogs.Model;
 
     /// <summary>
-    /// Shows how to create an Amazon CloudWatch Logs log group. The example
-    /// was created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// Shows how to create an Amazon CloudWatch Logs log group.
     /// </summary>
     public class CreateLogGroup
     {

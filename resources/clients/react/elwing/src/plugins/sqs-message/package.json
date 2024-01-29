@@ -5,7 +5,7 @@
   "author": "corepyle@amazon.com",
   "license": "Apache-2.0",
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^1.6.0"
   },
   "peerDependencies": {
     "@cloudscape-design/components": "^3.0.251",

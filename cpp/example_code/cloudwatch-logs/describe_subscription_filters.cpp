@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: describe_subscription_filters.cpp demonstrates how to list the subscription filters for an Amazon CloudWatch Logs resource.
  *
@@ -12,7 +12,7 @@
  * Outputs:
  * This subscription filters are described.
  * ///////////////////////////////////////////////////////////////////////// */
-//snippet-start:[cwl.cpp.describe_subscription_filters.inc]
+// snippet-start:[cwl.cpp.describe_subscription_filters.inc]
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
 #include <aws/logs/CloudWatchLogsClient.h>
@@ -20,7 +20,7 @@
 #include <aws/logs/model/DescribeSubscriptionFiltersResult.h>
 #include <iostream>
 #include <iomanip>
-//snippet-end:[cwl.cpp.describe_subscription_filters.inc]
+// snippet-end:[cwl.cpp.describe_subscription_filters.inc]
 
 /**
  * List CloudWatch subscription filters associated with a log group
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-    //snippet-start:[cwl.cpp.describe_subscription_filters]
+    // snippet-start:[cwl.cpp.describe_subscription_filters]
         Aws::CloudWatchLogs::CloudWatchLogsClient cwl;
         Aws::CloudWatchLogs::Model::DescribeSubscriptionFiltersRequest request;
         request.SetLogGroupName(log_group);
@@ -75,7 +75,7 @@ int main(int argc, char** argv)
             request.SetNextToken(next_token);
             done = next_token.empty();
         }
-        //snippet-end:[cwl.cpp.describe_subscription_filters]
+        // snippet-end:[cwl.cpp.describe_subscription_filters]
 
     }
     Aws::ShutdownAPI(options);

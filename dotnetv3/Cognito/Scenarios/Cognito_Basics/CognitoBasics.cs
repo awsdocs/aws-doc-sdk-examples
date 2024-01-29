@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[Cognito.dotnetv3.Main]
 namespace CognitoBasics;
@@ -39,10 +39,10 @@ public class CognitoBasics
         Console.WriteLine(new string('-', 80));
 
         // clientId - The app client Id value that you get from the AWS CDK script.
-        string clientId = configuration["ClientId"]; // "*** REPLACE WITH CLIENT ID VALUE FROM CDK SCRIPT";
+        var clientId = configuration["ClientId"]; // "*** REPLACE WITH CLIENT ID VALUE FROM CDK SCRIPT";
 
         // poolId - The pool Id that you get from the AWS CDK script.
-        string poolId = configuration["PoolId"]; // "*** REPLACE WITH POOL ID VALUE FROM CDK SCRIPT";
+        var poolId = configuration["PoolId"]!; // "*** REPLACE WITH POOL ID VALUE FROM CDK SCRIPT";
         var userName = configuration["UserName"];
         var password = configuration["Password"];
         var email = configuration["Email"];
@@ -96,14 +96,14 @@ public class CognitoBasics
         Console.Write("Would you like to send a new code? (Y/N) ");
         var answer = Console.ReadLine();
 
-        if (answer.ToLower() == "y")
+        if (answer!.ToLower() == "y")
         {
             await cognitoWrapper.ResendConfirmationCodeAsync(clientId, userName);
             Console.WriteLine("Sending a new confirmation code");
         }
 
         Console.Write("Enter confirmation code (from Email): ");
-        string code = Console.ReadLine();
+        var code = Console.ReadLine();
 
         await cognitoWrapper.ConfirmSignupAsync(clientId, code, userName);
 
@@ -116,7 +116,7 @@ public class CognitoBasics
 
         var setupSession = await cognitoWrapper.AssociateSoftwareTokenAsync(setupResponse.Session);
         Console.Write("Enter the 6-digit code displayed in Google Authenticator: ");
-        string setupCode = Console.ReadLine();
+        var setupCode = Console.ReadLine();
 
         var setupResult = await cognitoWrapper.VerifySoftwareTokenAsync(setupSession, setupCode);
         Console.WriteLine($"Setup status: {setupResult}");
@@ -125,7 +125,7 @@ public class CognitoBasics
         var authSession = await cognitoWrapper.AdminInitiateAuthAsync(clientId, poolId, userName, password);
 
         Console.Write("Enter a new 6-digit code displayed in Google Authenticator: ");
-        string authCode = Console.ReadLine();
+        var authCode = Console.ReadLine();
 
         var authResult = await cognitoWrapper.AdminRespondToAuthChallengeAsync(userName, clientId, authCode, authSession, poolId);
         Console.WriteLine($"Authenticated and received access token: {authResult.AccessToken}");

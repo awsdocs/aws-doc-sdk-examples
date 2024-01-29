@@ -1,12 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// This example creates an object in an Amazon Simple Storage Service
-/// (Amazon S3) bucket and then deletes the object version that was
-/// created. The example uses the AWS SDK for .NET version 3.7 and
-/// .NET Core 5.0.
-/// </summary>
 namespace DeleteObjectVersionExample
 {
     // snippet-start:[S3.dotnetv3.DeleteObjectVersionExample]
@@ -15,6 +9,11 @@ namespace DeleteObjectVersionExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
+    /// <summary>
+    /// This example creates an object in an Amazon Simple Storage Service
+    /// (Amazon S3) bucket and then deletes the object version that was
+    /// created.
+    /// </summary>
     public class DeleteObjectVersion
     {
         public static async Task Main()

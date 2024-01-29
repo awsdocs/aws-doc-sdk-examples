@@ -1,11 +1,6 @@
 #!/bin/bash
-
-###############################################################################
-#
-#    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#    SPDX-License-Identifier: Apache-2.0
-#
-###############################################################################
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 ###############################################################################
 #
@@ -23,17 +18,18 @@
 # This function runs the IAM examples' tests.
 ###############################################################################
 function main() {
-# Set default values.
-# bashsupport disable=BP2001
-export INTERACTIVE=false
-# bashsupport disable=BP2001
-export VERBOSE=false
+  # Set default values.
+  # bashsupport disable=BP2001
+  export INTERACTIVE=false
+  # bashsupport disable=BP2001
+  export VERBOSE=false
 
   source ./include_tests.sh
   {
     local current_directory
     current_directory=$(pwd)
     cd ..
+
     source ./medical_imaging_operations.sh
     # shellcheck disable=SC2164
     cd "$current_directory"
@@ -106,7 +102,7 @@ export VERBOSE=false
   local data_store_found=false
   local line
   while IFS=$'\n' read -r line; do
-     IFS=$'\t' read -ra entries <<<"$line"
+    IFS=$'\t' read -ra entries <<<"$line"
     if [ "${entries[1]}" == "$datastore_id" ]; then
       data_store_found=true
     fi

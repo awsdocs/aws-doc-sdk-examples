@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[UpdateDashboard.java demonstrates how to update an Amazon QuickSight dashboard.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon QuickSight]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.quicksight;
 
+// snippet-start:[quicksight.java2.update_dashboard.main]
 // snippet-start:[quicksight.java2.update_dashboard.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.quicksight.QuickSightClient;
 import software.amazon.awssdk.services.quicksight.model.DataSetReference;
@@ -42,108 +36,106 @@ import java.util.UUID;
 */
 
 public class UpdateDashboard {
+        public static void main(String[] args) {
+                final String usage = """
 
-    public static void main(String[] args) {
+                                Usage:    <account> <dashboardId> <dataSetArn> <analysisArn>
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <account> <dashboardId> <dataSetArn> <analysisArn>\n\n" +
-            "Where:\n" +
-            "   account - The account to use.\n\n" +
-            "   dashboardId - The dashboard id value to use.\n\n" +
-            "   dataSetArn - The ARN of the dataset.\n\n" +
-            "   analysisArn - The ARN of an existing analysis";
+                                Where:
+                                   account - The account to use.
+                                   dashboardId - The dashboard id value to use.
+                                   dataSetArn - The ARN of the dataset.
+                                   analysisArn - The ARN of an existing analysis
+                                   """;
 
-        if (args.length != 4) {
-            System.out.println(usage);
-            System.exit(1);
+                if (args.length != 4) {
+                        System.out.println(usage);
+                        System.exit(1);
+                }
+
+                String account = args[0];
+                String dashboardId = args[1];
+                String dataSetArn = args[2];
+                String analysisArn = args[3];
+                QuickSightClient qsClient = QuickSightClient.builder()
+                                .region(Region.US_EAST_1)
+                                .build();
+
+                updateSpecificDashboard(qsClient, account, dashboardId, dataSetArn, analysisArn);
+                qsClient.close();
         }
 
-        String account = args[0];
-        String dashboardId = args[1];
-        String dataSetArn = args[2];
-        String analysisArn = args[3];
-        QuickSightClient qsClient = QuickSightClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+        public static void updateSpecificDashboard(QuickSightClient qsClient, String account, String dashboardId,
+                        String dataSetArn, String analysisArn) {
+                try {
+                        DataSetReference dataSetReference = DataSetReference.builder()
+                                        .dataSetArn(dataSetArn)
+                                        .dataSetPlaceholder("Dataset placeholder2")
+                                        .build();
 
-        updateSpecificDashboard(qsClient, account, dashboardId, dataSetArn, analysisArn);
-        qsClient.close();
-    }
+                        // Get a template ARN to use.
+                        String arn = getTemplateARN(qsClient, account, dataSetArn, analysisArn);
+                        DashboardSourceTemplate sourceTemplate = DashboardSourceTemplate.builder()
+                                        .dataSetReferences(dataSetReference)
+                                        .arn(arn)
+                                        .build();
 
-    // snippet-start:[quicksight.java2.update_dashboard.main]
-    public static void updateSpecificDashboard( QuickSightClient qsClient, String account, String dashboardId, String dataSetArn, String analysisArn) {
+                        DashboardSourceEntity sourceEntity = DashboardSourceEntity.builder()
+                                        .sourceTemplate(sourceTemplate)
+                                        .build();
 
-        try {
-            DataSetReference dataSetReference = DataSetReference.builder()
-                .dataSetArn(dataSetArn)
-                .dataSetPlaceholder("Dataset placeholder2")
-                .build();
+                        UpdateDashboardRequest dashboardRequest = UpdateDashboardRequest.builder()
+                                        .awsAccountId(account)
+                                        .dashboardId(dashboardId)
+                                        .name("UpdateTest")
+                                        .sourceEntity(sourceEntity)
+                                        .themeArn("arn:aws:quicksight::aws:theme/MIDNIGHT")
+                                        .build();
 
-            // Get a template ARN to use.
-            String arn = getTemplateARN(qsClient, account, dataSetArn, analysisArn);
-            DashboardSourceTemplate sourceTemplate = DashboardSourceTemplate.builder()
-                .dataSetReferences(dataSetReference)
-                .arn(arn)
-                .build();
+                        UpdateDashboardResponse response = qsClient.updateDashboard(dashboardRequest);
+                        System.out.println("Dashboard " + response.dashboardId() + " has been updated");
 
-            DashboardSourceEntity sourceEntity = DashboardSourceEntity.builder()
-                .sourceTemplate(sourceTemplate)
-                .build();
-
-            UpdateDashboardRequest dashboardRequest = UpdateDashboardRequest.builder()
-                .awsAccountId(account)
-                .dashboardId(dashboardId)
-                .name("UpdateTest")
-                .sourceEntity(sourceEntity)
-                .themeArn("arn:aws:quicksight::aws:theme/MIDNIGHT")
-                .build();
-
-            UpdateDashboardResponse response = qsClient.updateDashboard(dashboardRequest);
-            System.out.println("Dashboard " + response.dashboardId() + " has been updated");
-
-        } catch (QuickSightException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+                } catch (QuickSightException e) {
+                        System.err.println(e.awsErrorDetails().errorMessage());
+                        System.exit(1);
+                }
         }
-    }
 
-    private static String getTemplateARN(QuickSightClient qsClient, String account, String dataset, String analysisArn) {
+        private static String getTemplateARN(QuickSightClient qsClient, String account, String dataset,
+                        String analysisArn) {
+                String arn = null;
+                try {
+                        DataSetReference setReference = DataSetReference.builder()
+                                        .dataSetArn(dataset)
+                                        .dataSetPlaceholder("Dataset placeholder2")
+                                        .build();
 
-        String arn = null;
-        try {
-            DataSetReference setReference = DataSetReference.builder()
-                .dataSetArn(dataset)
-                .dataSetPlaceholder("Dataset placeholder2")
-                .build();
+                        TemplateSourceAnalysis templateSourceAnalysis = TemplateSourceAnalysis.builder()
+                                        .dataSetReferences(setReference)
+                                        .arn(analysisArn)
+                                        .build();
 
-            TemplateSourceAnalysis templateSourceAnalysis = TemplateSourceAnalysis.builder()
-                .dataSetReferences(setReference)
-                .arn(analysisArn)
-                .build();
+                        TemplateSourceEntity sourceEntity = TemplateSourceEntity.builder()
+                                        .sourceAnalysis(templateSourceAnalysis)
+                                        .build();
 
-            TemplateSourceEntity sourceEntity = TemplateSourceEntity.builder()
-                .sourceAnalysis(templateSourceAnalysis)
-                .build();
+                        UUID uuid = UUID.randomUUID();
+                        String templateGUID = uuid.toString();
+                        CreateTemplateRequest createTemplateRequest = CreateTemplateRequest.builder()
+                                        .awsAccountId(account)
+                                        .name("NewTemplate")
+                                        .sourceEntity(sourceEntity)
+                                        .templateId(templateGUID) // Specify a GUID value
+                                        .build();
 
-            UUID uuid = UUID.randomUUID();
-            String templateGUID = uuid.toString();
-            CreateTemplateRequest createTemplateRequest = CreateTemplateRequest.builder()
-                .awsAccountId(account)
-                .name("NewTemplate")
-                .sourceEntity(sourceEntity)
-                .templateId(templateGUID) // Specify a GUID value
-                .build();
+                        CreateTemplateResponse response = qsClient.createTemplate(createTemplateRequest);
+                        arn = response.arn();
 
-            CreateTemplateResponse response = qsClient.createTemplate(createTemplateRequest);
-            arn = response.arn();
-
-        } catch (QuickSightException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+                } catch (QuickSightException e) {
+                        System.err.println(e.awsErrorDetails().errorMessage());
+                        System.exit(1);
+                }
+                return arn;
         }
-        return arn;
-    }
-    // snippet-end:[quicksight.java2.update_dashboard.main]
 }
+// snippet-end:[quicksight.java2.update_dashboard.main]

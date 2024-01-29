@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.fsa.handlers;
 
@@ -22,12 +20,12 @@ public class SynthesizeAudioHandler implements RequestHandler<Map<String, Object
         String bucket = (String) requestObject.get("bucket");
         String key = (String) requestObject.get("object");
         key = key + ".mp3"; // Appends ".mp3" to the existing value of key
-        context.getLogger().log("*** Translated Text: " +translatedText +" and new key is "+key);
+        context.getLogger().log("*** Translated Text: " + translatedText + " and new key is " + key);
         try {
             InputStream is = pollyService.synthesize(translatedText);
             String audioFile = s3Service.putAudio(is, bucket, key);
-            context.getLogger().log("You have successfully added the " +audioFile +"  in "+bucket);
-            return audioFile ;
+            context.getLogger().log("You have successfully added the " + audioFile + "  in " + bucket);
+            return audioFile;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

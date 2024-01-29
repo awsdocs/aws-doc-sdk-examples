@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[s3.php.create_bucket.complete]
 // snippet-start:[s3.php.create_bucket.import]
@@ -53,15 +52,4 @@ function createTheBucket()
 // createTheBucket();
 // snippet-end:[s3.php.create_bucket.main] 
 // snippet-end:[s3.php.create_bucket.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateBucket.php demonstrates how to create an Amazon S3 bucket given a name to use for the bucket.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon S3]
-// snippet-service:[s3]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-04-14]
-// snippet-sourceauthor:[pccornel (AWS)]
 

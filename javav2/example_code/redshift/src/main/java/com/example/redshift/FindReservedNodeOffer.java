@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[FindReservedNodeOffer.java demonstrates how to find additional Amazon Redshift nodes for purchase.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Redshift]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.redshift;
 
+// snippet-start:[redshift.java2._nodes.main]
 // snippet-start:[redshift.java2._nodes.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
 import software.amazon.awssdk.services.redshift.model.DescribeReservedNodesResponse;
@@ -18,20 +12,19 @@ import software.amazon.awssdk.services.redshift.model.ReservedNode;
 import software.amazon.awssdk.services.redshift.model.DescribeReservedNodeOfferingsRequest;
 import software.amazon.awssdk.services.redshift.model.DescribeReservedNodeOfferingsResponse;
 import software.amazon.awssdk.services.redshift.model.ReservedNodeOffering;
-import software.amazon.awssdk.services.redshift.model.RedshiftException ;
+import software.amazon.awssdk.services.redshift.model.RedshiftException;
 import java.util.ArrayList;
 // snippet-end:[redshift.java2._nodes.import]
 
-
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class FindReservedNodeOffer {
-
     public static String nodeTypeToPurchase = "dc2.large";
     public static Double fixedPriceLimit = 10000.00;
     public static ArrayList<ReservedNodeOffering> matchingNodes = new ArrayList<>();
@@ -40,18 +33,15 @@ public class FindReservedNodeOffer {
 
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         listReservedNodes(redshiftClient);
         findReservedNodeOffer(redshiftClient);
         redshiftClient.close();
     }
 
-    // snippet-start:[redshift.java2._nodes.main]
     public static void listReservedNodes(RedshiftClient redshiftClient) {
-
         try {
             DescribeReservedNodesResponse reservedNodesResponse = redshiftClient.describeReservedNodes();
             System.out.println("Listing nodes already purchased.");
@@ -68,18 +58,18 @@ public class FindReservedNodeOffer {
     public static void findReservedNodeOffer(RedshiftClient redshiftClient) {
         try {
             DescribeReservedNodeOfferingsRequest request = DescribeReservedNodeOfferingsRequest.builder()
-                .build();
+                    .build();
 
             DescribeReservedNodeOfferingsResponse response = redshiftClient.describeReservedNodeOfferings(request);
             int count = 0;
             System.out.println("\nFinding nodes to purchase.");
 
             for (ReservedNodeOffering offering : response.reservedNodeOfferings()) {
-                if (offering.nodeType().equals(nodeTypeToPurchase)){
+                if (offering.nodeType().equals(nodeTypeToPurchase)) {
                     if (offering.fixedPrice() < fixedPriceLimit) {
                         matchingNodes.add(offering);
                         printOfferingDetails(offering);
-                        count +=1;
+                        count += 1;
                     }
                 }
             }
@@ -115,5 +105,5 @@ public class FindReservedNodeOffer {
         System.out.format("Offering Type: %s\n", offering.offeringType());
         System.out.format("Duration: %s\n", offering.duration());
     }
-    // snippet-end:[redshift.java2._nodes.main]
 }
+// snippet-end:[redshift.java2._nodes.main]

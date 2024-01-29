@@ -1,12 +1,8 @@
 #!/bin/bash
-#bashsupport disable=BP5001
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
-################################################################################
-##
-##    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-##    SPDX-License-Identifier: Apache-2.0
-##
-################################################################################
+#bashsupport disable=BP5001
 
 ################################################################################
 ##
@@ -53,6 +49,7 @@ function run_test() {
 
   # Check to see if we got the expected error code.
   if [[ "$expected_err_code" -ne "$err" ]]; then
+    # shellcheck disable=SC2154
     test_failed "The test \"$description\" returned an unexpected error code: $err. $test_command_response"
   fi
 

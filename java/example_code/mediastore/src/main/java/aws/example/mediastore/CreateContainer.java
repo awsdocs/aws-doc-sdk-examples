@@ -1,25 +1,7 @@
-//snippet-sourcedescription:[CreateContainer.java demonstrates how to create an AWS Elemental MediaStore container.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-service:[mediastore]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-11-06]
-//snippet-sourceauthor:[rhcarvalho]
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.mediastore;
+
 import com.amazonaws.services.mediastore.AWSMediaStore;
 import com.amazonaws.services.mediastore.AWSMediaStoreClientBuilder;
 import com.amazonaws.services.mediastore.model.Container;
@@ -33,15 +15,13 @@ import com.amazonaws.services.mediastore.model.AWSMediaStoreException;
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */
-public class CreateContainer
-{
-    public static void main(String[] args)
-    {
+public class CreateContainer {
+    public static void main(String[] args) {
         final String USAGE = "\n" +
-            "CreateContainer - create an AWS Elemental MediaStore container\n\n" +
-            "Usage: CreateContainer <name>\n\n" +
-            "Where:\n" +
-            "  name - the name of the container to create.\n";
+                "CreateContainer - create an AWS Elemental MediaStore container\n\n" +
+                "Usage: CreateContainer <name>\n\n" +
+                "Where:\n" +
+                "  name - the name of the container to create.\n";
 
         if (args.length < 1) {
             System.out.println(USAGE);
@@ -62,7 +42,7 @@ public class CreateContainer
     public static Container createContainer(String name) {
         final AWSMediaStore mediastore = AWSMediaStoreClientBuilder.defaultClient();
         final CreateContainerRequest request = new CreateContainerRequest()
-            .withContainerName(name.trim());
+                .withContainerName(name.trim());
         try {
             final CreateContainerResult result = mediastore.createContainer(request);
             return result.getContainer();

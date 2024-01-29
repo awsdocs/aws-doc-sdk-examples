@@ -1,12 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// This example shows how to manage Amazon Simple Storage Service
-/// (Amazon S3) access control lists (ACLs) to control Amazon S3 bucket
-/// access. The example was created with the AWS SDK for .NET version 3.7
-/// and .NET Core 5.0.
-/// </summary>
 namespace ManageACLsExample
 {
     // snippet-start:[S3.dotnetv3.ManageACLsExample]
@@ -16,6 +10,11 @@ namespace ManageACLsExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
+    /// <summary>
+    /// This example shows how to manage Amazon Simple Storage Service
+    /// (Amazon S3) access control lists (ACLs) to control Amazon S3 bucket
+    /// access.
+    /// </summary>
     public class ManageACLs
     {
         public static async Task Main()
@@ -88,7 +87,7 @@ namespace ManageACLsExample
             var request = new PutBucketRequest()
             {
                 BucketName = newBucketName,
-                BucketRegion = S3Region.EUW1,
+                BucketRegion = S3Region.EUWest1,
 
                 // Add a canned ACL.
                 CannedACL = S3CannedACL.LogDeliveryWrite,

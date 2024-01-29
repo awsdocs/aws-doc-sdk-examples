@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudfront.php.private_distribution_policy.complete]
 // snippet-start:[cloudfront.php.private_distribution_policy.import]
@@ -86,14 +85,3 @@ POLICY;
 // signAPrivateDistributionPolicy();
 // snippet-end:[cloudfront.php.private_distribution_policy.main]
 // snippet-end:[cloudfront.php.private_distribution_policy.complete] 
-// snippet-sourcedescription:[SignPriveDistributionPolicy.php demonstrates how to provide users access to your private content using an Amazon CloudFront distribution and custom policy.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[getSignedUrl]
-// snippet-keyword:[Amazon CloudFront]
-// snippet-service:[cloudfront]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-22]
-// snippet-sourceauthor:[pccornel (AWS)]

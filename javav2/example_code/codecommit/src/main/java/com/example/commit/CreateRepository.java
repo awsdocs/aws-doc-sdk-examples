@@ -1,15 +1,9 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateRepository.java demonstrates how to create a new repository.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS CodeCommit]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.commit;
 
+// snippet-start:[codecommit.java2.create_repo.main]
 // snippet-start:[codecommit.java2.create_repo.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.codecommit.CodeCommitClient;
@@ -19,7 +13,8 @@ import software.amazon.awssdk.services.codecommit.model.CreateRepositoryResponse
 // snippet-end:[codecommit.java2.create_repo.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -27,14 +22,15 @@ import software.amazon.awssdk.services.codecommit.model.CreateRepositoryResponse
  */
 
 public class CreateRepository {
-
     public static void main(String[] args) {
+        final String USAGE = """
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    <repoName> \n\n" +
-                "Where:\n" +
-                "    repoName - the name of the repository. \n" ;
+                Usage:
+                    <repoName>\s
+
+                Where:
+                    repoName - the name of the repository.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -51,22 +47,20 @@ public class CreateRepository {
         codeCommitClient.close();
     }
 
-    // snippet-start:[codecommit.java2.create_repo.main]
     public static void createRepo(CodeCommitClient codeCommitClient, String repoName) {
-
         try {
             CreateRepositoryRequest repositoryRequest = CreateRepositoryRequest.builder()
-                .repositoryDescription("Created by the CodeCommit Java API")
-                .repositoryName(repoName)
-                .build();
+                    .repositoryDescription("Created by the CodeCommit Java API")
+                    .repositoryName(repoName)
+                    .build();
 
             CreateRepositoryResponse repositoryResponse = codeCommitClient.createRepository(repositoryRequest);
-            System.out.println("The ARN of the new repository is "+repositoryResponse.repositoryMetadata().arn());
+            System.out.println("The ARN of the new repository is " + repositoryResponse.repositoryMetadata().arn());
 
         } catch (CodeCommitException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
-    // snippet-end:[codecommit.java2.create_repo.main]
 }
+// snippet-end:[codecommit.java2.create_repo.main]

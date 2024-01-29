@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 #ifndef GLUE_EXAMPLES_GLUE_SAMPLES_H
 #define GLUE_EXAMPLES_GLUE_SAMPLES_H

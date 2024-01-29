@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.DocumentAPIBatchGet] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.DocumentAPIBatchGet] 
 
 package com.amazonaws.codesamples.document;
 
@@ -60,12 +39,12 @@ public class DocumentAPIBatchGet {
             TableKeysAndAttributes threadTableKeysAndAttributes = new TableKeysAndAttributes(threadTableName);
             // Add a partition key and a sort key
             threadTableKeysAndAttributes.addHashAndRangePrimaryKeys("ForumName", "Subject", "Amazon DynamoDB",
-                "DynamoDB Thread 1", "Amazon DynamoDB", "DynamoDB Thread 2", "Amazon S3", "S3 Thread 1");
+                    "DynamoDB Thread 1", "Amazon DynamoDB", "DynamoDB Thread 2", "Amazon S3", "S3 Thread 1");
 
             System.out.println("Making the request.");
 
             BatchGetItemOutcome outcome = dynamoDB.batchGetItem(forumTableKeysAndAttributes,
-                threadTableKeysAndAttributes);
+                    threadTableKeysAndAttributes);
 
             Map<String, KeysAndAttributes> unprocessed = null;
 
@@ -85,16 +64,14 @@ public class DocumentAPIBatchGet {
 
                 if (unprocessed.isEmpty()) {
                     System.out.println("No unprocessed keys found");
-                }
-                else {
+                } else {
                     System.out.println("Retrieving the unprocessed keys");
                     outcome = dynamoDB.batchGetItemUnprocessed(unprocessed);
                 }
 
             } while (!unprocessed.isEmpty());
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Failed to retrieve items.");
             System.err.println(e.getMessage());
         }
@@ -103,4 +80,4 @@ public class DocumentAPIBatchGet {
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.DocumentAPIBatchGet] 
+// snippet-end:[dynamodb.java.codeexample.DocumentAPIBatchGet]

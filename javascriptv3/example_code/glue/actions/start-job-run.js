@@ -1,14 +1,11 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { GlueClient, StartJobRunCommand } from "@aws-sdk/client-glue";
-import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 
 /** snippet-start:[javascript.v3.glue.actions.StartJobRun] */
 const startJobRun = (jobName, dbName, tableName, bucketName) => {
-  const client = new GlueClient({ region: DEFAULT_REGION });
+  const client = new GlueClient({});
 
   const command = new StartJobRunCommand({
     JobName: jobName,

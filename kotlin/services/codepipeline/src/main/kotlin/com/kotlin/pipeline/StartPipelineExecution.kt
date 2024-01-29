@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[StartPipelineExecution.kt demonstrates how to execute a pipeline.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS CodePipeline]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.pipeline
 

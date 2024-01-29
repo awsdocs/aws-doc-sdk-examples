@@ -1,9 +1,8 @@
-//
-// An example demonstrating one way to represent an Amazon DynamoDB data table
-// using a Swift class.
-//
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+// An example demonstrating one way to represent an Amazon DynamoDB data table
+// using a Swift class.
 
 // snippet-start:[ddb.swift.basics.movietable]
 import Foundation

@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace CelebrityInfoExample
 {
@@ -11,8 +11,7 @@ namespace CelebrityInfoExample
 
     /// <summary>
     /// Shows how to use Amazon Rekognition to retrieve information about the
-    /// celebrity identified by the supplied celebrity Id. This example was
-    /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// celebrity identified by the supplied celebrity Id.
     /// </summary>
     public class CelebrityInfo
     {

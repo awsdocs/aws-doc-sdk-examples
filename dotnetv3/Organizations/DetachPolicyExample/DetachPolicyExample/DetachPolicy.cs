@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DetachPolicyExample
 {
@@ -11,8 +11,7 @@ namespace DetachPolicyExample
 
     /// <summary>
     /// Shows how to detach a policy from an AWS Organizations organization,
-    /// organizational unit, or account. The example was creating using the
-    /// AWS SDK for .NET 3.7 and .NET Core 5.0.
+    /// organizational unit, or account.
     /// </summary>
     public class DetachPolicy
     {

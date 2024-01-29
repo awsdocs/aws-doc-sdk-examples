@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.iam.*;
 import com.google.gson.Gson;
@@ -27,12 +25,12 @@ import java.util.concurrent.TimeUnit;
 public class IAMServiceTest {
 
     private static IamClient iam;
-    private static String userName="";
-    private static String policyName="";
-    private static String roleName="";
-    private static String policyARN="";
-    private static String keyId ="" ;
-    private static String accountAlias="";
+    private static String userName = "";
+    private static String policyName = "";
+    private static String roleName = "";
+    private static String policyARN = "";
+    private static String keyId = "";
+    private static String accountAlias = "";
     private static String usernameSc = "";
     private static String policyNameSc = "";
     private static String roleNameSc = "";
@@ -44,52 +42,55 @@ public class IAMServiceTest {
     public static void setUp() {
         Region region = Region.AWS_GLOBAL;
         iam = IamClient.builder()
-            .region(region)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
         userName = values.getUserName();
-        policyName= values.getPolicyName();
-        roleName= values.getRoleName();
-        accountAlias=values.getAccountAlias();
-        usernameSc=values.getUsernameSc();
-        policyNameSc=values.getPolicyNameSc();
-        roleNameSc=values.getRoleNameSc();
-        roleSessionName=values.getRoleName();
-        fileLocationSc=values.getFileLocationSc();
-        bucketNameSc=values.getBucketNameSc();
+        policyName = values.getPolicyName();
+        roleName = values.getRoleName();
+        accountAlias = values.getAccountAlias();
+        usernameSc = values.getUsernameSc();
+        policyNameSc = values.getPolicyNameSc();
+        roleNameSc = values.getRoleNameSc();
+        roleSessionName = values.getRoleName();
+        fileLocationSc = values.getFileLocationSc();
+        bucketNameSc = values.getBucketNameSc();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-        try (InputStream input = IAMServiceTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            prop.load(input);
-            userName = prop.getProperty("userName");
-            policyName= prop.getProperty("policyName");
-            policyARN= prop.getProperty("policyARN");
-            roleName=prop.getProperty("roleName");
-            accountAlias=prop.getProperty("accountAlias");
-            usernameSc=prop.getProperty("usernameSc");
-            policyNameSc=prop.getProperty("policyNameSc");
-            roleNameSc=prop.getProperty("roleNameSc");
-            roleSessionName=prop.getProperty("roleSessionName");
-            fileLocationSc=prop.getProperty("fileLocationSc");
-            bucketNameSc=prop.getProperty("bucketNameSc");
-
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * IAMServiceTest.class.getClassLoader().getResourceAsStream("config.properties"
+         * )) {
+         * Properties prop = new Properties();
+         * prop.load(input);
+         * userName = prop.getProperty("userName");
+         * policyName= prop.getProperty("policyName");
+         * policyARN= prop.getProperty("policyARN");
+         * roleName=prop.getProperty("roleName");
+         * accountAlias=prop.getProperty("accountAlias");
+         * usernameSc=prop.getProperty("usernameSc");
+         * policyNameSc=prop.getProperty("policyNameSc");
+         * roleNameSc=prop.getProperty("roleNameSc");
+         * roleSessionName=prop.getProperty("roleSessionName");
+         * fileLocationSc=prop.getProperty("fileLocationSc");
+         * bucketNameSc=prop.getProperty("bucketNameSc");
+         * 
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
@@ -114,7 +115,7 @@ public class IAMServiceTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void CreateAccessKey() {
-        keyId = CreateAccessKey.createIAMAccessKey(iam,userName);
+        keyId = CreateAccessKey.createIAMAccessKey(iam, userName);
         assertFalse(keyId.isEmpty());
         System.out.println("Test 3 passed");
     }
@@ -123,7 +124,7 @@ public class IAMServiceTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void AttachRolePolicy() {
-        assertDoesNotThrow(() ->AttachRolePolicy.attachIAMRolePolicy(iam, roleName, policyARN));
+        assertDoesNotThrow(() -> AttachRolePolicy.attachIAMRolePolicy(iam, roleName, policyARN));
         System.out.println("\n Test 4 passed");
     }
 
@@ -131,7 +132,7 @@ public class IAMServiceTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void DetachRolePolicy() {
-        assertDoesNotThrow(() ->DetachRolePolicy.detachPolicy(iam, roleName, policyARN));
+        assertDoesNotThrow(() -> DetachRolePolicy.detachPolicy(iam, roleName, policyARN));
         System.out.println("Test 5 passed");
     }
 
@@ -139,7 +140,7 @@ public class IAMServiceTest {
     @Tag("IntegrationTest")
     @Order(6)
     public void GetPolicy() {
-        assertDoesNotThrow(() ->GetPolicy.getIAMPolicy(iam, policyARN));
+        assertDoesNotThrow(() -> GetPolicy.getIAMPolicy(iam, policyARN));
         System.out.println("Test 6 passed");
     }
 
@@ -147,7 +148,7 @@ public class IAMServiceTest {
     @Tag("IntegrationTest")
     @Order(7)
     public void ListAccessKeys() {
-        assertDoesNotThrow(() ->ListAccessKeys.listKeys(iam,userName));
+        assertDoesNotThrow(() -> ListAccessKeys.listKeys(iam, userName));
         System.out.println("Test 7 passed");
     }
 
@@ -155,23 +156,23 @@ public class IAMServiceTest {
     @Tag("IntegrationTest")
     @Order(8)
     public void ListUsers() {
-        assertDoesNotThrow(() ->ListUsers.listAllUsers(iam));
+        assertDoesNotThrow(() -> ListUsers.listAllUsers(iam));
         System.out.println("Test 8 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-   public void CreateAccountAlias() {
-        assertDoesNotThrow(() ->CreateAccountAlias.createIAMAccountAlias(iam, accountAlias));
-       System.out.println("Test 9 passed");
+    public void CreateAccountAlias() {
+        assertDoesNotThrow(() -> CreateAccountAlias.createIAMAccountAlias(iam, accountAlias));
+        System.out.println("Test 9 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(10)
     public void DeleteAccountAlias() {
-        assertDoesNotThrow(() ->DeleteAccountAlias.deleteIAMAccountAlias(iam, accountAlias));
+        assertDoesNotThrow(() -> DeleteAccountAlias.deleteIAMAccountAlias(iam, accountAlias));
         System.out.println("Test 10 passed");
     }
 
@@ -179,23 +180,23 @@ public class IAMServiceTest {
     @Tag("IntegrationTest")
     @Order(11)
     public void DeletePolicy() {
-       assertDoesNotThrow(() ->DeletePolicy.deleteIAMPolicy(iam, policyARN));
-       System.out.println("Test 12 passed");
+        assertDoesNotThrow(() -> DeletePolicy.deleteIAMPolicy(iam, policyARN));
+        System.out.println("Test 12 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(12)
-   public void DeleteAccessKey() {
-       assertDoesNotThrow(() ->DeleteAccessKey.deleteKey(iam, userName, keyId));
-       System.out.println("Test 12 passed");
-   }
+    public void DeleteAccessKey() {
+        assertDoesNotThrow(() -> DeleteAccessKey.deleteKey(iam, userName, keyId));
+        System.out.println("Test 12 passed");
+    }
 
     @Test
     @Tag("IntegrationTest")
     @Order(13)
     public void DeleteUser() {
-        assertDoesNotThrow(() ->DeleteUser.deleteIAMUser(iam,userName));
+        assertDoesNotThrow(() -> DeleteUser.deleteIAMUser(iam, userName));
         System.out.println("Test 13 passed");
     }
 
@@ -214,15 +215,15 @@ public class IAMServiceTest {
         String accessKey = myKey.accessKeyId();
         String secretKey = myKey.secretAccessKey();
         String assumeRolePolicyDocument = "{" +
-            "\"Version\": \"2012-10-17\"," +
-            "\"Statement\": [{" +
-            "\"Effect\": \"Allow\"," +
-            "\"Principal\": {" +
-            "	\"AWS\": \"" + userArn + "\"" +
-            "}," +
-            "\"Action\": \"sts:AssumeRole\"" +
-            "}]" +
-            "}";
+                "\"Version\": \"2012-10-17\"," +
+                "\"Statement\": [{" +
+                "\"Effect\": \"Allow\"," +
+                "\"Principal\": {" +
+                "	\"AWS\": \"" + userArn + "\"" +
+                "}," +
+                "\"Action\": \"sts:AssumeRole\"" +
+                "}]" +
+                "}";
 
         System.out.println(assumeRolePolicyDocument);
         System.out.println(usernameSc + " was successfully created.");
@@ -254,22 +255,22 @@ public class IAMServiceTest {
 
         System.out.println(DASHES);
         System.out.println("6 Getting ready to delete the AWS resources");
-        IAMScenario.deleteKey(iam, usernameSc, accessKey );
+        IAMScenario.deleteKey(iam, usernameSc, accessKey);
         IAMScenario.deleteRole(iam, roleNameSc, polArn);
         IAMScenario.deleteIAMUser(iam, usernameSc);
         System.out.println(DASHES);
     }
 
     private static String getSecretValues() {
-       SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+        SecretsManagerClient secretClient = SecretsManagerClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/iam";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -295,6 +296,7 @@ public class IAMServiceTest {
         private String fileLocationSc;
 
         private String bucketNameSc;
+
         public String getUserName() {
             return userName;
         }
@@ -332,4 +334,3 @@ public class IAMServiceTest {
         }
     }
 }
-

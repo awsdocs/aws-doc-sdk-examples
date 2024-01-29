@@ -1,13 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[S3.dotnetv3.ListBuckets]
-
-/// <summary>
-/// This example uses the AWS SDK for .NET to list the Amazon Simple Storage
-/// Service (Amazon S3) buckets belonging to the default account. This code
-/// was written using AWS SDK for .NET v3.5 and .NET Core 5.0.
-/// </summary>
 namespace ListBucketsExample
 {
     using System;
@@ -16,6 +10,10 @@ namespace ListBucketsExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
+    /// <summary>
+    /// This example uses the AWS SDK for .NET to list the Amazon Simple Storage
+    /// Service (Amazon S3) buckets belonging to the default account.
+    /// </summary>
     public class ListBuckets
     {
         private static IAmazonS3 _s3Client;

@@ -1,14 +1,1 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0.
- */
-
-#[ignore]
-#[tokio::test]
-#[allow(clippy::assertions_on_constants)]
-async fn test_it_runs() {
-    match tls::connect_via_tls_13().await {
-        Err(_e) => assert!(false),
-        _ => assert!(true),
-    }
-}
+// This file has been moved to https://github.com/awsdocs/aws-doc-sdk-examples/blob/rust_dev_preview/rustv1/examples/tls/tests/test-tls.rs

@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace ListTagsExample
 {
@@ -12,8 +12,7 @@ namespace ListTagsExample
 
     /// <summary>
     /// Shows how to list the tags that have been attached to an Amazon Kinesis
-    /// stream. The example was created using the AWS SDK for .NET version 3.7
-    /// and .NET Core 5.0.
+    /// stream.
     /// </summary>
     public class ListTags
     {

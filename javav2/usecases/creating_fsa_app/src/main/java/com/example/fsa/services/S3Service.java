@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.fsa.services;
 
@@ -22,8 +20,8 @@ public class S3Service {
     private static synchronized S3AsyncClient getS3AsyncClient() {
         if (s3AsyncClient == null) {
             s3AsyncClient = S3AsyncClient.crtBuilder()
-                .region(Region.US_EAST_1)
-                .build();
+                    .region(Region.US_EAST_1)
+                    .build();
         }
         return s3AsyncClient;
     }
@@ -32,14 +30,17 @@ public class S3Service {
     public String putAudio(InputStream is, String bucketName, String key) throws S3Exception, IOException {
         try {
             S3TransferManager transferManager = S3TransferManager.builder()
-                .s3Client(getS3AsyncClient())
-                .build();
+                    .s3Client(getS3AsyncClient())
+                    .build();
 
-            BlockingInputStreamAsyncRequestBody body = AsyncRequestBody.forBlockingInputStream(null); // 'null' indicates a stream will be provided later.
+            BlockingInputStreamAsyncRequestBody body = AsyncRequestBody.forBlockingInputStream(null); // 'null'
+                                                                                                      // indicates a
+                                                                                                      // stream will be
+                                                                                                      // provided later.
             Upload upload = transferManager.upload(builder -> builder
-                .requestBody(body)
-                .putObjectRequest(req -> req.bucket(bucketName).key(key))
-                .build());
+                    .requestBody(body)
+                    .putObjectRequest(req -> req.bucket(bucketName).key(key))
+                    .build());
 
             body.writeInputStream(is);
             upload.completionFuture().join();

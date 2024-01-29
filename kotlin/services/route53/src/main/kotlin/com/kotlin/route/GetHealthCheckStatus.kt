@@ -1,11 +1,5 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetHealthCheckStatus.kt demonstrates how to get the status of a specific health check.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Route 53]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.route
 

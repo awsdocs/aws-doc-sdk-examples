@@ -1,21 +1,7 @@
 <?php
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- *
- *
- *
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // snippet-start:[rds.php.create_db_snapshot.complete]
 // snippet-start:[rds.php.create_db_snapshot.import]
 
@@ -49,15 +35,4 @@ try {
 } 
 // snippet-end:[rds.php.create_db_snapshot.main]
 // snippet-end:[rds.php.create_db_snapshot.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateDBSnapshot.php demonstrates how to create a snapshot of your database which can be used for recovery in the future.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Relational Database Service]
-// snippet-service:[rds]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-12-09]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
 

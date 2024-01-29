@@ -1,15 +1,9 @@
-//snippet-sourcedescription:[ListDataStore.java demonstrates how to list the datastores in an AWS HealthImaging account.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[AWS HealthImaging]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.medicalimaging;
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
-//snippet-start:[medicalimaging.java2.list_datastores.import]
+// snippet-start:[medicalimaging.java2.list_datastores.import]
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -22,10 +16,11 @@ import software.amazon.awssdk.services.medicalimaging.paginators.ListDatastoresI
 import java.util.ArrayList;
 import java.util.List;
 
-//snippet-end:[medicalimaging.java2.list_datastores.import]
+// snippet-end:[medicalimaging.java2.list_datastores.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  * <p>
  * For more information, see the following documentation topic:
  * <p>
@@ -48,7 +43,7 @@ public class ListDatastores {
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.list_datastores.main]
+    // snippet-start:[medicalimaging.java2.list_datastores.main]
     public static List<DatastoreSummary> listMedicalImagingDatastores(MedicalImagingClient medicalImagingClient) {
         try {
             ListDatastoresRequest datastoreRequest = ListDatastoresRequest.builder()
@@ -66,5 +61,5 @@ public class ListDatastores {
 
         return null;
     }
-    //snippet-end:[medicalimaging.java2.list_datastores.main]
+    // snippet-end:[medicalimaging.java2.list_datastores.main]
 }

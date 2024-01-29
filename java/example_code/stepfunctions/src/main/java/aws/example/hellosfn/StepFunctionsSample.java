@@ -1,25 +1,5 @@
-//snippet-sourcedescription:[StepFunctionsSample.java demonstrates how to make basic requests to Amazon Step Functions.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-service:[states]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
-/*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *  http://aws.amazon.com/apache2.0
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package aws.example.hellosfn;
 
@@ -60,20 +40,19 @@ public class StepFunctionsSample {
          * (~/.aws/credentials).
          *
          * It is possible to use another profile with:
-         *  credentialsProvider = new ProfileCredentialsProvider("your-profile")
+         * credentialsProvider = new ProfileCredentialsProvider("your-profile")
          */
 
-        ProfileCredentialsProvider credentialsProvider =
-                new ProfileCredentialsProvider();
+        ProfileCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
         try {
             credentialsProvider.getCredentials();
         } catch (Exception e) {
             throw new AmazonClientException(
-                "Cannot load the credentials from the credential profiles " +
-                "file. Please make sure that your credentials file is " +
-                "at the correct location (~/.aws/credentials), and is " +
-                "in valid format.",
-                e);
+                    "Cannot load the credentials from the credential profiles " +
+                            "file. Please make sure that your credentials file is " +
+                            "at the correct location (~/.aws/credentials), and is " +
+                            "in valid format.",
+                    e);
         }
 
         Regions region = Regions.US_EAST_1;
@@ -88,8 +67,8 @@ public class StepFunctionsSample {
 
         try {
             System.out.println("Listing state machines");
-            ListStateMachinesResult listStateMachinesResult = sfnClient.
-                    listStateMachines(new ListStateMachinesRequest());
+            ListStateMachinesResult listStateMachinesResult = sfnClient
+                    .listStateMachines(new ListStateMachinesRequest());
 
             List<StateMachineListItem> stateMachines = listStateMachinesResult
                     .getStateMachines();
@@ -100,8 +79,7 @@ public class StepFunctionsSample {
                     System.out.println("\t- Name: " + sm.getName());
                     System.out.println("\t- Arn: " + sm.getStateMachineArn());
 
-                    ListExecutionsRequest listRequest = new
-                            ListExecutionsRequest().withStateMachineArn(sm
+                    ListExecutionsRequest listRequest = new ListExecutionsRequest().withStateMachineArn(sm
                             .getStateMachineArn());
                     ListExecutionsResult listExecutionsResult = sfnClient
                             .listExecutions(listRequest);

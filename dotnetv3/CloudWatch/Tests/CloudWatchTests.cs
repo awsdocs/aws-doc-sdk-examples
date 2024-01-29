@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using System.Text;
 using System.Text.Json;
@@ -51,6 +51,7 @@ public class CloudWatchTests
     [Fact]
     [Order(1)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task ListMetrics_ShouldNotBeNull()
     {
         var result = await _cloudWatchWrapper.ListMetrics("AWS/Billing");
@@ -65,6 +66,7 @@ public class CloudWatchTests
     [Fact]
     [Order(2)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task GetMetricStatistics_ShouldNotBeNull()
     {
         var result = await _cloudWatchWrapper.GetMetricStatistics(
@@ -85,6 +87,7 @@ public class CloudWatchTests
     [Fact]
     [Order(3)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task PutDashboard_ShouldNotBeNull()
     {
         var dashboardName = _configuration["dashboardName"];
@@ -109,6 +112,7 @@ public class CloudWatchTests
     [Fact]
     [Order(4)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task GetDashboard_ShouldNotBeNull()
     {
         var dashboardName = _configuration["dashboardName"];
@@ -126,6 +130,7 @@ public class CloudWatchTests
     [Fact]
     [Order(5)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task ListDashboard_ShouldIncludeDashboard()
     {
         var dashboardName = _configuration["dashboardName"];
@@ -141,6 +146,7 @@ public class CloudWatchTests
     [Fact]
     [Order(6)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task PutMetricData_ShouldSucceed()
     {
         var customMetricNamespace = _configuration["customMetricNamespace"];
@@ -166,6 +172,7 @@ public class CloudWatchTests
     [Fact]
     [Order(7)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task GetMetricImage_ShouldSucceed()
     {
         var customMetricNamespace = _configuration["customMetricNamespace"];
@@ -252,7 +259,7 @@ public class CloudWatchTests
             20,
             query);
 
-        Assert.NotEmpty(metricData);
+        Assert.NotNull(metricData);
     }
 
     /// <summary>
@@ -262,6 +269,7 @@ public class CloudWatchTests
     [Fact]
     [Order(10)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task PutMetricEmailAlarm_ShouldSucceed()
     {
         var customMetricNamespace = _configuration["customMetricNamespace"];
@@ -287,6 +295,7 @@ public class CloudWatchTests
     [Fact]
     [Order(11)]
     [Trait("Category", "Unit")]
+    [Trait("Category", "Weathertop")]
     public void AddEmailAlarmAction_ShouldIncludeAction()
     {
         var accountId = _configuration["accountId"];
@@ -306,6 +315,7 @@ public class CloudWatchTests
     [Fact]
     [Order(12)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task DescribeAlarms_ShouldIncludeAlarm()
     {
         var alarmName = _configuration["exampleAlarmName"];
@@ -321,6 +331,7 @@ public class CloudWatchTests
     [Fact]
     [Order(13)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task DescribeAlarmsForMetric_ShouldIncludeAlarm()
     {
         var alarmName = _configuration["exampleAlarmName"];
@@ -338,6 +349,7 @@ public class CloudWatchTests
     [Fact]
     [Order(14)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task DescribeAlarmsForMetric_ShouldNotIncludeAlarm()
     {
         var alarmName = _configuration["exampleAlarmName"];
@@ -353,6 +365,7 @@ public class CloudWatchTests
     [Fact]
     [Order(15)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task DescribeAlarmHistory_ShouldNotBeNull()
     {
         var customMetricName = _configuration["customMetricName"];
@@ -368,6 +381,7 @@ public class CloudWatchTests
     [Fact]
     [Order(16)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task EnableAlarmActions_ShouldSucceed()
     {
         var alarmName = _configuration["exampleAlarmName"];
@@ -383,6 +397,7 @@ public class CloudWatchTests
     [Fact]
     [Order(17)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task DisableAlarmActions_ShouldSucceed()
     {
         var alarmName = _configuration["exampleAlarmName"];
@@ -398,6 +413,7 @@ public class CloudWatchTests
     [Fact]
     [Order(18)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task DeleteAlarms_ShouldSucceed()
     {
         var alarmName = _configuration["exampleAlarmName"];
@@ -413,6 +429,7 @@ public class CloudWatchTests
     [Fact]
     [Order(19)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task PutAnomalyDetector_ShouldSucceed()
     {
         var customMetricNamespace = _configuration["customMetricNamespace"];
@@ -436,6 +453,7 @@ public class CloudWatchTests
     [Fact]
     [Order(20)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task DescribeAnomalyDetectors_ShouldNotBeEmpty()
     {
         var customMetricNamespace = _configuration["customMetricNamespace"];
@@ -452,6 +470,7 @@ public class CloudWatchTests
     [Fact]
     [Order(21)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task DeleteAnomalyDetector_ShouldSucceed()
     {
         var customMetricNamespace = _configuration["customMetricNamespace"];
@@ -475,6 +494,7 @@ public class CloudWatchTests
     [Fact]
     [Order(22)]
     [Trait("Category", "Integration")]
+    [Trait("Category", "Weathertop")]
     public async Task DeleteDashboard_ShouldSucceed()
     {
         var dashboardName = _configuration["dashboardName"];

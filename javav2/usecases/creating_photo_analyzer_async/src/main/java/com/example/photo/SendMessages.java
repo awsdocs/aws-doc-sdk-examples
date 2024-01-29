@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.photo;
 
@@ -31,12 +29,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SendMessages {
-    public void sendReport(InputStream is, String emailAddress ) throws IOException {
+    public void sendReport(InputStream is, String emailAddress) throws IOException {
 
-        //Convert the InputStream to a byte[].
+        // Convert the InputStream to a byte[].
         byte[] fileContent = IOUtils.toByteArray(is);
         try {
-            send(fileContent,emailAddress);
+            send(fileContent, emailAddress);
         } catch (MessagingException e) {
             e.getStackTrace();
         }
@@ -70,7 +68,8 @@ public class SendMessages {
         MimeBodyPart htmlPart = new MimeBodyPart();
         // The HTML body of the email.
         String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p>Please see the attached file for the report that analyzed photos in the S3 bucket.</p>" + "</body>" + "</html>";
+                + "<p>Please see the attached file for the report that analyzed photos in the S3 bucket.</p>"
+                + "</body>" + "</html>";
         htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
         // Add the text and HTML parts to the child container.
@@ -91,7 +90,8 @@ public class SendMessages {
 
         // Define the attachment
         MimeBodyPart att = new MimeBodyPart();
-        DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        DataSource fds = new ByteArrayDataSource(attachment,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
 
         String reportName = "PhotoReport.xls";
@@ -106,7 +106,7 @@ public class SendMessages {
 
             Region region = Region.US_WEST_2;
             SesClient client = SesClient.builder()
-                    //  .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                    // .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                     .region(region)
                     .build();
 

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /**
  * Before running this C++ code example, set up your development environment,
@@ -19,14 +17,14 @@
  *
  */
 
-//snippet-start:[iam.cpp.create_policy.inc]
+// snippet-start:[iam.cpp.create_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreatePolicyRequest.h>
 #include <aws/iam/model/CreatePolicyResult.h>
 #include <iostream>
 #include "iam_samples.h"
-//snippet-end:[iam.cpp.create_policy.inc]
+// snippet-end:[iam.cpp.create_policy.inc]
 
 namespace AwsDoc {
     namespace IAM {
@@ -68,7 +66,7 @@ Aws::String AwsDoc::IAM::createPolicy(const Aws::String &policyName,
 }
 // snippet-end:[iam.cpp.create_policy.code]
 
-//snippet-start:[iam.cpp.build_policy.code]
+// snippet-start:[iam.cpp.build_policy.code]
 Aws::String AwsDoc::IAM::BuildSamplePolicyDocument(const Aws::String &rsrc_arn) {
     std::stringstream stringStream;
     stringStream << "{"
@@ -99,7 +97,7 @@ Aws::String AwsDoc::IAM::BuildSamplePolicyDocument(const Aws::String &rsrc_arn) 
 
     return stringStream.str();
 }
-//snippet-end:[iam.cpp.build_policy.code]
+// snippet-end:[iam.cpp.build_policy.code]
 
 /*
  *

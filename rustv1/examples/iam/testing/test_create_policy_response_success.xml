@@ -1,0 +1,17 @@
+<CreatePolicyResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+  <CreatePolicyResult>
+    <Policy>
+      <PolicyName>S3-read-only-example-bucket</PolicyName>
+      <DefaultVersionId>v1</DefaultVersionId>
+      <PolicyId>AGPACKCEVSQ6C2EXAMPLE</PolicyId>
+      <Path>/</Path>
+      <Arn>arn:aws:iam::123456789012:policy/S3-read-only-example-bucket</Arn>
+      <AttachmentCount>0</AttachmentCount>
+      <CreateDate>2014-09-15T17:36:14.673Z</CreateDate>
+      <UpdateDate>2014-09-15T17:36:14.673Z</UpdateDate>
+    </Policy>
+  </CreatePolicyResult>
+  <ResponseMetadata>
+    <RequestId>ca64c9e1-3cfe-11e4-bfad-8d1c6EXAMPLE</RequestId>
+  </ResponseMetadata>
+</CreatePolicyResponse>

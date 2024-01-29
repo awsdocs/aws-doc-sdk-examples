@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: put_rule.cpp demonstrates how to create an Amazon CloudWatch Events routing rule.
@@ -11,14 +11,14 @@
  * Outputs:
  * The routing rule is created.
    * ///////////////////////////////////////////////////////////////////////// */
-//snippet-start:[cw.cpp.put_rule.inc]
+// snippet-start:[cw.cpp.put_rule.inc]
 #include <aws/core/Aws.h>
 #include <aws/events/EventBridgeClient.h>
 #include <aws/events/model/PutRuleRequest.h>
 #include <aws/events/model/PutRuleResult.h>
 #include <aws/core/utils/Outcome.h>
 #include <iostream>
-//snippet-end:[cw.cpp.put_rule.inc]
+// snippet-end:[cw.cpp.put_rule.inc]
 
 /**
  * Creates a cloud watch event-routing rule, based on command line input

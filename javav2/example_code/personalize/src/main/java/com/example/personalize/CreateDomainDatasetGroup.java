@@ -1,20 +1,9 @@
-//snippet-sourcedescription:[CreateDomainDatasetGroup.java demonstrates how to create an Amazon Personalize
-// domain dataset group.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[3/11/2022]
-//snippet-sourceauthor:[seashman - AWS]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.personalize;
 
-//snippet-start:[personalize.java2.create_domain_dataset_group.import]
+// snippet-start:[personalize.java2.create_domain_dataset_group.import]
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
@@ -22,17 +11,20 @@ import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 import software.amazon.awssdk.services.personalize.model.CreateDatasetGroupRequest;
 
 import java.time.Instant;
-//snippet-end:[personalize.java2.create_domain_dataset_group.import]
+// snippet-end:[personalize.java2.create_domain_dataset_group.import]
 
 public class CreateDomainDatasetGroup {
 
     public static void main(String[] args) {
 
-        final String USAGE = "Usage:\n" +
-                "    CreateDomainDatasetGroup <name> <domain>\n\n" +
-                "Where:\n" +
-                "   name - The name for the new dataset group." +
-                "   domain - The domain for the dataset group. Specify either ECOMMERCE or VIDEO_ON_DEMAND.\n\n";
+        final String USAGE = """
+                Usage:
+                    CreateDomainDatasetGroup <name> <domain>
+
+                Where:
+                   name - The name for the new dataset group.   domain - The domain for the dataset group. Specify either ECOMMERCE or VIDEO_ON_DEMAND.
+
+                """;
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -54,10 +46,10 @@ public class CreateDomainDatasetGroup {
         personalizeClient.close();
     }
 
-    //snippet-start:[personalize.java2.create_domain_dataset_group.main]
+    // snippet-start:[personalize.java2.create_domain_dataset_group.main]
     public static String createDomainDatasetGroup(PersonalizeClient personalizeClient,
-                                                  String datasetGroupName,
-                                                  String domain) {
+            String datasetGroupName,
+            String domain) {
 
         try {
             CreateDatasetGroupRequest createDatasetGroupRequest = CreateDatasetGroupRequest.builder()
@@ -70,6 +62,6 @@ public class CreateDomainDatasetGroup {
         }
         return "";
     }
-    //snippet-end:[personalize.java2.create_domain_dataset_group.main]
+    // snippet-end:[personalize.java2.create_domain_dataset_group.main]
 
 }

@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DeleteCollectionExample
 {
@@ -11,8 +11,6 @@ namespace DeleteCollectionExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to delete an existing collection.
-    /// The example was created using the AWS SDK for .NET version 3.7 and
-    /// .NET Core 5.0.
     /// </summary>
     public class DeleteCollection
     {

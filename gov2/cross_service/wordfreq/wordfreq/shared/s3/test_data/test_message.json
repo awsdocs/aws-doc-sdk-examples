@@ -1,8 +1,0 @@
-{  
-    "Service":"Amazon S3",
-    "Event":"s3:TestEvent",
-    "Time":"2014-10-13T15:57:02.089Z",
-    "Bucket":"bucketname",
-    "RequestId":"5582815E1AEA5ADF",
-    "HostId":"8cLeGAmw098X5cv4Zkwcmo8vvZa3eH3eKxsPzbB9wrR+YstdA6Knx4Ip8EXAMPLE"
- }

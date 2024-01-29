@@ -1,13 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// List the AWS Key Management Service (AWS KMS) aliases that have been defined for
-/// the keys in the same AWS Region as the default user. If you want to list
-/// the aliases in a different Region, pass the Region to the client
-/// constructor. This example was created using the AWS SDK for .NET version
-/// 3.7 and .NET Core 5.0.
-/// </summary>
 namespace ListAliasesExample
 {
     // snippet-start:[KMS.dotnetv3.ListAliasesExample]
@@ -16,6 +9,12 @@ namespace ListAliasesExample
     using Amazon.KeyManagementService;
     using Amazon.KeyManagementService.Model;
 
+    /// <summary>
+    /// List the AWS Key Management Service (AWS KMS) aliases that have been defined for
+    /// the keys in the same AWS Region as the default user. If you want to list
+    /// the aliases in a different Region, pass the Region to the client
+    /// constructor.
+    /// </summary>
     public class ListAliases
     {
         public static async Task Main()

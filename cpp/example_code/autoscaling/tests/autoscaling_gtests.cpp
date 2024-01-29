@@ -1,16 +1,17 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 #include "autoscaling_gtests.h"
 #include <fstream>
 #include <aws/core/client/ClientConfiguration.h>
+#include <aws/testing/mocks/http/MockHttpClient.h>
+static const char ALLOCATION_TAG[] = "AUTOSCALING_GTEST";
 
 Aws::SDKOptions AwsDocTest::AutoScaling_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::AutoScaling_GTests::s_clientConfig;
 
 void AwsDocTest::AutoScaling_GTests::SetUpTestSuite() {
+    s_options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     InitAPI(s_options);
 
     // s_clientConfig must be a pointer because the client config must be initialized
@@ -77,5 +78,41 @@ int AwsDocTest::MyStringBuffer::underflow() {
     }
 
     return result;
+}
+
+AwsDocTest::MockHTTP::MockHTTP() {
+    mockHttpClient = Aws::MakeShared<MockHttpClient>(ALLOCATION_TAG);
+    mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
+    mockHttpClientFactory->SetClient(mockHttpClient);
+    SetHttpClientFactory(mockHttpClientFactory);
+    requestTmp = CreateHttpRequest(Aws::Http::URI("https://test.com/"),
+                                   Aws::Http::HttpMethod::HTTP_GET,
+                                   Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+}
+
+AwsDocTest::MockHTTP::~MockHTTP() {
+    Aws::Http::CleanupHttp();
+    Aws::Http::InitHttp();
+}
+
+bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
+                                               Aws::Http::HttpResponseCode httpResponseCode) {
+
+    std::string fullPath = std::string(SRC_DIR) + "/" + fileName;
+    std::ifstream inStream(fullPath);
+    if (inStream) {
+        std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
+                ALLOCATION_TAG, requestTmp);
+        goodResponse->AddHeader("Content-Type", "text/xml");
+        goodResponse->SetResponseCode(httpResponseCode);
+        goodResponse->GetResponseBody() << inStream.rdbuf();
+        mockHttpClient->AddResponseToReturn(goodResponse);
+        return true;
+    }
+
+    std::cerr << "MockHTTP::addResponseWithBody open file error '" << fullPath << "'."
+              << std::endl;
+
+    return false;
 }
 

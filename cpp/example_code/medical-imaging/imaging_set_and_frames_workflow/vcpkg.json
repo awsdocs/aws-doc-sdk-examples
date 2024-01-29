@@ -1,0 +1,25 @@
+{
+  "name": "medical-imaging-examples",
+  "version-string": "1.0.0",
+  "builtin-baseline": "cd5e746ec203c8c3c61647e0886a8df8c1e78e41",
+  "dependencies": [
+    {
+      "name": "jsoncons",
+      "version>=": "0.171.0",
+      "$comment": "  # this is heuristically generated, and may not be correct\n\n  find_package(jsoncons CONFIG REQUIRED)\n\n  target_link_libraries(main PRIVATE jsoncons)\n"
+    },
+    {
+      "name": "openjpeg",
+      "version>=": "2.5.0#1",
+      "$comment": "  # this is heuristically generated, and may not be correct\n\n  find_package(OpenJPEG CONFIG REQUIRED)\n\n  target_link_libraries(main PRIVATE openjp2)\n"
+    },
+    {
+      "name": "gzip-hpp",
+      "version>=": "0.1.0#2"
+    },
+    {
+      "name" : "boost-crc",
+      "version>=" : "1.83.0"
+    }
+  ]
+}

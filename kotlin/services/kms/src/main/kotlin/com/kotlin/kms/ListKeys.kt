@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListKeys.kt demonstrates how to get a list of AWS Key Management Service (AWS KMS) keys.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS Key Management Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.kms
 
 // snippet-start:[kms.kotlin_list_keys.import]

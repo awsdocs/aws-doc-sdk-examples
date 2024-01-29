@@ -1,7 +1,5 @@
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[lookoutvision.java2.create_model.complete]
 
@@ -76,13 +74,11 @@ public class CreateModel {
             System.out.println(String.format("Could not create model: %s", lfvError.getMessage()));
             System.exit(1);
 
-
         } catch (InterruptedException intError) {
             logger.log(Level.SEVERE, "Interrupt exception occurred: {0}", intError.getMessage());
             Thread.currentThread().interrupt();
-        }                
+        }
 
-       
     }
 
 }

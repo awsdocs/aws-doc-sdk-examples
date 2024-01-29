@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.fsa.services;
 
@@ -25,8 +23,8 @@ public class ExtractTextService {
     private static synchronized TextractAsyncClient getTextractAsyncClient() {
         if (textractAsyncClient == null) {
             textractAsyncClient = TextractAsyncClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+                    .region(Region.US_EAST_1)
+                    .build();
         }
         return textractAsyncClient;
     }
@@ -34,17 +32,17 @@ public class ExtractTextService {
     public String getCardText(String bucketName, String obName) {
         try {
             S3Object s3Object = S3Object.builder()
-                .bucket(bucketName)
-                .name(obName)
-                .build();
+                    .bucket(bucketName)
+                    .name(obName)
+                    .build();
 
             Document myDoc = Document.builder()
-                .s3Object(s3Object)
-                .build();
+                    .s3Object(s3Object)
+                    .build();
 
             DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
-                .document(myDoc)
-                .build();
+                    .document(myDoc)
+                    .build();
 
             StringBuilder completeText = new StringBuilder();
             CompletableFuture<?> future = getTextractAsyncClient().detectDocumentText(detectDocumentTextRequest);

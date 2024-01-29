@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[CreateCollection.kt demonstrates how to create an Amazon Rekognition collection.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Rekognition]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.rekognition
 
 // snippet-start:[rekognition.kotlin.create_collection.import]

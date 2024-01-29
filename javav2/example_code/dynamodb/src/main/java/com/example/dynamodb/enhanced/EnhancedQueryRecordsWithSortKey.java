@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.example.dynamodb.enhanced;
 
 // snippet-start:[dynamodb.java2.mapping.querykey.import]
@@ -7,9 +9,7 @@ package com.example.dynamodb.enhanced;
  *This example is depreciated, see the Scenario example.
  */
 public class EnhancedQueryRecordsWithSortKey {
-
     public static void main(String[] args) {
-
         System.out.println("This example is depreciated, see the Scenario example");
     }
 

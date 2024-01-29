@@ -1,13 +1,9 @@
-//snippet-sourcedescription:[ListGroups.java demonstrates how to get list of groups in AWS Identitystore.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Identitystore]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.identitystore;
 
+// snippet-start:[identitystore.java2.list_groups.main]
 // snippet-start:[Identitystore.java2.list_groups.import]
 import software.amazon.awssdk.services.identitystore.IdentitystoreClient;
 import software.amazon.awssdk.services.identitystore.model.IdentitystoreException;
@@ -17,7 +13,8 @@ import software.amazon.awssdk.services.identitystore.model.Group;
 // snippet-end:[Identitystore.java2.list_groups.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,11 +25,10 @@ public class ListGroups {
     public static void main(String... args) {
 
         final String usage = "\n" +
-        "Usage:\n" +
-        "    <identitystoreId> \n\n" +
-        "Where:\n" +
-        "    identitystoreId - The id of the identitystore. \n\n" ;
-
+                "Usage:\n" +
+                "    <identitystoreId> \n\n" +
+                "Where:\n" +
+                "    identitystoreId - The id of the identitystore. \n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,34 +42,33 @@ public class ListGroups {
         int result = listGroups(identitystore, identitystoreId);
         System.out.println("Total number of groups is: " + result);
         identitystore.close();
-
     }
 
-    // snippet-start:[identitystore.java2.list_groups.main]
     public static int listGroups(IdentitystoreClient identitystore, String identitystoreId) {
         try {
-
             boolean done = false;
             int count = 0;
             String nextToken = null;
 
-            while(!done) {
+            while (!done) {
                 ListGroupsResponse response;
-                if (nextToken == null){
+                if (nextToken == null) {
                     ListGroupsRequest request = ListGroupsRequest.builder().identityStoreId(identitystoreId).build();
                     response = identitystore.listGroups(request);
                 } else {
-                    ListGroupsRequest request = ListGroupsRequest.builder().nextToken(nextToken).identityStoreId(identitystoreId).build();
+                    ListGroupsRequest request = ListGroupsRequest.builder().nextToken(nextToken)
+                            .identityStoreId(identitystoreId).build();
                     response = identitystore.listGroups(request);
                 }
 
-                for(Group group : response.groups()) {
-                    count ++;
-                    System.out.format("GroupName: %s, GroupId: %s, GroupDescription: %s\n", group.displayName(), group.groupId(), group.description());
+                for (Group group : response.groups()) {
+                    count++;
+                    System.out.format("GroupName: %s, GroupId: %s, GroupDescription: %s\n", group.displayName(),
+                            group.groupId(), group.description());
                 }
 
                 nextToken = response.nextToken();
-                if (nextToken == null){
+                if (nextToken == null) {
                     done = true;
                 }
             }
@@ -85,6 +80,6 @@ public class ListGroups {
         }
 
         return 0;
-     }
-     // snippet-end:[identitystore.java2.list_groups.main]
+    }
 }
+// snippet-end:[identitystore.java2.list_groups.main]

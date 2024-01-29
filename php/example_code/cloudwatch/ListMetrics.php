@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudwatch.php.list_metrics.complete]
 // snippet-start:[cloudwatch.php.list_metrics.import]
@@ -88,14 +87,4 @@ function listTheMetrics()
 // listTheMetrics();
 // snippet-end:[cloudwatch.php.list_metrics.main]
 // snippet-end:[cloudwatch.php.list_metrics.complete]
-// snippet-sourcedescription:[ListMetrics.php demonstrates how to retrieve a list of published Amazon CloudWatch metrics.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Cloudwatch]
-// snippet-service:[cloudwatch]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-05-08]
-// snippet-sourceauthor:[pccornel (AWS)]
 

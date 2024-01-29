@@ -1,29 +1,6 @@
-/**
- * Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- * 
- * http://aws.amazon.com/apache2.0/
- * 
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[LowLevelMultipartCopy.java demonstrates how to perform a multipart upload of an S3 object.]
-// snippet-service:[s3]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon S3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Initiate Multipart Upload]
-// snippet-keyword:[Upload Part]
-// snippet-keyword:[Complete Multipart Upload]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-28]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[s3.java.low_level_multipart_copy.complete]
 
 import com.amazonaws.AmazonServiceException;
@@ -54,7 +31,8 @@ public class LowLevelMultipartCopy {
                     .build();
 
             // Initiate the multipart upload.
-            InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(destBucketName, destObjectKey);
+            InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(destBucketName,
+                    destObjectKey);
             InitiateMultipartUploadResult initResult = s3Client.initiateMultipartUpload(initRequest);
 
             // Get the object size to track the end of the copy operation.
@@ -86,7 +64,8 @@ public class LowLevelMultipartCopy {
                 bytePosition += partSize;
             }
 
-            // Complete the upload request to concatenate all uploaded parts and make the copied object available.
+            // Complete the upload request to concatenate all uploaded parts and make the
+            // copied object available.
             CompleteMultipartUploadRequest completeRequest = new CompleteMultipartUploadRequest(
                     destBucketName,
                     destObjectKey,
@@ -95,11 +74,11 @@ public class LowLevelMultipartCopy {
             s3Client.completeMultipartUpload(completeRequest);
             System.out.println("Multipart copy complete.");
         } catch (AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
+            // The call was transmitted successfully, but Amazon S3 couldn't process
             // it, so it returned an error response.
             e.printStackTrace();
         } catch (SdkClientException e) {
-            // Amazon S3 couldn't be contacted for a response, or the client  
+            // Amazon S3 couldn't be contacted for a response, or the client
             // couldn't parse the response from Amazon S3.
             e.printStackTrace();
         }

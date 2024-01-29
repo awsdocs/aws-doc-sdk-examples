@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DeleteForecast.kt demonstrates how to delete a forecast that belongs to the Amazon Forecast service.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Forecast]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.forecast
 

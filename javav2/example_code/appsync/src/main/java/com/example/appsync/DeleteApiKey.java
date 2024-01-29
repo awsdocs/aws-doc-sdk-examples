@@ -1,23 +1,19 @@
-// snippet-sourcedescription:[DeleteApiKey.java demonstrates how to delete a key.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[AWS AppSync]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.appsync;
 
-//snippet-start:[appsync.java2.del_key.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+// snippet-start:[appsync.java2.del_key.main]
+// snippet-start:[appsync.java2.del_key.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import software.amazon.awssdk.services.appsync.model.AppSyncException;
 import software.amazon.awssdk.services.appsync.model.DeleteApiKeyRequest;
-//snippet-end:[appsync.java2.del_key.import]
+// snippet-end:[appsync.java2.del_key.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -26,13 +22,14 @@ import software.amazon.awssdk.services.appsync.model.DeleteApiKeyRequest;
 public class DeleteApiKey {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-                "Usage: " +
-                "   <apiId> <keyId> \n\n" +
-                "Where:\n" +
-                "   apiId - the id of the API (You can get this value from the AWS Management Console). \n\n" +
-                "   keyId - The Id of the key to delete." ;
+                Usage:    <apiId> <keyId>\s
+
+                Where:
+                   apiId - the id of the API (You can get this value from the AWS Management Console).\s
+                   keyId - The Id of the key to delete.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -41,18 +38,13 @@ public class DeleteApiKey {
 
         String apiId = args[0];
         String keyId = args[1];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
-        Region region = Region.US_EAST_1;
         AppSyncClient appSyncClient = AppSyncClient.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
+                .region(Region.US_EAST_1)
                 .build();
-        deleteKey(appSyncClient, keyId, apiId) ;
+        deleteKey(appSyncClient, keyId, apiId);
     }
 
-    //snippet-start:[appsync.java2.del_key.main]
     public static void deleteKey(AppSyncClient appSyncClient, String keyId, String apiId) {
-
         try {
             DeleteApiKeyRequest apiKeyRequest = DeleteApiKeyRequest.builder()
                     .apiId(apiId)
@@ -67,5 +59,5 @@ public class DeleteApiKey {
             System.exit(1);
         }
     }
-    //snippet-end:[appsync.java2.del_key.main]
 }
+// snippet-end:[appsync.java2.del_key.main]

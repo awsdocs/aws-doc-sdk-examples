@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Dicusses how to develop a native Android application with publish/subsciption functionality and the ability to translate messages by using the AWS SDK for Kotlin.     |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 1/27/2023        |
+| Updated   | 11/14/2023        |
 | Required Skills   | Kotlin, Gradle  |
 
 ## Purpose
@@ -35,11 +35,11 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + An IDE that lets you build Android projects. (This example uses Android Studio Electric Eel.)
-+ Java 1.8 SDK.
-+ Gradle 6.8 or higher.
++ Java 11 SDK.
++ Gradle 8.1 or higher.
 + Min API version is 24.
 + Requires core library desugaring in the Gradle build file.
-+ Source/target compat of 1.8.
++ Source/target compat of 11.
 + Set up your development environment. For more information, see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
 
 ### ⚠️ Important
@@ -128,16 +128,17 @@ Add the following dependencies to the Gradle build file.
 ```yaml
    plugins {
     id 'com.android.application'
-    id 'kotlin-android'
-   }
+    id 'org.jetbrains.kotlin.android'
+}
 
-   android {
-    compileSdk 30
+android {
+    namespace 'com.example.pubsub'
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.awsapp"
-        minSdk 26
-        targetSdk 30
+        applicationId "com.example.pubsub"
+        minSdk 24
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -145,39 +146,34 @@ Add the following dependencies to the Gradle build file.
     }
 
     buildTypes {
-
-        create("customDebugType") {
-            debuggable = true
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-       }
-      compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-      }
-      kotlinOptions {
-        jvmTarget = '1.8'
-      } 
-   }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
 
-   dependencies {
+dependencies {
 
-     implementation 'androidx.core:core-ktx:1.6.0'
-     implementation("aws.sdk.kotlin:translate:0.19.0-beta")
-    implementation("aws.sdk.kotlin:sns:0.19.0-beta")  {
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation("aws.sdk.kotlin:translate:0.33.1-beta")
+    implementation("aws.sdk.kotlin:sns:0.33.1-beta")  {
         exclude group: "xmlpull", module: "xmlpull"
     }
-     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
-     implementation 'androidx.appcompat:appcompat:1.3.1'
-     implementation 'com.google.android.material:material:1.4.0'
-     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-     testImplementation 'junit:junit:4.+'
-     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-     }
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
 
 ```
 

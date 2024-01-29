@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Errors>
+        <Error>
+            <Code>InvalidLaunchTemplateName.AlreadyExistsException</Code>
+            <Message>Launch template name already in use.</Message>
+        </Error>
+    </Errors>
+    <RequestID>b8545979-2a83-4c70-bf83-1052a2ed4ecc</RequestID>
+</Response>
+ 

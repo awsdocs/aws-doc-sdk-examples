@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DetectEntitiesExample
 {
@@ -11,8 +11,7 @@ namespace DetectEntitiesExample
 
     /// <summary>
     /// This example shows how to use the AmazonComprehend service detect any
-    /// entities in submitted text. This example was created using the AWS SDK
-    /// for .NET 3.7 and .NET Core 5.0.
+    /// entities in submitted text.
     /// </summary>
     public static class DetectEntities
     {

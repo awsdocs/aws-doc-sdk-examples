@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { parseArgs } from "node:util";
 
@@ -64,8 +62,8 @@ Options:
       }`,
     );
     console.log(
-      `[DEBUG ${new Date().toISOString()}] Context: ${JSON.stringify(
-        scenarios[values.scenario].context,
+      `[DEBUG ${new Date().toISOString()}] State: ${JSON.stringify(
+        scenarios[values.scenario].state,
       )}`,
     );
   }

@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[CreateCannedPolicyRequest.java demonstrates how to use the CannedSignerRequest class to specify the required properties to sign URLs or cookies to access Amazon CloudFront.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudFront]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.cloudfront;
 
 // snippet-start:[cloudfront.java2.createcannedpolicyrequest.import]
@@ -21,8 +16,9 @@ import java.time.temporal.ChronoUnit;
 // snippet-start:[cloudfront.java2.createcannedpolicyrequest.main]
 public class CreateCannedPolicyRequest {
 
-    public static CannedSignerRequest createRequestForCannedPolicy(String distributionDomainName, String fileNameToUpload,
-                                                                   String privateKeyFullPath, String publicKeyId) throws Exception{
+    public static CannedSignerRequest createRequestForCannedPolicy(String distributionDomainName,
+            String fileNameToUpload,
+            String privateKeyFullPath, String publicKeyId) throws Exception {
         String protocol = "https";
         String resourcePath = "/" + fileNameToUpload;
 

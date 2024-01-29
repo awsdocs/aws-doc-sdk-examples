@@ -1,0 +1,20 @@
+[package]
+name = "sdk-examples-test-utils"
+version = "0.1.0"
+authors = [
+  "David Souther <dpsouth@amazon.com>",
+]
+edition = "2021"
+
+[workspace]
+
+[dependencies]
+aws-config = { version = "1.0.1" }
+aws-smithy-types = { version = "1.0.1" }
+aws-smithy-runtime = { version = "1.0.1", features = ["test-util"] }
+aws-types = { version = "1.0.1" }
+http = "0.2"
+tokio = "1.33.0"
+
+[lib]
+path="src/mod.rs"

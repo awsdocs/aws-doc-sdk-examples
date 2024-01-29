@@ -1,20 +1,9 @@
-//snippet-sourcedescription:[CreateDomainSchema.java demonstrates how to create
-// an Amazon Personalize schema for a dataset in a domain dataset group.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[3/5/2022]
-//snippet-sourceauthor:[seashman - AWS]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.personalize;
 
-//snippet-start:[personalize.java2.create_domain_schema.import]
+// snippet-start:[personalize.java2.create_domain_schema.import]
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.model.CreateSchemaRequest;
@@ -24,18 +13,22 @@ import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-//snippet-end:[personalize.java2.create_domain_schema.import]
+// snippet-end:[personalize.java2.create_domain_schema.import]
 
 public class CreateDomainSchema {
 
     public static void main(String[] args) {
 
-        final String USAGE = "Usage:\n" +
-                "    CreateSchema <name, domain, schemaLocation>\n\n" +
-                "Where:\n" +
-                "   name - The name for the schema.\n" +
-                "   domain - The domain of the dataset's domain dataset group.\n" +
-                "   schemaLocation - the location of the schema JSON file.\n\n";
+        final String USAGE = """
+                Usage:
+                    CreateSchema <name, domain, schemaLocation>
+
+                Where:
+                   name - The name for the schema.
+                   domain - The domain of the dataset's domain dataset group.
+                   schemaLocation - the location of the schema JSON file.
+
+                """;
 
         if (args.length != 3) {
             System.out.println(USAGE);
@@ -45,7 +38,6 @@ public class CreateDomainSchema {
         String schemaName = args[0];
         String domain = args[1];
         String filePath = args[2];
-
 
         Region region = Region.US_WEST_2;
 
@@ -58,8 +50,10 @@ public class CreateDomainSchema {
         personalizeClient.close();
 
     }
-    //snippet-start:[personalize.java2.create_domain_schema.main]
-    public static String createDomainSchema(PersonalizeClient personalizeClient, String schemaName, String domain, String filePath) {
+
+    // snippet-start:[personalize.java2.create_domain_schema.main]
+    public static String createDomainSchema(PersonalizeClient personalizeClient, String schemaName, String domain,
+            String filePath) {
 
         String schema = null;
         try {
@@ -87,7 +81,6 @@ public class CreateDomainSchema {
         }
         return "";
     }
-    //snippet-end:[personalize.java2.create_domain_schema.main]
-
+    // snippet-end:[personalize.java2.create_domain_schema.main]
 
 }

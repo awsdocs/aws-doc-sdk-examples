@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[CreateOriginAccessControl.java demonstrates how to have Amazon CloudFront access Amazon Simple Storage Service (Amazon S3) resources by using signed requests.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudFront]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.cloudfront;
 
 // snippet-start:[cloudfront.java2.createoriginaccesscontrol.import]

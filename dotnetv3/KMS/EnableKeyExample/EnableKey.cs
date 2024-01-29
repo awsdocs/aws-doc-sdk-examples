@@ -1,10 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// Enable an AWS Key Management Service (AWS KMS) key. This example uses
-/// the AWS SDK for .NET version 3.7 and .NET Core 5.0.
-/// </summary>
 namespace EnableKeyExample
 {
     // snippet-start:[KMS.dotnetv3.EnableKeyExample]
@@ -13,6 +9,9 @@ namespace EnableKeyExample
     using Amazon.KeyManagementService;
     using Amazon.KeyManagementService.Model;
 
+    /// <summary>
+    /// Enable an AWS Key Management Service (AWS KMS) key.
+    /// </summary>
     public class EnableKey
     {
         public static async Task Main()

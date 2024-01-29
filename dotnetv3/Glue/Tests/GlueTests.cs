@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using Amazon.Glue;
 using Amazon.Glue.Model;
@@ -23,8 +23,8 @@ namespace GlueTests
         private readonly string _scriptUrl;
         private readonly string _jobName;
         private readonly string _description;
-        private static string _jobRunId;
-        private static List<Table> _tables;
+        private static string _jobRunId = null!;
+        private static List<Table> _tables = null!;
 
         /// <summary>
         /// Constructor for the test class.

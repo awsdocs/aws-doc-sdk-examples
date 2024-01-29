@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DetectLabelsLocalFileExample
 {
@@ -12,8 +12,7 @@ namespace DetectLabelsLocalFileExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to detect labels within an image
-    /// stored locally. This example was created using the AWS SDK for .NET
-    /// and .NET Core 5.0.
+    /// stored locally.
     /// </summary>
     public class DetectLabelsLocalFile
     {

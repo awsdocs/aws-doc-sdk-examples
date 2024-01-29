@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
@@ -14,6 +12,7 @@ import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.*;
 import java.io.*;
 import com.example.pinpoint.*;
+import software.amazon.awssdk.services.pinpointemail.PinpointEmailClient;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.pinpointsmsvoice.PinpointSmsVoiceClient;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
@@ -29,15 +28,17 @@ import java.util.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonPinpointTest {
     private static PinpointClient pinpoint;
+
+    private static PinpointEmailClient pinpointEmailClient;
     private static PinpointSmsVoiceClient voiceClient;
     private static S3Client s3Client;
     private static String appName = "";
     private static String appId = "";
     private static String endpointId2 = "";
     private static String bucket = "";
-    private static String path= "";
-    private static String roleArn= "";
-    private static String segmentId= "";
+    private static String path = "";
+    private static String roleArn = "";
+    private static String segmentId = "";
     private static String userId = "";
     private static String s3BucketName = "";
     private static String iamExportRoleArn = "";
@@ -54,14 +55,19 @@ public class AmazonPinpointTest {
     @BeforeAll
     public static void setUp() throws IOException {
         pinpoint = PinpointClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
+
+        pinpointEmailClient = PinpointEmailClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         s3Client = S3Client.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Set the content type to application/json.
         List<String> listVal = new ArrayList<>();
@@ -74,64 +80,67 @@ public class AmazonPinpointTest {
                 .build();
 
         voiceClient = PinpointSmsVoiceClient.builder()
-            .overrideConfiguration(config2)
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .overrideConfiguration(config2)
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues valuesOb = gson.fromJson(json, SecretValues.class);
         appName = valuesOb.getAppName();
-        bucket= valuesOb.getBucket();
+        bucket = valuesOb.getBucket();
         path = valuesOb.getPath();
-        roleArn= valuesOb.getRoleArn();
+        roleArn = valuesOb.getRoleArn();
         userId = valuesOb.getUserId();
         s3BucketName = valuesOb.getS3BucketName();
         iamExportRoleArn = valuesOb.getIamExportRoleArn();
-        existingApplicationId= valuesOb.getExistingApplicationId();
+        existingApplicationId = valuesOb.getExistingApplicationId();
         subject = valuesOb.getSubject();
         senderAddress = valuesOb.getSenderAddress();
         toAddress = valuesOb.getToAddress();
-        originationNumber= valuesOb.getOriginationNumber();
-        destinationNumber= valuesOb.getDestinationNumber();
+        originationNumber = valuesOb.getOriginationNumber();
+        destinationNumber = valuesOb.getDestinationNumber();
         destinationNumber1 = valuesOb.getDestinationNumber1();
-        message= valuesOb.getMessage();
+        message = valuesOb.getMessage();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-        try (InputStream input = AmazonPinpointTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-             if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            // Populate the data members required for all tests
-            prop.load(input);
-            appName = prop.getProperty("appName");
-            bucket= prop.getProperty("bucket");
-            path= prop.getProperty("path");
-            roleArn= prop.getProperty("roleArn");
-            userId = prop.getProperty("userId");
-            s3BucketName = prop.getProperty("s3BucketName");
-            s3BucketName = prop.getProperty("s3BucketName");
-            iamExportRoleArn = prop.getProperty("iamExportRoleArn");
-            existingApplicationId= prop.getProperty("existingApplicationId");
-            subject = prop.getProperty("subject");
-            senderAddress = prop.getProperty("senderAddress");
-            toAddress = prop.getProperty("toAddress");
-            originationNumber= prop.getProperty("originationNumber");
-            destinationNumber= prop.getProperty("destinationNumber");
-            destinationNumber1 = prop.getProperty("destinationNumber1");
-            message= prop.getProperty("message");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * AmazonPinpointTest.class.getClassLoader().getResourceAsStream(
+         * "config.properties")) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * // Populate the data members required for all tests
+         * prop.load(input);
+         * appName = prop.getProperty("appName");
+         * bucket= prop.getProperty("bucket");
+         * path= prop.getProperty("path");
+         * roleArn= prop.getProperty("roleArn");
+         * userId = prop.getProperty("userId");
+         * s3BucketName = prop.getProperty("s3BucketName");
+         * s3BucketName = prop.getProperty("s3BucketName");
+         * iamExportRoleArn = prop.getProperty("iamExportRoleArn");
+         * existingApplicationId= prop.getProperty("existingApplicationId");
+         * subject = prop.getProperty("subject");
+         * senderAddress = prop.getProperty("senderAddress");
+         * toAddress = prop.getProperty("toAddress");
+         * originationNumber= prop.getProperty("originationNumber");
+         * destinationNumber= prop.getProperty("destinationNumber");
+         * destinationNumber1 = prop.getProperty("destinationNumber1");
+         * message= prop.getProperty("message");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
@@ -148,7 +157,7 @@ public class AmazonPinpointTest {
     @Order(2)
     public void UpdateEndpoint() {
         EndpointResponse response = UpdateEndpoint.createEndpoint(pinpoint, appId);
-        endpointId2 = response.id() ;
+        endpointId2 = response.id();
         assertFalse(endpointId2.isEmpty());
         System.out.println("UpdateEndpoint test passed");
     }
@@ -157,7 +166,7 @@ public class AmazonPinpointTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void LookUpEndpoint() {
-        assertDoesNotThrow(() ->LookUpEndpoint.lookupPinpointEndpoint(pinpoint, appId, endpointId2));
+        assertDoesNotThrow(() -> LookUpEndpoint.lookupPinpointEndpoint(pinpoint, appId, endpointId2));
         System.out.println("LookUpEndpoint test passed");
     }
 
@@ -165,7 +174,7 @@ public class AmazonPinpointTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void AddExampleUser() {
-        assertDoesNotThrow(() ->AddExampleUser.updatePinpointEndpoint(pinpoint,appId,endpointId2));
+        assertDoesNotThrow(() -> AddExampleUser.updatePinpointEndpoint(pinpoint, appId, endpointId2));
         System.out.println("AddExampleUser test passed");
     }
 
@@ -173,7 +182,7 @@ public class AmazonPinpointTest {
     @Tag("IntegrationTest")
     @Order(6)
     public void AddExampleEndpoints() {
-        assertDoesNotThrow(() -> AddExampleEndpoints.updateEndpointsViaBatch(pinpoint,appId));
+        assertDoesNotThrow(() -> AddExampleEndpoints.updateEndpointsViaBatch(pinpoint, appId));
         System.out.println("AddExampleEndpoints test passed");
     }
 
@@ -181,7 +190,7 @@ public class AmazonPinpointTest {
     @Tag("IntegrationTest")
     @Order(7)
     public void DeleteEndpoint() {
-        assertDoesNotThrow(() ->DeleteEndpoint.deletePinEncpoint(pinpoint, appId, endpointId2));
+        assertDoesNotThrow(() -> DeleteEndpoint.deletePinEncpoint(pinpoint, appId, endpointId2));
         System.out.println("DeleteEndpoint test passed");
     }
 
@@ -189,15 +198,17 @@ public class AmazonPinpointTest {
     @Tag("IntegrationTest")
     @Order(8)
     public void SendMessage() {
-       assertDoesNotThrow(() ->SendMessage.sendSMSMessage(pinpoint, message, existingApplicationId, originationNumber, destinationNumber));
-       System.out.println("SendMessage test passed");
+        assertDoesNotThrow(() -> SendMessage.sendSMSMessage(pinpoint, message, existingApplicationId, originationNumber,
+                destinationNumber));
+        System.out.println("SendMessage test passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-   public void ImportSegments() {
-        assertDoesNotThrow(() -> SendMessageBatch.sendSMSMessage(pinpoint, message, "2fdc4442c6a2483f85eaf7a943054815", originationNumber, destinationNumber, destinationNumber));
+    public void ImportSegments() {
+        assertDoesNotThrow(() -> SendMessageBatch.sendSMSMessage(pinpoint, message, "2fdc4442c6a2483f85eaf7a943054815",
+                originationNumber, destinationNumber, destinationNumber));
         System.out.println("ImportSegments test passed");
     }
 
@@ -213,25 +224,26 @@ public class AmazonPinpointTest {
     @Tag("IntegrationTest")
     @Order(11)
     public void CreateSegment() {
-        SegmentResponse createSegmentResult =  CreateSegment.createSegment(pinpoint, existingApplicationId);
-        segmentId =  createSegmentResult.id();
+        SegmentResponse createSegmentResult = CreateSegment.createSegment(pinpoint, existingApplicationId);
+        segmentId = createSegmentResult.id();
         assertFalse(segmentId.isEmpty());
         System.out.println("CreateSegment test passed");
-   }
+    }
 
     @Test
     @Tag("IntegrationTest")
     @Order(12)
     public void CreateCampaign() {
-       assertDoesNotThrow(() -> CreateCampaign.createPinCampaign(pinpoint, existingApplicationId, segmentId));
-       System.out.println("CreateCampaign test passed");
+        assertDoesNotThrow(() -> CreateCampaign.createPinCampaign(pinpoint, existingApplicationId, segmentId));
+        System.out.println("CreateCampaign test passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(13)
     public void ExportEndpoints() {
-        assertDoesNotThrow(() ->  ExportEndpoints.exportAllEndpoints(pinpoint, s3Client, existingApplicationId, s3BucketName, filePath, iamExportRoleArn));
+        assertDoesNotThrow(() -> ExportEndpoints.exportAllEndpoints(pinpoint, s3Client, existingApplicationId,
+                s3BucketName, filePath, iamExportRoleArn));
         System.out.println("ExportEndpoints test passed");
     }
 
@@ -239,43 +251,44 @@ public class AmazonPinpointTest {
     @Tag("IntegrationTest")
     @Order(14)
     public void SendEmailMessage() {
-        assertDoesNotThrow(() -> SendEmailMessage.sendEmail(pinpoint, subject, existingApplicationId,  senderAddress, toAddress));
+        assertDoesNotThrow(() -> SendEmailMessage.sendEmail(pinpointEmailClient, subject,  senderAddress, toAddress));
         System.out.println("SendEmailMessage test passed");
-   }
+    }
 
     @Test
     @Tag("IntegrationTest")
     @Order(15)
-   public void SendVoiceMessage() {
-        assertDoesNotThrow(() ->SendVoiceMessage.sendVoiceMsg(voiceClient, originationNumber, destinationNumber));
+    public void SendVoiceMessage() {
+        assertDoesNotThrow(() -> SendVoiceMessage.sendVoiceMsg(voiceClient, originationNumber, destinationNumber));
         System.out.println("SendVoiceMessage test passed");
-   }
+    }
 
     @Test
     @Tag("IntegrationTest")
     @Order(16)
-   public void ListEndpointIds() {
-        assertDoesNotThrow(() ->ListEndpointIds.listAllEndpoints(pinpoint, existingApplicationId, userId));
+    public void ListEndpointIds() {
+        assertDoesNotThrow(() -> ListEndpointIds.listAllEndpoints(pinpoint, existingApplicationId, userId));
         System.out.println("ListEndpointIds test passed");
-   }
+    }
 
     @Test
     @Tag("IntegrationTest")
     @Order(17)
     public void DeleteApp() {
-       assertDoesNotThrow(() ->DeleteApp.deletePinApp(pinpoint, appId));
-       System.out.println("DeleteApp test passed");
+        assertDoesNotThrow(() -> DeleteApp.deletePinApp(pinpoint, appId));
+        System.out.println("DeleteApp test passed");
     }
+
     public static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/pinpoint";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -311,6 +324,7 @@ public class AmazonPinpointTest {
         private String destinationNumber1;
 
         private String message;
+
         public String getAppName() {
             return appName;
         }
@@ -373,4 +387,3 @@ public class AmazonPinpointTest {
 
     }
 }
-

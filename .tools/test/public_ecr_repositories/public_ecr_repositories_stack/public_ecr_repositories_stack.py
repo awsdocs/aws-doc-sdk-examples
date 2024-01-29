@@ -1,3 +1,5 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 import yaml
 from aws_cdk import Stack
 from aws_cdk import aws_ecr as ecr

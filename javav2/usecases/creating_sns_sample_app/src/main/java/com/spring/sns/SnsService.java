@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.spring.sns;
 
 import org.springframework.stereotype.Component;
@@ -35,38 +34,38 @@ public class SnsService {
 
     private SnsClient getSnsClient() {
         return SnsClient.builder()
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .region(Region.US_WEST_2)
-            .build();
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(Region.US_WEST_2)
+                .build();
     }
 
     public String pubTopic(String message, String lang) {
         try {
             String body;
             TranslateClient translateClient = TranslateClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(Region.US_WEST_2)
-                .build();
+                    .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                    .region(Region.US_WEST_2)
+                    .build();
 
-            if (lang.compareTo("English")==0) {
+            if (lang.compareTo("English") == 0) {
                 body = message;
 
-            } else if(lang.compareTo("French")==0) {
+            } else if (lang.compareTo("French") == 0) {
                 TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                    .sourceLanguageCode("en")
-                    .targetLanguageCode("fr")
-                    .text(message)
-                    .build();
+                        .sourceLanguageCode("en")
+                        .targetLanguageCode("fr")
+                        .text(message)
+                        .build();
 
                 TranslateTextResponse textResponse = translateClient.translateText(textRequest);
                 body = textResponse.translatedText();
 
-            } else  {
+            } else {
                 TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                    .sourceLanguageCode("en")
-                    .targetLanguageCode("es")
-                    .text(message)
-                    .build();
+                        .sourceLanguageCode("en")
+                        .targetLanguageCode("es")
+                        .text(message)
+                        .build();
 
                 TranslateTextResponse textResponse = translateClient.translateText(textRequest);
                 body = textResponse.translatedText();
@@ -74,12 +73,12 @@ public class SnsService {
 
             SnsClient snsClient = getSnsClient();
             PublishRequest request = PublishRequest.builder()
-                .message(body)
-                .topicArn(topicArn)
-                .build();
+                    .message(body)
+                    .topicArn(topicArn)
+                    .build();
 
             PublishResponse result = snsClient.publish(request);
-            return " Message sent in " +lang +". Status was " + result.sdkHttpResponse().statusCode();
+            return " Message sent in " + lang + ". Status was " + result.sdkHttpResponse().statusCode();
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -91,13 +90,13 @@ public class SnsService {
     public void unSubEmail(String emailEndpoint) {
         try {
             String subscriptionArn = getTopicArnValue(emailEndpoint);
-            SnsClient snsClient =  getSnsClient();
+            SnsClient snsClient = getSnsClient();
 
             UnsubscribeRequest request = UnsubscribeRequest.builder()
-                .subscriptionArn(subscriptionArn)
-                .build();
+                    .subscriptionArn(subscriptionArn)
+                    .build();
 
-           snsClient.unsubscribe(request);
+            snsClient.unsubscribe(request);
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -105,44 +104,44 @@ public class SnsService {
         }
     }
 
-  // Returns the Sub ARN based on the given endpoint.
-  private String getTopicArnValue(String endpoint){
-      SnsClient snsClient =  getSnsClient();
-      try {
-          String subArn;
-          ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
-              .topicArn(topicArn)
-              .build();
+    // Returns the Sub ARN based on the given endpoint.
+    private String getTopicArnValue(String endpoint) {
+        SnsClient snsClient = getSnsClient();
+        try {
+            String subArn;
+            ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
+                    .topicArn(topicArn)
+                    .build();
 
-          ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
-          List<Subscription> allSubs  = result.subscriptions();
-          for (Subscription sub: allSubs) {
-              if (sub.endpoint().compareTo(endpoint)==0) {
-                  subArn = sub.subscriptionArn();
-                  return subArn;
-              }
-         }
+            ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
+            List<Subscription> allSubs = result.subscriptions();
+            for (Subscription sub : allSubs) {
+                if (sub.endpoint().compareTo(endpoint) == 0) {
+                    subArn = sub.subscriptionArn();
+                    return subArn;
+                }
+            }
 
-      } catch (SnsException e) {
-          System.err.println(e.awsErrorDetails().errorMessage());
-          System.exit(1);
-      }
-      return "";
-  }
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+        return "";
+    }
 
     // Create a Subscription.
     public String subEmail(String email) {
         try {
-            SnsClient snsClient =  getSnsClient();
+            SnsClient snsClient = getSnsClient();
             SubscribeRequest request = SubscribeRequest.builder()
-                .protocol("email")
-                .endpoint(email)
-                .returnSubscriptionArn(true)
-                .topicArn(topicArn)
-                .build();
+                    .protocol("email")
+                    .endpoint(email)
+                    .returnSubscriptionArn(true)
+                    .topicArn(topicArn)
+                    .build();
 
             SubscribeResponse result = snsClient.subscribe(request);
-            return result.subscriptionArn() ;
+            return result.subscriptionArn();
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -152,16 +151,16 @@ public class SnsService {
     }
 
     public String getAllSubscriptions() {
-        List<String> subList = new ArrayList<>() ;
+        List<String> subList = new ArrayList<>();
         try {
-            SnsClient snsClient =  getSnsClient();
+            SnsClient snsClient = getSnsClient();
             ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
-                .topicArn(topicArn)
-                .build();
+                    .topicArn(topicArn)
+                    .build();
 
             ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
-            List<Subscription> allSubs  = result.subscriptions();
-            for (Subscription sub: allSubs) {
+            List<Subscription> allSubs = result.subscriptions();
+            for (Subscription sub : allSubs) {
                 subList.add(sub.endpoint());
             }
 
@@ -173,7 +172,7 @@ public class SnsService {
         return convertToString(toXml(subList));
     }
 
-   // Convert the list to XML to pass back to the view.
+    // Convert the list to XML to pass back to the view.
     private Document toXml(List<String> subsList) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -196,7 +195,7 @@ public class SnsService {
 
             return doc;
 
-        }catch(ParserConfigurationException e){
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
@@ -211,7 +210,7 @@ public class SnsService {
             transformer.transform(source, result);
             return result.getWriter().toString();
 
-        } catch(TransformerException ex) {
+        } catch (TransformerException ex) {
             ex.printStackTrace();
         }
         return null;
@@ -227,6 +226,3 @@ public class SnsService {
         return transformerFactory;
     }
 }
-
-
-

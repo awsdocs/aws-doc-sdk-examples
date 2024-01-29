@@ -1,0 +1,19 @@
+<ListMetricsResponse xmlns="http://monitoring.amazonaws.com/doc/2010-08-01/">   <ListMetricsResult>
+     <Metrics>
+       <member>
+         <MetricName>GroupTotalInstances</MetricName>
+         <Namespace>AWS/AutoScaling</Namespace>
+         <Dimensions>
+           <member>
+             <Name>AutoScalingGroupName</Name>
+             <Value>integration_tests_group</Value>
+           </member>
+         </Dimensions>
+       </member>
+     </Metrics>
+   </ListMetricsResult>
+   <ResponseMetadata>
+     <RequestId>e2fa0bc4-e312-45a5-ad2d-286d9149db73</RequestId>
+   </ResponseMetadata>
+ </ListMetricsResponse>
+ 

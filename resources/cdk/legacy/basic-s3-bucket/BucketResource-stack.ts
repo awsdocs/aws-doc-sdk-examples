@@ -1,16 +1,6 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-comment:[This goes in the lib dir.]
-// snippet-comment:[This is a full sample when you include BucketResource.ts, which goes in the bin dir.]
-// snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[HelloCdk-stack.ts creates a stack with an S3 bucket that has replication.]
-// snippet-keyword:[CDK V1.0.0]
-// snippet-keyword:[TypeScript]
-// snippet-sourcesyntax:[javascript]
-// snippet-service:[cdk]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-7-11]
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License. A copy of the
@@ -42,7 +32,7 @@ export class BucketResourceStack extends core.Stack {
 
     // Create the trust policy
     const trustStatement = new iam.PolicyStatement({
-      actions: ["sts:AssumeRole"]
+      actions: ["sts:AssumeRole"],
     });
     trustStatement.addServicePrincipal("s3.amazonaws.com");
 
@@ -52,29 +42,29 @@ export class BucketResourceStack extends core.Stack {
     // Now the access policy
     const accessStatement1 = new iam.PolicyStatement({
       actions: ["s3:GetReplicationConfiguration", "s3:ListBucket"],
-      resources: ["arn:aws:s3:::source-bucket"]
+      resources: ["arn:aws:s3:::source-bucket"],
     });
 
     const accessStatement2 = new iam.PolicyStatement({
       actions: [
         "s3:GetObjectVersion",
         "s3:GetObjectVersionAcl",
-        "s3:GetObjectVersionTagging"
+        "s3:GetObjectVersionTagging",
       ],
-      resources: ["arn:aws:s3:::source-bucket/*"]
+      resources: ["arn:aws:s3:::source-bucket/*"],
     });
 
     const accessStatement3 = new iam.PolicyStatement({
       actions: ["s3:ReplicateObject", "s3:ReplicateDelete", "s3:ReplicateTags"],
-      resources: ["arn:aws:s3:::destination-bucket/*"]
+      resources: ["arn:aws:s3:::destination-bucket/*"],
     });
 
     const accessPolicy = new iam.Policy(this, "AccessPolicy", {
-      statements: [accessStatement1, accessStatement2, accessStatement3]
+      statements: [accessStatement1, accessStatement2, accessStatement3],
     });
 
     const role = new iam.Role(this, "MyRole", {
-      assumedBy: new iam.ServicePrincipal("sns.amazonaws.com")
+      assumedBy: new iam.ServicePrincipal("sns.amazonaws.com"),
     });
 
     role.attachInlinePolicy(trustPolicy);
@@ -93,12 +83,12 @@ export class BucketResourceStack extends core.Stack {
         {
           Id: "replicateEverything",
           Destination: {
-            Bucket: "arn:aws:s3:::" + bucketName
+            Bucket: "arn:aws:s3:::" + bucketName,
           },
           Prefix: "",
-          Status: "Enabled"
-        }
-      ]
+          Status: "Enabled",
+        },
+      ],
     });
     // snippet-end:[cdk.typescript.BucketResource-stack.replication_configuration]
 
@@ -110,10 +100,10 @@ export class BucketResourceStack extends core.Stack {
           OutputSchemaVersion: "1",
           Destination: {
             Format: "html",
-            BucketArn: "arn:aws:s3:::" + bucketName // use tokens freely
-          }
-        }
-      }
+            BucketArn: "arn:aws:s3:::" + bucketName, // use tokens freely
+          },
+        },
+      },
     });
     // snippet-end:[cdk.typescript.BucketResource-stack.analytics-configurations]
   }

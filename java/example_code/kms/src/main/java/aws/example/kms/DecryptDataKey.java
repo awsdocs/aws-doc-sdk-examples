@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[DecryptDataKey.java demonstrates how to decrypt a data key.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon KMS]
-//snippet-service:[kms]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-04-08]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package aws.example.kms;
 
@@ -23,8 +16,7 @@ public class DecryptDataKey {
         //
 
         ByteBuffer ciphertextBlob = ByteBuffer.wrap(
-            new byte[]{Byte.parseByte("Place your ciphertext here")}
-        );
+                new byte[] { Byte.parseByte("Place your ciphertext here") });
 
         DecryptRequest req = new DecryptRequest().withCiphertextBlob(ciphertextBlob);
         ByteBuffer plainText = kmsClient.decrypt(req).getPlaintext();

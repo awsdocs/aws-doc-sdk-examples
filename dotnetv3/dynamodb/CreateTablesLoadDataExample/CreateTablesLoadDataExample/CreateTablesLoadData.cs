@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace CreateTablesLoadDataExample
 {
@@ -14,8 +14,7 @@ namespace CreateTablesLoadDataExample
 
     /// <summary>
     /// This example creates several Amazon DynamoDB tables and then adds
-    /// sample data to each table. The code was written using AWS SDK for
-    /// .NET version 3.7 and .NET Core 5.0.
+    /// sample data to each table.
     /// </summary>
     public class CreateTablesLoadData
     {

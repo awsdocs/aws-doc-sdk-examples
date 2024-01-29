@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /*
  * Test types are indicated by the test label ending.
  *
@@ -22,7 +20,7 @@ namespace AwsDocTest {
     TEST_F(DynamoDB_GTests, paritql_single_execute_scenario_2_
     ) {
         AddCommandLineResponses({
-                                        "Jaws",
+                                        "Unjaws",
                                         "1972",
                                         "8",
                                         "Sharks",

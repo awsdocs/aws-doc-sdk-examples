@@ -1,17 +1,8 @@
-
-//snippet-sourcedescription:[StopQueryExecutionExample.cs demonstrates how to run an example query, immediately stop the query, and check the status of the query to ensure that it was cancelled.]
-//snippet-keyword:[dotnet]
-//snippet-keyword:[.NET]
-//snippet-sourcesyntax:[.net]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Athena]
-//snippet-service:[athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 
-﻿using System;
+using System;
 using Amazon;
 using Amazon.Athena;
 using Amazon.Athena.Model;

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[lookoutvision.java2.edge_packages.complete]
 
@@ -124,7 +122,8 @@ public class EdgePackages {
          * 
          * @param projectName The name of the project that contains the model
          *                    packaging job that you want to start.
-         * @param fileName    The name and path of the JSON file that matches the request
+         * @param fileName    The name and path of the JSON file that matches the
+         *                    request
          *                    syntax for StartModelPackagingJob.
          * 
          * @return StartModelPackagingJobRequest A StartModelPackagingJobRequest object

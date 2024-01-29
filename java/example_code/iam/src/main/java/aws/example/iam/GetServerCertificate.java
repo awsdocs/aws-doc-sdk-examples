@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[GetServerCertificate.java demonstrates how to get a server certificate.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[AWS Identity and Access Management (IAM)]
-//snippet-service:[iam]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-01-15]
-//snippet-sourceauthor:[soo-aws]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /*
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -21,6 +14,7 @@
  * express or implied. See the License for the specific language governing * permissions and limitations under the License.
  */
 package aws.example.iam;
+
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
 import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClientBuilder;
 import com.amazonaws.services.identitymanagement.model.GetServerCertificateRequest;
@@ -33,9 +27,8 @@ public class GetServerCertificate {
 
     public static void main(String[] args) {
 
-        final String USAGE =
-            "To run this example, supply a certificate name\n" +
-            "Ex: GetServerCertificate <certificate-name>\n";
+        final String USAGE = "To run this example, supply a certificate name\n" +
+                "Ex: GetServerCertificate <certificate-name>\n";
 
         if (args.length != 1) {
             System.out.println(USAGE);
@@ -44,11 +37,10 @@ public class GetServerCertificate {
 
         String cert_name = args[0];
 
-        final AmazonIdentityManagement iam =
-            AmazonIdentityManagementClientBuilder.defaultClient();
+        final AmazonIdentityManagement iam = AmazonIdentityManagementClientBuilder.defaultClient();
 
         GetServerCertificateRequest request = new GetServerCertificateRequest()
-                    .withServerCertificateName(cert_name);
+                .withServerCertificateName(cert_name);
 
         GetServerCertificateResult response = iam.getServerCertificate(request);
 

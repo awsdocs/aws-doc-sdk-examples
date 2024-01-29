@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[ExampleConstants.java demonstrates how to query a table created by the getting started tutorial in Athena]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Athena]
-//snippet-service:[athena]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2018-06-25]
-//snippet-sourceauthor:[soo-aws]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.athena;
 
 public class ExampleConstants {

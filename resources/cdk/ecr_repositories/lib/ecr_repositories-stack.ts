@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { Construct, Stack, StackProps } from "@aws-cdk/core";
 import * as ecr from "@aws-cdk/aws-ecr";
 
@@ -96,10 +98,10 @@ export class ContainerImage extends Stack {
         RepositoryDescription: "This image provides a pre-built for SDK for Ruby environment and is recommended for local testing of SDK for Ruby example code."
       },
     });
-    new ecr.CfnPublicRepository(this, "rust_dev_preview", {
-      repositoryName: "rust_dev_preview",
+    new ecr.CfnPublicRepository(this, "rustv1", {
+      repositoryName: "rustv1",
       repositoryCatalogData: {
-        UsageText:  "This image provides a pre-built for SDK for Rust environment and is recommended for local testing of SDK for Rust example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/rust_dev_preview/README.md#docker-image-beta.",
+        UsageText:  "This image provides a pre-built for SDK for Rust environment and is recommended for local testing of SDK for Rust example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/rustv1/README.md#docker-image-beta.",
         OperatingSystems: ["Linux"],
         Architectures: ["x86", "ARM"],
         RepositoryDescription: "This image provides a pre-built for SDK for Rust environment and is recommended for local testing of SDK for Rust example code."

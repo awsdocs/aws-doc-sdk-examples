@@ -1,28 +1,6 @@
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-// snippet-sourcedescription:[runjobflow-configurationclassification.java demonstrates how to specify configuration classification properties when creating a cluster using RunJobFlowRequest.]
-// snippet-service:[elasticmapreduce]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon EMR]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[RunJobFlowRequest]
-// snippet-keyword:[withConfigurations]
-// snippet-sourcetype:[snippet]
-// snippet-sourcedate:[2019-01-31]
-// snippet-sourceauthor:[AWS]
 // snippet-start:[emr.java.create-cluster.specifyconfigurationclassification]
 Application hive = new Application().withName("Hive");
 

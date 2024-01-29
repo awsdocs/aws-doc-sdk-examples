@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[RetrieveMessages.kt demonstrates how to retrieve messages from an Amazon Simple Queue Service (Amazon SQS) queue.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Simple Queue Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.sqs
 

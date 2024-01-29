@@ -1,15 +1,11 @@
-//snippet-sourcedescription:[UploadUserDocs.java demonstrates how to upload a document to Amazon Workdocs.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon WorkDocs]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[workdocs.java2.upload_user_doc.complete]
 
 package com.example.workdocs;
 
+// snippet-start:[workdocs.java2.upload_user_doc.main]
 // snippet-start:[workdocs.java2.upload_user_doc.import]
 import java.io.FileInputStream;
 import java.io.OutputStream;
@@ -23,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.io.IOUtils;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.workdocs.WorkDocsClient;
 import software.amazon.awssdk.services.workdocs.model.InitiateDocumentVersionUploadRequest;
@@ -38,25 +33,28 @@ import software.amazon.awssdk.services.workdocs.model.DocumentVersionStatus;
 // snippet-end:[workdocs.java2.upload_user_doc.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class UploadUserDocs {
-
     public static void main(String[] args) {
-    // Based on WorkDocs dev guide code at http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
+        // Based on WorkDocs dev guide code at
+        // http://docs.aws.amazon.com/workdocs/latest/developerguide/upload-documents.html
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <organizationId> <userEmail> <docName> <docPath> \n\n" +
-            "Where:\n" +
-            "    organizationId - Your organization Id value. You can obtain this value from the AWS Management Console. \n"+
-            "    userEmail - A user email. \n"+
-            "    docName - The name of the document (for example, book.pdf). \n"+
-            "    docPath - The path where the document is located (for example, C:/AWS/book.pdf). \n";
+                Usage:
+                    <organizationId> <userEmail> <docName> <docPath>\s
+
+                Where:
+                    organizationId - Your organization Id value. You can obtain this value from the AWS Management Console.\s
+                    userEmail - A user email.\s
+                    docName - The name of the document (for example, book.pdf).\s
+                    docPath - The path where the document is located (for example, C:/AWS/book.pdf).\s
+                """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -69,20 +67,18 @@ public class UploadUserDocs {
         String docPath = args[3];
         Region region = Region.US_WEST_2;
         WorkDocsClient workDocs = WorkDocsClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
-        uploadDoc(workDocs, organizationId, userEmail, docName, docPath) ;
+        uploadDoc(workDocs, organizationId, userEmail, docName, docPath);
         workDocs.close();
     }
 
-    // snippet-start:[workdocs.java2.upload_user_doc.main]
-    public static void uploadDoc(WorkDocsClient workDocs, String orgId, String userEmail, String docName, String docPath) {
-
-        String docId ;
-        String versionId ;
-        String uploadUrl ;
+    public static void uploadDoc(WorkDocsClient workDocs, String orgId, String userEmail, String docName,
+            String docPath) {
+        String docId;
+        String versionId;
+        String uploadUrl;
         int statusValue;
         Map<String, String> map = getDocInfo(workDocs, orgId, userEmail, docName);
         docId = map.get("doc_id");
@@ -100,13 +96,12 @@ public class UploadUserDocs {
     }
 
     private static Map<String, String> getDocInfo(WorkDocsClient workDocs, String orgId, String user, String doc) {
-
         String folderId = getUserFolder(workDocs, orgId, user);
         InitiateDocumentVersionUploadRequest request = InitiateDocumentVersionUploadRequest.builder()
-            .parentFolderId(folderId)
-            .name(doc)
-            .contentType("application/octet-stream")
-            .build();
+                .parentFolderId(folderId)
+                .name(doc)
+                .contentType("application/octet-stream")
+                .build();
 
         InitiateDocumentVersionUploadResponse result = workDocs.initiateDocumentVersionUpload(request);
         UploadMetadata uploadMetadata = result.uploadMetadata();
@@ -125,18 +120,18 @@ public class UploadUserDocs {
         do {
             DescribeUsersResponse result;
 
-            if(marker == null) {
+            if (marker == null) {
                 DescribeUsersRequest request = DescribeUsersRequest.builder()
-                    .organizationId(orgId)
-                    .query(user)
-                    .build();
+                        .organizationId(orgId)
+                        .query(user)
+                        .build();
                 result = workDocs.describeUsers(request);
             } else {
                 DescribeUsersRequest request = DescribeUsersRequest.builder()
-                    .organizationId(orgId)
-                    .query(user)
-                    .marker(marker)
-                    .build();
+                        .organizationId(orgId)
+                        .query(user)
+                        .marker(marker)
+                        .build();
                 result = workDocs.describeUsers(request);
             }
 
@@ -152,7 +147,6 @@ public class UploadUserDocs {
     }
 
     private static int startDocUpload(String uploadUrl, String doc) {
-
         try {
             URL url = new URL(uploadUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -161,17 +155,18 @@ public class UploadUserDocs {
 
             // Content-Type supplied here should match with the Content-Type set
             // in the InitiateDocumentVersionUpload request.
-            connection.setRequestProperty("Content-Type","application/octet-stream");
+            connection.setRequestProperty("Content-Type", "application/octet-stream");
             connection.setRequestProperty("x-amz-server-side-encryption", "AES256");
             File file = new File(doc);
             FileInputStream fileInputStream = new FileInputStream(file);
             OutputStream outputStream = connection.getOutputStream();
             IOUtils.copy(fileInputStream, outputStream);
 
-            // Very misleading. Getting a 200 only means the call succeeded, not that the copy worked.
-            return connection.getResponseCode();  // int where 200 == success
+            // Very misleading. Getting a 200 only means the call succeeded, not that the
+            // copy worked.
+            return connection.getResponseCode(); // int where 200 == success
 
-        } catch(WorkDocsException | ProtocolException e) {
+        } catch (WorkDocsException | ProtocolException e) {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         } catch (IOException e) {
@@ -183,14 +178,13 @@ public class UploadUserDocs {
 
     private static void completeUpload(WorkDocsClient workDocs, String docId, String versionId) {
         UpdateDocumentVersionRequest request = UpdateDocumentVersionRequest.builder()
-            .documentId(docId)
-            .versionId(versionId)
-            .versionStatus(DocumentVersionStatus.ACTIVE)
-            .build();
+                .documentId(docId)
+                .versionId(versionId)
+                .versionStatus(DocumentVersionStatus.ACTIVE)
+                .build();
 
         workDocs.updateDocumentVersion(request);
     }
-    // snippet-end:[workdocs.java2.upload_user_doc.main]
 }
-
+// snippet-end:[workdocs.java2.upload_user_doc.main]
 // snippet-end:[workdocs.java2.upload_user_doc.complete]

@@ -1,9 +1,8 @@
-//
-// Tests for the `listtables` example for Amazon DynamoDB using the AWS SDK
-// for Swift.
-//
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+// Tests for the `listtables` example for Amazon DynamoDB using the AWS SDK
+// for Swift.
 //
 
 import XCTest

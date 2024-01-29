@@ -1,15 +1,9 @@
-//snippet-sourcedescription:[AddExampleUser.java demonstrates how to update an existing endpoint.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Pinpoint]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.update_endpoint.import]
+// snippet-start:[pinpoint.java2.update_endpoint.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.EndpointRequest;
@@ -22,10 +16,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-//snippet-end:[pinpoint.java2.update_endpoint.import]
+// snippet-end:[pinpoint.java2.update_endpoint.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -34,32 +29,33 @@ import java.util.Map;
 public class AddExampleUser {
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <appId>\n\n" +
-            "Where:\n" +
-            "   appId - The ID of the application to delete.\n\n";
+                Usage:    <appId>
+
+                Where:
+                   appId - The ID of the application to delete.
+
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
             System.exit(1);
-       }
+        }
 
         String applicationId = args[0];
         String endPointId = args[1];
         PinpointClient pinpoint = PinpointClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         updatePinpointEndpoint(pinpoint, applicationId, endPointId);
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.update_endpoint.main]
-    public static void updatePinpointEndpoint(PinpointClient pinpoint,String applicationId, String endPointId) {
-
-        try{
+    // snippet-start:[pinpoint.java2.update_endpoint.main]
+    public static void updatePinpointEndpoint(PinpointClient pinpoint, String applicationId, String endPointId) {
+        try {
             List<String> wangXiList = new ArrayList<>();
             wangXiList.add("cooking");
             wangXiList.add("running");
@@ -73,27 +69,27 @@ public class AddExampleUser {
             myNameWang.add("Xiulan");
 
             Map wangName = new HashMap<>();
-            wangName.put("name",myNameWang );
+            wangName.put("name", myNameWang);
 
             EndpointUser wangMajor = EndpointUser.builder()
-                .userId("example_user_10")
-                .userAttributes(wangName)
-                .build();
+                    .userId("example_user_10")
+                    .userAttributes(wangName)
+                    .build();
 
             // Create an EndpointBatchItem object for Mary Major.
             EndpointRequest wangXiulanEndpoint = EndpointRequest.builder()
-                .channelType(ChannelType.EMAIL)
-                .address("wang_xiulan@example.com")
-                .attributes(myMapWang)
-                .user(wangMajor)
-                .build();
+                    .channelType(ChannelType.EMAIL)
+                    .address("wang_xiulan@example.com")
+                    .attributes(myMapWang)
+                    .user(wangMajor)
+                    .build();
 
             // Adds multiple endpoint definitions to a single request object.
             UpdateEndpointRequest endpointList = UpdateEndpointRequest.builder()
-                .applicationId(applicationId)
-                .endpointRequest(wangXiulanEndpoint)
-                .endpointId(endPointId)
-                .build();
+                    .applicationId(applicationId)
+                    .endpointRequest(wangXiulanEndpoint)
+                    .endpointId(endPointId)
+                    .build();
 
             UpdateEndpointResponse result = pinpoint.updateEndpoint(endpointList);
             System.out.format("Update endpoint result: %s\n", result.messageBody().message());
@@ -103,5 +99,5 @@ public class AddExampleUser {
             System.exit(1);
         }
     }
-    //snippet-end:[pinpoint.java2.update_endpoint.main]
+    // snippet-end:[pinpoint.java2.update_endpoint.main]
 }

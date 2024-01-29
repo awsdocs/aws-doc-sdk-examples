@@ -1,10 +1,7 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import open from "open";
 
-import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 import { wait } from "@aws-sdk-examples/libs/utils/util-timers.js";
 import { log } from "../log.js";
 
@@ -56,7 +53,7 @@ const promptToOpen = async (context) => {
 
   if (shouldOpen) {
     return open(
-      `https://s3.console.aws.amazon.com/s3/buckets/${process.env.BUCKET_NAME}?region=${DEFAULT_REGION}&tab=objects to view the output.`,
+      `https://s3.console.aws.amazon.com/s3/buckets/${process.env.BUCKET_NAME} to view the output.`,
     );
   }
 };

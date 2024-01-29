@@ -1,0 +1,195 @@
+# zexi 0.4.0
+bedrock-agent_CreateAgent:
+  title: Create an &BR; agent using an &AWS; SDK
+  title_abbrev: Create an agent
+  synopsis: create an &BR; agent.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create an agent.
+              snippet_tags:
+                - python.example_code.bedrock-agent.CreateAgent
+  services:
+    bedrock-agent: {CreateAgent}
+
+bedrock-agent_CreateAgentActionGroup:
+  title: Create an &BR; agent action group using an &AWS; SDK
+  title_abbrev: Create an agent action group
+  synopsis: create an &BR; agent action group.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create an agent action group.
+              snippet_tags:
+                - python.example_code.bedrock-agent.CreateAgentActionGroup
+  services:
+    bedrock-agent: {CreateAgentActionGroup}
+
+bedrock-agent_CreateAgentAlias:
+  title: Create an &BR; agent alias using an &AWS; SDK
+  title_abbrev: Create an agent alias
+  synopsis: create an &BR; agent alias.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create an agent alias.
+              snippet_tags:
+                - python.example_code.bedrock-agent.CreateAgentAlias
+  services:
+    bedrock-agent: {CreateAgentAlias}
+
+bedrock-agent_DeleteAgent:
+  title: Delete an &BR; agent using an &AWS; SDK
+  title_abbrev: Delete an agent
+  synopsis: delete an &BR; agent.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Delete an agent.
+              snippet_tags:
+                - python.example_code.bedrock-agent.DeleteAgent
+  services:
+    bedrock-agent: {DeleteAgent}
+
+bedrock-agent_DeleteAgentAlias:
+  title: Delete an &BR; agent alias using an &AWS; SDK
+  title_abbrev: Delete an agent alias
+  synopsis: delete an &BR; agent alias.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Delete an agent alias.
+              snippet_tags:
+                - python.example_code.bedrock-agent.DeleteAgentAlias
+  services:
+    bedrock-agent: {DeleteAgentAlias}
+
+bedrock-agent_GetAgent:
+  title: Get information about an &BR; agent using an &AWS; SDK
+  title_abbrev: Get information about an agent
+  synopsis: get information about an &BR; agent.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Get an agent.
+              snippet_tags:
+                - python.example_code.bedrock-agent.GetAgent
+  services:
+    bedrock-agent: {GetAgent}
+
+bedrock-agent_ListAgents:
+  title: List the Agents for &BR; belonging to an account using an &AWS; SDK
+  title_abbrev: List the agents
+  synopsis: list the Agents for &BR; belonging to an account.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: List the agents belonging to an account.
+              snippet_tags:
+                - python.example_code.bedrock-agent.ListAgents
+  services:
+    bedrock-agent: {ListAgents}
+
+bedrock-agent_ListAgentActionGroups:
+  title: List the action groups for a &BR; agent using an &AWS; SDK
+  title_abbrev: List the action groups for an agent
+  synopsis: list the action groups for a &BR; agent.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: List the action groups for an agent.
+              snippet_tags:
+                - python.example_code.bedrock-agent.ListAgentActionGroups
+  services:
+    bedrock-agent: {ListAgentActionGroups}
+
+bedrock-agent_ListAgentKnowledgeBases:
+  title: List the knowledge bases associated with a &BR; agent using an &AWS; SDK
+  title_abbrev: List the knowledge bases associated with an agent
+  synopsis: list the knowledge bases associated with a &BR; agent.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: List the knowledge bases associated with an agent.
+              snippet_tags:
+                - python.example_code.bedrock-agent.ListAgentKnowledgeBases
+  services:
+    bedrock-agent: {ListAgentKnowledgeBases}
+
+bedrock-agent_PrepareAgent:
+  title: Prepare an &BR; agent using an &AWS; SDK
+  title_abbrev: Prepare an agent
+  synopsis: prepare an &BR; agent for internal testing.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Prepare an agent for internal testing.
+              snippet_tags:
+                - python.example_code.bedrock-agent.PrepareAgent
+  services:
+    bedrock-agent: {PrepareAgent}
+bedrock-agent_GettingStartedWithBedrockAgents:
+  title: An end-to-end example showing how to create and invoke &BR; agents using an &AWS; SDK
+  title_abbrev: Create and invoke an agent
+  synopsis_list:
+    - Create an execution role for the agent.
+    - Create the agent and deploy a DRAFT version.
+    - Create a Lambda function that implements the agent's capabilities.
+    - Create an action group that connects the agent to the Lambda function.
+    - Deploy the fully configured agent.
+    - Invoke the agent with user-provided prompts.
+    - Delete all created resources.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create and invoke an agent.
+              snippet_tags:
+                - python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents
+  services:
+    bedrock-agent:
+      {
+        CreateAgent,
+        CreateAgentActionGroup,
+        CreateAgentAlias,
+        DeleteAgent,
+        DeleteAgentAlias,
+        GetAgent,
+        ListAgentActionGroups,
+        ListAgents,
+        ListAgentKnowledgeBases,
+        PrepareAgent,
+      }

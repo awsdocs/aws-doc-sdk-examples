@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListDataSourceSyncJobs.kt demonstrates how to get statistics about synchronizing Amazon Kendra with a data source.]
-// snippet-keyword:[SDK for Kotlin]
-// snippet-service:[Amazon Kendra]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.kendra
 

@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { DescribeSubscriptionFiltersCommand } from "@aws-sdk/client-cloudwatch-logs";
 import { LambdaClient, waitUntilFunctionUpdated } from "@aws-sdk/client-lambda";
@@ -21,7 +19,7 @@ import {
   deleteRole,
   detachRolePolicy,
 } from "../libs/iam-helper.js";
-import { DEFAULT_REGION, LAMBDA_EXECUTION_POLICY } from "../libs/constants.js";
+import { LAMBDA_EXECUTION_POLICY } from "../libs/constants.js";
 import { client } from "../libs/client.js";
 
 const testTimeout = 60000;
@@ -101,7 +99,7 @@ describe("put-subscription-filter", () => {
 
       await addPermissionLogsInvokeFunction(lambdaFuncName, logGroupName);
       await waitUntilFunctionUpdated(
-        { client: new LambdaClient({ region: DEFAULT_REGION }) },
+        { client: new LambdaClient({}) },
         { FunctionName: lambdaFuncName },
       );
     } catch (err) {

@@ -1,27 +1,5 @@
-//snippet-sourcedescription:[XferMgrUpload.java demonstrates how to upload a file or files to an S3 bucket using the S3 transfer manager.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[TransferManager upload]
-//snippet-keyword:[TransferManager uploadDirectory]
-//snippet-service:[s3]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[soo-aws]
-/*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package aws.example.s3;
 // snippet-start:[s3.java1.s3_xfer_mgr_upload.import]
 
@@ -46,9 +24,8 @@ import java.util.Arrays;
  */
 public class XferMgrUpload {
     public static void uploadDir(String dir_path, String bucket_name,
-                                 String key_prefix, boolean recursive, boolean pause) {
-        System.out.println("directory: " + dir_path + (recursive ?
-                " (recursive)" : "") + (pause ? " (pause)" : ""));
+            String key_prefix, boolean recursive, boolean pause) {
+        System.out.println("directory: " + dir_path + (recursive ? " (recursive)" : "") + (pause ? " (pause)" : ""));
 
         // snippet-start:[s3.java1.s3_xfer_mgr_upload.directory]
         TransferManager xfer_mgr = TransferManagerBuilder.standard().build();
@@ -68,7 +45,7 @@ public class XferMgrUpload {
     }
 
     public static void uploadFileList(String[] file_paths, String bucket_name,
-                                      String key_prefix, boolean pause) {
+            String key_prefix, boolean pause) {
         System.out.println("file list: " + Arrays.toString(file_paths) +
                 (pause ? " (pause)" : ""));
         // convert the file paths to a list of File objects (required by the
@@ -96,7 +73,7 @@ public class XferMgrUpload {
     }
 
     public static void uploadFile(String file_path, String bucket_name,
-                                  String key_prefix, boolean pause) {
+            String key_prefix, boolean pause) {
         System.out.println("file: " + file_path +
                 (pause ? " (pause)" : ""));
 
@@ -114,7 +91,7 @@ public class XferMgrUpload {
             Upload xfer = xfer_mgr.upload(bucket_name, key_name, f);
             // loop with Transfer.isDone()
             XferMgrProgress.showTransferProgress(xfer);
-            //  or block with Transfer.waitForCompletion()
+            // or block with Transfer.waitForCompletion()
             XferMgrProgress.waitForCompletion(xfer);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());

@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[javascript.v3.cloudwatchlogs.actions.CreateLogGroup]
 import { CreateLogGroupCommand } from "@aws-sdk/client-cloudwatch-logs";

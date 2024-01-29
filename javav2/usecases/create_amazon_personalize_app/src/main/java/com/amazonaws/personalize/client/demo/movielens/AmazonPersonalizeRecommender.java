@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.personalize.client.demo.movielens;
 
 import java.io.IOException;
@@ -21,7 +20,6 @@ import software.amazon.awssdk.services.personalizeruntime.PersonalizeRuntimeClie
 import software.amazon.awssdk.services.personalizeruntime.model.GetRecommendationsRequest;
 import software.amazon.awssdk.services.personalizeruntime.model.GetRecommendationsResponse;
 import software.amazon.awssdk.services.personalizeruntime.model.PredictedItem;
-
 
 public class AmazonPersonalizeRecommender implements RecommendationsInterface {
 
@@ -81,7 +79,8 @@ public class AmazonPersonalizeRecommender implements RecommendationsInterface {
                     .userId(userId)
                     .build();
 
-            GetRecommendationsResponse recommendationsResponse = personalizeRuntimeClient.getRecommendations(recommendationsRequest);
+            GetRecommendationsResponse recommendationsResponse = personalizeRuntimeClient
+                    .getRecommendations(recommendationsRequest);
             List<PredictedItem> items = recommendationsResponse.itemList();
 
             for (PredictedItem item : items) {

@@ -1,13 +1,5 @@
-//snippet-sourcedescription:[PutLexiconSample.cs demonstrates how to add a new lexicon.]
-//snippet-keyword:[dotnet]
-//snippet-keyword:[.NET]
-//snippet-sourcesyntax:[.net]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon Polly]
-//snippet-service:[polly]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 ﻿using System;
 using Amazon.Polly;
 using Amazon.Polly.Model;

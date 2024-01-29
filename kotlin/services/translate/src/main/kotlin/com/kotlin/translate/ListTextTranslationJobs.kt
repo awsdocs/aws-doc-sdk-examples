@@ -1,6 +1,5 @@
-// snippet-sourcedescription:[ListTextTranslationJobs.kt demonstrates how to list all translation jobs.]
-// snippet-keyword:[SDK for Kotlin]
-// snippet-service:[Amazon Translate]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.translate
 

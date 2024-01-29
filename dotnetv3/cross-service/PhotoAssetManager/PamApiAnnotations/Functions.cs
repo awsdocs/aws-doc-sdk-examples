@@ -1,5 +1,5 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
-// SPDX-License-Identifier:  Apache-2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 using System.Net;
 using System.Text.Json;
@@ -15,7 +15,7 @@ using PamServices;
 namespace PamApiAnnotations
 {
     /// <summary>
-    /// A collection of sample AWS Lambda functions that provide a REST API using Lambda annotations for the Photo Analyzer example. 
+    /// A collection of sample AWS Lambda functions that provide a REST API using Lambda annotations for the Photo Analyzer example.
     /// </summary>
     public class Functions
     {

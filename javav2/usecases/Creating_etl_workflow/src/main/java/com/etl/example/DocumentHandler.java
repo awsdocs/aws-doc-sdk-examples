@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.etl.example;
 
@@ -13,7 +11,7 @@ import java.util.Map;
 
 public class DocumentHandler {
 
-    public String handleRequest(Map<String,String> event, Context context) throws IOException, BiffException {
+    public String handleRequest(Map<String, String> event, Context context) throws IOException, BiffException {
         LambdaLogger logger = context.getLogger();
         logger.log("Getting excel doc from the Amazon S3 bucket");
 

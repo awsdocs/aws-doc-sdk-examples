@@ -1,5 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier:  Apache-2.0
+# SPDX-License-Identifier: Apache-2.0
 """
 Purpose: Displays a list of running Amazon Lookout for Vision
 models across all accessible AWS Regions in the commercial

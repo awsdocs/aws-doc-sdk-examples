@@ -1,11 +1,6 @@
 #!/bin/bash
-
-###############################################################################
-#
-#    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#    SPDX-License-Identifier: Apache-2.0
-#
-###############################################################################
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 ###############################################################################
 #
@@ -35,7 +30,9 @@ function main() {
     local current_directory
     current_directory=$(pwd)
     cd ..
+
     source ./dynamodb_operations.sh
+
     source ./scenario_getting_started_movies.sh
     # shellcheck disable=SC2164
     cd "$current_directory"
@@ -127,7 +124,7 @@ function main() {
     "dynamodb_describe_table -n $test_table_name " \
     0
 
-  if [[ "$test_command_response" != "ACTIVE" ]];  then
+  if [[ "$test_command_response" != "ACTIVE" ]]; then
     test_failed "Table is not active."
     return 1
   fi
@@ -216,8 +213,8 @@ function main() {
 
   test_count=$((test_count + 1))
   echo -n "Running test $test_count: Querying table without projection expression..."
-  local response
-  response=$(dynamodb_query -n "$test_table_name" -k "#n=:v" -a "$test_attribute_names_json_file" -v "$test_attributes_values_json_file")
+
+  dynamodb_query -n "$test_table_name" -k "#n=:v" -a "$test_attribute_names_json_file" -v "$test_attributes_values_json_file"
   local error_code=${?}
 
   if [[ $error_code -ne 0 ]]; then
@@ -229,9 +226,8 @@ function main() {
 
   test_count=$((test_count + 1))
   echo -n "Running test $test_count: Querying table with projection expression..."
-  local response
-  response=$(dynamodb_query -n "$test_table_name" -k "#n=:v" -a "$test_attribute_names_json_file" \
-    -v "$test_attributes_values_json_file" -p "title,info.plot")
+  dynamodb_query -n "$test_table_name" -k "#n=:v" -a "$test_attribute_names_json_file" \
+    -v "$test_attributes_values_json_file" -p "title,info.plot"
   local error_code=${?}
 
   if [[ $error_code -ne 0 ]]; then
@@ -251,8 +247,8 @@ function main() {
 
   test_count=$((test_count + 1))
   echo -n "Running test $test_count: Scanning table without projection expression..."
-  local response
-  response=$(dynamodb_scan -n "$test_table_name" -f "contains(#n,:v1)" -a "$test_attribute_names_json_file" -v "$test_attributes_values_json_file")
+
+  dynamodb_scan -n "$test_table_name" -f "contains(#n,:v1)" -a "$test_attribute_names_json_file" -v "$test_attributes_values_json_file"
   local error_code=${?}
 
   if [[ $error_code -ne 0 ]]; then
@@ -264,9 +260,9 @@ function main() {
 
   test_count=$((test_count + 1))
   echo -n "Running test $test_count: Scanning table with projection expression..."
-  local response
-  response=$(dynamodb_scan -n "$test_table_name" -f "contains(#n,:v1)" -a "$test_attribute_names_json_file" \
-    -v "$test_attributes_values_json_file" -p "title,info.plot")
+
+  dynamodb_scan -n "$test_table_name" -f "contains(#n,:v1)" -a "$test_attribute_names_json_file" \
+    -v "$test_attributes_values_json_file" -p "title,info.plot"
   local error_code=${?}
 
   if [[ $error_code -ne 0 ]]; then
@@ -300,7 +296,7 @@ function main() {
     "dynamodb_batch_get_item -i $test_requested_values_json_file " \
     0
 
-  skip_tests=false
+  export skip_tests=false
   run_test " deleting table" \
     "dynamodb_delete_table -n $test_table_name " \
     0
@@ -364,6 +360,7 @@ function main() {
   rm "$test_requested_values_json_file"
 
   echo "$test_succeeded_count tests completed successfully."
+
   echo "$test_failed_count tests failed."
 }
 

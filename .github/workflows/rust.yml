@@ -2,34 +2,22 @@ name: Rust
 on:
   push:
     paths:
-      - "rust_dev_preview/**"
+      - "rustv1/**"
     branches:
       - main
   pull_request:
     paths:
-      - "rust_dev_preview/**"
+      - "rustv1/**"
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   check:
     name: Check
-    runs-on: temporary-sizing-testing_ubuntu-latest_32-core
+    runs-on: aws-doc-sdk-examples_ubuntu-latest_16-core
     steps:
       - name: setup
-        run: >
-          sudo apt-get update && sudo apt-get install -y libclang-dev  &&
-          (
-          echo "Removing unwanted software... " ;
-          echo "Before:" ; df -h ;
-          sudo apt-get clean ; 
-          sudo rm -rf /usr/share/dotnet ;
-          sudo rm -rf /usr/local/lib/android ;
-          sudo rm -rf /opt/ghc ;
-          sudo rm -rf /opt/hostedtoolcache/CodeQL ;
-          sudo docker image prune --all --force ;
-          echo "After:" ; df -h ;
-          )
+        run: sudo apt-get update && sudo apt-get install -y libclang-dev
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: "1.70.0"
@@ -41,20 +29,20 @@ jobs:
           export APP_ENVIRONMENT="test"
       - name: Rust format
         run: >
-          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/cross_service/Cargo.toml --all --check &&
-          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/examples/Cargo.toml --all --check &&
-          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/lambda/Cargo.toml --all --check &&
-          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/webassembly/Cargo.toml --all --check
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/cross_service/Cargo.toml --all --check &&
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/examples/Cargo.toml --all --check &&
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/lambda/Cargo.toml --all --check &&
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/webassembly/Cargo.toml --all --check
       - name: Rust lint
         if: success() || failure()
         run: >
-          "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/cross_service/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/examples/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/lambda/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/webassembly/Cargo.toml --all
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/cross_service/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/examples/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/lambda/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/webassembly/Cargo.toml --all
       - name: Rust test
         run: >
-          "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/cross_service/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/examples/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/lambda/Cargo.toml --all &&
-          "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/webassembly/Cargo.toml --all
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/cross_service/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/examples/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/lambda/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/webassembly/Cargo.toml --all

@@ -1,28 +1,7 @@
-// snippet-sourcedescription:[ ]
-// snippet-service:[dynamodb]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon DynamoDB]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[ ]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[ ]
-// snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.LowLevelQuery] 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[dynamodb.java.codeexample.LowLevelQuery] 
 
 package com.amazonaws.codesamples.lowlevel;
 
@@ -61,7 +40,7 @@ public class LowLevelQuery {
         String replyId = forumName + "#" + threadSubject;
 
         Condition partitionKeyCondition = new Condition().withComparisonOperator(ComparisonOperator.EQ)
-            .withAttributeValueList(new AttributeValue().withS(replyId));
+                .withAttributeValueList(new AttributeValue().withS(replyId));
 
         Map<String, Condition> keyConditions = new HashMap<String, Condition>();
         keyConditions.put("Id", partitionKeyCondition);
@@ -79,8 +58,8 @@ public class LowLevelQuery {
         Map<String, AttributeValue> lastEvaluatedKey = null;
         do {
             QueryRequest queryRequest = new QueryRequest().withTableName(tableName)
-                .withKeyConditions(makeReplyKeyConditions(forumName, threadSubject)).withLimit(1)
-                .withExclusiveStartKey(lastEvaluatedKey);
+                    .withKeyConditions(makeReplyKeyConditions(forumName, threadSubject)).withLimit(1)
+                    .withExclusiveStartKey(lastEvaluatedKey);
 
             QueryResult result = client.query(queryRequest);
             for (Map<String, AttributeValue> item : result.getItems()) {
@@ -99,13 +78,13 @@ public class LowLevelQuery {
         String twoWeeksAgoStr = df.format(twoWeeksAgo);
 
         Condition sortKeyCondition = new Condition().withComparisonOperator(ComparisonOperator.GT.toString())
-            .withAttributeValueList(new AttributeValue().withS(twoWeeksAgoStr));
+                .withAttributeValueList(new AttributeValue().withS(twoWeeksAgoStr));
 
         Map<String, Condition> keyConditions = makeReplyKeyConditions(forumName, threadSubject);
         keyConditions.put("ReplyDateTime", sortKeyCondition);
 
         QueryRequest queryRequest = new QueryRequest().withTableName(tableName).withKeyConditions(keyConditions)
-            .withProjectionExpression("Message, ReplyDateTime, PostedBy");
+                .withProjectionExpression("Message, ReplyDateTime, PostedBy");
 
         QueryResult result = client.query(queryRequest);
         for (Map<String, AttributeValue> item : result.getItems()) {
@@ -123,13 +102,13 @@ public class LowLevelQuery {
         String endDate = df.format(endDateMilli);
 
         Condition sortKeyCondition = new Condition().withComparisonOperator(ComparisonOperator.BETWEEN.toString())
-            .withAttributeValueList(new AttributeValue().withS(startDate), new AttributeValue().withS(endDate));
+                .withAttributeValueList(new AttributeValue().withS(startDate), new AttributeValue().withS(endDate));
 
         Map<String, Condition> keyConditions = makeReplyKeyConditions(forumName, threadSubject);
         keyConditions.put("ReplyDateTime", sortKeyCondition);
 
         QueryRequest queryRequest = new QueryRequest().withTableName(tableName).withKeyConditions(keyConditions)
-            .withProjectionExpression("Message, ReplyDateTime, PostedBy");
+                .withProjectionExpression("Message, ReplyDateTime, PostedBy");
 
         QueryResult result = client.query(queryRequest);
         for (Map<String, AttributeValue> item : result.getItems()) {
@@ -145,8 +124,8 @@ public class LowLevelQuery {
         expressionAttributeValues.put(":val", new AttributeValue().withS("User B"));
 
         QueryRequest queryRequest = new QueryRequest().withTableName(tableName).withKeyConditions(keyConditions)
-            .withFilterExpression("PostedBy = :val").withExpressionAttributeValues(expressionAttributeValues)
-            .withProjectionExpression("Message, ReplyDateTime, PostedBy");
+                .withFilterExpression("PostedBy = :val").withExpressionAttributeValues(expressionAttributeValues)
+                .withProjectionExpression("Message, ReplyDateTime, PostedBy");
 
         QueryResult result = client.query(queryRequest);
         for (Map<String, AttributeValue> item : result.getItems()) {
@@ -159,11 +138,11 @@ public class LowLevelQuery {
             String attributeName = item.getKey();
             AttributeValue value = item.getValue();
             System.out.println(attributeName + " " + (value.getS() == null ? "" : "S=[" + value.getS() + "]")
-                + (value.getN() == null ? "" : "N=[" + value.getN() + "]")
-                + (value.getB() == null ? "" : "B=[" + value.getB() + "]")
-                + (value.getSS() == null ? "" : "SS=[" + value.getSS() + "]")
-                + (value.getNS() == null ? "" : "NS=[" + value.getNS() + "]")
-                + (value.getBS() == null ? "" : "BS=[" + value.getBS() + "] \n"));
+                    + (value.getN() == null ? "" : "N=[" + value.getN() + "]")
+                    + (value.getB() == null ? "" : "B=[" + value.getB() + "]")
+                    + (value.getSS() == null ? "" : "SS=[" + value.getSS() + "]")
+                    + (value.getNS() == null ? "" : "NS=[" + value.getNS() + "]")
+                    + (value.getBS() == null ? "" : "BS=[" + value.getBS() + "] \n"));
         }
     }
 
@@ -176,7 +155,7 @@ public class LowLevelQuery {
         String replyId = forumName + "#" + threadSubject;
 
         Condition partitionKeyCondition = new Condition().withComparisonOperator(ComparisonOperator.EQ)
-            .withAttributeValueList(new AttributeValue().withS(replyId));
+                .withAttributeValueList(new AttributeValue().withS(replyId));
 
         Map<String, Condition> keyConditions = new HashMap<String, Condition>();
         keyConditions.put("Id", partitionKeyCondition);
@@ -185,4 +164,4 @@ public class LowLevelQuery {
     }
 }
 
-// snippet-end:[dynamodb.java.codeexample.LowLevelQuery] 
+// snippet-end:[dynamodb.java.codeexample.LowLevelQuery]

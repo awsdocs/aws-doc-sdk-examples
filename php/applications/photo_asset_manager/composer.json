@@ -1,0 +1,21 @@
+{
+    "require": {
+        "aws/aws-sdk-php": "^3.209",
+        "phpunit/phpunit": "^9.5",
+        "php-mock/php-mock-phpunit": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "*"
+        },
+        "psr-4": {
+            "AwsUtilities\\": "../../example_code/aws_utilities",
+
+            "S3\\": "../../example_code/s3/"
+        },
+        "files": [
+            "../../example_code/aws_utilities/TestableReadline.php",
+            "../../example_code/aws_utilities/LoadMovieData.php"
+        ]
+    }
+}

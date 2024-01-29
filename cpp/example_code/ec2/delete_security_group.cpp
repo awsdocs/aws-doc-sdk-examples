@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -14,12 +12,12 @@
  *
  **/
 
-//snippet-start:[ec2.cpp.delete_security_group.inc]
+// snippet-start:[ec2.cpp.delete_security_group.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DeleteSecurityGroupRequest.h>
 #include <iostream>
-//snippet-end:[ec2.cpp.delete_security_group.inc]
+// snippet-end:[ec2.cpp.delete_security_group.inc]
 #include "ec2_samples.h"
 
 //! Delete a security group.
@@ -31,7 +29,7 @@
  */
 bool AwsDoc::EC2::DeleteSecurityGroup(const Aws::String &securityGroupID,
                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
-    //snippet-start:[ec2.cpp.delete_security_group.code]
+    // snippet-start:[ec2.cpp.delete_security_group.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
     Aws::EC2::Model::DeleteSecurityGroupRequest request;
 
@@ -46,7 +44,7 @@ bool AwsDoc::EC2::DeleteSecurityGroup(const Aws::String &securityGroupID,
         std::cout << "Successfully deleted security group " << securityGroupID <<
                   std::endl;
     }
-    //snippet-end:[ec2.cpp.delete_security_group.code]
+    // snippet-end:[ec2.cpp.delete_security_group.code]
 
     return outcome.IsSuccess();
 }

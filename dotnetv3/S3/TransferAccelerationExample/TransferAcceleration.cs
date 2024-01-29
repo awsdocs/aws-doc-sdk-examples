@@ -1,13 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// Amazon Simple Storage Service (Amazon S3) Transfer Acceleration is a
-/// bucket-level feature that enables you to perform faster data transfers
-/// to Amazon S3. This example shows how to configure Transfer
-/// Acceleration. The example was written using the AWS SDK for .NET 3.7
-/// and .NET Core 5.0.
-/// </summary>
 namespace TransferAccelerationExample
 {
     // snippet-start:[S3.dotnetv3.TransferAccelerationExample]
@@ -16,6 +9,12 @@ namespace TransferAccelerationExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
+    /// <summary>
+    /// Amazon Simple Storage Service (Amazon S3) Transfer Acceleration is a
+    /// bucket-level feature that enables you to perform faster data transfers
+    /// to Amazon S3. This example shows how to configure Transfer
+    /// Acceleration.
+    /// </summary>
     public class TransferAcceleration
     {
         /// <summary>

@@ -1,11 +1,6 @@
-//snippet-sourcedescription:[CreatePublicKey.java demonstrates how to read a public key file and upload it to Amazon CloudFront.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon CloudFront]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.cloudfront;
 
 // snippet-start:[cloudfront.java2.createpublickey.import]
@@ -27,8 +22,8 @@ public class CreatePublicKey {
     public static String createPublicKey(CloudFrontClient cloudFrontClient, String publicKeyFileName) {
         try (InputStream is = CreatePublicKey.class.getClassLoader().getResourceAsStream(publicKeyFileName)) {
             String publicKeyString = IoUtils.toUtf8String(is);
-            CreatePublicKeyResponse createPublicKeyResponse = cloudFrontClient.createPublicKey(b -> b.
-                    publicKeyConfig(c -> c
+            CreatePublicKeyResponse createPublicKeyResponse = cloudFrontClient
+                    .createPublicKey(b -> b.publicKeyConfig(c -> c
                             .name("JavaCreatedPublicKey" + UUID.randomUUID())
                             .encodedKey(publicKeyString)
                             .callerReference(UUID.randomUUID().toString())));

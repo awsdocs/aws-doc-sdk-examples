@@ -17,6 +17,9 @@
     ]
   },
   "workspaces": [
+    "example_code/auto-scaling",
+    "example_code/bedrock",
+    "example_code/bedrock-runtime",
     "example_code/cloudwatch",
     "example_code/cloudwatch-events",
     "example_code/cloudwatch-logs",
@@ -30,8 +33,10 @@
     "example_code/cross-services/feedback-sentiment-analyzer/TranslateText",
     "example_code/cross-services/photo-asset-manager",
     "example_code/cross-services/wkflw-topics-queues",
+    "example_code/cross-services/wkflw-resilient-service",
     "example_code/dynamodb",
     "example_code/ec2",
+    "example_code/elastic-load-balancing-v2",
     "example_code/eventbridge",
     "example_code/glue",
     "example_code/iam",
@@ -50,7 +55,8 @@
     "example_code/sqs",
     "example_code/sts",
     "example_code/support",
-    "example_code/web/s3/list-objects"
+    "example_code/web/s3/list-objects",
+    "example_code/sfn"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.7.2",

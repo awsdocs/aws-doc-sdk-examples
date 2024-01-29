@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.s3;
 
 // snippet-start:[presigned.java2.generatepresignedurl.import]
@@ -28,7 +27,8 @@ import java.util.UUID;
 // snippet-end:[presigned.java2.generatepresignedurl.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  * <p>
  * For more information, see the following documentation topic:
  * <p>
@@ -60,8 +60,9 @@ public class GeneratePresignedUrlAndUploadObject {
     // snippet-start:[presigned.java2.generatepresignedurl.main]
     /**
      * Create a presigned URL for uploading a String object.
+     * 
      * @param bucketName - The name of the bucket.
-     * @param keyName - The name of the object.
+     * @param keyName    - The name of the object.
      * @return - The presigned URL for an HTTP PUT.
      */
     public URL createSignedUrlForStringPut(String bucketName, String keyName) {
@@ -74,27 +75,31 @@ public class GeneratePresignedUrlAndUploadObject {
                     .build();
 
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10))  // The URL will expire in 10 minutes.
+                    .signatureDuration(Duration.ofMinutes(10)) // The URL will expire in 10 minutes.
                     .putObjectRequest(objectRequest)
                     .build();
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
             String myURL = presignedRequest.url().toString();
             logger.info("Presigned URL to upload to: [{}]", myURL);
-            logger.info("Which HTTP method needs to be used when uploading: [{}]", presignedRequest.httpRequest().method());
+            logger.info("Which HTTP method needs to be used when uploading: [{}]",
+                    presignedRequest.httpRequest().method());
 
             return presignedRequest.url();
         }
     }
 
     /**
-     * Use the JDK HttpURLConnection (since v1.1) class to upload a String, but you can
+     * Use the JDK HttpURLConnection (since v1.1) class to upload a String, but you
+     * can
      * use any HTTP client.
+     * 
      * @param presignedUrl - The presigned URL.
      */
     public void useHttpUrlConnectionToPutString(URL presignedUrl) {
         try {
-            // Create the connection and use it to upload the new object by using the presigned URL.
+            // Create the connection and use it to upload the new object by using the
+            // presigned URL.
             HttpURLConnection connection = (HttpURLConnection) presignedUrl.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "text/plain");
@@ -114,16 +119,18 @@ public class GeneratePresignedUrlAndUploadObject {
     /**
      * Use the JDK HttpClient class (since v11) to upload a String,
      * but you can use any HTTP client.
+     * 
      * @param presignedUrl - The presigned URL.
      */
     public void useHttpClientToPutString(URL presignedUrl) {
         HttpClient httpClient = HttpClient.newHttpClient();
         try {
             final HttpResponse<Void> response = httpClient.send(HttpRequest.newBuilder()
-                            .uri(presignedUrl.toURI())
-                            .header("Content-Type", "text/plain")
-                            .PUT(HttpRequest.BodyPublishers.ofString("This text was uploaded as an object by using a presigned URL."))
-                            .build(),
+                    .uri(presignedUrl.toURI())
+                    .header("Content-Type", "text/plain")
+                    .PUT(HttpRequest.BodyPublishers
+                            .ofString("This text was uploaded as an object by using a presigned URL."))
+                    .build(),
                     HttpResponse.BodyHandlers.discarding());
             logger.info("HTTP response code is " + response.statusCode());
         } catch (S3Exception | IOException | URISyntaxException | InterruptedException e) {

@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DescribeCollectionExample
 {
@@ -11,8 +11,7 @@ namespace DescribeCollectionExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to describe the contents of a
-    /// collection. The example was created using the AWS SDK for .NET version
-    /// 3.7 and .NET Core 5.0.
+    /// collection.
     /// </summary>
     public class DescribeCollection
     {

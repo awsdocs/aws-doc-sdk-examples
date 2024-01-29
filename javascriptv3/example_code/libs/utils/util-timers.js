@@ -1,7 +1,5 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 const wait = (seconds) =>
   new Promise((resolve) =>
@@ -12,7 +10,7 @@ const wait = (seconds) =>
 
 /**
  * @template T
- * @param {{ intervalInMs: number, maxRetries: number, swallowError?: boolean }} config
+ * @param {{ intervalInMs: number, maxRetries: number, swallowError?: boolean, quiet?: boolean }} config
  * @param {() => Promise<T>} fn
  * @returns {Promise<T>}
  */
@@ -22,15 +20,19 @@ const retry = (config, fn) =>
     fn()
       .then(resolve)
       .catch((err) => {
-        console.warn(
-          `Callback in retry function failed. Retrying... ${maxRetries}`,
-        );
-        console.warn(err instanceof Error ? err.message : err);
+        if (!config.quiet) {
+          console.warn(
+            `Retrying after ${
+              intervalInMs / 1000
+            } seconds. ${maxRetries} retries left.`,
+          );
+          console.warn(err instanceof Error ? err.message : err);
+        }
         if (maxRetries === 0) {
           config.swallowError ? resolve() : reject(err);
         } else {
           setTimeout(() => {
-            retry({ intervalInMs, maxRetries: maxRetries - 1 }, fn).then(
+            retry({ ...config, maxRetries: maxRetries - 1 }, fn).then(
               resolve,
               reject,
             );

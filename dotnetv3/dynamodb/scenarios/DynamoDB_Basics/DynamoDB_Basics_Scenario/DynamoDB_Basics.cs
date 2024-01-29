@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DynamoDB_Basics_Scenario;
 
@@ -17,10 +17,6 @@ namespace DynamoDB_Basics_Scenario;
 //     Scan
 //     DeleteItemAsync
 //
-// The code in this example uses the AWS SDK for .NET version 3.7 and .NET 5.
-// Before you run this example, download 'movies.json' from
-// https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files,
-// and put it in the same folder as the example.
 using Amazon.DynamoDBv2;
 using DynamoDB_Actions;
 
@@ -187,8 +183,7 @@ public class DynamoDB_Basics
         Console.Write(new string(' ', 28));
         Console.WriteLine("DynamoDB Basics Example");
         Console.WriteLine(SepBar);
-        Console.WriteLine("This demo application shows the basics of using DynamoDB with the AWS SDK for");
-        Console.WriteLine(".NET version 3.7 and .NET Core 5.");
+        Console.WriteLine("This demo application shows the basics of using DynamoDB with the AWS SDK.");
         Console.WriteLine(SepBar);
         Console.WriteLine("The application does the following:");
         Console.WriteLine("\t1. Creates a table with partition: year and sort:title.");

@@ -1,15 +1,5 @@
-//snippet-sourcedescription:[DescribeBroker.java demonstrates how to describe an Amazon MQ broker using the Java SDK.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon MQ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/18/2021]
-//snippet-sourceauthor:[fararmin-aws]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[mq.java2.describe_broker.complete]
 
@@ -25,12 +15,15 @@ import software.amazon.awssdk.services.mq.model.MqException;
 
 public class DescribeBroker {
     public static void main(String[] args) {
-        final String USAGE = "\n" +
-            "Usage: " +
-            "DescribeBroker <brokerName>\n\n" +
-            "Where:\n" +
-            "  brokerName - The name of the broker.\n\n";
-        
+        final String USAGE = """
+
+                Usage: DescribeBroker <brokerName>
+
+                Where:
+                  brokerName - The name of the broker.
+
+                """;
+
         String brokerName = "";
 
         if (args.length != 1) {
@@ -41,26 +34,26 @@ public class DescribeBroker {
         }
 
         Region region = Region.US_WEST_2;
-        
+
         MqClient mqClient = MqClient.builder()
                 .region(region)
                 .build();
-        
+
         String result = describeBroker(mqClient, brokerName);
         System.out.print("Broker ID: " + result);
         mqClient.close();
     }
+
     // snippet-start:[mq.java2.describe_broker.main]
     public static String describeBroker(MqClient mqClient, String brokerName) {
         try {
             DescribeBrokerRequest request = DescribeBrokerRequest.builder()
-                .brokerId(brokerName)
-                .build();
-            
+                    .brokerId(brokerName)
+                    .build();
+
             DescribeBrokerResponse response = mqClient.describeBroker(request);
             System.out.print(response + "\n\n");
             return response.brokerId();
-            
 
         } catch (MqException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

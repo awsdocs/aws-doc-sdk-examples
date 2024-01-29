@@ -53,19 +53,19 @@ export const AddWorkItem = () => {
     setGuide(GUIDE_OPTIONS[0]);
     setDescription("");
     setStatus("");
-  }
+  };
 
   const handleAdd = () => {
     service
-    .create({
-      name: user,
-      guide: guide.value!,
-      description,
-      status,
-      archived: false,
-    })
-    .then(loadItems)
-    .catch(console.error);
+      .create({
+        name: user,
+        guide: guide.value!,
+        description,
+        status,
+        archived: false,
+      })
+      .then(loadItems)
+      .catch(console.error);
     setShow(false);
     clearForm();
   };

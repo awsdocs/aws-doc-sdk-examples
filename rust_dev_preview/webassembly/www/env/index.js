@@ -1,10 +1,1 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0.
- */
-
-export const now = () => {
-    return Date.now();
-};
-
-export * from "./credentials.js";
+// This file has been moved to https://github.com/awsdocs/aws-doc-sdk-examples/blob/rust_dev_preview/rustv1/webassembly/www/env/index.js

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /**
  * Before running this C++ code example, set up your development environment,
@@ -22,13 +20,13 @@
  *
  */
 
-//snippet-start:[iam.cpp.delete_policy.inc]
+// snippet-start:[iam.cpp.delete_policy.inc]
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/DeletePolicyRequest.h>
 #include <iostream>
 #include "iam_samples.h"
-//snippet-end:[iam.cpp.delete_policy.inc]
+// snippet-end:[iam.cpp.delete_policy.inc]
 
 //! Deletes an IAM policy.
 /*!

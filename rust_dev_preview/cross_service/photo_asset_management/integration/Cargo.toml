@@ -1,16 +1,1 @@
-[package]
-name = "photo_asset_management_integration"
-version = "0.1.0"
-edition = "2021"
-
-[workspace]
-
-
-[dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-rekognition = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-photo_asset_management = { path = "../"}
-tokio = { version = "1.27.0", features = ["macros"] }
-tracing = "0.1.37"
-tracing-subscriber = { version = "0.3.16", features = ["env-filter"] }
+# This file has been moved to https://github.com/awsdocs/aws-doc-sdk-examples/blob/rust_dev_preview/rustv1/cross_service/photo_asset_management/integration/Cargo.toml

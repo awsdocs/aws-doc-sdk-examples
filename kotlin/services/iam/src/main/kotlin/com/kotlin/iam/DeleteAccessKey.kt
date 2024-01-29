@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DeleteAccessKey.kt demonstrates how to delete an access key from an AWS Identity and Access Management (IAM) user.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Identity and Access Management (IAM)]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.iam
 

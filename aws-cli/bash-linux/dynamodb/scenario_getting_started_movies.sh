@@ -1,12 +1,9 @@
 #!/bin/bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 # bashsupport disable=BP2002
-
-###############################################################################
-#
-#    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#    SPDX-License-Identifier: Apache-2.0
-#
-###############################################################################
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 ###############################################################################
 #
@@ -344,6 +341,7 @@ function echo_repeat() {
 #       1 - If an error occurred.
 ###############################################################################
 function dynamodb_getting_started_movies() {
+
   source ./dynamodb_operations.sh
 
   key_schema_json_file="dynamodb_key_schema.json"

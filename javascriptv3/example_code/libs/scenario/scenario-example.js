@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import {
   Scenario,
@@ -13,6 +11,7 @@ import {
 const greet = new ScenarioOutput(
   "greet",
   "Hi! This is a scenario. It can handle your inputs and outputs.",
+  { header: true },
 );
 
 const describeInput = new ScenarioOutput(
@@ -41,7 +40,7 @@ const describeOutput = new ScenarioOutput(
   "ScenarioOutput can log a raw string or build " +
     "dynamic output using the input from previous steps. " +
     "You've already seen several raw string examples in the preceding output. " +
-    "The dynamic output is generated with a function that takes a context " +
+    "The dynamic output is generated with a function that takes a state " +
     "object that tracks input values. Here's some dynamic output: ",
 );
 
@@ -57,8 +56,8 @@ const dynamicOutput = new ScenarioOutput(
 
 const describeActions = new ScenarioOutput(
   "describe actions",
-  "ScenarioActions let you run a function. The function is passed the same context " +
-    "as the dynamic output. You can modify the context here if you like, do asynchronous tasks, " +
+  "ScenarioActions let you run a function. The function is passed the same state " +
+    "as the dynamic output. You can modify the state here if you like, do asynchronous tasks, " +
     "or anything else you'd like to do. Actions don't log anything on their own, but you should use " +
     "ScenarioOutput to do that. The next step will run a 'reverse name' action and then run the " +
     "dynamic output step again.",

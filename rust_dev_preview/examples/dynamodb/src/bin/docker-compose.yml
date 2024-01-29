@@ -1,7 +1,1 @@
-version: '3.7'
-services:
-  dynamodb-local:
-    image: amazon/dynamodb-local:latest
-    container_name: dynamodb-local
-    ports:
-    - 8000:8000
+// This file has been moved to https://github.com/awsdocs/aws-doc-sdk-examples/blob/rust_dev_preview/rustv1/examples/dynamodb/src/bin/docker-compose.yml

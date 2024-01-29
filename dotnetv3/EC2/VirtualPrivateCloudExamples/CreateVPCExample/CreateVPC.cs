@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace CreateVPCExample
 {
@@ -10,7 +10,7 @@ namespace CreateVPCExample
 
     /// <summary>
     /// Shows how to create an Amazon Elastic Compute Cloud (Amazon EC2) VPC
-    /// using the AWS SDK for .NET and .NET Core 5.0.
+    /// using the AWS SDK for .NET.
     /// </summary>
     public class CreateVPC
     {

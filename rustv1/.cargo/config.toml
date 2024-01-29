@@ -1,0 +1,3 @@
+[build]
+# Share one `target` directory among all the Rust SDK examples
+target-dir = "target"

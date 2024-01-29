@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?> <DescribeAvailabilityZonesResponse xmlns="http://ec2.amazonaws.com/doc/2016-11-15/">
+     <requestId>f90191a2-f19f-4eba-9859-63b5c534dffe</requestId>
+     <availabilityZoneInfo>
+         <item>
+             <zoneName>us-east-1a</zoneName>
+             <zoneId>use1-az2</zoneId>
+             <zoneState>available</zoneState>
+             <regionName>us-test</regionName>
+             <groupName>us-test</groupName>
+             <optInStatus>opt-in-not-required</optInStatus>
+             <networkBorderGroup>us-test</networkBorderGroup>
+             <zoneType>availability-zone</zoneType>
+             <messageSet/>
+         </item>
+    </availabilityZoneInfo>
+ </DescribeAvailabilityZonesResponse>

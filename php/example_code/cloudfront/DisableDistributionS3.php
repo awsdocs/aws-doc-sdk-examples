@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudfront.php.disabledistribution.complete]
 // snippet-start:[cloudfront.php.disabledistribution.import]
@@ -156,15 +155,4 @@ function disableADistribution()
 // disableADistribution();
 // snippet-end:[cloudfront.php.disabledistribution.main]
 // snippet-end:[cloudfront.php.disabledistribution.complete]
-// snippet-sourcedescription:[DisableDistributionS3.php demonstrates how to disable an Amazon CloudFront distribution.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[updateDistribution]
-// snippet-keyword:[getDistribution]
-// snippet-keyword:[Amazon CloudFront]
-// snippet-service:[cloudfront]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-04-24]
 // snippet-sourceauthor:[pccornel (AWS)]

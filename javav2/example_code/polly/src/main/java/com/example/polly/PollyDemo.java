@@ -1,17 +1,11 @@
-// snippet-sourcedescription:[PollyDemo demonstrates how to convert text into speech.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Polly]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.polly;
 
+// snippet-start:[polly.java2.demo.main]
 // snippet-start:[polly.java2.demo.import]
 import javazoom.jl.decoder.JavaLayerException;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.polly.PollyClient;
@@ -30,43 +24,43 @@ import javazoom.jl.player.advanced.PlaybackListener;
 // snippet-end:[polly.java2.demo.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class PollyDemo {
-
-    private static final String SAMPLE = "Congratulations. You have successfully built this working demo "+
-        " of Amazon Polly in Java Version 2. Have fun building voice enabled apps with Amazon Polly (that's me!), and always "+
-        " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS";
+    private static final String SAMPLE = "Congratulations. You have successfully built this working demo " +
+            " of Amazon Polly in Java Version 2. Have fun building voice enabled apps with Amazon Polly (that's me!), and always "
+            +
+            " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS";
 
     public static void main(String args[]) {
-
         PollyClient polly = PollyClient.builder()
-            .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(Region.US_WEST_2)
+                .build();
 
         talkPolly(polly);
         polly.close();
     }
 
-    // snippet-start:[polly.java2.demo.main]
     public static void talkPolly(PollyClient polly) {
-
         try {
             DescribeVoicesRequest describeVoiceRequest = DescribeVoicesRequest.builder()
-                .engine("standard")
-                .build();
+                    .engine("standard")
+                    .build();
 
             DescribeVoicesResponse describeVoicesResult = polly.describeVoices(describeVoiceRequest);
-            Voice voice = describeVoicesResult.voices().get(26);
+            Voice voice = describeVoicesResult.voices().stream()
+                    .filter(v -> v.name().equals("Joanna"))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Voice not found"));
             InputStream stream = synthesize(polly, SAMPLE, voice, OutputFormat.MP3);
-            AdvancedPlayer player = new AdvancedPlayer(stream, javazoom.jl.player.FactoryRegistry.systemRegistry().createAudioDevice());
+            AdvancedPlayer player = new AdvancedPlayer(stream,
+                    javazoom.jl.player.FactoryRegistry.systemRegistry().createAudioDevice());
             player.setPlayBackListener(new PlaybackListener() {
-
                 public void playbackStarted(PlaybackEvent evt) {
                     System.out.println("Playback started");
                     System.out.println(SAMPLE);
@@ -81,21 +75,21 @@ public class PollyDemo {
             player.play();
 
         } catch (PollyException | JavaLayerException | IOException e) {
-          System.err.println(e.getMessage());
-          System.exit(1);
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 
-    public static InputStream synthesize(PollyClient polly, String text, Voice voice, OutputFormat format) throws IOException {
-
+    public static InputStream synthesize(PollyClient polly, String text, Voice voice, OutputFormat format)
+            throws IOException {
         SynthesizeSpeechRequest synthReq = SynthesizeSpeechRequest.builder()
-            .text(text)
-            .voiceId(voice.id())
-            .outputFormat(format)
-            .build();
+                .text(text)
+                .voiceId(voice.id())
+                .outputFormat(format)
+                .build();
 
         ResponseInputStream<SynthesizeSpeechResponse> synthRes = polly.synthesizeSpeech(synthReq);
         return synthRes;
     }
-    // snippet-end:[polly.java2.demo.main]
 }
+// snippet-end:[polly.java2.demo.main]

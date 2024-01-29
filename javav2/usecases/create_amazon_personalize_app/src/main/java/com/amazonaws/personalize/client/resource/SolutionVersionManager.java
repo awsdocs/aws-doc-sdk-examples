@@ -1,11 +1,9 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.personalize.client.resource;
 
 import java.util.Date;
-
 
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import software.amazon.awssdk.services.personalize.model.CreateSolutionVersionRequest;
@@ -35,7 +33,8 @@ public class SolutionVersionManager extends AbstractResourceManager {
                     .solutionArn(solutionArn)
                     .build();
 
-            CreateSolutionVersionResponse createSolutionVersionResponse = getPersonalize().createSolutionVersion(createSolutionVersionRequest);
+            CreateSolutionVersionResponse createSolutionVersionResponse = getPersonalize()
+                    .createSolutionVersion(createSolutionVersionRequest);
             solutionVersionArn = createSolutionVersionResponse.solutionVersionArn();
             return solutionVersionArn;
         } catch (PersonalizeException e) {
@@ -57,7 +56,8 @@ public class SolutionVersionManager extends AbstractResourceManager {
             DescribeSolutionVersionRequest describeSolutionVersionRequest = DescribeSolutionVersionRequest.builder()
                     .solutionVersionArn(arn)
                     .build();
-            DescribeSolutionVersionResponse response = getPersonalize().describeSolutionVersion(describeSolutionVersionRequest);
+            DescribeSolutionVersionResponse response = getPersonalize()
+                    .describeSolutionVersion(describeSolutionVersionRequest);
 
             return response.solutionVersion().status();
         } catch (PersonalizeException e) {
@@ -75,7 +75,8 @@ public class SolutionVersionManager extends AbstractResourceManager {
                 .maxResults(100)
                 .build();
 
-        ListSolutionVersionsResponse listSolutionVersionsResponse = getPersonalize().listSolutionVersions(listSolutionVersionsRequest);
+        ListSolutionVersionsResponse listSolutionVersionsResponse = getPersonalize()
+                .listSolutionVersions(listSolutionVersionsRequest);
 
         String arn = null;
         Date recent = null;

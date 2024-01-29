@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.kendra.*;
 import com.google.gson.Gson;
@@ -38,15 +36,15 @@ public class KendraTest {
     @BeforeAll
     public static void setUp() {
         kendra = KendraClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        indexName = values.getIndexName()+ java.util.UUID.randomUUID();
+        indexName = values.getIndexName() + java.util.UUID.randomUUID();
         indexRoleArn = values.getIndexRoleArn();
         indexDescription = values.getIndexDescription();
         s3BucketName = values.getS3BucketName();
@@ -55,33 +53,35 @@ public class KendraTest {
         dataSourceRoleArn = values.getDataSourceRoleArn();
         text = values.getText();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-        try (InputStream input = KendraTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            // Load a properties file from the class path.
-            prop.load(input);
-
-            // Populate the data members required for all tests.
-            indexName = prop.getProperty("indexName")+ java.util.UUID.randomUUID();
-            indexRoleArn = prop.getProperty("indexRoleArn");
-            indexDescription = prop.getProperty("indexDescription");
-            s3BucketName = prop.getProperty("s3BucketName");
-            dataSourceName = prop.getProperty("dataSourceName");
-            dataSourceDescription = prop.getProperty("dataSourceDescription");
-            dataSourceRoleArn = prop.getProperty("dataSourceRoleArn");
-            text = prop.getProperty("text");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * KendraTest.class.getClassLoader().getResourceAsStream("config.properties")) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * // Load a properties file from the class path.
+         * prop.load(input);
+         * 
+         * // Populate the data members required for all tests.
+         * indexName = prop.getProperty("indexName")+ java.util.UUID.randomUUID();
+         * indexRoleArn = prop.getProperty("indexRoleArn");
+         * indexDescription = prop.getProperty("indexDescription");
+         * s3BucketName = prop.getProperty("s3BucketName");
+         * dataSourceName = prop.getProperty("dataSourceName");
+         * dataSourceDescription = prop.getProperty("dataSourceDescription");
+         * dataSourceRoleArn = prop.getProperty("dataSourceRoleArn");
+         * text = prop.getProperty("text");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
@@ -97,17 +97,17 @@ public class KendraTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void CreateDataSource() {
-        dataSourceId = CreateIndexAndDataSourceExample.createDataSource(kendra, s3BucketName, dataSourceName, dataSourceDescription, indexId, dataSourceRoleArn);
+        dataSourceId = CreateIndexAndDataSourceExample.createDataSource(kendra, s3BucketName, dataSourceName,
+                dataSourceDescription, indexId, dataSourceRoleArn);
         assertFalse(dataSourceId.isEmpty());
         System.out.println("Test 2 passed");
     }
-
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
     public void SyncDataSource() {
-        assertDoesNotThrow(() ->CreateIndexAndDataSourceExample.startDataSource(kendra, indexId, dataSourceId));
+        assertDoesNotThrow(() -> CreateIndexAndDataSourceExample.startDataSource(kendra, indexId, dataSourceId));
         System.out.println("Test 3 passed");
     }
 
@@ -115,25 +115,23 @@ public class KendraTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void ListSyncJobs() {
-        assertDoesNotThrow(() ->ListDataSourceSyncJobs.listSyncJobs(kendra, indexId, dataSourceId));
+        assertDoesNotThrow(() -> ListDataSourceSyncJobs.listSyncJobs(kendra, indexId, dataSourceId));
         System.out.println("Test 4 passed");
     }
-
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
     public void QueryIndex() {
-        assertDoesNotThrow(() ->QueryIndex.querySpecificIndex(kendra, indexId, text));
+        assertDoesNotThrow(() -> QueryIndex.querySpecificIndex(kendra, indexId, text));
         System.out.println("Test 5 passed");
     }
-
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
     public void DeleteDataSource() {
-        assertDoesNotThrow(() ->DeleteDataSource.deleteSpecificDataSource(kendra, indexId, dataSourceId));
+        assertDoesNotThrow(() -> DeleteDataSource.deleteSpecificDataSource(kendra, indexId, dataSourceId));
         System.out.println("Test 6 passed");
     }
 
@@ -141,19 +139,20 @@ public class KendraTest {
     @Tag("IntegrationTest")
     @Order(7)
     public void DeleteIndex() {
-        assertDoesNotThrow(() ->DeleteIndex.deleteSpecificIndex(kendra, indexId));
+        assertDoesNotThrow(() -> DeleteIndex.deleteSpecificIndex(kendra, indexId));
         System.out.println("Test 7 passed");
     }
+
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/kendra";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();

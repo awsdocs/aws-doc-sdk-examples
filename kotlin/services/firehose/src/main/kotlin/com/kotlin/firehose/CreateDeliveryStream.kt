@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[CreateDeliveryStream.kt demonstrates how to create a delivery stream.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Kinesis Data Firehose]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.firehose
 

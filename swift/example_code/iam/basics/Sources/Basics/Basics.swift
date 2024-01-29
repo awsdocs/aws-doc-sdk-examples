@@ -1,4 +1,6 @@
-//
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // Swift example: Basics
 //
 // An example demonstrating the use of multiple AWS Identity and Access
@@ -15,12 +17,9 @@
 // 7. Assume the role so the user has its permissions, then try listing
 //    buckets again. This time, it will succeed.
 // 8. Delete the resources created by this example.
-//
+
 // The example shows how IAM and the AWS Security Token Service (AWS STS) work
-// together to authorize use of AWS services.
-//
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0.
+// together to authorize use of AWS services..
 
 // snippet-start:[iam.swift.basics.example]
 // snippet-start:[iam.swift.basics.main.imports]

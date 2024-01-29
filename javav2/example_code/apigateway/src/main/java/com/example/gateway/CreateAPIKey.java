@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[CreateAPIKeys.java demonstrates how to create Api keys.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[Amazon API Gateway]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.gateway;
 
@@ -16,7 +10,8 @@ import software.amazon.awssdk.services.apigateway.model.*;
 // snippet-end:[apigateway.java2.createapikeys.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -24,9 +19,7 @@ import software.amazon.awssdk.services.apigateway.model.*;
  */
 
 public class CreateAPIKey {
-
     public static void main(String[] args) {
-
         Region region = Region.US_EAST_1;
         ApiGatewayClient apiGateway = ApiGatewayClient.builder()
                 .region(region)
@@ -47,7 +40,7 @@ public class CreateAPIKey {
                     .generateDistinctId(true)
                     .build();
 
-            //Creating a api key
+            // Creating a api key
             CreateApiKeyResponse response = apiGateway.createApiKey(apiKeyRequest);
 
             // If we have a plan for the api keys, we can set it for the created api key.
@@ -61,8 +54,8 @@ public class CreateAPIKey {
             apiGateway.close();
 
         } catch (ApiGatewayException e) {
-          System.err.println(e.awsErrorDetails().errorMessage());
-          System.exit(1);
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
     // snippet-end:[apigateway.java2.createapikeys.main]

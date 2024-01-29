@@ -1,5 +1,1 @@
-pub mod detect_labels;
-pub mod download;
-pub mod hello;
-pub mod labels;
-pub mod upload;
+// This file has been moved to https://github.com/awsdocs/aws-doc-sdk-examples/blob/rust_dev_preview/rustv1/cross_service/photo_asset_management/src/handlers/mod.rs

@@ -1,17 +1,11 @@
-//snippet-sourcedescription:[IAMScenario.java demonstrates how to perform various AWS Identity and Access Management (IAM) operations.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[AWS IAM]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.iam;
 
 // snippet-start:[iam.java2.scenario.import]
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -74,8 +68,7 @@ import java.util.concurrent.TimeUnit;
 
 public class IAMScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    public static final String PolicyDocument =
-        "{" +
+    public static final String PolicyDocument = "{" +
             "  \"Version\": \"2012-10-17\"," +
             "  \"Statement\": [" +
             "    {" +
@@ -89,17 +82,21 @@ public class IAMScenario {
             "}";
 
     public static String userArn;
+
     public static void main(String[] args) throws Exception {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <username> <policyName> <roleName> <roleSessionName> <bucketName> \n\n" +
-            "Where:\n" +
-            "    username - The name of the IAM user to create. \n\n" +
-            "    policyName - The name of the policy to create. \n\n" +
-            "    roleName - The name of the role to create. \n\n" +
-            "    roleSessionName - The name of the session required for the assumeRole operation. \n\n" +
-            "    bucketName - The name of the Amazon S3 bucket from which objects are read. \n\n";
+        final String usage = """
+
+                Usage:
+                    <username> <policyName> <roleName> <roleSessionName> <bucketName>\s
+
+                Where:
+                    username - The name of the IAM user to create.\s
+                    policyName - The name of the policy to create.\s
+                    roleName - The name of the role to create.\s
+                    roleSessionName - The name of the session required for the assumeRole operation.\s
+                    bucketName - The name of the Amazon S3 bucket from which objects are read.\s
+                """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -114,9 +111,8 @@ public class IAMScenario {
 
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         System.out.println(DASHES);
         System.out.println("Welcome to the AWS IAM example scenario.");
@@ -133,15 +129,15 @@ public class IAMScenario {
         String accessKey = myKey.accessKeyId();
         String secretKey = myKey.secretAccessKey();
         String assumeRolePolicyDocument = "{" +
-            "\"Version\": \"2012-10-17\"," +
-            "\"Statement\": [{" +
-            "\"Effect\": \"Allow\"," +
-            "\"Principal\": {" +
-            "	\"AWS\": \"" + userArn + "\"" +
-            "}," +
-            "\"Action\": \"sts:AssumeRole\"" +
-            "}]" +
-            "}";
+                "\"Version\": \"2012-10-17\"," +
+                "\"Statement\": [{" +
+                "\"Effect\": \"Allow\"," +
+                "\"Principal\": {" +
+                "	\"AWS\": \"" + userArn + "\"" +
+                "}," +
+                "\"Action\": \"sts:AssumeRole\"" +
+                "}]" +
+                "}";
 
         System.out.println(assumeRolePolicyDocument);
         System.out.println(userName + " was successfully created.");
@@ -173,7 +169,7 @@ public class IAMScenario {
 
         System.out.println(DASHES);
         System.out.println("6 Getting ready to delete the AWS resources");
-        deleteKey(iam, userName, accessKey );
+        deleteKey(iam, userName, accessKey);
         deleteRole(iam, roleName, polArn);
         deleteIAMUser(iam, userName);
         System.out.println(DASHES);
@@ -186,8 +182,8 @@ public class IAMScenario {
     public static AccessKey createIAMAccessKey(IamClient iam, String user) {
         try {
             CreateAccessKeyRequest request = CreateAccessKeyRequest.builder()
-                .userName(user)
-                .build();
+                    .userName(user)
+                    .build();
 
             CreateAccessKeyResponse response = iam.createAccessKey(request);
             return response.accessKey();
@@ -204,14 +200,14 @@ public class IAMScenario {
             // Create an IamWaiter object
             IamWaiter iamWaiter = iam.waiter();
             CreateUserRequest request = CreateUserRequest.builder()
-                .userName(username)
-                .build();
+                    .userName(username)
+                    .build();
 
             // Wait until the user is created.
             CreateUserResponse response = iam.createUser(request);
             GetUserRequest userRequest = GetUserRequest.builder()
-                .userName(response.user().userName())
-                .build();
+                    .userName(response.user().userName())
+                    .build();
 
             WaiterResponse<GetUserResponse> waitUntilUserExists = iamWaiter.waitUntilUserExists(userRequest);
             waitUntilUserExists.matched().response().ifPresent(System.out::println);
@@ -228,10 +224,10 @@ public class IAMScenario {
 
         try {
             CreateRoleRequest request = CreateRoleRequest.builder()
-                .roleName(rolename)
-                .assumeRolePolicyDocument(json)
-                .description("Created using the AWS SDK for Java")
-                .build();
+                    .roleName(rolename)
+                    .assumeRolePolicyDocument(json)
+                    .description("Created using the AWS SDK for Java")
+                    .build();
 
             CreateRoleResponse response = iam.createRole(request);
             System.out.println("The ARN of the role is " + response.role().arn());
@@ -249,13 +245,13 @@ public class IAMScenario {
             // Create an IamWaiter object.
             IamWaiter iamWaiter = iam.waiter();
             CreatePolicyRequest request = CreatePolicyRequest.builder()
-                .policyName(policyName)
-                .policyDocument(PolicyDocument).build();
+                    .policyName(policyName)
+                    .policyDocument(PolicyDocument).build();
 
             CreatePolicyResponse response = iam.createPolicy(request);
             GetPolicyRequest polRequest = GetPolicyRequest.builder()
-                .policyArn(response.policy().arn())
-                .build();
+                    .policyArn(response.policy().arn())
+                    .build();
 
             WaiterResponse<GetPolicyResponse> waitUntilPolicyExists = iamWaiter.waitUntilPolicyExists(polRequest);
             waitUntilPolicyExists.matched().response().ifPresent(System.out::println);
@@ -271,8 +267,8 @@ public class IAMScenario {
     public static void attachIAMRolePolicy(IamClient iam, String roleName, String policyArn) {
         try {
             ListAttachedRolePoliciesRequest request = ListAttachedRolePoliciesRequest.builder()
-                .roleName(roleName)
-                .build();
+                    .roleName(roleName)
+                    .build();
 
             ListAttachedRolePoliciesResponse response = iam.listAttachedRolePolicies(request);
             List<AttachedPolicy> attachedPolicies = response.attachedPolicies();
@@ -286,9 +282,9 @@ public class IAMScenario {
             }
 
             AttachRolePolicyRequest attachRequest = AttachRolePolicyRequest.builder()
-                .roleName(roleName)
-                .policyArn(policyArn)
-                .build();
+                    .roleName(roleName)
+                    .policyArn(policyArn)
+                    .build();
 
             iam.attachRolePolicy(attachRequest);
             System.out.println("Successfully attached policy " + policyArn + " to role " + roleName);
@@ -301,20 +297,21 @@ public class IAMScenario {
 
     // Invoke an Amazon S3 operation using the Assumed Role.
     // snippet-start:[iam.java2.scenario.assumeRole]
-    public static void assumeRole(String roleArn, String roleSessionName, String bucketName, String keyVal, String keySecret) {
+    public static void assumeRole(String roleArn, String roleSessionName, String bucketName, String keyVal,
+            String keySecret) {
 
         // Use the creds of the new IAM user that was created in this code example.
         AwsBasicCredentials credentials = AwsBasicCredentials.create(keyVal, keySecret);
         StsClient stsClient = StsClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(StaticCredentialsProvider.create(credentials))
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(StaticCredentialsProvider.create(credentials))
+                .build();
 
         try {
             AssumeRoleRequest roleRequest = AssumeRoleRequest.builder()
-                .roleArn(roleArn)
-                .roleSessionName(roleSessionName)
-                .build();
+                    .roleArn(roleArn)
+                    .roleSessionName(roleSessionName)
+                    .build();
 
             AssumeRoleResponse roleResponse = stsClient.assumeRole(roleRequest);
             Credentials myCreds = roleResponse.credentials();
@@ -322,18 +319,20 @@ public class IAMScenario {
             String secKey = myCreds.secretAccessKey();
             String secToken = myCreds.sessionToken();
 
-            // List all objects in an Amazon S3 bucket using the temp creds retrieved by invoking assumeRole.
+            // List all objects in an Amazon S3 bucket using the temp creds retrieved by
+            // invoking assumeRole.
             Region region = Region.US_EAST_1;
             S3Client s3 = S3Client.builder()
-                .credentialsProvider(StaticCredentialsProvider.create(AwsSessionCredentials.create(key, secKey, secToken)))
-                .region(region)
-                .build();
+                    .credentialsProvider(
+                            StaticCredentialsProvider.create(AwsSessionCredentials.create(key, secKey, secToken)))
+                    .region(region)
+                    .build();
 
             System.out.println("Created a S3Client using temp credentials.");
             System.out.println("Listing objects in " + bucketName);
             ListObjectsRequest listObjects = ListObjectsRequest.builder()
-                .bucket(bucketName)
-                .build();
+                    .bucket(bucketName)
+                    .build();
 
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
@@ -347,30 +346,31 @@ public class IAMScenario {
             System.exit(1);
         }
     }
+
     // snippet-end:[iam.java2.scenario.assumeRole]
     public static void deleteRole(IamClient iam, String roleName, String polArn) {
 
         try {
             // First the policy needs to be detached.
             DetachRolePolicyRequest rolePolicyRequest = DetachRolePolicyRequest.builder()
-                .policyArn(polArn)
-                .roleName(roleName)
-                .build();
+                    .policyArn(polArn)
+                    .roleName(roleName)
+                    .build();
 
             iam.detachRolePolicy(rolePolicyRequest);
 
             // Delete the policy.
             DeletePolicyRequest request = DeletePolicyRequest.builder()
-                .policyArn(polArn)
-                .build();
+                    .policyArn(polArn)
+                    .build();
 
             iam.deletePolicy(request);
             System.out.println("*** Successfully deleted " + polArn);
 
             // Delete the role.
             DeleteRoleRequest roleRequest = DeleteRoleRequest.builder()
-                .roleName(roleName)
-                .build();
+                    .roleName(roleName)
+                    .build();
 
             iam.deleteRole(roleRequest);
             System.out.println("*** Successfully deleted " + roleName);
@@ -381,16 +381,16 @@ public class IAMScenario {
         }
     }
 
-    public static void deleteKey(IamClient iam ,String username, String accessKey ) {
+    public static void deleteKey(IamClient iam, String username, String accessKey) {
         try {
             DeleteAccessKeyRequest request = DeleteAccessKeyRequest.builder()
-                .accessKeyId(accessKey)
-                .userName(username)
-                .build();
+                    .accessKeyId(accessKey)
+                    .userName(username)
+                    .build();
 
             iam.deleteAccessKey(request);
             System.out.println("Successfully deleted access key " + accessKey +
-                " from user " + username);
+                    " from user " + username);
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -401,8 +401,8 @@ public class IAMScenario {
     public static void deleteIAMUser(IamClient iam, String userName) {
         try {
             DeleteUserRequest request = DeleteUserRequest.builder()
-                .userName(userName)
-                .build();
+                    .userName(userName)
+                    .build();
 
             iam.deleteUser(request);
             System.out.println("*** Successfully deleted " + userName);

@@ -140,14 +140,6 @@ sqs_CreateQueue:
             - description: Create an &SQS; queue that waits for a message to arrive.
               snippet_tags:
                 - sqs.JavaScript.longPoll.createQueue
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/sqs
-          excerpts:
-            - description:
-              snippet_tags:
-                - sqs.go-v2.CreateQueue
     C++:
       versions:
         - sdk_version: 1
@@ -218,14 +210,6 @@ sqs_GetQueueUrl:
             - description: Get the URL for an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.queues.getQueueUrl
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/sqs
-          excerpts:
-            - description: Get the URL for an &SQS; queue.
-              snippet_tags:
-                - sqs.go-v2.GetQueueUrl
     C++:
       versions:
         - sdk_version: 1
@@ -283,7 +267,7 @@ sqs_ListQueues:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sqs
+          github: rustv1/examples/sqs
           excerpts:
             - description: Retrieve the first &SQS; queue listed in the Region.
               snippet_tags:
@@ -313,14 +297,6 @@ sqs_ListQueues:
             - description: List your &SQS; queues.
               snippet_tags:
                 - sqs.JavaScript.queues.listQueues
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/sqs
-          excerpts:
-            - description: List your &SQS; queues.
-              snippet_tags:
-                - sqs.go-v2.ListQueues
     C++:
       versions:
         - sdk_version: 1
@@ -410,15 +386,6 @@ sqs_DeleteQueue:
             - description: Delete an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.queues.deleteQueue
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/sqs
-          excerpts:
-            - description: Delete an &SQS; queue.
-              snippet_tags:
-                - sqs.go-v2.DeleteQueue
-
     C++:
       versions:
         - sdk_version: 1
@@ -485,7 +452,7 @@ sqs_SendMessage:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sqs
+          github: rustv1/examples/sqs
           excerpts:
             - description:
               snippet_tags:
@@ -515,14 +482,6 @@ sqs_SendMessage:
             - description: Send a message to an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.messages.sendMessage
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/sqs
-          excerpts:
-            - description: Send a message to an &SQS; queue.
-              snippet_tags:
-                - sqs.go-v2.SendMessage
     C++:
       versions:
         - sdk_version: 1
@@ -628,7 +587,7 @@ sqs_ReceiveMessage:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/sqs
+          github: rustv1/examples/sqs
           excerpts:
             - description:
               snippet_tags:
@@ -664,14 +623,6 @@ sqs_ReceiveMessage:
             - description: Receive a message from an  &SQS; queue using long-poll support.
               snippet_tags:
                 - sqs.JavaScript.longPoll.receiveMessage
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/sqs
-          excerpts:
-            - description: Receive a message from an &SQS; queue.
-              snippet_tags:
-                - sqs.go-v2.ReceiveMessage
     C++:
       versions:
         - sdk_version: 1
@@ -742,14 +693,6 @@ sqs_DeleteMessage:
             - description: Receive and delete &SQS; messages.
               snippet_tags:
                 - sqs.JavaScript.messages.receiveMessage
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/sqs
-          excerpts:
-            - description:
-              snippet_tags:
-                - sqs.go-v2.DeleteMessage
     C++:
       versions:
         - sdk_version: 1
@@ -920,14 +863,6 @@ sqs_ChangeMessageVisibility:
             - description: Receive an &SQS; message and change its timeout visibility.
               snippet_tags:
                 - sqs.JavaScript.visibility.receiveMessage
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/sqs
-          excerpts:
-            - description:
-              snippet_tags:
-                - sqs.go-v2.ChangeMessageVisibility
     Ruby:
       versions:
         - sdk_version: 3

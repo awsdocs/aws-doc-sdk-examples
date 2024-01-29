@@ -1,9 +1,9 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /*
    An addition to the String class to add support for generating
    Lorem Ipsum-style strings, using the Fakery library.
-
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
 */
 
 import Foundation

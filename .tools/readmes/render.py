@@ -1,13 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import config
 import datetime
-from jinja2 import BaseLoader, Environment, FileSystemLoader, select_autoescape
 import logging
 import os
-from operator import itemgetter
 import re
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+from operator import itemgetter
+from pathlib import Path
+
+import config
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +32,12 @@ class Renderer:
         self.template.globals["now"] = datetime.datetime.utcnow
         self.scanner = scanner
         self.sdk_ver = int(sdk_ver)
-        self.lang_config = config.language[self.scanner.lang_name][self.sdk_ver].copy()
+        self.lang_config = config.language.get(self.scanner.lang_name, {}).get(
+            self.sdk_ver, None
+        )
+        if self.lang_config is None:
+            return
+        self.lang_config = self.lang_config.copy()
         service_info = {
             "name": self.scanner.svc_name,
             "sort": self.scanner.service()["sort"].replace(" ", ""),
@@ -42,9 +49,8 @@ class Renderer:
                 "service_folder_overrides" in self.lang_config
                 and scanner.svc_name in self.lang_config["service_folder_overrides"]
             ):
-                self.lang_config["service_folder"] = self.lang_config[
-                    "service_folder_overrides"
-                ][scanner.svc_name]
+                overrides = self.lang_config["service_folder_overrides"]
+                self.lang_config["service_folder"] = overrides[scanner.svc_name]
             elif "service_folder" in self.lang_config:
                 svc_folder_tmpl = env.from_string(self.lang_config["service_folder"])
                 self.lang_config["service_folder"] = svc_folder_tmpl.render(
@@ -55,7 +61,7 @@ class Renderer:
                     "Service folder not found. You must either specify a service_folder template in config.py or\n"
                     "as a command line --svc_folder argument."
                 )
-        sdk_api_ref_tmpl = env.from_string(self.lang_config["sdk_api_ref"])
+        sdk_api_ref_tmpl = env.from_string(self.lang_config.get("sdk_api_ref", ""))
         self.lang_config["sdk_api_ref"] = sdk_api_ref_tmpl.render(service=service_info)
         self.safe = safe
 
@@ -108,7 +114,7 @@ class Renderer:
         post_actions = []
         for _, pre in pre_actions.items():
             api = ""
-            if pre["services"][self.scanner.svc_name]:
+            if self.scanner.svc_name in pre["services"]:
                 api = next(iter(pre["services"][self.scanner.svc_name]))
             action = {
                 "title_abbrev": pre["title_abbrev"],
@@ -155,7 +161,8 @@ class Renderer:
                     break
             if github is None:
                 logger.warning(
-                    "GitHub path not specified for cross-service example: %s.",
+                    "GitHub path not specified for cross-service example: %s %s.",
+                    self.scanner.lang_name,
                     pre["title_abbrev"],
                 )
             else:
@@ -220,11 +227,18 @@ class Renderer:
                         customs[section] += line
                     else:
                         customs[section][subsection] += line
-                elif line.lstrip().startswith(f"* [{sdk_short}"):
-                    self.lang_config["sdk_api_ref"] = line.split("(")[-1].split(")")[0]
+                else:
+                    link_re = r"^\s*[-*] \[([^\]]+)\]\(([^)]+)\)\s*$"
+                    link_match = re.match(link_re, line)
+                    if link_match:
+                        link, href = link_match.groups()
+                        if link.startswith(sdk_short):
+                            self.lang_config["sdk_api_ref"] = href
         return customs
 
     def render(self):
+        if self.lang_config is None:
+            return None
         sdk = self._transform_sdk()
         svc = self._transform_service()
         hello = self._transform_actions(self.scanner.hello())
@@ -234,14 +248,19 @@ class Renderer:
         self.lang_config["name"] = self.scanner.lang_name
         self.lang_config["sdk_ver"] = self.sdk_ver
         self.lang_config["readme"] = f"{self._lang_level_double_dots()}README.md"
+        unsupported = self.lang_config.get("unsupported", False)
 
-        readme_filename = f'{self.lang_config["service_folder"]}/{config.readme}'
-        readme_exists = os.path.exists(readme_filename)
+        self.readme_filename = f'{self.lang_config["service_folder"]}/{config.readme}'
+        readme_exists = os.path.exists(self.readme_filename)
         customs = (
-            self._scrape_customs(readme_filename, sdk["short"]) if readme_exists else {}
+            self._scrape_customs(self.readme_filename, sdk["short"])
+            if readme_exists
+            else {}
         )
+        if "examples" not in customs:
+            customs["examples"] = ""
 
-        readme_text = self.template.render(
+        self.readme_text = self.template.render(
             lang_config=self.lang_config,
             sdk=sdk,
             service=svc,
@@ -250,15 +269,21 @@ class Renderer:
             scenarios=scenarios,
             crosses=crosses,
             customs=customs,
+            unsupported=unsupported,
         )
-        readme_text = self._expand_entities(readme_text)
+        self.readme_text = self._expand_entities(self.readme_text)
 
-        if self.safe and readme_exists:
+    def write(self):
+        if self.safe and Path(self.readme_filename).exists():
             os.rename(
-                readme_filename,
+                self.readme_filename,
                 f'{self.lang_config["service_folder"]}/{config.saved_readme}',
             )
+        with open(self.readme_filename, "w", encoding="utf-8") as f:
+            f.write(self.readme_text)
+        print(f"Updated {self.readme_filename}.")
 
-        with open(readme_filename, "w", encoding="utf-8") as f:
-            f.write(readme_text)
-        print(f"Updated {readme_filename}.")
+    def check(self):
+        with open(self.readme_filename, "r", encoding="utf-8") as f:
+            readme_current = f.read()
+            readme_current != self.readme_text

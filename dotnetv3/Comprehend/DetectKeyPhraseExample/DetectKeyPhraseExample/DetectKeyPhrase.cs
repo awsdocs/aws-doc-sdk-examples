@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DetectKeyPhraseExample
 {
@@ -11,8 +11,7 @@ namespace DetectKeyPhraseExample
 
     /// <summary>
     /// This example shows how to use the Amazon Comprehend service to
-    /// search text for key phrases. It was created using the AWS SDK for
-    /// .NET version 3.7 and .NET Core 5.0.
+    /// search text for key phrases.
     /// </summary>
     public static class DetectKeyPhrase
     {

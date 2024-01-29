@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.photo.services;
 
@@ -37,18 +35,18 @@ public class S3Service {
     // Create the S3Client object.
     private S3Client getClient() {
         return S3Client.builder()
-            .region(PhotoApplicationResources.REGION)
-            .build();
+                .region(PhotoApplicationResources.REGION)
+                .build();
     }
 
     public byte[] getObjectBytes(String bucketName, String keyName) {
         S3Client s3 = getClient();
         try {
             GetObjectRequest objectRequest = GetObjectRequest
-                .builder()
-                .key(keyName)
-                .bucket(bucketName)
-                .build();
+                    .builder()
+                    .key(keyName)
+                    .bucket(bucketName)
+                    .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             return objectBytes.asByteArray();
@@ -59,16 +57,17 @@ public class S3Service {
         }
     }
 
-    // Returns the names of all images in the given Amazon Simple Storage Service (Amazon S3) bucket.
+    // Returns the names of all images in the given Amazon Simple Storage Service
+    // (Amazon S3) bucket.
     public List<String> listBucketObjects(String bucketName) {
         S3Client s3 = getClient();
         String keyName;
         List<String> keys = new ArrayList<>();
         try {
             ListObjectsRequest listObjects = ListObjectsRequest
-                .builder()
-                .bucket(bucketName)
-                .build();
+                    .builder()
+                    .bucket(bucketName)
+                    .build();
 
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
@@ -93,7 +92,7 @@ public class S3Service {
                     .bucket(bucketName)
                     .key(objectKey)
                     .build(),
-                RequestBody.fromBytes(data));
+                    RequestBody.fromBytes(data));
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -120,9 +119,9 @@ public class S3Service {
     public boolean checkS3ObjectDoesNotExist(String keyName) {
         S3Client s3 = getClient();
         HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
-            .bucket(PhotoApplicationResources.STORAGE_BUCKET)
-            .key(keyName)
-            .build();
+                .bucket(PhotoApplicationResources.STORAGE_BUCKET)
+                .key(keyName)
+                .build();
 
         try {
             HeadObjectResponse response = s3.headObject(headObjectRequest);
@@ -140,20 +139,20 @@ public class S3Service {
     // New method to sign an object prior to uploading it.
     public String signObjectToDownload(String bucketName, String keyName) {
         S3Presigner presignerOb = S3Presigner.builder()
-            .region(PhotoApplicationResources.REGION)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(PhotoApplicationResources.REGION)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         try {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                .bucket(bucketName)
-                .key(keyName)
-                .build();
+                    .bucket(bucketName)
+                    .key(keyName)
+                    .build();
 
             GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-                .signatureDuration(Duration.ofMinutes(1440))
-                .getObjectRequest(getObjectRequest)
-                .build();
+                    .signatureDuration(Duration.ofMinutes(1440))
+                    .getObjectRequest(getObjectRequest)
+                    .build();
 
             PresignedGetObjectRequest presignedGetObjectRequest = presignerOb.presignGetObject(getObjectPresignRequest);
 
@@ -167,20 +166,20 @@ public class S3Service {
 
     public String signObjectToUpload(String keyName) {
         S3Presigner presigner = S3Presigner.builder()
-            .region(PhotoApplicationResources.REGION)
-            .build();
+                .region(PhotoApplicationResources.REGION)
+                .build();
 
         try {
             PutObjectRequest objectRequest = PutObjectRequest.builder()
-                .bucket(PhotoApplicationResources.STORAGE_BUCKET)
-                .key(keyName)
-                .contentType("image/jpeg")
-                .build();
+                    .bucket(PhotoApplicationResources.STORAGE_BUCKET)
+                    .key(keyName)
+                    .contentType("image/jpeg")
+                    .build();
 
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                .signatureDuration(Duration.ofMinutes(5))
-                .putObjectRequest(objectRequest)
-                .build();
+                    .signatureDuration(Duration.ofMinutes(5))
+                    .putObjectRequest(objectRequest)
+                    .build();
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
             return presignedRequest.url().toString();

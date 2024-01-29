@@ -6,7 +6,6 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a dynamic web MVC application that has subscription and publish functionality by using the AWS SDK for Java (v2). This example uses the asynchronous client.  |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 6/9/2023        |
 | Required skills   | Java, Maven  |
 
 ## Purpose
@@ -93,78 +92,7 @@ Create an IntelliJ project that is used to create the web application.
 
 ## Add the POM dependencies to your project
 
-At this point, you have a new project named **SpringSubscribeApp**. Ensure that the pom.xml file resembles the following code.
-
-```xml
-    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.example</groupId>
-  <artifactId>SubPubAsync</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>Archetype - SubPubAsync</name>
-  <url>http://maven.apache.org</url>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.12</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-  <properties>
-    <java.version>17</java.version>
-  </properties>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>bom</artifactId>
-        <version>2.20.45</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-thymeleaf</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.junit.vintage</groupId>
-          <artifactId>junit-vintage-engine</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>sns</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>translate</artifactId>
-    </dependency>
-  </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${project.parent.version}</version>
-      </plugin>
-    </plugins>
-  </build>
-</project>
-
-```  
+Make sure that your project's pom.xml file looks like the POM file in this Github repository.
 
  ## Create the Java classes
  

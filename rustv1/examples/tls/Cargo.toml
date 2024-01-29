@@ -1,0 +1,21 @@
+[package]
+name = "tls"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "tls"
+path = "src/main.rs"
+
+[lib]
+name = "tls"
+path = "src/lib.rs"
+
+[dependencies]
+aws-config = { version = "1.0.1", features = ["behavior-version-latest"] }
+aws-smithy-runtime = { version = "1.0.1" }
+aws-sdk-kms = { version = "1.3.0", default-features = false }
+webpki-roots = "0.22.4"
+tokio = { version = "1.20.1", features = ["full"] }
+rustls = "0.20.6"
+hyper-rustls = { version = "0.23.0", features = ["http2"] }

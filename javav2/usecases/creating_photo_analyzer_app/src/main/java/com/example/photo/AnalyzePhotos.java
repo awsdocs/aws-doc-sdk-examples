@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.photo;
 
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -22,9 +21,9 @@ public class AnalyzePhotos {
     public ArrayList<WorkItem> DetectLabels(byte[] bytes, String key) {
         try {
             RekognitionClient rekClient = RekognitionClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(Region.US_EAST_2)
-                .build();
+                    .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                    .region(Region.US_EAST_2)
+                    .build();
 
             SdkBytes sourceBytes = SdkBytes.fromByteArray(bytes);
             Image souImage = Image.builder()
@@ -40,8 +39,8 @@ public class AnalyzePhotos {
             List<Label> labels = labelsResponse.labels();
             System.out.println("Detected labels for the given photo");
             ArrayList<WorkItem> list = new ArrayList<>();
-            WorkItem item ;
-            for (Label label: labels) {
+            WorkItem item;
+            for (Label label : labels) {
                 item = new WorkItem();
                 item.setKey(key); // identifies the photo
                 item.setConfidence(label.confidence().toString());
@@ -54,6 +53,6 @@ public class AnalyzePhotos {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-        return null ;
+        return null;
     }
 }

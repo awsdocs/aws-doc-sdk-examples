@@ -1,15 +1,1 @@
-# Note: this workspace exists solely for the convenience of 
-# compiling/auto-formatting/testing all the AWS Rust SDK examples together.
-[workspace]
-resolver = "2"
-members = [
-    "detect_faces",
-    "detect_labels",
-    "photo_asset_management",
-    "rest_ses",
-    "telephone"
-]
-
-[profile.release.package.photo_asset_management]
-opt-level = 3
-strip = "debuginfo"
+# This file has been moved to https://github.com/awsdocs/aws-doc-sdk-examples/blob/rust_dev_preview/rustv1/cross_service/Cargo.toml

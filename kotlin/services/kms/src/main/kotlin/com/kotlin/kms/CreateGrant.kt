@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[CreateGrant.kt demonstrates how to add a grant to an AWS Key Management Service (AWS KMS) key.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS Key Management Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.kms
 

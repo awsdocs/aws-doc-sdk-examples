@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[Glacier.dotnetv3.GlacierActions]
 
@@ -127,7 +127,7 @@ public class GlacierWrapper
 
             var options = new DownloadOptions
             {
-                StreamTransferProgress = Progress,
+                StreamTransferProgress = Progress!,
             };
 
             // Download an archive.

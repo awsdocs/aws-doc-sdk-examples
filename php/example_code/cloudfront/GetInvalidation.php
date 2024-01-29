@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudfront.php.getinvalidation.complete]
 // snippet-start:[cloudfront.php.getinvalidation.import]
@@ -82,14 +81,4 @@ function getsAnInvalidation()
 // getsAnInvalidation();
 // snippet-end:[cloudfront.php.getinvalidation.main]
 // snippet-end:[cloudfront.php.getinvalidation.complete]
-// snippet-sourcedescription:[ GetInvalidation.php demonstrates how to retrieve information about an invalidation issued for an Amazon CloudFront distribution.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[getInvalidation]
-// snippet-keyword:[Amazon CloudFront]
-// snippet-service:[cloudfront]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-04-24]
 // snippet-sourceauthor:[pccornel (AWS)]

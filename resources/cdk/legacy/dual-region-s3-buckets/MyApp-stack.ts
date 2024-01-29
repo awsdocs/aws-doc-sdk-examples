@@ -1,17 +1,6 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-comment:[This goes in the lib dir.]
-// snippet-comment:[This is a full sample when you include MyApp.ts, which goes in the bin dir.]
-// snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[MyApp-stack.ts creates a stack in a specific region with an S3 bucket with optional encrypted storage.]
-// snippet-keyword:[CDK V1.0.0]
-// snippet-keyword:[S3.Alarm function]
-// snippet-keyword:[TypeScript]
-// snippet-sourcesyntax:[javascript]
-// snippet-service:[cdk]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-7-11]
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 //
 // This file is licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License. A copy of the
@@ -36,7 +25,7 @@ export class MyStack extends core.Stack {
 
     if (props.enc) {
       new s3.Bucket(this, "MyGroovyBucket", {
-        encryption: s3.BucketEncryption.KMS_MANAGED
+        encryption: s3.BucketEncryption.KMS_MANAGED,
       });
     } else {
       new s3.Bucket(this, "MyGroovyBucket");

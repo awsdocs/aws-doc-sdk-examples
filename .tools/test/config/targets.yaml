@@ -11,11 +11,11 @@ javascriptv3:
   account_id: "875008041426"
   status: "enabled"
 javav2:
-  account_id: "814548047983" # back-up "667348412466"
+  account_id: "667348412466" # back-up "814548047983"
   status: "enabled"
 kotlin:
-  account_id: "814548047983" # back-up "667348412466"
-  status: "disabled"
+  account_id: "471951630130" # back-up "814548047983"
+  status: "enabled"
 php:
   account_id: "733931915187"
   status: "enabled"
@@ -25,7 +25,7 @@ python:
 ruby:
   account_id: "616362385685"
   status: "enabled"
-rust_dev_preview:
+rustv1:
   account_id: "050288538048"
   status: "enabled"
 sap-abap:

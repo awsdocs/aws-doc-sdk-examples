@@ -1,0 +1,42 @@
+[package]
+name = "aws-wasm"
+version = "0.1.0"
+authors = ["Eduardo Rodrigues <16357187+eduardomourar@users.noreply.github.com>"]
+edition = "2021"
+
+[workspace]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+aws-config = { version = "1.0.1", default-features = false }
+aws-credential-types = { version = "1.0.1", features = ["hardcoded-credentials"] }
+aws-sdk-lambda = { version = "1.3.0", default-features = false }
+aws-smithy-async = { version = "1.0.1" }
+aws-smithy-runtime-api = { version = "1.0.1" }
+aws-smithy-types = { version = "1.0.1" }
+async-trait = "0.1.63"
+console_error_panic_hook = "0.1.7"
+http = "0.2.8"
+js-sys = "0.3.60"
+serde = { version = "1.0.152", features = ["derive"] }
+serde-wasm-bindgen = "0.6.0"
+tokio = { version = "1.24.2", features = ["macros", "rt"] }
+wasm-bindgen = "0.2.83"
+wasm-bindgen-futures = "0.4.33"
+wasm-timer = "0.2.5"
+tracing-wasm = "0.2.1"
+tracing = "0.1.37"
+
+[dependencies.web-sys]
+version = "0.3.60"
+features = [
+    "console",
+    "Headers",
+    "Request",
+    "RequestInit",
+    "RequestMode",
+    "Response",
+    "Window",
+]

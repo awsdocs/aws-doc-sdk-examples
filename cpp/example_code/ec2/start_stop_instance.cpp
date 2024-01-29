@@ -1,7 +1,6 @@
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -14,16 +13,16 @@ SPDX-License-Identifier: Apache-2.0
  *
  **/
 
-//snippet-start:[ec2.cpp.start_instance.inc]
+// snippet-start:[ec2.cpp.start_instance.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/StartInstancesRequest.h>
 #include <aws/ec2/model/StartInstancesResponse.h>
-//snippet-end:[ec2.cpp.start_instance.inc]
-//snippet-start:[ec2.cpp.stop_instance.inc]
+// snippet-end:[ec2.cpp.start_instance.inc]
+// snippet-start:[ec2.cpp.stop_instance.inc]
 #include <aws/ec2/model/StopInstancesRequest.h>
 #include <aws/ec2/model/StopInstancesResponse.h>
-//snippet-end:[ec2.cpp.stop_instance.inc]
+// snippet-end:[ec2.cpp.stop_instance.inc]
 #include <iostream>
 #include "ec2_samples.h"
 

@@ -1,18 +1,80 @@
-# AWS Elemental MediaConvert Kotlin code examples
+# MediaConvert code examples for the SDK for Kotlin
 
-This README discusses how to run the Kotlin code examples for AWS Elemental MediaConvert.
+## Overview
 
-## Running the AWS Elemental MediaConvert Kotlin files
+Shows how to use the AWS SDK for Kotlin to work with AWS Elemental MediaConvert.
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Kotlin code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_MediaConvert is a service that formats and compresses offline video content for delivery to televisions or connected devices._
 
-You will find these examples: 
+## ⚠ Important
 
-- **CreateJob** - Demonstrates how to create AWS Elemental MediaConvert jobs.
-- **GetJob** - Demonstrates how to get information about a specific AWS Elemental MediaConvert job.
-- **ListJobs** - Demonstrates how to get information about all completed AWS Elemental MediaConvert jobs.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
-see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotlin` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create a transcoding job](src/main/kotlin/com/kotlin/mediaconvert/CreateJob.kt#L143) (`CreateJob`)
+- [Get a transcoding job](src/main/kotlin/com/kotlin/mediaconvert/GetJob.kt#L46) (`GetJob`)
+- [List transcoding jobs](src/main/kotlin/com/kotlin/mediaconvert/ListJobs.kt#L34) (`ListJobs`)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `kotlin` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [MediaConvert User Guide](https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html)
+- [MediaConvert API Reference](https://docs.aws.amazon.com/mediaconvert/latest/apireference/custom-endpoints.html)
+- [SDK for Kotlin MediaConvert reference](https://sdk.amazonaws.com/kotlin/api/latest/mediaconvert/index.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

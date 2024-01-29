@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace MidLevelBatchWriteItemExample
 {
@@ -13,8 +13,7 @@ namespace MidLevelBatchWriteItemExample
 
     /// <summary>
     /// Shows how to use mid-level Amazon DynamoDB API calls to perform batch
-    /// operations. The example was created using the AWS SDK for .NET version
-    /// 3.7 and .NET Core 5.0.
+    /// operations.
     /// </summary>
     public class MidLevelBatchWriteItem
     {

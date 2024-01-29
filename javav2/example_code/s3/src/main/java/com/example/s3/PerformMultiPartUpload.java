@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.s3;
 
 // snippet-start:[s3.java2.performMultiPartUpload.import]
@@ -87,10 +86,9 @@ public class PerformMultiPartUpload {
     public void multipartUploadWithS3Client(String filePath) {
 
         // Initiate the multipart upload.
-        CreateMultipartUploadResponse createMultipartUploadResponse =
-                s3Client.createMultipartUpload(b -> b
-                        .bucket(bucketName)
-                        .key(key));
+        CreateMultipartUploadResponse createMultipartUploadResponse = s3Client.createMultipartUpload(b -> b
+                .bucket(bucketName)
+                .key(key));
         String uploadId = createMultipartUploadResponse.uploadId();
 
         // Upload the parts of the file.

@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace DeleteOrganizationExample
 {
@@ -11,8 +11,7 @@ namespace DeleteOrganizationExample
 
     /// <summary>
     /// Shows how to delete an existing organization using the AWS
-    /// Organizations Service. This example was created using the AWS SDK for
-    /// .NET version 3.7 and .NET Core 5.0.
+    /// Organizations Service.
     /// </summary>
     public class DeleteOrganization
     {

@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DescribeTextTranslationJob.kt demonstrates how to describe a translation job.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Translate]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.translate
 

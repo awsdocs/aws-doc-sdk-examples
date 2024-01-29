@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace ImageOrientationBoundingBoxExample
 {
@@ -14,8 +14,7 @@ namespace ImageOrientationBoundingBoxExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to display the details of the
-    /// bounding boxes around the faces detected in an image. This example was
-    /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// bounding boxes around the faces detected in an image.
     /// </summary>
     public class ImageOrientationBoundingBox
     {

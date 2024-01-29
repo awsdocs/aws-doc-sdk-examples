@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudfront.php.creates3distribution.complete]
 // snippet-start:[cloudfront.php.creates3distribution.import]
@@ -125,14 +124,4 @@ function createsTheS3Distribution()
 // createsTheS3Distribution();
 // snippet-end:[cloudfront.php.creates3distribution.main]
 // snippet-end:[cloudfront.php.creates3distribution.complete]
-// snippet-sourcedescription:[CreateDistributionS3.php demonstrates how to create an Amazon CloudFront distribution for an Amazon S3 Bucket.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[createDistribution]
-// snippet-keyword:[Amazon CloudFront]
-// snippet-service:[cloudfront]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-04-13]
 // snippet-sourceauthor:[pccornel (AWS)]

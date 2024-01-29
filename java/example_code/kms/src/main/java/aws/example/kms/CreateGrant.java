@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[CreateGrant.java demonstrates how to add a grant to a CMK that specifies the CMK's use.]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon KMS]
-//snippet-service:[kms]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-04-08]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package aws.example.kms;
 
@@ -18,12 +11,11 @@ import com.amazonaws.services.kms.model.GrantOperation;
 
 public class CreateGrant {
     public static void main(String[] args) {
-        final String USAGE =
-            "To run this example, supply a key id or ARN, a grantee principal" +
-            ", and an operation\n" +
-            "Usage: CreateGrant <key-id> <grantee-principal> <operation>\n" +
-            "Example: CreateGrant 1234abcd-12ab-34cd-56ef-1234567890ab " +
-            "arn:aws:iam::111122223333:user/Alice Encrypt\n";
+        final String USAGE = "To run this example, supply a key id or ARN, a grantee principal" +
+                ", and an operation\n" +
+                "Usage: CreateGrant <key-id> <grantee-principal> <operation>\n" +
+                "Example: CreateGrant 1234abcd-12ab-34cd-56ef-1234567890ab " +
+                "arn:aws:iam::111122223333:user/Alice Encrypt\n";
 
         if (args.length != 3) {
             System.out.println(USAGE);

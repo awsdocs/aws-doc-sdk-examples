@@ -1,16 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 // snippet-start:[s3.go.put_bucket_acl]
 package main
 
@@ -23,15 +12,19 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 )
+
 // snippet-end:[s3.go.put_bucket_acl.imports]
 
 // SetBucketACL gives a user access to a bucket
 // Inputs:
-//     sess is the current session, which provides configuration for the SDK's service clients
-//     bucket is the name of the bucket
+//
+//	sess is the current session, which provides configuration for the SDK's service clients
+//	bucket is the name of the bucket
+//
 // Output:
-//     If success, the SOMETHING of the RESOURCE and nil
-//     Otherwise, an empty string and an error from the call to FUNCTION
+//
+//	If success, the SOMETHING of the RESOURCE and nil
+//	Otherwise, an empty string and an error from the call to FUNCTION
 func SetBucketACL(sess *session.Session, bucket, address, permission *string) error {
 	// snippet-start:[s3.go.put_bucket_acl.service_acl]
 	svc := s3.New(sess)
@@ -39,7 +32,7 @@ func SetBucketACL(sess *session.Session, bucket, address, permission *string) er
 	result, err := svc.GetBucketAcl(&s3.GetBucketAclInput{
 		Bucket: bucket,
 	})
-       	// snippet-end:[s3.go.put_bucket_acl.service_acl]
+	// snippet-end:[s3.go.put_bucket_acl.service_acl]
 	if err != nil {
 		return err
 	}
@@ -99,12 +92,12 @@ func main() {
 	}
 	// snippet-end:[s3.go.put_bucket_acl.args]
 
-        // snippet-start:[s3.go.put_bucket_acl.session]
+	// snippet-start:[s3.go.put_bucket_acl.session]
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
-        // snippet-end:[s3.go.put_bucket_acl.session]
-        
+	// snippet-end:[s3.go.put_bucket_acl.session]
+
 	err := SetBucketACL(sess, bucket, address, permission)
 	if err != nil {
 		fmt.Println("Got an error setting bucket ACL:")
@@ -116,4 +109,5 @@ func main() {
 	fmt.Println("Congratulations. You gave user with email address", address, permission, "permission to bucket", bucket)
 	// snippet-end:[s3.go.put_bucket_acl.print]
 }
+
 // snippet-end:[s3.go.put_bucket_acl]

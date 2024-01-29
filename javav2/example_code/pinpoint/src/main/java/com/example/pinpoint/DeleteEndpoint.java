@@ -1,25 +1,20 @@
-//snippet-sourcedescription:[DeleteEndpoint.java demonstrates how to delete an endpoint.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Pinpoint]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.pinpoint;
 
-//snippet-start:[pinpoint.java2.deleteendpoint.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+// snippet-start:[pinpoint.java2.deleteendpoint.main]
+// snippet-start:[pinpoint.java2.deleteendpoint.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.pinpoint.PinpointClient;
 import software.amazon.awssdk.services.pinpoint.model.DeleteEndpointRequest;
 import software.amazon.awssdk.services.pinpoint.model.DeleteEndpointResponse;
 import software.amazon.awssdk.services.pinpoint.model.PinpointException;
-//snippet-end:[pinpoint.java2.deleteendpoint.import]
+// snippet-end:[pinpoint.java2.deleteendpoint.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -27,13 +22,14 @@ import software.amazon.awssdk.services.pinpoint.model.PinpointException;
  */
 public class DeleteEndpoint {
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "  <appName> <endpointId >\n\n" +
-            "Where:\n" +
-            "  appId - The id of the application to delete.\n\n" +
-            "  endpointId - The id of the endpoint to delete.\n";
+                Usage:   <appName> <endpointId >
+
+                Where:
+                  appId - The id of the application to delete.
+                  endpointId - The id of the endpoint to delete.
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -44,22 +40,19 @@ public class DeleteEndpoint {
         String endpointId = args[1];
         System.out.println("Deleting an endpoint with id: " + endpointId);
         PinpointClient pinpoint = PinpointClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
-        deletePinEncpoint(pinpoint, appId, endpointId );
+        deletePinEncpoint(pinpoint, appId, endpointId);
         pinpoint.close();
     }
 
-    //snippet-start:[pinpoint.java2.deleteendpoint.main]
-    public static void deletePinEncpoint(PinpointClient pinpoint, String appId, String endpointId ) {
-
+    public static void deletePinEncpoint(PinpointClient pinpoint, String appId, String endpointId) {
         try {
             DeleteEndpointRequest appRequest = DeleteEndpointRequest.builder()
-                .applicationId(appId)
-                .endpointId(endpointId)
-                .build();
+                    .applicationId(appId)
+                    .endpointId(endpointId)
+                    .build();
 
             DeleteEndpointResponse result = pinpoint.deleteEndpoint(appRequest);
             String id = result.endpointResponse().id();
@@ -71,5 +64,5 @@ public class DeleteEndpoint {
         }
         System.out.println("Done");
     }
-    //snippet-end:[pinpoint.java2.deleteendpoint.main]
 }
+// snippet-end:[pinpoint.java2.deleteendpoint.main]

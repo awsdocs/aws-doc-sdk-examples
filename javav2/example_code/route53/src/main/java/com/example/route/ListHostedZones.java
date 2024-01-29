@@ -1,26 +1,21 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListHostedZones.java demonstrates how to list hosted zones.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Route 53]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.route;
 
-//snippet-start:[route.java2.list_zones.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+// snippet-start:[route.java2.list_zones.main]
+// snippet-start:[route.java2.list_zones.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.route53.Route53Client;
 import software.amazon.awssdk.services.route53.model.HostedZone;
 import software.amazon.awssdk.services.route53.model.Route53Exception;
 import software.amazon.awssdk.services.route53.model.ListHostedZonesResponse;
 import java.util.List;
-//snippet-end:[route.java2.list_zones.import]
+// snippet-end:[route.java2.list_zones.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,25 +23,21 @@ import java.util.List;
  */
 public class ListHostedZones {
     public static void main(String[] args) {
-
         Region region = Region.AWS_GLOBAL;
         Route53Client route53Client = Route53Client.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         listZones(route53Client);
         route53Client.close();
     }
 
-    //snippet-start:[route.java2.list_zones.main]
     public static void listZones(Route53Client route53Client) {
-
         try {
             ListHostedZonesResponse zonesResponse = route53Client.listHostedZones();
             List<HostedZone> checklist = zonesResponse.hostedZones();
-            for (HostedZone check: checklist) {
-                System.out.println("The name is : "+check.name());
+            for (HostedZone check : checklist) {
+                System.out.println("The name is : " + check.name());
             }
 
         } catch (Route53Exception e) {
@@ -54,5 +45,5 @@ public class ListHostedZones {
             System.exit(1);
         }
     }
-    //snippet-end:[route.java2.list_zones.main]
 }
+// snippet-end:[route.java2.list_zones.main]

@@ -1,15 +1,5 @@
-// snippet-sourcedescription:[TranscribeStreamingDemoApp.java transcribes a PCM file. The output is presented on your computer's standard output.]
-// snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Amazon Transcribe]
-// snippet-keyword:[Code Sample]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[01/26/2021]
-// snippet-sourceauthor:[scmacdon - AWS]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.amazonaws.transcribestreaming;
 
@@ -33,7 +23,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 // snippet-start:[transcribe.java-streaming-demo-file.main]
 /**
- * To run this AWS code example, ensure that you have set up your development environment, including your AWS credentials.
+ * To run this AWS code example, ensure that you have set up your development
+ * environment, including your AWS credentials.
  *
  * For information, see this documentation topic:
  *
@@ -46,16 +37,16 @@ public class TranscribeStreamingDemoFile {
 
     public static void main(String args[]) throws ExecutionException, InterruptedException {
 
-            final String USAGE = "\n" +
-                    "Usage:\n" +
-                    "    <file> \n\n" +
-                    "Where:\n" +
-                    "    file - the location of a PCM file to transcribe. In this example, ensure the PCM file is 16 hertz (Hz). \n" ;
+        final String USAGE = "\n" +
+                "Usage:\n" +
+                "    <file> \n\n" +
+                "Where:\n" +
+                "    file - the location of a PCM file to transcribe. In this example, ensure the PCM file is 16 hertz (Hz). \n";
 
-           if (args.length != 1) {
-                System.out.println(USAGE);
-                System.exit(1);
-           }
+        if (args.length != 1) {
+            System.out.println(USAGE);
+            System.exit(1);
+        }
 
         String file = args[0];
         client = TranscribeStreamingAsyncClient.builder()
@@ -76,13 +67,12 @@ public class TranscribeStreamingDemoFile {
             InputStream audioStream = new FileInputStream(inputFile);
             return audioStream;
 
-      } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-
-  private static StartStreamTranscriptionRequest getRequest(Integer mediaSampleRateHertz) {
+    private static StartStreamTranscriptionRequest getRequest(Integer mediaSampleRateHertz) {
         return StartStreamTranscriptionRequest.builder()
                 .languageCode(LanguageCode.EN_US)
                 .mediaEncoding(MediaEncoding.PCM)
@@ -118,7 +108,6 @@ public class TranscribeStreamingDemoFile {
     private static class AudioStreamPublisher implements Publisher<AudioStream> {
         private final InputStream inputStream;
         private static Subscription currentSubscription;
-
 
         private AudioStreamPublisher(InputStream inputStream) {
             this.inputStream = inputStream;

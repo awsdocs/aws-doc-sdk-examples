@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[transferOnStream.cpp demonstrates how to transfer an S3 object using stream into local memory and verify the correctness of the transfer]
-//snippet-service:[s3]
-//snippet-keyword:[Amazon S3]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /**
   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.

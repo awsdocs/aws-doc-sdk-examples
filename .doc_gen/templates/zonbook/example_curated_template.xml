@@ -1,7 +1,7 @@
 {{- template "prologue"}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
-    {{- $include_docs := ""}}
+    {{- $include_docs = ""}}
 {{- end}}
 <block>
     {{- if .BlockContent}}

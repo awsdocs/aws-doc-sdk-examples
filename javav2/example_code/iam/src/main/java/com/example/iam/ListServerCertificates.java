@@ -1,15 +1,10 @@
-//snippet-sourcedescription:[ListServerCertificates.java demonstrates how to list all server certificates associated with an AWS account.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[IAM]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.iam;
 
+// snippet-start:[iam.java2.list_server_certificates.main]
 // snippet-start:[iam.java2.list_server_certificates.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.iam.model.ListServerCertificatesRequest;
 import software.amazon.awssdk.services.iam.model.ListServerCertificatesResponse;
@@ -19,7 +14,8 @@ import software.amazon.awssdk.services.iam.IamClient;
 // snippet-end:[iam.java2.list_server_certificates.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -27,26 +23,22 @@ import software.amazon.awssdk.services.iam.IamClient;
  */
 public class ListServerCertificates {
     public static void main(String[] args) {
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         listCertificates(iam);
         System.out.println("Done");
         iam.close();
     }
 
-    // snippet-start:[iam.java2.list_server_certificates.main]
     public static void listCertificates(IamClient iam) {
-
         try {
             boolean done = false;
             String newMarker = null;
 
-            while(!done) {
+            while (!done) {
                 ListServerCertificatesResponse response;
 
                 if (newMarker == null) {
@@ -54,16 +46,16 @@ public class ListServerCertificates {
                     response = iam.listServerCertificates(request);
                 } else {
                     ListServerCertificatesRequest request = ListServerCertificatesRequest.builder()
-                        .marker(newMarker)
-                        .build();
+                            .marker(newMarker)
+                            .build();
                     response = iam.listServerCertificates(request);
                 }
 
-                for(ServerCertificateMetadata metadata : response.serverCertificateMetadataList()) {
+                for (ServerCertificateMetadata metadata : response.serverCertificateMetadataList()) {
                     System.out.printf("Retrieved server certificate %s", metadata.serverCertificateName());
                 }
 
-                if(!response.isTruncated()) {
+                if (!response.isTruncated()) {
                     done = true;
                 } else {
                     newMarker = response.marker();
@@ -75,5 +67,5 @@ public class ListServerCertificates {
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.list_server_certificates.main]
 }
+// snippet-end:[iam.java2.list_server_certificates.main]

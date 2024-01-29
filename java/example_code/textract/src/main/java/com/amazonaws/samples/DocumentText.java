@@ -1,32 +1,9 @@
-// snippet-sourcedescription:[DocumentText.java demonstrates how to display bounding boxes around detected text.]
-// snippet-service:[textract]
-// snippet-keyword:[Java]
-// snippet-sourcesyntax:[java]
-// snippet-keyword:[Amazon Textract]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[DetectDocumentText]
-// snippet-keyword:[Bounding Box]
-// snippet-keyword:[Synchronous]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-04-11]
-// snippet-sourceauthor:[reesch(AWS)]
-// snippet-start:[textract.java.textract-java-detect-text-sync.complete]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
-*/
-//Calls DetectDocumentText.
-//Loads document from S3 bucket. Displays the document and bounding boxes around detected lines/words of text.
+// snippet-start:[textract.java.textract-java-detect-text-sync.complete]
+// Calls DetectDocumentText.
+// Loads document from S3 bucket. Displays the document and bounding boxes around detected lines/words of text.
 package com.amazonaws.samples;
 
 import java.awt.*;
@@ -58,7 +35,7 @@ public class DocumentText extends JPanel {
 
     public DocumentText(DetectDocumentTextResult documentResult, BufferedImage bufImage) throws Exception {
         super();
-        
+
         result = documentResult; // Results of text detection.
         image = bufImage; // The image containing the document.
 
@@ -73,7 +50,7 @@ public class DocumentText extends JPanel {
         Graphics2D g2d = (Graphics2D) g; // Create a Java2D version of g.
 
         // Draw the image.
-        g2d.drawImage(image, 0, 0, image.getWidth(this) , image.getHeight(this), this);
+        g2d.drawImage(image, 0, 0, image.getWidth(this), image.getHeight(this), this);
 
         // Iterate through blocks and display polygons around lines of detected text.
         List<Block> blocks = result.getBlocks();
@@ -82,7 +59,7 @@ public class DocumentText extends JPanel {
             if ((block.getBlockType()).equals("LINE")) {
                 ShowPolygon(height, width, block.getGeometry().getPolygon(), g2d);
                 /*
-                  ShowBoundingBox(height, width, block.getGeometry().getBoundingBox(), g2d);
+                 * ShowBoundingBox(height, width, block.getGeometry().getBoundingBox(), g2d);
                  */
             } else { // its a word, so just show vertical lines.
                 ShowPolygonVerticals(height, width, block.getGeometry().getPolygon(), g2d);
@@ -134,18 +111,19 @@ public class DocumentText extends JPanel {
                 Math.round(((Point) parry[2]).getY() * imageHeight));
 
     }
-    //Displays information from a block returned by text detection and text analysis
+
+    // Displays information from a block returned by text detection and text
+    // analysis
     private void DisplayBlockInfo(Block block) {
         System.out.println("Block Id : " + block.getId());
-        if (block.getText()!=null)
+        if (block.getText() != null)
             System.out.println("    Detected text: " + block.getText());
         System.out.println("    Type: " + block.getBlockType());
-        
-        if (block.getBlockType().equals("PAGE") !=true) {
+
+        if (block.getBlockType().equals("PAGE") != true) {
             System.out.println("    Confidence: " + block.getConfidence().toString());
         }
-        if(block.getBlockType().equals("CELL"))
-        {
+        if (block.getBlockType().equals("CELL")) {
             System.out.println("    Cell information:");
             System.out.println("        Column: " + block.getColumnIndex());
             System.out.println("        Row: " + block.getRowIndex());
@@ -153,10 +131,10 @@ public class DocumentText extends JPanel {
             System.out.println("        Row span: " + block.getRowSpan());
 
         }
-        
+
         System.out.println("    Relationships");
-        List<Relationship> relationships=block.getRelationships();
-        if(relationships!=null) {
+        List<Relationship> relationships = block.getRelationships();
+        if (relationships != null) {
             for (Relationship relationship : relationships) {
                 System.out.println("        Type: " + relationship.getType());
                 System.out.println("        IDs: " + relationship.getIds().toString());
@@ -168,35 +146,33 @@ public class DocumentText extends JPanel {
         System.out.println("    Geometry");
         System.out.println("        Bounding Box: " + block.getGeometry().getBoundingBox().toString());
         System.out.println("        Polygon: " + block.getGeometry().getPolygon().toString());
-        
+
         List<String> entityTypes = block.getEntityTypes();
-        
+
         System.out.println("    Entity Types");
-        if(entityTypes!=null) {
+        if (entityTypes != null) {
             for (String entityType : entityTypes) {
                 System.out.println("        Entity Type: " + entityType);
             }
         } else {
             System.out.println("        No entity type");
         }
-        if(block.getPage()!=null)
-            System.out.println("    Page: " + block.getPage());            
+        if (block.getPage() != null)
+            System.out.println("    Page: " + block.getPage());
         System.out.println();
     }
 
     public static void main(String arg[]) throws Exception {
-        
+
         // The S3 bucket and document
         String document = "";
         String bucket = "";
 
-        
         AmazonS3 s3client = AmazonS3ClientBuilder.standard()
-                .withEndpointConfiguration( 
-                        new EndpointConfiguration("https://s3.amazonaws.com","us-east-1"))
+                .withEndpointConfiguration(
+                        new EndpointConfiguration("https://s3.amazonaws.com", "us-east-1"))
                 .build();
-        
-               
+
         // Get the document from S3
         com.amazonaws.services.s3.model.S3Object s3object = s3client.getObject(bucket, document);
         S3ObjectInputStream inputStream = s3object.getObjectContent();
@@ -208,17 +184,16 @@ public class DocumentText extends JPanel {
         AmazonTextract client = AmazonTextractClientBuilder.standard()
                 .withEndpointConfiguration(endpoint).build();
 
-
         DetectDocumentTextRequest request = new DetectDocumentTextRequest()
-            .withDocument(new Document().withS3Object(new S3Object().withName(document).withBucket(bucket)));
+                .withDocument(new Document().withS3Object(new S3Object().withName(document).withBucket(bucket)));
 
         DetectDocumentTextResult result = client.detectDocumentText(request);
-        
+
         // Create frame and panel.
         JFrame frame = new JFrame("RotateImage");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         DocumentText panel = new DocumentText(result, image);
-        panel.setPreferredSize(new Dimension(image.getWidth() , image.getHeight() ));
+        panel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
         frame.setContentPane(panel);
         frame.pack();
         frame.setVisible(true);

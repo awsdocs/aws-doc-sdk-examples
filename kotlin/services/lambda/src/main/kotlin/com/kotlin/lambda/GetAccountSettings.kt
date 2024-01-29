@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[GetAccountSettings.kt demonstrates how to get AWS Lambda account settings.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS Lambda]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.lambda
 

@@ -1,21 +1,15 @@
-// snippet-sourcedescription:[GetJob.kt demonstrates how to get information about a specific AWS Elemental MediaConvert job.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS Elemental MediaConvert]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.mediaconvert
 
 // snippet-start:[mediaconvert.kotlin.get_job.import]
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
-import aws.sdk.kotlin.services.mediaconvert.endpoints.EndpointProvider
-import aws.smithy.kotlin.runtime.client.endpoints.Endpoint
+import aws.sdk.kotlin.services.mediaconvert.endpoints.MediaConvertEndpointProvider
 import aws.sdk.kotlin.services.mediaconvert.model.DescribeEndpointsRequest
 import aws.sdk.kotlin.services.mediaconvert.model.GetJobRequest
 import aws.sdk.kotlin.services.mediaconvert.model.GetJobResponse
+import aws.smithy.kotlin.runtime.client.endpoints.Endpoint
 import kotlin.system.exitProcess
 // snippet-end:[mediaconvert.kotlin.get_job.import]
 
@@ -59,7 +53,7 @@ suspend fun getSpecificJob(mcClient: MediaConvertClient, jobId: String?) {
     val endpointURL = res.endpoints!!.get(0).url!!
     val mediaConvert = MediaConvertClient.fromEnvironment {
         region = "us-west-2"
-        endpointProvider = EndpointProvider {
+        endpointProvider = MediaConvertEndpointProvider {
             Endpoint(endpointURL)
         }
     }

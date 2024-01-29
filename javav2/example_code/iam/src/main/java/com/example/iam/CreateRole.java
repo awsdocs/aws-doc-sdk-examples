@@ -1,18 +1,12 @@
-//snippet-sourcedescription:[CreateRole.java demonstrates how to create an AWS Identity and Access Management (IAM) role.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[IAM]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.iam;
 
+// snippet-start:[iam.java2.create_role.main]
 // snippet-start:[iam.java2.create_role.import]
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.CreateRoleRequest;
 import software.amazon.awssdk.services.iam.model.CreateRoleResponse;
 import software.amazon.awssdk.services.iam.model.IamException;
@@ -33,17 +27,16 @@ import java.io.FileReader;
 *  https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
-
 public class CreateRole {
-
     public static void main(String[] args) throws Exception {
+        final String usage = """
+                Usage:
+                    <rolename> <fileLocation>\s
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <rolename> <fileLocation> \n\n" +
-            "Where:\n" +
-            "    rolename - The name of the role to create. \n\n" +
-            "    fileLocation - The location of the JSON document that represents the trust policy. \n\n" ;
+                Where:
+                    rolename - The name of the role to create.\s
+                    fileLocation - The location of the JSON document that represents the trust policy.\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -54,28 +47,25 @@ public class CreateRole {
         String fileLocation = args[1];
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
-        String result = createIAMRole(iam, rolename, fileLocation) ;
-        System.out.println("Successfully created user: " +result);
+        String result = createIAMRole(iam, rolename, fileLocation);
+        System.out.println("Successfully created user: " + result);
         iam.close();
     }
 
-    // snippet-start:[iam.java2.create_role.main]
-    public static String createIAMRole(IamClient iam, String rolename, String fileLocation ) throws Exception {
-
+    public static String createIAMRole(IamClient iam, String rolename, String fileLocation) throws Exception {
         try {
             JSONObject jsonObject = (JSONObject) readJsonSimpleDemo(fileLocation);
             CreateRoleRequest request = CreateRoleRequest.builder()
-                .roleName(rolename)
-                .assumeRolePolicyDocument(jsonObject.toJSONString())
-                .description("Created using the AWS SDK for Java")
-                .build();
+                    .roleName(rolename)
+                    .assumeRolePolicyDocument(jsonObject.toJSONString())
+                    .description("Created using the AWS SDK for Java")
+                    .build();
 
             CreateRoleResponse response = iam.createRole(request);
-            System.out.println("The ARN of the role is "+response.role().arn());
+            System.out.println("The ARN of the role is " + response.role().arn());
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -89,5 +79,5 @@ public class CreateRole {
         JSONParser jsonParser = new JSONParser();
         return jsonParser.parse(reader);
     }
-    // snippet-end:[iam.java2.create_role.main]
 }
+// snippet-end:[iam.java2.create_role.main]

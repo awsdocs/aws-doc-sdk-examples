@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace ListPoliciesExample
 {
@@ -11,8 +11,7 @@ namespace ListPoliciesExample
 
     /// <summary>
     /// Shows how to list the AWS Organizations policies associated with an
-    /// organization. The example was created with the AWS SDK for .NET version
-    /// 3.7 and .NET Core 5.0.
+    /// organization.
     /// </summary>
     public class ListPolicies
     {

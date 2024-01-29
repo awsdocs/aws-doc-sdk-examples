@@ -23,7 +23,7 @@ Python:
 Ruby:
   - ruby/**/*
 Rust:
-  - rust_dev_preview/**/*
+  - rustv1/**/*
 SAP ABAP:
   - sap-abap/**/*
 Swift:
@@ -38,7 +38,5 @@ CloudFormation:
   - cloudformation/**/*
 Tools:
   - .tools/**/*
-Testing:
-  - test/**/*
 GitHub settings:
   - .github/**/*

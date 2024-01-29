@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { describe, beforeAll, afterAll, it, expect } from "vitest";
 
 import { CreateReceiptRuleCommand, TlsPolicy } from "@aws-sdk/client-ses";

@@ -1,24 +1,19 @@
-//snippet-sourcedescription:[CreateSolution.java demonstrates how to create an Amazon Personalize solution.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Personalize]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.personalize;
 
-//snippet-start:[personalize.java2.create_solution.import]
+// snippet-start:[personalize.java2.create_solution.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import software.amazon.awssdk.services.personalize.model.CreateSolutionRequest;
 import software.amazon.awssdk.services.personalize.model.PersonalizeException;
 import software.amazon.awssdk.services.personalize.model.CreateSolutionResponse;
-//snippet-end:[personalize.java2.create_solution.import]
+// snippet-end:[personalize.java2.create_solution.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -28,13 +23,19 @@ public class CreateSolution {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-            "Usage:\n" +
-            "    CreateSolution <datasetGroupArn> <solutionName> <recipeArn>\n\n" +
-            "Where:\n" +
-            "    datasetGroupArn - The ARN of the dataset group.\n\n" +
-            "    solutionName - The name of the Amazon Personalization campaign.\n\n" +
-            "    recipeArn - The ARN of the recipe.\n\n" ;
+        final String USAGE = """
+
+                Usage:
+                    CreateSolution <datasetGroupArn> <solutionName> <recipeArn>
+
+                Where:
+                    datasetGroupArn - The ARN of the dataset group.
+
+                    solutionName - The name of the Amazon Personalization campaign.
+
+                    recipeArn - The ARN of the recipe.
+
+                """;
 
         if (args.length != 3) {
             System.out.println(USAGE);
@@ -47,26 +48,26 @@ public class CreateSolution {
 
         Region region = Region.US_EAST_1;
         PersonalizeClient personalizeClient = PersonalizeClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         String solutionArn = createPersonalizeSolution(personalizeClient, datasetGroupArn, solutionName, recipeArn);
-        System.out.println("The Amazon Personalize solution ARN is "+solutionArn);
+        System.out.println("The Amazon Personalize solution ARN is " + solutionArn);
         personalizeClient.close();
     }
 
-    //snippet-start:[personalize.java2.create_solution.main]
+    // snippet-start:[personalize.java2.create_solution.main]
     public static String createPersonalizeSolution(PersonalizeClient personalizeClient,
-                                                 String datasetGroupArn,
-                                                 String solutionName,
-                                                 String recipeArn) {
+            String datasetGroupArn,
+            String solutionName,
+            String recipeArn) {
 
         try {
             CreateSolutionRequest solutionRequest = CreateSolutionRequest.builder()
-                .name(solutionName)
-                .datasetGroupArn(datasetGroupArn)
-                .recipeArn(recipeArn)
-                .build();
+                    .name(solutionName)
+                    .datasetGroupArn(datasetGroupArn)
+                    .recipeArn(recipeArn)
+                    .build();
 
             CreateSolutionResponse solutionResponse = personalizeClient.createSolution(solutionRequest);
             return solutionResponse.solutionArn();
@@ -77,5 +78,5 @@ public class CreateSolution {
         }
         return "";
     }
-    //snippet-end:[personalize.java2.create_solution.main]
+    // snippet-end:[personalize.java2.create_solution.main]
 }

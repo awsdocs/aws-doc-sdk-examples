@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[CreateIdentityPool.kt demonstrates how to create a new Amazon Cognito identity pool. The identity pool is a store of user identity information that is specific to your AWS account.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Cognito]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.cognito
 

@@ -16,14 +16,15 @@ class ProducerStack(Stack):
         super().__init__(scope, id, **kwargs)
         acct_config = self.get_yaml_config("../config/targets.yaml")
         resource_config = self.get_yaml_config("../config/resources.yaml")
-        topic_name = resource_config["topic_name"]
-        bucket_name = resource_config["bucket_name"]
-        topic = self.init_get_topic(topic_name)
-        self.sns_permissions(topic)
-        self.init_subscribe_permissions(topic, acct_config)
-        self.init_publish_permissions(topic, acct_config)
-        bucket = self.init_create_bucket(bucket_name)
+        admin_topic_name = resource_config["topic_name"]
+        admin_bucket_name = resource_config["bucket_name"]
+        admin_topic = self.init_get_topic(admin_topic_name)
+        self.sns_permissions(admin_topic)
+        self.init_subscribe_permissions(admin_topic, acct_config)
+        self.init_publish_permissions(admin_topic, acct_config)
+        bucket = self.init_create_bucket(admin_bucket_name)
         self.init_cross_account_log_role(acct_config, bucket)
+        self.init_rule(admin_topic)
 
     def get_yaml_config(self, filepath):
         with open(filepath, "r") as file:
@@ -40,8 +41,7 @@ class ProducerStack(Stack):
             "trigger-rule",
             schedule=events.Schedule.cron(
                 minute="0",
-                hour="22",
-                week_day="FRI",
+                hour="*",
             ),
         )
         rule.add_target(targets.SnsTopic(topic))
@@ -105,8 +105,15 @@ class ProducerStack(Stack):
         if len(languages) > 0:
             # Define policy that allows cross-account Amazon SNS and Amazon SQS access.
             statement = iam.PolicyStatement()
-            statement.add_actions("s3:PutObject", "s3:PutObjectAcl")
+            statement.add_actions(
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+                "s3:DeleteObject",
+                "s3:ListBucket",
+                "s3:GetObject",
+            )
             statement.add_resources(f"{bucket.bucket_arn}/*")
+            statement.add_resources(bucket.bucket_arn)
             for language in languages:
                 if "enabled" in str(target_accts[language]["status"]):
                     statement.add_arn_principal(

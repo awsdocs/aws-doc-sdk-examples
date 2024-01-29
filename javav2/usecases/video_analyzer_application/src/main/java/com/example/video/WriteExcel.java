@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.video;
 
@@ -28,20 +26,20 @@ public class WriteExcel {
     private WritableCellFormat times;
 
     // Returns an InputStream that represents the Excel Report
-    public java.io.InputStream exportExcel( List<FaceItems> list) {
+    public java.io.InputStream exportExcel(List<FaceItems> list) {
 
         try {
             java.io.InputStream is = write(list);
-            return is ;
-        } catch(WriteException | IOException e) {
+            return is;
+        } catch (WriteException | IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
     // Generates the report and returns an inputstream
-    public java.io.InputStream write( List<FaceItems> list) throws IOException, WriteException {
-        java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
+    public java.io.InputStream write(List<FaceItems> list) throws IOException, WriteException {
+        java.io.OutputStream os = new java.io.ByteArrayOutputStream();
         WorkbookSettings wbSettings = new WorkbookSettings();
 
         wbSettings.setLocale(new Locale("en", "EN"));
@@ -49,7 +47,7 @@ public class WriteExcel {
         // Create a Workbook - pass the OutputStream
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
 
-        //Need to get the WorkItem from each list
+        // Need to get the WorkItem from each list
         workbook.createSheet("Video Analyzer Sheet", 0);
         WritableSheet excelSheet = workbook.getSheet(0);
         createLabel(excelSheet);
@@ -61,11 +59,11 @@ public class WriteExcel {
 
         // Get an inputStram that represents the Report
         java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
-        stream = (java.io.ByteArrayOutputStream)os;
+        stream = (java.io.ByteArrayOutputStream) os;
         byte[] myBytes = stream.toByteArray();
-        java.io.InputStream is = new java.io.ByteArrayInputStream(myBytes) ;
+        java.io.InputStream is = new java.io.ByteArrayInputStream(myBytes);
 
-        return is ;
+        return is;
     }
 
     // Create Headings in the Excel spreadsheet
@@ -102,14 +100,14 @@ public class WriteExcel {
     // Write the Work Item Data to the Excel Report
     private int createContent(WritableSheet sheet, List<FaceItems> list) throws WriteException {
 
-        int size = list.size() ;
+        int size = list.size();
 
-        //  list
+        // list
         for (int i = 0; i < size; i++) {
 
-            FaceItems fi = (FaceItems)list.get(i);
+            FaceItems fi = (FaceItems) list.get(i);
 
-            //Get tne item values
+            // Get tne item values
             String age = fi.getAgeRange();
             String beard = fi.getBeard();
             String eyeglasses = fi.getEyeglasses();
@@ -138,7 +136,7 @@ public class WriteExcel {
     }
 
     private void addNumber(WritableSheet sheet, int column, int row,
-                           Integer integer) throws WriteException {
+            Integer integer) throws WriteException {
         Number number;
         number = new Number(column, row, integer, times);
         sheet.addCell(number);
@@ -152,17 +150,17 @@ public class WriteExcel {
         if (cc > 200)
             sheet.setColumnView(column, 150);
         else
-            sheet.setColumnView(column, cc+6);
+            sheet.setColumnView(column, cc + 6);
 
         sheet.addCell(label);
 
     }
 
-    private int countString (String ss) {
+    private int countString(String ss) {
         int count = 0;
-        //Counts each character except space
-        for(int i = 0; i < ss.length(); i++) {
-            if(ss.charAt(i) != ' ')
+        // Counts each character except space
+        for (int i = 0; i < ss.length(); i++) {
+            if (ss.charAt(i) != ' ')
                 count++;
         }
         return count;

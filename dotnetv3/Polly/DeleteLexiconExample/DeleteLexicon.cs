@@ -1,10 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// Deletes an existing Amazon Polly lexicon using the AWS SDK for .NET
-/// version 3.7 and .NET Core 5.0.
-/// </summary>
 namespace DeleteLexiconExample
 {
     // snippet-start:[Polly.dotnetv3.DeleteLexiconExample]
@@ -13,6 +9,9 @@ namespace DeleteLexiconExample
     using Amazon.Polly;
     using Amazon.Polly.Model;
 
+    /// <summary>
+    /// Deletes an existing Amazon Polly lexicon using the AWS SDK for .NET.
+    /// </summary>
     public class DeleteLexicon
     {
         public static async Task Main()

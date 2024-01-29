@@ -1,5 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 
 # Purpose
 # This code example demonstrates how to upload an encrypted object to an Amazon Simple Storage Service (Amazon S3) bucket.

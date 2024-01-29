@@ -16,6 +16,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 )
 
+// snippet-start:[gov2.dynamodb.Movie.struct]
+
 // Movie encapsulates data about a movie. Title and Year are the composite primary key
 // of the movie in Amazon DynamoDB. Title is the sort key, Year is the partition key,
 // and Info is additional data.
@@ -44,6 +46,8 @@ func (movie Movie) String() string {
 	return fmt.Sprintf("%v\n\tReleased: %v\n\tRating: %v\n\tPlot: %v\n",
 		movie.Title, movie.Year, movie.Info["rating"], movie.Info["plot"])
 }
+
+// snippet-end:[gov2.dynamodb.Movie.struct]
 
 // IMovieSampler defines an interface that can be used to download sample movie data
 // from a URL.

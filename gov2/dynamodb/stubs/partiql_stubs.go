@@ -17,8 +17,8 @@ import (
 )
 
 func StubExecuteStatement(
-	statement string, params []interface{}, output interface{},
-	raiseErr *testtools.StubError) testtools.Stub {
+	statement string, params []interface{}, limit *int32, nextInputToken *string, output interface{},
+	nextOutputToken *string, raiseErr *testtools.StubError) testtools.Stub {
 	var paramAttribs []types.AttributeValue
 	var err error
 	if params != nil {
@@ -34,12 +34,15 @@ func StubExecuteStatement(
 			panic(err)
 		}
 		statementOutput.Items = append(statementOutput.Items, outputAttribs)
+		statementOutput.NextToken = nextOutputToken
 	}
 	return testtools.Stub{
 		OperationName: "ExecuteStatement",
-		Input:         &dynamodb.ExecuteStatementInput{Statement: aws.String(statement), Parameters: paramAttribs},
-		Output:        &statementOutput,
-		Error:         raiseErr,
+		Input: &dynamodb.ExecuteStatementInput{
+			Statement: aws.String(statement), Parameters: paramAttribs,
+			Limit: limit, NextToken: nextInputToken},
+		Output: &statementOutput,
+		Error:  raiseErr,
 	}
 }
 

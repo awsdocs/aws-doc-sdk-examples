@@ -1,7 +1,5 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { getFirstEntry } from "@aws-sdk-examples/libs/utils/util-csv.js";
 import { log } from "@aws-sdk-examples/libs/utils/util-log.js";

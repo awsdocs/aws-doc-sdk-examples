@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using Amazon.StepFunctions.Model;
 
@@ -14,8 +14,8 @@ namespace SupportTests
         private static string? _stateMachineArn;
         private readonly string? _stateMachineName;
 
-        private static IAmazonStepFunctions _client;
-        private static StepFunctionsWrapper _wrapper;
+        private static IAmazonStepFunctions _client = null!;
+        private static StepFunctionsWrapper _wrapper = null!;
 
         /// <summary>
         /// Constructor for the test class.

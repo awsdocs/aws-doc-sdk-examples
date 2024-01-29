@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { describe, it, expect, vitest } from "vitest";
 import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
 import { createPolicy } from "../actions/create-policy.js";

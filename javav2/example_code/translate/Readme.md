@@ -1,73 +1,82 @@
-# Amazon Translate Java code examples
+# Amazon Translate code examples for the SDK for Java 2.x
 
-This README discusses how to run and test the Java code examples for Amazon Translate.
+## Overview
 
-## Running the Amazon Translate Java files
+Shows how to use the AWS SDK for Java 2.x to work with Amazon Translate.
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_Amazon Translate is a neural machine translation service for translating text to and from English across a breadth of supported languages._
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
 
 
- ## Testing the Amazon Translate Java files
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-You can test the Java code examples for Amazon Translate by running a test file named **AmazonTranslateTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+## Run the examples
 
-	Test 3 passed
+### Instructions
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
- ### Properties file
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
+
+
+
+<!--custom.tests.start-->
+
+#### Properties file
+
 Before running the Amazon Translate JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a cluster id value used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **s3Uri** - The URI of the Amazon S3 bucket where the documents to translate are located.   
+- **s3Uri** - The URI of the Amazon S3 bucket where the documents to translate are located.
 - **s3UriOut** - The URI of the S3 bucket where the translated documents are saved to.
 - **jobName** - The job name that translates documents.
 - **dataAccessRoleArn** - The Amazon Resource Name (ARN) value of the role required for translation jobs.
+<!--custom.tests.end-->
 
-### Command line
-To run the JUnit tests from the command line, you can use the following command.
+## Additional resources
 
-		mvn test
+- [Amazon Translate Developer Guide](https://docs.aws.amazon.com/translate/latest/dg/what-is.html)
+- [Amazon Translate API Reference](https://docs.aws.amazon.com/translate/latest/APIReference/welcome.html)
+- [SDK for Java 2.x Amazon Translate reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/translate/package-summary.html)
 
-You will see output from the JUnit tests, as shown here.
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
-	[INFO] -------------------------------------------------------
-	[INFO]  T E S T S
-	[INFO] -------------------------------------------------------
-	[INFO] Running AmazonTranslateTest
-	Test 1 passed
-	Test 2 passed
-	...
-	Done!
-	[INFO] Results:
-	[INFO]
-	[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
-	[INFO]
-	INFO] --------------------------------------------
-	[INFO] BUILD SUCCESS
-	[INFO]--------------------------------------------
-	[INFO] Total time:  12.003 s
-	[INFO] Finished at: 2020-02-10T14:25:08-05:00
-	[INFO] --------------------------------------------
+---
 
-### Unsuccessful tests
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as the following. You need to double-check the values that you set in the properties file and run the tests again.
-
-	[INFO]
-	[INFO] --------------------------------------
-	[INFO] BUILD FAILURE
-	[INFO] --------------------------------------
-	[INFO] Total time:  19.038 s
-	[INFO] Finished at: 2020-02-10T14:41:51-05:00
-	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project AmazonRedshiftServiceIntegrationTest:  There are test failures.
-	[ERROR];
+SPDX-License-Identifier: Apache-2.0

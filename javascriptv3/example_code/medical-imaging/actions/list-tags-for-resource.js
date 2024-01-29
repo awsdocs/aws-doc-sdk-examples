@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { fileURLToPath } from "url";
 
@@ -13,7 +11,7 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
  * @param {string} resourceArn - The Amazon Resource Name (ARN) for the data store or image set.
  */
 export const listTagsForResource = async (
-  resourceArn = "arn:aws:medical-imaging:us-east-1:xxx:datastore/xxx/imageset/xxx"
+  resourceArn = "arn:aws:medical-imaging:us-east-1:abc:datastore/def/imageset/ghi"
 ) => {
   const response = await medicalImagingClient.send(
     new ListTagsForResourceCommand({ resourceArn: resourceArn })

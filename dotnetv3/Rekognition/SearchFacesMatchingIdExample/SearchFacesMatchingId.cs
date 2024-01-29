@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace SearchFacesMatchingIdExample
 {
@@ -11,8 +11,7 @@ namespace SearchFacesMatchingIdExample
 
     /// <summary>
     /// Uses the Amazon Rekognition Service to find faces in an image that
-    /// match the face Id provided in the method request. This example was
-    /// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// match the face Id provided in the method request.
     /// </summary>
     public class SearchFacesMatchingId
     {

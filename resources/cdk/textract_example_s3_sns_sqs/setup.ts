@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -21,48 +20,48 @@
 // This stack is used by:
 //   * python/example_code/textract/textract_demo_launcher.py.
 
-import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
-import {CfnOutput} from '@aws-cdk/core';
-import {Bucket} from '@aws-cdk/aws-s3';
-import {Role, ServicePrincipal} from '@aws-cdk/aws-iam';
-import {Topic} from '@aws-cdk/aws-sns';
-import {Alias} from '@aws-cdk/aws-kms';
-import {SqsSubscription} from "@aws-cdk/aws-sns-subscriptions";
-import {Queue} from '@aws-cdk/aws-sqs';
+import "source-map-support/register";
+import * as cdk from "@aws-cdk/core";
+import { CfnOutput } from "@aws-cdk/core";
+import { Bucket } from "@aws-cdk/aws-s3";
+import { Role, ServicePrincipal } from "@aws-cdk/aws-iam";
+import { Topic } from "@aws-cdk/aws-sns";
+import { Alias } from "@aws-cdk/aws-kms";
+import { SqsSubscription } from "@aws-cdk/aws-sns-subscriptions";
+import { Queue } from "@aws-cdk/aws-sqs";
 
 export class SetupStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    let textract = new ServicePrincipal('textract.amazonaws.com');
+    let textract = new ServicePrincipal("textract.amazonaws.com");
 
-    let bucket = new Bucket(this, 'textract-demo-bucket', {
+    let bucket = new Bucket(this, "textract-demo-bucket", {
       enforceSSL: true,
-      removalPolicy: cdk.RemovalPolicy.DESTROY
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
     bucket.grantReadWrite(textract);
 
-    let queue = new Queue(this, 'textract-demo-queue', {});
+    let queue = new Queue(this, "textract-demo-queue", {});
 
-    let topic = new Topic(this, 'textract-demo-topic', {
-      masterKey: Alias.fromAliasName(this, 'defaultKey', 'alias/aws/sns')
+    let topic = new Topic(this, "textract-demo-topic", {
+      masterKey: Alias.fromAliasName(this, "defaultKey", "alias/aws/sns"),
     });
     topic.addSubscription(new SqsSubscription(queue));
 
-    let role = new Role(this, 'textract-demo-role', {
-      assumedBy: textract
+    let role = new Role(this, "textract-demo-role", {
+      assumedBy: textract,
     });
     topic.grantPublish(role);
 
-    new CfnOutput(this, 'BucketName', {value: bucket.bucketName});
-    new CfnOutput(this, 'TopicArn', {value: topic.topicArn});
-    new CfnOutput(this, 'RoleArn', {value: role.roleArn});
-    new CfnOutput(this, 'QueueUrl', {value: queue.queueUrl});
+    new CfnOutput(this, "BucketName", { value: bucket.bucketName });
+    new CfnOutput(this, "TopicArn", { value: topic.topicArn });
+    new CfnOutput(this, "RoleArn", { value: role.roleArn });
+    new CfnOutput(this, "QueueUrl", { value: queue.queueUrl });
   }
 }
 
-const stackName = 'textract-example-s3-sns-sqs'
+const stackName = "textract-example-s3-sns-sqs";
 
 const app = new cdk.App();
 

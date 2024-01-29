@@ -1,15 +1,10 @@
-//snippet-sourcedescription:[DescribeEnvironment.java demonstrates how to describe an AWS Elastic Beanstalk environment.]
-//snippet-keyword:[SDK for Java v2]
-//snippet-service:[AWS Elastic Beanstalk ]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.example;
 
-//snippet-start:[eb.java2.describe_env.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+// snippet-start:[eb.java2.describe_env.main]
+// snippet-start:[eb.java2.describe_env.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.elasticbeanstalk.ElasticBeanstalkClient;
 import software.amazon.awssdk.services.elasticbeanstalk.model.DescribeEnvironmentsRequest;
@@ -17,10 +12,11 @@ import software.amazon.awssdk.services.elasticbeanstalk.model.DescribeEnvironmen
 import software.amazon.awssdk.services.elasticbeanstalk.model.EnvironmentDescription;
 import software.amazon.awssdk.services.elasticbeanstalk.model.ElasticBeanstalkException;
 import java.util.List;
-//snippet-end:[eb.java2.describe_env.import]
+// snippet-end:[eb.java2.describe_env.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,14 +24,15 @@ import java.util.List;
  */
 
 public class DescribeEnvironment {
-
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <appName> \n\n" +
-            "Where:\n" +
-            "    appName - The name of the AWS Elastic Beanstalk application. \n";
+                Usage:
+                    <appName>\s
+
+                Where:
+                    appName - The name of the AWS Elastic Beanstalk application.\s
+                """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,26 +42,23 @@ public class DescribeEnvironment {
         String appName = args[0];
         Region region = Region.US_EAST_1;
         ElasticBeanstalkClient beanstalkClient = ElasticBeanstalkClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         describeEnv(beanstalkClient, appName);
     }
 
-    //snippet-start:[eb.java2.describe_env.main]
     public static void describeEnv(ElasticBeanstalkClient beanstalkClient, String appName) {
-
         try {
             DescribeEnvironmentsRequest request = DescribeEnvironmentsRequest.builder()
-                .environmentNames("Joblisting-env")
-                .build();
+                    .environmentNames("Joblisting-env")
+                    .build();
 
             DescribeEnvironmentsResponse response = beanstalkClient.describeEnvironments(request);
             List<EnvironmentDescription> envs = response.environments();
-            for (EnvironmentDescription env: envs) {
-                System.out.println("The environment name is  "+env.environmentName());
-                System.out.println("The environment ARN is  "+env.environmentArn());
+            for (EnvironmentDescription env : envs) {
+                System.out.println("The environment name is  " + env.environmentName());
+                System.out.println("The environment ARN is  " + env.environmentArn());
             }
 
         } catch (ElasticBeanstalkException e) {
@@ -72,5 +66,5 @@ public class DescribeEnvironment {
             System.exit(1);
         }
     }
-    //snippet-end:[eb.java2.describe_env.main]
 }
+// snippet-end:[eb.java2.describe_env.main]

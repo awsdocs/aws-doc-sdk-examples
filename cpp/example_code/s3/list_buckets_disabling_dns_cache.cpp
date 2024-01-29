@@ -1,9 +1,7 @@
-//NOTE!! This example only works on Linux and Mac. It does not work on Windows.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+//NOTE!! This example only works on Linux and Mac. It does not work on Windows.
 
 #include <iostream>
 #include <aws/core/Aws.h>

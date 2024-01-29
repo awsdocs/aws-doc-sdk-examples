@@ -1,11 +1,6 @@
 #!/bin/bash
-
-###############################################################################
-#
-#    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#    SPDX-License-Identifier: Apache-2.0
-#
-###############################################################################
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 ###############################################################################
 #
@@ -17,47 +12,56 @@
 #
 ###############################################################################
 
-
 source ./awsdocs_general.sh
+
 source ./bucket_operations.sh
 {
   current_directory=$(pwd)
-  cd ..
+  cd .. || exit
+
   source ./s3_getting_started.sh
-  cd $current_directory
+  cd "$current_directory" || exit
 }
-source ../s3_getting_started.sh
 
 function usage() {
-    echo "This script tests Amazon S3 bucket operations in the AWS CLI."
-    echo "It creates a randomly named bucket, copies files to it, then"
-    echo "deletes the files and the bucket."
-    echo ""
-    echo "To pause the script between steps so you can see the results in the"
-    echo "AWS Management Console, include the parameter -i."
-    echo ""
-    echo "IMPORTANT: Running this script creates resources in your Amazon"
-    echo "   account that can incur charges. It is your responsibility to"
-    echo "   ensure that no resources are left in your account after the script"
-    echo "   completes. If an error occurs during the operation of the script,"
-    echo "   then resources can remain that you might need to delete manually."
+  echo "This script tests Amazon S3 bucket operations in the AWS CLI."
+  echo "It creates a randomly named bucket, copies files to it, then"
+  echo "deletes the files and the bucket."
+  echo ""
+  echo "To pause the script between steps so you can see the results in the"
+  echo "AWS Management Console, include the parameter -i."
+  echo ""
+  echo "IMPORTANT: Running this script creates resources in your Amazon"
+  echo "   account that can incur charges. It is your responsibility to"
+  echo "   ensure that no resources are left in your account after the script"
+  echo "   completes. If an error occurs during the operation of the script,"
+  echo "   then resources can remain that you might need to delete manually."
 }
 
-    # Set default values.
-    INTERACTIVE=false
-    VERBOSE=false
+# Set default values.
+INTERACTIVE=false
+VERBOSE=false
 
-    # Retrieve the calling parameters
-    while getopts "ivh" OPTION; do
-        case "${OPTION}"
-        in
-            i)  INTERACTIVE=true;VERBOSE=true; iecho;;
-            v)  VERBOSE=true;;
-            h)  usage; return 0;;
-            \?) echo "Invalid parameter"; usage; return 1;; 
-        esac
-    done
-
+# Retrieve the calling parameters
+while getopts "ivh" OPTION; do
+  case "${OPTION}" in
+    i)
+      INTERACTIVE=true
+      VERBOSE=true
+      iecho
+      ;;
+    v) VERBOSE=true ;;
+    h)
+      usage
+      return 0
+      ;;
+    \?)
+      echo "Invalid parameter"
+      usage
+      return 1
+      ;;
+  esac
+done
 
 if [ "$INTERACTIVE" == "true" ]; then iecho "Tests running in interactive mode."; fi
 if [ "$VERBOSE" == "true" ]; then iecho "Tests running in verbose mode."; fi
@@ -76,49 +80,49 @@ iecho "FILENAME2=$FILENAME2"
 iecho "**************END OF STEPS******************"
 
 run_test "1. Creating bucket with missing bucket_name" \
-         "create_bucket -r $REGION" \
-         1 \
-         "ERROR: You must provide a bucket name" \
+  "create_bucket -r $REGION" \
+  1 \
+  "ERROR: You must provide a bucket name"
 
 run_test "3. Creating bucket with valid parameters" \
-         "create_bucket -r $REGION -b $BUCKETNAME" \
-         0
+  "create_bucket -r $REGION -b $BUCKETNAME" \
+  0
 
 run_test "4. Creating bucket with duplicate name and region" \
-         "create_bucket -r $REGION -b $BUCKETNAME" \
-         1 \
-         "ERROR: A bucket with that name already exists"
+  "create_bucket -r $REGION -b $BUCKETNAME" \
+  1 \
+  "ERROR: A bucket with that name already exists"
 
 run_test "5. Copying local file (copy of this script) to bucket" \
-         "copy_file_to_bucket $BUCKETNAME ./$0 $FILENAME1" \
-         0
+  "copy_file_to_bucket $BUCKETNAME $0 $FILENAME1" \
+  0
 
 run_test "6. Duplicating existing file in bucket" \
-         "copy_item_in_bucket $BUCKETNAME $FILENAME1 $FILENAME2" \
-         0
+  "copy_item_in_bucket $BUCKETNAME $FILENAME1 $FILENAME2" \
+  0
 
 run_test "7. Listing contents of bucket" \
-         "list_items_in_bucket $BUCKETNAME" \
-         0
+  "list_items_in_bucket $BUCKETNAME" \
+  0
 
 run_test "8. Deleting first file from bucket" \
-         "delete_item_in_bucket $BUCKETNAME $FILENAME1" \
-         0
+  "delete_item_in_bucket $BUCKETNAME $FILENAME1" \
+  0
 
 run_test "9. Deleting second file from bucket" \
-         "delete_item_in_bucket $BUCKETNAME $FILENAME2" \
-         0
+  "delete_item_in_bucket $BUCKETNAME $FILENAME2" \
+  0
 
 run_test "10. Deleting bucket" \
-         "delete_bucket $BUCKETNAME" \
-         0
+  "delete_bucket $BUCKETNAME" \
+  0
 
-mock_input="True"
-mock_input_array=("README.md" "y" "y" "y")
+export mock_input="True"
+export mock_input_array=("README.md" "y" "y" "y")
 
 run_test "11. s3 getting started scenario" \
-          s3_getting_started \
-          0
+  s3_getting_started \
+  0
 
 unset mock_input
 

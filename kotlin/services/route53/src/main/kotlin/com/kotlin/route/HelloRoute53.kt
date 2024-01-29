@@ -1,10 +1,5 @@
-// snippet-sourcedescription:[HelloRoute53.kt demonstrates how to get started using the Route53DomainsClient.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Route 53]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.route
 
 import aws.sdk.kotlin.services.route53domains.Route53DomainsClient

@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[AutoScalingScenario.kt performs multiple Auto Scaling operations.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon EC2 Auto Scaling]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.autoscaling
 

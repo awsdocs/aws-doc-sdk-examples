@@ -1,25 +1,25 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.photo.services
 
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.GetObjectRequest
 import aws.sdk.kotlin.services.s3.model.PutObjectRequest
-import aws.sdk.kotlin.services.s3.presigners.presign
+import aws.sdk.kotlin.services.s3.presigners.presignGetObject
+import aws.sdk.kotlin.services.s3.presigners.presignPutObject
 import aws.smithy.kotlin.runtime.content.ByteStream
 import aws.smithy.kotlin.runtime.content.toByteArray
 import com.example.photo.PhotoApplicationResources
 import java.io.ByteArrayOutputStream
+import java.net.URL
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
 class S3Service {
-    // Place the upload image into an Amazon S3 bucket.
+    // Place the upload image into an Amazon S3 bucket
     suspend fun putObject(data: ByteArray, objectKey: String) {
         val request = PutObjectRequest {
             bucket = PhotoApplicationResources.STORAGE_BUCKET
@@ -79,13 +79,16 @@ class S3Service {
 
     suspend fun signObjectToDownload(keyName: String?): String? {
         S3Client { region = "us-east-1" }.use { s3Client ->
-            val presignedUrl = GetObjectRequest {
+            val unsignedRequest = GetObjectRequest {
                 bucket = PhotoApplicationResources.WORKING_BUCKET
                 key = keyName
-            }.presign(s3Client.config, 1L.hours).url
+            }
 
+            // Presign the GetObject request.
+            val presignedRequest = s3Client.presignGetObject(unsignedRequest, 1.hours)
+            val presignedUrl = URL(presignedRequest.url.toString()).readText()
             println(presignedUrl)
-            return presignedUrl.toString()
+            return presignedUrl
         }
     }
 
@@ -95,10 +98,11 @@ class S3Service {
                 bucket = PhotoApplicationResources.WORKING_BUCKET
                 key = keyName
                 contentType = "image/jpeg"
-            }.presign(s3Client.config, 5L.minutes).url
+            }
 
-            println(presignedUrl)
-            return presignedUrl.toString()
+            val presignedRequest = s3Client.presignPutObject(presignedUrl, 5L.minutes)
+            println(presignedRequest.url.toString())
+            return presignedRequest.url.toString()
         }
     }
 }

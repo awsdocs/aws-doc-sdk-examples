@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.photo.handlers;
 
@@ -18,7 +16,8 @@ import java.util.List;
 public class S3Handler implements RequestHandler<S3Event, String> {
     @Override
     public String handleRequest(S3Event event, Context context) {
-        // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon S3 event.
+        // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from
+        // the Amazon S3 event.
         String bucketName = event.getRecords().get(0).getS3().getBucket().getName();
         String objectKey = event.getRecords().get(0).getS3().getObject().getKey();
 

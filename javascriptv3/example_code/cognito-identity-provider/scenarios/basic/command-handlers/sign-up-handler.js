@@ -1,7 +1,5 @@
-/**
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /** snippet-start:[javascript.v3.cognito-idp.scenarios.basic.SignUpHandler] **/
 import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
@@ -38,7 +36,7 @@ const signUpHandler = async (commands) => {
     validateClient(clientId);
     log(`Signing up.`);
     await signUp({ clientId, username, password, email });
-    log(`Signed up. An confirmation email has been sent to: ${email}.`);
+    log(`Signed up. A confirmation email has been sent to: ${email}.`);
     log(`Run 'confirm-sign-up ${username} <code>' to confirm your account.`);
   } catch (err) {
     log(err);

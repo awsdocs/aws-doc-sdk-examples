@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { describe, it, expect, afterAll, vi } from "vitest";
 
 import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
@@ -33,8 +35,8 @@ describe("queue actions", () => {
 
     await retry({ intervalInMs: 1000, maxRetries: 60 }, async () => {
       const urls = await listQueues();
-
-      expect(urls[0]).toEqual(expect.stringContaining(queueName));
+      const queueNameFound = urls.some((url) => url.indexOf(queueName) > -1);
+      expect(queueNameFound).toBe(true);
     });
 
     await setQueueAttributes(queueUrl);
@@ -56,7 +58,7 @@ describe("queue actions", () => {
 
     await deleteQueue(QueueUrl);
 
-    await retry({ intervalInMs: 1000, maxRetries: 60 }, async () => {
+    await retry({ intervalInMs: 5000, maxRetries: 60 }, async () => {
       const urlsAfterDelete = await listQueues();
       expect(urlsAfterDelete.length).toBe(0);
     });

@@ -1,8 +1,8 @@
 # zexi 0.4.0
 cognito-identity_ListIdentityPools:
-  title: List &COGID; pools
+  title: List &COG; identity pools
   title_abbrev: List identity pools
-  synopsis: get a list of &COGID; pools.
+  synopsis: get a list of &COG; identity pools.
   category:
   languages:
     Swift:
@@ -17,12 +17,21 @@ cognito-identity_ListIdentityPools:
             - description: Get the ID of an existing identity pool or create it if it doesn't already exist.
               snippet_tags:
                 - cognitoidentity.swift.get-or-create-pool-id
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.listidentitypools.main
   services:
     cognito-identity: {CreateIdentityPool, ListIdentityPools}
 cognito-identity_CreateIdentityPool:
-  title: Create a new &COGID; with a specified name
+  title: Create an &COG; identity pool
   title_abbrev: Create an identity pool
-  synopsis: find the &COGID; with the given name, creating it if it's not found.
+  synopsis: create an &COG; identity pool.
   category:
   languages:
     Swift:
@@ -34,12 +43,21 @@ cognito-identity_CreateIdentityPool:
             - description: Create a new identity pool.
               snippet_tags:
                 - cognitoidentity.swift.create-identity-pool
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.create_identity_pool.main
   services:
     cognito-identity: {CreateIdentityPool, ListIdentityPools}
 cognito-identity_DeleteIdentityPool:
-  title: Delete an &COGID; with a specified name
+  title: Delete an &COG; identity pool
   title_abbrev: Delete an identity pool
-  synopsis: delete an &COGID; given its ID.
+  synopsis: delete an &COG; identity pool.
   category:
   languages:
     Swift:
@@ -51,5 +69,31 @@ cognito-identity_DeleteIdentityPool:
             - description: Delete the specified identity pool.
               snippet_tags:
                 - cognitoidentity.swift.delete-identity-pool
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.deleteidpool.main
   services:
     cognito-identity: {DeleteIdentityPool}
+cognito-identity_GetCredentialsForIdentity:
+  title: Get credentials for an &COG; identity using an &AWS; SDK
+  title_abbrev: Get credentials for an identity
+  synopsis: get credentials for an &COG; identity.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.GetIdentityCredentials.main
+  services:
+    cognito-identity: {GetCredentialsForIdentity}

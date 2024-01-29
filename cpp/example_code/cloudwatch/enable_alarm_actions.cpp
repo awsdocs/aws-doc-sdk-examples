@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier: Apache-2.0
 /*
 
 */
@@ -17,13 +17,13 @@
  * Outputs:
  * The metric alarm is enabled.
  * ///////////////////////////////////////////////////////////////////////// */
-//snippet-start:[cw.cpp.enable_alarm_actions.inc]
+// snippet-start:[cw.cpp.enable_alarm_actions.inc]
 #include <aws/core/Aws.h>
 #include <aws/monitoring/CloudWatchClient.h>
 #include <aws/monitoring/model/EnableAlarmActionsRequest.h>
 #include <aws/monitoring/model/PutMetricAlarmRequest.h>
 #include <iostream>
-//snippet-end:[cw.cpp.enable_alarm_actions.inc]
+// snippet-end:[cw.cpp.enable_alarm_actions.inc]
 
 void CreateAlarmAndEnableActions(
     const Aws::String& alarm_name, const Aws::String& instanceId,

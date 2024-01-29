@@ -1,8 +1,7 @@
 <?php
-/*
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 // snippet-start:[cloudfront.php.deletedistribution.complete]
 // snippet-start:[cloudfront.php.deletedistribution.import]
@@ -97,14 +96,4 @@ function deleteADistribution()
 // deleteADistribution();
 // snippet-end:[cloudfront.php.deletedistribution.main]
 // snippet-end:[cloudfront.php.deletedistribution.complete]
-// snippet-sourcedescription:[DeleteDistribution.php demonstrates how to delete an Amazon CloudFront distribution that has been disabled.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[deleteDistribution]
-// snippet-keyword:[Amazon CloudFront]
-// snippet-service:[cloudfront]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2020-04-21]
 // snippet-sourceauthor:[pccornel (AWS)]

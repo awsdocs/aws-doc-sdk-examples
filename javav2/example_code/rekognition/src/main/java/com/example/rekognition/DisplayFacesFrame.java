@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[DisplayFacesFrame.java demonstrates how to display a bounding box around faces in an image.]
-//snippet-keyword:[AWS SDK for Java v2]
-// snippet-service:[Amazon Rekognition]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.rekognition;
 
@@ -19,7 +13,6 @@ import java.io.InputStream;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
@@ -38,26 +31,27 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 // snippet-end:[rekognition.java2.display_faces.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DisplayFacesFrame extends JPanel {
-
     static DetectFacesResponse result;
     static BufferedImage image;
     static int scale;
 
     public static void main(String[] args) throws Exception {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage: " +
-            "   <sourceImage> <bucketName>\n\n" +
-            "Where:\n" +
-            "   sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png). \n\n" +
-            "   bucketName - The name of the Amazon S3 bucket (for example, myBucket). \n\n";
+                Usage:    <sourceImage> <bucketName>
+
+                Where:
+                   sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png).\s
+                   bucketName - The name of the Amazon S3 bucket (for example, myBucket).\s
+                """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -68,14 +62,12 @@ public class DisplayFacesFrame extends JPanel {
         String bucketName = args[1];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         RekognitionClient rekClient = RekognitionClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         displayAllFaces(s3, rekClient, sourceImage, bucketName);
         s3.close();
@@ -84,12 +76,12 @@ public class DisplayFacesFrame extends JPanel {
 
     // snippet-start:[rekognition.java2.display_faces.main]
     public static void displayAllFaces(S3Client s3,
-                                       RekognitionClient rekClient,
-                                       String sourceImage,
-                                       String bucketName) {
+            RekognitionClient rekClient,
+            String sourceImage,
+            String bucketName) {
         int height;
         int width;
-        byte[] data = getObjectBytes (s3, bucketName, sourceImage);
+        byte[] data = getObjectBytes(s3, bucketName, sourceImage);
         InputStream is = new ByteArrayInputStream(data);
 
         try {
@@ -100,13 +92,13 @@ public class DisplayFacesFrame extends JPanel {
 
             // Create an Image object for the source image
             software.amazon.awssdk.services.rekognition.model.Image souImage = Image.builder()
-                .bytes(sourceBytes)
-                .build();
+                    .bytes(sourceBytes)
+                    .build();
 
             DetectFacesRequest facesRequest = DetectFacesRequest.builder()
-                .attributes(Attribute.ALL)
-                .image(souImage)
-                .build();
+                    .attributes(Attribute.ALL)
+                    .image(souImage)
+                    .build();
 
             result = rekClient.detectFaces(facesRequest);
 
@@ -138,18 +130,17 @@ public class DisplayFacesFrame extends JPanel {
             System.out.println(e.getMessage());
             System.exit(1);
         } catch (IOException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
-    public static byte[] getObjectBytes (S3Client s3, String bucketName, String keyName) {
-
+    public static byte[] getObjectBytes(S3Client s3, String bucketName, String keyName) {
         try {
             GetObjectRequest objectRequest = GetObjectRequest
-                .builder()
-                .key(keyName)
-                .bucket(bucketName)
-                .build();
+                    .builder()
+                    .key(keyName)
+                    .bucket(bucketName)
+                    .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             return objectBytes.asByteArray();

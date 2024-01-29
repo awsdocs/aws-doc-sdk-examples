@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[ListForecasts.kt demonstrates how to list forecasts for the Amazon Forecast service.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Forecast]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.forecast
 

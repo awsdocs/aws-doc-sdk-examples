@@ -1,12 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// This example shows how to use the Amazon Simple Storage Service
-/// (Amazon S3) to stop a multi-part upload process using the Amazon S3
-/// TransferUtility. The example was created using the AWS SDK for .NET
-/// version 3.7 and .NET Core 5.0.
-/// </summary>
 namespace AbortMPUExample
 {
     // snippet-start:[S3.dotnetv3.AbortMPUExample]
@@ -15,6 +9,11 @@ namespace AbortMPUExample
     using Amazon.S3;
     using Amazon.S3.Transfer;
 
+    /// <summary>
+    /// This example shows how to use the Amazon Simple Storage Service
+    /// (Amazon S3) to stop a multi-part upload process using the Amazon S3
+    /// TransferUtility.
+    /// </summary>
     public class AbortMPU
     {
         public static async Task Main()

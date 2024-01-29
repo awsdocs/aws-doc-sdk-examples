@@ -5,6 +5,15 @@ cognito-identity-provider_Hello:
   synopsis: get started using &COG;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.hello.main
     C++:
       versions:
         - sdk_version: 1
@@ -44,11 +53,20 @@ cognito-identity-provider_ListUserPools:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/cognitoidentityprovider
+          github: rustv1/examples/cognitoidentityprovider
           excerpts:
             - description:
               snippet_tags:
                 - cognitoidentityprovider.rust.list-user-pools
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.ListUserPools.main
   services:
     cognito-identity-provider: {ListUserPools}
 cognito-identity-provider_SignUp:
@@ -654,9 +672,9 @@ cognito-identity-provider_ConfirmDevice:
   services:
     cognito-identity-provider: {ConfirmDevice}
 cognito-identity-provider_InitiateAuth:
-  title: Start authentication with a device tracked by &COG; using an &AWS; SDK
-  title_abbrev: Start authentication with a tracked device
-  synopsis: start authentication with a device tracked by &COG;.
+  title: Start authentication using an &AWS; SDK
+  title_abbrev: Start authentication
+  synopsis: start authentication with &COG;.
   category:
   languages:
     .NET:
@@ -674,9 +692,8 @@ cognito-identity-provider_InitiateAuth:
           github: python/example_code/cognito
           sdkguide:
           excerpts:
-            - description: Sign in with a tracked device. To complete sign-in,
-                the client must respond correctly to Secure Remote Password (SRP)
-                challenges.
+            - description: This example shows you how to start authentication with a tracked device. To complete 
+                sign-in, the client must respond correctly to Secure Remote Password (SRP) challenges.
               snippet_tags:
                 - python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl
                 - python.example_code.cognito-idp.InitiateAuth
@@ -738,6 +755,40 @@ cognito-identity-provider_DeleteUser:
                 - cpp.example_code.cognito.delete_user
   services:
     cognito-identity-provider: {DeleteUser}
+cognito-identity-provider_CreateUserPool:
+  title: Create an &COG; user pool using an &AWS; SDK
+  title_abbrev: Create a user pool
+  synopsis: create an &COG; user pool.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.create_user_pool.main
+  services:
+    cognito-identity-provider: {CreateUserPool}
+cognito-identity-provider_CreateUserPoolClientApp:
+  title: Create an &COG; user pool client app using an &AWS; SDK
+  title_abbrev: Create an app client
+  synopsis: create an &COG; user pool client app.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cognito.java2.user_pool.create_user_pool_client.main
+  services:
+    cognito-identity-provider: {CreateUserPoolClient}
 cognito-identity-provider_Scenario_SignUpUserWithMfa:
   title: Sign up a user with an &COG; user pool that requires MFA using an &AWS; SDK
   title_abbrev: Sign up a user with a user pool that requires MFA
@@ -781,7 +832,10 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
           github: python/example_code/cognito
           sdkguide:
           excerpts:
-            - description: In addition to the previously listed steps, this example
+            - description: Create a class that wraps &COG; functions used in the scenario.
+              snippet_tags:
+                - python.example_code.cognito-idp.CognitoIdentityProviderWrapper.full
+            - description: Create a class that runs the scenario. This example
                 also registers an MFA device to be tracked by &COG; and shows you
                 how to sign in by using a password and information from the tracked
                 device. This avoids the need to enter a new MFA code.

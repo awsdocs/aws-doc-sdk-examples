@@ -1,7 +1,5 @@
-/*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
- */
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import { fileURLToPath } from "url";
 
@@ -70,9 +68,6 @@ export const main = async () => {
    */
 
   log("Inserting cities into the table.");
-  // The base client is used here instead of 'lib-dynamodb'. There's
-  // a bug (https://github.com/aws/aws-sdk-js-v3/issues/4703) in the SDK
-  // causing list parameters to not be handled correctly.
   const addItemsStatementCommand = new BatchExecuteStatementCommand({
     // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.insert.html
     Statements: [
@@ -86,7 +81,7 @@ export const main = async () => {
       },
     ],
   });
-  await client.send(addItemsStatementCommand);
+  await docClient.send(addItemsStatementCommand);
   log(`Cities inserted.`);
 
   /**
@@ -119,7 +114,6 @@ export const main = async () => {
    */
 
   log("Modifying the populations.");
-  // The base client is used here for the same reasons described previously.
   const updateItemStatementCommand = new BatchExecuteStatementCommand({
     // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.update.html
     Statements: [
@@ -133,7 +127,7 @@ export const main = async () => {
       },
     ],
   });
-  await client.send(updateItemStatementCommand);
+  await docClient.send(updateItemStatementCommand);
   log(`Updated cities.`);
 
   /**

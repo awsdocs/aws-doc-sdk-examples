@@ -1,17 +1,11 @@
-// snippet-sourcedescription:[CreateJob.kt demonstrates how to create AWS Elemental MediaConvert jobs.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[AWS Elemental MediaConvert]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.mediaconvert
 
 // snippet-start:[mediaconvert.kotlin.createjob.import]
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
-import aws.sdk.kotlin.services.mediaconvert.endpoints.EndpointProvider
+import aws.sdk.kotlin.services.mediaconvert.endpoints.MediaConvertEndpointProvider
 import aws.sdk.kotlin.services.mediaconvert.model.AacAudioDescriptionBroadcasterMix
 import aws.sdk.kotlin.services.mediaconvert.model.AacCodecProfile
 import aws.sdk.kotlin.services.mediaconvert.model.AacCodingMode
@@ -84,10 +78,10 @@ import aws.sdk.kotlin.services.mediaconvert.model.InputPsiControl
 import aws.sdk.kotlin.services.mediaconvert.model.InputRotate
 import aws.sdk.kotlin.services.mediaconvert.model.InputTimecodeSource
 import aws.sdk.kotlin.services.mediaconvert.model.JobSettings
-import aws.sdk.kotlin.services.mediaconvert.model.M3U8NielsenId3
-import aws.sdk.kotlin.services.mediaconvert.model.M3U8PcrControl
-import aws.sdk.kotlin.services.mediaconvert.model.M3U8Scte35Source
-import aws.sdk.kotlin.services.mediaconvert.model.M3U8Settings
+import aws.sdk.kotlin.services.mediaconvert.model.M3u8NielsenId3
+import aws.sdk.kotlin.services.mediaconvert.model.M3u8PcrControl
+import aws.sdk.kotlin.services.mediaconvert.model.M3u8Scte35Source
+import aws.sdk.kotlin.services.mediaconvert.model.M3u8Settings
 import aws.sdk.kotlin.services.mediaconvert.model.MediaConvertException
 import aws.sdk.kotlin.services.mediaconvert.model.Output
 import aws.sdk.kotlin.services.mediaconvert.model.OutputGroup
@@ -114,17 +108,18 @@ including your credentials.
 
 For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+
+ In the following example, the output of the job is placed in the same Amazon S3 bucket in a folder named out.
 */
 
 suspend fun main(args: Array<String>) {
     val usage = """
-        
-        Usage
+         Usage
             <mcRoleARN> <fileInput> 
 
         Where:
             mcRoleARN - the MediaConvert Role ARN.
-            fileInput -  the URL of an Amazon S3 bucket where the input file is located.
+            fileInput -  the URL of an Amazon S3 bucket where the input file is located (for example s3://<bucket name>/<mp4 file name>).
         """
 
     if (args.size != 2) {
@@ -136,7 +131,7 @@ suspend fun main(args: Array<String>) {
     val fileInput = args[1]
     val mcClient = MediaConvertClient { region = "us-west-2" }
     val id = createMediaJob(mcClient, mcRoleARN, fileInput)
-    println("MediaConvert job is $id")
+    println("MediaConvert job $id was successfully created!")
 }
 
 // snippet-start:[mediaconvert.kotlin.createjob.main]
@@ -159,7 +154,7 @@ suspend fun createMediaJob(mcClient: MediaConvertClient, mcRoleARN: String, file
         val endpointURL = res.endpoints!!.get(0).url!!
         val mediaConvert = MediaConvertClient.fromEnvironment {
             region = "us-west-2"
-            endpointProvider = EndpointProvider {
+            endpointProvider = MediaConvertEndpointProvider {
                 Endpoint(endpointURL)
             }
         }
@@ -434,17 +429,17 @@ fun createOutput(
             }
             containerSettings = ContainerSettings {
                 container = ContainerType.M3U8
-                this.m3U8Settings = M3U8Settings {
+                this.m3u8Settings = M3u8Settings {
                     audioFramesPerPes = 4
-                    pcrControl = M3U8PcrControl.PcrEveryPesPacket
+                    pcrControl = M3u8PcrControl.PcrEveryPesPacket
                     pmtPid = 480
                     privateMetadataPid = 503
                     programNumber = 1
                     patInterval = 0
                     pmtInterval = 0
-                    scte35Source = M3U8Scte35Source.None
+                    scte35Source = M3u8Scte35Source.None
                     scte35Pid = 500
-                    nielsenId3 = M3U8NielsenId3.None
+                    nielsenId3 = M3u8NielsenId3.None
                     timedMetadata = TimedMetadata.None
                     timedMetadataPid = 502
                     videoPid = 481

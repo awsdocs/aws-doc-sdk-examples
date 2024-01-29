@@ -4,7 +4,7 @@
 // snippet-start:[sns.java.create_mobile_endpoint]
 class RegistrationExample {
 
-  AmazonSNSClient client = new AmazonSNSClient(); //provide credentials here
+  AmazonSNSClient client = new AmazonSNSClient(); // provide credentials here
   String arnStorage = null;
 
   public void registerWithSNS() {
@@ -22,22 +22,21 @@ class RegistrationExample {
     }
 
     System.out.println("Retrieving platform endpoint data...");
-    // Look up the platform endpoint and make sure the data in it is current, even if
+    // Look up the platform endpoint and make sure the data in it is current, even
+    // if
     // it was just created.
     try {
-      GetEndpointAttributesRequest geaReq =
-          new GetEndpointAttributesRequest()
-        .withEndpointArn(endpointArn);
-      GetEndpointAttributesResult geaRes =
-        client.getEndpointAttributes(geaReq);
+      GetEndpointAttributesRequest geaReq = new GetEndpointAttributesRequest()
+          .withEndpointArn(endpointArn);
+      GetEndpointAttributesResult geaRes = client.getEndpointAttributes(geaReq);
 
       updateNeeded = !geaRes.getAttributes().get("Token").equals(token)
-        || !geaRes.getAttributes().get("Enabled").equalsIgnoreCase("true");
+          || !geaRes.getAttributes().get("Enabled").equalsIgnoreCase("true");
 
     } catch (NotFoundException nfe) {
       // We had a stored ARN, but the platform endpoint associated with it
       // disappeared. Recreate it.
-        createNeeded = true;
+      createNeeded = true;
     }
 
     if (createNeeded) {
@@ -53,35 +52,33 @@ class RegistrationExample {
       Map attribs = new HashMap();
       attribs.put("Token", token);
       attribs.put("Enabled", "true");
-      SetEndpointAttributesRequest saeReq =
-          new SetEndpointAttributesRequest()
-        .withEndpointArn(endpointArn)
-        .withAttributes(attribs);
+      SetEndpointAttributesRequest saeReq = new SetEndpointAttributesRequest()
+          .withEndpointArn(endpointArn)
+          .withAttributes(attribs);
       client.setEndpointAttributes(saeReq);
     }
   }
 
   /**
-  * @return never null
-  * */
+   * @return never null
+   */
   private String createEndpoint(String token) {
 
     String endpointArn = null;
     try {
       System.out.println("Creating platform endpoint with token " + token);
-      CreatePlatformEndpointRequest cpeReq =
-          new CreatePlatformEndpointRequest()
-        .withPlatformApplicationArn(applicationArn)
-        .withToken(token);
+      CreatePlatformEndpointRequest cpeReq = new CreatePlatformEndpointRequest()
+          .withPlatformApplicationArn(applicationArn)
+          .withToken(token);
       CreatePlatformEndpointResult cpeRes = client
-        .createPlatformEndpoint(cpeReq);
+          .createPlatformEndpoint(cpeReq);
       endpointArn = cpeRes.getEndpointArn();
     } catch (InvalidParameterException ipe) {
       String message = ipe.getErrorMessage();
       System.out.println("Exception message: " + message);
       Pattern p = Pattern
-        .compile(".*Endpoint (arn:aws:sns[^ ]+) already exists " +
-                 "with the same [Tt]oken.*");
+          .compile(".*Endpoint (arn:aws:sns[^ ]+) already exists " +
+              "with the same [Tt]oken.*");
       Matcher m = p.matcher(message);
       if (m.matches()) {
         // The platform endpoint already exists for this token, but with additional
@@ -98,9 +95,9 @@ class RegistrationExample {
   }
 
   /**
-  * @return the ARN the app was registered under previously, or null if no
-  *         platform endpoint ARN is stored.
-  */
+   * @return the ARN the app was registered under previously, or null if no
+   *         platform endpoint ARN is stored.
+   */
   private String retrieveEndpointArn() {
     // Retrieve the platform endpoint ARN from permanent storage,
     // or return null if null is stored.
@@ -108,8 +105,8 @@ class RegistrationExample {
   }
 
   /**
-  * Stores the platform endpoint ARN in permanent storage for lookup next time.
-  * */
+   * Stores the platform endpoint ARN in permanent storage for lookup next time.
+   */
   private void storeEndpointArn(String endpointArn) {
     // Write the platform endpoint ARN to permanent storage.
     arnStorage = endpointArn;

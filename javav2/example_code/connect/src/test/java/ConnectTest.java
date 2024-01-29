@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.connect.CreateInstance;
 import com.example.connect.DeleteInstance;
@@ -41,17 +39,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class ConnectTest {
     private static ConnectClient connectClient;
     private static String instanceAlias = "";
-    private static String instanceId = "" ;
-    private static String contactId = "" ;
-    private static String existingInstanceId = "" ;
-    private static String targetArn = "" ;
+    private static String instanceId = "";
+    private static String contactId = "";
+    private static String existingInstanceId = "";
+    private static String targetArn = "";
 
     @BeforeAll
     public static void setUp() {
         connectClient = ConnectClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -62,27 +60,30 @@ public class ConnectTest {
         existingInstanceId = values.getExistingInstanceId();
         targetArn = values.getTargetArn();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-        try (InputStream input = ConnectTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            // Load a properties file.
-            prop.load(input);
-            instanceAlias = prop.getProperty("instanceAlias");
-            contactId = prop.getProperty("contactId");
-            existingInstanceId = prop.getProperty("existingInstanceId");
-            targetArn = prop.getProperty("targetArn");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * ConnectTest.class.getClassLoader().getResourceAsStream("config.properties"))
+         * {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * // Load a properties file.
+         * prop.load(input);
+         * instanceAlias = prop.getProperty("instanceAlias");
+         * contactId = prop.getProperty("contactId");
+         * existingInstanceId = prop.getProperty("existingInstanceId");
+         * targetArn = prop.getProperty("targetArn");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
@@ -98,7 +99,7 @@ public class ConnectTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void describeInstance() throws InterruptedException {
-        assertDoesNotThrow(() ->DescribeInstance.describeSpecificInstance(connectClient, instanceId));
+        assertDoesNotThrow(() -> DescribeInstance.describeSpecificInstance(connectClient, instanceId));
         System.out.println("Test 2 passed");
     }
 
@@ -106,7 +107,7 @@ public class ConnectTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void listInstances() {
-        assertDoesNotThrow(() ->ListInstances.listAllInstances(connectClient));
+        assertDoesNotThrow(() -> ListInstances.listAllInstances(connectClient));
         System.out.println("Test 3 passed");
     }
 
@@ -114,22 +115,22 @@ public class ConnectTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void deleteInstance() {
-        assertDoesNotThrow(() ->DeleteInstance.deleteSpecificInstance(connectClient, instanceId));
+        assertDoesNotThrow(() -> DeleteInstance.deleteSpecificInstance(connectClient, instanceId));
         System.out.println("Test 4 passed");
     }
 
     @Test
     @Order(5)
     public void describeContact() {
-        assertDoesNotThrow(() ->DescribeContact.describeSpecificContact(connectClient, existingInstanceId, contactId));
+        assertDoesNotThrow(() -> DescribeContact.describeSpecificContact(connectClient, existingInstanceId, contactId));
         System.out.println("Test 5 passed");
-   }
+    }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
     public void describeInstanceAttribute() {
-        assertDoesNotThrow(() ->DescribeInstanceAttribute.describeAttribute(connectClient, existingInstanceId));
+        assertDoesNotThrow(() -> DescribeInstanceAttribute.describeAttribute(connectClient, existingInstanceId));
         System.out.println("Test 6 passed");
     }
 
@@ -145,7 +146,7 @@ public class ConnectTest {
     @Tag("IntegrationTest")
     @Order(8)
     public void listPhoneNumbers() {
-        assertDoesNotThrow(() ->ListPhoneNumbers.getPhoneNumbers(connectClient, targetArn));
+        assertDoesNotThrow(() -> ListPhoneNumbers.getPhoneNumbers(connectClient, targetArn));
         System.out.println("Test 8 passed");
     }
 
@@ -153,7 +154,7 @@ public class ConnectTest {
     @Tag("IntegrationTest")
     @Order(9)
     public void listUsers() {
-        assertDoesNotThrow(() ->ListUsers.getUsers(connectClient, existingInstanceId));
+        assertDoesNotThrow(() -> ListUsers.getUsers(connectClient, existingInstanceId));
         System.out.println("Test 9 passed");
     }
 
@@ -161,20 +162,20 @@ public class ConnectTest {
     @Tag("IntegrationTest")
     @Order(10)
     public void searchQueues() {
-        assertDoesNotThrow(() ->SearchQueues.searchQueue(connectClient, existingInstanceId));
+        assertDoesNotThrow(() -> SearchQueues.searchQueue(connectClient, existingInstanceId));
         System.out.println("Test 10 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/connect";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -206,4 +207,3 @@ public class ConnectTest {
         }
     }
 }
-

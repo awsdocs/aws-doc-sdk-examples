@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[StepFunctions.dotnetv3.StepFunctionsActions]
 
@@ -188,8 +188,7 @@ public class StepFunctionsWrapper
 
         do
         {
-            response = await _amazonStepFunctions.ListExecutionsAsync(new ListExecutionsRequest
-            { StateMachineArn = stateMachineArn });
+            response = await _amazonStepFunctions.ListExecutionsAsync(request);
             executions.AddRange(response.Executions);
             if (response.NextToken is not null)
             {

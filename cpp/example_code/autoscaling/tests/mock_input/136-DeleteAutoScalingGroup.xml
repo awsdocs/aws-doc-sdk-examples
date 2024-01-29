@@ -1,0 +1,5 @@
+<DeleteAutoScalingGroupResponse xmlns="http://autoscaling.amazonaws.com/doc/2011-01-01/">   <ResponseMetadata>
+     <RequestId>3354d6c4-cf94-46db-a90c-0176f57f9d15</RequestId>
+   </ResponseMetadata>
+ </DeleteAutoScalingGroupResponse>
+ 

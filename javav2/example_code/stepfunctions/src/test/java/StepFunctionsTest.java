@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.stepfunctions.*;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -20,7 +18,6 @@ import java.io.*;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-
 /**
  * To run these integration tests, you must set the required values
  * in the config.properties file or AWS Secrets Manager.
@@ -28,52 +25,60 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class StepFunctionsTest {
-    private static  SfnClient sfnClient;
-    private static String  roleNameSC = "";
-    private static String  activityNameSC = "";
-    private static String  stateMachineNameSC = "";
+    private static SfnClient sfnClient;
+    private static String roleNameSC = "";
+    private static String activityNameSC = "";
+    private static String stateMachineNameSC = "";
 
     @BeforeAll
     public static void setUp() throws IOException {
         Region region = Region.US_EAST_1;
         sfnClient = SfnClient.builder()
-            .region(region)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        roleNameSC = values.getRoleNameSC()+ java.util.UUID.randomUUID();;
-        activityNameSC = values.getActivityNameSC()+ java.util.UUID.randomUUID();;
-        stateMachineNameSC = values.getStateMachineNameSC()+ java.util.UUID.randomUUID();;
+        roleNameSC = values.getRoleNameSC() + java.util.UUID.randomUUID();
+        ;
+        activityNameSC = values.getActivityNameSC() + java.util.UUID.randomUUID();
+        ;
+        stateMachineNameSC = values.getStateMachineNameSC() + java.util.UUID.randomUUID();
+        ;
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-        try (InputStream input = StepFunctionsTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-            prop.load(input);
-            roleNameSC = prop.getProperty("roleNameSC")+ java.util.UUID.randomUUID();;
-            activityNameSC = prop.getProperty("activityNameSC")+ java.util.UUID.randomUUID();;
-            stateMachineNameSC = prop.getProperty("stateMachineNameSC")+ java.util.UUID.randomUUID();;
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * StepFunctionsTest.class.getClassLoader().getResourceAsStream(
+         * "config.properties")) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * prop.load(input);
+         * roleNameSC = prop.getProperty("roleNameSC")+ java.util.UUID.randomUUID();;
+         * activityNameSC = prop.getProperty("activityNameSC")+
+         * java.util.UUID.randomUUID();;
+         * stateMachineNameSC = prop.getProperty("stateMachineNameSC")+
+         * java.util.UUID.randomUUID();;
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
     public void ListActivities() {
-        assertDoesNotThrow(() ->ListActivities.listAllActivites(sfnClient));
+        assertDoesNotThrow(() -> ListActivities.listAllActivites(sfnClient));
         System.out.println("Test 1 passed");
     }
 
@@ -81,9 +86,9 @@ public class StepFunctionsTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void TestHello() {
-        assertDoesNotThrow(() ->HelloStepFunctions.listMachines(sfnClient));
+        assertDoesNotThrow(() -> ListStateMachines.listMachines(sfnClient));
         System.out.println("Test 2 passed");
-   }
+    }
 
     @Test
     @Tag("IntegrationTest")
@@ -91,31 +96,32 @@ public class StepFunctionsTest {
     public void TestSTFMVP() throws Exception {
         Region regionGl = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(regionGl)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(regionGl)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         Scanner sc = new Scanner(System.in);
-        boolean action = false ;
+        boolean action = false;
         String polJSON = "{\n" +
-            "    \"Version\": \"2012-10-17\",\n" +
-            "    \"Statement\": [\n" +
-            "        {\n" +
-            "            \"Sid\": \"\",\n" +
-            "            \"Effect\": \"Allow\",\n" +
-            "            \"Principal\": {\n" +
-            "                \"Service\": \"states.amazonaws.com\"\n" +
-            "            },\n" +
-            "            \"Action\": \"sts:AssumeRole\"\n" +
-            "        }\n" +
-            "    ]\n" +
-            "}" ;
+                "    \"Version\": \"2012-10-17\",\n" +
+                "    \"Statement\": [\n" +
+                "        {\n" +
+                "            \"Sid\": \"\",\n" +
+                "            \"Effect\": \"Allow\",\n" +
+                "            \"Principal\": {\n" +
+                "                \"Service\": \"states.amazonaws.com\"\n" +
+                "            },\n" +
+                "            \"Action\": \"sts:AssumeRole\"\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
 
         System.out.println(StepFunctionsScenario.DASHES);
         System.out.println("Create an activity.");
         String activityArn = StepFunctionsScenario.createActivity(sfnClient, activityNameSC);
-        System.out.println("The ARN of the activity is "+activityArn);
+        System.out.println("The ARN of the activity is " + activityArn);
         System.out.println(StepFunctionsScenario.DASHES);
-        InputStream input = StepFunctionsScenario.class.getClassLoader().getResourceAsStream("chat_sfn_state_machine.json");
+        InputStream input = StepFunctionsScenario.class.getClassLoader()
+                .getResourceAsStream("chat_sfn_state_machine.json");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readValue(input, JsonNode.class);
         String jsonString = mapper.writeValueAsString(jsonNode);
@@ -131,9 +137,10 @@ public class StepFunctionsTest {
 
         System.out.println(StepFunctionsScenario.DASHES);
         System.out.println("Create a state machine.");
-        String roleARN = StepFunctionsScenario.createIAMRole(iam, roleNameSC, polJSON );
-        String stateMachineArn = StepFunctionsScenario.createMachine(sfnClient, roleARN, stateMachineNameSC, stateDefinition);
-        System.out.println("The ARN of the state machine is "+stateMachineArn);
+        String roleARN = StepFunctionsScenario.createIAMRole(iam, roleNameSC, polJSON);
+        String stateMachineArn = StepFunctionsScenario.createMachine(sfnClient, roleARN, stateMachineNameSC,
+                stateDefinition);
+        System.out.println("The ARN of the state machine is " + stateMachineArn);
         System.out.println(StepFunctionsScenario.DASHES);
 
         System.out.println(StepFunctionsScenario.DASHES);
@@ -141,17 +148,17 @@ public class StepFunctionsTest {
         StepFunctionsScenario.describeStateMachine(sfnClient, stateMachineArn);
         System.out.println("What should ChatSFN call you?");
         String userName = "Foo";
-        System.out.println("Hello "+userName);
+        System.out.println("Hello " + userName);
         System.out.println(StepFunctionsScenario.DASHES);
 
         System.out.println(StepFunctionsScenario.DASHES);
         // The json information to pass to the StartExecution call.
-        String executionJson = "{ \"name\" : \""+userName +"\" }";
+        String executionJson = "{ \"name\" : \"" + userName + "\" }";
         System.out.println(executionJson);
         System.out.println("Start execution of the state machine and interact with it.");
         String runArn = StepFunctionsScenario.startWorkflow(sfnClient, stateMachineArn, executionJson);
-        System.out.println("The ARN of the state machine execution is "+runArn);
-        List<String> myList ;
+        System.out.println("The ARN of the state machine execution is " + runArn);
+        List<String> myList;
         while (!action) {
             myList = StepFunctionsScenario.getActivityTask(sfnClient, activityArn);
             System.out.println("ChatSFN: " + myList.get(1));
@@ -184,16 +191,16 @@ public class StepFunctionsTest {
         System.out.println("Test 4 passed");
     }
 
-    private  static String getSecretValues() {
+    private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/stepfunctions";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();

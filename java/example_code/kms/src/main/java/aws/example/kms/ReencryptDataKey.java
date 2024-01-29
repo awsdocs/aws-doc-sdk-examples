@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[ReencryptDataKey.java demonstrates how to decrypt an encrypted data key, and then immediately re-encrypt the data key under a different customer master key (CMK).]
-//snippet-keyword:[Java]
-//snippet-sourcesyntax:[java]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon KMS]
-//snippet-service:[kms]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2019-04-08]
-//snippet-sourceauthor:[AWS]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package aws.example.kms;
 
@@ -21,8 +14,7 @@ public class ReencryptDataKey {
         AWSKMS kmsClient = AWSKMSClientBuilder.standard().build();
         // Re-encrypt a data key
 
-        ByteBuffer sourceCiphertextBlob = ByteBuffer.wrap(new byte[]{Byte.parseByte("Place your ciphertext here")});
-
+        ByteBuffer sourceCiphertextBlob = ByteBuffer.wrap(new byte[] { Byte.parseByte("Place your ciphertext here") });
 
         // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
         String destinationKeyId = "1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -33,4 +25,3 @@ public class ReencryptDataKey {
         ByteBuffer destinationCipherTextBlob = kmsClient.reEncrypt(req).getCiphertextBlob();
     }
 }
-

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.aws.rest;
 
@@ -13,11 +11,11 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 public class Work {
     private String id;
     private String date;
-    private String description ;
+    private String description;
     private String guide;
-    private String username ;
-    private String status ;
-    private int archive ;
+    private String username;
+    private String status;
+    private int archive;
 
     @DynamoDbPartitionKey
     public String getId() {

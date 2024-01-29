@@ -51,7 +51,85 @@ Go:
       api_ref:
         uid: "SdkForGoV2"
         name: "&guide-go-api;"
-        link_template: "https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/{{.Service}}#Client.{{.Action}}"
+        link_template: "https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/{{.MappedService}}#Client.{{.Action}}"
+        service_map:
+          acm-pca: acmpca
+          alexa-for-business: alexaforbusiness
+          api-gateway: apigateway
+          application-autoscaling: applicationautoscaling
+          app-mesh: appmesh
+          application-auto-scaling: applicationautoscaling
+          application-discovery-service: applicationdiscoveryservice
+          auto-scaling: autoscaling
+          auto-scaling-plans: autoscalingplans
+          bedrock-runtime: bedrockruntime
+          bedrock-agent: bedrockagent
+          bedrock-agent-runtime: bedrockagentruntime
+          cloudsearch-domain: cloudsearchdomain
+          cloudwatch-events: cloudwatchevents
+          cloudwatch-logs: cloudwatchlogs
+          codeguru-reviewer: codegurureviewer
+          codestar-connections: codestarconnections
+          codestar-notifications: codestarnotifications
+          cognito-identity: cognitoidentity
+          cognito-identity-provider: cognitoidentityprovider
+          cognito-sync: cognitosync
+          config-service: configservice
+          cost-and-usage-report-service: costandusagereportservice
+          cost-explorer: costexplorer
+          data-pipeline: datapipeline
+          database-migration-service: databasemigrationservice
+          device-farm: devicefarm
+          direct-connect: directconnect
+          directory-service: directoryservice
+          dynamodb-streams: dynamodbstreams
+          ec2-instance-connect: ec2instanceconnect
+          ecr-public: ecrpublic
+          elastic-beanstalk: elasticbeanstalk
+          elastic-load-balancing: elasticloadbalancing
+          elastic-load-balancing-v2: elasticloadbalancingv2
+          elastic-transcoder: elastictranscoder
+          elasticsearch-service: elasticsearchservice
+          emr-containers: emrcontainers
+          global-accelerator: globalaccelerator
+          iot-1click-devices-service: iot1clickdevicesservice
+          iot-1click-projects: iot1clickprojects
+          iot-data-plane: iotdataplane
+          iot-events: iotevents
+          iot-events-data: ioteventsdata
+          iot-jobs-data-plane: iotjobsdataplane
+          iot-wireless: iotwireless
+          ivs-realtime: ivsrealtime
+          kinesis-analytics-v2: kinesisanalyticsv2
+          license-manager: licensemanager
+          mediapackage-vod: mediapackagevod
+          mediastore-data: mediastoredata
+          medical-imaging: medicalimaging
+          migration-hub: migrationhub
+          payment-cryptography: paymentcryptography
+          payment-cryptography-data: paymentcryptographydata
+          personalize-runtime: personalizeruntime
+          personalize-events: personalizeevents
+          pinpoint-email: pinpointemail
+          pinpoint-sms-voice: pinpointsmsvoice
+          rds-data: rdsdata
+          resource-explorer-2: resourceexplorer2
+          resource-groups: resourcegroups
+          resource-groups-tagging-api: resourcegroupstaggingapi
+          route-53: route53
+          route-53-domains: route53domains
+          route53-recovery-cluster: route53recoverycluster
+          s3-control: s3control
+          secrets-manager: secretsmanager
+          service-catalog: servicecatalog
+          service-catalog-appregistry: servicecatalogappregistry
+          service-quotas: servicequotas
+          ssm-contacts: ssmcontacts
+          ssm-incidents: ssmincidents
+          storage-gateway: storagegateway
+          transcribe-medical: transcribemedical
+          vpc-lattice: vpclattice
+          waf-regional: wafregional
   guide: "&guide-go-dev;"
 Java:
   property: java
@@ -106,7 +184,6 @@ Kotlin:
     1:
       long: "&Kotlinlong;"
       short: "&Kotlin;"
-      caveat: "This is prerelease documentation for a feature in preview release. It is subject to change."
       expanded:
         long: "AWS SDK for Kotlin"
         short: "SDK for Kotlin"
@@ -144,6 +221,21 @@ PHP:
         uid: "SdkForPHPV3"
         name: "&guide-php-api;"
   guide: "&guide-php-dev;"
+PowerShell:
+  property: powershell
+  sdk:
+    4:
+      long: "&TWPALLlong;"
+      short: "&TWPALL;"
+      expanded:
+        long: "AWS Tools for PowerShell"
+        short: "Tools for PowerShell"
+      guide: "powershell/latest/userguide/pstools-welcome.html"
+      api_ref:
+        uid: "ToolsForPowerShell4"
+        name: "&guide-twp-ref;"
+        link_template: "https://docs.aws.amazon.com/powershell/latest/reference"
+  guide: "&guide-twp-ug;"
 Python:
   property: python
   sdk:
@@ -178,7 +270,6 @@ Rust:
     1:
       long: "&Rustlong;"
       short: "&Rust;"
-      caveat: "This documentation is for an SDK in preview release. The SDK is subject to change and should not be used in production."
       expanded:
         long: "AWS SDK for Rust"
         short: "SDK for Rust"
@@ -205,7 +296,8 @@ Swift:
         link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x"
   guide: "&guide-swift-dev;"
 CLI:
-  property: sh
+  property: cli
+  syntax: none
   sdk:
     2:
       long: "&CLIlong;"
@@ -220,6 +312,51 @@ CLI:
       api_ref:
         uid: "aws-cli"
         name: "&guide-cli-ref;"
+        link_template: "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/{{.MappedService}}/{{.ActionKebab}}.html"
+        service_map:
+          api-gateway: apigateway
+          application-auto-scaling: application-autoscaling
+          app-mesh: appmesh
+          auto-scaling: autoscaling
+          auto-scaling-plans: autoscaling-plans
+          cost-explorer: ce
+          cloudsearch-domain: cloudsearchdomain
+          cognito-identity-provider: cognito-idp
+          config-service: configservice
+          cost-and-usage-report-service: cur
+          data-pipeline: datapipeline
+          codedeploy: deploy
+          device-farm: devicefarm
+          direct-connect: directconnect
+          application-discovery-service: discovery
+          database-migration-service: dms
+          directory-service: ds
+          dynamodb-streams: dynamodbstreams
+          elastic-beanstalk: elasticbeanstalk
+          elastic-transcoder: elastictranscoder
+          elastic-load-balancing: elb
+          elastic-load-balancing-v2: elbv2
+          elasticsearch-service: es
+          eventbridge: events
+          global-accelerator: globalaccelerator
+          iot-data-plane: iot-data
+          iot-jobs-data-plane: iot-jobs-data
+          iot-1click-devices-service: iot1click-devices
+          iot-1click-projects: iot1click-projects
+          iot-events: iotevents
+          iot-events-data: iotevents-data
+          iot-wireless: iotwireless
+          cloudwatch-logs: logs
+          resource-groups-tagging-api: resourcegroupstaggingapi
+          route-53: route53
+          route-53-domains: route53domains
+          s3: s3api
+          s3-control: s3control
+          secrets-manager: secretsmanager
+          serverlessapplicationrepository: serverlessrepo
+          service-catalog: servicecatalog
+          service-catalog-appregistry: servicecatalog-appregistry
+          storage-gateway: storagegateway
   guide: "&guide-cli-ug;"
 Bash:
   property: bash

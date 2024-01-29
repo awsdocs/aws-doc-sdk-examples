@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using System.Text.Json;
 using Amazon.DynamoDBv2;
@@ -368,6 +368,7 @@ namespace DynamoDB_Actions
                 },
                 FilterExpression = "#yr between :y_a and :y_z",
                 ProjectionExpression = "#yr, title, info.actors[0], info.directors, info.running_time_secs",
+                Limit = 10 // Set a limit to demonstrate using the LastEvaluatedKey.
             };
 
             // Keep track of how many movies were found.
@@ -379,8 +380,9 @@ namespace DynamoDB_Actions
                 response = await client.ScanAsync(request);
                 foundCount += response.Items.Count;
                 response.Items.ForEach(i => DisplayItem(i));
+                request.ExclusiveStartKey = response.LastEvaluatedKey;
             }
-            while (response.LastEvaluatedKey.Count > 1);
+            while (response.LastEvaluatedKey.Count > 0);
             return foundCount;
         }
 

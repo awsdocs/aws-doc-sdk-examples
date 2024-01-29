@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[StockTrade.java is a helper class]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Kinesis Data Firehose]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.firehose;
 
@@ -15,14 +9,15 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Generates random stock trades by picking randomly from a collection of stocks, assigning a
+ * Generates random stock trades by picking randomly from a collection of
+ * stocks, assigning a
  * random price based on the mean, and picking a random quantity for the shares.
  *
  */
 
 public class StockTradeGenerator {
 
-    private static final List<StockPrice> STOCK_PRICES = new ArrayList<StockPrice>();
+    private static final List<StockPrice> STOCK_PRICES = new ArrayList<>();
     static {
         STOCK_PRICES.add(new StockPrice("AAPL", 119.72));
         STOCK_PRICES.add(new StockPrice("XOM", 91.56));

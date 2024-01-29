@@ -1,15 +1,10 @@
-//snippet-sourcedescription:[ListAccountAliases.java demonstrates how to list all aliases associated with an AWS account.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[IAM]
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 package com.example.iam;
 
+// snippet-start:[iam.java2.list_account_aliases.main]
 // snippet-start:[iam.java2.list_account_aliases.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.iam.model.ListAccountAliasesResponse;
 import software.amazon.awssdk.regions.Region;
@@ -17,7 +12,8 @@ import software.amazon.awssdk.services.iam.IamClient;
 // snippet-end:[iam.java2.list_account_aliases.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -25,21 +21,17 @@ import software.amazon.awssdk.services.iam.IamClient;
  */
 public class ListAccountAliases {
     public static void main(String[] args) {
-
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         listAliases(iam);
         System.out.println("Done");
         iam.close();
     }
 
-    // snippet-start:[iam.java2.list_account_aliases.main]
     public static void listAliases(IamClient iam) {
-
         try {
             ListAccountAliasesResponse response = iam.listAccountAliases();
             for (String alias : response.accountAliases()) {
@@ -51,5 +43,5 @@ public class ListAccountAliases {
             System.exit(1);
         }
     }
-    // snippet-end:[iam.java2.list_account_aliases.main]
 }
+// snippet-end:[iam.java2.list_account_aliases.main]

@@ -1,12 +1,9 @@
 #!/bin/bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 # bashsupport disable=BP2002
-
-###############################################################################
-#
-#    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#    SPDX-License-Identifier: Apache-2.0
-#
-###############################################################################
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 ###############################################################################
 #
@@ -321,7 +318,7 @@ function sts_assume_role() {
 function iam_create_user_assume_role() {
   {
     if [ "$IAM_OPERATIONS_SOURCED" != "True" ]; then
-      # shellcheck disable=SC1091
+
       source ./iam_operations.sh
     fi
   }

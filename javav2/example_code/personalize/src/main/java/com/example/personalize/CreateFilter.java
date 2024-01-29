@@ -1,35 +1,29 @@
-//snippet-sourcedescription:[CreateFilter.java demonstrates how to create an Amazon Personalize filter.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[7/13/2021]
-//snippet-sourceauthor:[seashman - AWS]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.personalize;
 
-//snippet-start:[personalize.java2.create_filter.import]
+// snippet-start:[personalize.java2.create_filter.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalize.model.CreateFilterRequest;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import software.amazon.awssdk.services.personalize.model.PersonalizeException;
-//snippet-end:[personalize.java2.create_filter.import]
+// snippet-end:[personalize.java2.create_filter.import]
 
 public class CreateFilter {
 
-    public static void main(String [] args) {
+    public static void main(String[] args) {
 
-        final String USAGE = "Usage:\n" +
-                "    CreateFilter <filterName, datasetGroupArn, filterExpression, schemaArn>\n\n" +
-                "Where:\n" +
-                "   filterName - The name for the filter.\n" +
-                "   datasetGroupArn - The Amazon Resource Name (ARN) for the destination dataset group.\n" +
-                "   filterExpression - The expression for the filter.\n\n";
+        final String USAGE = """
+                Usage:
+                    CreateFilter <filterName, datasetGroupArn, filterExpression, schemaArn>
+
+                Where:
+                   filterName - The name for the filter.
+                   datasetGroupArn - The Amazon Resource Name (ARN) for the destination dataset group.
+                   filterExpression - The expression for the filter.
+
+                """;
 
         if (args.length != 3) {
             System.out.println(USAGE);
@@ -52,11 +46,12 @@ public class CreateFilter {
         personalizeClient.close();
 
     }
-    //snippet-start:[personalize.java2.create_filter.main]
+
+    // snippet-start:[personalize.java2.create_filter.main]
     public static String createFilter(PersonalizeClient personalizeClient,
-                                       String filterName,
-                                       String datasetGroupArn,
-                                       String filterExpression) {
+            String filterName,
+            String datasetGroupArn,
+            String filterExpression) {
         try {
             CreateFilterRequest request = CreateFilterRequest.builder()
                     .name(filterName)
@@ -65,14 +60,12 @@ public class CreateFilter {
                     .build();
 
             return personalizeClient.createFilter(request).filterArn();
-        }
-        catch(PersonalizeException e) {
+        } catch (PersonalizeException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         return "";
     }
-    //snippet-end:[personalize.java2.create_filter.main]
-
+    // snippet-end:[personalize.java2.create_filter.main]
 
 }

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.google.gson.Gson;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -32,9 +30,9 @@ public class QuickSightTest {
     @BeforeAll
     public static void setUp() {
         qsClient = QuickSightClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -47,34 +45,37 @@ public class QuickSightTest {
         dataSetArn = values.getDataSetArn();
         analysisArn = values.getAnalysisArn();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-        try (InputStream input = QuickSightTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-            prop.load(input);
-            account = prop.getProperty("account");
-            analysisId = prop.getProperty("analysisId");
-            dashboardId = prop.getProperty("dashboardId");
-            templateId = prop.getProperty("templateId");
-            dataSetArn = prop.getProperty("dataSetArn");
-            analysisArn = prop.getProperty("analysisArn");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * try (InputStream input =
+         * QuickSightTest.class.getClassLoader().getResourceAsStream("config.properties"
+         * )) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * prop.load(input);
+         * account = prop.getProperty("account");
+         * analysisId = prop.getProperty("analysisId");
+         * dashboardId = prop.getProperty("dashboardId");
+         * templateId = prop.getProperty("templateId");
+         * dataSetArn = prop.getProperty("dataSetArn");
+         * analysisArn = prop.getProperty("analysisArn");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
     public void DescribeAnalysis() {
-        assertDoesNotThrow(() ->DescribeAnalysis.describeSpecificAnalysis(qsClient, account, analysisId));
+        assertDoesNotThrow(() -> DescribeAnalysis.describeSpecificAnalysis(qsClient, account, analysisId));
         System.out.println("DescribeAnalysis test passed");
     }
 
@@ -82,7 +83,7 @@ public class QuickSightTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void DescribeDashboard() {
-        assertDoesNotThrow(() ->DescribeDashboard.describeSpecificDashboard(qsClient, account, dashboardId));
+        assertDoesNotThrow(() -> DescribeDashboard.describeSpecificDashboard(qsClient, account, dashboardId));
         System.out.println("DescribeDashboard test passed");
     }
 
@@ -90,7 +91,7 @@ public class QuickSightTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void DescribeTemplate() {
-        assertDoesNotThrow(() ->DescribeTemplate.describeSpecificTemplate(qsClient, account, templateId));
+        assertDoesNotThrow(() -> DescribeTemplate.describeSpecificTemplate(qsClient, account, templateId));
         System.out.println("DescribeTemplate test passed");
     }
 
@@ -98,7 +99,7 @@ public class QuickSightTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void ListThemes() {
-        assertDoesNotThrow(() ->ListThemes.listAllThemes(qsClient, account));
+        assertDoesNotThrow(() -> ListThemes.listAllThemes(qsClient, account));
         System.out.println("ListThemes test passed");
     }
 
@@ -106,7 +107,7 @@ public class QuickSightTest {
     @Tag("IntegrationTest")
     @Order(6)
     public void ListAnalyses() {
-        assertDoesNotThrow(() ->ListAnalyses.listAllAnAnalyses(qsClient, account));
+        assertDoesNotThrow(() -> ListAnalyses.listAllAnAnalyses(qsClient, account));
         System.out.println("ListAnalyses test passed");
     }
 
@@ -114,7 +115,7 @@ public class QuickSightTest {
     @Tag("IntegrationTest")
     @Order(7)
     public void ListDashboards() {
-        assertDoesNotThrow(() ->ListDashboards.listAllDashboards(qsClient, account));
+        assertDoesNotThrow(() -> ListDashboards.listAllDashboards(qsClient, account));
         System.out.println("ListDashboards test passed");
     }
 
@@ -122,7 +123,7 @@ public class QuickSightTest {
     @Tag("IntegrationTest")
     @Order(8)
     public void ListTemplates() {
-        assertDoesNotThrow(() ->ListTemplates.listAllTemplates(qsClient, account));
+        assertDoesNotThrow(() -> ListTemplates.listAllTemplates(qsClient, account));
         System.out.println("ListTemplates test passed");
     }
 
@@ -130,19 +131,21 @@ public class QuickSightTest {
     @Tag("IntegrationTest")
     @Order(9)
     public void UpdateDashboard() {
-        assertDoesNotThrow(() ->UpdateDashboard.updateSpecificDashboard(qsClient, account, dashboardId, dataSetArn, analysisArn));
+        assertDoesNotThrow(
+                () -> UpdateDashboard.updateSpecificDashboard(qsClient, account, dashboardId, dataSetArn, analysisArn));
         System.out.println("UpdateDashboard test passed");
     }
+
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/quicksight";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -186,4 +189,3 @@ public class QuickSightTest {
         }
     }
 }
-

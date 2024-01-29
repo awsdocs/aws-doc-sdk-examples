@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[SageMaker.dotnetv3.SagemakerLambda]
 
@@ -117,7 +117,7 @@ public class SageMakerLambdaFunction
 
         // Get information about the SageMaker job.
         var payload = JsonSerializer.Deserialize<QueuePayload>(message.Body);
-        context.Logger.LogInformation($"Payload token {payload.token}");
+        context.Logger.LogInformation($"Payload token {payload!.token}");
         var token = payload.token;
 
         if (payload.arguments.ContainsKey("vej_arn"))

@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.amazonaws.codesamples.datamodeling;
 
@@ -33,7 +31,7 @@ public class DynamoDBMapperTransactionExample {
     static AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
     static DynamoDBMapper mapper;
 
-    public static void main(String[] args)  throws Exception {
+    public static void main(String[] args) throws Exception {
         try {
 
             mapper = new DynamoDBMapper(client);
@@ -46,8 +44,7 @@ public class DynamoDBMapperTransactionExample {
             testTransactionLoadWithTransactionWrite();
             System.out.println("Example complete");
 
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             System.err.println("Error running the DynamoDBMapperTransactionWriteExample: " + t);
             t.printStackTrace();
         }
@@ -72,8 +69,8 @@ public class DynamoDBMapperTransactionExample {
         dynamodbForum.setThreads(1);
         mapper.save(dynamodbForum);
 
-
-        // Read DynamoDB Forum item and Thread item at the same time in a serializable manner
+        // Read DynamoDB Forum item and Thread item at the same time in a serializable
+        // manner
         TransactionLoadRequest transactionLoadRequest = new TransactionLoadRequest();
 
         // Read entire item for DynamoDB Forum
@@ -84,7 +81,8 @@ public class DynamoDBMapperTransactionExample {
                 .withProjectionExpression("Subject, Message");
         transactionLoadRequest.addLoad(dynamodbForumThread, loadExpressionForThread);
 
-        // Loaded objects are guaranteed to be in same order as the order in which they are
+        // Loaded objects are guaranteed to be in same order as the order in which they
+        // are
         // added to TransactionLoadRequest
         List<Object> loadedObjects = executeTransactionLoad(transactionLoadRequest);
         Forum loadedDynamoDBForum = (Forum) loadedObjects.get(0);
@@ -116,8 +114,8 @@ public class DynamoDBMapperTransactionExample {
         transactionWriteRequest.addUpdate(dynamodbForum);
         executeTransactionWrite(transactionWriteRequest);
 
-
-        // Read DynamoDB Forum item and Thread item at the same time in a serializable manner
+        // Read DynamoDB Forum item and Thread item at the same time in a serializable
+        // manner
         TransactionLoadRequest transactionLoadRequest = new TransactionLoadRequest();
 
         // Read entire item for DynamoDB Forum
@@ -128,7 +126,8 @@ public class DynamoDBMapperTransactionExample {
                 .withProjectionExpression("Subject, Message");
         transactionLoadRequest.addLoad(dynamodbForumThread, loadExpressionForThread);
 
-        // Loaded objects are guaranteed to be in same order as the order in which they are
+        // Loaded objects are guaranteed to be in same order as the order in which they
+        // are
         // added to TransactionLoadRequest
         List<Object> loadedObjects = executeTransactionLoad(transactionLoadRequest);
         Forum loadedDynamoDBForum = (Forum) loadedObjects.get(0);
@@ -147,7 +146,8 @@ public class DynamoDBMapperTransactionExample {
         s3Forum.setThreads(0);
         mapper.save(s3Forum);
 
-        // Update Forum item for S3 and Create new Forum item for DynamoDB using transactionWrite
+        // Update Forum item for S3 and Create new Forum item for DynamoDB using
+        // transactionWrite
         s3Forum.setCategory("Amazon Web Services");
         Forum dynamodbForum = new Forum();
         dynamodbForum.setName("DynamoDB Forum");
@@ -160,7 +160,8 @@ public class DynamoDBMapperTransactionExample {
     }
 
     private static void testPutWithConditionalUpdateInTransactionWrite() {
-        // Create new Thread item for DynamoDB forum and update thread count in DynamoDB forum
+        // Create new Thread item for DynamoDB forum and update thread count in DynamoDB
+        // forum
         // if the DynamoDB Forum exists
         Thread dynamodbForumThread = new Thread();
         dynamodbForumThread.setForumName("DynamoDB Forum");
@@ -182,7 +183,8 @@ public class DynamoDBMapperTransactionExample {
     }
 
     private static void testPutWithConditionCheckInTransactionWrite() {
-        // Create new Thread item for DynamoDB forum and update thread count in DynamoDB forum if a thread already exists
+        // Create new Thread item for DynamoDB forum and update thread count in DynamoDB
+        // forum if a thread already exists
         Thread dynamodbForumThread2 = new Thread();
         dynamodbForumThread2.setForumName("DynamoDB Forum");
         dynamodbForumThread2.setSubject("Sample Subject 2");
@@ -207,7 +209,8 @@ public class DynamoDBMapperTransactionExample {
     }
 
     private static void testMixedOperationsInTransactionWrite() {
-        // Create new Thread item for S3 forum and delete "Sample Subject 1" Thread from DynamoDB forum if
+        // Create new Thread item for S3 forum and delete "Sample Subject 1" Thread from
+        // DynamoDB forum if
         // "Sample Subject 2" Thread exists in DynamoDB forum
         Thread s3ForumThread = new Thread();
         s3ForumThread.setForumName("S3 Forum");
@@ -242,6 +245,7 @@ public class DynamoDBMapperTransactionExample {
         transactionWriteRequest.addUpdate(dynamodbForum);
         executeTransactionWrite(transactionWriteRequest);
     }
+
     private static List<Object> executeTransactionLoad(TransactionLoadRequest transactionLoadRequest) {
         List<Object> loadedObjects = new ArrayList<Object>();
         try {
@@ -249,29 +253,38 @@ public class DynamoDBMapperTransactionExample {
         } catch (DynamoDBMappingException ddbme) {
             System.err.println("Client side error in Mapper, fix before retrying. Error: " + ddbme.getMessage());
         } catch (ResourceNotFoundException rnfe) {
-            System.err.println("One of the tables was not found, verify table exists before retrying. Error: " + rnfe.getMessage());
+            System.err.println("One of the tables was not found, verify table exists before retrying. Error: "
+                    + rnfe.getMessage());
         } catch (InternalServerErrorException ise) {
-            System.err.println("Internal Server Error, generally safe to retry with back-off. Error: " + ise.getMessage());
+            System.err.println(
+                    "Internal Server Error, generally safe to retry with back-off. Error: " + ise.getMessage());
         } catch (TransactionCanceledException tce) {
-            System.err.println("Transaction Canceled, implies a client issue, fix before retrying. Error: " + tce.getMessage());
+            System.err.println(
+                    "Transaction Canceled, implies a client issue, fix before retrying. Error: " + tce.getMessage());
         } catch (Exception ex) {
-            System.err.println("An exception occurred, investigate and configure retry strategy. Error: " + ex.getMessage());
+            System.err.println(
+                    "An exception occurred, investigate and configure retry strategy. Error: " + ex.getMessage());
         }
         return loadedObjects;
     }
+
     private static void executeTransactionWrite(TransactionWriteRequest transactionWriteRequest) {
         try {
             mapper.transactionWrite(transactionWriteRequest);
         } catch (DynamoDBMappingException ddbme) {
             System.err.println("Client side error in Mapper, fix before retrying. Error: " + ddbme.getMessage());
         } catch (ResourceNotFoundException rnfe) {
-            System.err.println("One of the tables was not found, verify table exists before retrying. Error: " + rnfe.getMessage());
+            System.err.println("One of the tables was not found, verify table exists before retrying. Error: "
+                    + rnfe.getMessage());
         } catch (InternalServerErrorException ise) {
-            System.err.println("Internal Server Error, generally safe to retry with back-off. Error: " + ise.getMessage());
+            System.err.println(
+                    "Internal Server Error, generally safe to retry with back-off. Error: " + ise.getMessage());
         } catch (TransactionCanceledException tce) {
-            System.err.println("Transaction Canceled, implies a client issue, fix before retrying. Error: " + tce.getMessage());
+            System.err.println(
+                    "Transaction Canceled, implies a client issue, fix before retrying. Error: " + tce.getMessage());
         } catch (Exception ex) {
-            System.err.println("An exception occurred, investigate and configure retry strategy. Error: " + ex.getMessage());
+            System.err.println(
+                    "An exception occurred, investigate and configure retry strategy. Error: " + ex.getMessage());
         }
     }
 

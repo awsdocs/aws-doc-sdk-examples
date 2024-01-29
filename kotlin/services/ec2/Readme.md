@@ -1,69 +1,123 @@
 # Amazon EC2 code examples for the SDK for Kotlin
 
 ## Overview
-This README discusses how to run and test the AWS SDK for Kotlin code examples for Amazon Elastic Compute Cloud (Amazon EC2).
 
-Amazon EC2 provides secure, resizable compute in the cloud, offering the broadest choice of processor, storage, networking, OS, and purchase model.
+Shows how to use the AWS SDK for Kotlin to work with Amazon Elastic Compute Cloud (Amazon EC2).
 
-## ⚠️ Important
-* Running this code might result in charges to your AWS account.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_Amazon EC2 is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
 
-The credential provider used in all code examples is Shared credentials. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/credential-providers.html).
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotlin` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
 ### Get started
 
-- [Hello Amazon EC2](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DeleteSecurityGroup.kt) (describeSecurityGroups command)
+- [Hello Amazon EC2](src/main/kotlin/com/kotlin/ec2/DescribeSecurityGroups.kt#L46) (`DescribeSecurityGroups`)
+
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Allocate an Elastic IP address](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/AllocateAddress.kt) (allocateAddress command)
-- [Create an Amazon EC2 instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/CreateInstance.kt) (runInstances command)
-- [Create an Amazon EC2 key pair](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/CreateKeyPair.kt) (createKeyPair command)
-- [Create an Amazon EC2 security group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/CreateSecurityGroup.kt) (createSecurityGroup command)
-- [Delete an Amazon EC2 key pair](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DeleteKeyPair.kt) (deleteKeyPair command)
-- [Delete an Amazon EC2 security group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DeleteSecurityGroup.kt) (deleteSecurityGroup command)
-- [Describe an Amazon EC2 account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeAccount.kt) (describeAccountAttributes command)
-- [Describe Elastic IP addresses](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeAddresses.kt) (describeAddresses command)
-- [Describe Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeInstances.kt) (describeInstances command)
-- [Describe Amazon EC2 instance tags](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeInstanceTags.kt) (describeTags command)
-- [Describe Amazon EC2 key pairs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeKeyPairs.kt) (describeKeyPairs command)
-- [Describe Amazon EC2 Regions and zones](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeRegionsAndZones.kt) (describeRegions command)
-- [Describe Amazon EC2 security groups](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeSecurityGroups.kt) (describeSecurityGroups command)
-- [Describe Amazon EC2 VPCs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/DescribeVPCs.kt) (describeVpcs command)
-- [Find running EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/FindRunningInstances.kt) (monitorInstances command)
-- [Terminate Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/ec2/src/main/kotlin/com/kotlin/ec2/TerminateInstance.kt) (terminateInstances command)
+- [Allocate an Elastic IP address](src/main/kotlin/com/kotlin/ec2/AllocateAddress.kt#L48) (`AllocateAddress`)
+- [Associate an Elastic IP address with an instance](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L287) (`AssociateAddress`)
+- [Create a security group](src/main/kotlin/com/kotlin/ec2/CreateSecurityGroup.kt#L52) (`CreateSecurityGroup`)
+- [Create a security key pair](src/main/kotlin/com/kotlin/ec2/CreateKeyPair.kt#L45) (`CreateKeyPair`)
+- [Create and run an instance](src/main/kotlin/com/kotlin/ec2/CreateInstance.kt#L50) (`RunInstances`)
+- [Delete a security group](src/main/kotlin/com/kotlin/ec2/DeleteSecurityGroup.kt#L44) (`DeleteSecurityGroup`)
+- [Delete a security key pair](src/main/kotlin/com/kotlin/ec2/DeleteKeyPair.kt#L45) (`DeleteKeyPair`)
+- [Describe instances](src/main/kotlin/com/kotlin/ec2/DescribeInstances.kt#L29) (`DescribeInstances`)
+- [Disassociate an Elastic IP address from an instance](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L275) (`DisassociateAddress`)
+- [Get data about a security group](src/main/kotlin/com/kotlin/ec2/DescribeSecurityGroups.kt#L46) (`DescribeSecurityGroups`)
+- [Get data about instance types](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L389) (`DescribeInstanceTypes`)
+- [List security key pairs](src/main/kotlin/com/kotlin/ec2/DescribeKeyPairs.kt#L29) (`DescribeKeyPairs`)
+- [Release an Elastic IP address](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L262) (`ReleaseAddress`)
+- [Set inbound rules for a security group](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L471) (`AuthorizeSecurityGroupIngress`)
+- [Start an instance](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L311) (`StartInstances`)
+- [Stop an instance](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L328) (`StopInstances`)
+- [Terminate an instance](src/main/kotlin/com/kotlin/ec2/TerminateInstance.kt#L45) (`TerminateInstances`)
 
-### Scenario 
+### Scenarios
 
-Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
-- [Get started with Amazon EC2 instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/support/src/main/javav2/example_code/ec2/src/main/java/com/example/ec2/EC2Scenario.java) (Multiple commands)
+- [Get started with instances](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt)
 
-## Run the Amazon EC2 Kotlin files
 
-**Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-To run these examples, set up your development environment. For more information, 
-see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
+## Run the examples
 
- ## Test the Amazon EC2 Kotlin files
+### Instructions
 
-You can test the Kotlin code examples for Amazon EC2 by running a test file named **EC2Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/kotlin** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the  tests succeed or fail. For example, the following message informs you that Test 3 passed.
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-	Test 3 passed
+#### Hello Amazon EC2
+
+This example shows you how to get started using Amazon EC2.
+
+
+
+#### Get started with instances
+
+This example shows you how to do the following:
+
+- Create a key pair and security group.
+- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
+- Stop and restart the instance.
+- Associate an Elastic IP address with your instance.
+- Connect to your instance with SSH, then clean up resources.
+
+<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.end-->
+
+
+<!--custom.scenarios.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.scenarios.ec2_Scenario_GetStartedInstances.end-->
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `kotlin` folder.
+
+
+
+<!--custom.tests.start-->
+
+You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the tests succeed or fail. For example, the following message informs you that Test 3 passed.
+
+    Test 3 passed
 
 **WARNING**: _Running these JUnit tests manipulates real Amazon EC2 resources and might incur charges on your account._
 
- ### Properties file
+### Properties file
+
 Before running the Amazon EC2 JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an instance name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
@@ -75,56 +129,66 @@ Define these values to successfully run the JUnit tests:
 - **groupDesc** – A description of the group. For example, **Test Group**.
 - **vpcId** – A VPC ID. You can obtain this value from the AWS Management Console.
 - **keyNameSc** - A key pair to use in the scenario test.
-- **fileNameSc** - A file name where the key information is written to and used in the scenario test. 
-- **groupNameSc** - A group name that is used in the scenario test. 
-- **groupDescSc** - A group name description that is used in the scenario test. 
+- **fileNameSc** - A file name where the key information is written to and used in the scenario test.
+- **groupNameSc** - A group name that is used in the scenario test.
+- **groupDescSc** - A group name description that is used in the scenario test.
 - **vpcIdSc** – A VPC ID that is used in the scenario test.
 - **myIpAddress** – The IP address of your development machine that is used in the scenario test.
 
 ### Command line
+
 To run the JUnit tests from the command line, you can use the following command.
 
-		mvn test
+    	mvn test
 
 You will see output from the JUnit tests, as shown here.
 
-	[INFO] -------------------------------------------------------
-	[INFO]  T E S T S
-	[INFO] -------------------------------------------------------
-	[INFO] Running EC2Test
-	Test 1 passed
-	Test 2 passed
-	...
-	Done!
-	[INFO] Results:
-	[INFO]
-	[INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0
-	[INFO]
-	INFO] --------------------------------------------
-	[INFO] BUILD SUCCESS
-	[INFO]--------------------------------------------
-	[INFO] Total time:  12.003 s
-	[INFO] Finished at: 2020-02-10T14:25:08-05:00
-	[INFO] --------------------------------------------
+    [INFO] -------------------------------------------------------
+    [INFO]  T E S T S
+    [INFO] -------------------------------------------------------
+    [INFO] Running EC2Test
+    Test 1 passed
+    Test 2 passed
+    ...
+    Done!
+    [INFO] Results:
+    [INFO]
+    [INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0
+    [INFO]
+    INFO] --------------------------------------------
+    [INFO] BUILD SUCCESS
+    [INFO]--------------------------------------------
+    [INFO] Total time:  12.003 s
+    [INFO] Finished at: 2020-02-10T14:25:08-05:00
+    [INFO] --------------------------------------------
 
 ### Unsuccessful tests
 
 If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as the following. You need to double-check the values that you set in the properties file and run the tests again.
 
-	[INFO]
-	[INFO] --------------------------------------
-	[INFO] BUILD FAILURE
-	[INFO] --------------------------------------
-	[INFO] Total time:  19.038 s
-	[INFO] Finished at: 2020-02-10T14:41:51-05:00
-	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test).  There are test failures.
-	[ERROR];
-	
-## Additional resources
-* [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html)
-* [Amazon EC2 documentation](https://docs.aws.amazon.com/ec2/index.html)
-* [Ec2Client - Kotlin Reference](https://sdk.amazonaws.com/kotlin/api/latest/support/aws.sdk.kotlin.services.support/index.html)
+    [INFO]
+    [INFO] --------------------------------------
+    [INFO] BUILD FAILURE
+    [INFO] --------------------------------------
+    [INFO] Total time:  19.038 s
+    [INFO] Finished at: 2020-02-10T14:41:51-05:00
+    [INFO] ---------------------------------------
+    [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test).  There are test failures.
+    [ERROR];
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
-	
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
+- [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
+- [SDK for Kotlin Amazon EC2 reference](https://sdk.amazonaws.com/kotlin/api/latest/ec2/index.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

@@ -8,7 +8,7 @@ iot_DescribeEndpoint:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/iot
+          github: rustv1/examples/iot
           excerpts:
             - description:
               snippet_tags:
@@ -24,7 +24,7 @@ iot_ListThings:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/examples/iot
+          github: rustv1/examples/iot
           excerpts:
             - description:
               snippet_tags:

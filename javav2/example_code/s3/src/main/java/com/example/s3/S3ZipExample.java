@@ -1,10 +1,5 @@
-//snippet-sourcedescription:[S3ZipExample.java demonstrates how to create a ZIP file of images, store the ZIP file in an Amazon Simple Storage Service (Amazon S3) and presign the ZIP file.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3;
 
@@ -26,26 +21,28 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class S3ZipExample {
-
     public static void main(String[] args) {
-        final String usage = "\n" +
-            "Usage:\n" +
-            "  <bucketName> <imageKeys> \n\n" +
-            "Where:\n" +
-            "  bucketName - The Amazon S3 bucket where JPG images are located. \n" +
-            "  keys -  A comma separated list of images (without spaces) located in the S3 bucket and to be placed into a ZIP file. For example,  For example pic1.jpg,pic2.jpg";
+        final String usage = """
 
-       if (args.length != 2) {
-           System.out.println(usage);
-           System.exit(1);
-       }
+                Usage:
+                  <bucketName> <imageKeys>\s
+
+                Where:
+                  bucketName - The Amazon S3 bucket where JPG images are located.\s
+                  keys -  A comma separated list of images (without spaces) located in the S3 bucket and to be placed into a ZIP file. For example,  For example pic1.jpg,pic2.jpg""";
+
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         // Replace with your S3 bucket name.
         String bucketName = args[0];
@@ -53,13 +50,13 @@ public class S3ZipExample {
         String[] imageKeys = keys.split("[,]", 0);
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
 
         createZIPFile(s3, bucketName, imageKeys);
     }
 
-    public static void createZIPFile(S3Client s3, String bucketName,String[] imageKeys) {
+    public static void createZIPFile(S3Client s3, String bucketName, String[] imageKeys) {
         String uuid = java.util.UUID.randomUUID().toString();
         String zipName = uuid + ".zip";
         // Create a ByteArrayOutputStream to write the ZIP file to.
@@ -73,9 +70,9 @@ public class S3ZipExample {
             for (String imageKey : imageKeys) {
                 // Get the object data from S3.
                 GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(imageKey)
-                    .build();
+                        .bucket(bucketName)
+                        .key(imageKey)
+                        .build();
                 ResponseBytes<GetObjectResponse> responseBytes = s3.getObjectAsBytes(getObjectRequest);
 
                 // Create a ZipEntry for the object and add it to the ZipOutputStream.
@@ -94,12 +91,12 @@ public class S3ZipExample {
 
             // Upload the ZIP file to S3.
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key(zipName)
-                .build();
+                    .bucket(bucketName)
+                    .key(zipName)
+                    .build();
             s3.putObject(putObjectRequest, RequestBody.fromBytes(outputStream.toByteArray()));
-            String preSignUrl = signObjectToDownload(bucketName,zipName);
-            System.out.println("The Presigned URL is "+preSignUrl);
+            String preSignUrl = signObjectToDownload(bucketName, zipName);
+            System.out.println("The Presigned URL is " + preSignUrl);
 
         } catch (S3Exception | IOException e) {
             System.err.println(e.getMessage());
@@ -115,19 +112,19 @@ public class S3ZipExample {
 
     public static String signObjectToDownload(String bucketName, String keyName) {
         S3Presigner presignerOb = S3Presigner.builder()
-            .region(Region.US_EAST_1)
-            .build();
+                .region(Region.US_EAST_1)
+                .build();
 
         try {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                .bucket(bucketName)
-                .key(keyName)
-                .build();
+                    .bucket(bucketName)
+                    .key(keyName)
+                    .build();
 
             GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-                .signatureDuration(Duration.ofMinutes(1440))
-                .getObjectRequest(getObjectRequest)
-                .build();
+                    .signatureDuration(Duration.ofMinutes(1440))
+                    .getObjectRequest(getObjectRequest)
+                    .build();
 
             PresignedGetObjectRequest presignedGetObjectRequest = presignerOb.presignGetObject(getObjectPresignRequest);
             return presignedGetObjectRequest.url().toString();

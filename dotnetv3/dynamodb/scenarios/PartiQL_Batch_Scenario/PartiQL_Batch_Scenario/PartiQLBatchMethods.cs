@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace PartiQL_Batch_Scenario
 {
@@ -83,7 +83,7 @@ namespace PartiQL_Batch_Scenario
         {
             if (!File.Exists(movieFileName))
             {
-                return null;
+                return null!;
             }
 
             using var sr = new StreamReader(movieFileName);
@@ -97,7 +97,7 @@ namespace PartiQL_Batch_Scenario
             }
             else
             {
-                return null;
+                return null!;
             }
         }
         // snippet-end:[PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies]

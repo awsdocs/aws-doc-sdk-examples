@@ -1,76 +1,98 @@
-# AWS Elemental MediaStore Java code examples
+# MediaStore code examples for the SDK for Java 2.x
 
-This README discusses how to run and test the Java code examples for AWS Elemental MediaStore.
+## Overview
 
-## Running the AWS Elemental MediaStore Java files
+Shows how to use the AWS SDK for Java 2.x to work with AWS Elemental MediaStore.
 
-The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-**IMPORTANT**
+_MediaStore _
 
-The Java code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+## ⚠ Important
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
- ## Testing the AWS Elemental MediaStore files
+<!--custom.important.start-->
+<!--custom.important.end-->
 
-You can test the Java code examples for AWS Elemental MediaStore by running a test file named **MediaStoreTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+## Code examples
 
-You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+### Prerequisites
 
-	Test 3 passed
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and might incur charges on your account._
 
- ### Properties file
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create a container](src/main/java/com/example/mediastore/CreateContainer.java#L12) (`CreateContainer`)
+- [Delete a container](src/main/java/com/example/mediastore/CreateContainer.java#L12) (`DeleteContainer`)
+- [Delete an object](src/main/java/com/example/mediastore/DeleteObject.java#L12) (`DeleteObject`)
+- [Describe a container](src/main/java/com/example/mediastore/DescribeContainer.java#L12) (`DescribeContainer`)
+- [Get an object](src/main/java/com/example/mediastore/GetObject.java#L12) (`GetObject`)
+- [List containers](src/main/java/com/example/mediastore/ListContainers.java#L12) (`ListContainers`)
+- [Put an object into a container](src/main/java/com/example/mediastore/PutObject.java#L12) (`PutObject`)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
+
+
+
+<!--custom.tests.start-->
+
+#### Properties file
+
 Before running the AWS Elemental MediaStore JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a container name used for various tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **containerName** - The name of a new container.  
+- **containerName** - The name of a new container.
 - **existingContainer** – The name of an existing container.
 - **filePath** – The file location of an MP4 file to upload to a container.
 - **putPath** – The container and location where a file is uploaded (for example, Videos5/sampleVideo.mp4).
-- **getPath** –  The container and location where a file is downloaded from (for example, Videos5/sampleVideo.mp4).
+- **getPath** – The container and location where a file is downloaded from (for example, Videos5/sampleVideo.mp4).
 - **savePath** – The path on the local drive where the file is saved.
 
-### Command line
-To run the JUnit tests from the command line, you can use the following command.
+<!--custom.tests.end-->
 
-		mvn test
+## Additional resources
 
-You will see output from the JUnit tests, as shown here.
+- [MediaStore User Guide](https://docs.aws.amazon.com/mediastore/latest/ug/what-is.html)
+- [MediaStore API Reference](https://docs.aws.amazon.com/mediastore/latest/apireference/Welcome.html)
+- [SDK for Java 2.x MediaStore reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/mediastore/package-summary.html)
 
-	[INFO] -------------------------------------------------------
-	[INFO]  T E S T S
-	[INFO] -------------------------------------------------------
-	[INFO] Running MediaStoreTest
-	Test 1 passed
-	Test 2 passed
-	...
-	Done!
-	[INFO] Results:
-	[INFO]
-	[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0
-	[INFO]
-	INFO] --------------------------------------------
-	[INFO] BUILD SUCCESS
-	[INFO]--------------------------------------------
-	[INFO] Total time:  12.003 s
-	[INFO] Finished at: 2020-02-10T14:25:08-05:00
-	[INFO] --------------------------------------------
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
-### Unsuccessful tests
+---
 
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as the following. You need to double-check the values that you set in the properties file and run the tests again.
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-	[INFO]
-	[INFO] --------------------------------------
-	[INFO] BUILD FAILURE
-	[INFO] --------------------------------------
-	[INFO] Total time:  19.038 s
-	[INFO] Finished at: 2020-02-10T14:41:51-05:00
-	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
-	[ERROR];
+SPDX-License-Identifier: Apache-2.0

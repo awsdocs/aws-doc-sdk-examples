@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace CancelExportTaskExample
 {
@@ -10,8 +10,7 @@ namespace CancelExportTaskExample
     using Amazon.CloudWatchLogs.Model;
 
     /// <summary>
-    /// Shows how to cancel an Amazon CloudWatch Logs export task. The example
-    /// uses the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// Shows how to cancel an Amazon CloudWatch Logs export task.
     /// </summary>
     public class CancelExportTask
     {

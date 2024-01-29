@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.tags;
 
@@ -73,7 +71,7 @@ public class S3Service {
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
 
-            for (S3Object myValue: objects) {
+            for (S3Object myValue : objects) {
                 keyName = myValue.key();
                 keys.add(keyName);
             }
@@ -101,7 +99,7 @@ public class S3Service {
             // tag all the assets in the list.
             for (Object o : myList) {
 
-                //Need to get the WorkItem from each list.
+                // Need to get the WorkItem from each list.
                 List innerList = (List) o;
                 for (Object value : innerList) {
 
@@ -124,7 +122,8 @@ public class S3Service {
 
         try {
 
-            // First need to get existing tag set; otherwise the existing tags are overwritten.
+            // First need to get existing tag set; otherwise the existing tags are
+            // overwritten.
             GetObjectTaggingRequest getObjectTaggingRequest = GetObjectTaggingRequest.builder()
                     .bucket(bucketName)
                     .key(key)
@@ -163,7 +162,7 @@ public class S3Service {
         }
     }
 
-    //Delete tags from the given object.
+    // Delete tags from the given object.
     public void deleteTagFromObject(String bucketName, String key) {
 
         try {

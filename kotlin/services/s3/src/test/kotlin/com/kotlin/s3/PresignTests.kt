@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.kotlin.s3
 
 import aws.sdk.kotlin.services.s3.S3Client
@@ -22,7 +24,6 @@ import kotlin.time.Duration.Companion.hours
 @TestMethodOrder(OrderAnnotation::class)
 class PresignTests {
     val logger = LoggerFactory.getLogger("com.kotlin.s3.PresignTests")
-
     private val s3 = S3Client {
         region = "us-east-1"
         logMode = LogMode.LogRequestWithBody + LogMode.LogResponseWithBody
@@ -81,8 +82,9 @@ class PresignTests {
         // The example under test sets a future signing date of 12 hours from now.
         // The signing date ends up as the 'X-Amz-Date' query parameter on the URL.
         val presignedRequest = getObjectPresignedMoreOptions(s3, bucketName, keyName)
-
-        val stringDate: String? = presignedRequest.url.parameters.get("X-Amz-Date")
+        val myMap = presignedRequest.url.parameters.encodedParameters
+        val stringDate = myMap["X-Amz-Date"]?.firstOrNull()
+        println(stringDate)
 
         if (!stringDate.isNullOrEmpty()) {
             val signingDate = Instant.fromIso8601(stringDate.toString())

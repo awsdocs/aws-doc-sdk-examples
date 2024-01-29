@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.amazonaws.personalize.client.resource;
 
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
@@ -72,7 +71,8 @@ public class DatasetGroupManager extends AbstractResourceManager {
             ListDatasetGroupsRequest listDatasetGroupsRequest = ListDatasetGroupsRequest.builder()
                     .maxResults(100)
                     .build();
-            ListDatasetGroupsResponse datasetGroupsResponse = getPersonalize().listDatasetGroups(listDatasetGroupsRequest);
+            ListDatasetGroupsResponse datasetGroupsResponse = getPersonalize()
+                    .listDatasetGroups(listDatasetGroupsRequest);
 
             for (DatasetGroupSummary dgs : datasetGroupsResponse.datasetGroups()) {
                 if (dgs.name().equals(name)) {

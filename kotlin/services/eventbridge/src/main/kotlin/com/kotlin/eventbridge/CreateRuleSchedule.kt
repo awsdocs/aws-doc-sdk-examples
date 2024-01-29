@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[CreateRuleSchedule.kt demonstrates how to create an Amazon EventBridge rule that has a target and runs on a schedule.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon EventBridge]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.eventbridge
 

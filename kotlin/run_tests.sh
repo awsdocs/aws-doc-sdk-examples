@@ -1,4 +1,6 @@
 #!/bin/bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 # Recursive function to navigate sub-directories
 run_gradle_tests() {
@@ -15,9 +17,7 @@ run_gradle_tests() {
 }
 
 # Root directory
-root_dir="services"
-
-cd kotlin
+root_dir="/kotlin/services"
 
 # Error if the root directory does not exist
 if [[ ! -d "$root_dir" ]]; then

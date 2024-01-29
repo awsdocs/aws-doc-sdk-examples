@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.translate.BatchTranslation;
 import com.example.translate.DescribeTextTranslationJob;
@@ -37,11 +35,11 @@ public class TranslateTest {
 
     @BeforeAll
     public static void setUp() throws IOException {
-       region = Region.US_WEST_2;
-       translateClient = TranslateClient.builder()
-           .region(region)
-           .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-           .build();
+        region = Region.US_WEST_2;
+        translateClient = TranslateClient.builder()
+                .region(region)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -49,29 +47,32 @@ public class TranslateTest {
         SecretValues values = gson.fromJson(json, SecretValues.class);
         s3Uri = values.getS3Uri();
         s3UriOut = values.getS3UriOut();
-        jobName = values.getJobName()+java.util.UUID.randomUUID();
+        jobName = values.getJobName() + java.util.UUID.randomUUID();
         dataAccessRoleArn = values.getDataAccessRoleArn();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-        try (InputStream input = TranslateTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-            // Populate the data members required for all tests.
-            prop.load(input);
-            s3Uri = prop.getProperty("s3Uri");
-            s3UriOut = prop.getProperty("s3UriOut");
-            jobName = prop.getProperty("jobName")+ java.util.UUID.randomUUID();
-            dataAccessRoleArn = prop.getProperty("dataAccessRoleArn");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * try (InputStream input =
+         * TranslateTest.class.getClassLoader().getResourceAsStream("config.properties")
+         * ) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * 
+         * // Populate the data members required for all tests.
+         * prop.load(input);
+         * s3Uri = prop.getProperty("s3Uri");
+         * s3UriOut = prop.getProperty("s3UriOut");
+         * jobName = prop.getProperty("jobName")+ java.util.UUID.randomUUID();
+         * dataAccessRoleArn = prop.getProperty("dataAccessRoleArn");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
 
     }
 
@@ -79,7 +80,7 @@ public class TranslateTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void TranslateText() {
-        assertDoesNotThrow(() ->TranslateText.textTranslate(translateClient));
+        assertDoesNotThrow(() -> TranslateText.textTranslate(translateClient));
         System.out.println("Test 1 passed");
     }
 
@@ -96,7 +97,7 @@ public class TranslateTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void ListTextTranslationJobs() {
-        assertDoesNotThrow(() ->ListTextTranslationJobs.getTranslationJobs(translateClient));
+        assertDoesNotThrow(() -> ListTextTranslationJobs.getTranslationJobs(translateClient));
         System.out.println("Test 3 passed");
     }
 
@@ -104,19 +105,20 @@ public class TranslateTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void DescribeTextTranslationJob() {
-        assertDoesNotThrow(() ->DescribeTextTranslationJob.describeTextTranslationJob(translateClient, jobId));
+        assertDoesNotThrow(() -> DescribeTextTranslationJob.describeTextTranslationJob(translateClient, jobId));
         System.out.println("Test 4 passed");
     }
+
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/translate";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -148,4 +150,3 @@ public class TranslateTest {
         }
     }
 }
-

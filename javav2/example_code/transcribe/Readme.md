@@ -1,28 +1,101 @@
-# Amazon Transcribe Java code examples
+# Amazon Transcribe code examples for the SDK for Java 2.x
 
-This README discusses how to run and test the Java code examples for Amazon Transcribe.
+## Overview
 
-## Running the Amazon Transcribe Java files
+Shows how to use the AWS SDK for Java 2.x to work with Amazon Transcribe.
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_Amazon Transcribe provides transcription services for your audio files and audio streams._
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
 
 
- ## Testing the  Amazon Transcribe files
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-You can test the Java code examples for  Amazon Transcribe by running a test file named **TranscribeTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+### Single actions
 
-You can execute the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. 
+Code excerpts that show you how to call individual service functions.
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
+- [List transcription jobs](src/main/java/com/amazonaws/transcribe/ListTranscriptionJobs.java#L9) (`ListTranscriptionJobs`)
+- [Start a transcription job](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoApp.java#L35) (`StartTranscriptionJob`)
 
- ### Command line
-To execute the JUnit tests from the command line, you can use the following command.
+### Scenarios
 
-		mvn test
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
-The second test remains running until you stop the test. You can talk into your microphone and see the results written out on the console. You can manually stop the test.  
+- [Transcribe audio and get job data](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoFile.java)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+#### Transcribe audio and get job data
+
+This example shows you how to do the following:
+
+- Start a transcription job with Amazon Transcribe.
+- Wait for the job to complete.
+- Get the URI where the transcript is stored.
+
+<!--custom.scenario_prereqs.transcribe_Scenario_GettingStartedTranscriptionJobs.start-->
+<!--custom.scenario_prereqs.transcribe_Scenario_GettingStartedTranscriptionJobs.end-->
+
+
+<!--custom.scenarios.transcribe_Scenario_GettingStartedTranscriptionJobs.start-->
+<!--custom.scenarios.transcribe_Scenario_GettingStartedTranscriptionJobs.end-->
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Amazon Transcribe Developer Guide](https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html)
+- [Amazon Transcribe API Reference](https://docs.aws.amazon.com/transcribe/latest/APIReference/Welcome.html)
+- [SDK for Java 2.x Amazon Transcribe reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/transcribe/package-summary.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

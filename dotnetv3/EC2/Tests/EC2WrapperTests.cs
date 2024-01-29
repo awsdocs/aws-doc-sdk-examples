@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 namespace EC2Tests;
 /// <summary>
@@ -13,7 +13,7 @@ public class EC2WrapperTests
     private readonly EC2Wrapper _ec2Wrapper;
     private readonly SsmWrapper _ssmWrapper;
 
-    private readonly string _ciderBlock;
+    private readonly string _ciderBlock = null!;
     private readonly string _groupName;
     private readonly string _groupDescription;
     private readonly string _keyPairName;
@@ -43,10 +43,10 @@ public class EC2WrapperTests
             .Build();
 
         _ciderBlock = _configuration["CidrBlock"];
-        _groupName = _configuration["GroupName"];
-        _groupDescription = _configuration["GroupDescription"];
+        _groupName = _configuration["GroupName"]!;
+        _groupDescription = _configuration["GroupDescription"]!;
         _instanceType = _configuration["InstanceType"];
-        _keyPairName = _configuration["KeyPairName"];
+        _keyPairName = _configuration["KeyPairName"]!;
 
         _client = new AmazonEC2Client();
 
@@ -374,7 +374,7 @@ public class EC2WrapperTests
     [Trait("Category", "Integration")]
     public async Task DeleteKeyPairTest()
     {
-        var success = await _ec2Wrapper.DeleteKeyPair(_keyPair.KeyName);
+        var success = await _ec2Wrapper.DeleteKeyPair(_keyPair!.KeyName);
         Assert.True(success, "Could not delete the key pair.");
     }
 

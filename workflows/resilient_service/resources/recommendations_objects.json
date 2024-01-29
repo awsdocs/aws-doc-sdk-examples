@@ -1,0 +1,11 @@
+[
+  {"MediaType": "Book", "ItemId":1, "Title": "Pride and Prejudice", "Creator": "Jane Austen"},
+  {"MediaType": "Book", "ItemId":2, "Title": "The Lord of the Rings", "Creator": "J. R. R. Tolkien"},
+  {"MediaType": "Book", "ItemId":3, "Title": "The Three Musketeers", "Creator": "Alexandre Dumas"},
+  {"MediaType": "Movie", "ItemId":1, "Title": "Delicatessen", "Creator": "Jeunet et Caro"},
+  {"MediaType": "Movie", "ItemId":2, "Title": "The Princess Bride", "Creator": "Rob Reiner"},
+  {"MediaType": "Movie", "ItemId":3, "Title": "12 Angry Men", "Creator": "Sidney Lumet"},
+  {"MediaType": "Song", "ItemId":1, "Title": "And Dream of Sheep", "Creator": "Kate Bush"},
+  {"MediaType": "Song", "ItemId":2, "Title": "Mirrorball", "Creator": "Elbow"},
+  {"MediaType": "Song", "ItemId":3, "Title": "Guardians of Asgaard", "Creator": "Amon Amarth"}
+]

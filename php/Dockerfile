@@ -21,4 +21,4 @@ RUN addgroup -S automation && \
 
 USER automation:automation
 
-CMD ["./php/testing", "--integ"]
+CMD ["/php/testing", "--integ"]

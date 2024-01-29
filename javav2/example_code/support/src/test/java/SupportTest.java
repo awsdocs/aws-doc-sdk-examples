@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import org.junit.jupiter.api.*;
 
@@ -26,9 +24,9 @@ public class SupportTest {
 
         Region region = Region.US_WEST_2;
         supportClient = SupportClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         try (InputStream input = SupportTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
@@ -63,7 +61,7 @@ public class SupportTest {
         assertFalse(sevLevel.isEmpty());
 
         String caseId = SupportScenario.createSupportCase(supportClient, sevCatList, sevLevel);
-        if (caseId.compareTo("")==0) {
+        if (caseId.compareTo("") == 0) {
             System.exit(1);
         }
 

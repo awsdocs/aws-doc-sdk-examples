@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[SendMessageEmail.kt demonstrates how to send an email message by using the Amazon Simple Email Service (Amazon SES).]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon Simple Email Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.ses
 

@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[StartDocumentAnalysis.kt demonstrates how to start the asynchronous analysis of a document.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Amazon Textract]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.textract
 

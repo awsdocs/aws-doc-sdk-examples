@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[lookoutvision.java2.datasets.complete]
 
@@ -267,7 +265,7 @@ public class Datasets {
 
         }
 
-                /**
+        /**
          * Updates an Amazon Lookout for Vision dataset from a manifest file.
          * Returns after Lookout for Vision updates the dataset.
          * 
@@ -276,8 +274,9 @@ public class Datasets {
          *                     dataset.
          * @param datasetType  The type of the dataset that you want to update (train or
          *                     test).
-         * @param manifestFile The name and location of a local manifest file that you want to
-         * use to update the dataset.
+         * @param manifestFile The name and location of a local manifest file that you
+         *                     want to
+         *                     use to update the dataset.
          * @return DatasetStatus The status of the updated dataset.
          */
 

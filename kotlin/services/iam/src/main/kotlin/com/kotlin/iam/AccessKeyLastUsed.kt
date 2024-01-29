@@ -1,11 +1,5 @@
-// snippet-sourcedescription:[AccessKeyLastUsed.kt demonstrates how to display the time that an access key was last used.]
-// snippet-keyword:[AWS SDK for Kotlin]
-// snippet-service:[Identity and Access Management (IAM)]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.kotlin.iam
 

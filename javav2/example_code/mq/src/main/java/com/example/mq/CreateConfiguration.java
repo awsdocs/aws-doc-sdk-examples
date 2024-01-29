@@ -1,15 +1,5 @@
-//snippet-sourcedescription:[CreateConfiguration.java demonstrates how to create an Amazon MQ configuration.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon MQ]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/18/2021]
-//snippet-sourceauthor:[fararmin-aws]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[mq.java2.create_configuration.complete]
 package com.example.mq;
@@ -22,15 +12,17 @@ import software.amazon.awssdk.services.mq.model.CreateConfigurationResponse;
 import software.amazon.awssdk.services.mq.model.MqException;
 // snippet-end:[mq.java2.create_configuration.import]
 
-
 public class CreateConfiguration {
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage: " +
-                "CreateConfiguration <configurationName>\n\n" +
-                "Where:\n" +
-                "  configurationName - the name of the ActiveMQ configuration.\n\n" ;
+        final String USAGE = """
+
+                Usage: CreateConfiguration <configurationName>
+
+                Where:
+                  configurationName - the name of the ActiveMQ configuration.
+
+                """;
 
         String configurationName = "";
         if (args.length > 1) {
@@ -41,26 +33,27 @@ public class CreateConfiguration {
         } else {
             configurationName = "Configuration-" + System.currentTimeMillis();
         }
-        
+
         Region region = Region.US_WEST_2;
-        
+
         MqClient mqClient = MqClient.builder()
                 .region(region)
                 .build();
-        
+
         String result = createNewConfigutation(mqClient, configurationName);
         System.out.println("Configuration ID: " + result);
         mqClient.close();
     }
+
     // snippet-start:[mq.java2.create_configuration.main]
     public static String createNewConfigutation(MqClient mqClient, String configurationName) {
         try {
             CreateConfigurationRequest configurationRequest = CreateConfigurationRequest.builder()
-                .name(configurationName)
-                .engineVersion("5.15.14")
-                .engineType("ACTIVEMQ")
-                .authenticationStrategy("SIMPLE")
-                .build();
+                    .name(configurationName)
+                    .engineVersion("5.15.14")
+                    .engineType("ACTIVEMQ")
+                    .authenticationStrategy("SIMPLE")
+                    .build();
 
             CreateConfigurationResponse response = mqClient.createConfiguration(configurationRequest);
             return response.id();

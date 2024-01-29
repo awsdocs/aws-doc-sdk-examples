@@ -1,16 +1,10 @@
-//snippet-sourcedescription:[BatchTranslation.java demonstrates how to translate multiple text documents located in an Amazon S3 bucket.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon Translate]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.translate;
 
+// snippet-start:[translate.java2._batch.main]
 // snippet-start:[translate.java2._batch.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.translate.TranslateClient;
 import software.amazon.awssdk.services.translate.model.StartTextTranslationJobRequest;
@@ -23,26 +17,28 @@ import software.amazon.awssdk.services.translate.model.TranslateException;
 // snippet-end:[translate.java2._batch.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class BatchTranslation {
-
     public static long sleepTime = 5;
 
     public static void main(String[] args) {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <s3Uri> <s3UriOut> <jobName> <dataAccessRoleArn> \n\n" +
-            "Where:\n" +
-            "    s3Uri - The URI of the Amazon S3 bucket where the documents to translate are located. \n" +
-            "    s3UriOut - The URI of the Amazon S3 bucket where the translated documents are saved to.  \n" +
-            "    jobName - The job name. \n" +
-            "    dataAccessRoleArn - The Amazon Resource Name (ARN) value of the role required for translation jobs.\n";
+                Usage:
+                    <s3Uri> <s3UriOut> <jobName> <dataAccessRoleArn>\s
+
+                Where:
+                    s3Uri - The URI of the Amazon S3 bucket where the documents to translate are located.\s
+                    s3UriOut - The URI of the Amazon S3 bucket where the translated documents are saved to. \s
+                    jobName - The job name.\s
+                    dataAccessRoleArn - The Amazon Resource Name (ARN) value of the role required for translation jobs.
+                """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -56,55 +52,54 @@ public class BatchTranslation {
 
         Region region = Region.US_WEST_2;
         TranslateClient translateClient = TranslateClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         String id = translateDocuments(translateClient, s3Uri, s3UriOut, jobName, dataAccessRoleArn);
-        System.out.println("Translation job "+id + " is completed");
+        System.out.println("Translation job " + id + " is completed");
         translateClient.close();
     }
 
-    // snippet-start:[translate.java2._batch.main]
     public static String translateDocuments(TranslateClient translateClient,
-                                          String s3Uri,
-                                          String s3UriOut,
-                                          String jobName,
-                                          String dataAccessRoleArn) {
+            String s3Uri,
+            String s3UriOut,
+            String jobName,
+            String dataAccessRoleArn) {
 
         try {
             InputDataConfig dataConfig = InputDataConfig.builder()
-                .s3Uri(s3Uri)
-                .contentType("text/plain")
-                .build();
+                    .s3Uri(s3Uri)
+                    .contentType("text/plain")
+                    .build();
 
             OutputDataConfig outputDataConfig = OutputDataConfig.builder()
-                .s3Uri(s3UriOut)
-                .build();
+                    .s3Uri(s3UriOut)
+                    .build();
 
             StartTextTranslationJobRequest textTranslationJobRequest = StartTextTranslationJobRequest.builder()
-                .jobName(jobName)
-                .dataAccessRoleArn(dataAccessRoleArn)
-                .inputDataConfig(dataConfig)
-                .outputDataConfig(outputDataConfig)
-                .sourceLanguageCode("en")
-                .targetLanguageCodes("fr")
-                .build();
+                    .jobName(jobName)
+                    .dataAccessRoleArn(dataAccessRoleArn)
+                    .inputDataConfig(dataConfig)
+                    .outputDataConfig(outputDataConfig)
+                    .sourceLanguageCode("en")
+                    .targetLanguageCodes("fr")
+                    .build();
 
-            StartTextTranslationJobResponse textTranslationJobResponse = translateClient.startTextTranslationJob(textTranslationJobRequest);
+            StartTextTranslationJobResponse textTranslationJobResponse = translateClient
+                    .startTextTranslationJob(textTranslationJobRequest);
 
-            //Keep checking until job is done
+            // Keep checking until job is done
             boolean jobDone = false;
             String jobStatus;
             String jobId = textTranslationJobResponse.jobId();
 
             DescribeTextTranslationJobRequest jobRequest = DescribeTextTranslationJobRequest.builder()
-                .jobId(jobId)
-                .build();
+                    .jobId(jobId)
+                    .build();
 
             while (!jobDone) {
 
-                //Check status on each loop
+                // Check status on each loop
                 DescribeTextTranslationJobResponse response = translateClient.describeTextTranslationJob(jobRequest);
                 jobStatus = response.textTranslationJobProperties().jobStatusAsString();
                 System.out.println(jobStatus);
@@ -122,7 +117,7 @@ public class BatchTranslation {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-     return "";
+        return "";
     }
-    // snippet-end:[translate.java2._batch.main]
 }
+// snippet-end:[translate.java2._batch.main]

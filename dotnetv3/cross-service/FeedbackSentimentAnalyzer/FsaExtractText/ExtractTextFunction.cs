@@ -1,5 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
 using Amazon.Lambda.Core;
 using Amazon.Textract;
@@ -40,7 +40,7 @@ public class ExtractTextFunction
     }
 
     /// <summary>
-    /// This method is called for every Lambda invocation. This method takes in an S3 event object and can be used 
+    /// This method is called for every Lambda invocation. This method takes in an S3 event object and can be used
     /// to respond to S3 notifications.
     /// </summary>
     /// <param name="evnt">The CloudWatch S3 Event.</param>

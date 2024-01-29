@@ -1,20 +1,9 @@
-//snippet-sourcedescription:[GetRecommendations.java demonstrates how to return a list of recommended items
-// from a recommender created in a domain dataset group.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon Personalize]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[1/6/22]
-//snippet-sourceauthor:[seashman - AWS]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.personalize;
 
-//snippet-start:[personalize.java2.get_recommendations_from_recommender.import]
+// snippet-start:[personalize.java2.get_recommendations_from_recommender.import]
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.personalizeruntime.PersonalizeRuntimeClient;
@@ -22,10 +11,11 @@ import software.amazon.awssdk.services.personalizeruntime.model.GetRecommendatio
 import software.amazon.awssdk.services.personalizeruntime.model.GetRecommendationsResponse;
 import software.amazon.awssdk.services.personalizeruntime.model.PredictedItem;
 import java.util.List;
-//snippet-end:[personalize.java2.get_recommendations_from_recommender.import]
+// snippet-end:[personalize.java2.get_recommendations_from_recommender.import]
 
 /**
- * To run this Java V2 code example, ensure that you have setup your development environment, including your credentials.
+ * To run this Java V2 code example, ensure that you have setup your development
+ * environment, including your credentials.
  *
  * For information, see this documentation topic:
  *
@@ -35,12 +25,15 @@ public class GetRecommendationsFromRecommender {
 
     public static void main(String[] args) {
 
-        final String USAGE = "\n" +
-                "Usage:\n" +
-                "    GetRecommendations <recommenderArn> <userId>\n\n" +
-                "Where:\n" +
-                "    recommenderArn - The ARN of the recommender.\n\n" +
-                "    userId - The user ID to provide recommendations for\n\n";
+        final String USAGE = """
+
+                Usage:
+                    GetRecommendations <recommenderArn> <userId>
+
+                Where:
+                    recommenderArn - The ARN of the recommender.
+                    userId - The user ID to provide recommendations for
+                """;
 
         if (args.length < 2) {
             System.out.println(USAGE);
@@ -57,8 +50,10 @@ public class GetRecommendationsFromRecommender {
         getRecs(personalizeRuntimeClient, recommenderArn, userId);
         personalizeRuntimeClient.close();
     }
-    //snippet-start:[personalize.java2.get_recommendations_from_recommender.main]
-    public static void getRecs(PersonalizeRuntimeClient personalizeRuntimeClient, String recommenderArn, String userId){
+
+    // snippet-start:[personalize.java2.get_recommendations_from_recommender.main]
+    public static void getRecs(PersonalizeRuntimeClient personalizeRuntimeClient, String recommenderArn,
+            String userId) {
 
         try {
             GetRecommendationsRequest recommendationsRequest = GetRecommendationsRequest.builder()
@@ -67,17 +62,18 @@ public class GetRecommendationsFromRecommender {
                     .userId(userId)
                     .build();
 
-            GetRecommendationsResponse recommendationsResponse = personalizeRuntimeClient.getRecommendations(recommendationsRequest);
+            GetRecommendationsResponse recommendationsResponse = personalizeRuntimeClient
+                    .getRecommendations(recommendationsRequest);
             List<PredictedItem> items = recommendationsResponse.itemList();
 
-            for (PredictedItem item: items) {
-                System.out.println("Item Id is : "+item.itemId());
-                System.out.println("Item score is : "+item.score());
+            for (PredictedItem item : items) {
+                System.out.println("Item Id is : " + item.itemId());
+                System.out.println("Item score is : " + item.score());
             }
         } catch (AwsServiceException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
-    //snippet-end:[personalize.java2.get_recommendations_from_recommender.main]
+    // snippet-end:[personalize.java2.get_recommendations_from_recommender.main]
 }

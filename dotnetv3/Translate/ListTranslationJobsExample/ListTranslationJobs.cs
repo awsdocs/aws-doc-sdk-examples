@@ -1,11 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// List Amazon Translate translation jobs, along with details about each job.
-/// This example was created using the AWS SDK for .NET version 3.7 and
-/// .NET Core 5.0.
-/// </summary>
 namespace ListTranslationJobsExample
 {
     // snippet-start:[Translate.dotnetv3.ListTranslationJobsExample]
@@ -15,6 +10,9 @@ namespace ListTranslationJobsExample
     using Amazon.Translate;
     using Amazon.Translate.Model;
 
+    /// <summary>
+    /// List Amazon Translate translation jobs, along with details about each job.
+    /// </summary>
     public class ListTranslationJobs
     {
         public static async Task Main()

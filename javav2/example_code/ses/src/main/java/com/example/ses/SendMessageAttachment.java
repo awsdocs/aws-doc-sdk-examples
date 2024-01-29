@@ -1,18 +1,11 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[SendMessageAttachment.java demonstrates how to send an email message with an attachment by using the Amazon Simple Email Service (Amazon SES).]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon Simple Email Service]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[ses.java2.sendmessageattachment.complete]
 package com.example.ses;
 
+// snippet-start:[ses.java2.sendmessageattachment.main]
 // snippet-start:[ses.java2.sendmessageattachment.import]
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
 import javax.activation.DataHandler;
@@ -38,7 +31,8 @@ import software.amazon.awssdk.services.ses.model.SesException;
 // snippet-end:[ses.java2.sendmessageattachment.import]
 
 /**
- * Before running this Java V2 code example, set up your development environment, including your credentials.
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -46,17 +40,18 @@ import software.amazon.awssdk.services.ses.model.SesException;
  */
 
 public class SendMessageAttachment {
-
     public static void main(String[] args) throws IOException {
+        final String usage = """
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <sender> <recipient> <subject> <fileLocation> \n\n" +
-            "Where:\n" +
-            "    sender - An email address that represents the sender. \n"+
-            "    recipient -  An email address that represents the recipient. \n"+
-            "    subject - The  subject line. \n" +
-            "    fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls). \n" ;
+                Usage:
+                    <sender> <recipient> <subject> <fileLocation>\s
+
+                Where:
+                    sender - An email address that represents the sender.\s
+                    recipient -  An email address that represents the recipient.\s
+                    subject - The  subject line.\s
+                    fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls).\s
+                """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -74,16 +69,16 @@ public class SendMessageAttachment {
 
         // The HTML body of the email.
         String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-                + "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>";
+                + "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>"
+                + "</html>";
 
         Region region = Region.US_WEST_2;
         SesClient client = SesClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .build();
 
         try {
-            sendemailAttachment(client, sender, recipient, subject, bodyText, bodyHTML, fileLocation );
+            sendemailAttachment(client, sender, recipient, subject, bodyText, bodyHTML, fileLocation);
             client.close();
             System.out.println("Done");
 
@@ -92,14 +87,13 @@ public class SendMessageAttachment {
         }
     }
 
-    // snippet-start:[ses.java2.sendmessageattachment.main]
     public static void sendemailAttachment(SesClient client,
-                            String sender,
-                            String recipient,
-                            String subject,
-                            String bodyText,
-                            String bodyHTML,
-                            String fileLocation) throws AddressException, MessagingException, IOException {
+            String sender,
+            String recipient,
+            String subject,
+            String bodyText,
+            String bodyHTML,
+            String fileLocation) throws AddressException, MessagingException, IOException {
 
         java.io.File theFile = new java.io.File(fileLocation);
         byte[] fileContent = Files.readAllBytes(theFile.toPath());
@@ -144,7 +138,8 @@ public class SendMessageAttachment {
 
         // Define the attachment.
         MimeBodyPart att = new MimeBodyPart();
-        DataSource fds = new ByteArrayDataSource(fileContent, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        DataSource fds = new ByteArrayDataSource(fileContent,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
 
         String reportName = "WorkReport.xls";
@@ -166,12 +161,12 @@ public class SendMessageAttachment {
 
             SdkBytes data = SdkBytes.fromByteArray(arr);
             RawMessage rawMessage = RawMessage.builder()
-                .data(data)
-                .build();
+                    .data(data)
+                    .build();
 
             SendRawEmailRequest rawEmailRequest = SendRawEmailRequest.builder()
-                .rawMessage(rawMessage)
-                .build();
+                    .rawMessage(rawMessage)
+                    .build();
 
             client.sendRawEmail(rawEmailRequest);
 
@@ -180,7 +175,7 @@ public class SendMessageAttachment {
             System.exit(1);
         }
         System.out.println("Email sent using SesClient with attachment");
-     }
-    // snippet-end:[ses.java2.sendmessageattachment.main]
+    }
 }
+// snippet-end:[ses.java2.sendmessageattachment.main]
 // snippet-end:[ses.java2.sendmessageattachment.complete]

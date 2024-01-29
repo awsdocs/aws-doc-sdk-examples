@@ -1,7 +1,5 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 import com.example.ses.ListIdentities;
 import com.example.ses.SendMessage;
@@ -31,32 +29,32 @@ import software.amazon.awssdk.services.sesv2.SesV2Client;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AWSSesTest {
 
-    private static SesClient client ;
-    private static SesV2Client sesv2Client ;
-    private static String sender="";
-    private static String recipient="";
-    private static String subject="";
-    private static String fileLocation="";
+    private static SesClient client;
+    private static SesV2Client sesv2Client;
+    private static String sender = "";
+    private static String recipient = "";
+    private static String subject = "";
+    private static String fileLocation = "";
     private static String templateName = "";
 
     private static String bodyText = "Hello,\r\n" + "Please see the attached file for a list "
-        + "of customers to contact.";
+            + "of customers to contact.";
 
     // The HTML body of the email.
     private static String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-        + "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>";
+            + "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>";
 
     @BeforeAll
     public static void setUp() throws IOException, URISyntaxException {
         client = SesClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
-        sesv2Client =  SesV2Client.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+        sesv2Client = SesV2Client.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -65,37 +63,39 @@ public class AWSSesTest {
         sender = values.getSender();
         recipient = values.getRecipient();
         subject = values.getSubject();
-        fileLocation= values.getFileLocation();
+        fileLocation = values.getFileLocation();
         templateName = values.getTemplateName();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-       /*
-
-
-        try (InputStream input = AWSSesTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-            prop.load(input);
-            sender = prop.getProperty("sender");
-            recipient = prop.getProperty("recipient");
-            subject = prop.getProperty("subject");
-            fileLocation= prop.getProperty("fileLocation");
-            templateName = prop.getProperty("templateName");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        */
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+         * 
+         * 
+         * try (InputStream input =
+         * AWSSesTest.class.getClassLoader().getResourceAsStream("config.properties")) {
+         * Properties prop = new Properties();
+         * if (input == null) {
+         * System.out.println("Sorry, unable to find config.properties");
+         * return;
+         * }
+         * prop.load(input);
+         * sender = prop.getProperty("sender");
+         * recipient = prop.getProperty("recipient");
+         * subject = prop.getProperty("subject");
+         * fileLocation= prop.getProperty("fileLocation");
+         * templateName = prop.getProperty("templateName");
+         * 
+         * } catch (IOException ex) {
+         * ex.printStackTrace();
+         * }
+         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
     public void SendMessage() {
-        assertDoesNotThrow(() -> SendMessage.send(client, sender,recipient, subject, bodyText, bodyHTML));
+        assertDoesNotThrow(() -> SendMessage.send(client, sender, recipient, subject, bodyText, bodyHTML));
         System.out.println("Test 1 passed");
     }
 
@@ -111,7 +111,8 @@ public class AWSSesTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void SendMessageAttachment() {
-        assertDoesNotThrow(() -> SendMessageAttachment.sendemailAttachment(client, sender, recipient, subject, bodyText, bodyHTML, fileLocation));
+        assertDoesNotThrow(() -> SendMessageAttachment.sendemailAttachment(client, sender, recipient, subject, bodyText,
+                bodyHTML, fileLocation));
         System.out.println("Test 3 passed");
     }
 
@@ -119,7 +120,8 @@ public class AWSSesTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void SendMessageAttachmentV2() {
-        assertDoesNotThrow(() -> com.example.sesv2.SendMessageAttachment.sendEmailAttachment(sesv2Client, sender, recipient, subject, bodyHTML, fileLocation));
+        assertDoesNotThrow(() -> com.example.sesv2.SendMessageAttachment.sendEmailAttachment(sesv2Client, sender,
+                recipient, subject, bodyHTML, fileLocation));
         System.out.println("Test 4 passed");
     }
 
@@ -154,16 +156,17 @@ public class AWSSesTest {
         assertDoesNotThrow(() -> ListTemplates.listAllTemplates(sesv2Client));
         System.out.println("Test 8 passed");
     }
+
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(Region.US_EAST_1)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
         String secretName = "test/ses";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
+                .secretId(secretName)
+                .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
