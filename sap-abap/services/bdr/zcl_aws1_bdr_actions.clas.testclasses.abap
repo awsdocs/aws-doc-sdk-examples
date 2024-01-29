@@ -19,6 +19,9 @@ CLASS ltc_zcl_aws1_bdr_actions DEFINITION FOR TESTING  DURATION LONG RISK LEVEL 
     METHODS: test_claude_v2 FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS: test_stable_diffusion FOR TESTING RAISING /aws1/cx_rt_generic.
 
+    METHODS: test_l2_claude_v2 FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS: test_l2_stable_diffusion FOR TESTING RAISING /aws1/cx_rt_generic.
+
     METHODS: setup RAISING /aws1/cx_rt_generic.
 
 ENDCLASS.
@@ -38,6 +41,19 @@ CLASS ltc_zcl_aws1_bdr_actions IMPLEMENTATION.
 
   METHOD test_stable_diffusion.
     DATA(lv_joke) = ao_bdr_actions->prompt_stable_diffusion(
+      'Show me a picture of a kitten coding in ABAP on an SAP system'
+    ).
+    cl_abap_unit_assert=>assert_not_initial( act = lv_joke ).
+  ENDMETHOD.
+  METHOD test_l2_claude_v2.
+    DATA(lv_joke) = ao_bdr_actions->l2_prompt_claude_v2(
+      'Tell me a joke about ABAP programmers and Java programmers walking into a bar'
+    ).
+    cl_abap_unit_assert=>assert_not_initial( act = lv_joke ).
+  ENDMETHOD.
+
+  METHOD test_l2_stable_diffusion.
+    DATA(lv_joke) = ao_bdr_actions->l2_prompt_stable_diffusion(
       'Show me a picture of a kitten coding in ABAP on an SAP system'
     ).
     cl_abap_unit_assert=>assert_not_initial( act = lv_joke ).

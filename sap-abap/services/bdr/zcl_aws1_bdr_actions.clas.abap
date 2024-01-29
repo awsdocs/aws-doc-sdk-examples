@@ -29,11 +29,74 @@ private section.
       /AWS1/CX_RT_TECHNICAL_GENERIC
       /AWS1/CX_RT_SERVICE_GENERIC
       /AWS1/CX_RT_NO_AUTH_GENERIC .
+  methods L2_PROMPT_CLAUDE_V2
+    importing
+      !IV_PROMPT type STRING
+    returning
+      value(OV_ANSWER) type STRING
+    raising
+      /AWS1/CX_BDRSERVEREXC
+      /AWS1/CX_BDRCLIENTEXC
+      /AWS1/CX_RT_TECHNICAL_GENERIC
+      /AWS1/CX_RT_SERVICE_GENERIC
+      /AWS1/CX_RT_NO_AUTH_GENERIC .
+  methods L2_PROMPT_STABLE_DIFFUSION
+    importing
+      !IV_PROMPT type STRING
+    returning
+      value(OV_IMAGE) type XSTRING
+    raising
+      /AWS1/CX_BDRSERVEREXC
+      /AWS1/CX_BDRCLIENTEXC
+      /AWS1/CX_RT_TECHNICAL_GENERIC
+      /AWS1/CX_RT_SERVICE_GENERIC
+      /AWS1/CX_RT_NO_AUTH_GENERIC .
 ENDCLASS.
 
 
 
 CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
+
+
+  METHOD l2_prompt_claude_v2.
+    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_bdr) = /aws1/cl_bdr_factory=>create( lo_session ).
+    "snippet-start:[bdr.abapv1.invokemodel_l2_claude_v2]
+    TRY.
+        data(lo_bdr_l2_claude) = /aws1/cl_bdr_l2_factory=>create_claude_2( lo_bdr ).
+        " iv_prompt can contain a prompt like 'tell me a joke about Java programmers'.
+        DATA(lv_answer) = lo_bdr_l2_claude->prompt_for_text( iv_prompt ).
+      CATCH /aws1/cx_bdraccessdeniedex INTO DATA(lo_ex).
+        WRITE: / lo_ex->get_text( ).
+        WRITE: / |Don't forget to enable model access at https://us-west-2.console.aws.amazon.com/bedrock/home?#/modelaccess|.
+        "Catch other exceptions as desired...
+    ENDTRY.
+    "snippet-end:[bdr.abapv1.invokemodel_l2_claude_v2]
+    ov_answer = lv_answer.
+  ENDMETHOD.
+
+
+  METHOD L2_PROMPT_STABLE_DIFFUSION.
+    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_bdr) = /aws1/cl_bdr_factory=>create( lo_session ).
+    "snippet-start:[bdr.abapv1.invokemodel_l2_stable_diffusion]
+    TRY.
+      DATA(lo_bdr_l2_sd) = /AWS1/CL_BDR_L2_FACTORY=>CREATE_STABLE_DIFFUSION_10( lo_bdr ).
+      " iv_prompt contains a prompt like 'Show me a picture of a unicorn reading an enterprise financial report'.
+      data(lv_image) = lo_bdr_l2_sd->TEXT_TO_IMAGE( iv_prompt ).
+        CATCH /aws1/cx_bdraccessdeniedex INTO DATA(lo_ex).
+          WRITE: / lo_ex->get_text( ).
+          WRITE: / |Don't forget to enable model access at https://us-west-2.console.aws.amazon.com/bedrock/home?#/modelaccess|.
+          "Catch other exceptions as desired...
+    ENDTRY.
+    "snippet-end:[bdr.abapv1.invokemodel_l2_stable_diffusion]
+    ov_image = lv_image.
+
+  ENDMETHOD.
 
 
   METHOD prompt_claude_v2.
