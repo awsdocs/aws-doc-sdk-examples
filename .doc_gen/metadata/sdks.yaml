@@ -51,7 +51,85 @@ Go:
       api_ref:
         uid: "SdkForGoV2"
         name: "&guide-go-api;"
-        link_template: "https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/{{.Service}}#Client.{{.Action}}"
+        link_template: "https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/{{.MappedService}}#Client.{{.Action}}"
+        service_map:
+          acm-pca: acmpca
+          alexa-for-business: alexaforbusiness
+          api-gateway: apigateway
+          application-autoscaling: applicationautoscaling
+          app-mesh: appmesh
+          application-auto-scaling: applicationautoscaling
+          application-discovery-service: applicationdiscoveryservice
+          auto-scaling: autoscaling
+          auto-scaling-plans: autoscalingplans
+          bedrock-runtime: bedrockruntime
+          bedrock-agent: bedrockagent
+          bedrock-agent-runtime: bedrockagentruntime
+          cloudsearch-domain: cloudsearchdomain
+          cloudwatch-events: cloudwatchevents
+          cloudwatch-logs: cloudwatchlogs
+          codeguru-reviewer: codegurureviewer
+          codestar-connections: codestarconnections
+          codestar-notifications: codestarnotifications
+          cognito-identity: cognitoidentity
+          cognito-identity-provider: cognitoidentityprovider
+          cognito-sync: cognitosync
+          config-service: configservice
+          cost-and-usage-report-service: costandusagereportservice
+          cost-explorer: costexplorer
+          data-pipeline: datapipeline
+          database-migration-service: databasemigrationservice
+          device-farm: devicefarm
+          direct-connect: directconnect
+          directory-service: directoryservice
+          dynamodb-streams: dynamodbstreams
+          ec2-instance-connect: ec2instanceconnect
+          ecr-public: ecrpublic
+          elastic-beanstalk: elasticbeanstalk
+          elastic-load-balancing: elasticloadbalancing
+          elastic-load-balancing-v2: elasticloadbalancingv2
+          elastic-transcoder: elastictranscoder
+          elasticsearch-service: elasticsearchservice
+          emr-containers: emrcontainers
+          global-accelerator: globalaccelerator
+          iot-1click-devices-service: iot1clickdevicesservice
+          iot-1click-projects: iot1clickprojects
+          iot-data-plane: iotdataplane
+          iot-events: iotevents
+          iot-events-data: ioteventsdata
+          iot-jobs-data-plane: iotjobsdataplane
+          iot-wireless: iotwireless
+          ivs-realtime: ivsrealtime
+          kinesis-analytics-v2: kinesisanalyticsv2
+          license-manager: licensemanager
+          mediapackage-vod: mediapackagevod
+          mediastore-data: mediastoredata
+          medical-imaging: medicalimaging
+          migration-hub: migrationhub
+          payment-cryptography: paymentcryptography
+          payment-cryptography-data: paymentcryptographydata
+          personalize-runtime: personalizeruntime
+          personalize-events: personalizeevents
+          pinpoint-email: pinpointemail
+          pinpoint-sms-voice: pinpointsmsvoice
+          rds-data: rdsdata
+          resource-explorer-2: resourceexplorer2
+          resource-groups: resourcegroups
+          resource-groups-tagging-api: resourcegroupstaggingapi
+          route-53: route53
+          route-53-domains: route53domains
+          route53-recovery-cluster: route53recoverycluster
+          s3-control: s3control
+          secrets-manager: secretsmanager
+          service-catalog: servicecatalog
+          service-catalog-appregistry: servicecatalogappregistry
+          service-quotas: servicequotas
+          ssm-contacts: ssmcontacts
+          ssm-incidents: ssmincidents
+          storage-gateway: storagegateway
+          transcribe-medical: transcribemedical
+          vpc-lattice: vpclattice
+          waf-regional: wafregional
   guide: "&guide-go-dev;"
 Java:
   property: java
