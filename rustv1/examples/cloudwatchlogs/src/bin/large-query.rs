@@ -3,7 +3,15 @@
 
 #![allow(clippy::result_large_err)]
 
-use std::{collections::HashSet, env, str::from_utf8, time::Duration};
+use async_recursion::async_recursion;
+use std::{
+    collections::HashSet,
+    env,
+    fmt::Display,
+    str::from_utf8,
+    time::{Duration, Instant},
+};
+use tracing::info;
 
 use aws_config::BehaviorVersion;
 use aws_sdk_cloudwatchlogs::{
@@ -12,10 +20,7 @@ use aws_sdk_cloudwatchlogs::{
         retry::{ClassifyRetry, RetryAction},
     },
     error::ProvideErrorMetadata,
-    operation::{
-        get_query_results::GetQueryResultsOutput,
-        start_query::{StartQueryError, StartQueryInput, StartQueryOutput},
-    },
+    operation::get_query_results::GetQueryResultsOutput,
     types::ResultField,
     Client, Config, Error,
 };
@@ -24,8 +29,9 @@ use chrono::{DateTime, Utc};
 
 #[derive(Debug)]
 enum LargeQueryError {
-    CloudwatchLogsError(Error),
-    DateOutOfBoundsError,
+    DateOutOfBounds,
+    FromCloudwatchLogs(Error),
+    FromChronoParse(chrono::ParseError),
 }
 
 #[derive(Debug)]
@@ -49,16 +55,23 @@ impl ClassifyRetry for CloudWatchLongQueryQueryResultRetryClassifier {
         match ctx.response() {
             None => RetryAction::NoActionIndicated,
             Some(response) => {
+                info!("ClassifyRetry for Cloud Watch Logs long query waiter");
                 let body = from_utf8(response.body().bytes().unwrap_or_default());
                 match body {
-                    Err(_) => {
+                    Err(e) => {
+                        info!("Server error {e:?}");
                         RetryAction::retryable_error(aws_config::retry::ErrorKind::ServerError)
                     }
                     Ok(body) => {
                         if self.status_done.iter().any(|status| body.contains(status)) {
+                            info!("Found status in {body}");
                             RetryAction::RetryForbidden
                         } else {
-                            RetryAction::retryable_error(aws_config::retry::ErrorKind::ServerError)
+                            info!("No matching status in {body}");
+                            RetryAction::retryable_error_with_explicit_delay(
+                                aws_config::retry::ErrorKind::ClientError,
+                                Duration::from_secs(1),
+                            )
                         }
                     }
                 }
@@ -71,31 +84,87 @@ impl ClassifyRetry for CloudWatchLongQueryQueryResultRetryClassifier {
     }
 }
 
+struct DateRange(DateTime<Utc>, DateTime<Utc>);
+impl DateRange {
+    fn split(&self) -> (DateRange, DateRange) {
+        let mid = (self.1 - self.0) / 2;
+        (
+            DateRange(self.0, self.0 + mid),
+            DateRange(self.0 + mid + Duration::from_millis(1), self.1),
+        )
+    }
+}
+
+impl Display for DateRange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "from {} to {}", self.0.format("%+"), self.1.format("%+"))
+    }
+}
+
 struct CloudWatchLongQuery {
     client: Client,
     log_group_name: String,
-    date_range: (DateTime<Utc>, DateTime<Utc>),
+    date_range: DateRange,
     limit: i32,
     results: Vec<Vec<ResultField>>,
+    elapsed_time: Option<Duration>,
 }
 
 impl CloudWatchLongQuery {
-    fn new(
-        client: Client,
-        log_group_name: String,
-        date_range: (DateTime<Utc>, DateTime<Utc>),
-    ) -> Self {
+    fn new(client: Client, log_group_name: String, date_range: DateRange) -> Self {
         Self {
             client,
             log_group_name,
             date_range,
             limit: 10_000,
             results: vec![],
+            elapsed_time: None,
         }
     }
 
-    async fn run(&mut self) -> Result<(), LargeQueryError> {
-        Ok(())
+    pub async fn run(&mut self) -> Result<(), LargeQueryError> {
+        self.elapsed_time = None;
+        self.results.clear();
+        let start = Instant::now();
+
+        let results = self.large_query(&self.date_range).await;
+        self.elapsed_time = Some(start.elapsed());
+
+        results.map(|e| {
+            self.results = e;
+        })
+    }
+
+    #[async_recursion]
+    async fn large_query(
+        &self,
+        date_range: &DateRange,
+    ) -> Result<Vec<Vec<ResultField>>, LargeQueryError> {
+        info!("Running query {date_range}");
+
+        let logs = self.query(date_range).await?;
+
+        info!(
+            "Query date range {date_range} found {} entries.",
+            logs.len()
+        );
+
+        if logs.len() < self.limit.try_into().unwrap() {
+            return Ok(logs);
+        }
+
+        let mut last_log_date: DateTime<Utc> = get_last_log_date(&logs)?;
+        last_log_date += Duration::from_millis(1);
+        let (r1, r2) = DateRange(last_log_date, date_range.1).split();
+
+        let logs = [
+            logs,
+            self.large_query(&r1).await?,
+            self.large_query(&r2).await?,
+        ]
+        .concat();
+
+        Ok(logs)
     }
 
     async fn get_query_results(
@@ -117,21 +186,21 @@ impl CloudWatchLongQuery {
             )
             .send()
             .await
-            .map_err(|err| LargeQueryError::CloudwatchLogsError(err.into()))
+            .map_err(|err| LargeQueryError::FromCloudwatchLogs(err.into()))
     }
 
     async fn query(
         &self,
-        date_range: (DateTime<Utc>, DateTime<Utc>),
+        date_range: &DateRange,
     ) -> Result<Vec<Vec<ResultField>>, LargeQueryError> {
         let query_id = self.start_query(date_range).await?;
-        Ok(vec![])
+        info!("Started query {date_range} as {query_id}");
+        let results = self.get_query_results(query_id.as_str()).await?;
+        info!("Finished query {query_id}");
+        Ok(results.results.unwrap_or_default())
     }
 
-    async fn start_query(
-        &self,
-        date_range: (DateTime<Utc>, DateTime<Utc>),
-    ) -> Result<String, LargeQueryError> {
+    async fn start_query(&self, date_range: &DateRange) -> Result<String, LargeQueryError> {
         let response = self
             .client
             .start_query()
@@ -150,31 +219,55 @@ impl CloudWatchLongQuery {
                     .unwrap_or_default()
                     .starts_with("Query's end date and time")
                 {
-                    Err(LargeQueryError::DateOutOfBoundsError)
+                    Err(LargeQueryError::DateOutOfBounds)
                 } else {
-                    Err(LargeQueryError::CloudwatchLogsError(err.into()))
+                    Err(LargeQueryError::FromCloudwatchLogs(err.into()))
                 }
             }
         }
     }
 }
 
+fn get_last_log_date(results: &[Vec<ResultField>]) -> Result<DateTime<Utc>, LargeQueryError> {
+    let last = results
+        .last()
+        .expect("last query item")
+        .iter()
+        .find(|e| matches!(e.field(), Some("@timestamp")))
+        .expect("timestamp field")
+        .value()
+        .expect("timestamp field value");
+
+    // let mut last: Vec<String> = results
+    //     .iter()
+    //     .filter_map(|e| e.iter().find(|e| matches!(e.field(), Some("@timestamp"))))
+    //     .map(|e| format!("{}Z", e.value().unwrap_or_default()))
+    //     .collect();
+    // last.sort();
+    // let last = last.last().unwrap();
+    DateTime::parse_from_rfc3339(last)
+        .map(|e| e.to_utc())
+        .map_err(LargeQueryError::FromChronoParse)
+}
+
 #[tokio::main]
 async fn main() -> Result<(), LargeQueryError> {
     tracing_subscriber::fmt::init();
 
-    let group = env::var("QUERY_GROUP").expect("lookup QUERY_GROUP");
-    let start_date = DateTime::parse_from_rfc3339(
+    let group = env::var("QUERY_GROUP").unwrap_or("/workflows/cloudwatch-logs/large-query".into());
+    let start_date = DateTime::from_timestamp_millis(
         env::var("QUERY_START_DATE")
             .expect("lookup QUERY_START_DATE")
-            .as_str(),
+            .parse()
+            .unwrap(),
     )
-    .expect("parse state date")
+    .expect("parse start date")
     .with_timezone(&Utc);
-    let end_date = DateTime::parse_from_rfc3339(
+    let end_date = DateTime::from_timestamp_millis(
         env::var("QUERY_END_DATE")
             .expect("lookup QUERY_END_DATE")
-            .as_str(),
+            .parse()
+            .unwrap(),
     )
     .expect("parse end date")
     .with_timezone(&Utc);
@@ -189,7 +282,7 @@ async fn main() -> Result<(), LargeQueryError> {
         .await;
     let client = Client::new(&shared_config);
 
-    let mut query = CloudWatchLongQuery::new(client, group, (start_date, end_date));
+    let mut query = CloudWatchLongQuery::new(client, group, DateRange(start_date, end_date));
 
     query.run().await.expect("run query to completion");
 

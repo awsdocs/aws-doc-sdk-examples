@@ -27,12 +27,12 @@ for i in $(seq 1 "$NUM_FILES"); do
 
     # Output the timestamp of the first entry in the first file.
     if [ "$i" -eq 1 ] && [ "$j" -eq 1 ]; then
-      echo "QUERY_START_DATE=$TIMESTAMP";
+      echo "export QUERY_START_DATE=$TIMESTAMP";
     fi
 
     # Output the timestamp of the last entry in the last file.
     if [ "$i" -eq "$NUM_FILES" ] && [ "$j" -eq "$ENTRIES_PER_FILE" ]; then
-      echo "QUERY_END_DATE=$TIMESTAMP";
+      echo "export QUERY_END_DATE=$TIMESTAMP";
     fi
     
 
