@@ -233,7 +233,7 @@ bedrock-runtime_InvokeJurassic2:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/bedrockruntime
+          github: python/example_code/bedrock-runtime
           excerpts:
             - description: Invoke the AI21 Labs Jurassic-2 foundation model to generate text.
               snippet_tags:
@@ -293,7 +293,7 @@ bedrock-runtime_InvokeLlama2:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/bedrockruntime
+          github: python/example_code/bedrock-runtime
           excerpts:
             - description: Invoke the Meta Llama 2 Chat foundation model to generate text.
               snippet_tags:
