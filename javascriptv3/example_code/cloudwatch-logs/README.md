@@ -33,21 +33,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a log group](actions/create-log-group.js#L6) (`CreateLogGroup`)
-- [Create a subscription filter](actions/put-subscription-filter.js#L6) (`PutSubscriptionFilter`)
-- [Delete a log group](actions/delete-log-group.js#L6) (`DeleteLogGroup`)
-- [Delete a subscription filter](actions/delete-subscription-filter.js#L6) (`DeleteSubscriptionFilter`)
-- [Describe existing subscription filters](actions/describe-subscription-filters.js#L6) (`DescribeSubscriptionFilters`)
-- [Describe log groups](actions/describe-log-groups.js#L8) (`DescribeLogGroups`)
-- [Get the results of a query](scenarios/large-query/cloud-watch-query.js#L106) (`GetQueryResults`)
-- [Start a query](scenarios/large-query/cloud-watch-query.js#L140) (`StartQuery`)
+- [Create a log group](actions/create-log-group.js#L4) (`CreateLogGroup`)
+- [Create a subscription filter](actions/put-subscription-filter.js#L4) (`PutSubscriptionFilter`)
+- [Delete a log group](actions/delete-log-group.js#L4) (`DeleteLogGroup`)
+- [Delete a subscription filter](actions/delete-subscription-filter.js#L4) (`DeleteSubscriptionFilter`)
+- [Describe existing subscription filters](actions/describe-subscription-filters.js#L4) (`DescribeSubscriptionFilters`)
+- [Describe log groups](actions/describe-log-groups.js#L6) (`DescribeLogGroups`)
+- [Get the results of a query](scenarios/large-query/cloud-watch-query.js#L108) (`GetQueryResults`)
+- [Start a query](scenarios/large-query/cloud-watch-query.js#L142) (`StartQuery`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Run a large query](javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/index.js)
+- [Run a large query](scenarios/large-query/index.js)
 
 
 <!--custom.examples.start-->

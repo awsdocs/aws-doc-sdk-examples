@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Start a state machine run](javascriptv3/example_code/sfn/actions/start-execution.js) (`StartExecution`)
+- [Start a state machine run](actions/start-execution.js) (`StartExecution`)
 
 ### Cross-service examples
 
