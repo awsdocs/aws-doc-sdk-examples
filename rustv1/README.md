@@ -98,6 +98,11 @@ these examples in an isolated environment.
 
 ## Contributing
 
+When adding or modifying Rust code examples, follow common Rust best practices.
+As much as is reasonable, this means having tests that run with `cargo test`, code that has no lint errors from `cargo clippy --all-targets`, and code that has been formatted using `cargo fmt`.
+These can be verified using cargo with in the example folders, or across the entire Rust code base with the `./run_all.sh` script.
+The `run_all.sh` script is also used in continuous integration toolchains.
+
 To propose a new code example to the AWS documentation team,
 see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md).
 The team prefers to create code examples that show broad scenarios rather than individual API calls.

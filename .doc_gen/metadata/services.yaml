@@ -289,7 +289,7 @@ bedrock:
   bundle: bedrock
   long: '&BRlong;'
   short: '&BR;'
-  sort: Bedrock
+  sort: Bedrock1
   expanded:
     long: Amazon Bedrock
     short: Amazon Bedrock
@@ -305,7 +305,7 @@ bedrock-runtime:
   bundle: bedrock
   long: '&BRRUNlong;'
   short: '&BRRUN;'
-  sort: Bedrock Runtime
+  sort: Bedrock2
   expanded:
     long: Amazon Bedrock Runtime
     short: Amazon Bedrock Runtime
@@ -321,10 +321,10 @@ bedrock-agent:
   bundle: bedrock
   long: '&BRAlong;'
   short: '&BRA;'
-  sort: Bedrock Agents
+  sort: Bedrock3
   expanded:
     long: Agents for Amazon Bedrock
-    short: Amazon Bedrock Agents
+    short: Agents for Amazon Bedrock
   blurb: offer you the ability to build and configure autonomous agents in your application.
   guide:
     subtitle: User Guide
@@ -337,10 +337,10 @@ bedrock-agent-runtime:
   bundle: bedrock
   long: '&BRARUNlong;'
   short: '&BRARUN;'
-  sort: Bedrock Agents Runtime
+  sort: Bedrock4
   expanded:
     long: Agents for Amazon Bedrock Runtime
-    short: Amazon Bedrock Agents Runtime
+    short: Agents for Amazon Bedrock Runtime
   blurb: offers you the ability to run autonomous agents in your application.
   guide:
     subtitle: User Guide
@@ -1772,15 +1772,15 @@ kinesis:
 kinesis-analytics-v2:
   long: '&AKAlong;'
   short: '&AKA;'
-  sort: Kinesis Data Analytics
+  sort: Managed Service for Apache Flink
   expanded:
-    long: Amazon Kinesis Data Analytics
-    short: Kinesis Data Analytics
+    long: Amazon Managed Service for Apache Flink
+    short: Managed Service for Apache Flink
   blurb: processes and analyzes streaming data using SQL or Java.
   guide:
     subtitle: Developer Guide
-    url: kinesisanalytics/latest/dev/what-is.html
-  api_ref: kinesisanalytics/latest/apiv2/Welcome.html
+    url: managed-flink/latest/java/what-is.html
+  api_ref: managed-flink/latest/apiv2/Welcome.html
   tags:
     product_categories: {'Analytics'}
   version: kinesisanalyticsv2-2018-05-23

@@ -81,19 +81,34 @@ func (runner PartiQLRunner) GetMovie(title string, year int) (Movie, error) {
 // snippet-start:[gov2.dynamodb.ExecuteStatement.Select.Projected]
 
 // GetAllMovies runs a PartiQL SELECT statement to get all movies from the DynamoDB table.
+// pageSize is not typically required and is used to show how to paginate the results.
 // The results are projected to return only the title and rating of each movie.
-func (runner PartiQLRunner) GetAllMovies() ([]map[string]interface{}, error) {
+func (runner PartiQLRunner) GetAllMovies(pageSize int32) ([]map[string]interface{}, error) {
 	var output []map[string]interface{}
-	response, err := runner.DynamoDbClient.ExecuteStatement(context.TODO(), &dynamodb.ExecuteStatementInput{
-		Statement: aws.String(
-			fmt.Sprintf("SELECT title, info.rating FROM \"%v\"", runner.TableName)),
-	})
-	if err != nil {
-		log.Printf("Couldn't get movies. Here's why: %v\n", err)
-	} else {
-		err = attributevalue.UnmarshalListOfMaps(response.Items, &output)
+	var response *dynamodb.ExecuteStatementOutput
+	var err error
+	var nextToken *string
+	for moreData := true; moreData; {
+		response, err = runner.DynamoDbClient.ExecuteStatement(context.TODO(), &dynamodb.ExecuteStatementInput{
+			Statement: aws.String(
+				fmt.Sprintf("SELECT title, info.rating FROM \"%v\"", runner.TableName)),
+			Limit:     aws.Int32(pageSize),
+			NextToken: nextToken,
+		})
 		if err != nil {
-			log.Printf("Couldn't unmarshal response. Here's why: %v\n", err)
+			log.Printf("Couldn't get movies. Here's why: %v\n", err)
+			moreData = false
+		} else {
+			var pageOutput []map[string]interface{}
+			err = attributevalue.UnmarshalListOfMaps(response.Items, &pageOutput)
+			if err != nil {
+				log.Printf("Couldn't unmarshal response. Here's why: %v\n", err)
+			} else {
+				log.Printf("Got a page of length %v.\n", len(response.Items))
+				output = append(output, pageOutput...)
+			}
+			nextToken = response.NextToken
+			moreData = nextToken != nil
 		}
 	}
 	return output, err

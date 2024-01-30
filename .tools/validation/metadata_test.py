@@ -10,35 +10,38 @@ import yaml
 from pathlib import Path
 
 import metadata_errors
-from metadata import parse, Example, Url, Language, Version, Excerpt, DocGen
+from metadata import parse, Example, Url, Language, Version, Excerpt
+from doc_gen import DocGen
+from sdks import Sdk
 from services import Service
 
 
-def load(path: Path, doc_gen: DocGen) -> list[Example] | metadata_errors.MetadataErrors:
+def load(
+    path: Path, doc_gen: DocGen
+) -> tuple[list[Example], metadata_errors.MetadataErrors]:
     root = Path(__file__).parent
     filename = root / "test_resources" / path
     with open(filename) as file:
         meta = yaml.safe_load(file)
-    return parse(filename.name, meta, doc_gen)
+    return parse(filename.name, meta, doc_gen.sdks, doc_gen.services)
 
 
-DOC_GEN = DocGen(
-    services={
-        "ses": Service(long="&SESlong;", short="&SES;", sort="ses", version=1),
-        "sns": Service(long="&SNSlong;", short="&SNS;", sort="sns", version=1),
-        "sqs": Service(long="&SQSlong;", short="&SQS;", sort="sqs", version=1),
-        "s3": Service(long="&S3long;", short="&S3;", sort="s3", version=1),
-        "autogluon": Service(
-            long="AutoGluon Test", short="AG Test", sort="autogluon", version=1
-        ),
-    },
-    sdks={
-        "C++": Language(name="C++", versions=[]),
-        "Java": Language(name="Java", versions=[]),
-        "JavaScript": Language(name="JavaScript", versions=[]),
-        "PHP": Language(name="PHP", versions=[]),
-    },
-)
+SERVICES = {
+    "ses": Service(long="&SESlong;", short="&SES;", sort="ses", version=1),
+    "sns": Service(long="&SNSlong;", short="&SNS;", sort="sns", version=1),
+    "sqs": Service(long="&SQSlong;", short="&SQS;", sort="sqs", version=1),
+    "s3": Service(long="&S3long;", short="&S3;", sort="s3", version=1),
+    "autogluon": Service(
+        long="AutoGluon Test", short="AG Test", sort="autogluon", version=1
+    ),
+}
+SDKS = {
+    "C++": Sdk(name="C++", versions=[], guide="", property=""),
+    "Java": Sdk(name="Java", versions=[], guide="", property=""),
+    "JavaScript": Sdk(name="JavaScript", versions=[], guide="", property=""),
+    "PHP": Sdk(name="PHP", versions=[], guide="", property=""),
+}
+DOC_GEN = DocGen(services=SERVICES, sdks=SDKS)
 
 GOOD_SINGLE_CPP = """
 sns_DeleteTopic:
@@ -67,7 +70,8 @@ sns_DeleteTopic:
 
 def test_parse():
     meta = yaml.safe_load(GOOD_SINGLE_CPP)
-    parsed = parse("test_cpp.yaml", meta, DOC_GEN)
+    parsed, errors = parse("test_cpp.yaml", meta, SDKS, SERVICES)
+    assert len(errors) == 0
     assert parsed == [
         Example(
             file="test_cpp.yaml",
@@ -76,12 +80,12 @@ def test_parse():
             title_abbrev="Deleting a topic",
             synopsis="Shows how to delete an &SNS; topic.",
             services={
-                "sns": {"Operation1": None, "Operation2": None},
-                "ses": {"Operation1": None, "Operation2": None},
-                "sqs": {},
+                "sns": ["Operation1", "Operation2"],
+                "ses": ["Operation1", "Operation2"],
+                "sqs": [],
             },
-            languages=[
-                Language(
+            languages={
+                "C++": Language(
                     name="C++",
                     versions=[
                         Version(
@@ -97,7 +101,7 @@ def test_parse():
                         )
                     ],
                 )
-            ],
+            },
         )
     ]
 
@@ -118,17 +122,18 @@ cross_DeleteTopic:
 
 def test_parse_cross():
     meta = yaml.safe_load(CROSS_META)
-    actual = parse("cross.yaml", meta, DOC_GEN)
+    actual, errors = parse("cross.yaml", meta, SDKS, SERVICES)
+    assert len(errors) == 0
     assert actual == [
         Example(
             file="cross.yaml",
             id="cross_DeleteTopic",
             title="Delete Topic",
             title_abbrev="delete topic",
-            synopsis=None,
-            services={"sns": {}},
-            languages=[
-                Language(
+            synopsis="",
+            services={"sns": []},
+            languages={
+                "Java": Language(
                     name="Java",
                     versions=[
                         Version(
@@ -136,7 +141,7 @@ def test_parse_cross():
                         )
                     ],
                 )
-            ],
+            },
         )
     ]
 
@@ -159,7 +164,8 @@ autogluon_tabular_with_sagemaker_pipelines:
 
 def test_parse_curated():
     meta = yaml.safe_load(CURATED)
-    actual = parse("curated.yaml", meta, DOC_GEN)
+    actual, errors = parse("curated.yaml", meta, SDKS, SERVICES)
+    assert len(errors) == 0
     assert actual == [
         Example(
             id="autogluon_tabular_with_sagemaker_pipelines",
@@ -167,20 +173,21 @@ def test_parse_curated():
             title="AutoGluon Tabular with SageMaker Pipelines",
             title_abbrev="AutoGluon Tabular with SageMaker Pipelines",
             source_key="amazon-sagemaker-examples",
-            languages=[
-                Language(
+            languages={
+                "Java": Language(
                     name="Java",
                     versions=[Version(sdk_version=2, block_content="block.xml")],
                 )
-            ],
-            services={"s3": {}},
+            },
+            services={"s3": []},
             synopsis="use AutoGluon with SageMaker Pipelines.",
         )
     ]
 
 
 def test_verify_load_successful():
-    examples = load("valid_metadata.yaml", DOC_GEN)
+    examples, errors = load(Path("valid_metadata.yaml"), DOC_GEN)
+    assert len(errors) == 0
     assert examples == [
         Example(
             file="valid_metadata.yaml",
@@ -192,29 +199,29 @@ def test_verify_load_successful():
             guide_topic=Url(title="Test guide topic title", url="test-guide/url"),
             category="Usage",
             service_main=None,
-            languages=[
-                Language(
+            languages={
+                "Java": Language(
                     name="Java",
                     versions=[
                         Version(
                             sdk_version=2,
                             github="javav2/example_code/sns",
                             block_content="test block",
-                            excerpts=None,
+                            excerpts=[],
                             add_services={},
                             sdkguide=None,
                             more_info=[],
                         ),
                     ],
                 ),
-                Language(
+                "JavaScript": Language(
                     name="JavaScript",
                     versions=[
                         Version(
                             sdk_version=3,
                             github=None,
                             block_content=None,
-                            add_services={"s3": {}},
+                            add_services={"s3": []},
                             excerpts=[
                                 Excerpt(
                                     description="Descriptive",
@@ -227,7 +234,7 @@ def test_verify_load_successful():
                         ),
                     ],
                 ),
-                Language(
+                "PHP": Language(
                     name="PHP",
                     versions=[
                         Version(
@@ -250,8 +257,8 @@ def test_verify_load_successful():
                         )
                     ],
                 ),
-            ],
-            services={"sns": {}, "sqs": {}},
+            },
+            services={"sns": [], "sqs": []},
         )
     ]
 
@@ -303,7 +310,7 @@ def test_verify_load_successful():
                     field="versions",
                     file="errors_metadata.yaml",
                     id="sqs_TestExample",
-                    language=None,
+                    language="Java",
                 ),
                 metadata_errors.MissingBlockContentAndExcerpt(
                     file="errors_metadata.yaml",
@@ -369,9 +376,11 @@ def test_verify_load_successful():
         ),
     ],
 )
-def test_common_errors(filename, expected_errors):
-    actual = load(filename, DOC_GEN)
-    assert expected_errors == actual._errors
+def test_common_errors(
+    filename: str, expected_errors: list[metadata_errors.MetadataError]
+):
+    _, actual = load(Path(filename), DOC_GEN)
+    assert expected_errors == [*actual]
 
 
 if __name__ == "__main__":

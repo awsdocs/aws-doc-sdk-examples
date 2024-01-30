@@ -779,3 +779,16 @@ cross_Testing:
                 - rustv1/examples/testing/src/replay.rs
   services:
     s3:
+cross_ServerlessPromptChaining:
+  title: Build and orchestrate generative AI applications with &BR; and &SFN;
+  title_abbrev: Orchestrate generative AI applications with &SFN;
+  synopsis: build and orchestrate generative AI applications with &BR; and &SFN;.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          block_content: cross_ServerlessPromptChaining_Python_block.xml
+  service_main: bedrock
+  services:
+    bedrock:

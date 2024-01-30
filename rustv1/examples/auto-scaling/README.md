@@ -31,30 +31,30 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 ### Get started
 
-- [Hello Auto Scaling](src/bin/list-autoscaling-groups.rs#L24) (`DescribeAutoScalingGroups`)
+- [Hello Auto Scaling](src/bin/list-autoscaling-groups.rs#L22) (`DescribeAutoScalingGroups`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a group](src/bin/create-autoscaling-group.rs#L32) (`CreateAutoScalingGroup`)
-- [Delete a group](src/bin/delete-autoscaling-group.rs#L32) (`DeleteAutoScalingGroup`)
-- [Disable metrics collection for a group](src/scenario.rs#L619) (`DisableMetricsCollection`)
-- [Enable metrics collection for a group](src/scenario.rs#L296) (`EnableMetricsCollection`)
-- [Get information about groups](src/bin/list-autoscaling-groups.rs#L24) (`DescribeAutoScalingGroups`)
-- [Get information about instances](src/scenario.rs#L534) (`DescribeAutoScalingInstances`)
-- [Get information about scaling activities](src/scenario.rs#L401) (`DescribeScalingActivities`)
-- [Set the desired capacity of a group](src/scenario.rs#L597) (`SetDesiredCapacity`)
-- [Terminate an instance in a group](src/scenario.rs#L656) (`TerminateInstanceInAutoScalingGroup`)
-- [Update a group](src/bin/update-autoscaling-group.rs#L32) (`UpdateAutoScalingGroup`)
+- [Create a group](src/bin/create-autoscaling-group.rs#L30) (`CreateAutoScalingGroup`)
+- [Delete a group](src/bin/delete-autoscaling-group.rs#L30) (`DeleteAutoScalingGroup`)
+- [Disable metrics collection for a group](src/scenario.rs#L617) (`DisableMetricsCollection`)
+- [Enable metrics collection for a group](src/scenario.rs#L294) (`EnableMetricsCollection`)
+- [Get information about groups](src/bin/list-autoscaling-groups.rs#L22) (`DescribeAutoScalingGroups`)
+- [Get information about instances](src/scenario.rs#L532) (`DescribeAutoScalingInstances`)
+- [Get information about scaling activities](src/scenario.rs#L399) (`DescribeScalingActivities`)
+- [Set the desired capacity of a group](src/scenario.rs#L595) (`SetDesiredCapacity`)
+- [Terminate an instance in a group](src/scenario.rs#L654) (`TerminateInstanceInAutoScalingGroup`)
+- [Update a group](src/bin/update-autoscaling-group.rs#L30) (`UpdateAutoScalingGroup`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Manage groups and instances](rustv1/examples/auto-scaling/Cargo.toml)
+- [Manage groups and instances](Cargo.toml)
 
 
 <!--custom.examples.start-->

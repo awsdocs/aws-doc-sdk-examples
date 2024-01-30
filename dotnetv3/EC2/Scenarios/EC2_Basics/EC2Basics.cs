@@ -35,8 +35,9 @@ public class EC2Basics
         var ssmMethods = new SsmWrapper(ssmClient);
         var uiMethods = new UiMethods();
 
-        var keyPairName = "mvp-example-key-pair";
-        var groupName = "ec2-scenario-group";
+        var uniqueName = Guid.NewGuid().ToString();
+        var keyPairName = "mvp-example-key-pair" + uniqueName;
+        var groupName = "ec2-scenario-group" + uniqueName;
         var groupDescription = "A security group created for the EC2 Basics scenario.";
 
         // Start the scenario.

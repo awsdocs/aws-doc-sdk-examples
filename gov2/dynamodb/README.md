@@ -34,27 +34,27 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 Code excerpts that show you how to call individual service functions.
 
 - [Create a table](actions/table_basics.go#L54) (`CreateTable`)
-- [Delete a table](actions/table_basics.go#L326) (`DeleteTable`)
-- [Delete an item from a table](actions/table_basics.go#L311) (`DeleteItem`)
-- [Get an item from a table](actions/table_basics.go#L216) (`GetItem`)
+- [Delete a table](actions/table_basics.go#L347) (`DeleteTable`)
+- [Delete an item from a table](actions/table_basics.go#L332) (`DeleteItem`)
+- [Get an item from a table](actions/table_basics.go#L221) (`GetItem`)
 - [Get information about a table](actions/table_basics.go#L31) (`DescribeTable`)
 - [List tables](actions/table_basics.go#L99) (`ListTables`)
-- [Put an item in a table](actions/table_basics.go#L116) (`PutItem`)
-- [Query a table](actions/table_basics.go#L238) (`Query`)
+- [Put an item in a table](actions/table_basics.go#L121) (`PutItem`)
+- [Query a table](actions/table_basics.go#L243) (`Query`)
 - [Run a PartiQL statement](actions/partiql.go#L30) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](actions/partiql.go#L149) (`BatchExecuteStatement`)
-- [Scan a table](actions/table_basics.go#L272) (`Scan`)
-- [Update an item in a table](actions/table_basics.go#L135) (`UpdateItem`)
-- [Write a batch of items](actions/table_basics.go#L172) (`BatchWriteItem`)
+- [Run batches of PartiQL statements](actions/partiql.go#L164) (`BatchExecuteStatement`)
+- [Scan a table](actions/table_basics.go#L285) (`Scan`)
+- [Update an item in a table](actions/table_basics.go#L140) (`UpdateItem`)
+- [Write a batch of items](actions/table_basics.go#L177) (`BatchWriteItem`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with tables, items, and queries](actions/table_basics.go)
-- [Query a table by using batches of PartiQL statements](actions/partiql.go)
-- [Query a table using PartiQL](actions/partiql.go)
+- [Get started with tables, items, and queries](scenarios/scenario_movie_table.go)
+- [Query a table by using batches of PartiQL statements](scenarios/scenario_partiql_batch.go)
+- [Query a table using PartiQL](scenarios/scenario_partiql_single.go)
 
 
 <!--custom.examples.start-->

@@ -51,19 +51,19 @@ func (scenTest *PartiQLSingleScenarioTest) SetupDataAndStubs() []testtools.Stub 
 	stubList = append(stubList, stubs.StubDescribeTable(scenTest.TableName, nil))
 	stubList = append(stubList, stubs.StubExecuteStatement(
 		fmt.Sprintf("INSERT INTO \"%v\" VALUE {'title': ?, 'year': ?, 'info': ?}", scenTest.TableName),
-		[]interface{}{movie.Title, movie.Year, movie.Info}, nil, nil))
+		[]interface{}{movie.Title, movie.Year, movie.Info}, nil, nil, nil, nil, nil))
 	stubList = append(stubList, stubs.StubExecuteStatement(
 		fmt.Sprintf("SELECT * FROM \"%v\" WHERE title=? AND year=?", scenTest.TableName),
-		[]interface{}{movie.Title, movie.Year}, movie, nil))
+		[]interface{}{movie.Title, movie.Year}, nil, nil, movie, nil, nil))
 	stubList = append(stubList, stubs.StubExecuteStatement(
 		fmt.Sprintf("UPDATE \"%v\" SET info.rating=? WHERE title=? AND year=?", scenTest.TableName),
-		[]interface{}{newRating, movie.Title, movie.Year}, movie, nil))
+		[]interface{}{newRating, movie.Title, movie.Year}, nil, nil, movie, nil, nil))
 	stubList = append(stubList, stubs.StubExecuteStatement(
 		fmt.Sprintf("SELECT * FROM \"%v\" WHERE title=? AND year=?", scenTest.TableName),
-		[]interface{}{movie.Title, movie.Year}, movie, nil))
+		[]interface{}{movie.Title, movie.Year}, nil, nil, movie, nil, nil))
 	stubList = append(stubList, stubs.StubExecuteStatement(
 		fmt.Sprintf("DELETE FROM \"%v\" WHERE title=? AND year=?", scenTest.TableName),
-		[]interface{}{movie.Title, movie.Year}, movie, nil))
+		[]interface{}{movie.Title, movie.Year}, nil, nil, movie, nil, nil))
 	stubList = append(stubList, stubs.StubDeleteTable(scenTest.TableName, nil))
 
 	return stubList

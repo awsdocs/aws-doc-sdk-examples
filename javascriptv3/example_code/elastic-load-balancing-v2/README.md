@@ -31,28 +31,28 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Elastic Load Balancing](javascriptv3/example_code/elastic-load-balancing-v2/hello.js) (`DescribeLoadBalancers`)
+- [Hello Elastic Load Balancing](hello.js) (`DescribeLoadBalancers`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a listener for a load balancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L465) (`CreateListener`)
-- [Create a target group](../cross-services/wkflw-resilient-service/steps-deploy.js#L404) (`CreateTargetGroup`)
-- [Create an Application Load Balancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L437) (`CreateLoadBalancer`)
-- [Delete a load balancer](../cross-services/wkflw-resilient-service/steps-destroy.js#L295) (`DeleteLoadBalancer`)
-- [Delete a target group](../cross-services/wkflw-resilient-service/steps-destroy.js#L329) (`DeleteTargetGroup`)
-- [Describe target groups](../cross-services/wkflw-resilient-service/steps-demo.js#L79) (`DescribeTargetGroups`)
-- [Get the endpoint of a load balancer](javascriptv3/example_code/elastic-load-balancing-v2/hello.js) (`DescribeLoadBalancers`)
-- [Get the health of a target group](../cross-services/wkflw-resilient-service/steps-demo.js#L88) (`DescribeTargetHealth`)
+- [Create a listener for a load balancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L463) (`CreateListener`)
+- [Create a target group](../cross-services/wkflw-resilient-service/steps-deploy.js#L402) (`CreateTargetGroup`)
+- [Create an Application Load Balancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L435) (`CreateLoadBalancer`)
+- [Delete a load balancer](../cross-services/wkflw-resilient-service/steps-destroy.js#L293) (`DeleteLoadBalancer`)
+- [Delete a target group](../cross-services/wkflw-resilient-service/steps-destroy.js#L327) (`DeleteTargetGroup`)
+- [Describe target groups](../cross-services/wkflw-resilient-service/steps-demo.js#L77) (`DescribeTargetGroups`)
+- [Get the endpoint of a load balancer](hello.js) (`DescribeLoadBalancers`)
+- [Get the health of a target group](../cross-services/wkflw-resilient-service/steps-demo.js#L86) (`DescribeTargetHealth`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Build and manage a resilient service](javascriptv3/example_code/cross-services/wkflw-resilient-service/index.js)
+- [Build and manage a resilient service](../cross-services/wkflw-resilient-service/index.js)
 
 
 <!--custom.examples.start-->

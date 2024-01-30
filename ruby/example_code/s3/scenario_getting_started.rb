@@ -31,7 +31,7 @@ class ScenarioGettingStarted
     bucket = @s3_resource.create_bucket(
       bucket: "doc-example-bucket-#{Random.uuid}",
       create_bucket_configuration: {
-        location_constraint: "us-east-2" # Note: only certain regions permitted
+        location_constraint: "us-east-1" # Note: only certain regions permitted
       }
     )
     puts("Created demo bucket named #{bucket.name}.")

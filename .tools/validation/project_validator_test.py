@@ -9,6 +9,7 @@ import pytest
 
 import project_validator
 from metadata_errors import MetadataErrors
+from pathlib import Path
 
 
 @pytest.mark.parametrize(
@@ -18,7 +19,7 @@ from metadata_errors import MetadataErrors
         ("https://example.com/foo", ["https", "", "example.com", "foo"]),
     ],
 )
-def test(contents, expected_parts):
+def test(contents: str, expected_parts: list[str]):
     """Test that the word part stemmer finds the right pieces"""
     actual_parts = [part for _, part in project_validator.word_parts(contents)]
     assert expected_parts == actual_parts
@@ -38,10 +39,10 @@ def test(contents, expected_parts):
         ("This string has no denied words.\n" "And neither does this one.", 0),
     ],
 )
-def test_verify_no_deny_list_words(file_contents, expected_error_count):
+def test_verify_no_deny_list_words(file_contents: str, expected_error_count: int):
     """Test that file contents that contain disallowed words are counted as errors."""
     errors = MetadataErrors()
-    project_validator.verify_no_deny_list_words(file_contents, "location", errors)
+    project_validator.verify_no_deny_list_words(file_contents, Path("location"), errors)
     error_count = len(errors)
     assert error_count == expected_error_count
 
@@ -64,75 +65,11 @@ def test_verify_no_deny_list_words(file_contents, expected_error_count):
         ("Something AppStreamUsageReportsCFNGlue" + "AtNotAllowed.py", 1),
     ],
 )
-def test_verify_no_secret_keys(file_contents, expected_error_count):
+def test_verify_no_secret_keys(file_contents: str, expected_error_count: int):
     """Test that file contents that contain 20- or 40-character strings and are
     not in the allowed list are counted as errors."""
     errors = MetadataErrors()
-    project_validator.verify_no_secret_keys(file_contents, "location", errors)
-    error_count = len(errors)
-    assert error_count == expected_error_count
-
-
-@pytest.mark.parametrize(
-    "file_contents,expected_error_count",
-    [
-        (
-            "snippet" + "-start:[this.is.a.snippet.tag]\n"
-            "This is not code.\n"
-            "snippet" + "-end:[this.is.a.snippet.tag]",
-            0,
-        ),
-        (
-            "snippet" + "-start:[this.is.a.snippet.tag]\n"
-            "This is not code.\n"
-            "snippet" + "-end:[this.is.a.different.snippet.tag]",
-            2,
-        ),
-        ("snippet" + "-start:[this.is.a.snippet.tag]\n" "This is not code.", 1),
-        ("This is not code.\n" "snippet" + "-end:[this.is.a.snippet.tag]", 1),
-        (
-            "snippet" + "-start:[this.is.a.snippet.tag]\n"
-            "snippet" + "-start:[this.is.a.different.snippet.tag]\n"
-            "This is not code.\n"
-            "snippet" + "-end:[this.is.a.snippet.tag]\n"
-            "snippet" + "-end:[this.is.a.different.snippet.tag]\n",
-            0,
-        ),
-        (
-            "snippet" + "-start:[this.is.a.snippet.tag]\n"
-            "snippet" + "-start:[this.is.a.different.snippet.tag]\n"
-            "This is not code.\n"
-            "snippet" + "-end:[this.is.a.different.snippet.tag]\n"
-            "snippet" + "-end:[this.is.a.snippet.tag]\n",
-            0,
-        ),
-        (
-            "snippet" + "-start:[this.is.a.snippet.tag]\n"
-            "This is not code.\n"
-            "snippet" + "-end:[this.is.a.snippet.tag.with.extra.stuff]\n",
-            2,
-        ),
-        (
-            "snippet" + "-start:[this.is.a.snippet.tag]\n"
-            "snippet" + "-start:[this.is.a.snippet.tag]\n"
-            "This is not code.\n"
-            "snippet" + "-end:[this.is.a.snippet.tag]\n",
-            1,
-        ),
-        (
-            "snippet" + "-start:[this.is.a.snippet.tag]\n"
-            "This is not code.\n"
-            "snippet" + "-end:[this.is.a.snippet.tag]\n"
-            "snippet" + "-end:[this.is.a.snippet.tag]\n",
-            1,
-        ),
-    ],
-)
-def test_verify_snippet_start_end(file_contents, expected_error_count):
-    """Test that various kinds of mismatched snippet-start and -end tags are
-    counted correctly as errors."""
-    errors = MetadataErrors()
-    project_validator.verify_snippet_start_end(file_contents, "location", errors)
+    project_validator.verify_no_secret_keys(file_contents, Path("location"), errors)
     error_count = len(errors)
     assert error_count == expected_error_count
 
