@@ -7,6 +7,23 @@
 #include <aws/core/utils/UUID.h>
 #include <aws/testing/mocks/http/MockHttpClient.h>
 
+// Debug testing framework.
+class DebugMockHTTPClient : public MockHttpClient {
+public:
+    DebugMockHTTPClient() {}
+
+    std::shared_ptr<Aws::Http::HttpResponse>
+    MakeRequest(const std::shared_ptr<Aws::Http::HttpRequest> &request,
+                Aws::Utils::RateLimits::RateLimiterInterface *readLimiter,
+                Aws::Utils::RateLimits::RateLimiterInterface *writeLimiter) const override {
+
+        auto result = MockHttpClient::MakeRequest(request, readLimiter, writeLimiter);
+
+        std::cout << "DebugMockHTTPClient::MakeRequest result " << result.get() << "." << std::endl;
+
+        return result;
+    }
+};
 
 Aws::SDKOptions AwsDocTest::SES_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::SES_GTests::s_clientConfig;
@@ -67,7 +84,8 @@ void AwsDocTest::SES_GTests::AddCommandLineResponses(
 }
 
 bool AwsDocTest::SES_GTests::suppressStdOut() {
-    return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
+   // return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
+   return false; // Temporary override to debug testing framework.
 }
 
 int AwsDocTest::MyStringBuffer::underflow() {
@@ -82,24 +100,29 @@ int AwsDocTest::MyStringBuffer::underflow() {
 
 
 AwsDocTest::MockHTTP::MockHTTP() {
-    mockHttpClient = Aws::MakeShared<MockHttpClient>(ALLOCATION_TAG);
+    mockHttpClient = Aws::MakeShared<DebugMockHTTPClient>(ALLOCATION_TAG); // Debug testing framework.
     mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
     mockHttpClientFactory->SetClient(mockHttpClient);
     SetHttpClientFactory(mockHttpClientFactory);
     requestTmp = CreateHttpRequest(Aws::Http::URI("https://test.com/"),
                                    Aws::Http::HttpMethod::HTTP_GET,
                                    Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+
+    std::cout << "AwsDocTest::MockHTTP::MockHTTP called." << std::endl; // Debug testing framework.
 }
 
 AwsDocTest::MockHTTP::~MockHTTP() {
+    std::cout << "AwsDocTest::MockHTTP::~MockHTTP called." << std::endl; // Debug testing framework.
     Aws::Http::CleanupHttp();
     Aws::Http::InitHttp();
 }
 
 bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
                                                Aws::Http::HttpResponseCode httpResponseCode) {
-
-    std::ifstream inStream(std::string(SRC_DIR) + "/" + fileName);
+    std::string filePath = std::string(SRC_DIR) + "/" + fileName;
+    std::cout << "AwsDocTest::MockHTTP::addResponseWithBody called with file " << filePath
+    << "." << std::endl; // Debug testing framework.
+    std::ifstream inStream(filePath);
     if (inStream) {
         std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
                 ALLOCATION_TAG, requestTmp);
@@ -107,10 +130,13 @@ bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
         goodResponse->SetResponseCode(httpResponseCode);
         goodResponse->GetResponseBody() << inStream.rdbuf();
         mockHttpClient->AddResponseToReturn(goodResponse);
+
+        std::cout << "AwsDocTest::MockHTTP::addResponseWithBody response added  " << goodResponse.get()
+                  << "." << std::endl; // Debug testing framework.
         return true;
     }
 
-    std::cerr << "MockHTTP::addResponseWithBody open file error '" << fileName << "'."
+    std::cerr << "MockHTTP::addResponseWithBody open file error '" << filePath << "'."
               << std::endl;
 
     return false;
