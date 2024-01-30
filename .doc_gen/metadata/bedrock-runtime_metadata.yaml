@@ -118,6 +118,9 @@ bedrock-runtime_InvokeStableDiffusionForImageGeneration:
             - description: Invoke the Stability.ai Stable Diffusion XL foundation model to generate images.
               snippet_tags:
                 - bdr.abapv1.invokemodel_stable_diffusion
+            - description: Invoke the Stability.ai Stable Diffusion XL foundation model to generate images using L2 high level client.
+              snippet_tags:
+                - bdr.abapv1.invokemodel_l2_stable_diffusion
   services:
     bedrock-runtime: {InvokeModel}
 
@@ -186,6 +189,9 @@ bedrock-runtime_InvokeClaude:
             - description: Invoke the Anthropic Claude 2 foundation model to generate text. This example uses features of /US2/CL_JSON which might not be available on some NetWeaver versions.
               snippet_tags:
                 - bdr.abapv1.invokemodel_claude_v2
+            - description: Invoke the Anthropic Claude 2 foundation model to generate text using L2 high level client.
+              snippet_tags:
+                - bdr.abapv1.invokemodel_l2_claude_v2
   services:
     bedrock-runtime: {InvokeModel}
 
