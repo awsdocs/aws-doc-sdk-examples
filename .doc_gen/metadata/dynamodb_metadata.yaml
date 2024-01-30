@@ -188,9 +188,12 @@ dynamodb_BatchGetItem:
         - sdk_version: 2
           github: javav2/example_code/dynamodb
           excerpts:
-            - description:
+            - description: shows how to get batch items using the service client. 
               snippet_tags:
                 - dynamodb.java2.batch.get.items.main
+            - description: shows how to get batch items using the service client and a paginator. 
+              snippet_tags:
+                - dynamodb.java2.batch.get.items.paginator.main
     .NET:
       versions:
         - sdk_version: 3
