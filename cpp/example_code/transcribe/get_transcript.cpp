@@ -19,7 +19,11 @@ using namespace Aws::TranscribeStreamingService::Model;
 
 //TODO(User): Update path to location of local .wav test file, if necessary.
 static const Aws::String FILE_NAME{MEDIA_DIR "/transcribe-test-file.wav"};
-static const int BUFFER_SIZE = 1024;
+static const int SAMPLE_RATE = 8000; // for the file above
+// If you're able to specify chunk size with your audio type (such as with PCM), set each chunk to between 50 ms and 200 ms
+static const int CHUNK_LENGTH = 125;
+// chunk_size_in_bytes = chunk_duration_in_millisecond / 1000 * audio_sample_rate * 2
+static const int BUFFER_SIZE = CHUNK_LENGTH * SAMPLE_RATE / 1000 * 2;
 
 // snippet-start:[transcribe.cpp.stream_transcription_async.code]
 int main() {
@@ -73,7 +77,7 @@ int main() {
         });
 
         StartStreamTranscriptionRequest request;
-        request.SetMediaSampleRateHertz(8000);
+        request.SetMediaSampleRateHertz(SAMPLE_RATE);
         request.SetLanguageCode(LanguageCode::en_US);
         request.SetMediaEncoding(
                 MediaEncoding::pcm); // wav and aiff files are PCM formats.
@@ -122,9 +126,6 @@ int main() {
                     std::cout << "Successfully sent the empty frame" << std::endl;
                 }
                 stream.flush();
-                // Wait until the final transcript or an error is received.
-                // Closing the stream prematurely will trigger an error.
-                canCloseStream.WaitOne();
                 stream.Close();
          };
 
