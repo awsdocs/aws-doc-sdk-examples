@@ -34,7 +34,7 @@ application-autoscaling_Disable:
 application-autoscaling_DescribeScalingPolicies:
   title: Describe &APP-AS; scaling policies using an &AWS; SDK
   title_abbrev: Describes scaling policies
-  synopsis: describe &APP-AS; scaling policies for the specified service namespace.
+  synopsis: describe &APP-AS; scaling policies for the given service namespace.
   category:
   languages:
     Rust:
