@@ -29,24 +29,35 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon S3](helloS3.php#L5) (`ListBuckets`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](s3_basics/GettingStartedWithS3.php#L46) (`CopyObject`)
-- [Create a bucket](s3_basics/GettingStartedWithS3.php#L46) (`CreateBucket`)
-- [Delete an empty bucket](s3_basics/GettingStartedWithS3.php#L46) (`DeleteBucket`)
-- [Delete multiple objects](s3_basics/GettingStartedWithS3.php#L46) (`DeleteObjects`)
-- [Get an object from a bucket](s3_basics/GettingStartedWithS3.php#L46) (`GetObject`)
-- [List objects in a bucket](s3_basics/GettingStartedWithS3.php#L46) (`ListObjectsV2`)
-- [Upload an object to a bucket](s3_basics/GettingStartedWithS3.php#L46) (`PutObject`)
+- [Copy an object from one bucket to another](GettingStartedWithS3.php#L52) (`CopyObject`)
+- [Create a bucket](GettingStartedWithS3.php#L52) (`CreateBucket`)
+- [Delete an empty bucket](GettingStartedWithS3.php#L52) (`DeleteBucket`)
+- [Delete multiple objects](GettingStartedWithS3.php#L52) (`DeleteObjects`)
+- [Get an object from a bucket](GettingStartedWithS3.php#L52) (`GetObject`)
+- [List objects in a bucket](GettingStartedWithS3.php#L52) (`ListObjectsV2`)
+- [Upload an object to a bucket](GettingStartedWithS3.php#L52) (`PutObject`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with buckets and objects](s3_basics/GettingStartedWithS3.php)
+- [Get started with buckets and objects](GettingStartedWithS3.php)
+
+### Cross-service examples
+
+Sample applications that work across multiple AWS services.
+
+- [Create a serverless application to manage photos](../../applications/photo_asset_manager)
 
 
 <!--custom.examples.start-->
@@ -59,6 +70,10 @@ functions within the same service.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello Amazon S3
+
+This example shows you how to get started using Amazon S3.
 
 
 

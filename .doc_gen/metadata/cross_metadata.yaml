@@ -55,6 +55,7 @@ cross_PAM:
     PHP:
       versions:
         - sdk_version: 3
+          github: php/applications/photo_asset_manager
           block_content: cross_PAM_PHP_block.xml
     Rust:
       versions:
