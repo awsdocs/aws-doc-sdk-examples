@@ -31,6 +31,7 @@ use Aws\DynamoDb\Marshaler;
 use DynamoDb;
 use DynamoDb\DynamoDBAttribute;
 
+use function AwsUtilities\loadMovieData;
 use function AwsUtilities\testable_readline;
 
 class GettingStartedWithPartiQLBatch

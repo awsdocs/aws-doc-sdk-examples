@@ -12,6 +12,9 @@
       "DynamoDb\\PartiQL_Basics\\": "../../dynamodb/partiql_basics",
       "AwsUtilities\\": "../../aws_utilities"
     },
-    "files": ["../../aws_utilities/TestableReadline.php"]
+    "files": [
+      "../../aws_utilities/TestableReadline.php",
+      "../../aws_utilities/LoadMovieData.php"
+    ]
   }
 }

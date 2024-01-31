@@ -1,6 +1,6 @@
 <?php
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /**
  * Purpose
@@ -16,7 +16,7 @@
 * 5. Delete all resources created by the example.
  **/
 
-# snippet-start:[php.example_code.auto-scaling.basics.scenario]
+// snippet-start:[php.example_code.auto-scaling.basics.scenario]
 namespace AutoScaling;
 
 use Aws\AutoScaling\AutoScalingClient;
@@ -63,13 +63,15 @@ class GettingStartedWithAutoScaling implements RunnableExample
         $this->templateName = "example_launch_template_$uniqid";
         $instanceType = "t1.micro";
         $amiId = "ami-0ca285d4c2cda3300";
-        $launchTemplate = $this->ec2Client->createLaunchTemplate([
+        $launchTemplate = $this->ec2Client->createLaunchTemplate(
+            [
             'LaunchTemplateName' => $this->templateName,
             'LaunchTemplateData' => [
                 'InstanceType' => $instanceType,
                 'ImageId' => $amiId,
             ]
-        ]);
+            ]
+        );
 
         /**
          * Step 1: CreateAutoScalingGroup: pass it the launch template you created in step 0.
@@ -187,17 +189,20 @@ class GettingStartedWithAutoScaling implements RunnableExample
                 'Value' => $autoScalingGroup['AutoScalingGroupName'],
             ],
         ];
-        $metrics = $this->cloudWatchClient->listMetrics([
+        $metrics = $this->cloudWatchClient->listMetrics(
+            [
             'Dimensions' => $metricsDimensions,
             'Namespace' => $metricsNamespace,
-        ]);
+            ]
+        );
         foreach ($metrics['Metrics'] as $metric) {
             $timespan = 5;
             if ($metric['MetricName'] != 'GroupTotalCapacity' && $metric['MetricName'] != 'GroupMaxSize') {
                 continue;
             }
             echo "Over the last $timespan minutes, {$metric['MetricName']} recorded:\n";
-            $stats = $this->cloudWatchClient->getMetricStatistics([
+            $stats = $this->cloudWatchClient->getMetricStatistics(
+                [
                 'Dimensions' => $metricsDimensions,
                 'EndTime' => time(),
                 'StartTime' => time() - (5 * 60),
@@ -205,7 +210,8 @@ class GettingStartedWithAutoScaling implements RunnableExample
                 'Namespace' => $metricsNamespace,
                 'Period' => 60,
                 'Statistics' => ['Sum'],
-            ]);
+                ]
+            );
             foreach ($stats['Datapoints'] as $stat) {
                 echo "{$stat['Timestamp']}: {$stat['Sum']}\n";
             }
@@ -236,12 +242,14 @@ class GettingStartedWithAutoScaling implements RunnableExample
         /**
          * Step 13: Delete launch template.
          */
-        $this->ec2Client->deleteLaunchTemplate([
+        $this->ec2Client->deleteLaunchTemplate(
+            [
             'LaunchTemplateName' => $this->templateName,
-        ]);
+            ]
+        );
     }
 
-    #snippet-start:[php.example_code.auto-scaling.basics.helloService]
+    // snippet-start:[php.example_code.auto-scaling.basics.helloService]
     public function helloService()
     {
         $autoScalingClient = new AutoScalingClient([
@@ -253,6 +261,6 @@ class GettingStartedWithAutoScaling implements RunnableExample
         $groups = $autoScalingClient->describeAutoScalingGroups([]);
         var_dump($groups);
     }
-    #snippet-end:[php.example_code.auto-scaling.basics.helloService]
+    // snippet-end:[php.example_code.auto-scaling.basics.helloService]
 }
-# snippet-end:[php.example_code.auto-scaling.basics.scenario]
+// snippet-end:[php.example_code.auto-scaling.basics.scenario]
