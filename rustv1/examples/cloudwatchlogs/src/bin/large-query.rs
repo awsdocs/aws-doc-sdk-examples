@@ -18,6 +18,7 @@ use aws_sdk_cloudwatchlogs::{
     config::{
         interceptors::InterceptorContext,
         retry::{ClassifyRetry, RetryAction},
+        // Intercept,
     },
     error::ProvideErrorMetadata,
     operation::get_query_results::GetQueryResultsOutput,
@@ -83,6 +84,12 @@ impl ClassifyRetry for CloudWatchLongQueryQueryResultRetryClassifier {
         "CloudWatch Long Query QueryResult Retry Classifier"
     }
 }
+
+// impl Intercept for ClassifyRetry {
+//     fn name(&self) -> &'static str {
+//         todo!()
+//     }
+// }
 
 struct DateRange(DateTime<Utc>, DateTime<Utc>);
 impl DateRange {
@@ -175,6 +182,7 @@ impl CloudWatchLongQuery {
             .get_query_results()
             .query_id(query_id)
             .customize()
+            // .interceptor(interceptor)
             .config_override(
                 Config::builder()
                     .retry_config(
