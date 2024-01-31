@@ -1,13 +1,29 @@
-<phpunit bootstrap="vendor/autoload.php" testdox="true">
-  <php>
-    <const name="AWS_ACCOUNT_PROFILE_NAME" value="default"/>
-    <const name="AWS_REGION_ID" value="us-east-1"/>
-    <const name="S3_API_VERSION" value="2006-03-01"/>
-    <const name="S3_BUCKET_NAME" value="my-bucket"/>
-  </php>
-  <testsuites>
-    <testsuite name="s3-createbucket">
-      <file>tests/CreateBucketTest.php</file>
-    </testsuite>
-  </testsuites>
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheResultFile=".phpunit.cache/test-results"
+         executionOrder="depends,defects"
+         forceCoversAnnotation="true"
+         beStrictAboutCoversAnnotation="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         convertDeprecationsToExceptions="true"
+         failOnRisky="true"
+         failOnWarning="true">
+    <testsuites>
+        <testsuite name="S3">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage cacheDirectory=".phpunit.cache/code-coverage">
+        <include>
+            <directory suffix=".php">.</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">*vendor*</directory>
+            <directory suffix=".php">tests</directory>
+            <file>Runner.php</file>
+        </exclude>
+    </coverage>
 </phpunit>

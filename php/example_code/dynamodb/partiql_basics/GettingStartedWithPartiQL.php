@@ -32,6 +32,7 @@ use DynamoDb;
 use DynamoDb\DynamoDBAttribute;
 
 use function AwsUtilities\testable_readline;
+use function AwsUtilities\loadMovieData;
 
 class GettingStartedWithPartiQL
 {

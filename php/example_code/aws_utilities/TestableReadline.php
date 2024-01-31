@@ -19,7 +19,7 @@ namespace AwsUtilities;
 function testable_readline($prompt)
 {
     global $LINES;
-    if (count($LINES) > 0) {
+    if ($LINES && count($LINES) > 0) {
         return array_shift($LINES);
     }
     return readline($prompt);
