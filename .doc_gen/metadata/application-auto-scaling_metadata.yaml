@@ -1,21 +1,4 @@
 # zexi 0.2.0
-application-autoscaling_DescribeScalingPolicies:
-  title: Describe &APP-AS; scaling policies using an &AWS; SDK
-  title_abbrev: Describes scaling policies
-  synopsis: describe &APP-AS; scaling policies for the specified service namespace.
-  category:
-  languages:
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/applicationautoscaling
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - applicationautoscaling.rust.describe-scaling-policies
-  services:
-    application-autoscaling: {DescribeScalingPolicies}
 application-autoscaling_Registers:
   title: Registers a resource to scale using an &APP-ASlong; SDK
   title_abbrev: Registers a resource
@@ -47,4 +30,22 @@ application-autoscaling_Disable:
               snippet_tags:
                 - appautoscale.java2.disable.main
   services:
-    auto-scaling: {deleteScalingPolicy}    
+    auto-scaling: {deleteScalingPolicy}   
+application-autoscaling_DescribeScalingPolicies:
+  title: Describe &APP-AS; scaling policies using an &AWS; SDK
+  title_abbrev: Describes scaling policies
+  synopsis: describe &APP-AS; scaling policies for the specified service namespace.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/applicationautoscaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - applicationautoscaling.rust.describe-scaling-policies
+  services:
+    application-autoscaling: {DescribeScalingPolicies}
+ 
