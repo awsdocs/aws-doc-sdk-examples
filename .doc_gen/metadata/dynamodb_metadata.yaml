@@ -183,6 +183,17 @@ dynamodb_BatchGetItem:
   synopsis: get a batch of &DDB; items.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/dynamodb
+          excerpts:
+            - description: shows how to get batch items using the service client. 
+              snippet_tags:
+                - dynamodb.java2.batch.get.items.main
+            - description: shows how to get batch items using the service client and a paginator. 
+              snippet_tags:
+                - dynamodb.java2.batch.get.items.paginator.main
     .NET:
       versions:
         - sdk_version: 3
@@ -376,6 +387,9 @@ dynamodb_BatchWriteItem:
           github: javav2/example_code/dynamodb/
           sdkguide:
           excerpts:
+            - description: Inserts many items into a table by using the service client.
+              snippet_tags:
+                - dynamodb.java2.batch.write.items.main
             - description: Inserts many items into a table by using the enhanced client.
               snippet_tags:
                 - dynamodb.java2.mapping.batchitems.main
