@@ -299,7 +299,7 @@ bedrock:
     url: bedrock/latest/userguide/what-is-bedrock.html
   api_ref: bedrock/latest/APIReference/welcome.html
   tags:
-    product_categories: {'Machine Learning &amp; AI'}
+    product_categories: {'Machine Learning &amp; AI', 'Generative AI'}
   version: bedrock-2023-04-20
 bedrock-runtime:
   bundle: bedrock
@@ -315,7 +315,7 @@ bedrock-runtime:
     url: bedrock/latest/userguide/what-is-bedrock.html
   api_ref: bedrock/latest/APIReference/welcome.html
   tags:
-    product_categories: {'Machine Learning &amp; AI'}
+    product_categories: {'Machine Learning &amp; AI', 'Generative AI'}
   version: bedrock-runtime-2023-09-30
 bedrock-agent:
   bundle: bedrock
@@ -331,7 +331,7 @@ bedrock-agent:
     url: bedrock/latest/userguide/agents.html
   api_ref: bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html
   tags:
-    product_categories: {'Machine Learning &amp; AI'}
+    product_categories: {'Machine Learning &amp; AI', 'Generative AI'}
   version: bedrock-agent-2023-12-12
 bedrock-agent-runtime:
   bundle: bedrock
@@ -347,7 +347,7 @@ bedrock-agent-runtime:
     url: bedrock/latest/userguide/agents.html
   api_ref: bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html
   tags:
-    product_categories: {'Machine Learning &amp; AI'}
+    product_categories: {'Machine Learning &amp; AI', 'Generative AI'}
   version: bedrock-agent-runtime-2023-12-12
 budgets:
   api_ref: aws-cost-management/latest/APIReference/Welcome.html
