@@ -2,7 +2,7 @@
 application-autoscaling_Registers:
   title: Registers a resource to scale using an &APP-ASlong; SDK
   title_abbrev: Registers a resource
-  synopsis: registers a resource.
+  synopsis: registers a &APP-AS; resource.
   category:
   languages:
     Java:
@@ -18,7 +18,7 @@ application-autoscaling_Registers:
 application-autoscaling_Disable:
   title: Disables a resource that is scaled using an &APP-ASlong; SDK
   title_abbrev: Disables a  resource
-  synopsis: disables a resource.
+  synopsis: disables a &APP-AS; resource.
   category:
   languages:
     Java:
@@ -30,7 +30,7 @@ application-autoscaling_Disable:
               snippet_tags:
                 - appautoscale.java2.disable.main
   services:
-    auto-scaling: {deleteScalingPolicy}   
+    auto-scaling: {DeleteScalingPolicy}   
 application-autoscaling_DescribeScalingPolicies:
   title: Describe &APP-AS; scaling policies using an &AWS; SDK
   title_abbrev: Describes scaling policies
