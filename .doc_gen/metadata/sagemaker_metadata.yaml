@@ -8,7 +8,7 @@ sagemaker_Hello:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin\services\sagemaker
+          github: kotlin/services/sagemaker
           sdkguide:
           excerpts:
             - description:
@@ -52,7 +52,7 @@ sagemaker_CreatePipeline:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin\usecases\workflow_sagemaker_pipes
+          github: kotlin/usecases/workflow_sagemaker_pipes
           sdkguide:
           excerpts:
             - description:
@@ -98,7 +98,7 @@ sagemaker_ExecutePipeline:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin\usecases\workflow_sagemaker_pipes
+          github: kotlin/usecases/workflow_sagemaker_pipes
           sdkguide:
           excerpts:
             - description:
@@ -142,7 +142,7 @@ sagemaker_DeletePipeline:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin\usecases\workflow_sagemaker_pipes
+          github: kotlin/usecases/workflow_sagemaker_pipes
           sdkguide:
           excerpts:
             - description:
@@ -189,7 +189,7 @@ sagemaker_DescribePipelineExecution:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin\usecases\workflow_sagemaker_pipes
+          github: kotlin/usecases/workflow_sagemaker_pipes
           sdkguide:
           excerpts:
             - description:
@@ -464,7 +464,7 @@ sagemaker_Scenario_Pipelines:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin\usecases\workflow_sagemaker_pipes
+          github: kotlin/usecases/workflow_sagemaker_pipes
           sdkguide:
           excerpts:
             - description:
