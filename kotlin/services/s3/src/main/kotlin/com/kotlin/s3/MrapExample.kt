@@ -144,7 +144,7 @@ class MrapExample {
 // snippet-start:[s3.kotlin.mrap.getobject]
     suspend fun getObjectFromMrap(s3: S3Client, mrapArn: String, keyName: String): String? {
         val request = GetObjectRequest {
-            bucket = mrapArn  // Use the ARN instead of the bucket name for object operations.
+            bucket = mrapArn // Use the ARN instead of the bucket name for object operations.
             key = keyName
         }
 
