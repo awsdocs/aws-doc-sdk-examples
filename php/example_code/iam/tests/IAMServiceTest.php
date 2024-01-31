@@ -8,6 +8,8 @@ use Exception;
 use Iam\IAMService;
 use PHPUnit\Framework\TestCase;
 
+// TODO rewrite as unit tests
+
 /**
  * @group integ
  */
