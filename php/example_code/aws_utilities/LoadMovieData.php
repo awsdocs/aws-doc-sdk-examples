@@ -2,9 +2,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-use GuzzleHttp\Client as GuzzleClient;
+namespace AwsUtilities;
 
-//use ZipArchive;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Utils;
+use ZipArchive;
 
 function loadMovieData()
 {
@@ -13,8 +16,13 @@ function loadMovieData()
 
     $url = 'https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip';
     $guzzle = new GuzzleClient(['verify' => false]);
-    $file = \GuzzleHttp\Psr7\Utils::tryFopen($movieZipName, 'w');
-    $guzzle->request("get", $url, ['sink' => $file]);
+    $file = Utils::tryFopen($movieZipName, 'w');
+    try {
+        $guzzle->request("get", $url, ['sink' => $file]);
+    } catch (GuzzleException $e) {
+        echo "Could not retrieve remote file. {$e->getCode()}: {$e->getMessage()}\n";
+        return null;
+    }
 
     $zip = new ZipArchive();
     $extractPath = ".";

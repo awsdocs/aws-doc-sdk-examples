@@ -4,7 +4,7 @@
 
 use DynamoDb\PartiQL_Basics\GettingStartedWithPartiQL;
 
-include "vendor\autoload.php";
+include "vendor/autoload.php";
 
 include "GettingStartedWithPartiQL.php";
 
