@@ -64,7 +64,7 @@ suspend fun main(args: Array<String>) {
     putObject(bucketName, key, objectPath)
 
     // Download the object to another local file.
-    getObject(bucketName, key, savePath)
+    getObjectFromMrap(bucketName, key, savePath)
 
     // List all objects located in the Amazon S3 bucket.
     listBucketObs(bucketName)
@@ -108,7 +108,7 @@ suspend fun putObject(bucketName: String, objectKey: String, objectPath: String)
     }
 }
 
-suspend fun getObject(bucketName: String, keyName: String, path: String) {
+suspend fun getObjectFromMrap(bucketName: String, keyName: String, path: String) {
     val request = GetObjectRequest {
         key = keyName
         bucket = bucketName

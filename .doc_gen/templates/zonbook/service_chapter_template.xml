@@ -72,7 +72,11 @@
         {{- else}}
         <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
         {{- end}}
-        {{- template "service_examples" makeSlice $cat_examples "" 0}}
+        {{- $bundle_prefix := ""}}
+        {{- if $.Bundle}}
+            {{$bundle_prefix = $}}
+        {{- end}}
+        {{- template "service_examples" makeSlice $cat_examples $bundle_prefix 0}}
     </section>
     {{- end}}
     {{- end}}
