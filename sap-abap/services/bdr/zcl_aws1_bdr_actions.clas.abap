@@ -70,7 +70,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
         DATA(lv_answer) = lo_bdr_l2_claude->prompt_for_text( iv_prompt ).
       CATCH /aws1/cx_bdraccessdeniedex INTO DATA(lo_ex).
         WRITE / lo_ex->get_text( ).
-        WRITE / |Don't forget to enable model access at https://us-west-2.console.aws.amazon.com/bedrock/home?#/modelaccess|.
+        WRITE / |Don't forget to enable model access at https://console.aws.amazon.com/bedrock/home?#/modelaccess|.
 
     ENDTRY.
     "snippet-end:[bdr.abapv1.invokemodel_l2_claude_v2]
@@ -90,7 +90,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
         DATA(lv_image) = lo_bdr_l2_sd->text_to_image( iv_prompt ).
       CATCH /aws1/cx_bdraccessdeniedex INTO DATA(lo_ex).
         WRITE / lo_ex->get_text( ).
-        WRITE / |Don't forget to enable model access at https://us-west-2.console.aws.amazon.com/bedrock/home?#/modelaccess|.
+        WRITE / |Don't forget to enable model access at https://console.aws.amazon.com/bedrock/home?#/modelaccess|.
 
     ENDTRY.
     "snippet-end:[bdr.abapv1.invokemodel_l2_stable_diffusion]
@@ -161,7 +161,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
         DATA(lv_answer) = ls_response-completion.
       CATCH /aws1/cx_bdraccessdeniedex INTO DATA(lo_ex).
         WRITE / lo_ex->get_text( ).
-        WRITE / |Don't forget to enable model access at https://us-west-2.console.aws.amazon.com/bedrock/home?#/modelaccess|.
+        WRITE / |Don't forget to enable model access at https://console.aws.amazon.com/bedrock/home?#/modelaccess|.
 
     ENDTRY.
     "snippet-end:[bdr.abapv1.invokemodel_claude_v2]
@@ -243,7 +243,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
         ENDIF.
       CATCH /aws1/cx_bdraccessdeniedex INTO DATA(lo_ex).
         WRITE / lo_ex->get_text( ).
-        WRITE / |Don't forget to enable model access at https://us-west-2.console.aws.amazon.com/bedrock/home?#/modelaccess|.
+        WRITE / |Don't forget to enable model access at https://console.aws.amazon.com/bedrock/home?#/modelaccess|.
 
     ENDTRY.
 
