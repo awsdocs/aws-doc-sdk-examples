@@ -1,8 +1,8 @@
 # zexi 0.2.0
 application-autoscaling_RegisterScalableTarget:
-  title: Registers a resource to scale using an &APP-ASlong; SDK
+  title: Register a resource to scale using an &APP-ASlong; SDK
   title_abbrev: Registers a resource
-  synopsis: registers an &APP-AS; resource.
+  synopsis: register an &APP-AS; resource.
   category:
   languages:
     Java:
@@ -16,9 +16,9 @@ application-autoscaling_RegisterScalableTarget:
   services:
     application-autoscaling: {RegisterScalableTarget}
 application-autoscaling_DeleteScalingPolicy:
-  title: Disables a resource that is scaled using an &APP-ASlong; SDK
+  title: Disable a resource that is scaled using an &APP-ASlong; SDK
   title_abbrev: Disables a  resource
-  synopsis: disables an &APP-AS; resource.
+  synopsis: disable an &APP-AS; resource.
   category:
   languages:
     Java:
