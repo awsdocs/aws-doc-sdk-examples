@@ -114,6 +114,19 @@ class DateUtilities:
         unix_timestamp = dt.replace(tzinfo=timezone.utc).timestamp()
         return unix_timestamp * 1000
 
+    def convert_datetime_to_iso1806(self, datetime_obj):
+        """
+        Converts a Python datetime object to ISO 1806 format.
+
+        :param dt: The datetime object to be converted.
+        :type dt: datetime
+        :return: ISO 1806.
+        :rtype: str
+        """
+        unix_timestamp = datetime_obj.replace(tzinfo=timezone.utc).timestamp()
+        iso1806 = self.convert_unix_timestamp_to_iso1806(round(unix_timestamp * 1000))
+        return iso1806
+
     def compare_dates(self, date_str1, date_str2):
         """
         Compares two dates in ISO 8601 format and returns the later one.

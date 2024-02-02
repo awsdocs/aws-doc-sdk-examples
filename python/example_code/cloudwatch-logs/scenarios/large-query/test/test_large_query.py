@@ -8,17 +8,14 @@ sys.path.append("../")
 from date_utilities import DateUtilities
 from exec import CloudWatchLogsQueryRunner
 
+date_utility = DateUtilities()
+runner = CloudWatchLogsQueryRunner()
+
 
 @pytest.mark.integ
 def test_run_successfully():
-    # Get the current datetime
     now = datetime.now()
     ten_days_ago = now - timedelta(days=10)
-    query_start_date = DateUtilities.convert_datetime_to_unix_timestamp(ten_days_ago)
-    query_end_date = DateUtilities.convert_datetime_to_unix_timestamp(now)
-    runner = CloudWatchLogsQueryRunner()
-    start_date_iso1806 = DateUtilities.convert_unix_timestamp_to_iso1806(
-        query_start_date
-    )
-    end_date_iso1806 = DateUtilities.convert_unix_timestamp_to_iso1806(query_end_date)
-    runner.execute_query(start_date_iso1806, end_date_iso1806)
+    query_start_date = date_utility.convert_datetime_to_iso1806(ten_days_ago)
+    query_end_date = date_utility.convert_datetime_to_iso1806(now)
+    runner.execute_query(query_start_date, query_end_date)
