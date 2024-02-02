@@ -373,6 +373,7 @@ public class IotScenario {
         }
     }
 
+    // snippet-start:[iot.java2.delete.cert.main]
     public static void deleteCertificate(IotClient iotClient, String certificateArn ) {
         DeleteCertificateRequest certificateProviderRequest = DeleteCertificateRequest.builder()
             .certificateId(extractCertificateId(certificateArn))
@@ -381,6 +382,7 @@ public class IotScenario {
         iotClient.deleteCertificate(certificateProviderRequest);
         System.out.println(certificateArn +" was successfully deleted.");
     }
+    // snippet-end:[iot.java2.delete.cert.main]
 
 
     // Get the cert Id  from the Cert ARN value.

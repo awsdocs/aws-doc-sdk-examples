@@ -56,9 +56,41 @@ iot_ListThings:
                 - iot.rust.list-things
   services:
     iot: {ListThings}
+iot_CreateCertificate:
+  title:  Create an &IoT; certificate index using an &AWS; SDK
+  title_abbrev: Create a certificate
+  synopsis: create a &IoT; certificate.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.create.cert.main
+  services:
+    iot: {CreateKeysAndCertificate} 
+iot_DeleteCertificate:
+  title:  Delete an &IoT; certificate index using an &AWS; SDK
+  title_abbrev: Delete a certificate
+  synopsis: delete an &IoT; certificate.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.delete.cert.main
+  services:
+    iot: {DeleteCertificate}     
 iot_SearchIndex:
   title:  Query the &IoT; search index using an &AWS; SDK
-  title_abbrev: Query the earch index
+  title_abbrev: Query the search index
   synopsis: query the &IoT; search index.
   category:
   languages:
@@ -72,10 +104,10 @@ iot_SearchIndex:
                 - iot.java2.search.thing.main
   services:
     iot: {SearchIndex} 
-iot_DeleteRule:
-  title: Delete an &IoT; rule using an &AWS; SDK
-  title_abbrev: Delete a rule
-  synopsis: delete an &IoT; rule.
+iot_DeleteThing:
+  title: Delete an &IoT; thing using an &AWS; SDK
+  title_abbrev: Delete a thing
+  synopsis: delete an &IoT; thing.
   category:
   languages:
     Java:
