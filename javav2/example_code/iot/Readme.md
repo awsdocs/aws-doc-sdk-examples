@@ -3,7 +3,7 @@
 ## Overview
 This README discusses how to run and test the AWS SDK for Java (V2) examples for AWS IoT Core.
 
-AWS Application Auto Scaling is a web service for developers and system administrators who need a solution for automatically scaling their scalable resources for individual AWS services beyond Amazon EC2.
+AWS IoT Core enables secure two-way communication between internet-connected devices and AWS services with device gateway and device SDK capabilities.
 
 ## ⚠️ Important
 * The SDK for Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
@@ -15,12 +15,24 @@ AWS Application Auto Scaling is a web service for developers and system administ
 
 The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
+### Get started
+
+- [Hello AWS IoT Core](src/main/java/com/example/iot/HelloIoT.java) (`ListThings`)
+
+
 ### Single action
 
 The following examples use the **ApplicationAutoScalingClient** object:
 
 - [Registers an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appautoscale/src/main/java/com/example/appautoscale/EnableDynamoDBAutoscaling.java) (RegisterScalableTarget command)
 - [Deletes a Scaling Policy from an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appautoscale/src/main/java/com/example/appautoscale/DisableDynamoDBAutoscaling.java) (DeleteScalingPolicy command)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+* [Perform device management use cases ](src/main/java/com/example/iot/IotScenario.java) 
 
 ## Running the AWS AppSync Java files
 
