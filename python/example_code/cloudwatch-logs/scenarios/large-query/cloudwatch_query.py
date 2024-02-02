@@ -96,7 +96,7 @@ class CloudWatchQuery:
     def _find_most_recent_log(self, logs):
         """
         Search a list of log items and return most recent log entry.
-        :param logs:
+        :param logs: A list of logs to analyze.
         :return:
         """
         most_recent_log = None
