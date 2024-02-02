@@ -59,10 +59,10 @@ import java.util.regex.Pattern;
  * 3. Attach the certificate to the AWS IoT Thing.
  * 4. Update an AWS IoT Thing with Attributes.
  * 5. Get an AWS IoT Endpoint.
- * 6  Detach the certificate from the AWS IoT thing.
- * 7. Delete the certificate.
- * 8. Updates the shadow for the specified thing.
- * 9. Write out the state information, in JSON format.
+ * 6 List your certificates.
+ * 7. Detach amd delete the certificate.
+ * 8. Updates the shadow for the specified thing..
+ * 9. Write out the state information, in JSON format
  * 10. Creates a rule
  * 11. List rules
  * 12. Search things
@@ -145,7 +145,7 @@ public class IotScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("7. Detach amd remove the certificate.");
+        System.out.println("7. Detach amd delete the certificate.");
         detachThingPrincipal(iotClient, thingName, certificateArn);
         deleteCertificate(iotClient, certificateArn);
         System.out.println(DASHES);
