@@ -1,4 +1,6 @@
-from datetime import datetime, timezone
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+from datetime import datetime
 import time
 import logging
 
@@ -12,13 +14,17 @@ class DateOutOfBoundsError(Exception):
 
 
 class CloudWatchQuery:
-    """A class to query AWS CloudWatch logs within a specified date range.
+    """
+    A class to query AWS CloudWatch logs within a specified date range.
 
-    Attributes:
-        client (Client): The Cloudwatch Logs Client
-        log_groups (list): Names of the log groups to query.
-        date_range (tuple): Start and end datetime for the query.
-        limit (int): Maximum number of log entries to return.
+    :ivar client: The Cloudwatch Logs Client.
+    :vartype client: Client
+    :ivar log_groups: Names of the log groups to query.
+    :vartype log_groups: list
+    :ivar date_range: Start and end datetime for the query.
+    :vartype date_range: tuple
+    :ivar limit: Maximum number of log entries to return.
+    :vartype limit: int
     """
 
     def __init__(self, client, log_groups, date_range, limit=10000):
@@ -33,7 +39,12 @@ class CloudWatchQuery:
         self.date_utilities = DateUtilities()
 
     def query_logs(self):
-        """Executes the CloudWatch logs query and calculates the execution time."""
+        """
+        Executes a CloudWatch logs query for a specified date range and calculates the execution time of the query.
+
+        :return: A batch of logs retrieved from the CloudWatch logs query.
+        :rtype: list
+        """
         start_time = datetime.now()
 
         start_date, end_date = self.date_utilities.normalize_date_range_format(
@@ -98,14 +109,15 @@ class CloudWatchQuery:
         return most_recent_log
 
     def _perform_query(self, date_range, max_logs):
-        """Performs the actual CloudWatch log query.
+        """
+        Performs the actual CloudWatch log query.
 
-        Args:
-            date_range (tuple): Start and end datetime for the query.
-            max_logs (int): Maximum number of logs to retrieve.
-
-        Returns:
-            list: Query results.
+        :param date_range: A tuple representing the start and end datetime for the query.
+        :type date_range: tuple
+        :param max_logs: The maximum number of logs to retrieve.
+        :type max_logs: int
+        :return: A list containing the query results.
+        :rtype: list
         """
         try:
             query_id = self._initiate_query(date_range, max_logs)
@@ -114,14 +126,15 @@ class CloudWatchQuery:
             return []
 
     def _initiate_query(self, date_range, max_logs):
-        """Initiates the CloudWatch logs query.
+        """
+        Initiates the CloudWatch logs query.
 
-        Args:
-            date_range (tuple): Start and end datetime for the query.
-            max_logs (int): Maximum number of logs to retrieve.
-
-        Returns:
-            str: Query ID.
+        :param date_range: A tuple representing the start and end datetime for the query.
+        :type date_range: tuple
+        :param max_logs: The maximum number of logs to retrieve.
+        :type max_logs: int
+        :return: The query ID as a string.
+        :rtype: str
         """
         try:
             start_time = round(
@@ -142,13 +155,13 @@ class CloudWatchQuery:
             raise DateOutOfBoundsError(f"Resource not found: {e}")
 
     def _wait_for_query_results(self, query_id):
-        """Waits for the query to complete and retrieves the results.
+        """
+        Waits for the query to complete and retrieves the results.
 
-        Args:
-            query_id (str): The ID of the initiated query.
-
-        Returns:
-            list: The results of the query.
+        :param query_id: The ID of the initiated query.
+        :type query_id: str
+        :return: A list containing the results of the query.
+        :rtype: list
         """
         while True:
             time.sleep(1)
