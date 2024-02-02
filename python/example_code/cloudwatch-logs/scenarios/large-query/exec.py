@@ -1,10 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+import logging
 import os
 import sys
+
 import boto3
 from botocore.config import Config
-import logging
+
 from cloudwatch_query import CloudWatchQuery
 from date_utilities import DateUtilities
 
@@ -107,7 +109,9 @@ def main():
     logging.info("Starting a recursive CloudWatch logs query...")
     runner = CloudWatchLogsQueryRunner()
     query_start_date, query_end_date = runner.fetch_environment_variables()
-    start_date_iso1806 = DateUtilities.convert_unix_timestamp_to_iso1806(query_start_date)
+    start_date_iso1806 = DateUtilities.convert_unix_timestamp_to_iso1806(
+        query_start_date
+    )
     end_date_iso1806 = DateUtilities.convert_unix_timestamp_to_iso1806(query_end_date)
     runner.execute_query(start_date_iso1806, end_date_iso1806)
 

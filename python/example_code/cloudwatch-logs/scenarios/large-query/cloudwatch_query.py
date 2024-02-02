@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-from datetime import datetime
-import time
 import logging
+import time
+from datetime import datetime
 
 from date_utilities import DateUtilities
 
