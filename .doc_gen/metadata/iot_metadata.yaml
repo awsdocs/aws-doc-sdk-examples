@@ -121,8 +121,9 @@ iot_UpdateShawdow:
   services:
     iot: {updateThingShadow}       
 iot_Scenario:
-  title: Performing device management use cases using &IoT; SDK
-  title_abbrev: Performing device management use cases
+  title: Perform &IoT; device management use cases using &IoT; SDK
+  title_abbrev: Performs device management use cases
+  synopsis: perform &IoT; device management use cases using &IoT; SDK
   category: Scenarios
   languages:
     Java:
@@ -135,4 +136,4 @@ iot_Scenario:
               snippet_tags:
                 - iot.java2.scenario.main
   services:
-    iot: {getThingShadow}
+    iot: {}
