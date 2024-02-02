@@ -1,8 +1,40 @@
 # zexi 0.2.0
+application-autoscaling_RegisterScalableTarget:
+  title: Register a resource to scale using an &APP-ASlong; SDK
+  title_abbrev: Registers a resource
+  synopsis: register an &APP-AS; resource.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/appautoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - appautoscale.java2.enable.main
+  services:
+    application-autoscaling: {RegisterScalableTarget}
+application-autoscaling_DeleteScalingPolicy:
+  title: Disable a resource that is scaled using an &APP-ASlong; SDK
+  title_abbrev: Disables a  resource
+  synopsis: disable an &APP-AS; resource.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/appautoscale
+          excerpts:
+            - description:
+              snippet_tags:
+                - appautoscale.java2.disable.main
+  services:
+    application-autoscaling: {DeleteScalingPolicy}   
 application-autoscaling_DescribeScalingPolicies:
   title: Describe &APP-AS; scaling policies using an &AWS; SDK
   title_abbrev: Describes scaling policies
-  synopsis: describe &APP-AS; scaling policies for the specified service namespace.
+  synopsis: describe &APP-AS; scaling policies for the given service namespace.
   category:
   languages:
     Rust:
@@ -16,3 +48,4 @@ application-autoscaling_DescribeScalingPolicies:
                 - applicationautoscaling.rust.describe-scaling-policies
   services:
     application-autoscaling: {DescribeScalingPolicies}
+ 
