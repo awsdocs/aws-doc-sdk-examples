@@ -62,6 +62,16 @@ class CloudWatchQuery:
         return logs_batch
 
     def process_logs(self, date_range):
+        """
+        Processes logs within a given date range, fetching batches of logs recursively if necessary.
+
+        :param date_range: The date range to fetch logs for, specified as a tuple (start_timestamp, end_timestamp).
+        :type date_range: tuple
+        :return: None if the recursive fetching is continued or stops when the final batch of logs is processed.
+                 Although it doesn't explicitly return the query results, this method accumulates all fetched logs
+                 in the `self.query_results` attribute.
+        :rtype: None
+        """
         # Fetch a batch of logs
         batch_of_logs = self._perform_query(date_range, self.limit)
         # Add the batch to the accumulated logs
