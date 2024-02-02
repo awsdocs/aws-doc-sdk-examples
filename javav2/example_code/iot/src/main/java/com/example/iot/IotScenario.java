@@ -479,7 +479,7 @@ public class IotScenario {
             System.exit(1);
         }
     }
-    // snippet-delete:[iot.java2.delete.thing.main]
+    // snippet-end:[iot.java2.delete.thing.main]
 
     // snippet-start:[iot.java2.create.thing.main]
     public static void createIoTThing(IotClient iotClient, String thingName) {

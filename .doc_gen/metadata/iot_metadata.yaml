@@ -56,6 +56,22 @@ iot_ListThings:
                 - iot.rust.list-things
   services:
     iot: {ListThings}
+iot_SearchIndex:
+  title:  Query the &IoT; search index using an &AWS; SDK
+  title_abbrev: Query the earch index
+  synopsis: query the &IoT; search index.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.search.thing.main
+  services:
+    iot: {SearchIndex} 
 iot_DeleteRule:
   title: Delete an &IoT; rule using an &AWS; SDK
   title_abbrev: Delete a rule
