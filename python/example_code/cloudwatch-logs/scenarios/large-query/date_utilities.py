@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 from datetime import datetime, timezone
 
+
 class DateUtilities:
     """A class to help mutate dates in Python."""
 
@@ -41,7 +42,9 @@ class DateUtilities:
         return [(date_range[0], round(midpoint)), (round(midpoint), date_range[1])]
 
     @staticmethod
-    def convert_unix_timestamp_to_iso1806(unix_timestamp, iso1806_format="%Y-%m-%d %H:%M:%S.%f"):
+    def convert_unix_timestamp_to_iso1806(
+        unix_timestamp, iso1806_format="%Y-%m-%d %H:%M:%S.%f"
+    ):
         """
         Converts a UNIX timestamp in milliseconds to a date string in the specified format.
 
@@ -110,6 +113,7 @@ class DateUtilities:
         dt = self.convert_iso1806_to_datetime(iso1806)
         unix_timestamp = dt.replace(tzinfo=timezone.utc).timestamp()
         return unix_timestamp * 1000
+
     def compare_dates(self, date_str1, date_str2):
         """
         Compares two dates in ISO 8601 format and returns the later one.
@@ -144,7 +148,9 @@ class DateUtilities:
         :raises Exception: If required parameters are missing.
         """
         if not (to_format, from_format):
-            raise Exception("This function requires a date range, a starting format, and a target format")
+            raise Exception(
+                "This function requires a date range, a starting format, and a target format"
+            )
         if "unix_timestamp" in to_format and "datetime" in from_format:
             if not self.is_datetime(date_range[0], self.datetime_format):
                 start_date = self.convert_unix_timestamp_to_datetime(date_range[0])

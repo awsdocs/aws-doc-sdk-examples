@@ -14,6 +14,7 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s",
 )
 
+
 class CloudWatchLogsQueryRunner:
     def __init__(self):
         """
@@ -48,7 +49,9 @@ class CloudWatchLogsQueryRunner:
             query_start_date = int(os.environ["QUERY_START_DATE"])
             query_end_date = int(os.environ["QUERY_END_DATE"])
         except KeyError:
-            logging.error("Both QUERY_START_DATE and QUERY_END_DATE environment variables are required.")
+            logging.error(
+                "Both QUERY_START_DATE and QUERY_END_DATE environment variables are required."
+            )
             sys.exit(1)
         except ValueError as e:
             logging.error(f"Error parsing date environment variables: {e}")
@@ -67,8 +70,12 @@ class CloudWatchLogsQueryRunner:
         :return: Start and end dates in ISO 8601 format.
         :rtype: tuple
         """
-        start_date_iso1806 = self.date_utilities.convert_unix_timestamp_to_iso1806(start_date)
-        end_date_iso1806 = self.date_utilities.convert_unix_timestamp_to_iso1806(end_date)
+        start_date_iso1806 = self.date_utilities.convert_unix_timestamp_to_iso1806(
+            start_date
+        )
+        end_date_iso1806 = self.date_utilities.convert_unix_timestamp_to_iso1806(
+            end_date
+        )
         return start_date_iso1806, end_date_iso1806
 
     def execute_query(self, start_date_iso1806, end_date_iso1806):
@@ -87,7 +94,10 @@ class CloudWatchLogsQueryRunner:
         )
         cloudwatch_query.query_logs()
         logging.info("Query executed successfully.")
-        logging.info(f"Queries completed in {cloudwatch_query.query_duration} seconds. Total logs found: {len(cloudwatch_query.query_results)}")
+        logging.info(
+            f"Queries completed in {cloudwatch_query.query_duration} seconds. Total logs found: {len(cloudwatch_query.query_results)}"
+        )
+
 
 def main():
     """
@@ -98,8 +108,11 @@ def main():
 
     runner = CloudWatchLogsQueryRunner()
     query_start_date, query_end_date = runner.fetch_environment_variables()
-    start_date_iso1806, end_date_iso1806 = runner.convert_dates_to_iso1806(query_start_date, query_end_date)
+    start_date_iso1806, end_date_iso1806 = runner.convert_dates_to_iso1806(
+        query_start_date, query_end_date
+    )
     runner.execute_query(start_date_iso1806, end_date_iso1806)
+
 
 if __name__ == "__main__":
     main()
