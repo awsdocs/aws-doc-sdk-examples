@@ -1,12 +1,5 @@
-//snippet-sourcedescription:[IotScenario.java demonstrates how to perform device management use cases using the IotClient.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:AWS IoT]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
-
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 package com.example.iot;
 
 // snippet-start:[iot.java2.scenario.main]
@@ -17,6 +10,7 @@ import software.amazon.awssdk.services.iot.model.Action;
 import software.amazon.awssdk.services.iot.model.AttachThingPrincipalRequest;
 import software.amazon.awssdk.services.iot.model.AttachThingPrincipalResponse;
 import software.amazon.awssdk.services.iot.model.AttributePayload;
+import software.amazon.awssdk.services.iot.model.Certificate;
 import software.amazon.awssdk.services.iot.model.CreateKeysAndCertificateResponse;
 import software.amazon.awssdk.services.iot.model.CreateThingRequest;
 import software.amazon.awssdk.services.iot.model.CreateTopicRuleRequest;
@@ -29,8 +23,11 @@ import software.amazon.awssdk.services.iot.model.DescribeThingRequest;
 import software.amazon.awssdk.services.iot.model.DescribeThingResponse;
 import software.amazon.awssdk.services.iot.model.DetachThingPrincipalRequest;
 import software.amazon.awssdk.services.iot.model.IotException;
+import software.amazon.awssdk.services.iot.model.ListCertificatesResponse;
 import software.amazon.awssdk.services.iot.model.ListTopicRulesRequest;
 import software.amazon.awssdk.services.iot.model.ListTopicRulesResponse;
+import software.amazon.awssdk.services.iot.model.SearchIndexRequest;
+import software.amazon.awssdk.services.iot.model.SearchIndexResponse;
 import software.amazon.awssdk.services.iot.model.SnsAction;
 import software.amazon.awssdk.services.iot.model.TopicRuleListItem;
 import software.amazon.awssdk.services.iot.model.TopicRulePayload;
@@ -66,8 +63,10 @@ import java.util.regex.Pattern;
  * 7. Delete the certificate.
  * 8. Updates the shadow for the specified thing.
  * 9. Write out the state information, in JSON format.
- * 10. List rules
- * 11. Delete Thing.
+ * 10. Creates a rule
+ * 11. List rules
+ * 12. Search things
+ * 13. Delete Thing.
  */
 public class IotScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -87,10 +86,11 @@ public class IotScenario {
         //  }
 
         // Specify the thing name
-        String thingName = "foo129";
+        String thingName = "foo138";
         String roleARN = "arn:aws:iam::814548047983:role/AssumeRoleSNS";
-        String ruleName = "YourRuleName29";
+        String ruleName = "YourRuleName38";
         String snsAction = "arn:aws:sns:us-east-1:814548047983:scott1111";
+        String queryString = "thingName:foo";
 
         IotClient iotClient = IotClient.builder()
             .region(Region.US_EAST_1)
@@ -135,13 +135,18 @@ public class IotScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("6. Detach amd remove the certificate.");
+        System.out.println("6. List your IoT Certificates");
+        listCertificates(iotClient);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("7. Detach amd remove the certificate.");
         detachThingPrincipal(iotClient, thingName, certificateArn);
         deleteCertificate(iotClient, certificateArn);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("7. Create an IoT shadow that refers to a digital representation or virtual twin of a physical IoT device");
+        System.out.println("8. Create an IoT shadow that refers to a digital representation or virtual twin of a physical IoT device");
         IotDataPlaneClient iotPlaneClient = IotDataPlaneClient.builder()
             .region(Region.US_EAST_1)
             .endpointOverride(URI.create(endpointUrl))
@@ -151,12 +156,12 @@ public class IotScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("8. Write out the state information, in JSON format.");
+        System.out.println("9. Write out the state information, in JSON format.");
         getPayload(iotPlaneClient, thingName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("9. Creates a rule");
+        System.out.println("10. Creates a rule");
         System.out.println("""
         Creates a rule that is an administrator-level action. 
         Any user who has permission to create rules will be able to access data processed by the rule.
@@ -165,12 +170,17 @@ public class IotScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("10. List your rules.");
+        System.out.println("11. List your rules.");
         listIoTRules(iotClient);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("12. Delete the AWS IoT Thing.");
+        System.out.println("12. Search things.");
+        searchThings(iotClient, queryString);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("13. Delete the AWS IoT Thing.");
         deleteIoTThing(iotClient, thingName);
         System.out.println(DASHES);
 
@@ -179,7 +189,16 @@ public class IotScenario {
         System.out.println(DASHES);
     }
 
-    private static void listIoTRules(IotClient iotClient) {
+    public static void listCertificates(IotClient iotClient) {
+        ListCertificatesResponse response = iotClient.listCertificates();
+        List<Certificate> certList = response.certificates();
+        for (Certificate cert : certList) {
+            System.out.println("Cert id: " + cert.certificateId());
+            System.out.println("Cert Arn: " + cert.certificateArn());
+        }
+    }
+
+    public static void listIoTRules(IotClient iotClient) {
         try {
             ListTopicRulesRequest listTopicRulesRequest = ListTopicRulesRequest.builder().build();
             ListTopicRulesResponse listTopicRulesResponse = iotClient.listTopicRules(listTopicRulesRequest);
@@ -197,7 +216,8 @@ public class IotScenario {
         }
     }
 
-    private static void createIoTRule(IotClient iotClient, String roleARN, String ruleName, String action) {
+    // snippet-start:[iot.java2.create.rule.main]
+    public static void createIoTRule(IotClient iotClient, String roleARN, String ruleName, String action) {
         try {
             // Set the rule SQL statement
             String sql = "SELECT * FROM '" + TOPIC + "'";
@@ -232,7 +252,9 @@ public class IotScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[iot.java2.create.rule.main]
 
+    // snippet-start:[iot.java2.get.shadow.writer.main]
     public static void getPayload(IotDataPlaneClient iotPlaneClient, String thingName) {
         try {
             GetThingShadowRequest getThingShadowRequest = GetThingShadowRequest.builder()
@@ -241,7 +263,7 @@ public class IotScenario {
 
             GetThingShadowResponse getThingShadowResponse = iotPlaneClient.getThingShadow(getThingShadowRequest);
 
-            // Extracting payload from response
+            // Extracting payload from response.
             SdkBytes payload = getThingShadowResponse.payload();
             String payloadString = payload.asUtf8String();
             System.out.println("Received Shadow Data: " + payloadString);
@@ -251,7 +273,9 @@ public class IotScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[iot.java2.get.shadow.writer.main]
 
+    // snippet-start:[iot.java2.update.shadow.thing.main]
     public static void updateShawdowThing(IotDataPlaneClient iotPlaneClient, String thingName) {
         try {
             // Create Thing Shadow State Document.
@@ -273,7 +297,9 @@ public class IotScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[iot.java2.update.shadow.thing.main]
 
+    // snippet-start:[iot.java2.update.thing.main]
     public static void updateThing(IotClient iotClient, String thingName) {
         // Specify the new attribute values.
         String newLocation = "Office";
@@ -303,6 +329,7 @@ public class IotScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[iot.java2.update.thing.main]
 
     // snippet-start:[iot.java2.describe.endpoint.main]
     public static String describeEndpoint(IotClient iotClient) {
@@ -359,7 +386,7 @@ public class IotScenario {
         return certificateIdPart.substring(certificateIdPart.lastIndexOf("/") + 1);
     }
 
-
+    // snippet-start:[iot.java2.create.cert.main]
     public static String createCertificate(IotClient iotClient) {
         try {
             // Create keys and certificate
@@ -386,8 +413,9 @@ public class IotScenario {
 
         return "";
     }
+    // snippet-end:[iot.java2.create.cert.main]
 
-    private static void attachCertificateToThing(IotClient iotClient, String thingName, String certificateArn) {
+    public static void attachCertificateToThing(IotClient iotClient, String thingName, String certificateArn) {
         // Attach the certificate to the thing
         AttachThingPrincipalRequest principalRequest = AttachThingPrincipalRequest.builder()
             .thingName(thingName)
@@ -446,6 +474,7 @@ public class IotScenario {
          }
      }
 
+    // snippet-start:[iot.java2.create.thing.main]
     public static void createIoTThing(IotClient iotClient, String thingName) {
         try {
             // Create Thing Request.
@@ -456,13 +485,14 @@ public class IotScenario {
             CreateThingResponse createThingResponse = iotClient.createThing(createThingRequest);
 
             // Print ARN of the created thing.
-            System.out.println("Created Thing ARN: " + createThingResponse.thingArn());
+            System.out.println("Thing ARN search result is " + createThingResponse.thingArn());
 
         } catch (IotException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
+    // snippet-end:[iot.java2.create.thing.main]
 
     private static String getValue(String input) {
         // Define a regular expression pattern for extracting the subdomain.
@@ -482,5 +512,29 @@ public class IotScenario {
         }
         return "" ;
     }
+
+    // snippet-start:[iot.java2.search.thing.main]
+    public static void searchThings(IotClient iotClient, String queryString){
+        SearchIndexRequest searchIndexRequest = SearchIndexRequest.builder()
+            .queryString(queryString)
+            .build();
+
+        try {
+            // Perform the search and get the result.
+            SearchIndexResponse searchIndexResponse = iotClient.searchIndex(searchIndexRequest);
+
+            // Process the result.
+            if (searchIndexResponse.things().isEmpty()) {
+                System.out.println("No things found.");
+            } else {
+                searchIndexResponse.things().forEach(thing -> System.out.println("Thing id found using search is " + thing.thingId()));
+            }
+        } catch (IotException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+    // snippet-end:[iot.java2.search.thing.main]
+
 }
 // snippet-end:[iot.java2.scenario.main]

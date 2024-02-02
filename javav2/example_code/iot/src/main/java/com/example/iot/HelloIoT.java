@@ -1,11 +1,5 @@
-//snippet-sourcedescription:[IotScenario.java demonstrates how to perform device management use cases using the IotClient.]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-keyword:AWS IoT]
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 package com.example.iot;
 
