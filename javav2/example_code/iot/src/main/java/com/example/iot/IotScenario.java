@@ -73,24 +73,29 @@ public class IotScenario {
     private static final String TOPIC = "your-iot-topic";
     public static void main(String[] args) {
         final String usage =
-            "Usage:\n" +
-                "    <thingName>\n\n" +
-                "Where:\n" +
-                "    thingName - The name of the AWS IoT Thing.\n" +
-                "    roleARN - The ARN of an IAM role that has permission to work with AWS IOT.\n" +
-                "    ruleName  - The name of the AWS IoT rule.";
+            """
+                Usage:
+                    <thingName> <roleARN> <ruleName> <snsAction> <queryString>
 
-        //   if (args.length != 2) {
-        //        System.out.println(usage);
-        //       System.exit(1);
-        //  }
+                Where:
+                    thingName - The name of the AWS IoT Thing.
+                    roleARN - The ARN of an IAM role that has permission to work with AWS IOT.
+                    ruleName  - The name of the AWS IoT rule.
+                    snsAction  - An ARN of an SNS topic.
+                    queryString  - An query string uses to search for an IoT Thing (ie, thingName:foo).
+                """;
+
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         // Specify the thing name
-        String thingName = "foo138";
-        String roleARN = "arn:aws:iam::814548047983:role/AssumeRoleSNS";
-        String ruleName = "YourRuleName38";
-        String snsAction = "arn:aws:sns:us-east-1:814548047983:scott1111";
-        String queryString = "thingName:foo";
+        String thingName = args[0];
+        String roleARN = args[1];
+        String ruleName = args[2];
+        String snsAction = args[3];
+        String queryString = args[4];
 
         IotClient iotClient = IotClient.builder()
             .region(Region.US_EAST_1)
@@ -341,8 +346,8 @@ public class IotScenario {
             String exString = getValue(endpointUrl);
             String fullEndpoint = "https://"+exString+"-ats.iot.us-east-1.amazonaws.com";
 
-           System.out.println("Full Endpoint URL: "+fullEndpoint);
-           return fullEndpoint;
+            System.out.println("Full Endpoint URL: "+fullEndpoint);
+            return fullEndpoint;
 
         } catch (IotException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -455,24 +460,26 @@ public class IotScenario {
         }
     }
 
-     public static void deleteIoTThing(IotClient iotClient, String thingName) {
-         try {
-             // Create Thing Request.
-             DeleteThingRequest deleteThingRequest = DeleteThingRequest.builder()
-                 .thingName(thingName)
-                 .build();
+    // snippet-start:[iot.java2.delete.thing.main]
+    public static void deleteIoTThing(IotClient iotClient, String thingName) {
+        try {
+            // Create Thing Request.
+            DeleteThingRequest deleteThingRequest = DeleteThingRequest.builder()
+                .thingName(thingName)
+                .build();
 
-             // Delete Thing Response.
-             iotClient.deleteThing(deleteThingRequest);
+            // Delete Thing Response.
+            iotClient.deleteThing(deleteThingRequest);
 
-             // Print ARN of the created thing.
-             System.out.println("Deleted Thing " + thingName);
+            // Print ARN of the created thing.
+            System.out.println("Deleted Thing " + thingName);
 
-         } catch (IotException e) {
-             System.err.println(e.awsErrorDetails().errorMessage());
-             System.exit(1);
-         }
-     }
+        } catch (IotException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+    // snippet-delete:[iot.java2.delete.thing.main]
 
     // snippet-start:[iot.java2.create.thing.main]
     public static void createIoTThing(IotClient iotClient, String thingName) {
