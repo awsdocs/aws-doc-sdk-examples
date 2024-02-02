@@ -1,5 +1,6 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+from datetime import datetime, timedelta
 import logging
 import os
 import sys
@@ -14,11 +15,13 @@ from exec import CloudWatchLogsQueryRunner
 
 
 def test_run_successfully():
-    os.environ["QUERY_START_DATE"] = "1706217941000"
-    os.environ["QUERY_END_DATE"] = "1706218240994"
+    # Get the current datetime
+    now = datetime.now()
+    ten_days_ago = now - timedelta(days=10)
+    query_start_date = DateUtilities.convert_datetime_to_unix_timestamp(ten_days_ago)
+    query_end_date = DateUtilities.convert_datetime_to_unix_timestamp(now)
     runner = CloudWatchLogsQueryRunner()
-    query_start_date, query_end_date = runner.fetch_environment_variables()
-    start_date_iso1806, end_date_iso1806 = runner.convert_dates_to_iso1806(
-        query_start_date, query_end_date
-    )
+    start_date_iso1806 = DateUtilities.convert_unix_timestamp_to_iso1806(query_start_date)
+    end_date_iso1806 = DateUtilities.convert_unix_timestamp_to_iso1806(query_end_date)
     runner.execute_query(start_date_iso1806, end_date_iso1806)
+
