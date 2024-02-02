@@ -34,8 +34,6 @@ int main() {
         //TODO(User): Set to the region of your AWS account.
         const Aws::String region = Aws::Region::US_WEST_2;
 
-        Aws::Utils::Threading::Semaphore canCloseStream(0 /*initialCount*/, 1 /*maxCount*/);
-
         //Load a profile that has been granted AmazonTranscribeFullAccess AWS managed permission policy.
         Aws::Client::ClientConfiguration config;
 #ifdef _WIN32
@@ -57,22 +55,17 @@ int main() {
                 });
         //SetTranscriptEventCallback called for every 'chunk' of file transcripted.
         // Partial results are returned in real time.
-        handler.SetTranscriptEventCallback([&canCloseStream](const TranscriptEvent &ev) {
-                bool isFinal = false;
+        handler.SetTranscriptEventCallback([](const TranscriptEvent &ev) {
                 for (auto &&r: ev.GetTranscript().GetResults()) {
                     if (r.GetIsPartial()) {
                         std::cout << "[partial] ";
                     }
                     else {
                         std::cout << "[Final] ";
-                        isFinal = true;
                     }
                     for (auto &&alt: r.GetAlternatives()) {
                         std::cout << alt.GetTranscript() << std::endl;
                     }
-                }
-                if (isFinal) {
-                    canCloseStream.Release();
                 }
         });
 
@@ -83,7 +76,7 @@ int main() {
                 MediaEncoding::pcm); // wav and aiff files are PCM formats.
         request.SetEventStreamHandler(handler);
 
-        auto OnStreamReady = [&canCloseStream](AudioStream &stream) {
+        auto OnStreamReady = [](AudioStream &stream) {
                 Aws::FStream file(FILE_NAME, std::ios_base::in | std::ios_base::binary);
                 if (!file.is_open()) {
                     std::cerr << "Failed to open " << FILE_NAME << '\n';
@@ -127,22 +120,21 @@ int main() {
                 }
                 stream.flush();
                 stream.Close();
-         };
+        };
 
         Aws::Utils::Threading::Semaphore signaling(0 /*initialCount*/, 1 /*maxCount*/);
-        auto OnResponseCallback = [&signaling, &canCloseStream](
+        auto OnResponseCallback = [&signaling](
                 const TranscribeStreamingServiceClient * /*unused*/,
                 const Model::StartStreamTranscriptionRequest & /*unused*/,
-                const Model::StartStreamTranscriptionOutcome & outcome,
+                const Model::StartStreamTranscriptionOutcome &outcome,
                 const std::shared_ptr<const Aws::Client::AsyncCallerContext> & /*unused*/) {
 
-            if (!outcome.IsSuccess())
-            {
-                std::cerr << "Transcribe streaming error " << outcome.GetError().GetMessage() << std::endl;
-            }
+                if (!outcome.IsSuccess()) {
+                    std::cerr << "Transcribe streaming error "
+                              << outcome.GetError().GetMessage() << std::endl;
+                }
 
-            canCloseStream.Release();
-            signaling.Release();
+                signaling.Release();
         };
 
         std::cout << "Starting..." << std::endl;
