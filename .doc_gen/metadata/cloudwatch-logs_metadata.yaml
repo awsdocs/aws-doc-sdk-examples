@@ -315,6 +315,15 @@ cloudwatch-logs_GetQueryResults:
             - description:
               snippet_tags:
                 - javascript.v3.cloudwatch-logs.actions.GetQueryResults
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch_logs.get_query_results
+
   services:
     cloudwatch-logs: {GetQueryResults}
 cloudwatch-logs_StartQuery:
@@ -331,6 +340,14 @@ cloudwatch-logs_StartQuery:
             - description:
               snippet_tags:
                 - javascript.v3.cloudwatch-logs.actions.StartQuery
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch_logs.start_query
   services:
     cloudwatch-logs: {StartQuery}
 cloudwatch-logs_Scenario_BigQuery:

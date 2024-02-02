@@ -118,6 +118,7 @@ class CloudWatchQuery:
         logging.info(f"Most recent log date of batch: {most_recent_date}")
         return most_recent_log
 
+    # snippet-start:[python.example_code.cloudwatch_logs.start_query]
     def _perform_query(self, date_range, max_logs):
         """
         Performs the actual CloudWatch log query.
@@ -164,6 +165,9 @@ class CloudWatchQuery:
         except self.cloudwatch_logs.exceptions.ResourceNotFoundException as e:
             raise DateOutOfBoundsError(f"Resource not found: {e}")
 
+    # snippet-end:[python.example_code.cloudwatch_logs.start_query]
+
+    # snippet-start:[python.example_code.cloudwatch_logs.get_query_results]
     def _wait_for_query_results(self, query_id):
         """
         Waits for the query to complete and retrieves the results.
@@ -184,3 +188,4 @@ class CloudWatchQuery:
                 "Unknown",
             ]:
                 return results.get("results", [])
+    # snippet-end:[python.example_code.cloudwatch_logs.get_query_results]

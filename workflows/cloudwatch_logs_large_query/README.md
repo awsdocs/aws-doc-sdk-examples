@@ -2,7 +2,7 @@
 
 ## Overview
 
-This example shows how to use AWS SDKs to perform a query on CloudWatch logs and get more than the maximum number of 10,000 logs back.
+This example shows how to use AWS SDKs to perform a query on Amazon CloudWatch Logs and get more than the maximum number of 10,000 logs back.
 
 The CloudWatch Logs API is capped at 10,000 records for requests that [read](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html) or [write](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html). This example breaks down one query into multiple queries if more than the maximum number of records are returned from the query.
 
