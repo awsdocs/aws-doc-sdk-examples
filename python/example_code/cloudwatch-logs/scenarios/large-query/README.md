@@ -38,7 +38,7 @@ Use the following steps to create the necessary resources in AWS CloudFormation 
 
 ### Run the scenario
 
-1. `python run.py`
+1. `python exec.py`
 
 ## Additional reading
 
