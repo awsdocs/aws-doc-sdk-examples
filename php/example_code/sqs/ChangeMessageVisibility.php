@@ -2,12 +2,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/*/
 // snippet-start:[sqs.php.change_message_visibility.complete]
 // snippet-start:[sqs.php.change_message_visibility.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient; 
+use Aws\Sqs\SqsClient;
 use Aws\Exception\AwsException;
 // snippet-end:[sqs.php.change_message_visibility.import]
 
@@ -20,7 +19,7 @@ use Aws\Exception\AwsException;
 // snippet-start:[sqs.php.change_message_visibility.main]
 
 $queueUrl = "QUEUE_URL";
- 
+
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -48,8 +47,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[sqs.php.change_message_visibility.main]
 // snippet-end:[sqs.php.change_message_visibility.complete]
-

@@ -41,59 +41,73 @@ $segment_duration = '2';
 $output_key_prefix = 'elastic-transcoder-samples/output/hls/';
 
 // Create the client for Elastic Transcoder.
-$transcoder_client = ElasticTranscoderClient::factory(array('region' => $region, 'default_caching_config' => '/tmp'));
+$transcoder_client = ElasticTranscoderClient::factory(['region' => $region, 'default_caching_config' => '/tmp']);
 
-function create_hls_job($transcoder_client, $pipeline_id, $input_key, $output_key_prefix, $hls_presets, $segment_duration) {
-  // Setup the job input using the provided input key.
-  $input = array('Key' => $input_key);
+function create_hls_job(
+    $transcoder_client,
+    $pipeline_id,
+    $input_key,
+    $output_key_prefix,
+    $hls_presets,
+    $segment_duration
+) {
+  // Set up the job input using the provided input key.
+    $input = ['Key' => $input_key];
 
-  //Setup the job outputs using the HLS presets.
-  $output_key = hash('sha256', utf8_encode($input_key));
+  //Set up the job outputs using the HLS presets.
+    $output_key = hash('sha256', utf8_encode($input_key));
 
   // Specify the outputs based on the hls presets array specified.
-  $outputs = array();
-  foreach ($hls_presets as $prefix => $preset_id) {
-    array_push($outputs, array('Key' => "$prefix/$output_key", 'PresetId' => $preset_id, 'SegmentDuration' => $segment_duration));
-  }
+    $outputs = [];
+    foreach ($hls_presets as $prefix => $preset_id) {
+        $outputs[] = ['Key' => "$prefix/$output_key", 'PresetId' => $preset_id, 'SegmentDuration' => $segment_duration];
+    }
 
   // Setup master playlist which can be used to play using adaptive bitrate.
-  $playlist = array(
-    'Name' => 'hls_' . $output_key,
-    'Format' => 'HLSv3',
-    'OutputKeys' => array_map(function($x) { return $x['Key']; }, $outputs)
-  );
+    $playlist = [
+        'Name' => 'hls_' . $output_key,
+        'Format' => 'HLSv3',
+        'OutputKeys' => array_map(function ($x) {
+            return $x['Key'];
+        }, $outputs)
+    ];
 
   // Create the job.
-  $create_job_request = array(
+    $create_job_request = [
         'PipelineId' => $pipeline_id,
         'Input' => $input,
         'Outputs' => $outputs,
         'OutputKeyPrefix' => "$output_key_prefix$output_key/",
-        'Playlists' => array($playlist)
-  );
-  $create_job_result = $transcoder_client->createJob($create_job_request)->toArray();
-  return $job = $create_job_result['Job'];
+        'Playlists' => [$playlist]
+    ];
+    $create_job_result = $transcoder_client->createJob($create_job_request)->toArray();
+    return $job = $create_job_result['Job'];
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   // If the request method is GET, return the form which will allow the user to
   // specify pipeline and input key.
-  echo "Create an Elastic Transcoder HLS job.<br><form action=\"HlsJobCreationSample.php\" "
-  echo "method=\"POST\">Pipeline Id: <input name=\"pipelineid\" type=\"text\"/> (<a href=\""
-  echo "http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/sample-code.html#php-pipeline\">"
-  echo "Create an Elastic Transcoder Pipeline</a>)<br>Input key: <input name=\"inputkey\" type=\"text\" /><br>"
-  echo "<input type=\"submit\" value=\"Create Job\" /></form>";
-
-  } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    echo "Create an Elastic Transcoder HLS job.<br><form action=\"HlsJobCreationSample.php\" ";
+    echo "method=\"POST\">Pipeline Id: <input name=\"pipelineid\" type=\"text\"/> (<a href=\"";
+    echo "http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/sample-code.html#php-pipeline\">";
+    echo "Create an Elastic Transcoder Pipeline</a>)<br>Input key: <input name=\"inputkey\" type=\"text\" /><br>";
+    echo "<input type=\"submit\" value=\"Create Job\" /></form>";
+} elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // If the request method is POST, create an HLS job using the posted data.
-  $job = create_hls_job($transcoder_client, $_POST['pipelineid'], $_POST['inputkey'], $output_key_prefix, $hls_presets, $segment_duration);
+    $job = create_hls_job(
+        $transcoder_client,
+        $_POST['pipelineid'],
+        $_POST['inputkey'],
+        $output_key_prefix,
+        $hls_presets,
+        $segment_duration
+    );
 
   // Output the result.
-  echo '<PRE>';
-  echo "HLS job has been created:\n";
-  echo json_encode($job, JSON_PRETTY_PRINT);
-  echo '</PRE>';
+    echo '<PRE>';
+    echo "HLS job has been created:\n";
+    echo json_encode($job, JSON_PRETTY_PRINT);
+    echo '</PRE>';
 }
-// snippet-end:[elastictranscoder.php.creation.sample]
 
-?>
+// snippet-end:[elastictranscoder.php.creation.sample]

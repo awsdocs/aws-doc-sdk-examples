@@ -14,7 +14,6 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ec2\Ec2Client;
 // snippet-end:[ec2.php.delete_security_group.import]
 /**
  * Delete a Security Group
@@ -22,7 +21,7 @@ use Aws\Ec2\Ec2Client;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[ec2.php.delete_security_group.main]
 $ec2Client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
@@ -32,13 +31,11 @@ $ec2Client = new Aws\Ec2\Ec2Client([
 
 $securityGroupId = 'my-security-group-id';
 
-$result = $ec2Client->deleteSecurityGroup(array(
+$result = $ec2Client->deleteSecurityGroup([
     'GroupId' => $securityGroupId
-));
+]);
 
 var_dump($result);
- 
- 
+
 // snippet-end:[ec2.php.delete_security_group.main]
 // snippet-end:[ec2.php.delete_security_group.complete]
-

@@ -12,7 +12,6 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\Lightsail\LightsailClient;
 
 // snippet-end:[lightsail.php.get_instance_state.import]
 
@@ -24,7 +23,7 @@ use Aws\Lightsail\LightsailClient;
  */
 
 //Create a Lightsail Client
-// snippet-start:[lightsail.php.get_instance_state.main] 
+// snippet-start:[lightsail.php.get_instance_state.main]
 $client = new Aws\Lightsail\LightsailClient([
     'profile' => 'default',
     'version' => '2016-11-28',
@@ -37,12 +36,14 @@ try {
     $result = $client->getInstanceState([
         'instanceName' => $instanceName,
     ]);
-    print("Status Code: " . $result['@metadata']['statusCode'] . ", " . $instanceName . " is " . $result['state']['name'] . ".\n");
+    print("Status Code: " . $result['@metadata']['statusCode'] . ", "
+        . $instanceName . " is " . $result['state']['name'] . ".\n");
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
+
 // snippet-end:[lightsail.php.get_instance_state.main]
-// snippet-end:[lightsail.php.get_instance_state.complete] 
+// snippet-end:[lightsail.php.get_instance_state.complete]
 // snippet-sourceauthor:[jschwarzwalder (AWS)]

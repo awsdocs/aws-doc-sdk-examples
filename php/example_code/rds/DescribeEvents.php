@@ -7,8 +7,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[rds.php.describe_events.import]
 
 // snippet-start:[rds.php.describe_events.main]
@@ -31,6 +31,7 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
+}
+
 // snippet-end:[rds.php.describe_events.main]
 // snippet-end:[rds.php.describe_events.complete]

@@ -7,23 +7,22 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
- 
+
 // snippet-start:[s3.php.example.requestfeduserwithtemp]
 require 'vendor/autoload.php';
 
-use Aws\Sts\StsClient;
-use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
+use Aws\S3\S3Client;
+use Aws\Sts\StsClient;
 
 $bucket = '*** Your Bucket Name ***';
 
 // In real applications, the following code is part of your trusted code. It has
 // the security credentials that you use to obtain temporary security credentials.
-$sts = new StsClient(
-    [
+$sts = new StsClient([
     'version' => 'latest',
-    'region' => 'us-east-1']
-);
+    'region' => 'us-east-1'
+]);
 
 // Fetch the federated credentials.
 $sessionToken = $sts->getFederationToken([
@@ -46,9 +45,9 @@ $s3 = new S3Client([
     'region' => 'us-east-1',
     'version' => 'latest',
     'credentials' => [
-        'key'    => $sessionToken['Credentials']['AccessKeyId'],
+        'key' => $sessionToken['Credentials']['AccessKeyId'],
         'secret' => $sessionToken['Credentials']['SecretAccessKey'],
-        'token'  => $sessionToken['Credentials']['SessionToken']
+        'token' => $sessionToken['Credentials']['SessionToken']
     ]
 ]);
 
@@ -59,4 +58,5 @@ try {
 } catch (S3Exception $e) {
     echo $e->getMessage() . PHP_EOL;
 }
+
 // snippet-end:[s3.php.example.requestfeduserwithtemp]

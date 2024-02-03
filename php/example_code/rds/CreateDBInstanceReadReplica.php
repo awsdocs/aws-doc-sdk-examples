@@ -7,8 +7,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[rds.php.create_db_replica.import]
 
 // snippet-start:[rds.php.create_db_replica.main]
@@ -19,20 +19,20 @@ $rdsClient = new Aws\Rds\RdsClient([
     'region' => 'us-east-2'
 ]);
 
-$replicadbIdentifier = '<<{{name-for-db-replica}}>>';
-$sourcedbIdentifier = '<<{{db-identifier-of-db-to-replicate}}>>';
+$replicaDBIdentifier = '<<{{name-for-db-replica}}>>';
+$sourceDBIdentifier = '<<{{db-identifier-of-db-to-replicate}}>>';
 
 try {
     $result = $rdsClient->createDBInstanceReadReplica([
-        'DBInstanceIdentifier' => $replicadbIdentifier,
-        'SourceDBInstanceIdentifier' => $sourcedbIdentifier,
+        'DBInstanceIdentifier' => $replicaDBIdentifier,
+        'SourceDBInstanceIdentifier' => $sourceDBIdentifier,
     ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
+}
+
 // snippet-end:[rds.php.create_db_replica.main]
 // snippet-end:[rds.php.create_db_replica.complete]
-

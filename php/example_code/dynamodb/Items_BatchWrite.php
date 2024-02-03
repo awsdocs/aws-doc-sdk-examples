@@ -2,12 +2,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.Items_BatchWrite] 
+// snippet-start:[dynamodb.php.codeexample.Items_BatchWrite]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
-
-use Aws\DynamoDb\Exception\DynamoDbException;
 
 $sdk = new Aws\Sdk([
     'region'   => 'us-west-2',
@@ -25,25 +23,25 @@ $response = $dynamodb->batchWriteItem([
             [
                 'PutRequest' => [
                     'Item' => [
-                        'Name'   => ['S' => 'Amazon S3 Forum'],             
+                        'Name'   => ['S' => 'Amazon S3 Forum'],
                         'Threads' => ['N' => '0']
                     ]]
             ]
-        ],          
+        ],
          $tableNameTwo => [
             [
                 'PutRequest' => [
                     'Item' => [
-                        'ForumName'   => ['S' => 'Amazon S3 Forum'],             
+                        'ForumName'   => ['S' => 'Amazon S3 Forum'],
                         'Subject' => ['S' => 'My sample question'],
-                        'Message'=> ['S' => 'Message Text.'],
-                        'KeywordTags'=>['SS' => ['Amazon S3', 'Bucket']]
+                        'Message' => ['S' => 'Message Text.'],
+                        'KeywordTags' => ['SS' => ['Amazon S3', 'Bucket']]
                     ]]
             ],
             [
                 'DeleteRequest' => [
                     'Key' => [
-                        'ForumName' =>['S' => 'Some partition key value'],
+                        'ForumName' => ['S' => 'Some partition key value'],
                         'Subject' => ['S' => 'Some sort key value']
                     ]]
                 ]
@@ -53,7 +51,4 @@ $response = $dynamodb->batchWriteItem([
 
 print_r($response);
 
-
-
-// snippet-end:[dynamodb.php.codeexample.Items_BatchWrite] 
-?>
+// snippet-end:[dynamodb.php.codeexample.Items_BatchWrite]

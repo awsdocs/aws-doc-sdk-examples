@@ -11,10 +11,10 @@
 // snippet-start:[s3.php.multipart_upload_stream.import]
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
-use Aws\Exception\AwsException;
-use Aws\S3\MultipartUploader;
 use Aws\Exception\MultipartUploadException;
+use Aws\S3\MultipartUploader;
+use Aws\S3\S3Client;
+
 // snippet-end:[s3.php.multipart_upload_stream.import]
 // snippet-start:[s3.php.multipart_upload_stream.main]
 // Create an S3Client
@@ -41,6 +41,7 @@ do {
         ]);
     }
 } while (!isset($result));
- 
+fclose($source);
+
 // snippet-end:[s3.php.multipart_upload_stream.main]
 // snippet-end:[s3.php.multipart_upload_stream.complete]

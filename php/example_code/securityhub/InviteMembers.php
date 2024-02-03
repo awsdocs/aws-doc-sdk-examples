@@ -8,7 +8,6 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\SecurityHub\SecurityHubClient;
 
 // snippet-end:[securityhub.php.list_members.import]
 
@@ -31,6 +30,6 @@ try {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
+
 // snippet-end:[securityhub.php.list_members.main]
 // snippet-end:[securityhub.php.list_members.complete]
-

@@ -2,40 +2,44 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 // snippet-start:[cloudfront.php.private_distribution.complete]
 // snippet-start:[cloudfront.php.private_distribution.import]
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudfront.php.private_distribution.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Gets a signed URL that viewers need to 
- * access restricted content in a specially configured Amazon CloudFront 
+ * Purpose: Gets a signed URL that viewers need to
+ * access restricted content in a specially configured Amazon CloudFront
  * distribution.
  *
- * Prerequisites: A CloudFront distribution that is specially configured for 
- * restricted access, and a CloudFront key pair. For more information, see 
- * "Serving Private Content with Signed URLs and Signed Cookies" in the 
+ * Prerequisites: A CloudFront distribution that is specially configured for
+ * restricted access, and a CloudFront key pair. For more information, see
+ * "Serving Private Content with Signed URLs and Signed Cookies" in the
  * Amazon CloudFront Developer Guide.
- * 
+ *
  * Inputs:
  * - $cloudFrontClient: An initialized CloudFront client.
  * - $resourceKey: A CloudFront URL to the restricted content.
- * - $expires: The expiration date and time for access requests, in 
+ * - $expires: The expiration date and time for access requests, in
  *   UTC Unix timestamp format.
  * - $privateKey: The path to the CloudFront private key file, in .pem format.
  * - $keyPairId: The corresponding CloudFront key pair ID.
- * 
+ *
  * Returns: The signed URL; otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[cloudfront.php.private_distribution.main]
-function signPrivateDistribution($cloudFrontClient, $resourceKey, $expires, 
-    $privateKey, $keyPairId)
-{
+function signPrivateDistribution(
+    $cloudFrontClient,
+    $resourceKey,
+    $expires,
+    $privateKey,
+    $keyPairId
+) {
     try {
         $result = $cloudFrontClient->getSignedUrl([
             'url' => $resourceKey,
@@ -45,7 +49,6 @@ function signPrivateDistribution($cloudFrontClient, $resourceKey, $expires,
         ]);
 
         return $result;
-    
     } catch (AwsException $e) {
         return 'Error: ' . $e->getAwsErrorMessage();
     }
@@ -57,18 +60,23 @@ function signAPrivateDistribution()
     $expires = time() + 300; // 5 minutes (5 * 60 seconds) from now.
     $privateKey = dirname(__DIR__) . '/cloudfront/my-private-key.pem';
     $keyPairId = 'AAPKAJIKZATYYYEXAMPLE';
-    
+
     $cloudFrontClient = new CloudFrontClient([
         'profile' => 'default',
         'version' => '2018-06-18',
         'region' => 'us-east-1'
     ]);
-    
-    echo signPrivateDistribution($cloudFrontClient, $resourceKey, $expires, 
-        $privateKey, $keyPairId);
+
+    echo signPrivateDistribution(
+        $cloudFrontClient,
+        $resourceKey,
+        $expires,
+        $privateKey,
+        $keyPairId
+    );
 }
 
 // Uncomment the following line to run this code in an AWS account.
 // signAPrivateDistribution();
 // snippet-end:[cloudfront.php.private_distribution.main]
-// snippet-end:[cloudfront.php.private_distribution.complete] 
+// snippet-end:[cloudfront.php.private_distribution.complete]

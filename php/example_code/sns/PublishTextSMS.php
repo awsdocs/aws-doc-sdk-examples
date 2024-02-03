@@ -11,17 +11,18 @@
 // snippet-start:[sns.php.publish_text_SMS.import]
 require 'vendor/autoload.php';
 
-use Aws\Sns\SnsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sns\SnsClient;
+
 // snippet-end:[sns.php.publish_text_SMS.import]
 
 /**
- * Sends a a text message (SMS message) directly to a phone number using Amazon SNS.
+ * Sends a text message (SMS message) directly to a phone number using Amazon SNS.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[sns.php.publish_text_SMS.main]
 $SnSclient = new SnsClient([
     'profile' => 'default',
@@ -41,7 +42,8 @@ try {
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
-} 
+}
+
 // snippet-end:[sns.php.publish_text_SMS.main]
 // snippet-end:[sns.php.publish_text_SMS.complete]
 // snippet-sourceauthor:[jschwarzwalder]

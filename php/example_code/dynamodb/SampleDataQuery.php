@@ -2,12 +2,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.SampleDataQuery] 
+// snippet-start:[dynamodb.php.codeexample.SampleDataQuery]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
-
-use Aws\DynamoDb\Exception\DynamoDbException;
 
 $sdk = new Aws\Sdk([
     'region'   => 'us-west-2',
@@ -28,9 +26,6 @@ $response = $dynamodb->query([
     ]
 ]);
 
-print_r ($response['Items']);
+print_r($response['Items']);
 
-
-
-// snippet-end:[dynamodb.php.codeexample.SampleDataQuery] 
-?>
+// snippet-end:[dynamodb.php.codeexample.SampleDataQuery]

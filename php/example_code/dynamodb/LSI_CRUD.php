@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.LSI_CRUD] 
+// snippet-start:[dynamodb.php.codeexample.LSI_CRUD]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -18,7 +18,6 @@ $dynamodb = $sdk->createDynamoDb();
 
 $tableName = 'CustomerOrders';
 echo "# Creating table $tableName...\n";
-
 
 try {
     $response = $dynamodb->createTable([
@@ -58,7 +57,7 @@ try {
              'ReadCapacityUnits' => 5, 'WriteCapacityUnits' => 5
         ]
     ]);
-    
+
     echo "  Waiting for table $tableName to be created.\n";
         $dynamodb->waitUntil('TableExists', [
             'TableName' => $tableName,
@@ -68,10 +67,9 @@ try {
             ]
         ]);
     echo "  Table $tableName has been created.\n";
-
 } catch (DynamoDbException $e) {
     echo $e->getMessage() . "\n";
-    exit ("Unable to create table $tableName\n");
+    exit("Unable to create table $tableName\n");
 }
 
 #########################################
@@ -79,7 +77,7 @@ try {
 
 echo "# Loading data into $tableName...\n";
 
-$response = $dynamodb->putItem ( [
+$response = $dynamodb->putItem([
     'TableName' => $tableName,
     'Item' => [
         'CustomerId' => ['S' => 'alice@example.com'],
@@ -92,7 +90,7 @@ $response = $dynamodb->putItem ( [
     ]
 ]);
 
-$response = $dynamodb->putItem ( [
+$response = $dynamodb->putItem([
     'TableName' => $tableName,
     'Item' => [
         'CustomerId' => ['S' => 'alice@example.com'],
@@ -105,7 +103,7 @@ $response = $dynamodb->putItem ( [
     ]
 ]);
 
-$response = $dynamodb->putItem ( [
+$response = $dynamodb->putItem([
     'TableName' => $tableName,
     'Item' => [
         'CustomerId' => ['S' => 'alice@example.com'],
@@ -119,7 +117,7 @@ $response = $dynamodb->putItem ( [
     ]
 ]);
 
-$response = $dynamodb->putItem ( [
+$response = $dynamodb->putItem([
     'TableName' => $tableName,
     'Item' => [
         'CustomerId' => ['S' => 'bob@example.com'],
@@ -133,7 +131,7 @@ $response = $dynamodb->putItem ( [
     ]
 ]);
 
-$response = $dynamodb->putItem ( [
+$response = $dynamodb->putItem([
     'TableName' => $tableName,
     'Item' => [
         'CustomerId' => ['S' => 'bob@example.com'],
@@ -147,7 +145,7 @@ $response = $dynamodb->putItem ( [
     ]
 ]);
 
-$response = $dynamodb->putItem ( [
+$response = $dynamodb->putItem([
     'TableName' => $tableName,
     'Item' => [
         'CustomerId' => ['S' => 'bob@example.com'],
@@ -161,7 +159,7 @@ $response = $dynamodb->putItem ( [
     ]
 ]);
 
-$response = $dynamodb->putItem ( [
+$response = $dynamodb->putItem([
     'TableName' => $tableName,
     'Item' => [
         'CustomerId' => ['S' => 'bob@example.com'],
@@ -174,7 +172,7 @@ $response = $dynamodb->putItem ( [
     ]
 ]);
 
-$response = $dynamodb->putItem ( [
+$response = $dynamodb->putItem([
     'TableName' => $tableName,
     'Item' => [
         'CustomerId' => ['S' => 'bob@example.com'],
@@ -188,7 +186,7 @@ $response = $dynamodb->putItem ( [
     ]
 ]);
 
-$response = $dynamodb->putItem ( [
+$response = $dynamodb->putItem([
     'TableName' => $tableName,
     'Item' => [
         'CustomerId' => ['S' => 'bob@example.com'],
@@ -202,7 +200,7 @@ $response = $dynamodb->putItem ( [
     ]
 ]);
 
-$response = $dynamodb->putItem ( [
+$response = $dynamodb->putItem([
     'TableName' => $tableName,
     'Item' => [
         'CustomerId' => ['S' => 'bob@example.com'],
@@ -213,12 +211,11 @@ $response = $dynamodb->putItem ( [
         'ProductName' => ['S' => 'PGA Pro II'],
         'OrderStatus' => ['S' => 'OUT FOR DELIVERY'],
         'ShipmentTrackingId' => ['N' => '383283']
-    ] 
+    ]
 ]);
 
-
 #########################################
-# Query for Bob's 5 most recent orders in 2014, retrieving attributes which 
+# Query for Bob's 5 most recent orders in 2014, retrieving attributes which
 # are projected into the index
 
 $response = $dynamodb->query([
@@ -237,18 +234,18 @@ $response = $dynamodb->query([
 ]);
 
 echo "# Querying for Bob's 5 most recent orders in 2014:\n";
-foreach($response['Items'] as $item) {
-    echo '   - ' . $item['CustomerId']['S'] . 
-        ' ' . $item['OrderCreationDate']['N'] . 
-        ' ' . $item['ProductName']['S'] . 
-        ' ' . $item['ProductCategory']['S'] . 
+foreach ($response['Items'] as $item) {
+    echo '   - ' . $item['CustomerId']['S'] .
+        ' ' . $item['OrderCreationDate']['N'] .
+        ' ' . $item['ProductName']['S'] .
+        ' ' . $item['ProductCategory']['S'] .
         "\n";
 }
-echo ' Provisioned Throughput Consumed: ' . 
+echo ' Provisioned Throughput Consumed: ' .
     $response['ConsumedCapacity']['CapacityUnits'] . "\n";
 
 #########################################
-# Query for Bob's 5 most recent orders in 2014, retrieving some attributes 
+# Query for Bob's 5 most recent orders in 2014, retrieving some attributes
 # which are not projected into the index
 
 $response = $dynamodb->query([
@@ -260,7 +257,7 @@ $response = $dynamodb->query([
         ':v_dt' => ['N' => '20140101']
     ],
     'Select' => 'SPECIFIC_ATTRIBUTES',
-    'ProjectionExpression' => 
+    'ProjectionExpression' =>
         'CustomerId, OrderCreationDate, ProductName, ProductCategory, OrderStatus',
     'ScanIndexForward' => false,
     'ConsistentRead' => true,
@@ -269,19 +266,19 @@ $response = $dynamodb->query([
 ]);
 
 echo "# Querying for Bob's 5 most recent orders in 2014:" . "\n";
-foreach($response['Items'] as $item) {
-    echo '   - ' . $item['CustomerId']['S'] . 
-    ' ' . $item['OrderCreationDate']['N'] . 
-    ' ' . $item['ProductName']['S'] . 
-    ' ' . $item['ProductCategory']['S'] . 
-    ' ' . $item['OrderStatus']['S'] . 
+foreach ($response['Items'] as $item) {
+    echo '   - ' . $item['CustomerId']['S'] .
+    ' ' . $item['OrderCreationDate']['N'] .
+    ' ' . $item['ProductName']['S'] .
+    ' ' . $item['ProductCategory']['S'] .
+    ' ' . $item['OrderStatus']['S'] .
     "\n";
 }
-echo ' Provisioned Throughput Consumed: ' . 
+echo ' Provisioned Throughput Consumed: ' .
     $response['ConsumedCapacity']['CapacityUnits'] . "\n";
 
 #########################################
-# Query for Alice's open orders, fetching all attributes 
+# Query for Alice's open orders, fetching all attributes
 # (which are already projected into the index)
 
 $response = $dynamodb->query([
@@ -299,18 +296,17 @@ $response = $dynamodb->query([
 ]);
 
 echo "# Querying for Alice's open orders:" . "\n";
-foreach($response['Items'] as $item) {
-    echo '   - ' . $item['CustomerId']['S']. 
-    ' ' . $item['OrderCreationDate']['N'] . 
-    ' ' . $item['ProductName']['S'] . 
-    ' ' . $item['ProductCategory']['S'] . 
-    ' ' . $item['OrderStatus']['S'] . 
+foreach ($response['Items'] as $item) {
+    echo '   - ' . $item['CustomerId']['S'] .
+    ' ' . $item['OrderCreationDate']['N'] .
+    ' ' . $item['ProductName']['S'] .
+    ' ' . $item['ProductCategory']['S'] .
+    ' ' . $item['OrderStatus']['S'] .
     "\n";
 }
 
-echo ' Provisioned Throughput Consumed: ' . 
+echo ' Provisioned Throughput Consumed: ' .
     $response['ConsumedCapacity']['CapacityUnits'] . "\n";
-
 
 #########################################
 # Delete the table
@@ -328,10 +324,7 @@ try {
     echo "  Table $tableName has been deleted.\n";
 } catch (DynamoDbException $e) {
     echo $e->getMessage() . "\n";
-    exit ("Unable to delete table $tableName\n");
+    exit("Unable to delete table $tableName\n");
 }
 
-
-
-// snippet-end:[dynamodb.php.codeexample.LSI_CRUD] 
-?>
+// snippet-end:[dynamodb.php.codeexample.LSI_CRUD]

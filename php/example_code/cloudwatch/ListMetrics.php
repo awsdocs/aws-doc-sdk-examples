@@ -7,50 +7,50 @@
 // snippet-start:[cloudwatch.php.list_metrics.import]
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient; 
+use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudwatch.php.list_metrics.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Provides information about published metrics in Amazon CloudWatch.
- * 
+ *
  * Inputs:
  * - $cloudWatchClient: An initialized CloudWatch client.
- * 
+ *
  * Returns: Information about published metrics; otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
- 
+
 // snippet-start:[cloudwatch.php.list_metrics.main]
 function listMetrics($cloudWatchClient)
 {
     try {
         $result = $cloudWatchClient->listMetrics();
 
-        $message = ''; 
+        $message = '';
 
-        if (isset($result['@metadata']['effectiveUri']))
-        {
-            $message .= 'For the effective URI at ' . 
+        if (isset($result['@metadata']['effectiveUri'])) {
+            $message .= 'For the effective URI at ' .
                 $result['@metadata']['effectiveUri'] . ":\n\n";
-        
-            if ((isset($result['Metrics'])) and 
-                (count($result['Metrics']) > 0))
-            {
+
+            if (
+                (isset($result['Metrics'])) and
+                (count($result['Metrics']) > 0)
+            ) {
                 $message .= "Metrics found:\n\n";
 
-                foreach($result['Metrics'] as $metric) 
-                {
-                    $message .= 'For metric ' . $metric['MetricName'] . 
+                foreach ($result['Metrics'] as $metric) {
+                    $message .= 'For metric ' . $metric['MetricName'] .
                         ' in namespace ' . $metric['Namespace'] . ":\n";
-                    
-                    if ((isset($metric['Dimensions'])) and 
-                        (count($metric['Dimensions']) > 0))
-                    {
+
+                    if (
+                        (isset($metric['Dimensions'])) and
+                        (count($metric['Dimensions']) > 0)
+                    ) {
                         $message .= "Dimensions:\n";
 
-                        foreach ($metric['Dimensions'] as $dimension)
-                        {
-                            $message .= 'Name: ' . $dimension['Name'] . 
+                        foreach ($metric['Dimensions'] as $dimension) {
+                            $message .= 'Name: ' . $dimension['Name'] .
                                 ', Value: ' . $dimension['Value'] . "\n";
                         }
 
@@ -87,4 +87,3 @@ function listTheMetrics()
 // listTheMetrics();
 // snippet-end:[cloudwatch.php.list_metrics.main]
 // snippet-end:[cloudwatch.php.list_metrics.complete]
-

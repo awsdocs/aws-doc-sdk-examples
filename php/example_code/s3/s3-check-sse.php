@@ -7,7 +7,7 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
- 
+
 // snippet-start:[s3.php.example.checksse]
 require 'vendor/autoload.php';
 
@@ -15,7 +15,7 @@ use Aws\S3\S3Client;
 
 $bucket = '*** Your Bucket Name ***';
 $keyname = '*** Your Object Key ***';
-            
+
 $s3 = new S3Client([
     'version' => 'latest',
     'region'  => 'us-east-1'
@@ -27,4 +27,5 @@ $result = $s3->headObject([
     'Key'    => $keyname,
 ]);
 echo $result['ServerSideEncryption'];
+
 // snippet-end:[s3.php.example.checksse]

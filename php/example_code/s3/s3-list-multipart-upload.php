@@ -7,7 +7,7 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
- 
+
 // snippet-start:[s3.php.example.listmultipartupload]
 require 'vendor/autoload.php';
 
@@ -27,4 +27,5 @@ $result = $s3->listMultipartUploads([
 
 // Write the list of uploads to the page.
 print_r($result->toArray());
+
 // snippet-end:[s3.php.example.listmultipartupload]

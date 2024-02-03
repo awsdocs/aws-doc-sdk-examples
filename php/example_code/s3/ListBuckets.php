@@ -12,10 +12,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;  
-use Aws\Exception\AwsException;
-// snippet-end:[s3.php.list_buckets.import]
+use Aws\S3\S3Client;
 
+// snippet-end:[s3.php.list_buckets.import]
 
 /**
  * List your Amazon S3 buckets.
@@ -24,7 +23,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a S3Client 
+//Create a S3Client
 // snippet-start:[s3.php.list_buckets.main]
 $s3Client = new S3Client([
     'profile' => 'default',
@@ -37,8 +36,6 @@ $buckets = $s3Client->listBuckets();
 foreach ($buckets['Buckets'] as $bucket) {
     echo $bucket['Name'] . "\n";
 }
- 
- 
+
 // snippet-end:[s3.php.list_buckets.main]
 // snippet-end:[s3.php.list_buckets.complete]
-

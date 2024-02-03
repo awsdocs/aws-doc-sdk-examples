@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.MoviesLoadData] 
+// snippet-start:[dynamodb.php.codeexample.MoviesLoadData]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -24,8 +24,7 @@ $tableName = 'Movies';
 $movies = json_decode(file_get_contents('moviedata.json'), true);
 
 foreach ($movies as $movie) {
-
-    $year = $movie['year']; 
+    $year = $movie['year'];
     $title = $movie['title'];
     $info = $movie['info'];
 
@@ -48,10 +47,6 @@ foreach ($movies as $movie) {
         echo $e->getMessage() . "\n";
         break;
     }
-
 }
 
-
-
-// snippet-end:[dynamodb.php.codeexample.MoviesLoadData] 
-?>
+// snippet-end:[dynamodb.php.codeexample.MoviesLoadData]

@@ -12,11 +12,11 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[ses.php.update_rule.import]
 
-//Create a SESClient 
+//Create a SESClient
 // snippet-start:[ses.php.update_rule.main]
 $SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
@@ -28,7 +28,6 @@ $rule_name = 'Rule_Name';
 $rule_set_name = 'Rule_Set_Name';
 $lambda_arn = 'Amazon Resource Name (ARN) of the AWS Lambda function';
 $sns_topic_arn = 'Amazon Resource Name (ARN) of the Amazon SNS topic';
-
 
 try {
     $result = $SesClient->updateReceiptRule([
@@ -52,8 +51,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.update_rule.main]
 // snippet-end:[ses.php.update_rule.complete]
-

@@ -2,12 +2,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.Items_CRUD] 
+// snippet-start:[dynamodb.php.codeexample.Items_CRUD]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
-
-use Aws\DynamoDb\Exception\DynamoDbException;
 
 $sdk = new Aws\Sdk([
     'region'   => 'us-west-2',
@@ -20,7 +18,6 @@ $tableName = 'ProductCatalog';
 
 // ###################################################################
 // Adding data to the table
-
 
 echo "# Adding data to table $tableName...\n";
 
@@ -64,17 +61,17 @@ echo "Consumed capacity: " . $response ["ConsumedCapacity"] ["CapacityUnits"] . 
 echo "\n\n";
 echo "# Getting an item from table $tableName...\n";
 
-$response = $dynamodb->getItem ([
+$response = $dynamodb->getItem([
     'TableName' => $tableName,
     'ConsistentRead' => true,
     'Key' => [
         'Id' => [
-            'N' => '120' 
-        ] 
+            'N' => '120'
+        ]
     ],
-    'ProjectionExpression' => 'Id, ISBN, Title, Authors' 
-] );
-print_r ( $response ['Item'] );
+    'ProjectionExpression' => 'Id, ISBN, Title, Authors'
+]);
+print_r($response ['Item']);
 
 // ###################################################################
 // Updating item attributes
@@ -82,12 +79,12 @@ print_r ( $response ['Item'] );
 echo "\n\n";
 echo "# Updating an item and returning the whole new item in table $tableName...\n";
 
-$response = $dynamodb->updateItem ( [
+$response = $dynamodb->updateItem([
     'TableName' => $tableName,
     'Key' => [
         'Id' => [
-            'N' => '120' //was 121 
-        ] 
+            'N' => '120' //was 121
+        ]
     ],
     'ExpressionAttributeNames' => [
         '#NA' => 'NewAttribute',
@@ -98,9 +95,9 @@ $response = $dynamodb->updateItem ( [
         ':val2' => ['SS' => ['Author YY','Author ZZ']]
     ] ,
     'UpdateExpression' => 'set #NA = :val1, #A = :val2',
-    'ReturnValues' => 'ALL_NEW' 
+    'ReturnValues' => 'ALL_NEW'
 ]);
-print_r ( $response ['Attributes'] );
+print_r($response ['Attributes']);
 
 // ###################################################################
 // Conditionally updating the Price attribute, only if it has not changed.
@@ -108,12 +105,12 @@ print_r ( $response ['Attributes'] );
 echo "\n\n";
 echo "# Updating an item attribute only if it has not changed in table $tableName...\n";
 
-$response = $dynamodb->updateItem ( [
+$response = $dynamodb->updateItem([
     'TableName' => $tableName,
     'Key' => [
         'Id' => [
-            'N' => '121' 
-        ] 
+            'N' => '121'
+        ]
     ],
     'ExpressionAttributeNames' => [
         '#P' => 'Price'
@@ -124,10 +121,10 @@ $response = $dynamodb->updateItem ( [
     ],
     'UpdateExpression' => 'set #P = :val1',
     'ConditionExpression' => '#P = :val2',
-    'ReturnValues' => 'ALL_NEW' 
+    'ReturnValues' => 'ALL_NEW'
 ]);
 
-print_r ( $response ['Attributes'] );
+print_r($response ['Attributes']);
 
 // ###################################################################
 // Deleting an item
@@ -135,18 +132,15 @@ print_r ( $response ['Attributes'] );
 echo "\n\n";
 echo "# Deleting an item and returning its previous values from in table $tableName...\n";
 
-$response = $dynamodb->deleteItem ( [
+$response = $dynamodb->deleteItem([
     'TableName' => $tableName,
     'Key' => [
         'Id' => [
-            'N' => '121' 
-        ] 
+            'N' => '121'
+        ]
     ],
     'ReturnValues' => 'ALL_OLD'
 ]);
-print_r ( $response ['Attributes']);
+print_r($response ['Attributes']);
 
-
-
-// snippet-end:[dynamodb.php.codeexample.Items_CRUD] 
-?>
+// snippet-end:[dynamodb.php.codeexample.Items_CRUD]

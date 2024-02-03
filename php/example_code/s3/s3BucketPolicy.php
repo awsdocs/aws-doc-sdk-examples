@@ -12,12 +12,12 @@
 
 require "vendor/autoload.php";
 
-use Aws\S3\S3Client;  
 use Aws\Exception\AwsException;
+use Aws\S3\S3Client;
+
 // snippet-end:[s3.php.put_bucket_policy.import]
 
-
-// Create a S3Client 
+// Create a S3Client
 // snippet-start:[s3.php.put_bucket_policy.main]
 $s3Client = new S3Client([
     'profile' => 'default',
@@ -33,7 +33,7 @@ try {
         'Bucket' => $bucket
     ]);
     echo "Succeed in receiving bucket policy:\n";
-    echo (string) $resp->get('Policy');
+    echo $resp->get('Policy');
     echo "\n";
 } catch (AwsException $e) {
     // Display error message
@@ -65,8 +65,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[s3.php.put_bucket_policy.main]
 // snippet-end:[s3.php.put_bucket_policy.complete]
-

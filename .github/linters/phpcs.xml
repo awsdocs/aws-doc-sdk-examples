@@ -2,15 +2,8 @@
 <ruleset name="PHP_CodeSniffer">
     <rule ref="PSR12">
         <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
+        <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
     </rule>
-
-    <file>app</file>
-    <file>bootstrap</file>
-    <file>config</file>
-    <file>database</file>
-    <file>resources</file>
-    <file>routes</file>
-    <file>tests</file>
 
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>bootstrap/cache/*</exclude-pattern>
