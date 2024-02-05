@@ -80,7 +80,7 @@ class CloudWatchLogsQueryRunner:
         )
         return start_date_iso1806, end_date_iso1806
 
-    def execute_query(self, start_date_iso1806, end_date_iso1806):
+    def execute_query(self, start_date_iso1806, end_date_iso1806, log_group="/workflows/cloudwatch-logs/large-query"):
         """
         Creates a CloudWatchQuery instance and executes the query with provided date range.
 
@@ -88,10 +88,12 @@ class CloudWatchLogsQueryRunner:
         :type start_date_iso1806: str
         :param end_date_iso1806: The end date in ISO 8601 format.
         :type end_date_iso1806: str
+        :param log_group: Log group to search: "/workflows/cloudwatch-logs/large-query"
+        :type log_group: str
         """
         cloudwatch_query = CloudWatchQuery(
             self.cloudwatch_logs_client,
-            "/workflows/cloudwatch-logs/large-query",
+            log_group,
             [start_date_iso1806, end_date_iso1806],
         )
         cloudwatch_query.query_logs()
