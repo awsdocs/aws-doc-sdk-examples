@@ -2,16 +2,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/*/
 // snippet-start:[s3.php.get_bucket_lifecycle.complete]
 // snippet-start:[s3.php.get_bucket_lifecycle.import]
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;  
+use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 // snippet-end:[s3.php.get_bucket_lifecycle.import]
-
 
 /**
  * Get bucket lifecycle
@@ -38,7 +36,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[s3.php.get_bucket_lifecycle.main]
 // snippet-end:[s3.php.get_bucket_lifecycle.complete]

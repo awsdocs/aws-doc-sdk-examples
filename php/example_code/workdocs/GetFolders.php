@@ -14,10 +14,8 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\WorkDocs\WorkDocsClient;
 
 // snippet-end:[workdocs.php.list_folders.import]
-
 
 /**
  * List Folders currently in your Amazon WorkDocs.
@@ -26,7 +24,7 @@ use Aws\WorkDocs\WorkDocsClient;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-// Create a workdocs Client 
+// Create a workdocs Client
 // snippet-start:[workdocs.php.list_folders.main]
 $client = new Aws\WorkDocs\WorkDocsClient([
     'profile' => 'default',
@@ -36,11 +34,10 @@ $client = new Aws\WorkDocs\WorkDocsClient([
 
 $authTokenFilePath = 'token.txt';
 
-
 try {
     $file = fopen($authTokenFilePath, 'r');
     $authToken = fread($file, filesize($file));
-    fclose($authTokenFilePath);
+    fclose($file);
 
     $result = $client->describeRootFolders([
         'AuthenticationToken' => $authToken
@@ -50,12 +47,10 @@ try {
         print(" , Parent Folder - " . $folder['ParentFolderId'] . "\n");
     }
     var_dump($result);
-
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
-
 
 // snippet-end:[workdocs.php.list_folders.main]
 // snippet-end:[workdocs.php.list_folders.complete]

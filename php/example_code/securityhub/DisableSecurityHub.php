@@ -8,7 +8,6 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\SecurityHub\SecurityHubClient;
 
 // snippet-end:[securityhub.php.disable_securityhub.import]
 
@@ -21,12 +20,12 @@ $client = new Aws\SecurityHub\SecurityHubClient([
 ]);
 
 try {
-    $result = $client->disableSecurityHub([]);
+    $result = $client->disableSecurityHub();
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
+
 // snippet-end:[securityhub.php.disable_securityhub.main]
 // snippet-end:[securityhub.php.disable_securityhub.complete]
-

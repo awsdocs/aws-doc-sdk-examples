@@ -7,8 +7,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[rds.php.create_db_snapshot.import]
 
 // snippet-start:[rds.php.create_db_snapshot.main]
@@ -32,7 +32,7 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
+}
+
 // snippet-end:[rds.php.create_db_snapshot.main]
 // snippet-end:[rds.php.create_db_snapshot.complete]
-

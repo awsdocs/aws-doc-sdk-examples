@@ -7,7 +7,7 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
- 
+
 // snippet-start:[s3.php.example.uploadsse]
 require 'vendor/autoload.php';
 
@@ -31,4 +31,5 @@ $result = $s3->putObject([
     'SourceFile'           => $filepath,
     'ServerSideEncryption' => 'AES256',
 ]);
+
 // snippet-end:[s3.php.example.uploadsse]

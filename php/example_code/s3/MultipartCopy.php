@@ -11,10 +11,10 @@
 // snippet-start:[s3.php.multipart_upload_copy.import]
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
-use Aws\Exception\AwsException;
-use Aws\S3\MultipartCopy;
 use Aws\Exception\MultipartUploadException;
+use Aws\S3\MultipartCopy;
+use Aws\S3\S3Client;
+
 // snippet-end:[s3.php.multipart_upload_copy.import]
 // snippet-start:[s3.php.multipart_upload_copy.main]
 // Create an S3Client
@@ -23,7 +23,6 @@ $s3Client = new S3Client([
     'region' => 'us-west-2',
     'version' => '2006-03-01'
 ]);
-
 
 //Copy objects within S3
 $copier = new MultipartCopy($s3Client, '/bucket/key?versionId=foo', [
@@ -37,6 +36,6 @@ try {
 } catch (MultipartUploadException $e) {
     echo $e->getMessage() . "\n";
 }
+
 // snippet-end:[s3.php.multipart_upload_copy.main]
 // snippet-end:[s3.php.multipart_upload_copy.complete]
-

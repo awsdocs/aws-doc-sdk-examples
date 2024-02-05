@@ -14,8 +14,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\MediaConvert\MediaConvertClient;  
 use Aws\Exception\AwsException;
+use Aws\MediaConvert\MediaConvertClient;
+
 // snippet-end:[mediaconvert.php.get_endpoint.import]
 
 /**
@@ -47,15 +48,13 @@ $single_endpoint_url = $result['Endpoints'][0]['Url'];
 
 print("Your endpoint is " . $single_endpoint_url);
 
-//Create an AWSMediaConvert client object with the endpoint URL that you retrieved: 
+//Create an AWSMediaConvert client object with the endpoint URL that you retrieved:
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
     'region' => 'us-east-2',
     'profile' => 'default',
     'endpoint' => $single_endpoint_url
 ]);
- 
- 
+
 // snippet-end:[mediaconvert.php.get_endpoint.main]
 // snippet-end:[mediaconvert.php.get_endpoint.complete]
-

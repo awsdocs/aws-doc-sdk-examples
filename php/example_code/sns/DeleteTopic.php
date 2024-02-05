@@ -11,17 +11,18 @@
 // snippet-start:[sns.php.delete_topic.import]
 require 'vendor/autoload.php';
 
-use Aws\Sns\SnsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sns\SnsClient;
+
 // snippet-end:[sns.php.delete_topic.import]
 
 /**
- * Deletes a SNS topic and all its subscriptions.
+ * Deletes an SNS topic and all its subscriptions.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[sns.php.delete_topic.main]
 $SnSclient = new SnsClient([
     'profile' => 'default',
@@ -39,7 +40,8 @@ try {
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
-} 
+}
+
 // snippet-end:[sns.php.delete_topic.main]
 // snippet-end:[sns.php.delete_topic.complete]
 // snippet-sourceauthor:[jschwarzwalder]

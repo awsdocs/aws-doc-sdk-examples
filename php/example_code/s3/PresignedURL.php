@@ -12,10 +12,7 @@
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;  
-use Aws\Exception\AwsException;
 // snippet-end:[s3.php.presigned_url.import]
-
 
 //Creating a presigned request
 // snippet-start:[s3.php.presigned_url.main]
@@ -50,8 +47,7 @@ $presignedUrl = (string)$request->getUri();
 // snippet-start:[s3.php.presigned_url.get_url]
 //Getting the URL to an object
 $url = $s3Client->getObjectUrl('my-bucket', 'my-key');
-// snippet-end:[s3.php.presigned_url.get_url] 
- 
+// snippet-end:[s3.php.presigned_url.get_url]
+
 // snippet-end:[s3.php.presigned_url.main]
 // snippet-end:[s3.php.presigned_url.complete]
-

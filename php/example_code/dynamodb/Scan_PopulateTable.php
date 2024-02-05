@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.Scan_PopulateTable] 
+// snippet-start:[dynamodb.php.codeexample.Scan_PopulateTable]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -39,9 +39,8 @@ try {
     echo "The table {$tableName} has been deleted.\n";
 } catch (DynamoDbException $e) {
     echo $e->getMessage() . "\n";
-    exit ("Unable to delete table $tableName\n");
+    exit("Unable to delete table $tableName\n");
 }
-
 
 // Create a new DynamoDB table
 
@@ -70,17 +69,16 @@ try {
 
     $dynamodb->waitUntil('TableExists', [
          'TableName' => $tableName,
-         '@waiter' => [ 
+         '@waiter' => [
              'delay'       => 5,
              'maxAttempts' => 20
-         ]   
-    ]); 
-    echo "Table {$tableName} has been created.\n";
-
+         ]
+    ]);
+    echo "Table $tableName has been created.\n";
 } catch (DynamoDbException $e) {
     echo $e->getMessage() . "\n";
-    exit ("Unable to create table $tableName\n");
-}   
+    exit("Unable to create table $tableName\n");
+}
 
 // Populate DynamoDB table
 
@@ -88,10 +86,10 @@ echo "# Populating Items to $tableName...\n";
 
 for ($i = 1; $i <= 100; $i++) {
     $response = $dynamodb->putItem([
-        'TableName' => $tableName, 
+        'TableName' => $tableName,
         'Item' => [
             'Id'      => [ 'N'     => "$i" ], // Primary Key
-            'Title'   => [ 'S'     => "Book {$i} Title" ],
+            'Title'   => [ 'S'     => "Book $i Title" ],
             'ISBN'    => [ 'S'     => '111-1111111111' ],
             'Price'   => [ 'N'     => "25" ],
             'Authors' => [ 'SS' => ['Author1', 'Author2']]
@@ -109,9 +107,6 @@ for ($i = 1; $i <= 100; $i++) {
     sleep(1);
 }
 
-echo "{$tableName} is populated with items.\n";
+echo "$tableName is populated with items.\n";
 
-
-
-// snippet-end:[dynamodb.php.codeexample.Scan_PopulateTable] 
-?>
+// snippet-end:[dynamodb.php.codeexample.Scan_PopulateTable]

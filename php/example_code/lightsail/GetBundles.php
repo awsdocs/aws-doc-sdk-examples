@@ -12,7 +12,6 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\Lightsail\LightsailClient;
 
 // snippet-end:[lightsail.php.get_bundles.import]
 
@@ -24,7 +23,7 @@ use Aws\Lightsail\LightsailClient;
  */
 
 //Create a Lightsail Client
-// snippet-start:[lightsail.php.get_bundles.main] 
+// snippet-start:[lightsail.php.get_bundles.main]
 $client = new Aws\Lightsail\LightsailClient([
     'profile' => 'default',
     'version' => '2016-11-28',
@@ -36,14 +35,18 @@ try {
         'includeInactive' => false,
     ]);
     foreach ($result['bundles'] as $bundle) {
-        print("Bundle - " . $bundle['bundleId'] . " for " . implode(", ",
-                $bundle['supportedPlatforms']) . ": Size " . $bundle['diskSizeInGb'] . "GB Disk Size and " . $bundle['diskSizeInGb'] . "GB RAM for $" . $bundle['price'] . " a month\n");
+        print("Bundle - " . $bundle['bundleId'] . " for " . implode(
+            ", ",
+            $bundle['supportedPlatforms']
+        ) . ": Size " . $bundle['diskSizeInGb'] . "GB Disk Size and "
+          . $bundle['diskSizeInGb'] . "GB RAM for $" . $bundle['price'] . " a month\n");
     }
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
+
 // snippet-end:[lightsail.php.get_bundles.main]
-// snippet-end:[lightsail.php.get_bundles.complete] 
+// snippet-end:[lightsail.php.get_bundles.complete]
 // snippet-sourceauthor:[jschwarzwalder (AWS)]

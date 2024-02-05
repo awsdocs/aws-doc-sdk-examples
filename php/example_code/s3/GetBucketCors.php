@@ -12,10 +12,10 @@
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;  
 use Aws\Exception\AwsException;
-// snippet-end:[s3.php.get_bucket_cors.import]
+use Aws\S3\S3Client;
 
+// snippet-end:[s3.php.get_bucket_cors.import]
 
 /**
  * Get bucket cors
@@ -42,7 +42,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[s3.php.get_bucket_cors.main]
 // snippet-end:[s3.php.get_bucket_cors.complete]

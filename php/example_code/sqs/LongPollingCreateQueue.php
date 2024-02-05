@@ -11,8 +11,9 @@
 // snippet-start:[sqs.php.long_polling_create_queue.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sqs\SqsClient;
+
 // snippet-end:[sqs.php.long_polling_create_queue.import]
 
 /**
@@ -23,7 +24,7 @@ use Aws\Exception\AwsException;
  */
 // snippet-start:[sqs.php.long_polling_create_queue.main]
 $queueName = "QUEUE_NAME";
- 
+
 
 $client = new SqsClient([
     'profile' => 'default',
@@ -32,20 +33,17 @@ $client = new SqsClient([
 ]);
 
 try {
-    $result = $client->createQueue(array(
+    $result = $client->createQueue([
         'QueueName' => $queueName,
-        'Attributes' => array(
+        'Attributes' => [
             'ReceiveMessageWaitTimeSeconds' => 20
-        ),
-    ));
+        ],
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[sqs.php.long_polling_create_queue.main]
 // snippet-end:[sqs.php.long_polling_create_queue.complete]
-#snippet-keyword:[Python]
-

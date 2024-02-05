@@ -25,7 +25,7 @@ use Aws\Exception\AwsException;
  */
 
  // snippet-start:[cognito.php.user_pool.create_user_pool.main]
- 
+
 $client = new CognitoIdentityProviderClient([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -36,7 +36,7 @@ $userPoolName = "PHP_SDK_test_user_pool";
 
 try {
     $result = $client->createUserPool([
-        'PoolName' => $userPoolName, 
+        'PoolName' => $userPoolName,
     ]);
     echo $result["UserPool"]["Id"] . "\n";
     var_dump($result);
