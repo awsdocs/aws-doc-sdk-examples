@@ -35,7 +35,7 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
     {
         # The different model providers have individual request and response formats.
         # For the format, ranges, and default values for Anthropic Claude, refer to:
-        # https://docs.anthropic.com/claude/reference/complete_post
+        # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
 
         $completion = "";
 
