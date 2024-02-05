@@ -28,6 +28,8 @@ If you need to, install or update the latest version of the AWS CLI.
 
 ### Application Output
 
+This Workflow does have user interaction. The following code shows the output of the Java V2 program. 
+
 ```
 --------------------------------------------------------------------------------
 Welcome to the AWS IoT example scenario.
