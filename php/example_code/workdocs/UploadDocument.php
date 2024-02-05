@@ -14,12 +14,10 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\WorkDocs\WorkDocsClient;
 use GuzzleHttp\Client as httpClient;
 use GuzzleHttp\Exception\ClientException;
 
 // snippet-end:[workdocs.php.upload_document.import]
-
 
 /**
  * Upload a Document to Amazon WorkDocs.
@@ -28,7 +26,7 @@ use GuzzleHttp\Exception\ClientException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a workdocs Client 
+//Create a workdocs Client
 // snippet-start:[workdocs.php.upload_document.main]
 $client = new Aws\WorkDocs\WorkDocsClient([
     'profile' => 'default',
@@ -46,7 +44,7 @@ try {
     $fileToUpload = $pathtoFile . $file;
     $file = fopen($authTokenFilePath, 'r');
     $authToken = fread($file, filesize($file));
-    fclose($authTokenFilePath);
+    fclose($file);
 
     print("Create Document\n");
     $result = $client->initiateDocumentVersionUpload([
@@ -72,7 +70,6 @@ try {
     ]);
 
     var_dump($upload);
-
 } catch (ClientException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";
@@ -91,7 +88,6 @@ try {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
-
 
 // snippet-end:[workdocs.php.upload_document.main]
 // snippet-end:[workdocs.php.upload_document.complete]

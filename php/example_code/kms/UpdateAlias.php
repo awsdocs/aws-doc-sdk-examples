@@ -14,8 +14,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Kms\KmsClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[kms.php.update_alias.import]
 
 /**
@@ -25,7 +25,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KmsClient 
+//Create a KmsClient
 // snippet-start:[kms.php.update_alias.main]
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
@@ -35,7 +35,6 @@ $KmsClient = new Aws\Kms\KmsClient([
 
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $aliasName = "alias/projectKey1";
-
 
 try {
     $result = $KmsClient->updateAlias([
@@ -48,8 +47,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[kms.php.update_alias.main]
 // snippet-end:[kms.php.update_alias.complete]
-

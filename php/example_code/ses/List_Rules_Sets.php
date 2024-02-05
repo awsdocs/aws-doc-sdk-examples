@@ -12,11 +12,11 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[ses.php.list_rules_sets.import]
 
-//Create a SESClient 
+//Create a SESClient
 // snippet-start:[ses.php.list_rules_sets.main]
 $SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
@@ -25,16 +25,13 @@ $SesClient = new Aws\Ses\SesClient([
 ]);
 
 try {
-    $result = $SesClient->listReceiptRuleSets([
-    ]);
+    $result = $SesClient->listReceiptRuleSets();
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.list_rules_sets.main]
 // snippet-end:[ses.php.list_rules_sets.complete]
-

@@ -11,8 +11,8 @@
 // snippet-start:[kinesis.php.describe_data_stream.import]
 require 'vendor/autoload.php';
 
-use Aws\Kinesis\KinesisClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[kinesis.php.describe_data_stream.import]
 
 /**
@@ -22,7 +22,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient 
+//Create a KinesisClient
 // snippet-start:[kinesis.php.describe_data_stream.main]
 $kinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
@@ -42,8 +42,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[kinesis.php.describe_data_stream.main]
 // snippet-end:[kinesis.php.describe_data_stream.complete]
-

@@ -7,8 +7,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[rds.php.describe_instance.import]
 
 // snippet-start:[rds.php.describe_instance.main]
@@ -20,9 +20,7 @@ $rdsClient = new Aws\Rds\RdsClient([
 ]);
 
 try {
-    $result = $rdsClient->describeDBInstances([
-
-    ]);
+    $result = $rdsClient->describeDBInstances();
     foreach ($result['DBInstances'] as $instance) {
         print('<p>DB Identifier: ' . $instance['DBInstanceIdentifier']);
         print('<br />Endpoint: ' . $instance['Endpoint']["Address"]
@@ -36,6 +34,7 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
+}
+
 // snippet-end:[rds.php.describe_instance.main]
 // snippet-end:[rds.php.describe_instance.complete]

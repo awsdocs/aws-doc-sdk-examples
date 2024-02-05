@@ -11,8 +11,9 @@
 // snippet-start:[iam.php.create_policy.import]
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
+use Aws\Iam\IamClient;
+
 // snippet-end:[iam.php.create_policy.import]
 /**
  * Creates a new managed policy for your AWS account.
@@ -62,7 +63,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
+
 // snippet-end:[iam.php.create_policy.main]
 // snippet-end:[iam.php.create_policy.complete]
-

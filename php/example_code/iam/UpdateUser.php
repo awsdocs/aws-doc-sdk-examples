@@ -14,8 +14,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
+use Aws\Iam\IamClient;
+
 // snippet-end:[iam.php.update_user.import]
 
 /**
@@ -24,7 +25,7 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 //Create an IAM Client
 // snippet-start:[iam.php.update_user.main]
 $client = new IamClient([
@@ -34,18 +35,16 @@ $client = new IamClient([
 ]);
 
 try {
-    $result = $client->updateUser(array(
+    $result = $client->updateUser([
         // UserName is required
         'UserName' => 'string1',
         'NewUserName' => 'string'
-    ));
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[iam.php.update_user.main]
 // snippet-end:[iam.php.update_user.complete]
-

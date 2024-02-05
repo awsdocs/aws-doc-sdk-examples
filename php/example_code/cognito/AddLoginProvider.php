@@ -25,7 +25,7 @@ use Aws\Exception\AwsException;
  */
 
  // snippet-start:[cognito.php.identity_pool.add_login_provider.main]
- 
+
 $identityClient = new CognitoIdentityClient([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -45,8 +45,8 @@ $digits = "www.digits.com";
 
 try {
     $result = $identityClient->updateIdentityPool([
-        'AllowUnauthenticatedIdentities' => false, 
-        'IdentityPoolName' => $identityPoolName, 
+        'AllowUnauthenticatedIdentities' => false,
+        'IdentityPoolName' => $identityPoolName,
         'IdentityPoolId' => $identityPoolid,
         'SupportedLoginProviders' => [$amazon => $appid ]
     ]);

@@ -11,8 +11,9 @@
 // snippet-start:[sqs.php.create_queue.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sqs\SqsClient;
+
 // snippet-end:[sqs.php.create_queue.import]
 
 /**
@@ -24,7 +25,7 @@ use Aws\Exception\AwsException;
 // snippet-start:[sqs.php.create_queue.main]
 
 $queueName = "SQS_QUEUE_NAME";
- 
+
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -32,20 +33,18 @@ $client = new SqsClient([
 ]);
 
 try {
-    $result = $client->createQueue(array(
+    $result = $client->createQueue([
         'QueueName' => $queueName,
-        'Attributes' => array(
+        'Attributes' => [
             'DelaySeconds' => 5,
             'MaximumMessageSize' => 4096, // 4 KB
-        ),
-    ));
+        ],
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[sqs.php.create_queue.main]
 // snippet-end:[sqs.php.create_queue.complete]
-

@@ -7,19 +7,20 @@
 // snippet-start:[cloudwatch.php.disable_alarms_actions.import]
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient; 
+use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudwatch.php.disable_alarms_actions.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Disables actions for specified alarms in Amazon CloudWatch.
- * 
+ *
  * Prerequisites: At least one existing CloudWatch alarm.
- * 
+ *
  * Inputs:
  * - $cloudWatchClient: An initialized CloudWatch client.
  * - $alarmNames: The names of the alarms to disable actions for.
- * 
+ *
  * Returns: Information about the results of the request;
  * otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
@@ -32,16 +33,14 @@ function disableAlarmActions($cloudWatchClient, $alarmNames)
             'AlarmNames' => $alarmNames
         ]);
 
-        if (isset($result['@metadata']['effectiveUri']))
-        {
-            return 'At the effective URI of ' . 
-                $result['@metadata']['effectiveUri'] . 
+        if (isset($result['@metadata']['effectiveUri'])) {
+            return 'At the effective URI of ' .
+                $result['@metadata']['effectiveUri'] .
                 ', actions for any matching alarms have been disabled.';
         } else {
-            return 'Actions for some matching alarms ' . 
+            return 'Actions for some matching alarms ' .
                 'might not have been disabled.';
         }
-
     } catch (AwsException $e) {
         return 'Error: ' . $e->getAwsErrorMessage();
     }
@@ -50,7 +49,7 @@ function disableAlarmActions($cloudWatchClient, $alarmNames)
 function disableTheAlarmActions()
 {
     $alarmNames = array('my-alarm');
- 
+
     $cloudWatchClient = new CloudWatchClient([
         'profile' => 'default',
         'region' => 'us-east-1',
@@ -64,4 +63,3 @@ function disableTheAlarmActions()
 // disableTheAlarmActions();
 // snippet-end:[cloudwatch.php.disable_alarms_actions.main]
 // snippet-end:[cloudwatch.php.disable_alarms_actions.complete]
-

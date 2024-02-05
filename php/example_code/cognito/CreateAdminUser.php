@@ -25,7 +25,7 @@ use Aws\Exception\AwsException;
  */
 
  // snippet-start:[cognito.php.user_pool.new_admin_user.main]
- 
+
 $client = new CognitoIdentityProviderClient([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -39,15 +39,10 @@ $sendWelcomeMessage = "SUPPRESS";
 
 try {
     $result = $client->adminCreateUser([
-        'UserPoolId' => $userPoolId, 
-        'Username' => $name, 
-        //'UserAttributes' => [
-        //    'Name' => $name
-        //    'Value' => $verification_email,
-        //],
-        //'MessageAction' => $sendWelcomeMessage
+        'UserPoolId' => $userPoolId,
+        'Username' => $name,
     ]);
-    
+
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

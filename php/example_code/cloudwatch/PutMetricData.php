@@ -2,42 +2,45 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 // snippet-start:[cloudwatch.php.put_metric_data.complete]
 // snippet-start:[cloudwatch.php.put_metric_data.import]
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient; 
+use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudwatch.php.put_metric_data.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Publishes datapoints for a metric to Amazon CloudWatch.
- * 
+ *
  * Inputs:
  * - $cloudWatchClient: An initialized CloudWatch client.
  * - $cloudWatchRegion: The AWS Region to publish the datapoints to.
  * - $namespace: The metric's namespace.
  * - $metricData: The metric's datapoints.
- * 
+ *
  * Returns: Information about the publish request; otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[cloudwatch.php.put_metric_data.main]
-function putMetricData($cloudWatchClient, $cloudWatchRegion, $namespace, 
-    $metricData)
-{
+function putMetricData(
+    $cloudWatchClient,
+    $cloudWatchRegion,
+    $namespace,
+    $metricData
+) {
     try {
         $result = $cloudWatchClient->putMetricData([
             'Namespace' => $namespace,
             'MetricData' => $metricData
         ]);
-        
-        if (isset($result['@metadata']['effectiveUri']))
-        {
-            if ($result['@metadata']['effectiveUri'] == 
-                'https://monitoring.' . $cloudWatchRegion . '.amazonaws.com')
-            {
+
+        if (isset($result['@metadata']['effectiveUri'])) {
+            if (
+                $result['@metadata']['effectiveUri'] ==
+                'https://monitoring.' . $cloudWatchRegion . '.amazonaws.com'
+            ) {
                 return 'Successfully published datapoint(s).';
             } else {
                 return 'Could not publish datapoint(s).';
@@ -61,7 +64,7 @@ function putTheMetricData()
                 [
                     'Name' => 'MyDimension1',
                     'Value' => 'MyValue1'
-                    
+
                 ],
                 [
                     'Name' => 'MyDimension2',
@@ -80,12 +83,15 @@ function putTheMetricData()
         'version' => '2010-08-01'
     ]);
 
-    echo putMetricData($cloudWatchClient, $cloudWatchRegion, $namespace, 
-        $metricData);
+    echo putMetricData(
+        $cloudWatchClient,
+        $cloudWatchRegion,
+        $namespace,
+        $metricData
+    );
 }
 
 // Uncomment the following line to run this code in an AWS account.
 // putTheMetricData();
 // snippet-end:[cloudwatch.php.put_metric_data.main]
 // snippet-end:[cloudwatch.php.put_metric_data.complete]
-

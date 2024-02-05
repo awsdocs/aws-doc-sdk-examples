@@ -53,15 +53,10 @@ public class GetIdentityCredentials {
                     .identityId(identityId)
                     .build();
 
-<<<<<<< HEAD
-            GetCredentialsForIdentityResponse response = cognitoClient.getCredentialsForIdentity(getCredentialsForIdentityRequest);
-            System.out.println("Identity ID " + response.identityId() + ", Expiration " + response.credentials().expiration());
-=======
             GetCredentialsForIdentityResponse response = cognitoClient
                     .getCredentialsForIdentity(getCredentialsForIdentityRequest);
             System.out.println(
                     "Identity ID " + response.identityId() + ", Access key ID " + response.credentials().accessKeyId());
->>>>>>> 965f9e416 (Tools: Normalize & enforce SPDX headers)
 
         } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

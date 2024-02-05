@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.MoviesItemOps04] 
+// snippet-start:[dynamodb.php.codeexample.MoviesItemOps04]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -41,7 +41,7 @@ $params = [
     'TableName' => $tableName,
     'Key' => $key,
     'UpdateExpression' => 'set info.rating = info.rating + :val',
-    'ExpressionAttributeValues'=> $eav,
+    'ExpressionAttributeValues' => $eav,
     'ReturnValues' => 'UPDATED_NEW'
 ];
 
@@ -49,13 +49,9 @@ try {
     $result = $dynamodb->updateItem($params);
     echo "Updated item. ReturnValues are:\n";
     print_r($result['Attributes']);
-
 } catch (DynamoDbException $e) {
     echo "Unable to update item:\n";
     echo $e->getMessage() . "\n";
 }
 
-
-
-// snippet-end:[dynamodb.php.codeexample.MoviesItemOps04] 
-?>
+// snippet-end:[dynamodb.php.codeexample.MoviesItemOps04]

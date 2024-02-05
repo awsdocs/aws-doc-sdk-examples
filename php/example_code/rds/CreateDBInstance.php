@@ -7,8 +7,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[rds.php.create_db_instance.import]
 
 // snippet-start:[rds.php.create_db_instance.main]
@@ -24,8 +24,8 @@ $dbClass = 'db.t2.micro';
 $storage = 5;
 $engine = 'MySQL';
 $username = 'MyUser';
-$password =  'MyPassword';
-]);
+$password = 'MyPassword';
+
 try {
     $result = $rdsClient->createDBInstance([
         'DBInstanceIdentifier' => $dbIdentifier,
@@ -40,7 +40,7 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
+}
+
 // snippet-end:[rds.php.create_db_instance.main]
 // snippet-end:[rds.php.create_db_instance.complete]
-

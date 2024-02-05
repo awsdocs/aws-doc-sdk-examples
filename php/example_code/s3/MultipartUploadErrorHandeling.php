@@ -11,10 +11,10 @@
 // snippet-start:[s3.php.multipart_upload_errors.import]
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
-use Aws\Exception\AwsException;
-use Aws\S3\MultipartUploader;
 use Aws\Exception\MultipartUploadException;
+use Aws\S3\MultipartUploader;
+use Aws\S3\S3Client;
+
 // snippet-end:[s3.php.multipart_upload_errors.import]
 // snippet-start:[s3.php.multipart_upload_errors.main]
 // Create an S3Client
@@ -49,6 +49,6 @@ try {
     $params = $e->getState()->getId();
     $result = $s3Client->abortMultipartUpload($params);
 }
+
 // snippet-end:[s3.php.multipart_upload_errors.main]
 // snippet-end:[s3.php.multipart_upload_errors.complete]
-

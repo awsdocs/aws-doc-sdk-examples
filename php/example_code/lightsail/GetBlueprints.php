@@ -12,7 +12,6 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\Lightsail\LightsailClient;
 
 // snippet-end:[lightsail.php.get_blueprints.import]
 
@@ -24,7 +23,7 @@ use Aws\Lightsail\LightsailClient;
  */
 
 //Create a Lightsail Client
-// snippet-start:[lightsail.php.get_blueprints.main] 
+// snippet-start:[lightsail.php.get_blueprints.main]
 $client = new Aws\Lightsail\LightsailClient([
     'profile' => 'default',
     'version' => '2016-11-28',
@@ -36,7 +35,8 @@ try {
         'includeInactive' => false,
     ]);
     foreach ($result['blueprints'] as $blueprint) {
-        print("Blueprint - " . $blueprint['blueprintId'] . ": " . $blueprint['name'] . " version " . $blueprint['version'] . " for " . $blueprint['platform'] . "\n");
+        print("Blueprint - " . $blueprint['blueprintId'] . ": " . $blueprint['name'] . " version "
+            . $blueprint['version'] . " for " . $blueprint['platform'] . "\n");
         print($blueprint['description'] . "\n\n");
     }
     var_dump($result);
@@ -44,6 +44,7 @@ try {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
+
 // snippet-end:[lightsail.php.get_blueprints.main]
-// snippet-end:[lightsail.php.get_blueprints.complete] 
+// snippet-end:[lightsail.php.get_blueprints.complete]
 // snippet-sourceauthor:[jschwarzwalder (AWS)]

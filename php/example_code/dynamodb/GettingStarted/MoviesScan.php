@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.MoviesScan] 
+// snippet-start:[dynamodb.php.codeexample.MoviesScan]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -32,8 +32,8 @@ $params = [
     'TableName' => 'Movies',
     'ProjectionExpression' => '#yr, title, info.rating',
     'FilterExpression' => '#yr between :start_yr and :end_yr',
-    'ExpressionAttributeNames'=> [ '#yr' => 'year' ],
-    'ExpressionAttributeValues'=> $eav
+    'ExpressionAttributeNames' => [ '#yr' => 'year' ],
+    'ExpressionAttributeValues' => $eav
 ];
 
 echo "Scanning Movies table.\n";
@@ -55,13 +55,9 @@ try {
             break;
         }
     }
-
 } catch (DynamoDbException $e) {
     echo "Unable to scan:\n";
     echo $e->getMessage() . "\n";
 }
 
-
-
-// snippet-end:[dynamodb.php.codeexample.MoviesScan] 
-?>
+// snippet-end:[dynamodb.php.codeexample.MoviesScan]

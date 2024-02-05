@@ -14,7 +14,6 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ec2\Ec2Client;
 // snippet-end:[ec2.php.release_address.import]
 /**
  * Disassociate Address and Release Allocated Address
@@ -22,7 +21,7 @@ use Aws\Ec2\Ec2Client;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[ec2.php.release_address.main]
 $ec2Client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
@@ -34,17 +33,15 @@ $associationID = 'AssociationID';
 
 $allocationID = 'AllocationID';
 
-$result = $ec2Client->disassociateAddress(array(
+$result = $ec2Client->disassociateAddress([
     'AssociationId' => $associationID,
-));
+]);
 
-$result = $ec2Client->releaseAddress(array(
+$result = $ec2Client->releaseAddress([
     'AllocationId' => $allocationID,
-));
+]);
 
 var_dump($result);
- 
- 
+
 // snippet-end:[ec2.php.release_address.main]
 // snippet-end:[ec2.php.release_address.complete]
-

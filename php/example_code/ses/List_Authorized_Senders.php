@@ -12,8 +12,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+use Aws\Ses\SesClient;
+
 // snippet-end:[ses.php.list_authorized_senders.import]
 
 //Create a SESClient
@@ -26,7 +27,6 @@ $SesClient = new SesClient([
 
 $identity = "arn:aws:ses:us-east-1:123456789012:identity/example.com";
 
-
 try {
     $result = $SesClient->listIdentityPolicies([
         'Identity' => $identity,
@@ -37,8 +37,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.list_authorized_senders.main]
 // snippet-end:[ses.php.list_authorized_senders.complete]
-
