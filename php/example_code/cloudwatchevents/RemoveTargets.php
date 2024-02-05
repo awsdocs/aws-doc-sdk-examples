@@ -7,8 +7,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\CloudWatchEvents\CloudWatchEventsClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudwatchevents.php.remove_target.import]
 
 /**
@@ -17,7 +17,7 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[cloudwatchevents.php.remove_target.main]
 $client = new Aws\cloudwatchevents\cloudwatcheventsClient([
     'profile' => 'default',
@@ -35,8 +35,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[cloudwatchevents.php.remove_target.main]
 // snippet-end:[cloudwatchevents.php.remove_target.complete]
-

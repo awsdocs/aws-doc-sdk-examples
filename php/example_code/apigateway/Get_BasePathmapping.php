@@ -9,6 +9,7 @@ require 'vendor/autoload.php';
 
 use Aws\ApiGateway\ApiGatewayClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[apigateway.php.get_base_path_mapping.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
@@ -58,4 +59,3 @@ function getsTheBasePathMapping()
 // getsTheBasePathMapping();
 // snippet-end:[apigateway.php.get_base_path_mapping.main]
 // snippet-end:[apigateway.php.get_base_path_mapping.complete]
-

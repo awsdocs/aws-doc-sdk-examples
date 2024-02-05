@@ -7,8 +7,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[rds.php.stop_instance.import]
 
 // snippet-start:[rds.php.stop_instance.main]
@@ -30,6 +30,7 @@ try {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
+}
+
 // snippet-end:[rds.php.stop_instance.main]
 // snippet-end:[rds.php.stop_instance.complete]

@@ -11,8 +11,9 @@
 // snippet-start:[sqs.php.change_message_visibility_batch.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sqs\SqsClient;
+
 // snippet-end:[sqs.php.change_message_visibility_batch.import]
 
 /**
@@ -25,7 +26,7 @@ use Aws\Exception\AwsException;
 // snippet-start:[sqs.php.change_message_visibility_batch.main]
 
 $queueUrl = "QUEUE_URL";
- 
+
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -43,11 +44,11 @@ try {
     if ($messages != null) {
         $entries = array();
         for ($i = 0; $i < count($messages); $i++) {
-            array_push($entries, [
+            $entries[] = [
                 'Id' => 'unique_is_msg' . $i, // REQUIRED
                 'ReceiptHandle' => $messages[$i]['ReceiptHandle'], // REQUIRED
                 'VisibilityTimeout' => 3600
-            ]);
+            ];
         }
         $result = $client->changeMessageVisibilityBatch([
             'Entries' => $entries,
@@ -62,8 +63,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[sqs.php.change_message_visibility_batch.main]
 // snippet-end:[sqs.php.change_message_visibility_batch.complete]
-

@@ -2,40 +2,44 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 // snippet-start:[cloudfront.php.private_distribution_policy.complete]
 // snippet-start:[cloudfront.php.private_distribution_policy.import]
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudfront.php.private_distribution_policy.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Gets a signed URL that viewers need to 
- * access restricted content in a specially configured Amazon CloudFront 
+ * Purpose: Gets a signed URL that viewers need to
+ * access restricted content in a specially configured Amazon CloudFront
  * distribution.
  *
- * Prerequisites: A CloudFront distribution that is specially configured for 
- * restricted access, and a CloudFront key pair. For more information, see 
- * "Serving Private Content with Signed URLs and Signed Cookies" in the 
+ * Prerequisites: A CloudFront distribution that is specially configured for
+ * restricted access, and a CloudFront key pair. For more information, see
+ * "Serving Private Content with Signed URLs and Signed Cookies" in the
  * Amazon CloudFront Developer Guide.
- * 
+ *
  * Inputs:
  * - $cloudFrontClient: An initialized CloudFront client.
  * - $resourceKey: A CloudFront URL to the restricted content.
- * - $customPolicy: A policy statement that controls the access that a signed 
+ * - $customPolicy: A policy statement that controls the access that a signed
  *   URL grants to a user.
  * - $privateKey: The path to the CloudFront private key file, in .pem format.
  * - $keyPairId: The corresponding CloudFront key pair ID.
- * 
+ *
  * Returns: The signed URL; otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[cloudfront.php.private_distribution_policy.main]
-function signPrivateDistributionPolicy($cloudFrontClient, $resourceKey, 
-    $customPolicy, $privateKey, $keyPairId)
-{
+function signPrivateDistributionPolicy(
+    $cloudFrontClient,
+    $resourceKey,
+    $customPolicy,
+    $privateKey,
+    $keyPairId
+) {
     try {
         $result = $cloudFrontClient->getSignedUrl([
             'url' => $resourceKey,
@@ -45,7 +49,6 @@ function signPrivateDistributionPolicy($cloudFrontClient, $resourceKey,
         ]);
 
         return $result;
-
     } catch (AwsException $e) {
         return 'Error: ' . $e->getAwsErrorMessage();
     }
@@ -59,10 +62,10 @@ function signAPrivateDistributionPolicy()
 {
     "Statement": [
         {
-            "Resource": "{$resourceKey}",
+            "Resource": "$resourceKey",
             "Condition": {
                 "IpAddress": {"AWS:SourceIp": "{$_SERVER['REMOTE_ADDR']}/32"},
-                "DateLessThan": {"AWS:EpochTime": {$expires}}
+                "DateLessThan": {"AWS:EpochTime": $expires}
             }
         }
     ]
@@ -70,18 +73,23 @@ function signAPrivateDistributionPolicy()
 POLICY;
     $privateKey = dirname(__DIR__) . '/cloudfront/my-private-key.pem';
     $keyPairId = 'AAPKAJIKZATYYYEXAMPLE';
-    
+
     $cloudFrontClient = new CloudFrontClient([
         'profile' => 'default',
         'version' => '2018-06-18',
         'region' => 'us-east-1'
     ]);
-    
-    echo signPrivateDistributionPolicy($cloudFrontClient, $resourceKey, 
-        $customPolicy, $privateKey, $keyPairId);
+
+    echo signPrivateDistributionPolicy(
+        $cloudFrontClient,
+        $resourceKey,
+        $customPolicy,
+        $privateKey,
+        $keyPairId
+    );
 }
 
 // Uncomment the following line to run this code in an AWS account.
 // signAPrivateDistributionPolicy();
 // snippet-end:[cloudfront.php.private_distribution_policy.main]
-// snippet-end:[cloudfront.php.private_distribution_policy.complete] 
+// snippet-end:[cloudfront.php.private_distribution_policy.complete]

@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
- *  ABOUT THIS PHP SAMPLE: This sample is part of the AWS SDK for PHP Developer Guide topic at 
+ *  ABOUT THIS PHP SAMPLE: This sample is part of the AWS SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/kinesis-firehose-example-delivery-stream.html
  */
 // snippet-start:[firehose.php.put_record_delivery_stream.complete]
@@ -11,8 +11,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Firehose\FirehoseClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[firehose.php.put_record_delivery_stream.import]
 
 /**
@@ -22,7 +22,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient 
+//Create a KinesisClient
 // snippet-start:[firehose.php.put_record_delivery_stream.main]
 $firehoseClient = new Aws\Firehose\FirehoseClient([
     'profile' => 'default',
@@ -46,8 +46,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[firehose.php.put_record_delivery_stream.main]
 // snippet-end:[firehose.php.put_record_delivery_stream.complete]
-

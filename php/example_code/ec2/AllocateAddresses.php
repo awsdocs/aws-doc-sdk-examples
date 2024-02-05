@@ -14,7 +14,6 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ec2\Ec2Client;
 // snippet-end:[ec2.php.allocate_addresses.import]
 /**
  * Allocate and associate Address
@@ -22,7 +21,7 @@ use Aws\Ec2\Ec2Client;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[ec2.php.allocate_addresses.main]
 $ec2Client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
@@ -44,8 +43,6 @@ $result = $ec2Client->associateAddress(array(
 ));
 
 var_dump($result);
- 
- 
+
 // snippet-end:[ec2.php.allocate_addresses.main]
 // snippet-end:[ec2.php.allocate_addresses.complete]
-

@@ -11,8 +11,9 @@
 // snippet-start:[sns.php.list_optout.import]
 require 'vendor/autoload.php';
 
-use Aws\Sns\SnsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sns\SnsClient;
+
 // snippet-end:[sns.php.list_optout.import]
 
 /**
@@ -21,7 +22,7 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[sns.php.list_optout.main]
 $SnSclient = new SnsClient([
     'profile' => 'default',
@@ -30,13 +31,13 @@ $SnSclient = new SnsClient([
 ]);
 
 try {
-    $result = $SnSclient->listPhoneNumbersOptedOut([
-    ]);
+    $result = $SnSclient->listPhoneNumbersOptedOut();
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
-} 
+}
+
 // snippet-end:[sns.php.list_optout.main]
 // snippet-end:[sns.php.list_optout.complete]
 // snippet-sourceauthor:[jschwarzwalder]

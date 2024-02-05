@@ -12,10 +12,10 @@
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;  
-use Aws\Exception\AwsException;
-// snippet-end:[s3.php.put_object.import]
+use Aws\S3\Exception\S3Exception;
+use Aws\S3\S3Client;
 
+// snippet-end:[s3.php.put_object.import]
 
 /**
  * Put an Object inside Amazon S3 Bucket.
@@ -23,7 +23,7 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[s3.php.put_object.main]
 $USAGE = "\n" .
     "To run this example, supply the name of an S3 bucket and a file to\n" .
@@ -55,8 +55,6 @@ try {
 } catch (S3Exception $e) {
     echo $e->getMessage() . "\n";
 }
- 
- 
+
 // snippet-end:[s3.php.put_object.main]
 // snippet-end:[s3.php.put_object.complete]
-

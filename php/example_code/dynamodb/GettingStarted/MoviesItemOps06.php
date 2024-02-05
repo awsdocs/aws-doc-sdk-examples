@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.MoviesItemOps06] 
+// snippet-start:[dynamodb.php.codeexample.MoviesItemOps06]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -39,21 +39,17 @@ $eav = $marshaler->marshalJson('
 
 $params = [
     'TableName' => $tableName,
-    'Key' => $key, 
+    'Key' => $key,
     'ConditionExpression' => 'info.rating <= :val',
-    'ExpressionAttributeValues'=> $eav
+    'ExpressionAttributeValues' => $eav
 ];
 
 try {
     $result = $dynamodb->deleteItem($params);
     echo "Deleted item.\n";
-
 } catch (DynamoDbException $e) {
     echo "Unable to delete item:\n";
     echo $e->getMessage() . "\n";
 }
 
-
-
-// snippet-end:[dynamodb.php.codeexample.MoviesItemOps06] 
-?>
+// snippet-end:[dynamodb.php.codeexample.MoviesItemOps06]

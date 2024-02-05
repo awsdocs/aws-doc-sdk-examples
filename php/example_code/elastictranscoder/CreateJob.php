@@ -7,13 +7,14 @@
  *  https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/introduction.html
  *
  */
-// snippet-start:[elastictranscoder.php.create_job.complete] 
-// snippet-start:[elastictranscoder.php.create_job.import] 
+// snippet-start:[elastictranscoder.php.create_job.complete]
+// snippet-start:[elastictranscoder.php.create_job.import]
 require 'vendor/autoload.php';
 
 use Aws\ElasticTranscoder\ElasticTranscoderClient;
 use Aws\Exception\AwsException;
-// snippet-end:[elastictranscoder.php.create_job.import] 
+
+// snippet-end:[elastictranscoder.php.create_job.import]
 
 /**
  * Create an Elastic Transcoder job.
@@ -22,10 +23,10 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-// snippet-start:[elastictranscoder.php.create_job.main] 
+// snippet-start:[elastictranscoder.php.create_job.main]
 $tmp_path = '/tmp';
 
-// Region where you setup your AWS resources.
+// Region where you set up your AWS resources.
 $region = 'us-east-2';
 
 // Create the client for Elastic Transcoder.
@@ -45,10 +46,10 @@ $S3_file = 'folder/filename.txt';
 // All outputs will have this prefix prepended to their output key.
 $output_key_prefix = 'elastic-transcoder-samples/output/';
 $outputs = [
-  [
-    'Key' => $S3_file, 
-    'PresetId' => $preset_id
-  ]
+    [
+        'Key' => $S3_file,
+        'PresetId' => $preset_id
+    ]
 ];
 
 // Create the job.
@@ -65,8 +66,5 @@ try {
     echo $e->getMessage() . "\n";
 }
 
-
 // snippet-end:[elastictranscoder.php.create_job.main]
-// snippet-end:[elastictranscoder.php.create_job.complete] 
-
-?>
+// snippet-end:[elastictranscoder.php.create_job.complete]

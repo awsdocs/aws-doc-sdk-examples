@@ -7,8 +7,9 @@
 // snippet-start:[mediaconvert.php.create_job_template.import]
 require 'vendor/autoload.php';
 
-use Aws\MediaConvert\MediaConvertClient;
 use Aws\Exception\AwsException;
+use Aws\MediaConvert\MediaConvertClient;
+
 // snippet-end:[mediaconvert.php.create_job_template.import]
 
 /*
@@ -19,7 +20,7 @@ use Aws\Exception\AwsException;
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
     'region' => 'us-east-1',
-    'profile' => 'default', 
+    'profile' => 'default',
     'endpoint' => 'https://lxEXAMPLE.mediaconvert.us-east-1.amazonaws.com'
 ]);
 
@@ -138,6 +139,6 @@ try {
 } catch (AwsException $e) {
     echo 'Error: ' . $e['message'];
 }
-// snippet-end:[mediaconvert.php.create_job_template.main]
-// snippet-end:[mediaconvert.php.create_job_template.complete] 
 
+// snippet-end:[mediaconvert.php.create_job_template.main]
+// snippet-end:[mediaconvert.php.create_job_template.complete]

@@ -12,8 +12,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+use Aws\Ses\SesClient;
+
 // snippet-end:[ses.php.send_quota.import]
 
 //Create a SESClient
@@ -26,8 +27,7 @@ $SesClient = new SesClient([
 ]);
 
 try {
-    $result = $SesClient->getSendQuota([
-    ]);
+    $result = $SesClient->getSendQuota();
     $send_limit = $result["Max24HourSend"];
     $sent = $result["SentLast24Hours"];
     $available = $send_limit - $sent;
@@ -38,8 +38,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.send_quota.main]
 // snippet-end:[ses.php.send_quota.complete]
-

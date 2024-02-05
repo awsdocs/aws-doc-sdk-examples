@@ -12,11 +12,11 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[ses.php.delete_filter.import]
 
-//Create a SESClient 
+//Create a SESClient
 // snippet-start:[ses.php.delete_filter.main]
 $SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
@@ -29,7 +29,6 @@ $filter_name = 'FilterName';
 try {
     $result = $SesClient->deleteReceiptFilter([
         'FilterName' => $filter_name,
-
     ]);
     var_dump($result);
 } catch (AwsException $e) {
@@ -37,8 +36,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.delete_filter.main]
 // snippet-end:[ses.php.delete_filter.complete]
-

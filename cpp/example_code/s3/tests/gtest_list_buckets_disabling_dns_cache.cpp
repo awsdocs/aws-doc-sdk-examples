@@ -16,8 +16,9 @@
 #include "S3_GTests.h"
 
 namespace AwsDocTest {
+    // This test is flaky. Add the D to disable it.
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(S3_GTests, list_buckets_diabling_dns_cache_2_) {
+    TEST_F(S3_GTests, list_buckets_disabling_dns_cache_2D_) {
 
         bool result = AwsDoc::S3::ListBucketDisablingDnsCache(*s_clientConfig);
         EXPECT_TRUE(result);

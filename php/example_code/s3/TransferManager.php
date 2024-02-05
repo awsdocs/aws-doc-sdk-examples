@@ -12,10 +12,10 @@
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;  
-use Aws\Exception\AwsException;
-// snippet-end:[s3.php.transfer_manager.import]
+use Aws\S3\S3Client;
+use Aws\S3\Transfer;
 
+// snippet-end:[s3.php.transfer_manager.import]
 
 // Create an S3 client
 // snippet-start:[s3.php.transfer_manager.main]
@@ -28,14 +28,14 @@ $client = new S3Client([
 //Uploading a Local Director to S3
 echo "Uploading Files to S3";
 
-// Where the files will be source from
+// Where the files will be sourced from
 $source = '/path/to/source/files';
 
 // Where the files will be transferred to
 $dest = 's3://bucket/foo';
 
 // Create a default transfer object
-$manager = new \Aws\S3\Transfer($client, $source, $dest);
+$manager = new Transfer($client, $source, $dest);
 
 // Perform the transfer synchronously
 $manager->transfer();
@@ -48,10 +48,11 @@ $source = 's3://bucket';
 $dest = '/path/to/destination/dir';
 
 // Create a default transfer object
-$manager = new \Aws\S3\Transfer($client, $source, $dest);
+$manager = new Transfer($client, $source, $dest);
 
 //toggle to transfer asynchronously
-if (async) {
+$async = true;
+if ($async) {
     // Initiate the transfer and get a promise
     $promise = $manager->promise();
 
@@ -63,8 +64,6 @@ if (async) {
     // Perform the transfer synchronously
     $manager->transfer();
 }
- 
- 
+
 // snippet-end:[s3.php.transfer_manager.main]
 // snippet-end:[s3.php.transfer_manager.complete]
-

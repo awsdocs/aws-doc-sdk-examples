@@ -12,7 +12,6 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\Lightsail\LightsailClient;
 
 // snippet-end:[lightsail.php.get_operations.import]
 
@@ -24,7 +23,7 @@ use Aws\Lightsail\LightsailClient;
  */
 
 //Create a Lightsail Client
-// snippet-start:[lightsail.php.get_operations.main] 
+// snippet-start:[lightsail.php.get_operations.main]
 $client = new Aws\Lightsail\LightsailClient([
     'profile' => 'default',
     'version' => '2016-11-28',
@@ -32,7 +31,7 @@ $client = new Aws\Lightsail\LightsailClient([
 ]);
 
 try {
-    $result = $client->getOperations([]);
+    $result = $client->getOperations();
     if ($result['operations']) {
         foreach ($result['operations'] as $operation) {
             print($operation['operationType'] . " Operation " . $operation['id'] . " on " .
@@ -46,6 +45,7 @@ try {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
+
 // snippet-end:[lightsail.php.get_operations.main]
-// snippet-end:[lightsail.php.get_operations.complete] 
+// snippet-end:[lightsail.php.get_operations.complete]
 // snippet-sourceauthor:[jschwarzwalder (AWS)]

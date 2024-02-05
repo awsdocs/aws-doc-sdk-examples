@@ -11,8 +11,9 @@
 // snippet-start:[sqs.php.list_queues.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sqs\SqsClient;
+
 // snippet-end:[sqs.php.list_queues.import]
 
 /**
@@ -21,7 +22,7 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[sqs.php.list_queues.main]
 $client = new SqsClient([
     'profile' => 'default',
@@ -38,8 +39,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[sqs.php.list_queues.main]
 // snippet-end:[sqs.php.list_queues.complete]
-

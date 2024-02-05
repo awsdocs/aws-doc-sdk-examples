@@ -19,7 +19,11 @@ using namespace Aws::TranscribeStreamingService::Model;
 
 //TODO(User): Update path to location of local .wav test file, if necessary.
 static const Aws::String FILE_NAME{MEDIA_DIR "/transcribe-test-file.wav"};
-static const int BUFFER_SIZE = 1024;
+static const int SAMPLE_RATE = 8000; // for the file above
+// If you're able to specify chunk size with your audio type (such as with PCM), set each chunk to between 50 ms and 200 ms
+static const int CHUNK_LENGTH = 125;
+// chunk_size_in_bytes = chunk_duration_in_millisecond / 1000 * audio_sample_rate * 2
+static const int BUFFER_SIZE = CHUNK_LENGTH * SAMPLE_RATE / 1000 * 2;
 
 // snippet-start:[transcribe.cpp.stream_transcription_async.code]
 int main() {
@@ -29,8 +33,6 @@ int main() {
     {
         //TODO(User): Set to the region of your AWS account.
         const Aws::String region = Aws::Region::US_WEST_2;
-
-        Aws::Utils::Threading::Semaphore canCloseStream(0 /*initialCount*/, 1 /*maxCount*/);
 
         //Load a profile that has been granted AmazonTranscribeFullAccess AWS managed permission policy.
         Aws::Client::ClientConfiguration config;
@@ -53,33 +55,28 @@ int main() {
                 });
         //SetTranscriptEventCallback called for every 'chunk' of file transcripted.
         // Partial results are returned in real time.
-        handler.SetTranscriptEventCallback([&canCloseStream](const TranscriptEvent &ev) {
-                bool isFinal = false;
+        handler.SetTranscriptEventCallback([](const TranscriptEvent &ev) {
                 for (auto &&r: ev.GetTranscript().GetResults()) {
                     if (r.GetIsPartial()) {
                         std::cout << "[partial] ";
                     }
                     else {
                         std::cout << "[Final] ";
-                        isFinal = true;
                     }
                     for (auto &&alt: r.GetAlternatives()) {
                         std::cout << alt.GetTranscript() << std::endl;
                     }
                 }
-                if (isFinal) {
-                    canCloseStream.Release();
-                }
         });
 
         StartStreamTranscriptionRequest request;
-        request.SetMediaSampleRateHertz(8000);
+        request.SetMediaSampleRateHertz(SAMPLE_RATE);
         request.SetLanguageCode(LanguageCode::en_US);
         request.SetMediaEncoding(
                 MediaEncoding::pcm); // wav and aiff files are PCM formats.
         request.SetEventStreamHandler(handler);
 
-        auto OnStreamReady = [&canCloseStream](AudioStream &stream) {
+        auto OnStreamReady = [](AudioStream &stream) {
                 Aws::FStream file(FILE_NAME, std::ios_base::in | std::ios_base::binary);
                 if (!file.is_open()) {
                     std::cerr << "Failed to open " << FILE_NAME << '\n';
@@ -122,26 +119,22 @@ int main() {
                     std::cout << "Successfully sent the empty frame" << std::endl;
                 }
                 stream.flush();
-                // Wait until the final transcript or an error is received.
-                // Closing the stream prematurely will trigger an error.
-                canCloseStream.WaitOne();
                 stream.Close();
-         };
+        };
 
         Aws::Utils::Threading::Semaphore signaling(0 /*initialCount*/, 1 /*maxCount*/);
-        auto OnResponseCallback = [&signaling, &canCloseStream](
+        auto OnResponseCallback = [&signaling](
                 const TranscribeStreamingServiceClient * /*unused*/,
                 const Model::StartStreamTranscriptionRequest & /*unused*/,
-                const Model::StartStreamTranscriptionOutcome & outcome,
+                const Model::StartStreamTranscriptionOutcome &outcome,
                 const std::shared_ptr<const Aws::Client::AsyncCallerContext> & /*unused*/) {
 
-            if (!outcome.IsSuccess())
-            {
-                std::cerr << "Transcribe streaming error " << outcome.GetError().GetMessage() << std::endl;
-            }
+                if (!outcome.IsSuccess()) {
+                    std::cerr << "Transcribe streaming error "
+                              << outcome.GetError().GetMessage() << std::endl;
+                }
 
-            canCloseStream.Release();
-            signaling.Release();
+                signaling.Release();
         };
 
         std::cout << "Starting..." << std::endl;
