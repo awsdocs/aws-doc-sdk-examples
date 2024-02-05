@@ -9,12 +9,42 @@
 #include <aws/testing/mocks/http/MockHttpClient.h>
 #include "mediaconvert_samples.h"
 
+// Debug testing framework start.
+#include <aws/core/utils/logging/ConsoleLogSystem.h>
+
+class DebugMockHTTPClient : public MockHttpClient {
+public:
+    DebugMockHTTPClient() {}
+
+    std::shared_ptr<Aws::Http::HttpResponse>
+    MakeRequest(const std::shared_ptr<Aws::Http::HttpRequest> &request,
+                Aws::Utils::RateLimits::RateLimiterInterface *readLimiter,
+                Aws::Utils::RateLimits::RateLimiterInterface *writeLimiter) const override {
+
+        auto result = MockHttpClient::MakeRequest(request, readLimiter, writeLimiter);
+
+        std::cout << "DebugMockHTTPClient::MakeRequest URI " << request->GetURIString()
+                  << ", query " << request->GetQueryString()
+                  << ", result " << result.get() << "." << std::endl;
+
+        return result;
+    }
+};
+// Debug testing framework end.
 
 Aws::SDKOptions AwsDocTest::MediaConvert_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::MediaConvert_GTests::s_clientConfig;
 static const char ALLOCATION_TAG[] = "RDS_GTEST";
 
 void AwsDocTest::MediaConvert_GTests::SetUpTestSuite() {
+    // Debug testing framework start.
+    s_options.loggingOptions.logger_create_fn = []() {
+            std::cerr << "Log create function called. " << std::endl;
+            return Aws::MakeShared<Aws::Utils::Logging::ConsoleLogSystem>(
+                    ALLOCATION_TAG, Aws::Utils::Logging::LogLevel::Debug);
+    };
+    s_options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
+    // Debug testing framework end.
     InitAPI(s_options);
 
     // s_clientConfig must be a pointer because the client config must be initialized
@@ -72,7 +102,8 @@ void AwsDocTest::MediaConvert_GTests::AddCommandLineResponses(
 
 
 bool AwsDocTest::MediaConvert_GTests::suppressStdOut() {
-    return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
+    // return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
+    return false; // Temporary override to debug testing framework.
 }
 
 void AwsDocTest::MediaConvert_GTests::createEndpointCache() {
@@ -107,24 +138,33 @@ int AwsDocTest::MyStringBuffer::underflow() {
 }
 
 AwsDocTest::MockHTTP::MockHTTP() {
-    mockHttpClient = Aws::MakeShared<MockHttpClient>(ALLOCATION_TAG);
+    mockHttpClient = Aws::MakeShared<DebugMockHTTPClient>(
+            ALLOCATION_TAG); // Debug testing framework.
     mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
     mockHttpClientFactory->SetClient(mockHttpClient);
     SetHttpClientFactory(mockHttpClientFactory);
     requestTmp = CreateHttpRequest(Aws::Http::URI("https://test.com/"),
                                    Aws::Http::HttpMethod::HTTP_GET,
                                    Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+
+    std::cout << "AwsDocTest::MockHTTP::MockHTTP called."
+              << std::endl; // Debug testing framework.
 }
 
 AwsDocTest::MockHTTP::~MockHTTP() {
+    std::cout << "AwsDocTest::MockHTTP::~MockHTTP called."
+              << std::endl; // Debug testing framework.
     Aws::Http::CleanupHttp();
     Aws::Http::InitHttp();
 }
 
 bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
                                                Aws::Http::HttpResponseCode httpResponseCode) {
-
-    std::ifstream inStream(std::string(SRC_DIR) + "/" + fileName);
+    std::string filePath = std::string(SRC_DIR) + "/" + fileName;
+    std::cout << "AwsDocTest::MockHTTP::addResponseWithBody called with file "
+              << filePath
+              << "." << std::endl; // Debug testing framework.
+    std::ifstream inStream(filePath);
     if (inStream) {
         std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
                 ALLOCATION_TAG, requestTmp);
@@ -132,10 +172,14 @@ bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
         goodResponse->SetResponseCode(httpResponseCode);
         goodResponse->GetResponseBody() << inStream.rdbuf();
         mockHttpClient->AddResponseToReturn(goodResponse);
+
+        std::cout << "AwsDocTest::MockHTTP::addResponseWithBody response added  "
+                  << goodResponse.get()
+                  << "." << std::endl; // Debug testing framework.
         return true;
     }
 
-    std::cerr << "MockHTTP::addResponseWithBody open file error '" << fileName << "'."
+    std::cerr << "MockHTTP::addResponseWithBody open file error '" << filePath << "'."
               << std::endl;
 
     return false;
