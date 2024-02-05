@@ -22,7 +22,7 @@ require_relative("../../../helpers/waiters")
 require_relative("../glue_wrapper")
 require_relative("../getting_started")
 
-describe GlueWrapper, :quarantine do
+describe GlueWrapper, integ: true do
   context "GlueWrapper" do
     resource_names = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "./..", "resource_names.yaml")))
 
@@ -58,7 +58,7 @@ describe GlueWrapper, :quarantine do
       print "\nDone!\n".green
     end
 
-    it "Starts crawler", integ: false do
+    it "Starts crawler", integ: true do
       wrapper.start_crawler(crawler_name)
       puts "Let's wait for the crawler to run. This typically takes a few minutes."
       crawler_state = nil
@@ -71,7 +71,7 @@ describe GlueWrapper, :quarantine do
       print "\nDone!\n".green
     end
 
-    it "Checks database created by crawler", integ: false do
+    it "Checks database created by crawler", integ: true do
       database = wrapper.get_database(db_name)
       puts "The crawler created database #{db_name}:"
       print "#{database}".yellow
@@ -85,7 +85,7 @@ describe GlueWrapper, :quarantine do
     end
 
 
-    it "Creates a job definition that runs an ETL script", integ: false do
+    it "Creates a job definition that runs an ETL script", integ: true do
       puts "Uploading Python ETL script to S3..."
       wrapper.upload_job_script(job_script, glue_bucket)
       puts "Creating job definition #{job_name}:\n"
@@ -94,7 +94,7 @@ describe GlueWrapper, :quarantine do
       print "\nDone!\n".green
     end
 
-    it "Starts a new job", integ: false do
+    it "Starts a new job", integ: true do
       tables = wrapper.get_tables(db_name)
       job_run_status = nil
       job_run_id = wrapper.start_job_run(
@@ -113,7 +113,7 @@ describe GlueWrapper, :quarantine do
       puts "-" * 88
     end
 
-    it "Views results from a successful job run", integ: false do
+    it "Views results from a successful job run", integ: true do
       job_run = wrapper.get_job_runs(job_name)
       job_run_status = job_run[0]["job_run_state"]
       if job_run_status == "SUCCEEDED"
@@ -150,7 +150,7 @@ describe GlueWrapper, :quarantine do
       end
     end
 
-    it "Deletes job definition and crawler.", integ: false do
+    it "Deletes job definition and crawler.", integ: true do
       wrapper.delete_job(job_name)
       wrapper.delete_crawler(crawler_name)
     end
