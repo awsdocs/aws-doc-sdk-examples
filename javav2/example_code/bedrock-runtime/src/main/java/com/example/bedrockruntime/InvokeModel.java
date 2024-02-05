@@ -39,7 +39,7 @@ public class InvokeModel {
                 /*
                  * The different model providers have individual request and response formats.
                  * For the format, ranges, and default values for Anthropic Claude, refer to:
-                 * https://docs.anthropic.com/claude/reference/complete_post
+                 * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
                  */
 
                 String claudeModelId = "anthropic.claude-v2";
@@ -89,7 +89,7 @@ public class InvokeModel {
                  * The different model providers have individual request and response formats.
                  * For the format, ranges, and default values for AI21 Labs Jurassic-2, refer
                  * to:
-                 * https://docs.ai21.com/reference/j2-complete-ref
+                 * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html
                  */
 
                 String jurassic2ModelId = "ai21.j2-mid-v1";
@@ -190,7 +190,7 @@ public class InvokeModel {
                  * The different model providers have individual request and response formats.
                  * For the format, ranges, and available style_presets of Stable Diffusion
                  * models refer to:
-                 * https://platform.stability.ai/docs/api-reference#tag/v1generation
+                 * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-stability-diffusion.html
                  */
 
                 String stableDiffusionModelId = "stability.stable-diffusion-xl";
