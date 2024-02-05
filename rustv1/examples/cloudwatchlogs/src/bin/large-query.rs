@@ -8,25 +8,20 @@ use std::{
     collections::HashSet,
     env,
     fmt::Display,
-    str::from_utf8,
     time::{Duration, Instant},
 };
 use tracing::info;
 
 use aws_config::BehaviorVersion;
 use aws_sdk_cloudwatchlogs::{
-    config::{
-        interceptors::InterceptorContext,
-        retry::{ClassifyRetry, RetryAction},
-        // Intercept,
-    },
     error::ProvideErrorMetadata,
     operation::get_query_results::GetQueryResultsOutput,
-    types::ResultField,
-    Client, Config, Error,
+    types::{QueryStatus, ResultField},
+    Client, Error,
 };
-use aws_types::sdk_config::RetryConfig;
 use chrono::{DateTime, Utc};
+
+use sdk_examples_test_utils::wait_on;
 
 #[derive(Debug)]
 enum LargeQueryError {
@@ -34,62 +29,6 @@ enum LargeQueryError {
     FromCloudwatchLogs(Error),
     FromChronoParse(chrono::ParseError),
 }
-
-#[derive(Debug)]
-struct CloudWatchLongQueryQueryResultRetryClassifier {
-    status_done: HashSet<String>,
-}
-
-impl CloudWatchLongQueryQueryResultRetryClassifier {
-    fn new() -> Self {
-        CloudWatchLongQueryQueryResultRetryClassifier {
-            status_done: vec!["Complete", "Failed", "Cancelled", "Timeout", "Unknown"]
-                .into_iter()
-                .map(String::from)
-                .collect(),
-        }
-    }
-}
-
-impl ClassifyRetry for CloudWatchLongQueryQueryResultRetryClassifier {
-    fn classify_retry(&self, ctx: &InterceptorContext) -> RetryAction {
-        match ctx.response() {
-            None => RetryAction::NoActionIndicated,
-            Some(response) => {
-                info!("ClassifyRetry for Cloud Watch Logs long query waiter");
-                let body = from_utf8(response.body().bytes().unwrap_or_default());
-                match body {
-                    Err(e) => {
-                        info!("Server error {e:?}");
-                        RetryAction::retryable_error(aws_config::retry::ErrorKind::ServerError)
-                    }
-                    Ok(body) => {
-                        if self.status_done.iter().any(|status| body.contains(status)) {
-                            info!("Found status in {body}");
-                            RetryAction::RetryForbidden
-                        } else {
-                            info!("No matching status in {body}");
-                            RetryAction::retryable_error_with_explicit_delay(
-                                aws_config::retry::ErrorKind::ClientError,
-                                Duration::from_secs(1),
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    fn name(&self) -> &'static str {
-        "CloudWatch Long Query QueryResult Retry Classifier"
-    }
-}
-
-// impl Intercept for ClassifyRetry {
-//     fn name(&self) -> &'static str {
-//         todo!()
-//     }
-// }
 
 struct DateRange(DateTime<Utc>, DateTime<Utc>);
 impl DateRange {
@@ -115,6 +54,7 @@ struct CloudWatchLongQuery {
     limit: i32,
     results: Vec<Vec<ResultField>>,
     elapsed_time: Option<Duration>,
+    status_done: HashSet<QueryStatus>,
 }
 
 impl CloudWatchLongQuery {
@@ -126,6 +66,12 @@ impl CloudWatchLongQuery {
             limit: 10_000,
             results: vec![],
             elapsed_time: None,
+            status_done: HashSet::from([
+                QueryStatus::Complete,
+                QueryStatus::Failed,
+                QueryStatus::Cancelled,
+                QueryStatus::Timeout,
+            ]),
         }
     }
 
@@ -178,23 +124,19 @@ impl CloudWatchLongQuery {
         &self,
         query_id: &str,
     ) -> Result<GetQueryResultsOutput, LargeQueryError> {
-        self.client
-            .get_query_results()
-            .query_id(query_id)
-            .customize()
-            // .interceptor(interceptor)
-            .config_override(
-                Config::builder()
-                    .retry_config(
-                        RetryConfig::standard()
-                            .with_max_attempts(60)
-                            .with_initial_backoff(Duration::from_secs(1)),
-                    )
-                    .retry_classifier(CloudWatchLongQueryQueryResultRetryClassifier::new()),
-            )
-            .send()
-            .await
-            .map_err(|err| LargeQueryError::FromCloudwatchLogs(err.into()))
+        wait_on!(
+            self.client.get_query_results().query_id(query_id),
+            |get_query_results| {
+                eprintln!("{:?}", get_query_results.status);
+                self.status_done.contains(
+                    get_query_results
+                        .status()
+                        .unwrap_or(&QueryStatus::UnknownValue),
+                )
+            }
+        )
+        .await
+        .map_err(|err| LargeQueryError::FromCloudwatchLogs(err.into()))
     }
 
     async fn query(
@@ -246,14 +188,7 @@ fn get_last_log_date(results: &[Vec<ResultField>]) -> Result<DateTime<Utc>, Larg
         .value()
         .expect("timestamp field value");
 
-    // let mut last: Vec<String> = results
-    //     .iter()
-    //     .filter_map(|e| e.iter().find(|e| matches!(e.field(), Some("@timestamp"))))
-    //     .map(|e| format!("{}Z", e.value().unwrap_or_default()))
-    //     .collect();
-    // last.sort();
-    // let last = last.last().unwrap();
-    DateTime::parse_from_rfc3339(last)
+    DateTime::parse_from_rfc3339(format!("{last}Z").as_str())
         .map(|e| e.to_utc())
         .map_err(LargeQueryError::FromChronoParse)
 }

@@ -86,3 +86,31 @@ impl WaiterBuilder {
         Waiter::new(self.max.unwrap_or(MAX_WAIT), self.poll.unwrap_or(POLL_TIME))
     }
 }
+
+#[macro_export]
+macro_rules! wait_on {
+    (
+        $req: expr,
+        $test: expr
+    ) => {
+        wait_on!($crate::waiter::Waiter::default(), $req, $test)
+    };
+    (
+        $waiter: expr,
+        $req: expr,
+        $test: expr
+    ) => {
+        async {
+            let mut sleep = Ok(());
+            let mut response = $req.clone().send().await;
+            while sleep.is_ok() {
+                if response.as_ref().map($test).unwrap_or(false) {
+                    break;
+                }
+                response = $req.clone().send().await;
+                sleep = $waiter.sleep().await;
+            }
+            response
+        }
+    };
+}
