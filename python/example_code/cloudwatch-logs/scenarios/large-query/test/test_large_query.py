@@ -14,7 +14,7 @@ runner = CloudWatchLogsQueryRunner()
 
 @pytest.mark.integ
 def test_run_successfully():
-    now = datetime.now()
+    now = datetime.utcnow()
     ten_days_ago = now - timedelta(days=10)
     query_start_date = date_utility.convert_datetime_to_iso1806(ten_days_ago)
     query_end_date = date_utility.convert_datetime_to_iso1806(now)
