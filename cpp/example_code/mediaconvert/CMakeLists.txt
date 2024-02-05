@@ -53,8 +53,7 @@ foreach (file ${AWSDOC_SOURCE})
     set(EXAMPLE_EXE run_${EXAMPLE})
 
     add_executable(${EXAMPLE_EXE}
-            ${file}
-            utils.cpp)
+            ${file})
 
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
             ${AWSSDK_PLATFORM_DEPS})
