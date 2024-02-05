@@ -165,7 +165,7 @@ class BedrockRuntimeWrapper:
         try:
             # The different model providers have individual request and response formats.
             # For the format, ranges, and available style_presets of Stable Diffusion models refer to:
-            # https://platform.stability.ai/docs/api-reference#tag/v1generation
+            # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-stability-diffusion.html
 
             body = {
                 "text_prompts": [{"text": prompt}],
