@@ -41,6 +41,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,28 +76,28 @@ public class IotScenario {
         final String usage =
             """
                 Usage:
-                    <thingName> <roleARN> <ruleName> <snsAction> <queryString>
+                    <roleARN> <ruleName> <snsAction> <queryString>
 
                 Where:
-                    thingName - The name of the AWS IoT Thing.
                     roleARN - The ARN of an IAM role that has permission to work with AWS IOT.
                     ruleName  - The name of the AWS IoT rule.
                     snsAction  - An ARN of an SNS topic.
                     queryString  - An query string uses to search for an IoT Thing (ie, thingName:foo).
                 """;
 
-        if (args.length != 2) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+       // if (args.length != 2) {
+       //     System.out.println(usage);
+       //     System.exit(1);
+       // }
 
         // Specify the thing name
-        String thingName = args[0];
-        String roleARN = args[1];
-        String ruleName = args[2];
-        String snsAction = args[3];
-        String queryString = args[4];
+        String thingName;
+        String ruleName;
+        String roleARN = "arn:aws:iam::814548047983:role/AssumeRoleSNS";// args[1];
+        String snsAction = "arn:aws:sns:us-east-1:814548047983:scott1111" ; //args[3];
+        String queryString = "thingName:foo" ; //args[4];
 
+        Scanner scanner = new Scanner(System.in);
         IotClient iotClient = IotClient.builder()
             .region(Region.US_EAST_1)
             .build();
@@ -110,6 +111,9 @@ public class IotScenario {
         System.out.println("""
             An AWS IoT Thing represents a virtual entity in the AWS IoT service that can be associated with a physical device.
             """);
+        // Prompt the user for input
+        System.out.print("Enter Thing name: ");
+        thingName = scanner.nextLine();
         createIoTThing(iotClient, thingName);
         System.out.println(DASHES);
 
@@ -118,16 +122,21 @@ public class IotScenario {
         System.out.println("""
             A device certificate performs a role in securing the communication between devices (Things) and the AWS IoT platform.
             """);
-        String certificateArn = createCertificate(iotClient);
+
+        System.out.print("Do you want to create a certificate? (y/n)");
+        String certAns = scanner.nextLine();
+        String certificateArn="" ;
+        if (certAns != null && certAns.trim().equalsIgnoreCase("y")) {
+            certificateArn = createCertificate(iotClient);
+            System.out.println("Attach the certificate to the AWS IoT Thing.");
+            attachCertificateToThing(iotClient, thingName, certificateArn);
+        } else {
+            System.out.println("A device certificate was not created.");
+        }
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("3. Attach the certificate to the AWS IoT Thing.");
-        attachCertificateToThing(iotClient, thingName, certificateArn);
-        System.out.println(DASHES);
-
-        System.out.println(DASHES);
-        System.out.println("4. Update an AWS IoT Thing with Attributes.");
+        System.out.println("3. Update an AWS IoT Thing with Attributes.");
         System.out.println("""
             Attributes are key-value pairs that can be searchable.
             """);
@@ -135,23 +144,27 @@ public class IotScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("5 Return a unique endpoint specific to the Amazon Web Services account.");
+        System.out.println("4 Return a unique endpoint specific to the Amazon Web Services account.");
         String endpointUrl = describeEndpoint(iotClient);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("6. List your IoT Certificates");
+        System.out.println("5. List your IoT Certificates");
         listCertificates(iotClient);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("7. Detach amd delete the certificate.");
-        detachThingPrincipal(iotClient, thingName, certificateArn);
-        deleteCertificate(iotClient, certificateArn);
+        if (certificateArn.length() > 0) {
+            System.out.println("6. Detach amd delete the certificate.");
+            detachThingPrincipal(iotClient, thingName, certificateArn);
+            deleteCertificate(iotClient, certificateArn);
+        } else {
+            System.out.println("6. You did not create a certificate.");
+        }
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("8. Create an IoT shadow that refers to a digital representation or virtual twin of a physical IoT device");
+        System.out.println("7. Create an IoT shadow that refers to a digital representation or virtual twin of a physical IoT device");
         IotDataPlaneClient iotPlaneClient = IotDataPlaneClient.builder()
             .region(Region.US_EAST_1)
             .endpointOverride(URI.create(endpointUrl))
@@ -161,32 +174,40 @@ public class IotScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("9. Write out the state information, in JSON format.");
+        System.out.println("8. Write out the state information, in JSON format.");
         getPayload(iotPlaneClient, thingName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("10. Creates a rule");
+        System.out.println("9. Creates a rule");
         System.out.println("""
         Creates a rule that is an administrator-level action. 
         Any user who has permission to create rules will be able to access data processed by the rule.
         """);
+        System.out.print("Enter Rule name: ");
+        ruleName = scanner.nextLine();
         createIoTRule(iotClient, roleARN, ruleName, snsAction);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("11. List your rules.");
+        System.out.println("10. List your rules.");
         listIoTRules(iotClient);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("12. Search things.");
+        System.out.println("11. Search things.");
         searchThings(iotClient, queryString);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("13. Delete the AWS IoT Thing.");
-        deleteIoTThing(iotClient, thingName);
+        System.out.println("12. Delete the AWS IoT Thing.");
+        System.out.print("Do you want to delete the IoT Thing? (y/n)");
+        String delAns = scanner.nextLine();
+        if (delAns != null && delAns.trim().equalsIgnoreCase("y")) {
+            deleteIoTThing(iotClient, thingName);
+        } else {
+            System.out.println("The IoT Thing was not deleted.");
+        }
         System.out.println(DASHES);
 
         System.out.println(DASHES);
