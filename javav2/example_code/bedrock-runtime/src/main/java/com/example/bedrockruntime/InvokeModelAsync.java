@@ -4,13 +4,13 @@
 package com.example.bedrockruntime;
 
 // snippet-start:[bedrock-runtime.java2.invoke_model_async.import]
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeAsyncClient;
-import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelRequest;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
 
@@ -41,7 +41,7 @@ public class InvokeModelAsync {
         /*
          * The different model providers have individual request and response formats.
          * For the format, ranges, and default values for Anthropic Claude, refer to:
-         * https://docs.anthropic.com/claude/reference/complete_post
+         * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
          */
 
         String claudeModelId = "anthropic.claude-v2";
@@ -103,7 +103,7 @@ public class InvokeModelAsync {
         /*
          * The different model providers have individual request and response formats.
          * For the format, ranges, and default values for Anthropic Claude, refer to:
-         * https://docs.anthropic.com/claude/reference/complete_post
+         * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
          */
 
         String jurassic2ModelId = "ai21.j2-mid-v1";
@@ -232,7 +232,7 @@ public class InvokeModelAsync {
          * The different model providers have individual request and response formats.
          * For the format, ranges, and available style_presets of Stable Diffusion
          * models refer to:
-         * https://platform.stability.ai/docs/api-reference#tag/v1generation
+         * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-stability-diffusion.html
          */
 
         String stableDiffusionModelId = "stability.stable-diffusion-xl";
