@@ -14,13 +14,13 @@ on:
 
 jobs:
   push_to_registry:
+    name: Push Docker image to ECR Public
     if: github.event.pull_request.merged == true
     env:
       REGISTRY: public.ecr.aws
       REGISTRY_ALIAS: b4v4v1s0
       IMAGE_TAG: latest
       REGION: us-east-1
-    name: Push Docker image to ECR Public
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo

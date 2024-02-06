@@ -17,6 +17,7 @@ on:
 
 jobs:
   run-lint:
+    name: Lint Multiple
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -38,6 +39,7 @@ jobs:
           VALIDATE_KOTLIN: true
           VALIDATE_BASH: true
   yamllint:
+    name: Lint Yaml
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
