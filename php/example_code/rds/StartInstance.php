@@ -2,17 +2,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[rds.php.start_instance.complete]
-// snippet-start:[rds.php.start_instance.import]
+// snippet-start:[php.example_code.rds.startDBInstance.complete]
+// snippet-start:[php.example_code.rds.startDBInstance.import]
 
-require 'vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 use Aws\Exception\AwsException;
 
-// snippet-end:[rds.php.start_instance.import]
+// snippet-end:[php.example_code.rds.startDBInstance.import]
 
-// snippet-start:[rds.php.start_instance.main]
-//Create a RDSClient
+// snippet-start:[php.example_code.rds.startDBInstance.main]
+//Create an RDSClient
 $rdsClient = new Aws\Rds\RdsClient([
     'profile' => 'default',
     'version' => '2014-10-31',
@@ -27,10 +27,9 @@ try {
     ]);
     var_dump($result);
 } catch (AwsException $e) {
-    // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
 
-// snippet-end:[rds.php.start_instance.main]
-// snippet-end:[rds.php.start_instance.complete]
+// snippet-end:[php.example_code.rds.startDBInstance.main]
+// snippet-end:[php.example_code.rds.startDBInstance.complete]
