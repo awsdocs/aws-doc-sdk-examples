@@ -189,8 +189,10 @@ class MrapExample {
         }
 // snippet-end:[s3.kotlin.mrap.create-s3controlclient]
 
+// snippet-start:[s3.kotlin.mrap.create-buckets]
         suspend fun setUpTwoBuckets(s3: S3Client, bucketName1: String, bucketName2: String) {
             println("Create two buckets in different regions.")
+            // The shared aws config file configures the default Region to be us-east-1.
             s3.createBucket(
                 CreateBucketRequest {
                     bucket = bucketName1
@@ -199,7 +201,7 @@ class MrapExample {
             s3.waitUntilBucketExists { bucket = bucketName1 }
             println("  Bucket [$bucketName1] created.")
 
-            // Override the S3Client to work with us-west-1.
+            // Override the S3Client to work with us-west-1 for the second bucket.
             s3.withConfig {
                 region = "us-west-1"
             }.use { s3West ->
@@ -215,6 +217,7 @@ class MrapExample {
                 println("  Bucket [$bucketName2] created.")
             }
         }
+// snippet-end:[s3.kotlin.mrap.create-buckets]
 
         suspend fun getAccountId(): String {
             StsClient.fromEnvironment()
