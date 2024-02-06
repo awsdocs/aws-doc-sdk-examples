@@ -245,6 +245,9 @@ def main(argv):
 
     [err_code, run_files] = build_tests(service=service)
 
+    passed_count = 0
+    failed_count = 0
+
     if err_code == 0:
         [err_code, passed_count, failed_count] = run_tests(
             run_files=run_files, type1=type1, type2=type2, type3=type3
