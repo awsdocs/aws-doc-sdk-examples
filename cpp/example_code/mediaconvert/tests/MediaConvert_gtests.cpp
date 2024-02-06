@@ -5,9 +5,7 @@
 #include <fstream>
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/mediaconvert/MediaConvertClient.h>
-#include <aws/mediaconvert/model/DescribeEndpointsRequest.h>
 #include <aws/testing/mocks/http/MockHttpClient.h>
-#include "mediaconvert_samples.h"
 
 // Debug testing framework start.
 #include <aws/core/utils/logging/ConsoleLogSystem.h>
@@ -69,8 +67,6 @@ void AwsDocTest::MediaConvert_GTests::SetUp() {
     // The following code is needed for the AwsDocTest::MyStringBuffer::underflow exception.
     // Otherwise, an infinite loop occurs when looping for a result on an empty buffer.
     std::cin.exceptions(std::ios_base::badbit);
-
-    createEndpointCache();
 }
 
 void AwsDocTest::MediaConvert_GTests::TearDown() {
@@ -105,27 +101,6 @@ bool AwsDocTest::MediaConvert_GTests::suppressStdOut() {
     // return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
     return false; // Temporary override to debug testing framework.
 }
-
-void AwsDocTest::MediaConvert_GTests::createEndpointCache() {
-    Aws::MediaConvert::MediaConvertClient endpointClient(*s_clientConfig);
-    Aws::MediaConvert::Model::DescribeEndpointsRequest request;
-    auto outcome = endpointClient.DescribeEndpoints(request);
-    Aws::String endpoint = "aaaaaaa.mediaconvert.us-test.amazonaws.com";
-    if (outcome.IsSuccess()) {
-        auto endpoints = outcome.GetResult().GetEndpoints();
-        if (!endpoints.empty()) {
-            // Need to strip https:// from endpoint for C++.
-            endpoint = endpoints[0].GetUrl().substr(8);
-        }
-    }
-    else {
-        std::cerr << "DescribeEndpoints error - " << outcome.GetError().GetMessage()
-                  << std::endl;
-    }
-    std::ofstream endpointCacheOut(AwsDoc::MediaConvert::CACHED_ENDPOINT_FILE);
-    endpointCacheOut << endpoint;
-}
-
 
 int AwsDocTest::MyStringBuffer::underflow() {
     int result = basic_stringbuf::underflow();

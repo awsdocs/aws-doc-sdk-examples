@@ -60,7 +60,6 @@ mediaconvert_CreateJob:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.mediaconvert.get_endpoint_uri_helper
                 - cpp.example_code.mediaconvert.CreateJob
   services:
     mediaconvert: {CreateJob}
@@ -109,7 +108,6 @@ mediaconvert_ListJobs:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.mediaconvert.get_endpoint_uri_helper
                 - cpp.example_code.mediaconvert.ListJobs
   services:
     mediaconvert: {ListJobs}
@@ -158,7 +156,6 @@ mediaconvert_GetJob:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.mediaconvert.get_endpoint_uri_helper
                 - cpp.example_code.mediaconvert.GetJob
   services:
     mediaconvert: {GetJob}
