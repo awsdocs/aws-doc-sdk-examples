@@ -11,8 +11,9 @@
 // snippet-start:[sqs.php.delete_queue.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sqs\SqsClient;
+
 // snippet-end:[sqs.php.delete_queue.import]
 
 /**
@@ -24,7 +25,7 @@ use Aws\Exception\AwsException;
 // snippet-start:[sqs.php.delete_queue.main]
 
 $queueUrl = "SQS_QUEUE_URL";
- 
+
 $client = new SqsClient([
     'profile' => 'default',
     'region' => 'us-west-2',
@@ -40,8 +41,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[sqs.php.delete_queue.main]
 // snippet-end:[sqs.php.delete_queue.complete]
-

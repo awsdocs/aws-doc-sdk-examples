@@ -12,8 +12,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+use Aws\Ses\SesClient;
+
 // snippet-end:[ses.php.send_statistics.import]
 
 //Create a SESClient
@@ -25,16 +26,13 @@ $SesClient = new SesClient([
 ]);
 
 try {
-    $result = $SesClient->getSendStatistics([
-    ]);
+    $result = $SesClient->getSendStatistics();
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.send_statistics.main]
 // snippet-end:[ses.php.send_statistics.complete]
-

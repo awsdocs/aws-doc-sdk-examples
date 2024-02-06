@@ -7,12 +7,12 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
- 
+
 // snippet-start:[s3.php.example.listingobjectkeys]
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
+use Aws\S3\S3Client;
 
 $bucket = '*** Your Bucket Name ***';
 
@@ -42,10 +42,11 @@ try {
     $objects = $s3->listObjects([
         'Bucket' => $bucket
     ]);
-    foreach ($objects['Contents']  as $object) {
+    foreach ($objects['Contents'] as $object) {
         echo $object['Key'] . PHP_EOL;
     }
 } catch (S3Exception $e) {
     echo $e->getMessage() . PHP_EOL;
 }
+
 // snippet-end:[s3.php.example.listingobjectkeys]

@@ -9,8 +9,6 @@
 
 namespace AwsDoc {
     namespace MediaConvert {
-        extern const char CACHED_ENDPOINT_FILE[];
-
         //! Create a an AWS Elemental MediaConvert job.
         /*!
           \param mediaConvertRole: An Amazon Resource Name (ARN) for the AWS Identity
@@ -51,14 +49,6 @@ namespace AwsDoc {
          */
         bool getJob(const Aws::String &jobID,
                     const Aws::Client::ClientConfiguration &clientConfiguration);
-
-        //! Utility routine to handle caching of a retrieved endpoint.
-        /*!
-          \param clientConfiguration: AWS client configuration.
-          \return Aws::String: The endpoint URI.
-         */
-        Aws::String getEndpointUriHelper(
-                const Aws::Client::ClientConfiguration &clientConfiguration);
     } // namespace MediaConvert
 } // namespace AwsDoc
 

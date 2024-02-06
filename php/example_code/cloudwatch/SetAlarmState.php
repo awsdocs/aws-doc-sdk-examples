@@ -7,30 +7,35 @@
 // snippet-start:[cloudwatch.php.set_alarm.import]
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient; 
+use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudwatch.php.set_alarm.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Sets the state of the specified alarm in Amazon CloudWatch.
- * 
+ *
  * Prerequisites: At least one CloudWatch alarm.
- * 
+ *
  * Inputs:
  * - $cloudWatchClient: An initialized CloudWatch client.
  * - $cloudWatchRegion: The alarm's AWS Region.
  * - $alarmName: The alarm's name.
  * - $stateValue: The alarm's new state.
  * - $stateReason: The reason for the alarm.
- * 
- * Returns: Information about the alarm's state change request; 
+ *
+ * Returns: Information about the alarm's state change request;
  * otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[cloudwatch.php.set_alarm.main]
-function setAlarmState($cloudWatchClient, $cloudWatchRegion, $alarmName, 
-    $stateValue, $stateReason)
-{
+function setAlarmState(
+    $cloudWatchClient,
+    $cloudWatchRegion,
+    $alarmName,
+    $stateValue,
+    $stateReason
+) {
     try {
         $result = $cloudWatchClient->setAlarmState([
             'AlarmName' => $alarmName,
@@ -38,11 +43,11 @@ function setAlarmState($cloudWatchClient, $cloudWatchRegion, $alarmName,
             'StateReason' => $stateReason
         ]);
 
-        if (isset($result['@metadata']['effectiveUri']))
-        {
-            if ($result['@metadata']['effectiveUri'] == 
-                'https://monitoring.' . $cloudWatchRegion . '.amazonaws.com')
-            {
+        if (isset($result['@metadata']['effectiveUri'])) {
+            if (
+                $result['@metadata']['effectiveUri'] ==
+                'https://monitoring.' . $cloudWatchRegion . '.amazonaws.com'
+            ) {
                 return 'Successfully changed state of specified alarm.';
             } else {
                 return 'Could not change state of specified alarm.';
@@ -59,7 +64,7 @@ function setTheAlarmState()
 {
     $alarmName = 'my-ec2-resources';
     $stateValue = 'OK';
-    $stateReason = 'AWS SDK for PHP example code set the state of the alarm ' . 
+    $stateReason = 'AWS SDK for PHP example code set the state of the alarm ' .
         $alarmName . ' to ' . $stateValue;
 
     $cloudWatchRegion = 'us-east-1';
@@ -69,12 +74,16 @@ function setTheAlarmState()
         'version' => '2010-08-01'
     ]);
 
-    echo setAlarmState($cloudWatchClient, $cloudWatchRegion, 
-        $alarmName, $stateValue, $stateReason);
+    echo setAlarmState(
+        $cloudWatchClient,
+        $cloudWatchRegion,
+        $alarmName,
+        $stateValue,
+        $stateReason
+    );
 }
 
 // Uncomment the following line to run this code in an AWS account.
 // setTheAlarmState();
 // snippet-end:[cloudwatch.php.set_alarm.main]
 // snippet-end:[cloudwatch.php.set_alarm.complete]
-

@@ -7,8 +7,10 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Sts\StsClient; 
 use Aws\Exception\AwsException;
+use Aws\S3\S3Client;
+use Aws\Sts\StsClient;
+
 // snippet-end:[sts.php.assume_role.import]
 
 /**
@@ -33,7 +35,7 @@ try {
     ]);
     // output AssumedRole credentials, you can use these credentials
     // to initiate a new AWS Service client with the IAM Role's permissions
-       
+
     $s3Client = new S3Client([
         'version'     => '2006-03-01',
         'region'      => 'us-west-2',
@@ -47,8 +49,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[sts.php.assume_role.main]
 // snippet-end:[sts.php.assume_role.complete]
-

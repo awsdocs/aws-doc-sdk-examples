@@ -2,20 +2,18 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[rds.php.describe_events.complete]
-// snippet-start:[rds.php.describe_events.import]
+// snippet-start:[php.example_code.rds.describeEvents.complete]
+// snippet-start:[php.example_code.rds.describeEvents.import]
 
-require 'vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
-use Aws\Rds\RdsClient; 
 use Aws\Exception\AwsException;
-// snippet-end:[rds.php.describe_events.import]
 
-// snippet-start:[rds.php.describe_events.main]
-//Create a RDSClient
+// snippet-end:[php.example_code.rds.describeEvents.import]
+
+// snippet-start:[php.example_code.rds.describeEvents.main]
+
 $rdsClient = new Aws\Rds\RdsClient([
-    'profile' => 'default',
-    'version' => '2014-10-31',
     'region' => 'us-east-2'
 ]);
 
@@ -28,9 +26,9 @@ try {
     ]);
     var_dump($result);
 } catch (AwsException $e) {
-    // output error message if fails
     echo $e->getMessage();
     echo "\n";
-} 
-// snippet-end:[rds.php.describe_events.main]
-// snippet-end:[rds.php.describe_events.complete]
+}
+
+// snippet-end:[php.example_code.rds.describeEvents.main]
+// snippet-end:[php.example_code.rds.describeEvents.complete]

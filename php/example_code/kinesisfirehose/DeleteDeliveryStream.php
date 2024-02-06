@@ -11,8 +11,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Firehose\FirehoseClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[firehose.php.delete_delivery_stream.import]
 
 /**
@@ -22,7 +22,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient 
+//Create a KinesisClient
 // snippet-start:[firehose.php.delete_delivery_stream.main]
 $firehoseClient = new Aws\Firehose\FirehoseClient([
     'profile' => 'default',
@@ -42,8 +42,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[firehose.php.delete_delivery_stream.main]
 // snippet-end:[firehose.php.delete_delivery_stream.complete]
-

@@ -18,14 +18,14 @@ use Aws\Exception\AwsException;
 // snippet-end:[cognito.php.user_pool.delete_user_pool_client.import]
 
 /**
- * 
+ *
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
  // snippet-start:[cognito.php.user_pool.delete_user_pool_client.main]
- 
+
 $client = new CognitoIdentityProviderClient([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -37,10 +37,10 @@ $clientID = "1a2b3c4d5e6f7g8h9i0j";
 
 try {
     $result = $client->deleteUserPool([
-        'UserPoolId' => $userPoolId, 
+        'UserPoolId' => $userPoolId,
         'ClientId' => $clientID,
     ]);
-    
+
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

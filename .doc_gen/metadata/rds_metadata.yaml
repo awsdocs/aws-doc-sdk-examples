@@ -106,6 +106,14 @@ rds_CreateDBInstance:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.CreateDBInstance
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.rds.createDBInstance.complete
   services:
     rds: {CreateDBInstance}
 rds_DeleteDBInstance:
@@ -170,6 +178,14 @@ rds_DeleteDBInstance:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.DeleteDBInstance
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.rds.deleteDBInstance.complete
   services:
     rds: {DeleteDBInstance} 
 rds_DescribeAccountAttributes:
@@ -268,6 +284,14 @@ rds_DescribeDBInstances:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.DescribeDBInstances
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.rds.describeDBInstances.complete
   services:
     rds: {DescribeDBInstances}         
 rds_ModifyDBInstance:
@@ -675,6 +699,14 @@ rds_CreateDBSnapshot:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.CreateDBSnapshot
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.rds.createDBSnapshot.complete
   services:
     rds: {CreateDBSnapshot}
 rds_DescribeDBSnapshots:

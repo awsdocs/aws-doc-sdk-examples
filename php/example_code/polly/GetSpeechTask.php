@@ -8,7 +8,6 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\Polly\PollyClient;
 
 // snippet-end:[polly.php.get_speech_task.import]
 
@@ -36,6 +35,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
+
 // snippet-end:[polly.php.get_speech_task.main]
 // snippet-end:[polly.php.get_speech_task.complete]
-

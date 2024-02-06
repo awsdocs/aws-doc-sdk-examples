@@ -12,8 +12,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+use Aws\Ses\SesClient;
+
 // snippet-end:[ses.php.get_authorized_policies.import]
 
 //Create a SESClient
@@ -38,8 +39,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.get_authorized_policies.main]
 // snippet-end:[ses.php.get_authorized_policies.complete]
-

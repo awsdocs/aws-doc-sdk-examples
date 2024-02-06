@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
- *  ABOUT THIS PHP SAMPLE: This sample is part of the AWS SDK for PHP Developer Guide topic at 
+ *  ABOUT THIS PHP SAMPLE: This sample is part of the AWS SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/kinesis-example-data-stream.html
  *
  */
@@ -11,8 +11,8 @@
 // snippet-start:[kinesis.php.list_data_stream.import]
 require 'vendor/autoload.php';
 
-use Aws\Kinesis\KinesisClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[kinesis.php.list_data_stream.import]
 
 /**
@@ -22,7 +22,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient 
+//Create a KinesisClient
 // snippet-start:[kinesis.php.list_data_stream.main]
 $kinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
@@ -31,16 +31,13 @@ $kinesisClient = new Aws\Kinesis\KinesisClient([
 ]);
 
 try {
-    $result = $kinesisClient->listStreams([
-    ]);
+    $result = $kinesisClient->listStreams();
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[kinesis.php.list_data_stream.main]
 // snippet-end:[kinesis.php.list_data_stream.complete]
-

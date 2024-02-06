@@ -115,9 +115,8 @@ def run_tests(run_files=[], type1=False, type2=False, type3=False):
     if type3:
         filters.append("*_3_")
 
-    filter_arg = ""
-    if len(filters) > 0:
-        filter_arg = f"--gtest_filter={':'.join(filters)}"
+    if len(filters) == 0:
+        filters.append("")  # Run once with no filter.
 
     passed_tests = 0
     failed_tests = 0
@@ -126,27 +125,32 @@ def run_tests(run_files=[], type1=False, type2=False, type3=False):
     os.makedirs(name=run_dir, exist_ok=True)
     os.chdir(run_dir)
     for run_file in run_files:
-        print(f"Calling '{run_file} {filter_arg}'.")
-        proc = subprocess.Popen(
-            [run_file, filter_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
-        )
-        for line in proc.stdout:
-            line = line.decode("utf-8")
-            sys.stdout.write(line)
+        # Run each filter separately or the no filter case.
+        for filter in filters:
+            filter_arg = ""
+            if len(filter) > 0:
+                filter_arg = f"--gtest_filter={filter}"
+            print(f"Calling '{run_file} {filter_arg}'.")
+            proc = subprocess.Popen(
+                [run_file, filter_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
+            )
+            for line in proc.stdout:
+                line = line.decode("utf-8")
+                sys.stdout.write(line)
 
-            match = re.search("\[  PASSED  \] (\d+) test", line)
-            if match is not None:
-                passed_tests = passed_tests + int(match.group(1))
-                continue
-            match = re.search("\[  FAILED  \] (\d+) test", line)
-            if match is not None:
-                failed_tests = failed_tests + int(match.group(1))
-                continue
+                match = re.search("\[  PASSED  \] (\d+) test", line)
+                if match is not None:
+                    passed_tests = passed_tests + int(match.group(1))
+                    continue
+                match = re.search("\[  FAILED  \] (\d+) test", line)
+                if match is not None:
+                    failed_tests = failed_tests + int(match.group(1))
+                    continue
 
-        proc.wait()
+            proc.wait()
 
-        if proc.returncode != 0:
-            has_error = True
+            if proc.returncode != 0:
+                has_error = True
 
     print("-" * 88)
     print(f"{passed_tests} tests passed.")
@@ -240,6 +244,9 @@ def main(argv):
     base_dir = os.getcwd()
 
     [err_code, run_files] = build_tests(service=service)
+
+    passed_count = 0
+    failed_count = 0
 
     if err_code == 0:
         [err_code, passed_count, failed_count] = run_tests(

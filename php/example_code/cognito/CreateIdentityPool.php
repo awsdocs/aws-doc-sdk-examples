@@ -25,7 +25,7 @@ use Aws\Exception\AwsException;
  */
 
  // snippet-start:[cognito.php.identity_pool.create_identity_pool.main]
- 
+
 $identityClient = new CognitoIdentityClient([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -36,11 +36,11 @@ $identityPoolName = "PHP_SDK_test_identity_pool";
 
 try {
     $result = $identityClient->createIdentityPool([
-        'AllowUnauthenticatedIdentities' => false, 
-        'IdentityPoolName' => $identityPoolName, 
+        'AllowUnauthenticatedIdentities' => false,
+        'IdentityPoolName' => $identityPoolName,
     ]);
     echo $result["IdentityPoolId"] . "\n";
-    echo $result["IdentityPoolName"] ."\n";
+    echo $result["IdentityPoolName"] . "\n";
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

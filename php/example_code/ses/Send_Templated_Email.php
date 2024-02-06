@@ -12,11 +12,11 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[ses.php.send_templated_email.import]
 
-//Create a SESClient 
+//Create a SESClient
 // snippet-start:[ses.php.send_templated_email.main]
 $SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
@@ -28,11 +28,10 @@ $template_name = 'Template_Name';
 $sender_email = 'email_address';
 $recipient_emails = ['email_address'];
 
-
 try {
     $result = $SesClient->sendTemplatedEmail([
         'Destination' => [
-            'ToAddresses' => $verified_recipient_emails,
+            'ToAddresses' => $recipient_emails,
         ],
         'ReplyToAddresses' => [$sender_email],
         'Source' => $sender_email,
@@ -46,8 +45,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.send_templated_email.main]
 // snippet-end:[ses.php.send_templated_email.complete]
-

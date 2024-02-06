@@ -18,7 +18,8 @@ use GuzzleHttp\Client as httpClient;
 $appId = 'appid';
 $redirectUri = 'https://';
 
-$url = "https://auth.amazonworkdocs.com/oauth?app_id=" . $appId . "&auth_type=ImplicitGrant&redirect_uri=" . $redirectUri . "&scopes=workdocs.content.read&state=xyz";
+$url = "https://auth.amazonworkdocs.com/oauth?app_id=" . $appId . "&auth_type=ImplicitGrant&redirect_uri="
+    . $redirectUri . "&scopes=workdocs.content.read&state=xyz";
 
 echo "<p>Url = <a href = '" . $url . "' target='_blank'>Request Authentication token</a></p>";
 echo "<ol>";
@@ -30,13 +31,14 @@ echo "<li>Copy the URL you are taken</li>";
 echo "<li>Save the string after <b>access_token=</b> and <b>region=</b></li>";
 echo "</ol>";
 echo "<p> For more information about Authentication and Access Control for User Applications see ";
-echo "<a href='https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html'>Amazon WorkDocs Developer Guide</a></p>";
+echo "<a href='https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html'>";
+echo "Amazon WorkDocs Developer Guide</a></p>";
 
 $guzzle = new httpClient([
     'base_uri' => $url
 ]);
-$response = $guzzle->request('GET', '');
+$response = $guzzle->request('GET');
 
 // snippet-end:[workdocs.php.get_authorization_token.main]
 // snippet-end:[workdocs.php.get_authorization_token.complete]
-// snippet-sourceauthor:[jschwarzwalder (AWS)] 
+// snippet-sourceauthor:[jschwarzwalder (AWS)]

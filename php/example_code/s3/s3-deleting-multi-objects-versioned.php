@@ -7,7 +7,7 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
- 
+
 // snippet-start:[s3.php.example.deletingmultiobjectsversioned]
 require 'vendor/autoload.php';
 
@@ -18,7 +18,7 @@ $keyname = '*** Your Object Key ***';
 
 $s3 = new S3Client([
     'version' => 'latest',
-    'region'  => 'us-east-1'
+    'region' => 'us-east-1'
 ]);
 
 // 1. Enable object versioning for the bucket.
@@ -31,8 +31,8 @@ $s3->putBucketVersioning([
 for ($i = 1; $i <= 3; $i++) {
     $s3->putObject([
         'Bucket' => $bucket,
-        'Key'    => $keyname,
-        'Body'   => "content {$i}",
+        'Key' => $keyname,
+        'Body' => "content {$i}",
     ]);
 }
 
@@ -41,19 +41,19 @@ $versions = $s3->listObjectVersions(['Bucket' => $bucket])
     ->getPath('Versions');
 
 // 4. Delete the object versions.
-$s3->deleteObjects([
-    'Bucket'  => $bucket,
+$result = $s3->deleteObjects([
+    'Bucket' => $bucket,
     'Delete' => [
         'Objects' => array_map(function ($version) {
             return [
-              'Key'       => $version['Key'],
-              'VersionId' => $version['VersionId']
+                'Key' => $version['Key'],
+                'VersionId' => $version['VersionId']
             ];
         }, $versions),
-    ],       
+    ],
 ]);
 
-echo "The following objects were deleted successfully:". PHP_EOL;
+echo "The following objects were deleted successfully:" . PHP_EOL;
 foreach ($result['Deleted'] as $object) {
     echo "Key: {$object['Key']}, VersionId: {$object['VersionId']}" . PHP_EOL;
 }
@@ -68,4 +68,5 @@ $s3->putBucketVersioning([
     'Bucket' => $bucket,
     'Status' => 'Suspended',
 ]);
+
 // snippet-end:[s3.php.example.deletingmultiobjectsversioned]

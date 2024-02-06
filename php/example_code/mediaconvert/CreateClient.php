@@ -2,13 +2,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/*
- */
 // snippet-start:[mediaconvert.php.create_client.complete]
 // snippet-start:[mediaconvert.php.create_client.import]
 require 'vendor/autoload.php';
-
-use Aws\MediaConvert\MediaConvertClient;
 
 // snippet-end:[mediaconvert.php.create_client.import]
 /**
@@ -27,8 +23,6 @@ $client = new Aws\MediaConvert\MediaConvertClient([
 ]);
 
 var_dump($client);
- 
 
 // snippet-end:[mediaconvert.php.create_client.main]
 // snippet-end:[mediaconvert.php.create_client.complete]
-

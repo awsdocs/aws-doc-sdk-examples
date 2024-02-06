@@ -2,25 +2,24 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 // snippet-start:[cloudfront.php.listdistribution.complete]
 // snippet-start:[cloudfront.php.listdistribution.import]
 require 'vendor/autoload.php';
 
-use Aws\CloudFront\CloudFrontClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudfront.php.listdistribution.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Gets information about Amazon CloudFront distributions.
  *
  * Prerequisites: At least one existing Amazon CloudFront distribution.
- * 
+ *
  * Inputs:
- * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client 
+ * - $cloudFrontClient: An initialized AWS SDK for PHP SDK client
  *   for CloudFront.
- * 
- * Returns: Information about existing distributions; otherwise, 
+ *
+ * Returns: Information about existing distributions; otherwise,
  * the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
@@ -45,13 +44,11 @@ function listTheDistributions()
 
     $distributions = listDistributions($cloudFrontClient);
 
-    if (count($distributions) == 0)
-    {
+    if (count($distributions) == 0) {
         echo 'Could not find any distributions.';
     } else {
-        foreach ($distributions['DistributionList']['Items'] as $distribution)
-        {
-            echo 'The distribution with the ID of ' . $distribution['Id'] . 
+        foreach ($distributions['DistributionList']['Items'] as $distribution) {
+            echo 'The distribution with the ID of ' . $distribution['Id'] .
                 ' has the status of ' . $distribution['Status'] . '.' . "\n";
         }
     }

@@ -26,19 +26,7 @@
 bool AwsDoc::MediaConvert::listJobs(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
 
-    // AWS Elemental MediaConvert has a low request limit for DescribeEndpoints.
-    // "getEndpointUriHelper" uses caching to limit requests.
-    // See utils.cpp.
-    Aws::String endpoint = getEndpointUriHelper(clientConfiguration);
-
-    if (endpoint.empty())
-    {
-        return false;
-    }
-
-    Aws::Client::ClientConfiguration endpointConfiguration(clientConfiguration);
-    endpointConfiguration.endpointOverride = endpoint;
-    Aws::MediaConvert::MediaConvertClient client(endpointConfiguration);
+    Aws::MediaConvert::MediaConvertClient client(clientConfiguration);
 
     bool result = true;
     Aws::String nextToken; // Used to handle paginated results.

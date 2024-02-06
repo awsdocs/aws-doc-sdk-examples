@@ -11,8 +11,9 @@
 // snippet-start:[sqs.php.recieve_message.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sqs\SqsClient;
+
 // snippet-end:[sqs.php.recieve_message.import]
 
 /**
@@ -23,7 +24,6 @@ use Aws\Exception\AwsException;
  */
 // snippet-start:[sqs.php.recieve_message.main]
 $queueUrl = "QUEUE_URL";
- 
 
 $client = new SqsClient([
     'profile' => 'default',
@@ -32,13 +32,13 @@ $client = new SqsClient([
 ]);
 
 try {
-    $result = $client->receiveMessage(array(
+    $result = $client->receiveMessage([
         'AttributeNames' => ['SentTimestamp'],
         'MaxNumberOfMessages' => 1,
         'MessageAttributeNames' => ['All'],
         'QueueUrl' => $queueUrl, // REQUIRED
         'WaitTimeSeconds' => 0,
-    ));
+    ]);
     if (!empty($result->get('Messages'))) {
         var_dump($result->get('Messages')[0]);
         $result = $client->deleteMessage([
@@ -52,8 +52,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[sqs.php.recieve_message.main]
 // snippet-end:[sqs.php.recieve_message.complete]
-

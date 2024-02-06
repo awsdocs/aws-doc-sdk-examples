@@ -7,15 +7,16 @@
  *  https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/introduction.html
  *
  */
-// snippet-start:[elastictranscoder.php.delete_pipeline.complete] 
-// snippet-start:[elastictranscoder.php.delete_pipeline.import] 
+// snippet-start:[elastictranscoder.php.delete_pipeline.complete]
+// snippet-start:[elastictranscoder.php.delete_pipeline.import]
 // Path to your PHP autoload.  If you are using a phar installation, this is the
 // path to your aws.phar file.
 require 'vendor/autoload.php';
 
 use Aws\ElasticTranscoder\ElasticTranscoderClient;
 use Aws\Exception\AwsException;
-// snippet-end:[elastictranscoder.php.delete_pipeline.import]  
+
+// snippet-end:[elastictranscoder.php.delete_pipeline.import]
 
 /**
  * Delete an Elastic Transcoder Pipeline.
@@ -24,7 +25,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 // Create the client for Elastic Transcoder.
-// snippet-start:[elastictranscoder.php.delete_pipeline.main] 
+// snippet-start:[elastictranscoder.php.delete_pipeline.main]
 $transcoder_client = new ElasticTranscoderClient([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -33,17 +34,15 @@ $transcoder_client = new ElasticTranscoderClient([
 
 $pipelineID = '1549322799801-b1yvqs';
 
-
 try {
     $result = $transcoder_client -> deletePipeline([
-        'Id' => $pipelineID, 
+        'Id' => $pipelineID,
     ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
+
 // snippet-end:[elastictranscoder.php.delete_pipeline.main]
 // snippet-end:[elastictranscoder.php.delete_pipeline.complete]
-
-?>

@@ -30,7 +30,7 @@ export const invokeJurassic2 = async (prompt) => {
 
     /* The different model providers have individual request and response formats.
      * For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
-     * https://docs.ai21.com/reference/j2-complete-ref
+     * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html
      */
     const payload = {
         prompt,

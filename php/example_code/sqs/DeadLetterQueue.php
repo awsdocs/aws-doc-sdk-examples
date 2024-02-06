@@ -11,8 +11,9 @@
 // snippet-start:[sqs.php.dead_letter_queue.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sqs\SqsClient;
+
 // snippet-end:[sqs.php.dead_letter_queue.import]
 
 /**
@@ -42,8 +43,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[sqs.php.dead_letter_queue.main]
 // snippet-end:[sqs.php.dead_letter_queue.complete]
-
