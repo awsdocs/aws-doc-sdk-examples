@@ -28,6 +28,7 @@ public class ObjectLockWorkflow
     private static S3ActionsWrapper _s3ActionsWrapper = null!;
     private static IConfiguration _configuration = null!;
     private static string _resourcePrefix;
+    private static List<string> bucketNameList;
 
     public static async Task Main(string[] args)
     {
@@ -113,10 +114,36 @@ public class ObjectLockWorkflow
         if (interactive)
             Console.ReadLine();
 
-        var noLockBucketName = _resourcePrefix + "no_lock";
+        var noLockBucketName = _resourcePrefix + "_no_lock";
+        var retentionOnCreationBucketName = _resourcePrefix + "_retention_on_creation";
+        var legalHoldBucketName = _resourcePrefix + "_legal_hold";
+
+        bucketNameList.Add(noLockBucketName);
+        bucketNameList.Add(retentionOnCreationBucketName);
+        bucketNameList.Add(legalHoldBucketName);
+
+        await _s3ActionsWrapper.CreateBucketByName(noLockBucketName, false);
+        await _s3ActionsWrapper.CreateBucketByName(retentionOnCreationBucketName, true);
+        await _s3ActionsWrapper.CreateBucketByName(legalHoldBucketName, false);
+
+        foreach (var bucketName in bucketNameList)
+        {
+            await _s3ActionsWrapper.ListBucketObjectsAndVersions(bucketName);
+        }
+
+        // Upload some files to the bucket.
+        var fileName = _configuration["exampleFileName"];
+        // Create the file if it does not already exist.
+        if (!File.Exists(fileName))
+        {
+            await using StreamWriter sw = File.CreateText(fileName);
+            await sw.WriteLineAsync(
+                "This is a sample file for uploading to a bucket.");
+        }
 
         return true;
     }
+
 
     // <summary>
     /// Demonstrate interacting with the locked objects and buckets.
@@ -125,8 +152,10 @@ public class ObjectLockWorkflow
     /// <returns>True if successful.</returns>
     public static async Task<bool> Demo(bool interactive)
     {
-        Console.WriteLine(
-            "\nCurrent buckets and objects:\n");
+        Console.WriteLine("\nCurrent buckets and objects:\n");
+
+        
+        
         return true;
     }
 

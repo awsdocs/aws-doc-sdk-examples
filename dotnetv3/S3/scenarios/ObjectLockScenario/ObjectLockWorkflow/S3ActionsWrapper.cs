@@ -33,6 +33,7 @@ public class S3ActionsWrapper
     /// <returns>True if successful.</returns>
     public async Task<bool> CreateBucketByName(string bucketName, bool enableObjectLock)
     {
+        Console.WriteLine($"Creating bucket {bucketName}.");
         try
         {
             var request = new PutBucketRequest
@@ -283,7 +284,7 @@ public class S3ActionsWrapper
     /// <param name="objectName">The object to upload.</param>
     /// <param name="filePath">The path, including file name, of the object to upload.</param>
     /// <returns>Async task.</returns>
-    public async Task ListBucketObjectsAndVersions(string bucketName)
+    public async Task<ListVersionsResponse> ListBucketObjectsAndVersions(string bucketName)
     {
         var request = new ListVersionsRequest()
         {
@@ -292,6 +293,7 @@ public class S3ActionsWrapper
 
         var response = await _amazonS3.ListVersionsAsync(request);
         Console.WriteLine(response);
+        return response;
     }
 
 }
