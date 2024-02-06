@@ -8,7 +8,6 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\Polly\PollyClient;
 
 // snippet-end:[polly.php.list_lexicon.import]
 
@@ -24,15 +23,14 @@ $client = new Aws\Polly\PollyClient([
     'region' => 'us-east-2'
 ]);
 
-
 try {
-    $result = $client->listLexicons([]);
+    $result = $client->listLexicons();
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
+
 // snippet-end:[polly.php.list_lexicon.main]
 // snippet-end:[polly.php.list_lexicon.complete]
-

@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.SampleDataCreateTables] 
+// snippet-start:[dynamodb.php.codeexample.SampleDataCreateTables]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -16,7 +16,6 @@ $sdk = new Aws\Sdk([
 
 $dynamodb = $sdk->createDynamoDb();
 
-
 $tableName = 'ProductCatalog';
 echo "Creating table $tableName...";
 
@@ -26,7 +25,7 @@ try {
         'AttributeDefinitions' => [
             [
                 'AttributeName' => 'Id',
-                'AttributeType' => 'N' 
+                'AttributeType' => 'N'
             ]
         ],
         'KeySchema' => [
@@ -43,7 +42,7 @@ try {
     echo "CreateTable request was successful.\n";
 } catch (DynamoDbException $e) {
     echo $e->getMessage() . "\n";
-    exit ("Unable to create table $tableName\n");
+    exit("Unable to create table $tableName\n");
 }
 
 $tableName = 'Forum';
@@ -55,7 +54,7 @@ try {
         'AttributeDefinitions' => [
             [
                 'AttributeName' => 'Name',
-                'AttributeType' => 'S' 
+                'AttributeType' => 'S'
             ]
         ],
         'KeySchema' => [
@@ -72,9 +71,8 @@ try {
     echo "CreateTable request was successful.\n";
 } catch (DynamoDbException $e) {
     echo $e->getMessage() . "\n";
-    exit ("Unable to create table $tableName\n");
+    exit("Unable to create table $tableName\n");
 }
-
 
 $tableName = 'Thread';
 echo "Creating table $tableName...";
@@ -110,7 +108,7 @@ try {
     echo "CreateTable request was successful.\n";
 } catch (DynamoDbException $e) {
     echo $e->getMessage() . "\n";
-    exit ("Unable to create table $tableName\n");
+    exit("Unable to create table $tableName\n");
 }
 
 $tableName = 'Reply';
@@ -169,10 +167,7 @@ try {
     echo "CreateTable request was successful.\n";
 } catch (DynamoDbException $e) {
     echo $e->getMessage() . "\n";
-    exit ("Unable to create table $tableName\n");
+    exit("Unable to create table $tableName\n");
 }
 
-
-
-// snippet-end:[dynamodb.php.codeexample.SampleDataCreateTables] 
-?>
+// snippet-end:[dynamodb.php.codeexample.SampleDataCreateTables]

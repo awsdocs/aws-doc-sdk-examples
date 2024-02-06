@@ -21,7 +21,6 @@ $sessionHandler = SessionHandler::fromClient($dynamoDb, [
 $sessionHandler->register();
 // snippet-end:[dynamodb.php.session_lock.register_handler]
 
-
 /**
  * Lock a DynamoDB Session.
  *
@@ -31,12 +30,12 @@ $sessionHandler->register();
  *  To use the DynamoDB SessionHhandler, your configured credentials must have permission to use the DynamoDB table.
  */
 
-
 // snippet-start:[dynamodb.php.session_lock.snippet]
 $sessionHandler = SessionHandler::fromClient($dynamoDb, [
     'table_name' => 'sessions',
     'locking' => true,
 ]);
+
 // snippet-end:[dynamodb.php.session_lock.snippet]
 // snippet-end:[dynamodb.php.session_lock.complete]
 // snippet-sourceauthor:[AWS]

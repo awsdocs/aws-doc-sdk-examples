@@ -12,11 +12,11 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[ses.php.describe_rule.import]
 
-//Create a SESClient 
+//Create a SESClient
 // snippet-start:[ses.php.describe_rule.main]
 $SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
@@ -38,8 +38,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.describe_rule.main]
 // snippet-end:[ses.php.describe_rule.complete]
-

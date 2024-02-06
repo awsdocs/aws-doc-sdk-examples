@@ -2,18 +2,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/*/
 // snippet-start:[s3.php.object_acl.complete]
 // snippet-start:[s3.php.object_acl.import]
 
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;  
+use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 // snippet-end:[s3.php.object_acl.import]
 
-
-// Create a S3Client 
+// Create a S3Client
 // snippet-start:[s3.php.object_acl.main]
 $s3Client = new S3Client([
     'region' => 'us-west-2',
@@ -53,7 +51,6 @@ $params = [
                 ],
                 'Permission' => 'FULL_CONTROL',
             ],
-            // ...
         ],
         'Owner' => [
             'DisplayName' => '<string>',
@@ -72,8 +69,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[s3.php.object_acl.main]
 // snippet-end:[s3.php.object_acl.complete]
-

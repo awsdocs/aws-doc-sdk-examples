@@ -14,8 +14,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
+use Aws\Iam\IamClient;
+
 // snippet-end:[iam.php.create_role.import]
 
 /**
@@ -24,7 +25,7 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 //Create an IAM Client
 // snippet-start:[iam.php.create_role.main]
 $client = new IamClient([
@@ -37,39 +38,40 @@ $roleName = 'AmazonCSM';
 
 $description = 'An Instance role that has permission for  Amazon EC2 Systems Manager  and SDK Metric Monitoring.';
 
-$AmazonCSMPolicy = '{
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Action": [
-                    "sdkmetrics-beta:*"
-                ],
-                "Resource": "*"
-            },
-            {   
-                "Effect": "Allow",
-                "Action": [
-                    "ssm:GetParameter"
-                ],
-                "Resource": "arn:aws:ssm:*:*:parameter/AmazonCSM*"
-            }
-        ]
-    }';
-
-$rolePolicy = '{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+$AmazonCSMPolicy =
+'{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sdkmetrics-beta:*"
+            ],
+            "Resource": "*"
+        },
+        {   
+            "Effect": "Allow",
+            "Action": [
+                "ssm:GetParameter"
+            ],
+            "Resource": "arn:aws:ssm:*:*:parameter/AmazonCSM*"
+        }
+    ]
 }';
 
+$rolePolicy =
+'{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "ec2.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}';
 
 try {
     $iamPolicy = $client->createPolicy([
@@ -94,7 +96,7 @@ try {
                 'PolicyArn' => $policyArn,
                 'RoleName' => $roleName,
             ]);
-            var_dump($result)
+            var_dump($result);
         } else {
             echo('<p> There was an error creating your IAM User Role </p>');
             var_dump($role);
@@ -102,19 +104,13 @@ try {
     } else {
         echo('<p> There was an error creating your IAM Policy </p>');
         var_dump($iamPolicy);
-        
     }
 } catch (AwsException $e) {
     // output error message if fails
     echo $e;
     error_log($e->getMessage());
-    
 }
 
-
-
-
- 
 // snippet-end:[iam.php.create_role.main]
 // snippet-end:[iam.php.create_role.complete]
 // snippet-sourceauthor:[jschwarzwalder (AWS)]

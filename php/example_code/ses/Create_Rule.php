@@ -12,11 +12,11 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[ses.php.create_rule.import]
 
-//Create a SESClient 
+//Create a SESClient
 // snippet-start:[ses.php.create_rule.main]
 $SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
@@ -41,10 +41,10 @@ try {
             'Name' => $rule_name,
             'ScanEnabled' => true,
             'TlsPolicy' => 'Optional',
-            'Recipients' => ['<string>', ...]
+            'Recipients' => ['<string>']
         ],
         'RuleSetName' =>  $rule_set_name,
-        
+
      ]);
     var_dump($result);
 } catch (AwsException $e) {
@@ -52,8 +52,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.create_rule.main]
 // snippet-end:[ses.php.create_rule.complete]
-

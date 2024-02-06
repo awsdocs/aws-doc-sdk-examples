@@ -7,10 +7,11 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
- 
+
 // snippet-start:[s3.php.example.uploadusinglowlevel]
 require 'vendor/autoload.php';
 
+use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client;
 
 $bucket = '*** Your Bucket Name ***';
@@ -52,7 +53,7 @@ try {
         ];
         $partNumber++;
 
-        echo "Uploading part {$partNumber} of {$filename}." . PHP_EOL;
+        echo "Uploading part $partNumber of $filename." . PHP_EOL;
     }
     fclose($file);
 } catch (S3Exception $e) {
@@ -62,7 +63,7 @@ try {
         'UploadId' => $uploadId
     ]);
 
-    echo "Upload of {$filename} failed." . PHP_EOL;
+    echo "Upload of $filename failed." . PHP_EOL;
 }
 
 // Complete the multipart upload.
@@ -74,5 +75,5 @@ $result = $s3->completeMultipartUpload([
 ]);
 $url = $result['Location'];
 
-echo "Uploaded {$filename} to {$url}." . PHP_EOL;
+echo "Uploaded $filename to $url." . PHP_EOL;
 // snippet-end:[s3.php.example.uploadusinglowlevel]

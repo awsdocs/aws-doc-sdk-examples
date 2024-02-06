@@ -12,11 +12,11 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[ses.php.delete_email.import]
 
-//Create a SESClient 
+//Create a SESClient
 // snippet-start:[ses.php.delete_email.main]
 $SesClient = new Aws\Ses\SesClient([
     'profile' => 'default',
@@ -36,8 +36,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.delete_email.main]
 // snippet-end:[ses.php.delete_email.complete]
-

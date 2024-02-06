@@ -14,7 +14,6 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ec2\Ec2Client;
 // snippet-end:[ec2.php.reboot_instance.import]
 /**
  * Reboot Instances
@@ -22,7 +21,7 @@ use Aws\Ec2\Ec2Client;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[ec2.php.reboot_instance.main]
 $ec2Client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
@@ -30,15 +29,13 @@ $ec2Client = new Aws\Ec2\Ec2Client([
     'profile' => 'default'
 ]);
 
-$instanceIds = array('InstanceID1', 'InstanceID2');
+$instanceIds = ['InstanceID1', 'InstanceID2'];
 
-$result = $ec2Client->rebootInstances(array(
+$result = $ec2Client->rebootInstances([
     'InstanceIds' => $instanceIds
-));
+]);
 
 var_dump($result);
- 
- 
+
 // snippet-end:[ec2.php.reboot_instance.main]
 // snippet-end:[ec2.php.reboot_instance.complete]
-

@@ -21,7 +21,6 @@ $sessionHandler = SessionHandler::fromClient($dynamoDb, [
 $sessionHandler->register();
 // snippet-end:[dynamodb.php.garbage_collection.register_handler]
 
-
 /**
  * Automate the Garbage Collection of a DynamoDB Session.
  *
@@ -30,7 +29,6 @@ $sessionHandler->register();
  *
  *  To use the DynamoDB SessionHhandler, your configured credentials must have permission to use the DynamoDB table.
  */
-
 
 // snippet-start:[dynamodb.php.garbage_collection.snippet]
 $sessionHandler = SessionHandler::fromClient($dynamoDb, [
@@ -43,6 +41,7 @@ $sessionHandler = SessionHandler::fromClient($dynamoDb, [
 ]);
 
 $sessionHandler->garbageCollect();
+
 // snippet-end:[dynamodb.php.garbage_collection.snippet]
 // snippet-end:[dynamodb.php.garbage_collection.complete]
 // snippet-sourceauthor:[AWS]

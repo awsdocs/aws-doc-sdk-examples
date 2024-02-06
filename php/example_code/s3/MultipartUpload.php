@@ -11,10 +11,10 @@
 // snippet-start:[s3.php.multipart_upload.import]
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
-use Aws\Exception\AwsException;
-use Aws\S3\MultipartUploader;
 use Aws\Exception\MultipartUploadException;
+use Aws\S3\MultipartUploader;
+use Aws\S3\S3Client;
+
 // snippet-end:[s3.php.multipart_upload.import]
 
 // Create an S3Client
@@ -38,7 +38,6 @@ try {
 } catch (MultipartUploadException $e) {
     echo $e->getMessage() . "\n";
 }
- 
+
 // snippet-end:[s3.php.multipart_upload.main]
 // snippet-end:[s3.php.multipart_upload.complete]
-

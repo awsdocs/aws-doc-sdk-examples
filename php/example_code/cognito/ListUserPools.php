@@ -18,14 +18,14 @@ use Aws\Exception\AwsException;
 // snippet-end:[cognito.php.user_pool.list_user_pools.import]
 
 /**
- * 
+ *
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
- // snippet-start:[cognito.php.user_pool.list_user_pools.main]
- 
+// snippet-start:[cognito.php.user_pool.list_user_pools.main]
+
 $client = new CognitoIdentityProviderClient([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -36,9 +36,9 @@ $results = 20;
 
 try {
     $result = $client->listUserPools([
-        'MaxResults' => $results, 
+        'MaxResults' => $results,
     ]);
-    
+
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

@@ -16,7 +16,6 @@ use Aws\DynamoDb\SessionHandler;
 
 // snippet-end:[dynamodb.php.configure_handler.import]
 
-
 /**
  * Lock a DynamoDB Session.
  *
@@ -25,7 +24,6 @@ use Aws\DynamoDb\SessionHandler;
  *
  *  To use the DynamoDB SessionHhandler, your configured credentials must have permission to use the DynamoDB table.
  */
-
 
 // snippet-start:[dynamodb.php.configure_handler.snippet]
 $sessionHandler = SessionHandler::fromClient($dynamoDb, [
@@ -39,7 +37,7 @@ $sessionHandler = SessionHandler::fromClient($dynamoDb, [
     'min_lock_retry_microtime' => 5000,
     'max_lock_retry_microtime' => 50000,
 ]);
-// snippet-end:[dynamodb.php.configure_handler.snippet]
 
+// snippet-end:[dynamodb.php.configure_handler.snippet]
 // snippet-end:[dynamodb.php.configure_handler.complete]
 // snippet-sourceauthor:[AWS]

@@ -7,8 +7,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
+use Aws\Iam\IamClient;
+
 // snippet-end:[iam.php.get_login_profile.import]
 
 /**
@@ -17,7 +18,7 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 //Create an IAM Client
 // snippet-start:[iam.php.get_login_profile.main]
 $client = new IamClient([
@@ -27,17 +28,15 @@ $client = new IamClient([
 ]);
 
 try {
-    $result = $client->getLoginProfile(array(
+    $result = $client->getLoginProfile([
         // UserName is required
         'UserName' => 'string',
-    ));
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[iam.php.get_login_profile.main]
 // snippet-end:[iam.php.get_login_profile.complete]
-

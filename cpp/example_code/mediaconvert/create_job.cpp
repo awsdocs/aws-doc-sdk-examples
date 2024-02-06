@@ -15,7 +15,6 @@
 #include <aws/core/Aws.h>
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/mediaconvert/MediaConvertClient.h>
-#include <aws/mediaconvert/model/DescribeEndpointsRequest.h>
 #include <aws/mediaconvert/model/CreateJobRequest.h>
 #include "mediaconvert_samples.h"
 #include <fstream>
@@ -65,15 +64,6 @@ bool AwsDoc::MediaConvert::createJob(const Aws::String &mediaConvertRole,
                                      const Aws::String &fileOutput,
                                      const Aws::String &jobSettingsFile,
                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
-    // MediaConvert has a low request limit for DescribeEndpoints.
-    // "getEndpointUriHelper" uses caching to limit requests.
-    // See utils.cpp.
-    Aws::String endpoint = getEndpointUriHelper(clientConfiguration);
-    if (endpoint.empty()) {
-        std::cerr << "createJob error getting endpoint." << std::endl;
-        return false;
-    }
-
     Aws::MediaConvert::Model::CreateJobRequest createJobRequest;
 
     createJobRequest.SetRole(mediaConvertRole);
@@ -262,10 +252,7 @@ bool AwsDoc::MediaConvert::createJob(const Aws::String &mediaConvertRole,
         createJobRequest.SetSettings(jobSettings);
     }
 
-    Aws::Client::ClientConfiguration endpointClientConfiguration(clientConfiguration);
-    endpointClientConfiguration.endpointOverride = endpoint;
-
-    Aws::MediaConvert::MediaConvertClient client(endpointClientConfiguration);
+    Aws::MediaConvert::MediaConvertClient client(clientConfiguration);
     Aws::MediaConvert::Model::CreateJobOutcome outcome = client.CreateJob(
             createJobRequest);
     if (outcome.IsSuccess()) {
@@ -312,7 +299,6 @@ Where:
 
     //	Initialize the AWS SDK for C++.
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         std::string mediaConvertRole = argv[1];

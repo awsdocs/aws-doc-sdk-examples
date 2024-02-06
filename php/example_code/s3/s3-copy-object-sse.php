@@ -7,7 +7,7 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
- 
+
 // snippet-start:[s3.php.example.copyobjectsse]
 require 'vendor/autoload.php';
 
@@ -28,7 +28,8 @@ $s3 = new S3Client([
 $s3->copyObject([
     'Bucket'               => $targetBucket,
     'Key'                  => $targetKeyname,
-    'CopySource'           => "{$sourceBucket}/{$sourceKeyname}",
+    'CopySource'           => "$sourceBucket/$sourceKeyname",
     'ServerSideEncryption' => 'AES256',
 ]);
+
 // snippet-end:[s3.php.example.copyobjectsse]

@@ -12,8 +12,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ses\SesClient; 
 use Aws\Exception\AwsException;
+use Aws\Ses\SesClient;
+
 // snippet-end:[ses.php.delete_authorized_senders.import]
 
 //Create a SESClient
@@ -38,8 +39,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[ses.php.delete_authorized_senders.main]
 // snippet-end:[ses.php.delete_authorized_senders.complete]
-
