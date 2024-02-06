@@ -9,8 +9,6 @@
 
 namespace AwsDoc {
     namespace MediaConvert {
-        extern const char CACHED_ENDPOINT_FILE[];
-
         //! Create a an AWS Elemental MediaConvert job.
         /*!
           \param mediaConvertRole: An Amazon Resource Name (ARN) for the AWS Identity
