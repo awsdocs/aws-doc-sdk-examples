@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.MoviesDeleteTable] 
+// snippet-start:[dynamodb.php.codeexample.MoviesDeleteTable]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -24,13 +24,9 @@ $params = [
 try {
     $result = $dynamodb->deleteTable($params);
     echo "Deleted table.\n";
-
 } catch (DynamoDbException $e) {
     echo "Unable to delete table:\n";
     echo $e->getMessage() . "\n";
 }
 
-
-
-// snippet-end:[dynamodb.php.codeexample.MoviesDeleteTable] 
-?>
+// snippet-end:[dynamodb.php.codeexample.MoviesDeleteTable]

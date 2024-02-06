@@ -9,12 +9,12 @@
  */
 // snippet-start:[dynamodb.php.mock_handler.complete]
 // snippet-start:[dynamodb.php.mock_handler.import]
-use Aws\Result;
-use Aws\MockHandler;
-use Aws\DynamoDb\DynamoDbClient;
 use Aws\CommandInterface;
-use Psr\Http\Message\RequestInterface;
+use Aws\DynamoDb\DynamoDbClient;
 use Aws\Exception\AwsException;
+use Aws\MockHandler;
+use Aws\Result;
+use Psr\Http\Message\RequestInterface;
 
 // snippet-end:[dynamodb.php.mock_handler.import]
 /**
@@ -23,14 +23,14 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-// snippet-start:[dynamodb.php.mock_handler.main] 
+// snippet-start:[dynamodb.php.mock_handler.main]
 $mock = new MockHandler();
 
 // Return a mocked result
 $mock->append(new Result(['foo' => 'bar']));
 
 // You can provide a function to invoke; here we throw a mock exception
-$mock->append(function (CommandInterface $cmd, RequestInterface $req) {
+$mock->append(function (CommandInterface $cmd) {
     return new AwsException('Mock exception', $cmd);
 });
 

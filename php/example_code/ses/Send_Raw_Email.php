@@ -2,7 +2,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/*/
 // snippet-start:[ses.php.send_raw_email.complete]
 // snippet-start:[ses.php.send_raw_email.import]
 require 'vendor/autoload.php';
@@ -53,7 +52,7 @@ $client = new SesClient([
 ]);
 
 // Create a new PHPMailer object.
-$mail = new PHPMailer;
+$mail = new PHPMailer();
 
 // Add components to the email.
 $mail->setFrom($sender, $sendername);
@@ -86,7 +85,7 @@ try {
     // If the message was not sent, show a message explaining what went wrong.
     echo("The email was not sent. Error message: "
         . $error->getAwsErrorMessage() . "\n");
-} 
+}
+
 // snippet-end:[ses.php.send_raw_email.main]
 // snippet-end:[ses.php.send_raw_email.complete]
-

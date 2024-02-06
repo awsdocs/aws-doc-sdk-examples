@@ -51,6 +51,15 @@ s3_Hello:
             - description:
               snippet_tags:
                 - javascript.v3.s3.hello
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.s3.basics.helloService
   services:
     s3: {ListBuckets}
 s3_CreateBucket:
@@ -116,7 +125,7 @@ s3_CreateBucket:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Create a bucket.
               snippet_tags:
@@ -248,7 +257,7 @@ s3_CopyObject:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Simple copy of an object.
               snippet_tags:
@@ -518,7 +527,7 @@ s3_DeleteObjects:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Delete a set of objects from a list of keys.
               snippet_tags:
@@ -828,7 +837,7 @@ s3_GetObject:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Get an object.
               snippet_tags:
@@ -1150,7 +1159,7 @@ s3_ListObjects:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: List objects in a bucket.
               snippet_tags:
@@ -1318,7 +1327,7 @@ s3_PutObject:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Upload an object to a bucket.
               snippet_tags:
@@ -1466,7 +1475,7 @@ s3_DeleteBucket:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           excerpts:
             - description: Delete an empty bucket.
               snippet_tags:
@@ -1971,6 +1980,15 @@ s3_ListBuckets:
   synopsis: list S3 buckets.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.list.buckets.main
     .NET:
       versions:
         - sdk_version: 3
@@ -2570,7 +2588,7 @@ s3_Scenario_GettingStarted:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3/s3_basics
+          github: php/example_code/s3
           sdkguide:
           excerpts:
             - description:
@@ -2868,3 +2886,46 @@ s3_Scenario_UseChecksums:
                 - s3.java2.basicOpsWithChecksums.multiPartS3Client
   services:
     s3: {CreateMultipartUpload, UploadPart, CompleteMultipartUpload}
+s3_CreateMultiRegionAccessPoint:
+  title: Create an &S3; Multi-Region Access Point using an &AWS; SDK
+  title_abbrev: Create a Multi-Region Access Point
+  synopsis: create an &S3; Multi-Region Access Point.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide: sdk-for-kotlin/latest/developer-guide/use-services-s3-mrap.html
+          excerpts:
+            - description: Configure the S3 control client to send request to the us-west-2 Region.
+              snippet_tags:
+                - s3.kotlin.mrap.create-s3controlclient
+            - description: Create the Multi-Region Access Point.
+              snippet_tags:
+                - s3.kotlin.mrap.create
+            - description: Wait for the Multi-Region Access Point to become available.
+              snippet_tags:
+                - s3.kotlin.mrap.check-operation-status
+  services:
+    s3: {CreateMultiRegionAccessPoint}
+s3_GetObject_MRAP:
+  title: Get an &S3; object from a Multi-Region Access Point by using an &AWS; SDK
+  title_abbrev: Get an object from a Multi-Region Access Point
+  synopsis: get an object from a Multi-Region Access Point.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide: sdk-for-kotlin/latest/developer-guide/use-services-s3-mrap.html
+          excerpts:
+            - description: Configure the S3 client to use the Asymmetric Sigv4 (Sigv4a) signing algorithm.
+              snippet_tags:
+                - s3.kotlin.mrap.create-s3client
+            - description: Use the Multi-Region Access Point ARN instead of a bucket name to retrieve the object.
+              snippet_tags:
+                - s3.kotlin.mrap.getobject
+  services:
+    s3: {GetObject}

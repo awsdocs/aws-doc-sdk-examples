@@ -2,49 +2,51 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 // snippet-start:[cloudfront.php.signed_cookie_policy.complete]
 // snippet-start:[cloudfront.php.signed_cookie_policy.import]
 require 'vendor/autoload.php';
 
 use Aws\CloudFront\CloudFrontClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudfront.php.signed_cookie_policy.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Gets coookie-signing information that viewers need to 
- * access restricted content in a specially configured Amazon CloudFront 
+ * Purpose: Gets coookie-signing information that viewers need to
+ * access restricted content in a specially configured Amazon CloudFront
  * distribution.
  *
- * Prerequisites: A CloudFront distribution that is specially configured for 
- * restricted access, and a CloudFront key pair. For more information, see 
- * "Serving Private Content with Signed URLs and Signed Cookies" in the 
+ * Prerequisites: A CloudFront distribution that is specially configured for
+ * restricted access, and a CloudFront key pair. For more information, see
+ * "Serving Private Content with Signed URLs and Signed Cookies" in the
  * Amazon CloudFront Developer Guide.
- * 
+ *
  * Inputs:
  * - $cloudFrontClient: An initialized CloudFront client.
- * - $customPolicy: A policy statement that controls the access that a signed 
+ * - $customPolicy: A policy statement that controls the access that a signed
  *   cookie grants to a user.
  * - $privateKey: The path to the CloudFront private key file, in .pem format.
  * - $keyPairId: The corresponding CloudFront key pair ID.
- * 
- * Returns: Information about required Set-Cookie headers for cookie signing; 
+ *
+ * Returns: Information about required Set-Cookie headers for cookie signing;
  * otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[cloudfront.php.signed_cookie_policy.main]
-function signCookiePolicy($cloudFrontClient, $customPolicy, 
-    $privateKey, $keyPairId)
-{
+function signCookiePolicy(
+    $cloudFrontClient,
+    $customPolicy,
+    $privateKey,
+    $keyPairId
+) {
     try {
         $result = $cloudFrontClient->getSignedCookie([
             'policy' => $customPolicy,
             'private_key' => $privateKey,
             'key_pair_id' => $keyPairId
         ]);
-    
-        return $result;
 
+        return $result;
     } catch (AwsException $e) {
         return [ 'Error' => $e->getAwsErrorMessage() ];
     }
@@ -76,8 +78,12 @@ POLICY;
         'region' => 'us-east-1'
     ]);
 
-    $result = signCookiePolicy($cloudFrontClient, $customPolicy, 
-        $privateKey, $keyPairId); 
+    $result = signCookiePolicy(
+        $cloudFrontClient,
+        $customPolicy,
+        $privateKey,
+        $keyPairId
+    );
 
     /* If successful, returns something like:
     CloudFront-Policy = eyJTdGF0...fX19XX0_
@@ -92,4 +98,4 @@ POLICY;
 // Uncomment the following line to run this code in an AWS account.
 // signACookiePolicy();
 // snippet-end:[cloudfront.php.signed_cookie_policy.main]
-// snippet-end:[cloudfront.php.signed_cookie_policy.complete] 
+// snippet-end:[cloudfront.php.signed_cookie_policy.complete]

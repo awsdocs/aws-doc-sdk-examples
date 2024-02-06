@@ -5,6 +5,21 @@
    <MASTER_LANGUAGE>E</MASTER_LANGUAGE>
    <STARTING_FOLDER>/sap-abap/</STARTING_FOLDER>
    <FOLDER_LOGIC>PREFIX</FOLDER_LOGIC>
+   <IGNORE>
+    <item>/sap-abap/README.md</item>
+    <item>/sap-abap/services/bdr/README.md</item>
+    <item>/sap-abap/services/cloudwatch/README.md</item>
+    <item>/sap-abap/services/dyn/README.md</item>
+    <item>/sap-abap/services/ec2/README.md</item>
+    <item>/sap-abap/services/kinesis/README.md</item>
+    <item>/sap-abap/services/lambda/README.md</item>
+    <item>/sap-abap/services/s3/README.md</item>
+    <item>/sap-abap/services/sagemaker/README.md</item>
+    <item>/sap-abap/services/sns/README.md</item>
+    <item>/sap-abap/services/sqs/README.md</item>
+    <item>/sap-abap/services/textract/README.md</item>
+    <item>/sap-abap/services/translate/README.md</item>
+   </IGNORE>
   </DATA>
  </asx:values>
 </asx:abap>

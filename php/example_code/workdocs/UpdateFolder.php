@@ -14,10 +14,8 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\WorkDocs\WorkDocsClient;
 
 // snippet-end:[workdocs.php.update_folder.import]
-
 
 /**
  * Update a folder currently in your Amazon WorkDocs
@@ -42,7 +40,7 @@ $parentFolder = 'parentFolder_id';
 try {
     $file = fopen($authTokenFilePath, 'r');
     $authToken = fread($file, filesize($file));
-    fclose($authTokenFilePath);
+    fclose($file);
 
     $result = $client->updateFolder([
         'AuthenticationToken' => $authToken,
@@ -52,12 +50,10 @@ try {
     ]);
 
     var_dump($result);
-
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
-
 
 // snippet-end:[workdocs.php.update_folder.main]
 // snippet-end:[workdocs.php.update_folder.complete]

@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.MoviesItemOps02] 
+// snippet-start:[dynamodb.php.codeexample.MoviesItemOps02]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -39,13 +39,9 @@ $params = [
 try {
     $result = $dynamodb->getItem($params);
     print_r($result["Item"]);
-
 } catch (DynamoDbException $e) {
     echo "Unable to get item:\n";
     echo $e->getMessage() . "\n";
 }
 
-
-
-// snippet-end:[dynamodb.php.codeexample.MoviesItemOps02] 
-?>
+// snippet-end:[dynamodb.php.codeexample.MoviesItemOps02]

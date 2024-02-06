@@ -53,10 +53,6 @@ function sendResponse($invocationId, $response)
         'body' => $jsonResponse,
         'statusCode' => 200,
     ]);
-    $client->post(
-        'http://' . $_ENV['AWS_LAMBDA_RUNTIME_API'] . '/2018-06-01/runtime/invocation/' . $invocationId . '/response',
-        [
-            'body' => $body
-        ]
-    );
+    $uri = 'http://' . $_ENV['AWS_LAMBDA_RUNTIME_API'] . "/2018-06-01/runtime/invocation/$invocationId/response";
+    $client->post($uri, ['body' => $body]);
 }

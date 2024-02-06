@@ -7,10 +7,13 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
- 
+
 // snippet-start:[s3.php.example.copyingobjects]
 require 'vendor/autoload.php';
 
+use Aws\CommandPool;
+use Aws\Exception\AwsException;
+use Aws\ResultInterface;
 use Aws\S3\S3Client;
 
 $sourceBucket = '*** Your Source Bucket Name ***';
@@ -19,28 +22,28 @@ $targetBucket = '*** Your Target Bucket Name ***';
 
 $s3 = new S3Client([
     'version' => 'latest',
-    'region'  => 'us-east-1'
+    'region' => 'us-east-1'
 ]);
 
 // Copy an object.
 $s3->copyObject([
-    'Bucket'     => $targetBucket,
-    'Key'        => "{$sourceKeyname}-copy",
-    'CopySource' => "{$sourceBucket}/{$sourceKeyname}",
+    'Bucket' => $targetBucket,
+    'Key' => "$sourceKeyname-copy",
+    'CopySource' => "$sourceBucket/$sourceKeyname",
 ]);
 
 // Perform a batch of CopyObject operations.
 $batch = array();
 for ($i = 1; $i <= 3; $i++) {
     $batch[] = $s3->getCommand('CopyObject', [
-        'Bucket'     => $targetBucket,
-        'Key'        => "{targetKeyname}-{$i}",
-        'CopySource' => "{$sourceBucket}/{$sourceKeyname}",
+        'Bucket' => $targetBucket,
+        'Key' => "{targetKeyname}-$i",
+        'CopySource' => "$sourceBucket/$sourceKeyname",
     ]);
 }
 try {
     $results = CommandPool::batch($s3, $batch);
-    foreach($results as $result) {
+    foreach ($results as $result) {
         if ($result instanceof ResultInterface) {
             // Result handling here
         }
@@ -48,7 +51,8 @@ try {
             // AwsException handling here
         }
     }
-} catch (\Exception $e) {
+} catch (Exception $e) {
     // General error handling here
 }
+
 // snippet-end:[s3.php.example.copyingobjects]

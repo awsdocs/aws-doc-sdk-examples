@@ -7,19 +7,20 @@
 // snippet-start:[cloudwatch.php.enable_alarm.import]
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient; 
+use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudwatch.php.enable_alarm.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Enables actions for specified alarms in Amazon CloudWatch.
- * 
+ *
  * Prerequisites: At least one existing CloudWatch alarm.
- * 
+ *
  * Inputs:
  * - $cloudWatchClient: An initialized CloudWatch client.
  * - $alarmNames: The names of the alarms to enable actions for.
- * 
+ *
  * Returns: Information about the results of the request;
  * otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
@@ -31,17 +32,15 @@ function enableAlarmActions($cloudWatchClient, $alarmNames)
         $result = $cloudWatchClient->enableAlarmActions([
             'AlarmNames' => $alarmNames
         ]);
-        
-        if (isset($result['@metadata']['effectiveUri']))
-        {
-            return 'At the effective URI of ' . 
-                $result['@metadata']['effectiveUri'] . 
+
+        if (isset($result['@metadata']['effectiveUri'])) {
+            return 'At the effective URI of ' .
+                $result['@metadata']['effectiveUri'] .
                 ', actions for any matching alarms have been enabled.';
         } else {
-            return'Actions for some matching alarms ' . 
+            return'Actions for some matching alarms ' .
                 'might not have been enabled.';
         }
-
     } catch (AwsException $e) {
         return 'Error: ' . $e->getAwsErrorMessage();
     }
@@ -64,4 +63,3 @@ function enableTheAlarmActions()
 // enableTheAlarmActions();
 // snippet-end:[cloudwatch.php.enable_alarm.main]
 // snippet-end:[cloudwatch.php.enable_alarm.complete]
-

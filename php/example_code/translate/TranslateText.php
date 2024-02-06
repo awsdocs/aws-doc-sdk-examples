@@ -13,13 +13,13 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Translate\TranslateClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[translate.php.traslate_text.import]
 
 /**
  * Translate a text from Arabic (ar), Chinese (Simplified) (zh)
- * French (fr), German (de), Portuguese (pt), or Spanish (es) 
+ * French (fr), German (de), Portuguese (pt), or Spanish (es)
  * into English (en) with Translate client.
  *
  * This code expects that you have AWS credentials set up per:
@@ -33,32 +33,32 @@ $client = new Aws\Translate\TranslateClient([
     'version' => '2017-07-01'
 ]);
 
-
 // Arabic (ar), Chinese (Simplified) (zh), English (en)
-// French (fr), German (de), Portuguese (pt), or Spanish (es) 
+// French (fr), German (de), Portuguese (pt), or Spanish (es)
 
 $currentLanguage = 'es';
 
 // If the TargetLanguageCode is not "en", the SourceLanguageCode must be "en".
-$targetLanguage= 'en';
+$targetLanguage = 'en';
 
-
-$textToTranslate = 'El AWS SDK for PHP versión 3 permite a los desarrolladores de PHP utilizar Amazon Web Services en su código PHP y crear aplicaciones y software robustos utilizando servicios como Amazon S3, Amazon DynamoDB, Amazon Glacier, etc. Puede empezar rápidamente instalando el SDK mediante Composer (solicitando el paquete aws/aws-sdk-php) o descargando el archivo aws.zip o aws.phar independiente';
+$textToTranslate =
+    'El AWS SDK for PHP versión 3 permite a los desarrolladores de PHP utilizar Amazon Web Services en su código PHP 
+    y crear aplicaciones y software robustos utilizando servicios como Amazon S3, Amazon DynamoDB, Amazon Glacier, etc.
+     Puede empezar rápidamente instalando el SDK mediante Composer (solicitando el paquete aws/aws-sdk-php) o 
+     descargando el archivo aws.zip o aws.phar independiente';
 
 try {
     $result = $client->translateText([
         'SourceLanguageCode' => $currentLanguage,
-        'TargetLanguageCode' => $targetLanguage, 
-        'Text' => $textToTranslate, 
+        'TargetLanguageCode' => $targetLanguage,
+        'Text' => $textToTranslate,
     ]);
     var_dump($result);
-}catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
 
-
- 
 // snippet-end:[translate.php.traslate_text.main]
 // snippet-end:[translate.php.traslate_text.complete]

@@ -8,7 +8,6 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\SecurityHub\SecurityHubClient;
 
 // snippet-end:[securityhub.php.get_insights.import]
 
@@ -21,12 +20,12 @@ $client = new Aws\SecurityHub\SecurityHubClient([
 ]);
 
 try {
-    $result = $client->getInsights([]);
+    $result = $client->getInsights();
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
+
 // snippet-end:[securityhub.php.get_insights.main]
 // snippet-end:[securityhub.php.get_insights.complete]
-

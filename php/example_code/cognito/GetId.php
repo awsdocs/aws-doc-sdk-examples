@@ -25,14 +25,13 @@ use Aws\Exception\AwsException;
  */
 
  // snippet-start:[cognito.php.identity_pool.get_id.main]
- 
+
 $identityClient = new CognitoIdentityClient([
     'profile' => 'default',
     'region' => 'us-east-2',
     'version' => '2014-06-30'
 ]);
 
-//$AccountID = "PHP_SDK_test_identity_pool";
 $identityPoolid = "us-east-2:1234567890112-abcdefg";
 $appid = "amzn1.application-oa2-client.1234567890112-abcdefg";
 
@@ -41,14 +40,12 @@ $google = "accounts.google.com";
 $amazon = "www.amazon.com";
 $twitter = "api.twitter.com";
 $digits = "www.digits.com";
-$cognigoUserPool = 'cognito-idp.us-east-1.amazonaws.com/'
+$cognitoUserPool = 'cognito-idp.us-east-1.amazonaws.com/';
 
 try {
     $result = $identityClient->getId([
-        //'AllowUnauthenticatedIdentities' => false, 
-        //'IdentityPoolName' => $identityPoolName, 
         'IdentityPoolId' => $identityPoolid,
-        'Logins' => [$cognigoUserPool => $appid ]
+        'Logins' => [$cognitoUserPool => $appid ]
     ]);
     echo $result["IdentityPoolId"]["ClientId"];
     var_dump($result);

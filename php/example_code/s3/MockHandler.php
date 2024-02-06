@@ -9,8 +9,9 @@
  */
 // snippet-start:[s3.php.mock_handler.complete]
 // snippet-start:[s3.php.mock_handler.import]
-use Aws\Result;
 use Aws\MockHandler;
+use Aws\Result;
+
 // snippet-end:[s3.php.mock_handler.import]
 /**
  * Create a MockHandler to list all the files in an Amazon S3 bucket.
@@ -18,7 +19,7 @@ use Aws\MockHandler;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
-// snippet-start:[s3.php.mock_handler.main] 
+// snippet-start:[s3.php.mock_handler.main]
 // Create a mock handler
 $mock = new MockHandler();
 // Enqueue a mock result to the handler

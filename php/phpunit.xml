@@ -20,6 +20,7 @@
     <coverage>
         <exclude>
             <directory suffix=".php">*vendor*</directory>
+            <directory suffix=".php">tests</directory>
         </exclude>
     </coverage>
 </phpunit>

@@ -14,7 +14,6 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ec2\Ec2Client;
 // snippet-end:[ec2.php.describe_regions.import]
 /**
  * Describe Regions
@@ -22,7 +21,7 @@ use Aws\Ec2\Ec2Client;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[ec2.php.describe_regions.main]
 $ec2Client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
@@ -33,8 +32,6 @@ $ec2Client = new Aws\Ec2\Ec2Client([
 $result = $ec2Client->describeRegions();
 
 var_dump($result);
- 
- 
+
 // snippet-end:[ec2.php.describe_regions.main]
 // snippet-end:[ec2.php.describe_regions.complete]
-

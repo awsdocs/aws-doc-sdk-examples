@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.MoviesCreateTable] 
+// snippet-start:[dynamodb.php.codeexample.MoviesCreateTable]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -48,15 +48,11 @@ $params = [
 
 try {
     $result = $dynamodb->createTable($params);
-    echo 'Created table.  Status: ' . 
-        $result['TableDescription']['TableStatus'] ."\n";
-
+    echo 'Created table.  Status: ' .
+        $result['TableDescription']['TableStatus'] . "\n";
 } catch (DynamoDbException $e) {
     echo "Unable to create table:\n";
     echo $e->getMessage() . "\n";
 }
 
-
-
-// snippet-end:[dynamodb.php.codeexample.MoviesCreateTable] 
-?>
+// snippet-end:[dynamodb.php.codeexample.MoviesCreateTable]

@@ -11,10 +11,9 @@
 // snippet-start:[s3.php.multipart_upload_async.import]
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
-use Aws\Exception\AwsException;
 use Aws\S3\MultipartUploader;
-use Aws\Exception\MultipartUploadException;
+use Aws\S3\S3Client;
+
 // snippet-end:[s3.php.multipart_upload_async.import]
 // snippet-start:[s3.php.multipart_upload_async.main]
 // Create an S3Client
@@ -24,7 +23,6 @@ $s3Client = new S3Client([
     'version' => '2006-03-01'
 ]);
 
-
 $source = '/path/to/large/file.zip';
 $uploader = new MultipartUploader($s3Client, $source, [
     'bucket' => 'your-bucket',
@@ -32,7 +30,6 @@ $uploader = new MultipartUploader($s3Client, $source, [
 ]);
 
 $promise = $uploader->promise();
- 
+
 // snippet-end:[s3.php.multipart_upload_async.main]
 // snippet-end:[s3.php.multipart_upload_async.complete]
-
