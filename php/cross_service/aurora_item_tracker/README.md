@@ -61,8 +61,9 @@ For *Database username*, choose *Connect with a Secrets Manager ARN*. Put the *S
 the *describe-stacks* command from the AWS CDK instructions. Do the same for the database name.
 
 This opens a SQL query console. You can run any raw SQL queries here that you want. Run the 
-following to create the work table.
+following statement to create the work table.
 
+If you are using the MySQL-compatible edition:
 ```sql
 create table work_items (
   work_item_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -72,6 +73,19 @@ create table work_items (
   status TEXT, 
   username VARCHAR(45), 
   archive BOOL DEFAULT 0
+);
+```
+
+If you are using the PostgreSQL-compatible edition:
+```sql
+create table work_items (
+  work_item_id SERIAL PRIMARY KEY,
+  created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  description TEXT,
+  guide TEXT,
+  status TEXT,
+  username VARCHAR(45),
+  archive BOOL DEFAULT false
 );
 ```
 
