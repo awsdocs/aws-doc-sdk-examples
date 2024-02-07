@@ -26,3 +26,8 @@ rust_dev_preview
 .vectors
 # .snippets are created temporarily as build artifacts
 .snippets
+# Ignore build-related files and directories in kotlin/services/
+kotlin/services/**/build/
+kotlin/services/**/gradle/
+kotlin/services/**/gradlew
+kotlin/services/**/gradlew.bat
