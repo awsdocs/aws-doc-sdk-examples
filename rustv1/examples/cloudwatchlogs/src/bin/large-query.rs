@@ -243,7 +243,7 @@ mod test {
     use aws_smithy_mocks_experimental::{mock, MockResponseInterceptor, Rule};
     use chrono::{TimeZone, Utc};
 
-    fn from_rules(rules: &[&Rule], enforce_order: bool) -> Client {
+    fn client_from_rules(rules: &[&Rule], enforce_order: bool) -> Client {
         let mut mock_response_interceptor = MockResponseInterceptor::new();
         for rule in rules {
             mock_response_interceptor = mock_response_interceptor.with_rule(rule)
@@ -335,7 +335,7 @@ mod test {
                     .build()
             });
 
-        let client = from_rules(&[&start_query, &small_result], false);
+        let client = client_from_rules(&[&start_query, &small_result], false);
 
         let query = CloudWatchLongQuery::new(client, "testing".into(), date_range.clone());
         // Act: Invoke the large_query method with this range.
@@ -390,7 +390,7 @@ mod test {
                 .build()
         });
 
-        let client = from_rules(&[&get_query_results_0, &get_query_results_1], true);
+        let client = client_from_rules(&[&get_query_results_0, &get_query_results_1], true);
 
         // Arrange: Mock different responses from CloudWatch Logs with varying statuses.
         let query = CloudWatchLongQuery::new(client, "testing".into(), date_range.clone());

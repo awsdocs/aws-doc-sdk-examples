@@ -11,7 +11,7 @@ use tokio;
 // Wait at most 25 seconds.
 const MAX_WAIT: Duration = Duration::from_secs(5 * 60);
 // Wait half a second at a time.
-const POLL_TIME: Duration = Duration::from_millis(500);
+const DEFAULT_INTERVAL: Duration = Duration::from_millis(500);
 
 #[derive(Debug)]
 pub struct WaitError(Duration);
@@ -29,7 +29,7 @@ impl Display for WaitError {
 pub struct Waiter {
     start: SystemTime,
     max: Duration,
-    poll: Duration,
+    interval: Duration,
 }
 
 impl Waiter {
@@ -37,11 +37,14 @@ impl Waiter {
         WaiterBuilder::default()
     }
 
-    fn new(max: Duration, poll: Duration) -> Self {
+    /**
+     * *
+     */
+    fn new(max: Duration, interval: Duration) -> Self {
         Waiter {
             start: SystemTime::now(),
             max,
-            poll,
+            interval,
         }
     }
 
@@ -53,7 +56,7 @@ impl Waiter {
         {
             Err(WaitError(self.max))
         } else {
-            tokio::time::sleep(self.poll).await;
+            tokio::time::sleep(self.interval).await;
             Ok(())
         }
     }
@@ -61,7 +64,7 @@ impl Waiter {
 
 impl Default for Waiter {
     fn default() -> Self {
-        Waiter::new(MAX_WAIT, POLL_TIME)
+        Waiter::new(MAX_WAIT, DEFAULT_INTERVAL)
     }
 }
 
@@ -83,18 +86,31 @@ impl WaiterBuilder {
     }
 
     pub fn build(self) -> Waiter {
-        Waiter::new(self.max.unwrap_or(MAX_WAIT), self.poll.unwrap_or(POLL_TIME))
+        Waiter::new(
+            self.max.unwrap_or(MAX_WAIT),
+            self.poll.unwrap_or(DEFAULT_INTERVAL),
+        )
     }
 }
 
 #[macro_export]
 macro_rules! wait_on {
+    // Create an async block to repeat a request until the result of the test is true.
+    // Uses the default Waiter (500ms interval, 25m timeout).
     (
         $req: expr,
         $test: expr
     ) => {
         wait_on!($crate::waiter::Waiter::default(), $req, $test)
     };
+    // Create an async block to repeat a request until the result of the test is true.
+    // The test will work on a completed request - that is, retries, errors, etc will happen before
+    // the test is called. The response is considered done and successful by the SDK.
+    // For example, this can be used to wait for a long-running operation to change to `status: Done|Cancelled`.
+    //
+    // - $waiter is a Waiter used to sleep between attempts, with a maximum timeout.
+    // - $req is an expr that evaluates to an API call that can be `.clone().send().await`ed.
+    // - $test is an expr that should be an Fn which gets passed the successful response of the
     (
         $waiter: expr,
         $req: expr,
