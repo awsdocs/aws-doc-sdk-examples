@@ -39,7 +39,7 @@ class AutoScalingTest {
     private var groupNameSc = ""
     private var launchTemplateName = ""
     private var vpcZoneId = ""
-    private var serviceLinkedRoleARN= ""
+    private var serviceLinkedRoleARN = ""
 
     @BeforeAll
     @Throws(IOException::class)
@@ -148,6 +148,6 @@ class AutoScalingTest {
         val groupNameSc: String? = null
         val launchTemplateName: String? = null
         val vpcZoneId: String? = null
-        val serviceLinkedRoleARN:String? = null
+        val serviceLinkedRoleARN: String? = null
     }
 }
