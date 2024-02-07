@@ -13,12 +13,12 @@ import com.kotlin.gateway.getAllStages
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
 import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
-import org.junit.jupiter.api.Order
 import java.util.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -64,7 +64,7 @@ class APIGatewayTest {
     @Test
     @Order(1)
     fun createRestApiTest() = runBlocking {
-        newApiId = createAPI(restApiId ).toString()
+        newApiId = createAPI(restApiId).toString()
         println("Test 2 passed")
     }
 
