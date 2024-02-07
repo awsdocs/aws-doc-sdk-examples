@@ -24,6 +24,7 @@ buildscript {
 repositories {
     mavenCentral()
 }
+
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
     implementation("aws.sdk.kotlin:apigateway:1.0.30")

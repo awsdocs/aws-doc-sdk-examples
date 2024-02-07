@@ -34,7 +34,7 @@ class APIGatewayTest {
     @BeforeAll
     fun setup() = runBlocking {
         apiGatewayClient = ApiGatewayClient { region = "us-east-1" }
-        // Get the values from AWS Secrets Manager.
+        // Get values from AWS Secrets Manager.
         val random = Random()
         val randomNum = random.nextInt(10000 - 1 + 1) + 1
         val gson = Gson()
