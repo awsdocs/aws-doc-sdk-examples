@@ -6,18 +6,26 @@ import aws.sdk.kotlin.services.apigateway.ApiGatewayClient
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
-import com.kotlin.gateway.*
+import com.kotlin.gateway.createAPI
+import com.kotlin.gateway.deleteAPI
+import com.kotlin.gateway.getAllDeployments
+import com.kotlin.gateway.getAllStages
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.TestMethodOrder
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
-import java.util.*
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
+import java.util.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class APIGatewayTest {
     lateinit var apiGatewayClient: ApiGatewayClient
     private var restApiId = ""
-    private var resourceId = ""
     private var httpMethod = ""
     private var restApiName = ""
     private var stageName = ""
@@ -31,8 +39,7 @@ class APIGatewayTest {
         val randomNum = random.nextInt(10000 - 1 + 1) + 1
         val gson = Gson()
         val json: String = getSecretValues()
-        val values: APIGatewayTest.SecretValues =
-        gson.fromJson<APIGatewayTest.SecretValues>(json, APIGatewayTest.SecretValues::class.java)
+        val values: SecretValues = gson.fromJson(json, SecretValues::class.java)
         restApiId = values.restApiId.toString()
         httpMethod = values.httpMethod.toString()
         restApiName = values.restApiName.toString() + randomNum
