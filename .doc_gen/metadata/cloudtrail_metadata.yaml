@@ -7,7 +7,7 @@ cloudtrail_ListTrails:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
+        - sdk_version: 3
           github: ruby/example_code/cloudtrail
           sdkguide:
           excerpts:
@@ -24,7 +24,7 @@ cloudtrail_CreateTrail:
   languages:
     Ruby:
       versions:
-        - sdk_version: 1
+        - sdk_version: 3
           github: ruby/example_code/cloudtrail
           sdkguide:
           excerpts:
@@ -41,7 +41,7 @@ cloudtrail_ListTrailEvents:
   languages:
     Ruby:
       versions:
-        - sdk_version: 1
+        - sdk_version: 3
           github: ruby/example_code/cloudtrail
           sdkguide:
           excerpts:
@@ -58,7 +58,7 @@ cloudtrail_DeleteTrail:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 1
+        - sdk_version: 3
           github: ruby/example_code/cloudtrail
           sdkguide:
           excerpts:
