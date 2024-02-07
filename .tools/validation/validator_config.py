@@ -231,17 +231,8 @@ EXPECTED_SAMPLE_FILES = {
     "sample_saml_metadata.xml",
     "speech_sample.mp3",
     "spheres_2.jpg",
-    "test.txt",
-    "mountain.png",
-    "Jack.png",
-    "masks.png",
-    "Lam4.png",
-    "summer.png",
-    "swimsuit.png",
-    "Lam1.png",
-    "book.png",
-    "WorkReport.xls",
 }
+
 
 # Media file types.
 MEDIA_FILE_TYPES = {"mp3", "wav"}
