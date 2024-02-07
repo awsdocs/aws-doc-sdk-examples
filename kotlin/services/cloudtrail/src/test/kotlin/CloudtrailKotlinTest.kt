@@ -4,15 +4,16 @@
 import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
-import com.example.appsync.createDS
-import com.example.appsync.createKey
-import com.example.appsync.deleteDS
-import com.example.appsync.deleteKey
-import com.example.appsync.getDS
-import com.example.appsync.getKeys
 import com.google.gson.Gson
+import com.kotlin.cloudtrail.createNewTrail
+import com.kotlin.cloudtrail.deleteSpecificTrail
+import com.kotlin.cloudtrail.describeSpecificTrails
+import com.kotlin.cloudtrail.getSelectors
+import com.kotlin.cloudtrail.lookupAllEvents
+import com.kotlin.cloudtrail.setSelector
+import com.kotlin.cloudtrail.startLog
+import com.kotlin.cloudtrail.stopLog
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
@@ -24,91 +25,82 @@ import org.junit.jupiter.api.TestMethodOrder
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
-class AppSyncTest {
-    private var apiId = ""
-    private var dsName = ""
-    private var dsRole = ""
-    private var tableName = ""
-    private var keyId = ""
+class CloudtrailKotlinTest {
+    private var trailName = ""
+    private var s3BucketName = ""
 
     @BeforeAll
     fun setup() = runBlocking {
-        // Get test values from AWS Secrets Manager.
         val gson = Gson()
-        val json = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        apiId = values.apiId.toString()
-        dsName = values.dsName.toString()
-        dsRole = values.dsRole.toString()
-        tableName = values.tableName.toString()
+        val json: String = getSecretValues()
+        val values: SecretValues = gson.fromJson<SecretValues>(json, SecretValues::class.java)
+        trailName = values.trailName.toString()
+        s3BucketName = values.s3BucketName.toString()
 
         // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
+
+        // load the properties file.
         prop.load(input)
-        apiId = prop.getProperty("apiId")
-        dsName = prop.getProperty("dsName")
-        dsRole = prop.getProperty("dsRole")
-        tableName = prop.getProperty("tableName")
+        trailName = prop.getProperty("trailName")
+        s3BucketName = prop.getProperty("s3BucketName")
         */
     }
 
     @Test
     @Order(1)
-    fun CreateApiKey() = runBlocking {
-        keyId = createKey(apiId).toString()
-        assertTrue(!keyId.isEmpty())
+    fun createTrail() = runBlocking {
+        createNewTrail(trailName, s3BucketName)
         println("Test 1 passed")
     }
 
     @Test
     @Order(2)
-    fun CreateDataSource() = runBlocking {
-        val dsARN = createDS(dsName, dsRole, apiId, tableName)
-        if (dsARN != null) {
-            assertTrue(dsARN.isNotEmpty())
-        }
+    fun putEventSelectors() = runBlocking {
+        setSelector(trailName)
         println("Test 2 passed")
     }
 
     @Test
     @Order(3)
-    fun GetDataSource() = runBlocking {
-        getDS(apiId, dsName)
+    fun getEventSelectors() = runBlocking {
+        getSelectors(trailName)
         println("Test 3 passed")
     }
 
     @Test
     @Order(4)
-    fun ListGraphqlApis() = runBlocking {
-        getKeys(apiId)
+    fun lookupEvents() = runBlocking {
+        lookupAllEvents()
         println("Test 4 passed")
     }
 
     @Test
     @Order(5)
-    fun ListApiKeys() = runBlocking {
-        getKeys(apiId)
+    fun describeTrails() = runBlocking {
+        describeSpecificTrails(trailName)
         println("Test 5 passed")
     }
 
     @Test
     @Order(6)
-    fun DeleteDataSource() = runBlocking {
-        deleteDS(apiId, dsName)
+    fun startLogging() = runBlocking {
+        startLog(trailName)
+        stopLog(trailName)
         println("Test 6 passed")
     }
 
     @Test
     @Order(7)
-    fun DeleteApiKey() = runBlocking {
-        deleteKey(keyId, apiId)
+    fun deleteTrail() = runBlocking {
+        deleteSpecificTrail(trailName)
         println("Test 7 passed")
     }
 
     private suspend fun getSecretValues(): String {
-        val secretName = "test/appsync"
+        val secretName = "test/cloudtrail"
         val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
@@ -119,11 +111,9 @@ class AppSyncTest {
     }
 
     @Nested
-    @DisplayName("A class used to get test values from test/appsync (an AWS Secrets Manager secret)")
+    @DisplayName("A class used to get test values from test/cloudtrail (an AWS Secrets Manager secret)")
     internal class SecretValues {
-        val apiId: String? = null
-        val dsName: String? = null
-        val dsRole: String? = null
-        val tableName: String? = null
+        val trailName: String? = null
+        val s3BucketName: String? = null
     }
 }
