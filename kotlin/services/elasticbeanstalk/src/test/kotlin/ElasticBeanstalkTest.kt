@@ -1,53 +1,49 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
-import aws.sdk.kotlin.services.elasticbeanstalk.ElasticBeanstalkClient
-import com.aws.example.*
+import com.aws.example.createApp
+import com.aws.example.createEBEnvironment
+import com.aws.example.deleteApp
+import com.aws.example.describeApps
+import com.aws.example.describeEnv
+import com.aws.example.getOptions
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.TestMethodOrder
 import java.io.IOException
 import java.net.URISyntaxException
-import java.util.*
+import java.util.Random
 import java.util.concurrent.TimeUnit
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class ElasticBeanstalkTest {
-
-    lateinit var beanstalkClient: ElasticBeanstalkClient
-    var appName: String = ""
-    var envName: String = ""
+    var appName: String = "TestApp"
+    var envName: String = "TestEnv"
     var appArn: String = ""
     var envArn: String = ""
 
     @BeforeAll
     @Throws(IOException::class, URISyntaxException::class)
     fun setUp() {
-        beanstalkClient = ElasticBeanstalkClient{ region = "us-east-1" }
-
-        try {
-            ElasticBeanstalkTest::class.java.classLoader.getResourceAsStream("config.properties").use { input ->
-                val prop = Properties()
-                if (input == null) {
-                    println("Sorry, unable to find config.properties")
-                    return
-                }
-
-                prop.load(input)
-                appName = prop.getProperty("appName")
-                envName = prop.getProperty("envName")
-            }
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-        }
+        val random = Random()
+        val randomNum = random.nextInt(10000 - 1 + 1) + 1
+        appName = appName + randomNum
+        envName = envName + randomNum
     }
 
     @Test
     @Order(1)
     fun whenInitializingAWSService_thenNotNull() {
-        Assertions.assertNotNull(beanstalkClient)
+        Assertions.assertNotNull(appName)
         println("Test 1 passed")
     }
 
@@ -62,7 +58,7 @@ class ElasticBeanstalkTest {
     @Test
     @Order(3)
     fun CreateEnvironment() = runBlocking {
-        envArn = createEBEnvironment( envName, appName)
+        envArn = createEBEnvironment(envName, appName)
         assertTrue(!envArn.isEmpty())
         println("Test 3 passed")
     }

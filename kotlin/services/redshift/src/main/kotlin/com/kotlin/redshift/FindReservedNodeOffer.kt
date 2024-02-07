@@ -48,7 +48,7 @@ suspend fun findReservedNodeOffer() {
         response.reservedNodeOfferings?.forEach { offering ->
 
             if (offering.nodeType.equals(nodeTypeToPurchase)) {
-                if (offering.fixedPrice < fixedPriceLimit) {
+                if (offering.fixedPrice!! < fixedPriceLimit) {
                     matchingNodes.add(offering)
                     printOfferingDetails(offering)
                     count += 1

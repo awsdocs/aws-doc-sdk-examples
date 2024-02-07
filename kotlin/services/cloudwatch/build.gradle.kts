@@ -27,8 +27,8 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:cloudwatch:1.0.0")
-    implementation("aws.sdk.kotlin:cloudwatchevents:1.0.0")
+    implementation("aws.sdk.kotlin:cloudwatch:1.0.40")
+    implementation("aws.sdk.kotlin:cloudwatchevents:1.0.40")
     implementation("aws.sdk.kotlin:cloudwatchlogs:1.0.0")
     implementation("aws.sdk.kotlin:secretsmanager:1.0.0")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")

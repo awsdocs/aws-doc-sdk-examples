@@ -1,35 +1,34 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
-import com.kotlin.cognito.adminRespondToAuthChallenge
-import com.kotlin.cognito.checkAuthMethod
-import com.kotlin.cognito.confirmSignUp
+import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
+import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
+import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
+import com.google.gson.Gson
 import com.kotlin.cognito.createIdPool
 import com.kotlin.cognito.createNewUser
 import com.kotlin.cognito.createPool
 import com.kotlin.cognito.delPool
 import com.kotlin.cognito.deleteIdPool
 import com.kotlin.cognito.describePool
-import com.kotlin.cognito.getAdminUser
 import com.kotlin.cognito.getAllPools
 import com.kotlin.cognito.getPools
-import com.kotlin.cognito.getSecretForAppMFA
 import com.kotlin.cognito.listAllUserPoolClients
 import com.kotlin.cognito.listPoolIdentities
-import com.kotlin.cognito.resendConfirmationCode
 import com.kotlin.cognito.signUp
-import com.kotlin.cognito.verifyTOTP
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.io.InputStream
-import java.util.Properties
-import java.util.Scanner
+import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -57,11 +56,35 @@ class CognitoKotlinTest {
     private var emailMVP = ""
 
     @BeforeAll
-    fun setup() {
+    fun setup() = runBlocking {
+        val gson = Gson()
+        val json = getSecretValues()
+        val values = gson.fromJson(json, SecretValues::class.java)
+        userPoolName = values.userPoolName.toString()
+        username = values.username + "_" + UUID.randomUUID()
+        email = values.email.toString()
+        clientName = values.clientName.toString()
+        identityPoolName = values.identityPoolName.toString()
+        identityId = values.identityId.toString()
+        appId = values.appId.toString()
+        existingUserPoolId = values.existingUserPoolId.toString()
+        existingIdentityPoolId = values.existingIdentityPoolId.toString()
+        providerName = values.providerName.toString()
+        existingPoolName = values.existingPoolName.toString()
+        clientId = values.clientId.toString()
+        secretkey = values.secretkey.toString()
+        password = values.password.toString()
+        poolIdMVP = values.poolIdMVP.toString()
+        clientIdMVP = values.clientIdMVP.toString()
+        userNameMVP = values.userNameMVP.toString()
+        passwordMVP = values.passwordMVP.toString()
+        emailMVP = values.emailMVP.toString()
+
+        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+        /*
+        // load the properties file.
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
-
-        // load the properties file.
         prop.load(input)
         userPoolName = prop.getProperty("userPoolName")
         identityId = prop.getProperty("identityId")
@@ -82,161 +105,130 @@ class CognitoKotlinTest {
         userNameMVP = prop.getProperty("userNameMVP")
         passwordMVP = prop.getProperty("passwordMVP")
         emailMVP = prop.getProperty("emailMVP")
+
+         */
     }
 
     @Test
     @Order(1)
-    fun whenInitializingAWSService_thenNotNull() {
-        Assertions.assertTrue(!userPoolName.isEmpty())
-        Assertions.assertTrue(!identityId.isEmpty())
-        Assertions.assertTrue(!username.isEmpty())
-        Assertions.assertTrue(!email.isEmpty())
-        Assertions.assertTrue(!clientName.isEmpty())
-        Assertions.assertTrue(!identityPoolName.isEmpty())
-        Assertions.assertTrue(!appId.isEmpty())
-        Assertions.assertTrue(!existingUserPoolId.isEmpty())
-        Assertions.assertTrue(!existingIdentityPoolId.isEmpty())
-        Assertions.assertTrue(!providerName.isEmpty())
-        Assertions.assertTrue(!existingPoolName.isEmpty())
-        Assertions.assertTrue(!clientId.isEmpty())
-        Assertions.assertTrue(!secretkey.isEmpty())
-        Assertions.assertTrue(!password.isEmpty())
+    fun createUserPoolTest() = runBlocking {
+        userPoolId = createPool(userPoolName).toString()
+        Assertions.assertTrue(!userPoolId.isEmpty())
         println("Test 1 passed")
     }
 
     @Test
     @Order(2)
-    fun createUserPoolTest() = runBlocking {
-        userPoolId = createPool(userPoolName).toString()
-        Assertions.assertTrue(!userPoolId.isEmpty())
+    fun createAdminUserTest() = runBlocking {
+        createNewUser(userPoolId, username, email, password)
         println("Test 2 passed")
     }
 
     @Test
     @Order(3)
-    fun createAdminUserTest() = runBlocking {
-        createNewUser(userPoolId, username, email, password)
+    fun signUpUserTest() = runBlocking {
+        signUp(clientId, secretkey, username, password, email)
         println("Test 3 passed")
     }
 
     @Test
     @Order(4)
-    fun signUpUserTest() = runBlocking {
-        signUp(clientId, secretkey, username, password, email)
+    fun listUserPoolsTest() = runBlocking {
+        getAllPools()
         println("Test 4 passed")
     }
 
     @Test
     @Order(5)
-    fun listUserPoolsTest() = runBlocking {
-        getAllPools()
+    fun listUserPoolClientsTest() = runBlocking {
+        listAllUserPoolClients(existingUserPoolId)
         println("Test 5 passed")
     }
 
     @Test
     @Order(6)
-    fun listUserPoolClientsTest() = runBlocking {
+    fun listUsersTest() = runBlocking {
         listAllUserPoolClients(existingUserPoolId)
         println("Test 6 passed")
     }
 
     @Test
     @Order(7)
-    fun listUsersTest() = runBlocking {
-        listAllUserPoolClients(existingUserPoolId)
+    fun describeUserPoolTest() = runBlocking {
+        describePool(existingUserPoolId)
         println("Test 7 passed")
     }
 
     @Test
     @Order(8)
-    fun describeUserPoolTest() = runBlocking {
-        describePool(existingUserPoolId)
+    fun deleteUserPool() = runBlocking {
+        delPool(userPoolId)
         println("Test 8 passed")
     }
 
     @Test
     @Order(9)
-    fun deleteUserPool() = runBlocking {
-        delPool(userPoolId)
+    fun createIdentityPoolTest() = runBlocking {
+        identityPoolId = createIdPool(identityPoolName).toString()
+        Assertions.assertTrue(!identityPoolId.isEmpty())
         println("Test 9 passed")
     }
 
     @Test
     @Order(10)
-    fun createIdentityPoolTest() = runBlocking {
-        identityPoolId = createIdPool(identityPoolName).toString()
-        Assertions.assertTrue(!identityPoolId.isEmpty())
+    fun listIdentityProvidersTest() = runBlocking {
+        getPools()
         println("Test 10 passed")
     }
 
     @Test
     @Order(11)
-    fun listIdentityProvidersTest() = runBlocking {
-        getPools()
+    fun listIdentitiesTest() = runBlocking {
+        listPoolIdentities(identityPoolId)
         println("Test 11 passed")
     }
 
     @Test
     @Order(12)
-    fun listIdentitiesTest() = runBlocking {
-        listPoolIdentities(identityPoolId)
+    fun deleteIdentityPool() = runBlocking {
+        deleteIdPool(identityPoolId)
         println("Test 12 passed")
     }
 
-    @Test
-    @Order(13)
-    fun deleteIdentityPool() = runBlocking {
-        deleteIdPool(identityPoolId)
-        println("Test 13 passed")
+    private suspend fun getSecretValues(): String {
+        val secretClient = SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }
+        val secretName = "test/cognito"
+        val valueRequest = GetSecretValueRequest {
+            secretId = secretName
+        }
+        val valueResponse = secretClient.getSecretValue(valueRequest)
+        return valueResponse.secretString.toString()
     }
 
-    @Test
-    @Order(14)
-    fun testCognitoMVP() = runBlocking {
-        println("*** Enter your use name")
-        val inOb = Scanner(System.`in`)
-        val userName = inOb.nextLine()
-        println(userName)
-
-        println("*** Enter your password")
-        val password: String = inOb.nextLine()
-
-        println("*** Enter your email")
-        val email = inOb.nextLine()
-
-        println("*** Signing up $userName")
-        signUp(clientIdMVP, userName, password, email)
-
-        println("*** Getting $userName in the user pool")
-        getAdminUser(userName, poolIdMVP)
-
-        println("*** Conformation code sent to $userName. Would you like to send a new code? (Yes/No)")
-        val ans = inOb.nextLine()
-
-        if (ans.compareTo("Yes") == 0) {
-            println("*** Sending a new confirmation code")
-            resendConfirmationCode(clientIdMVP, userName)
-        }
-        println("*** Enter the confirmation code that was emailed")
-        val code = inOb.nextLine()
-        confirmSignUp(clientIdMVP, code, userName)
-
-        println("*** Rechecking the status of $userName in the user pool")
-        getAdminUser(userName, poolIdMVP)
-
-        val authResponse = checkAuthMethod(clientIdMVP, userName, password, poolIdMVP)
-        val mySession = authResponse.session
-
-        val newSession = getSecretForAppMFA(mySession)
-        println("*** Enter the 6-digit code displayed in Google Authenticator")
-        val myCode = inOb.nextLine()
-
-        // Verify the TOTP and register for MFA.
-        verifyTOTP(newSession, myCode)
-        println("*** Re-enter a 6-digit code displayed in Google Authenticator")
-        val mfaCode: String = inOb.nextLine()
-        val authResponse1 = checkAuthMethod(clientId, userNameMVP, password, poolIdMVP)
-        val session2 = authResponse1.session
-        adminRespondToAuthChallenge(userName, clientId, mfaCode, session2)
+    @Nested
+    @DisplayName("A class used to get test values from test/cognito (an AWS Secrets Manager secret)")
+    internal class SecretValues {
+        val username: String? = null
+        val userPoolName: String? = null
+        val identityId: String? = null
+        val email: String? = null
+        val clientName: String? = null
+        val identityPoolName: String? = null
+        val existingPoolName: String? = null
+        val existingIdentityPoolId: String? = null
+        val existingUserPoolId: String? = null
+        val providerName: String? = null
+        val clientId: String? = null
+        val appId: String? = null
+        val secretkey: String? = null
+        val password: String? = null
+        val poolIdMVP: String? = null
+        val clientIdMVP: String? = null
+        val userNameMVP: String? = null
+        val passwordMVP: String? = null
+        val emailMVP: String? = null
     }
 }

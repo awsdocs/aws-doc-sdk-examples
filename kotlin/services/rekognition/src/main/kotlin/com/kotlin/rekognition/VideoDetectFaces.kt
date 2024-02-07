@@ -99,7 +99,7 @@ suspend fun getFaceResults() {
         while (!finished) {
             response = rekClient.getFaceDetection(recognitionRequest)
             status = response.jobStatus.toString()
-            if (status.compareTo("SUCCEEDED") == 0)
+            if (status.compareTo("Succeeded") == 0)
                 finished = true
             else {
                 println("$yy status is: $status")

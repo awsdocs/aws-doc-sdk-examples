@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             accessKeyId> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[sts.kotlin.get_access_key.main]
 suspend fun getKeyInfo(accessKeyIdVal: String?) {
-
     val accessRequest = GetAccessKeyInfoRequest {
         accessKeyId = accessKeyIdVal
     }

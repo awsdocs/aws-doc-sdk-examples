@@ -1,54 +1,32 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import com.kotlin.cloudwatch.DASHES
-import com.kotlin.cloudwatch.addAnomalyDetector
-import com.kotlin.cloudwatch.addMetricDataForAlarm
-import com.kotlin.cloudwatch.addMetricToDashboard
-import com.kotlin.cloudwatch.checkForMetricAlarm
-import com.kotlin.cloudwatch.createAlarm
-import com.kotlin.cloudwatch.createDashboardWithMetrics
-import com.kotlin.cloudwatch.createNewCustomMetric
-import com.kotlin.cloudwatch.deleteAlarm
-import com.kotlin.cloudwatch.deleteAnomalyDetector
+import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
+import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
+import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
+import com.google.gson.Gson
 import com.kotlin.cloudwatch.deleteCWAlarm
-import com.kotlin.cloudwatch.deleteDashboard
 import com.kotlin.cloudwatch.deleteSubFilter
 import com.kotlin.cloudwatch.desCWAlarms
-import com.kotlin.cloudwatch.describeAlarms
-import com.kotlin.cloudwatch.describeAnomalyDetectors
 import com.kotlin.cloudwatch.describeFilters
 import com.kotlin.cloudwatch.disableActions
 import com.kotlin.cloudwatch.enableActions
-import com.kotlin.cloudwatch.getAlarmHistory
-import com.kotlin.cloudwatch.getAndDisplayMetricStatistics
-import com.kotlin.cloudwatch.getAndOpenMetricImage
 import com.kotlin.cloudwatch.getCWLogEvents
-import com.kotlin.cloudwatch.getCustomMetricData
 import com.kotlin.cloudwatch.getMetData
-import com.kotlin.cloudwatch.getMetricStatistics
-import com.kotlin.cloudwatch.getSpecificMet
-import com.kotlin.cloudwatch.listDashboards
-import com.kotlin.cloudwatch.listMets
-import com.kotlin.cloudwatch.listNameSpaces
 import com.kotlin.cloudwatch.putAlarm
 import com.kotlin.cloudwatch.putCWEvents
 import com.kotlin.cloudwatch.putCWLogEvents
 import com.kotlin.cloudwatch.putCWRule
 import com.kotlin.cloudwatch.putSubFilters
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.io.InputStream
-import java.util.Properties
-import java.util.Scanner
-import kotlin.collections.ArrayList
-import kotlin.system.exitProcess
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -66,7 +44,6 @@ class CloudWatchTest {
     private var namespace = ""
     private var filterPattern = ""
     private var ruleName = ""
-
     private var myDateSc = ""
     private var costDateWeekSc = ""
     private var dashboardNameSc = ""
@@ -76,7 +53,34 @@ class CloudWatchTest {
     private var metricImageSc = ""
 
     @BeforeAll
-    fun setup() {
+    fun setup() = runBlocking {
+        // Get the values to run these tests from AWS Secrets Manager.
+        val gson = Gson()
+        val json: String = getSecretValues()
+        val values = gson.fromJson(json, SecretValues::class.java)
+        logGroup = values.logGroup.toString()
+        alarmName = values.alarmName.toString()
+        streamName = values.streamName.toString()
+        ruleResource = values.ruleResource.toString()
+        metricId = values.metricId.toString()
+        filterName = values.filterName.toString()
+        destinationArn = values.destinationArn.toString()
+        roleArn = values.roleArn.toString()
+        filterPattern = values.filterPattern.toString()
+        instanceId = values.instanceId.toString()
+        ruleName = values.ruleName.toString()
+        ruleArn = values.ruleArn.toString()
+        namespace = values.namespace.toString()
+        myDateSc = values.myDateSc.toString()
+        costDateWeekSc = values.costDateWeekSc.toString()
+        dashboardNameSc = values.dashboardNameSc.toString()
+        dashboardJsonSc = values.dashboardJsonSc.toString()
+        dashboardAddSc = values.dashboardAddSc.toString()
+        settingsSc = values.settingsSc.toString()
+        metricImageSc = values.metricImageSc.toString()
+
+        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+        /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
         prop.load(input)
@@ -100,265 +104,134 @@ class CloudWatchTest {
         dashboardAddSc = prop.getProperty("dashboardAddSc")
         settingsSc = prop.getProperty("settingsSc")
         metricImageSc = prop.getProperty("metricImageSc")
+        */
     }
 
     @Test
     @Order(1)
-    fun whenInitializingAWSService_thenNotNull() {
-        Assertions.assertNotNull(logGroup)
-        Assertions.assertNotNull(alarmName)
-        Assertions.assertNotNull(streamName)
-        Assertions.assertNotNull(ruleResource)
-        Assertions.assertNotNull(metricId)
-        Assertions.assertNotNull(filterName)
-        Assertions.assertNotNull(destinationArn)
-        Assertions.assertNotNull(roleArn)
-        Assertions.assertNotNull(filterPattern)
-        Assertions.assertNotNull(instanceId)
-        Assertions.assertNotNull(ruleName)
-        Assertions.assertNotNull(ruleArn)
-        Assertions.assertNotNull(namespace)
+    fun createAlarmTest() = runBlocking {
+        putAlarm(alarmName, instanceId)
         println("Test 1 passed")
     }
 
     @Test
     @Order(2)
-    fun createAlarmTest() = runBlocking {
-        putAlarm(alarmName, instanceId)
+    fun describeAlarmsTest() = runBlocking {
+        desCWAlarms()
         println("Test 2 passed")
     }
 
     @Test
     @Order(3)
-    fun describeAlarmsTest() = runBlocking {
-        desCWAlarms()
+    fun createSubscriptionFiltersTest() = runBlocking {
+        putSubFilters(filterName, filterPattern, logGroup, destinationArn)
         println("Test 3 passed")
     }
 
     @Test
     @Order(4)
-    fun createSubscriptionFiltersTest() = runBlocking {
-        putSubFilters(filterName, filterPattern, logGroup, destinationArn)
+    fun describeSubscriptionFiltersTest() = runBlocking {
+        describeFilters(logGroup)
         println("Test 4 passed")
     }
 
     @Test
     @Order(5)
-    fun describeSubscriptionFiltersTest() = runBlocking {
-        describeFilters(logGroup)
+    fun disableAlarmActionsTest() = runBlocking {
+        disableActions(alarmName)
         println("Test 5 passed")
     }
 
     @Test
     @Order(6)
-    fun disableAlarmActionsTest() = runBlocking {
-        disableActions(alarmName)
+    fun enableAlarmActionsTest() = runBlocking {
+        enableActions(alarmName)
         println("Test 6 passed")
     }
 
     @Test
     @Order(7)
-    fun enableAlarmActionsTest() = runBlocking {
-        enableActions(alarmName)
+    fun getLogEventsTest() = runBlocking {
+        getCWLogEvents(logGroup, streamName)
         println("Test 7 passed")
     }
 
     @Test
     @Order(8)
-    fun getLogEventsTest() = runBlocking {
-        getCWLogEvents(logGroup, streamName)
+    fun putCloudWatchEventTest() = runBlocking {
+        putCWEvents(ruleResource)
         println("Test 8 passed")
     }
 
     @Test
     @Order(9)
-    fun putCloudWatchEventTest() = runBlocking {
-        putCWEvents(ruleResource)
+    fun getMetricDataTest() = runBlocking {
+        getMetData()
         println("Test 9 passed")
     }
 
     @Test
     @Order(10)
-    fun getMetricDataTest() = runBlocking {
-        getMetData()
+    fun deleteSubscriptionFilterTest() = runBlocking {
+        deleteSubFilter(filterName, logGroup)
         println("Test 10 passed")
     }
 
     @Test
     @Order(11)
-    fun deleteSubscriptionFilterTest() = runBlocking {
-        deleteSubFilter(filterName, logGroup)
+    fun putRuleTest() = runBlocking {
+        putCWRule(ruleName, ruleArn)
         println("Test 11 passed")
     }
 
     @Test
     @Order(12)
-    fun putRuleTest() = runBlocking {
-        putCWRule(ruleName, ruleArn)
+    fun putLogEvents() = runBlocking {
+        putCWLogEvents(logGroup, streamName)
         println("Test 12 passed")
     }
 
     @Test
     @Order(13)
-    fun putLogEvents() = runBlocking {
-        putCWLogEvents(logGroup, streamName)
+    fun deleteCWAlarmTest() = runBlocking {
+        deleteCWAlarm(alarmName)
         println("Test 13 passed")
     }
 
-    @Test
-    @Order(14)
-    fun deleteCWAlarmTest() = runBlocking {
-        deleteCWAlarm(alarmName)
-        println("Test 14 passed")
+    private suspend fun getSecretValues(): String {
+        val secretName = "test/cloudwatch"
+        val valueRequest = GetSecretValueRequest {
+            secretId = secretName
+        }
+        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+            val valueResponse = secretClient.getSecretValue(valueRequest)
+            return valueResponse.secretString.toString()
+        }
     }
 
-    @Test
-    @Order(16)
-    fun TestScenario() = runBlocking {
-        val inOb = Scanner(System.`in`)
-        val dataPoint = "10.0".toDouble()
-        println(DASHES)
-        println("1. List at least five available unique namespaces from Amazon CloudWatch. Select a CloudWatch namespace from the list.")
-        val list: ArrayList<String> = listNameSpaces()
-        for (z in 0..4) {
-            println("    ${z + 1}. ${list[z]}")
-        }
-
-        var selectedNamespace: String
-        var selectedMetrics = ""
-        var num = inOb.nextLine().toInt()
-        println("You selected $num")
-
-        if (1 <= num && num <= 5) {
-            selectedNamespace = list[num - 1]
-        } else {
-            println("You did not select a valid option.")
-            exitProcess(1)
-        }
-        println("You selected $selectedNamespace")
-        println(DASHES)
-
-        println(DASHES)
-        println("2. List available metrics within the selected namespace and select one from the list.")
-        val metList = listMets(selectedNamespace)
-        for (z in 0..4) {
-            println("    ${ z + 1}. ${metList?.get(z)}")
-        }
-        num = inOb.nextLine().toInt()
-        if (1 <= num && num <= 5) {
-            selectedMetrics = metList!![num - 1]
-        } else {
-            println("You did not select a valid option.")
-            System.exit(1)
-        }
-        println("You selected $selectedMetrics")
-        val myDimension = getSpecificMet(selectedNamespace)
-        if (myDimension == null) {
-            println("Error - Dimension is null")
-            exitProcess(1)
-        }
-        println(DASHES)
-
-        println(DASHES)
-        println("3. Get statistics for the selected metric over the last day.")
-        val metricOption: String
-        val statTypes = ArrayList<String>()
-        statTypes.add("SampleCount")
-        statTypes.add("Average")
-        statTypes.add("Sum")
-        statTypes.add("Minimum")
-        statTypes.add("Maximum")
-
-        for (t in 0..4) {
-            println("    ${t + 1}. ${statTypes[t]}")
-        }
-        println("Select a metric statistic by entering a number from the preceding list:")
-        num = inOb.nextLine().toInt()
-        if (1 <= num && num <= 5) {
-            metricOption = statTypes[num - 1]
-        } else {
-            println("You did not select a valid option.")
-            exitProcess(1)
-        }
-        println("You selected $metricOption")
-        getAndDisplayMetricStatistics(selectedNamespace, selectedMetrics, metricOption, myDateSc, myDimension)
-        println(DASHES)
-
-        println(DASHES)
-        println("4. Get CloudWatch estimated billing for the last week.")
-        getMetricStatistics(costDateWeekSc)
-        println(DASHES)
-
-        println(DASHES)
-        println("5. Create a new CloudWatch dashboard with metrics.")
-        createDashboardWithMetrics(dashboardNameSc, dashboardJsonSc)
-        println(DASHES)
-
-        println(DASHES)
-        println("6. List dashboards using a paginator.")
-        listDashboards()
-        println(DASHES)
-
-        println(DASHES)
-        println("7. Create a new custom metric by adding data to it.")
-        createNewCustomMetric(dataPoint)
-        println(DASHES)
-
-        println(DASHES)
-        println("8. Add an additional metric to the dashboard.")
-        addMetricToDashboard(dashboardAddSc, dashboardNameSc)
-        println(DASHES)
-
-        println(DASHES)
-        println("9. Create an alarm for the custom metric.")
-        val alarmName: String = createAlarm(settingsSc)
-        println(DASHES)
-
-        println(DASHES)
-        println("10. Describe 10 current alarms.")
-        describeAlarms()
-        println(DASHES)
-
-        println(DASHES)
-        println("11. Get current data for the new custom metric.")
-        getCustomMetricData(settingsSc)
-        println(DASHES)
-
-        println(DASHES)
-        println("12. Push data into the custom metric to trigger the alarm.")
-        addMetricDataForAlarm(settingsSc)
-        println(DASHES)
-
-        println(DASHES)
-        println("13. Check the alarm state using the action DescribeAlarmsForMetric.")
-        checkForMetricAlarm(settingsSc)
-        println(DASHES)
-
-        println(DASHES)
-        println("14. Get alarm history for the new alarm.")
-        getAlarmHistory(settingsSc, myDateSc)
-        println(DASHES)
-
-        println(DASHES)
-        println("15. Add an anomaly detector for the custom metric.")
-        addAnomalyDetector(settingsSc)
-        println(DASHES)
-
-        println(DASHES)
-        println("16. Describe current anomaly detectors.")
-        describeAnomalyDetectors(settingsSc)
-        println(DASHES)
-
-        println(DASHES)
-        println("17. Get a metric image for the custom metric.")
-        getAndOpenMetricImage(metricImageSc)
-        println(DASHES)
-
-        println(DASHES)
-        println("18. Clean up the Amazon CloudWatch resources.")
-        deleteDashboard(dashboardNameSc)
-        deleteAlarm(alarmName)
-        deleteAnomalyDetector(settingsSc)
-        println(DASHES)
+    @Nested
+    @DisplayName("A class used to get test values from test/cloudwatch (an AWS Secrets Manager secret)")
+    internal class SecretValues {
+        // Provide getter methods for each of the test values
+        val logGroup: String? = null
+        val alarmName: String? = null
+        val instanceId: String? = null
+        val streamName: String? = null
+        val ruleResource: String? = null
+        val metricId: String? = null
+        val filterName: String? = null
+        val destinationArn: String? = null
+        val roleArn: String? = null
+        val ruleArn: String? = null
+        val filterPattern: String? = null
+        val ruleName: String? = null
+        val namespace: String? = null
+        val myDateSc: String? = null
+        val costDateWeekSc: String? = null
+        val dashboardNameSc: String? = null
+        val dashboardJsonSc: String? = null
+        val dashboardAddSc: String? = null
+        val settingsSc: String? = null
+        val metricImageSc: String? = null
     }
 }
