@@ -27,9 +27,9 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:cognitoidentityprovider:1.0.0")
-    implementation("aws.sdk.kotlin:cognitoidentity:1.0.0")
-    implementation("aws.sdk.kotlin:secretsmanager:1.0.0")
+    implementation("aws.sdk.kotlin:cognitoidentityprovider:1.0.30")
+    implementation("aws.sdk.kotlin:cognitoidentity:1.0.30")
+    implementation("aws.sdk.kotlin:secretsmanager:1.0.30")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
