@@ -97,7 +97,8 @@ class CloudWatchQuery:
         """
         Search a list of log items and return most recent log entry.
         :param logs: A list of logs to analyze.
-        :return:
+        :return: log
+        :type :return List containing log item details
         """
         most_recent_log = None
         most_recent_date = "1970-01-01 00:00:00.000"
