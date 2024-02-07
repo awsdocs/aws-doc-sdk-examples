@@ -189,4 +189,5 @@ class CloudWatchQuery:
                 "Unknown",
             ]:
                 return results.get("results", [])
+
     # snippet-end:[python.example_code.cloudwatch_logs.get_query_results]
