@@ -113,9 +113,10 @@ class Renderer:
     def _transform_actions(self, pre_actions):
         post_actions = []
         for _, pre in pre_actions.items():
-            api = ""
-            if self.scanner.svc_name in pre["services"]:
-                api = next(iter(pre["services"][self.scanner.svc_name]))
+            try:
+                api = pre["services"][self.scanner.svc_name][0]
+            except:
+                api = ""
             action = {
                 "title_abbrev": pre["title_abbrev"],
                 "synopsis": pre["synopsis"],
@@ -272,6 +273,7 @@ class Renderer:
             unsupported=unsupported,
         )
         self.readme_text = self._expand_entities(self.readme_text)
+        return self
 
     def write(self):
         if self.safe and Path(self.readme_filename).exists():
