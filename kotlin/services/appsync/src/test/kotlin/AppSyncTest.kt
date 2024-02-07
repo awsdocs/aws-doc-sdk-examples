@@ -118,7 +118,6 @@ class AppSyncTest {
         }
     }
 
-
     @Nested
     @DisplayName("A class used to get test values from test/appsync (an AWS Secrets Manager secret)")
     internal class SecretValues {
@@ -127,5 +126,4 @@ class AppSyncTest {
         val dsRole: String? = null
         val tableName: String? = null
     }
-
 }
