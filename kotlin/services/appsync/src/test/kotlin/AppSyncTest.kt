@@ -33,7 +33,7 @@ class AppSyncTest {
 
     @BeforeAll
     fun setup() = runBlocking {
-        // Get the values from AWS Secrets Manager.
+        // Get the test values from AWS Secrets Manager.
         val gson = Gson()
         val json = getSecretValues()
         val values = gson.fromJson(json, SecretValues::class.java)
