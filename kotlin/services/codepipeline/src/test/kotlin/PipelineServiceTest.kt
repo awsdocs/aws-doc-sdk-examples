@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.io.InputStream
 import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -29,11 +28,10 @@ class PipelineServiceTest {
     private var name: String = ""
     private var roleArn: String = ""
     private var s3Bucket: String = ""
-    private var s3OuputBucket: String = ""
+    private var s3OutputBucket: String = ""
 
     @BeforeAll
     fun setup() = runBlocking {
-
         // Get values from AWS Secrets Manager.
         val gson = Gson()
         val json: String = getSecretValues()
@@ -41,82 +39,68 @@ class PipelineServiceTest {
         name = values.name.toString()
         roleArn = values.role.toString()
         s3Bucket = values.s3Bucket.toString()
-        s3OuputBucket = values.s3OuputBucket.toString()
+        s3OutputBucket = values.s3OutputBucket.toString()
+    }
 
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
+    @Test
+    @Order(1)
+    fun createPipelineTest() = runBlocking {
+        createNewPipeline(name, roleArn, s3Bucket, s3OutputBucket)
+        println("\n Test 1 passed")
+    }
 
-        // load the properties file.
-        prop.load(input)
+    @Test
+    @Order(2)
+    fun startPipelineExecutionTest() = runBlocking {
+        executePipeline(name)
+        println("Test 2 passed")
+    }
 
-        // Populate the data members required for all tests.
-        name = prop.getProperty("name")
-        roleArn = prop.getProperty("roleArn")
-        s3Bucket = prop.getProperty("s3Bucket")
-        s3OuputBucket = prop.getProperty("s3OuputBucket")
-        */
-}
+    @Test
+    @Order(3)
+    fun listPipelinesTest() = runBlocking {
+        getAllPipelines()
+        println("Test 3 passed")
+    }
 
-@Test
-@Order(1)
-fun createPipelineTest() = runBlocking {
- createNewPipeline(name, roleArn, s3Bucket, s3OuputBucket)
- println("\n Test 1 passed")
-}
+    @Test
+    @Order(4)
+    fun getPipelineTest() = runBlocking {
+        getSpecificPipeline(name)
+        println("Test 4 passed")
+    }
 
-@Test
-@Order(2)
-fun startPipelineExecutionTest() = runBlocking {
- executePipeline(name)
- println("Test 2 passed")
-}
+    @Test
+    @Order(5)
+    fun listPipelineExecutionsTest() = runBlocking {
+        listExecutions(name)
+        println("Test 5 passed")
+    }
 
-@Test
-@Order(3)
-fun listPipelinesTest() = runBlocking {
- getAllPipelines()
- println("Test 3 passed")
-}
+    @Test
+    @Order(6)
+    fun deletePipelineTest() = runBlocking {
+        deleteSpecificPipeline(name)
+        println("Test 6 passed")
+    }
 
-@Test
-@Order(4)
-fun getPipelineTest() = runBlocking {
- getSpecificPipeline(name)
- println("Test 4 passed")
-}
+    private suspend fun getSecretValues(): String {
+        val secretName = "test/pipeline"
+        val valueRequest = GetSecretValueRequest {
+            secretId = secretName
+        }
+        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+            val valueResponse = secretClient.getSecretValue(valueRequest)
+            return valueResponse.secretString.toString()
+        }
+    }
 
-@Test
-@Order(5)
-fun listPipelineExecutionsTest() = runBlocking {
- listExecutions(name)
- println("Test 5 passed")
-}
-
-@Test
-@Order(6)
-fun deletePipelineTest() = runBlocking {
- deleteSpecificPipeline(name)
- println("Test 6 passed")
-}
-
-private suspend fun getSecretValues(): String {
- val secretName = "test/pipeline"
- val valueRequest = GetSecretValueRequest {
-     secretId = secretName
- }
- SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
-     val valueResponse = secretClient.getSecretValue(valueRequest)
-     return valueResponse.secretString.toString()
- }
-}
-
-@Nested
-@DisplayName("A class used to get test values from test/apigateway (an AWS Secrets Manager secret)")
-internal class SecretValues {
- val name: String? = null
- val role: String? = null
- val s3Bucket: String? = null
- val s3OuputBucket: String? = null
-}
+    @Nested
+    @DisplayName("A class used to get test values from test/apigateway (an AWS Secrets Manager secret)")
+    internal class SecretValues {
+        val name: String? = null
+        val role: String? = null
+        val s3Bucket: String? = null
+        val s3OutputBucket: String? = null
+    }
 }
