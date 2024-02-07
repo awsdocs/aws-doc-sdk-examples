@@ -1,1 +1,0 @@
-This is the text to encrypt by using the AWS KMS Service
