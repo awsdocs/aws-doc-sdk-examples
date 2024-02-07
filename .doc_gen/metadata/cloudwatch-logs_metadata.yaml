@@ -367,5 +367,16 @@ cloudwatch-logs_Scenario_BigQuery:
             - description: This is a class that splits queries into multiple steps if necessary.
             - snippet_files:
                 - javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/cloud-watch-query.js
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs/scenarios/large-query
+          excerpts:
+            - description: This file invokes an example module for managing CloudWatch queries exceeding 10,000 results.
+              snippet_files:
+                - python/example_code/cloudwatch-logs/scenarios/large-query/exec.py
+            - description: This module processes CloudWatch queries exceeding 10,000 results.
+            - snippet_files:
+                - python/example_code/cloudwatch-logs/scenarios/large-query/cloudwatch_query.py
   services:
     cloudwatch-logs: {StartQuery, GetQueryResults}
