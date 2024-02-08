@@ -16,3 +16,54 @@ codebuild_CreateProject:
                 - javascript.v3.codebuild.actions.CreateProject
   services:
     codebuild: {CreateProject}
+codebuild_BuildProject:
+  title: Build an &ACB; project
+  title_abbrev: Build a project
+  synopsis: build an &ACB; project.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/codebuild
+          sdkguide:
+          excerpts:
+            - description: Build a project.
+              snippet_tags:
+                - codebuild.Ruby.buildProject
+  services:
+    codebuild: {BuildProject}
+codebuild_ListBuilds:
+  title: List &ACB; builds
+  title_abbrev: List builds
+  synopsis: list &ACB; builds.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/codebuild
+          sdkguide:
+          excerpts:
+            - description: List builds.
+              snippet_tags:
+                - codebuild.Ruby.listBuilds
+  services:
+    codebuild: {ListBuilds}
+codebuild_ListProjects:
+  title: List &ACB; projects
+  title_abbrev: List projects
+  synopsis: list &ACB; projects.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/codebuild
+          sdkguide:
+          excerpts:
+            - description: List projects.
+              snippet_tags:
+                - codebuild.Ruby.listProjects
+  services:
+    codebuild: {ListProjects}

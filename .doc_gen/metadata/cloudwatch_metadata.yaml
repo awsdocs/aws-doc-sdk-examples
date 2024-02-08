@@ -317,7 +317,8 @@ cloudwatch_DescribeAlarmsForMetric:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.Ruby.getAlarmList
+                - cloudwatch.Ruby.Initialize
+                - cloudwatch.Ruby.DescribeAlarms
     C++:
       versions:
         - sdk_version: 1
@@ -946,7 +947,8 @@ cloudwatch_PutMetricAlarm:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.Ruby.createAlarm
+                - cloudwatch.Ruby.Initialize
+                - cloudwatch.Ruby.CreateOrUpdateAlarm
     SAP ABAP:
       versions:
         - sdk_version: 1

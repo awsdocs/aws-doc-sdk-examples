@@ -37,7 +37,7 @@ Code excerpts that show you how to call individual service functions.
 - [Describe alarms for a metric](alarm_basics.rb#L8) (`DescribeAlarmsForMetric`)
 - [Disable alarm actions](alarm_actions.rb#L93) (`DisableAlarmActions`)
 - [List metrics](metrics_basics.rb#L69) (`ListMetrics`)
-- [Put data into a metric](metrics_basics.rb#L8) (`PutMetricData`)
+- [Put data into a metric](metrics_bas.rb#L8) (`PutMetricData`)
 
 
 <!--custom.examples.start-->
