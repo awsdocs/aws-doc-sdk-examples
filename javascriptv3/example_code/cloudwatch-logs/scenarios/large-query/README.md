@@ -32,9 +32,9 @@ Use the following steps to create the necessary resources in AWS CloudFormation 
 1. In your local terminal, change directories to [resources](../../../../../workflows/cloudwatch_logs_large_query/resources/).
 1. Run `aws cloudformation deploy --template-file stack.yaml --stack-name CloudWatchLargeQuery`
 1. Run `./make-log-files.sh`. This will output two timestamps for use in the following step.
-1. Run `export QUERY_START_DATE=<QUERY_START_DATE>`. Replace `<QUERY_START_DATE>` with the output from the previous step. Repeat this for `QUERY_END_DATE`.
-1. Run `./put-log-events.sh`.
-1. Wait five minutes for logs to settle and to make sure you're not querying for logs that exist in the future.
+1. Copy and run the `export QUERY_START_DATE=<...>` and `export QUERY_END_DATE=<...>` from the `make-log-files.sh` output.
+3. Run `./put-log-events.sh`.
+4. Wait five minutes for logs to settle and to make sure you're not querying for logs that exist in the future.
 
 ### Run the scenario
 
