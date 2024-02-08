@@ -3,11 +3,11 @@
 
 import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
-import com.google.gson.Gson
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
-import com.kotlin.dynamodb.createNewTable
+import com.google.gson.Gson
 import com.kotlin.dynamodb.createScenarioTable
+import com.kotlin.dynamodb.createNewTable
 import com.kotlin.dynamodb.createTablePartiQL
 import com.kotlin.dynamodb.createTablePartiQLBatch
 import com.kotlin.dynamodb.deletIssuesTable
