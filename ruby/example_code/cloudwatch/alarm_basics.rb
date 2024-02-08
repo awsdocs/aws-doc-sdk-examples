@@ -27,7 +27,7 @@ rescue StandardError => e
   puts "Error getting information about alarms: #{e.message}"
 end
 # snippet-end:[cloudwatch.Ruby.getAlarmList]
-# snippet-start:[cloudwatch.Ruby.createAnotherAlarm]
+# snippet-start:[cloudwatch.Ruby.PutMetricAlarm]
 # Creates or updates an alarm in Amazon CloudWatch.
 #
 # @param cloudwatch_client [Aws::CloudWatch::Client]
@@ -109,7 +109,7 @@ rescue StandardError => e
   puts "Error creating alarm: #{e.message}"
   return false
 end
-# snippet-end:[cloudwatch.Ruby.createAnotherAlarm]
+# snippet-end:[cloudwatch.Ruby.PutMetricAlarm]
 # snippet-start:[cloudwatch.Ruby.deleteAlarm]
 # Deletes an alarm in Amazon CloudWatch.
 #
