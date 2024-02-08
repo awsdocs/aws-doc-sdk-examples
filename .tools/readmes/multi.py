@@ -100,9 +100,8 @@ def main():
                 except FileNotFoundError:
                     skipped.append(id)
                 except Exception:
-                    logging.exception(
-                        f"Exception rendering {id}",
-                    )
+                    logging.exception("Exception rendering %s", id)
+                    failed.append(id)
 
     done_list = "\n\t".join(written)
     skip_list = "\n\t".join(skipped)
