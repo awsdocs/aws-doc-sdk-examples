@@ -13,7 +13,7 @@ AWS IoT Core enables secure two-way communication between internet-connected dev
 
 ## Code examples
 
-The credential provider used in all code examples is default credential provider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+The credential provider used in all code examples is the default credential provider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
 ### Get started
 
@@ -22,7 +22,7 @@ The credential provider used in all code examples is default credential provider
 
 ### Single action
 
-The following examples use the **ApplicationAutoScalingClient** object:
+The following examples use the **IotClient** object:
 
 - [Create an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (CreateThing command)
 - [Delete an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (DeleteThing command)
@@ -34,9 +34,9 @@ functions within the same service.
 
 * [Perform device management use cases ](src/main/java/com/example/iot/IotScenario.java) 
 
-## Running the AWS AppSync Java files
+## Running the AWS IoT Java files
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a Scaling Policy. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS IoT Thing. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
 To run these examples, set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
@@ -63,6 +63,6 @@ Define these values to successfully run the JUnit tests:
 
 ## Additional resources
 * [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
-* [Developer Guide - Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html).
+* [Developer Guide - AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/iot-gs.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
