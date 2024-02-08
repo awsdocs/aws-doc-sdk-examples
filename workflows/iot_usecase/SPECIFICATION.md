@@ -25,7 +25,7 @@ The IotClient service client is used in this example and the following service o
 
 ### Application Output
 
-This Workflow does have user interaction. The following code shows the output of the Java V2 program. 
+This Workflow does have user interaction. The following shows the output of the Java V2 program. 
 
 ```
 --------------------------------------------------------------------------------
