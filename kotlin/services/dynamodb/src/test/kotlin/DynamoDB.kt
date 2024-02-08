@@ -61,20 +61,20 @@ class DynamoDB {
     @BeforeAll
     fun setup() = runBlocking {
         // Get the values from AWS Secrets Manager.
-         val gson = Gson()
-         val json = getSecretValues()
-         val values = gson.fromJson(json, SecretValues::class.java)
-         tableName = values.tableName.toString()
-         fileName = values.fileName.toString()
-         key = values.key.toString()
-         keyValue = values.keyValue.toString()
-         albumTitle = values.albumTitle.toString()
-         albumTitleValue = values.albumTitleValue.toString()
-         awards = values.awards.toString()
-         awardVal = values.getAwardVal().toString()
-         songTitle = values.songTitleVal.toString()
-         songTitleVal = values.songTitleVal.toString()
-         tableName2 = "Movies"
+        val gson = Gson()
+        val json = getSecretValues()
+        val values = gson.fromJson(json, SecretValues::class.java)
+        tableName = values.tableName.toString()
+        fileName = values.fileName.toString()
+        key = values.key.toString()
+        keyValue = values.keyValue.toString()
+        albumTitle = values.albumTitle.toString()
+        albumTitleValue = values.albumTitleValue.toString()
+        awards = values.awards.toString()
+        awardVal = values.getAwardVal().toString()
+        songTitle = values.songTitleVal.toString()
+        songTitleVal = values.songTitleVal.toString()
+        tableName2 = "Movies"
 
         /*
         // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
@@ -95,9 +95,7 @@ class DynamoDB {
         songTitle = prop.getProperty("SongTitle")
         songTitleVal = prop.getProperty("SongTitleVal")
         ModAwardVal = prop.getProperty("ModAwardVal")
-
-         */
-
+        */
     }
 
     @Test
