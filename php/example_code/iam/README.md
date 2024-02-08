@@ -33,21 +33,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](GettingStartedWithIAM.php#L47) (`AttachRolePolicy`)
-- [Create a policy](GettingStartedWithIAM.php#L47) (`CreatePolicy`)
-- [Create a role](GettingStartedWithIAM.php#L47) (`CreateRole`)
-- [Create a service-linked role](GettingStartedWithIAM.php#L47) (`CreateServiceLinkedRole`)
-- [Create a user](GettingStartedWithIAM.php#L47) (`CreateUser`)
-- [Get a policy](GettingStartedWithIAM.php#L47) (`GetPolicy`)
-- [Get a role](GettingStartedWithIAM.php#L47) (`GetRole`)
-- [Get the account password policy](GettingStartedWithIAM.php#L47) (`GetAccountPasswordPolicy`)
-- [List SAML providers](GettingStartedWithIAM.php#L47) (`ListSAMLProviders`)
-- [List groups](GettingStartedWithIAM.php#L47) (`ListGroups`)
-- [List inline policies for a role](GettingStartedWithIAM.php#L47) (`ListRolePolicies`)
-- [List policies](GettingStartedWithIAM.php#L47) (`ListPolicies`)
-- [List policies attached to a role](GettingStartedWithIAM.php#L47) (`ListAttachedRolePolicies`)
-- [List roles](GettingStartedWithIAM.php#L47) (`ListRoles`)
-- [List users](GettingStartedWithIAM.php#L47) (`ListUsers`)
+- [Attach a policy to a role](GettingStartedWithIAM.php#L46) (`AttachRolePolicy`)
+- [Create a policy](GettingStartedWithIAM.php#L46) (`CreatePolicy`)
+- [Create a role](GettingStartedWithIAM.php#L46) (`CreateRole`)
+- [Create a service-linked role](GettingStartedWithIAM.php#L46) (`CreateServiceLinkedRole`)
+- [Create a user](GettingStartedWithIAM.php#L46) (`CreateUser`)
+- [Get a policy](GettingStartedWithIAM.php#L46) (`GetPolicy`)
+- [Get a role](GettingStartedWithIAM.php#L46) (`GetRole`)
+- [Get the account password policy](GettingStartedWithIAM.php#L46) (`GetAccountPasswordPolicy`)
+- [List SAML providers](GettingStartedWithIAM.php#L46) (`ListSAMLProviders`)
+- [List groups](GettingStartedWithIAM.php#L46) (`ListGroups`)
+- [List inline policies for a role](GettingStartedWithIAM.php#L46) (`ListRolePolicies`)
+- [List policies](GettingStartedWithIAM.php#L46) (`ListPolicies`)
+- [List policies attached to a role](GettingStartedWithIAM.php#L46) (`ListAttachedRolePolicies`)
+- [List roles](GettingStartedWithIAM.php#L46) (`ListRoles`)
+- [List users](GettingStartedWithIAM.php#L46) (`ListUsers`)
 
 ### Scenarios
 

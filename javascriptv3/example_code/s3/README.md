@@ -31,32 +31,32 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Amazon S3](hello.js#L8) (`ListBuckets`)
+- [Hello Amazon S3](hello.js#L6) (`ListBuckets`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add CORS rules to a bucket](actions/put-bucket-cors.js#L8) (`PutBucketCors`)
-- [Add a policy to a bucket](actions/put-bucket-policy.js#L8) (`PutBucketPolicy`)
-- [Copy an object from one bucket to another](actions/copy-object.js#L8) (`CopyObject`)
-- [Create a bucket](actions/create-bucket.js#L8) (`CreateBucket`)
-- [Delete a policy from a bucket](actions/delete-bucket-policy.js#L8) (`DeleteBucketPolicy`)
-- [Delete an empty bucket](actions/delete-bucket.js#L8) (`DeleteBucket`)
-- [Delete an object](actions/delete-object.js#L8) (`DeleteObject`)
-- [Delete multiple objects](actions/delete-objects.js#L8) (`DeleteObjects`)
-- [Delete the website configuration from a bucket](actions/delete-bucket-website.js#L8) (`DeleteBucketWebsite`)
-- [Get CORS rules for a bucket](actions/get-bucket-cors.js#L8) (`GetBucketCors`)
-- [Get an object from a bucket](actions/get-object.js#L8) (`GetObject`)
-- [Get the ACL of a bucket](actions/get-bucket-acl.js#L8) (`GetBucketAcl`)
-- [Get the policy for a bucket](actions/get-bucket-policy.js#L8) (`GetBucketPolicy`)
-- [Get the website configuration for a bucket](actions/get-bucket-website.js#L8) (`GetBucketWebsite`)
-- [List buckets](actions/list-buckets.js#L8) (`ListBuckets`)
-- [List objects in a bucket](actions/list-objects.js#L8) (`ListObjectsV2`)
-- [Set a new ACL for a bucket](actions/put-bucket-acl.js#L8) (`PutBucketAcl`)
-- [Set the website configuration for a bucket](actions/put-bucket-website.js#L8) (`PutBucketWebsite`)
-- [Upload an object to a bucket](actions/put-object.js#L8) (`PutObject`)
+- [Add CORS rules to a bucket](actions/put-bucket-cors.js#L6) (`PutBucketCors`)
+- [Add a policy to a bucket](actions/put-bucket-policy.js#L6) (`PutBucketPolicy`)
+- [Copy an object from one bucket to another](actions/copy-object.js#L6) (`CopyObject`)
+- [Create a bucket](actions/create-bucket.js#L6) (`CreateBucket`)
+- [Delete a policy from a bucket](actions/delete-bucket-policy.js#L6) (`DeleteBucketPolicy`)
+- [Delete an empty bucket](actions/delete-bucket.js#L6) (`DeleteBucket`)
+- [Delete an object](actions/delete-object.js#L6) (`DeleteObject`)
+- [Delete multiple objects](actions/delete-objects.js#L6) (`DeleteObjects`)
+- [Delete the website configuration from a bucket](actions/delete-bucket-website.js#L6) (`DeleteBucketWebsite`)
+- [Get CORS rules for a bucket](actions/get-bucket-cors.js#L6) (`GetBucketCors`)
+- [Get an object from a bucket](actions/get-object.js#L6) (`GetObject`)
+- [Get the ACL of a bucket](actions/get-bucket-acl.js#L6) (`GetBucketAcl`)
+- [Get the policy for a bucket](actions/get-bucket-policy.js#L6) (`GetBucketPolicy`)
+- [Get the website configuration for a bucket](actions/get-bucket-website.js#L6) (`GetBucketWebsite`)
+- [List buckets](actions/list-buckets.js#L6) (`ListBuckets`)
+- [List objects in a bucket](actions/list-objects.js#L6) (`ListObjectsV2`)
+- [Set a new ACL for a bucket](actions/put-bucket-acl.js#L6) (`PutBucketAcl`)
+- [Set the website configuration for a bucket](actions/put-bucket-website.js#L6) (`PutBucketWebsite`)
+- [Upload an object to a bucket](actions/put-object.js#L6) (`PutObject`)
 
 ### Scenarios
 

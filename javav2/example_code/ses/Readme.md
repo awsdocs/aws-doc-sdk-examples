@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [List email templates](src/main/java/com/example/sesv2/ListTemplates.java#L13) (`ListTemplates`)
-- [List identities](src/main/java/com/example/ses/ListIdentities.java#L13) (`ListIdentities`)
-- [Send email](src/main/java/com/example/ses/SendMessageEmailRequest.java#L13) (`SendEmail`)
-- [Send templated email](src/main/java/com/example/sesv2/SendEmailTemplate.java#L13) (`SendTemplatedEmail`)
+- [List email templates](src/main/java/com/example/sesv2/ListTemplates.java#L6) (`ListTemplates`)
+- [List identities](src/main/java/com/example/ses/ListIdentities.java#L6) (`ListIdentities`)
+- [Send email](src/main/java/com/example/ses/SendMessageEmailRequest.java#L6) (`SendEmail`)
+- [Send templated email](src/main/java/com/example/sesv2/SendEmailTemplate.java#L6) (`SendTemplatedEmail`)
 
 
 <!--custom.examples.start-->

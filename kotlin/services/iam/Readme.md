@@ -33,21 +33,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](src/main/kotlin/com/kotlin/iam/AttachRolePolicy.kt#L48) (`AttachRolePolicy`)
-- [Create a policy](src/main/kotlin/com/kotlin/iam/CreatePolicy.kt#L45) (`CreatePolicy`)
-- [Create a user](src/main/kotlin/com/kotlin/iam/CreateUser.kt#L45) (`CreateUser`)
-- [Create an access key](src/main/kotlin/com/kotlin/iam/CreateAccessKey.kt#L46) (`CreateAccessKey`)
-- [Create an alias for an account](src/main/kotlin/com/kotlin/iam/CreateAccountAlias.kt#L45) (`CreateAccountAlias`)
-- [Delete a policy](src/main/kotlin/com/kotlin/iam/DeletePolicy.kt#L44) (`DeletePolicy`)
-- [Delete a user](src/main/kotlin/com/kotlin/iam/DeleteUser.kt#L44) (`DeleteUser`)
-- [Delete an access key](src/main/kotlin/com/kotlin/iam/DeleteAccessKey.kt#L46) (`DeleteAccessKey`)
-- [Delete an account alias](src/main/kotlin/com/kotlin/iam/DeleteAccountAlias.kt#L44) (`DeleteAccountAlias`)
-- [Detach a policy from a role](src/main/kotlin/com/kotlin/iam/DetachRolePolicy.kt#L46) (`DetachRolePolicy`)
-- [Get a policy](src/main/kotlin/com/kotlin/iam/GetPolicy.kt#L43) (`GetPolicy`)
-- [List a user's access keys](src/main/kotlin/com/kotlin/iam/ListAccessKeys.kt#L43) (`ListAccessKeys`)
-- [List account aliases](src/main/kotlin/com/kotlin/iam/ListAccountAliases.kt#L29) (`ListAccountAliases`)
-- [List users](src/main/kotlin/com/kotlin/iam/ListUsers.kt#L29) (`ListUsers`)
-- [Update a user](src/main/kotlin/com/kotlin/iam/UpdateUser.kt#L46) (`UpdateUser`)
+- [Attach a policy to a role](src/main/kotlin/com/kotlin/iam/AttachRolePolicy.kt#L42) (`AttachRolePolicy`)
+- [Create a policy](src/main/kotlin/com/kotlin/iam/CreatePolicy.kt#L39) (`CreatePolicy`)
+- [Create a user](src/main/kotlin/com/kotlin/iam/CreateUser.kt#L39) (`CreateUser`)
+- [Create an access key](src/main/kotlin/com/kotlin/iam/CreateAccessKey.kt#L40) (`CreateAccessKey`)
+- [Create an alias for an account](src/main/kotlin/com/kotlin/iam/CreateAccountAlias.kt#L39) (`CreateAccountAlias`)
+- [Delete a policy](src/main/kotlin/com/kotlin/iam/DeletePolicy.kt#L38) (`DeletePolicy`)
+- [Delete a user](src/main/kotlin/com/kotlin/iam/DeleteUser.kt#L38) (`DeleteUser`)
+- [Delete an access key](src/main/kotlin/com/kotlin/iam/DeleteAccessKey.kt#L40) (`DeleteAccessKey`)
+- [Delete an account alias](src/main/kotlin/com/kotlin/iam/DeleteAccountAlias.kt#L38) (`DeleteAccountAlias`)
+- [Detach a policy from a role](src/main/kotlin/com/kotlin/iam/DetachRolePolicy.kt#L40) (`DetachRolePolicy`)
+- [Get a policy](src/main/kotlin/com/kotlin/iam/GetPolicy.kt#L38) (`GetPolicy`)
+- [List a user's access keys](src/main/kotlin/com/kotlin/iam/ListAccessKeys.kt#L38) (`ListAccessKeys`)
+- [List account aliases](src/main/kotlin/com/kotlin/iam/ListAccountAliases.kt#L23) (`ListAccountAliases`)
+- [List users](src/main/kotlin/com/kotlin/iam/ListUsers.kt#L23) (`ListUsers`)
+- [Update a user](src/main/kotlin/com/kotlin/iam/UpdateUser.kt#L40) (`UpdateUser`)
 
 ### Scenarios
 

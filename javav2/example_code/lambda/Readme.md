@@ -31,16 +31,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Lambda](src/main/java/com/example/lambda/ListLambdaFunctions.java#L10) (`ListFunctions`)
+- [Hello Lambda](src/main/java/com/example/lambda/ListLambdaFunctions.java#L4) (`ListFunctions`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](src/main/java/com/example/lambda/CreateFunction.java#L12) (`CreateFunction`)
-- [Delete a function](src/main/java/com/example/lambda/DeleteFunction.java#L14) (`DeleteFunction`)
-- [Invoke a function](src/main/java/com/example/lambda/LambdaInvoke.java#L14) (`Invoke`)
+- [Create a function](src/main/java/com/example/lambda/CreateFunction.java#L6) (`CreateFunction`)
+- [Delete a function](src/main/java/com/example/lambda/DeleteFunction.java#L7) (`DeleteFunction`)
+- [Invoke a function](src/main/java/com/example/lambda/LambdaInvoke.java#L7) (`Invoke`)
 
 ### Scenarios
 

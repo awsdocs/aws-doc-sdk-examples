@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a ledger](src/bin/create-ledger.rs#L29) (`CreateLedger`)
-- [List your ledgers](src/bin/list-ledgers.rs#L24) (`ListLedgers`)
+- [Create a ledger](src/bin/create-ledger.rs#L27) (`CreateLedger`)
+- [List your ledgers](src/bin/list-ledgers.rs#L22) (`ListLedgers`)
 
 
 <!--custom.examples.start-->

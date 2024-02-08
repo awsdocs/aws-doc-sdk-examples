@@ -36,23 +36,23 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 ### Get started
 
-- [Hello Auto Scaling](GettingStartedWithAutoScaling.php#L245) (`DescribeAutoScalingGroups`)
+- [Hello Auto Scaling](GettingStartedWithAutoScaling.php#L252) (`DescribeAutoScalingGroups`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a group](AutoScalingService.php#L23) (`CreateAutoScalingGroup`)
-- [Delete a group](AutoScalingService.php#L62) (`DeleteAutoScalingGroup`)
-- [Disable metrics collection for a group](AutoScalingService.php#L177) (`DisableMetricsCollection`)
-- [Enable metrics collection for a group](AutoScalingService.php#L167) (`EnableMetricsCollection`)
-- [Get information about groups](AutoScalingService.php#L72) (`DescribeAutoScalingGroups`)
-- [Get information about instances](AutoScalingService.php#L149) (`DescribeAutoScalingInstances`)
-- [Get information about scaling activities](AutoScalingService.php#L158) (`DescribeScalingActivities`)
-- [Set the desired capacity of a group](AutoScalingService.php#L139) (`SetDesiredCapacity`)
-- [Terminate an instance in a group](AutoScalingService.php#L86) (`TerminateInstanceInAutoScalingGroup`)
-- [Update a group](AutoScalingService.php#L43) (`UpdateAutoScalingGroup`)
+- [Create a group](AutoScalingService.php#L22) (`CreateAutoScalingGroup`)
+- [Delete a group](AutoScalingService.php#L61) (`DeleteAutoScalingGroup`)
+- [Disable metrics collection for a group](AutoScalingService.php#L176) (`DisableMetricsCollection`)
+- [Enable metrics collection for a group](AutoScalingService.php#L166) (`EnableMetricsCollection`)
+- [Get information about groups](AutoScalingService.php#L71) (`DescribeAutoScalingGroups`)
+- [Get information about instances](AutoScalingService.php#L148) (`DescribeAutoScalingInstances`)
+- [Get information about scaling activities](AutoScalingService.php#L157) (`DescribeScalingActivities`)
+- [Set the desired capacity of a group](AutoScalingService.php#L138) (`SetDesiredCapacity`)
+- [Terminate an instance in a group](AutoScalingService.php#L85) (`TerminateInstanceInAutoScalingGroup`)
+- [Update a group](AutoScalingService.php#L42) (`UpdateAutoScalingGroup`)
 
 ### Scenarios
 

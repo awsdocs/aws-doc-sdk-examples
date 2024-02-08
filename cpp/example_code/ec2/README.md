@@ -46,28 +46,28 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add tags to resources](create_instance.cpp#L74) (`CreateTags`)
-- [Allocate an Elastic IP address](allocate_address.cpp#L45) (`AllocateAddress`)
-- [Associate an Elastic IP address with an instance](allocate_address.cpp#L60) (`AssociateAddress`)
-- [Create a security group](create_security_group.cpp#L61) (`CreateSecurityGroup`)
-- [Create a security key pair](create_key_pair.cpp#L35) (`CreateKeyPair`)
-- [Create and run an instance](create_instance.cpp#L46) (`RunInstances`)
-- [Delete a security group](delete_security_group.cpp#L34) (`DeleteSecurityGroup`)
-- [Delete a security key pair](delete_key_pair.cpp#L35) (`DeleteKeyPair`)
-- [Describe Availability Zones](describe_regions_and_zones.cpp#L40) (`DescribeAvailabilityZones`)
-- [Describe Regions](describe_regions_and_zones.cpp#L43) (`DescribeRegions`)
-- [Describe instances](describe_instances.cpp#L35) (`DescribeInstances`)
-- [Disable detailed monitoring](monitor_instance.cpp#L84) (`UnmonitorInstances`)
-- [Enable monitoring](monitor_instance.cpp#L37) (`MonitorInstances`)
-- [Get data about a security group](describe_security_groups.cpp#L36) (`DescribeSecurityGroups`)
-- [Get details about Elastic IP addresses](describe_addresses.cpp#L35) (`DescribeAddresses`)
-- [List security key pairs](describe_key_pairs.cpp#L35) (`DescribeKeyPairs`)
-- [Reboot an instance](reboot_instance.cpp#L34) (`RebootInstances`)
-- [Release an Elastic IP address](release_address.cpp#L33) (`ReleaseAddress`)
-- [Set inbound rules for a security group](allocate_address.cpp#L41) (`AuthorizeSecurityGroupIngress`)
-- [Start an instance](start_stop_instance.cpp#L39) (`StartInstances`)
-- [Stop an instance](start_stop_instance.cpp#L85) (`StopInstances`)
-- [Terminate an instance](terminate_instances.cpp#L32) (`TerminateInstances`)
+- [Add tags to resources](create_instance.cpp#L72) (`CreateTags`)
+- [Allocate an Elastic IP address](allocate_address.cpp#L43) (`AllocateAddress`)
+- [Associate an Elastic IP address with an instance](allocate_address.cpp#L58) (`AssociateAddress`)
+- [Create a security group](create_security_group.cpp#L59) (`CreateSecurityGroup`)
+- [Create a security key pair](create_key_pair.cpp#L33) (`CreateKeyPair`)
+- [Create and run an instance](create_instance.cpp#L44) (`RunInstances`)
+- [Delete a security group](delete_security_group.cpp#L32) (`DeleteSecurityGroup`)
+- [Delete a security key pair](delete_key_pair.cpp#L34) (`DeleteKeyPair`)
+- [Describe Availability Zones](describe_regions_and_zones.cpp#L38) (`DescribeAvailabilityZones`)
+- [Describe Regions](describe_regions_and_zones.cpp#L41) (`DescribeRegions`)
+- [Describe instances](describe_instances.cpp#L33) (`DescribeInstances`)
+- [Disable detailed monitoring](monitor_instance.cpp#L82) (`UnmonitorInstances`)
+- [Enable monitoring](monitor_instance.cpp#L35) (`MonitorInstances`)
+- [Get data about a security group](describe_security_groups.cpp#L34) (`DescribeSecurityGroups`)
+- [Get details about Elastic IP addresses](describe_addresses.cpp#L33) (`DescribeAddresses`)
+- [List security key pairs](describe_key_pairs.cpp#L33) (`DescribeKeyPairs`)
+- [Reboot an instance](reboot_instance.cpp#L32) (`RebootInstances`)
+- [Release an Elastic IP address](release_address.cpp#L31) (`ReleaseAddress`)
+- [Set inbound rules for a security group](allocate_address.cpp#L39) (`AuthorizeSecurityGroupIngress`)
+- [Start an instance](start_stop_instance.cpp#L38) (`StartInstances`)
+- [Stop an instance](start_stop_instance.cpp#L84) (`StopInstances`)
+- [Terminate an instance](terminate_instances.cpp#L30) (`TerminateInstances`)
 
 
 <!--custom.examples.start-->
@@ -77,7 +77,7 @@ Code excerpts that show you how to call individual service functions.
 
 ### Instructions
 
-An executable is built for each source file. These executables are located in the build folder and have
+An executable is built for each source file in this folder. These executables are located in the build folder and have
 "run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
 
 For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
@@ -86,6 +86,9 @@ will display any required arguments.
 ```
 ./run_my_action
 ```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

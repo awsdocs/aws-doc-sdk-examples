@@ -33,19 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](iam_operations.sh#L501) (`AttachRolePolicy`)
-- [Create a policy](iam_operations.sh#L426) (`CreatePolicy`)
-- [Create a role](iam_operations.sh#L347) (`CreateRole`)
-- [Create a user](iam_operations.sh#L118) (`CreateUser`)
-- [Create an access key](iam_operations.sh#L197) (`CreateAccessKey`)
-- [Delete a policy](iam_operations.sh#L651) (`DeletePolicy`)
-- [Delete a role](iam_operations.sh#L721) (`DeleteRole`)
-- [Delete a user](iam_operations.sh#L873) (`DeleteUser`)
-- [Delete an access key](iam_operations.sh#L792) (`DeleteAccessKey`)
-- [Detach a policy from a role](iam_operations.sh#L576) (`DetachRolePolicy`)
-- [Get a user](iam_operations.sh#L22) (`GetUser`)
-- [List a user's access keys](iam_operations.sh#L278) (`ListAccessKeys`)
-- [List users](iam_operations.sh#L61) (`ListUsers`)
+- [Attach a policy to a role](iam_operations.sh#L503) (`AttachRolePolicy`)
+- [Create a policy](iam_operations.sh#L428) (`CreatePolicy`)
+- [Create a role](iam_operations.sh#L349) (`CreateRole`)
+- [Create a user](iam_operations.sh#L120) (`CreateUser`)
+- [Create an access key](iam_operations.sh#L199) (`CreateAccessKey`)
+- [Delete a policy](iam_operations.sh#L653) (`DeletePolicy`)
+- [Delete a role](iam_operations.sh#L723) (`DeleteRole`)
+- [Delete a user](iam_operations.sh#L875) (`DeleteUser`)
+- [Delete an access key](iam_operations.sh#L794) (`DeleteAccessKey`)
+- [Detach a policy from a role](iam_operations.sh#L578) (`DetachRolePolicy`)
+- [Get a user](iam_operations.sh#L24) (`GetUser`)
+- [List a user's access keys](iam_operations.sh#L280) (`ListAccessKeys`)
+- [List users](iam_operations.sh#L63) (`ListUsers`)
 
 ### Scenarios
 

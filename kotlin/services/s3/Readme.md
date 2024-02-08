@@ -33,16 +33,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](src/main/kotlin/com/kotlin/s3/CopyObject.kt#L52) (`CopyObject`)
-- [Create a bucket](src/main/kotlin/com/kotlin/s3/CreateBucket.kt#L43) (`CreateBucket`)
-- [Delete a policy from a bucket](src/main/kotlin/com/kotlin/s3/DeleteBucketPolicy.kt#L45) (`DeleteBucketPolicy`)
-- [Delete multiple objects](src/main/kotlin/com/kotlin/s3/DeleteObjects.kt#L48) (`DeleteObjects`)
-- [Get an object from a bucket](src/main/kotlin/com/kotlin/s3/GetObjectData.kt#L50) (`GetObject`)
-- [Get the ACL of an object](src/main/kotlin/com/kotlin/s3/GetAcl.kt#L45) (`GetObjectAcl`)
-- [Get the policy for a bucket](src/main/kotlin/com/kotlin/s3/GetBucketPolicy.kt#L46) (`GetBucketPolicy`)
-- [List objects in a bucket](src/main/kotlin/com/kotlin/s3/ListObjects.kt#L44) (`ListObjectsV2`)
-- [Set a new ACL for a bucket](src/main/kotlin/com/kotlin/s3/SetAcl.kt#L52) (`PutBucketAcl`)
-- [Upload an object to a bucket](src/main/kotlin/com/kotlin/s3/PutObject.kt#L50) (`PutObject`)
+- [Copy an object from one bucket to another](src/main/kotlin/com/kotlin/s3/CopyObject.kt#L45) (`CopyObject`)
+- [Create a Multi-Region Access Point](src/main/kotlin/com/kotlin/s3/MrapExample.kt#L182) (`CreateMultiRegionAccessPoint`)
+- [Create a bucket](src/main/kotlin/com/kotlin/s3/CreateBucket.kt#L36) (`CreateBucket`)
+- [Delete a policy from a bucket](src/main/kotlin/com/kotlin/s3/DeleteBucketPolicy.kt#L38) (`DeleteBucketPolicy`)
+- [Delete multiple objects](src/main/kotlin/com/kotlin/s3/DeleteObjects.kt#L41) (`DeleteObjects`)
+- [Get an object from a Multi-Region Access Point](src/main/kotlin/com/kotlin/s3/MrapExample.kt#L171) (`GetObject`)
+- [Get an object from a bucket](src/main/kotlin/com/kotlin/s3/GetObjectData.kt#L43) (`GetObject`)
+- [Get the ACL of an object](src/main/kotlin/com/kotlin/s3/GetAcl.kt#L39) (`GetObjectAcl`)
+- [Get the policy for a bucket](src/main/kotlin/com/kotlin/s3/GetBucketPolicy.kt#L39) (`GetBucketPolicy`)
+- [List objects in a bucket](src/main/kotlin/com/kotlin/s3/ListObjects.kt#L37) (`ListObjectsV2`)
+- [Set a new ACL for a bucket](src/main/kotlin/com/kotlin/s3/SetAcl.kt#L45) (`PutBucketAcl`)
+- [Upload an object to a bucket](src/main/kotlin/com/kotlin/s3/PutObject.kt#L43) (`PutObject`)
 
 ### Scenarios
 

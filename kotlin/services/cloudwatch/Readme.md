@@ -36,31 +36,31 @@ To run these examples, you must have the following three JSON files: jsonWidgets
 
 ### Get started
 
-- [Hello CloudWatch](src/main/kotlin/com/kotlin/cloudwatch/HelloService.kt#L17) (`ListMetrics`)
+- [Hello CloudWatch](src/main/kotlin/com/kotlin/cloudwatch/HelloService.kt#L11) (`ListMetrics`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a dashboard](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L680) (`PutDashboard`)
-- [Create a metric alarm](src/main/kotlin/com/kotlin/cloudwatch/PutMetricAlarm.kt#L51) (`PutMetricAlarm`)
-- [Create an anomaly detector](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L384) (`PutAnomalyDetector`)
-- [Delete alarms](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L301) (`DeleteAlarms`)
-- [Delete an anomaly detector](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L276) (`DeleteAnomalyDetector`)
-- [Delete dashboards](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L314) (`DeleteDashboards`)
-- [Describe alarm history](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L409) (`DescribeAlarmHistory`)
-- [Describe alarms](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L566) (`DescribeAlarms`)
-- [Describe alarms for a metric](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L442) (`DescribeAlarmsForMetric`)
-- [Describe anomaly detectors](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L361) (`DescribeAnomalyDetectors`)
-- [Disable alarm actions](src/main/kotlin/com/kotlin/cloudwatch/DisableAlarmActions.kt#L46) (`DisableAlarmActions`)
-- [Enable alarm actions](src/main/kotlin/com/kotlin/cloudwatch/EnableAlarmActions.kt#L45) (`EnableAlarmActions`)
-- [Get a metric data image](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L326) (`GetMetricWidgetImage`)
-- [Get metric data](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L512) (`GetMetricData`)
-- [Get metric statistics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L745) (`GetMetricStatistics`)
-- [List dashboards](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L667) (`ListDashboards`)
-- [List metrics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L775) (`ListMetrics`)
-- [Put data into a metric](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L471) (`PutMetricData`)
+- [Create a dashboard](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L674) (`PutDashboard`)
+- [Create a metric alarm](src/main/kotlin/com/kotlin/cloudwatch/PutMetricAlarm.kt#L45) (`PutMetricAlarm`)
+- [Create an anomaly detector](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L378) (`PutAnomalyDetector`)
+- [Delete alarms](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L295) (`DeleteAlarms`)
+- [Delete an anomaly detector](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L270) (`DeleteAnomalyDetector`)
+- [Delete dashboards](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L308) (`DeleteDashboards`)
+- [Describe alarm history](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L403) (`DescribeAlarmHistory`)
+- [Describe alarms](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L560) (`DescribeAlarms`)
+- [Describe alarms for a metric](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L436) (`DescribeAlarmsForMetric`)
+- [Describe anomaly detectors](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L355) (`DescribeAnomalyDetectors`)
+- [Disable alarm actions](src/main/kotlin/com/kotlin/cloudwatch/DisableAlarmActions.kt#L40) (`DisableAlarmActions`)
+- [Enable alarm actions](src/main/kotlin/com/kotlin/cloudwatch/EnableAlarmActions.kt#L39) (`EnableAlarmActions`)
+- [Get a metric data image](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L320) (`GetMetricWidgetImage`)
+- [Get metric data](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L506) (`GetMetricData`)
+- [Get metric statistics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L739) (`GetMetricStatistics`)
+- [List dashboards](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L661) (`ListDashboards`)
+- [List metrics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L769) (`ListMetrics`)
+- [Put data into a metric](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L465) (`PutMetricData`)
 
 ### Scenarios
 

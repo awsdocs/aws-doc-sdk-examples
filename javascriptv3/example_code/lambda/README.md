@@ -31,20 +31,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Lambda](hello.js#L8) (`ListFunctions`)
+- [Hello Lambda](hello.js#L6) (`ListFunctions`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](actions/create-function.js#L17) (`CreateFunction`)
-- [Delete a function](actions/delete-function.js#L7) (`DeleteFunction`)
-- [Get a function](actions/get-function.js#L7) (`GetFunction`)
-- [Invoke a function](actions/invoke.js#L7) (`Invoke`)
-- [List functions](actions/list-functions.js#L7) (`ListFunctions`)
-- [Update function code](actions/update-function-code.js#L17) (`UpdateFunctionCode`)
-- [Update function configuration](actions/update-function-configuration.js#L14) (`UpdateFunctionConfiguration`)
+- [Create a function](actions/create-function.js#L15) (`CreateFunction`)
+- [Delete a function](actions/delete-function.js#L5) (`DeleteFunction`)
+- [Get a function](actions/get-function.js#L5) (`GetFunction`)
+- [Invoke a function](actions/invoke.js#L5) (`Invoke`)
+- [List functions](actions/list-functions.js#L5) (`ListFunctions`)
+- [Update function code](actions/update-function-code.js#L15) (`UpdateFunctionCode`)
+- [Update function configuration](actions/update-function-configuration.js#L12) (`UpdateFunctionConfiguration`)
 
 ### Scenarios
 

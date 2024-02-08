@@ -31,33 +31,33 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon SNS](src/main/java/com/example/sns/HelloSNS.java#L8) (`ListTopics`)
+- [Hello Amazon SNS](src/main/java/com/example/sns/HelloSNS.java#L4) (`ListTopics`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add tags to a topic](src/main/java/com/example/sns/AddTags.java#L11) (`TagResource`)
-- [Check whether a phone number is opted out](src/main/java/com/example/sns/CheckOptOut.java#L10) (`CheckIfPhoneNumberIsOptedOut`)
-- [Confirm an endpoint owner wants to receive messages](src/main/java/com/example/sns/ConfirmSubscription.java#L12) (`ConfirmSubscription`)
-- [Create a topic](src/main/java/com/example/sns/CreateTopic.java#L12) (`CreateTopic`)
-- [Delete a subscription](src/main/java/com/example/sns/Unsubscribe.java#L12) (`Unsubscribe`)
-- [Delete a topic](src/main/java/com/example/sns/DeleteTopic.java#L11) (`DeleteTopic`)
-- [Get the properties of a topic](src/main/java/com/example/sns/GetTopicAttributes.java#L12) (`GetTopicAttributes`)
-- [Get the settings for sending SMS messages](src/main/java/com/example/sns/GetSMSAtrributes.java#L12) (`GetSMSAttributes`)
-- [List opted out phone numbers](src/main/java/com/example/sns/ListOptOut.java#L11) (`ListPhoneNumbersOptedOut`)
-- [List the subscribers of a topic](src/main/java/com/example/sns/ListSubscriptions.java#L12) (`ListSubscriptions`)
-- [List topics](src/main/java/com/example/sns/ListTopics.java#L12) (`ListTopics`)
-- [Publish an SMS text message](src/main/java/com/example/sns/PublishTextSMS.java#L11) (`Publish`)
-- [Publish to a topic](src/main/java/com/example/sns/PublishTopic.java#L12) (`Publish`)
+- [Add tags to a topic](src/main/java/com/example/sns/AddTags.java#L6) (`TagResource`)
+- [Check whether a phone number is opted out](src/main/java/com/example/sns/CheckOptOut.java#L6) (`CheckIfPhoneNumberIsOptedOut`)
+- [Confirm an endpoint owner wants to receive messages](src/main/java/com/example/sns/ConfirmSubscription.java#L6) (`ConfirmSubscription`)
+- [Create a topic](src/main/java/com/example/sns/CreateTopic.java#L6) (`CreateTopic`)
+- [Delete a subscription](src/main/java/com/example/sns/Unsubscribe.java#L6) (`Unsubscribe`)
+- [Delete a topic](src/main/java/com/example/sns/DeleteTopic.java#L6) (`DeleteTopic`)
+- [Get the properties of a topic](src/main/java/com/example/sns/GetTopicAttributes.java#L6) (`GetTopicAttributes`)
+- [Get the settings for sending SMS messages](src/main/java/com/example/sns/GetSMSAtrributes.java#L6) (`GetSMSAttributes`)
+- [List opted out phone numbers](src/main/java/com/example/sns/ListOptOut.java#L6) (`ListPhoneNumbersOptedOut`)
+- [List the subscribers of a topic](src/main/java/com/example/sns/ListSubscriptions.java#L6) (`ListSubscriptions`)
+- [List topics](src/main/java/com/example/sns/ListTopics.java#L6) (`ListTopics`)
+- [Publish an SMS text message](src/main/java/com/example/sns/PublishTextSMS.java#L6) (`Publish`)
+- [Publish to a topic](src/main/java/com/example/sns/PublishTopic.java#L6) (`Publish`)
 - [Set a dead-letter queue for a subscription](None) (`SetSubscriptionAttributesRedrivePolicy`)
-- [Set a filter policy](src/main/java/com/example/sns/UseMessageFilterPolicy.java#L12) (`SetSubscriptionAttributes`)
-- [Set the default settings for sending SMS messages](src/main/java/com/example/sns/SetSMSAttributes.java#L11) (`SetSMSAttributes`)
-- [Set topic attributes](src/main/java/com/example/sns/SetTopicAttributes.java#L12) (`SetTopicAttributes`)
-- [Subscribe a Lambda function to a topic](src/main/java/com/example/sns/SubscribeLambda.java#L12) (`Subscribe`)
-- [Subscribe an HTTP endpoint to a topic](src/main/java/com/example/sns/SubscribeHTTPS.java#L12) (`Subscribe`)
-- [Subscribe an email address to a topic](src/main/java/com/example/sns/SubscribeEmail.java#L12) (`Subscribe`)
+- [Set a filter policy](src/main/java/com/example/sns/UseMessageFilterPolicy.java#L6) (`SetSubscriptionAttributes`)
+- [Set the default settings for sending SMS messages](src/main/java/com/example/sns/SetSMSAttributes.java#L6) (`SetSMSAttributes`)
+- [Set topic attributes](src/main/java/com/example/sns/SetTopicAttributes.java#L6) (`SetTopicAttributes`)
+- [Subscribe a Lambda function to a topic](src/main/java/com/example/sns/SubscribeLambda.java#L6) (`Subscribe`)
+- [Subscribe an HTTP endpoint to a topic](src/main/java/com/example/sns/SubscribeHTTPS.java#L6) (`Subscribe`)
+- [Subscribe an email address to a topic](src/main/java/com/example/sns/SubscribeEmail.java#L6) (`Subscribe`)
 
 ### Scenarios
 

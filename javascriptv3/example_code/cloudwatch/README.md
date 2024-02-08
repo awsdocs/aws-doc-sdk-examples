@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a metric alarm](actions/put-metric-alarm.js#L6) (`PutMetricAlarm`)
-- [Delete alarms](actions/delete-alarms.js#L6) (`DeleteAlarms`)
-- [Describe alarms for a metric](actions/describe-alarms.js#L6) (`DescribeAlarmsForMetric`)
-- [Disable alarm actions](actions/disable-alarm-actions.js#L6) (`DisableAlarmActions`)
-- [Enable alarm actions](actions/enable-alarm-actions.js#L6) (`EnableAlarmActions`)
-- [List metrics](actions/list-metrics.js#L6) (`ListMetrics`)
-- [Put data into a metric](actions/put-metric-data.js#L6) (`PutMetricData`)
+- [Create a metric alarm](actions/put-metric-alarm.js#L4) (`PutMetricAlarm`)
+- [Delete alarms](actions/delete-alarms.js#L4) (`DeleteAlarms`)
+- [Describe alarms for a metric](actions/describe-alarms.js#L4) (`DescribeAlarmsForMetric`)
+- [Disable alarm actions](actions/disable-alarm-actions.js#L4) (`DisableAlarmActions`)
+- [Enable alarm actions](actions/enable-alarm-actions.js#L4) (`EnableAlarmActions`)
+- [List metrics](actions/list-metrics.js#L4) (`ListMetrics`)
+- [Put data into a metric](actions/put-metric-data.js#L4) (`PutMetricData`)
 
 
 <!--custom.examples.start-->

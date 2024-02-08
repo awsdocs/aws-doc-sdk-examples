@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [List notebook instances](src/bin/sagemaker-helloworld.rs#L24) (`ListNotebookInstances`)
-- [List training jobs](src/bin/list-training-jobs.rs#L26) (`ListTrainingJobs`)
+- [List notebook instances](src/bin/sagemaker-helloworld.rs#L22) (`ListNotebookInstances`)
+- [List training jobs](src/bin/list-training-jobs.rs#L24) (`ListTrainingJobs`)
 
 
 <!--custom.examples.start-->

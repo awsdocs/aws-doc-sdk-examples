@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a topic](src/bin/create-topic.rs#L28) (`CreateTopic`)
-- [List topics](src/bin/list-topics.rs#L24) (`ListTopics`)
-- [Publish to a topic](src/bin/sns-hello-world.rs#L32) (`Publish`)
-- [Subscribe an email address to a topic](src/bin/sns-hello-world.rs#L32) (`Subscribe`)
+- [Create a topic](src/bin/create-topic.rs#L26) (`CreateTopic`)
+- [List topics](src/bin/list-topics.rs#L22) (`ListTopics`)
+- [Publish to a topic](src/bin/sns-hello-world.rs#L30) (`Publish`)
+- [Subscribe an email address to a topic](src/bin/sns-hello-world.rs#L30) (`Subscribe`)
 
 
 <!--custom.examples.start-->

@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get a secret value](actions/get-secret-value.js#L7) (`GetSecretValue`)
+- [Get a secret value](actions/get-secret-value.js#L5) (`GetSecretValue`)
 
 
 <!--custom.examples.start-->

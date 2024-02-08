@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a cluster](src/main/java/com/example/redshift/CreateAndModifyCluster.java#L93) (`CreateCluster`)
-- [Delete a cluster](src/main/java/com/example/redshift/DeleteCluster.java#L12) (`DeleteCluster`)
-- [Describe your clusters](src/main/java/com/example/redshift/DescribeClusters.java#L12) (`DescribeClusters`)
-- [Modify a cluster](src/main/java/com/example/redshift/CreateAndModifyCluster.java#L152) (`ModifyCluster`)
+- [Create a cluster](src/main/java/com/example/redshift/CreateAndModifyCluster.java#L91) (`CreateCluster`)
+- [Delete a cluster](src/main/java/com/example/redshift/DeleteCluster.java#L6) (`DeleteCluster`)
+- [Describe your clusters](src/main/java/com/example/redshift/DescribeClusters.java#L6) (`DescribeClusters`)
+- [Modify a cluster](src/main/java/com/example/redshift/CreateAndModifyCluster.java#L150) (`ModifyCluster`)
 
 
 <!--custom.examples.start-->
