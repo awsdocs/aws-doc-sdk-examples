@@ -57,9 +57,8 @@ Before running the JUnit tests, you must define values in the **config.propertie
 
 Define these values to successfully run the JUnit tests:
 
-- **tableId** - The table Id value (for example, table/Music).  
-- **roleARN** - The ARN of the role that has ApplicationAutoScaling permissions.
-- **policyName** - The name of the policy to create.
+- **roleARN** - The ARN of an IAM role that has permission to work with AWS IOT.
+- **snsAction**  - An ARN of an SNS topic.
 
 ## Additional resources
 * [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
