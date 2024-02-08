@@ -33,11 +33,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a parameter](src/main/java/com/example/ssm/PutParameter.java#L13) (`PutParameter`)
-- [Create a new OpsItem](src/main/java/com/example/ssm/CreateOpsItem.java#L13) (`CreateOpsItem`)
-- [Describe an OpsItem](src/main/java/com/example/ssm/DescribeOpsItems.java#L13) (`DescribeOpsItems`)
-- [Get parameters information](src/main/java/com/example/ssm/GetParameter.java#L13) (`DescribeParameters`)
-- [Updates an OpsItem](src/main/java/com/example/ssm/ResolveOpsItem.java#L13) (`UpdateOpsItem`)
+- [Add a parameter](src/main/java/com/example/ssm/PutParameter.java#L6) (`PutParameter`)
+- [Create a new OpsItem](src/main/java/com/example/ssm/CreateOpsItem.java#L6) (`CreateOpsItem`)
+- [Describe an OpsItem](src/main/java/com/example/ssm/DescribeOpsItems.java#L6) (`DescribeOpsItems`)
+- [Get parameters information](src/main/java/com/example/ssm/GetParameter.java#L6) (`DescribeParameters`)
+- [Updates an OpsItem](src/main/java/com/example/ssm/ResolveOpsItem.java#L6) (`UpdateOpsItem`)
 
 
 <!--custom.examples.start-->

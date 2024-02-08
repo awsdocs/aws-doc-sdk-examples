@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a distribution](src/main/java/com/example/cloudfront/CreateDistribution.java#L11) (`CreateDistribution`)
-- [Create a function](src/main/java/com/example/cloudfront/CreateFunction.java#L12) (`CreateFunction`)
-- [Create a key group](src/main/java/com/example/cloudfront/CreateKeyGroup.java#L11) (`CreateKeyGroup`)
-- [Delete a distribution](src/main/java/com/example/cloudfront/DeleteDistribution.java#L11) (`DeleteDistribution`)
-- [Delete signing resources](src/main/java/com/example/cloudfront/DeleteSigningResources.java#L11) (`DeleteKeyGroup`)
-- [Update a distribution](src/main/java/com/example/cloudfront/ModifyDistribution.java#L12) (`UpdateDistribution`)
-- [Upload a public key](src/main/java/com/example/cloudfront/CreatePublicKey.java#L11) (`CreatePublicKey`)
+- [Create a distribution](src/main/java/com/example/cloudfront/CreateDistribution.java#L6) (`CreateDistribution`)
+- [Create a function](src/main/java/com/example/cloudfront/CreateFunction.java#L6) (`CreateFunction`)
+- [Create a key group](src/main/java/com/example/cloudfront/CreateKeyGroup.java#L6) (`CreateKeyGroup`)
+- [Delete a distribution](src/main/java/com/example/cloudfront/DeleteDistribution.java#L6) (`DeleteDistribution`)
+- [Delete signing resources](src/main/java/com/example/cloudfront/DeleteSigningResources.java#L6) (`DeleteKeyGroup`)
+- [Update a distribution](src/main/java/com/example/cloudfront/ModifyDistribution.java#L6) (`UpdateDistribution`)
+- [Upload a public key](src/main/java/com/example/cloudfront/CreatePublicKey.java#L6) (`CreatePublicKey`)
 
 ### Scenarios
 

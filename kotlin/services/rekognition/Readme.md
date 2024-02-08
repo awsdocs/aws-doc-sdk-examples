@@ -33,19 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Compare faces in an image against a reference image](src/main/kotlin/com/kotlin/rekognition/CompareFaces.kt#L48) (`CompareFaces`)
-- [Create a collection](src/main/kotlin/com/kotlin/rekognition/CreateCollection.kt#L44) (`CreateCollection`)
-- [Delete a collection](src/main/kotlin/com/kotlin/rekognition/DeleteCollection.kt#L44) (`DeleteCollection`)
-- [Delete faces from a collection](src/main/kotlin/com/kotlin/rekognition/DeleteFacesFromCollection.kt#L43) (`DeleteFaces`)
-- [Describe a collection](src/main/kotlin/com/kotlin/rekognition/DescribeCollection.kt#L44) (`DescribeCollection`)
-- [Detect faces in an image](src/main/kotlin/com/kotlin/rekognition/DetectFaces.kt#L46) (`DetectFaces`)
-- [Detect labels in an image](src/main/kotlin/com/kotlin/rekognition/DetectLabels.kt#L45) (`DetectLabels`)
-- [Detect moderation labels in an image](src/main/kotlin/com/kotlin/rekognition/DetectModerationLabels.kt#L44) (`DetectModerationLabels`)
-- [Detect text in an image](src/main/kotlin/com/kotlin/rekognition/DetectText.kt#L45) (`DetectText`)
-- [Index faces to a collection](src/main/kotlin/com/kotlin/rekognition/AddFacesToCollection.kt#L48) (`IndexFaces`)
-- [List collections](src/main/kotlin/com/kotlin/rekognition/ListCollections.kt#L27) (`ListCollections`)
-- [List faces in a collection](src/main/kotlin/com/kotlin/rekognition/ListFacesInCollection.kt#L42) (`ListFaces`)
-- [Recognize celebrities in an image](src/main/kotlin/com/kotlin/rekognition/RecognizeCelebrities.kt#L45) (`RecognizeCelebrities`)
+- [Compare faces in an image against a reference image](src/main/kotlin/com/kotlin/rekognition/CompareFaces.kt#L43) (`CompareFaces`)
+- [Create a collection](src/main/kotlin/com/kotlin/rekognition/CreateCollection.kt#L38) (`CreateCollection`)
+- [Delete a collection](src/main/kotlin/com/kotlin/rekognition/DeleteCollection.kt#L39) (`DeleteCollection`)
+- [Delete faces from a collection](src/main/kotlin/com/kotlin/rekognition/DeleteFacesFromCollection.kt#L38) (`DeleteFaces`)
+- [Describe a collection](src/main/kotlin/com/kotlin/rekognition/DescribeCollection.kt#L39) (`DescribeCollection`)
+- [Detect faces in an image](src/main/kotlin/com/kotlin/rekognition/DetectFaces.kt#L41) (`DetectFaces`)
+- [Detect labels in an image](src/main/kotlin/com/kotlin/rekognition/DetectLabels.kt#L40) (`DetectLabels`)
+- [Detect moderation labels in an image](src/main/kotlin/com/kotlin/rekognition/DetectModerationLabels.kt#L39) (`DetectModerationLabels`)
+- [Detect text in an image](src/main/kotlin/com/kotlin/rekognition/DetectText.kt#L40) (`DetectText`)
+- [Index faces to a collection](src/main/kotlin/com/kotlin/rekognition/AddFacesToCollection.kt#L43) (`IndexFaces`)
+- [List collections](src/main/kotlin/com/kotlin/rekognition/ListCollections.kt#L22) (`ListCollections`)
+- [List faces in a collection](src/main/kotlin/com/kotlin/rekognition/ListFacesInCollection.kt#L37) (`ListFaces`)
+- [Recognize celebrities in an image](src/main/kotlin/com/kotlin/rekognition/RecognizeCelebrities.kt#L40) (`RecognizeCelebrities`)
 
 ### Scenarios
 

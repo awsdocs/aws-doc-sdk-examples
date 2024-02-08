@@ -31,31 +31,31 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Amazon SNS](hello.js#L8) (`ListTopics`)
+- [Hello Amazon SNS](hello.js#L6) (`ListTopics`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Check whether a phone number is opted out](libs/snsClient.js#L6) (`CheckIfPhoneNumberIsOptedOut`)
-- [Confirm an endpoint owner wants to receive messages](libs/snsClient.js#L6) (`ConfirmSubscription`)
-- [Create a topic](libs/snsClient.js#L6) (`CreateTopic`)
-- [Delete a subscription](libs/snsClient.js#L6) (`Unsubscribe`)
-- [Delete a topic](libs/snsClient.js#L6) (`DeleteTopic`)
-- [Get the properties of a topic](libs/snsClient.js#L6) (`GetTopicAttributes`)
-- [Get the settings for sending SMS messages](libs/snsClient.js#L6) (`GetSMSAttributes`)
-- [List the subscribers of a topic](libs/snsClient.js#L6) (`ListSubscriptions`)
-- [List topics](libs/snsClient.js#L6) (`ListTopics`)
-- [Publish a message with an attribute](../cross-services/wkflw-topics-queues/TopicsQueuesWkflw.js#L269) (`Publish`)
-- [Publish to a topic](libs/snsClient.js#L6) (`Publish`)
-- [Set the default settings for sending SMS messages](libs/snsClient.js#L6) (`SetSMSAttributes`)
-- [Set topic attributes](libs/snsClient.js#L6) (`SetTopicAttributes`)
-- [Subscribe a Lambda function to a topic](libs/snsClient.js#L6) (`Subscribe`)
-- [Subscribe a mobile application to a topic](libs/snsClient.js#L6) (`Subscribe`)
-- [Subscribe an SQS queue to a topic](actions/subscribe-queue.js#L8) (`Subscribe`)
-- [Subscribe an email address to a topic](libs/snsClient.js#L6) (`Subscribe`)
-- [Subscribe with a filter to a topic](actions/subscribe-queue-filtered.js#L8) (`Subscribe`)
+- [Check whether a phone number is opted out](libs/snsClient.js#L4) (`CheckIfPhoneNumberIsOptedOut`)
+- [Confirm an endpoint owner wants to receive messages](libs/snsClient.js#L4) (`ConfirmSubscription`)
+- [Create a topic](libs/snsClient.js#L4) (`CreateTopic`)
+- [Delete a subscription](libs/snsClient.js#L4) (`Unsubscribe`)
+- [Delete a topic](libs/snsClient.js#L4) (`DeleteTopic`)
+- [Get the properties of a topic](libs/snsClient.js#L4) (`GetTopicAttributes`)
+- [Get the settings for sending SMS messages](libs/snsClient.js#L4) (`GetSMSAttributes`)
+- [List the subscribers of a topic](libs/snsClient.js#L4) (`ListSubscriptions`)
+- [List topics](libs/snsClient.js#L4) (`ListTopics`)
+- [Publish a message with an attribute](../cross-services/wkflw-topics-queues/TopicsQueuesWkflw.js#L267) (`Publish`)
+- [Publish to a topic](libs/snsClient.js#L4) (`Publish`)
+- [Set the default settings for sending SMS messages](libs/snsClient.js#L4) (`SetSMSAttributes`)
+- [Set topic attributes](libs/snsClient.js#L4) (`SetTopicAttributes`)
+- [Subscribe a Lambda function to a topic](libs/snsClient.js#L4) (`Subscribe`)
+- [Subscribe a mobile application to a topic](libs/snsClient.js#L4) (`Subscribe`)
+- [Subscribe an SQS queue to a topic](actions/subscribe-queue.js#L6) (`Subscribe`)
+- [Subscribe an email address to a topic](libs/snsClient.js#L4) (`Subscribe`)
+- [Subscribe with a filter to a topic](actions/subscribe-queue-filtered.js#L6) (`Subscribe`)
 
 
 <!--custom.examples.start-->

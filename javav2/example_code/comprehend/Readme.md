@@ -33,12 +33,12 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a document classifier](src/main/java/com/example/comprehend/DocumentClassifierDemo.java#L11) (`CreateDocumentClassifier`)
-- [Detect entities in a document](src/main/java/com/example/comprehend/DetectEntities.java#L12) (`DetectEntities`)
-- [Detect key phrases in a document](src/main/java/com/example/comprehend/DetectKeyPhrases.java#L12) (`DetectKeyPhrases`)
-- [Detect syntactical elements of a document](src/main/java/com/example/comprehend/DetectSyntax.java#L11) (`DetectSyntax`)
-- [Detect the dominant language in a document](src/main/java/com/example/comprehend/DetectLanguage.java#L12) (`DetectDominantLanguage`)
-- [Detect the sentiment of a document](src/main/java/com/example/comprehend/DetectSentiment.java#L11) (`DetectSentiment`)
+- [Create a document classifier](src/main/java/com/example/comprehend/DocumentClassifierDemo.java#L6) (`CreateDocumentClassifier`)
+- [Detect entities in a document](src/main/java/com/example/comprehend/DetectEntities.java#L6) (`DetectEntities`)
+- [Detect key phrases in a document](src/main/java/com/example/comprehend/DetectKeyPhrases.java#L6) (`DetectKeyPhrases`)
+- [Detect syntactical elements of a document](src/main/java/com/example/comprehend/DetectSyntax.java#L6) (`DetectSyntax`)
+- [Detect the dominant language in a document](src/main/java/com/example/comprehend/DetectLanguage.java#L6) (`DetectDominantLanguage`)
+- [Detect the sentiment of a document](src/main/java/com/example/comprehend/DetectSentiment.java#L6) (`DetectSentiment`)
 
 
 <!--custom.examples.start-->

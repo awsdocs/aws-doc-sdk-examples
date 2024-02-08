@@ -31,23 +31,23 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello Amazon Keyspaces](src/main/kotlin/com/example/keyspace/HelloKeyspaces.kt#L16) (`ListKeyspaces`)
+- [Hello Amazon Keyspaces](src/main/kotlin/com/example/keyspace/HelloKeyspaces.kt#L9) (`ListKeyspaces`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a keyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L557) (`CreateKeyspace`)
-- [Create a table](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L467) (`CreateTable`)
-- [Delete a keyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L214) (`DeleteKeyspace`)
-- [Delete a table](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L250) (`DeleteTable`)
-- [Get data about a keyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L544) (`GetKeyspace`)
-- [Get data about a table](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L436) (`GetTable`)
-- [List keyspaces](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L532) (`ListKeyspaces`)
-- [List tables in a keyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L417) (`ListTables`)
-- [Restore a table to a point in time](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L295) (`RestoreTable`)
-- [Update a table](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L339) (`UpdateTable`)
+- [Create a keyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L551) (`CreateKeyspace`)
+- [Create a table](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L461) (`CreateTable`)
+- [Delete a keyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L208) (`DeleteKeyspace`)
+- [Delete a table](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L244) (`DeleteTable`)
+- [Get data about a keyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L538) (`GetKeyspace`)
+- [Get data about a table](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L430) (`GetTable`)
+- [List keyspaces](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L526) (`ListKeyspaces`)
+- [List tables in a keyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L411) (`ListTables`)
+- [Restore a table to a point in time](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L289) (`RestoreTable`)
+- [Update a table](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L333) (`UpdateTable`)
 
 ### Scenarios
 

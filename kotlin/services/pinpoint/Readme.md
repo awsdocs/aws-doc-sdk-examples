@@ -33,14 +33,14 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a campaign](src/main/kotlin/com/kotlin/pinpoint/CreateCampaign.kt#L52) (`CreateCampaign`)
-- [Create a segment](src/main/kotlin/com/kotlin/pinpoint/CreateSegment.kt#L55) (`CreateSegment`)
-- [Create an application](src/main/kotlin/com/kotlin/pinpoint/CreateApp.kt#L46) (`CreateApp`)
-- [Delete an application](src/main/kotlin/com/kotlin/pinpoint/DeleteApp.kt#L44) (`DeleteApp`)
-- [Delete an endpoint](src/main/kotlin/com/kotlin/pinpoint/DeleteEndpoint.kt#L46) (`DeleteEndpoint`)
-- [Get endpoints](src/main/kotlin/com/kotlin/pinpoint/LookUpEndpoint.kt#L48) (`GetEndpoint`)
-- [List segments](src/main/kotlin/com/kotlin/pinpoint/ListSegments.kt#L44) (`GetSegments`)
-- [Send email and text messages](src/main/kotlin/com/kotlin/pinpoint/SendEmailMessage.kt#L58) (`SendMessages`)
+- [Create a campaign](src/main/kotlin/com/kotlin/pinpoint/CreateCampaign.kt#L46) (`CreateCampaign`)
+- [Create a segment](src/main/kotlin/com/kotlin/pinpoint/CreateSegment.kt#L49) (`CreateSegment`)
+- [Create an application](src/main/kotlin/com/kotlin/pinpoint/CreateApp.kt#L40) (`CreateApp`)
+- [Delete an application](src/main/kotlin/com/kotlin/pinpoint/DeleteApp.kt#L38) (`DeleteApp`)
+- [Delete an endpoint](src/main/kotlin/com/kotlin/pinpoint/DeleteEndpoint.kt#L40) (`DeleteEndpoint`)
+- [Get endpoints](src/main/kotlin/com/kotlin/pinpoint/LookUpEndpoint.kt#L42) (`GetEndpoint`)
+- [List segments](src/main/kotlin/com/kotlin/pinpoint/ListSegments.kt#L38) (`GetSegments`)
+- [Send email and text messages](src/main/kotlin/com/kotlin/pinpoint/SendEmailMessage.kt#L17) (`SendMessages`)
 
 
 <!--custom.examples.start-->

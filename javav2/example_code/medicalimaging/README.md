@@ -33,24 +33,24 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a tag to a resource](src/main/java/com/example/medicalimaging/TagResource.java#L60) (`TagResource`)
-- [Copy an image set](src/main/java/com/example/medicalimaging/CopyImageSet.java#L70) (`CopyImageSet`)
-- [Create a data store](src/main/java/com/example/medicalimaging/CreateDatastore.java#L57) (`CreateDatastore`)
-- [Delete a data store](src/main/java/com/example/medicalimaging/DeleteDatastore.java#L55) (`DeleteDatastore`)
-- [Delete an image set](src/main/java/com/example/medicalimaging/DeleteImageSet.java#L58) (`DeleteImageSet`)
-- [Get an image frame](src/main/java/com/example/medicalimaging/GetImageFrame.java#L67) (`GetImageFrame`)
-- [Get data store properties](src/main/java/com/example/medicalimaging/GetDatastore.java#L60) (`GetDatastore`)
-- [Get image set properties](src/main/java/com/example/medicalimaging/GetImageSet.java#L68) (`GetImageSet`)
-- [Get import job properties](src/main/java/com/example/medicalimaging/GetDicomImportJob.java#L84) (`GetDICOMImportJob`)
-- [Get metadata for an image set](src/main/java/com/example/medicalimaging/GetImageSet.java#L68) (`GetImageSetMetadata`)
-- [Import bulk data into a data store](src/main/java/com/example/medicalimaging/StartDicomImportJob.java#L67) (`StartDICOMImportJob`)
-- [List data stores](src/main/java/com/example/medicalimaging/ListDatastores.java#L51) (`ListDatastores`)
-- [List image set versions](src/main/java/com/example/medicalimaging/ListImageSetVersions.java#L66) (`ListImageSetVersions`)
-- [List import jobs for a data store](src/main/java/com/example/medicalimaging/ListDicomImportJobs.java#L63) (`ListDICOMImportJobs`)
-- [List tags for a resource](src/main/java/com/example/medicalimaging/ListTagsForResource.java#L61) (`ListTagsForResource`)
-- [Remove a tag from a resource](src/main/java/com/example/medicalimaging/UntagResource.java#L60) (`UntagResource`)
-- [Search image sets](src/main/java/com/example/medicalimaging/SearchImageSets.java#L128) (`SearchImageSets`)
-- [Update image set metadata](src/main/java/com/example/medicalimaging/UpdateImageSetMetadata.java#L78) (`UpdateImageSetMetadata`)
+- [Add a tag to a resource](src/main/java/com/example/medicalimaging/TagResource.java#L54) (`TagResource`)
+- [Copy an image set](src/main/java/com/example/medicalimaging/CopyImageSet.java#L65) (`CopyImageSet`)
+- [Create a data store](src/main/java/com/example/medicalimaging/CreateDatastore.java#L52) (`CreateDatastore`)
+- [Delete a data store](src/main/java/com/example/medicalimaging/DeleteDatastore.java#L50) (`DeleteDatastore`)
+- [Delete an image set](src/main/java/com/example/medicalimaging/DeleteImageSet.java#L53) (`DeleteImageSet`)
+- [Get an image frame](src/main/java/com/example/medicalimaging/GetImageFrame.java#L61) (`GetImageFrame`)
+- [Get data store properties](src/main/java/com/example/medicalimaging/GetDatastore.java#L55) (`GetDatastore`)
+- [Get image set properties](src/main/java/com/example/medicalimaging/GetImageSet.java#L62) (`GetImageSet`)
+- [Get import job properties](src/main/java/com/example/medicalimaging/GetDicomImportJob.java#L79) (`GetDICOMImportJob`)
+- [Get metadata for an image set](src/main/java/com/example/medicalimaging/GetImageSetMetadata.java#L63) (`GetImageSetMetadata`)
+- [Import bulk data into a data store](src/main/java/com/example/medicalimaging/StartDicomImportJob.java#L65) (`StartDICOMImportJob`)
+- [List data stores](src/main/java/com/example/medicalimaging/ListDatastores.java#L46) (`ListDatastores`)
+- [List image set versions](src/main/java/com/example/medicalimaging/ListImageSetVersions.java#L61) (`ListImageSetVersions`)
+- [List import jobs for a data store](src/main/java/com/example/medicalimaging/ListDicomImportJobs.java#L58) (`ListDICOMImportJobs`)
+- [List tags for a resource](src/main/java/com/example/medicalimaging/ListTagsForResource.java#L56) (`ListTagsForResource`)
+- [Remove a tag from a resource](src/main/java/com/example/medicalimaging/UntagResource.java#L54) (`UntagResource`)
+- [Search image sets](src/main/java/com/example/medicalimaging/SearchImageSets.java#L130) (`SearchImageSets`)
+- [Update image set metadata](src/main/java/com/example/medicalimaging/UpdateImageSetMetadata.java#L75) (`UpdateImageSetMetadata`)
 
 ### Scenarios
 
@@ -79,24 +79,24 @@ functions within the same service.
 This example shows you how to tag a HealthImaging data store.
 
 
-<!--custom.scenario_prereqs.medical-imaging_tagging_datastores.start-->
-<!--custom.scenario_prereqs.medical-imaging_tagging_datastores.end-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingDataStores.start-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingDataStores.end-->
 
 
-<!--custom.scenarios.medical-imaging_tagging_datastores.start-->
-<!--custom.scenarios.medical-imaging_tagging_datastores.end-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingDataStores.start-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingDataStores.end-->
 
 #### Tagging an image set
 
 This example shows you how to tag a HealthImaging image set.
 
 
-<!--custom.scenario_prereqs.medical-imaging_tagging_imagesets.start-->
-<!--custom.scenario_prereqs.medical-imaging_tagging_imagesets.end-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingImageSets.start-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingImageSets.end-->
 
 
-<!--custom.scenarios.medical-imaging_tagging_imagesets.start-->
-<!--custom.scenarios.medical-imaging_tagging_imagesets.end-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingImageSets.start-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingImageSets.end-->
 
 ### Tests
 

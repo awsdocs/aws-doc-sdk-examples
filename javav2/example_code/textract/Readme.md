@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Analyze a document](src/main/java/com/example/textract/AnalyzeDocument.java#L12) (`AnalyzeDocument`)
-- [Detect text in a document](src/main/java/com/example/textract/DetectDocumentText.java#L13) (`DetectDocumentText`)
-- [Start asynchronous analysis of a document](src/main/java/com/example/textract/StartDocumentAnalysis.java#L12) (`StartDocumentAnalysis`)
+- [Analyze a document](src/main/java/com/example/textract/AnalyzeDocument.java#L6) (`AnalyzeDocument`)
+- [Detect text in a document](src/main/java/com/example/textract/DetectDocumentText.java#L6) (`DetectDocumentText`)
+- [Start asynchronous analysis of a document](src/main/java/com/example/textract/StartDocumentAnalysis.java#L6) (`StartDocumentAnalysis`)
 
 
 <!--custom.examples.start-->

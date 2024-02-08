@@ -1,8 +1,8 @@
-# AWS Glue code examples for the SDK for C++
+# AWS Glue code examples for the SDK for PHP
 
 ## Overview
 
-Shows how to use the AWS SDK for C++ to work with AWS Glue.
+Shows how to use the AWS SDK for PHP to work with AWS Glue.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -23,49 +23,37 @@ _AWS Glue is a scalable, serverless data integration service that makes it easy 
 
 ### Prerequisites
 
-
-
-Before using the code examples, first complete the installation and setup steps
-for [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
-C++ Developer Guide.
-This section covers how to get and build the SDK, and how to build your own code by using the SDK with a
-sample Hello World-style application.
-
-Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` folder.
 
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Get started
-
-- [Hello AWS Glue](hello_glue/CMakeLists.txt#L4) (`ListJobs`)
-
-
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](glue_getting_started_scenario.cpp#L869) (`CreateCrawler`)
-- [Create a job definition](glue_getting_started_scenario.cpp#L869) (`CreateJob`)
-- [Delete a crawler](glue_getting_started_scenario.cpp#L869) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](glue_getting_started_scenario.cpp#L869) (`DeleteDatabase`)
-- [Delete a job definition](glue_getting_started_scenario.cpp#L869) (`DeleteJob`)
-- [Get a crawler](glue_getting_started_scenario.cpp#L869) (`GetCrawler`)
-- [Get a database from the Data Catalog](glue_getting_started_scenario.cpp#L869) (`GetDatabase`)
-- [Get a job run](glue_getting_started_scenario.cpp#L869) (`GetJobRun`)
-- [Get runs of a job](glue_getting_started_scenario.cpp#L869) (`GetJobRuns`)
-- [Get tables from a database](glue_getting_started_scenario.cpp#L869) (`GetTables`)
-- [List job definitions](glue_getting_started_scenario.cpp#L869) (`ListJobs`)
-- [Start a crawler](glue_getting_started_scenario.cpp#L869) (`StartCrawler`)
-- [Start a job run](glue_getting_started_scenario.cpp#L869) (`StartJobRun`)
+- [Create a crawler](GettingStartedWithGlue.php#L47) (`CreateCrawler`)
+- [Create a job definition](GettingStartedWithGlue.php#L54) (`CreateJob`)
+- [Delete a crawler](GettingStartedWithGlue.php#L180) (`DeleteCrawler`)
+- [Delete a database from the Data Catalog](GettingStartedWithGlue.php#L173) (`DeleteDatabase`)
+- [Delete a job definition](GettingStartedWithGlue.php#L159) (`DeleteJob`)
+- [Delete a table from a database](GettingStartedWithGlue.php#L166) (`DeleteTable`)
+- [Get a crawler](GettingStartedWithGlue.php#L69) (`GetCrawler`)
+- [Get a database from the Data Catalog](GettingStartedWithGlue.php#L58) (`GetDatabase`)
+- [Get a job run](GettingStartedWithGlue.php#L107) (`GetJobRun`)
+- [Get runs of a job](GettingStartedWithGlue.php#L107) (`GetJobRuns`)
+- [Get tables from a database](GettingStartedWithGlue.php#L58) (`GetTables`)
+- [List job definitions](GettingStartedWithGlue.php#L151) (`ListJobs`)
+- [Start a crawler](GettingStartedWithGlue.php#L47) (`StartCrawler`)
+- [Start a job run](GettingStartedWithGlue.php#L107) (`StartJobRun`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with crawlers and jobs](glue_getting_started_scenario.cpp)
+- [Get started with crawlers and jobs](GlueService.php)
 
 
 <!--custom.examples.start-->
@@ -75,25 +63,9 @@ functions within the same service.
 
 ### Instructions
 
-An executable is built for each source file in this folder. These executables are located in the build folder and have
-"run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
-
-For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
-will display any required arguments.
-
-```
-./run_my_action
-```
-
-If the source file is in a different folder, instructions can be found in the README in that
-folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
-
-#### Hello AWS Glue
-
-This example shows you how to get started using AWS Glue.
 
 
 
@@ -118,13 +90,9 @@ This example shows you how to do the following:
 ⚠ Running tests might result in charges to your AWS account.
 
 
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `php` folder.
 
-```sh
-   cd <BUILD_DIR>
-   cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
-   make
-   ctest
-```
 
 
 <!--custom.tests.start-->
@@ -134,7 +102,7 @@ This example shows you how to do the following:
 
 - [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html)
 - [AWS Glue API Reference](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api.html)
-- [SDK for C++ AWS Glue reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-glue/html/annotated.html)
+- [SDK for PHP AWS Glue reference](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.Glue.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

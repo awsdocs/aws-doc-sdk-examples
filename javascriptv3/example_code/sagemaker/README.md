@@ -31,17 +31,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello SageMaker](hello.js#L8) (`ListNotebookInstances`)
+- [Hello SageMaker](hello.js#L6) (`ListNotebookInstances`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L368) (`CreatePipeline`)
-- [Delete a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L403) (`DeletePipeline`)
-- [Describe a pipeline execution](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L594) (`DescribePipelineExecution`)
-- [Execute a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L509) (`StartPipelineExecution`)
+- [Create a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L366) (`CreatePipeline`)
+- [Delete a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L401) (`DeletePipeline`)
+- [Describe a pipeline execution](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L592) (`DescribePipelineExecution`)
+- [Execute a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L507) (`StartPipelineExecution`)
 
 ### Scenarios
 

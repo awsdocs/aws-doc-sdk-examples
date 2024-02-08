@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Assume a role](src/main/java/com/example/sts/AssumeRole.java#L13) (`AssumeRole`)
+- [Assume a role](src/main/java/com/example/sts/AssumeRole.java#L6) (`AssumeRole`)
 
 
 <!--custom.examples.start-->

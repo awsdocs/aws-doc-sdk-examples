@@ -31,17 +31,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello SageMaker](src/main/kotlin/com/kotlin/sage/ListNotebooks.kt#L28) (`ListNotebookInstances`)
+- [Hello SageMaker](src/main/kotlin/com/kotlin/sage/ListNotebooks.kt#L22) (`ListNotebookInstances`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L500) (`CreatePipeline`)
-- [Delete a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L205) (`DeletePipeline`)
-- [Describe a pipeline execution](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L396) (`DescribePipelineExecution`)
-- [Execute a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L417) (`StartPipelineExecution`)
+- [Create a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L494) (`CreatePipeline`)
+- [Delete a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L199) (`DeletePipeline`)
+- [Describe a pipeline execution](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L390) (`DescribePipelineExecution`)
+- [Execute a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L411) (`StartPipelineExecution`)
 
 ### Scenarios
 

@@ -31,21 +31,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon SQS](src/main/java/com/example/sqs/HelloSQS.java#L10) (`ListQueues`)
+- [Hello Amazon SQS](src/main/java/com/example/sqs/HelloSQS.java#L6) (`ListQueues`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a queue](src/main/java/com/example/sqs/SQSExample.java#L11) (`CreateQueue`)
-- [Delete a message from a queue](src/main/java/com/example/sqs/SQSExample.java#L191) (`DeleteMessage`)
-- [Delete a queue](src/main/java/com/example/sqs/DeleteQueue.java#L12) (`DeleteQueue`)
-- [Get the URL of a queue](src/main/java/com/example/sqs/SQSExample.java#L70) (`GetQueueUrl`)
-- [List queues](src/main/java/com/example/sqs/SQSExample.java#L85) (`ListQueues`)
-- [Receive messages from a queue](src/main/java/com/example/sqs/SQSExample.java#L154) (`ReceiveMessage`)
-- [Send a batch of messages to a queue](src/main/java/com/example/sqs/SQSExample.java#L135) (`SendMessageBatch`)
-- [Send a message to a queue](src/main/java/com/example/sqs/SendMessages.java#L12) (`SendMessage`)
+- [Create a queue](src/main/java/com/example/sqs/SQSExample.java#L6) (`CreateQueue`)
+- [Delete a message from a queue](src/main/java/com/example/sqs/SQSExample.java#L189) (`DeleteMessage`)
+- [Delete a queue](src/main/java/com/example/sqs/DeleteQueue.java#L6) (`DeleteQueue`)
+- [Get the URL of a queue](src/main/java/com/example/sqs/SQSExample.java#L66) (`GetQueueUrl`)
+- [List queues](src/main/java/com/example/sqs/SQSExample.java#L82) (`ListQueues`)
+- [Receive messages from a queue](src/main/java/com/example/sqs/SQSExample.java#L152) (`ReceiveMessage`)
+- [Send a batch of messages to a queue](src/main/java/com/example/sqs/SQSExample.java#L132) (`SendMessageBatch`)
+- [Send a message to a queue](src/main/java/com/example/sqs/SendMessages.java#L7) (`SendMessage`)
 
 
 <!--custom.examples.start-->

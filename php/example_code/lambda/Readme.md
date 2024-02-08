@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](LambdaService.php#L32) (`CreateFunction`)
-- [Delete a function](LambdaService.php#L109) (`DeleteFunction`)
-- [Get a function](LambdaService.php#L51) (`GetFunction`)
-- [Invoke a function](LambdaService.php#L76) (`Invoke`)
-- [List functions](LambdaService.php#L60) (`ListFunctions`)
-- [Update function code](LambdaService.php#L87) (`UpdateFunctionCode`)
-- [Update function configuration](LambdaService.php#L98) (`UpdateFunctionConfiguration`)
+- [Create a function](LambdaService.php#L31) (`CreateFunction`)
+- [Delete a function](LambdaService.php#L108) (`DeleteFunction`)
+- [Get a function](LambdaService.php#L50) (`GetFunction`)
+- [Invoke a function](LambdaService.php#L75) (`Invoke`)
+- [List functions](LambdaService.php#L59) (`ListFunctions`)
+- [Update function code](LambdaService.php#L86) (`UpdateFunctionCode`)
+- [Update function configuration](LambdaService.php#L97) (`UpdateFunctionConfiguration`)
 
 ### Scenarios
 
@@ -47,6 +47,12 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Get started with functions](GettingStartedWithLambda.php)
+
+### Cross-service examples
+
+Sample applications that work across multiple AWS services.
+
+- [Create a serverless application to manage photos](../../applications/photo_asset_manager)
 
 
 <!--custom.examples.start-->

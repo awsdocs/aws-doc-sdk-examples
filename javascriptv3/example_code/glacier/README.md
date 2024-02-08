@@ -34,8 +34,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 Code excerpts that show you how to call individual service functions.
 
 - [Create a multipart upload](None) (`UploadMultipartPart`)
-- [Create a vault](src/libs/glacierClient.js#L13) (`CreateVault`)
-- [Upload an archive to a vault](src/libs/glacierClient.js#L13) (`UploadArchive`)
+- [Create a vault](src/libs/glacierClient.js#L15) (`CreateVault`)
+- [Upload an archive to a vault](src/libs/glacierClient.js#L15) (`UploadArchive`)
 
 
 <!--custom.examples.start-->

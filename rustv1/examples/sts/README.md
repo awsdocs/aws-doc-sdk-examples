@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Assume a role](src/bin/assume-role.rs#L34) (`AssumeRole`)
+- [Assume a role](src/bin/assume-role.rs#L32) (`AssumeRole`)
 
 
 <!--custom.examples.start-->

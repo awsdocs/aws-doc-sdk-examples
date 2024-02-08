@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a project](actions/create-project.js#L8) (`CreateProject`)
+- [Create a project](actions/create-project.js#L6) (`CreateProject`)
 
 
 <!--custom.examples.start-->

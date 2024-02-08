@@ -31,29 +31,29 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello IAM](src/main/java/com/example/iam/HelloIAM.java#L11) (`ListPolicies`)
+- [Hello IAM](src/main/java/com/example/iam/HelloIAM.java#L6) (`ListPolicies`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](src/main/java/com/example/iam/AttachRolePolicy.java#L11) (`AttachRolePolicy`)
-- [Create a policy](src/main/java/com/example/iam/CreatePolicy.java#L11) (`CreatePolicy`)
-- [Create a role](src/main/java/com/example/iam/CreateRole.java#L12) (`CreateRole`)
-- [Create a user](src/main/java/com/example/iam/CreateUser.java#L11) (`CreateUser`)
-- [Create an access key](src/main/java/com/example/iam/CreateAccessKey.java#L11) (`CreateAccessKey`)
-- [Create an alias for an account](src/main/java/com/example/iam/CreateAccountAlias.java#L11) (`CreateAccountAlias`)
-- [Delete a policy](src/main/java/com/example/iam/DeletePolicy.java#L11) (`DeletePolicy`)
-- [Delete a user](src/main/java/com/example/iam/DeleteUser.java#L11) (`DeleteUser`)
-- [Delete an access key](src/main/java/com/example/iam/DeleteAccessKey.java#L11) (`DeleteAccessKey`)
-- [Delete an account alias](src/main/java/com/example/iam/DeleteAccountAlias.java#L11) (`DeleteAccountAlias`)
-- [Detach a policy from a role](src/main/java/com/example/iam/DetachRolePolicy.java#L10) (`DetachRolePolicy`)
-- [List a user's access keys](src/main/java/com/example/iam/ListAccessKeys.java#L10) (`ListAccessKeys`)
-- [List account aliases](src/main/java/com/example/iam/ListAccountAliases.java#L11) (`ListAccountAliases`)
-- [List users](src/main/java/com/example/iam/ListUsers.java#L11) (`ListUsers`)
-- [Update a user](src/main/java/com/example/iam/UpdateUser.java#L11) (`UpdateUser`)
-- [Update an access key](src/main/java/com/example/iam/UpdateAccessKey.java#L11) (`UpdateAccessKey`)
+- [Attach a policy to a role](src/main/java/com/example/iam/AttachRolePolicy.java#L6) (`AttachRolePolicy`)
+- [Create a policy](src/main/java/com/example/iam/CreatePolicy.java#L6) (`CreatePolicy`)
+- [Create a role](src/main/java/com/example/iam/CreateRole.java#L6) (`CreateRole`)
+- [Create a user](src/main/java/com/example/iam/CreateUser.java#L6) (`CreateUser`)
+- [Create an access key](src/main/java/com/example/iam/CreateAccessKey.java#L6) (`CreateAccessKey`)
+- [Create an alias for an account](src/main/java/com/example/iam/CreateAccountAlias.java#L6) (`CreateAccountAlias`)
+- [Delete a policy](src/main/java/com/example/iam/DeletePolicy.java#L6) (`DeletePolicy`)
+- [Delete a user](src/main/java/com/example/iam/DeleteUser.java#L6) (`DeleteUser`)
+- [Delete an access key](src/main/java/com/example/iam/DeleteAccessKey.java#L6) (`DeleteAccessKey`)
+- [Delete an account alias](src/main/java/com/example/iam/DeleteAccountAlias.java#L6) (`DeleteAccountAlias`)
+- [Detach a policy from a role](src/main/java/com/example/iam/DetachRolePolicy.java#L6) (`DetachRolePolicy`)
+- [List a user's access keys](src/main/java/com/example/iam/ListAccessKeys.java#L6) (`ListAccessKeys`)
+- [List account aliases](src/main/java/com/example/iam/ListAccountAliases.java#L6) (`ListAccountAliases`)
+- [List users](src/main/java/com/example/iam/ListUsers.java#L6) (`ListUsers`)
+- [Update a user](src/main/java/com/example/iam/UpdateUser.java#L6) (`UpdateUser`)
+- [Update an access key](src/main/java/com/example/iam/UpdateAccessKey.java#L6) (`UpdateAccessKey`)
 
 ### Scenarios
 

@@ -84,8 +84,8 @@ functions within the same service.
 This example shows you how to tag a HealthImaging data store.
 
 
-<!--custom.scenario_prereqs.medical-imaging_tagging_datastores.start-->
-<!--custom.scenario_prereqs.medical-imaging_tagging_datastores.end-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingDataStores.start-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingDataStores.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -94,16 +94,16 @@ python tagging_data_stores.py
 ```
 
 
-<!--custom.scenarios.medical-imaging_tagging_datastores.start-->
-<!--custom.scenarios.medical-imaging_tagging_datastores.end-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingDataStores.start-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingDataStores.end-->
 
 #### Tagging an image set
 
 This example shows you how to tag a HealthImaging image set.
 
 
-<!--custom.scenario_prereqs.medical-imaging_tagging_imagesets.start-->
-<!--custom.scenario_prereqs.medical-imaging_tagging_imagesets.end-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingImageSets.start-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingImageSets.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -112,8 +112,8 @@ python tagging_image_sets.py
 ```
 
 
-<!--custom.scenarios.medical-imaging_tagging_imagesets.start-->
-<!--custom.scenarios.medical-imaging_tagging_imagesets.end-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingImageSets.start-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingImageSets.end-->
 
 ### Tests
 
