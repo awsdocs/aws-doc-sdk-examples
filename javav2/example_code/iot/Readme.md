@@ -13,7 +13,7 @@ AWS IoT Core enables secure two-way communication between internet-connected dev
 
 ## Code examples
 
-The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+The credential provider used in all code examples is default credential provider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
 ### Get started
 
@@ -24,8 +24,8 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 The following examples use the **ApplicationAutoScalingClient** object:
 
-- [Registers an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appautoscale/src/main/java/com/example/appautoscale/EnableDynamoDBAutoscaling.java) (RegisterScalableTarget command)
-- [Deletes a Scaling Policy from an Amazon DynamoDB table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/appautoscale/src/main/java/com/example/appautoscale/DisableDynamoDBAutoscaling.java) (DeleteScalingPolicy command)
+- [Create an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (CreateThing command)
+- [Delete an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (DeleteThing command)
 
 ### Scenarios
 
