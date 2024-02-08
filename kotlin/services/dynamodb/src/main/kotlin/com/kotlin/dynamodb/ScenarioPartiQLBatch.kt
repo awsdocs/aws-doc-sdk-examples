@@ -36,7 +36,6 @@ import aws.sdk.kotlin.services.dynamodb.waiters.waitUntilTableExists
 
 // snippet-start:[dynamodb.kotlin.scenario.partiql.batch.main]
 suspend fun main() {
-
     val ddb = DynamoDbClient { region = "us-east-1" }
     val tableName = "MoviesPartiQBatch"
     println("Creating an Amazon DynamoDB table named $tableName with a key named id and a sort key named title.")
@@ -48,7 +47,6 @@ suspend fun main() {
 }
 
 suspend fun createTablePartiQLBatch(ddb: DynamoDbClient, tableNameVal: String, key: String) {
-
     val attDef = AttributeDefinition {
         attributeName = key
         attributeType = ScalarAttributeType.N
@@ -89,7 +87,6 @@ suspend fun createTablePartiQLBatch(ddb: DynamoDbClient, tableNameVal: String, k
 }
 
 suspend fun putRecordBatch(ddb: DynamoDbClient) {
-
     val sqlStatement = "INSERT INTO MoviesPartiQBatch VALUE {'year':?, 'title' : ?, 'info' : ?}"
 
     // Create three movies to add to the Amazon DynamoDB table.
@@ -185,7 +182,6 @@ suspend fun updateTableItemBatchBatch(ddb: DynamoDbClient) {
 }
 
 suspend fun deleteItemsBatch(ddb: DynamoDbClient) {
-
     // Specify three records to delete.
     val sqlStatement = "DELETE FROM MoviesPartiQBatch WHERE year = ? and title=?"
     val parametersRec1 = mutableListOf<AttributeValue>()
@@ -230,7 +226,6 @@ suspend fun deleteItemsBatch(ddb: DynamoDbClient) {
 }
 
 suspend fun deleteTablePartiQLBatch(tableNameVal: String) {
-
     val request = DeleteTableRequest {
         tableName = tableNameVal
     }

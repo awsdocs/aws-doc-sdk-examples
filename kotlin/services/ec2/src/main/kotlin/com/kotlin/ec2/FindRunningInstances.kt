@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[ec2.kotlin.running_instances.main]
 suspend fun findRunningEC2Instances() {
-
     val filter = Filter {
         name = "instance-state-name"
         values = listOf("running")

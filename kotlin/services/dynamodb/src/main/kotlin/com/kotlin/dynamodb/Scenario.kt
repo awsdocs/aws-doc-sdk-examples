@@ -36,7 +36,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 // snippet-start:[dynamodb.kotlin.scenario.main]
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
           <fileName>
@@ -67,7 +66,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[dynamodb.kotlin.scenario.create_table.main]
 suspend fun createScenarioTable(tableNameVal: String, key: String) {
-
     val attDef = AttributeDefinition {
         attributeName = key
         attributeType = ScalarAttributeType.N
@@ -114,7 +112,6 @@ suspend fun createScenarioTable(tableNameVal: String, key: String) {
 // snippet-start:[dynamodb.kotlin.scenario.populate_table.main]
 // Load data into the table.
 suspend fun loadData(tableName: String, fileName: String) {
-
     val parser = JsonFactory().createParser(File(fileName))
     val rootNode = ObjectMapper().readTree<JsonNode>(parser)
     val iter: Iterator<JsonNode> = rootNode.iterator()
@@ -122,9 +119,9 @@ suspend fun loadData(tableName: String, fileName: String) {
 
     var t = 0
     while (iter.hasNext()) {
-
-        if (t == 50)
+        if (t == 50) {
             break
+        }
 
         currentNode = iter.next() as ObjectNode
         val year = currentNode.path("year").asInt()
@@ -162,7 +159,6 @@ suspend fun putMovie(
 
 // snippet-start:[dynamodb.kotlin.scenario.get_item.main]
 suspend fun getMovie(tableNameVal: String, keyName: String, keyVal: String) {
-
     val keyToGet = mutableMapOf<String, AttributeValue>()
     keyToGet[keyName] = AttributeValue.N(keyVal)
     keyToGet["title"] = AttributeValue.S("King Kong")
@@ -184,7 +180,6 @@ suspend fun getMovie(tableNameVal: String, keyName: String, keyVal: String) {
 // snippet-end:[dynamodb.kotlin.scenario.get_item.main]
 
 suspend fun deletIssuesTable(tableNameVal: String) {
-
     val request = DeleteTableRequest {
         tableName = tableNameVal
     }
@@ -200,7 +195,6 @@ suspend fun queryMovieTable(
     partitionKeyName: String,
     partitionAlias: String
 ): Int {
-
     val attrNameAlias = mutableMapOf<String, String>()
     attrNameAlias[partitionAlias] = "year"
 
@@ -222,7 +216,6 @@ suspend fun queryMovieTable(
 }
 
 suspend fun scanMovies(tableNameVal: String) {
-
     val request = ScanRequest {
         tableName = tableNameVal
     }

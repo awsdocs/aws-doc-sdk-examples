@@ -20,7 +20,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -43,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.create_instance.main]
 suspend fun createEC2Instance(name: String, amiId: String): String? {
-
     val request = RunInstancesRequest {
         imageId = amiId
         instanceType = InstanceType.T1Micro

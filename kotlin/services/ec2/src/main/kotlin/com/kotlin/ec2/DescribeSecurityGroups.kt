@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.describe_security_groups.main]
 suspend fun describeEC2SecurityGroups(groupId: String) {
-
     val request = DescribeSecurityGroupsRequest {
         groupIds = listOf(groupId)
     }
