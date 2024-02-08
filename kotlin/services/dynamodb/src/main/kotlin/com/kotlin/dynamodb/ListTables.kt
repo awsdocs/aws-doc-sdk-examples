@@ -17,13 +17,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main() {
-
     listAllTables()
 }
 
 // snippet-start:[dynamodb.kotlin.list_tables.main]
 suspend fun listAllTables() {
-
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
         val response = ddb.listTables(ListTablesRequest {})
         response.tableNames?.forEach { tableName ->

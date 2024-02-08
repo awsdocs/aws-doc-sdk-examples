@@ -37,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[dynamodb.kotlin.delete_table.main]
 suspend fun deleteDynamoDBTable(tableNameVal: String) {
-
     val request = DeleteTableRequest {
         tableName = tableNameVal
     }
