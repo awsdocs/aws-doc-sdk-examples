@@ -93,24 +93,22 @@ impl WaiterBuilder {
     }
 }
 
+/// Create an async block to repeat a request until the result of the test is true.
+/// The test will work on a completed request - that is, retries, errors, etc will happen before
+/// the test is called. The response is considered done and successful by the SDK.
+/// For example, this can be used to wait for a long-running operation to change to `status: Done|Cancelled`.
+///
+/// - $waiter is a Waiter used to sleep between attempts, with a maximum timeout.
+/// - $req is an expr that evaluates to an API call that can be `.clone().send().await`ed.
+/// - $test is an expr that should be an Fn which gets passed the successful response of the
 #[macro_export]
 macro_rules! wait_on {
-    // Create an async block to repeat a request until the result of the test is true.
-    // Uses the default Waiter (500ms interval, 25m timeout).
     (
         $req: expr,
         $test: expr
     ) => {
         wait_on!($crate::waiter::Waiter::default(), $req, $test)
     };
-    // Create an async block to repeat a request until the result of the test is true.
-    // The test will work on a completed request - that is, retries, errors, etc will happen before
-    // the test is called. The response is considered done and successful by the SDK.
-    // For example, this can be used to wait for a long-running operation to change to `status: Done|Cancelled`.
-    //
-    // - $waiter is a Waiter used to sleep between attempts, with a maximum timeout.
-    // - $req is an expr that evaluates to an API call that can be `.clone().send().await`ed.
-    // - $test is an expr that should be an Fn which gets passed the successful response of the
     (
         $waiter: expr,
         $req: expr,
