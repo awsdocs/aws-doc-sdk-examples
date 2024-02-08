@@ -68,7 +68,7 @@ Start the query and wait for it to "finish". Store the `results`. If the count o
 
 ### Recursive queries
 
-If the result count from the previous step is 10000 (or the configured LIMIT), it is very likely that there are more results. The example should do a binary search of the remaining logs. To do this, get the date of the last log (earliest or latest, depending on sort order). Use that date as the start date of a new date range. The end date can remain the same.
+If the result count from the previous step is 10000 (or the configured LIMIT), it is very likely that there are more results. **The example must do a binary search of the remaining logs**. To do this, get the date of the last log (earliest or latest, depending on sort order). Use that date as the start date of a new date range. The end date can remain the same.
 
 Split that date range in half, resulting in two new date ranges. Call your query function twice; once for each new date range.
 
