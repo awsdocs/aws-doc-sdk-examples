@@ -20,7 +20,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <groupName> <groupDesc> <vpcId> 
@@ -45,7 +44,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.create_security_group.main]
 suspend fun createEC2SecurityGroup(groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?): String? {
-
     val request = CreateSecurityGroupRequest {
         groupName = groupNameVal
         description = groupDescVal

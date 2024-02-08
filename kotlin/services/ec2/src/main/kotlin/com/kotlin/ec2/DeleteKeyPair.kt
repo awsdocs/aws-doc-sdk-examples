@@ -17,7 +17,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.delete_key_pair.main]
 suspend fun deleteKeys(keyPair: String?) {
-
     val request = DeleteKeyPairRequest {
         keyName = keyPair
     }

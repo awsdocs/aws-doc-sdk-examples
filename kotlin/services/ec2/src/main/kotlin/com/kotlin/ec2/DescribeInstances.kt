@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[ec2.kotlin.describe_instances.main]
 suspend fun describeEC2Instances() {
-
     val request = DescribeInstancesRequest {
         maxResults = 6
     }
