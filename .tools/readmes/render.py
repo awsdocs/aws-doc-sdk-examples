@@ -114,7 +114,7 @@ class Renderer:
         post_actions = []
         for _, pre in pre_actions.items():
             try:
-                api = pre["services"][self.scanner.svc_name][0]
+                api = next(iter(pre["services"][self.scanner.svc_name]))
             except:
                 api = ""
             action = {
