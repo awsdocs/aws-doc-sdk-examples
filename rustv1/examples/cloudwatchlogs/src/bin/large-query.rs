@@ -4,6 +4,7 @@
 #![allow(clippy::result_large_err)]
 
 use async_recursion::async_recursion;
+use futures::join;
 use std::{
     collections::HashSet,
     env,
@@ -111,12 +112,9 @@ impl CloudWatchLongQuery {
         last_log_date += Duration::from_millis(1);
         let (r1, r2) = DateRange(last_log_date, date_range.1).split();
 
-        let logs = [
-            logs,
-            self.large_query(&r1).await?,
-            self.large_query(&r2).await?,
-        ]
-        .concat();
+        let (a, b) = join!(self.large_query(&r1), self.large_query(&r2));
+
+        let logs = [logs, a?, b?].concat();
 
         Ok(logs)
     }
@@ -260,7 +258,7 @@ mod test {
         )
     }
 
-    // Test the behavior of the DateRange::split function
+    // Test the behavior of the DateRange::split function.
     #[tokio::test]
     async fn test_date_range_split() {
         let start_date = DateTime::parse_from_rfc3339("2024-02-01 12:00:00Z")
@@ -291,7 +289,7 @@ mod test {
         );
     }
 
-    // Test the large_query method for a range with less than the limit of log entries
+    // Test the large_query method for a range with less than the limit of log entries.
     #[tokio::test]
     async fn test_large_query_with_small_range() {
         let start_date = DateTime::parse_from_rfc3339("2024-02-01 12:00:00Z")
@@ -346,7 +344,7 @@ mod test {
         assert_eq!(response.len(), 2);
     }
 
-    // Test the get_query_results method's handling of different query statuses
+    // Test the get_query_results method's handling of different query statuses.
     #[tokio::test]
     async fn test_get_query_results_statuses_for_waiter() {
         let start_date = DateTime::parse_from_rfc3339("2024-02-01 12:00:00Z")
@@ -405,7 +403,7 @@ mod test {
         assert_eq!(response.results.unwrap().len(), 2);
     }
 
-    // Test for correct parsing of timestamps in get_last_log_date
+    // Test for correct parsing of timestamps in get_last_log_date.
     #[tokio::test]
     async fn test_get_last_log_date_parsing() {
         // Arrange: Provide a set of log entries with known timestamps.

@@ -22,6 +22,7 @@ tracing = "0.1.40"
 async-recursion = "1.0.5"
 
 sdk-examples-test-utils = { path = "../../test-utils" }
+futures = "0.3.30"
 
 [dev-dependencies]
 aws-smithy-mocks-experimental = "0.1.0"
