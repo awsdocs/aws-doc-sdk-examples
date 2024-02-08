@@ -288,4 +288,4 @@ class Renderer:
     def check(self):
         with open(self.readme_filename, "r", encoding="utf-8") as f:
             readme_current = f.read()
-            readme_current != self.readme_text
+            return readme_current == self.readme_text
