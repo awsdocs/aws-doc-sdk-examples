@@ -75,7 +75,7 @@ class EMRTest {
         println("Test 3 passed")
     }
 
-     private suspend fun getSecretValues(): String {
+    private suspend fun getSecretValues(): String {
         val secretName = "text/emr"
         val valueRequest = GetSecretValueRequest {
             secretId = secretName
