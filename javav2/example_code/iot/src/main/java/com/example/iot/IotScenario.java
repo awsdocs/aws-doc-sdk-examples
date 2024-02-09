@@ -440,7 +440,7 @@ public class IotScenario {
             System.exit(1);
         }
     }
-    // snippet-start:[iot.java2.detach.thing.main]
+    // snippet-end:[iot.java2.detach.thing.main]
 
     // snippet-start:[iot.java2.delete.cert.main]
     public static void deleteCertificate(IotClient iotClient, String certificateArn ) {
