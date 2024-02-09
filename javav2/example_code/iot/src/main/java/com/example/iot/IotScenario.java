@@ -56,18 +56,17 @@ import java.util.regex.Pattern;
  * This Java example performs these tasks:
  *
  * 1. Creates an AWS IoT Thing.
- * 2. Generate a device certificate.
- * 3. Attach the certificate to the AWS IoT Thing.
- * 4. Update an AWS IoT Thing with Attributes.
- * 5. Get an AWS IoT Endpoint.
- * 6 List your certificates.
- * 7. Detach amd delete the certificate.
- * 8. Updates the shadow for the specified thing..
- * 9. Write out the state information, in JSON format
- * 10. Creates a rule
- * 11. List rules
- * 12. Search things
- * 13. Delete Thing.
+ * 2. Generate and attach a device certificate.
+ * 3. Update an AWS IoT Thing with Attributes.
+ * 4. Get an AWS IoT Endpoint.
+ * 5. List your certificates.
+ * 6. Updates the shadow for the specified thing..
+ * 7. Write out the state information, in JSON format
+ * 8. Creates a rule
+ * 9. List rules
+ * 10. Search things
+ * 11. Detach amd delete the certificate.
+ * 12. Delete Thing.
  */
 public class IotScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
