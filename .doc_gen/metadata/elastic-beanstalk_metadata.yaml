@@ -8,7 +8,7 @@ elastic-beanstalk_ListStacks:
     Ruby:
       versions:
         - sdk_version: 3
-          github: ruby/example_code/elastic-beanstalk
+          github: ruby/example_code/elasticbeanstalk
           sdkguide:
           excerpts:
             - description:
@@ -25,7 +25,7 @@ elastic-beanstalk_DescribeApp:
     Ruby:
       versions:
         - sdk_version: 3
-          github: ruby/example_code/elastic-beanstalk
+          github: ruby/example_code/elasticbeanstalk
           sdkguide:
           excerpts:
             - description:
@@ -42,7 +42,7 @@ elastic-beanstalk_UpdateApplication:
     Ruby:
       versions:
         - sdk_version: 3
-          github: ruby/example_code/elastic-beanstalk
+          github: ruby/example_code/elasticbeanstalk
           sdkguide:
           excerpts:
             - description:
