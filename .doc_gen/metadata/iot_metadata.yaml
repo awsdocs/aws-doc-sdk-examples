@@ -56,7 +56,7 @@ iot_ListThings:
                 - iot.rust.list-things
   services:
     iot: {ListThings}
-iot_ListThings:
+iot_ListCertificates:
   title: List your &IoT; certificates using an &AWS; SDK
   title_abbrev: List your certificates
   synopsis: list your &IoT; certificates.
