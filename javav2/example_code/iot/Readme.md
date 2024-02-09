@@ -37,7 +37,7 @@ The following examples use the **IotClient** object:
 - [Update an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`UpdateThing`)
 
 
-The following examples use the **IotClient** object:
+The following examples use the **IotDataPlaneClient** object:
 
 - [Get the shadow for the specified thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`GetThingShadow`)
 - [Update the shadow for the specified thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`UpdateThingShadow`)
