@@ -233,9 +233,9 @@ iot_CreateThings:
   services:
     iot: {CreateThing}   
 iot_GetShawdow:
-  title: Gets the shadow for the specified thing using an &AWS; SDK
-  title_abbrev: Gets the shadow
-  synopsis: gets the shadow for an &IoT; thing.
+  title: Get the shadow for the specified thing using an &AWS; SDK
+  title_abbrev: Get the shadow
+  synopsis: get the shadow for an &IoT; thing.
   category:
   languages:
     Java:
