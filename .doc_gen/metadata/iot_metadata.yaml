@@ -75,7 +75,7 @@ iot_ListThings:
 iot_CreateCertificate:
   title:  Create an &IoT; certificate index using an &AWS; SDK
   title_abbrev: Create a certificate
-  synopsis: create a &IoT; certificate.
+  synopsis: create an &IoT; certificate.
   category:
   languages:
     Java:
@@ -165,7 +165,7 @@ iot_AttachThingPrincipal:
           excerpts:
             - description:
               snippet_tags:
-                - iot.java2.detach.thing.main
+                - iot.java2.attach.thing.main
   services:
     iot: {AttachThingPrincipal}               
 iot_DetachThingPrincipal:
