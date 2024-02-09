@@ -31,19 +31,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello Amazon SQS](src/main/kotlin/com/kotlin/sqs/HelloSQS.kt#L9) (`ListQueues`)
+- [Hello Amazon SQS](src/main/kotlin/com/kotlin/sqs/HelloSQS.kt#L4) (`ListQueues`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a queue](src/main/kotlin/com/kotlin/sqs/CreateQueue.kt#L45) (`CreateQueue`)
-- [Delete a message from a queue](src/main/kotlin/com/kotlin/sqs/DeleteMessages.kt#L45) (`DeleteMessage`)
-- [Delete a queue](src/main/kotlin/com/kotlin/sqs/DeleteMessages.kt#L45) (`DeleteQueue`)
-- [List queues](src/main/kotlin/com/kotlin/sqs/ListQueues.kt#L28) (`ListQueues`)
-- [Receive messages from a queue](src/main/kotlin/com/kotlin/sqs/ReceiveMessages.kt#L44) (`ReceiveMessage`)
-- [Send a message to a queue](src/main/kotlin/com/kotlin/sqs/SendMessages.kt#L50) (`SendMessage`)
+- [Create a queue](src/main/kotlin/com/kotlin/sqs/CreateQueue.kt#L39) (`CreateQueue`)
+- [Delete a message from a queue](src/main/kotlin/com/kotlin/sqs/DeleteMessages.kt#L39) (`DeleteMessage`)
+- [Delete a queue](src/main/kotlin/com/kotlin/sqs/DeleteMessages.kt#L39) (`DeleteQueue`)
+- [List queues](src/main/kotlin/com/kotlin/sqs/ListQueues.kt#L22) (`ListQueues`)
+- [Receive messages from a queue](src/main/kotlin/com/kotlin/sqs/ReceiveMessages.kt#L38) (`ReceiveMessage`)
+- [Send a message to a queue](src/main/kotlin/com/kotlin/sqs/SendMessages.kt#L44) (`SendMessage`)
 
 
 <!--custom.examples.start-->

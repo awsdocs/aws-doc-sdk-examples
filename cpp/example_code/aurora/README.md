@@ -46,21 +46,21 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB cluster](getting_started_with_db_clusters.cpp#L499) (`CreateDBCluster`)
-- [Create a DB cluster parameter group](getting_started_with_db_clusters.cpp#L335) (`CreateDBClusterParameterGroup`)
-- [Create a DB cluster snapshot](getting_started_with_db_clusters.cpp#L663) (`CreateDBClusterSnapshot`)
-- [Create a DB instance in a DB cluster](getting_started_with_db_clusters.cpp#L590) (`CreateDBInstance`)
-- [Delete a DB cluster](getting_started_with_db_clusters.cpp#L1033) (`DeleteDBCluster`)
-- [Delete a DB cluster parameter group](getting_started_with_db_clusters.cpp#L1103) (`DeleteDBClusterParameterGroup`)
-- [Delete a DB instance](getting_started_with_db_clusters.cpp#L1003) (`DeleteDBInstance`)
-- [Describe DB cluster parameter groups](getting_started_with_db_clusters.cpp#L297) (`DescribeDBClusterParameterGroups`)
-- [Describe DB cluster snapshots](getting_started_with_db_clusters.cpp#L703) (`DescribeDBClusterSnapshots`)
-- [Describe DB clusters](getting_started_with_db_clusters.cpp#L748) (`DescribeDBClusters`)
-- [Describe DB instances](getting_started_with_db_clusters.cpp#L885) (`DescribeDBInstances`)
-- [Describe database engine versions](getting_started_with_db_clusters.cpp#L847) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](getting_started_with_db_clusters.cpp#L925) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters from a DB cluster parameter group](getting_started_with_db_clusters.cpp#L788) (`DescribeDBClusterParameters`)
-- [Update parameters in a DB cluster parameter group](getting_started_with_db_clusters.cpp#L404) (`ModifyDBClusterParameterGroup`)
+- [Create a DB cluster](getting_started_with_db_clusters.cpp#L497) (`CreateDBCluster`)
+- [Create a DB cluster parameter group](getting_started_with_db_clusters.cpp#L333) (`CreateDBClusterParameterGroup`)
+- [Create a DB cluster snapshot](getting_started_with_db_clusters.cpp#L661) (`CreateDBClusterSnapshot`)
+- [Create a DB instance in a DB cluster](getting_started_with_db_clusters.cpp#L588) (`CreateDBInstance`)
+- [Delete a DB cluster](getting_started_with_db_clusters.cpp#L1031) (`DeleteDBCluster`)
+- [Delete a DB cluster parameter group](getting_started_with_db_clusters.cpp#L1101) (`DeleteDBClusterParameterGroup`)
+- [Delete a DB instance](getting_started_with_db_clusters.cpp#L1001) (`DeleteDBInstance`)
+- [Describe DB cluster parameter groups](getting_started_with_db_clusters.cpp#L295) (`DescribeDBClusterParameterGroups`)
+- [Describe DB cluster snapshots](getting_started_with_db_clusters.cpp#L701) (`DescribeDBClusterSnapshots`)
+- [Describe DB clusters](getting_started_with_db_clusters.cpp#L746) (`DescribeDBClusters`)
+- [Describe DB instances](getting_started_with_db_clusters.cpp#L883) (`DescribeDBInstances`)
+- [Describe database engine versions](getting_started_with_db_clusters.cpp#L845) (`DescribeDBEngineVersions`)
+- [Describe options for DB instances](getting_started_with_db_clusters.cpp#L923) (`DescribeOrderableDBInstanceOptions`)
+- [Describe parameters from a DB cluster parameter group](getting_started_with_db_clusters.cpp#L786) (`DescribeDBClusterParameters`)
+- [Update parameters in a DB cluster parameter group](getting_started_with_db_clusters.cpp#L402) (`ModifyDBClusterParameterGroup`)
 
 ### Scenarios
 
@@ -83,7 +83,7 @@ Sample applications that work across multiple AWS services.
 
 ### Instructions
 
-An executable is built for each source file. These executables are located in the build folder and have
+An executable is built for each source file in this folder. These executables are located in the build folder and have
 "run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
 
 For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
@@ -92,6 +92,9 @@ will display any required arguments.
 ```
 ./run_my_action
 ```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

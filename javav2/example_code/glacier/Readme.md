@@ -33,12 +33,12 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a vault](src/main/java/com/example/glacier/CreateVault.java#L11) (`CreateVault`)
-- [Delete a vault](src/main/java/com/example/glacier/DeleteVault.java#L11) (`DeleteVault`)
-- [Delete an archive](src/main/java/com/example/glacier/DeleteArchive.java#L11) (`DeleteArchive`)
-- [List vaults](src/main/java/com/example/glacier/ListVaults.java#L10) (`ListVaults`)
-- [Retrieve a vault inventory](src/main/java/com/example/glacier/ArchiveDownload.java#L12) (`InitiateJob`)
-- [Upload an archive to a vault](src/main/java/com/example/glacier/UploadArchive.java#L11) (`UploadArchive`)
+- [Create a vault](src/main/java/com/example/glacier/CreateVault.java#L6) (`CreateVault`)
+- [Delete a vault](src/main/java/com/example/glacier/DeleteVault.java#L6) (`DeleteVault`)
+- [Delete an archive](src/main/java/com/example/glacier/DeleteArchive.java#L6) (`DeleteArchive`)
+- [List vaults](src/main/java/com/example/glacier/ListVaults.java#L6) (`ListVaults`)
+- [Retrieve a vault inventory](src/main/java/com/example/glacier/ArchiveDownload.java#L6) (`InitiateJob`)
+- [Upload an archive to a vault](src/main/java/com/example/glacier/UploadArchive.java#L6) (`UploadArchive`)
 
 
 <!--custom.examples.start-->

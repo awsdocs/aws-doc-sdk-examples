@@ -16,13 +16,11 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
     describeEC2Account()
 }
 
 // snippet-start:[ec2.kotlin.describe_account.main]
 suspend fun describeEC2Account() {
-
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val accountResults = ec2.describeAccountAttributes(DescribeAccountAttributesRequest {})
         accountResults.accountAttributes?.forEach { attribute ->

@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Send email and text messages](src/libs/pinClient.js#L14) (`SendMessages`)
+- [Send email and text messages](src/libs/pinClient.js#L16) (`SendMessages`)
 
 
 <!--custom.examples.start-->

@@ -41,22 +41,22 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a receipt filter](create_receipt_filter.cpp#L26) (`CreateReceiptFilter`)
-- [Create a receipt rule](create_receipt_rule.cpp#L27) (`CreateReceiptRule`)
-- [Create a receipt rule set](create_receipt_rule_set.cpp#L23) (`CreateReceiptRuleSet`)
-- [Create an email template](create_template.cpp#L24) (`CreateTemplate`)
-- [Delete a receipt filter](delete_receipt_filter.cpp#L23) (`DeleteReceiptFilter`)
-- [Delete a receipt rule](delete_receipt_rule.cpp#L23) (`DeleteReceiptRule`)
-- [Delete a rule set](delete_receipt_rule_set.cpp#L23) (`DeleteReceiptRuleSet`)
-- [Delete an email template](delete_template.cpp#L23) (`DeleteTemplate`)
-- [Delete an identity](delete_identity.cpp#L23) (`DeleteIdentity`)
-- [Get an existing email template](get_template.cpp#L24) (`GetTemplate`)
-- [List identities](list_identities.cpp#L23) (`ListIdentities`)
-- [List receipt filters](list_receipt_filters.cpp#L24) (`ListReceiptFilters`)
-- [Send email](send_email.cpp#L28) (`SendEmail`)
-- [Send templated email](send_templated_email.cpp#L25) (`SendTemplatedEmail`)
-- [Update an email template](update_template.cpp#L24) (`UpdateTemplate`)
-- [Verify an email identity](verify_email_identity.cpp#L23) (`VerifyEmailIdentity`)
+- [Create a receipt filter](create_receipt_filter.cpp#L24) (`CreateReceiptFilter`)
+- [Create a receipt rule](create_receipt_rule.cpp#L25) (`CreateReceiptRule`)
+- [Create a receipt rule set](create_receipt_rule_set.cpp#L21) (`CreateReceiptRuleSet`)
+- [Create an email template](create_template.cpp#L22) (`CreateTemplate`)
+- [Delete a receipt filter](delete_receipt_filter.cpp#L21) (`DeleteReceiptFilter`)
+- [Delete a receipt rule](delete_receipt_rule.cpp#L21) (`DeleteReceiptRule`)
+- [Delete a rule set](delete_receipt_rule_set.cpp#L21) (`DeleteReceiptRuleSet`)
+- [Delete an email template](delete_template.cpp#L21) (`DeleteTemplate`)
+- [Delete an identity](delete_identity.cpp#L21) (`DeleteIdentity`)
+- [Get an existing email template](get_template.cpp#L22) (`GetTemplate`)
+- [List identities](list_identities.cpp#L21) (`ListIdentities`)
+- [List receipt filters](list_receipt_filters.cpp#L22) (`ListReceiptFilters`)
+- [Send email](send_email.cpp#L26) (`SendEmail`)
+- [Send templated email](send_templated_email.cpp#L23) (`SendTemplatedEmail`)
+- [Update an email template](update_template.cpp#L22) (`UpdateTemplate`)
+- [Verify an email identity](verify_email_identity.cpp#L21) (`VerifyEmailIdentity`)
 
 ### Cross-service examples
 
@@ -72,7 +72,7 @@ Sample applications that work across multiple AWS services.
 
 ### Instructions
 
-An executable is built for each source file. These executables are located in the build folder and have
+An executable is built for each source file in this folder. These executables are located in the build folder and have
 "run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
 
 For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
@@ -81,6 +81,9 @@ will display any required arguments.
 ```
 ./run_my_action
 ```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

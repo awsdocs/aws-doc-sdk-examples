@@ -7,7 +7,7 @@ Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Elastic Com
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon EC2 is a web service that provides resizable computing capacityâ€”literally, servers in Amazon's data centersâ€”that you use to build and host your software systems._
+_Amazon EC2 is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems._
 
 ## ⚠ Important
 

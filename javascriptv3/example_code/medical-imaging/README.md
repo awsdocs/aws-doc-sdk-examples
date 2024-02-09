@@ -31,31 +31,31 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello HealthImaging](actions/create-datastore.js#L8) (`ListDatastores`)
+- [Hello HealthImaging](hello.js#L6) (`ListDatastores`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a tag to a resource](actions/tag-resource.js#L8) (`TagResource`)
-- [Copy an image set](actions/copy-image-set.js#L8) (`CopyImageSet`)
-- [Create a data store](actions/create-datastore.js#L8) (`CreateDatastore`)
-- [Delete a data store](actions/delete-datastore.js#L8) (`DeleteDatastore`)
-- [Delete an image set](actions/delete-image-set.js#L8) (`DeleteImageSet`)
-- [Get an image frame](actions/get-image-frame.js#L9) (`GetImageFrame`)
-- [Get data store properties](actions/get-datastore.js#L8) (`GetDatastore`)
-- [Get image set properties](actions/get-image-set.js#L8) (`GetImageSet`)
-- [Get import job properties](actions/get-dicom-import-job.js#L8) (`GetDICOMImportJob`)
-- [Get metadata for an image set](actions/get-image-set-metadata.js#L8) (`GetImageSetMetadata`)
-- [Import bulk data into a data store](actions/start-dicom-import-job.js#L8) (`StartDICOMImportJob`)
-- [List data stores](actions/list-datastores.js#L8) (`ListDatastores`)
-- [List image set versions](actions/list-image-set-versions.js#L8) (`ListImageSetVersions`)
-- [List import jobs for a data store](actions/list-dicom-import-jobs.js#L8) (`ListDICOMImportJobs`)
-- [List tags for a resource](actions/list-tags-for-resource.js#L8) (`ListTagsForResource`)
-- [Remove a tag from a resource](actions/untag-resource.js#L8) (`UntagResource`)
-- [Search image sets](actions/search-image-sets.js#L8) (`SearchImageSets`)
-- [Update image set metadata](actions/update-image-set-metadata.js#L8) (`UpdateImageSetMetadata`)
+- [Add a tag to a resource](actions/tag-resource.js#L6) (`TagResource`)
+- [Copy an image set](actions/copy-image-set.js#L6) (`CopyImageSet`)
+- [Create a data store](actions/create-datastore.js#L6) (`CreateDatastore`)
+- [Delete a data store](actions/delete-datastore.js#L6) (`DeleteDatastore`)
+- [Delete an image set](actions/delete-image-set.js#L6) (`DeleteImageSet`)
+- [Get an image frame](actions/get-image-frame.js#L7) (`GetImageFrame`)
+- [Get data store properties](actions/get-datastore.js#L6) (`GetDatastore`)
+- [Get image set properties](actions/get-image-set.js#L6) (`GetImageSet`)
+- [Get import job properties](actions/get-dicom-import-job.js#L6) (`GetDICOMImportJob`)
+- [Get metadata for an image set](actions/get-image-set-metadata.js#L6) (`GetImageSetMetadata`)
+- [Import bulk data into a data store](actions/start-dicom-import-job.js#L6) (`StartDICOMImportJob`)
+- [List data stores](actions/list-datastores.js#L6) (`ListDatastores`)
+- [List image set versions](actions/list-image-set-versions.js#L6) (`ListImageSetVersions`)
+- [List import jobs for a data store](actions/list-dicom-import-jobs.js#L6) (`ListDICOMImportJobs`)
+- [List tags for a resource](actions/list-tags-for-resource.js#L6) (`ListTagsForResource`)
+- [Remove a tag from a resource](actions/untag-resource.js#L6) (`UntagResource`)
+- [Search image sets](actions/search-image-sets.js#L6) (`SearchImageSets`)
+- [Update image set metadata](actions/update-image-set-metadata.js#L10) (`UpdateImageSetMetadata`)
 
 ### Scenarios
 
@@ -105,24 +105,24 @@ node ./hello.js
 This example shows you how to tag a HealthImaging data store.
 
 
-<!--custom.scenario_prereqs.medical-imaging_tagging_datastores.start-->
-<!--custom.scenario_prereqs.medical-imaging_tagging_datastores.end-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingDataStores.start-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingDataStores.end-->
 
 
-<!--custom.scenarios.medical-imaging_tagging_datastores.start-->
-<!--custom.scenarios.medical-imaging_tagging_datastores.end-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingDataStores.start-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingDataStores.end-->
 
 #### Tagging an image set
 
 This example shows you how to tag a HealthImaging image set.
 
 
-<!--custom.scenario_prereqs.medical-imaging_tagging_imagesets.start-->
-<!--custom.scenario_prereqs.medical-imaging_tagging_imagesets.end-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingImageSets.start-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_TaggingImageSets.end-->
 
 
-<!--custom.scenarios.medical-imaging_tagging_imagesets.start-->
-<!--custom.scenarios.medical-imaging_tagging_imagesets.end-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingImageSets.start-->
+<!--custom.scenarios.medical-imaging_Scenario_TaggingImageSets.end-->
 
 ### Tests
 

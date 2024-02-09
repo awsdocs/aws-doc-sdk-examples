@@ -31,31 +31,31 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello CloudWatch](src/main/java/com/example/cloudwatch/HelloService.java#L12) (`ListMetrics`)
+- [Hello CloudWatch](src/main/java/com/example/cloudwatch/HelloService.java#L6) (`ListMetrics`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a dashboard](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L775) (`PutDashboard`)
-- [Create a metric alarm](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L661) (`PutMetricAlarm`)
-- [Create an anomaly detector](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L433) (`PutAnomalyDetector`)
-- [Delete alarms](src/main/java/com/example/cloudwatch/DeleteAlarm.java#L10) (`DeleteAlarms`)
-- [Delete an anomaly detector](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L301) (`DeleteAnomalyDetector`)
-- [Delete dashboards](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L349) (`DeleteDashboards`)
-- [Describe alarm history](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L462) (`DescribeAlarmHistory`)
-- [Describe alarms](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L637) (`DescribeAlarms`)
-- [Describe alarms for a metric](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L497) (`DescribeAlarmsForMetric`)
-- [Describe anomaly detectors](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L405) (`DescribeAnomalyDetectors`)
-- [Disable alarm actions](src/main/java/com/example/cloudwatch/DisableAlarmActions.java#L10) (`DisableAlarmActions`)
-- [Enable alarm actions](src/main/java/com/example/cloudwatch/EnableAlarmActions.java#L10) (`EnableAlarmActions`)
-- [Get a metric data image](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L365) (`GetMetricWidgetImage`)
-- [Get metric data](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L578) (`GetMetricData`)
-- [Get metric statistics](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L844) (`GetMetricStatistics`)
-- [List dashboards](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L757) (`ListDashboards`)
-- [List metrics](src/main/java/com/example/cloudwatch/ListMetrics.java#L11) (`ListMetrics`)
-- [Put data into a metric](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L532) (`PutMetricData`)
+- [Create a dashboard](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L773) (`PutDashboard`)
+- [Create a metric alarm](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L659) (`PutMetricAlarm`)
+- [Create an anomaly detector](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L431) (`PutAnomalyDetector`)
+- [Delete alarms](src/main/java/com/example/cloudwatch/DeleteAlarm.java#L6) (`DeleteAlarms`)
+- [Delete an anomaly detector](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L299) (`DeleteAnomalyDetector`)
+- [Delete dashboards](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L347) (`DeleteDashboards`)
+- [Describe alarm history](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L460) (`DescribeAlarmHistory`)
+- [Describe alarms](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L635) (`DescribeAlarms`)
+- [Describe alarms for a metric](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L495) (`DescribeAlarmsForMetric`)
+- [Describe anomaly detectors](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L403) (`DescribeAnomalyDetectors`)
+- [Disable alarm actions](src/main/java/com/example/cloudwatch/DisableAlarmActions.java#L6) (`DisableAlarmActions`)
+- [Enable alarm actions](src/main/java/com/example/cloudwatch/EnableAlarmActions.java#L6) (`EnableAlarmActions`)
+- [Get a metric data image](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L363) (`GetMetricWidgetImage`)
+- [Get metric data](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L576) (`GetMetricData`)
+- [Get metric statistics](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L843) (`GetMetricStatistics`)
+- [List dashboards](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L755) (`ListDashboards`)
+- [List metrics](src/main/java/com/example/cloudwatch/ListMetrics.java#L6) (`ListMetrics`)
+- [Put data into a metric](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L530) (`PutMetricData`)
 
 ### Scenarios
 

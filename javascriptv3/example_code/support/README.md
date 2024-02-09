@@ -31,21 +31,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Support](hello.js#L8) (`DescribeServices`)
+- [Hello Support](hello.js#L6) (`DescribeServices`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a communication to a case](actions/add-communication-to-case.js#L8) (`AddCommunicationToCase`)
-- [Add an attachment to a set](actions/add-attachments-to-set.js#L8) (`AddAttachmentsToSet`)
-- [Create a case](actions/create-case.js#L8) (`CreateCase`)
-- [Describe an attachment](actions/describe-attachment.js#L8) (`DescribeAttachment`)
-- [Describe cases](actions/describe-cases.js#L8) (`DescribeCases`)
-- [Describe communications](actions/describe-communications.js#L8) (`DescribeCommunications`)
-- [Describe severity levels](actions/describe-severity-levels.js#L8) (`DescribeSeverityLevels`)
-- [Resolve case](actions/resolve-case.js#L8) (`ResolveCase`)
+- [Add a communication to a case](actions/add-communication-to-case.js#L6) (`AddCommunicationToCase`)
+- [Add an attachment to a set](actions/add-attachments-to-set.js#L6) (`AddAttachmentsToSet`)
+- [Create a case](actions/create-case.js#L6) (`CreateCase`)
+- [Describe an attachment](actions/describe-attachment.js#L6) (`DescribeAttachment`)
+- [Describe cases](actions/describe-cases.js#L6) (`DescribeCases`)
+- [Describe communications](actions/describe-communications.js#L6) (`DescribeCommunications`)
+- [Describe severity levels](actions/describe-severity-levels.js#L6) (`DescribeSeverityLevels`)
+- [Resolve case](actions/resolve-case.js#L6) (`ResolveCase`)
 
 ### Scenarios
 

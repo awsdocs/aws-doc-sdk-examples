@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a parameter](src/bin/create-parameter.rs#L37) (`PutParameter`)
-- [Get parameters information](src/bin/describe-parameters.rs#L24) (`DescribeParameters`)
+- [Add a parameter](src/bin/create-parameter.rs#L35) (`PutParameter`)
+- [Get parameters information](src/bin/describe-parameters.rs#L22) (`DescribeParameters`)
 
 
 <!--custom.examples.start-->

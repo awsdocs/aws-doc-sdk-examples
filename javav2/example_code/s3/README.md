@@ -31,35 +31,36 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon S3](src/main/java/com/example/s3/HelloS3.java#L10) (`ListBuckets`)
+- [Hello Amazon S3](src/main/java/com/example/s3/HelloS3.java#L6) (`ListBuckets`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add CORS rules to a bucket](src/main/java/com/example/s3/S3Cors.java#L12) (`PutBucketCors`)
-- [Add a lifecycle configuration to a bucket](src/main/java/com/example/s3/LifecycleConfiguration.java#L11) (`PutBucketLifecycleConfiguration`)
-- [Add a policy to a bucket](src/main/java/com/example/s3/SetBucketPolicy.java#L12) (`PutBucketPolicy`)
-- [Copy an object from one bucket to another](src/main/java/com/example/s3/CopyObject.java#L11) (`CopyObject`)
-- [Create a bucket](src/main/java/com/example/s3/CreateBucket.java#L12) (`CreateBucket`)
-- [Delete a policy from a bucket](src/main/java/com/example/s3/DeleteBucketPolicy.java#L11) (`DeleteBucketPolicy`)
-- [Delete an empty bucket](src/main/java/com/example/s3/S3BucketOps.java#L83) (`DeleteBucket`)
-- [Delete multiple objects](src/main/java/com/example/s3/DeleteMultiObjects.java#L12) (`DeleteObjects`)
-- [Delete the website configuration from a bucket](src/main/java/com/example/s3/DeleteWebsiteConfiguration.java#L12) (`DeleteBucketWebsite`)
-- [Determine the existence and content type of an object](src/main/java/com/example/s3/GetObjectContentType.java#L13) (`HeadObject`)
-- [Download objects to a local directory](src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java#L11) (`DownloadDirectory`)
-- [Enable notifications](src/main/java/com/example/s3/SetBucketEventBridgeNotification.java#L11) (`PutBucketNotificationConfiguration`)
-- [Get an object from a bucket](src/main/java/com/example/s3/GetObjectData.java#L13) (`GetObject`)
-- [Get the ACL of a bucket](src/main/java/com/example/s3/GetAcl.java#L10) (`GetBucketAcl`)
-- [Get the policy for a bucket](src/main/java/com/example/s3/GetBucketPolicy.java#L12) (`GetBucketPolicy`)
-- [List in-progress multipart uploads](src/main/java/com/example/s3/ListMultipartUploads.java#L12) (`ListMultipartUploads`)
-- [List objects in a bucket](src/main/java/com/example/s3/ListObjects.java#L10) (`ListObjectsV2`)
-- [Restore an archived copy of an object](src/main/java/com/example/s3/RestoreObject.java#L13) (`RestoreObject`)
-- [Set a new ACL for a bucket](src/main/java/com/example/s3/SetAcl.java#L11) (`PutBucketAcl`)
-- [Set the website configuration for a bucket](src/main/java/com/example/s3/SetWebsiteConfiguration.java#L11) (`PutBucketWebsite`)
-- [Upload an object to a bucket](src/main/java/com/example/s3/PutObject.java#L11) (`PutObject`)
-- [Upload directory to a bucket](src/main/java/com/example/s3/transfermanager/UploadADirectory.java#L11) (`UploadDirectory`)
+- [Add CORS rules to a bucket](src/main/java/com/example/s3/S3Cors.java#L6) (`PutBucketCors`)
+- [Add a lifecycle configuration to a bucket](src/main/java/com/example/s3/LifecycleConfiguration.java#L6) (`PutBucketLifecycleConfiguration`)
+- [Add a policy to a bucket](src/main/java/com/example/s3/SetBucketPolicy.java#L6) (`PutBucketPolicy`)
+- [Copy an object from one bucket to another](src/main/java/com/example/s3/CopyObject.java#L6) (`CopyObject`)
+- [Create a bucket](src/main/java/com/example/s3/CreateBucket.java#L6) (`CreateBucket`)
+- [Delete a policy from a bucket](src/main/java/com/example/s3/DeleteBucketPolicy.java#L6) (`DeleteBucketPolicy`)
+- [Delete an empty bucket](src/main/java/com/example/s3/S3BucketOps.java#L79) (`DeleteBucket`)
+- [Delete multiple objects](src/main/java/com/example/s3/DeleteMultiObjects.java#L6) (`DeleteObjects`)
+- [Delete the website configuration from a bucket](src/main/java/com/example/s3/DeleteWebsiteConfiguration.java#L6) (`DeleteBucketWebsite`)
+- [Determine the existence and content type of an object](src/main/java/com/example/s3/GetObjectContentType.java#L6) (`HeadObject`)
+- [Download objects to a local directory](src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java#L6) (`DownloadDirectory`)
+- [Enable notifications](src/main/java/com/example/s3/SetBucketEventBridgeNotification.java#L6) (`PutBucketNotificationConfiguration`)
+- [Get an object from a bucket](src/main/java/com/example/s3/GetObjectData.java#L6) (`GetObject`)
+- [Get the ACL of a bucket](src/main/java/com/example/s3/GetAcl.java#L6) (`GetBucketAcl`)
+- [Get the policy for a bucket](src/main/java/com/example/s3/GetBucketPolicy.java#L6) (`GetBucketPolicy`)
+- [List buckets](src/main/java/com/example/s3/ListBuckets.java#L6) (`ListBuckets`)
+- [List in-progress multipart uploads](src/main/java/com/example/s3/ListMultipartUploads.java#L6) (`ListMultipartUploads`)
+- [List objects in a bucket](src/main/java/com/example/s3/ListObjects.java#L6) (`ListObjectsV2`)
+- [Restore an archived copy of an object](src/main/java/com/example/s3/RestoreObject.java#L6) (`RestoreObject`)
+- [Set a new ACL for a bucket](src/main/java/com/example/s3/SetAcl.java#L6) (`PutBucketAcl`)
+- [Set the website configuration for a bucket](src/main/java/com/example/s3/SetWebsiteConfiguration.java#L6) (`PutBucketWebsite`)
+- [Upload an object to a bucket](src/main/java/com/example/s3/PutObject.java#L6) (`PutObject`)
+- [Upload directory to a bucket](src/main/java/com/example/s3/transfermanager/UploadADirectory.java#L6) (`UploadDirectory`)
 
 ### Scenarios
 

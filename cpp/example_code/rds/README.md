@@ -46,18 +46,18 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB instance](getting_started_with_db_instances.cpp#L483) (`CreateDBInstance`)
-- [Create a DB parameter group](getting_started_with_db_instances.cpp#L315) (`CreateDBParameterGroup`)
-- [Create a snapshot of a DB instance](getting_started_with_db_instances.cpp#L561) (`CreateDBSnapshot`)
-- [Delete a DB instance](getting_started_with_db_instances.cpp#L859) (`DeleteDBInstance`)
-- [Delete a DB parameter group](getting_started_with_db_instances.cpp#L913) (`DeleteDBParameterGroup`)
-- [Describe DB instances](getting_started_with_db_instances.cpp#L738) (`DescribeDBInstances`)
-- [Describe DB parameter groups](getting_started_with_db_instances.cpp#L277) (`DescribeDBParameterGroups`)
-- [Describe database engine versions](getting_started_with_db_instances.cpp#L700) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](getting_started_with_db_instances.cpp#L778) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters in a DB parameter group](getting_started_with_db_instances.cpp#L641) (`DescribeDBParameters`)
-- [Describe snapshots of DB instances](getting_started_with_db_instances.cpp#L599) (`DescribeDBSnapshots`)
-- [Update parameters in a DB parameter group](getting_started_with_db_instances.cpp#L384) (`ModifyDBParameterGroup`)
+- [Create a DB instance](getting_started_with_db_instances.cpp#L481) (`CreateDBInstance`)
+- [Create a DB parameter group](getting_started_with_db_instances.cpp#L313) (`CreateDBParameterGroup`)
+- [Create a snapshot of a DB instance](getting_started_with_db_instances.cpp#L559) (`CreateDBSnapshot`)
+- [Delete a DB instance](getting_started_with_db_instances.cpp#L857) (`DeleteDBInstance`)
+- [Delete a DB parameter group](getting_started_with_db_instances.cpp#L911) (`DeleteDBParameterGroup`)
+- [Describe DB instances](getting_started_with_db_instances.cpp#L736) (`DescribeDBInstances`)
+- [Describe DB parameter groups](getting_started_with_db_instances.cpp#L275) (`DescribeDBParameterGroups`)
+- [Describe database engine versions](getting_started_with_db_instances.cpp#L698) (`DescribeDBEngineVersions`)
+- [Describe options for DB instances](getting_started_with_db_instances.cpp#L776) (`DescribeOrderableDBInstanceOptions`)
+- [Describe parameters in a DB parameter group](getting_started_with_db_instances.cpp#L639) (`DescribeDBParameters`)
+- [Describe snapshots of DB instances](getting_started_with_db_instances.cpp#L597) (`DescribeDBSnapshots`)
+- [Update parameters in a DB parameter group](getting_started_with_db_instances.cpp#L382) (`ModifyDBParameterGroup`)
 
 ### Scenarios
 
@@ -80,7 +80,7 @@ Sample applications that work across multiple AWS services.
 
 ### Instructions
 
-An executable is built for each source file. These executables are located in the build folder and have
+An executable is built for each source file in this folder. These executables are located in the build folder and have
 "run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
 
 For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
@@ -89,6 +89,9 @@ will display any required arguments.
 ```
 ./run_my_action
 ```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

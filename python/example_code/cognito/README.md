@@ -38,25 +38,25 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Confirm a user](cognito_idp_actions.py#L130) (`ConfirmSignUp`)
-- [Confirm an MFA device for tracking](cognito_idp_actions.py#L341) (`ConfirmDevice`)
-- [Get a token to associate an MFA application with a user](cognito_idp_actions.py#L240) (`AssociateSoftwareToken`)
-- [Get information about a user](cognito_idp_actions.py#L22) (`AdminGetUser`)
-- [List users](cognito_idp_actions.py#L163) (`ListUsers`)
-- [Resend a confirmation code](cognito_idp_actions.py#L103) (`ResendConfirmationCode`)
-- [Respond to SRP authentication challenges](cognito_idp_actions.py#L407) (`RespondToAuthChallenge`)
-- [Respond to an authentication challenge](cognito_idp_actions.py#L291) (`AdminRespondToAuthChallenge`)
-- [Sign up a user](cognito_idp_actions.py#L55) (`SignUp`)
-- [Start authentication with a tracked device](cognito_idp_actions.py#L406) (`InitiateAuth`)
-- [Start authentication with administrator credentials](cognito_idp_actions.py#L186) (`AdminInitiateAuth`)
-- [Verify an MFA application with a user](cognito_idp_actions.py#L264) (`VerifySoftwareToken`)
+- [Confirm a user](cognito_idp_actions.py#L131) (`ConfirmSignUp`)
+- [Confirm an MFA device for tracking](cognito_idp_actions.py#L342) (`ConfirmDevice`)
+- [Get a token to associate an MFA application with a user](cognito_idp_actions.py#L241) (`AssociateSoftwareToken`)
+- [Get information about a user](cognito_idp_actions.py#L23) (`AdminGetUser`)
+- [List users](cognito_idp_actions.py#L164) (`ListUsers`)
+- [Resend a confirmation code](cognito_idp_actions.py#L104) (`ResendConfirmationCode`)
+- [Respond to SRP authentication challenges](cognito_idp_actions.py#L408) (`RespondToAuthChallenge`)
+- [Respond to an authentication challenge](cognito_idp_actions.py#L292) (`AdminRespondToAuthChallenge`)
+- [Sign up a user](cognito_idp_actions.py#L56) (`SignUp`)
+- [Start authentication](cognito_idp_actions.py#L407) (`InitiateAuth`)
+- [Start authentication with administrator credentials](cognito_idp_actions.py#L187) (`AdminInitiateAuth`)
+- [Verify an MFA application with a user](cognito_idp_actions.py#L265) (`VerifySoftwareToken`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Sign up a user with a user pool that requires MFA](scenario_signup_user_with_mfa.py)
+- [Sign up a user with a user pool that requires MFA](cognito_idp_actions.py)
 
 
 <!--custom.examples.start-->
@@ -95,7 +95,7 @@ the scenario.
 Start the example by running the following at a command prompt:
 
 ```
-python scenario_signup_user_with_mfa.py
+python cognito_idp_actions.py
 ```
 
 

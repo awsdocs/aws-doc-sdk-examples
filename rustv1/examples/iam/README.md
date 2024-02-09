@@ -31,37 +31,37 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 ### Get started
 
-- [Hello IAM](src/bin/hello.rs#L1) (`ListPolicies`)
+- [Hello IAM](src/bin/hello.rs#L3) (`ListPolicies`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](src/iam-service-lib.rs#L223) (`AttachRolePolicy`)
-- [Attach a policy to a user](src/iam-service-lib.rs#L238) (`AttachUserPolicy`)
-- [Create a policy](src/iam-service-lib.rs#L20) (`CreatePolicy`)
-- [Create a role](src/iam-service-lib.rs#L67) (`CreateRole`)
-- [Create a service-linked role](src/iam-service-lib.rs#L419) (`CreateServiceLinkedRole`)
-- [Create a user](src/iam-service-lib.rs#L89) (`CreateUser`)
-- [Create an access key](src/iam-service-lib.rs#L272) (`CreateAccessKey`)
-- [Delete a policy](src/iam-service-lib.rs#L340) (`DeletePolicy`)
-- [Delete a role](src/iam-service-lib.rs#L162) (`DeleteRole`)
-- [Delete a service-linked role](src/iam-service-lib.rs#L178) (`DeleteServiceLinkedRole`)
-- [Delete a user](src/iam-service-lib.rs#L193) (`DeleteUser`)
-- [Delete an access key](src/iam-service-lib.rs#L296) (`DeleteAccessKey`)
-- [Delete an inline policy from a user](src/iam-service-lib.rs#L351) (`DeleteUserPolicy`)
-- [Detach a policy from a role](src/iam-service-lib.rs#L323) (`DetachRolePolicy`)
-- [Detach a policy from a user](src/iam-service-lib.rs#L255) (`DetachUserPolicy`)
-- [Get a role](src/iam-service-lib.rs#L115) (`GetRole`)
-- [Get the account password policy](src/iam-service-lib.rs#L438) (`GetAccountPasswordPolicy`)
-- [List SAML providers](src/iam-service-lib.rs#L488) (`ListSAMLProviders`)
-- [List groups](src/iam-service-lib.rs#L400) (`ListGroups`)
-- [List inline policies for a role](src/iam-service-lib.rs#L469) (`ListRolePolicies`)
-- [List policies](src/iam-service-lib.rs#L368) (`ListPolicies`)
-- [List policies attached to a role](src/iam-service-lib.rs#L448) (`ListAttachedRolePolicies`)
-- [List roles](src/iam-service-lib.rs#L97) (`ListRoles`)
-- [List users](src/iam-service-lib.rs#L125) (`ListUsers`)
+- [Attach a policy to a role](src/iam-service-lib.rs#L221) (`AttachRolePolicy`)
+- [Attach a policy to a user](src/iam-service-lib.rs#L236) (`AttachUserPolicy`)
+- [Create a policy](src/iam-service-lib.rs#L18) (`CreatePolicy`)
+- [Create a role](src/iam-service-lib.rs#L65) (`CreateRole`)
+- [Create a service-linked role](src/iam-service-lib.rs#L417) (`CreateServiceLinkedRole`)
+- [Create a user](src/iam-service-lib.rs#L87) (`CreateUser`)
+- [Create an access key](src/iam-service-lib.rs#L270) (`CreateAccessKey`)
+- [Delete a policy](src/iam-service-lib.rs#L338) (`DeletePolicy`)
+- [Delete a role](src/iam-service-lib.rs#L160) (`DeleteRole`)
+- [Delete a service-linked role](src/iam-service-lib.rs#L176) (`DeleteServiceLinkedRole`)
+- [Delete a user](src/iam-service-lib.rs#L191) (`DeleteUser`)
+- [Delete an access key](src/iam-service-lib.rs#L294) (`DeleteAccessKey`)
+- [Delete an inline policy from a user](src/iam-service-lib.rs#L349) (`DeleteUserPolicy`)
+- [Detach a policy from a role](src/iam-service-lib.rs#L321) (`DetachRolePolicy`)
+- [Detach a policy from a user](src/iam-service-lib.rs#L253) (`DetachUserPolicy`)
+- [Get a role](src/iam-service-lib.rs#L113) (`GetRole`)
+- [Get the account password policy](src/iam-service-lib.rs#L436) (`GetAccountPasswordPolicy`)
+- [List SAML providers](src/iam-service-lib.rs#L486) (`ListSAMLProviders`)
+- [List groups](src/iam-service-lib.rs#L398) (`ListGroups`)
+- [List inline policies for a role](src/iam-service-lib.rs#L467) (`ListRolePolicies`)
+- [List policies](src/iam-service-lib.rs#L366) (`ListPolicies`)
+- [List policies attached to a role](src/iam-service-lib.rs#L446) (`ListAttachedRolePolicies`)
+- [List roles](src/iam-service-lib.rs#L95) (`ListRoles`)
+- [List users](src/iam-service-lib.rs#L123) (`ListUsers`)
 
 ### Scenarios
 

@@ -31,23 +31,23 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon Keyspaces](src/main/java/com/example/keyspace/HelloKeyspaces.java#L13) (`ListKeyspaces`)
+- [Hello Amazon Keyspaces](src/main/java/com/example/keyspace/HelloKeyspaces.java#L6) (`ListKeyspaces`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L607) (`CreateKeyspace`)
-- [Create a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L501) (`CreateTable`)
-- [Delete a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L233) (`DeleteKeyspace`)
-- [Delete a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L272) (`DeleteTable`)
-- [Get data about a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L589) (`GetKeyspace`)
-- [Get data about a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L466) (`GetTable`)
-- [List keyspaces](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L570) (`ListKeyspaces`)
-- [List tables in a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L446) (`ListTables`)
+- [Create a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L611) (`CreateKeyspace`)
+- [Create a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L505) (`CreateTable`)
+- [Delete a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L230) (`DeleteKeyspace`)
+- [Delete a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L271) (`DeleteTable`)
+- [Get data about a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L593) (`GetKeyspace`)
+- [Get data about a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L469) (`GetTable`)
+- [List keyspaces](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L574) (`ListKeyspaces`)
+- [List tables in a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L449) (`ListTables`)
 - [Restore a table to a point in time](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L322) (`RestoreTable`)
-- [Update a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L367) (`UpdateTable`)
+- [Update a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L369) (`UpdateTable`)
 
 ### Scenarios
 

@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Write multiple data records](src/bin/put-records-batch.rs#L32) (`PutRecordBatch`)
+- [Write multiple data records](src/bin/put-records-batch.rs#L30) (`PutRecordBatch`)
 
 
 <!--custom.examples.start-->

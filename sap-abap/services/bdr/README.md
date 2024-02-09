@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Image generation with Stability.ai Stable Diffusion XL](zcl_aws1_bdr_actions.clas.abap#L115) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2](zcl_aws1_bdr_actions.clas.abap#L44) (`InvokeModel`)
+- [Image generation with Stability.ai Stable Diffusion XL](zcl_aws1_bdr_actions.clas.abap#L177) (`InvokeModel`)
+- [Text generation with Anthropic Claude 2](zcl_aws1_bdr_actions.clas.abap#L107) (`InvokeModel`)
 
 
 <!--custom.examples.start-->

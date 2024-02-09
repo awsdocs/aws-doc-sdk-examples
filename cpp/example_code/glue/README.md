@@ -46,19 +46,19 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](glue_getting_started_scenario.cpp#L871) (`CreateCrawler`)
-- [Create a job definition](glue_getting_started_scenario.cpp#L871) (`CreateJob`)
-- [Delete a crawler](glue_getting_started_scenario.cpp#L871) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](glue_getting_started_scenario.cpp#L871) (`DeleteDatabase`)
-- [Delete a job definition](glue_getting_started_scenario.cpp#L871) (`DeleteJob`)
-- [Get a crawler](glue_getting_started_scenario.cpp#L871) (`GetCrawler`)
-- [Get a database from the Data Catalog](glue_getting_started_scenario.cpp#L871) (`GetDatabase`)
-- [Get a job run](glue_getting_started_scenario.cpp#L871) (`GetJobRun`)
-- [Get runs of a job](glue_getting_started_scenario.cpp#L871) (`GetJobRuns`)
-- [Get tables from a database](glue_getting_started_scenario.cpp#L871) (`GetTables`)
-- [List job definitions](glue_getting_started_scenario.cpp#L871) (`ListJobs`)
-- [Start a crawler](glue_getting_started_scenario.cpp#L871) (`StartCrawler`)
-- [Start a job run](glue_getting_started_scenario.cpp#L871) (`StartJobRun`)
+- [Create a crawler](glue_getting_started_scenario.cpp#L869) (`CreateCrawler`)
+- [Create a job definition](glue_getting_started_scenario.cpp#L869) (`CreateJob`)
+- [Delete a crawler](glue_getting_started_scenario.cpp#L869) (`DeleteCrawler`)
+- [Delete a database from the Data Catalog](glue_getting_started_scenario.cpp#L869) (`DeleteDatabase`)
+- [Delete a job definition](glue_getting_started_scenario.cpp#L869) (`DeleteJob`)
+- [Get a crawler](glue_getting_started_scenario.cpp#L869) (`GetCrawler`)
+- [Get a database from the Data Catalog](glue_getting_started_scenario.cpp#L869) (`GetDatabase`)
+- [Get a job run](glue_getting_started_scenario.cpp#L869) (`GetJobRun`)
+- [Get runs of a job](glue_getting_started_scenario.cpp#L869) (`GetJobRuns`)
+- [Get tables from a database](glue_getting_started_scenario.cpp#L869) (`GetTables`)
+- [List job definitions](glue_getting_started_scenario.cpp#L869) (`ListJobs`)
+- [Start a crawler](glue_getting_started_scenario.cpp#L869) (`StartCrawler`)
+- [Start a job run](glue_getting_started_scenario.cpp#L869) (`StartJobRun`)
 
 ### Scenarios
 
@@ -75,7 +75,7 @@ functions within the same service.
 
 ### Instructions
 
-An executable is built for each source file. These executables are located in the build folder and have
+An executable is built for each source file in this folder. These executables are located in the build folder and have
 "run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
 
 For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
@@ -84,6 +84,9 @@ will display any required arguments.
 ```
 ./run_my_action
 ```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

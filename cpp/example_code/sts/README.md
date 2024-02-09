@@ -41,7 +41,7 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Assume a role](assume_role.cpp#L39) (`AssumeRole`)
+- [Assume a role](assume_role.cpp#L37) (`AssumeRole`)
 
 
 <!--custom.examples.start-->
@@ -51,7 +51,7 @@ Code excerpts that show you how to call individual service functions.
 
 ### Instructions
 
-An executable is built for each source file. These executables are located in the build folder and have
+An executable is built for each source file in this folder. These executables are located in the build folder and have
 "run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
 
 For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
@@ -60,6 +60,9 @@ will display any required arguments.
 ```
 ./run_my_action
 ```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
