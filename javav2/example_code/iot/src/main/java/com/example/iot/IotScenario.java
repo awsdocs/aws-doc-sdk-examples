@@ -76,7 +76,7 @@ public class IotScenario {
         final String usage =
             """
                 Usage:
-                    <roleARN> <ruleName> <snsAction> <queryString>
+                    <roleARN> <snsAction>
 
                 Where:
                     roleARN - The ARN of an IAM role that has permission to work with AWS IOT.
