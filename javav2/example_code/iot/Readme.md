@@ -25,7 +25,18 @@ The credential provider used in all code examples is the default credential prov
 The following examples use the **IotClient** object:
 
 - [Create an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateThing`)
+- [Create an AWS IoT certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateKeysAndCertificate`)
+- [Create an AWS IoT rule](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateTopicRule`)
+- [Delete an AWS IoT certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`DeleteCertificate`)
 - [Delete an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`DeleteThing`)
+- [Get information about an endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`DescribeEndpoint`)
+- [List your AWS IoT certificates](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`ListCertificates`)
+- [Query the AWS IoT search index.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`SearchIndex`)
+
+The following examples use the **IotClient** object:
+
+- [Get the shadow for the specified thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`GetThingShadow`)
+- [Update the shadow for the specified thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`UpdateThingShadow`)
 
 ### Scenarios
 
