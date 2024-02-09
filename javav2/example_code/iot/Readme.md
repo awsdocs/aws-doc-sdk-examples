@@ -24,6 +24,7 @@ The credential provider used in all code examples is the default credential prov
 
 The following examples use the **IotClient** object:
 
+- [Attach a certificate to an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`AttachThingPrincipal`)
 - [Create an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateThing`)
 - [Create an AWS IoT certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateKeysAndCertificate`)
 - [Create an AWS IoT rule](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateTopicRule`)
