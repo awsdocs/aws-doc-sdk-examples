@@ -1,47 +1,49 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# Purpose:
-# create_subscription.rb demonstrates how to create an Amazon Simple Notification Service (SNS) subscription using
-# the AWS SDK for Ruby.
-
-# Inputs:
-# - REGION
-# - SNS_TOPIC_ARN
-# - EMAIL_ADDRESS
-
 # snippet-start:[sns.Ruby.createSubscription]
+require "aws-sdk-sns"
+require "logger"
 
-require "aws-sdk-sns"  # v2: require 'aws-sdk'
+# Represents a service for creating subscriptions in Amazon Simple Notification Service (SNS)
+class SubscriptionService
+  # Initializes the SubscriptionService with an SNS client
+  #
+  # @param sns_client [Aws::SNS::Client] The SNS client
+  def initialize(sns_client)
+    @sns_client = sns_client
+    @logger = Logger.new($stdout)
+  end
 
-def subscription_created?(sns_client, topic_arn, protocol, endpoint)
-
-  sns_client.subscribe(topic_arn: topic_arn, protocol: protocol, endpoint: endpoint)
-
-rescue StandardError => e
-  puts "Error while creating the subscription: #{e.message}"
-end
-
-# Full example call:
-def run_me
-
-  protocol = "email"
-  endpoint = "EMAIL_ADDRESS"
-  topic_arn = "TOPIC_ARN"
-  region = "REGION"
-
-  sns_client = Aws::SNS::Client.new(region: region)
-
-  puts "Creating the subscription."
-
-  if subscription_created?(sns_client, topic_arn, protocol, endpoint)
-    puts "The subscriptions was created."
-  else
-    puts "The subscription was not created. Stopping program."
-    exit 1
+  # Attempts to create a subscription to a topic
+  #
+  # @param topic_arn [String] The ARN of the SNS topic
+  # @param protocol [String] The subscription protocol (e.g., email)
+  # @param endpoint [String] The endpoint that receives the notifications (email address)
+  # @return [Boolean] true if subscription was successfully created, false otherwise
+  def create_subscription(topic_arn, protocol, endpoint)
+    @sns_client.subscribe(topic_arn: topic_arn, protocol: protocol, endpoint: endpoint)
+    @logger.info("Subscription created successfully.")
+    true
+  rescue Aws::SNS::Errors::ServiceError => e
+    @logger.error("Error while creating the subscription: #{e.message}")
+    false
   end
 end
 
-run_me if $PROGRAM_NAME == __FILE__
+# Main execution if the script is run directly
+if $PROGRAM_NAME == __FILE__
+  protocol = "email"
+  endpoint = "EMAIL_ADDRESS" # Should be replaced with a real email address
+  topic_arn = "TOPIC_ARN"    # Should be replaced with a real topic ARN
 
+  sns_client = Aws::SNS::Client.new
+  subscription_service = SubscriptionService.new(sns_client)
+
+  @logger.info("Creating the subscription.")
+  unless subscription_service.create_subscription(topic_arn, protocol, endpoint)
+    @logger.error("Subscription creation failed. Stopping program.")
+    exit 1
+  end
+end
 # snippet-end:[sns.Ruby.createSubscription]

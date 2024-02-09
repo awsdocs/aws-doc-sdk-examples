@@ -1,44 +1,42 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+require "aws-sdk-sns"
+require "logger"
 
-# Purpose:
-# send_message.rb demonstrates how to send a message using an Amazon Simple Notification Service (SNS) topic using
-# the AWS SDK for Ruby.
+# Service class for sending messages using Amazon Simple Notification Service (SNS)
+class SnsMessageSender
+  # Initializes the SnsMessageSender with an SNS client
+  #
+  # @param sns_client [Aws::SNS::Client] The SNS client
+  def initialize(sns_client)
+    @sns_client = sns_client
+    @logger = Logger.new($stdout)
+  end
 
-# Inputs:
-# - REGION
-# - SNS_TOPIC_ARN
-# - MESSAGE
-
-# snippet-start:[sns.Ruby.sendMessage]
-
-require "aws-sdk-sns"  # v2: require 'aws-sdk'
-
-def message_sent?(sns_client, topic_arn, message)
-
-  sns_client.publish(topic_arn: topic_arn, message: message)
-rescue StandardError => e
-  puts "Error while sending the message: #{e.message}"
-end
-
-def run_me
-
-  topic_arn = "SNS_TOPIC_ARN"
-  region = "REGION"
-  message = "MESSAGE" # The text of the message to send.
-
-  sns_client = Aws::SNS::Client.new(region: region)
-
-  puts "Message sending."
-
-  if message_sent?(sns_client, topic_arn, message)
-    puts "The message was sent."
-  else
-    puts "The message was not sent. Stopping program."
-    exit 1
+  # Sends a message to a specified SNS topic
+  #
+  # @param topic_arn [String] The ARN of the SNS topic
+  # @param message [String] The message to send
+  # @return [Boolean] true if message was successfully sent, false otherwise
+  def send_message(topic_arn, message)
+    @sns_client.publish(topic_arn: topic_arn, message: message)
+    @logger.info("Message sent successfully to #{topic_arn}.")
+    true
+  rescue Aws::SNS::Errors::ServiceError => e
+    @logger.error("Error while sending the message: #{e.message}")
+    false
   end
 end
 
-run_me if $PROGRAM_NAME == __FILE__
+# Main execution if the script is run directly
+if $PROGRAM_NAME == __FILE__
+  topic_arn = "SNS_TOPIC_ARN" # Should be replaced with a real topic ARN
+  message = "MESSAGE"         # Should be replaced with the actual message content
 
-# snippet-end:[sns.Ruby.sendMessage]
+  sns_client = Aws::SNS::Client.new
+  message_sender = SnsMessageSender.new(sns_client)
+
+  @logger.info("Sending message.")
+  unless message_sender.send_message(topic_arn, message)
+    @logger.error("Message sending failed. Stopping program.")
+    exit 1
+  end
+end

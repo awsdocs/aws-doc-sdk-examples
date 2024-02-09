@@ -1,44 +1,37 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+require "aws-sdk-sns"
+require "logger"
 
-# Purpose:
-# show_subscriptions.rb demonstrates how to list subscriptions to an Amazon Simple Notification Service (SNS) topic using
-# the AWS SDK for Ruby.
-
-# Inputs:
-# - REGION
-# - SNS_TOPIC
-
-# snippet-start:[sns.Ruby.showSubscription]
-
-require "aws-sdk-sns"  # v2: require 'aws-sdk'
-
-def show_subscriptions?(sns_client, topic_arn)
-  topic = sns_client.topic(topic_arn)
-  topic.subscriptions.each do |s|
-    puts s.attributes["Endpoint"]
+# This class demonstrates how to list subscriptions to an Amazon Simple Notification Service (SNS) topic
+class SnsSubscriptionLister
+  def initialize(sns_client)
+    @sns_client = sns_client
+    @logger = Logger.new($stdout)
   end
 
-rescue StandardError => e
-  puts "Error while sending the message: #{e.message}"
+  # Lists subscriptions for a given SNS topic
+  # @param topic_arn [String] The ARN of the SNS topic
+  def list_subscriptions(topic_arn)
+    @logger.info("Listing subscriptions for topic: #{topic_arn}")
+    subscriptions = @sns_client.list_subscriptions_by_topic(topic_arn: topic_arn)
+
+    subscriptions.subscriptions.each do |subscription|
+      @logger.info("Subscription endpoint: #{subscription.endpoint}")
+    end
+  rescue Aws::SNS::Errors::ServiceError => e
+    @logger.error("Error listing subscriptions: #{e.message}")
+    raise
+  end
 end
 
-def run_me
+if $PROGRAM_NAME == __FILE__
+  sns_client = Aws::SNS::Client.new
+  topic_arn = "SNS_TOPIC_ARN" # Replace with your SNS topic ARN
+  lister = SnsSubscriptionLister.new(sns_client)
 
-  topic_arn = "SNS_TOPIC_ARN"
-  region = "REGION"
-
-  sns_client = Aws::SNS::Resource.new(region: region)
-
-  puts "Listing subscriptions to the topic."
-
-  if show_subscriptions?(sns_client, topic_arn)
-  else
-    puts "There was an error. Stopping program."
+  begin
+    lister.list_subscriptions(topic_arn)
+  rescue StandardError => e
+    puts "Failed to list subscriptions: #{e.message}"
     exit 1
   end
 end
-
-run_me if $PROGRAM_NAME == __FILE__
-
-# snippet-end:[sns.Ruby.showSubscription]
