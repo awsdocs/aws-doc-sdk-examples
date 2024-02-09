@@ -1,7 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[rds.ruby.listSubnetGroups]
+# snippet-start:[
+# ]
 require "aws-sdk-rds"  # v2: require 'aws-sdk'
 
 # List all Amazon Relational Database Service (Amazon RDS) subnet groups.

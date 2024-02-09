@@ -51,6 +51,16 @@ ses_SendEmail:
             - description:
               snippet_tags:
                 - cpp.example_code.ses.SendEmail
+
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ses/v2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ses.v2.send_email
   services:
     ses: {SendEmail}
 ses_SendBulkTemplatedEmail:
@@ -210,6 +220,15 @@ ses_VerifyEmailIdentity:
             - description:
               snippet_tags:
                 - cpp.example_code.ses.VerifyEmailIdentity
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ses/v1
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ses.v1.send_verification
   services:
     ses: {VerifyEmailIdentity}
 ses_GetIdentityVerificationAttributes:
@@ -237,6 +256,15 @@ ses_GetIdentityVerificationAttributes:
               snippet_tags:
                 - python.example_code.ses.SesIdentity
                 - python.example_code.ses.GetIdentityVerificationAttributes
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ses/v1
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ses.v1.list_identities
   services:
     ses: {GetIdentityVerificationAttributes}
 ses_DeleteIdentity:
@@ -326,6 +354,15 @@ ses_ListIdentities:
               snippet_tags:
                 - python.example_code.ses.SesIdentity
                 - python.example_code.ses.ListIdentities
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ses/v1
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ses.v1.list_identities
     C++:
       versions:
         - sdk_version: 1
