@@ -73,7 +73,7 @@ iot_ListCertificates:
   services:
     iot: {ListCertificates}    
 iot_CreateCertificate:
-  title:  Create an &IoT; certificate index using an &AWS; SDK
+  title: Create an &IoT; certificate index using an &AWS; SDK
   title_abbrev: Create a certificate
   synopsis: create an &IoT; certificate.
   category:
@@ -89,7 +89,7 @@ iot_CreateCertificate:
   services:
     iot: {CreateKeysAndCertificate} 
 iot_DeleteCertificate:
-  title:  Delete an &IoT; certificate index using an &AWS; SDK
+  title: Delete an &IoT; certificate index using an &AWS; SDK
   title_abbrev: Delete a certificate
   synopsis: delete an &IoT; certificate.
   category:
@@ -153,7 +153,7 @@ iot_DescribeThing:
   services:
     iot: {DescribeThing}     
 iot_AttachThingPrincipal:
-  title:  Attach a certificate to an &IoT; thing using an &AWS; SDK
+  title: Attach a certificate to an &IoT; thing using an &AWS; SDK
   title_abbrev: Attach a certificate
   synopsis: attach an &IoT; certificate.
   category:
@@ -169,7 +169,7 @@ iot_AttachThingPrincipal:
   services:
     iot: {AttachThingPrincipal}               
 iot_DetachThingPrincipal:
-  title:  Detach a certificate from an &IoT; thing using an &AWS; SDK
+  title: Detach a certificate from an &IoT; thing using an &AWS; SDK
   title_abbrev: Detach a certificate
   synopsis: detach an &IoT; certificate.
   category:
@@ -185,7 +185,7 @@ iot_DetachThingPrincipal:
   services:
     iot: {DetachThingPrincipal}           
 iot_UpdateThing:
-  title:  Update an &IoT; thing using an &AWS; SDK
+  title: Update an &IoT; thing using an &AWS; SDK
   title_abbrev: Update a thing
   synopsis: update an &IoT; thing.
   category:
