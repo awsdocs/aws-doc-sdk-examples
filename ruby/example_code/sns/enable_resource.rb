@@ -1,6 +1,10 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 require "aws-sdk-sns"
 require "logger"
 
+# snippet-start:[sns.Ruby.enableResources]
 # Service class to enable an SNS resource with a specified policy
 class SnsResourceEnabler
   # Initializes the SnsResourceEnabler with an SNS resource client
@@ -67,3 +71,4 @@ if $PROGRAM_NAME == __FILE__
 
   enabler.enable_resource(topic_arn, resource_arn, policy_name)
 end
+# snippet-end:[sns.Ruby.enableResources]

@@ -1,3 +1,7 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# snippet-start:[sns.Ruby.createTopic]
 require "aws-sdk-sns" # Use aws-sdk-sns for AWS SDK for Ruby V3.
 
 # This class demonstrates how to create an Amazon Simple Notification Service (SNS) topic.
@@ -35,3 +39,4 @@ if $PROGRAM_NAME == __FILE__
     exit 1
   end
 end
+# snippet-end:[sns.Ruby.createTopic]

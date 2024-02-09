@@ -1,5 +1,10 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 require "aws-sdk-sns"
 require "logger"
+
+# snippet-start:[sns.Ruby.showSubscription]
 
 # This class demonstrates how to list subscriptions to an Amazon Simple Notification Service (SNS) topic
 class SnsSubscriptionLister
@@ -35,3 +40,4 @@ if $PROGRAM_NAME == __FILE__
     exit 1
   end
 end
+# snippet-end:[sns.Ruby.showSubscription]

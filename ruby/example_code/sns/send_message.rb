@@ -1,6 +1,10 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 require "aws-sdk-sns"
 require "logger"
 
+# snippet-start:[sns.Ruby.sendMessage]
 # Service class for sending messages using Amazon Simple Notification Service (SNS)
 class SnsMessageSender
   # Initializes the SnsMessageSender with an SNS client
@@ -40,3 +44,4 @@ if $PROGRAM_NAME == __FILE__
     exit 1
   end
 end
+# snippet-end:[sns.Ruby.sendMessage]
