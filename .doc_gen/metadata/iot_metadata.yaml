@@ -261,7 +261,7 @@ iot_UpdateShawdow:
           excerpts:
             - description:
               snippet_tags:
-                - iot.java2.shadow.writer.main
+                - iot.java2.update.shadow.thing.main
   services:
     iot: {updateThingShadow}       
 iot_Scenario:
