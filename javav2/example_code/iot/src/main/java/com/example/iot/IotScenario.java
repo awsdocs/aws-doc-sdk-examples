@@ -91,8 +91,8 @@ public class IotScenario {
         // Specify the thing name
         String thingName;
         String ruleName;
-        String roleARN = "arn:aws:iam::814548047983:role/AssumeRoleSNS";// args[1];
-        String snsAction = "arn:aws:sns:us-east-1:814548047983:scott1111" ; //args[3];
+        String roleARN = "arn:aws:iam::814548047983:role/AssumeRoleSNS";// args[0];
+        String snsAction = "arn:aws:sns:us-east-1:814548047983:scott1111" ; //args[1];
         Scanner scanner = new Scanner(System.in);
         IotClient iotClient = IotClient.builder()
             .region(Region.US_EAST_1)
@@ -257,6 +257,7 @@ public class IotScenario {
         System.out.println(DASHES);
     }
 
+    // snippet-start:[iot.java2.list.certs.main]
     public static void listCertificates(IotClient iotClient) {
         ListCertificatesResponse response = iotClient.listCertificates();
         List<Certificate> certList = response.certificates();
@@ -265,7 +266,9 @@ public class IotScenario {
             System.out.println("Cert Arn: " + cert.certificateArn());
         }
     }
+    // snippet-end:[iot.java2.list.certs.main]
 
+    // snippet-start:[iot.java2.list.rules.main]
     public static void listIoTRules(IotClient iotClient) {
         try {
             ListTopicRulesRequest listTopicRulesRequest = ListTopicRulesRequest.builder().build();
@@ -283,6 +286,7 @@ public class IotScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[iot.java2.list.rules.main]
 
     // snippet-start:[iot.java2.create.rule.main]
     public static void createIoTRule(IotClient iotClient, String roleARN, String ruleName, String action) {
