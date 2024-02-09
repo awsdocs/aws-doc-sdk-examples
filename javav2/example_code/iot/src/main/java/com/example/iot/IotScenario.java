@@ -88,7 +88,6 @@ public class IotScenario {
            System.exit(1);
        }
 
-        // Specify the thing name
         String thingName;
         String ruleName;
         String roleARN = args[0];
@@ -117,7 +116,7 @@ public class IotScenario {
         System.out.println("""
             An AWS IoT Thing represents a virtual entity in the AWS IoT service that can be associated with a physical device.
             """);
-        // Prompt the user for input
+        // Prompt the user for input.
         System.out.print("Enter Thing name: ");
         thingName = scanner.nextLine();
         createIoTThing(iotClient, thingName);
@@ -219,7 +218,7 @@ public class IotScenario {
         System.out.println("10. Search things using the Thing name.");
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
-        String queryString = "thingName:"+thingName ; //args[4];
+        String queryString = "thingName:"+thingName ;
         searchThings(iotClient, queryString);
         System.out.println(DASHES);
 
@@ -291,7 +290,6 @@ public class IotScenario {
     // snippet-start:[iot.java2.create.rule.main]
     public static void createIoTRule(IotClient iotClient, String roleARN, String ruleName, String action) {
         try {
-            // Set the rule SQL statement
             String sql = "SELECT * FROM '" + TOPIC + "'";
             SnsAction action1 = SnsAction.builder()
                 .targetArn(action)
@@ -381,7 +379,6 @@ public class IotScenario {
         attMap.put("location", newLocation);
         attMap.put("firmwareVersion", newFirmwareVersion);
 
-        // Build the update request
         AttributePayload attributePayload = AttributePayload.builder()
             .attributes(attMap)
             .build();
@@ -455,7 +452,7 @@ public class IotScenario {
 
     // Get the cert Id  from the Cert ARN value.
     private static String extractCertificateId(String certificateArn) {
-        // Example ARN: arn:aws:iot:region:account-id:cert/certificate-id
+        // Example ARN: arn:aws:iot:region:account-id:cert/certificate-id.
         String[] arnParts = certificateArn.split(":");
         String certificateIdPart = arnParts[arnParts.length - 1];
         return certificateIdPart.substring(certificateIdPart.lastIndexOf("/") + 1);
@@ -464,15 +461,15 @@ public class IotScenario {
     // snippet-start:[iot.java2.create.cert.main]
     public static String createCertificate(IotClient iotClient) {
         try {
-            // Create keys and certificate
+            // Create keys and certificate.
             CreateKeysAndCertificateResponse response = iotClient.createKeysAndCertificate();
 
-            // Extract key, certificate, and certificate ARN
+            // Extract key, certificate, and certificate ARN.
             String privateKey = response.keyPair().privateKey();
             String certificatePem = response.certificatePem();
             String certificateArn = response.certificateArn();
 
-            // Print the details
+            // Print the details.
             System.out.println("Private Key:");
             System.out.println(privateKey);
             System.out.println("\nCertificate:");
@@ -492,7 +489,7 @@ public class IotScenario {
 
     // snippet-start:[iot.java2.attach.thing.main]
     public static void attachCertificateToThing(IotClient iotClient, String thingName, String certificateArn) {
-        // Attach the certificate to the thing
+        // Attach the certificate to the thing.
         AttachThingPrincipalRequest principalRequest = AttachThingPrincipalRequest.builder()
             .thingName(thingName)
             .principal(certificateArn)
@@ -544,8 +541,6 @@ public class IotScenario {
 
             // Delete Thing Response.
             iotClient.deleteThing(deleteThingRequest);
-
-            // Print ARN of the created thing.
             System.out.println("Deleted Thing " + thingName);
 
         } catch (IotException e) {
@@ -616,6 +611,5 @@ public class IotScenario {
         }
     }
     // snippet-end:[iot.java2.search.thing.main]
-
 }
 // snippet-end:[iot.java2.scenario.main]
