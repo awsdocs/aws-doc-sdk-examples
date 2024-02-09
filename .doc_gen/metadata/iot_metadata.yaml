@@ -136,6 +136,38 @@ iot_DeleteThing:
                 - iot.java2.delete.thing.main
   services:
     iot: {DeleteThing} 
+iot_UpdateThing:
+  title:  Detach a certificate from an &IoT; thing using an &AWS; SDK
+  title_abbrev: Detach a certificate
+  synopsis: detach an &IoT; certificate.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.detach.thing.main
+  services:
+    iot: {DetachThingPrincipal}           
+iot_UpdateThing:
+  title:  Update an &IoT; thing using an &AWS; SDK
+  title_abbrev: Update a thing
+  synopsis: update an &IoT; thing.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.update.thing.main
+  services:
+    iot: {UpdateThing}       
 iot_CreateRule:
   title: Create an &IoT; rule using an &AWS; SDK
   title_abbrev: Create a rule
@@ -149,7 +181,7 @@ iot_CreateRule:
           excerpts:
             - description:
               snippet_tags:
-                - iot.java2.create.thing.main
+                - iot.java2.create.rule.main
   services:
     iot: {CreateTopicRule}   
 iot_CreateThings:

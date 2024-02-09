@@ -424,6 +424,7 @@ public class IotScenario {
     }
     // snippet-end:[iot.java2.describe.endpoint.main]
 
+    // snippet-start:[iot.java2.detach.thing.main]
     public static void detachThingPrincipal(IotClient iotClient, String thingName, String certificateArn){
         try {
             DetachThingPrincipalRequest thingPrincipalRequest = DetachThingPrincipalRequest.builder()
@@ -439,6 +440,7 @@ public class IotScenario {
             System.exit(1);
         }
     }
+    // snippet-start:[iot.java2.detach.thing.main]
 
     // snippet-start:[iot.java2.delete.cert.main]
     public static void deleteCertificate(IotClient iotClient, String certificateArn ) {
