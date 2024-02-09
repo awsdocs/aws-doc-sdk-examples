@@ -238,7 +238,7 @@ def usage_demo(wrapper)
   wrapper.list_saml_providers(count)
   service_name = wrapper.ask_question(
     "Enter the name of a service to create a service-linked role. "\
-    "For example, 'elasticbeanstalk.amazonaws.com' or 'batch.amazonaws.com': ")
+    "For example, 'elastic-beanstalk.amazonaws.com' or 'batch.amazonaws.com': ")
   role = wrapper.create_service_linked_role(service_name, "Example service-linked role.")
   answer = wrapper.ask_question(
     "Do you want to delete the role? You should only do this if you are sure "\

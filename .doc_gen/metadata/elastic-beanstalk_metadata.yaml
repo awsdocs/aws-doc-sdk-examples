@@ -1,0 +1,52 @@
+# zexi 0.4.0
+elastic-beanstalk_ListStacks:
+  title: List &AEB; stacks using an &AWS; SDK
+  title_abbrev: List stacks
+  synopsis: list &AEBlong; stacks.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/elastic-beanstalk
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eb.Ruby.listStacks
+  services:
+    elastic-beanstalk: {ListAvailableSolutionStacks}
+elastic-beanstalk_DescribeApp:
+  title: Describe an &AEB; app using an &AWS; SDK
+  title_abbrev: Describe app
+  synopsis: describe an &AEBlong; app.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/elastic-beanstalk
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eb.Ruby.listApps
+  services:
+    elastic-beanstalk: {DescribeApplications}
+elastic-beanstalk_UpdateApplication:
+  title: Update an &AEB; app using an &AWS; SDK
+  title_abbrev: Update app
+  synopsis: update an &AEBlong; app.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/elastic-beanstalk
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eb.Ruby.updateMyRailsApp
+  services:
+    elastic-beanstalk: {UpdateApplication}

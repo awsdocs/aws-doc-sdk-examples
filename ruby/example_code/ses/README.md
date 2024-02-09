@@ -29,6 +29,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Get the status of an identity](v1/list_identities.rb#L7) (`GetIdentityVerificationAttributes`)
+- [List identities](v1/list_identities.rb#L7) (`ListIdentities`)
+- [Send email](v1/ses_send_email.rb#L7) (`SendEmail`)
+- [Verify an email identity](v1/ses_send_verification.rb#L7) (`VerifyEmailIdentity`)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 

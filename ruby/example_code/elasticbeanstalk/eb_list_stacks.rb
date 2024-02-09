@@ -6,7 +6,7 @@
 # solution stacks using the AWS SDK for Ruby.
 
 # snippet-start:[eb.Ruby.listStacks]
-require "aws-sdk-elasticbeanstalk"  # v2: require 'aws-sdk'
+require "aws-sdk-elastic-beanstalk"  # v2: require 'aws-sdk'
 require "os"
 
 if OS.windows?

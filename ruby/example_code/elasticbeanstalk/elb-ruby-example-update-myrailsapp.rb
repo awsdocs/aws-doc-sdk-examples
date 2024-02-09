@@ -5,7 +5,7 @@
 # eb_list_stacks.rb demonstrates how to update a Ruby on Rails application the AWS SDK for Ruby.
 
 # snippet-start:[eb.Ruby.updateMyRailsApp]
-require "aws-sdk-elasticbeanstalk"  # v2: require 'aws-sdk'
+require "aws-sdk-elastic-beanstalk"  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Elastic Beanstalk.
 Aws.config.update({region: "us-west-2"})
 

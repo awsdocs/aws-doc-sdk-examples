@@ -33,8 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a metric alarm](create_alarm.rb#L6) (`PutMetricAlarm`)
-- [Describe alarms for a metric](alarm_basics.rb#L8) (`DescribeAlarmsForMetric`)
+- [Create a metric alarm](alarm_basics.rb#L30) (`PutMetricAlarm`)
+- [Describe alarms](alarm_basics.rb#L8) (`DescribeAlarms`)
+- [Describe alarms for a metric](show_alarms.rb#L8) (`DescribeAlarmsForMetric`)
 - [Disable alarm actions](alarm_actions.rb#L93) (`DisableAlarmActions`)
 - [List metrics](metrics_basics.rb#L69) (`ListMetrics`)
 - [Put data into a metric](metrics_basics.rb#L8) (`PutMetricData`)

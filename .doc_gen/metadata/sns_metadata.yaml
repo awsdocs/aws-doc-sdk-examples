@@ -205,6 +205,7 @@ sns_ListSubscriptions:
           github: ruby/example_code/sns
           sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-show-subscriptions.html
           excerpts:
+            - description:
             - snippet_tags:
                 - sns.Ruby.showSubscription
     SAP ABAP:

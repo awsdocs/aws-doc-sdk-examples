@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative "../iam_ruby_example_access_keys"
+require_relative "../manage_access_keys"
 
 describe "#list_access_keys(iam, user_name)" do
   let(:user_name) { "my-user" }

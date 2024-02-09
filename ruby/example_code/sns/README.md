@@ -33,12 +33,12 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a topic](sns-ruby-example-create-topic.rb#L12) (`CreateTopic`)
-- [List the subscribers of a topic](sns-ruby-example-show-subscriptions.rb#L12) (`ListSubscriptions`)
-- [List topics](sns-ruby-example-show-topics.rb#L11) (`ListTopics`)
-- [Publish to a topic](sns-ruby-example-send-message.rb#L13) (`Publish`)
-- [Set topic attributes](sns-ruby-example-enable-resource.rb#L14) (`SetTopicAttributes`)
-- [Subscribe an email address to a topic](sns-ruby-example-create-subscription.rb#L13) (`Subscribe`)
+- [Create a topic](create_topic.rb#L3) (`CreateTopic`)
+- [List the subscribers of a topic](None) (`ListSubscriptions`)
+- [List topics](show_topics.rb#L11) (`ListTopics`)
+- [Publish to a topic](send_message.rb#L4) (`Publish`)
+- [Set topic attributes](enable_resource.rb#L4) (`SetTopicAttributes`)
+- [Subscribe an email address to a topic](create_subscription.rb#L4) (`Subscribe`)
 
 
 <!--custom.examples.start-->
