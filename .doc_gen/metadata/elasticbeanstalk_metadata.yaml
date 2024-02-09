@@ -15,7 +15,7 @@ elasticbeanstalk_ListStacks:
               snippet_tags:
                 - eb.Ruby.listStacks
   services:
-    eks: {ListStacks}
+    elastic-beanstalk: {ListAvailableSolutionStacks}
 elasticbeanstalk_DescribeApp:
   title: Describe an &AEB; app using an &AWS; SDK
   title_abbrev: Describe app
@@ -32,8 +32,8 @@ elasticbeanstalk_DescribeApp:
               snippet_tags:
                 - eb.Ruby.listApps
   services:
-    eks: {DescribeApplications}
-elasticbeanstalk_UpdateApp:
+    elastic-beanstalk: {DescribeApplications}
+elasticbeanstalk_UpdateApplication:
   title: Update an &AEB; app using an &AWS; SDK
   title_abbrev: Update app
   synopsis: update an &AEBlong; app.
@@ -49,4 +49,4 @@ elasticbeanstalk_UpdateApp:
               snippet_tags:
                 - eb.Ruby.updateMyRailsApp
   services:
-    eks: {DescribeApplications}
+    elastic-beanstalk: {UpdateApplication}
