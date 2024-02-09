@@ -105,7 +105,7 @@ iot_DeleteCertificate:
   services:
     iot: {DeleteCertificate}     
 iot_SearchIndex:
-  title:  Query the &IoT; search index using an &AWS; SDK
+  title: Query the &IoT; search index using an &AWS; SDK
   title_abbrev: Query the search index
   synopsis: query the &IoT; search index.
   category:
