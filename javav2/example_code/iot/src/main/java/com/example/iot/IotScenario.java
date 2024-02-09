@@ -453,7 +453,6 @@ public class IotScenario {
     }
     // snippet-end:[iot.java2.delete.cert.main]
 
-
     // Get the cert Id  from the Cert ARN value.
     private static String extractCertificateId(String certificateArn) {
         // Example ARN: arn:aws:iot:region:account-id:cert/certificate-id
@@ -491,6 +490,7 @@ public class IotScenario {
     }
     // snippet-end:[iot.java2.create.cert.main]
 
+    // snippet-start:[iot.java2.attach.thing.main]
     public static void attachCertificateToThing(IotClient iotClient, String thingName, String certificateArn) {
         // Attach the certificate to the thing
         AttachThingPrincipalRequest principalRequest = AttachThingPrincipalRequest.builder()
@@ -511,7 +511,9 @@ public class IotScenario {
                 attachResponse.sdkHttpResponse().statusCode());
         }
     }
+    // snippet-end:[iot.java2.attach.thing.main]
 
+    // snippet-start:[iot.java2.describe.thing.main]
     private static void describeThing(IotClient iotClient, String thingName) {
         try {
             // Describe the Thing to get more information.
@@ -530,6 +532,7 @@ public class IotScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[iot.java2.describe.thing.main]
 
     // snippet-start:[iot.java2.delete.thing.main]
     public static void deleteIoTThing(IotClient iotClient, String thingName) {

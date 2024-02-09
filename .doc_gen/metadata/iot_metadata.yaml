@@ -136,7 +136,39 @@ iot_DeleteThing:
                 - iot.java2.delete.thing.main
   services:
     iot: {DeleteThing} 
-iot_UpdateThing:
+iot_DescribeThing:
+  title: Describe an &IoT; thing using an &AWS; SDK
+  title_abbrev: Describe a thing
+  synopsis: describe an &IoT; thing.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.describe.thing.main
+  services:
+    iot: {DescribeThing}     
+iot_AttachThingPrincipal:
+  title:  Attach a certificate to an &IoT; thing using an &AWS; SDK
+  title_abbrev: Attach a certificate
+  synopsis: attach an &IoT; certificate.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.detach.thing.main
+  services:
+    iot: {AttachThingPrincipal}               
+iot_DetachThingPrincipal:
   title:  Detach a certificate from an &IoT; thing using an &AWS; SDK
   title_abbrev: Detach a certificate
   synopsis: detach an &IoT; certificate.
