@@ -43,7 +43,7 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
             $modelId = 'anthropic.claude-v2';
 
             # Claude requires you to enclose the prompt as follows:
-            $prompt = 'Human: {$prompt}\n\nAssistant:';
+            $prompt = "\n\nHuman: {$prompt}\n\nAssistant:";
 
             $body = [
                 'prompt' => $prompt,
