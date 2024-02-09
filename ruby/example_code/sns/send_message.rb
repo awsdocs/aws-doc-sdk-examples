@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# sns-ruby-example-send-message.rb demonstrates how to send a message using an Amazon Simple Notification Service (SNS) topic using
+# send_message.rb demonstrates how to send a message using an Amazon Simple Notification Service (SNS) topic using
 # the AWS SDK for Ruby.
 
 # Inputs:

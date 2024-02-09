@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# sns-ruby-example-create-topic.rb demonstrates how to create an Amazon Simple Notification Service (SNS) topic using
+# create_topic.rb demonstrates how to create an Amazon Simple Notification Service (SNS) topic using
 # the AWS SDK for Ruby.
 
 # Inputs:

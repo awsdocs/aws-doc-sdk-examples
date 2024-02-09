@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# sns-ruby-example-enable-resource.rb demonstrates how to enable an Amazon Simple Notification Service (SNS) resource using
+# enable_resource.rb demonstrates how to enable an Amazon Simple Notification Service (SNS) resource using
 # the AWS SDK for Ruby.
 
 # Inputs:

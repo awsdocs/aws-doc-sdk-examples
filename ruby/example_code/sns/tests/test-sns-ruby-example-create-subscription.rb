@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative "../sns-ruby-example-create-subscription"
+require_relative "../create_subscription"
 
 describe "#subscription_created?" do
   let(:sns_client) { Aws::SNS::Client.new(stub_responses: true) }

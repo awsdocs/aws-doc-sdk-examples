@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# sns-ruby-example-create-subscription.rb demonstrates how to create an Amazon Simple Notification Service (SNS) subscription using
+# create_subscription.rb demonstrates how to create an Amazon Simple Notification Service (SNS) subscription using
 # the AWS SDK for Ruby.
 
 # Inputs:

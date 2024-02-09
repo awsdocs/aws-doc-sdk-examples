@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Purpose:
-# sns-ruby-example-show-subscriptions.rb demonstrates how to list subscriptions to an Amazon Simple Notification Service (SNS) topic using
+# show_subscriptions.rb demonstrates how to list subscriptions to an Amazon Simple Notification Service (SNS) topic using
 # the AWS SDK for Ruby.
 
 # Inputs:
