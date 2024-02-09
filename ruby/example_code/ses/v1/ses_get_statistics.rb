@@ -1,4 +1,4 @@
-require 'aws-sdk-sesv2' # Ensure you're using the aws-sdk-sesv2 gem for AWS SDK for Ruby V3.
+require "aws-sdk-sesv2" # Ensure you're using the aws-sdk-sesv2 gem for AWS SDK for Ruby V3.
 
 # This class encapsulates operations for fetching Amazon Simple Email Service (Amazon SES) sending statistics.
 class SESStatisticsFetcher
