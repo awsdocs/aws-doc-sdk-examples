@@ -83,15 +83,15 @@ class IAMTest {
     @Order(1)
     fun createUserTest() = runBlocking {
         val result = createIAMUser(userName)
-        if (result != null)
+        if (result != null) {
             Assertions.assertTrue(!result.isEmpty())
+        }
         println("Test 1 passed")
     }
 
     @Test
     @Order(2)
     fun createPolicyTest() = runBlocking {
-
         policyARN = createIAMPolicy(policyName)
         Assertions.assertTrue(!policyARN.isEmpty())
         println("Test 2 passed")
@@ -185,6 +185,7 @@ class IAMTest {
             return valueResponse.secretString.toString()
         }
     }
+
     @Nested
     @DisplayName("A class used to get test values from test/iam (an AWS Secrets Manager secret)")
     internal class SecretValues {
