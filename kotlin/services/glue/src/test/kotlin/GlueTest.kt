@@ -35,7 +35,7 @@ class GlueTest {
     private var locationUri = ""
 
     @BeforeAll
-    fun setup() = runBlocking{
+    fun setup() = runBlocking {
         // Get the values to run these tests from AWS Secrets Manager.
         val gson = Gson()
         val json: String = getSecretValues()
@@ -46,27 +46,28 @@ class GlueTest {
         tableName = values.tableName.toString()
         iam = values.iAM.toString()
         text = values.text.toString()
-        jobNameSc = values.jobNameSc.toString()+ UUID.randomUUID()
+        jobNameSc = values.jobNameSc.toString() + UUID.randomUUID()
         s3PathSc = values.s3PathSc.toString()
-        dbNameSc = values.dbNameSc.toString()+ UUID.randomUUID()
-        crawlerNameSc = values.crawlerNameSc.toString()+ UUID.randomUUID()
+        dbNameSc = values.dbNameSc.toString() + UUID.randomUUID()
+        crawlerNameSc = values.crawlerNameSc.toString() + UUID.randomUUID()
         scriptLocationSc = values.scriptLocationSc.toString()
         locationUri = values.locationUri.toString()
 
-        /**
-             val input = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-             val prop = Properties()
-             prop.load(input)
-             cron = prop.getProperty("cron")
-             iam = prop.getProperty("IAM")
-             tableName = prop.getProperty("tableName")
-             text = prop.getProperty("text")
-             jobNameSc = prop.getProperty("jobNameSc")
-             s3PathSc = prop.getProperty("s3PathSc")
-             dbNameSc = prop.getProperty("dbNameSc")
-             crawlerNameSc = prop.getProperty("crawlerNameSc")
-             scriptLocationSc = prop.getProperty("scriptLocationSc")
-             locationUri = prop.getProperty("locationUri")
+        // Uncomment the block below if using config.properties file
+        /*
+        val input = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
+        val prop = Properties()
+        prop.load(input)
+        cron = prop.getProperty("cron")
+        iam = prop.getProperty("IAM")
+        tableName = prop.getProperty("tableName")
+        text = prop.getProperty("text")
+        jobNameSc = prop.getProperty("jobNameSc")
+        s3PathSc = prop.getProperty("s3PathSc")
+        dbNameSc = prop.getProperty("dbNameSc")
+        crawlerNameSc = prop.getProperty("crawlerNameSc")
+        scriptLocationSc = prop.getProperty("scriptLocationSc")
+        locationUri = prop.getProperty("locationUri")
         */
     }
 
@@ -79,14 +80,14 @@ class GlueTest {
 
     @Test
     @Order(4)
-    fun GetDatabasesTest() = runBlocking {
+    fun getDatabasesTest() = runBlocking {
         getAllDatabases()
         println("Test 4 passed")
     }
 
     @Test
     @Order(5)
-    fun SearchTablesTest() = runBlocking {
+    fun searchTablesTest() = runBlocking {
         searchGlueTable(text)
         println("Test 5 passed")
     }
@@ -100,7 +101,7 @@ class GlueTest {
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/glue"
-        val valueRequest= GetSecretValueRequest {
+        val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
@@ -116,9 +117,6 @@ class GlueTest {
         val s3Path: String? = null
         val cron: String? = null
         val crawlerName: String? = null
-        val existingCrawlerName: String? = null
-        val databaseName: String? = null
-        val existingDatabaseName: String? = null
         val tableName: String? = null
         val text: String? = null
         val jobNameSc: String? = null
@@ -127,7 +125,5 @@ class GlueTest {
         val s3PathSc: String? = null
         val scriptLocationSc: String? = null
         val locationUri: String? = null
-        val bucketNameSc: String? = null
     }
-
 }
