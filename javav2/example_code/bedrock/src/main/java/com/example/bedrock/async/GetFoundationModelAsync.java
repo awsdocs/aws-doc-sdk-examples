@@ -12,7 +12,7 @@ import software.amazon.awssdk.services.bedrock.model.GetFoundationModelResponse;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-// snippet-start:[bedrock.java2.get_foundation_model_async.import]
+// snippet-end:[bedrock.java2.get_foundation_model_async.import]
 
 /**
  * Before running this Java V2 code example, set up your development

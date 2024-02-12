@@ -37,6 +37,17 @@ bedrock_GetFoundationModel:
   title_abbrev: Get details about an &BR; foundation model
   synopsis: get details about an &BR; foundation model.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock
+          excerpts:
+            - description: Get details about a foundation model using the synchronous &BR; client.
+              snippet_tags:
+                - bedrock.java2.get_foundation_model.main
+            - description: Get details about a foundation model using the asynchronous &BR; client.
+              snippet_tags:
+                - bedrock.java2.get_foundation_model_async.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -68,9 +79,12 @@ bedrock_ListFoundationModels:
         - sdk_version: 2
           github: javav2/example_code/bedrock
           excerpts:
-            - description: List the available &BRlong; foundation models.
+            - description: List the available &BRlong; foundation models using the synchronous &BR; client.
               snippet_tags:
                 - bedrock.java2.list_foundation_models.main
+            - description: List the available &BRlong; foundation models using the asynchronous &BR; client.
+              snippet_tags:
+                - bedrock.java2.list_foundation_models_async.main
     JavaScript:
       versions:
         - sdk_version: 3
