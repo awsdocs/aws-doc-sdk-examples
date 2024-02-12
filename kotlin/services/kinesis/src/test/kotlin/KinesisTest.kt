@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.io.InputStream
-import java.util.Properties
 import java.util.Random
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
@@ -57,7 +55,6 @@ class KinesisTest {
         }
         println("Test 4 passed")
     }
-
 
     @Test
     @Order(5)
