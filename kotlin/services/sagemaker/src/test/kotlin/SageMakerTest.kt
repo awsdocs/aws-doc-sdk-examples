@@ -86,7 +86,6 @@ class SageMakerTest {
         println("Test 1 passed")
     }
 
-
     @Test
     @Order(2)
     fun createTrainingJobTest() = runBlocking {
@@ -141,6 +140,7 @@ class SageMakerTest {
         val valueRequest= GetSecretValueRequest {
             secretId = secretName
         }
+
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
