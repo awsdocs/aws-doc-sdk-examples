@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.rekognition.model.NotificationChannel
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
@@ -221,7 +220,6 @@ class RekognitionTest {
         }
     }
 
-
     @Nested
     @DisplayName("A class used to get test values from test/rekognition (an AWS Secrets Manager secret)")
     internal class SecretValues {
@@ -242,5 +240,4 @@ class RekognitionTest {
         val topicArn: String? = null
         val roleArn: String? = null
     }
-
 }
