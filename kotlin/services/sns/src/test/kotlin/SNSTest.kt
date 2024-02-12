@@ -167,7 +167,7 @@ class SNSTest {
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/sns"
-        val valueRequest= GetSecretValueRequest {
+        val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
@@ -179,7 +179,6 @@ class SNSTest {
     @Nested
     @DisplayName("A class used to get test values from test/sns, an AWS Secrets Manager secret")
     internal class SecretValues {
-        //getter
         val topicName: String? = null
         val attributeName: String? = null
         val attributeValue: String? = null
@@ -188,5 +187,4 @@ class SNSTest {
         val message: String? = null
         val email: String? = null
     }
-
 }
