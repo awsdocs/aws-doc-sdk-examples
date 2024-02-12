@@ -69,7 +69,6 @@ class BedrockWrapper:
     # snippet-end:[python.example_code.bedrock.ListFoundationModels]
 
 
-
 # snippet-end:[python.example_code.bedrock.BedrockWrapper.class]
 
 
@@ -110,16 +109,16 @@ def usage_demo():
 
 def print_model_details(model):
     print("\n" + "=" * 42)
-    print(f" Model: {model["modelId"]}")
+    print(f' Model: {model["modelId"]}')
     print("-" * 42)
-    print(f" Name: {model["modelName"]}")
-    print(f" Provider: {model["providerName"]}")
-    print(f" Model ARN: {model["modelArn"]}")
-    print(f" Lifecycle status: {model["modelLifecycle"]["status"]}")
-    print(f" Input modalities: {model["inputModalities"]}")
-    print(f" Output modalities: {model["outputModalities"]}")
-    print(f" Supported customizations: {model["customizationsSupported"]}")
-    print(f" Supported inference types: {model["inferenceTypesSupported"]}")
+    print(f' Name: {model["modelName"]}')
+    print(f' Provider: {model["providerName"]}')
+    print(f' Model ARN: {model["modelArn"]}')
+    print(f' Lifecycle status: {model["modelLifecycle"]["status"]}')
+    print(f' Input modalities: {model["inputModalities"]}')
+    print(f' Output modalities: {model["outputModalities"]}')
+    print(f' Supported customizations: {model["customizationsSupported"]}')
+    print(f' Supported inference types: {model["inferenceTypesSupported"]}')
     if "responseStreamingSupported" in model:
         print(f' Response streaming supported: {model["responseStreamingSupported"]}')
 
