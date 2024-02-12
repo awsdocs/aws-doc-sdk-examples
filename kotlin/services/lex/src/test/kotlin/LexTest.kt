@@ -39,13 +39,12 @@ class LexTest {
         intentName = values.intentName.toString()
         intentVersion = values.intentVersion.toString()
 
-        //val input = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        //val prop = Properties()
-        //prop.load(input)
-        //botName = prop.getProperty("botName")
-        //intentName = prop.getProperty("intentName")
-        //intentVersion = prop.getProperty("intentVersion")
-
+        // val input = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
+        // val prop = Properties()
+        // prop.load(input)
+        // botName = prop.getProperty("botName")
+        // intentName = prop.getProperty("intentName")
+        // intentVersion = prop.getProperty("intentVersion")
     }
 
     @Test
@@ -101,7 +100,6 @@ class LexTest {
         }
     }
 
-
     @Nested
     @DisplayName("A class used to get test values from test/lex (an AWS Secrets Manager secret)")
     internal class SecretValues {
@@ -109,5 +107,4 @@ class LexTest {
         val botName: String? = null
         val intentVersion: String? = null
     }
-
 }
