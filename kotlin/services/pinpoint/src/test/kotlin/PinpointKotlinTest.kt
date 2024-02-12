@@ -45,7 +45,7 @@ class PinpointKotlinTest {
     private var existingApp = ""
 
     @BeforeAll
-    fun setup() = runBlocking{
+    fun setup() = runBlocking {
         // Get the values to run these tests from AWS Secrets Manager.
         val gson = Gson()
         val json: String = getSecretValues()
@@ -172,7 +172,7 @@ class PinpointKotlinTest {
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/pinpoint"
-        val valueRequest= GetSecretValueRequest {
+        val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
