@@ -31,25 +31,25 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello Amazon SNS](src/main/kotlin/com/kotlin/sns/HelloSNS.kt#L11) (`ListTopics`)
+- [Hello Amazon SNS](src/main/kotlin/com/kotlin/sns/HelloSNS.kt#L6) (`ListTopics`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add tags to a topic](src/main/kotlin/com/kotlin/sns/AddTags.kt#L46) (`TagResource`)
-- [Create a topic](src/main/kotlin/com/kotlin/sns/CreateTopic.kt#L46) (`CreateTopic`)
-- [Delete a subscription](src/main/kotlin/com/kotlin/sns/Unsubscribe.kt#L44) (`Unsubscribe`)
-- [Delete a topic](src/main/kotlin/com/kotlin/sns/DeleteTopic.kt#L45) (`DeleteTopic`)
-- [Get the properties of a topic](src/main/kotlin/com/kotlin/sns/GetTopicAttributes.kt#L45) (`GetTopicAttributes`)
-- [List the subscribers of a topic](src/main/kotlin/com/kotlin/sns/ListSubscriptions.kt#L27) (`ListSubscriptions`)
-- [List topics](src/main/kotlin/com/kotlin/sns/ListTopics.kt#L29) (`ListTopics`)
-- [Publish an SMS text message](src/main/kotlin/com/kotlin/sns/PublishTextSMS.kt#L47) (`Publish`)
-- [Publish to a topic](src/main/kotlin/com/kotlin/sns/PublishTopic.kt#L45) (`Publish`)
-- [Set topic attributes](src/main/kotlin/com/kotlin/sns/SetTopicAttributes.kt#L48) (`SetTopicAttributes`)
-- [Subscribe a Lambda function to a topic](src/main/kotlin/com/kotlin/sns/SubscribeLambda.kt#L46) (`Subscribe`)
-- [Subscribe an email address to a topic](src/main/kotlin/com/kotlin/sns/SubscribeEmail.kt#L47) (`Subscribe`)
+- [Add tags to a topic](src/main/kotlin/com/kotlin/sns/AddTags.kt#L40) (`TagResource`)
+- [Create a topic](src/main/kotlin/com/kotlin/sns/CreateTopic.kt#L40) (`CreateTopic`)
+- [Delete a subscription](src/main/kotlin/com/kotlin/sns/Unsubscribe.kt#L38) (`Unsubscribe`)
+- [Delete a topic](src/main/kotlin/com/kotlin/sns/DeleteTopic.kt#L39) (`DeleteTopic`)
+- [Get the properties of a topic](src/main/kotlin/com/kotlin/sns/GetTopicAttributes.kt#L39) (`GetTopicAttributes`)
+- [List the subscribers of a topic](src/main/kotlin/com/kotlin/sns/ListSubscriptions.kt#L22) (`ListSubscriptions`)
+- [List topics](src/main/kotlin/com/kotlin/sns/ListTopics.kt#L23) (`ListTopics`)
+- [Publish an SMS text message](src/main/kotlin/com/kotlin/sns/PublishTextSMS.kt#L41) (`Publish`)
+- [Publish to a topic](src/main/kotlin/com/kotlin/sns/PublishTopic.kt#L40) (`Publish`)
+- [Set topic attributes](src/main/kotlin/com/kotlin/sns/SetTopicAttributes.kt#L42) (`SetTopicAttributes`)
+- [Subscribe a Lambda function to a topic](src/main/kotlin/com/kotlin/sns/SubscribeLambda.kt#L40) (`Subscribe`)
+- [Subscribe an email address to a topic](src/main/kotlin/com/kotlin/sns/SubscribeEmail.kt#L41) (`Subscribe`)
 
 
 <!--custom.examples.start-->

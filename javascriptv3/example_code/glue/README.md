@@ -31,29 +31,29 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello AWS Glue](hello.js#L8) (`ListJobs`)
+- [Hello AWS Glue](hello.js#L6) (`ListJobs`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](actions/create-crawler.js#L8) (`CreateCrawler`)
-- [Create a job definition](actions/create-job.js#L8) (`CreateJob`)
-- [Delete a crawler](actions/delete-crawler.js#L8) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](actions/delete-database.js#L8) (`DeleteDatabase`)
-- [Delete a job definition](actions/delete-job.js#L8) (`DeleteJob`)
-- [Delete a table from a database](actions/delete-table.js#L8) (`DeleteTable`)
-- [Get a crawler](actions/get-crawler.js#L8) (`GetCrawler`)
-- [Get a database from the Data Catalog](actions/get-database.js#L8) (`GetDatabase`)
-- [Get a job run](actions/get-job-run.js#L8) (`GetJobRun`)
-- [Get databases from the Data Catalog](actions/get-databases.js#L8) (`GetDatabases`)
-- [Get job from the Data Catalog](actions/get-job.js#L8) (`GetJob`)
-- [Get runs of a job](actions/get-job-runs.js#L8) (`GetJobRuns`)
-- [Get tables from a database](actions/get-tables.js#L8) (`GetTables`)
-- [List job definitions](actions/list-jobs.js#L8) (`ListJobs`)
-- [Start a crawler](actions/start-crawler.js#L8) (`StartCrawler`)
-- [Start a job run](actions/start-job-run.js#L8) (`StartJobRun`)
+- [Create a crawler](actions/create-crawler.js#L6) (`CreateCrawler`)
+- [Create a job definition](actions/create-job.js#L6) (`CreateJob`)
+- [Delete a crawler](actions/delete-crawler.js#L6) (`DeleteCrawler`)
+- [Delete a database from the Data Catalog](actions/delete-database.js#L6) (`DeleteDatabase`)
+- [Delete a job definition](actions/delete-job.js#L6) (`DeleteJob`)
+- [Delete a table from a database](actions/delete-table.js#L6) (`DeleteTable`)
+- [Get a crawler](actions/get-crawler.js#L6) (`GetCrawler`)
+- [Get a database from the Data Catalog](actions/get-database.js#L6) (`GetDatabase`)
+- [Get a job run](actions/get-job-run.js#L6) (`GetJobRun`)
+- [Get databases from the Data Catalog](actions/get-databases.js#L6) (`GetDatabases`)
+- [Get job from the Data Catalog](actions/get-job.js#L6) (`GetJob`)
+- [Get runs of a job](actions/get-job-runs.js#L6) (`GetJobRuns`)
+- [Get tables from a database](actions/get-tables.js#L6) (`GetTables`)
+- [List job definitions](actions/list-jobs.js#L6) (`ListJobs`)
+- [Start a crawler](actions/start-crawler.js#L6) (`StartCrawler`)
+- [Start a job run](actions/start-job-run.js#L6) (`StartJobRun`)
 
 ### Scenarios
 

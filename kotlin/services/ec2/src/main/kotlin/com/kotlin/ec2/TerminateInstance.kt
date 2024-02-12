@@ -17,7 +17,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.terminate_instance.main]
 suspend fun terminateEC2(instanceID: String) {
-
     val request = TerminateInstancesRequest {
         instanceIds = listOf(instanceID)
     }

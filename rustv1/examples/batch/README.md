@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Describe compute environments](src/bin/batch-helloworld.rs#L24) (`DescribeComputeEnvironments`)
+- [Describe compute environments](src/bin/batch-helloworld.rs#L22) (`DescribeComputeEnvironments`)
 
 
 <!--custom.examples.start-->

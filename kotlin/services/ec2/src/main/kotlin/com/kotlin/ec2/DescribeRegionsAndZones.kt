@@ -18,13 +18,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
     describeEC2RegionsAndZones()
 }
 
 // snippet-start:[ec2.kotlin.describe_region_and_zones.main]
 suspend fun describeEC2RegionsAndZones() {
-
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val regionsResponse = ec2.describeRegions(DescribeRegionsRequest {})
         regionsResponse.regions?.forEach { region ->

@@ -31,22 +31,22 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello Support](src/main/kotlin/com/example/support/HelloSupport.kt#L14) (`DescribeServices`)
+- [Hello Support](src/main/kotlin/com/example/support/HelloSupport.kt#L9) (`DescribeServices`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a communication to a case](src/main/kotlin/com/example/support/SupportScenario.kt#L179) (`AddCommunicationToCase`)
-- [Add an attachment to a set](src/main/kotlin/com/example/support/SupportScenario.kt#L198) (`AddAttachmentsToSet`)
-- [Create a case](src/main/kotlin/com/example/support/SupportScenario.kt#L241) (`CreateCase`)
-- [Describe an attachment](src/main/kotlin/com/example/support/SupportScenario.kt#L146) (`DescribeAttachment`)
-- [Describe cases](src/main/kotlin/com/example/support/SupportScenario.kt#L218) (`DescribeCases`)
-- [Describe communications](src/main/kotlin/com/example/support/SupportScenario.kt#L159) (`DescribeCommunications`)
-- [Describe services](src/main/kotlin/com/example/support/SupportScenario.kt#L282) (`DescribeServices`)
-- [Describe severity levels](src/main/kotlin/com/example/support/SupportScenario.kt#L262) (`DescribeSeverityLevels`)
-- [Resolve case](src/main/kotlin/com/example/support/SupportScenario.kt#L134) (`ResolveCase`)
+- [Add a communication to a case](src/main/kotlin/com/example/support/SupportScenario.kt#L173) (`AddCommunicationToCase`)
+- [Add an attachment to a set](src/main/kotlin/com/example/support/SupportScenario.kt#L192) (`AddAttachmentsToSet`)
+- [Create a case](src/main/kotlin/com/example/support/SupportScenario.kt#L235) (`CreateCase`)
+- [Describe an attachment](src/main/kotlin/com/example/support/SupportScenario.kt#L140) (`DescribeAttachment`)
+- [Describe cases](src/main/kotlin/com/example/support/SupportScenario.kt#L212) (`DescribeCases`)
+- [Describe communications](src/main/kotlin/com/example/support/SupportScenario.kt#L153) (`DescribeCommunications`)
+- [Describe services](src/main/kotlin/com/example/support/SupportScenario.kt#L276) (`DescribeServices`)
+- [Describe severity levels](src/main/kotlin/com/example/support/SupportScenario.kt#L256) (`DescribeSeverityLevels`)
+- [Resolve case](src/main/kotlin/com/example/support/SupportScenario.kt#L128) (`ResolveCase`)
 
 ### Scenarios
 

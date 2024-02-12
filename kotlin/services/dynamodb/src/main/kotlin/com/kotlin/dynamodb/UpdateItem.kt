@@ -21,7 +21,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
       Usage:
         <tableName> <key> <keyVal> <name> <updateVal>
@@ -56,7 +55,6 @@ suspend fun updateTableItem(
     name: String,
     updateVal: String
 ) {
-
     val itemKey = mutableMapOf<String, AttributeValue>()
     itemKey[keyName] = AttributeValue.S(keyVal)
 

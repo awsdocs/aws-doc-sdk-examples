@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a transcoding job](src/main/kotlin/com/kotlin/mediaconvert/CreateJob.kt#L143) (`CreateJob`)
-- [Get a transcoding job](src/main/kotlin/com/kotlin/mediaconvert/GetJob.kt#L46) (`GetJob`)
-- [List transcoding jobs](src/main/kotlin/com/kotlin/mediaconvert/ListJobs.kt#L34) (`ListJobs`)
+- [Create a transcoding job](src/main/kotlin/com/kotlin/mediaconvert/CreateJob.kt#L137) (`CreateJob`)
+- [Get a transcoding job](src/main/kotlin/com/kotlin/mediaconvert/GetJob.kt#L41) (`GetJob`)
+- [List transcoding jobs](src/main/kotlin/com/kotlin/mediaconvert/ListJobs.kt#L28) (`ListJobs`)
 
 
 <!--custom.examples.start-->

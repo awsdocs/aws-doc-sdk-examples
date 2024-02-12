@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a cluster](src/bin/cluster.rs#L28) (`CreateCluster`)
-- [Delete a cluster](src/bin/cluster.rs#L38) (`DeleteCluster`)
-- [Describe clusters](src/bin/describe-clusters.rs#L24) (`DescribeClusters`)
+- [Create a cluster](src/bin/cluster.rs#L26) (`CreateCluster`)
+- [Delete a cluster](src/bin/cluster.rs#L36) (`DeleteCluster`)
+- [Describe clusters](src/bin/describe-clusters.rs#L22) (`DescribeClusters`)
 
 
 <!--custom.examples.start-->

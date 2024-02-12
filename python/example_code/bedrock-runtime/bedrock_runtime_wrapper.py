@@ -118,7 +118,7 @@ class BedrockRuntimeWrapper:
         Invokes the Meta Llama 2 large-language model to run an inference
         using the input provided in the request body.
 
-        :param prompt: The prompt that you want Jurassic-2 to complete.
+        :param prompt: The prompt that you want Llama 2 to complete.
         :return: Inference response from the model.
         """
 

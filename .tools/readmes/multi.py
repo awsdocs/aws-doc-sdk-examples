@@ -72,6 +72,7 @@ def main():
 
     skipped = []
     failed = []
+    written = []
 
     for language_and_version in args.languages:
         (language, version) = language_and_version.split(":")
@@ -79,30 +80,32 @@ def main():
             logging.debug(f"Skipping {language}:{version}")
         else:
             for service in args.services:
+                id = f"{language}:{version}:{service}"
                 try:
                     scanner.set_example(language, service)
-                    logging.debug(f"Rendering {language}:{version}:{service}")
+                    logging.debug("Rendering %s", id)
                     renderer = Renderer(scanner, int(version), args.safe)
 
                     result = renderer.render()
                     if result is None:
+                        logging.info("Render returned empty for %s", id)
+                        skipped.append(id)
                         continue
                     if args.dry_run:
                         if not renderer.check():
-                            failed.append(f"{language}:{version}:{service}")
+                            failed.append(id)
                     else:
                         renderer.write()
+                        written.append(id)
                 except FileNotFoundError:
-                    skip = f"{language}:{version}:{service}"
-                    skipped.append(skip)
+                    skipped.append(id)
                 except Exception:
-                    skip = f"{language}:{version}:{service}"
-                    logging.exception(
-                        f"Exception rendering {skip}",
-                    )
+                    logging.exception("Exception rendering %s", id)
+                    failed.append(id)
 
+    done_list = "\n\t".join(written)
     skip_list = "\n\t".join(skipped)
-    logging.info(f"Run complete. Skipped: {skip_list}")
+    logging.info(f"Run complete.\nWrote: {done_list}\nSkipped: {skip_list}")
     if len(failed) > 0:
         failed_list = "\n\t".join(failed)
         logging.warning(f"READMEs with incorrect formatting:\n\t{failed_list}")

@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Delete a transcription job](src/transcribe_delete_job.js#L16) (`DeleteTranscriptionJob`)
-- [List transcription jobs](src/transcribe_list_jobs.js#L16) (`ListTranscriptionJobs`)
-- [Start a transcription job](src/transcribe_create_job.js#L21) (`StartTranscriptionJob`)
+- [Delete a transcription job](src/transcribe_delete_job.js#L17) (`DeleteTranscriptionJob`)
+- [List transcription jobs](src/transcribe_list_jobs.js#L17) (`ListTranscriptionJobs`)
+- [Start a transcription job](src/transcribe_create_job.js#L22) (`StartTranscriptionJob`)
 
 
 <!--custom.examples.start-->

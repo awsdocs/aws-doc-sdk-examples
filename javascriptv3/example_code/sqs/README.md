@@ -31,25 +31,25 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Amazon SQS](hello.js#L8) (`ListQueues`)
+- [Hello Amazon SQS](hello.js#L6) (`ListQueues`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Change message timeout visibility](actions/change-message-visibility.js#L7) (`ChangeMessageVisibility`)
-- [Configure a dead-letter queue](actions/set-attributes-dead-letter.js#L8) (`SetQueueAttributes`)
-- [Create a queue](actions/create-queue.js#L7) (`CreateQueue`)
-- [Delete a batch of messages from a queue](actions/receive-delete-message.js#L8) (`DeleteMessageBatch`)
-- [Delete a message from a queue](actions/receive-delete-message.js#L8) (`DeleteMessage`)
-- [Delete a queue](actions/delete-queue.js#L8) (`DeleteQueue`)
-- [Get attributes for a queue](actions/get-queue-attributes.js#L8) (`GetQueueAttributes`)
-- [Get the URL of a queue](actions/get-queue-url.js#L8) (`GetQueueUrl`)
-- [List queues](actions/list-queues.js#L8) (`ListQueues`)
-- [Receive messages from a queue](actions/receive-delete-message.js#L8) (`ReceiveMessage`)
-- [Send a message to a queue](actions/send-message.js#L8) (`SendMessage`)
-- [Set queue attributes](actions/set-queue-attributes.js#L8) (`SetQueueAttributes`)
+- [Change message timeout visibility](actions/change-message-visibility.js#L5) (`ChangeMessageVisibility`)
+- [Configure a dead-letter queue](actions/set-attributes-dead-letter.js#L6) (`SetQueueAttributes`)
+- [Create a queue](actions/create-queue.js#L9) (`CreateQueue`)
+- [Delete a batch of messages from a queue](actions/receive-delete-message.js#L6) (`DeleteMessageBatch`)
+- [Delete a message from a queue](actions/receive-delete-message.js#L6) (`DeleteMessage`)
+- [Delete a queue](actions/delete-queue.js#L6) (`DeleteQueue`)
+- [Get attributes for a queue](actions/get-queue-attributes.js#L6) (`GetQueueAttributes`)
+- [Get the URL of a queue](actions/get-queue-url.js#L6) (`GetQueueUrl`)
+- [List queues](actions/list-queues.js#L6) (`ListQueues`)
+- [Receive messages from a queue](actions/receive-delete-message.js#L6) (`ReceiveMessage`)
+- [Send a message to a queue](actions/send-message.js#L6) (`SendMessage`)
+- [Set queue attributes](actions/set-queue-attributes.js#L6) (`SetQueueAttributes`)
 
 ### Scenarios
 

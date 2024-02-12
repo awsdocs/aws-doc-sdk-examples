@@ -33,20 +33,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](glue_wrapper.rb#L34) (`CreateCrawler`)
-- [Create a job definition](glue_wrapper.rb#L116) (`CreateJob`)
-- [Delete a crawler](glue_wrapper.rb#L75) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](glue_wrapper.rb#L228) (`DeleteDatabase`)
-- [Delete a job definition](glue_wrapper.rb#L203) (`DeleteJob`)
-- [Delete a table from a database](glue_wrapper.rb#L215) (`DeleteTable`)
-- [Get a crawler](glue_wrapper.rb#L18) (`GetCrawler`)
-- [Get a database from the Data Catalog](glue_wrapper.rb#L88) (`GetDatabase`)
-- [Get a job run](glue_wrapper.rb#L191) (`GetJobRun`)
-- [Get runs of a job](glue_wrapper.rb#L178) (`GetJobRuns`)
-- [Get tables from a database](glue_wrapper.rb#L102) (`GetTables`)
-- [List job definitions](glue_wrapper.rb#L166) (`ListJobs`)
-- [Start a crawler](glue_wrapper.rb#L62) (`StartCrawler`)
-- [Start a job run](glue_wrapper.rb#L142) (`StartJobRun`)
+- [Create a crawler](glue_wrapper.rb#L36) (`CreateCrawler`)
+- [Create a job definition](glue_wrapper.rb#L118) (`CreateJob`)
+- [Delete a crawler](glue_wrapper.rb#L77) (`DeleteCrawler`)
+- [Delete a database from the Data Catalog](glue_wrapper.rb#L230) (`DeleteDatabase`)
+- [Delete a job definition](glue_wrapper.rb#L205) (`DeleteJob`)
+- [Delete a table from a database](glue_wrapper.rb#L217) (`DeleteTable`)
+- [Get a crawler](glue_wrapper.rb#L20) (`GetCrawler`)
+- [Get a database from the Data Catalog](glue_wrapper.rb#L90) (`GetDatabase`)
+- [Get a job run](glue_wrapper.rb#L193) (`GetJobRun`)
+- [Get runs of a job](glue_wrapper.rb#L180) (`GetJobRuns`)
+- [Get tables from a database](glue_wrapper.rb#L104) (`GetTables`)
+- [List job definitions](glue_wrapper.rb#L168) (`ListJobs`)
+- [Start a crawler](glue_wrapper.rb#L64) (`StartCrawler`)
+- [Start a job run](glue_wrapper.rb#L144) (`StartJobRun`)
 
 ### Scenarios
 

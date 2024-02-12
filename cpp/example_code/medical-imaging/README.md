@@ -46,12 +46,12 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Delete an image set](delete_image_set.cpp#L24) (`DeleteImageSet`)
-- [Get an image frame](get_image_frame.cpp#L26) (`GetImageFrame`)
-- [Get import job properties](get_dicom_import_job.cpp#L24) (`GetDICOMImportJob`)
-- [Get metadata for an image set](get_image_set_metadata.cpp#L24) (`GetImageSetMetadata`)
-- [Import bulk data into a data store](start_dicom_import_job.cpp#L24) (`StartDICOMImportJob`)
-- [Search image sets](search_image_sets.cpp#L25) (`SearchImageSets`)
+- [Delete an image set](delete_image_set.cpp#L23) (`DeleteImageSet`)
+- [Get an image frame](get_image_frame.cpp#L24) (`GetImageFrame`)
+- [Get import job properties](get_dicom_import_job.cpp#L23) (`GetDICOMImportJob`)
+- [Get metadata for an image set](get_image_set_metadata.cpp#L23) (`GetImageSetMetadata`)
+- [Import bulk data into a data store](start_dicom_import_job.cpp#L23) (`StartDICOMImportJob`)
+- [Search image sets](search_image_sets.cpp#L24) (`SearchImageSets`)
 
 ### Scenarios
 
@@ -92,7 +92,7 @@ This example shows you how to get started using HealthImaging.
 
 #### Get started with image sets and image frames
 
-This example shows you how to get started with HealthImaging image sets and image frames.
+This example shows you how to import DICOM files and download image frames in HealthImaging.<para>The implementation is structured as a workflow command-line application.</para>
 
 - Set up resources for a DICOM import.
 - Import DICOM files into a data store.

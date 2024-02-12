@@ -46,19 +46,19 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Change how long a queue waits for a message](long_polling_on_existing_queue.cpp#L87) (`SetQueueAttributes`)
-- [Change message timeout visibility](change_message_visibility.cpp#L26) (`ChangeMessageVisibility`)
-- [Configure a dead-letter queue](dead_letter_queue.cpp#L123) (`SetQueueAttributes`)
-- [Create a queue](create_queue.cpp#L25) (`CreateQueue`)
-- [Delete a batch of messages from a queue](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L646) (`DeleteMessageBatch`)
-- [Delete a message from a queue](delete_message.cpp#L25) (`DeleteMessage`)
-- [Delete a queue](delete_queue.cpp#L26) (`DeleteQueue`)
-- [Get attributes for a queue](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L382) (`GetQueueAttributes`)
-- [Get the URL of a queue](get_queue_url.cpp#L25) (`GetQueueUrl`)
-- [List queues](list_queues.cpp#L25) (`ListQueues`)
-- [Receive messages from a queue](receive_message.cpp#L25) (`ReceiveMessage`)
-- [Send a message to a queue](send_message.cpp#L25) (`SendMessage`)
-- [Set queue attributes](set_queue_attributes.cpp#L23) (`SetQueueAttributes`)
+- [Change how long a queue waits for a message](long_polling_on_existing_queue.cpp#L85) (`SetQueueAttributes`)
+- [Change message timeout visibility](change_message_visibility.cpp#L24) (`ChangeMessageVisibility`)
+- [Configure a dead-letter queue](dead_letter_queue.cpp#L121) (`SetQueueAttributes`)
+- [Create a queue](create_queue.cpp#L23) (`CreateQueue`)
+- [Delete a batch of messages from a queue](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L644) (`DeleteMessageBatch`)
+- [Delete a message from a queue](delete_message.cpp#L23) (`DeleteMessage`)
+- [Delete a queue](delete_queue.cpp#L24) (`DeleteQueue`)
+- [Get attributes for a queue](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L380) (`GetQueueAttributes`)
+- [Get the URL of a queue](get_queue_url.cpp#L23) (`GetQueueUrl`)
+- [List queues](list_queues.cpp#L23) (`ListQueues`)
+- [Receive messages from a queue](receive_message.cpp#L23) (`ReceiveMessage`)
+- [Send a message to a queue](send_message.cpp#L23) (`SendMessage`)
+- [Set queue attributes](set_queue_attributes.cpp#L21) (`SetQueueAttributes`)
 
 ### Scenarios
 
@@ -75,7 +75,7 @@ functions within the same service.
 
 ### Instructions
 
-An executable is built for each source file. These executables are located in the build folder and have
+An executable is built for each source file in this folder. These executables are located in the build folder and have
 "run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
 
 For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
@@ -84,6 +84,9 @@ will display any required arguments.
 ```
 ./run_my_action
 ```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

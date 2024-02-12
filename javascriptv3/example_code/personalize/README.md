@@ -33,20 +33,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a batch interface job](src/personalize_createBatchInferenceJob.js#L27) (`CreateBatchInferenceJob`)
-- [Create a batch segment job](src/personalize_createBatchSegmentJob.js#L25) (`CreateBatchSegmentJob`)
-- [Create a campaign](src/personalize_createCampaign.js#L20) (`CreateCampaign`)
-- [Create a dataset](src/personalize_createDataset.js#L21) (`CreateDataset`)
-- [Create a dataset export job](src/personalize_createDatasetExportJob.js#L22) (`CreateDatasetExportJob`)
-- [Create a dataset group](src/personalize_createDatasetGroup.js#L19) (`CreateDatasetGroup`)
-- [Create a dataset import job](src/personalize_createDatasetImportJob.js#L21) (`CreateDatasetImportJob`)
-- [Create a domain schema](src/personalize_createDomainSchema.js#L20) (`CreateSchema`)
-- [Create a filter](src/personalize_createFilter.js#L19) (`CreateFilter`)
-- [Create a recommender](src/personalize_createRecommender.js#L20) (`CreateRecommender`)
-- [Create a schema](src/personalize_createSchema.js#L19) (`CreateSchema`)
-- [Create a solution](src/personalize_createSolution.js#L20) (`CreateSolution`)
-- [Create a solution version](src/personalize_createSolutionVersion.js#L18) (`CreateSolutionVersion`)
-- [Create an event tracker](src/personalize_createEventTracker.js#L19) (`CreateEventTracker`)
+- [Create a batch interface job](src/personalize_createBatchInferenceJob.js#L31) (`CreateBatchInferenceJob`)
+- [Create a batch segment job](src/personalize_createBatchSegmentJob.js#L27) (`CreateBatchSegmentJob`)
+- [Create a campaign](src/personalize_createCampaign.js#L22) (`CreateCampaign`)
+- [Create a dataset](src/personalize_createDataset.js#L23) (`CreateDataset`)
+- [Create a dataset export job](src/personalize_createDatasetExportJob.js#L24) (`CreateDatasetExportJob`)
+- [Create a dataset group](src/personalize_createDatasetGroup.js#L21) (`CreateDatasetGroup`)
+- [Create a dataset import job](src/personalize_createDatasetImportJob.js#L23) (`CreateDatasetImportJob`)
+- [Create a domain schema](src/personalize_createDomainSchema.js#L22) (`CreateSchema`)
+- [Create a filter](src/personalize_createFilter.js#L21) (`CreateFilter`)
+- [Create a recommender](src/personalize_createRecommender.js#L22) (`CreateRecommender`)
+- [Create a schema](src/personalize_createSchema.js#L21) (`CreateSchema`)
+- [Create a solution](src/personalize_createSolution.js#L22) (`CreateSolution`)
+- [Create a solution version](src/personalize_createSolutionVersion.js#L20) (`CreateSolutionVersion`)
+- [Create an event tracker](src/personalize_createEventTracker.js#L21) (`CreateEventTracker`)
 
 
 <!--custom.examples.start-->

@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a container](src/main/java/com/example/mediastore/CreateContainer.java#L12) (`CreateContainer`)
-- [Delete a container](src/main/java/com/example/mediastore/CreateContainer.java#L12) (`DeleteContainer`)
-- [Delete an object](src/main/java/com/example/mediastore/DeleteObject.java#L12) (`DeleteObject`)
-- [Describe a container](src/main/java/com/example/mediastore/DescribeContainer.java#L12) (`DescribeContainer`)
-- [Get an object](src/main/java/com/example/mediastore/GetObject.java#L12) (`GetObject`)
-- [List containers](src/main/java/com/example/mediastore/ListContainers.java#L12) (`ListContainers`)
-- [Put an object into a container](src/main/java/com/example/mediastore/PutObject.java#L12) (`PutObject`)
+- [Create a container](src/main/java/com/example/mediastore/CreateContainer.java#L6) (`CreateContainer`)
+- [Delete a container](src/main/java/com/example/mediastore/CreateContainer.java#L6) (`DeleteContainer`)
+- [Delete an object](src/main/java/com/example/mediastore/DeleteObject.java#L6) (`DeleteObject`)
+- [Describe a container](src/main/java/com/example/mediastore/DescribeContainer.java#L6) (`DescribeContainer`)
+- [Get an object](src/main/java/com/example/mediastore/GetObject.java#L6) (`GetObject`)
+- [List containers](src/main/java/com/example/mediastore/ListContainers.java#L6) (`ListContainers`)
+- [Put an object into a container](src/main/java/com/example/mediastore/PutObject.java#L6) (`PutObject`)
 
 
 <!--custom.examples.start-->

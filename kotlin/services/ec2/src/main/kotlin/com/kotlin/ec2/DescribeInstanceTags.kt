@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <resourceIdVal> 
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.describe_instances_tags.main]
 suspend fun describeEC2Tags(resourceIdVal: String) {
-
     val filter = Filter {
         name = "resource-id"
         values = listOf(resourceIdVal)

@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [List transcription jobs](src/main/java/com/amazonaws/transcribe/ListTranscriptionJobs.java#L9) (`ListTranscriptionJobs`)
-- [Start a transcription job](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoApp.java#L35) (`StartTranscriptionJob`)
+- [List transcription jobs](src/main/java/com/amazonaws/transcribe/ListTranscriptionJobs.java#L12) (`ListTranscriptionJobs`)
+- [Start a transcription job](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoApp.java#L26) (`StartTranscriptionJob`)
 
 ### Scenarios
 

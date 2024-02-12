@@ -24,7 +24,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
          <tableName> <key> 
@@ -48,7 +47,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[dynamodb.kotlin.create_table.main]
 suspend fun createNewTable(tableNameVal: String, key: String): String? {
-
     val attDef = AttributeDefinition {
         attributeName = key
         attributeType = ScalarAttributeType.S

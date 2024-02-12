@@ -31,27 +31,27 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello DynamoDB](hello.js#L8) (`ListTables`)
+- [Hello DynamoDB](hello.js#L6) (`ListTables`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](actions/create-table.js#L8) (`CreateTable`)
-- [Delete a table](actions/delete-table.js#L8) (`DeleteTable`)
-- [Delete an item from a table](actions/document-client/delete.js#L8) (`DeleteItem`)
-- [Get a batch of items](actions/document-client/batch-get.js#L8) (`BatchGetItem`)
-- [Get an item from a table](actions/document-client/get.js#L8) (`GetItem`)
-- [Get information about a table](actions/describe-table.js#L8) (`DescribeTable`)
-- [List tables](actions/list-tables.js#L8) (`ListTables`)
-- [Put an item in a table](actions/document-client/put.js#L8) (`PutItem`)
-- [Query a table](actions/document-client/query.js#L8) (`Query`)
-- [Run a PartiQL statement](actions/partiql/partiql-put.js#L8) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](actions/partiql/partiql-batch-put.js#L8) (`BatchExecuteStatement`)
-- [Scan a table](actions/document-client/scan.js#L8) (`Scan`)
-- [Update an item in a table](actions/document-client/update.js#L8) (`UpdateItem`)
-- [Write a batch of items](actions/document-client/batch-write.js#L8) (`BatchWriteItem`)
+- [Create a table](actions/create-table.js#L6) (`CreateTable`)
+- [Delete a table](actions/delete-table.js#L6) (`DeleteTable`)
+- [Delete an item from a table](actions/document-client/delete.js#L6) (`DeleteItem`)
+- [Get a batch of items](actions/document-client/batch-get.js#L6) (`BatchGetItem`)
+- [Get an item from a table](actions/document-client/get.js#L6) (`GetItem`)
+- [Get information about a table](actions/describe-table.js#L6) (`DescribeTable`)
+- [List tables](actions/list-tables.js#L6) (`ListTables`)
+- [Put an item in a table](actions/document-client/put.js#L6) (`PutItem`)
+- [Query a table](actions/document-client/query.js#L6) (`Query`)
+- [Run a PartiQL statement](actions/partiql/partiql-put.js#L6) (`ExecuteStatement`)
+- [Run batches of PartiQL statements](actions/partiql/partiql-batch-put.js#L6) (`BatchExecuteStatement`)
+- [Scan a table](actions/document-client/scan.js#L6) (`Scan`)
+- [Update an item in a table](actions/document-client/update.js#L6) (`UpdateItem`)
+- [Write a batch of items](actions/document-client/batch-write.js#L6) (`BatchWriteItem`)
 
 ### Scenarios
 
