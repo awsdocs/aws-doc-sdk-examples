@@ -10,8 +10,8 @@ on:
 jobs:
   lint:
     name: Lint Javascript
+    if: contains(github.event.pull_request.labels.*.name, 'Javascript-v3')
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
         name: Checkout files
