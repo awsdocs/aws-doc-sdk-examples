@@ -12,6 +12,7 @@ on:
 
 jobs:
   lint:
+    name: Lint Javascript
     runs-on: ubuntu-latest
 
     steps:

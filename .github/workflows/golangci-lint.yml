@@ -15,7 +15,7 @@ permissions:
   # pull-requests: read
 jobs:
   golangci:
-    name: lint
+    name: Lint GoLang
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-go@v3

@@ -7,7 +7,7 @@ on:
 
 jobs:
   cpplint:
-    name: cpp lint
+    name: Lint CPP
     permissions:
       contents: read
       pull-requests: read
@@ -21,4 +21,3 @@ jobs:
         with:
           config_file: ./.github/cpp-linter/clang-tidy-config.txt
           token: ${{ secrets.GITHUB_TOKEN }}
-

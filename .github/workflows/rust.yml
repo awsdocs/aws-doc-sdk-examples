@@ -13,7 +13,7 @@ permissions:
   contents: read
 jobs:
   check:
-    name: Check
+    name: Lint Rust
     runs-on: aws-doc-sdk-examples_ubuntu-latest_16-core
     steps:
       - name: setup
