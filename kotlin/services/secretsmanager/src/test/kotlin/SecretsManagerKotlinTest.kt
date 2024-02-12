@@ -32,7 +32,7 @@ class SecretsManagerKotlinTest {
     private var modSecretValue = ""
 
     @BeforeAll
-    fun setup() = runBlocking{
+    fun setup() = runBlocking {
         val random = Random()
         val randomNum = random.nextInt(10000 - 1 + 1) + 1
         // Get the values to run these tests from AWS Secrets Manager.
@@ -100,7 +100,7 @@ class SecretsManagerKotlinTest {
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/secretmanager"
-        val valueRequest= GetSecretValueRequest {
+        val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
