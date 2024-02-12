@@ -170,6 +170,6 @@ class KMSKotlinTest {
         val keyDesc: String? = null
         val operation: String? = null
         val aliasName: String? = null
-        val path:String? = null
+        val path: String? = null
     }
 }
