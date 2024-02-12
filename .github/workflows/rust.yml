@@ -1,13 +1,9 @@
 name: Rust
 on:
   push:
-    paths:
-      - "rustv1/**"
     branches:
       - main
   pull_request:
-    paths:
-      - "rustv1/**"
   workflow_dispatch:
 permissions:
   contents: read
