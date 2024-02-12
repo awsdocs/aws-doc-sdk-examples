@@ -171,12 +171,11 @@ class Route53Test {
         println("9. Get operation details.")
         getOperationalDetail(opId)
         println(DASH)
-
         println("Test 7 passed")
     }
     private suspend fun getSecretValues(): String {
         val secretName = "test/route53"
-        val valueRequest= GetSecretValueRequest {
+        val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
