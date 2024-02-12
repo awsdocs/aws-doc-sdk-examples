@@ -23,7 +23,7 @@ class MediaStoreTest {
     fun setup() {
         val random = Random()
         val randomNum: Int = random.nextInt(10000 - 1 + 1) + 1
-        containerName = "containerName"+randomNum
+        containerName = "containerName" + randomNum
     }
 
     @Test
