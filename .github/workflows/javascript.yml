@@ -2,13 +2,9 @@ name: JavaScript
 
 on:
   push:
-    paths:
-      - "javascriptv3/**"
     branches:
       - main
   pull_request:
-    paths:
-      - "javascriptv3/**"
   workflow_dispatch:
 
 jobs:
