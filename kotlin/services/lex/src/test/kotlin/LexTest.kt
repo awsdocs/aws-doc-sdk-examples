@@ -91,7 +91,7 @@ class LexTest {
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/lex"
-        val valueRequest= GetSecretValueRequest {
+        val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
