@@ -32,7 +32,7 @@ class SQSTest {
     private var queueName = ""
     private var message = ""
     private var queueUrl = ""
-    
+
     @BeforeAll
     fun setup() = runBlocking {
         val random = Random()
