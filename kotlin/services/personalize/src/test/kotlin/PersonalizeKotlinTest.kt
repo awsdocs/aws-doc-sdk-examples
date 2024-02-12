@@ -43,7 +43,7 @@ class PersonalizeKotlinTest {
     private var newCampaignArn = ""
 
     @BeforeAll
-    fun setup() = runBlocking{
+    fun setup() = runBlocking {
         // Get the values to run these tests from AWS Secrets Manager.
         val gson = Gson()
         val json: String = getSecretValues()
@@ -51,7 +51,7 @@ class PersonalizeKotlinTest {
         datasetGroupArn = values.datasetGroupArn.toString()
         solutionVersionArn = values.solutionVersionArn.toString()
         recipeArn = values.recipeArn.toString()
-        solutionName = values.solutionName.toString()+ UUID.randomUUID()
+        solutionName = values.solutionName.toString() + UUID.randomUUID()
         userId = values.userId.toString()
         campaignName = values.campaignName.toString() + UUID.randomUUID()
         /*
@@ -151,7 +151,7 @@ class PersonalizeKotlinTest {
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/personalize"
-        val valueRequest= GetSecretValueRequest {
+        val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
