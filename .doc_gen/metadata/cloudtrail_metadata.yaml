@@ -15,7 +15,7 @@ cloudtrail_ListTrails:
               snippet_tags:
                 - cloudtrail.Ruby.describeTrails
   services:
-    cloudwatch: {ListTrails}
+    cloudtrail: {ListTrails}
 cloudtrail_CreateTrail:
   title: Create a &CT; trail using an &AWS; SDK
   title_abbrev: List trails
@@ -32,7 +32,7 @@ cloudtrail_CreateTrail:
               snippet_tags:
                 - cloudtrail.Ruby.createTrail
   services:
-    cloudwatch: {CreateTrail}
+    cloudtrail: {CreateTrail}
 cloudtrail_ListTrailEvents:
   title: List &CT; trail events using an &AWS; SDK
   title_abbrev: List trail events
@@ -49,7 +49,7 @@ cloudtrail_ListTrailEvents:
               snippet_tags:
                 - cloudtrail.Ruby.lookupEvents
   services:
-    cloudwatch: {LookupEvents}
+    cloudtrail: {LookupEvents}
 cloudtrail_DeleteTrail:
   title: Delete a &CT; trail using an &AWS; SDK
   title_abbrev: Delete trail
@@ -66,4 +66,4 @@ cloudtrail_DeleteTrail:
               snippet_tags:
                 - cloudtrail.Ruby.deleteTrail
   services:
-    cloudwatch: {DeleteTrail}
+    cloudtrail: {DeleteTrail}
