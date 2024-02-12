@@ -137,7 +137,7 @@ class SageMakerTest {
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/sagemaker"
-        val valueRequest= GetSecretValueRequest {
+        val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
 
