@@ -42,7 +42,7 @@ class KMSKotlinTest {
     private var path = ""
 
     @BeforeAll
-    fun setup() = runBlocking{
+    fun setup() = runBlocking {
         // Get the values to run these tests from AWS Secrets Manager.
         val gson = Gson()
         val json = getSecretValues()
@@ -154,7 +154,7 @@ class KMSKotlinTest {
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/kms"
-        val valueRequest= GetSecretValueRequest {
+        val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
@@ -170,7 +170,6 @@ class KMSKotlinTest {
         val keyDesc: String? = null
         val operation: String? = null
         val aliasName: String? = null
-        val path:String?=null
+        val path:String? = null
     }
-
 }
