@@ -33,6 +33,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
 import java.util.UUID
+import java.util.Scanner
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -106,7 +107,7 @@ class StepFunctionsKotlinTest {
 
         // Get JSON to use for the state machine and place the activityArn value into it.
         val stream = GetStream()
-        val jsonString = stream.getStream(jsonFile)
+        val jsonString = stream.getStream()
 
         // Modify the Resource node.
         val objectMapper = ObjectMapper()
