@@ -9,6 +9,7 @@ permissions:
   contents: read
 jobs:
   check:
+    if: contains(github.event.pull_request.labels.*.name, 'Rust')
     name: Lint Rust
     runs-on: aws-doc-sdk-examples_ubuntu-latest_16-core
     steps:
