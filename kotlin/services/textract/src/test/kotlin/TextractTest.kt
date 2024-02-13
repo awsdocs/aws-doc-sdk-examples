@@ -31,7 +31,7 @@ class TextractTest {
         val gson = Gson()
         val json: String = getSecretValues()
         val values = gson.fromJson(json, SecretValues::class.java)
-        sourceDoc =  values.sourceDoc.toString()
+        sourceDoc = values.sourceDoc.toString()
         bucketName = values.bucketName.toString()
         docName = values.docName.toString()
 
