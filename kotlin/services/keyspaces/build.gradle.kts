@@ -24,11 +24,10 @@ buildscript {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:keyspaces:1.0.0")
+    implementation("aws.sdk.kotlin:keyspaces:1.0.30")
     implementation("com.datastax.oss:java-driver-core:4.15.0")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
@@ -40,4 +39,14 @@ dependencies {
 }
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "17"
+}
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+
+    // Define the test source set
+    testClassesDirs += files("build/classes/kotlin/test")
+    classpath += files("build/classes/kotlin/main", "build/resources/main")
 }

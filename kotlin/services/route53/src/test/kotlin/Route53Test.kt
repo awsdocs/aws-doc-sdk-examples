@@ -1,6 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
+import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
+import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
+import com.google.gson.Gson
 import com.kotlin.route.checkDomainAvailability
 import com.kotlin.route.checkDomainTransferability
 import com.kotlin.route.createCheck
@@ -19,13 +23,14 @@ import com.kotlin.route.updateSpecificHealthCheck
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.io.InputStream
-import java.util.Properties
+import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -43,7 +48,21 @@ class Route53Test {
     private var citySc = ""
 
     @BeforeAll
-    fun setup() {
+    fun setup() = runBlocking {
+        // Get the values to run these tests from AWS Secrets Manager.
+        val gson = Gson()
+        val json: String = getSecretValues()
+        val values = gson.fromJson(json, SecretValues::class.java)
+        domainName = values.domainName.toString()
+        domainSuggestionSc = values.domainSuggestionSc.toString()
+        domainTypeSc = values.domainTypeSc.toString()
+        phoneNumerSc = values.phoneNumerSc.toString()
+        emailSc = values.emailSc.toString()
+        firstNameSc = values.firstNameSc.toString()
+        lastNameSc = values.lastNameSc.toString()
+        citySc = values.citySc.toString()
+
+        /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
         prop.load(input)
@@ -55,6 +74,7 @@ class Route53Test {
         firstNameSc = prop.getProperty("firstNameSc")
         lastNameSc = prop.getProperty("lastNameSc")
         citySc = prop.getProperty("citySc")
+        */
     }
 
     @Test
@@ -151,7 +171,29 @@ class Route53Test {
         println("9. Get operation details.")
         getOperationalDetail(opId)
         println(DASH)
-
         println("Test 7 passed")
+    }
+    private suspend fun getSecretValues(): String {
+        val secretName = "test/route53"
+        val valueRequest = GetSecretValueRequest {
+            secretId = secretName
+        }
+        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+            val valueResponse = secretClient.getSecretValue(valueRequest)
+            return valueResponse.secretString.toString()
+        }
+    }
+
+    @Nested
+    @DisplayName("A class used to get test values from test/route53 (an AWS Secrets Manager secret)")
+    internal class SecretValues {
+        val domainName: String? = null
+        val domainSuggestionSc: String? = null
+        val domainTypeSc: String? = null
+        val phoneNumerSc: String? = null
+        val emailSc: String? = null
+        val firstNameSc: String? = null
+        val lastNameSc: String? = null
+        val citySc: String? = null
     }
 }
