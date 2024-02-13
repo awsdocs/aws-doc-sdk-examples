@@ -1,5 +1,5 @@
 # zexi 0.4.0
-iot-data_GetThingShadow:
+iot-data-plane_GetThingShadow:
   title: Get the shadow for the specified thing using an &AWS; SDK
   title_abbrev: Get the shadow
   synopsis: get the shadow for an &IoT; thing.
@@ -14,8 +14,8 @@ iot-data_GetThingShadow:
               snippet_tags:
                 - iot.java2.get.shadow.writer.main
   services:
-    iot-data: {GetThingShadow}       
-iot-data_UpdateThingShadow:
+    iot-data-plane: {GetThingShadow}       
+iot-data-plane_UpdateThingShadow:
   title: Update the shadow for the specified thing using an &AWS; SDK
   title_abbrev: Update the shadow
   synopsis: update the shadow for an &IoT; thing.
@@ -30,4 +30,4 @@ iot-data_UpdateThingShadow:
               snippet_tags:
                 - iot.java2.update.shadow.thing.main
   services:
-    iot-data: {UpdateThingShadow}       
+    iot-data-plane: {UpdateThingShadow}       
