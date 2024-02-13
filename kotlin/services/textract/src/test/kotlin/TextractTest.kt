@@ -34,9 +34,6 @@ class TextractTest {
         sourceDoc =  values.sourceDoc.toString()
         bucketName = values.bucketName.toString()
         docName = values.docName.toString()
-        //docName =
-
-        //C:\Users\scmacdon\source\repos\aws-doc-sdk-examples\resources\sample_files
 
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
@@ -82,9 +79,10 @@ class TextractTest {
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/textract"
-        val valueRequest= GetSecretValueRequest {
+        val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
+
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
