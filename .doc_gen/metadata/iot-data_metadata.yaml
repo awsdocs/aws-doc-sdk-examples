@@ -14,7 +14,7 @@ iot-data_GetThingShadow:
               snippet_tags:
                 - iot.java2.get.shadow.writer.main
   services:
-    iot: {GetThingShadow}       
+    iot-data: {GetThingShadow}       
 iot-data_UpdateThingShadow:
   title: Update the shadow for the specified thing using an &AWS; SDK
   title_abbrev: Update the shadow
