@@ -36,7 +36,7 @@ class XrayKotlinTest {
 
         // Get the values to run these tests from AWS Secrets Manager.
         val gson = Gson()
-        val json = getSecretValues();
+        val json = getSecretValues()
         val values = gson.fromJson(json, SecretValues::class.java)
         groupName = values.groupName.toString()
         newGroupName = values.newGroupName.toString() + randomNum
@@ -97,7 +97,7 @@ class XrayKotlinTest {
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/xray"
-        val valueRequest= GetSecretValueRequest {
+        val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
