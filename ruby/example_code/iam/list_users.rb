@@ -1,6 +1,9 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 require "aws-sdk-iam"
 require "logger"
 
+# snippet-start:[ruby.iam.ListUsers]
 class UserManager
   # Initializes the UserManager with an IAM client and a logger.
   #
@@ -85,6 +88,7 @@ class UserManager
     end
   end
 end
+# snippet-end:[ruby.iam.ListUsers]
 
 # Example usage:
 if $PROGRAM_NAME == __FILE__

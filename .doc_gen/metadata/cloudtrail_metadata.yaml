@@ -18,7 +18,7 @@ cloudtrail_ListTrails:
     cloudtrail: {ListTrails}
 cloudtrail_CreateTrail:
   title: Create a &CT; trail using an &AWS; SDK
-  title_abbrev: List trails
+  title_abbrev: Create trails
   synopsis: create a &CTlong; trail.
   category:
   languages:

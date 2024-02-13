@@ -33,28 +33,28 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](scenario_create_user_assume_role.rb#L100) (`AttachRolePolicy`)
-- [Create a policy](scenario_create_user_assume_role.rb#L99) (`CreatePolicy`)
-- [Create a role](scenario_create_user_assume_role.rb#L72) (`CreateRole`)
+- [Attach a policy to a role](scenario_iam_basics.rb#L100) (`AttachRolePolicy`)
+- [Create a policy](scenario_iam_basics.rb#L99) (`CreatePolicy`)
+- [Create a role](scenario_iam_basics.rb#L72) (`CreateRole`)
 - [Create a service-linked role](iam_wrapper.rb#L166) (`CreateServiceLinkedRole`)
-- [Create a user](scenario_create_user_assume_role.rb#L37) (`CreateUser`)
-- [Create an access key](scenario_create_user_assume_role.rb#L55) (`CreateAccessKey`)
-- [Create an inline policy for a user](scenario_create_user_assume_role.rb#L130) (`PutUserPolicy`)
-- [Delete a policy](scenario_create_user_assume_role.rb#L215) (`DeletePolicy`)
-- [Delete a role](scenario_create_user_assume_role.rb#L215) (`DeleteRole`)
+- [Create a user](scenario_iam_basics.rb#L37) (`CreateUser`)
+- [Create an access key](scenario_iam_basics.rb#L55) (`CreateAccessKey`)
+- [Create an inline policy for a user](scenario_iam_basics.rb#L130) (`PutUserPolicy`)
+- [Delete a policy](scenario_iam_basics.rb#L215) (`DeletePolicy`)
+- [Delete a role](scenario_iam_basics.rb#L215) (`DeleteRole`)
 - [Delete a service-linked role](iam_wrapper.rb#L186) (`DeleteServiceLinkedRole`)
-- [Delete a user](scenario_create_user_assume_role.rb#L237) (`DeleteUser`)
-- [Delete an access key](scenario_create_user_assume_role.rb#L237) (`DeleteAccessKey`)
-- [Delete an inline policy from a user](scenario_create_user_assume_role.rb#L237) (`DeleteUserPolicy`)
-- [Detach a policy from a role](scenario_create_user_assume_role.rb#L215) (`DetachRolePolicy`)
+- [Delete a user](scenario_iam_basics.rb#L237) (`DeleteUser`)
+- [Delete an access key](scenario_iam_basics.rb#L237) (`DeleteAccessKey`)
+- [Delete an inline policy from a user](scenario_iam_basics.rb#L237) (`DeleteUserPolicy`)
+- [Detach a policy from a role](scenario_iam_basics.rb#L215) (`DetachRolePolicy`)
 - [Get a policy](iam_wrapper.rb#L101) (`GetPolicy`)
 - [Get a role](iam_wrapper.rb#L49) (`GetRole`)
 - [Get the account password policy](iam_wrapper.rb#L133) (`GetAccountPasswordPolicy`)
 - [List SAML providers](iam_wrapper.rb#L151) (`ListSAMLProviders`)
-- [List a user's access keys](scenario_create_user_assume_role.rb#L237) (`ListAccessKeys`)
+- [List a user's access keys](scenario_iam_basics.rb#L237) (`ListAccessKeys`)
 - [List groups](iam_wrapper.rb#L118) (`ListGroups`)
 - [List policies](iam_wrapper.rb#L81) (`ListPolicies`)
-- [List policies attached to a role](scenario_create_user_assume_role.rb#L215) (`ListAttachedRolePolicies`)
+- [List policies attached to a role](scenario_iam_basics.rb#L215) (`ListAttachedRolePolicies`)
 - [List roles](iam_wrapper.rb#L29) (`ListRoles`)
 - [List users](iam_wrapper.rb#L66) (`ListUsers`)
 
@@ -63,7 +63,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a user and assume a role](scenario_create_user_assume_role.rb)
+- [Create a user and assume a role](scenario_iam_basics.rb)
 
 
 <!--custom.examples.start-->
