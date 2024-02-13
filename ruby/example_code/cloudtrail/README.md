@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Delete trail](delete_trail.rb)
-- [List trail events](lookup_events.rb)
-- [List trails](describe_trails.rb)
-- [List trails](create_trail.rb)
+- [Create trails](create_trail.rb#L8) (`CreateTrail`)
+- [Delete trail](delete_trail.rb#L9) (`DeleteTrail`)
+- [List trail events](lookup_events.rb#L8) (`LookupEvents`)
+- [List trails](describe_trails.rb#L6) (`ListTrails`)
 
 
 <!--custom.examples.start-->

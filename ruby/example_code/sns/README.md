@@ -34,7 +34,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 Code excerpts that show you how to call individual service functions.
 
 - [Create a topic](create_topic.rb#L3) (`CreateTopic`)
-- [List the subscribers of a topic](None) (`ListSubscriptions`)
+- [List the subscribers of a topic](show_subscriptions.rb#L4) (`ListSubscriptions`)
 - [List topics](show_topics.rb#L11) (`ListTopics`)
 - [Publish to a topic](send_message.rb#L4) (`Publish`)
 - [Set topic attributes](enable_resource.rb#L4) (`SetTopicAttributes`)

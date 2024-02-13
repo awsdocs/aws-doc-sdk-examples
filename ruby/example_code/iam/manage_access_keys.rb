@@ -13,6 +13,8 @@ class AccessKeyManager
   end
 
   # Lists access keys for a user
+  #
+  # @param user_name [String] The name of the user.
   def list_access_keys(user_name)
     response = @iam.list_access_keys(user_name: user_name)
     if response.access_key_metadata.empty?
@@ -29,6 +31,8 @@ class AccessKeyManager
   end
 
   # Creates an access key for a user
+  #
+  # @param user_name [String] The name of the user.
   def create_access_key(user_name)
     response = @iam.create_access_key(user_name: user_name)
     access_key = response.access_key
@@ -43,6 +47,9 @@ class AccessKeyManager
   end
 
   # Deactivates an access key
+  #
+  # @param user_name [String] The name of the user.
+  # @param access_key_id [String] The ID for the access key.
   def deactivate_access_key(user_name, access_key_id)
     @iam.update_access_key(
       user_name: user_name,
@@ -56,6 +63,9 @@ class AccessKeyManager
   end
 
   # Deletes an access key
+  #
+  # @param user_name [String] The name of the user.
+  # @param access_key_id [String] The ID for the access key.
   def delete_access_key(user_name, access_key_id)
     @iam.delete_access_key(
       user_name: user_name,

@@ -40,39 +40,6 @@ class UserManager
   end
   # snippet-end:[ruby.iam.CreateUser]
 
-  # snippet-start:[ruby.iam.UpdateUser]
-  # Updates an IAM user's name
-  #
-  # @param current_name [String] The current name of the user
-  # @param new_name [String] The new name of the user
-  def update_user_name(current_name, new_name)
-    @iam_client.update_user(user_name: current_name, new_user_name: new_name)
-    true
-  rescue StandardError => e
-    @logger.error("Error updating user name from '#{current_name}' to '#{new_name}': #{e.message}")
-    false
-  end
-  # snippet-end:[ruby.iam.UpdateUser]
-
-  # snippet-start:[ruby.iam.DeleteUser]
-  # Deletes a user and their associated resources
-  #
-  # @param user_name [String] The name of the user to delete
-  def delete_user(user_name)
-    user = @iam_client.list_access_keys(user_name: user_name).access_key_metadata
-    user.each do |key|
-      @iam_client.delete_access_key({ access_key_id: key.access_key_id, user_name: user_name })
-      @logger.info("Deleted access key #{key.access_key_id} for user '#{user_name}'.")
-    end
-
-    @iam_client.delete_user(user_name: user_name)
-    @logger.info("Deleted user '#{user_name}'.")
-  rescue Aws::IAM::Errors::ServiceError => e
-    @logger.error("Error deleting user '#{user_name}': #{e.message}")
-  end
-  # snippet-end:[ruby.iam.DeleteUser]
-
-
   # snippet-start:[ruby.iam.GetUser]
   # Retrieves a user's details
   #
@@ -107,6 +74,115 @@ class UserManager
     []
   end
   # snippet-end:[ruby.iam.ListUsers]
+
+  # snippet-start:[ruby.iam.UpdateUser]
+  # Updates an IAM user's name
+  #
+  # @param current_name [String] The current name of the user
+  # @param new_name [String] The new name of the user
+  def update_user_name(current_name, new_name)
+    @iam_client.update_user(user_name: current_name, new_user_name: new_name)
+    true
+  rescue StandardError => e
+    @logger.error("Error updating user name from '#{current_name}' to '#{new_name}': #{e.message}")
+    false
+  end
+  # snippet-end:[ruby.iam.UpdateUser]
+
+  # List groups associated with a user
+  #
+  # @param user_name [String] The name of the user
+  def display_groups(user_name)
+    @logger.info("Listing groups for user: #{user_name}")
+    puts "Groups:"
+    groups_response = @iam_client.list_groups_for_user(user_name: user_name)
+    if groups_response.groups.empty?
+      puts "  None"
+    else
+      groups_response.groups.each { |group| puts "  #{group.group_name}" }
+    end
+  end
+
+  # Lists policies attached to a user
+  #
+  # @param user_name [String] The name of the user
+  def display_policies(user_name)
+    @logger.info("Listing policies for user: #{user_name}")
+    puts "Inline embedded user policies:"
+    policies_response = @iam_client.list_user_policies(user_name: user_name)
+    if policies_response.policy_names.empty?
+      puts "  None"
+    else
+      policies_response.policy_names.each { |policy_name| puts "  #{policy_name}" }
+    end
+  end
+
+  # Lists access keys associated with a user
+  #
+  # @param user_name [String] The name of the user
+  def display_access_keys(user_name)
+    @logger.info("Listing access keys for user: #{user_name}")
+    puts "Access keys:"
+    access_keys_response = @iam_client.list_access_keys(user_name: user_name)
+    if access_keys_response.access_key_metadata.empty?
+      puts "  None"
+    else
+      access_keys_response.access_key_metadata.each { |access_key| puts "  #{access_key.access_key_id}" }
+    end
+  end
+
+  # snippet-start:[ruby.iam.DeleteUser]
+  # Deletes a user and their associated resources
+  #
+  # @param user_name [String] The name of the user to delete
+  def delete_user(user_name)
+    user = @iam_client.list_access_keys(user_name: user_name).access_key_metadata
+    user.each do |key|
+      @iam_client.delete_access_key({ access_key_id: key.access_key_id, user_name: user_name })
+      @logger.info("Deleted access key #{key.access_key_id} for user '#{user_name}'.")
+    end
+
+    @iam_client.delete_user(user_name: user_name)
+    @logger.info("Deleted user '#{user_name}'.")
+  rescue Aws::IAM::Errors::ServiceError => e
+    @logger.error("Error deleting user '#{user_name}': #{e.message}")
+  end
+  # snippet-end:[ruby.iam.DeleteUser]
+
+
+  # This is a example module that displays information about available users in
+  # AWS Identity and Access Management (IAM). This includes user names, associated
+  # group names, inline embedded user policy names, and access key IDs. Logging is
+  # added for monitoring purposes.
+  def get_user_details
+    @logger.info("Requesting list of users")
+    users_response = list_users
+    if users_response.users.empty?
+      @logger.warn("No users found.")
+      puts "No users found."
+      return
+    end
+
+    message = if users_response.is_truncated
+                "(Note: not all users are displayed here, only the first #{users_response.users.count}.)"
+              else
+                "Found #{users_response.users.count} user(s):"
+              end
+    @logger.info(message)
+    puts message
+
+    users_response.users.each do |user|
+      @logger.info("Displaying details for user: #{user.user_name}")
+      puts "-" * 30
+      puts "User name: #{user.user_name}"
+      display_groups(user.user_name)
+      display_policies(user.user_name)
+      display_access_keys(user.user_name)
+    end
+  rescue StandardError => e
+    @logger.error("Error getting user details: #{e.message}")
+    puts "Error getting user details: #{e.message}"
+  end
 end
 # snippet-end:[ruby.iam.ManageUsers]
 
@@ -133,13 +209,7 @@ if __FILE__ == $PROGRAM_NAME
   end
 
   # List all IAM users
-  users = user_manager.list_users
-  if users.any?
-    logger.info("Listing all users:")
-    users.each { |u| logger.info("User: #{u.user_name}") }
-  else
-    logger.error("No users found.")
-  end
+  user_manager.get_user_details
 
   # Delete the created user
   if user_manager.delete_user(user_name)

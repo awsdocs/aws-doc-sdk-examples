@@ -33,37 +33,40 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](scenario_iam_basics.rb#L100) (`AttachRolePolicy`)
-- [Create a policy](scenario_iam_basics.rb#L99) (`CreatePolicy`)
-- [Create a role](scenario_iam_basics.rb#L72) (`CreateRole`)
-- [Create a service-linked role](iam_wrapper.rb#L166) (`CreateServiceLinkedRole`)
-- [Create a user](scenario_iam_basics.rb#L37) (`CreateUser`)
-- [Create an access key](scenario_iam_basics.rb#L55) (`CreateAccessKey`)
-- [Create an inline policy for a user](scenario_iam_basics.rb#L130) (`PutUserPolicy`)
-- [Delete a policy](scenario_iam_basics.rb#L215) (`DeletePolicy`)
-- [Delete a role](scenario_iam_basics.rb#L215) (`DeleteRole`)
-- [Delete a service-linked role](iam_wrapper.rb#L186) (`DeleteServiceLinkedRole`)
-- [Delete a user](scenario_iam_basics.rb#L237) (`DeleteUser`)
-- [Delete an access key](scenario_iam_basics.rb#L237) (`DeleteAccessKey`)
-- [Delete an inline policy from a user](scenario_iam_basics.rb#L237) (`DeleteUserPolicy`)
-- [Detach a policy from a role](scenario_iam_basics.rb#L215) (`DetachRolePolicy`)
-- [Get a policy](iam_wrapper.rb#L101) (`GetPolicy`)
-- [Get a role](iam_wrapper.rb#L49) (`GetRole`)
-- [Get the account password policy](iam_wrapper.rb#L133) (`GetAccountPasswordPolicy`)
-- [List SAML providers](iam_wrapper.rb#L151) (`ListSAMLProviders`)
-- [List a user's access keys](scenario_iam_basics.rb#L237) (`ListAccessKeys`)
-- [List groups](iam_wrapper.rb#L118) (`ListGroups`)
-- [List policies](iam_wrapper.rb#L81) (`ListPolicies`)
-- [List policies attached to a role](scenario_iam_basics.rb#L215) (`ListAttachedRolePolicies`)
-- [List roles](iam_wrapper.rb#L29) (`ListRoles`)
-- [List users](iam_wrapper.rb#L66) (`ListUsers`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create a user and assume a role](scenario_iam_basics.rb)
+- [Attach a policy to a role](attach_role_policy.rb#L6) (`AttachRolePolicy`)
+- [Attach a policy to a user](attach_user_policy.rb#L38) (`AttachUserPolicy`)
+- [Create a policy](attach_role_policy.rb#L6) (`CreatePolicy`)
+- [Create a role](manage_roles.rb#L61) (`CreateRole`)
+- [Create a service-linked role](manage_roles.rb#L89) (`CreateServiceLinkedRole`)
+- [Create a user](manage_users.rb#L18) (`CreateUser`)
+- [Create an access key](manage_access_keys.rb#L6) (`CreateAccessKey`)
+- [Create an alias for an account](manage_account_aliases.rb#L6) (`CreateAccountAlias`)
+- [Create an inline policy for a user](attach_user_policy.rb#L17) (`PutUserPolicy`)
+- [Delete a role](manage_roles.rb#L109) (`DeleteRole`)
+- [Delete a server certificate](manage_server_certificates.rb#L6) (`DeleteServerCertificate`)
+- [Delete a service-linked role](manage_roles.rb#L138) (`DeleteServiceLinkedRole`)
+- [Delete a user](manage_users.rb#L134) (`DeleteUser`)
+- [Delete an access key](manage_access_keys.rb#L6) (`DeleteAccessKey`)
+- [Delete an account alias](manage_account_aliases.rb#L6) (`DeleteAccountAlias`)
+- [Delete an inline policy from a user](manage_users.rb#L134) (`DeleteUserPolicy`)
+- [Detach a policy from a role](attach_role_policy.rb#L6) (`DetachRolePolicy`)
+- [Detach a policy from a user](attach_user_policy.rb#L56) (`DetachUserPolicy`)
+- [Get a policy](attach_role_policy.rb#L34) (`GetPolicy`)
+- [Get a role](manage_roles.rb#L44) (`GetRole`)
+- [Get a user](manage_users.rb#L43) (`GetUser`)
+- [Get the account password policy](get_account_password_policy.rb#L1) (`GetAccountPasswordPolicy`)
+- [List SAML providers](list_saml_providers.rb#L7) (`ListSAMLProviders`)
+- [List a user's access keys](manage_access_keys.rb#L6) (`ListAccessKeys`)
+- [List account aliases](manage_account_aliases.rb#L6) (`ListAccountAliases`)
+- [List groups](list_groups.rb#L6) (`ListGroups`)
+- [List inline policies for a role](attach_role_policy.rb#L68) (`ListRolePolicies`)
+- [List policies](attach_role_policy.rb#L6) (`ListPolicies`)
+- [List policies attached to a role](attach_role_policy.rb#L6) (`ListAttachedRolePolicies`)
+- [List roles](manage_roles.rb#L18) (`ListRoles`)
+- [List server certificates](manage_server_certificates.rb#L6) (`ListServerCertificates`)
+- [List users](manage_users.rb#L60) (`ListUsers`)
+- [Update a server certificate](manage_server_certificates.rb#L6) (`UpdateServerCertificate`)
+- [Update a user](manage_users.rb#L78) (`UpdateUser`)
 
 
 <!--custom.examples.start-->
@@ -79,27 +82,6 @@ The quickest way to interact with this example code is to invoke a [Scenario](#S
 <!--custom.instructions.end-->
 
 
-
-#### Create a user and assume a role
-
-This example shows you how to create a user and assume a role. 
-
-- Create a user with no permissions.
-- Create a role that grants permission to list Amazon S3 buckets for the account.
-- Add a policy to let the user assume the role.
-- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
-
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-ruby scenario_create_user_assume_role.rb
-```
-
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
 
 ### Tests
 
