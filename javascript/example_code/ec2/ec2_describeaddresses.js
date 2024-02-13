@@ -6,7 +6,7 @@
 
 // snippet-start:[ec2.JavaScript.Addresses.describeAddresses]
 // Load the AWS SDK for Node.js
-var AWS = require("aws-sdk");
+var AWS = require("aws-sdk"); //test comment
 // Set the region
 AWS.config.update({ region: "REGION" });
 
