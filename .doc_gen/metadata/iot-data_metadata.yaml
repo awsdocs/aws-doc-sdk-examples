@@ -1,0 +1,33 @@
+# zexi 0.4.0
+iot-data_GetThingShadow:
+  title: Get the shadow for the specified thing using an &AWS; SDK
+  title_abbrev: Get the shadow
+  synopsis: get the shadow for an &IoT; thing.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.get.shadow.writer.main
+  services:
+    iot: {GetThingShadow}       
+iot-data_UpdateThingShadow:
+  title: Update the shadow for the specified thing using an &AWS; SDK
+  title_abbrev: Update the shadow
+  synopsis: update the shadow for an &IoT; thing.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.update.shadow.thing.main
+  services:
+    iot-data: {UpdateThingShadow}       

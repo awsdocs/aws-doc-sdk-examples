@@ -118,7 +118,7 @@ public class IoTTests {
         assertDoesNotThrow(() -> IotScenario.listCertificates(iotClient),
             "Failed to update the thing in the scenario.");
 
-        assertDoesNotThrow(() -> IotScenario.updateShawdowThing(iotPlaneClient, thingName),
+        assertDoesNotThrow(() -> IotScenario.updateShadowThing(iotPlaneClient, thingName),
             "Failed to update shawdow in the scenario.");
 
         assertDoesNotThrow(() -> IotScenario.getPayload(iotPlaneClient, thingName),

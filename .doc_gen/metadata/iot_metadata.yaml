@@ -73,7 +73,7 @@ iot_ListCertificates:
   services:
     iot: {ListCertificates}    
 iot_CreateCertificate:
-  title: Create an &IoT; certificate index using an &AWS; SDK
+  title: Create an &IoT; certificate using an &AWS; SDK
   title_abbrev: Create a certificate
   synopsis: create an &IoT; certificate.
   category:
@@ -89,7 +89,7 @@ iot_CreateCertificate:
   services:
     iot: {CreateKeysAndCertificate} 
 iot_DeleteCertificate:
-  title: Delete an &IoT; certificate index using an &AWS; SDK
+  title: Delete an &IoT; certificate using an &AWS; SDK
   title_abbrev: Delete a certificate
   synopsis: delete an &IoT; certificate.
   category:
@@ -216,7 +216,7 @@ iot_CreateRule:
                 - iot.java2.create.rule.main
   services:
     iot: {CreateTopicRule}   
-iot_CreateThings:
+iot_CreateThing:
   title: Create &IoT; things using an &AWS; SDK
   title_abbrev: Create a thing
   synopsis: create an &IoT; thing.
@@ -232,7 +232,7 @@ iot_CreateThings:
                 - iot.java2.create.thing.main
   services:
     iot: {CreateThing}   
-iot_GetShawdow:
+iot_GetThingShadow:
   title: Get the shadow for the specified thing using an &AWS; SDK
   title_abbrev: Get the shadow
   synopsis: get the shadow for an &IoT; thing.
@@ -247,8 +247,8 @@ iot_GetShawdow:
               snippet_tags:
                 - iot.java2.get.shadow.writer.main
   services:
-    iot: {getThingShadow}       
-iot_UpdateShawdow:
+    iot: {GetThingShadow}       
+iot-data_UpdateThingShadow:
   title: Update the shadow for the specified thing using an &AWS; SDK
   title_abbrev: Update the shadow
   synopsis: update the shadow for an &IoT; thing.
@@ -263,11 +263,11 @@ iot_UpdateShawdow:
               snippet_tags:
                 - iot.java2.update.shadow.thing.main
   services:
-    iot: {updateThingShadow}       
+    iot-data: {UpdateThingShadow}       
 iot_Scenario:
-  title: Perform &IoT; device management use cases using &IoT; SDK
-  title_abbrev: Performs device management use cases
-  synopsis: perform &IoT; device management use cases using &IoT; SDK
+  title: Working with &IoT; devices, things, and shadows using &IoT; SDK
+  title_abbrev: Working with device management use cases
+  synopsis: working with &IoT; device management use cases using &IoT; SDK
   category: Scenarios
   languages:
     Java:

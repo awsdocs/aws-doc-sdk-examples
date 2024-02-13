@@ -77,5 +77,6 @@ Define these values to successfully run the JUnit tests:
 ## Additional resources
 * [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
 * [Developer Guide - AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/iot-gs.html).
+* [Interface IotClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iot/IotClient.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

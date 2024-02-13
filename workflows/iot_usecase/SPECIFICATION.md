@@ -51,35 +51,6 @@ foo5543 was successfully created. The ARN value is arn:aws:iot:us-east-1:8145480
 A device certificate performs a role in securing the communication between devices (Things) and the AWS IoT platform.
 
 Do you want to create a certificate for foo5543? (y/n)y
-Private Key:
------BEGIN RSA PRIVATE KEY-----
-MIIEpAIBAAKCAQEAwa7WimCg83UiALVmzTsK87KbO+fug6s4CwSU86brfYLSTflq
-HyjDnkAFO0o2HYi8QH+YIOfBsR+qN7v9m5+ByGHc1Vlitk0hV8KqNh6WVftktCXS
-R8jVQx8LDOjj2b8QkAcx2r0yTWhsM1UyDVeqBU5YTBhgdY9CsVZtqqjcza1O/lWL
-ymgTfV0tJBV2rAxAqocusjej1gHHMeFeyV9gc7w83BPnsmlcNaLawW/0MXl4367q
-AnrIrk3OKMltaBfSbtUaUE12Km4L7EpEttn6AAZdry1wkKIOvkA+ig/R3mOa0Fd+
-gikUPzb0pRQGrsVPmB1K4qvhrZ4sAR4LCVLhqwIDAQABAoIBACGm+jni3jRO5tCO
-tET2fEmpf9Vh0AxqpHstmZ/YIdSV9Wp86pZtY8fMQdxyYYKyLltakBkvi3T2FoJG
-lKMEjO0/K7qaJE+eiSuRdDehCuf3nSC77ZRxbbSS4T2l/WjpDLyps1zZQLM4cIxe
-wiqVT8JKQYc/OQtUD/d2F+nuGydVJvB0h7HiKGFHnKhXJLmS4xhGYpkV4UUNTpN1
-UgkLscRvJikpJFjmZ5Ubmb304VWjrZOAQGbjxLv3RPe240YIC6gyTMzsY82RdviW
-3EhIdX29WHLXxjqzU72ALEpBLvqn9xrSeC80P0Ty8uJElaaojEYvbvt5hXXaWpl+
-eatXUAkCgYEA7w5VhsIfS1aCEF7FjZ+MrW+Hq3r49JqmKLpN2/GG5PgjnHi223TR
-ingmX89zWikdParwLIgDuOqeXKb+SiHOou7TPKtznb3umH9VYea3TQ0ID02dOPTA
-TVzwoiudEiVmJouN4k7O6jT7jC+UIUlL9B3fEHeqzX/okFdMD6pDnp8CgYEAz2k2
-Fb/fsjMhkln9FgTLunUgC+q6h1QHqG6KdluHCPrvU0qJalkvCxom6wEgHcljdy7y
-2udirdb5f/aRLhcRJT4ufgBeuAdNJaMvuUNzRx/wKTEnsqQZAXUByJp8hfKzuCVe
-GiaeKTQn2keDijoxMT2A/sxiSp76Dg3XCWGwvXUCgYAM9Nnt09eeXbHu8TQD2QHm
-5ISV5rRXjYoz6uUNZqnI/ynu8Rv4CPzSZHCwAK5f1JqhHQKnZzfMbernWqWtnud0
-LT2FrEU353NnEH+wLrEAnBQzwCElVR6XEtJ396Urtpsyu52VBnBwgS6hCnMc2rwj
-HvtYCSRYvvX73L9imffQQQKBgQDD5cBynG4gtlBwFVSIFnGBo5xoBQS2SrSM7hMT
-JPGOlsuyZIUTkDZxivrVHZQC7jJm4E36WW8HeDLhHLYUzS6heXCaC6lqsWK5OL8b
-gUyBEfZYQZgYDwubJ7NOkDMqpIgAVjLiCjV5/0vgy4i+5qWNt2R9w/bWOf89hO7k
-aoNu/QKBgQCOLj9ISPhH4NaMS6nUuNKUhq5MhwTI0wWng6MDXWakOdhB+FAJc/qr
-d9hLZNIabkbkc5qGu8HsHO71TosGXmHg+ZSFutj8gJM5xFTynn759Ls5/iDuOToA
-IUX8KgFs6VPvyxuedIc1bWtxI9FkxLkh7BGpY86tP5m9D2jvtWsNAg==
------END RSA PRIVATE KEY-----
-
 
 Certificate:
 -----BEGIN CERTIFICATE-----

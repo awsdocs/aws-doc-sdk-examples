@@ -101,7 +101,7 @@ public class IotScenario {
         System.out.println("""
             This example program demonstrates various interactions with the AWS Internet of Things (IoT) Core service. The program guides you through a series of steps, 
             including creating an IoT Thing, generating a device certificate, updating the Thing with attributes, and so on. 
-            It utilizes the AWS SDK for Java V2 and incorporates functionalities for creating and managing IoT Things, certificates, rules, 
+            It utilizes the AWS SDK for Java V2 and incorporates functionality for creating and managing IoT Things, certificates, rules, 
             shadows, and performing searches. The program aims to showcase AWS IoT capabilities and provides a comprehensive example for 
             developers working with AWS IoT in a Java environment.
             
@@ -185,7 +185,7 @@ public class IotScenario {
             .endpointOverride(URI.create(endpointUrl))
             .build();
 
-        updateShawdowThing(iotPlaneClient, thingName);
+        updateShadowThing(iotPlaneClient, thingName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -345,13 +345,11 @@ public class IotScenario {
     // snippet-end:[iot.java2.get.shadow.writer.main]
 
     // snippet-start:[iot.java2.update.shadow.thing.main]
-    public static void updateShawdowThing(IotDataPlaneClient iotPlaneClient, String thingName) {
+    public static void updateShadowThing(IotDataPlaneClient iotPlaneClient, String thingName) {
         try {
             // Create Thing Shadow State Document.
             String stateDocument = "{\"state\":{\"reported\":{\"temperature\":25, \"humidity\":50}}}";
             SdkBytes data= SdkBytes.fromString(stateDocument, StandardCharsets.UTF_8 );
-
-            // Update Thing Shadow Request.
             UpdateThingShadowRequest updateThingShadowRequest = UpdateThingShadowRequest.builder()
                 .thingName(thingName)
                 .payload(data)
@@ -460,17 +458,11 @@ public class IotScenario {
     // snippet-start:[iot.java2.create.cert.main]
     public static String createCertificate(IotClient iotClient) {
         try {
-            // Create keys and certificate.
             CreateKeysAndCertificateResponse response = iotClient.createKeysAndCertificate();
-
-            // Extract key, certificate, and certificate ARN.
-            String privateKey = response.keyPair().privateKey();
             String certificatePem = response.certificatePem();
             String certificateArn = response.certificateArn();
 
             // Print the details.
-            System.out.println("Private Key:");
-            System.out.println(privateKey);
             System.out.println("\nCertificate:");
             System.out.println(certificatePem);
             System.out.println("\nCertificate ARN:");
@@ -512,7 +504,6 @@ public class IotScenario {
     // snippet-start:[iot.java2.describe.thing.main]
     private static void describeThing(IotClient iotClient, String thingName) {
         try {
-            // Describe the Thing to get more information.
             DescribeThingRequest thingRequest = DescribeThingRequest.builder()
                 .thingName(thingName)
                 .build() ;
@@ -533,12 +524,10 @@ public class IotScenario {
     // snippet-start:[iot.java2.delete.thing.main]
     public static void deleteIoTThing(IotClient iotClient, String thingName) {
         try {
-            // Create Thing Request.
             DeleteThingRequest deleteThingRequest = DeleteThingRequest.builder()
                 .thingName(thingName)
                 .build();
 
-            // Delete Thing Response.
             iotClient.deleteThing(deleteThingRequest);
             System.out.println("Deleted Thing " + thingName);
 
@@ -552,14 +541,11 @@ public class IotScenario {
     // snippet-start:[iot.java2.create.thing.main]
     public static void createIoTThing(IotClient iotClient, String thingName) {
         try {
-            // Create Thing Request.
             CreateThingRequest createThingRequest = CreateThingRequest.builder()
                 .thingName(thingName)
                 .build();
 
             CreateThingResponse createThingResponse = iotClient.createThing(createThingRequest);
-
-            // Print ARN of the created thing.
             System.out.println(thingName +" was successfully created. The ARN value is " + createThingResponse.thingArn());
 
         } catch (IotException e) {
