@@ -37,20 +37,9 @@ Detach and Delete the Certificate:
 Optionally detach and delete the certificate associated with the IoT Thing.
 Delete Thing:
 Delete the AWS IoT Thing.
-Usage
-To run the program, provide the following command-line arguments:
 
-bash
-Copy code
-java IotScenario <roleARN> <snsAction>
-roleARN: The ARN of an IAM role with permission to work with AWS IoT.
-snsAction: The ARN of an SNS topic.
-Follow the prompts during execution to interact with the example workflow.
 
-Notes
-This example uses the AWS SDK
-The workflow showcases common AWS IoT operations, providing a foundation for further customization based on specific use cases.
-Ensure your AWS credentials are properly configured before running the program.
+
 
 
 
