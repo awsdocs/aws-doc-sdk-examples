@@ -10,29 +10,59 @@
 // Debug testing framework start.
 #include <aws/core/utils/logging/ConsoleLogSystem.h>
 
+static const char ALLOCATION_TAG[] = "RDS_GTEST";
+
 class DebugMockHTTPClient : public MockHttpClient {
 public:
-    DebugMockHTTPClient() {}
+    explicit DebugMockHTTPClient(
+            const std::shared_ptr<Aws::Http::HttpRequest> &requestTmp) {
+        std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
+                ALLOCATION_TAG, requestTmp);
+        goodResponse->AddHeader("Content-Type", "text/json");
+        goodResponse->SetResponseCode(Aws::Http::HttpResponseCode::OK);
+        Aws::Utils::DateTime expiration =
+                Aws::Utils::DateTime::Now() + std::chrono::milliseconds(60000);
+
+        std::stringstream stringStream;
+        stringStream << R"({
+"RoleArn":"arn:aws:iam::123456789012:role/MockRole",
+"AccessKeyId":"ABCDEFGHIJK",
+"SecretAccessKey":"ABCDEFGHIJK",
+"Token":"ABCDEFGHIJK==",
+"Expiration":")"
+                     << expiration.ToGmtString(Aws::Utils::DateFormat::ISO_8601)
+                     << R"("
+    })";
+        std::cerr << "Credentials response\n" << stringStream.str() << std::endl;
+        goodResponse->GetResponseBody() << stringStream.rdbuf();
+        this->AddResponseToReturn(goodResponse);
+
+        mCredentialsResponse = MockHttpClient::MakeRequest(requestTmp);
+    }
 
     std::shared_ptr<Aws::Http::HttpResponse>
     MakeRequest(const std::shared_ptr<Aws::Http::HttpRequest> &request,
                 Aws::Utils::RateLimits::RateLimiterInterface *readLimiter,
                 Aws::Utils::RateLimits::RateLimiterInterface *writeLimiter) const override {
 
-        auto result = MockHttpClient::MakeRequest(request, readLimiter, writeLimiter);
-
-        std::cout << "DebugMockHTTPClient::MakeRequest URI " << request->GetURIString()
-                  << ", query " << request->GetQueryString()
-                  << ", result " << result.get() << "." << std::endl;
-
-        return result;
+        // Do not use stored responses for a credentials request.
+        if (request->GetURIString().find("/credentials/") != std::string::npos) {
+            std::cout << "DebugMockHTTPClient returning credentials request."
+                      << std::endl;
+            return mCredentialsResponse;
+        }
+        else {
+            return MockHttpClient::MakeRequest(request, readLimiter, writeLimiter);
+        }
     }
+
+private:
+    std::shared_ptr<Aws::Http::HttpResponse> mCredentialsResponse;
 };
 // Debug testing framework end.
 
 Aws::SDKOptions AwsDocTest::MediaConvert_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::MediaConvert_GTests::s_clientConfig;
-static const char ALLOCATION_TAG[] = "RDS_GTEST";
 
 void AwsDocTest::MediaConvert_GTests::SetUpTestSuite() {
     // Debug testing framework start.
@@ -113,14 +143,14 @@ int AwsDocTest::MyStringBuffer::underflow() {
 }
 
 AwsDocTest::MockHTTP::MockHTTP() {
-    mockHttpClient = Aws::MakeShared<DebugMockHTTPClient>(
-            ALLOCATION_TAG); // Debug testing framework.
-    mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
-    mockHttpClientFactory->SetClient(mockHttpClient);
-    SetHttpClientFactory(mockHttpClientFactory);
     requestTmp = CreateHttpRequest(Aws::Http::URI("https://test.com/"),
                                    Aws::Http::HttpMethod::HTTP_GET,
                                    Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+    mockHttpClient = Aws::MakeShared<DebugMockHTTPClient>(
+            ALLOCATION_TAG, requestTmp); // Debug testing framework.
+    mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
+    mockHttpClientFactory->SetClient(mockHttpClient);
+    SetHttpClientFactory(mockHttpClientFactory);
 
     std::cout << "AwsDocTest::MockHTTP::MockHTTP called."
               << std::endl; // Debug testing framework.
