@@ -18,7 +18,7 @@ buildscript {
         maven("https://plugins.gradle.org/m2/")
     }
     dependencies {
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:11.5.1")
     }
 }
 
@@ -27,12 +27,26 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:support:1.0.0")
+    implementation("aws.sdk.kotlin:sts:1.0.30")
+    implementation("aws.sdk.kotlin:secretsmanager:1.0.30")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    implementation("com.google.code.gson:gson:2.10")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "17"
+    kotlinOptions.freeCompilerArgs += "-Xlint:-deprecation"
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+
+    // Define the test source set
+    testClassesDirs += files("build/classes/kotlin/test")
+    classpath += files("build/classes/kotlin/main", "build/resources/main")
 }
