@@ -96,6 +96,15 @@ iam_CreateAccountAlias:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreateAccountAlias
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: List, create, and delete account aliases.
+              snippet_tags:
+                - iam.ruby.ManageAccountAliases
     JavaScript:
       versions:
         - sdk_version: 3
@@ -155,6 +164,15 @@ iam_DeleteAccountAlias:
             - description:
               snippet_tags:
                 - python.example_code.iam.DeleteAccountAlias
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: List, create, and delete account aliases.
+              snippet_tags:
+                - iam.ruby.ManageAccountAliases
     JavaScript:
       versions:
         - sdk_version: 3
@@ -214,6 +232,15 @@ iam_ListAccountAliases:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListAccountAliases
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: List, create, and delete account aliases.
+              snippet_tags:
+                - iam.ruby.ManageAccountAliases
     JavaScript:
       versions:
         - sdk_version: 3
@@ -523,6 +550,15 @@ iam_CreateAccessKey:
             - description:
               snippet_tags:
                 - python.example_code.iam.CreateAccessKey
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: This example module lists, creates, deactivates, and deletes access keys.
+              snippet_tags:
+                - iam.ruby.exampleAccessKeys
     Go:
       versions:
         - sdk_version: 2
@@ -548,14 +584,6 @@ iam_CreateAccessKey:
             - description:
               snippet_tags:
                 - iam.JavaScript.keys.createAccessKey
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.CreateAccessKey
     Rust:
       versions:
         - sdk_version: 1
@@ -634,6 +662,15 @@ iam_DeleteAccessKey:
             - description:
               snippet_tags:
                 - python.example_code.iam.DeleteAccessKey
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: This example module lists, creates, deactivates, and deletes access keys.
+              snippet_tags:
+                - iam.ruby.exampleAccessKeys
     Go:
       versions:
         - sdk_version: 2
@@ -659,14 +696,6 @@ iam_DeleteAccessKey:
             - description:
               snippet_tags:
                 - iam.JavaScript.keys.deleteAccessKey
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteUser
     Rust:
       versions:
         - sdk_version: 1
@@ -803,6 +832,15 @@ iam_ListAccessKeys:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListAccessKeys
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: This example module lists, creates, deactivates, and deletes access keys.
+              snippet_tags:
+                - iam.ruby.exampleAccessKeys
     Go:
       versions:
         - sdk_version: 2
@@ -828,14 +866,6 @@ iam_ListAccessKeys:
             - description:
               snippet_tags:
                 - iam.JavaScript.keys.listAccessKeys
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteUser
     C++:
       versions:
         - sdk_version: 1
@@ -1018,9 +1048,9 @@ iam_CreatePolicy:
         - sdk_version: 3
           github: ruby/example_code/iam
           excerpts:
-            - description:
+            - description: This example module lists, creates, attaches, and detaches role policies.
               snippet_tags:
-                - ruby.example_code.iam.CreatePolicy
+                - ruby.iam.AttachRolePolicy
     Rust:
       versions:
         - sdk_version: 1
@@ -1117,14 +1147,6 @@ iam_DeletePolicy:
             - description: Delete the policy.
               snippet_tags:
                 - iam.JavaScript.users.deletepolicyv3
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteRole
     Rust:
       versions:
         - sdk_version: 1
@@ -1235,9 +1257,9 @@ iam_ListPolicies:
         - sdk_version: 3
           github: ruby/example_code/iam
           excerpts:
-            - description:
+            - description: This example module lists, creates, attaches, and detaches role policies.
               snippet_tags:
-                - ruby.example_code.iam.ListPolicies
+                - ruby.iam.AttachRolePolicy
     Rust:
       versions:
         - sdk_version: 1
@@ -1320,6 +1342,14 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.GetPolicy
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.iam.GetPolicy
     Go:
       versions:
         - sdk_version: 2
@@ -1329,14 +1359,6 @@ iam_GetPolicy:
               snippet_tags:
                 - gov2.iam.PolicyWrapper.struct
                 - gov2.iam.GetPolicy
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.GetPolicy
     Swift:
       versions:
         - sdk_version: 1
@@ -1455,9 +1477,9 @@ iam_AttachRolePolicy:
         - sdk_version: 3
           github: ruby/example_code/iam
           excerpts:
-            - description:
+            - description: This example module lists, creates, attaches, and detaches role policies.
               snippet_tags:
-                - ruby.example_code.iam.AttachRolePolicy
+                - ruby.iam.AttachRolePolicy
     Rust:
       versions:
         - sdk_version: 1
@@ -1575,9 +1597,9 @@ iam_ListAttachedRolePolicies:
         - sdk_version: 3
           github: ruby/example_code/iam
           excerpts:
-            - description:
+            - description: This example module lists, creates, attaches, and detaches role policies.
               snippet_tags:
-                - ruby.example_code.iam.DeleteRole
+                - ruby.iam.AttachRolePolicy
     Rust:
       versions:
         - sdk_version: 1
@@ -1655,9 +1677,9 @@ iam_DetachRolePolicy:
         - sdk_version: 3
           github: ruby/example_code/iam
           excerpts:
-            - description:
+            - description: This example module lists, creates, attaches, and detaches role policies.
               snippet_tags:
-                - ruby.example_code.iam.DeleteRole
+                - ruby.iam.AttachRolePolicy
     Rust:
       versions:
         - sdk_version: 1
@@ -1793,7 +1815,7 @@ iam_CreateRole:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.CreateRole
+                - ruby.iam.CreateRole
     Rust:
       versions:
         - sdk_version: 1
@@ -1904,7 +1926,7 @@ iam_ListRoles:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.ListRoles
+                - ruby.iam.ListRoles
     Rust:
       versions:
         - sdk_version: 1
@@ -1981,7 +2003,7 @@ iam_GetRole:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.GetRole
+                - ruby.iam.GetRole
     Rust:
       versions:
         - sdk_version: 1
@@ -2023,6 +2045,15 @@ iam_DeleteRole:
               snippet_tags:
                 - gov2.iam.RoleWrapper.struct
                 - gov2.iam.DeleteRole
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.iam.DeleteRole
     Python:
       versions:
         - sdk_version: 3
@@ -2041,14 +2072,6 @@ iam_DeleteRole:
             - description: Delete the role.
               snippet_tags:
                 - javascript.v3.iam.actions.DeleteRole
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.DeleteRole
     Rust:
       versions:
         - sdk_version: 1
@@ -2162,6 +2185,15 @@ iam_ListRolePolicies:
             - description:
               snippet_tags:
                 - python.example_code.iam.ListRolePolicies
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.iam.ListRolePolicies
     Rust:
       versions:
         - sdk_version: 1
@@ -2267,7 +2299,7 @@ iam_CreateUser:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.CreateUser
+                - ruby.iam.CreateUser
     Rust:
       versions:
         - sdk_version: 1
@@ -2380,7 +2412,7 @@ iam_DeleteUser:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.DeleteUser
+                - ruby.iam.DeleteUser
     Rust:
       versions:
         - sdk_version: 1
@@ -2467,6 +2499,14 @@ iam_GetUser:
               snippet_tags:
                 - gov2.iam.UserWrapper.struct
                 - gov2.iam.GetUser
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.iam.GetUser
     Bash:
       versions:
         - sdk_version: 2
@@ -2537,7 +2577,7 @@ iam_ListUsers:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.ListUsers
+                - ruby.iam.ListUsers
     Rust:
       versions:
         - sdk_version: 1
@@ -2632,6 +2672,14 @@ iam_UpdateUser:
             - description:
               snippet_tags:
                 - python.example_code.iam.UpdateUser
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.iam.UpdateUser
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2673,6 +2721,15 @@ iam_AttachUserPolicy:
             - description:
               snippet_tags:
                 - python.example_code.iam.AttachUserPolicy
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.iam.AttachUserPolicy
     Rust:
       versions:
         - sdk_version: 1
@@ -2706,6 +2763,15 @@ iam_DetachUserPolicy:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.detach_user_policy
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.iam.DetachUserPolicy
   services:
     iam: {DetachUserPolicy}
 iam_PutGroupPolicy:
@@ -2747,7 +2813,7 @@ iam_PutUserPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.PutUserPolicy
+                - ruby.iam.CreateUserPolicy
     Swift:
       versions:
         - sdk_version: 1
@@ -2806,7 +2872,7 @@ iam_DeleteUserPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.DeleteUser
+                - ruby.iam.DeleteUser
     Rust:
       versions:
         - sdk_version: 1
@@ -2898,6 +2964,14 @@ iam_ListServerCertificates:
             - description:
               snippet_tags:
                 - iam.cpp.list_server_certs.code
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description: List, update, and delete server certificates.
+              snippet_tags:
+                - iam.ruby.ManageServerCertificates
   services:
     iam: {ListServerCertificates}
 iam_GetServerCertificate:
@@ -2954,6 +3028,14 @@ iam_UpdateServerCertificate:
             - description:
               snippet_tags:
                 - iam.JavaScript.certs.updateServerCertificate
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description: List, update, and delete server certificates.
+              snippet_tags:
+                - iam.ruby.ManageServerCertificates
     C++:
       versions:
         - sdk_version: 1
@@ -3028,6 +3110,14 @@ iam_DeleteServerCertificate:
             - description:
               snippet_tags:
                 - iam.cpp.delete_server_cert.code
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          excerpts:
+            - description: List, update, and delete server certificates.
+              snippet_tags:
+                - iam.ruby.ManageServerCertificates
   services:
     iam: {DeleteServerCertificate}
 iam_CreateGroup:
@@ -3191,7 +3281,7 @@ iam_ListGroups:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.ListGroups
+                - ruby.iam.ListGroups
     Rust:
       versions:
         - sdk_version: 1
@@ -3285,7 +3375,7 @@ iam_CreateServiceLinkedRole:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.CreateServiceLinkedRole
+                - ruby.iam.CreateServiceLinkedRole
     Rust:
       versions:
         - sdk_version: 1
@@ -3327,7 +3417,7 @@ iam_DeleteServiceLinkedRole:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.iam.DeleteServiceLinkedRole
+                - ruby.iam.DeleteServiceLinkedRole
     Rust:
       versions:
         - sdk_version: 1
