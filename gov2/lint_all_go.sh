@@ -8,10 +8,13 @@ function runCommand() {
   do
     echo Linting "$d"...
     (cd "$d" || exit
-    golangci-lint run
-    ret_code=$?
-    if [ $ret_code != 0 ]; then exit $ret_code; else echo success; fi)
+    if [ -f go.mod ]; then
+      golangci-lint run
+      ret_code=$?
+      if [ $ret_code != 0 ]; then exit $ret_code; else echo success; fi
+    fi)
   done
 }
 
 runCommand
+(cd workflows && runCommand)
