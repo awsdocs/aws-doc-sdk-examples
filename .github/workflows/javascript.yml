@@ -20,15 +20,15 @@ jobs:
         with:
           files: "javascriptv3/**/*.{js,ts,jsx,tsx}"
       - name: Setup NodeJS
-        if: steps.changed-files.outputs.test_any_changed == 'true'  
+        if: ${{steps.changed-files.outputs.test_any_changed}} == 'true'  
         uses: actions/setup-node@v3
         with:
           node-version: "20.x"
       - name: Install dependencies
+        if: ${{steps.changed-files.outputs.test_any_changed}} == 'true'  
         run: npm i --prefix javascriptv3
-        if: steps.changed-files.outputs.test_any_changed == 'true'  
       - name: Lint added and modified files
-        if: steps.changed-files.outputs.test_any_changed == 'true'  
+        if: ${{steps.changed-files.outputs.test_any_changed}} == 'true'  
         run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})
           npm run --prefix javascriptv3 ci-lint -- ${changed_files[@]//javascriptv3\/}
