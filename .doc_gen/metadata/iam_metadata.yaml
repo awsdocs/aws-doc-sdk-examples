@@ -3647,14 +3647,6 @@ iam_Scenario_CreateUserAssumeRole:
             - description: Define a struct that wraps user actions.
               snippet_tags:
                 - gov2.iam.UserWrapper.complete
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/iam
-          excerpts:
-            - description:
-              snippet_tags:
-                - ruby.example_code.iam.Scenario_CreateUserAssumeRole
     Rust:
       versions:
         - sdk_version: 1
