@@ -46,14 +46,12 @@ public class CreateStack {
         final String usage = """
 
                 Usage:
-                    <stackName> <roleARN> <location> <key> <value>\s
+                    <stackName> <roleARN> <location>\s
 
                 Where:
                     stackName - The name of the AWS CloudFormation stack.\s
                     roleARN - The ARN of the role that has AWS CloudFormation permissions.\s
                     location - The location of file containing the template body. (for example, https://s3.amazonaws.com/<bucketname>/template.yml).\s
-                    key - The key associated with the parameter.\s
-                    value - The value associated with the parameter.\s
                 """;
 
         if (args.length != 5) {
@@ -64,36 +62,25 @@ public class CreateStack {
         String stackName = args[0];
         String roleARN = args[1];
         String location = args[2];
-        String key = args[3];
-        String value = args[4];
-
         Region region = Region.US_EAST_1;
         CloudFormationClient cfClient = CloudFormationClient.builder()
                 .region(region)
                 .build();
 
-        createCFStack(cfClient, stackName, roleARN, location, key, value);
+        createCFStack(cfClient, stackName, roleARN, location);
         cfClient.close();
     }
 
     public static void createCFStack(CloudFormationClient cfClient,
                                      String stackName,
                                      String roleARN,
-                                     String location,
-                                     String key,
-                                     String value) {
+                                     String location) {
         try {
-            Parameter myParameter = Parameter.builder()
-                .parameterKey(key)
-                .parameterValue(value)
-                .build();
-
             CreateStackRequest stackRequest = CreateStackRequest.builder()
                 .stackName(stackName)
                 .templateURL(location)
                 .roleARN(roleARN)
                 .onFailure(OnFailure.ROLLBACK)
-             //   .parameters(myParameter)
                 .build();
 
             try {
@@ -113,9 +100,8 @@ public class CreateStack {
                     .build();
 
                 DescribeStacksResponse stacksResponse = cfClient.describeStacks(stacksRequest);
-
                 for (Stack stack : stacksResponse.stacks()) {
-                    // Check if the stack is in a ready state
+                    // Check if the stack is in a ready state.
                     String status = stack.stackStatusAsString();
                     System.out.println("The stack status is " + status);
 
@@ -133,7 +119,7 @@ public class CreateStack {
                 }
             }
 
-            // The stack is now in a ready state
+            // The stack is now in a ready state.
             System.out.println("Stack is ready!");
 
         } catch (AwsServiceException | SdkClientException e) {
