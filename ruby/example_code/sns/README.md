@@ -80,11 +80,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby Amazon SNS reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Sns.html)
 
 <!--custom.resources.start-->
-* [More Ruby Amazon SNS code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_sns_code_examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon SNS Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SNS.html)
-* [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
-* [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
 <!--custom.resources.end-->
 
 ---

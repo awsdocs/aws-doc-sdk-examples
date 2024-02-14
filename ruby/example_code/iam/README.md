@@ -54,7 +54,7 @@ Code excerpts that show you how to call individual service functions.
 - [Get a policy](attach_role_policy.rb#L34) (`GetPolicy`)
 - [Get a role](manage_roles.rb#L44) (`GetRole`)
 - [Get a user](manage_users.rb#L43) (`GetUser`)
-- [Get the account password policy](get_account_password_policy.rb#L1) (`GetAccountPasswordPolicy`)
+- [Get the account password policy](get_account_password_policy.rb#L6) (`GetAccountPasswordPolicy`)
 - [List SAML providers](list_saml_providers.rb#L7) (`ListSAMLProviders`)
 - [List a user's access keys](manage_access_keys.rb#L6) (`ListAccessKeys`)
 - [List account aliases](manage_account_aliases.rb#L6) (`ListAccountAliases`)
@@ -136,11 +136,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby IAM reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Iam.html)
 
 <!--custom.resources.start-->
-* [More Ruby AWS IAM code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_iam_code_examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon IAM Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IAM.html)
-* [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
-* [AWS IAM API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
 <!--custom.resources.end-->
 
 ---

@@ -77,11 +77,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby Amazon Polly reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Polly.html)
 
 <!--custom.resources.start-->
-* [More Ruby Amazon Polly code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/polly-examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon Polly Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Polly.html)
-* [Amazon Polly Developer Guide](https://docs.aws.amazon.com/polly/latest/dg/what-is.html)
-* [Amazon Polly API Reference](https://docs.aws.amazon.com/polly/latest/dg/API_Reference.html)
 <!--custom.resources.end-->
 
 ---

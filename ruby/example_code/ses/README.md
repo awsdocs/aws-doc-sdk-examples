@@ -78,11 +78,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby Amazon SES reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Ses.html)
 
 <!--custom.resources.start-->
-* [More Ruby Amazon SES code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ses-examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon SES Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SES.html)
-* [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
-* [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
 <!--custom.resources.end-->
 
 ---

@@ -92,11 +92,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby EventBridge reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Eventbridge.html)
 
 <!--custom.resources.start-->
-* [More Ruby AWS EventBridge code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_eventbridge_code_examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon EventBridge Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EventBridge.html)
-* [AWS EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
-* [AWS EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
 <!--custom.resources.end-->
 
 ---

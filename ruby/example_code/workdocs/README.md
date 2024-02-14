@@ -15,7 +15,7 @@ WorkDocs is a fully managed, secure enterprise storage and sharing service with 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [List a user's documents](./wd_list_user_docs.rb) (`GetDocuments`)
+* [List a user's documents](./workdocs_basics.rb) (`GetDocuments`)
 
 * [List users](./wd_list_users.rb) (`DescribeUsers`)
 
@@ -45,10 +45,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 
 ## Additional resources
 <!--custom.resources.start-->
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon WorkDocs Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/WorkDocs.html)
-* [WorkDocs Developer Guide](https://docs.aws.amazon.com/workdocs/latest/developerguide/what_is.html)
-* [WorkDocs API Reference](https://docs.aws.amazon.com/workdocs/latest/APIReference/Welcome.html)
 <!--custom.resources.end-->
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

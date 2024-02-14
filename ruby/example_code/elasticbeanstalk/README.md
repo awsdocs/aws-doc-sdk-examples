@@ -33,23 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Describe app](elb-ruby-example-list-all-apps.rb#L8) (`DescribeApplications`)
-- [List stacks](eb_list_stacks.rb#L8) (`ListAvailableSolutionStacks`)
-- [Update app](elb-ruby-example-update-myrailsapp.rb#L7) (`UpdateApplication`)
+- [Describe app](list_apps.rb#L6) (`DescribeApplications`)
+- [List stacks](list_stacks.rb#L6) (`ListAvailableSolutionStacks`)
+- [Update app](update_app.rb#L8) (`UpdateApplication`)
 
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
-
-## Run the examples
-
-### Instructions
-
-
-<!--custom.instructions.start-->
-The quickest way to interact with this example code is to invoke a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
-<!--custom.instructions.end-->
-
 
 
 ### Tests
@@ -78,11 +68,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby Elastic Beanstalk reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Elastic-beanstalk.html)
 
 <!--custom.resources.start-->
-* [More ElasticBeanstalk code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/eb-examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon ElasticBeanstalk Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/ElasticBeanstalk.html)
-* [ElasticBeanstalk Developer Guide](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html)
-* [ElasticBeanstalk API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/ElasticBeanstalk.html)
 <!--custom.resources.end-->
 
 ---

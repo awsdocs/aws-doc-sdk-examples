@@ -80,11 +80,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby CloudWatch reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Cloudwatch.html)
 
 <!--custom.resources.start-->
-* [More Ruby CloudWatch code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/cw-examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby CloudWatch Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CloudWatch.html)
-* [CloudWatch Developer Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
-* [CloudWatch API Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/Welcome.html)
 <!--custom.resources.end-->
 
 ---
