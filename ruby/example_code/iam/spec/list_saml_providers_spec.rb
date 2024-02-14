@@ -3,8 +3,7 @@ require_relative("../list_saml_providers")
 
 describe SamlProviderManager do
   let(:iam_client) { Aws::IAM::Client.new }
-  let(:logger) { Logger.new($stdout) }
-  let(:manager) { SamlProviderManager.new(iam_client, logger) }
+  let(:manager) { SamlProviderManager.new(iam_client) }
 
   describe "#list_saml_providers" do
     it "logs the ARNs of up to the specified number of SAML providers" do

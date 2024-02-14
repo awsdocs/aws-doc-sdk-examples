@@ -38,7 +38,6 @@ describe UserPolicyManager do
   end
 
   after(:all) do
-    # Cleanup test role
     iam_client.delete_role(role_name: role_name)
   end
 

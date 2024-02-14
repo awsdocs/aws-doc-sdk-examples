@@ -53,7 +53,7 @@ end
 # snippet-end:[iam.ruby.ManageAccountAliases]
 
 # Example usage:
-if $PROGRAM_NAME == __FILE__
+if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   manager = IAMAliasManager.new(iam_client)
   account_alias = "my-account-alias"

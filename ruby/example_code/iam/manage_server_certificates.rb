@@ -53,7 +53,7 @@ end
 # snippet-end:[iam.ruby.ManageServerCertificates]
 
 # Example usage:
-if $PROGRAM_NAME == __FILE__
+if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   manager = ServerCertificateManager.new(iam_client)
   manager.list_server_certificate_names

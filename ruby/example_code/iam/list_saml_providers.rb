@@ -28,3 +28,11 @@ class SamlProviderLister
   end
 end
 # snippet-end:[ruby.example_code.iam.ListSamlProviders]
+
+# Example usage:
+if __FILE__ == $PROGRAM_NAME
+  iam_client = Aws::IAM::Client.new
+  user_manager = SamlProviderLister.new(iam_client)
+  puts "Attempting to get details for available SAML providers..."
+  user_manager.list_saml_providers(10)
+end

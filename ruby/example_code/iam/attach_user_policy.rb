@@ -14,7 +14,7 @@ class UserPolicyManager
     @logger.progname = "UserManager"
   end
 
-  # snippet-start:[ruby.iam.CreateUserPolicy]
+  # snippet-start:[ruby.iam.PutUserPolicy]
   # Creates an inline policy for a specified user.
   # @param username [String] The name of the IAM user.
   # @param policy_name [String] The name of the policy to create.
@@ -94,5 +94,23 @@ if __FILE__ == $PROGRAM_NAME
     puts "Policy detached from user '#{user_name}'."
   else
     puts "Failed to detach policy from user '#{user_name}'."
+  end
+
+  policy_name = "test-policy-#{Time.now.to_i}"
+  policy_document =
+    {
+      "Version" => "2012-10-17",
+      "Statement" => [
+        {
+          "Effect" => "Allow",
+          "Action" => "s3:ListAllMyBuckets",
+          "Resource" => "arn:aws:s3:::*"
+        }
+      ]
+    }
+  if user_manager.create_user_policy(user_name, policy_name, policy_document.to_s)
+    puts "Created user policy for '#{user_name}'."
+  else
+    puts "Failed to create user policy for '#{user_name}'."
   end
 end

@@ -113,7 +113,6 @@ if __FILE__ == $PROGRAM_NAME
       }
     ]
   }
-
   policy_arn = manager.create_policy(policy_name, policy_document)
   if policy_arn
     manager.attach_policy_to_role(role_name, policy_arn)

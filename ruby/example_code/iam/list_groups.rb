@@ -29,7 +29,7 @@ end
 # snippet-end:[ruby.iam.ListGroups]
 
 # Example usage:
-if $PROGRAM_NAME == __FILE__
+if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   iam_group_manager = IamGroupManager.new(iam_client)
   puts "Attempting to list groups..."

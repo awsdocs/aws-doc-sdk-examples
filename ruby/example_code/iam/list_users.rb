@@ -91,7 +91,7 @@ end
 # snippet-end:[ruby.iam.ListUsers]
 
 # Example usage:
-if $PROGRAM_NAME == __FILE__
+if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   user_manager = UserManager.new(iam_client)
   puts "Attempting to get details for available users..."
