@@ -14,6 +14,8 @@ import software.amazon.awssdk.services.iam.model.User;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -54,10 +56,10 @@ public class IAMServiceTest {
         policyName = values.getPolicyName();
         roleName = values.getRoleName();
         accountAlias = values.getAccountAlias();
-        usernameSc = values.getUsernameSc();
-        policyNameSc = values.getPolicyNameSc();
-        roleNameSc = values.getRoleNameSc();
-        roleSessionName = values.getRoleName();
+        usernameSc = values.getUsernameSc() + UUID.randomUUID();
+        policyNameSc = values.getPolicyNameSc() + UUID.randomUUID();
+        roleNameSc = values.getRoleNameSc() + UUID.randomUUID();
+        roleSessionName = values.getRoleName() ;
         fileLocationSc = values.getFileLocationSc();
         bucketNameSc = values.getBucketNameSc();
 

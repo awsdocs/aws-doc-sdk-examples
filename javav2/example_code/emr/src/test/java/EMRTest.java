@@ -27,7 +27,6 @@ public class EMRTest {
     private static String logUri = "";
     private static String name = "";
     private static String jobFlowId = "";
-    private static String existingClusterId = "";
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -45,7 +44,6 @@ public class EMRTest {
         keys = values.getKeys();
         logUri = values.getLogUri();
         name = values.getName();
-        existingClusterId = values.getExistingClusterId();
 
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
@@ -84,7 +82,7 @@ public class EMRTest {
     @Test
     @Order(2)
     public void describeClusterTest() {
-        assertDoesNotThrow(() -> DescribeCluster.describeMyCluster(emrClient, existingClusterId));
+        assertDoesNotThrow(() -> DescribeCluster.describeMyCluster(emrClient, jobFlowId));
         System.out.println("Test 2 passed");
     }
 
@@ -134,7 +132,7 @@ public class EMRTest {
     @Test
     @Order(9)
     public void terminateJobFlowTest() {
-        assertDoesNotThrow(() -> TerminateJobFlow.terminateFlow(emrClient, existingClusterId));
+        assertDoesNotThrow(() -> TerminateJobFlow.terminateFlow(emrClient, jobFlowId));
         System.out.println("Test 9 passed");
     }
 
@@ -156,7 +154,6 @@ public class EMRTest {
     @Nested
     @DisplayName("A class used to get test values from test/emr (an AWS Secrets Manager secret)")
     class SecretValues {
-        private String existingClusterId;
         private String jar;
         private String myClass;
 
@@ -169,7 +166,6 @@ public class EMRTest {
         public String getLogUri() {
             return logUri;
         }
-
         public String getJar() {
             return jar;
         }
@@ -184,10 +180,6 @@ public class EMRTest {
 
         public String getName() {
             return name;
-        }
-
-        public String getExistingClusterId() {
-            return existingClusterId;
         }
     }
 }

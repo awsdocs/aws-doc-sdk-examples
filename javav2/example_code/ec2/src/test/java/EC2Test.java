@@ -64,7 +64,7 @@ public class EC2Test {
         ami = values.getAmi();
         instanceName = values.getInstanceName();
         keyName = values.getKeyNameSc();
-        groupName = values.getGroupName() + java.util.UUID.randomUUID();;
+        groupName = values.getGroupName() + java.util.UUID.randomUUID();
         groupDesc = values.getGroupDesc();
         vpcId = values.getVpcId();
         keyNameSc = values.getKeyNameSc() + java.util.UUID.randomUUID();
