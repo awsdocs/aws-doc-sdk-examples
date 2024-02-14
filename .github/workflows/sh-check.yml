@@ -1,10 +1,14 @@
 name: Lint Bash
 on:
+  push:
+    paths:
+      - "aws-cli/**"
   pull_request:
-    branches: [main]
     paths:
       - "aws-cli/**"
   workflow_dispatch:
+    paths:
+      - "aws-cli/**"
 jobs:
   sh-checker:
     name: Lint Bash
