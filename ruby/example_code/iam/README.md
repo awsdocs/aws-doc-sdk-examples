@@ -68,6 +68,13 @@ Code excerpts that show you how to call individual service functions.
 - [Update a server certificate](manage_server_certificates.rb#L6) (`UpdateServerCertificate`)
 - [Update a user](manage_users.rb#L78) (`UpdateUser`)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Create a user and assume a role](scenario_users.rb)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -82,6 +89,27 @@ The quickest way to interact with this example code is to invoke a [Scenario](#S
 <!--custom.instructions.end-->
 
 
+
+#### Create a user and assume a role
+
+This example shows you how to create a user and assume a role. 
+
+- Create a user with no permissions.
+- Create a role that grants permission to list Amazon S3 buckets for the account.
+- Add a policy to let the user assume the role.
+- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
+
+<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+ruby scenario_users.rb
+```
+
+<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
 
 ### Tests
 

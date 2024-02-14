@@ -2813,7 +2813,7 @@ iam_PutUserPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.iam.CreateUserPolicy
+                - ruby.iam.PutUserPolicy
     Swift:
       versions:
         - sdk_version: 1

@@ -32,7 +32,7 @@ class UserPolicyManager
     @logger.error("\t#{e.code}: #{e.message}")
     false
   end
-  # snippet-end:[ruby.iam.CreateUserPolicy]
+  # snippet-end:[ruby.iam.PutUserPolicy]
 
 
   # snippet-start:[ruby.iam.AttachUserPolicy]
