@@ -52,7 +52,7 @@ class IAMAliasManager
 end
 # snippet-end:[iam.ruby.ManageAccountAliases]
 
-# Full example usage
+# Example usage:
 if $PROGRAM_NAME == __FILE__
   iam_client = Aws::IAM::Client.new
   manager = IAMAliasManager.new(iam_client)

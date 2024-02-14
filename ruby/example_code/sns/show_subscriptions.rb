@@ -24,6 +24,7 @@ class SnsSubscriptionLister
   end
 end
 
+# Example usage:
 if $PROGRAM_NAME == __FILE__
   sns_client = Aws::SNS::Client.new
   topic_arn = "SNS_TOPIC_ARN" # Replace with your SNS topic ARN

@@ -27,7 +27,7 @@ class SnsMessageSender
   end
 end
 
-# Main execution if the script is run directly
+# Example usage:
 if $PROGRAM_NAME == __FILE__
   topic_arn = "SNS_TOPIC_ARN" # Should be replaced with a real topic ARN
   message = "MESSAGE"         # Should be replaced with the actual message content

@@ -3,7 +3,7 @@
 require "aws-sdk-iam"
 require "logger"
 
-# snippet-start:[ruby.iam.CreateRole]
+# snippet-start:[ruby.iam.ManageRoles]
 # Manages IAM roles
 class RoleManager
   # Initialize with an AWS IAM client
@@ -163,8 +163,8 @@ class RoleManager
     end
   end
   # snippet-end:[ruby.iam.DeleteServiceLinkedRole]
-
 end
+# snippet-end:[ruby.iam.ManageRoles]
 
 # Example usage:
 if __FILE__ == $PROGRAM_NAME

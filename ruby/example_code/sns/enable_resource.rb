@@ -57,7 +57,7 @@ class SnsResourceEnabler
   end
 end
 
-# Main execution if the script is run directly
+# Example usage:
 if $PROGRAM_NAME == __FILE__
   topic_arn = "MY_TOPIC_ARN"     # Should be replaced with a real topic ARN
   resource_arn = "MY_RESOURCE_ARN" # Should be replaced with a real resource ARN

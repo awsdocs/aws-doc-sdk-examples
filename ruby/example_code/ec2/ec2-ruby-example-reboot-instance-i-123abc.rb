@@ -37,7 +37,7 @@ rescue StandardError => e
   puts "Error requesting reboot: #{e.message}"
 end
 
-# Full example call:
+# Example usage:
 def run_me
   instance_id = ""
   region = ""

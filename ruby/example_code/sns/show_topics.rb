@@ -33,6 +33,8 @@ def run_me
     exit 1
   end
 end
+
+# Example usage:
 run_me if $PROGRAM_NAME == __FILE__
 
 # snippet-end:[sns.Ruby.showTopics]

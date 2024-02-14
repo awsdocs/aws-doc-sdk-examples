@@ -82,7 +82,7 @@ def list_availability_zones(ec2_client)
   end
 end
 
-# Full example call:
+# Example usage:
 def run_me
   region = ""
   # Print usage information and then stop.

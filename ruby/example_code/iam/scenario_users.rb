@@ -118,7 +118,7 @@ class IAMUserAndRoleManager
   end
 end
 
-# Execute only if the script is the main program
+# Example usage:
 if $PROGRAM_NAME == __FILE__
   iam_client = Aws::IAM::Client.new
   user_and_role_manager = IAMUserAndRoleManager.new(iam_client)

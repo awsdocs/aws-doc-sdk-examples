@@ -25,7 +25,7 @@ class SNSTopicCreator
   end
 end
 
-# Example usage
+# Example usage:
 if $PROGRAM_NAME == __FILE__
   topic_name = "YourTopicName" # Replace with your topic name
   sns_topic_creator = SNSTopicCreator.new

@@ -82,8 +82,7 @@ def get_random_aes_256_gcm_key
   return random_key_64
 end
 
-# Full example call:
-# Replace us-west-2 with the AWS Region you're using for Amazon S3.
+# Example usage:
 def run_me
   bucket_name = "doc-example-bucket"
   object_key = "my-file.txt"

@@ -102,8 +102,7 @@ rescue StandardError => e
   puts "Error while accessing the bucket named '#{bucket_name}': #{e.message}"
 end
 
-# Full example call:
-# Replace us-west-2 with the AWS Region you're using for Amazon S3.
+# Example usage:
 def run_me
   region = "us-west-2"
   user_name = "my-user"

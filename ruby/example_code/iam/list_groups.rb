@@ -26,8 +26,9 @@ class IamGroupManager
     raise
   end
 end
+# snippet-end:[ruby.iam.ListGroups]
 
-# Execute the code if the file is the main program
+# Example usage:
 if $PROGRAM_NAME == __FILE__
   iam_client = Aws::IAM::Client.new
   iam_group_manager = IamGroupManager.new(iam_client)
