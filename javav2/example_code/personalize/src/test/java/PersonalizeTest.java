@@ -127,7 +127,7 @@ public class PersonalizeTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void CreateCampaign() {
-        CreateCampaign.createPersonalCompaign(personalizeClient, solutionVersionArn, campaignName);
+        campaignArn = CreateCampaign.createPersonalCompaign(personalizeClient, solutionVersionArn, campaignName);
         System.out.println("Test 4 passed");
     }
 
