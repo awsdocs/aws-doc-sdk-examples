@@ -5,7 +5,7 @@ workdocs_DescribeUsers:
   synopsis: describe &WD; users.
   category:
   languages:
-    Python:
+    Ruby:
       versions:
         - sdk_version: 3
           github: ruby/example_code/workdocs
@@ -13,16 +13,16 @@ workdocs_DescribeUsers:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.workdocs.DescribeUsers
+                - workdocs.Ruby.DescribeUsers
   services:
-    transcribe: {DescribeUsers}
+    workdocs: {DescribeUsers}
 workdocs_DescribeRootFolders:
   title: Describe &WD; root folder contents using an &AWS; SDK
   title_abbrev: Describe root folder contents
   synopsis: describe &WD; root folder contents.
   category:
   languages:
-    Python:
+    Ruby:
       versions:
         - sdk_version: 3
           github: ruby/example_code/workdocs
@@ -30,6 +30,6 @@ workdocs_DescribeRootFolders:
           excerpts:
             - description:
               snippet_tags:
-                - ruby.example_code.workdocs.DescribeRootFolders
+                - workdocs.Ruby.DescribeRootFolders
   services:
-    transcribe: {DescribeRootFolders}
+    workdocs: {DescribeRootFolders}
