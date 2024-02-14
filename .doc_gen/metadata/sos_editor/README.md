@@ -14,10 +14,11 @@ This metadata can also be edited manaully. The purpose of this tool is to make t
    <li><p>Ensure your <i>USERPROFILE</i> is set to 'C:\Users\[username]' </p>
    <p>To get a list of all environment variables enter the command <i><b>set</b></i>.</p>
   <p>You can send them to a text file enter the command <i><b>set > filename.txt</b></i>.</p></li>
+  <li>Install WAMP and setup your localhost. <a href="https://blog.containerize.com/how-to-install-and-configure-wamp-server-on-windows/">Instructions here.</a></li>
+  <li>Create your authoring environment per <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAuthoringenvironment">Authoring environment</a>.</li>
 </ol>
 <h3>Edit metadata via GUI</h3>
   <ol>
-  <li>Install WAMP and setup your localhost. <a href="https://blog.containerize.com/how-to-install-and-configure-wamp-server-on-windows/">Instructions here.</a></li>
   <li>Create your authoring environment per <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAuthoringenvironment">Authoring environment</a>.</li>
   <li>Clone <a href="https://github.com/brmur/aws-doc-sdk-examples">aws-doc-sdk-examples GitHub repo</a> locally. <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository">Instructions here.</a></li>
   <li>Open your CLI tool, and navigate to "./doc_gen/metadata/sos_editor/</li>
