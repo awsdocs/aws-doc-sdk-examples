@@ -78,11 +78,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby CloudTrail reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Cloudtrail.html)
 
 <!--custom.resources.start-->
-* [More Ruby CloudTrail code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/cloud-trail-examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby CloudTrail Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CloudTrail.html)
-* [CloudTrail User Guide](https://docs.aws.amazon.com/cloudtrail/)
-* [CodeTrail API Reference](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/Welcome.html)
 <!--custom.resources.end-->
 
 ---
