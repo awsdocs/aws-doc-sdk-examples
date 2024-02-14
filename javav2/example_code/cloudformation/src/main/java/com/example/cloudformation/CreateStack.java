@@ -93,7 +93,6 @@ public class CreateStack {
 
             // Loop to check the stack status until it's in a ready state.
             boolean stackReady = false;
-
             while (!stackReady) {
                 DescribeStacksRequest stacksRequest = DescribeStacksRequest.builder()
                     .stackName(stackName)
@@ -104,7 +103,6 @@ public class CreateStack {
                     // Check if the stack is in a ready state.
                     String status = stack.stackStatusAsString();
                     System.out.println("The stack status is " + status);
-
                     if ("ROLLBACK_COMPLETE".equals(status) || "CREATE_COMPLETE".equals(status) || "UPDATE_COMPLETE".equals(status)) {
                         stackReady = true;
                         break;
