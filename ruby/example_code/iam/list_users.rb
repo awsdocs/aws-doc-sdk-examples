@@ -3,7 +3,7 @@
 require "aws-sdk-iam"
 require "logger"
 
-# snippet-start:[ruby.iam.ListUsers]
+# snippet-start:[ruby.iam.ScenarioListUsers]
 class UserManager
   # Initializes the UserManager with an IAM client and a logger.
   #
@@ -88,7 +88,7 @@ class UserManager
     end
   end
 end
-# snippet-end:[ruby.iam.ListUsers]
+# snippet-end:[ruby.iam.ScenarioListUsers]
 
 # Example usage:
 if __FILE__ == $PROGRAM_NAME
