@@ -92,7 +92,7 @@ cloudfront_CreateDistribution:
           sdkguide:
           excerpts:
             - description: >-
-                The following example uses an &S3long; (&S3;) bucket as a content origin. 
+                The following example uses an &S3long; (&S3;) bucket as a content origin.</para>
                 <para>After creating the distribution, 
                 the code creates a <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/waiters/CloudFrontWaiter.html">CloudFrontWaiter</ulink> 
                 to wait until the distribution is deployed before returning the distribution</para>.
