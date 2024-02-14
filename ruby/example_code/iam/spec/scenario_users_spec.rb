@@ -1,6 +1,6 @@
-require_relative '../scenario_users'
-require 'aws-sdk-iam'
-require 'securerandom'
+require_relative "../scenario_users"
+require "aws-sdk-iam"
+require "securerandom"
 
 describe IAMUserAndRoleManager do
   let(:iam_client) { Aws::IAM::Client.new }
@@ -23,7 +23,7 @@ describe IAMUserAndRoleManager do
     end
   end
 
-  it 'creates and manages an IAM user and role' do
+  it "creates and manages an IAM user and role" do
     user = user_and_role_manager.create_user(user_name)
     expect(user.user_name).to eq(user_name)
 

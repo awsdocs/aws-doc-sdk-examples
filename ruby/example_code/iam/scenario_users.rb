@@ -1,8 +1,8 @@
-require 'aws-sdk-iam'
-require 'aws-sdk-s3'
-require 'logger'
-require 'securerandom'
-require 'json'
+require "aws-sdk-iam"
+require "aws-sdk-s3"
+require "logger"
+require "securerandom"
+require "json"
 
 # Demonstrates how to create an IAM user, assume a role, and perform actions with AWS services.
 class IAMUserAndRoleManager
@@ -44,11 +44,11 @@ class IAMUserAndRoleManager
   # @return [Aws::IAM::Types::Role] The created IAM role.
   def create_role(role_name, user_arn)
     assume_role_policy_document = {
-      Version: '2012-10-17',
+      Version: "2012-10-17",
       Statement: [{
-                    Effect: 'Allow',
+                    Effect: "Allow",
                     Principal: { AWS: user_arn },
-                    Action: 'sts:AssumeRole'
+                    Action: "sts:AssumeRole"
                   }]
     }.to_json
 
@@ -66,7 +66,7 @@ class IAMUserAndRoleManager
   # @param role_name [String] The name of the role to attach the policy to.
   # @param policy_document [Hash] The policy document.
   def attach_policy_to_role(role_name, policy_document)
-    policy_arn = 'arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess'
+    policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
     @iam_client.attach_role_policy(
       role_name: role_name,
       policy_arn: policy_arn
