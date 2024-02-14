@@ -5,7 +5,8 @@ on:
       - "aws-cli/**"
   pull_request:
     paths:
-      - "aws-cli/**"
+      - '!java/**'
+      - 'aws-cli/**'
   workflow_dispatch:
     paths:
       - "aws-cli/**"
