@@ -44,10 +44,10 @@ const create_json = async () => {
             ).replaceAll(/{+/g, "'{").replace(/}+/g, "}'")
         );
         wait(3000)
-        console.log("doc", doc)
+        /*console.log("doc", doc)*/
         var mydoc = JSON.stringify(doc, null, 2);
         if(mydoc.includes("synopsis_list")) {
-            console.log("mydoc", mydoc)
+            /*console.log("mydoc", mydoc)*/
             fs.writeFileSync(
                 "../jsonholder/" + serviceStub + "_metadata.json",
                 mydoc,
@@ -55,7 +55,7 @@ const create_json = async () => {
                     if (err) throw err;
                 }
             );
-            console.log("Please leave this terminal running, and open the SOS GUI editor and enter \'" + serviceStub + "\' in the Principle Service field.");
+            console.log("Open the SOS GUI editor (./doc_gen/metadata/sos_editor/index.html) in your local host and enter \'" + serviceStub + "\' in the Principle Service field. Please leave this terminal running.");
             return serviceStub
         }
         else{
@@ -66,9 +66,9 @@ const create_json = async () => {
                 ).replaceAll(/{+/g, "'{").replace(/}+/g, "}'").replaceAll('category:','synopsis_list:\n  category:')
             );
             wait(3000)
-            console.log("doc", doc)
+            /*console.log("doc", doc)*/
             const mydoc = JSON.stringify(doc, null, 2);
-            console.log("mydoc", mydoc)
+            /*console.log("mydoc", mydoc)*/
             fs.writeFileSync(
                 "../jsonholder/" + serviceStub + "_metadata.json",
                 mydoc,
@@ -76,7 +76,7 @@ const create_json = async () => {
                     if (err) throw err;
                 }
             );
-            console.log("Please leave this terminal running, and open the SOS GUI editor and enter \'" + serviceStub + "\' in the Principle Service field.");
+            console.log("Open the SOS GUI editor (./doc_gen/metadata/sos_editor/index.html) in your local host and enter \'" + serviceStub + "\' in the Principle Service field. Please leave this terminal running.");
             return serviceStub
         }
     } catch (e) {
