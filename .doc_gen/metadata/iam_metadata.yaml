@@ -3627,6 +3627,18 @@ iam_Scenario_CreateUserAssumeRole:
                 the account.
               snippet_tags:
                 - python.example_code.iam.Scenario_CreateUserAssumeRole
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: Create an &IAM-user; and a role that grants permission
+                to list &S3; buckets. The user has rights only to assume the role.
+                After assuming the role, use temporary credentials to list buckets for
+                the account.
+              snippet_tags:
+                - ruby.iam.Scenario_CreateUserAssumeRole
     Go:
       versions:
         - sdk_version: 2
