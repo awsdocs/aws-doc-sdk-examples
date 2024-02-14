@@ -2672,6 +2672,8 @@ s3_Scenario_GettingStarted:
             - description:
               snippet_tags:
                 - aws-cli.bash-linux.s3.getting_started_scenario
+            - description: The &S3; functions used in this scenario.
+              snippet_tags:
                 - aws-cli.bash-linux.s3.CreateBucket
                 - aws-cli.bash-linux.s3.PutObject
                 - aws-cli.bash-linux.s3.GetObject

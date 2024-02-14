@@ -3588,7 +3588,9 @@ iam_Scenario_CreateUserAssumeRole:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.iam.iam_create_user_assume_role
+                - aws-cli.bash-linux.iam.iam_CreateUser_AssumeRole
+            - description: The &IAM; functions used in this scenario.
+              snippet_tags:
                 - aws-cli.bash-linux.iam.GetUser
                 - aws-cli.bash-linux.iam.CreateUser
                 - aws-cli.bash-linux.iam.CreateAccessKey

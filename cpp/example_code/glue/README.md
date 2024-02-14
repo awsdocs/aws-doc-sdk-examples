@@ -46,19 +46,19 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](glue_getting_started_scenario.cpp#L869) (`CreateCrawler`)
-- [Create a job definition](glue_getting_started_scenario.cpp#L869) (`CreateJob`)
-- [Delete a crawler](glue_getting_started_scenario.cpp#L869) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](glue_getting_started_scenario.cpp#L869) (`DeleteDatabase`)
-- [Delete a job definition](glue_getting_started_scenario.cpp#L869) (`DeleteJob`)
-- [Get a crawler](glue_getting_started_scenario.cpp#L869) (`GetCrawler`)
-- [Get a database from the Data Catalog](glue_getting_started_scenario.cpp#L869) (`GetDatabase`)
-- [Get a job run](glue_getting_started_scenario.cpp#L869) (`GetJobRun`)
-- [Get runs of a job](glue_getting_started_scenario.cpp#L869) (`GetJobRuns`)
-- [Get tables from a database](glue_getting_started_scenario.cpp#L869) (`GetTables`)
-- [List job definitions](glue_getting_started_scenario.cpp#L869) (`ListJobs`)
-- [Start a crawler](glue_getting_started_scenario.cpp#L869) (`StartCrawler`)
-- [Start a job run](glue_getting_started_scenario.cpp#L869) (`StartJobRun`)
+- [Create a crawler](glue_getting_started_scenario.cpp#L181) (`CreateCrawler`)
+- [Create a job definition](glue_getting_started_scenario.cpp#L364) (`CreateJob`)
+- [Delete a crawler](glue_getting_started_scenario.cpp#L674) (`DeleteCrawler`)
+- [Delete a database from the Data Catalog](glue_getting_started_scenario.cpp#L654) (`DeleteDatabase`)
+- [Delete a job definition](glue_getting_started_scenario.cpp#L634) (`DeleteJob`)
+- [Get a crawler](glue_getting_started_scenario.cpp#L210) (`GetCrawler`)
+- [Get a database from the Data Catalog](glue_getting_started_scenario.cpp#L302) (`GetDatabase`)
+- [Get a job run](glue_getting_started_scenario.cpp#L590) (`GetJobRun`)
+- [Get runs of a job](glue_getting_started_scenario.cpp#L555) (`GetJobRuns`)
+- [Get tables from a database](glue_getting_started_scenario.cpp#L327) (`GetTables`)
+- [List job definitions](glue_getting_started_scenario.cpp#L524) (`ListJobs`)
+- [Start a crawler](glue_getting_started_scenario.cpp#L235) (`StartCrawler`)
+- [Start a job run](glue_getting_started_scenario.cpp#L394) (`StartJobRun`)
 
 ### Scenarios
 
