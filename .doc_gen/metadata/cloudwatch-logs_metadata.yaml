@@ -323,7 +323,6 @@ cloudwatch-logs_GetQueryResults:
             - description:
               snippet_tags:
                 - python.example_code.cloudwatch_logs.get_query_results
-
   services:
     cloudwatch-logs: {GetQueryResults}
 cloudwatch-logs_StartQuery:

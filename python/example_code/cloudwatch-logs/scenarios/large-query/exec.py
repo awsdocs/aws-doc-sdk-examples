@@ -61,7 +61,7 @@ class CloudWatchLogsQueryRunner:
 
         return query_start_date, query_end_date
 
-    def convert_dates_to_iso1806(self, start_date, end_date):
+    def convert_dates_to_iso8601(self, start_date, end_date):
         """
         Converts UNIX timestamp dates to ISO 8601 format using DateUtilities.
 
@@ -72,34 +72,34 @@ class CloudWatchLogsQueryRunner:
         :return: Start and end dates in ISO 8601 format.
         :rtype: tuple
         """
-        start_date_iso1806 = self.date_utilities.convert_unix_timestamp_to_iso1806(
+        start_date_iso8601 = self.date_utilities.convert_unix_timestamp_to_iso8601(
             start_date
         )
-        end_date_iso1806 = self.date_utilities.convert_unix_timestamp_to_iso1806(
+        end_date_iso8601 = self.date_utilities.convert_unix_timestamp_to_iso8601(
             end_date
         )
-        return start_date_iso1806, end_date_iso1806
+        return start_date_iso8601, end_date_iso8601
 
     def execute_query(
         self,
-        start_date_iso1806,
-        end_date_iso1806,
+        start_date_iso8601,
+        end_date_iso8601,
         log_group="/workflows/cloudwatch-logs/large-query",
     ):
         """
         Creates a CloudWatchQuery instance and executes the query with provided date range.
 
-        :param start_date_iso1806: The start date in ISO 8601 format.
-        :type start_date_iso1806: str
-        :param end_date_iso1806: The end date in ISO 8601 format.
-        :type end_date_iso1806: str
+        :param start_date_iso8601: The start date in ISO 8601 format.
+        :type start_date_iso8601: str
+        :param end_date_iso8601: The end date in ISO 8601 format.
+        :type end_date_iso8601: str
         :param log_group: Log group to search: "/workflows/cloudwatch-logs/large-query"
         :type log_group: str
         """
         cloudwatch_query = CloudWatchQuery(
             self.cloudwatch_logs_client,
             log_group,
-            [start_date_iso1806, end_date_iso1806],
+            [start_date_iso8601, end_date_iso8601],
         )
         cloudwatch_query.query_logs()
         logging.info("Query executed successfully.")
@@ -116,11 +116,11 @@ def main():
     logging.info("Starting a recursive CloudWatch logs query...")
     runner = CloudWatchLogsQueryRunner()
     query_start_date, query_end_date = runner.fetch_environment_variables()
-    start_date_iso1806 = DateUtilities.convert_unix_timestamp_to_iso1806(
+    start_date_iso8601 = DateUtilities.convert_unix_timestamp_to_iso8601(
         query_start_date
     )
-    end_date_iso1806 = DateUtilities.convert_unix_timestamp_to_iso1806(query_end_date)
-    runner.execute_query(start_date_iso1806, end_date_iso1806)
+    end_date_iso8601 = DateUtilities.convert_unix_timestamp_to_iso8601(query_end_date)
+    runner.execute_query(start_date_iso8601, end_date_iso8601)
 
 
 if __name__ == "__main__":

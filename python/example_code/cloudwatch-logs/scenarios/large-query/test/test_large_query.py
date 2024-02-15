@@ -16,6 +16,6 @@ runner = CloudWatchLogsQueryRunner()
 def test_run_successfully():
     now = datetime.utcnow()
     ten_days_ago = now - timedelta(days=10)
-    query_start_date = date_utility.convert_datetime_to_iso1806(ten_days_ago)
-    query_end_date = date_utility.convert_datetime_to_iso1806(now)
+    query_start_date = date_utility.convert_datetime_to_iso8601(ten_days_ago)
+    query_end_date = date_utility.convert_datetime_to_iso8601(now)
     runner.execute_query(query_start_date, query_end_date)

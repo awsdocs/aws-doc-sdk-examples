@@ -42,37 +42,37 @@ class DateUtilities:
         return [(date_range[0], round(midpoint)), (round(midpoint), date_range[1])]
 
     @staticmethod
-    def convert_unix_timestamp_to_iso1806(
-        unix_timestamp, iso1806_format="%Y-%m-%d %H:%M:%S.%f"
+    def convert_unix_timestamp_to_iso8601(
+        unix_timestamp, iso8601_format="%Y-%m-%d %H:%M:%S.%f"
     ):
         """
         Converts a UNIX timestamp in milliseconds to a date string in the specified format.
 
         :param unix_timestamp: UNIX timestamp in milliseconds.
         :type unix_timestamp: int
-        :param iso1806_format: The format string for the output date string, defaults to "%Y-%m-%d %H:%M:%S.%f".
-        :type iso1806_format: str
+        :param iso8601_format: The format string for the output date string, defaults to "%Y-%m-%d %H:%M:%S.%f".
+        :type iso8601_format: str
         :return: The formatted date string.
         :rtype: str
         """
         in_seconds = unix_timestamp / 1000.0
         date_time = datetime.utcfromtimestamp(in_seconds)
-        iso1806 = date_time.strftime(iso1806_format)
-        return iso1806
+        iso8601 = date_time.strftime(iso8601_format)
+        return iso8601
 
     @staticmethod
-    def convert_iso1806_to_datetime(iso1806, iso1806_format="%Y-%m-%d %H:%M:%S.%f"):
+    def convert_iso8601_to_datetime(iso8601, iso8601_format="%Y-%m-%d %H:%M:%S.%f"):
         """
         Converts a date string in ISO 8601 format to a Python datetime object.
 
-        :param iso1806: The ISO 8601 formatted date string.
-        :type iso1806: str
-        :param iso1806_format: The format string of the input date, defaults to ISO 8601 format.
-        :type iso1806_format: str
+        :param iso8601: The ISO 8601 formatted date string.
+        :type iso8601: str
+        :param iso8601_format: The format string of the input date, defaults to ISO 8601 format.
+        :type iso8601_format: str
         :return: The corresponding Python datetime object.
         :rtype: datetime
         """
-        date = datetime.strptime(iso1806, iso1806_format)
+        date = datetime.strptime(iso8601, iso8601_format)
         return date
 
     @staticmethod
@@ -97,24 +97,24 @@ class DateUtilities:
         :return: The corresponding Python datetime object.
         :rtype: datetime
         """
-        ts = self.convert_unix_timestamp_to_iso1806(unix_timestamp)
-        dt = self.convert_iso1806_to_datetime(ts)
+        ts = self.convert_unix_timestamp_to_iso8601(unix_timestamp)
+        dt = self.convert_iso8601_to_datetime(ts)
         return dt
 
-    def convert_iso1806_to_unix_timestamp(self, iso1806):
+    def convert_iso8601_to_unix_timestamp(self, iso8601):
         """
         Converts a date string in ISO 8601 format to a UNIX timestamp in milliseconds.
 
-        :param iso1806: The ISO 8601 formatted date string.
-        :type iso1806: str
+        :param iso8601: The ISO 8601 formatted date string.
+        :type iso8601: str
         :return: UNIX timestamp in milliseconds.
         :rtype: int
         """
-        dt = self.convert_iso1806_to_datetime(iso1806)
+        dt = self.convert_iso8601_to_datetime(iso8601)
         unix_timestamp = dt.replace(tzinfo=timezone.utc).timestamp()
         return unix_timestamp * 1000
 
-    def convert_datetime_to_iso1806(self, datetime_obj):
+    def convert_datetime_to_iso8601(self, datetime_obj):
         """
         Converts a Python datetime object to ISO 1806 format.
 
@@ -124,8 +124,8 @@ class DateUtilities:
         :rtype: str
         """
         unix_timestamp = datetime_obj.replace(tzinfo=timezone.utc).timestamp()
-        iso1806 = self.convert_unix_timestamp_to_iso1806(round(unix_timestamp * 1000))
-        return iso1806
+        iso8601 = self.convert_unix_timestamp_to_iso8601(round(unix_timestamp * 1000))
+        return iso8601
 
     def compare_dates(self, date_str1, date_str2):
         """
@@ -138,8 +138,8 @@ class DateUtilities:
         :return: The later of the two dates.
         :rtype: str
         """
-        date1 = self.convert_iso1806_to_datetime(date_str1)
-        date2 = self.convert_iso1806_to_datetime(date_str2)
+        date1 = self.convert_iso8601_to_datetime(date_str1)
+        date2 = self.convert_iso8601_to_datetime(date_str2)
 
         if date1 > date2:
             return date_str1

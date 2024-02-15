@@ -150,10 +150,10 @@ class CloudWatchQuery:
         """
         try:
             start_time = round(
-                self.date_utilities.convert_iso1806_to_unix_timestamp(date_range[0])
+                self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[0])
             )
             end_time = round(
-                self.date_utilities.convert_iso1806_to_unix_timestamp(date_range[1])
+                self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[1])
             )
             response = self.cloudwatch_logs.start_query(
                 logGroupName=self.log_groups,
