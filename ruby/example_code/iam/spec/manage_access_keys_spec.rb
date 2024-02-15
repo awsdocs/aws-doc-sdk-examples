@@ -3,19 +3,15 @@ require_relative("../manage_access_keys")
 require "rspec"
 
 describe AccessKeyManager do
-  let(:iam) { Aws::IAM::Client.new }
-  let(:manager) { AccessKeyManager.new(iam) }
-  let(:user_name) { "test-user-#{Time.now.to_i}" }
-
   before(:all) do
-    @iam = Aws::IAM::Client.new
-    @manager = AccessKeyManager.new(@iam)
+    @iam_client = Aws::IAM::Client.new
+    @manager = AccessKeyManager.new(@iam_client)
     @user_name = "test-user-#{Time.now.to_i}"
-    @iam_create_user = @iam.create_user(user_name: @user_name)
+    @iam_create_user = @iam_client.create_user(user_name: @user_name)
   end
 
   after(:all) do
-    @iam.delete_user(user_name: @user_name)
+    @iam_client.delete_user(user_name: @user_name)
   end
 
   it "creates and deletes an access key for a user" do

@@ -81,9 +81,11 @@ end
 
 # Example usage:
 if __FILE__ == $PROGRAM_NAME
-  iam = Aws::IAM::Client.new
+  iam_client = Aws::IAM::Client.new
   manager = AccessKeyManager.new(iam)
-  user_name = "my-user"
+  user_name = "user-#{rand(10**6)}"
+
+  iam_client.create_user(user_name: user_name)
 
   puts "Access keys for '#{user_name}':"
   keys_before = manager.list_access_keys(user_name)

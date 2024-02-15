@@ -18,6 +18,7 @@ class IAMAliasManager
     response = @iam_client.list_account_aliases
 
     if response.account_aliases.count.positive?
+      @logger.info("Account aliases are:")
       response.account_aliases.each { |account_alias| @logger.info("  #{account_alias}") }
     else
       @logger.info("No account aliases found.")
@@ -58,7 +59,6 @@ if __FILE__ == $PROGRAM_NAME
   manager = IAMAliasManager.new(iam_client)
   account_alias = "my-account-alias"
 
-  @logger.info("Account aliases are:")
   manager.list_aliases
 
   if manager.create_account_alias(account_alias)
