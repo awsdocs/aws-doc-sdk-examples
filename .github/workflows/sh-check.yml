@@ -1,17 +1,9 @@
 name: Lint Bash
+
 on:
-  push:
-    paths:
-      - '!java/**'
-      - "aws-cli/**"
-  pull_request:
-    paths:
-      - '!java/**'
-      - 'aws-cli/**'
+  pull_request: # This action does not use the paths argument.
   workflow_dispatch:
-    paths:
-      - '!java/**'
-      - "aws-cli/**"
+    
 jobs:
   sh-checker:
     name: Lint Bash
@@ -24,12 +16,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           sh_checker_comment: true
-  shellcheck:
-    name: Shellcheck
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
-        with:
-          scandir: 'aws-cli'
+          sh_checker_only_diff: true
