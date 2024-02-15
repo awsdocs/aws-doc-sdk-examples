@@ -11,6 +11,23 @@ class ServerCertificateManager
     @logger.progname = "ServerCertificateManager"
   end
 
+  # Creates a new server certificate.
+  # @param name [String] the name of the server certificate
+  # @param certificate_body [String] the contents of the certificate
+  # @param private_key [String] the private key contents
+  # @return [Boolean] returns true if the certificate was successfully created
+  def create_server_certificate(name, certificate_body, private_key)
+    @iam_client.upload_server_certificate({
+                                            server_certificate_name: name,
+                                            certificate_body: certificate_body,
+                                            private_key: private_key,
+                                          })
+    true
+  rescue Aws::IAM::Errors::ServiceError => e
+    puts "Failed to create server certificate: #{e.message}"
+    false
+  end
+
   # Lists available server certificate names.
   def list_server_certificate_names
     response = @iam_client.list_server_certificates
@@ -56,5 +73,9 @@ end
 if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   manager = ServerCertificateManager.new(iam_client)
+  name = "test-certificate-#{rand(1000)}"
+  certificate_body = "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----"
+  private_key = "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
+  manager.create_server_certificate(name, certificate_body, private_key)
   manager.list_server_certificate_names
 end
