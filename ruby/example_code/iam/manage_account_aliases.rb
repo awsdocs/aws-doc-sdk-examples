@@ -8,9 +8,9 @@ class IAMAliasManager
   # Initializes the IAM client and logger
   #
   # @param iam [Aws::IAM::Client] An initialized IAM client.
-  def initialize(iam)
+  def initialize(iam, logger: Logger.new($stdout))
     @iam = iam
-    @logger = Logger.new($stdout)
+    @logger = logger
   end
 
   # Lists available AWS account aliases.

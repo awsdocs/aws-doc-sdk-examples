@@ -2,9 +2,9 @@ require "aws-sdk-workdocs"
 require "logger"
 
 class WorkDocsManager
-  def initialize(client)
+  def initialize(client, logger: Logger.new($stdout))
     @client = client
-    @logger = Logger.new($stdout)
+    @logger = logger
   end
 
   # snippet-start:[workdocs.Ruby.DescribeUsers]

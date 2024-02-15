@@ -6,9 +6,9 @@ require "logger"
 # snippet-start:[iam.ruby.exampleAccessKeys]
 # Manages access keys for IAM users
 class AccessKeyManager
-  def initialize(iam_client)
+  def initialize(iam_client, logger: Logger.new($stdout))
     @iam = iam_client
-    @logger = Logger.new($stdout)
+    @logger = logger
     @logger.progname = "AccessKeyManager"
   end
 

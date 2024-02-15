@@ -5,12 +5,15 @@ require "logger"
 
 # snippet-start:[eb.Ruby.listStacks]
 # Manages listing of AWS Elastic Beanstalk solution stacks
+# @param [Aws::ElasticBeanstalk::Client] eb_client
+# @param [String] filter - Returns subset of results based on match
+# @param [Logger] logger
 class StackLister
   # Initialize with AWS Elastic Beanstalk client
-  def initialize(eb_client, filter)
+  def initialize(eb_client, filter, logger: Logger.new($stdout))
     @eb_client = eb_client
-    @logger = Logger.new($stdout)
     @filter = filter.downcase
+    @logger = logger
   end
 
   # Lists and logs Elastic Beanstalk solution stacks
@@ -46,8 +49,7 @@ end
 
 # Example usage:
 if $PROGRAM_NAME == __FILE__
-  # Hardcoded AWS Region; adjust as needed
-  eb_client = Aws::ElasticBeanstalk::Client.new(region: region)
+  eb_client = Aws::ElasticBeanstalk::Client.new
   stack_lister = StackLister.new(eb_client, "java")
   stack_lister.list_stacks
 end

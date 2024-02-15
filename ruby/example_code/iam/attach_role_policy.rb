@@ -9,9 +9,9 @@ class RolePolicyManager
   # Initialize with an AWS IAM client
   #
   # @param iam_client [Aws::IAM::Client] An initialized IAM client
-  def initialize(iam_client)
+  def initialize(iam_client, logger: Logger.new($stdout))
     @iam_client = iam_client
-    @logger = Logger.new($stdout)
+    @logger = logger
     @logger.progname = "PolicyManager"
   end
 

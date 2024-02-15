@@ -11,10 +11,9 @@ class ScenarioCreateUserAssumeRole
   attr_reader :iam_client
 
   # @param [Aws::IAM::Client] iam_client: The AWS IAM client.
-  def initialize(iam_client)
+  def initialize(iam_client, logger: Logger.new($stdout))
     @iam_client = iam_client
-    @logger = Logger.new($stdout)
-    @logger.level = Logger::INFO
+    @logger = logger
   end
 
   # Waits for the specified number of seconds.

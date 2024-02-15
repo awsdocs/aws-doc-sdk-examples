@@ -8,9 +8,9 @@ require "logger"
 class PasswordPolicyManager
   attr_accessor :iam_client, :logger
 
-  def initialize(iam_client)
+  def initialize(iam_client, logger: Logger.new($stdout))
     @iam_client = iam_client
-    @logger = Logger.new($stdout)
+    @logger = logger
     @logger.progname = "IAMPolicyManager"
   end
 

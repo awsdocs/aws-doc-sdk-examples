@@ -8,10 +8,9 @@ class UserManager
   # Initializes the UserManager with an IAM client and a logger.
   #
   # @param iam_client [Aws::IAM::Client] An initialized IAM client.
-  def initialize(iam_client)
+  def initialize(iam_client, logger: Logger.new($stdout))
     @iam_client = iam_client
-    @logger = Logger.new($stdout)
-    @logger.level = Logger::INFO
+    @logger = logger
   end
 
   # Displays information about available users in AWS Identity and Access Management (IAM).

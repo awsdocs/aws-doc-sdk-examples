@@ -8,9 +8,9 @@ require "logger"
 class IamGroupManager
   # Initializes the IamGroupManager class
   # @param iam_client [Aws::IAM::Client] An instance of the IAM client
-  def initialize(iam_client)
+  def initialize(iam_client, logger: Logger.new($stdout))
     @iam_client = iam_client
-    @logger = Logger.new($stdout)
+    @logger = logger
   end
 
   # Lists up to a specified number of groups for the account.

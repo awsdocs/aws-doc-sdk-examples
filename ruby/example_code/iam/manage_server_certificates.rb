@@ -5,9 +5,9 @@ require "logger"
 
 # snippet-start:[iam.ruby.ManageServerCertificates]
 class ServerCertificateManager
-  def initialize(iam_client)
+  def initialize(iam_client, logger: Logger.new($stdout))
     @iam_client = iam_client
-    @logger = Logger.new($stdout)
+    @logger = logger
     @logger.progname = "ServerCertificateManager"
   end
 

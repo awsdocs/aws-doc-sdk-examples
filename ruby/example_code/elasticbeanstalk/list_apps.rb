@@ -6,9 +6,9 @@ require "logger"
 # snippet-start:[eb.Ruby.listApps]
 # Class to manage Elastic Beanstalk applications
 class ElasticBeanstalkManager
-  def initialize(eb_client)
+  def initialize(eb_client, logger: Logger.new($stdout))
     @eb_client = eb_client
-    @logger = Logger.new($stdout)
+    @logger = logger
   end
 
   # Lists applications and their environments

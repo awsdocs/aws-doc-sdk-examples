@@ -8,11 +8,11 @@ require "logger"
 # snippet-start:[eb.Ruby.updateMyRailsApp]
 # Manages deployment of Rails applications to AWS Elastic Beanstalk
 class RailsAppDeployer
-  def initialize(eb_client, s3_client, app_name)
+  def initialize(eb_client, s3_client, app_name, logger: Logger.new($stdout))
     @eb_client = eb_client
     @s3_client = s3_client
     @app_name = app_name
-    @logger = Logger.new($stdout)
+    @logger = logger
   end
 
   # Deploys the latest application version to Elastic Beanstalk

@@ -8,9 +8,9 @@ require "logger"
 class AdminPrivilegeManager
   ADMIN_ACCESS_POLICY_NAME = "AdministratorAccess".freeze
 
-  def initialize(iam_client)
+  def initialize(iam_client, logger: Logger.new($stdout))
     @iam = iam_client
-    @logger = Logger.new($stdout)
+    @logger = logger
     @logger.progname = "AdminPrivilegeManager"
   end
 
