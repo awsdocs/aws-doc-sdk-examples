@@ -164,7 +164,7 @@ class RoleManager
         deletion_task_id: task_id)
       status = response.status
       @logger.info("Deletion of #{role_name} #{status}.")
-      break if %w(SUCCEEDED FAILED).include?(status)
+      break if %w[SUCCEEDED FAILED].include?(status)
       sleep(3)
     end
   end
