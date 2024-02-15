@@ -1,9 +1,11 @@
+# This uses the action https://github.com/marketplace/actions/sh-checker
+
 name: Lint Bash
 
 on:
-  pull_request: # This action does not use the paths argument.
+  pull_request: # This action does not use the paths option.
   workflow_dispatch:
-    
+
 jobs:
   sh-checker:
     name: Lint Bash
