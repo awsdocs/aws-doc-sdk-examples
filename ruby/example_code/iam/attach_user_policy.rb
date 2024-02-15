@@ -21,10 +21,10 @@ class UserPolicyManager
   # @param policy_document [String] The JSON policy document.
   def create_user_policy(username, policy_name, policy_document)
     @iam_client.put_user_policy({
-                                  user_name: username,
-                                  policy_name: policy_name,
-                                  policy_document: policy_document
-                                })
+      user_name: username,
+      policy_name: policy_name,
+      policy_document: policy_document
+    })
     @logger.info("Policy #{policy_name} created for user #{username}.")
     true
   rescue Aws::IAM::Errors::ServiceError => e
