@@ -178,7 +178,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
 
     // 2. Create a crawler.
     {
-// snippet-start:[cpp.example_code.glue.create_crawler]
+// snippet-start:[cpp.example_code.glue.CreateCrawler]
         Aws::Glue::Model::S3Target s3Target;
         s3Target.SetPath("s3://crawler-public-us-east-1/flight/2016/csv");
         Aws::Glue::Model::CrawlerTargets crawlerTargets;
@@ -202,12 +202,12 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
             deleteAssets("", CRAWLER_DATABASE_NAME, "", bucketName, clientConfig);
             return false;
         }
-// snippet-end:[cpp.example_code.glue.create_crawler]
+// snippet-end:[cpp.example_code.glue.CreateCrawler]
     }
 
     // 3. Get a crawler.
     {
-// snippet-start:[cpp.example_code.glue.get_crawler]
+// snippet-start:[cpp.example_code.glue.GetCrawler]
         Aws::Glue::Model::GetCrawlerRequest request;
         request.SetName(CRAWLER_NAME);
 
@@ -227,12 +227,12 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                          clientConfig);
             return false;
         }
-// snippet-end:[cpp.example_code.glue.get_crawler]
+// snippet-end:[cpp.example_code.glue.GetCrawler]
     }
 
     // 4. Start a crawler.
     {
-// snippet-start:[cpp.example_code.glue.start_crawler]
+// snippet-start:[cpp.example_code.glue.StartCrawler]
         Aws::Glue::Model::StartCrawlerRequest request;
         request.SetName(CRAWLER_NAME);
 
@@ -294,12 +294,12 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                          clientConfig);
             return false;
         }
-// snippet-end:[cpp.example_code.glue.start_crawler]
+// snippet-end:[cpp.example_code.glue.StartCrawler]
     }
 
     // 5. Get a database.
     {
-// snippet-start:[cpp.example_code.glue.get_database]
+// snippet-start:[cpp.example_code.glue.GetDatabase]
         Aws::Glue::Model::GetDatabaseRequest request;
         request.SetName(CRAWLER_DATABASE_NAME);
 
@@ -318,13 +318,13 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                          clientConfig);
             return false;
         }
-// snippet-end:[cpp.example_code.glue.get_database]
+// snippet-end:[cpp.example_code.glue.GetDatabase]
     }
 
     // 6. Get tables.
     Aws::String tableName;
     {
-// snippet-start:[cpp.example_code.glue.get_tables]
+// snippet-start:[cpp.example_code.glue.GetTables]
         Aws::Glue::Model::GetTablesRequest request;
         request.SetDatabaseName(CRAWLER_DATABASE_NAME);
 
@@ -356,12 +356,12 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                          clientConfig);
             return false;
         }
-// snippet-end:[cpp.example_code.glue.get_tables]
+// snippet-end:[cpp.example_code.glue.GetTables]
     }
 
     // 7. Create a job.
     {
-// snippet-start:[cpp.example_code.glue.create_job]
+// snippet-start:[cpp.example_code.glue.CreateJob]
         Aws::Glue::Model::CreateJobRequest request;
         request.SetName(JOB_NAME);
         request.SetRole(roleArn);
@@ -386,12 +386,12 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                          clientConfig);
             return false;
         }
-// snippet-end:[cpp.example_code.glue.create_job]
+// snippet-end:[cpp.example_code.glue.CreateJob]
     }
 
     // 8. Start a job run.
     {
-// snippet-start:[cpp.example_code.glue.start_job_run]
+// snippet-start:[cpp.example_code.glue.StartJobRun]
         Aws::Glue::Model::StartJobRunRequest request;
         request.SetJobName(JOB_NAME);
 
@@ -466,7 +466,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                          clientConfig);
             return false;
         }
-// snippet-end:[cpp.example_code.glue.start_job_run]
+// snippet-end:[cpp.example_code.glue.StartJobRun]
     }
 
     // 9. List the output data stored in the S3 bucket.
@@ -521,7 +521,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
     // 10. List all the jobs.
     Aws::String jobName;
     {
-// snippet-start:[cpp.example_code.glue.list_jobs]
+// snippet-start:[cpp.example_code.glue.ListJobs]
         Aws::Glue::Model::ListJobsRequest listJobsRequest;
         Aws::Glue::Model::ListJobsOutcome listRunsOutcome = client.ListJobs(
                 listJobsRequest);
@@ -546,13 +546,13 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                       << listRunsOutcome.GetError().GetMessage()
                       << std::endl;
         }
-// snippet-end:[cpp.example_code.glue.list_jobs]
+// snippet-end:[cpp.example_code.glue.ListJobs]
     }
 
     // 11. Get the job runs for a job.
     Aws::String jobRunID;
     if (!jobName.empty()) {
-// snippet-start:[cpp.example_code.glue.get_job_runs]
+// snippet-start:[cpp.example_code.glue.GetJobRuns]
         Aws::Glue::Model::GetJobRunsRequest getJobRunsRequest;
         getJobRunsRequest.SetJobName(jobName);
 
@@ -582,12 +582,12 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                       << jobRunsOutcome.GetError().GetMessage()
                       << std::endl;
         }
-// snippet-end:[cpp.example_code.glue.get_job_runs]
+// snippet-end:[cpp.example_code.glue.GetJobRuns]
     }
 
     // 12. Get a single job run.
     if (!jobRunID.empty()) {
-// snippet-start:[cpp.example_code.glue.get_job_run]
+// snippet-start:[cpp.example_code.glue.GetJobRun]
         Aws::Glue::Model::GetJobRunRequest jobRunRequest;
         jobRunRequest.SetJobName(jobName);
         jobRunRequest.SetRunId(jobRunID);
@@ -606,7 +606,7 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
                       << jobRunOutcome.GetError().GetMessage()
                       << std::endl;
         }
-// snippet-end:[cpp.example_code.glue.get_job_run]
+// snippet-end:[cpp.example_code.glue.GetJobRun]
     }
 
     return deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, bucketName,
@@ -631,7 +631,7 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
 
     // 13. Delete a job.
     if (!job.empty()) {
-// snippet-start:[cpp.example_code.glue.delete_job]
+// snippet-start:[cpp.example_code.glue.DeleteJob]
         Aws::Glue::Model::DeleteJobRequest request;
         request.SetJobName(job);
 
@@ -646,12 +646,12 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
                       << std::endl;
             result = false;
         }
-// snippet-end:[cpp.example_code.glue.delete_job]
+// snippet-end:[cpp.example_code.glue.DeleteJob]
     }
 
     // 14. Delete a database.
     if (!database.empty()) {
-// snippet-start:[cpp.example_code.glue.delete_database]
+// snippet-start:[cpp.example_code.glue.DeleteDatabase]
         Aws::Glue::Model::DeleteDatabaseRequest request;
         request.SetName(database);
 
@@ -666,12 +666,12 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
                       << std::endl;
             result = false;
         }
-// snippet-end:[cpp.example_code.glue.delete_database]
+// snippet-end:[cpp.example_code.glue.DeleteDatabase]
     }
 
     // 15. Delete a crawler.
     if (!crawler.empty()) {
-// snippet-start:[cpp.example_code.glue.delete_crawler]
+// snippet-start:[cpp.example_code.glue.DeleteCrawler]
         Aws::Glue::Model::DeleteCrawlerRequest request;
         request.SetName(crawler);
 
@@ -685,7 +685,7 @@ bool AwsDoc::Glue::deleteAssets(const Aws::String &crawler, const Aws::String &d
                       << outcome.GetError().GetMessage() << std::endl;
             result = false;
         }
-// snippet-end:[cpp.example_code.glue.delete_crawler]
+// snippet-end:[cpp.example_code.glue.DeleteCrawler]
     }
 
     // 16. Delete the job script and run data from the S3 bucket.

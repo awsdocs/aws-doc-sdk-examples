@@ -52,7 +52,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a user and assume a role](iam_operations.sh)
+- [Create a user and assume a role](iam_create_user_assume_role_scenario.sh)
 
 
 <!--custom.examples.start-->
