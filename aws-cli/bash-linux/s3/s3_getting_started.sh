@@ -27,98 +27,6 @@
 #     7. Delete the bucket.
 #
 
-get_input_result=""
-
-###############################################################################
-# function get_input
-#
-# This function gets user input from the command line.
-#
-# Outputs:
-#   User input to stdout.
-#
-# Returns:
-#       0
-###############################################################################
-function get_input() {
-  if [ -z "${mock_input+x}" ]; then
-    read -r get_input_result
-  else
-    if [ -n "${mock_input_array[*]}" ]; then
-      get_input_result="${mock_input_array[0]}"
-      mock_input_array=("${mock_input_array[@]:1}")
-      echo -n "$get_input_result"
-    else
-      get_input_result="y"
-      echo "MOCK_INPUT_ARRAY is empty" 1>&2
-    fi
-  fi
-}
-
-###############################################################################
-# function yes_no_input
-#
-# This function requests a yes/no answer from the user, following to a prompt.
-#
-# Parameters:
-#       $1 - The prompt.
-#
-# Returns:
-#       0 - If yes.
-#       1 - If no.
-###############################################################################
-function yes_no_input() {
-  if [ -z "$1" ]; then
-    echo "Internal error yes_no_input"
-    return 1
-  fi
-
-  local index=0
-  local response="N"
-  while [[ $index -lt 10 ]]; do
-    index=$((index + 1))
-    echo -n "$1"
-    get_input
-    response=$(echo "$get_input_result" | tr '[:upper:]' '[:lower:]')
-    if [ "$response" = "y" ] || [ "$response" = "n" ]; then
-      break
-    else
-      echo -e "\nPlease enter or 'y' or 'n'."
-    fi
-  done
-
-  echo
-
-  if [ "$response" = "y" ]; then
-    return 0
-  else
-    return 1
-  fi
-}
-
-###############################################################################
-# function echo_repeat
-#
-# This function prints a string 'n' times to stdout.
-#
-# Parameters:
-#       $1 - The string.
-#       $2 - Number of times to print the string.
-#
-# Outputs:
-#   String 'n' times to stdout.
-#
-# Returns:
-#       0
-###############################################################################
-function echo_repeat() {
-  local end=$2
-  for ((i = 0; i < end; i++)); do
-    echo -n "$1"
-  done
-  echo
-}
-
 # snippet-start:[aws-cli.bash-linux.s3.getting_started_scenario]
 ###############################################################################
 # function s3_getting_started
@@ -232,10 +140,102 @@ function s3_getting_started() {
 # snippet-end:[aws-cli.bash-linux.s3.getting_started_scenario]
 
 ###############################################################################
+# function get_input
+#
+# This function gets user input from the command line.
+#
+# Outputs:
+#   User input to stdout.
+#
+# Returns:
+#       0
+###############################################################################
+function get_input() {
+  if [ -z "${mock_input+x}" ]; then
+    read -r get_input_result
+  else
+    if [ -n "${mock_input_array[*]}" ]; then
+      get_input_result="${mock_input_array[0]}"
+      mock_input_array=("${mock_input_array[@]:1}")
+      echo -n "$get_input_result"
+    else
+      get_input_result="y"
+      echo "MOCK_INPUT_ARRAY is empty" 1>&2
+    fi
+  fi
+}
+
+###############################################################################
+# function yes_no_input
+#
+# This function requests a yes/no answer from the user, following to a prompt.
+#
+# Parameters:
+#       $1 - The prompt.
+#
+# Returns:
+#       0 - If yes.
+#       1 - If no.
+###############################################################################
+function yes_no_input() {
+  if [ -z "$1" ]; then
+    echo "Internal error yes_no_input"
+    return 1
+  fi
+
+  local index=0
+  local response="N"
+  while [[ $index -lt 10 ]]; do
+    index=$((index + 1))
+    echo -n "$1"
+    get_input
+    response=$(echo "$get_input_result" | tr '[:upper:]' '[:lower:]')
+    if [ "$response" = "y" ] || [ "$response" = "n" ]; then
+      break
+    else
+      echo -e "\nPlease enter or 'y' or 'n'."
+    fi
+  done
+
+  echo
+
+  if [ "$response" = "y" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+###############################################################################
+# function echo_repeat
+#
+# This function prints a string 'n' times to stdout.
+#
+# Parameters:
+#       $1 - The string.
+#       $2 - Number of times to print the string.
+#
+# Outputs:
+#   String 'n' times to stdout.
+#
+# Returns:
+#       0
+###############################################################################
+function echo_repeat() {
+  local end=$2
+  for ((i = 0; i < end; i++)); do
+    echo -n "$1"
+  done
+  echo
+}
+
+###############################################################################
 # function main
 #
 ###############################################################################
 function main() {
+  get_input_result=""
+
   s3_getting_started
 }
 
