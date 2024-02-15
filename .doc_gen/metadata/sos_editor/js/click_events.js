@@ -327,8 +327,8 @@ $("#selecttagorfile").on('change', function (){
     if (selectedOption === "Snippet files") {
         console.log('Snippet files selected')
         $(
-            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
-            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description<i>optional</i></label><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
+            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
             "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\">Add a snippet file</button></p>" +
             "       ").insertBefore("#createYAML");
         /*var element = document.getElementById('addSnippetFile');
@@ -342,8 +342,8 @@ $("#selecttagorfile").on('change', function (){
    if (selectedOption === "Snippet tags"){
        console.log('Snippet tags selected')
        $(
-           "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
-           "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+           "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description<i>optional</i></label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
+           "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
            "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\">Add a snippet tag</button></p>" +
            "       ").insertBefore("#createYAML");
       /*  var element = document.getElementById('anotherSnippet');
@@ -473,8 +473,8 @@ function newsnippet(){
             "<label class=\"thissize\">Step 1. Enter unique snippet file name</label><br><i>This name is used to format the snippet tag \"//snippet-start:[service].example_code.[language].[snippetName]\", so must be unique in any other snippet tag for the primary service.</i><br><textarea type=\"text\" name=\"text\" id =\"codeExampleTitle\"></textarea><br>"+
             "<label class=\"thissize\">Step 2. Paste snippet below</label><br><textarea type=\"text\" name=\"text\" id =\"codeExample\"></textarea><br>" +
             "<button id = \"createCode\" onclick=\"create_code_example_tag(1, document.getElementById('codeExampleTitle').value)\">Create snippet</button></p>\n" +
-            "<p id =\"snippDesc\" ><label class=\"thissize\">  Snippet Tag Description (optional)</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
-            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i> (mandatory)</i></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Tag Description <i>(optional)</i></label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
+            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag <i>(mandatory)</i></label></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
        "").insertBefore("#newsnippet");
     }
     if (noOfSnippets === 1) {
@@ -484,8 +484,8 @@ function newsnippet(){
             "<label class=\"thissize\">Step 1. Enter unique snippet file name</label><br><i>This name is used to format the snippet tag \"//snippet-start:[service].example_code.[language].[snippetName]\", and must be unique in any other snippet tag for the primary service.</i><br><textarea type=\"text\" name=\"text\" id =\"codeExampleTitle\"></textarea><br>"+
             "<label class=\"thissize\">Step 2. Paste snippet below</label><br><textarea type=\"text\" name=\"text\" id =\"codeExample\"></textarea><br>" +
             "<button id = \"createCode\" onclick=\"create_code_example_tag(2, document.getElementById('codeExampleTitle').value)\">Create snippet</button></p>\n" +
-             "<p id =\"snippDesc\" ><label class=\"thissize\">  Snippet Tag Description (optional)</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
-              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i> (mandatory)</i></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
+             "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Tag Description <i>(optional)</i></label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag <i>(mandatory)</i></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
              "").insertBefore("#newsnippet");
     }
     if (noOfSnippets === 2) {
@@ -494,8 +494,8 @@ function newsnippet(){
             "<label class=\"thissize\">Step 1. Enter unique snippet file name</label><br><i>This name is used to format the snippet tag \"//snippet-start:[service].example_code.[language].[snippetName]\", and must be unique in any other snippet tag for the primary service.</i><br><textarea type=\"text\" name=\"text\" id =\"codeExampleTitle\"></textarea><br>"+
             "<label class=\"thissize\">Step 2. Paste snippet below</label><br><textarea type=\"text\" name=\"text\" id =\"codeExample\"></textarea><br>" +
             "<button id = \"createCode\" onclick=\"create_code_example_tag(3, document.getElementById('codeExampleTitle').value)\">Create snippet</button></p>\n" +
-             "<p id =\"snippDesc\" ><label class=\"thissize\">  Snippet Tag Description (optional)</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription3\" maxlength=\"200\"></textarea></p>\n" +
-              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i> (mandatory)</i></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
+             "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Tag Description <i>(optional)</i></label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription3\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag <i>(mandatory)</i></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
                 "").insertBefore("#newsnippet");
     }
     if (noOfSnippets === 3) {
@@ -503,8 +503,8 @@ function newsnippet(){
             "<label class=\"thissize\">Step 1. Enter unique snippet file name</label><br><i>This name is used to format the snippet tag \"//snippet-start:[service].example_code.[language].[snippetName]\", and must be unique in any other snippet tag for the primary service.</i><br><textarea type=\"text\" name=\"text\" id =\"codeExampleTitle\"></textarea><br>"+
             "<label class=\"thissize\">Step 2. Paste snippet below</label><br><textarea type=\"text\" name=\"text\" id =\"codeExample\"></textarea><br>" +
             "<button id = \"createCode\" onclick=\"create_code_example_tag(4, document.getElementById('codeExampleTitle').value)\">Create snippet</button></p>\n" +
-             "<p id =\"snippDesc\" ><label class=\"thissize\">  Snippet Tag Description (optional)</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription4\" maxlength=\"200\"></textarea></p>\n" +
-              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i> (mandatory)</i></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag4\" maxlength=\"200\"></textarea></p>\n" +
+             "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Tag Description <i>(optional)</i></label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription4\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag <i>(mandatory)</i></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag4\" maxlength=\"200\"></textarea></p>\n" +
                      "").insertBefore("#newsnippet");
     }
     if (noOfSnippets === 4) {
@@ -512,8 +512,8 @@ function newsnippet(){
             "<label class=\"thissize\">Step 1. Enter unique snippet file name</label><br><i>This name is used to format the snippet tag \"//snippet-start:[service].example_code.[language].[snippetName]\", and must be unique from snippet tag for the primary service.</i><br><textarea type=\"text\" name=\"text\" id =\"codeExampleTitle\"></textarea><br>"+
             "<label class=\"thissize\">Step 2. Paste snippet below</label><br><textarea type=\"text\" name=\"text\" id =\"codeExample\"></textarea><br>" +
             "<button id = \"createCode\" onclick=\"create_code_example_tag(5, document.getElementById('codeExampleTitle').value)\">Create snippet</button></p>\n" +
-             "<p id =\"snippDesc\" ><label class=\"thissize\">  Snippet Tag Description (optional)</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription5\" maxlength=\"200\"></textarea></p>\n" +
-              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i> (mandatory)</i></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag5\" maxlength=\"200\"></textarea></p>\n" +
+             "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Tag Description <i>(optional)</i></label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription5\" maxlength=\"200\"></textarea></p>\n" +
+              "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag <i>(mandatory)</i></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag5\" maxlength=\"200\"></textarea></p>\n" +
                       "").insertBefore("#newsnippet");
     }
     if (noOfSnippets === 5) {
@@ -521,8 +521,8 @@ function newsnippet(){
             "<label class=\"thissize\">Step 1. Enter unique snippet file name</label><br><i>This name is used to format the snippet tag \"//snippet-start:[service].example_code.[language].[snippetName]\", and must be unique from snippet tag for the primary service.</i><br><textarea type=\"text\" name=\"text\" id =\"codeExampleTitle\"></textarea><br>"+
             "<label class=\"thissize\">Step 2. Paste snippet below</label><br><textarea type=\"text\" name=\"text\" id =\"codeExample\"></textarea><br>" +
             "<button id = \"createCode\" onclick=\"create_code_example_tag(5, document.getElementById('codeExampleTitle').value)\">Create snippet</button></p>\n" +
-            "<p id =\"snippDesc\" ><label class=\"thissize\">  Snippet Tag Description (optional)</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription6\" maxlength=\"200\"></textarea></p>\n" +
-            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i> (mandatory)</i></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag6\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Tag Description <i>(optional)</i></label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription6\" maxlength=\"200\"></textarea></p>\n" +
+            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag <i>(mandatory)</i></label><br><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag6\" maxlength=\"200\"></textarea></p>\n" +
             "").insertBefore("#newsnippet");
     }
     if (noOfSnippets === 6) {

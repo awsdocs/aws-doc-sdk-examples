@@ -2076,7 +2076,7 @@ function create_code_example_tag(tagnumber, codeExampleTitle) {
         var fileExtension = ".swift"
     }
     console.log('fileextenstion', fileExtension)
-    const myFilename = codeExampleTitle;
+    const myFilename = codeExampleTitle + fileExtension;
     download1(myFilename, finalExample);
     alert(myFilename + " is in your Downloads folder. Please copy it to the appropriate folder.")
     const snippettag = serviceValue + ".example_code." + languageValue + "." + codeExampleTitle;
