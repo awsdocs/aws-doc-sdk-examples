@@ -16,11 +16,13 @@ class SamlProviderLister
 
   # Lists up to a specified number of SAML providers for the account.
   # @param count [Integer] The maximum number of providers to list.
+  # @return [Aws::IAM::Client::Response]
   def list_saml_providers(count)
     response = @iam_client.list_saml_providers
     response.saml_provider_list.take(count).each do |provider|
       @logger.info("\t#{provider.arn}")
     end
+    response
   rescue Aws::Errors::ServiceError => e
     @logger.error("Couldn't list SAML providers. Here's why:")
     @logger.error("\t#{e.code}: #{e.message}")

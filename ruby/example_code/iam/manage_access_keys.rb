@@ -7,7 +7,7 @@ require "logger"
 # Manages access keys for IAM users
 class AccessKeyManager
   def initialize(iam_client, logger: Logger.new($stdout))
-    @iam = iam_client
+    @iam_client = iam_client
     @logger = logger
     @logger.progname = "AccessKeyManager"
   end
@@ -16,7 +16,7 @@ class AccessKeyManager
   #
   # @param user_name [String] The name of the user.
   def list_access_keys(user_name)
-    response = @iam.list_access_keys(user_name: user_name)
+    response = @iam_client.list_access_keys(user_name: user_name)
     if response.access_key_metadata.empty?
       @logger.info("No access keys found for user '#{user_name}'.")
     else
@@ -33,8 +33,9 @@ class AccessKeyManager
   # Creates an access key for a user
   #
   # @param user_name [String] The name of the user.
+  # @return [Boolean]
   def create_access_key(user_name)
-    response = @iam.create_access_key(user_name: user_name)
+    response = @iam_client.create_access_key(user_name: user_name)
     access_key = response.access_key
     @logger.info("Access key created for user '#{user_name}': #{access_key.access_key_id}")
     access_key
@@ -50,8 +51,9 @@ class AccessKeyManager
   #
   # @param user_name [String] The name of the user.
   # @param access_key_id [String] The ID for the access key.
+  # @return [Boolean]
   def deactivate_access_key(user_name, access_key_id)
-    @iam.update_access_key(
+    @iam_client.update_access_key(
       user_name: user_name,
       access_key_id: access_key_id,
       status: "Inactive"
@@ -66,8 +68,9 @@ class AccessKeyManager
   #
   # @param user_name [String] The name of the user.
   # @param access_key_id [String] The ID for the access key.
+  # @return [Boolean]
   def delete_access_key(user_name, access_key_id)
-    @iam.delete_access_key(
+    @iam_client.delete_access_key(
       user_name: user_name,
       access_key_id: access_key_id
     )
