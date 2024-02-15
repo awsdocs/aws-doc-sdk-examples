@@ -49,9 +49,9 @@ describe RoleManager do
     end
   end
 
-  describe '#create_service_linked_role' do
-    it 'creates a service-linked role and returns its name' do
-      role_name = @role_manager.create_service_linked_role('autoscaling.amazonaws.com', 'Role for AutoScaling services', "test-#{Time.now.to_i}")
+  describe "#create_service_linked_role" do
+    it "creates a service-linked role and returns its name" do
+      role_name = @role_manager.create_service_linked_role("autoscaling.amazonaws.com", "Role for AutoScaling services", "test-#{Time.now.to_i}")
       expect(role_name).not_to be_nil
       @role_manager.delete_service_linked_role(role_name)
     end
