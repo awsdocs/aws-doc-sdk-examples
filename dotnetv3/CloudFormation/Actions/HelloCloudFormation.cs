@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[CloudFormation.dotnetv3.CloudFormationActions.HelloCloudFormation]
 using Amazon.CloudFormation;
 using Amazon.CloudFormation.Model;
 using Amazon.Runtime;
@@ -73,7 +74,7 @@ public static class HelloCloudFormation
         }
         catch (AmazonCloudFormationException ex)
         {
-            Console.WriteLine("Unable to get stack information: " + ex.Message);
+            Console.WriteLine("Unable to get stack information:\n" + ex.Message);
             return false;
         }
         catch (AmazonServiceException ex)
@@ -91,5 +92,20 @@ public static class HelloCloudFormation
             }
             return false;
         }
+        catch(ArgumentNullException ex)
+        {
+            if(ex.Message.Contains("Options property cannot be empty: ClientName"))
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("If you are using SSO, have you logged in?");
+            }
+            else
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+            }
+            return false;
+        }
     }
 }
+// snippet-end:[CloudFormation.dotnetv3.CloudFormationActions.HelloCloudFormation]
