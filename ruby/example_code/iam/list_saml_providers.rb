@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require "aws-sdk-iam" # Ensure AWS SDK for IAM is available
+require "aws-sdk-iam"
 require "logger"
 
 # snippet-start:[ruby.example_code.iam.ListSamlProviders]

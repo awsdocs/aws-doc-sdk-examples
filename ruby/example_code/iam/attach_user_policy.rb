@@ -1,5 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX - License - Identifier: Apache - 2.0
+# SPDX-License-Identifier: Apache-2.0
 require "aws-sdk-iam"
 require "logger"
 
@@ -108,7 +108,7 @@ if __FILE__ == $PROGRAM_NAME
         }
       ]
     }
-  if user_manager.create_user_policy(user_name, policy_name, policy_document.to_s)
+  if user_manager.create_user_policy(user_name, policy_name, policy_document.to_json)
     puts "Created user policy for '#{user_name}'."
   else
     puts "Failed to create user policy for '#{user_name}'."
