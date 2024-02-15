@@ -119,7 +119,6 @@ public class EMRTest {
     public void createHiveClusterTest() {
         assertDoesNotThrow(() -> CreateHiveCluster.createCluster(emrClient, jar, myClass, keys, logUri, name));
         System.out.println("Test 7 passed");
-
     }
 
     @Test
