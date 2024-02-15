@@ -19,6 +19,7 @@ class UserPolicyManager
   # @param username [String] The name of the IAM user.
   # @param policy_name [String] The name of the policy to create.
   # @param policy_document [String] The JSON policy document.
+  # @return [Boolean]
   def create_user_policy(username, policy_name, policy_document)
     @iam_client.put_user_policy({
       user_name: username,

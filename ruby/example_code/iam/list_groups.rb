@@ -15,11 +15,13 @@ class IamGroupManager
 
   # Lists up to a specified number of groups for the account.
   # @param count [Integer] The maximum number of groups to list.
+  # @return [Aws::IAM::Client::Response]
   def list_groups(count)
     response = @iam_client.list_groups(max_items: count)
     response.groups.each do |group|
       @logger.info("\t#{group.group_name}")
     end
+    response
   rescue Aws::Errors::ServiceError => e
     @logger.error("Couldn't list groups for the account. Here's why:")
     @logger.error("\t#{e.code}: #{e.message}")
