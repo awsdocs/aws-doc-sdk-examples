@@ -1,0 +1,16 @@
+cloudformation_Hello:
+  title: Hello &CFN;
+  title_abbrev: Hello &CFN;
+  synopsis: Get started using &CFN;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/CloudFormation
+          excerpts:
+            - description:
+              snippet_tags:
+                - CloudFormation.dotnetv3.CloudFormationActions.HelloCloudFormation
+  services:
+    bedrock: {DescribeStackResourcesAsync}
