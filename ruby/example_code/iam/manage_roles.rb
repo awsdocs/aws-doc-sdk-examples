@@ -8,7 +8,7 @@ require "logger"
 class RoleManager
   # Initialize with an AWS IAM client
   #
-  # @param iam_client [Aws::IAM::Client] An initialized IAM client
+  # @param iam_client [Aws::IAM::Client] An initialized IAM client.
   def initialize(iam_client, logger: Logger.new($stdout))
     @iam_client = iam_client
     @logger = logger
@@ -16,9 +16,9 @@ class RoleManager
   end
 
   # snippet-start:[ruby.iam.ListRoles]
-  # Lists IAM roles up to a specified count
-  # @param count [Integer] the maximum number of roles to list
-  # @return [Array<String>] the names of the roles
+  # Lists IAM roles up to a specified count.
+  # @param count [Integer] the maximum number of roles to list.
+  # @return [Array<String>] the names of the roles.
   def list_roles(count)
     role_names = []
     roles_counted = 0
@@ -61,12 +61,12 @@ class RoleManager
   # snippet-end:[ruby.iam.GetRole]
 
   # snippet-start:[ruby.iam.CreateRole]
-  # Creates a role and attaches policies to it
+  # Creates a role and attaches policies to it.
   #
-  # @param role_name [String] The name of the role
-  # @param assume_role_policy_document [Hash] The trust relationship policy document
-  # @param policy_arns [Array<String>] The ARNs of the policies to attach
-  # @return [String, nil] The ARN of the new role if successful, or nil if an error occurred
+  # @param role_name [String] The name of the role.
+  # @param assume_role_policy_document [Hash] The trust relationship policy document.
+  # @param policy_arns [Array<String>] The ARNs of the policies to attach.
+  # @return [String, nil] The ARN of the new role if successful, or nil if an error occurred.
   def create_role(role_name, assume_role_policy_document, policy_arns)
     response = @iam_client.create_role(
       role_name: role_name,
@@ -89,27 +89,27 @@ class RoleManager
   # snippet-end:[ruby.iam.CreateRole]
 
   # snippet-start:[ruby.iam.CreateServiceLinkedRole]
-  # Creates a service-linked role.
+  # Creates a service-linked role
   #
-  # @param service_name [String] The name of the service that owns the role.
-  # @param description [String] A description to give the role.
-  # @return [Aws::IAM::Role] The newly created role.
-  def create_service_linked_role(service_name, description)
-    response = @iam_resource.client.create_service_linked_role(
-      aws_service_name: service_name, description: description)
-    role = @iam_resource.role(response.role.role_name)
-    puts("Created service-linked role #{role.name}.")
+  # @param service_name [String] The service name to create the role for.
+  # @param description [String] The description of the service-linked role.
+  # @param suffix [String] Suffix for customizing role name.
+  # @return [String] The name of the created role
+  def create_service_linked_role(service_name, description, suffix)
+    response = @iam_client.create_service_linked_role(
+      aws_service_name: service_name, description: description, custom_suffix: suffix,)
+    role_name = response.role.role_name
+    @logger.info("Created service-linked role #{role_name}.")
+    role_name
   rescue Aws::Errors::ServiceError => e
-    puts("Couldn't create service-linked role for #{service_name}. Here's why:")
-    puts("\t#{e.code}: #{e.message}")
+    @logger.error("Couldn't create service-linked role for #{service_name}. Here's why:")
+    @logger.error("\t#{e.code}: #{e.message}")
     raise
-  else
-    role
   end
   # snippet-end:[ruby.iam.CreateServiceLinkedRole]
 
   # snippet-start:[ruby.iam.DeleteRole]
-  # Deletes a role and its attached policies
+  # Deletes a role and its attached policies.
   #
   # @param role_name [String] The name of the role to delete.
   def delete_role(role_name)
@@ -141,29 +141,42 @@ class RoleManager
   # snippet-end:[ruby.iam.DeleteRole]
 
   # snippet-start:[ruby.iam.DeleteServiceLinkedRole]
-  # Deletes a service-linked role from the account.
+  # Deletes a service-linked role.
   #
-  # @param role [Aws::IAM::Role] The role to delete.
-  def delete_service_linked_role(role)
-    response = @iam_resource.client.delete_service_linked_role(role_name: role.name)
+  # @param role_name [String] The name of the role to delete.
+  def delete_service_linked_role(role_name)
+    response = @iam_client.delete_service_linked_role(role_name: role_name)
     task_id = response.deletion_task_id
-    while true
-      response = @iam_resource.client.get_service_linked_role_deletion_status(
+    check_deletion_status(role_name, task_id)
+  rescue Aws::Errors::ServiceError => e
+    handle_deletion_error(e, role_name)
+  end
+
+  private
+
+  # Checks the deletion status of a service-linked role
+  #
+  # @param role_name [String] The name of the role being deleted
+  # @param task_id [String] The task ID for the deletion process
+  def check_deletion_status(role_name, task_id)
+    loop do
+      response = @iam_client.get_service_linked_role_deletion_status(
         deletion_task_id: task_id)
       status = response.status
-      puts("Deletion of #{role.name} #{status}.")
-      if %w(SUCCEEDED FAILED).include?(status)
-        break
-      else
-        sleep(3)
-      end
+      @logger.info("Deletion of #{role_name} #{status}.")
+      break if %w(SUCCEEDED FAILED).include?(status)
+      sleep(3)
     end
-  rescue Aws::Errors::ServiceError => e
-    # If AWS has not yet fully propagated the role, it deletes the role but
-    # returns NoSuchEntity.
-    if e.code != "NoSuchEntity"
-      puts("Couldn't delete #{role.name}. Here's why:")
-      puts("\t#{e.code}: #{e.message}")
+  end
+
+  # Handles deletion error
+  #
+  # @param e [Aws::Errors::ServiceError] The error encountered during deletion
+  # @param role_name [String] The name of the role attempted to delete
+  def handle_deletion_error(e, role_name)
+    unless e.code == "NoSuchEntity"
+      @logger.error("Couldn't delete #{role_name}. Here's why:")
+      @logger.error("\t#{e.code}: #{e.message}")
       raise
     end
   end
