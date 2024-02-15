@@ -24,10 +24,10 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 public class ForecastTest {
     private static ForecastClient forecast;
     private static String predARN = "";
-    private static String forecastArn = ""; // set in test 3
+    private static String forecastArn = "";
     private static String forecastName = "";
     private static String dataSet = "";
-    private static String myDataSetARN = ""; // set in test 2
+    private static String myDataSetARN = "";
 
     @BeforeAll
     public static void setUp() {
