@@ -47,8 +47,10 @@ class RoleManager
   # @param name [String] The name of the role to look up.
   # @return [Aws::IAM::Role] The retrieved role.
   def get_role(name)
-    role = @iam_resource.role(name)
-    puts("Got data for role '#{role.name}'. Its ARN is '#{role.arn}'.")
+    role = @iam_client.get_role({
+                                  role_name: name,
+                                }).role
+    puts("Got data for role '#{role.role_name}'. Its ARN is '#{role.arn}'.")
   rescue Aws::Errors::ServiceError => e
     puts("Couldn't get data for role '#{name}' Here's why:")
     puts("\t#{e.code}: #{e.message}")
@@ -119,8 +121,11 @@ class RoleManager
                                     role_name: role_name,
                                     policy_arn: policy.policy_arn
                                   })
-          @iam_client.delete_policy({ policy_arn: policy.policy_arn })
-          @logger.info("Deleted policy #{policy.policy_name}.")
+          # Check if the policy is a customer managed policy (not AWS managed)
+          unless policy.policy_arn.include?("aws:policy/")
+            @iam_client.delete_policy({ policy_arn: policy.policy_arn })
+            @logger.info("Deleted customer managed policy #{policy.policy_name}.")
+          end
         end
       end
 
