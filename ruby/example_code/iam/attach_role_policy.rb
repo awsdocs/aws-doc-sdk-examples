@@ -113,6 +113,19 @@ if __FILE__ == $PROGRAM_NAME
       }
     ]
   }
+  iam_client.create_role(
+    role_name: role_name,
+    assume_role_policy_document: {
+      "Version" => "2012-10-17",
+      "Statement" => [
+        {
+          "Effect" => "Allow",
+          "Principal" => { "Service" => "ec2.amazonaws.com" },
+          "Action" => "sts:AssumeRole"
+        }
+      ]
+    }.to_json
+  )
   policy_arn = manager.create_policy(policy_name, policy_document)
   if policy_arn
     manager.attach_policy_to_role(role_name, policy_arn)
