@@ -7,15 +7,15 @@ require "logger"
 class IAMAliasManager
   # Initializes the IAM client and logger
   #
-  # @param iam [Aws::IAM::Client] An initialized IAM client.
-  def initialize(iam, logger: Logger.new($stdout))
-    @iam = iam
+  # @param iam_client [Aws::IAM::Client] An initialized IAM client.
+  def initialize(iam_client, logger: Logger.new($stdout))
+    @iam_client = iam_client
     @logger = logger
   end
 
   # Lists available AWS account aliases.
   def list_aliases
-    response = @iam.list_account_aliases
+    response = @iam_client.list_account_aliases
 
     if response.account_aliases.count.positive?
       response.account_aliases.each { |account_alias| @logger.info("  #{account_alias}") }
@@ -31,7 +31,7 @@ class IAMAliasManager
   # @param account_alias [String] The name of the account alias to create.
   # @return [Boolean] true if the account alias was created; otherwise, false.
   def create_account_alias(account_alias)
-    @iam.create_account_alias(account_alias: account_alias)
+    @iam_client.create_account_alias(account_alias: account_alias)
     true
   rescue Aws::IAM::Errors::ServiceError => e
     @logger.error("Error creating account alias: #{e.message}")
@@ -43,7 +43,7 @@ class IAMAliasManager
   # @param account_alias [String] The name of the account alias to delete.
   # @return [Boolean] true if the account alias was deleted; otherwise, false.
   def delete_account_alias(account_alias)
-    @iam.delete_account_alias(account_alias: account_alias)
+    @iam_client.delete_account_alias(account_alias: account_alias)
     true
   rescue Aws::IAM::Errors::ServiceError => e
     @logger.error("Error deleting account alias: #{e.message}")
