@@ -58,6 +58,7 @@ class BucketPolicyWrapper
 end
 # snippet-end:[ruby.example_code.s3.helper.end.BucketPolicyWrapper]
 
+# Example usage:
 def run_demo
   bucket_name = "doc-example-bucket"
   policy_user = "arn:aws:iam::111122223333:user/Martha"

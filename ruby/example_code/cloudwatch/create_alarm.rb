@@ -87,7 +87,7 @@ rescue StandardError => e
   return false
 end
 
-# Full example call:
+# Example usage:
 def run_me
   alarm_name = "ObjectsInBucket"
   alarm_description = "Objects exist in this bucket for more than 1 day."

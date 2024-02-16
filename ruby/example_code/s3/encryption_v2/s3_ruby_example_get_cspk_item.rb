@@ -49,9 +49,7 @@ rescue Aws::Errors::ServiceError => e
   puts "Error downloading object: #{e.message}"
 end
 
-# Full example call:
-# Prerequisites: the same RSA key pair you originally used to encrypt the object.
-# Replace us-west-2 with the AWS Region you're using for Amazon S3.
+# Example usage:
 def run_me
   bucket_name = "doc-example-bucket"
   object_key = "my-file.txt"

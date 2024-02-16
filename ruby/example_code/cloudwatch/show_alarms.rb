@@ -68,7 +68,7 @@ rescue StandardError => e
   puts "Error getting information about alarms: #{e.message}"
 end
 
-# Full example call:
+# Example usage:
 def run_me
   region = ""
 

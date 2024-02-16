@@ -29,6 +29,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Get the status of an identity](v1/list_identities.rb#L7) (`GetIdentityVerificationAttributes`)
+- [List identities](v1/list_identities.rb#L7) (`ListIdentities`)
+- [Send email](v1/ses_send_email.rb#L7) (`SendEmail`)
+- [Verify an email identity](v1/ses_send_verification.rb#L7) (`VerifyEmailIdentity`)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
@@ -68,11 +78,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby Amazon SES reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Ses.html)
 
 <!--custom.resources.start-->
-* [More Ruby Amazon SES code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ses-examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon SES Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SES.html)
-* [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
-* [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
 <!--custom.resources.end-->
 
 ---
