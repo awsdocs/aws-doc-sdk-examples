@@ -1,7 +1,7 @@
 cloudformation_Hello:
   title: Hello &CFN;
   title_abbrev: Hello &CFN;
-  synopsis: Get started using &CFN;.
+  synopsis: get started using &CFN;.
   category: Hello
   languages:
     .NET:
