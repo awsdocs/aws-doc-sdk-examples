@@ -22,7 +22,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
        <bucketName> <docName> 
@@ -44,7 +43,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[textract.kotlin._start_doc_analysis.main]
 suspend fun startDocAnalysisS3(bucketName: String?, docName: String?) {
-
     val myList = mutableListOf<FeatureType>()
     myList.add(FeatureType.Tables)
     myList.add(FeatureType.Forms)
@@ -65,8 +63,6 @@ suspend fun startDocAnalysisS3(bucketName: String?, docName: String?) {
 
     TextractClient { region = "us-west-2" }.use { textractClient ->
         val response = textractClient.startDocumentAnalysis(documentAnalysisRequest)
-
-        // Get the job ID.
         val jobId = response.jobId
         val result = getJobResults(textractClient, jobId)
         println("The status of the job is: $result")
@@ -74,25 +70,24 @@ suspend fun startDocAnalysisS3(bucketName: String?, docName: String?) {
 }
 
 private suspend fun getJobResults(textractClient: TextractClient, jobIdVal: String?): String {
-
     var finished = false
     var index = 0
     var status = ""
 
     while (!finished) {
-
         val analysisRequest = GetDocumentAnalysisRequest {
             jobId = jobIdVal
             maxResults = 1000
         }
         val response = textractClient.getDocumentAnalysis(analysisRequest)
         status = response.jobStatus.toString()
-
-        if (status.compareTo("SUCCEEDED") == 0) finished = true else {
+        if (status.compareTo("Succeeded") == 0) {
+            finished = true
+        } else {
             println("$index status is: $status")
             delay(1000)
         }
-        index ++
+        index++
     }
     return status
 }
