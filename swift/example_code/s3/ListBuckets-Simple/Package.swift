@@ -11,12 +11,19 @@ import PackageDescription
 
 let package = Package(
     name: "ListBuckets-Simple",
+    // snippet-start:[s3.swift.intro.package-platforms]
+    // Let Xcode know the minimum Apple platforms supported.
+    platforms: [
+        .macOS(.v11),
+        .iOS(.v13)
+    ],
+    // snippet-end:[s3.swift.intro.package-platforms]
     // snippet-start:[s3.swift.intro.package-dependencies]
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.17.0"
+            from: "0.32.0"
         )
     ],
     // snippet-end:[s3.swift.intro.package-dependencies]
