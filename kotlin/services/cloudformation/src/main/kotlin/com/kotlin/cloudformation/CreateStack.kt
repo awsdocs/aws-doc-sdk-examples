@@ -33,9 +33,7 @@ suspend fun main(args: Array<String>) {
     val stackName = args[0]
     val roleARN = args[1]
     val location = args[2]
-    val key = args[3]
-    val value = args[4]
-    createCFStack(stackName, roleARN, location, key, value)
+    createCFStack(stackName, roleARN, location)
 }
 
 // snippet-start:[cf.kotlin.create_stack.main]
@@ -43,20 +41,12 @@ suspend fun createCFStack(
     stackNameVal: String,
     roleARNVal: String?,
     location: String?,
-    key: String?,
-    value: String?
 ) {
-    val myParameter = Parameter {
-        parameterKey = key
-        parameterValue = value
-    }
-
     val request = CreateStackRequest {
         stackName = stackNameVal
         templateUrl = location
         roleArn = roleARNVal
         onFailure = OnFailure.Rollback
-        parameters = listOf(myParameter)
     }
 
     CloudFormationClient { region = "us-east-1" }.use { cfClient ->
