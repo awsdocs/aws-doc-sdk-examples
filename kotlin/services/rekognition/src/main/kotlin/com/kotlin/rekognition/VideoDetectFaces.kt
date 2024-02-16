@@ -25,7 +25,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 private var startJobId = ""
 suspend fun main(args: Array<String>) {
-
     val usage = """
         
         Usage: 
@@ -60,7 +59,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[rekognition.kotlin.recognize_video_faces.main]
 suspend fun startFaceDetection(channelVal: NotificationChannel?, bucketVal: String, videoVal: String) {
-
     val s3Obj = S3Object {
         bucket = bucketVal
         name = videoVal
@@ -83,7 +81,6 @@ suspend fun startFaceDetection(channelVal: NotificationChannel?, bucketVal: Stri
 }
 
 suspend fun getFaceResults() {
-
     var finished = false
     var status: String
     var yy = 0
@@ -99,9 +96,9 @@ suspend fun getFaceResults() {
         while (!finished) {
             response = rekClient.getFaceDetection(recognitionRequest)
             status = response.jobStatus.toString()
-            if (status.compareTo("Succeeded") == 0)
+            if (status.compareTo("Succeeded") == 0) {
                 finished = true
-            else {
+            } else {
                 println("$yy status is: $status")
                 delay(1000)
             }
