@@ -1,5 +1,5 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[CloudFormation.dotnetv3.CloudFormationActions.HelloCloudFormation]
 using Amazon.CloudFormation;
@@ -79,10 +79,10 @@ public static class HelloCloudFormation
         }
         catch (AmazonServiceException ex)
         {
-            if(ex.Message.Contains("Unable to get IAM security credentials"))
+            if (ex.Message.Contains("Unable to get IAM security credentials"))
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("If you are usnig SSO, be sure to install"+
+                Console.WriteLine("If you are usnig SSO, be sure to install" +
                     " the AWSSDK.SSO and AWSSDK.SSOOIDC packages.");
             }
             else
@@ -92,9 +92,9 @@ public static class HelloCloudFormation
             }
             return false;
         }
-        catch(ArgumentNullException ex)
+        catch (ArgumentNullException ex)
         {
-            if(ex.Message.Contains("Options property cannot be empty: ClientName"))
+            if (ex.Message.Contains("Options property cannot be empty: ClientName"))
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("If you are using SSO, have you logged in?");
