@@ -265,7 +265,7 @@ def main(argv):
         print("-" * 88)
         print(f"{passed_count} tests passed.")
         print(f"{failed_count} tests failed.")
-    else :
+    else:
         print("Test failed because of build error.")
 
     print(f"Execution duration - {datetime.datetime.now() - start_time}")
