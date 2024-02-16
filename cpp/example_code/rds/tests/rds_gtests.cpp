@@ -10,6 +10,57 @@ Aws::SDKOptions AwsDocTest::RDS_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::RDS_GTests::s_clientConfig;
 static const char ALLOCATION_TAG[] = "RDS_GTEST";
 
+/*
+ * Subclass MockHTTPCLient to respond to credential requests.
+ * Otherwise, the stored responses are returned for credential requests
+ * and not the service API calls.
+ */
+class CustomMockHTTPClient : public MockHttpClient {
+public:
+    explicit CustomMockHTTPClient(
+            const std::shared_ptr<Aws::Http::HttpRequest> &requestTmp) {
+        std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
+                ALLOCATION_TAG, requestTmp);
+        goodResponse->AddHeader("Content-Type", "text/json");
+        goodResponse->SetResponseCode(Aws::Http::HttpResponseCode::OK);
+        Aws::Utils::DateTime expiration =
+                Aws::Utils::DateTime::Now() + std::chrono::milliseconds(60000);
+
+        goodResponse->GetResponseBody() << R"({
+"RoleArn":"arn:aws:iam::123456789012:role/MockRole",
+"AccessKeyId":"ABCDEFGHIJK",
+"SecretAccessKey":"ABCDEFGHIJK",
+"Token":"ABCDEFGHIJK==",
+"Expiration":")"
+                                        << expiration.ToGmtString(
+                                                Aws::Utils::DateFormat::ISO_8601)
+                                        << R"("
+    })";
+        this->AddResponseToReturn(goodResponse);
+
+        mCredentialsResponse = MockHttpClient::MakeRequest(requestTmp);
+    }
+
+    std::shared_ptr<Aws::Http::HttpResponse>
+    MakeRequest(const std::shared_ptr<Aws::Http::HttpRequest> &request,
+                Aws::Utils::RateLimits::RateLimiterInterface *readLimiter,
+                Aws::Utils::RateLimits::RateLimiterInterface *writeLimiter) const override {
+
+        // Do not use stored responses for a credentials request.
+        if (request->GetURIString().find("/credentials/") != std::string::npos) {
+            std::cout << "CustomMockHTTPClient returning credentials request."
+                      << std::endl;
+            return mCredentialsResponse;
+        }
+        else {
+            return MockHttpClient::MakeRequest(request, readLimiter, writeLimiter);
+        }
+    }
+
+private:
+    std::shared_ptr<Aws::Http::HttpResponse> mCredentialsResponse;
+};
+
 void AwsDocTest::RDS_GTests::SetUpTestSuite() {
     InitAPI(s_options);
 
@@ -79,13 +130,14 @@ int AwsDocTest::MyStringBuffer::underflow() {
 }
 
 AwsDocTest::MockHTTP::MockHTTP() {
-    mockHttpClient = Aws::MakeShared<MockHttpClient>(ALLOCATION_TAG);
-    mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
-    mockHttpClientFactory->SetClient(mockHttpClient);
-    SetHttpClientFactory(mockHttpClientFactory);
     requestTmp = CreateHttpRequest(Aws::Http::URI("https://test.com/"),
                                    Aws::Http::HttpMethod::HTTP_GET,
                                    Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+    mockHttpClient = Aws::MakeShared<CustomMockHTTPClient>(
+            ALLOCATION_TAG, requestTmp);
+    mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
+    mockHttpClientFactory->SetClient(mockHttpClient);
+    SetHttpClientFactory(mockHttpClientFactory);
 }
 
 AwsDocTest::MockHTTP::~MockHTTP() {
@@ -95,19 +147,21 @@ AwsDocTest::MockHTTP::~MockHTTP() {
 
 bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
                                                Aws::Http::HttpResponseCode httpResponseCode) {
+    std::string filePath = std::string(SRC_DIR) + "/" + fileName;
 
-    std::ifstream inStream(std::string(SRC_DIR) + "/" + fileName);
+    std::ifstream inStream(filePath);
     if (inStream) {
         std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
                 ALLOCATION_TAG, requestTmp);
-        goodResponse->AddHeader("Content-Type", "text/xml");
+        goodResponse->AddHeader("Content-Type", "text/json");
         goodResponse->SetResponseCode(httpResponseCode);
         goodResponse->GetResponseBody() << inStream.rdbuf();
         mockHttpClient->AddResponseToReturn(goodResponse);
+
         return true;
     }
 
-    std::cerr << "MockHTTP::addResponseWithBody open file error '" << fileName << "'."
+    std::cerr << "MockHTTP::addResponseWithBody open file error '" << filePath << "'."
               << std::endl;
 
     return false;

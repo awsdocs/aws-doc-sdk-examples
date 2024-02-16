@@ -261,9 +261,12 @@ def main(argv):
         passed_count = passed_count + hello_passed_count
         failed_count = failed_count + hello_failed_count
 
-    print("-" * 88)
-    print(f"{passed_count} tests passed.")
-    print(f"{failed_count} tests failed.")
+    if err_code == 0:
+        print("-" * 88)
+        print(f"{passed_count} tests passed.")
+        print(f"{failed_count} tests failed.")
+    else :
+        print("Test failed because of build error.")
 
     print(f"Execution duration - {datetime.datetime.now() - start_time}")
 
