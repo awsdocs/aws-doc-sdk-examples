@@ -55,7 +55,7 @@ suspend fun getStatus(botName: String?) {
             val response = lexClient.getBot(request)
             status = response.status.toString()
             println("The status is $status")
-        } while (status.compareTo("READY") != 0)
+        } while (status.compareTo("Ready") != 0)
     }
 }
 // snippet-end:[lex.kotlin.get_status.main]
