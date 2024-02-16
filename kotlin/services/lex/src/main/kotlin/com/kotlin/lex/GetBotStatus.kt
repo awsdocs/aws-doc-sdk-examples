@@ -19,15 +19,12 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
-    
     Usage: 
         <botName>  
 
     Where:
         botName - The name of the bot (for example, BookHotel).
-
     """
 
     if (args.size != 1) {
@@ -41,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[lex.kotlin.get_status.main]
 suspend fun getStatus(botName: String?) {
-
     val request = GetBotRequest {
         name = botName
         versionOrAlias = "\$LATEST"
@@ -49,7 +45,6 @@ suspend fun getStatus(botName: String?) {
 
     LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
         var status: String
-
         do {
             delay(2000)
             val response = lexClient.getBot(request)
