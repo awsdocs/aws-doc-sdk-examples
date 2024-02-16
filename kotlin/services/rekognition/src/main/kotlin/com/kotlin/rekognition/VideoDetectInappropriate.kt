@@ -24,7 +24,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 private var startJobId = ""
 suspend fun main(args: Array<String>) {
-
     val usage = """
         
         Usage: 
@@ -59,7 +58,6 @@ suspend fun main(args: Array<String>) {
 }
 // snippet-start:[rekognition.kotlin.recognize_video_moderation.main]
 suspend fun startModerationDetection(channel: NotificationChannel?, bucketVal: String?, videoVal: String?) {
-
     val s3Obj = S3Object {
         bucket = bucketVal
         name = videoVal
