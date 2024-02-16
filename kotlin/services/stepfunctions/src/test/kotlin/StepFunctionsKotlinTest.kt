@@ -32,8 +32,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.util.Scanner
-import java.util.UUID
+import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -107,7 +106,7 @@ class StepFunctionsKotlinTest {
 
         // Get JSON to use for the state machine and place the activityArn value into it.
         val stream = GetStream()
-        val jsonString = stream.getStream()
+        val jsonString = stream.getStream(jsonFile)
 
         // Modify the Resource node.
         val objectMapper = ObjectMapper()
@@ -177,7 +176,7 @@ class StepFunctionsKotlinTest {
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/stepfunctions"
-        val valueRequest = GetSecretValueRequest {
+        val valueRequest= GetSecretValueRequest {
             secretId = secretName
         }
         SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
@@ -194,4 +193,5 @@ class StepFunctionsKotlinTest {
         val stateMachineNameSC: String? = null
         val machineFile: String? = null
     }
+
 }
