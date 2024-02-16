@@ -8,7 +8,7 @@ class DateUtilities:
 
     def __init__(self):
         """Initialize the DateUtilities class with default datetime format."""
-        self.datetime_format = "%Y-%m-%d %H:%M:%S.%f"
+        self.datetime_format = "%Y-%m-%d %H:%M:%S"
 
     @staticmethod
     def is_datetime(date_string, format_string):
@@ -28,6 +28,47 @@ class DateUtilities:
         except ValueError:
             return False
 
+    def find_middle_time(self, date_range) -> tuple:
+        """
+        Find the middle time between two timestamps in ISO8601 format.
+        Returns:
+        - str: The middle time in ISO8601 format.
+        """
+        # Parse the ISO8601 formatted strings into datetime objects
+        dt1 = datetime.fromisoformat(date_range[0])
+        dt2 = datetime.fromisoformat(date_range[1])
+
+        # Ensure dt1 is the earlier datetime
+        if dt1 > dt2:
+            dt1, dt2 = dt2, dt1
+
+        # Calculate the difference between the two datetime objects
+        difference = dt2 - dt1
+
+        # Find the halfway duration
+        halfway = difference / 2
+
+        # Calculate the middle time
+        middle_time = dt1 + halfway
+
+        return middle_time.isoformat()
+
+    @staticmethod
+    def format_iso8601(date_str):
+        # Parse the ISO8601 date string
+        dt = datetime.fromisoformat(date_str)
+
+        # Format date without microseconds
+        date_without_microseconds = dt.strftime('%Y-%m-%dT%H:%M:%S')
+
+        # Format microseconds to remove trailing zeros, ensuring at least 3 digits
+        microseconds = f".{dt.microsecond:06}".rstrip('0')[:4]
+
+        # Construct the final date string
+        formatted_date = date_without_microseconds + microseconds
+
+        return formatted_date
+    #
     @staticmethod
     def divide_date_range(date_range):
         """
@@ -43,7 +84,7 @@ class DateUtilities:
 
     @staticmethod
     def convert_unix_timestamp_to_iso8601(
-        unix_timestamp, iso8601_format="%Y-%m-%d %H:%M:%S.%f"
+        unix_timestamp, iso8601_format="%Y-%m-%d %H:%M:%S"
     ):
         """
         Converts a UNIX timestamp in milliseconds to a date string in the specified format.
@@ -61,7 +102,7 @@ class DateUtilities:
         return iso8601
 
     @staticmethod
-    def convert_iso8601_to_datetime(iso8601, iso8601_format="%Y-%m-%d %H:%M:%S.%f"):
+    def convert_iso8601_to_datetime(iso8601, iso8601_format="%Y-%m-%d %H:%M:%S"):
         """
         Converts a date string in ISO 8601 format to a Python datetime object.
 
@@ -72,7 +113,8 @@ class DateUtilities:
         :return: The corresponding Python datetime object.
         :rtype: datetime
         """
-        date = datetime.strptime(iso8601, iso8601_format)
+        # date = datetime.strptime(iso8601, iso8601_format)
+        date = datetime.fromisoformat(iso8601)
         return date
 
     @staticmethod
@@ -138,8 +180,8 @@ class DateUtilities:
         :return: The later of the two dates.
         :rtype: str
         """
-        date1 = self.convert_iso8601_to_datetime(date_str1)
-        date2 = self.convert_iso8601_to_datetime(date_str2)
+        date1 = datetime.fromisoformat(date_str1)
+        date2 = datetime.fromisoformat(date_str2)
 
         if date1 > date2:
             return date_str1

@@ -97,11 +97,9 @@ class CloudWatchLogsQueryRunner:
         :type log_group: str
         """
         cloudwatch_query = CloudWatchQuery(
-            self.cloudwatch_logs_client,
-            log_group,
             [start_date_iso8601, end_date_iso8601],
         )
-        cloudwatch_query.query_logs()
+        cloudwatch_query.query_logs((start_date_iso8601, end_date_iso8601))
         logging.info("Query executed successfully.")
         logging.info(
             f"Queries completed in {cloudwatch_query.query_duration} seconds. Total logs found: {len(cloudwatch_query.query_results)}"

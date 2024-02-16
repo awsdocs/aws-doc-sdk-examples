@@ -3,6 +3,8 @@
 import logging
 import time
 from datetime import datetime
+import threading
+import boto3
 
 from date_utilities import DateUtilities
 
@@ -17,28 +19,21 @@ class CloudWatchQuery:
     """
     A class to query AWS CloudWatch logs within a specified date range.
 
-    :ivar client: The Cloudwatch Logs Client.
-    :vartype client: Client
-    :ivar log_groups: Names of the log groups to query.
-    :vartype log_groups: list
     :ivar date_range: Start and end datetime for the query.
     :vartype date_range: tuple
     :ivar limit: Maximum number of log entries to return.
     :vartype limit: int
     """
 
-    def __init__(self, client, log_groups, date_range, limit=10000):
-        self.cloudwatch_logs = client
-        self.log_groups = log_groups
-        self.date_range = date_range
-        self.limit = limit
+    def __init__(self, date_range):
+        self.lock = threading.Lock()
         self.query_results = []
+        self.date_range = date_range
         self.query_duration = None
         self.datetime_format = "%Y-%m-%d %H:%M:%S.%f"
-        self.log_batch = None
         self.date_utilities = DateUtilities()
 
-    def query_logs(self):
+    def query_logs(self, date_range):
         """
         Executes a CloudWatch logs query for a specified date range and calculates the execution time of the query.
 
@@ -48,7 +43,7 @@ class CloudWatchQuery:
         start_time = datetime.now()
 
         start_date, end_date = self.date_utilities.normalize_date_range_format(
-            self.date_range, from_format="unix_timestamp", to_format="datetime"
+            date_range, from_format="unix_timestamp", to_format="datetime"
         )
 
         logging.info(
@@ -56,10 +51,9 @@ class CloudWatchQuery:
             f"\n       START:    {start_date}"
             f"\n       END:      {end_date}"
         )
-        logs_batch = self.process_logs((start_date, end_date))
+        self.process_logs((start_date, end_date))
         end_time = datetime.now()
         self.query_duration = (end_time - start_time).total_seconds()
-        return logs_batch
 
     def process_logs(self, date_range):
         """
@@ -72,28 +66,61 @@ class CloudWatchQuery:
                  in the `self.query_results` attribute.
         :rtype: None
         """
-        # Fetch a batch of logs
-        batch_of_logs = self._perform_query(date_range, self.limit)
-        # Add the batch to the accumulated logs
-        self.query_results.extend(batch_of_logs)
-        logging.info(f"Recursive log count: {len(self.query_results)}")
+        self.recursive_process(date_range)
+        # # Fetch a batch of logs
+        # batch_of_logs = self.perform_query(date_range, 10000)
+        # # Add the batch to the accumulated logs
+        # self.query_results.extend(batch_of_logs)
+        # logging.info(f"Recursive log count: {len(self.query_results)}")
+        # if len(batch_of_logs) == 10000:
+        #     init_args = [batch_of_logs, date_range]
+        #     self.recursive_process(init_args)
+        # else:
+        #     # If the batch size is less than 10,000, assume this is the last batch and return the accumulated logs
+        #     logging.info(f"Fetched final batch of {len(batch_of_logs)} logs.")
 
-        # If the batch size is exactly 10,000, assume there might be more logs and fetch again
-        if len(batch_of_logs) == self.limit:
-            logging.info(f"Fetched {self.limit}, checking for more...")
-            most_recent_log = self._find_most_recent_log(batch_of_logs)
+    def recursive_process(self, date_range):
+        # If the batch size is still exactly 10,000, assume there are more logs and fetch again
+        batch_of_logs = self.perform_query(date_range, 10000)
+        # Add the batch to the accumulated logs
+        with self.lock:
+            self.query_results.extend(batch_of_logs)
+        if len(batch_of_logs) == 10000:
+            logging.info(f"Fetched 10000, checking for more...")
+            most_recent_log = self.find_most_recent_log(batch_of_logs)
             most_recent_log_timestamp = next(
                 item["value"]
                 for item in most_recent_log
                 if item["field"] == "@timestamp"
             )
             new_range = (most_recent_log_timestamp, date_range[1])
-            return self.process_logs(new_range)
-        else:
-            # If the batch size is less than 10,000, assume this is the last batch and return the accumulated logs
-            logging.info(f"Fetched final batch of {len(batch_of_logs)} logs.")
+            midpoint = self.date_utilities.find_middle_time(new_range)
 
-    def _find_most_recent_log(self, logs):
+            # Test 1: Queries completed in 31.021741 seconds. Total logs found: 49838
+            # self.recursive_process((most_recent_log_timestamp, midpoint))
+            # self.recursive_process((midpoint, date_range[1]))
+
+            # Test 2: Queries completed in 29.269093 seconds. Total logs found: 49838
+            # threads_args = [
+            #     (most_recent_log_timestamp, midpoint),
+            #     (midpoint, date_range[1])
+            # ]
+            # for args in threads_args:
+            #     thread = threading.Thread(target=self.recursive_process, args=(args,))
+            #     thread.start()
+            #     thread.join()
+
+            # Test 3: Queries completed in 13.352501 seconds. Total logs found: 49838
+            first_half_thread = threading.Thread(target=self.recursive_process, args=((most_recent_log_timestamp, midpoint),))
+            second_half_thread = threading.Thread(target=self.recursive_process, args=((midpoint, date_range[1]),))
+
+            first_half_thread.start()
+            second_half_thread.start()
+
+            first_half_thread.join()
+            second_half_thread.join()
+
+    def find_most_recent_log(self, logs):
         """
         Search a list of log items and return most recent log entry.
         :param logs: A list of logs to analyze.
@@ -120,7 +147,7 @@ class CloudWatchQuery:
         return most_recent_log
 
     # snippet-start:[python.example_code.cloudwatch_logs.start_query]
-    def _perform_query(self, date_range, max_logs):
+    def perform_query(self, date_range, max_logs):
         """
         Performs the actual CloudWatch log query.
 
@@ -131,13 +158,40 @@ class CloudWatchQuery:
         :return: A list containing the query results.
         :rtype: list
         """
+        client = boto3.client('logs')
         try:
-            query_id = self._initiate_query(date_range, max_logs)
-            return self._wait_for_query_results(query_id)
+            try:
+                start_time = round(
+                    self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[0])
+                )
+                end_time = round(
+                    self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[1])
+                )
+                response = client.start_query(
+                    logGroupName="/workflows/cloudwatch-logs/large-query",
+                    startTime=start_time,
+                    endTime=end_time,
+                    queryString="fields @timestamp, @message | sort @timestamp asc",
+                    limit=max_logs,
+                )
+                query_id = response["queryId"]
+            except client.exceptions.ResourceNotFoundException as e:
+                raise DateOutOfBoundsError(f"Resource not found: {e}")
+            while True:
+                time.sleep(1)
+                results = client.get_query_results(queryId=query_id)
+                if results["status"] in [
+                    "Complete",
+                    "Failed",
+                    "Cancelled",
+                    "Timeout",
+                    "Unknown",
+                ]:
+                    return results.get("results", [])
         except DateOutOfBoundsError:
             return []
 
-    def _initiate_query(self, date_range, max_logs):
+    def _initiate_query(self, client, date_range, max_logs):
         """
         Initiates the CloudWatch logs query.
 
@@ -155,7 +209,7 @@ class CloudWatchQuery:
             end_time = round(
                 self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[1])
             )
-            response = self.cloudwatch_logs.start_query(
+            response = client.start_query(
                 logGroupName=self.log_groups,
                 startTime=start_time,
                 endTime=end_time,
@@ -163,13 +217,13 @@ class CloudWatchQuery:
                 limit=max_logs,
             )
             return response["queryId"]
-        except self.cloudwatch_logs.exceptions.ResourceNotFoundException as e:
+        except client.exceptions.ResourceNotFoundException as e:
             raise DateOutOfBoundsError(f"Resource not found: {e}")
 
     # snippet-end:[python.example_code.cloudwatch_logs.start_query]
 
     # snippet-start:[python.example_code.cloudwatch_logs.get_query_results]
-    def _wait_for_query_results(self, query_id):
+    def _wait_for_query_results(self, client, query_id):
         """
         Waits for the query to complete and retrieves the results.
 
@@ -180,7 +234,7 @@ class CloudWatchQuery:
         """
         while True:
             time.sleep(1)
-            results = self.cloudwatch_logs.get_query_results(queryId=query_id)
+            results = client.get_query_results(queryId=query_id)
             if results["status"] in [
                 "Complete",
                 "Failed",
