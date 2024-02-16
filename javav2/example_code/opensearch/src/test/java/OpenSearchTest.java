@@ -7,6 +7,8 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.opensearch.OpenSearchClient;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import com.example.search.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -58,7 +60,8 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void UpdateDomain() {
+    public void UpdateDomain() throws InterruptedException {
+        TimeUnit.MINUTES.sleep(5);
         UpdateDomain.updateSpecificDomain(searchClient, domainName);
         System.out.println("Test 3 passed");
     }

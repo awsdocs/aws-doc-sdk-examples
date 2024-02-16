@@ -10,6 +10,8 @@ import org.junit.jupiter.api.*;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
@@ -23,8 +25,6 @@ public class CloudFormationTest {
     private static String stackName = "";
     private static String roleARN = "";
     private static String location = "";
-    private static String key = "";
-    private static String value = "";
 
     @BeforeAll
     public static void setUp() {
@@ -37,11 +37,9 @@ public class CloudFormationTest {
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        stackName = values.getStackName();
+        stackName = values.getStackName() + UUID.randomUUID();
         roleARN = values.getRoleARN();
         location = values.getLocation();
-        key = values.getKey();
-        value = values.getValue();
 
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
@@ -60,9 +58,7 @@ public class CloudFormationTest {
          * stackName = prop.getProperty("stackName");
          * roleARN = prop.getProperty("roleARN");
          * location = prop.getProperty("location");
-         * key = prop.getProperty("key");
-         * value = prop.getProperty("value");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }
@@ -73,7 +69,7 @@ public class CloudFormationTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void CreateStack() {
-        assertDoesNotThrow(() -> CreateStack.createCFStack(cfClient, stackName, roleARN, location, key, value));
+        assertDoesNotThrow(() -> CreateStack.createCFStack(cfClient, stackName, roleARN, location));
         System.out.println("Test 1 passed");
     }
 
@@ -123,10 +119,6 @@ public class CloudFormationTest {
         private String roleARN;
         private String location;
 
-        private String key;
-
-        private String value;
-
         public String getStackName() {
             return stackName;
         }
@@ -138,14 +130,5 @@ public class CloudFormationTest {
         public String getLocation() {
             return location;
         }
-
-        public String getKey() {
-            return key;
-        }
-
-        public String getValue() {
-            return value;
-        }
     }
-
 }

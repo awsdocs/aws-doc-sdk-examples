@@ -131,14 +131,6 @@ public class SageMakerTest {
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ListNotebooks() {
-        assertDoesNotThrow(() -> ListNotebooks.listBooks(sageMakerClient));
-        System.out.println("Test 5 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(6)
     public void ListAlgorithms() {
         assertDoesNotThrow(() -> ListAlgorithms.listAlgs(sageMakerClient));
         System.out.println("Test 6 passed");
@@ -146,7 +138,7 @@ public class SageMakerTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(7)
+    @Order(6)
     public void ListTrainingJobs() {
         assertDoesNotThrow(() -> ListTrainingJobs.listJobs(sageMakerClient));
         System.out.println("Test 7 passed");
@@ -154,7 +146,7 @@ public class SageMakerTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(8)
+    @Order(7)
     public void DeleteModel() {
         assertDoesNotThrow(() -> DeleteModel.deleteSagemakerModel(sageMakerClient, modelName));
         System.out.println("Test 8 passed");

@@ -28,7 +28,7 @@ public class FirehoseTest {
     private static String textValue = "";
 
     @BeforeAll
-    public static void setUp() throws IOException {
+    public static void setUp() {
         firehoseClient = FirehoseClient.builder()
                 .region(Region.US_WEST_2)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -151,5 +151,4 @@ public class FirehoseTest {
             return textValue;
         }
     }
-
 }

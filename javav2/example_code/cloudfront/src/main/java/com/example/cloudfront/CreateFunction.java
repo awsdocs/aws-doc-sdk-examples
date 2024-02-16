@@ -13,6 +13,9 @@ import software.amazon.awssdk.services.cloudfront.model.CreateFunctionRequest;
 import software.amazon.awssdk.services.cloudfront.model.CreateFunctionResponse;
 import software.amazon.awssdk.services.cloudfront.model.FunctionConfig;
 import software.amazon.awssdk.services.cloudfront.model.FunctionRuntime;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 // snippet-end:[cloudfront.java2.function.import]
 
@@ -41,7 +44,6 @@ public class CreateFunction {
             System.out.println(usage);
             System.exit(1);
         }
-
         String functionName = args[0];
         String filePath = args[1];
         CloudFrontClient cloudFrontClient = CloudFrontClient.builder()
@@ -55,7 +57,7 @@ public class CreateFunction {
 
     public static String createNewFunction(CloudFrontClient cloudFrontClient, String functionName, String filePath) {
         try {
-            InputStream fileIs = CreateFunction.class.getClassLoader().getResourceAsStream(filePath);
+            InputStream fileIs = new FileInputStream(filePath);
             SdkBytes functionCode = SdkBytes.fromInputStream(fileIs);
 
             FunctionConfig config = FunctionConfig.builder()
@@ -75,6 +77,8 @@ public class CreateFunction {
         } catch (CloudFrontException e) {
             System.err.println(e.getMessage());
             System.exit(1);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return "";
     }
