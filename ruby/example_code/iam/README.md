@@ -33,37 +33,47 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](scenario_create_user_assume_role.rb#L100) (`AttachRolePolicy`)
-- [Create a policy](scenario_create_user_assume_role.rb#L99) (`CreatePolicy`)
-- [Create a role](scenario_create_user_assume_role.rb#L72) (`CreateRole`)
-- [Create a service-linked role](iam_wrapper.rb#L166) (`CreateServiceLinkedRole`)
-- [Create a user](scenario_create_user_assume_role.rb#L37) (`CreateUser`)
-- [Create an access key](scenario_create_user_assume_role.rb#L55) (`CreateAccessKey`)
-- [Create an inline policy for a user](scenario_create_user_assume_role.rb#L130) (`PutUserPolicy`)
-- [Delete a policy](scenario_create_user_assume_role.rb#L215) (`DeletePolicy`)
-- [Delete a role](scenario_create_user_assume_role.rb#L215) (`DeleteRole`)
-- [Delete a service-linked role](iam_wrapper.rb#L186) (`DeleteServiceLinkedRole`)
-- [Delete a user](scenario_create_user_assume_role.rb#L237) (`DeleteUser`)
-- [Delete an access key](scenario_create_user_assume_role.rb#L237) (`DeleteAccessKey`)
-- [Delete an inline policy from a user](scenario_create_user_assume_role.rb#L237) (`DeleteUserPolicy`)
-- [Detach a policy from a role](scenario_create_user_assume_role.rb#L215) (`DetachRolePolicy`)
-- [Get a policy](iam_wrapper.rb#L101) (`GetPolicy`)
-- [Get a role](iam_wrapper.rb#L49) (`GetRole`)
-- [Get the account password policy](iam_wrapper.rb#L133) (`GetAccountPasswordPolicy`)
-- [List SAML providers](iam_wrapper.rb#L151) (`ListSAMLProviders`)
-- [List a user's access keys](scenario_create_user_assume_role.rb#L237) (`ListAccessKeys`)
-- [List groups](iam_wrapper.rb#L118) (`ListGroups`)
-- [List policies](iam_wrapper.rb#L81) (`ListPolicies`)
-- [List policies attached to a role](scenario_create_user_assume_role.rb#L215) (`ListAttachedRolePolicies`)
-- [List roles](iam_wrapper.rb#L29) (`ListRoles`)
-- [List users](iam_wrapper.rb#L66) (`ListUsers`)
+- [Attach a policy to a role](attach_role_policy.rb#L6) (`AttachRolePolicy`)
+- [Attach a policy to a user](attach_user_policy.rb#L39) (`AttachUserPolicy`)
+- [Create a policy](attach_role_policy.rb#L6) (`CreatePolicy`)
+- [Create a role](manage_roles.rb#L63) (`CreateRole`)
+- [Create a service-linked role](manage_roles.rb#L91) (`CreateServiceLinkedRole`)
+- [Create a user](manage_users.rb#L18) (`CreateUser`)
+- [Create an access key](manage_access_keys.rb#L6) (`CreateAccessKey`)
+- [Create an alias for an account](manage_account_aliases.rb#L6) (`CreateAccountAlias`)
+- [Create an inline policy for a user](attach_user_policy.rb#L17) (`PutUserPolicy`)
+- [Delete a role](manage_roles.rb#L111) (`DeleteRole`)
+- [Delete a server certificate](manage_server_certificates.rb#L6) (`DeleteServerCertificate`)
+- [Delete a service-linked role](manage_roles.rb#L143) (`DeleteServiceLinkedRole`)
+- [Delete a user](manage_users.rb#L134) (`DeleteUser`)
+- [Delete an access key](manage_access_keys.rb#L6) (`DeleteAccessKey`)
+- [Delete an account alias](manage_account_aliases.rb#L6) (`DeleteAccountAlias`)
+- [Delete an inline policy from a user](manage_users.rb#L134) (`DeleteUserPolicy`)
+- [Detach a policy from a role](attach_role_policy.rb#L6) (`DetachRolePolicy`)
+- [Detach a policy from a user](attach_user_policy.rb#L57) (`DetachUserPolicy`)
+- [Get a policy](attach_role_policy.rb#L34) (`GetPolicy`)
+- [Get a role](manage_roles.rb#L44) (`GetRole`)
+- [Get a user](manage_users.rb#L43) (`GetUser`)
+- [Get the account password policy](get_account_password_policy.rb#L6) (`GetAccountPasswordPolicy`)
+- [List SAML providers](list_saml_providers.rb#L7) (`ListSAMLProviders`)
+- [List a user's access keys](manage_access_keys.rb#L6) (`ListAccessKeys`)
+- [List account aliases](manage_account_aliases.rb#L6) (`ListAccountAliases`)
+- [List groups](list_groups.rb#L6) (`ListGroups`)
+- [List inline policies for a role](attach_role_policy.rb#L68) (`ListRolePolicies`)
+- [List policies](attach_role_policy.rb#L6) (`ListPolicies`)
+- [List policies attached to a role](attach_role_policy.rb#L6) (`ListAttachedRolePolicies`)
+- [List roles](manage_roles.rb#L18) (`ListRoles`)
+- [List server certificates](manage_server_certificates.rb#L6) (`ListServerCertificates`)
+- [List users](manage_users.rb#L60) (`ListUsers`)
+- [Update a server certificate](manage_server_certificates.rb#L6) (`UpdateServerCertificate`)
+- [Update a user](manage_users.rb#L78) (`UpdateUser`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a user and assume a role](scenario_create_user_assume_role.rb)
+- [Create a user and assume a role](scenario_users.rb)
 
 
 <!--custom.examples.start-->
@@ -95,7 +105,7 @@ This example shows you how to create a user and assume a role.
 Start the example by running the following at a command prompt:
 
 ```
-ruby scenario_create_user_assume_role.rb
+ruby scenario_users.rb
 ```
 
 <!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
@@ -126,11 +136,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby IAM reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Iam.html)
 
 <!--custom.resources.start-->
-* [More Ruby AWS IAM code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_iam_code_examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon IAM Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IAM.html)
-* [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
-* [AWS IAM API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
 <!--custom.resources.end-->
 
 ---

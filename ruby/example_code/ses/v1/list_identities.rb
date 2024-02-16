@@ -4,7 +4,7 @@
 # Purpose
 # This code example demonstrates how to list the verified email addresses for Amazon Simple Email Service (Amazon SES).
 
-# snippet-start:[ruby.example_code.ses.v1.list_emails]
+# snippet-start:[ruby.example_code.ses.v1.list_identities]
 
 require "aws-sdk-ses"  # v2: require 'aws-sdk'
 
@@ -29,4 +29,4 @@ ids.identities.each do |email|
     puts email
   end
 end
-# snippet-end:[ruby.example_code.ses.v1.list_emails]
+# snippet-end:[ruby.example_code.ses.v1.list_identities]

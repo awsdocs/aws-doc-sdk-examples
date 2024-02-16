@@ -99,7 +99,7 @@ def list_metrics_for_namespace(cloudwatch_client, metric_namespace)
   end
 end
 
-# Full example call:
+# Example usage:
 def run_me
   metric_namespace = "SITE/TRAFFIC"
   # Replace us-west-2 with the AWS Region you're using for Amazon CloudWatch.

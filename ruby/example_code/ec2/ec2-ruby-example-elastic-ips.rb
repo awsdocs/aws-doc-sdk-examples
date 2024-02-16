@@ -160,7 +160,7 @@ rescue StandardError => e
 end
 # snippet-end:[ec2.Ruby.releaseElasticIPs]
 
-# Full example call:
+# Example usage:
 def run_me
   instance_id = ""
   region = ""

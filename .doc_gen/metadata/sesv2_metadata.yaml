@@ -101,5 +101,14 @@ sesv2_SendEmail:
             - description: Sends a message to all members of the contact list.
               snippet_tags:
                 - ses.rust.send-email
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ses/v2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.ses.v2.send_email
   services:
     sesv2: {SendEmail}

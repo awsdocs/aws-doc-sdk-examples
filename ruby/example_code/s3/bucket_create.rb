@@ -44,6 +44,7 @@ class BucketCreateWrapper
   end
 end
 
+# Example usage:
 def run_demo
   region = "us-west-2"
   wrapper = BucketCreateWrapper.new(Aws::S3::Bucket.new("doc-example-bucket-#{Random.uuid}"))

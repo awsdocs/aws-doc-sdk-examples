@@ -22,6 +22,7 @@ rescue Aws::Errors::ServiceError => e
   puts "Couldn't create presigned URL for #{bucket.name}:#{object_key}. Here's why: #{e.message}"
 end
 
+# Example usage:
 def run_demo
   bucket_name = "doc-example-bucket"
   object_key = "my-file.txt"

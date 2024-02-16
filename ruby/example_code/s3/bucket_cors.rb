@@ -73,6 +73,7 @@ class BucketCorsWrapper
 end
 # snippet-end:[ruby.example_code.s3.helper.end.BucketCorsWrapper]
 
+# Example usage:
 def run_demo
   bucket_name = "doc-example-bucket"
   allowed_methods = %w[GET PUT]
