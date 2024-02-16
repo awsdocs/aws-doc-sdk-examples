@@ -13,4 +13,4 @@ cloudformation_Hello:
               snippet_tags:
                 - CloudFormation.dotnetv3.CloudFormationActions.HelloCloudFormation
   services:
-    bedrock: {DescribeStackResourcesAsync}
+    cloudformation: {DescribeStackResources}
