@@ -154,7 +154,7 @@ bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
     if (inStream) {
         std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
                 ALLOCATION_TAG, requestTmp);
-        goodResponse->AddHeader("Content-Type", "text/json");
+        goodResponse->AddHeader("Content-Type", "text/xml");
         goodResponse->SetResponseCode(httpResponseCode);
         goodResponse->GetResponseBody() << inStream.rdbuf();
         mockHttpClient->AddResponseToReturn(goodResponse);
