@@ -7,12 +7,10 @@ package com.kotlin.cloudformation
 import aws.sdk.kotlin.services.cloudformation.CloudFormationClient
 import aws.sdk.kotlin.services.cloudformation.model.CreateStackRequest
 import aws.sdk.kotlin.services.cloudformation.model.OnFailure
-import aws.sdk.kotlin.services.cloudformation.model.Parameter
 import kotlin.system.exitProcess
 // snippet-end:[cf.kotlin.create_stack.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <stackName> <roleARN> <location> <key> <value> 
@@ -37,11 +35,7 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[cf.kotlin.create_stack.main]
-suspend fun createCFStack(
-    stackNameVal: String,
-    roleARNVal: String?,
-    location: String?,
-) {
+suspend fun createCFStack(stackNameVal: String, roleARNVal: String?, location: String?) {
     val request = CreateStackRequest {
         stackName = stackNameVal
         templateUrl = location
