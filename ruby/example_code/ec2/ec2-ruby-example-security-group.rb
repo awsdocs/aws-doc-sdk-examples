@@ -227,7 +227,7 @@ rescue StandardError => e
   return false
 end
 
-# Full example call:
+# Example usage:
 def run_me
   group_name = ""
   description = ""

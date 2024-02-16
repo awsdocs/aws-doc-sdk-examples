@@ -34,6 +34,7 @@ class BucketListWrapper
   end
 end
 
+# Example usage:
 def run_demo
   wrapper = BucketListWrapper.new(Aws::S3::Resource.new)
   wrapper.list_buckets(25)

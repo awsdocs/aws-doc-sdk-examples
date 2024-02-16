@@ -174,7 +174,7 @@ def list_instances_information(ec2_client)
   end
 end
 
-# Full example call:
+# Example usage:
 def run_me
   instance_id = ""
   region = ""

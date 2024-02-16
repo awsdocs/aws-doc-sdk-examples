@@ -71,5 +71,6 @@ def run_me
   receive_messages(sqs_client, queue_url, max_number_of_messages)
 end
 
+# Example usage:
 run_me if $PROGRAM_NAME == __FILE__
 # snippet-end:[ruby.example_code.sqs.ReceiveMessages]

@@ -45,7 +45,7 @@ rescue StandardError => e
   puts "Error getting information about instances: #{e.message}"
 end
 
-#Full example call:
+# Example usage:
 def run_me
   tag_key = ""
   tag_value = ""
