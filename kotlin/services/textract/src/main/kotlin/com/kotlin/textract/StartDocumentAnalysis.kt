@@ -88,7 +88,7 @@ private suspend fun getJobResults(textractClient: TextractClient, jobIdVal: Stri
         val response = textractClient.getDocumentAnalysis(analysisRequest)
         status = response.jobStatus.toString()
 
-        if (status.compareTo("SUCCEEDED") == 0) finished = true else {
+        if (status.compareTo("Succeeded") == 0) finished = true else {
             println("$index status is: $status")
             delay(1000)
         }
