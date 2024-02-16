@@ -87,7 +87,7 @@ private suspend fun getJobResults(textractClient: TextractClient, jobIdVal: Stri
             println("$index status is: $status")
             delay(1000)
         }
-        index ++
+        index++
     }
     return status
 }
