@@ -20,7 +20,7 @@ including your credentials.
 
 For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+*/
 
 private var startJobId = ""
 suspend fun main(args: Array<String>) {
@@ -56,6 +56,7 @@ suspend fun main(args: Array<String>) {
     getModResults()
     rekClient.close()
 }
+
 // snippet-start:[rekognition.kotlin.recognize_video_moderation.main]
 suspend fun startModerationDetection(channel: NotificationChannel?, bucketVal: String?, videoVal: String?) {
     val s3Obj = S3Object {
@@ -93,9 +94,9 @@ suspend fun getModResults() {
         while (!finished) {
             modDetectionResponse = rekClient.getContentModeration(modRequest)
             status = modDetectionResponse.jobStatus.toString()
-            if (status.compareTo("Succeeded") == 0)
+            if (status.compareTo("Succeeded") == 0) {
                 finished = true
-            else {
+            } else {
                 println("$yy status is: $status")
                 delay(1000)
             }
