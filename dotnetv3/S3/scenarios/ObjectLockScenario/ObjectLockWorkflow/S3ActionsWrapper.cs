@@ -1,12 +1,12 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: Apache-2.0
 
+using System.Net;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Microsoft.Extensions.Configuration;
 
-
-namespace ObjectLockWorkflow;
+namespace ObjectLockScenario;
 
 /// <summary>
 /// Encapsulate the Amazon S3 operations.
@@ -24,7 +24,6 @@ public class S3ActionsWrapper
         _amazonS3 = amazonS3;
     }
 
-
     /// <summary>
     /// Create a new Amazon S3 bucket.
     /// </summary>
@@ -33,17 +32,18 @@ public class S3ActionsWrapper
     /// <returns>True if successful.</returns>
     public async Task<bool> CreateBucketByName(string bucketName, bool enableObjectLock)
     {
-        Console.WriteLine($"Creating bucket {bucketName}.");
+        Console.WriteLine($"\tCreating bucket {bucketName} with object lock {enableObjectLock}.");
         try
         {
             var request = new PutBucketRequest
             {
                 BucketName = bucketName,
                 UseClientRegion = true,
-                ObjectLockEnabledForBucket = enableObjectLock
+                ObjectLockEnabledForBucket = enableObjectLock,
             };
 
             var response = await _amazonS3.PutBucketAsync(request);
+
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
         catch (AmazonS3Exception ex)
@@ -54,27 +54,36 @@ public class S3ActionsWrapper
     }
 
     /// <summary>
-    /// Enable or disable object lock on an existing bucket.
+    /// Enable object lock on an existing bucket.
     /// </summary>
     /// <param name="bucketName">The name of the bucket to modify.</param>
-    /// <param name="enableObjectLock">True to enable object lock on the bucket.</param>
     /// <returns>True if successful.</returns>
-    public async Task<bool> ModifyObjectLockOnBucket(string bucketName, bool enableObjectLock)
+    public async Task<bool> EnableObjectLockOnBucket(string bucketName)
     {
-        var enabledString = enableObjectLock ? "Enabled" : "Disabled";
         try
         {
+            // First, enable Versioning on the bucket.
+            await _amazonS3.PutBucketVersioningAsync(new PutBucketVersioningRequest()
+            {
+                BucketName = bucketName,
+                VersioningConfig = new S3BucketVersioningConfig()
+                {
+                    EnableMfaDelete = false,
+                    Status = VersionStatus.Enabled
+                }
+            });
+
             var request = new PutObjectLockConfigurationRequest()
             {
                 BucketName = bucketName,
                 ObjectLockConfiguration = new ObjectLockConfiguration()
                 {
-                    ObjectLockEnabled = new ObjectLockEnabled(enabledString),
-                    Rule = new ObjectLockRule()
-                }
+                    ObjectLockEnabled = new ObjectLockEnabled("Enabled"),
+                },
             };
 
             var response = await _amazonS3.PutObjectLockConfigurationAsync(request);
+            Console.WriteLine($"\tAdded an object lock policy to bucket {bucketName}.");
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
         catch (AmazonS3Exception ex)
@@ -97,6 +106,17 @@ public class S3ActionsWrapper
     {
         try
         {
+            //// First, enable Versioning on the bucket.
+            //await _amazonS3.PutBucketVersioningAsync(new PutBucketVersioningRequest()
+            //{
+            //    BucketName = bucketName,
+            //    VersioningConfig = new S3BucketVersioningConfig()
+            //    {
+            //        EnableMfaDelete = false,
+            //        Status = VersionStatus.Enabled
+            //    }
+            //});
+
             var request = new PutObjectRetentionRequest()
             {
                 BucketName = bucketName,
@@ -109,6 +129,7 @@ public class S3ActionsWrapper
             };
 
             var response = await _amazonS3.PutObjectRetentionAsync(request);
+            Console.WriteLine($"\tSet retention for {objectKey} in {bucketName} until {retainUntilDate:d}.");
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
         catch (AmazonS3Exception ex)
@@ -125,13 +146,23 @@ public class S3ActionsWrapper
     /// <param name="retention">The retention mode.</param>
     /// <param name="retainUntilDate">The date for retention until.</param>
     /// <returns>True if successful.</returns>
-    public async Task<bool> ModifyBucketDefaultRetention(string bucketName,
-        string objectKey, bool enableObjectLock, ObjectLockRetentionMode retention, DateTime retainUntilDate)
+    public async Task<bool> ModifyBucketDefaultRetention(string bucketName, bool enableObjectLock, ObjectLockRetentionMode retention, DateTime retainUntilDate)
     {
         var enabledString = enableObjectLock ? "Enabled" : "Disabled";
         var timeDifference = retainUntilDate.Subtract(DateTime.Now);
         try
         {
+            // First, enable Versioning on the bucket.
+            await _amazonS3.PutBucketVersioningAsync(new PutBucketVersioningRequest()
+            {
+                BucketName = bucketName,
+                VersioningConfig = new S3BucketVersioningConfig()
+                {
+                    EnableMfaDelete = false,
+                    Status = VersionStatus.Enabled
+                }
+            });
+
             var request = new PutObjectLockConfigurationRequest()
             {
                 BucketName = bucketName,
@@ -150,6 +181,7 @@ public class S3ActionsWrapper
             };
 
             var response = await _amazonS3.PutObjectLockConfigurationAsync(request);
+            Console.WriteLine($"\tAdded a default retention to bucket {bucketName}.");
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
         catch (AmazonS3Exception ex)
@@ -175,6 +207,7 @@ public class S3ActionsWrapper
             };
 
             var response = await _amazonS3.GetObjectRetentionAsync(request);
+            Console.WriteLine($"\tObject retention for {objectKey} in {bucketName}: {response.Retention.Mode} until {response.Retention.RetainUntilDate:d}.");
             return response.Retention;
     }
 
@@ -202,6 +235,7 @@ public class S3ActionsWrapper
             };
 
             var response = await _amazonS3.PutObjectLegalHoldAsync(request);
+            Console.WriteLine($"\tModified legal hold for {objectKey} in {bucketName}.");
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
         catch (AmazonS3Exception ex)
@@ -261,29 +295,27 @@ public class S3ActionsWrapper
             BucketName = bucketName,
             Key = objectName,
             FilePath = filePath,
+            ChecksumAlgorithm = ChecksumAlgorithm.SHA256
         };
 
         var response = await _amazonS3.PutObjectAsync(request);
         if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
         {
-            Console.WriteLine($"Successfully uploaded {objectName} to {bucketName}.");
+            Console.WriteLine($"\tSuccessfully uploaded {objectName} to {bucketName}.");
             return true;
         }
         else
         {
-            Console.WriteLine($"Could not upload {objectName} to {bucketName}.");
+            Console.WriteLine($"\tCould not upload {objectName} to {bucketName}.");
             return false;
         }
     }
 
     /// <summary>
-    /// Upload a file from the local computer to an Amazon S3
-    /// bucket.
+    /// List bucket objects and versions.
     /// </summary>
     /// <param name="bucketName">The Amazon S3 bucket to use.</param>
-    /// <param name="objectName">The object to upload.</param>
-    /// <param name="filePath">The path, including file name, of the object to upload.</param>
-    /// <returns>Async task.</returns>
+    /// <returns>The list of objects and versions.</returns>
     public async Task<ListVersionsResponse> ListBucketObjectsAndVersions(string bucketName)
     {
         var request = new ListVersionsRequest()
@@ -292,8 +324,46 @@ public class S3ActionsWrapper
         };
 
         var response = await _amazonS3.ListVersionsAsync(request);
-        Console.WriteLine(response);
         return response;
     }
 
+    /// <summary>
+    /// Delete an object from a specific bucket.
+    /// </summary>
+    /// <param name="bucketName">The Amazon S3 bucket to use.</param>
+    /// <param name="objectKey">The key of the object to delete.</param>
+    /// <param name="versionId">Optional versionId.</param>
+    /// <returns>The delete marker response.</returns>
+    public async Task<string> DeleteObjectFromBucket(string bucketName, string objectKey, string? versionId = null)
+    {
+        var request = new DeleteObjectRequest()
+        {
+            BucketName = bucketName,
+            Key = objectKey,
+            VersionId = versionId
+        };
+
+        var response = await _amazonS3.DeleteObjectAsync(request);
+        Console.WriteLine($"Delete for {objectKey} in {bucketName} was {response.HttpStatusCode}.");
+        return response.DeleteMarker;
+    }
+
+    /// <summary>
+    /// Delete a specific bucket.
+    /// </summary>
+    /// <param name="bucketName">The Amazon S3 bucket to use.</param>
+    /// <param name="objectKey">The key of the object to delete.</param>
+    /// <param name="versionId">Optional versionId.</param>
+    /// <returns>True if successful.</returns>
+    public async Task<bool> DeleteBucketByName(string bucketName)
+    {
+        var request = new DeleteBucketRequest()
+        {
+            BucketName = bucketName,
+        };
+
+        var response = await _amazonS3.DeleteBucketAsync(request);
+        Console.WriteLine($"Delete for {bucketName} was {response.HttpStatusCode}.");
+        return response.HttpStatusCode == HttpStatusCode.OK;
+    }
 }
