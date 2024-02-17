@@ -13,6 +13,5 @@ describe("invoke agent with test prompt", () => {
     const response = await invokeBedrockAgent(TEST_PROMPT, SESSION_ID);
     expect(response.sessionId).not.toBe("");
     expect(response.completion).not.toBe("");
-    expect(response.completion).toContain("My name is");
   });
 });

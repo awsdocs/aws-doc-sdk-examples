@@ -16,29 +16,28 @@ import {
  * provided in the request body.
  *
  * @param {string} prompt - The prompt that you want the Agent to complete.
- * @returns {string} The inference response (completion) from the agent.
+ * @param {string} sessionId - The session ID for the agent.
  */
 export const invokeBedrockAgent = async (prompt, sessionId) => {
   const client = new BedrockAgentRuntimeClient({ region: "us-east-1" });
-  // const client = new BedrockAgentRuntimeClient({
-  //   region: "us-east-1",
-  //   credentials: {
-  //     accessKeyId: "accessKeyId", // permission to invoke agent
-  //     secretAccessKey: "accessKeySecret",
-  //   },
-  // });
+  /* const client = new BedrockAgentRuntimeClient({
+    region: "us-east-1",
+    credentials: {
+      accessKeyId: "accessKeyId", // permission to invoke agent
+      secretAccessKey: "accessKeySecret",
+    },
+  }); */
 
   const agentId = "agentId";
   const agentAliasId = "agentAliasId";
 
-  const payload = {
+
+  const command = new InvokeAgentCommand({
     agentId: agentId, //required
     agentAliasId: agentAliasId, // required
     sessionId: sessionId, // required
     inputText: prompt, // required
-  };
-
-  const command = new InvokeAgentCommand(payload);
+  });
 
   try {
     let completion = "";
