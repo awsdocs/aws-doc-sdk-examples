@@ -4,6 +4,7 @@
 import { fileURLToPath } from "url";
 
 import {
+  AccessDeniedException,
   BedrockRuntimeClient,
   InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
@@ -55,7 +56,13 @@ export const invokeClaude = async (prompt) => {
 
     return responseBody.completion;
   } catch (err) {
-    console.error(err);
+    if (err instanceof AccessDeniedException) {
+      console.error(
+        `Access denied. Ensure you have the correct permissions to invoke ${modelId}.`,
+      );
+    } else {
+      throw err;
+    }
   }
 };
 

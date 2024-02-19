@@ -1,9 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {fileURLToPath} from "url";
+import { fileURLToPath } from "url";
 
-import {BedrockRuntimeClient, InvokeModelCommand} from "@aws-sdk/client-bedrock-runtime";
+import {
+  AccessDeniedException,
+  BedrockRuntimeClient,
+  InvokeModelCommand,
+} from "@aws-sdk/client-bedrock-runtime";
 
 /**
  * @typedef {Object} ResponseBody
@@ -18,49 +22,54 @@ import {BedrockRuntimeClient, InvokeModelCommand} from "@aws-sdk/client-bedrock-
  * @returns {object[]} The inference response (results) from the model.
  */
 export const invokeTitanTextExpressV1 = async (prompt) => {
-    const client = new BedrockRuntimeClient( { region: 'us-east-1' } );
+  const client = new BedrockRuntimeClient({ region: "us-east-1" });
 
-    const modelId = 'amazon.titan-text-express-v1';
+  const modelId = "amazon.titan-text-express-v1";
 
-    /* The different model providers have individual request and response formats.
-     * For the format, ranges, and default values for Titan text, refer to:
-     * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-text.html
-     */
-    const textGenerationConfig = {
-        maxTokenCount: 4096,
-        stopSequences: [],
-        temperature: 0,
-        topP: 1,
-    };
+  /* The different model providers have individual request and response formats.
+   * For the format, ranges, and default values for Titan text, refer to:
+   * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-text.html
+   */
+  const textGenerationConfig = {
+    maxTokenCount: 4096,
+    stopSequences: [],
+    temperature: 0,
+    topP: 1,
+  };
 
-    const payload = {
-        inputText: prompt,
-        textGenerationConfig,
-    };
+  const payload = {
+    inputText: prompt,
+    textGenerationConfig,
+  };
 
-    const command = new InvokeModelCommand({
-        body: JSON.stringify(payload),
-        contentType: 'application/json',
-        accept: 'application/json',
-        modelId,
-    });
+  const command = new InvokeModelCommand({
+    body: JSON.stringify(payload),
+    contentType: "application/json",
+    accept: "application/json",
+    modelId,
+  });
 
-    try {
-        const response = await client.send(command);
-        const decodedResponseBody = new TextDecoder().decode(response.body);
+  try {
+    const response = await client.send(command);
+    const decodedResponseBody = new TextDecoder().decode(response.body);
 
-        /** @type {ResponseBody} */
-        const responseBody = JSON.parse(decodedResponseBody);
-        return responseBody.results
-
-    } catch (err) {
-        console.error(err);
+    /** @type {ResponseBody} */
+    const responseBody = JSON.parse(decodedResponseBody);
+    return responseBody.results;
+  } catch (err) {
+    if (err instanceof AccessDeniedException) {
+      console.error(
+        `Access denied. Ensure you have the correct permissions to invoke ${modelId}.`,
+      );
+    } else {
+      throw err;
     }
+  }
 };
 
 // Invoke the function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    const prompt = `Meeting transcript: Miguel: Hi Brant, I want to discuss the workstream  
+  const prompt = `Meeting transcript: Miguel: Hi Brant, I want to discuss the workstream  
     for our new product launch Brant: Sure Miguel, is there anything in particular you want
     to discuss? Miguel: Yes, I want to talk about how users enter into the product.
     Brant: Ok, in that case let me add in Namita. Namita: Hey everyone 
@@ -77,13 +86,13 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     Miguel: Sure.
     From the meeting transcript above, Create a list of action items for each person.`;
 
-    console.log('\nModel: Titan Text Express v1');
-    console.log(`Prompt: ${prompt}`);
+  console.log("\nModel: Titan Text Express v1");
+  console.log(`Prompt: ${prompt}`);
 
-    const results = await invokeTitanTextExpressV1(prompt);
-    console.log('Completion:');
-    for (const result of results) {
-        console.log(result.outputText);
-    }
-    console.log('\n');
+  const results = await invokeTitanTextExpressV1(prompt);
+  console.log("Completion:");
+  for (const result of results) {
+    console.log(result.outputText);
+  }
+  console.log("\n");
 }
