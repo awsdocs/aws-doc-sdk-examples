@@ -111,8 +111,13 @@ class CloudWatchQuery:
             #     thread.join()
 
             # Test 3: Queries completed in 13.352501 seconds. Total logs found: 49838
-            first_half_thread = threading.Thread(target=self.recursive_process, args=((most_recent_log_timestamp, midpoint),))
-            second_half_thread = threading.Thread(target=self.recursive_process, args=((midpoint, date_range[1]),))
+            first_half_thread = threading.Thread(
+                target=self.recursive_process,
+                args=((most_recent_log_timestamp, midpoint),),
+            )
+            second_half_thread = threading.Thread(
+                target=self.recursive_process, args=((midpoint, date_range[1]),)
+            )
 
             first_half_thread.start()
             second_half_thread.start()
@@ -158,7 +163,7 @@ class CloudWatchQuery:
         :return: A list containing the query results.
         :rtype: list
         """
-        client = boto3.client('logs')
+        client = boto3.client("logs")
         try:
             try:
                 start_time = round(

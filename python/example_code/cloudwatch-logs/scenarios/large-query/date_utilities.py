@@ -59,15 +59,16 @@ class DateUtilities:
         dt = datetime.fromisoformat(date_str)
 
         # Format date without microseconds
-        date_without_microseconds = dt.strftime('%Y-%m-%dT%H:%M:%S')
+        date_without_microseconds = dt.strftime("%Y-%m-%dT%H:%M:%S")
 
         # Format microseconds to remove trailing zeros, ensuring at least 3 digits
-        microseconds = f".{dt.microsecond:06}".rstrip('0')[:4]
+        microseconds = f".{dt.microsecond:06}".rstrip("0")[:4]
 
         # Construct the final date string
         formatted_date = date_without_microseconds + microseconds
 
         return formatted_date
+
     #
     @staticmethod
     def divide_date_range(date_range):
