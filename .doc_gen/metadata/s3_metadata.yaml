@@ -1002,7 +1002,7 @@ s3_GetObjectRetention:
           excerpts:
             - description:
               snippet_tags:
-                - S3LockWorkflow.dotnetv3.S3LockWorkflow.dotnetv3.GetObjectRetention
+                - S3LockWorkflow.dotnetv3.GetObjectRetention
   services:
     s3: {GetObjectRetention}
 s3_ServiceAccessLogging:
