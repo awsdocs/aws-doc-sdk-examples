@@ -11,10 +11,10 @@ _Amazon Bedrock Runtime is a fully managed service that makes it easy to use fou
 
 ## ⚠ Important
 
-- Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
-- Running the tests might result in charges to your AWS account.
-- We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 <!--custom.important.start-->
 <!--custom.important.end-->
@@ -24,6 +24,7 @@ _Amazon Bedrock Runtime is a fully managed service that makes it easy to use fou
 ### Prerequisites
 
 For prerequisites, see the [README](../../README.md#Prerequisites) in the `javascriptv3` folder.
+
 
 <!--custom.prerequisites.start-->
 
@@ -39,6 +40,7 @@ Code excerpts that show you how to call individual service functions.
 - [Text generation with Amazon Titan Text G1](actions/invoke-titan-text-express-v1.js) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2](actions/invoke-claude.js) (`InvokeModel`)
 - [Text generation with Meta Llama 2 Chat](actions/invoke-llama2.js) (`InvokeModel`)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -58,7 +60,6 @@ node ./actions/<fileName>
 
 **Run a scenario**
 Most scenarios can be run with the following command:
-
 ```bash
 node ./scenarios/<fileName>
 ```
@@ -66,12 +67,17 @@ node ./scenarios/<fileName>
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+
+
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
 
+
 To find instructions for running these tests, see the [README](../../README.md#Tests)
 in the `javascriptv3` folder.
+
+
 
 <!--custom.tests.start-->
 <!--custom.tests.end-->
