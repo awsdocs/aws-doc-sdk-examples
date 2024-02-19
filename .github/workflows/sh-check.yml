@@ -17,7 +17,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-
           sh_checker_comment: true
           sh_checker_only_diff: true
           sh_checker_shfmt_disable: true
