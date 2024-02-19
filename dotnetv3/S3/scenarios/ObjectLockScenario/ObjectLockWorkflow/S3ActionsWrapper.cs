@@ -323,6 +323,7 @@ public class S3ActionsWrapper
             return false;
         }
     }
+    // snippet-end:[S3LockWorkflow.dotnetv3.UploadFileAsync]
 
     // snippet-start:[S3LockWorkflow.dotnetv3.ListBucketObjectsAndVersions]
     /// <summary>
