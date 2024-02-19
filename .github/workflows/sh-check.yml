@@ -1,10 +1,11 @@
+# This uses the action https://github.com/marketplace/actions/sh-checker
+
 name: Lint Bash
+
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - "aws-cli/**"
+  pull_request: # This action does not use the paths option.
   workflow_dispatch:
+
 jobs:
   sh-checker:
     name: Lint Bash
@@ -16,4 +17,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+
           sh_checker_comment: true
+          sh_checker_only_diff: true
+          sh_checker_shfmt_disable: true

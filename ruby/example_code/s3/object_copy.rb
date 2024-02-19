@@ -31,8 +31,7 @@ class ObjectCopyWrapper
   end
 end
 
-# Replace the source and target bucket names with existing buckets you own and replace the source object key
-# with an existing object in the source bucket.
+# Example usage:
 def run_demo
   source_bucket_name = "doc-example-bucket1"
   source_key = "my-source-file.txt"

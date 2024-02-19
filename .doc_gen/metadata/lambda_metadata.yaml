@@ -150,7 +150,7 @@ lambda_CreateFunction:
               snippet_tags:
                 - cpp.example_code.lambda.lambda_configuration
                 - cpp.example_code.lambda.lambda_client
-                - cpp.example_code.lambda.create_function1
+                - cpp.example_code.lambda.CreateFunction
                 - cpp.example_code.lambda.create_function2
     Rust:
       versions:
@@ -259,7 +259,7 @@ lambda_DeleteFunction:
               snippet_tags:
                 - cpp.example_code.lambda.lambda_configuration
                 - cpp.example_code.lambda.lambda_client
-                - cpp.example_code.lambda.delete_function
+                - cpp.example_code.lambda.DeleteFunction
     Rust:
       versions:
         - sdk_version: 1
@@ -366,7 +366,7 @@ lambda_Invoke:
               snippet_tags:
                 - cpp.example_code.lambda.lambda_configuration
                 - cpp.example_code.lambda.lambda_client
-                - cpp.example_code.lambda.invoke_function1
+                - cpp.example_code.lambda.Invoke
                 - cpp.example_code.lambda.invoke_function2
     Rust:
       versions:
@@ -457,7 +457,7 @@ lambda_GetFunction:
               snippet_tags:
                 - cpp.example_code.lambda.lambda_configuration
                 - cpp.example_code.lambda.lambda_client
-                - cpp.example_code.lambda.get_function
+                - cpp.example_code.lambda.GetFunction
     Rust:
       versions:
         - sdk_version: 1
@@ -546,7 +546,7 @@ lambda_UpdateFunctionCode:
               snippet_tags:
                 - cpp.example_code.lambda.lambda_configuration
                 - cpp.example_code.lambda.lambda_client
-                - cpp.example_code.lambda.update_function_code
+                - cpp.example_code.lambda.UpdateFunctionCode
     Rust:
       versions:
         - sdk_version: 1
@@ -635,7 +635,7 @@ lambda_UpdateFunctionConfiguration:
               snippet_tags:
                 - cpp.example_code.lambda.lambda_configuration
                 - cpp.example_code.lambda.lambda_client
-                - cpp.example_code.lambda.update_function_configuration1
+                - cpp.example_code.lambda.UpdateFunctionConfiguration
                 - cpp.example_code.lambda.update_function_configuration2
     Rust:
       versions:
@@ -725,7 +725,7 @@ lambda_ListFunctions:
               snippet_tags:
                 - cpp.example_code.lambda.lambda_configuration
                 - cpp.example_code.lambda.lambda_client
-                - cpp.example_code.lambda.list_functions
+                - cpp.example_code.lambda.ListFunctions
     Rust:
       versions:
         - sdk_version: 1

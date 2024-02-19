@@ -48,7 +48,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with buckets and objects](bucket-lifecycle-operations/bucket_operations.sh)
+- [Get started with buckets and objects](s3_getting_started.sh)
 
 
 <!--custom.examples.start-->

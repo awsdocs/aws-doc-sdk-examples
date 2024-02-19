@@ -30,6 +30,7 @@ class ObjectUploadFileWrapper
   end
 end
 
+# Example usage:
 def run_demo
   bucket_name = "doc-example-bucket"
   object_key = "my-uploaded-file"

@@ -110,11 +110,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby Lambda reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Lambda.html)
 
 <!--custom.resources.start-->
-* [More Ruby AWS Lambda code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_lambda_code_examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon Lambda Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Lambda.html)
-* [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
-* [AWS Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
 <!--custom.resources.end-->
 
 ---

@@ -5,7 +5,7 @@
 # This code example demonstrates how to send a message using the Amazon Simple Email Service (Amazon SES) v2 client.
 
 # snippet-start:[ruby.example_code.ses.v2.send_email]
-require "aws-sdk-sesv2" # v2: require 'aws-sdk'.
+require "aws-sdk-sesv2"
 require_relative "config" # Recipient and sender email addresses.
 
 # Set up the SESv2 client.
