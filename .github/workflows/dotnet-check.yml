@@ -1,13 +1,6 @@
 name: Dotnet lint check
 on:
-  push:
-    paths:
-      - "dotnetv3/**"
-    branches:
-      - main
   pull_request:
-    paths:
-      - "dotnetv3/**"
   workflow_dispatch:
 permissions:
   contents: read
