@@ -930,7 +930,7 @@ s3_GetObject_IfModifiedSince:
 s3_GetBucketLifecycleConfiguration:
   title: Get the lifecycle configuration of an &S3; bucket using an &AWS; SDK
   title_abbrev: Get the lifecycle configuration of a bucket
-  synopsis: get the lifecycle configuration of an S3 bucket.
+  synopsis: get the lifecycle configuration of an &S3; bucket.
   category:
   languages:
     .NET:
@@ -954,6 +954,57 @@ s3_GetBucketLifecycleConfiguration:
                 - python.example_code.s3.GetBucketLifecycleConfiguration
   services:
     s3: {GetBucketLifecycleConfiguration}
+s3_GetObjectLegalHoldConfiguration:
+  title: Get the legal hold configuration of an &S3; object using an &AWS; SDK
+  title_abbrev: Get the legal hold configuration of an object
+  synopsis: get the legal hold configuration of an &S3; bucket.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.GetObjectLegalHold
+  services:
+    s3: {GetObjectLegalHold}
+s3_GetObjectLockConfiguration:
+  title: Get the object lock configuration of an &S3; bucket using an &AWS; SDK
+  title_abbrev: Get the object lock configuration of a bucket
+  synopsis: get the object lock configuration of an &S3; bucket.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.GetBucketObjectLockConfiguration
+  services:
+    s3: {GetObjectLockConfiguration}
+s3_GetObjectRetention:
+  title: Get the retention configuration of an &S3; object using an &AWS; SDK
+  title_abbrev: Get the retention configuration of an object
+  synopsis: get the retention configuration of an &S3; object.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.S3LockWorkflow.dotnetv3.GetObjectRetention
+  services:
+    s3: {GetObjectRetention}
 s3_ServiceAccessLogging:
   title: Enable logging on an &S3; bucket using an &AWS; SDK
   title_abbrev: Enable logging
@@ -2088,6 +2139,57 @@ s3_PutObjectAcl:
                 - s3.cpp.put_object_acl.code
   services:
     s3: {PutObjectAcl}
+s3_PutObjectLegalHold:
+  title: Set the legal hold configuration of an &S3; object using an &AWS; SDK
+  title_abbrev: Set the legal hold configuration of an object
+  synopsis: set the legal hold configuration of an &S3; object.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.ModifyObjectLegalHold
+  services:
+    s3: {PutObjectLegalHold}
+s3_PutObjectLockConfiguration:
+  title: Set the object lock configuration of an &S3; bucket using an &AWS; SDK
+  title_abbrev: Set the object lock configuration of an bucket
+  synopsis: set the object lock configuration of an existing &S3; bucket.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.EnableObjectLockOnBucket
+  services:
+    s3: {PutObjectLockConfiguration}
+s3_PutObjectRetention:
+  title: Set the retention period of an &S3; object using an &AWS; SDK
+  title_abbrev: Set the retention period of an object
+  synopsis: set the retention period of an &S3; object.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.ModifyObjectRetentionPeriod
+  services:
+    s3: {PutObjectRetention}
 s3_UploadPart:
   title: Upload a single part of a multipart upload using an &AWS; SDK
   title_abbrev: Upload a single part of a multipart upload
@@ -2931,3 +3033,23 @@ s3_GetObject_MRAP:
                 - s3.kotlin.mrap.getobject
   services:
     s3: {GetObject}
+s3_Scenario_ObjectLock:
+  title: Work with &S3; object lock features using an &AWS; SDK
+  title_abbrev: Lock &S3; objects
+  synopsis: work with &S3; object lock features.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &S3; object lock features.
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.ObjectLockWorkflow
+            - description:  A wrapper class for &S3; functions.
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.S3ActionsWrapper
+  services:
+    s3: {PutObjectLockConfiguration, PutObjectRetention, GetObjectRetention, PutObjectLegalHold, GetObjectLegalHold, GetObjectLockConfiguration}

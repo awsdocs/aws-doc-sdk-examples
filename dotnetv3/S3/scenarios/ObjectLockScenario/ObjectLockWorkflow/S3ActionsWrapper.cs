@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[S3LockWorkflow.dotnetv3.S3ActionsWrapper]
 using System.Net;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -24,8 +25,9 @@ public class S3ActionsWrapper
         _amazonS3 = amazonS3;
     }
 
+    // snippet-start:[S3LockWorkflow.dotnetv3.CreateBucket]
     /// <summary>
-    /// Create a new Amazon S3 bucket.
+    /// Create a new Amazon S3 bucket with object lock actions.
     /// </summary>
     /// <param name="bucketName">The name of the bucket to create.</param>
     /// <param name="enableObjectLock">True to enable object lock on the bucket.</param>
@@ -52,7 +54,9 @@ public class S3ActionsWrapper
             return false;
         }
     }
+    // snippet-end:[S3LockWorkflow.dotnetv3.CreateBucket]
 
+    // snippet-start:[S3LockWorkflow.dotnetv3.EnableObjectLockOnBucket]
     /// <summary>
     /// Enable object lock on an existing bucket.
     /// </summary>
@@ -92,7 +96,9 @@ public class S3ActionsWrapper
             return false;
         }
     }
+    // snippet-end:[S3LockWorkflow.dotnetv3.EnableObjectLockOnBucket]
 
+    // snippet-start:[S3LockWorkflow.dotnetv3.ModifyObjectRetentionPeriod]
     /// <summary>
     /// Set or modify a retention period on an object in an S3 bucket.
     /// </summary>
@@ -105,18 +111,7 @@ public class S3ActionsWrapper
         string objectKey, ObjectLockRetentionMode retention, DateTime retainUntilDate )
     {
         try
-        {
-            //// First, enable Versioning on the bucket.
-            //await _amazonS3.PutBucketVersioningAsync(new PutBucketVersioningRequest()
-            //{
-            //    BucketName = bucketName,
-            //    VersioningConfig = new S3BucketVersioningConfig()
-            //    {
-            //        EnableMfaDelete = false,
-            //        Status = VersionStatus.Enabled
-            //    }
-            //});
-
+        { 
             var request = new PutObjectRetentionRequest()
             {
                 BucketName = bucketName,
@@ -138,7 +133,9 @@ public class S3ActionsWrapper
             return false;
         }
     }
+    // snippet-end:[S3LockWorkflow.dotnetv3.ModifyObjectRetentionPeriod]
 
+    // snippet-start:[S3LockWorkflow.dotnetv3.ModifyBucketDefaultRetention]
     /// <summary>
     /// Set or modify a retention period on an S3 bucket.
     /// </summary>
@@ -190,7 +187,9 @@ public class S3ActionsWrapper
             return false;
         }
     }
+    // snippet-end:[S3LockWorkflow.dotnetv3.ModifyBucketDefaultRetention]
 
+    // snippet-start:[S3LockWorkflow.dotnetv3.GetObjectRetention]
     /// <summary>
     /// Get the retention period for an S3 object.
     /// </summary>
@@ -207,10 +206,13 @@ public class S3ActionsWrapper
             };
 
             var response = await _amazonS3.GetObjectRetentionAsync(request);
-            Console.WriteLine($"\tObject retention for {objectKey} in {bucketName}: {response.Retention.Mode} until {response.Retention.RetainUntilDate:d}.");
+            Console.WriteLine($"\tObject retention for {objectKey} in {bucketName}: " +
+                              $"\n\t{response.Retention.Mode} until {response.Retention.RetainUntilDate:d}.");
             return response.Retention;
     }
+    // snippet-end:[S3LockWorkflow.dotnetv3.GetObjectRetention]
 
+    // snippet-start:[S3LockWorkflow.dotnetv3.ModifyObjectLegalHold]
     /// <summary>
     /// Set or modify a legal hold on an object in an S3 bucket.
     /// </summary>
@@ -244,7 +246,9 @@ public class S3ActionsWrapper
             return false;
         }
     }
+    // snippet-end:[S3LockWorkflow.dotnetv3.ModifyObjectLegalHold]
 
+    // snippet-start:[S3LockWorkflow.dotnetv3.GetObjectLegalHold]
     /// <summary>
     /// Get the legal hold details for an S3 object.
     /// </summary>
@@ -261,16 +265,19 @@ public class S3ActionsWrapper
         };
 
         var response = await _amazonS3.GetObjectLegalHoldAsync(request);
+        Console.WriteLine($"\tObject legal hold for {objectKey} in {bucketName}: " +
+                          $"\n\tStatus: {response.LegalHold.Status}");
         return response.LegalHold;
     }
+    // snippet-end:[S3LockWorkflow.dotnetv3.GetObjectLegalHold]
 
+    // snippet-send:[S3LockWorkflow.dotnetv3.GetBucketObjectLockConfiguration]
     /// <summary>
     /// Get the object lock configuration details for an S3 bucket.
     /// </summary>
     /// <param name="bucketName">The bucket to get details.</param>
-    /// <returns>The object lock configuration details.</returns>
-    public async Task<ObjectLockConfiguration> GetBucketObjectLockConfiguration(string bucketName,
-        string expectedBucketOwner)
+    /// <returns>The bucket's object lock configuration details.</returns>
+    public async Task<ObjectLockConfiguration> GetBucketObjectLockConfiguration(string bucketName)
     {
         var request = new GetObjectLockConfigurationRequest()
         {
@@ -278,9 +285,15 @@ public class S3ActionsWrapper
         };
 
         var response = await _amazonS3.GetObjectLockConfigurationAsync(request);
-        return response.ObjectLockConfiguration;
-    }
+        Console.WriteLine($"\tBucket object lock config for {bucketName} in {bucketName}: " +
+                          $"\nEnabled: {response.ObjectLockConfiguration.ObjectLockEnabled}" +
+                          $"\nRule: {response.ObjectLockConfiguration.Rule.DefaultRetention}");
 
+                          return response.ObjectLockConfiguration;
+    }
+    // snippet-end:[S3LockWorkflow.dotnetv3.GetBucketObjectLockConfiguration]
+
+    // snippet-start:[S3LockWorkflow.dotnetv3.UploadFileAsync]
     /// <summary>
     /// Upload a file from the local computer to an Amazon S3 bucket.
     /// </summary>
@@ -311,6 +324,7 @@ public class S3ActionsWrapper
         }
     }
 
+    // snippet-start:[S3LockWorkflow.dotnetv3.ListBucketObjectsAndVersions]
     /// <summary>
     /// List bucket objects and versions.
     /// </summary>
@@ -326,28 +340,39 @@ public class S3ActionsWrapper
         var response = await _amazonS3.ListVersionsAsync(request);
         return response;
     }
+    // snippet-end:[S3LockWorkflow.dotnetv3.ListBucketObjectsAndVersions]
 
+    // snippet-start:[S3LockWorkflow.dotnetv3.DeleteObjectFromBucket]
     /// <summary>
     /// Delete an object from a specific bucket.
     /// </summary>
     /// <param name="bucketName">The Amazon S3 bucket to use.</param>
     /// <param name="objectKey">The key of the object to delete.</param>
     /// <param name="versionId">Optional versionId.</param>
-    /// <returns>The delete marker response.</returns>
-    public async Task<string> DeleteObjectFromBucket(string bucketName, string objectKey, string? versionId = null)
+    /// <returns>True if successful.</returns>
+    public async Task<bool> DeleteObjectFromBucket(string bucketName, string objectKey, string? versionId = null)
     {
-        var request = new DeleteObjectRequest()
+        try
         {
-            BucketName = bucketName,
-            Key = objectKey,
-            VersionId = versionId
-        };
+            var request = new DeleteObjectRequest()
+            {
+                BucketName = bucketName, Key = objectKey, VersionId = versionId
+            };
 
-        var response = await _amazonS3.DeleteObjectAsync(request);
-        Console.WriteLine($"Delete for {objectKey} in {bucketName} was {response.HttpStatusCode}.");
-        return response.DeleteMarker;
+            await _amazonS3.DeleteObjectAsync(request);
+            Console.WriteLine(
+                $"Deleted {objectKey} in {bucketName}.");
+            return true;
+        }
+        catch (AmazonS3Exception ex)
+        {
+            Console.WriteLine($"Unable to delete object {objectKey} in bucket {bucketName}: " + ex.Message);
+            return false;
+        }
     }
+    // snippet-end:[S3LockWorkflow.dotnetv3.DeleteObjectFromBucket]
 
+    // snippet-start:[S3LockWorkflow.dotnetv3.DeleteBucketByName]
     /// <summary>
     /// Delete a specific bucket.
     /// </summary>
@@ -357,13 +382,22 @@ public class S3ActionsWrapper
     /// <returns>True if successful.</returns>
     public async Task<bool> DeleteBucketByName(string bucketName)
     {
-        var request = new DeleteBucketRequest()
+        try
         {
-            BucketName = bucketName,
-        };
+            var request = new DeleteBucketRequest() { BucketName = bucketName, };
 
-        var response = await _amazonS3.DeleteBucketAsync(request);
-        Console.WriteLine($"Delete for {bucketName} was {response.HttpStatusCode}.");
-        return response.HttpStatusCode == HttpStatusCode.OK;
+            var response = await _amazonS3.DeleteBucketAsync(request);
+            Console.WriteLine($"Delete for {bucketName} was {response.HttpStatusCode}.");
+            return response.HttpStatusCode == HttpStatusCode.OK;
+        }
+        catch (AmazonS3Exception ex)
+        {
+            Console.WriteLine($"Unable to delete bucket {bucketName}: " + ex.Message );
+            return false;
+        }
+
     }
+    // snippet-end:[S3LockWorkflow.dotnetv3.DeleteBucketByName]
+
 }
+// snippet-end:[S3LockWorkflow.dotnetv3.S3ActionsWrapper]
