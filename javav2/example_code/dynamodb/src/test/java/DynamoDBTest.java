@@ -44,7 +44,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DynamoDBTest {
-
     private static DynamoDbClient ddb;
 
     // Define the data members required for the test.

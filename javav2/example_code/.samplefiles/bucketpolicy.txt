@@ -1,0 +1,17 @@
+{
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "Sid":"PublicRead",
+         "Effect":"Deny",
+         "Principal":"*",
+         "Action":[
+            "s3:GetObject",
+            "s3:GetObjectVersion"
+         ],
+         "Resource":[
+            "arn:aws:s3:::scottpolicytestbucket2/*"
+         ]
+      }
+   ]
+}

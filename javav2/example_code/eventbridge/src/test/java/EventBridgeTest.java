@@ -33,5 +33,4 @@ public class EventBridgeTest {
         HelloEventBridge.listBuses(eventBrClient);
         System.out.println("Test 1 passed");
     }
-
 }

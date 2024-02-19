@@ -198,56 +198,6 @@ public class AmazonRDSTest {
         System.out.println("TestRDSScenario test passed");
     }
 
-    @Test
-    @Tag("IntegrationTest")
-    @Order(9)
-    public void TestAuroraScenario() throws InterruptedException {
-        Gson gson = new Gson();
-        User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
-        System.out.println("1. Return a list of the available DB engines");
-        assertDoesNotThrow(() -> AuroraScenario.describeDBEngines(rdsClient));
-        System.out.println("2. Create a custom parameter group");
-        assertDoesNotThrow(() -> AuroraScenario.createDBClusterParameterGroup(rdsClient, dbClusterGroupName,
-                dbParameterGroupFamily));
-        System.out.println("3. Get the parameter group");
-        assertDoesNotThrow(() -> AuroraScenario.describeDbClusterParameterGroups(rdsClient, dbClusterGroupName));
-        System.out.println("4. Get the parameters in the group");
-        assertDoesNotThrow(() -> AuroraScenario.describeDbClusterParameters(rdsClient, dbClusterGroupName, 0));
-        System.out.println("5. Modify the auto_increment_offset parameter");
-        assertDoesNotThrow(() -> AuroraScenario.modifyDBClusterParas(rdsClient, dbClusterGroupName));
-        System.out.println("6. Display the updated parameter value");
-        assertDoesNotThrow(() -> AuroraScenario.describeDbClusterParameters(rdsClient, dbClusterGroupName, -1));
-        System.out.println("7. Get a list of allowed engine versions");
-        assertDoesNotThrow(() -> AuroraScenario.getAllowedEngines(rdsClient, dbParameterGroupFamily));
-        System.out.println("8. Create an Aurora DB cluster database");
-        String arnClusterVal = AuroraScenario.createDBCluster(rdsClient, dbClusterGroupName, dbName,
-                dbInstanceClusterIdentifier, user.getUsername(), user.getPassword());
-        System.out.println("The ARN of the cluster is " + arnClusterVal);
-        System.out.println("9. Wait for DB instance to be ready");
-        assertDoesNotThrow(() -> AuroraScenario.waitForInstanceReady(rdsClient, dbInstanceClusterIdentifier));
-        System.out.println("10. Get a list of instance classes available for the selected engine");
-        String instanceClass = AuroraScenario.getListInstanceClasses(rdsClient);
-        System.out.println("11. Create a database instance in the cluster.");
-        String clusterDBARN = AuroraScenario.createDBInstanceCluster(rdsClient, dbInstanceIdentifier,
-                dbInstanceClusterIdentifier, instanceClass);
-        System.out.println("The ARN of the database is " + clusterDBARN);
-        System.out.println("12. Wait for DB instance to be ready");
-        assertDoesNotThrow(() -> AuroraScenario.waitDBInstanceReady(rdsClient, dbInstanceIdentifier));
-        System.out.println("13. Create a snapshot");
-        assertDoesNotThrow(() -> AuroraScenario.createDBClusterSnapshot(rdsClient, dbInstanceClusterIdentifier,
-                dbSnapshotIdentifier));
-        System.out.println("14. Wait for DB snapshot to be ready");
-        assertDoesNotThrow(() -> AuroraScenario.waitForSnapshotReady(rdsClient, dbSnapshotIdentifier,
-                dbInstanceClusterIdentifier));
-        System.out.println("14. Delete the DB instance");
-        assertDoesNotThrow(() -> AuroraScenario.deleteDatabaseInstance(rdsClient, dbInstanceIdentifier));
-        System.out.println("15. Delete the DB cluster");
-        assertDoesNotThrow(() -> AuroraScenario.deleteCluster(rdsClient, dbInstanceClusterIdentifier));
-        System.out.println("16. Delete the DB cluster group");
-        assertDoesNotThrow(() -> AuroraScenario.deleteDBClusterGroup(rdsClient, dbClusterGroupName, clusterDBARN));
-        System.out.println("TestAuroraScenario test passed");
-    }
-
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)

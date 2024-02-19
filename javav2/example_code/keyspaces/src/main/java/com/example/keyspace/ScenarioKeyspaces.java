@@ -104,6 +104,7 @@ public class ScenarioKeyspaces {
      */
     public static void main(String[] args) throws InterruptedException, IOException {
         String fileName = "<Replace with the JSON file that contains movie data>";
+        String configFilePath = "C:\\AWS\\application.conf";
         String keyspaceName = "<Replace with the name of the keyspace to create>";
         String titleUpdate = "The Family";
         int yearUpdate = 2013;
@@ -114,7 +115,7 @@ public class ScenarioKeyspaces {
                 .region(region)
                 .build();
 
-        DriverConfigLoader loader = DriverConfigLoader.fromClasspath("application.conf");
+        DriverConfigLoader loader = DriverConfigLoader.fromFile(new File(configFilePath));
         CqlSession session = CqlSession.builder()
                 .withConfigLoader(loader)
                 .build();

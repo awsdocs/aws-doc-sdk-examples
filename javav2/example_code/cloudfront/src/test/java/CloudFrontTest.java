@@ -6,12 +6,10 @@ import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsPro
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
-import java.io.*;
 import com.example.cloudfront.*;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -69,7 +67,6 @@ public class CloudFrontTest {
          * }
          */
     }
-
     @Test
     @Tag("IntegrationTest")
     @Order(1)

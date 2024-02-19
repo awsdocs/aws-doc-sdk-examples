@@ -23,15 +23,8 @@ import java.util.concurrent.TimeUnit;
 public class GlueTest {
 
     private static GlueClient glueClient;
-    private static String crawlerName = "";
     private static String cron = "";
-    private static String s3Path = "";
     private static String IAM = "";
-    private static String databaseName = "";
-    private static String tableName = "";
-    private static String text = "";
-    private static String existingDatabaseName = "";
-    private static String existingCrawlerName = "";
     private static String jobNameSc = "";
     private static String s3PathSc = "";
     private static String dbNameSc = "";
@@ -51,19 +44,10 @@ public class GlueTest {
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        crawlerName = values.getCrawlerName();
-        s3Path = values.getS3Path();
         cron = values.getCron();
         IAM = values.getIAM();
-        databaseName = values.getDatabaseName();
-        tableName = values.getTableName();
-        text = values.getText();
-        existingDatabaseName = values.getExistingDatabaseName();
-        existingCrawlerName = values.getExistingCrawlerName();
         jobNameSc = values.getJobNameSc() + java.util.UUID.randomUUID();
-        ;
         s3PathSc = values.getS3PathSc() + java.util.UUID.randomUUID();
-        ;
         dbNameSc = values.getDbNameSc() + java.util.UUID.randomUUID();
         crawlerNameSc = values.getCrawlerNameSc() + java.util.UUID.randomUUID();
         scriptLocationSc = values.getScriptLocationSc();
@@ -149,17 +133,6 @@ public class GlueTest {
     @Nested
     @DisplayName("A class used to get test values from test/glue (an AWS Secrets Manager secret)")
     class SecretValues {
-        private String IAM;
-        private String s3Path;
-        private String cron;
-
-        private String crawlerName;
-
-        private String existingCrawlerName;
-
-        private String databaseName;
-
-        private String existingDatabaseName;
 
         private String tableName;
 
@@ -180,37 +153,8 @@ public class GlueTest {
         public String getIAM() {
             return IAM;
         }
-
-        public String getS3Path() {
-            return s3Path;
-        }
-
         public String getCron() {
             return cron;
-        }
-
-        public String getCrawlerName() {
-            return crawlerName;
-        }
-
-        public String getExistingCrawlerName() {
-            return existingCrawlerName;
-        }
-
-        public String getDatabaseName() {
-            return databaseName;
-        }
-
-        public String getExistingDatabaseName() {
-            return existingDatabaseName;
-        }
-
-        public String getTableName() {
-            return tableName;
-        }
-
-        public String getText() {
-            return text;
         }
 
         public String getJobNameSc() {
@@ -241,5 +185,4 @@ public class GlueTest {
             return bucketNameSc;
         }
     }
-
 }

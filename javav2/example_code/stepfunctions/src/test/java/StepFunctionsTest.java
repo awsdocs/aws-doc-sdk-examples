@@ -30,6 +30,8 @@ public class StepFunctionsTest {
     private static String activityNameSC = "";
     private static String stateMachineNameSC = "";
 
+    private static String machineFile = "" ;
+
     @BeforeAll
     public static void setUp() throws IOException {
         Region region = Region.US_EAST_1;
@@ -45,9 +47,10 @@ public class StepFunctionsTest {
         roleNameSC = values.getRoleNameSC() + java.util.UUID.randomUUID();
         ;
         activityNameSC = values.getActivityNameSC() + java.util.UUID.randomUUID();
-        ;
+
         stateMachineNameSC = values.getStateMachineNameSC() + java.util.UUID.randomUUID();
-        ;
+
+        machineFile = values.getMachineFileSC();
 
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
@@ -120,8 +123,7 @@ public class StepFunctionsTest {
         String activityArn = StepFunctionsScenario.createActivity(sfnClient, activityNameSC);
         System.out.println("The ARN of the activity is " + activityArn);
         System.out.println(StepFunctionsScenario.DASHES);
-        InputStream input = StepFunctionsScenario.class.getClassLoader()
-                .getResourceAsStream("chat_sfn_state_machine.json");
+        InputStream input = new FileInputStream(machineFile);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readValue(input, JsonNode.class);
         String jsonString = mapper.writeValueAsString(jsonNode);
@@ -213,6 +215,8 @@ public class StepFunctionsTest {
         private String activityNameSC;
         private String stateMachineNameSC;
 
+        private String machineFile;
+
         public String getRoleNameSC() {
             return roleNameSC;
         }
@@ -223,6 +227,10 @@ public class StepFunctionsTest {
 
         public String getStateMachineNameSC() {
             return stateMachineNameSC;
+        }
+
+        public String getMachineFileSC() {
+            return machineFile;
         }
     }
 }

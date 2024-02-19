@@ -66,6 +66,7 @@ suspend fun main(args: Array<String>) {
         roleName - The name of the IAM role to create for this state machine.
         activityName - The name of an activity to create.    
         stateMachineName - The name of the state machine to create.
+        fileLocatio - The location of the chat_sfn_state_machine.json (see resources/sample_files)
     """
 
     if (args.size != 3) {
@@ -76,6 +77,7 @@ suspend fun main(args: Array<String>) {
     val roleName = args[0]
     val activityName = args[1]
     val stateMachineName = args[2]
+    val fileLocation = args[3]
     val sc = Scanner(System.`in`)
     var action = false
 
@@ -115,7 +117,7 @@ suspend fun main(args: Array<String>) {
 
     // Get JSON to use for the state machine and place the activityArn value into it.
     val stream = GetStream()
-    val jsonString = stream.getStream()
+    val jsonString = stream.getStream(fileLocation)
 
     // Modify the Resource node.
     val objectMapper = ObjectMapper()
@@ -250,10 +252,10 @@ suspend fun describeExe(executionArnVal: String?) {
         SfnClient { region = "us-east-1" }.use { sfnClient ->
             val response = sfnClient.describeExecution(executionRequest)
             status = response.status.toString()
-            if (status.compareTo("RUNNING") == 0) {
+            if (status.compareTo("Running") == 0) {
                 println("The state machine is still running, let's wait for it to finish.")
                 Thread.sleep(2000)
-            } else if (status.compareTo("SUCCEEDED") == 0) {
+            } else if (status.compareTo("Succeeded") == 0) {
                 println("The Step Function workflow has succeeded")
                 hasSucceeded = true
             } else {
