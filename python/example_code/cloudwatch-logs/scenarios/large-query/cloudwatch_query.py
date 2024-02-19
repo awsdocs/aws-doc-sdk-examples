@@ -194,6 +194,7 @@ class CloudWatchQuery:
             return response["queryId"]
         except client.exceptions.ResourceNotFoundException as e:
             raise DateOutOfBoundsError(f"Resource not found: {e}")
+
     # snippet-end:[python.example_code.cloudwatch_logs.start_query]
 
     # snippet-start:[python.example_code.cloudwatch_logs.get_query_results]
@@ -217,4 +218,5 @@ class CloudWatchQuery:
                 "Unknown",
             ]:
                 return results.get("results", [])
+
     # snippet-end:[python.example_code.cloudwatch_logs.get_query_results]
