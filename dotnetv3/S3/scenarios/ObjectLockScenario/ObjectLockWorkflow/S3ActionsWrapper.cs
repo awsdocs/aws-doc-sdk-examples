@@ -271,7 +271,7 @@ public class S3ActionsWrapper
     }
     // snippet-end:[S3LockWorkflow.dotnetv3.GetObjectLegalHold]
 
-    // snippet-send:[S3LockWorkflow.dotnetv3.GetBucketObjectLockConfiguration]
+    // snippet-start:[S3LockWorkflow.dotnetv3.GetBucketObjectLockConfiguration]
     /// <summary>
     /// Get the object lock configuration details for an S3 bucket.
     /// </summary>
