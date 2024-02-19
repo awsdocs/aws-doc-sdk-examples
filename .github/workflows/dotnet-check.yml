@@ -28,7 +28,7 @@ jobs:
           cd dotnetv3
           dotnet build -v=q --property WarningLevel=0 /clp:ErrorsOnly
       - name: Lint and format check
-        if: success() || failure()
+        if: steps.changed-files.outputs.any_changed == 'true' && (success() || failure())
         run: |
           cd dotnetv3
           dotnet format --verify-no-changes
