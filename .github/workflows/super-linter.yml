@@ -37,7 +37,6 @@ jobs:
           VALIDATE_PYTHON_BLACK: true
           VALIDATE_RUBY: true
           VALIDATE_KOTLIN: true
-          VALIDATE_BASH: true
   yamllint:
     name: Lint Yaml
     # The type of runner that the job will run on

@@ -39,6 +39,7 @@ class BucketEncryptionWrapper
   end
 end
 
+# Example usage:
 def run_demo
   bucket_name = "doc-example-bucket"
   wrapper = BucketEncryptionWrapper.new(Aws::S3::Client.new)

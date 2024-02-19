@@ -137,11 +137,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby Amazon S3 reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3.html)
 
 <!--custom.resources.start-->
-* [More Ruby Amazon S3 code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_s3_code_examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon S3 Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3.html)
-* [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
-* [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
 <!--custom.resources.end-->
 
 ---

@@ -44,9 +44,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 
 ## Additional resources
 <!--custom.resources.start-->
-* [Service Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
-* [Service API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/)
-* [SDK API reference guide](https://aws.amazon.com/developer/language/ruby/)
 <!--custom.resources.end-->
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
