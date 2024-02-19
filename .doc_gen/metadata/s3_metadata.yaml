@@ -77,6 +77,9 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-CreateBucket
+            - description: Create a bucket with object lock enabled.
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.CreateBucketWithLockOptions
     C++:
       versions:
         - sdk_version: 1

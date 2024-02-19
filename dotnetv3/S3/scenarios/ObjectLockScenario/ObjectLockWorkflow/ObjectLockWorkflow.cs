@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging.Debug;
 
 namespace ObjectLockScenario;
 
-public class ObjectLockWorkflow
+public static class ObjectLockWorkflow
 {
     /*
     Before running this .NET code example, set up your development environment, including your credentials.
@@ -26,8 +26,8 @@ public class ObjectLockWorkflow
         5. Clean up objects and buckets.
    */
 
-    private static S3ActionsWrapper _s3ActionsWrapper = null!;
-    private static IConfiguration _configuration = null!;
+    public static S3ActionsWrapper _s3ActionsWrapper = null!;
+    public static IConfiguration _configuration = null!;
     private static string _resourcePrefix;
     private static List<string> bucketNameList = new List<string>();
     private static List<string> fileNameList = new List<string>();
@@ -122,12 +122,12 @@ public class ObjectLockWorkflow
         bucketNameList.Add(retentionAfterCreationBucketName);
 
         Console.WriteLine("\nS3 buckets can be created either with or without object lock enabled.");
-        await _s3ActionsWrapper.CreateBucketByName(noLockBucketName, false);
-        await _s3ActionsWrapper.CreateBucketByName(lockEnabledBucketName, true);
-        await _s3ActionsWrapper.CreateBucketByName(retentionAfterCreationBucketName, false);
+        await _s3ActionsWrapper.CreateBucketWithLockOptions(noLockBucketName, false);
+        await _s3ActionsWrapper.CreateBucketWithLockOptions(lockEnabledBucketName, true);
+        await _s3ActionsWrapper.CreateBucketWithLockOptions(retentionAfterCreationBucketName, false);
 
         Console.WriteLine("\nA bucket can also have object locking with a default retention period.");
-        await _s3ActionsWrapper.CreateBucketByName(retentionOnCreationBucketName, true);
+        await _s3ActionsWrapper.CreateBucketWithLockOptions(retentionOnCreationBucketName, true);
 
         Console.WriteLine("\nObject lock policies can also be added to existing buckets.");
         await _s3ActionsWrapper.EnableObjectLockOnBucket(lockEnabledBucketName);

@@ -25,14 +25,14 @@ public class S3ActionsWrapper
         _amazonS3 = amazonS3;
     }
 
-    // snippet-start:[S3LockWorkflow.dotnetv3.CreateBucket]
+    // snippet-start:[S3LockWorkflow.dotnetv3.CreateBucketWithLockOptions]
     /// <summary>
     /// Create a new Amazon S3 bucket with object lock actions.
     /// </summary>
     /// <param name="bucketName">The name of the bucket to create.</param>
     /// <param name="enableObjectLock">True to enable object lock on the bucket.</param>
     /// <returns>True if successful.</returns>
-    public async Task<bool> CreateBucketByName(string bucketName, bool enableObjectLock)
+    public async Task<bool> CreateBucketWithLockOptions(string bucketName, bool enableObjectLock)
     {
         Console.WriteLine($"\tCreating bucket {bucketName} with object lock {enableObjectLock}.");
         try
@@ -54,7 +54,7 @@ public class S3ActionsWrapper
             return false;
         }
     }
-    // snippet-end:[S3LockWorkflow.dotnetv3.CreateBucket]
+    // snippet-end:[S3LockWorkflow.dotnetv3.CreateBucketWithLockOptions]
 
     // snippet-start:[S3LockWorkflow.dotnetv3.EnableObjectLockOnBucket]
     /// <summary>
