@@ -16,7 +16,7 @@ import {
  * provided in the request body.
  *
  * @param {string} prompt - The prompt that you want the Agent to complete.
- * @returns {string} The inference response (completion) from the agent.
+ * @param {string} sessionId - An arbitrary identifier for the session.
  */
 export const invokeBedrockAgent = async (prompt, sessionId) => {
   const client = new BedrockAgentRuntimeClient({ region: "us-east-1" });
@@ -28,30 +28,40 @@ export const invokeBedrockAgent = async (prompt, sessionId) => {
   //   },
   // });
 
-  const agentId = "agentId";
-  const agentAliasId = "agentAliasId";
+  const agentId = "AJBHXXILZN";
+  const agentAliasId = "AVKP1ITZAA";
 
-  const payload = {
-    agentId: agentId, //required
-    agentAliasId: agentAliasId, // required
-    sessionId: sessionId, // required
-    inputText: prompt, // required
-  };
-
-  const command = new InvokeAgentCommand(payload);
+  const command = new InvokeAgentCommand({
+    agentId,
+    agentAliasId,
+    sessionId,
+    inputText: prompt,
+  });
 
   try {
     let completion = "";
     const response = await client.send(command);
 
+    if (response.completion === undefined) {
+      throw new Error("Completion is undefined");
+    }
+
     for await (let chunkEvent of response.completion) {
       const chunk = chunkEvent.chunk;
+      console.log(chunk);
       const decodedResponse = new TextDecoder("utf-8").decode(chunk.bytes);
       completion += decodedResponse;
     }
 
-    return { sessionId: sessionId, completion: completion };
+    return { sessionId: sessionId, completion };
   } catch (err) {
     console.error(err);
   }
 };
+
+// Call function if run directly
+import { fileURLToPath } from "url";
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const result = await invokeBedrockAgent("I need help.", "123");
+  console.log(result);
+}

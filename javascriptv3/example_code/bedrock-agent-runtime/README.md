@@ -1,20 +1,20 @@
-# Amazon Bedrock Agent Runtime code examples for the SDK for JavaScript (v3)
+# Agents for Amazon Bedrock Runtime code examples for the SDK for JavaScript (v3)
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Bedrock Agent Runtime.
+Shows how to use the AWS SDK for JavaScript (v3) to work with Agents for Amazon Bedrock Runtime.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon Bedrock Agent Runtime is a fully managed service that makes it easy to use agents created with Amazon Bedrock to generate text, images, and other content. For more information, see the [Amazon Bedrock Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
+_Agents for Amazon Bedrock Runtime offers you the ability to run autonomous agents in your application._
 
 ## ⚠ Important
 
-* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
-* Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+- Running the tests might result in charges to your AWS account.
+- We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 <!--custom.important.start-->
 <!--custom.important.end-->
@@ -25,17 +25,17 @@ _Amazon Bedrock Agent Runtime is a fully managed service that makes it easy to u
 
 For prerequisites, see the [README](../../README.md#Prerequisites) in the `javascriptv3` folder.
 
-
 <!--custom.prerequisites.start-->
-> ⚠ You must use an aws access key with access to invoke an AWS agent. If you try to use the agent (with the API or console) before you have access to it, you will receive an error message. For more information, see [Common Errors](https://docs.aws.amazon.com/bedrock/latest/APIReference/CommonErrors.html).
+
+> ⚠ You must create an agent before you can invoke it. For more information, see [Create an agent](https://docs.aws.amazon.com/bedrock/latest/userguide/agents-create.html). Additionally, you must grant access to the model you specify during agent creation. For more information, see [Model access](https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/modelaccess).
+
 <!--custom.prerequisites.end-->
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Invoke agent](javascriptv3/example_code/bedrock-agent-runtime/actions/invoke-agent.js) (`invokeBedrockAgent`)
-
+- [Invoke an agent](actions/invoke-agent.js) (`InvokeAgent`)
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -53,29 +53,31 @@ Code excerpts that show you how to call individual service functions.
 node ./actions/<fileName>
 ```
 
+**Run a scenario**
+Most scenarios can be run with the following command:
+
+```bash
+node ./scenarios/<fileName>
+```
+
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
-
-
 
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
 
-
 To find instructions for running these tests, see the [README](../../README.md#Tests)
 in the `javascriptv3` folder.
-
-
 
 <!--custom.tests.start-->
 <!--custom.tests.end-->
 
 ## Additional resources
 
-- [Amazon Bedrock Agent Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
-- [Amazon Bedrock Agent Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/userguide/agents-api.html)
-- [SDK for JavaScript (v3) Amazon Bedrock Runtime reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/bedrock-agent-runtime)
+- [Agents for Amazon Bedrock Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
+- [Agents for Amazon Bedrock Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html)
+- [SDK for JavaScript (v3) Agents for Amazon Bedrock Runtime reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/bedrock-agent-runtime)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
