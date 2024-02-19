@@ -7,6 +7,14 @@ import { v4 as uuidv4 } from "uuid";
  */
 export const getUniqueName = (name) => `${uuidv4()}-${name.toLowerCase()}`;
 
+/**
+ * @param {int} length
+ */
+export const getRandomAlphanumericString = (length) => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  return Array.from({length}, () => characters[Math.floor(Math.random() * characters.length)]).join('');
+};
+
 export const postfix = (source, str) => {
   if (typeof str !== "string") {
     throw new Error("Cannot postfix a non-string value.");

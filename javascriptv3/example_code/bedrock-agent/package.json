@@ -1,0 +1,18 @@
+{
+  "name": "bedrock-agent-examples",
+  "version": "1.0.0",
+  "author": "Dennis Traub <traubd@amazon.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js",
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-agent": "^3.515.0"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-iam": "^3.515.0",
+    "vitest": "^1.2.2"
+  }
+}
