@@ -27,16 +27,12 @@ public:
         Aws::Utils::DateTime expiration =
                 Aws::Utils::DateTime::Now() + std::chrono::milliseconds(60000);
 
-        goodResponse->GetResponseBody() << R"({
-"RoleArn":"arn:aws:iam::123456789012:role/MockRole",
-"AccessKeyId":"ABCDEFGHIJK",
-"SecretAccessKey":"ABCDEFGHIJK",
-"Token":"ABCDEFGHIJK==",
-"Expiration":")"
-                                        << expiration.ToGmtString(
-                                                Aws::Utils::DateFormat::ISO_8601)
-                                        << R"("
-    })";
+        goodResponse->GetResponseBody() << "{"
+                                        << R"("RoleArn":"arn:aws:iam::123456789012:role/MockRole",)"
+                                        << R"("AccessKeyId":"ABCDEFGHIJK",)"
+                                        << R"("SecretAccessKey":"ABCDEFGHIJK",)"
+                                        << R"(Token":"ABCDEFGHIJK==","Expiration":")" << expiration.ToGmtString(Aws::Utils::DateFormat::ISO_8601) << "\""
+                                        << "}";
         this->AddResponseToReturn(goodResponse);
 
         mCredentialsResponse = MockHttpClient::MakeRequest(requestTmp);
