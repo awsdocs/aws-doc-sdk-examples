@@ -4,6 +4,7 @@
 import {fileURLToPath} from 'url';
 
 import {BedrockAgentClient, CreateAgentCommand} from '@aws-sdk/client-bedrock-agent';
+import {checkForPlaceholders} from "../lib/utils.js";
 
 /**
  * @typedef {Object} Agent
@@ -31,12 +32,23 @@ export const createAgent = async (agentName, foundationModel, agentResourceRoleA
     return response.agent;
 };
 
+
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    console.log(`Creating a new agent...`);
-    const agentName = '[AGENT_NAME]';
-    const foundationModel = '[FOUNDATION_MODEL_ID]';
+    // Replace '[YOUR_AGENT_NAME]' and '[YOUR_AGENT_RESOURCE_ROLE_ARN]' with your own agent's name
+    // and the ARN for your agent's resource role.'
+    const agentName = '[YOUR_AGENT_NAME]';
     const roleArn = '[YOUR_AGENT_RESOURCE_ROLE_ARN]';
+    const foundationModel = 'anthropic-claude-v2';
+
+    try {
+        checkForPlaceholders([agentName, roleArn])
+    } catch (error) {
+        console.error(error.message);
+        process.exit(1);
+    }
+
+    console.log(`Creating a new agent...`);
 
     const agent = await createAgent(agentName, foundationModel, roleArn);
     console.log(agent);

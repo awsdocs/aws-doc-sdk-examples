@@ -4,6 +4,7 @@
 import {fileURLToPath} from 'url';
 
 import {BedrockAgentClient, GetAgentCommand} from '@aws-sdk/client-bedrock-agent';
+import {checkForPlaceholders} from "../lib/utils.js";
 
 /**
  * Retrieves the details of an Amazon Bedrock Agent.
@@ -20,9 +21,19 @@ export const getAgent = async (agentId, region = 'us-east-1') => {
     return response.agent;
 }
 
+
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    // Replace '[YOUR_AGENT_ID]' with your own agent's id.
     const agentId = '[YOUR_AGENT_ID]';
+
+    try {
+        checkForPlaceholders([agentId])
+    } catch (error) {
+        console.error(error.message);
+        process.exit(1);
+    }
+
     console.log(`Retrieving agent with ID ${agentId}...`);
 
     const agent = await getAgent(agentId);

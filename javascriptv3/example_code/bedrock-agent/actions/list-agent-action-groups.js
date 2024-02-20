@@ -8,6 +8,7 @@ import {
     ListAgentActionGroupsCommand,
     paginateListAgentActionGroups
 } from '@aws-sdk/client-bedrock-agent';
+import {checkForPlaceholders} from "../lib/utils.js";
 
 /**
  * @typedef {Object} ActionGroupSummary
@@ -88,8 +89,16 @@ export const listAgentActionGroupsWithPaginator = async (agentId, agentVersion, 
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    // Replace '[YOUR_AGENT_ID]' and [YOUR_AGENT_VERSION] with your own agent's id and version, e.g. 'DRAFT'.
     const agentId = '[YOUR_AGENT_ID]';
     const agentVersion = '[YOUR_AGENT_VERSION]';
+
+    try {
+        checkForPlaceholders([agentId, agentVersion])
+    } catch (error) {
+        console.error(error.message);
+        process.exit(1);
+    }
 
     console.log('='.repeat(68));
     console.log('Listing agent action groups using ListAgentActionGroupsCommand:')
