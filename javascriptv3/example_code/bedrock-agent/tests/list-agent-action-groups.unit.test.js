@@ -1,9 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {describe, expect, it, vi} from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
-import {BedrockAgentClient, ListAgentActionGroupsCommand } from '@aws-sdk/client-bedrock-agent';
+import { BedrockAgentClient, ListAgentActionGroupsCommand } from '@aws-sdk/client-bedrock-agent';
+
 import {
     listAgentActionGroupsWithCommandObject,
     listAgentActionGroupsWithPaginator

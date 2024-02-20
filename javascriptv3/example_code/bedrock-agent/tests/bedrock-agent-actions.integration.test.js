@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {afterAll, beforeAll, describe, expect, it} from 'vitest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-import {getRandomAlphanumericString} from '@aws-sdk-examples/libs/utils/util-string.js';
-import {wait} from '@aws-sdk-examples/libs/utils/util-timers.js';
-import {log} from '@aws-sdk-examples/libs/utils/util-log.js';
+import { getRandomAlphanumericString } from '@aws-sdk-examples/libs/utils/util-string.js';
+import { wait } from '@aws-sdk-examples/libs/utils/util-timers.js';
+import { log } from '@aws-sdk-examples/libs/utils/util-log.js';
 
 import {
     CreateRoleCommand, DeleteRoleCommand,
@@ -16,9 +16,9 @@ import {
 } from '@aws-sdk/client-iam';
 
 import {createAgent} from '../actions/create-agent.js';
-import {deleteAgent} from '../actions/delete-agent.js';
-import {getAgent} from '../actions/get-agent.js';
 import {listAgentsWithPaginator} from '../actions/list-agents.js';
+import {getAgent} from '../actions/get-agent.js';
+import {deleteAgent} from '../actions/delete-agent.js';
 
 /**
  * @typedef {Object} Agent
@@ -42,11 +42,13 @@ describe('create-list-get-delete', () => {
     // Ideally these should be separate tests, but since we're creating
     // real AWS resources, this saves on testing time and cost.
     it('should-successfully-complete', async () => {
-        const agent = await testCreateAgent();
-        await waitForAgentStatusNotToBe(agent.agentId, 'CREATING');
-        await testListAgents();
-        await testGetAgent(agent.agentId);
-        await testDeleteAgent(agent.agentId);
+        expect(async () => {
+            const agent = await testCreateAgent();
+            await waitForAgentStatusNotToBe(agent.agentId, 'CREATING');
+            await testListAgents();
+            await testGetAgent(agent.agentId);
+            await testDeleteAgent(agent.agentId);
+        }).does.not.throw();
     });
 
     beforeAll(async () => {
@@ -97,19 +99,6 @@ describe('create-list-get-delete', () => {
         }
     });
 
-    afterAll(async () => {
-        try {
-            await iam.send(new DeleteRolePolicyCommand({
-                RoleName: agentRoleName,
-                PolicyName: AGENT_POLICY_NAME
-            }));
-            await iam.send(new DeleteRoleCommand({RoleName: agentRoleName}));
-        } catch (err) {
-            log(err);
-            throw err;
-        }
-    });
-
     const testCreateAgent = async () => {
         const agent = await createAgent(testAgentName, FOUNDATION_MODEL, agentResourceRoleArn, REGION);
         expect(agent.agentName).toEqual(testAgentName);
@@ -144,4 +133,17 @@ describe('create-list-get-delete', () => {
             exitLoop = fetchedAgent.agentStatus !== status;
         } while (!exitLoop)
     };
+
+    afterAll(async () => {
+        try {
+            await iam.send(new DeleteRolePolicyCommand({
+                RoleName: agentRoleName,
+                PolicyName: AGENT_POLICY_NAME
+            }));
+            await iam.send(new DeleteRoleCommand({RoleName: agentRoleName}));
+        } catch (err) {
+            log(err);
+            throw err;
+        }
+    });
 });

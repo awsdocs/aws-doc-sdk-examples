@@ -1,16 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 
-import {BedrockAgentClient, GetAgentCommand, paginateListAgents} from '@aws-sdk/client-bedrock-agent';
+import { BedrockAgentClient, GetAgentCommand, paginateListAgents } from '@aws-sdk/client-bedrock-agent';
 
 /**
  * @typedef {Object} AgentSummary
  */
 
 /**
- * A simple scenario to demonstrate how to interact with Agents for Amazon Bedrock.
+ * A simple scenario to demonstrate basic setup and interaction with the Bedrock Agents Client.
  *
  * This function first initializes the Amazon Bedrock Agents client for a specific region.
  * It then retrieves a list of existing agents using the streamlined paginator approach.

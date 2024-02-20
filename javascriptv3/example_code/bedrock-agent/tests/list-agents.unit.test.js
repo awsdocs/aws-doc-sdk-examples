@@ -4,6 +4,7 @@
 import {describe, expect, it, vi} from 'vitest';
 
 import { BedrockAgentClient, ListAgentsCommand } from '@aws-sdk/client-bedrock-agent';
+
 import { listAgentsWithCommandObject, listAgentsWithPaginator } from '../actions/list-agents.js';
 
 const testAgent1 = { agentId: 'TEST_AGENT_1_ID' };

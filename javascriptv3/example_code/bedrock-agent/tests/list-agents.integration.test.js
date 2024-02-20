@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, it, expect } from 'vitest';
+
 import { listAgentsWithCommandObject, listAgentsWithPaginator } from '../actions/list-agents.js';
 
 describe('list-agents-with-command-object', () => {

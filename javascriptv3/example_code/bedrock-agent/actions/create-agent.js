@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
+import { checkForPlaceholders } from "../lib/utils.js";
 
-import {BedrockAgentClient, CreateAgentCommand} from '@aws-sdk/client-bedrock-agent';
-import {checkForPlaceholders} from "../lib/utils.js";
+import { BedrockAgentClient, CreateAgentCommand } from '@aws-sdk/client-bedrock-agent';
 
 /**
  * @typedef {Object} Agent
