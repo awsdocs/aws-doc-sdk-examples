@@ -80,7 +80,7 @@ class TransferManagerTest {
     @Tag("IntegrationTest")
     public void directoryDownloadWorks(){
         DownloadToDirectory download = new DownloadToDirectory();
-        Integer numFilesFailedToDownload = download.downloadObjectsToDirectory(S3ClientFactory.transferManager, download.destinationPath, download.bucketName);
+        Integer numFilesFailedToDownload = download.downloadObjectsToDirectory(S3ClientFactory.transferManager, download.destinationPathURI, download.bucketName);
         Assertions.assertNotNull(numFilesFailedToDownload, "Bucket download failed to complete.");
         download.cleanUp();
     }
