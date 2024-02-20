@@ -3051,7 +3051,7 @@ s3_Scenario_ObjectLock:
             - description: Run an interactive scenario demonstrating &S3; object lock features.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ObjectLockWorkflow
-            - description:  A wrapper class for &S3; functions.
+            - description: A wrapper class for &S3; functions.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.S3ActionsWrapper
   services:
