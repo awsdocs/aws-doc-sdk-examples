@@ -42,7 +42,7 @@ describe('create-list-get-delete', () => {
     // Ideally these should be separate tests, but since we're creating
     // real AWS resources, this saves on testing time and cost.
     it('should-successfully-complete', async () => {
-        expect(async () => {
+        await expect(async () => {
             const agent = await testCreateAgent();
             await waitForAgentStatusNotToBe(agent.agentId, 'CREATING');
             await testListAgents();
