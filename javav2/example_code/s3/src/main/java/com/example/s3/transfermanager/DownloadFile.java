@@ -14,8 +14,10 @@ import software.amazon.awssdk.transfer.s3.model.FileDownload;
 import software.amazon.awssdk.transfer.s3.progress.LoggingTransferListener;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 // snippet-end:[s3.tm.java2.downloadfile.import]
@@ -70,7 +72,14 @@ public class DownloadFile {
                 .bucket(bucketName)
                 .key(key), RequestBody.fromString("Hello World"));
         URL resource = DownloadFile.class.getClassLoader().getResource(".");
-        downloadedFileWithPath = resource.getFile() + downloadedFileName;
+        try {
+            Path basePath = Paths.get(resource.toURI());
+            Path fullPath = basePath.resolve(downloadedFileName);
+            downloadedFileWithPath = fullPath.toString();
+        } catch (URISyntaxException | NullPointerException e) {
+            logger.error("Exception creating URI [{}]", e.getMessage());
+            System.exit(1);
+        }
     }
 
     public void cleanUp() {

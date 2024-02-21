@@ -12,6 +12,8 @@ import software.amazon.awssdk.transfer.s3.model.CompletedDirectoryUpload;
 import software.amazon.awssdk.transfer.s3.model.DirectoryUpload;
 import software.amazon.awssdk.transfer.s3.model.UploadDirectoryRequest;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -29,7 +31,7 @@ import java.util.UUID;
 public class UploadADirectory {
     private static final Logger logger = LoggerFactory.getLogger(UploadADirectory.class);
     public final String bucketName = "x-" + UUID.randomUUID();
-    public String sourceDirectory;
+    public URI sourceDirectory;
 
     public UploadADirectory() {
         setUp();
@@ -46,7 +48,7 @@ public class UploadADirectory {
 
     // snippet-start:[s3.tm.java2.uploadadirectory.main]
     public Integer uploadDirectory(S3TransferManager transferManager,
-            String sourceDirectory, String bucketName) {
+            URI sourceDirectory, String bucketName) {
         DirectoryUpload directoryUpload = transferManager.uploadDirectory(UploadDirectoryRequest.builder()
                 .source(Paths.get(sourceDirectory))
                 .bucket(bucketName)
@@ -62,7 +64,12 @@ public class UploadADirectory {
     private void setUp() {
         S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
         URL dirResource = UploadADirectory.class.getClassLoader().getResource("uploadDirectory");
-        sourceDirectory = dirResource.getPath();
+        try {
+            sourceDirectory = dirResource.toURI();
+        } catch (URISyntaxException | NullPointerException e) {
+            logger.error("Error getting file path URI: {}", e.getMessage());
+            System.exit(1);
+        }
     }
 
     public void cleanUp() {
