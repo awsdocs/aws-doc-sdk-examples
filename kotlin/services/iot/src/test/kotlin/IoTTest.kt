@@ -47,7 +47,7 @@ class IoTTest {
         val randomNumber = random.nextInt(1001)
         thingName = thingName + randomNumber
         queryString = queryString + thingName
-        ruleName= ruleName+randomNumber
+        ruleName = ruleName + randomNumber
 
         // Get the values to run these tests from AWS Secrets Manager.
         val gson = Gson()
@@ -66,7 +66,7 @@ class IoTTest {
 
     @Test
     @Order(2)
-    fun testScenario()= runBlocking {
+    fun testScenario() = runBlocking {
         createIoTThing(thingName)
         describeThing(thingName)
         val certificateArn = createCertificate()
