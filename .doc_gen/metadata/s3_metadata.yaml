@@ -3073,3 +3073,21 @@ s3_Scenario_ObjectLock:
                 - S3LockWorkflow.dotnetv3.S3ActionsWrapper
   services:
     s3: {PutObjectLockConfiguration, PutObjectRetention, GetObjectRetention, PutObjectLegalHold, GetObjectLegalHold, GetObjectLockConfiguration}
+s3_SelectObjectContent:
+  title: Use SQL with &S3; Select to retrieve a subset of data by using an &AWS; SDK
+  title_abbrev: Use SQL with &S3; Select
+  synopsis: retrieve a subset of data using SQL.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3AsyncClient.html#selectObjectContent(software.amazon.awssdk.services.s3.model.SelectObjectContentRequest,software.amazon.awssdk.services.s3.model.SelectObjectContentResponseHandler)"><code>selectObjectContent</code></ulink> method of the <code>S3AsyncClient</code> to select a subset of a JSON object. The following example shows a query using a JSON object. The <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/SelectObjectContentExample.java">complete example</ulink> also shows the use of a CSV object.
+              snippet_tags:
+                - s3.java2.async.selectObjectContentMethod.import
+                - s3.java2.async.selectObjectContentMethod.main
+  services:
+    s3: { SelectObjectContent }
