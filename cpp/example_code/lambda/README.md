@@ -46,13 +46,13 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](get_started_with_functions_scenario.cpp#L605) (`CreateFunction`)
-- [Delete a function](get_started_with_functions_scenario.cpp#L605) (`DeleteFunction`)
-- [Get a function](get_started_with_functions_scenario.cpp#L605) (`GetFunction`)
-- [Invoke a function](get_started_with_functions_scenario.cpp#L605) (`Invoke`)
-- [List functions](get_started_with_functions_scenario.cpp#L605) (`ListFunctions`)
-- [Update function code](get_started_with_functions_scenario.cpp#L605) (`UpdateFunctionCode`)
-- [Update function configuration](get_started_with_functions_scenario.cpp#L605) (`UpdateFunctionConfiguration`)
+- [Create a function](get_started_with_functions_scenario.cpp#L172) (`CreateFunction`)
+- [Delete a function](get_started_with_functions_scenario.cpp#L843) (`DeleteFunction`)
+- [Get a function](get_started_with_functions_scenario.cpp#L488) (`GetFunction`)
+- [Invoke a function](get_started_with_functions_scenario.cpp#L538) (`Invoke`)
+- [List functions](get_started_with_functions_scenario.cpp#L440) (`ListFunctions`)
+- [Update function code](get_started_with_functions_scenario.cpp#L291) (`UpdateFunctionCode`)
+- [Update function configuration](get_started_with_functions_scenario.cpp#L342) (`UpdateFunctionConfiguration`)
 
 ### Scenarios
 

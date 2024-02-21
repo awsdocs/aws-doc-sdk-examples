@@ -1,0 +1,22 @@
+# This uses the action https://github.com/marketplace/actions/sh-checker
+
+name: Lint Bash
+
+on:
+  pull_request: # This action does not use the paths option.
+  workflow_dispatch:
+
+jobs:
+  sh-checker:
+    name: Lint Bash
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Lint Bash
+        uses: luizm/action-sh-checker@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          sh_checker_comment: true
+          sh_checker_only_diff: true
+          sh_checker_shfmt_disable: true

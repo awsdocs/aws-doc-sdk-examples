@@ -169,7 +169,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
     // 2. Create a Lambda function.
     int seconds = 0;
     do {
-        // snippet-start:[cpp.example_code.lambda.create_function1]
+        // snippet-start:[cpp.example_code.lambda.CreateFunction]
         Aws::Lambda::Model::CreateFunctionRequest request;
         request.SetFunctionName(LAMBDA_NAME);
         request.SetDescription(LAMBDA_DESCRIPTION); // Optional.
@@ -223,7 +223,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                       << " seconds elapsed." << std::endl;
             break;
         }
-            // snippet-end:[cpp.example_code.lambda.create_function1]
+            // snippet-end:[cpp.example_code.lambda.CreateFunction]
         else if (outcome.GetError().GetErrorType() ==
                  Aws::Lambda::LambdaErrors::INVALID_PARAMETER_VALUE &&
                  outcome.GetError().GetMessage().find("role") >= 0) {
@@ -288,7 +288,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
 
     // 4.  Update the Lambda function code.
     {
-        // snippet-start:[cpp.example_code.lambda.update_function_code]
+        // snippet-start:[cpp.example_code.lambda.UpdateFunctionCode]
         Aws::Lambda::Model::UpdateFunctionCodeRequest request;
         request.SetFunctionName(LAMBDA_NAME);
         std::ifstream ifstream(CALCULATOR_LAMBDA_CODE.c_str(),
@@ -324,7 +324,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                       << outcome.GetError().GetMessage()
                       << std::endl;
         }
-        // snippet-end:[cpp.example_code.lambda.update_function_code]
+        // snippet-end:[cpp.example_code.lambda.UpdateFunctionCode]
     }
 
     std::cout
@@ -339,7 +339,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
     do {
         ++seconds;
         std::this_thread::sleep_for(std::chrono::seconds(1));
-        // snippet-start:[cpp.example_code.lambda.update_function_configuration1]
+        // snippet-start:[cpp.example_code.lambda.UpdateFunctionConfiguration]
         Aws::Lambda::Model::UpdateFunctionConfigurationRequest request;
         request.SetFunctionName(LAMBDA_NAME);
         Aws::Lambda::Model::Environment environment;
@@ -354,7 +354,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                       << std::endl;
             break;
         }
-            // snippet-end:[cpp.example_code.lambda.update_function_configuration1]
+            // snippet-end:[cpp.example_code.lambda.UpdateFunctionConfiguration]
 
             // RESOURCE_IN_USE: function code update not completed.
         else if (outcome.GetError().GetErrorType() !=
@@ -437,7 +437,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
 
     // 7.  List the Lambda functions.
 
-    // snippet-start:[cpp.example_code.lambda.list_functions]
+    // snippet-start:[cpp.example_code.lambda.ListFunctions]
     std::vector<Aws::String> functions;
     Aws::String marker;
 
@@ -473,7 +473,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                       << std::endl;
         }
     } while (!marker.empty());
-    // snippet-end:[cpp.example_code.lambda.list_functions]
+    // snippet-end:[cpp.example_code.lambda.ListFunctions]
 
     // 8.  Get a Lambda function.
     if (!functions.empty()) {
@@ -485,7 +485,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
 
         Aws::String functionName = functions[functionIndex - 1];
 
-        // snippet-start:[cpp.example_code.lambda.get_function]
+        // snippet-start:[cpp.example_code.lambda.GetFunction]
         Aws::Lambda::Model::GetFunctionRequest request;
         request.SetFunctionName(functionName);
 
@@ -501,7 +501,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                       << outcome.GetError().GetMessage()
                       << std::endl;
         }
-        // snippet-end:[cpp.example_code.lambda.get_function]
+        // snippet-end:[cpp.example_code.lambda.GetFunction]
     }
 
     std::cout << "The resources will be deleted. Press return to continue, ";
@@ -535,7 +535,7 @@ AwsDoc::Lambda::invokeLambdaFunction(const Aws::Utils::Json::JsonValue &jsonPayl
      * available.
      */
     do {
-        // snippet-start:[cpp.example_code.lambda.invoke_function1]
+        // snippet-start:[cpp.example_code.lambda.Invoke]
         Aws::Lambda::Model::InvokeRequest request;
         request.SetFunctionName(LAMBDA_NAME);
         request.SetLogType(logType);
@@ -551,7 +551,7 @@ AwsDoc::Lambda::invokeLambdaFunction(const Aws::Utils::Json::JsonValue &jsonPayl
             result = true;
             break;
         }
-            // snippet-end:[cpp.example_code.lambda.invoke_function1]
+            // snippet-end:[cpp.example_code.lambda.Invoke]
 
             // ACCESS_DENIED: because the role is not available yet.
             // RESOURCE_CONFLICT: because the Lambda function is being created or updated.
@@ -840,7 +840,7 @@ AwsDoc::Lambda::deleteIamRole(const Aws::Client::ClientConfiguration &clientConf
  \return bool: Successful completion.
  */
 bool AwsDoc::Lambda::deleteLambdaFunction(const Aws::Lambda::LambdaClient &client) {
-    // snippet-start:[cpp.example_code.lambda.delete_function]
+    // snippet-start:[cpp.example_code.lambda.DeleteFunction]
     Aws::Lambda::Model::DeleteFunctionRequest request;
     request.SetFunctionName(LAMBDA_NAME);
 
@@ -855,7 +855,7 @@ bool AwsDoc::Lambda::deleteLambdaFunction(const Aws::Lambda::LambdaClient &clien
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
-    // snippet-end:[cpp.example_code.lambda.delete_function]
+    // snippet-end:[cpp.example_code.lambda.DeleteFunction]
 
     return outcome.IsSuccess();
 }

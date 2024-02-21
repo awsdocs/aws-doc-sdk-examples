@@ -55,5 +55,6 @@ def run_me
   end
 end
 
+# Example usage:
 run_me if $PROGRAM_NAME == __FILE__
 # snippet-end:[ruby.example_code.sqs.SendMessage]

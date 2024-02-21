@@ -33,12 +33,12 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a topic](sns-ruby-example-create-topic.rb#L12) (`CreateTopic`)
-- [List the subscribers of a topic](sns-ruby-example-show-subscriptions.rb#L12) (`ListSubscriptions`)
-- [List topics](sns-ruby-example-show-topics.rb#L11) (`ListTopics`)
-- [Publish to a topic](sns-ruby-example-send-message.rb#L13) (`Publish`)
-- [Set topic attributes](sns-ruby-example-enable-resource.rb#L14) (`SetTopicAttributes`)
-- [Subscribe an email address to a topic](sns-ruby-example-create-subscription.rb#L13) (`Subscribe`)
+- [Create a topic](create_topic.rb#L3) (`CreateTopic`)
+- [List the subscribers of a topic](show_subscriptions.rb#L4) (`ListSubscriptions`)
+- [List topics](show_topics.rb#L11) (`ListTopics`)
+- [Publish to a topic](send_message.rb#L4) (`Publish`)
+- [Set topic attributes](enable_resource.rb#L4) (`SetTopicAttributes`)
+- [Subscribe an email address to a topic](create_subscription.rb#L4) (`Subscribe`)
 
 
 <!--custom.examples.start-->
@@ -80,11 +80,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby Amazon SNS reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Sns.html)
 
 <!--custom.resources.start-->
-* [More Ruby Amazon SNS code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_sns_code_examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon SNS Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SNS.html)
-* [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
-* [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
 <!--custom.resources.end-->
 
 ---

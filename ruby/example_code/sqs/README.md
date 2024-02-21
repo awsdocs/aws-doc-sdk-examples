@@ -81,11 +81,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby Amazon SQS reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Sqs.html)
 
 <!--custom.resources.start-->
-* [More Ruby Amazon SQS code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_sqs_code_examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon SQS Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SQS.html)
-* [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
-* [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
 <!--custom.resources.end-->
 
 ---

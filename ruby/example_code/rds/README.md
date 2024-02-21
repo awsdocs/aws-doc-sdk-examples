@@ -79,11 +79,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby Amazon RDS reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Rds.html)
 
 <!--custom.resources.start-->
-* [More Ruby Amazon RDS code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_rds_code_examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon RDS Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/RDS.html)
-* [Amazon RDS Developer Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)
-* [Amazon RDS API Reference](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/Welcome.html)
 <!--custom.resources.end-->
 
 ---

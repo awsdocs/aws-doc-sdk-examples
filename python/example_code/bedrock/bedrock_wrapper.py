@@ -30,6 +30,24 @@ class BedrockWrapper:
 
     # snippet-end:[python.example_code.bedrock.BedrockWrapper.decl]
 
+    # snippet-start:[python.example_code.bedrock.GetFoundationModel]
+    def get_foundation_model(self, model_identifier):
+        """
+        Get details about an Amazon Bedrock foundation model.
+
+        :return: The foundation model's details.
+        """
+
+        try:
+            return self.bedrock_client.get_foundation_model(
+                modelIdentifier=model_identifier
+            )
+        except ClientError:
+            logger.error("Couldn't list foundation models.")
+            raise
+
+    # snippet-end:[python.example_code.bedrock.GetFoundationModel]
+
     # snippet-start:[python.example_code.bedrock.ListFoundationModels]
     def list_foundation_models(self):
         """
@@ -42,11 +60,11 @@ class BedrockWrapper:
             response = self.bedrock_client.list_foundation_models()
             models = response["modelSummaries"]
             logger.info("Got %s foundation models.", len(models))
+            return models
+
         except ClientError:
             logger.error("Couldn't list foundation models.")
             raise
-        else:
-            return models
 
     # snippet-end:[python.example_code.bedrock.ListFoundationModels]
 
@@ -69,24 +87,42 @@ def usage_demo():
 
     wrapper = BedrockWrapper(bedrock_client)
 
-    print("Listing the available Bedrock foundation models.")
+    print("Listing the available foundation models.")
 
     try:
         for model in wrapper.list_foundation_models():
-            print("\n" + "=" * 42)
-            print(f' Model: {model["modelId"]}')
-            print("-" * 42)
-            print(f' Name: {model["modelName"]}')
-            print(f' Provider: {model["providerName"]}')
-            print(f' Model ARN: {model["modelArn"]}')
-            print(f' Input modalities: {model["inputModalities"]}')
-            print(f' Output modalities: {model["outputModalities"]}')
-            print(f' Supported customizations: {model["customizationsSupported"]}')
-            print(f' Supported inference types: {model["inferenceTypesSupported"]}')
-            print("=" * 42)
+            print_model_details(model)
     except ClientError:
-        logger.exception("Couldn't list Bedrock foundation models.")
+        logger.exception("Couldn't list foundation models.")
         raise
+
+    print("Getting the details of an individual foundation model.")
+
+    model_id = "amazon.titan-embed-text-v1"
+
+    try:
+        print_model_details(wrapper.get_foundation_model(model_id))
+    except ClientError:
+        logger.exception(f"Couldn't get foundation model {model_id}.")
+        raise
+
+
+def print_model_details(model):
+    print("\n" + "=" * 42)
+    print(f' Model: {model["modelId"]}')
+    print("-" * 42)
+    print(f' Name: {model["modelName"]}')
+    print(f' Provider: {model["providerName"]}')
+    print(f' Model ARN: {model["modelArn"]}')
+    print(f' Lifecycle status: {model["modelLifecycle"]["status"]}')
+    print(f' Input modalities: {model["inputModalities"]}')
+    print(f' Output modalities: {model["outputModalities"]}')
+    print(f' Supported customizations: {model["customizationsSupported"]}')
+    print(f' Supported inference types: {model["inferenceTypesSupported"]}')
+    if "responseStreamingSupported" in model:
+        print(f' Response streaming supported: {model["responseStreamingSupported"]}')
+
+    print("=" * 42)
 
 
 if __name__ == "__main__":
