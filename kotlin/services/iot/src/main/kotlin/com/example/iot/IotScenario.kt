@@ -3,6 +3,7 @@
 
 package com.example.iot
 
+// snippet-start:[iot.kotlin.scenario.main]
 import aws.sdk.kotlin.services.iot.IotClient
 import aws.sdk.kotlin.services.iot.model.Action
 import aws.sdk.kotlin.services.iot.model.AttachThingPrincipalRequest
@@ -220,6 +221,7 @@ suspend fun main() {
     println(DASHES)
 }
 
+// snippet-start:[iot.kotlin.delete.thing.main]
 suspend fun deleteIoTThing(thingNameVal: String) {
     val deleteThingRequest = DeleteThingRequest {
         thingName = thingNameVal
@@ -233,7 +235,9 @@ suspend fun deleteIoTThing(thingNameVal: String) {
         println("Deleted Thing $thingNameVal")
     }
 }
+// snippet-end:[iot.kotlin.delete.thing.main]
 
+// snippet-start:[iot.kotlin.delete.cert.main]
 suspend fun deleteCertificate(certificateArn: String) {
     val certificateProviderRequest = DeleteCertificateRequest {
         certificateId = extractCertificateId(certificateArn)
@@ -243,6 +247,7 @@ suspend fun deleteCertificate(certificateArn: String) {
         println("$certificateArn was successfully deleted.")
     }
 }
+// snippet-end:[iot.kotlin.delete.cert.main]
 
 private fun extractCertificateId(certificateArn: String): String? {
     // Example ARN: arn:aws:iot:region:account-id:cert/certificate-id
@@ -251,6 +256,7 @@ private fun extractCertificateId(certificateArn: String): String? {
     return certificateIdPart.substring(certificateIdPart.lastIndexOf("/") + 1)
 }
 
+// snippet-start:[iot.kotlin.detach.thing.main]
 suspend fun detachThingPrincipal(thingNameVal: String, certificateArn: String) {
     val thingPrincipalRequest = DetachThingPrincipalRequest {
         principal = certificateArn
@@ -262,7 +268,9 @@ suspend fun detachThingPrincipal(thingNameVal: String, certificateArn: String) {
         println("$certificateArn was successfully removed from $thingNameVal")
     }
 }
+// snippet-end:[iot.kotlin.detach.thing.main]
 
+// snippet-start:[iot.kotlin.search.thing.main]
 suspend fun searchThings(queryStringVal: String?) {
     val searchIndexRequest = SearchIndexRequest {
         queryString = queryStringVal
@@ -281,7 +289,9 @@ suspend fun searchThings(queryStringVal: String?) {
         }
     }
 }
+// snippet-end:[iot.kotlin.search.thing.main]
 
+// snippet-start:[iot.kotlin.list.rules.main]
 suspend fun listIoTRules() {
     val listTopicRulesRequest = ListTopicRulesRequest {}
 
@@ -296,7 +306,9 @@ suspend fun listIoTRules() {
         }
     }
 }
+// snippet-end:[iot.kotlin.list.rules.main]
 
+// snippet-start:[iot.kotlin.create.rule.main]
 suspend fun createIoTRule(roleARNVal: String?, ruleNameVal: String?, action: String?) {
     // Set the rule SQL statement.
     val sqlVal = "SELECT * FROM '$TOPIC '"
@@ -327,7 +339,9 @@ suspend fun createIoTRule(roleARNVal: String?, ruleNameVal: String?, action: Str
         println("IoT Rule created successfully.")
     }
 }
+// snippet-end:[iot.kotlin.create.rule.main]
 
+// snippet-start:[iot.kotlin.get.shadow.writer.main]
 suspend fun getPayload(thingNameVal: String?) {
     val getThingShadowRequest = GetThingShadowRequest {
         thingName = thingNameVal
@@ -340,7 +354,9 @@ suspend fun getPayload(thingNameVal: String?) {
         println("Received Shadow Data: $payloadString")
     }
 }
+// snippet-end:[iot.kotlin.get.shadow.writer.main]
 
+// snippet-start:[iot.kotlin.list.certs.main]
 suspend fun listCertificates() {
     IotClient { region = "us-east-1" }.use { iotClient ->
         val response = iotClient.listCertificates()
@@ -351,14 +367,14 @@ suspend fun listCertificates() {
         }
     }
 }
+// snippet-end:[iot.kotlin.list.certs.main]
 
-// snippet-end:[iot.java2.update.thing.main]
+// snippet-start:[iot.kotlin.describe.endpoint.main]
 suspend fun describeEndpoint(): String? {
     val request = DescribeEndpointRequest {}
 
     IotClient { region = "us-east-1" }.use { iotClient ->
         val endpointResponse = iotClient.describeEndpoint(request)
-        // Get the endpoint URL.
         val endpointUrl: String? = endpointResponse.endpointAddress
         val exString: String = getValue(endpointUrl)
         val fullEndpoint = "https://$exString-ats.iot.us-east-1.amazonaws.com"
@@ -366,8 +382,8 @@ suspend fun describeEndpoint(): String? {
         return fullEndpoint
     }
 }
+// snippet-end:[iot.kotlin.describe.endpoint.main]
 
-// snippet-end:[iot.java2.create.thing.main]
 private fun getValue(input: String?): String {
     // Define a regular expression pattern for extracting the subdomain.
     val pattern = Pattern.compile("^(.*?)\\.iot\\.us-east-1\\.amazonaws\\.com")
@@ -387,6 +403,7 @@ private fun getValue(input: String?): String {
     return ""
 }
 
+// snippet-start:[iot.kotlin.update.thing.main]
 suspend fun updateThing(thingNameVal: String?) {
     // Specify the new attribute values.
     val newLocation = "Office"
@@ -411,7 +428,9 @@ suspend fun updateThing(thingNameVal: String?) {
         println("$thingNameVal attributes updated successfully.")
     }
 }
+// snippet-end:[iot.kotlin.update.thing.main]
 
+// snippet-start:[iot.kotlin.update.shadow.thing.main]
 suspend fun updateShawdowThing(thingNameVal: String?) {
     // Create Thing Shadow State Document.
     val stateDocument = "{\"state\":{\"reported\":{\"temperature\":25, \"humidity\":50}}}"
@@ -430,7 +449,9 @@ suspend fun updateShawdowThing(thingNameVal: String?) {
         println("Thing Shadow updated successfully.")
     }
 }
+// snippet-end:[iot.kotlin.update.shadow.thing.main]
 
+// snippet-start:[iot.kotlin.attach.thing.main]
 suspend fun attachCertificateToThing(thingNameVal: String?, certificateArn: String?) {
     val principalRequest = AttachThingPrincipalRequest {
         thingName = thingNameVal
@@ -442,7 +463,9 @@ suspend fun attachCertificateToThing(thingNameVal: String?, certificateArn: Stri
         println("Certificate attached to Thing successfully.")
     }
 }
+// snippet-end:[iot.kotlin.attach.thing.main]
 
+// snippet-start:[iot.kotlin.describe.thing.main]
 suspend fun describeThing(thingNameVal: String) {
     // Describe the Thing to get more information.
     val thingRequest = DescribeThingRequest {
@@ -457,7 +480,9 @@ suspend fun describeThing(thingNameVal: String) {
         println("Thing ARN:  ${describeResponse.thingArn}")
     }
 }
+// snippet-end:[iot.kotlin.describe.thing.main]
 
+// snippet-start:[iot.kotlin.create.cert.main]
 suspend fun createCertificate(): String? {
     IotClient { region = "us-east-1" }.use { iotClient ->
         // Create keys and certificate.
@@ -478,6 +503,7 @@ suspend fun createCertificate(): String? {
         return certificateArn
     }
 }
+// snippet-end:[iot.kotlin.create.cert.main]
 
 // snippet-start:[iot.kotlin.create.thing.main]
 suspend fun createIoTThing(thingNameVal: String) {
@@ -486,8 +512,9 @@ suspend fun createIoTThing(thingNameVal: String) {
     }
 
     IotClient { region = "us-east-1" }.use { iotClient ->
-        val createThingResponse = iotClient.createThing(createThingRequest)
+        iotClient.createThing(createThingRequest)
         println("Created $thingNameVal}")
     }
 }
 // snippet-end:[iot.kotlin.create.thing.main]
+// snippet-end:[iot.kotlin.scenario.main]
