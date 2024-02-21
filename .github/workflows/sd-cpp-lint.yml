@@ -2,7 +2,7 @@ name: "cpp lint check"
 on:
   pull_request:
     paths:
-      - 'cpp/**'
+      - "cpp/**"
   workflow_dispatch:
 
 jobs:
@@ -13,11 +13,14 @@ jobs:
       pull-requests: read
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
+          sparse-checkout: |
+            .github/sd-cpp-linter
+            cpp
       - name: "Run clang-tidy check"
         uses: ./.github/sd-cpp-linter
         with:
-          config_file: ./.github/cpp-linter/clang-tidy-config.txt
+          config_file: ./.github/sd-cpp-linter/clang-tidy-config.txt
           token: ${{ secrets.GITHUB_TOKEN }}

@@ -23,7 +23,10 @@ jobs:
             5.0.x
             6.0.x
       - name: Checkout files
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            dotnetv3
       - name: Build check
         run: |
           cd dotnetv3

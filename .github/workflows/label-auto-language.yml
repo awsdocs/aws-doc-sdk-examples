@@ -12,21 +12,22 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/label-ruleset.yml
+          sparse-checkout-cone-mode: false
 
       # The Add Labels workflow adds a label to pull requests
       # based on the files included in the proposed change.
       #
-      # To use this workflow, you must set up and configure 
-      # rules in a .github/label-ruleset.yml file 
+      # To use this workflow, you must set up and configure
+      # rules in a .github/label-ruleset.yml file
       #
       # For more information, see:
       # https://github.com/actions/labeler
-      -
-       name: Add Labels
-       uses: actions/labeler@v4
-       with:
-         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-         configuration-path: .github/label-ruleset.yml
+      - name: Add Labels
+        uses: actions/labeler@v4
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: .github/label-ruleset.yml

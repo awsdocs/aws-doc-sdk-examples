@@ -16,20 +16,21 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v3
-      
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/allowed-labels.yml
+          sparse-checkout-cone-mode: false
+
       # The Audit Labels workflow creates, renames, updates
       # or deletes labels based on a list of allowed labels.
       #
-      # To use this workflow, you must set up and configure 
+      # To use this workflow, you must set up and configure
       # labels in a .github/allowed-labels.yml file
       #
       # For more information, see:
       # https://github.com/crazy-max/ghaction-github-labeler
-      -
-        name: Audit Labels
+      - name: Audit Labels
         if: success()
         uses: crazy-max/ghaction-github-labeler@v4
         with:

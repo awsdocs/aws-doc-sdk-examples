@@ -21,11 +21,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          # Full git history is needed to get a proper list of changed files within `super-linter`
-          fetch-depth: 0
-
+          fetch-depth: 2
+          sparse-checkout: |
+            kotlin
+            php
+            python
+            ruby
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
@@ -45,9 +48,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: checkout repo content
-        uses: actions/checkout@v3 # checkout the repository content to github runner.
+        uses: actions/checkout@v4 # checkout the repository content to github runner.
+        with:
+          sparse-checkout: |
+            .tools
+            .doc_gen
       - name: setup python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: 3.11 #install the python needed
       - name: Install dependencies

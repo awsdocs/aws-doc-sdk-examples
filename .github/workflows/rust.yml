@@ -22,7 +22,9 @@ jobs:
         with:
           toolchain: "1.70.0"
           components: clippy, rustfmt
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: rustv1
       - name: Set Environment
         run: >
           export RUSTFLAGS="-D warnings" ;
