@@ -34,7 +34,6 @@ import kotlin.system.exitProcess
 
 // snippet-start:[dynamodb.kotlin.scenario.partiql.main]
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
           <fileName>
@@ -74,7 +73,6 @@ suspend fun main(args: Array<String>) {
 }
 
 suspend fun createTablePartiQL(ddb: DynamoDbClient, tableNameVal: String, key: String) {
-
     val attDef = AttributeDefinition {
         attributeName = key
         attributeType = ScalarAttributeType.N
@@ -123,9 +121,9 @@ suspend fun loadDataPartiQL(ddb: DynamoDbClient, fileName: String) {
     var t = 0
 
     while (iter.hasNext()) {
-
-        if (t == 200)
+        if (t == 200) {
             break
+        }
 
         currentNode = iter.next() as ObjectNode
         val year = currentNode.path("year").asInt()
@@ -154,7 +152,6 @@ suspend fun getMoviePartiQL(ddb: DynamoDbClient) {
 }
 
 suspend fun putRecordPartiQL(ddb: DynamoDbClient) {
-
     val sqlStatement = "INSERT INTO MoviesPartiQ VALUE {'year':?, 'title' : ?, 'info' : ?}"
     val parameters: MutableList<AttributeValue> = java.util.ArrayList()
     parameters.add(AttributeValue.N("2020"))
@@ -184,7 +181,6 @@ suspend fun queryTablePartiQL(ddb: DynamoDbClient) {
 }
 
 suspend fun deleteTablePartiQL(tableNameVal: String) {
-
     val request = DeleteTableRequest {
         tableName = tableNameVal
     }
@@ -200,7 +196,6 @@ suspend fun executeStatementPartiQL(
     statementVal: String,
     parametersVal: List<AttributeValue>
 ): ExecuteStatementResponse {
-
     val request = ExecuteStatementRequest {
         statement = statementVal
         parameters = parametersVal

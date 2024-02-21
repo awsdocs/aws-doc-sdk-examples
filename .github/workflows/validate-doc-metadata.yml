@@ -11,6 +11,7 @@ on:
 
 jobs:
   validate-doc-metadata:
+    name: Validate Doc Metadata
     runs-on: ubuntu-latest
 
     steps:

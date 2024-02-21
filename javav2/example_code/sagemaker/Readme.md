@@ -31,17 +31,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello SageMaker](src/main/java/com/example/sage/HelloSageMaker.java#L21) (`ListNotebookInstances`)
+- [Hello SageMaker](src/main/java/com/example/sage/HelloSageMaker.java#L15) (`ListNotebookInstances`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L304) (`CreatePipeline`)
-- [Delete a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L292) (`DeletePipeline`)
-- [Describe a pipeline execution](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L272) (`DescribePipelineExecution`)
-- [Execute a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L342) (`StartPipelineExecution`)
+- [Create a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L309) (`CreatePipeline`)
+- [Delete a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L297) (`DeletePipeline`)
+- [Describe a pipeline execution](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L275) (`DescribePipelineExecution`)
+- [Execute a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L348) (`StartPipelineExecution`)
 
 ### Scenarios
 

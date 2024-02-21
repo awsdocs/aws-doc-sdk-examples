@@ -94,7 +94,6 @@ target_sources(
         PUBLIC
         ${GTEST_SOURCE}
         test_main.cpp
-        ../utils.cpp
         ${EXAMPLE_SERVICE_NAME}_gtests.cpp
 )
 

@@ -9,8 +9,9 @@
  */
 // snippet-start:[s3.php.command_pool_get_command.complete]
 // snippet-start:[s3.php.command_pool_get_command.import]
-use Aws\S3\S3Client;
 use Aws\CommandPool;
+use Aws\S3\S3Client;
+
 // snippet-end:[s3.php.command_pool_get_command.import]
 /**
  * Use Command Pool to upload a file to an Amazon S3 bucket.
@@ -19,7 +20,7 @@ use Aws\CommandPool;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 // Create the client
-// snippet-start:[s3.php.command_pool_get_command.main] 
+// snippet-start:[s3.php.command_pool_get_command.main]
 $client = new S3Client([
     'region'  => 'us-standard',
     'version' => '2006-03-01'
@@ -39,5 +40,6 @@ $promise = $pool->promise();
 
 // Force the pool to complete synchronously
 $promise->wait();
+
 // snippet-end:[s3.php.command_pool_get_command.main]
 // snippet-end:[s3.php.command_pool_get_command.complete]

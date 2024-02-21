@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <tableName> <key> <keyVal>
@@ -43,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[dynamodb.kotlin.get_item.main]
 suspend fun getSpecificItem(tableNameVal: String, keyName: String, keyVal: String) {
-
     val keyToGet = mutableMapOf<String, AttributeValue>()
     keyToGet[keyName] = AttributeValue.S(keyVal)
 

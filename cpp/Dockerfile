@@ -54,7 +54,7 @@ COPY . /src/cpp/
 WORKDIR /src/cpp/
 
 RUN useradd -ms /bin/bash tests && \
-    chown tests /src/cpp
+    chown -R tests /src/cpp
 
 USER tests
 

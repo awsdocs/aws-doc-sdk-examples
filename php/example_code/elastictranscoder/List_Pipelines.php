@@ -7,15 +7,16 @@
  *  https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/introduction.html
  *
  */
-// snippet-start:[elastictranscoder.php.list_pipelines.complete] 
-// snippet-start:[elastictranscoder.php.list_pipelines.import] 
+// snippet-start:[elastictranscoder.php.list_pipelines.complete]
+// snippet-start:[elastictranscoder.php.list_pipelines.import]
 // Path to your PHP autoload.  If you are using a phar installation, this is the
 // path to your aws.phar file.
 require 'vendor/autoload.php';
 
 use Aws\ElasticTranscoder\ElasticTranscoderClient;
 use Aws\Exception\AwsException;
-// snippet-end:[elastictranscoder.php.list_pipelines.import]  
+
+// snippet-end:[elastictranscoder.php.list_pipelines.import]
 
 /**
  * List Elastic Transcoder Pipelines.
@@ -24,7 +25,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 // Create the client for Elastic Transcoder.
-// snippet-start:[elastictranscoder.php.list_pipelines.main] 
+// snippet-start:[elastictranscoder.php.list_pipelines.main]
 $transcoder_client = new ElasticTranscoderClient([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -32,13 +33,12 @@ $transcoder_client = new ElasticTranscoderClient([
 ]);
 
 try {
-    $result = $transcoder_client -> listPipelines([]);
+    $result = $transcoder_client -> listPipelines();
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
+
 // snippet-end:[elastictranscoder.php.list_pipelines.main]
 // snippet-end:[elastictranscoder.php.list_pipelines.complete]
-
-?>

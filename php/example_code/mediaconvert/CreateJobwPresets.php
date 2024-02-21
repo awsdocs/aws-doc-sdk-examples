@@ -12,8 +12,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\MediaConvert\MediaConvertClient;
 use Aws\Exception\AwsException;
+use Aws\MediaConvert\MediaConvertClient;
+
 // snippet-end:[mediaconvert.php.create_job_with_preset.import]
 
 /**
@@ -61,7 +62,7 @@ $jobSetting = [
                                 "AacSettings" => [
                                     "CodingMode" => 'CODING_MODE_2_0',
                                     "SampleRate" => 48000
-                            ],
+                                ],
                             ]
                         ]
                     ]
@@ -127,4 +128,3 @@ try {
 
 // snippet-end:[mediaconvert.php.create_job_with_preset.main]
 // snippet-end:[mediaconvert.php.create_job_with_preset.complete]
-

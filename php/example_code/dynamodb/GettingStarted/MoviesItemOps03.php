@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.MoviesItemOps03] 
+// snippet-start:[dynamodb.php.codeexample.MoviesItemOps03]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -31,7 +31,6 @@ $key = $marshaler->marshalJson('
     }
 ');
 
- 
 $eav = $marshaler->marshalJson('
     {
         ":r": 5.5 ,
@@ -43,9 +42,9 @@ $eav = $marshaler->marshalJson('
 $params = [
     'TableName' => $tableName,
     'Key' => $key,
-    'UpdateExpression' => 
+    'UpdateExpression' =>
         'set info.rating = :r, info.plot=:p, info.actors=:a',
-    'ExpressionAttributeValues'=> $eav,
+    'ExpressionAttributeValues' => $eav,
     'ReturnValues' => 'UPDATED_NEW'
 ];
 
@@ -53,13 +52,9 @@ try {
     $result = $dynamodb->updateItem($params);
     echo "Updated item.\n";
     print_r($result['Attributes']);
-
 } catch (DynamoDbException $e) {
     echo "Unable to update item:\n";
     echo $e->getMessage() . "\n";
 }
 
-
-
-// snippet-end:[dynamodb.php.codeexample.MoviesItemOps03] 
-?>
+// snippet-end:[dynamodb.php.codeexample.MoviesItemOps03]

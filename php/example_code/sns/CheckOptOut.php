@@ -11,8 +11,9 @@
 // snippet-start:[sns.php.check_opt_out.import]
 require 'vendor/autoload.php';
 
-use Aws\Sns\SnsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sns\SnsClient;
+
 // snippet-end:[sns.php.check_opt_out.import]
 
 /**
@@ -21,7 +22,7 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[sns.php.check_opt_out.main]
 $SnSclient = new SnsClient([
     'profile' => 'default',
@@ -40,6 +41,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
+
 // snippet-end:[sns.php.check_opt_out.main]
 // snippet-end:[sns.php.check_opt_out.complete]

@@ -29,6 +29,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create a DB instance](CreateDBInstance.php#L5) (`CreateDBInstance`)
+- [Create a snapshot of a DB instance](CreateDBSnapshot.php#L5) (`CreateDBSnapshot`)
+- [Delete a DB instance](DeleteInstance.php#L5) (`DeleteDBInstance`)
+- [Describe DB instances](DescribeInstance.php#L5) (`DescribeDBInstances`)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 

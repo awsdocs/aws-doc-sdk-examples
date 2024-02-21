@@ -12,8 +12,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Kms\KmsClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[kms.php.describe_key.import]
 
 /**
@@ -23,7 +23,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KmsClient 
+//Create a KmsClient
 // snippet-start:[kms.php.describe_key.main]
 $KmsClient = new Aws\Kms\KmsClient([
     'profile' => 'default',
@@ -43,8 +43,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[kms.php.describe_key.main]
 // snippet-end:[kms.php.describe_key.complete]
-

@@ -7,7 +7,7 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
  *
  */
- 
+
 // snippet-start:[s3.php.example.abortmultipartupload]
 require 'vendor/autoload.php';
 

@@ -13,10 +13,8 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\WorkDocs\WorkDocsClient;
 
 // snippet-end:[workdocs.php.get_current_user.import]
-
 
 /**
  * Get user information for currently connected Amazon WorkDocs user.
@@ -25,7 +23,7 @@ use Aws\WorkDocs\WorkDocsClient;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-// Create a workdocs Client 
+// Create a workdocs Client
 // snippet-start:[workdocs.php.get_current_user.main]
 $client = new Aws\WorkDocs\WorkDocsClient([
     'profile' => 'default',
@@ -35,21 +33,18 @@ $client = new Aws\WorkDocs\WorkDocsClient([
 
 $authTokenFilePath = 'token.txt';
 
-
 try {
     $file = fopen($authTokenFilePath, 'r');
     $authToken = fread($file, filesize($file));
-    fclose($authTokenFilePath);
+    fclose($file);
     $result = $client->getCurrentUser([
         'AuthenticationToken' => $authToken
     ]);
     var_dump($result);
-
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
-
 
 // snippet-end:[workdocs.php.get_current_user.main]
 // snippet-end:[workdocs.php.get_current_user.complete]

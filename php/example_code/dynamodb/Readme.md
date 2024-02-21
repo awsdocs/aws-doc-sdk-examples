@@ -34,17 +34,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 Code excerpts that show you how to call individual service functions.
 
 - [Create a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L52) (`CreateTable`)
-- [Delete a table](DynamoDBService.php#L85) (`DeleteTable`)
+- [Delete a table](DynamoDBService.php#L84) (`DeleteTable`)
 - [Delete an item from a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L100) (`DeleteItem`)
 - [Get an item from a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L131) (`GetItem`)
-- [List tables](DynamoDBService.php#L65) (`ListTables`)
+- [List tables](DynamoDBService.php#L64) (`ListTables`)
 - [Put an item in a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L67) (`PutItem`)
 - [Query a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L158) (`Query`)
-- [Run a PartiQL statement](DynamoDBService.php#L244) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](DynamoDBService.php#L274) (`BatchExecuteStatement`)
+- [Run a PartiQL statement](DynamoDBService.php#L243) (`ExecuteStatement`)
+- [Run batches of PartiQL statements](DynamoDBService.php#L273) (`BatchExecuteStatement`)
 - [Scan a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L178) (`Scan`)
 - [Update an item in a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L136) (`UpdateItem`)
-- [Write a batch of items](DynamoDBService.php#L202) (`BatchWriteItem`)
+- [Write a batch of items](DynamoDBService.php#L201) (`BatchWriteItem`)
 
 ### Scenarios
 
@@ -54,6 +54,12 @@ functions within the same service.
 - [Get started with tables, items, and queries](dynamodb_basics/GettingStartedWithDynamoDB.php)
 - [Query a table by using batches of PartiQL statements](DynamoDBService.php)
 - [Query a table using PartiQL](DynamoDBService.php)
+
+### Cross-service examples
+
+Sample applications that work across multiple AWS services.
+
+- [Create a serverless application to manage photos](../../applications/photo_asset_manager)
 
 
 <!--custom.examples.start-->

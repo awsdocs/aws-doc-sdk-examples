@@ -7,21 +7,22 @@
 // snippet-start:[cloudwatch.php.describe_alarm_history.import]
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient; 
+use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudwatch.php.describe_alarm_history.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
- * Purpose: Provides history information for an existing Amazon CloudWatch 
+ * Purpose: Provides history information for an existing Amazon CloudWatch
  * alarm.
  *
  * Prerequisites: An existing CloudWatch alarm.
- * 
+ *
  * Inputs:
  * - $cloudWatchClient: An initialized CloudWatch client.
  * - $alarmName: The name of the alarm to provide history information about.
- * 
- * Returns: Information about any alarm history if found; 
+ *
+ * Returns: Information about any alarm history if found;
  * otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
@@ -35,25 +36,25 @@ function describeAlarmHistory($cloudWatchClient, $alarmName)
 
         $message = '';
 
-        if (isset($result['@metadata']['effectiveUri']))
-        {
-            $message .= 'Alarm history at the effective URI ' . 
-                $result['@metadata']['effectiveUri'] . 
+        if (isset($result['@metadata']['effectiveUri'])) {
+            $message .= 'Alarm history at the effective URI ' .
+                $result['@metadata']['effectiveUri'] .
                 ' for alarm ' . $alarmName . ":\n\n";
 
-            if ((isset($result['AlarmHistoryItems'])) and 
-                (count($result['AlarmHistoryItems']) > 0))
-            {
+            if (
+                (isset($result['AlarmHistoryItems'])) and
+                (count($result['AlarmHistoryItems']) > 0)
+            ) {
                 foreach ($result['AlarmHistoryItems'] as $alarm) {
-                    $message .= $alarm['HistoryItemType'] . ' at ' . 
+                    $message .= $alarm['HistoryItemType'] . ' at ' .
                         $alarm['Timestamp'] . "\n";
                 }
             } else {
-                $message .= 'No alarm history found for ' . 
+                $message .= 'No alarm history found for ' .
                     $alarmName . '.';
             }
         } else {
-            $message .= 'No such alarm or no history found for ' . 
+            $message .= 'No such alarm or no history found for ' .
                 $alarmName . '.';
         }
 
@@ -80,4 +81,3 @@ function describeTheAlarmHistory()
 // describeTheAlarmHistory();
 // snippet-end:[cloudwatch.php.describe_alarm_history.main]
 // snippet-end:[cloudwatch.php.describe_alarm_history.complete]
-

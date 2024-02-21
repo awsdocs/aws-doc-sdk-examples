@@ -49,7 +49,7 @@ class BedrockRuntimeWrapper:
         try:
             # The different model providers have individual request and response formats.
             # For the format, ranges, and default values for Anthropic Claude, refer to:
-            # https://docs.anthropic.com/claude/reference/complete_post
+            # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
 
             # Claude requires you to enclose the prompt as follows:
             enclosed_prompt = "Human: " + prompt + "\n\nAssistant:"
@@ -89,7 +89,7 @@ class BedrockRuntimeWrapper:
         try:
             # The different model providers have individual request and response formats.
             # For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
-            # https://docs.ai21.com/reference/j2-complete-ref
+            # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html
 
             body = {
                 "prompt": prompt,
@@ -118,7 +118,7 @@ class BedrockRuntimeWrapper:
         Invokes the Meta Llama 2 large-language model to run an inference
         using the input provided in the request body.
 
-        :param prompt: The prompt that you want Jurassic-2 to complete.
+        :param prompt: The prompt that you want Llama 2 to complete.
         :return: Inference response from the model.
         """
 
@@ -165,7 +165,7 @@ class BedrockRuntimeWrapper:
         try:
             # The different model providers have individual request and response formats.
             # For the format, ranges, and available style_presets of Stable Diffusion models refer to:
-            # https://platform.stability.ai/docs/api-reference#tag/v1generation
+            # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-stability-diffusion.html
 
             body = {
                 "text_prompts": [{"text": prompt}],
@@ -249,7 +249,7 @@ class BedrockRuntimeWrapper:
         try:
             # The different model providers have individual request and response formats.
             # For the format, ranges, and default values for Anthropic Claude, refer to:
-            # https://docs.anthropic.com/claude/reference/complete_post
+            # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
 
             # Claude requires you to enclose the prompt as follows:
             enclosed_prompt = "Human: " + prompt + "\n\nAssistant:"

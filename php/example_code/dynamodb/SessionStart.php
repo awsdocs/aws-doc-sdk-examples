@@ -21,7 +21,6 @@ $sessionHandler = SessionHandler::fromClient($dynamoDb, [
 $sessionHandler->register();
 // snippet-end:[dynamodb.php.start_session.register_handler]
 
-
 /**
  * SessionStart.php shows how to register a DynamoDB Session Handler.
  *
@@ -30,7 +29,6 @@ $sessionHandler->register();
  *
  *  To use the DynamoDB SessionHhandler, your configured credentials must have permission to use the DynamoDB table.
  */
-
 
 // snippet-start:[dynamodb.php.start_session.snippet]
 // Start the session

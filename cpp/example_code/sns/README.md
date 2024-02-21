@@ -46,22 +46,22 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a topic](create_topic.cpp#L23) (`CreateTopic`)
-- [Delete a subscription](unsubscribe.cpp#L23) (`Unsubscribe`)
-- [Delete a topic](delete_topic.cpp#L23) (`DeleteTopic`)
-- [Get the properties of a topic](get_topic_attributes.cpp#L24) (`GetTopicAttributes`)
-- [Get the settings for sending SMS messages](get_sms_type.cpp#L23) (`GetSMSAttributes`)
-- [List the subscribers of a topic](list_subscriptions.cpp#L23) (`ListSubscriptions`)
-- [List topics](list_topics.cpp#L23) (`ListTopics`)
-- [Publish a message with an attribute](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L54) (`Publish`)
-- [Publish an SMS text message](publish_sms.cpp#L23) (`Publish`)
-- [Publish to a topic](publish_to_topic.cpp#L23) (`Publish`)
-- [Set the default settings for sending SMS messages](set_sms_type.cpp#L23) (`SetSMSAttributes`)
-- [Subscribe a Lambda function to a topic](subscribe_lambda.cpp#L23) (`Subscribe`)
-- [Subscribe a mobile application to a topic](subscribe_app.cpp#L23) (`Subscribe`)
-- [Subscribe an SQS queue to a topic](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L817) (`Subscribe`)
-- [Subscribe an email address to a topic](subscribe_email.cpp#L18) (`Subscribe`)
-- [Subscribe with a filter to a topic](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L54) (`Subscribe`)
+- [Create a topic](create_topic.cpp#L21) (`CreateTopic`)
+- [Delete a subscription](unsubscribe.cpp#L21) (`Unsubscribe`)
+- [Delete a topic](delete_topic.cpp#L21) (`DeleteTopic`)
+- [Get the properties of a topic](get_topic_attributes.cpp#L22) (`GetTopicAttributes`)
+- [Get the settings for sending SMS messages](get_sms_type.cpp#L21) (`GetSMSAttributes`)
+- [List the subscribers of a topic](list_subscriptions.cpp#L21) (`ListSubscriptions`)
+- [List topics](list_topics.cpp#L21) (`ListTopics`)
+- [Publish a message with an attribute](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L52) (`Publish`)
+- [Publish an SMS text message](publish_sms.cpp#L21) (`Publish`)
+- [Publish to a topic](publish_to_topic.cpp#L21) (`Publish`)
+- [Set the default settings for sending SMS messages](set_sms_type.cpp#L21) (`SetSMSAttributes`)
+- [Subscribe a Lambda function to a topic](subscribe_lambda.cpp#L21) (`Subscribe`)
+- [Subscribe a mobile application to a topic](subscribe_app.cpp#L21) (`Subscribe`)
+- [Subscribe an SQS queue to a topic](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L815) (`Subscribe`)
+- [Subscribe an email address to a topic](subscribe_email.cpp#L10) (`Subscribe`)
+- [Subscribe with a filter to a topic](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L52) (`Subscribe`)
 
 ### Cross-service examples
 
@@ -77,7 +77,7 @@ Sample applications that work across multiple AWS services.
 
 ### Instructions
 
-An executable is built for each source file. These executables are located in the build folder and have
+An executable is built for each source file in this folder. These executables are located in the build folder and have
 "run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
 
 For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
@@ -86,6 +86,9 @@ will display any required arguments.
 ```
 ./run_my_action
 ```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

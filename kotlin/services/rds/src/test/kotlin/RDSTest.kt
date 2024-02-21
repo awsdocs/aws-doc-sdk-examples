@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson

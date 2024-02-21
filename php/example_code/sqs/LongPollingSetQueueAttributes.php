@@ -11,8 +11,9 @@
 // snippet-start:[sqs.php.long_polling_set_queue_attributes.import]
 require 'vendor/autoload.php';
 
-use Aws\Sqs\SqsClient; 
 use Aws\Exception\AwsException;
+use Aws\Sqs\SqsClient;
+
 // snippet-end:[sqs.php.long_polling_set_queue_attributes.import]
 
 /**
@@ -23,7 +24,6 @@ use Aws\Exception\AwsException;
  */
 // snippet-start:[sqs.php.long_polling_set_queue_attributes.main]
 $queueUrl = "QUEUE_URL";
- 
 
 $client = new SqsClient([
     'profile' => 'default',
@@ -32,19 +32,17 @@ $client = new SqsClient([
 ]);
 
 try {
-    $result = $client->setQueueAttributes(array(
+    $result = $client->setQueueAttributes([
         'Attributes' => [
             'ReceiveMessageWaitTimeSeconds' => 20
         ],
         'QueueUrl' => $queueUrl, // REQUIRED
-    ));
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[sqs.php.long_polling_set_queue_attributes.main]
 // snippet-end:[sqs.php.long_polling_set_queue_attributes.complete]
-

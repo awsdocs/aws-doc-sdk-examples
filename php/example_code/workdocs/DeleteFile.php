@@ -14,7 +14,6 @@
 require 'vendor/autoload.php';
 
 use Aws\Exception\AwsException;
-use Aws\WorkDocs\WorkDocsClient;
 
 // snippet-end:[workdocs.php.delete_file.import]
 
@@ -26,7 +25,7 @@ use Aws\WorkDocs\WorkDocsClient;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-// Create a workdocs Client 
+// Create a workdocs Client
 // snippet-start:[workdocs.php.delete_file.main]
 $client = new Aws\WorkDocs\WorkDocsClient([
     'profile' => 'default',
@@ -40,7 +39,7 @@ $document = 'documentid';
 try {
     $file = fopen($authTokenFilePath, 'r');
     $authToken = fread($file, filesize($file));
-    fclose($authTokenFilePath);
+    fclose($file);
 
     $result = $client->deleteDocument([
         'AuthenticationToken' => $authToken,
@@ -48,12 +47,10 @@ try {
     ]);
 
     var_dump($result);
-
 } catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage() . "\n";
 }
-
 
 // snippet-end:[workdocs.php.delete_file.main]
 // snippet-end:[workdocs.php.delete_file.complete]

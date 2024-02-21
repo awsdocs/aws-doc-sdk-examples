@@ -23,7 +23,6 @@ import aws.sdk.kotlin.services.dynamodb.model.ExecuteStatementResponse
 
 // snippet-start:[dynamodb.kotlin.partiql.main]
 suspend fun main() {
-
     val ddb = DynamoDbClient { region = "us-east-1" }
     val parameters = mutableListOf<AttributeValue>()
     parameters.add(AttributeValue.S("Acme Band"))
@@ -84,7 +83,6 @@ suspend fun executeStatementRequest(
     statementVal: String,
     parametersVal: List<AttributeValue>
 ): ExecuteStatementResponse? {
-
     val request = ExecuteStatementRequest {
         statement = statementVal
         parameters = parametersVal

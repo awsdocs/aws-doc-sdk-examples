@@ -38,9 +38,6 @@ namespace AwsDocTest {
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
-        // This endpoint cache must be created in SetUp to make sure that mocks work correctly.
-        void createEndpointCache();
-
     private:
 
         bool suppressStdOut();

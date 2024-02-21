@@ -12,6 +12,14 @@ sns_Hello:
           excerpts:
             - snippet_tags:
                 - TopicsAndQueues.dotnetv3.HelloSNS
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sns
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sns.Hello
     Kotlin:
       versions:
         - sdk_version: 1
@@ -230,6 +238,14 @@ sns_ListTopics:
           excerpts:
             - snippet_tags:
                 - sns.cpp.list_topics.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sns
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sns.Hello
     PHP:
       versions:
         - sdk_version: 3
@@ -522,6 +538,15 @@ sns_Publish_WithAttribute:
                 - cpp.example_code.cross-service.topics_and_queues.sns_client
                 - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes
                 - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes2
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topic_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sns.SnsActions.struct
+                - gov2.sns.Publish
     JavaScript:
       versions:
         - sdk_version: 3
@@ -661,6 +686,15 @@ sns_CreateTopic:
           excerpts:
             - snippet_tags:
                 - sns.cpp.create_topic.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topic_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sns.SnsActions.struct
+                - gov2.sns.CreateTopic
     Kotlin:
       versions:
         - sdk_version: 1
@@ -753,6 +787,15 @@ sns_DeleteTopic:
           excerpts:
             - snippet_tags:
                 - sns.cpp.delete_topic.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topic_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sns.SnsActions.struct
+                - gov2.sns.DeleteTopic
     Kotlin:
       versions:
         - sdk_version: 1
@@ -857,6 +900,15 @@ sns_Publish:
           excerpts:
             - snippet_tags:
                 - sns.cpp.publish_to_topic.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topic_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sns.SnsActions.struct
+                - gov2.sns.Publish
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1345,6 +1397,15 @@ sns_Subscribe_Queue:
                 - cpp.example_code.cross-service.topics_and_queues.sns_client
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue1
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue2
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topic_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sns.SnsActions.struct
+                - gov2.sns.Subscribe
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1381,6 +1442,15 @@ sns_Subscribe_Filtered:
                 - cpp.example_code.cross-service.topics_and_queues.sns_client
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter2
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topic_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sns.SnsActions.struct
+                - gov2.sns.Subscribe
     JavaScript:
       versions:
         - sdk_version: 3

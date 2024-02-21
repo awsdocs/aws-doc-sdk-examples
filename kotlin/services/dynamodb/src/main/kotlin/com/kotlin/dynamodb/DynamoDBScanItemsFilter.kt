@@ -20,7 +20,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <tableName>
@@ -40,7 +39,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[dynamodb.kotlin.scan_items_filter.main]
 suspend fun scanItemsUsingFilter(tableNameVal: String) {
-
     val myMap = HashMap<String, String>()
     myMap.put("#archive2", "archive")
 
@@ -66,7 +64,6 @@ suspend fun scanItemsUsingFilter(tableNameVal: String) {
                         println(myVal)
                     }
                     "status" -> {
-
                         val myVal = splitMyString(item[key].toString())
                         println(myVal)
                     }
@@ -99,7 +96,6 @@ suspend fun scanItemsUsingFilter(tableNameVal: String) {
 }
 
 fun splitMyString(str: String): String {
-
     val del1 = "="
     val del2 = ")"
     val parts = str.split(del1, del2)

@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get endpoint information](src/bin/describe-endpoint.rs#L28) (`DescribeEndpoint`)
-- [List your things](src/bin/list-things.rs#L24) (`ListThings`)
+- [Get endpoint information](src/bin/describe-endpoint.rs#L26) (`DescribeEndpoint`)
+- [List your things](src/bin/list-things.rs#L22) (`ListThings`)
 
 
 <!--custom.examples.start-->

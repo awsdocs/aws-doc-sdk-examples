@@ -47,24 +47,24 @@ Next, for information on code example structures and how to build and run the ex
 Code excerpts that show you how to call individual service functions.
 
 - [Add a policy to a bucket](put_bucket_policy.cpp#L38) (`PutBucketPolicy`)
-- [Copy an object from one bucket to another](copy_object.cpp#L34) (`CopyObject`)
-- [Create a bucket](create_bucket.cpp#L35) (`CreateBucket`)
-- [Delete a policy from a bucket](delete_bucket_policy.cpp#L32) (`DeleteBucketPolicy`)
-- [Delete an empty bucket](delete_bucket.cpp#L32) (`DeleteBucket`)
-- [Delete an object](delete_object.cpp#L33) (`DeleteObject`)
-- [Delete multiple objects](delete_objects.cpp#L35) (`DeleteObjects`)
-- [Delete the website configuration from a bucket](delete_website_config.cpp#L32) (`DeleteBucketWebsite`)
-- [Get an object from a bucket](get_object.cpp#L34) (`GetObject`)
-- [Get the ACL of a bucket](get_bucket_acl.cpp#L39) (`GetBucketAcl`)
-- [Get the ACL of an object](get_put_object_acl.cpp#L46) (`GetObjectAcl`)
-- [Get the policy for a bucket](get_bucket_policy.cpp#L33) (`GetBucketPolicy`)
-- [Get the website configuration for a bucket](get_website_config.cpp#L32) (`GetBucketWebsite`)
-- [List buckets](list_buckets.cpp#L31) (`ListBuckets`)
-- [List objects in a bucket](list_objects.cpp#L33) (`ListObjectsV2`)
+- [Copy an object from one bucket to another](copy_object.cpp#L32) (`CopyObject`)
+- [Create a bucket](create_bucket.cpp#L33) (`CreateBucket`)
+- [Delete a policy from a bucket](delete_bucket_policy.cpp#L30) (`DeleteBucketPolicy`)
+- [Delete an empty bucket](delete_bucket.cpp#L30) (`DeleteBucket`)
+- [Delete an object](delete_object.cpp#L31) (`DeleteObject`)
+- [Delete multiple objects](delete_objects.cpp#L33) (`DeleteObjects`)
+- [Delete the website configuration from a bucket](delete_website_config.cpp#L30) (`DeleteBucketWebsite`)
+- [Get an object from a bucket](get_object.cpp#L33) (`GetObject`)
+- [Get the ACL of a bucket](get_bucket_acl.cpp#L37) (`GetBucketAcl`)
+- [Get the ACL of an object](get_put_object_acl.cpp#L44) (`GetObjectAcl`)
+- [Get the policy for a bucket](get_bucket_policy.cpp#L32) (`GetBucketPolicy`)
+- [Get the website configuration for a bucket](get_website_config.cpp#L30) (`GetBucketWebsite`)
+- [List buckets](list_buckets.cpp#L29) (`ListBuckets`)
+- [List objects in a bucket](list_objects.cpp#L31) (`ListObjectsV2`)
 - [Set a new ACL for a bucket](put_bucket_acl.cpp#L49) (`PutBucketAcl`)
-- [Set the ACL of an object](get_put_object_acl.cpp#L173) (`PutObjectAcl`)
-- [Set the website configuration for a bucket](put_website_config.cpp#L36) (`PutBucketWebsite`)
-- [Upload an object to a bucket](put_object.cpp#L35) (`PutObject`)
+- [Set the ACL of an object](get_put_object_acl.cpp#L171) (`PutObjectAcl`)
+- [Set the website configuration for a bucket](put_website_config.cpp#L34) (`PutBucketWebsite`)
+- [Upload an object to a bucket](put_object.cpp#L33) (`PutObject`)
 
 ### Scenarios
 
@@ -87,7 +87,7 @@ Sample applications that work across multiple AWS services.
 
 ### Instructions
 
-An executable is built for each source file. These executables are located in the build folder and have
+An executable is built for each source file in this folder. These executables are located in the build folder and have
 "run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
 
 For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
@@ -96,6 +96,9 @@ will display any required arguments.
 ```
 ./run_my_action
 ```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

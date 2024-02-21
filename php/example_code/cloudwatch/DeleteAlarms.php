@@ -7,20 +7,21 @@
 // snippet-start:[cloudwatch.php.delete_alarm.import]
 require 'vendor/autoload.php';
 
-use Aws\CloudWatch\CloudWatchClient; 
+use Aws\CloudWatch\CloudWatchClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudwatch.php.delete_alarm.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
  * Purpose: Deletes an existing Amazon CloudWatch alarm.
  *
  * Prerequisites: At least one existing CloudWatch alarm.
- * 
+ *
  * Inputs:
  * - $cloudWatchClient: An initialized CloudWatch client.
  * - $alarmNames: An array of names of the alarms to delete.
- * 
- * Returns: Information about the deletion request; otherwise, 
+ *
+ * Returns: Information about the deletion request; otherwise,
  * the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
@@ -32,10 +33,9 @@ function deleteAlarms($cloudWatchClient, $alarmNames)
             'AlarmNames' => $alarmNames
         ]);
 
-        return 'The specified alarms at the following effective URI have ' . 
-            'been deleted or do not currently exist: ' . 
+        return 'The specified alarms at the following effective URI have ' .
+            'been deleted or do not currently exist: ' .
             $result['@metadata']['effectiveUri'];
-
     } catch (AwsException $e) {
         return 'Error: ' . $e->getAwsErrorMessage();
     }
@@ -44,7 +44,7 @@ function deleteAlarms($cloudWatchClient, $alarmNames)
 function deleteTheAlarms()
 {
     $alarmNames = array('my-alarm');
-    
+
     $cloudWatchClient = new CloudWatchClient([
         'profile' => 'default',
         'region' => 'us-east-1',
@@ -58,4 +58,3 @@ function deleteTheAlarms()
 // deleteTheAlarms();
 // snippet-end:[cloudwatch.php.delete_alarm.main]
 // snippet-end:[cloudwatch.php.delete_alarm.complete]
-

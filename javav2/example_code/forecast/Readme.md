@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a data set](src/main/java/com/example/forecast/CreateDataSet.java#L11) (`CreateDataset`)
-- [Create a forecast](src/main/java/com/example/forecast/CreateForecast.java#L11) (`CreateForecast`)
-- [Delete a data set](src/main/java/com/example/forecast/DeleteDataset.java#L12) (`DeleteDataset`)
-- [Delete a forecast](src/main/java/com/example/forecast/DeleteDataset.java#L12) (`DeleteForecast`)
-- [Describe a forecast](src/main/java/com/example/forecast/DescribeForecast.java#L12) (`DescribeForecast`)
-- [List data set groups](src/main/java/com/example/forecast/ListDataSetGroups.java#L12) (`ListDatasetGroups`)
-- [List forecasts](src/main/java/com/example/forecast/ListForecasts.java#L12) (`ListForecasts`)
+- [Create a data set](src/main/java/com/example/forecast/CreateDataSet.java#L6) (`CreateDataset`)
+- [Create a forecast](src/main/java/com/example/forecast/CreateForecast.java#L6) (`CreateForecast`)
+- [Delete a data set](src/main/java/com/example/forecast/DeleteDataset.java#L6) (`DeleteDataset`)
+- [Delete a forecast](src/main/java/com/example/forecast/DeleteDataset.java#L6) (`DeleteForecast`)
+- [Describe a forecast](src/main/java/com/example/forecast/DescribeForecast.java#L6) (`DescribeForecast`)
+- [List data set groups](src/main/java/com/example/forecast/ListDataSetGroups.java#L6) (`ListDatasetGroups`)
+- [List forecasts](src/main/java/com/example/forecast/ListForecasts.java#L6) (`ListForecasts`)
 
 
 <!--custom.examples.start-->

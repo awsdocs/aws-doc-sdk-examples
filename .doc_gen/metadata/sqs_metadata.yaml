@@ -41,6 +41,14 @@ sqs_Hello:
             - description: Code for the hello_sqs.cpp source file.
               snippet_tags:
                 - cpp.example_code.sqs.hello_sqs
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sqs
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sqs.Hello
     JavaScript:
       versions:
         - sdk_version: 3
@@ -70,6 +78,15 @@ sqs_CreateQueue:
             - description: Create an &SQS; queue and send a message to it.
               snippet_tags:
                 - SQS.dotnetv3.CreateSendExample
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topics_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sqs.SqsActions.struct
+                - gov2.sqs.CreateQueue
     Kotlin:
       versions:
         - sdk_version: 1
@@ -228,6 +245,14 @@ sqs_ListQueues:
   synopsis: list &SQS; queues.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/sqs
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sqs.Hello
     Kotlin:
       versions:
         - sdk_version: 1
@@ -325,6 +350,15 @@ sqs_DeleteQueue:
 
               snippet_tags:
                 - TopicsAndQueues.dotnetv3.DeleteQueue
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topics_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sqs.SqsActions.struct
+                - gov2.sqs.DeleteQueue
     Kotlin:
       versions:
         - sdk_version: 1
@@ -548,6 +582,15 @@ sqs_ReceiveMessage:
             - description: Receive a message from an &SQS; queue, and then delete the message.
               snippet_tags:
                 - SQS.dotnetv3.ReceiveDeleteExample
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topics_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sqs.SqsActions.struct
+                - gov2.sqs.ReceiveMessage
     Kotlin:
       versions:
         - sdk_version: 1
@@ -720,6 +763,15 @@ sqs_DeleteMessageBatch:
             - description:
               snippet_tags:
                 - TopicsAndQueues.dotnetv3.DeleteMessageBatch
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topics_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sqs.SqsActions.struct
+                - gov2.sqs.DeleteMessageBatch
     Python:
       versions:
         - sdk_version: 3
@@ -830,6 +882,15 @@ sqs_GetQueueAttributes:
                 - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes1
                 - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes2
                 - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes3
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topics_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sqs.SqsActions.struct
+                - gov2.sqs.GetQueueAttributes
     JavaScript:
       versions:
         - sdk_version: 3
@@ -917,6 +978,15 @@ sqs_SetQueueAttributes:
             - description: Set the policy attribute of a queue for a topic.
               snippet_tags:
                 - TopicsAndQueues.dotnetv3.SetQueueAttributes
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topics_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.sqs.SqsActions.struct
+                - gov2.sqs.SetQueueAttributes
     C++:
       versions:
         - sdk_version: 1
@@ -1001,6 +1071,20 @@ sqs_Scenario_TopicsAndQueues:
               snippet_tags:
                 - cpp.example_code.cross-service.topics_and_queues.config
                 - cpp.example_code.cross-service.topics_and_queues.messaging_with_topics_and_queues
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topics_and_queues
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - gov2.workflows.TopicsAndQueues
+            - description: Define a struct that wraps &SNS; actions used in this example.
+              snippet_tags:
+                - gov2.sns.SnsActions.complete
+            - description: Define a struct that wraps &SQS; actions used in this example.
+              snippet_tags:
+                - gov2.sqs.SqsActions.complete
     JavaScript:
       versions:
         - sdk_version: 3

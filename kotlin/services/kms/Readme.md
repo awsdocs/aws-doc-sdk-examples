@@ -33,17 +33,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a grant for a key](src/main/kotlin/com/kotlin/kms/CreateGrant.kt#L50) (`CreateGrant`)
-- [Create a key](src/main/kotlin/com/kotlin/kms/CreateCustomerKey.kt#L34) (`CreateKey`)
-- [Create an alias for a key](src/main/kotlin/com/kotlin/kms/CreateAlias.kt#L46) (`CreateAlias`)
-- [Decrypt ciphertext](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L49) (`Decrypt`)
-- [Describe a key](src/main/kotlin/com/kotlin/kms/DescribeKey.kt#L44) (`DescribeKey`)
-- [Disable a key](src/main/kotlin/com/kotlin/kms/DisableCustomerKey.kt#L44) (`DisableKey`)
-- [Enable a key](src/main/kotlin/com/kotlin/kms/EnableCustomerKey.kt#L44) (`EnableKey`)
-- [Encrypt text using a key](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L49) (`Encrypt`)
-- [List aliases for a key](src/main/kotlin/com/kotlin/kms/ListAliases.kt#L29) (`ListAliases`)
-- [List grants for a key](src/main/kotlin/com/kotlin/kms/ListGrants.kt#L43) (`ListGrants`)
-- [List keys](src/main/kotlin/com/kotlin/kms/ListKeys.kt#L28) (`ListKeys`)
+- [Create a grant for a key](src/main/kotlin/com/kotlin/kms/CreateGrant.kt#L44) (`CreateGrant`)
+- [Create a key](src/main/kotlin/com/kotlin/kms/CreateCustomerKey.kt#L28) (`CreateKey`)
+- [Create an alias for a key](src/main/kotlin/com/kotlin/kms/CreateAlias.kt#L40) (`CreateAlias`)
+- [Decrypt ciphertext](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L43) (`Decrypt`)
+- [Describe a key](src/main/kotlin/com/kotlin/kms/DescribeKey.kt#L38) (`DescribeKey`)
+- [Disable a key](src/main/kotlin/com/kotlin/kms/DisableCustomerKey.kt#L38) (`DisableKey`)
+- [Enable a key](src/main/kotlin/com/kotlin/kms/EnableCustomerKey.kt#L38) (`EnableKey`)
+- [Encrypt text using a key](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L43) (`Encrypt`)
+- [List aliases for a key](src/main/kotlin/com/kotlin/kms/ListAliases.kt#L23) (`ListAliases`)
+- [List grants for a key](src/main/kotlin/com/kotlin/kms/ListGrants.kt#L37) (`ListGrants`)
+- [List keys](src/main/kotlin/com/kotlin/kms/ListKeys.kt#L22) (`ListKeys`)
 
 
 <!--custom.examples.start-->

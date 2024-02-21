@@ -46,20 +46,20 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](create_table.cpp#L29) (`CreateTable`)
-- [Delete a table](delete_table.cpp#L25) (`DeleteTable`)
-- [Delete an item from a table](delete_item.cpp#L24) (`DeleteItem`)
-- [Get a batch of items](batch_get_item.cpp#L32) (`BatchGetItem`)
-- [Get an item from a table](get_item.cpp#L26) (`GetItem`)
-- [Get information about a table](describe_table.cpp#L25) (`DescribeTable`)
-- [List tables](list_tables.cpp#L27) (`ListTables`)
-- [Put an item in a table](put_item.cpp#L27) (`PutItem`)
-- [Query a table](query_items.cpp#L24) (`Query`)
-- [Run a PartiQL statement](dynamodb_partiql_single_scenario.cpp#L49) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](dynamodb_partiql_batch_scenario.cpp#L50) (`BatchExecuteStatement`)
-- [Scan a table](scan_table.cpp#L24) (`Scan`)
-- [Update an item in a table](update_item.cpp#L26) (`UpdateItem`)
-- [Write a batch of items](batch_write_item.cpp#L51) (`BatchWriteItem`)
+- [Create a table](create_table.cpp#L27) (`CreateTable`)
+- [Delete a table](delete_table.cpp#L23) (`DeleteTable`)
+- [Delete an item from a table](delete_item.cpp#L22) (`DeleteItem`)
+- [Get a batch of items](batch_get_item.cpp#L30) (`BatchGetItem`)
+- [Get an item from a table](get_item.cpp#L24) (`GetItem`)
+- [Get information about a table](describe_table.cpp#L23) (`DescribeTable`)
+- [List tables](list_tables.cpp#L26) (`ListTables`)
+- [Put an item in a table](put_item.cpp#L25) (`PutItem`)
+- [Query a table](query_items.cpp#L22) (`Query`)
+- [Run a PartiQL statement](dynamodb_partiql_single_scenario.cpp#L47) (`ExecuteStatement`)
+- [Run batches of PartiQL statements](dynamodb_partiql_batch_scenario.cpp#L48) (`BatchExecuteStatement`)
+- [Scan a table](scan_table.cpp#L23) (`Scan`)
+- [Update an item in a table](update_item.cpp#L24) (`UpdateItem`)
+- [Write a batch of items](batch_write_item.cpp#L49) (`BatchWriteItem`)
 
 ### Scenarios
 
@@ -84,7 +84,7 @@ Sample applications that work across multiple AWS services.
 
 ### Instructions
 
-An executable is built for each source file. These executables are located in the build folder and have
+An executable is built for each source file in this folder. These executables are located in the build folder and have
 "run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
 
 For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
@@ -93,6 +93,9 @@ will display any required arguments.
 ```
 ./run_my_action
 ```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

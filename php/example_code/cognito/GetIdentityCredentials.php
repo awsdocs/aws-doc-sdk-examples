@@ -25,7 +25,7 @@ use Aws\Exception\AwsException;
  */
 
  // snippet-start:[cognito.php.identity_pool.get_identity_credentials.main]
- 
+
 $identityClient = new CognitoIdentityClient([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -38,7 +38,7 @@ try {
     $result = $identityClient->getCredentialsForIdentity([
         'IdentityId' => $identityPoolid,
     ]);
-    
+
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails

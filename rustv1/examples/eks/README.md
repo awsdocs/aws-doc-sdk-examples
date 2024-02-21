@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a cluster control plane](src/bin/create-delete-cluster.rs#L38) (`CreateCluster`)
-- [Delete a cluster control plane](src/bin/create-delete-cluster.rs#L63) (`DeleteCluster`)
+- [Create a cluster control plane](src/bin/create-delete-cluster.rs#L36) (`CreateCluster`)
+- [Delete a cluster control plane](src/bin/create-delete-cluster.rs#L61) (`DeleteCluster`)
 
 
 <!--custom.examples.start-->

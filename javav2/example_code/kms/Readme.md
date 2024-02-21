@@ -33,17 +33,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a grant for a key](src/main/java/com/example/kms/CreateGrant.java#L11) (`CreateGrant`)
-- [Create a key](src/main/java/com/example/kms/CreateCustomerKey.java#L12) (`CreateKey`)
-- [Create an alias for a key](src/main/java/com/example/kms/CreateAlias.java#L12) (`CreateAlias`)
-- [Decrypt ciphertext](src/main/java/com/example/kms/EncryptDataKey.java#L83) (`Decrypt`)
-- [Describe a key](src/main/java/com/example/kms/DescribeKey.java#L12) (`DescribeKey`)
-- [Disable a key](src/main/java/com/example/kms/DisableCustomerKey.java#L12) (`DisableKey`)
-- [Enable a key](src/main/java/com/example/kms/EnableCustomerKey.java#L11) (`EnableKey`)
-- [Encrypt text using a key](src/main/java/com/example/kms/EncryptDataKey.java#L12) (`Encrypt`)
-- [List aliases for a key](src/main/java/com/example/kms/ListAliases.java#L12) (`ListAliases`)
-- [List grants for a key](src/main/java/com/example/kms/ListGrants.java#L11) (`ListGrants`)
-- [List keys](src/main/java/com/example/kms/ListKeys.java#L12) (`ListKeys`)
+- [Create a grant for a key](src/main/java/com/example/kms/CreateGrant.java#L6) (`CreateGrant`)
+- [Create a key](src/main/java/com/example/kms/CreateCustomerKey.java#L6) (`CreateKey`)
+- [Create an alias for a key](src/main/java/com/example/kms/CreateAlias.java#L6) (`CreateAlias`)
+- [Decrypt ciphertext](src/main/java/com/example/kms/EncryptDataKey.java#L78) (`Decrypt`)
+- [Describe a key](src/main/java/com/example/kms/DescribeKey.java#L6) (`DescribeKey`)
+- [Disable a key](src/main/java/com/example/kms/DisableCustomerKey.java#L6) (`DisableKey`)
+- [Enable a key](src/main/java/com/example/kms/EnableCustomerKey.java#L6) (`EnableKey`)
+- [Encrypt text using a key](src/main/java/com/example/kms/EncryptDataKey.java#L6) (`Encrypt`)
+- [List aliases for a key](src/main/java/com/example/kms/ListAliases.java#L6) (`ListAliases`)
+- [List grants for a key](src/main/java/com/example/kms/ListGrants.java#L6) (`ListGrants`)
+- [List keys](src/main/java/com/example/kms/ListKeys.java#L6) (`ListKeys`)
 
 
 <!--custom.examples.start-->

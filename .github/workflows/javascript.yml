@@ -9,9 +9,11 @@ on:
   pull_request:
     paths:
       - "javascriptv3/**"
+  workflow_dispatch:
 
 jobs:
   lint:
+    name: Lint Javascript
     runs-on: ubuntu-latest
 
     steps:

@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Assume a role](libs/client.js#L6) (`AssumeRole`)
+- [Assume a role](libs/client.js#L4) (`AssumeRole`)
 
 
 <!--custom.examples.start-->

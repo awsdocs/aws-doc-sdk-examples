@@ -14,8 +14,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\MediaConvert\MediaConvertClient;
 use Aws\Exception\AwsException;
+use Aws\MediaConvert\MediaConvertClient;
+
 // snippet-end:[mediaconvert.php.create_job.import]
 
 /**
@@ -178,4 +179,3 @@ try {
 
 // snippet-end:[mediaconvert.php.create_job.main]
 // snippet-end:[mediaconvert.php.create_job.complete]
-

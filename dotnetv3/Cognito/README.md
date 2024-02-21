@@ -52,7 +52,7 @@ Code excerpts that show you how to call individual service functions.
 - [Resend a confirmation code](Actions/CognitoWrapper.cs#L264) (`ResendConfirmationCode`)
 - [Respond to an authentication challenge](Actions/CognitoWrapper.cs#L72) (`AdminRespondToAuthChallenge`)
 - [Sign up a user](Actions/CognitoWrapper.cs#L311) (`SignUp`)
-- [Start authentication with a tracked device](Actions/CognitoWrapper.cs#L184) (`InitiateAuth`)
+- [Start authentication](Actions/CognitoWrapper.cs#L184) (`InitiateAuth`)
 - [Start authentication with administrator credentials](Actions/CognitoWrapper.cs#L156) (`AdminInitiateAuth`)
 - [Verify an MFA application with a user](Actions/CognitoWrapper.cs#L111) (`VerifySoftwareToken`)
 

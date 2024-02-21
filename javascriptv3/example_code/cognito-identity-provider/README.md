@@ -31,25 +31,25 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Amazon Cognito](hello.js#L8) (`ListUserPools`)
+- [Hello Amazon Cognito](hello.js#L6) (`ListUserPools`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Confirm a user](actions/confirm-sign-up.js#L11) (`ConfirmSignUp`)
-- [Confirm an MFA device for tracking](actions/confirm-device.js#L11) (`ConfirmDevice`)
-- [Get a token to associate an MFA application with a user](actions/associate-software-token.js#L11) (`AssociateSoftwareToken`)
-- [Get information about a user](actions/admin-get-user.js#L11) (`AdminGetUser`)
-- [List users](actions/list-users.js#L11) (`ListUsers`)
-- [Resend a confirmation code](actions/resend-confirmation-code.js#L11) (`ResendConfirmationCode`)
-- [Respond to SRP authentication challenges](actions/respond-to-auth-challenge.js#L12) (`RespondToAuthChallenge`)
-- [Respond to an authentication challenge](actions/admin-respond-to-auth-challenge.js#L12) (`AdminRespondToAuthChallenge`)
-- [Sign up a user](actions/sign-up.js#L11) (`SignUp`)
-- [Start authentication with a tracked device](actions/initiate-auth.js#L12) (`InitiateAuth`)
-- [Start authentication with administrator credentials](actions/admin-initiate-auth.js#L12) (`AdminInitiateAuth`)
-- [Verify an MFA application with a user](actions/verify-software-token.js#L11) (`VerifySoftwareToken`)
+- [Confirm a user](actions/confirm-sign-up.js#L9) (`ConfirmSignUp`)
+- [Confirm an MFA device for tracking](actions/confirm-device.js#L9) (`ConfirmDevice`)
+- [Get a token to associate an MFA application with a user](actions/associate-software-token.js#L9) (`AssociateSoftwareToken`)
+- [Get information about a user](actions/admin-get-user.js#L9) (`AdminGetUser`)
+- [List users](actions/list-users.js#L9) (`ListUsers`)
+- [Resend a confirmation code](actions/resend-confirmation-code.js#L9) (`ResendConfirmationCode`)
+- [Respond to SRP authentication challenges](actions/respond-to-auth-challenge.js#L10) (`RespondToAuthChallenge`)
+- [Respond to an authentication challenge](actions/admin-respond-to-auth-challenge.js#L10) (`AdminRespondToAuthChallenge`)
+- [Sign up a user](actions/sign-up.js#L9) (`SignUp`)
+- [Start authentication](actions/initiate-auth.js#L10) (`InitiateAuth`)
+- [Start authentication with administrator credentials](actions/admin-initiate-auth.js#L10) (`AdminInitiateAuth`)
+- [Verify an MFA application with a user](actions/verify-software-token.js#L9) (`VerifySoftwareToken`)
 
 ### Scenarios
 

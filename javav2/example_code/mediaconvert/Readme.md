@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a transcoding job](src/main/java/com/example/mediaconvert/CreateJob.java#L9) (`CreateJob`)
-- [Get a transcoding job](src/main/java/com/example/mediaconvert/GetJob.java#L12) (`GetJob`)
-- [List transcoding jobs](src/main/java/com/example/mediaconvert/ListJobs.java#L12) (`ListJobs`)
+- [Create a transcoding job](src/main/java/com/example/mediaconvert/CreateJob.java#L4) (`CreateJob`)
+- [Get a transcoding job](src/main/java/com/example/mediaconvert/GetJob.java#L6) (`GetJob`)
+- [List transcoding jobs](src/main/java/com/example/mediaconvert/ListJobs.java#L6) (`ListJobs`)
 
 
 <!--custom.examples.start-->

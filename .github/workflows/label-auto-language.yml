@@ -6,6 +6,7 @@ on:
       - main
 jobs:
   auto-labeler:
+    name: Auto Labeler
     permissions:
       contents: read
       pull-requests: write

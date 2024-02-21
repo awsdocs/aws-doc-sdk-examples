@@ -2,7 +2,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.php.codeexample.MoviesItemOps01] 
+// snippet-start:[dynamodb.php.codeexample.MoviesItemOps01]
 require 'vendor/autoload.php';
 
 date_default_timezone_set('UTC');
@@ -40,17 +40,12 @@ $params = [
     'Item' => $item
 ];
 
-
 try {
     $result = $dynamodb->putItem($params);
     echo "Added item: $year - $title\n";
-
 } catch (DynamoDbException $e) {
     echo "Unable to add item:\n";
     echo $e->getMessage() . "\n";
 }
 
-
-
-// snippet-end:[dynamodb.php.codeexample.MoviesItemOps01] 
-?>
+// snippet-end:[dynamodb.php.codeexample.MoviesItemOps01]

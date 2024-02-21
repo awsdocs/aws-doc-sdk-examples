@@ -28,7 +28,7 @@ type InvokeModelWrapper struct {
 
 // Each model provider has their own individual request and response formats.
 // For the format, ranges, and default values for Anthropic Claude, refer to:
-// https://docs.anthropic.com/claude/reference/complete_post
+// https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
 
 type ClaudeRequest struct {
 	Prompt            string   `json:"prompt"`
@@ -79,7 +79,7 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 
 // Each model provider has their own individual request and response formats.
 // For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
-// https://docs.ai21.com/reference/j2-complete-ref
+// https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html
 
 type Jurassic2Request struct {
 	Prompt      string   `json:"prompt"`

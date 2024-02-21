@@ -11,8 +11,8 @@
 // snippet-start:[kinesis.php.create_data_stream.import]
 require 'vendor/autoload.php';
 
-use Aws\Kinesis\KinesisClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[kinesis.php.create_data_stream.import]
 
 /**
@@ -22,7 +22,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a KinesisClient 
+//Create a KinesisClient
 // snippet-start:[kinesis.php.create_data_stream.main]
 $kinesisClient = new Aws\Kinesis\KinesisClient([
     'profile' => 'default',
@@ -32,7 +32,6 @@ $kinesisClient = new Aws\Kinesis\KinesisClient([
 
 $shardCount = 2;
 $name = "my_stream_name";
-
 
 try {
     $result = $kinesisClient->createStream([
@@ -45,8 +44,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
- 
+
 // snippet-end:[kinesis.php.create_data_stream.main]
 // snippet-end:[kinesis.php.create_data_stream.complete]
-

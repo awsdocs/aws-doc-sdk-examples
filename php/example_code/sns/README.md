@@ -33,22 +33,28 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Check whether a phone number is opted out](CheckOptOut.php#L19) (`CheckIfPhoneNumberIsOptedOut`)
-- [Confirm an endpoint owner wants to receive messages](ConfirmSubscription.php#L19) (`ConfirmSubscription`)
-- [Create a topic](CreateTopic.php#L19) (`CreateTopic`)
-- [Delete a subscription](Unsubscribe.php#L19) (`Unsubscribe`)
-- [Delete a topic](DeleteTopic.php#L19) (`DeleteTopic`)
-- [Get the properties of a topic](GetTopicAttributes.php#L34) (`GetTopicAttributes`)
-- [Get the settings for sending SMS messages](GetSMSAtrributes.php#L19) (`GetSMSAttributes`)
-- [List opted out phone numbers](ListOptOut.php#L19) (`ListPhoneNumbersOptedOut`)
-- [List the subscribers of a topic](ListSubscriptions.php#L19) (`ListSubscriptions`)
-- [List topics](ListTopics.php#L19) (`ListTopics`)
-- [Publish an SMS text message](PublishTextSMS.php#L19) (`Publish`)
-- [Publish to a topic](PublishTopic.php#L19) (`Publish`)
-- [Set the default settings for sending SMS messages](SetSMSAttributes.php#L34) (`SetSMSAttributes`)
-- [Set topic attributes](SetTopicAttributes.php#L19) (`SetTopicAttributes`)
-- [Subscribe an HTTP endpoint to a topic](SubscribeHTTPS.php#L19) (`Subscribe`)
-- [Subscribe an email address to a topic](SubscribeEmail.php#L19) (`Subscribe`)
+- [Check whether a phone number is opted out](CheckOptOut.php#L10) (`CheckIfPhoneNumberIsOptedOut`)
+- [Confirm an endpoint owner wants to receive messages](ConfirmSubscription.php#L10) (`ConfirmSubscription`)
+- [Create a topic](CreateTopic.php#L10) (`CreateTopic`)
+- [Delete a subscription](Unsubscribe.php#L10) (`Unsubscribe`)
+- [Delete a topic](DeleteTopic.php#L10) (`DeleteTopic`)
+- [Get the properties of a topic](GetTopicAttributes.php#L26) (`GetTopicAttributes`)
+- [Get the settings for sending SMS messages](GetSMSAtrributes.php#L10) (`GetSMSAttributes`)
+- [List opted out phone numbers](ListOptOut.php#L10) (`ListPhoneNumbersOptedOut`)
+- [List the subscribers of a topic](ListSubscriptions.php#L10) (`ListSubscriptions`)
+- [List topics](ListTopics.php#L10) (`ListTopics`)
+- [Publish an SMS text message](PublishTextSMS.php#L10) (`Publish`)
+- [Publish to a topic](PublishTopic.php#L10) (`Publish`)
+- [Set the default settings for sending SMS messages](SetSMSAttributes.php#L26) (`SetSMSAttributes`)
+- [Set topic attributes](SetTopicAttributes.php#L10) (`SetTopicAttributes`)
+- [Subscribe an HTTP endpoint to a topic](SubscribeHTTPS.php#L10) (`Subscribe`)
+- [Subscribe an email address to a topic](SubscribeEmail.php#L10) (`Subscribe`)
+
+### Cross-service examples
+
+Sample applications that work across multiple AWS services.
+
+- [Create a serverless application to manage photos](../../applications/photo_asset_manager)
 
 
 <!--custom.examples.start-->

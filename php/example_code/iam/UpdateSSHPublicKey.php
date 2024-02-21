@@ -7,8 +7,9 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
+use Aws\Iam\IamClient;
+
 // snippet-end:[iam.php.update_ssh_public_key.import]
 
 /**
@@ -17,7 +18,7 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 //Create an IAM Client
 // snippet-start:[iam.php.update_ssh_public_key.main]
 $client = new IamClient([
@@ -37,8 +38,6 @@ try {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[iam.php.update_ssh_public_key.main]
 // snippet-end:[iam.php.update_ssh_public_key.complete]
-

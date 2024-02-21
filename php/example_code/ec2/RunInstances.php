@@ -7,7 +7,6 @@
 
 require 'vendor/autoload.php';
 
-use Aws\Ec2\Ec2Client;
 // snippet-end:[ec2.php.run_instance.import]
 /**
  * Run Instances
@@ -15,7 +14,7 @@ use Aws\Ec2\Ec2Client;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[ec2.php.run_instance.main]
 $ec2Client = new Aws\Ec2\Ec2Client([
     'region' => 'us-west-2',
@@ -23,7 +22,7 @@ $ec2Client = new Aws\Ec2\Ec2Client([
     'profile' => 'default'
 ]);
 
-$result = $ec2Client->runInstances(array(
+$result = $ec2Client->runInstances([
     'DryRun' => false,
     // ImageId is required
     'ImageId' => 'string',
@@ -31,11 +30,9 @@ $result = $ec2Client->runInstances(array(
     'MinCount' => integer,
     // MaxCount is required
     'MaxCount' => integer,
-));
+]);
 
 var_dump($result);
- 
- 
+
 // snippet-end:[ec2.php.run_instance.main]
 // snippet-end:[ec2.php.run_instance.complete]
-

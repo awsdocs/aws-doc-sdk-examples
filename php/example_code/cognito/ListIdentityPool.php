@@ -24,8 +24,8 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
- // snippet-start:[cognito.php.identity_pool.list_identity_pools.main]
- 
+// snippet-start:[cognito.php.identity_pool.list_identity_pools.main]
+
 $identityClient = new CognitoIdentityClient([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -37,8 +37,8 @@ try {
         'MaxResults' => 20,
     ]);
     foreach ($result['IdentityPools'] as $identityPool) {
-        echo "IdentityPoolId - " . $identityPool["IdentityPoolId"] ;  
-        echo " , IdentityPoolName - " . $identityPool["IdentityPoolName"] ."\n";
+        echo "IdentityPoolId - " . $identityPool["IdentityPoolId"] ;
+        echo " , IdentityPoolName - " . $identityPool["IdentityPoolName"] . "\n";
     }
     var_dump($result);
 } catch (AwsException $e) {

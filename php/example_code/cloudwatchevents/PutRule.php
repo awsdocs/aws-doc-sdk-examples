@@ -14,8 +14,8 @@
 
 require 'vendor/autoload.php';
 
-use Aws\CloudWatchEvents\CloudWatchEventsClient; 
 use Aws\Exception\AwsException;
+
 // snippet-end:[cloudwatchevents.php.put_rule.import]
 
 /**
@@ -24,7 +24,7 @@ use Aws\Exception\AwsException;
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
- 
+
 // snippet-start:[cloudwatchevents.php.put_rule.main]
 $client = new Aws\cloudwatchevents\cloudwatcheventsClient([
     'profile' => 'default',
@@ -33,19 +33,17 @@ $client = new Aws\cloudwatchevents\cloudwatcheventsClient([
 ]);
 
 try {
-    $result = $client->putRule(array(
+    $result = $client->putRule([
         'Name' => 'DEMO_EVENT', // REQUIRED
         'RoleArn' => 'IAM_ROLE_ARN',
         'ScheduleExpression' => 'rate(5 minutes)',
         'State' => 'ENABLED',
-    ));
+    ]);
     var_dump($result);
 } catch (AwsException $e) {
     // output error message if fails
     error_log($e->getMessage());
 }
- 
- 
+
 // snippet-end:[cloudwatchevents.php.put_rule.main]
 // snippet-end:[cloudwatchevents.php.put_rule.complete]
-

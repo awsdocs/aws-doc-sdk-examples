@@ -46,30 +46,30 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](attach_role_policy.cpp#L40) (`AttachRolePolicy`)
-- [Attach an inline policy to a role](put_role_policy.cpp#L37) (`PutRolePolicy`)
-- [Create a policy](create_policy.cpp#L45) (`CreatePolicy`)
-- [Create a role](create_role.cpp#L37) (`CreateRole`)
-- [Create a user](create_user.cpp#L42) (`CreateUser`)
-- [Create an access key](create_access_key.cpp#L37) (`CreateAccessKey`)
-- [Create an alias for an account](create_account_alias.cpp#L37) (`CreateAccountAlias`)
-- [Delete a policy](delete_policy.cpp#L40) (`DeletePolicy`)
-- [Delete a server certificate](delete_server_certificate.cpp#L36) (`DeleteServerCertificate`)
-- [Delete a user](delete_user.cpp#L44) (`DeleteUser`)
-- [Delete an access key](delete_access_key.cpp#L37) (`DeleteAccessKey`)
-- [Delete an account alias](delete_account_alias.cpp#L37) (`DeleteAccountAlias`)
-- [Detach a policy from a role](detach_role_policy.cpp#L43) (`DetachRolePolicy`)
-- [Get a policy](get_policy.cpp#L38) (`GetPolicy`)
-- [Get a server certificate](get_server_certificate.cpp#L38) (`GetServerCertificate`)
-- [Get data about the last use of an access key](access_key_last_used.cpp#L38) (`GetAccessKeyLastUsed`)
-- [List a user's access keys](list_access_keys.cpp#L39) (`ListAccessKeys`)
-- [List account aliases](list_account_aliases.cpp#L38) (`ListAccountAliases`)
-- [List policies](list_policies.cpp#L37) (`ListPolicies`)
-- [List server certificates](list_server_certificates.cpp#L37) (`ListServerCertificates`)
-- [List users](list_users.cpp#L36) (`ListUsers`)
-- [Update a server certificate](update_server_certificate.cpp#L37) (`UpdateServerCertificate`)
-- [Update a user](update_user.cpp#L39) (`UpdateUser`)
-- [Update an access key](update_access_key.cpp#L42) (`UpdateAccessKey`)
+- [Attach a policy to a role](attach_role_policy.cpp#L38) (`AttachRolePolicy`)
+- [Attach an inline policy to a role](put_role_policy.cpp#L35) (`PutRolePolicy`)
+- [Create a policy](create_policy.cpp#L43) (`CreatePolicy`)
+- [Create a role](create_role.cpp#L35) (`CreateRole`)
+- [Create a user](create_user.cpp#L40) (`CreateUser`)
+- [Create an access key](create_access_key.cpp#L35) (`CreateAccessKey`)
+- [Create an alias for an account](create_account_alias.cpp#L35) (`CreateAccountAlias`)
+- [Delete a policy](delete_policy.cpp#L38) (`DeletePolicy`)
+- [Delete a server certificate](delete_server_certificate.cpp#L34) (`DeleteServerCertificate`)
+- [Delete a user](delete_user.cpp#L42) (`DeleteUser`)
+- [Delete an access key](delete_access_key.cpp#L35) (`DeleteAccessKey`)
+- [Delete an account alias](delete_account_alias.cpp#L35) (`DeleteAccountAlias`)
+- [Detach a policy from a role](detach_role_policy.cpp#L41) (`DetachRolePolicy`)
+- [Get a policy](get_policy.cpp#L36) (`GetPolicy`)
+- [Get a server certificate](get_server_certificate.cpp#L36) (`GetServerCertificate`)
+- [Get data about the last use of an access key](access_key_last_used.cpp#L36) (`GetAccessKeyLastUsed`)
+- [List a user's access keys](list_access_keys.cpp#L37) (`ListAccessKeys`)
+- [List account aliases](list_account_aliases.cpp#L36) (`ListAccountAliases`)
+- [List policies](list_policies.cpp#L35) (`ListPolicies`)
+- [List server certificates](list_server_certificates.cpp#L35) (`ListServerCertificates`)
+- [List users](list_users.cpp#L34) (`ListUsers`)
+- [Update a server certificate](update_server_certificate.cpp#L35) (`UpdateServerCertificate`)
+- [Update a user](update_user.cpp#L37) (`UpdateUser`)
+- [Update an access key](update_access_key.cpp#L40) (`UpdateAccessKey`)
 
 ### Scenarios
 
@@ -86,7 +86,7 @@ functions within the same service.
 
 ### Instructions
 
-An executable is built for each source file. These executables are located in the build folder and have
+An executable is built for each source file in this folder. These executables are located in the build folder and have
 "run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
 
 For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
@@ -95,6 +95,9 @@ will display any required arguments.
 ```
 ./run_my_action
 ```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

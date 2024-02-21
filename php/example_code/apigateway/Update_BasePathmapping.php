@@ -2,36 +2,39 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 // snippet-start:[apigateway.php.update_base_path_mapping.complete]
 // snippet-start:[apigateway.php.update_base_path_mapping.import]
 require 'vendor/autoload.php';
 
 use Aws\ApiGateway\ApiGatewayClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[apigateway.php.update_base_path_mapping.import]
 
 /* ////////////////////////////////////////////////////////////////////////////
  *
  * Purpose: Updates the base path mapping for a custom domain name
  * in Amazon API Gateway.
- * 
+ *
  * Inputs:
- * - $apiGatewayClient: An initialized AWS SDK for PHP API client for 
+ * - $apiGatewayClient: An initialized AWS SDK for PHP API client for
  *   API Gateway.
- * - $basePath: The base path name that callers must provide as part of the 
+ * - $basePath: The base path name that callers must provide as part of the
  *   URL after the domain name.
  * - $domainName: The custom domain name for the base path mapping.
  * - $patchOperations: The base path update operations to apply.
- * 
- * Returns: Information about the updated base path mapping, if available; 
+ *
+ * Returns: Information about the updated base path mapping, if available;
  * otherwise, the error message.
  * ///////////////////////////////////////////////////////////////////////// */
 
 // snippet-start:[apigateway.php.update_base_path_mapping.main]
-function updateBasePathMapping($apiGatewayClient, $basePath, $domainName, 
-    $patchOperations)
-{
+function updateBasePathMapping(
+    $apiGatewayClient,
+    $basePath,
+    $domainName,
+    $patchOperations
+) {
     try {
         $result = $apiGatewayClient->updateBasePathMapping([
             'basePath' => $basePath,
@@ -61,13 +64,13 @@ function updateTheBasePathMapping()
 
     echo updateBasePathMapping(
         $apiGatewayClient,
-        '(none)', 
+        '(none)',
         'example.com',
-        $patchOperations);
+        $patchOperations
+    );
 }
 
 // Uncomment the following line to run this code in an AWS account.
 // updateTheBasePathMapping();
 // snippet-end:[apigateway.php.update_base_path_mapping.main]
 // snippet-end:[apigateway.php.update_base_path_mapping.complete]
-
