@@ -27,6 +27,7 @@ import aws.smithy.kotlin.runtime.content.ByteStream
 import aws.smithy.kotlin.runtime.content.toByteArray
 import java.util.Scanner
 import java.util.regex.Pattern
+import kotlin.system.exitProcess
 
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
 val TOPIC = "your-iot-topic"
@@ -42,8 +43,8 @@ suspend fun main(args: Array<String>) {
     """.trimIndent()
 
     if (args.size != 2) {
-        System.out.println(usage);
-        System.exit(1);
+        println(usage)
+        exitProcess(1)
     }
 
     var thingName: String
