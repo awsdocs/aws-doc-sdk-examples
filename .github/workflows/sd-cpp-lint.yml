@@ -1,8 +1,6 @@
 name: "cpp lint check"
 on:
   pull_request:
-    paths:
-      - 'cpp/**'
   workflow_dispatch:
 
 jobs:
@@ -13,10 +11,19 @@ jobs:
       pull-requests: read
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout files
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          sparse-checkout: |
+            .github
+            cpp
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: "cpp/**/*.{cpp,h}"
       - name: "Run clang-tidy check"
+        if: steps.changed-files.outputs.any_changed == 'true'
         uses: ./.github/sd-cpp-linter
         with:
           config_file: ./.github/cpp-linter/clang-tidy-config.txt
