@@ -5,6 +5,15 @@ iot_Hello:
   synopsis: get started using &IoT;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.hello_iot.main
     Java:
       versions:
         - sdk_version: 2
