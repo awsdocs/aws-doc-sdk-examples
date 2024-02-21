@@ -4,11 +4,12 @@
 
 // Purpose
 //
-// Defines an AWS CloudFormation stack that creates an Amazon DynamoDB table with a
-// `username` partition key and an AWS Identity and Access Management (IAM) role
-// that lets Amazon API Gateway read from and write to the table.
+// Defines an AWS CloudFormation stack that creates:
+//  1. A HealthImaging data store
+// .2. An input Aws S3 bucket for importing DICOM files.
+//  3. An output Aws S3 bucket for importing DICOM files.
+//  4. An IAM role for importing DICOM files.
 //
-// This stack is used by the python/example_code/apigateway/aws_service example.
 
 
 import {CfnOutput, CfnParameter, RemovalPolicy, Stack, StackProps, App} from 'aws-cdk-lib';

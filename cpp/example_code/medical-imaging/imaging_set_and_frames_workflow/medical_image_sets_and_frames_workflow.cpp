@@ -1426,6 +1426,7 @@ bool AwsDoc::Medical_Imaging::waitStackCreated(
         Aws::CloudFormation::CloudFormationClient &cloudFormationClient,
         const std::string &stackName,
         Aws::Vector<Aws::CloudFormation::Model::Output> &outputs) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     Aws::CloudFormation::Model::DescribeStacksRequest describeStacksRequest;
     describeStacksRequest.SetStackName(stackName);
     Aws::CloudFormation::Model::StackStatus stackStatus = Aws::CloudFormation::Model::StackStatus::CREATE_IN_PROGRESS;
@@ -1468,6 +1469,7 @@ bool AwsDoc::Medical_Imaging::waitStackCreated(
 bool AwsDoc::Medical_Imaging::waitStackDeleted(
         Aws::CloudFormation::CloudFormationClient &cloudFormationClient,
         const std::string &stackName) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     Aws::CloudFormation::Model::DescribeStacksRequest describeStacksRequest;
     describeStacksRequest.SetStackName(stackName);
     Aws::CloudFormation::Model::StackStatus stackStatus = Aws::CloudFormation::Model::StackStatus::DELETE_IN_PROGRESS;
@@ -1751,12 +1753,12 @@ AwsDoc::Medical_Imaging::askQuestionForIntRange(const Aws::String &string, int l
                 int number = std::stoi(string1);
                 bool result = number >= low && number <= high;
                 if (!result) {
-                    std::cout << "\nThe number is out of range." << std::endl;
+                    std::cerr << "\nThe number is out of range." << std::endl;
                 }
                 return result;
             }
             catch (const std::invalid_argument &) {
-                std::cout << "\nNot a valid number." << std::endl;
+                std::cerr << "\nNot a valid number." << std::endl;
                 return false;
             }
     });

@@ -1,0 +1,20 @@
+{
+  "state": {
+    "reported": {
+      "temperature": 25,
+      "humidity": 50
+    }
+  },
+  "metadata": {
+    "reported": {
+      "temperature": {
+        "timestamp": 1708969794
+      },
+      "humidity": {
+        "timestamp": 1708969794
+      }
+    }
+  },
+  "version": 1,
+  "timestamp": 1708969794
+}

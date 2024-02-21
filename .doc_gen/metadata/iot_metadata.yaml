@@ -23,6 +23,18 @@ iot_Hello:
             - description:
               snippet_tags:
                 - iot.java2.hello_iot.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot/hello_iot
+          github_note_at_bottom: true
+          excerpts:
+            - description: Code for the CMakeLists.txt CMake file.
+              snippet_tags:
+                - cpp.example_code.iot.hello_iot.cmake
+            - description: Code for the hello_iot.cpp source file.
+              snippet_tags:
+                - cpp.example_code.iot.hello_iot
   services:
     iot: {listThings}
 iot_DescribeEndpoint:
@@ -56,6 +68,14 @@ iot_DescribeEndpoint:
             - description:
               snippet_tags:
                 - iot.rust.describe-endpoint
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.DescribeEndpoint
   services:
     iot: {DescribeEndpoint}
 iot_ListThings:
@@ -97,8 +117,16 @@ iot_ListCertificates:
             - description:
               snippet_tags:
                 - iot.java2.list.certs.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.ListCertificates
   services:
-    iot: {ListCertificates}    
+    iot: {ListCertificates}
 iot_CreateCertificate:
   title: Create an &IoT; certificate using an &AWS; SDK
   title_abbrev: Create a certificate
@@ -122,8 +150,16 @@ iot_CreateCertificate:
             - description:
               snippet_tags:
                 - iot.java2.create.cert.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.CreateKeysAndCertificate
   services:
-    iot: {CreateKeysAndCertificate} 
+    iot: {CreateKeysAndCertificate}
 iot_DeleteCertificate:
   title: Delete an &IoT; certificate using an &AWS; SDK
   title_abbrev: Delete a certificate
@@ -147,8 +183,16 @@ iot_DeleteCertificate:
             - description:
               snippet_tags:
                 - iot.java2.delete.cert.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.DeleteCertificate
   services:
-    iot: {DeleteCertificate}     
+    iot: {DeleteCertificate}
 iot_SearchIndex:
   title: Query the &IoT; search index using an &AWS; SDK
   title_abbrev: Query the search index
@@ -172,8 +216,32 @@ iot_SearchIndex:
             - description:
               snippet_tags:
                 - iot.java2.search.thing.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.SearchIndex
   services:
-    iot: {SearchIndex} 
+    iot: {SearchIndex}
+iot_UpdateIndexingConfiguration:
+  title: Update the &IoT; search configuration using an &AWS; SDK
+  title_abbrev: Update the search configuration
+  synopsis: update the &IoT; search configuration.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.UpdateIndexingConfiguration
+  services:
+    iot: {UpdateIndexingConfiguration}
 iot_DeleteThing:
   title: Delete an &IoT; thing using an &AWS; SDK
   title_abbrev: Delete a thing
@@ -197,8 +265,16 @@ iot_DeleteThing:
             - description:
               snippet_tags:
                 - iot.java2.delete.thing.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.DeleteThing
   services:
-    iot: {DeleteThing} 
+    iot: {DeleteThing}
 iot_DescribeThing:
   title: Describe an &IoT; thing using an &AWS; SDK
   title_abbrev: Describe a thing
@@ -222,8 +298,16 @@ iot_DescribeThing:
             - description:
               snippet_tags:
                 - iot.java2.describe.thing.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.DescribeThing
   services:
-    iot: {DescribeThing}     
+    iot: {DescribeThing}
 iot_AttachThingPrincipal:
   title: Attach a certificate to an &IoT; thing using an &AWS; SDK
   title_abbrev: Attach a certificate
@@ -247,8 +331,16 @@ iot_AttachThingPrincipal:
             - description:
               snippet_tags:
                 - iot.java2.attach.thing.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.AttachThingPrincipal
   services:
-    iot: {AttachThingPrincipal}               
+    iot: {AttachThingPrincipal}
 iot_DetachThingPrincipal:
   title: Detach a certificate from an &IoT; thing using an &AWS; SDK
   title_abbrev: Detach a certificate
@@ -272,8 +364,16 @@ iot_DetachThingPrincipal:
             - description:
               snippet_tags:
                 - iot.java2.detach.thing.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.DetachThingPrincipal
   services:
-    iot: {DetachThingPrincipal}           
+    iot: {DetachThingPrincipal}
 iot_UpdateThing:
   title: Update an &IoT; thing using an &AWS; SDK
   title_abbrev: Update a thing
@@ -297,8 +397,16 @@ iot_UpdateThing:
             - description:
               snippet_tags:
                 - iot.java2.update.thing.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.UpdateThing
   services:
-    iot: {UpdateThing}       
+    iot: {UpdateThing}
 iot_CreateRule:
   title: Create an &IoT; rule using an &AWS; SDK
   title_abbrev: Create a rule
@@ -322,8 +430,32 @@ iot_CreateRule:
             - description:
               snippet_tags:
                 - iot.java2.create.rule.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.CreateTopicRule
   services:
-    iot: {CreateTopicRule}   
+    iot: {CreateTopicRule}
+iot_DeleteRule:
+  title: Delete an &IoT; rule using an &AWS; SDK
+  title_abbrev: Delete a rule
+  synopsis: delete an &IoT; rule.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.DeleteTopicRule
+  services:
+    iot: {DeleteTopicRule}
 iot_CreateThing:
   title: Create &IoT; things using an &AWS; SDK
   title_abbrev: Create a thing
@@ -347,12 +479,20 @@ iot_CreateThing:
             - description:
               snippet_tags:
                 - iot.java2.create.thing.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.CreateThing
   services:
-    iot: {CreateThing}   
+    iot: {CreateThing}
 iot_Scenario:
-  title: Working with &IoT; devices, things, and shadows using &IoT; SDK
-  title_abbrev: Working with device management use cases
-  synopsis: working with &IoT; device management use cases using &IoT; SDK
+  title: Work with &IoT; devices, things, and shadows using &IoT; SDK
+  title_abbrev: Work with device management use cases
+  synopsis: work with &IoT; device management use cases using &IoT; SDK
   category: Scenarios
   languages:
     Kotlin:
@@ -373,5 +513,45 @@ iot_Scenario:
             - description:
               snippet_tags:
                 - iot.java2.scenario.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot/things_and_shadows_workflow
+          excerpts:
+            - description: Create an &IoT; thing.
+              snippet_tags:
+                - cpp.example_code.iot.iot_things_and_shadows.create_thing
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.CreateThing
+            - description: Generate and attach a device certificate.
+              snippet_tags:
+                - cpp.example_code.iot.iot_things_and_shadows.certificates
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.CreateKeysAndCertificate
+                - cpp.example_code.iot.AttachThingPrincipal
+            - description: Perform various operations on the &IoT; thing.
+              snippet_tags:
+                - cpp.example_code.iot.iot_things_and_shadows.various_operations
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.UpdateThing
+                - cpp.example_code.iot.DescribeEndpoint
+                - cpp.example_code.iot.ListCertificates
+                - cpp.example_code.iot.UpdateThingShadow
+                - cpp.example_code.iot.GetThingShadow
+                - cpp.example_code.iot.CreateTopicRule
+                - cpp.example_code.iot.ListTopicRules
+                - cpp.example_code.iot.SearchIndex
+            - description: Clean up resources.
+              snippet_tags:
+                - cpp.example_code.iot.iot_things_and_shadows.cleanup
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.DetachThingPrincipal
+                - cpp.example_code.iot.DeleteCertificate
+                - cpp.example_code.iot.DeleteTopicRule
+                - cpp.example_code.iot.DeleteThing
   services:
     iot: {}

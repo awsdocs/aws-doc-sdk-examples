@@ -1,0 +1,11 @@
+{
+  "sql": "SELECT * FROM 'topic/subtopic'",
+  "actions": [
+    {
+      "sns": {
+        "targetArn": ":aws:sns:test:123456789012:gtests_topic",
+        "roleArn": "arn:aws:iam::123456789012:role/service-role/test_iot_role"
+      }
+    }
+  ]
+}

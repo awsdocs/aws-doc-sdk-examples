@@ -22,6 +22,14 @@ iot-data-plane_GetThingShadow:
             - description:
               snippet_tags:
                 - iot.java2.get.shadow.writer.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.GetThingShadow
   services:
     iot-data-plane: {GetThingShadow}       
 iot-data-plane_UpdateThingShadow:
@@ -47,5 +55,13 @@ iot-data-plane_UpdateThingShadow:
             - description:
               snippet_tags:
                 - iot.java2.update.shadow.thing.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.UpdateThingShadow
   services:
     iot-data-plane: {UpdateThingShadow}       

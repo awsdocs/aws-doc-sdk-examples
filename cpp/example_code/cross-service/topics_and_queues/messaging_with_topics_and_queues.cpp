@@ -902,12 +902,12 @@ int AwsDoc::TopicsAndQueues::askQuestionForIntRange(const Aws::String &string, i
                 int number = std::stoi(string1);
                 bool result = number >= low && number <= high;
                 if (!result) {
-                    std::cout << "\nThe number is out of range." << std::endl;
+                    std::cerr << "\nThe number is out of range." << std::endl;
                 }
                 return result;
             }
             catch (const std::invalid_argument &) {
-                std::cout << "\nNot a valid number." << std::endl;
+                std::cerr << "\nNot a valid number." << std::endl;
                 return false;
             }
     });
