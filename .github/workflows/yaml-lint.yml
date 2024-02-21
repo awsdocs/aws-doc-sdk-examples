@@ -1,0 +1,36 @@
+name: Lint Metadata Yaml
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  yamllint:
+    name: Lint Yaml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            .doc_gen/metadata
+            .tools
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: ".doc_gen/metadata/**/*.{yml,yaml}"
+      - name: Setup Python
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: >-
+          python3 -m pip install -r .tools/base_requirements.txt
+      - name: Lint metadata files
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: >-
+          yamllint --format standard -c .tools/validation/.yamllint.yaml .doc_gen/metadata
