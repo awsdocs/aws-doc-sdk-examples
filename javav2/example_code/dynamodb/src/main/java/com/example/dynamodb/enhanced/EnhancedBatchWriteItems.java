@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Collections;
 // snippet-end:[dynamodb.java2.mapping.batchitems.import]
 
 /*
@@ -35,76 +36,65 @@ import java.time.ZoneOffset;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+import software.amazon.awssdk.enhanced.dynamodb.*;
+import software.amazon.awssdk.enhanced.dynamodb.model.*;
+
 public class EnhancedBatchWriteItems {
-        public static void main(String[] args) {
-                Region region = Region.US_EAST_1;
-                DynamoDbClient ddb = DynamoDbClient.builder()
-                                .region(region)
-                                .build();
-                DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                                .dynamoDbClient(ddb)
-                                .build();
-                putBatchRecords(enhancedClient);
-                ddb.close();
+    public static void main(String[] args) {
+        Region region = Region.US_EAST_1;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+            .region(region)
+            .build();
+
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+            .dynamoDbClient(ddb)
+            .build();
+
+        putBatchRecords(enhancedClient);
+        ddb.close();
+    }
+
+    public static void putBatchRecords(DynamoDbEnhancedClient enhancedClient) {
+        try {
+            DynamoDbTable<Customer> customerMappedTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
+            LocalDate localDate = LocalDate.parse("2020-04-07");
+            LocalDateTime localDateTime = localDate.atStartOfDay();
+            Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
+
+            Customer record2 = new Customer();
+            record2.setCustName("Fred Pink");
+            record2.setId("id110");
+            record2.setEmail("fredp@noserver.com");
+            record2.setRegistrationDate(instant);
+
+            Customer record3 = new Customer();
+            record3.setCustName("Susan Pink");
+            record3.setId("id120");
+            record3.setEmail("spink@noserver.com");
+            record3.setRegistrationDate(instant);
+
+            Customer record4 = new Customer();
+            record4.setCustName("Jerry orange");
+            record4.setId("id101");
+            record4.setEmail("jorange@noserver.com");
+            record4.setRegistrationDate(instant);
+
+            BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest = BatchWriteItemEnhancedRequest.builder()
+                .writeBatches(WriteBatch.builder(Customer.class) // add items to the Customer table
+                .mappedTableResource(customerMappedTable)
+                .addPutItem(builder -> builder.item(record2))
+                .addPutItem(builder -> builder.item(record3))
+                .addPutItem(builder -> builder.item(record4))
+                .build())
+                .build();
+
+            enhancedClient.batchWriteItem(batchWriteItemEnhancedRequest);
+            System.out.println("Items added to the table");
+
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
-
-        public static void putBatchRecords(DynamoDbEnhancedClient enhancedClient) {
-                try {
-                        DynamoDbTable<Customer> customerMappedTable = enhancedClient.table("Customer",
-                                        TableSchema.fromBean(Customer.class));
-                        DynamoDbTable<Music> musicMappedTable = enhancedClient.table("Music",
-                                        TableSchema.fromBean(Music.class));
-                        LocalDate localDate = LocalDate.parse("2020-04-07");
-                        LocalDateTime localDateTime = localDate.atStartOfDay();
-                        Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
-
-                        Customer record2 = new Customer();
-                        record2.setCustName("Fred Pink");
-                        record2.setId("id110");
-                        record2.setEmail("fredp@noserver.com");
-                        record2.setRegistrationDate(instant);
-
-                        Customer record3 = new Customer();
-                        record3.setCustName("Susan Pink");
-                        record3.setId("id120");
-                        record3.setEmail("spink@noserver.com");
-                        record3.setRegistrationDate(instant);
-
-                        Customer record4 = new Customer();
-                        record4.setCustName("Jerry orange");
-                        record4.setId("id101");
-                        record4.setEmail("jorange@noserver.com");
-                        record4.setRegistrationDate(instant);
-
-                        BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest = BatchWriteItemEnhancedRequest
-                                        .builder()
-                                        .writeBatches(
-                                                        WriteBatch.builder(Customer.class) // add items to the Customer
-                                                                                           // table
-                                                                        .mappedTableResource(customerMappedTable)
-                                                                        .addPutItem(builder -> builder.item(record2))
-                                                                        .addPutItem(builder -> builder.item(record3))
-                                                                        .addPutItem(builder -> builder.item(record4))
-                                                                        .build(),
-                                                        WriteBatch.builder(Music.class) // delete an item from the Music
-                                                                                        // table
-                                                                        .mappedTableResource(musicMappedTable)
-                                                                        .addDeleteItem(builder -> builder.key(
-                                                                                        Key.builder().partitionValue(
-                                                                                                        "Famous Band")
-                                                                                                        .build()))
-                                                                        .build())
-                                        .build();
-
-                        // Add three items to the Customer table and delete one item from the Music
-                        // table.
-                        enhancedClient.batchWriteItem(batchWriteItemEnhancedRequest);
-                        System.out.println("done");
-
-                } catch (DynamoDbException e) {
-                        System.err.println(e.getMessage());
-                        System.exit(1);
-                }
-        }
+    }
 }
 // snippet-end:[dynamodb.java2.mapping.batchitems.main]
