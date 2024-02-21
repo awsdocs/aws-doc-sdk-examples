@@ -8,7 +8,7 @@ import aws.sdk.kotlin.services.iot.IotClient
 import aws.sdk.kotlin.services.iot.model.ListThingsRequest
 
 suspend fun main() {
-    println("Hello AWS IoT. Here is a listing of your AWS IoT Things:")
+    println("Here is a listing of your AWS IoT Things:")
     listAllThings()
 }
 
