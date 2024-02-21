@@ -24,31 +24,30 @@ The credential provider used in all code examples is the default credential prov
 
 The following examples use the **IotClient** object:
 
-- [Attach a certificate to an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`AttachThingPrincipal`)
-- [Create an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateThing`)
-- [Create an AWS IoT certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateKeysAndCertificate`)
-- [Create an AWS IoT rule](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateTopicRule`)
-- [Delete an AWS IoT certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`DeleteCertificate`)
-- [Delete an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`DeleteThing`)
-- [Detach a certificate from an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`DetachThingPrincipal`)
-- [Get information about an endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`DescribeEndpoint`)
-- [List your AWS IoT certificates](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`ListCertificates`)
-- [Query the AWS IoT search index.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`SearchIndex`)
-- [Update an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`UpdateThing`)
+- [Attach a certificate to an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`AttachThingPrincipal`)
+- [Create an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`CreateThing`)
+- [Create an AWS IoT certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`CreateKeysAndCertificate`)
+- [Create an AWS IoT rule](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`CreateTopicRule`)
+- [Delete an AWS IoT certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`DeleteCertificate`)
+- [Delete an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`DeleteThing`)
+- [Detach a certificate from an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`DetachThingPrincipal`)
+- [Get information about an endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`DescribeEndpoint`)
+- [List your AWS IoT certificates](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`ListCertificates`)
+- [Query the AWS IoT search index.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`SearchIndex`)
+- [Update an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`UpdateThing`)
 
 The following examples use the **IotDataPlaneClient** object:
 
-- [Get the shadow for the specified thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`GetThingShadow`)
-- [Update the shadow for the specified thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`UpdateThingShadow`)
+- [Get the shadow for the specified thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`GetThingShadow`)
+- [Update the shadow for the specified thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) (`UpdateThingShadow`)
 
 ### Scenarios
 
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-* [Perform device management use cases ](src/main/java/com/example/iot/IotScenario.java) 
+* [Perform device management use cases ](src/main/kotlin/com/example/iot/IotScenario.kt) 
 
-## Running the AWS IoT Java files
+## Running the AWS IoT Kotlin files
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS IoT Thing. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
