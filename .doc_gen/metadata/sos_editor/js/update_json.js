@@ -1522,6 +1522,7 @@ function update_json() {
             console.log('myObj', myObj)
             myObj[blockValue].title = titleValue;
             myObj[blockValue].title_abbrev = abbrevTitleValue;
+            myObj[blockValue].synopsis = synopsisValue;
             console.log('abbrevTitleValue ',myObj[blockValue].title_abbrev)
             if (myObj[blockValue].synopsis_list = "undefined") {
                 console.log('there is no synopsis_list');
@@ -1754,7 +1755,8 @@ function update_json() {
                 }
                 if (noOfSnippets === 1) {
                 console.log('1 snippet, edit existing block')
-                const snippetDescValue = document.getElementById('snippetdescription1').value
+                var snippetDescValue = document.getElementById('snippetdescription1').value
+                    snippetDescValue.replaceAll('\"','\\"');
                 const snippetTagValue = document.getElementById('snippettag1').value
                 const editedJson =
                     {
