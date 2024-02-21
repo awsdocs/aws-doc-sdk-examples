@@ -494,8 +494,6 @@ suspend fun createCertificate(): String? {
         val certificateArn = response.certificateArn
 
         // Print the details.
-        println("Private Key:")
-        println(privateKey)
         println("\nCertificate:")
         println(certificatePem)
         println("\nCertificate ARN:")
