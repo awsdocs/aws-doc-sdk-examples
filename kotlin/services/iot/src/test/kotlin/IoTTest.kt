@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.util.*
+import java.util.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
@@ -89,7 +89,6 @@ class IoTTest {
         println("Test 2 passed")
     }
 
-
     private suspend fun getSecretValues(): String {
         val secretClient = SecretsManagerClient {
             region = "us-east-1"
@@ -103,12 +102,10 @@ class IoTTest {
         return valueResponse.secretString.toString()
     }
 
-
     @Nested
-    @DisplayName("A class used to get test values from test/firehose (an AWS Secrets Manager secret)")
+    @DisplayName("A class used to get test values from test/iot (an AWS Secrets Manager secret)")
     internal class SecretValues {
         val roleARN: String? = null
         val snsAction: String? = null
     }
-
 }
