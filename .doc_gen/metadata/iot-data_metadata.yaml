@@ -5,6 +5,15 @@ iot-data-plane_GetThingShadow:
   synopsis: get the shadow for an &IoT; thing.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.get.shadow.writer.main
     Java:
       versions:
         - sdk_version: 2
@@ -21,6 +30,15 @@ iot-data-plane_UpdateThingShadow:
   synopsis: update the shadow for an &IoT; thing.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.update.shadow.thing.main
     Java:
       versions:
         - sdk_version: 2
