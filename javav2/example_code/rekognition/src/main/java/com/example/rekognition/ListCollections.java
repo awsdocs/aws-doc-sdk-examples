@@ -14,8 +14,7 @@ import java.util.List;
 // snippet-end:[rekognition.java2.list_collections.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -25,8 +24,8 @@ public class ListCollections {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         System.out.println("Listing collections");
         listAllCollections(rekClient);
@@ -36,8 +35,8 @@ public class ListCollections {
     public static void listAllCollections(RekognitionClient rekClient) {
         try {
             ListCollectionsRequest listCollectionsRequest = ListCollectionsRequest.builder()
-                    .maxResults(10)
-                    .build();
+                .maxResults(10)
+                .build();
 
             ListCollectionsResponse response = rekClient.listCollections(listCollectionsRequest);
             List<String> collectionIds = response.collectionIds();

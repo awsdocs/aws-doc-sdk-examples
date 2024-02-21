@@ -28,8 +28,7 @@ import java.util.List;
 // snippet-end:[rekognition.java2.recognize_video_segments.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -41,14 +40,14 @@ public class VideoDetectSegment {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:    <bucket> <video> <topicArn> <roleArn>
+            Usage:    <bucket> <video> <topicArn> <roleArn>
 
-                Where:
-                   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket).\s
-                   video - The name of video (for example, people.mp4).\s
-                   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic.\s
-                   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use.\s
-                """;
+            Where:
+               bucket - The name of the bucket in which the video is located (for example, (for example, myBucket).\s
+               video - The name of video (for example, people.mp4).\s
+               topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic.\s
+               roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use.\s
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -62,17 +61,17 @@ public class VideoDetectSegment {
 
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         SqsClient sqs = SqsClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
 
         NotificationChannel channel = NotificationChannel.builder()
-                .snsTopicArn(topicArn)
-                .roleArn(roleArn)
-                .build();
+            .snsTopicArn(topicArn)
+            .roleArn(roleArn)
+            .build();
 
         startSegmentDetection(rekClient, channel, bucket, video);
         getSegmentResults(rekClient);
@@ -82,39 +81,39 @@ public class VideoDetectSegment {
     }
 
     public static void startSegmentDetection(RekognitionClient rekClient,
-            NotificationChannel channel,
-            String bucket,
-            String video) {
+                                             NotificationChannel channel,
+                                             String bucket,
+                                             String video) {
         try {
             S3Object s3Obj = S3Object.builder()
-                    .bucket(bucket)
-                    .name(video)
-                    .build();
+                .bucket(bucket)
+                .name(video)
+                .build();
 
             Video vidOb = Video.builder()
-                    .s3Object(s3Obj)
-                    .build();
+                .s3Object(s3Obj)
+                .build();
 
             StartShotDetectionFilter cueDetectionFilter = StartShotDetectionFilter.builder()
-                    .minSegmentConfidence(60F)
-                    .build();
+                .minSegmentConfidence(60F)
+                .build();
 
             StartTechnicalCueDetectionFilter technicalCueDetectionFilter = StartTechnicalCueDetectionFilter.builder()
-                    .minSegmentConfidence(60F)
-                    .build();
+                .minSegmentConfidence(60F)
+                .build();
 
             StartSegmentDetectionFilters filters = StartSegmentDetectionFilters.builder()
-                    .shotFilter(cueDetectionFilter)
-                    .technicalCueFilter(technicalCueDetectionFilter)
-                    .build();
+                .shotFilter(cueDetectionFilter)
+                .technicalCueFilter(technicalCueDetectionFilter)
+                .build();
 
             StartSegmentDetectionRequest segDetectionRequest = StartSegmentDetectionRequest.builder()
-                    .jobTag("DetectingLabels")
-                    .notificationChannel(channel)
-                    .segmentTypes(SegmentType.TECHNICAL_CUE, SegmentType.SHOT)
-                    .video(vidOb)
-                    .filters(filters)
-                    .build();
+                .jobTag("DetectingLabels")
+                .notificationChannel(channel)
+                .segmentTypes(SegmentType.TECHNICAL_CUE, SegmentType.SHOT)
+                .video(vidOb)
+                .filters(filters)
+                .build();
 
             StartSegmentDetectionResponse segDetectionResponse = rekClient.startSegmentDetection(segDetectionRequest);
             startJobId = segDetectionResponse.jobId();
@@ -138,10 +137,10 @@ public class VideoDetectSegment {
                     paginationToken = segDetectionResponse.nextToken();
 
                 GetSegmentDetectionRequest recognitionRequest = GetSegmentDetectionRequest.builder()
-                        .jobId(startJobId)
-                        .nextToken(paginationToken)
-                        .maxResults(10)
-                        .build();
+                    .jobId(startJobId)
+                    .nextToken(paginationToken)
+                    .maxResults(10)
+                    .build();
 
                 // Wait until the job succeeds.
                 while (!finished) {

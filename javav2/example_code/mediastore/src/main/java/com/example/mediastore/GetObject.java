@@ -1,10 +1,16 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+//snippet-sourcedescription:[GetObject.java demonstrates how to download a file from an AWS Elemental MediaStore container.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-service:[AWS Elemental MediaStore]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.mediastore;
 
-// snippet-start:[mediastore.java2.get_object.main]
-// snippet-start:[mediastore.java2.get_object.import]
+//snippet-start:[mediastore.java2.get_object.main]
+//snippet-start:[mediastore.java2.get_object.import]
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
@@ -20,11 +26,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-// snippet-end:[mediastore.java2.get_object.import]
+//snippet-end:[mediastore.java2.get_object.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -34,50 +39,45 @@ public class GetObject {
     public static void main(String[] args) throws URISyntaxException {
         final String usage = """
 
-                Usage:    <completePath> <containerName> <savePath>
+            Usage:    <completePath> <containerName> <savePath>
 
-                Where:
-                   completePath - The path of the object in the container (for example, Videos5/sampleVideo.mp4).
-                   containerName - The name of the container.
-                   savePath - The path on the local drive where the file is saved, including the file name (for example, C:/AWS/myvid.mp4).
-                """;
+            Where:
+               completePath - The path of the object in the container (for example, Videos5/sampleVideo.mp4).
+               containerName - The name of the container.
+            """;
 
-        if (args.length != 3) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+      //  if (args.length != 3) {
+      //      System.out.println(usage);
+      //      System.exit(1);
+      //  }
 
-        String completePath = args[0];
-        String containerName = args[1];
-        String savePath = args[2];
+        String completePath = "folder/Rabbit1.mp4" ; // args[0];
+        String containerName = "Videos"; //args[1];
 
         Region region = Region.US_EAST_1;
         URI uri = new URI(getEndpoint(containerName));
         MediaStoreDataClient mediaStoreData = MediaStoreDataClient.builder()
-                .endpointOverride(uri)
-                .region(region)
-                .build();
+            .endpointOverride(uri)
+            .region(region)
+            .build();
 
-        getMediaObject(mediaStoreData, completePath, savePath);
+        getMediaObject(mediaStoreData, completePath);
         mediaStoreData.close();
     }
 
-    public static void getMediaObject(MediaStoreDataClient mediaStoreData, String completePath, String savePath) {
+    public static void getMediaObject(MediaStoreDataClient mediaStoreData, String completePath) {
 
         try {
             GetObjectRequest objectRequest = GetObjectRequest.builder()
-                    .path(completePath)
-                    .build();
+                .path(completePath)
+                .build();
 
             // Write out the data to a file.
             ResponseInputStream<GetObjectResponse> data = mediaStoreData.getObject(objectRequest);
-            byte[] buffer = new byte[data.available()];
-            data.read(buffer);
-
-            File targetFile = new File(savePath);
-            OutputStream outStream = new FileOutputStream(targetFile);
-            outStream.write(buffer);
-            System.out.println("The data was written to " + savePath);
+            byte[] buffer = data.readAllBytes();
+            // Print out the size of the byte array in KB.
+            long sizeInKB = buffer.length / 1024;
+            System.out.println("Size of the byte array: " + sizeInKB + " KB");
 
         } catch (MediaStoreDataException | IOException e) {
             System.err.println(e.getMessage());
@@ -88,15 +88,15 @@ public class GetObject {
     private static String getEndpoint(String containerName) {
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         DescribeContainerRequest containerRequest = DescribeContainerRequest.builder()
-                .containerName(containerName)
-                .build();
+            .containerName(containerName)
+            .build();
 
         DescribeContainerResponse response = mediaStoreClient.describeContainer(containerRequest);
         return response.container().endpoint();
     }
 }
-// snippet-end:[mediastore.java2.get_object.main]
+//snippet-end:[mediastore.java2.get_object.main]

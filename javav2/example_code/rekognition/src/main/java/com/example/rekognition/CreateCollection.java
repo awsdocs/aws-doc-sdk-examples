@@ -13,8 +13,7 @@ import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 // snippet-end:[rekognition.java2.create_collection.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -24,11 +23,11 @@ public class CreateCollection {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:    <collectionName>\s
+            Usage:    <collectionName>\s
 
-                Where:
-                   collectionName - The name of the collection.\s
-                """;
+            Where:
+               collectionName - The name of the collection.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -38,8 +37,8 @@ public class CreateCollection {
         String collectionId = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         System.out.println("Creating collection: " + collectionId);
         createMyCollection(rekClient, collectionId);
@@ -49,8 +48,8 @@ public class CreateCollection {
     public static void createMyCollection(RekognitionClient rekClient, String collectionId) {
         try {
             CreateCollectionRequest collectionRequest = CreateCollectionRequest.builder()
-                    .collectionId(collectionId)
-                    .build();
+                .collectionId(collectionId)
+                .build();
 
             CreateCollectionResponse collectionResponse = rekClient.createCollection(collectionRequest);
             System.out.println("CollectionArn: " + collectionResponse.collectionArn());

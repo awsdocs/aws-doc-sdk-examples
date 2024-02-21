@@ -11,9 +11,9 @@ import software.amazon.awssdk.services.rekognition.model.*;
 import java.util.List;
 // snippet-end:[rekognition.java2.recognize_video_faces.import]
 
+
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -25,14 +25,14 @@ public class VideoDetectFaces {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:    <bucket> <video> <topicArn> <roleArn>
+            Usage:    <bucket> <video> <topicArn> <roleArn>
 
-                Where:
-                   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket).\s
-                   video - The name of video (for example, people.mp4).\s
-                   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic.\s
-                   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use.\s
-                """;
+            Where:
+               bucket - The name of the bucket in which the video is located (for example, (for example, myBucket).\s
+               video - The name of video (for example, people.mp4).\s
+               topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic.\s
+               roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use.\s
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -46,13 +46,13 @@ public class VideoDetectFaces {
 
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         NotificationChannel channel = NotificationChannel.builder()
-                .snsTopicArn(topicArn)
-                .roleArn(roleArn)
-                .build();
+            .snsTopicArn(topicArn)
+            .roleArn(roleArn)
+            .build();
 
         startFaceDetection(rekClient, channel, bucket, video);
         getFaceResults(rekClient);
@@ -61,25 +61,25 @@ public class VideoDetectFaces {
     }
 
     public static void startFaceDetection(RekognitionClient rekClient,
-            NotificationChannel channel,
-            String bucket,
-            String video) {
+                                          NotificationChannel channel,
+                                          String bucket,
+                                          String video) {
         try {
             S3Object s3Obj = S3Object.builder()
-                    .bucket(bucket)
-                    .name(video)
-                    .build();
+                .bucket(bucket)
+                .name(video)
+                .build();
 
             Video vidOb = Video.builder()
-                    .s3Object(s3Obj)
-                    .build();
+                .s3Object(s3Obj)
+                .build();
 
             StartFaceDetectionRequest faceDetectionRequest = StartFaceDetectionRequest.builder()
-                    .jobTag("Faces")
-                    .faceAttributes(FaceAttributes.ALL)
-                    .notificationChannel(channel)
-                    .video(vidOb)
-                    .build();
+                .jobTag("Faces")
+                .faceAttributes(FaceAttributes.ALL)
+                .notificationChannel(channel)
+                .video(vidOb)
+                .build();
 
             StartFaceDetectionResponse startLabelDetectionResult = rekClient.startFaceDetection(faceDetectionRequest);
             startJobId = startLabelDetectionResult.jobId();
@@ -103,10 +103,10 @@ public class VideoDetectFaces {
                     paginationToken = faceDetectionResponse.nextToken();
 
                 GetFaceDetectionRequest recognitionRequest = GetFaceDetectionRequest.builder()
-                        .jobId(startJobId)
-                        .nextToken(paginationToken)
-                        .maxResults(10)
-                        .build();
+                    .jobId(startJobId)
+                    .nextToken(paginationToken)
+                    .maxResults(10)
+                    .build();
 
                 // Wait until the job succeeds.
                 while (!finished) {
@@ -139,7 +139,7 @@ public class VideoDetectFaces {
                     String age = face.face().ageRange().toString();
                     String smile = face.face().smile().toString();
                     System.out.println("The detected face is estimated to be"
-                            + age + " years old.");
+                        + age + " years old.");
                     System.out.println("There is a smile : " + smile);
                 }
 
@@ -152,3 +152,4 @@ public class VideoDetectFaces {
     }
 }
 // snippet-end:[rekognition.java2.recognize_video_faces.main]
+

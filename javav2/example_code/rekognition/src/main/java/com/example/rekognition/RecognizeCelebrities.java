@@ -17,11 +17,11 @@ import software.amazon.awssdk.services.rekognition.model.RecognizeCelebritiesRes
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 import software.amazon.awssdk.services.rekognition.model.Image;
 import software.amazon.awssdk.services.rekognition.model.Celebrity;
+import software.amazon.awssdk.services.rekognition.model.S3Object;
 // snippet-end:[rekognition.java2.recognize_celebs.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -30,39 +30,44 @@ import software.amazon.awssdk.services.rekognition.model.Celebrity;
 public class RecognizeCelebrities {
     public static void main(String[] args) {
         final String usage = """
-                Usage:    <sourceImage>
+            Usage:    <sourceImage>
 
-                Where:
-                   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
-                """;
+            Where:
+               sourceImage - The image to use (this image is stored in an S3 bucket).\s
+               bucketName - The name of the Amazon S3 bucket (for example, myBucket).\s
+            """;
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+     //   if (args.length != 2) {
+     //       System.out.println(usage);
+     //       System.exit(1);
+     //   }
 
-        String sourceImage = args[0];
+        String sourceImage = "lam1.png";  //args[0];
+        String bucketName = "buckettestsept"; //args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         System.out.println("Locating celebrities in " + sourceImage);
-        recognizeAllCelebrities(rekClient, sourceImage);
+        recognizeAllCelebrities(rekClient, bucketName, sourceImage);
         rekClient.close();
     }
 
-    public static void recognizeAllCelebrities(RekognitionClient rekClient, String sourceImage) {
+    public static void recognizeAllCelebrities(RekognitionClient rekClient, String bucketName, String sourceImage) {
         try {
-            InputStream sourceStream = new FileInputStream(sourceImage);
-            SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
+            S3Object s3Object = S3Object.builder()
+                .bucket(bucketName)
+                .name(sourceImage)
+                .build();
+
             Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                 .s3Object(s3Object)
+                .build();
 
             RecognizeCelebritiesRequest request = RecognizeCelebritiesRequest.builder()
-                    .image(souImage)
-                    .build();
+                .image(souImage)
+                .build();
 
             RecognizeCelebritiesResponse result = rekClient.recognizeCelebrities(request);
             List<Celebrity> celebs = result.celebrityFaces();
@@ -79,7 +84,7 @@ public class RecognizeCelebrities {
             }
             System.out.println(result.unrecognizedFaces().size() + " face(s) were unrecognized.");
 
-        } catch (RekognitionException | FileNotFoundException e) {
+        } catch (RekognitionException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }

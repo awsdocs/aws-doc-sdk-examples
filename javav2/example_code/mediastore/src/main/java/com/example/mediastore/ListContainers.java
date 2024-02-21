@@ -1,10 +1,16 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+//snippet-sourcedescription:[ListContainers.java demonstrates how to list your AWS Elemental MediaStore containers.]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-service:[AWS Elemental MediaStore]
+
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 package com.example.mediastore;
 
-// snippet-start:[mediastore.java2.list_containers.main]
-// snippet-start:[mediastore.java2.list_containers.import]
+//snippet-start:[mediastore.java2.list_containers.main]
+//snippet-start:[mediastore.java2.list_containers.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
@@ -12,11 +18,10 @@ import software.amazon.awssdk.services.mediastore.model.Container;
 import software.amazon.awssdk.services.mediastore.model.ListContainersResponse;
 import software.amazon.awssdk.services.mediastore.model.MediaStoreException;
 import java.util.List;
-// snippet-end:[mediastore.java2.list_containers.import]
+//snippet-end:[mediastore.java2.list_containers.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -28,8 +33,8 @@ public class ListContainers {
 
         Region region = Region.US_EAST_1;
         MediaStoreClient mediaStoreClient = MediaStoreClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         listAllContainers(mediaStoreClient);
         mediaStoreClient.close();
@@ -49,4 +54,4 @@ public class ListContainers {
         }
     }
 }
-// snippet-end:[mediastore.java2.list_containers.main]
+//snippet-end:[mediastore.java2.list_containers.main]

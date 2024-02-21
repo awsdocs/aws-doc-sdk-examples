@@ -31,8 +31,7 @@ import software.amazon.awssdk.services.rekognition.model.DetectProtectiveEquipme
 // snippet-end:[rekognition.java2.display_mask.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -47,12 +46,12 @@ public class PPEBoundingBoxFrame extends JPanel {
     public static void main(String[] args) throws Exception {
         final String usage = """
 
-                Usage:    <sourceImage> <bucketName>
+            Usage:    <sourceImage> <bucketName>
 
-                Where:
-                   sourceImage - The name of the image in an Amazon S3 bucket that shows a person wearing a mask (for example, masks.png).\s
-                   bucketName - The name of the Amazon S3 bucket (for example, myBucket).\s
-                """;
+            Where:
+               sourceImage - The name of the image in an Amazon S3 bucket that shows a person wearing a mask (for example, masks.png).\s
+               bucketName - The name of the Amazon S3 bucket (for example, myBucket).\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -63,12 +62,12 @@ public class PPEBoundingBoxFrame extends JPanel {
         String bucketName = args[1];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         displayGear(s3, rekClient, sourceImage, bucketName);
         s3.close();
@@ -76,32 +75,31 @@ public class PPEBoundingBoxFrame extends JPanel {
     }
 
     public static void displayGear(S3Client s3,
-            RekognitionClient rekClient,
-            String sourceImage,
-            String bucketName) {
+                                   RekognitionClient rekClient,
+                                   String sourceImage,
+                                   String bucketName) {
         float confidence = 80;
         byte[] data = getObjectBytes(s3, bucketName, sourceImage);
         InputStream is = new ByteArrayInputStream(data);
 
         try {
-            ProtectiveEquipmentSummarizationAttributes summarizationAttributes = ProtectiveEquipmentSummarizationAttributes
-                    .builder()
-                    .minConfidence(70F)
-                    .requiredEquipmentTypesWithStrings("FACE_COVER")
-                    .build();
+            ProtectiveEquipmentSummarizationAttributes summarizationAttributes = ProtectiveEquipmentSummarizationAttributes.builder()
+                .minConfidence(70F)
+                .requiredEquipmentTypesWithStrings("FACE_COVER")
+                .build();
 
             SdkBytes sourceBytes = SdkBytes.fromInputStream(is);
             image = ImageIO.read(sourceBytes.asInputStream());
 
             // Create an Image object for the source image.
             software.amazon.awssdk.services.rekognition.model.Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                .bytes(sourceBytes)
+                .build();
 
             DetectProtectiveEquipmentRequest request = DetectProtectiveEquipmentRequest.builder()
-                    .image(souImage)
-                    .summarizationAttributes(summarizationAttributes)
-                    .build();
+                .image(souImage)
+                .summarizationAttributes(summarizationAttributes)
+                .build();
 
             DetectProtectiveEquipmentResponse result = rekClient.detectProtectiveEquipment(request);
             JFrame frame = new JFrame("Detect PPE");
@@ -123,10 +121,10 @@ public class PPEBoundingBoxFrame extends JPanel {
     public static byte[] getObjectBytes(S3Client s3, String bucketName, String keyName) {
         try {
             GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+                .builder()
+                .key(keyName)
+                .bucket(bucketName)
+                .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             return objectBytes.asByteArray();
@@ -138,8 +136,7 @@ public class PPEBoundingBoxFrame extends JPanel {
         return null;
     }
 
-    public PPEBoundingBoxFrame(DetectProtectiveEquipmentResponse ppeResult, BufferedImage bufImage,
-            float requiredConfidence) {
+    public PPEBoundingBoxFrame(DetectProtectiveEquipmentResponse ppeResult, BufferedImage bufImage, float requiredConfidence) {
         super();
         scale = 1; // increase to shrink image size.
         result = ppeResult;
@@ -185,8 +182,7 @@ public class PPEBoundingBoxFrame extends JPanel {
                             }
                             g2d.setColor(maskColor);
                             g2d.drawRect(Math.round(left / scale), Math.round(top / scale),
-                                    Math.round((width * box.width()) / scale),
-                                    Math.round((height * box.height())) / scale);
+                                Math.round((width * box.width()) / scale), Math.round((height * box.height())) / scale);
 
                             // Check confidence is > supplied confidence.
                             if (item.coversBodyPart().confidence() < confidence) {
@@ -194,9 +190,9 @@ public class PPEBoundingBoxFrame extends JPanel {
                                 maskColor = new Color(255, 255, 0);
                                 g2d.setColor(maskColor);
                                 g2d.drawRect(Math.round((left + offset) / scale),
-                                        Math.round((top + offset) / scale),
-                                        Math.round((width * box.width()) - (offset * 2)) / scale,
-                                        Math.round((height * box.height()) - (offset * 2)) / scale);
+                                    Math.round((top + offset) / scale),
+                                    Math.round((width * box.width()) - (offset * 2)) / scale,
+                                    Math.round((height * box.height()) - (offset * 2)) / scale);
                             }
                         }
                     }
@@ -206,3 +202,4 @@ public class PPEBoundingBoxFrame extends JPanel {
     }
 }
 // snippet-end:[rekognition.java2.display_mask.main]
+

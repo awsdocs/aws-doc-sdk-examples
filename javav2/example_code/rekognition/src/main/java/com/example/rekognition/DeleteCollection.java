@@ -13,8 +13,7 @@ import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 // snippet-end:[rekognition.java2.delete_collection.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -24,11 +23,11 @@ public class DeleteCollection {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:    <collectionId>\s
+            Usage:    <collectionId>\s
 
-                Where:
-                   collectionId - The id of the collection to delete.\s
-                """;
+            Where:
+               collectionId - The id of the collection to delete.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -38,8 +37,8 @@ public class DeleteCollection {
         String collectionId = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         System.out.println("Deleting collection: " + collectionId);
         deleteMyCollection(rekClient, collectionId);
@@ -49,8 +48,8 @@ public class DeleteCollection {
     public static void deleteMyCollection(RekognitionClient rekClient, String collectionId) {
         try {
             DeleteCollectionRequest deleteCollectionRequest = DeleteCollectionRequest.builder()
-                    .collectionId(collectionId)
-                    .build();
+                .collectionId(collectionId)
+                .build();
 
             DeleteCollectionResponse deleteCollectionResponse = rekClient.deleteCollection(deleteCollectionRequest);
             System.out.println(collectionId + ": " + deleteCollectionResponse.statusCode().toString());
@@ -62,3 +61,4 @@ public class DeleteCollection {
     }
 }
 // snippet-end:[rekognition.java2.delete_collection.main]
+

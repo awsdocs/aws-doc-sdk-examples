@@ -15,8 +15,7 @@ import java.util.List;
 // snippet-end:[rekognition.java2.match_faces_collection.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -26,12 +25,12 @@ public class SearchFaceMatchingIdCollection {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:    <collectionId> <sourceImage>
+            Usage:    <collectionId> <sourceImage>
 
-                Where:
-                   collectionId - The id of the collection. \s
-                   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
-                """;
+            Where:
+               collectionId - The id of the collection. \s
+               sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -42,8 +41,8 @@ public class SearchFaceMatchingIdCollection {
         String faceId = args[1];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         System.out.println("Searching for a face in a collections");
         searchFacebyId(rekClient, collectionId, faceId);
@@ -53,11 +52,11 @@ public class SearchFaceMatchingIdCollection {
     public static void searchFacebyId(RekognitionClient rekClient, String collectionId, String faceId) {
         try {
             SearchFacesRequest searchFacesRequest = SearchFacesRequest.builder()
-                    .collectionId(collectionId)
-                    .faceId(faceId)
-                    .faceMatchThreshold(70F)
-                    .maxFaces(2)
-                    .build();
+                .collectionId(collectionId)
+                .faceId(faceId)
+                .faceMatchThreshold(70F)
+                .maxFaces(2)
+                .build();
 
             SearchFacesResponse imageResponse = rekClient.searchFaces(searchFacesRequest);
             System.out.println("Faces matching in the collection");

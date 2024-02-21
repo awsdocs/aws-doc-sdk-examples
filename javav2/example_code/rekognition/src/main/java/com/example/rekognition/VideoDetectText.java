@@ -21,8 +21,7 @@ import java.util.List;
 // snippet-end:[rekognition.java2.recognize_video_text.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -34,14 +33,14 @@ public class VideoDetectText {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:    <bucket> <video> <topicArn> <roleArn>
+            Usage:    <bucket> <video> <topicArn> <roleArn>
 
-                Where:
-                   bucket - The name of the bucket in which the video is located (for example, (for example, myBucket).\s
-                   video - The name of video (for example, people.mp4).\s
-                   topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic.\s
-                   roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use.\s
-                """;
+            Where:
+               bucket - The name of the bucket in which the video is located (for example, (for example, myBucket).\s
+               video - The name of video (for example, people.mp4).\s
+               topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic.\s
+               roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use.\s
+            """;
 
         if (args.length != 4) {
             System.out.println(usage);
@@ -55,13 +54,13 @@ public class VideoDetectText {
 
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         NotificationChannel channel = NotificationChannel.builder()
-                .snsTopicArn(topicArn)
-                .roleArn(roleArn)
-                .build();
+            .snsTopicArn(topicArn)
+            .roleArn(roleArn)
+            .build();
 
         startTextLabels(rekClient, channel, bucket, video);
         getTextResults(rekClient);
@@ -70,24 +69,24 @@ public class VideoDetectText {
     }
 
     public static void startTextLabels(RekognitionClient rekClient,
-            NotificationChannel channel,
-            String bucket,
-            String video) {
+                                       NotificationChannel channel,
+                                       String bucket,
+                                       String video) {
         try {
             S3Object s3Obj = S3Object.builder()
-                    .bucket(bucket)
-                    .name(video)
-                    .build();
+                .bucket(bucket)
+                .name(video)
+                .build();
 
             Video vidOb = Video.builder()
-                    .s3Object(s3Obj)
-                    .build();
+                .s3Object(s3Obj)
+                .build();
 
             StartTextDetectionRequest labelDetectionRequest = StartTextDetectionRequest.builder()
-                    .jobTag("DetectingLabels")
-                    .notificationChannel(channel)
-                    .video(vidOb)
-                    .build();
+                .jobTag("DetectingLabels")
+                .notificationChannel(channel)
+                .video(vidOb)
+                .build();
 
             StartTextDetectionResponse labelDetectionResponse = rekClient.startTextDetection(labelDetectionRequest);
             startJobId = labelDetectionResponse.jobId();
@@ -111,10 +110,10 @@ public class VideoDetectText {
                     paginationToken = textDetectionResponse.nextToken();
 
                 GetTextDetectionRequest recognitionRequest = GetTextDetectionRequest.builder()
-                        .jobId(startJobId)
-                        .nextToken(paginationToken)
-                        .maxResults(10)
-                        .build();
+                    .jobId(startJobId)
+                    .nextToken(paginationToken)
+                    .maxResults(10)
+                    .build();
 
                 // Wait until the job succeeds.
                 while (!finished) {
@@ -159,3 +158,6 @@ public class VideoDetectText {
     }
 }
 // snippet-end:[rekognition.java2.recognize_video_text.main]
+
+
+

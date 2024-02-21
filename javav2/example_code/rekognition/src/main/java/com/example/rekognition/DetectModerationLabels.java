@@ -13,6 +13,8 @@ import software.amazon.awssdk.services.rekognition.model.Image;
 import software.amazon.awssdk.services.rekognition.model.DetectModerationLabelsRequest;
 import software.amazon.awssdk.services.rekognition.model.DetectModerationLabelsResponse;
 import software.amazon.awssdk.services.rekognition.model.ModerationLabel;
+import software.amazon.awssdk.services.rekognition.model.S3Object;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -20,8 +22,7 @@ import java.util.List;
 // snippet-end:[rekognition.java2.detect_mod_labels.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,52 +33,56 @@ public class DetectModerationLabels {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:    <sourceImage>
+            Usage:    <sourceImage>
 
-                Where:
-                   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
-                """;
+            Where:
+               sourceImage - The name of the image (for example, pic1.png).\s
+               bucketName - The name of the S3 bucket. 
+            """;
 
-        if (args.length < 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+       // if (args.length < 1) {
+       //     System.out.println(usage);
+       //     System.exit(1);
+       // }
 
-        String sourceImage = args[0];
+        String sourceImage = "lam1" ; //args[0];
+        String bucketName = "buckettestsept" ;
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
-        detectModLabels(rekClient, sourceImage);
+        detectModLabels(rekClient, bucketName, sourceImage);
         rekClient.close();
     }
 
-    public static void detectModLabels(RekognitionClient rekClient, String sourceImage) {
+    public static void detectModLabels(RekognitionClient rekClient, String bucketName, String sourceImage) {
         try {
-            InputStream sourceStream = new FileInputStream(sourceImage);
-            SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
+            S3Object s3Object1 = S3Object.builder()
+                .bucket(bucketName)
+                .name(sourceImage)
+                .build();
+
             Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                .s3Object(s3Object1)
+                .build();
 
             DetectModerationLabelsRequest moderationLabelsRequest = DetectModerationLabelsRequest.builder()
-                    .image(souImage)
-                    .minConfidence(60F)
-                    .build();
+                .image(souImage)
+                .minConfidence(60F)
+                .build();
 
-            DetectModerationLabelsResponse moderationLabelsResponse = rekClient
-                    .detectModerationLabels(moderationLabelsRequest);
+            DetectModerationLabelsResponse moderationLabelsResponse = rekClient.detectModerationLabels(moderationLabelsRequest);
             List<ModerationLabel> labels = moderationLabelsResponse.moderationLabels();
             System.out.println("Detected labels for image");
             for (ModerationLabel label : labels) {
                 System.out.println("Label: " + label.name()
-                        + "\n Confidence: " + label.confidence().toString() + "%"
-                        + "\n Parent:" + label.parentName());
+                    + "\n Confidence: " + label.confidence().toString() + "%"
+                    + "\n Parent:" + label.parentName());
             }
 
-        } catch (RekognitionException | FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (RekognitionException e) {
+            System.out.println(e.getMessage());
             System.exit(1);
         }
     }

@@ -5,7 +5,6 @@ package com.example.rekognition;
 
 // snippet-start:[rekognition.java2.add_faces_collection.main]
 // snippet-start:[rekognition.java2.add_faces_collection.import]
-import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.IndexFacesResponse;
@@ -14,18 +13,15 @@ import software.amazon.awssdk.services.rekognition.model.Image;
 import software.amazon.awssdk.services.rekognition.model.QualityFilter;
 import software.amazon.awssdk.services.rekognition.model.Attribute;
 import software.amazon.awssdk.services.rekognition.model.FaceRecord;
+import software.amazon.awssdk.services.rekognition.model.S3Object;
 import software.amazon.awssdk.services.rekognition.model.UnindexedFace;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 import software.amazon.awssdk.services.rekognition.model.Reason;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.List;
 // snippet-end:[rekognition.java2.add_faces_collection.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -36,12 +32,13 @@ public class AddFacesToCollection {
 
         final String usage = """
 
-                Usage:     <collectionId> <sourceImage>
+            Usage:     <collectionId> <sourceImage> <bucketName>
 
-                Where:
-                    collectionName - The name of the collection.
-                    sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
-                """;
+            Where:
+                collectionName - The name of the collection.
+                sourceImage - The name of the image (for example, pic1.png).\s
+                bucketName - The name of the Amazon S3 bucket where images are located (for example, myBucket).\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -50,30 +47,34 @@ public class AddFacesToCollection {
 
         String collectionId = args[0];
         String sourceImage = args[1];
+        String bucketName = args[2];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
-        addToCollection(rekClient, collectionId, sourceImage);
+        addToCollection(rekClient, bucketName, collectionId, sourceImage);
         rekClient.close();
     }
 
-    public static void addToCollection(RekognitionClient rekClient, String collectionId, String sourceImage) {
+    public static void addToCollection(RekognitionClient rekClient, String bucketName, String collectionId, String sourceImage) {
         try {
-            InputStream sourceStream = new FileInputStream(sourceImage);
-            SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
+            S3Object s3Object1 = S3Object.builder()
+                .bucket(bucketName)
+                .name(sourceImage)
+                .build();
+
             Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                .s3Object(s3Object1)
+                .build();
 
             IndexFacesRequest facesRequest = IndexFacesRequest.builder()
-                    .collectionId(collectionId)
-                    .image(souImage)
-                    .maxFaces(1)
-                    .qualityFilter(QualityFilter.AUTO)
-                    .detectionAttributes(Attribute.DEFAULT)
-                    .build();
+                .collectionId(collectionId)
+                .image(souImage)
+                .maxFaces(1)
+                .qualityFilter(QualityFilter.AUTO)
+                .detectionAttributes(Attribute.DEFAULT)
+                .build();
 
             IndexFacesResponse facesResponse = rekClient.indexFaces(facesRequest);
             System.out.println("Results for the image");
@@ -94,10 +95,10 @@ public class AddFacesToCollection {
                 }
             }
 
-        } catch (RekognitionException | FileNotFoundException e) {
+        } catch (RekognitionException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
     }
 }
-// snippet-end:[rekognition.java2.add_faces_collection.main]
+ // snippet-end:[rekognition.java2.add_faces_collection.main]

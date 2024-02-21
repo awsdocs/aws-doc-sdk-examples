@@ -31,8 +31,7 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 // snippet-end:[rekognition.java2.display_faces.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -46,12 +45,12 @@ public class DisplayFacesFrame extends JPanel {
     public static void main(String[] args) throws Exception {
         final String usage = """
 
-                Usage:    <sourceImage> <bucketName>
+            Usage:    <sourceImage> <bucketName>
 
-                Where:
-                   sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png).\s
-                   bucketName - The name of the Amazon S3 bucket (for example, myBucket).\s
-                """;
+            Where:
+               sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png).\s
+               bucketName - The name of the Amazon S3 bucket (for example, myBucket).\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -62,12 +61,12 @@ public class DisplayFacesFrame extends JPanel {
         String bucketName = args[1];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         displayAllFaces(s3, rekClient, sourceImage, bucketName);
         s3.close();
@@ -76,12 +75,12 @@ public class DisplayFacesFrame extends JPanel {
 
     // snippet-start:[rekognition.java2.display_faces.main]
     public static void displayAllFaces(S3Client s3,
-            RekognitionClient rekClient,
-            String sourceImage,
-            String bucketName) {
+                                       RekognitionClient rekClient,
+                                       String sourceImage,
+                                       String bucketName) {
         int height;
         int width;
-        byte[] data = getObjectBytes(s3, bucketName, sourceImage);
+        byte[] data = getObjectBytes (s3, bucketName, sourceImage);
         InputStream is = new ByteArrayInputStream(data);
 
         try {
@@ -92,13 +91,13 @@ public class DisplayFacesFrame extends JPanel {
 
             // Create an Image object for the source image
             software.amazon.awssdk.services.rekognition.model.Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                .bytes(sourceBytes)
+                .build();
 
             DetectFacesRequest facesRequest = DetectFacesRequest.builder()
-                    .attributes(Attribute.ALL)
-                    .image(souImage)
-                    .build();
+                .attributes(Attribute.ALL)
+                .image(souImage)
+                .build();
 
             result = rekClient.detectFaces(facesRequest);
 
@@ -130,17 +129,17 @@ public class DisplayFacesFrame extends JPanel {
             System.out.println(e.getMessage());
             System.exit(1);
         } catch (IOException e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
     }
 
-    public static byte[] getObjectBytes(S3Client s3, String bucketName, String keyName) {
+    public static byte[] getObjectBytes (S3Client s3, String bucketName, String keyName) {
         try {
             GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+                .builder()
+                .key(keyName)
+                .bucket(bucketName)
+                .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             return objectBytes.asByteArray();

@@ -1,0 +1,76 @@
+{
+  "Comment": "A non-AI simplistic chat simulator",
+  "StartAt": "Greeting",
+  "States": {
+    "Greeting": {
+      "Type": "Pass",
+      "Parameters": {
+        "message.$": "States.Format('Hello, {}!', $.name)"
+      },
+      "Next": "GetInput"
+    },
+    "GetInput": {
+      "Type": "Task",
+      "Resource": "{{DOC_EXAMPLE_ACTIVITY_ARN}}",
+      "Parameters": {
+        "message.$": "$.message",
+        "actions.$": "States.Array('song', 'poem', 'story', 'done')"
+      },
+      "TimeoutSeconds": 300,
+      "Next": "Choice"
+    },
+    "Choice": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.action",
+          "StringEquals": "song",
+          "Next": "Song"
+        },
+        {
+          "Variable": "$.action",
+          "StringEquals": "poem",
+          "Next": "Poem"
+        },
+        {
+          "Variable": "$.action",
+          "StringEquals": "story",
+          "Next": "Story"
+        },
+        {
+          "Variable": "$.action",
+          "StringEquals": "done",
+          "Next": "Done"
+        }
+      ]
+    },
+    "Song": {
+      "Type": "Pass",
+      "Result": {
+        "message": "My song has no tune but you can still dance to it."
+      },
+      "Next": "GetInput"
+    },
+    "Poem": {
+      "Type": "Pass",
+      "Result": {
+        "message": "This is my poem but it doesn't rhyme."
+      },
+      "Next": "GetInput"
+    },
+    "Story": {
+      "Type": "Pass",
+      "Result": {
+        "message": "This story has neither beginning, middle, nor end."
+      },
+      "Next": "GetInput"
+    },
+    "Done": {
+      "Type": "Pass",
+      "End": true,
+      "Result": {
+        "message": "Thanks for chatting."
+      }
+    }
+  }
+}

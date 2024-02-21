@@ -9,6 +9,7 @@ import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
+import software.amazon.awssdk.services.rekognition.model.S3Object;
 import software.amazon.awssdk.services.rekognition.model.SearchFacesByImageRequest;
 import software.amazon.awssdk.services.rekognition.model.Image;
 import software.amazon.awssdk.services.rekognition.model.SearchFacesByImageResponse;
@@ -21,8 +22,7 @@ import java.util.List;
 // snippet-end:[rekognition.java2.search_faces_collection.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -32,13 +32,13 @@ public class SearchFaceMatchingImageCollection {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:    <collectionId> <sourceImage>
+            Usage:    <collectionId> <sourceImage>
 
-                Where:
-                   collectionId - The id of the collection. \s
-                   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
+            Where:
+               collectionId - The id of the collection. \s
+               sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
 
-                """;
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -47,30 +47,34 @@ public class SearchFaceMatchingImageCollection {
 
         String collectionId = args[0];
         String sourceImage = args[1];
+        String bucketName = args[2];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         System.out.println("Searching for a face in a collections");
-        searchFaceInCollection(rekClient, collectionId, sourceImage);
+        searchFaceInCollection(rekClient, bucketName, collectionId, sourceImage);
         rekClient.close();
     }
 
-    public static void searchFaceInCollection(RekognitionClient rekClient, String collectionId, String sourceImage) {
+    public static void searchFaceInCollection(RekognitionClient rekClient, String bucketName, String collectionId, String sourceImage) {
         try {
-            InputStream sourceStream = new FileInputStream(new File(sourceImage));
-            SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
+            S3Object s3Object1 = S3Object.builder()
+                .bucket(bucketName)
+                .name(sourceImage)
+                .build();
+
             Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                .s3Object(s3Object1)
+                .build();
 
             SearchFacesByImageRequest facesByImageRequest = SearchFacesByImageRequest.builder()
-                    .image(souImage)
-                    .maxFaces(10)
-                    .faceMatchThreshold(70F)
-                    .collectionId(collectionId)
-                    .build();
+                .image(souImage)
+                .maxFaces(10)
+                .faceMatchThreshold(70F)
+                .collectionId(collectionId)
+                .build();
 
             SearchFacesByImageResponse imageResponse = rekClient.searchFacesByImage(facesByImageRequest);
             System.out.println("Faces matching in the collection");
@@ -80,7 +84,7 @@ public class SearchFaceMatchingImageCollection {
                 System.out.println();
             }
 
-        } catch (RekognitionException | FileNotFoundException e) {
+        } catch (RekognitionException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }

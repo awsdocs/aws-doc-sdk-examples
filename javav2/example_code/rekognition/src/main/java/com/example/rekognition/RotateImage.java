@@ -22,8 +22,7 @@ import java.util.List;
 // snippet-end:[rekognition.java2.recognize_image_orientation.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -33,11 +32,11 @@ public class RotateImage {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:    <sourceImage>
+            Usage:    <sourceImage>
 
-                Where:
-                   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
-                """;
+            Where:
+               sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -47,8 +46,8 @@ public class RotateImage {
         String sourceImage = args[0];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         System.out.println("Locating celebrities in " + sourceImage);
         recognizeAllCelebrities(rekClient, sourceImage);
@@ -66,12 +65,12 @@ public class RotateImage {
             int width = image.getWidth();
 
             Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
+                .bytes(sourceBytes)
+                .build();
 
             RecognizeCelebritiesRequest request = RecognizeCelebritiesRequest.builder()
-                    .image(souImage)
-                    .build();
+                .image(souImage)
+                .build();
 
             RecognizeCelebritiesResponse result = rekClient.recognizeCelebrities(request);
             List<Celebrity> celebs = result.celebrityFaces();
@@ -81,9 +80,9 @@ public class RotateImage {
                 System.out.println("Celebrity ID: " + celebrity.id());
                 ComparedFace face = celebrity.face();
                 ShowBoundingBoxPositions(height,
-                        width,
-                        face.boundingBox(),
-                        result.orientationCorrectionAsString());
+                    width,
+                    face.boundingBox(),
+                    result.orientationCorrectionAsString());
             }
 
         } catch (RekognitionException | FileNotFoundException e) {

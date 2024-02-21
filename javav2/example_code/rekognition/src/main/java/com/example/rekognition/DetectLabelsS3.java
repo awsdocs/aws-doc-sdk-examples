@@ -17,8 +17,7 @@ import java.util.List;
 // snippet-end:[rekognition.java2.detect_labels_s3.import]
 
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
  *
@@ -29,11 +28,11 @@ public class DetectLabelsS3 {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:    <bucket> <image>
+            Usage:    <bucket> <image>
 
-                Where:
-                   bucket - The name of the Amazon S3 bucket that contains the image (for example, ,ImageBucket).   image - The name of the image located in the Amazon S3 bucket (for example, Lake.png).\s
-                """;
+            Where:
+               bucket - The name of the Amazon S3 bucket that contains the image (for example, ,ImageBucket).   image - The name of the image located in the Amazon S3 bucket (for example, Lake.png).\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -44,8 +43,8 @@ public class DetectLabelsS3 {
         String image = args[1];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         getLabelsfromImage(rekClient, bucket, image);
         rekClient.close();
@@ -54,18 +53,18 @@ public class DetectLabelsS3 {
     public static void getLabelsfromImage(RekognitionClient rekClient, String bucket, String image) {
         try {
             S3Object s3Object = S3Object.builder()
-                    .bucket(bucket)
-                    .name(image)
-                    .build();
+                .bucket(bucket)
+                .name(image)
+                .build();
 
             Image myImage = Image.builder()
-                    .s3Object(s3Object)
-                    .build();
+                .s3Object(s3Object)
+                .build();
 
             DetectLabelsRequest detectLabelsRequest = DetectLabelsRequest.builder()
-                    .image(myImage)
-                    .maxLabels(10)
-                    .build();
+                .image(myImage)
+                .maxLabels(10)
+                .build();
 
             DetectLabelsResponse labelsResponse = rekClient.detectLabels(detectLabelsRequest);
             List<Label> labels = labelsResponse.labels();
