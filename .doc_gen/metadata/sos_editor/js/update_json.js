@@ -1523,12 +1523,8 @@ function update_json() {
             myObj[blockValue].title = titleValue;
             myObj[blockValue].title_abbrev = abbrevTitleValue;
             console.log('abbrevTitleValue ',myObj[blockValue].title_abbrev)
-
             if (myObj[blockValue].synopsis_list = "undefined") {
                 console.log('there is no synopsis_list');
-            }
-            else{
-                myObj[blockValue].synopsis_list = [synopsisListValue];
             }
             myObj[blockValue].synopsis_list = [synopsisListValue];
             myObj[blockValue].category = categoryValue;
@@ -1805,7 +1801,11 @@ function update_json() {
                 myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"].push(editedJson)
                 const finalObject = JSON.stringify(myObj);
                 console.log('finalObject', finalObject)
-                const finalObject1 = finalObject.replaceAll(':null', ':" "').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':" "').replaceAll("[[","[").replaceAll("]]","]");
+                var finalObject1 = finalObject.replaceAll(':null', ':" "').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':" "').replaceAll("[[","[").replaceAll("]]","]").replaceAll('category:','synopsis_list:\n  category:');;
+                /*if(!finalObject1.includes("synopsis_list")) {
+                    console.log('it does not');
+                    finalObject1 = finalObject1.replaceAll(':null', ':" "').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':" "').replaceAll("[[", "[").replaceAll("]]", "]").replaceAll('category:','synopsis_list:\n  category:');
+                }*/
                 console.log('finalObject1', finalObject1)
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
@@ -2076,7 +2076,7 @@ function create_code_example_tag(tagnumber, codeExampleTitle) {
         var fileExtension = ".swift"
     }
     console.log('fileextenstion', fileExtension)
-    const myFilename = codeExampleTitle + fileExtension;
+    const myFilename = codeExampleTitle;
     download1(myFilename, finalExample);
     alert(myFilename + " is in your Downloads folder. Please copy it to the appropriate folder.")
     const snippettag = serviceValue + ".example_code." + languageValue + "." + codeExampleTitle;
