@@ -23,6 +23,11 @@ struct ErrorHandlingExample {
 
             _ = try await client.listBuckets(input: ListBucketsInput())
             print("Done")
+        } catch let error as ServiceError {
+            print("Service error of type {}: {}",
+                error.typeName ?? "<unknown>",
+                error.message ?? "<no message>"
+            )
         } catch let error as CommonRunTimeError {
             switch error {
                 case .crtError(let error):
@@ -33,8 +38,6 @@ struct ErrorHandlingExample {
                     // SDK, but is here to future-proof this error handler.
                     dump(error, name: "Unknown type of CommonRunTimeError")
             }
-        } catch let error as CRTError {
-            print("CRT Error (code \(error.code)) (\(error.name)): \(error.message)")
         } catch {
             print("Some other error")
         }
