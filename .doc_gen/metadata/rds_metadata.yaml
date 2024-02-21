@@ -1,4 +1,3 @@
-# zexi 0.4.0
 rds_Hello:
   title: Hello &RDS;
   title_abbrev: Hello &RDS;
@@ -9,18 +8,18 @@ rds_Hello:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.describe_instances.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.HelloRds
     Go:
@@ -28,7 +27,7 @@ rds_Hello:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.Hello
     C++:
@@ -48,15 +47,15 @@ rds_CreateDBInstance:
   title: Create an &RDS; DB instance using an &AWS; SDK
   title_abbrev: Create a DB instance
   synopsis: create an &RDS; DB instance and wait for it to become available.
-  category:
+  category:  
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.CreateDBInstance
     Go:
@@ -64,7 +63,7 @@ rds_CreateDBInstance:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.CreateDBInstance
@@ -72,18 +71,18 @@ rds_CreateDBInstance:
       versions:
         - sdk_version: 1
           github: kotlin/services/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.kotlin.create_instance.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.create_instance.main
     Python:
@@ -91,7 +90,7 @@ rds_CreateDBInstance:
         - sdk_version: 3
           github: python/example_code/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.CreateDBInstance
@@ -99,9 +98,9 @@ rds_CreateDBInstance:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -120,15 +119,15 @@ rds_DeleteDBInstance:
   title: Delete an &RDS; DB instance using an &AWS; SDK
   title_abbrev: Delete a DB instance
   synopsis: delete an &RDS; DB instance.
-  category:
+  category:  
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.DeleteDBInstance
     Go:
@@ -136,7 +135,7 @@ rds_DeleteDBInstance:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.DeleteDBInstance
@@ -144,18 +143,18 @@ rds_DeleteDBInstance:
       versions:
         - sdk_version: 1
           github: kotlin/services/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.kotlin.delete_instance.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.delete_instance.main
     Python:
@@ -163,7 +162,7 @@ rds_DeleteDBInstance:
         - sdk_version: 3
           github: python/example_code/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DeleteDBInstance
@@ -171,9 +170,9 @@ rds_DeleteDBInstance:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -187,46 +186,46 @@ rds_DeleteDBInstance:
               snippet_tags:
                 - php.example_code.rds.deleteDBInstance.complete
   services:
-    rds: {DeleteDBInstance} 
+    rds: {DeleteDBInstance}
 rds_DescribeAccountAttributes:
   title: Retrieve attributes that belongs to an &RDS; account using an &AWS; SDK
   title_abbrev: Retrieve attributes
   synopsis: retrieve attributes that belong to an &RDS; account.
-  category:
+  category:  
   languages:
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.kotlin.describe_account.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.describe_account.main
   services:
-    rds: {DescribeAccountAttributes}     
+    rds: {DescribeAccountAttributes}
 rds_DescribeDBInstances:
   title: Describe &RDS; DB instances using an &AWS; SDK
   title_abbrev: Describe DB instances
   synopsis: describe &RDS; DB instances.
-  category:
+  category:  
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.DescribeDbInstances
     Go:
@@ -234,7 +233,7 @@ rds_DescribeDBInstances:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.DescribeDBInstances
@@ -242,18 +241,18 @@ rds_DescribeDBInstances:
       versions:
         - sdk_version: 1
           github: kotlin/services/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.kotlin.describe_instances.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.describe_instances.main
     Python:
@@ -261,7 +260,7 @@ rds_DescribeDBInstances:
         - sdk_version: 3
           github: python/example_code/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DescribeDBInstances
@@ -270,16 +269,16 @@ rds_DescribeDBInstances:
         - sdk_version: 3
           github: ruby/example_code/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.ruby.listAllInstances
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -293,46 +292,46 @@ rds_DescribeDBInstances:
               snippet_tags:
                 - php.example_code.rds.describeDBInstances.complete
   services:
-    rds: {DescribeDBInstances}         
+    rds: {DescribeDBInstances}
 rds_ModifyDBInstance:
   title: Modify an &RDS; DB instance using an &AWS; SDK
   title_abbrev: Modify a DB instance
   synopsis: modify an &RDS; DB instance.
-  category:
+  category:  
   languages:
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.kotlin.modify_instance.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.modify_instance.main
   services:
-    rds: {ModifyDBInstance}             
+    rds: {ModifyDBInstance}
 rds_RebootDBInstance:
   title: Reboot an &RDS; DB instance using an &AWS; SDK
   title_abbrev: Reboot a DB instance
   synopsis: reboot an &RDS; DB instance.
-  category:
+  category:  
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.reboot_instance.main
   services:
@@ -341,24 +340,24 @@ rds_DescribeDBParameterGroups:
   title: Describe &RDS; DB parameter groups using an &AWS; SDK
   title_abbrev: Describe DB parameter groups
   synopsis: describe &RDS; DB parameter groups.
-  category:
+  category:  
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.scenario.desc_para_groups.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBParameterGroups
     Go:
@@ -366,7 +365,7 @@ rds_DescribeDBParameterGroups:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.DescribeDBParameterGroups
@@ -374,9 +373,9 @@ rds_DescribeDBParameterGroups:
       versions:
         - sdk_version: 3
           github: python/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DescribeDBParameterGroups
@@ -384,18 +383,18 @@ rds_DescribeDBParameterGroups:
       versions:
         - sdk_version: 3
           github: ruby/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.ruby.listParameterGroups
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -407,24 +406,24 @@ rds_CreateDBParameterGroup:
   title: Create an &RDS; DB parameter group using an &AWS; SDK
   title_abbrev: Create a DB parameter group
   synopsis: create an &RDS; DB parameter group.
-  category:
+  category:  
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.scenario.create_para_group.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.CreateDBParameterGroup
     Go:
@@ -432,7 +431,7 @@ rds_CreateDBParameterGroup:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.CreateDBParameterGroup
@@ -440,9 +439,9 @@ rds_CreateDBParameterGroup:
       versions:
         - sdk_version: 3
           github: python/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.CreateDBParameterGroup
@@ -450,9 +449,9 @@ rds_CreateDBParameterGroup:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -463,24 +462,24 @@ rds_DeleteDBParameterGroup:
   title: Delete an &RDS; DB parameter group using an &AWS; SDK
   title_abbrev: Delete a DB parameter group
   synopsis: delete an &RDS; DB parameter group.
-  category:
+  category:  
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.scenario.del_paragroup.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.DeleteDBParameterGroup
     Go:
@@ -488,7 +487,7 @@ rds_DeleteDBParameterGroup:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.DeleteDBParameterGroup
@@ -496,9 +495,9 @@ rds_DeleteDBParameterGroup:
       versions:
         - sdk_version: 3
           github: python/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DeleteDBParameterGroup
@@ -506,9 +505,9 @@ rds_DeleteDBParameterGroup:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -519,24 +518,24 @@ rds_DescribeDBParameters:
   title: Describe parameters in an &RDS; DB parameter group using an &AWS; SDK
   title_abbrev: Describe parameters in a DB parameter group
   synopsis: describe parameters in an &RDS; DB parameter group.
-  category:
+  category:  
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.scenario.get_paras.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBParameters
     Go:
@@ -544,7 +543,7 @@ rds_DescribeDBParameters:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.DescribeDBParameters
@@ -552,9 +551,9 @@ rds_DescribeDBParameters:
       versions:
         - sdk_version: 3
           github: python/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DescribeDBParameters
@@ -562,18 +561,18 @@ rds_DescribeDBParameters:
       versions:
         - sdk_version: 3
           github: ruby/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.ruby.listParameterGroups
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -584,24 +583,24 @@ rds_ModifyDBParameterGroup:
   title: Update parameters in an &RDS; DB parameter group using an &AWS; SDK
   title_abbrev: Update parameters in a DB parameter group
   synopsis: update parameters in an &RDS; DB parameter group.
-  category:
+  category:  
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.scenario.mod_paras.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.ModifyDBParameterGroup
     Go:
@@ -609,7 +608,7 @@ rds_ModifyDBParameterGroup:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.ModifyDBParameterGroup
@@ -617,9 +616,9 @@ rds_ModifyDBParameterGroup:
       versions:
         - sdk_version: 3
           github: python/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.ModifyDBParameterGroup
@@ -627,9 +626,9 @@ rds_ModifyDBParameterGroup:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -640,24 +639,24 @@ rds_CreateDBSnapshot:
   title: Create a snapshot of an &RDS; DB instance using an &AWS; SDK
   title_abbrev: Create a snapshot of a DB instance
   synopsis: create a snapshot of an &RDS; DB instance.
-  category:
+  category:  
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.scenario.create_snapshot.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.CreateDBSnapshot
     Go:
@@ -665,7 +664,7 @@ rds_CreateDBSnapshot:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.CreateDBSnapshot
@@ -673,9 +672,9 @@ rds_CreateDBSnapshot:
       versions:
         - sdk_version: 3
           github: python/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.CreateDBSnapshot
@@ -683,18 +682,18 @@ rds_CreateDBSnapshot:
       versions:
         - sdk_version: 3
           github: ruby/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.ruby.createDatabaseSnapshot
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -713,15 +712,15 @@ rds_DescribeDBSnapshots:
   title: Describe snapshots of &RDS; DB instances using an &AWS; SDK
   title_abbrev: Describe snapshots of DB instances
   synopsis: describe snapshots of &RDS; DB instances.
-  category:
+  category:  
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBSnapshots
     Go:
@@ -729,7 +728,7 @@ rds_DescribeDBSnapshots:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.DescribeDBSnapshots
@@ -737,9 +736,9 @@ rds_DescribeDBSnapshots:
       versions:
         - sdk_version: 3
           github: python/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DescribeDBSnapshots
@@ -747,18 +746,18 @@ rds_DescribeDBSnapshots:
       versions:
         - sdk_version: 3
           github: ruby/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.ruby.listInstanceSnapshots
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -769,24 +768,24 @@ rds_DescribeDBEngineVersions:
   title: Describe &RDS; database engine versions using an &AWS; SDK
   title_abbrev: Describe database engine versions
   synopsis: describe &RDS; database engine versions.
-  category:
+  category:  
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.scenario_desc_engine.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBEngineVersions
     Go:
@@ -794,7 +793,7 @@ rds_DescribeDBEngineVersions:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.DescribeDBEngineVersions
@@ -802,9 +801,9 @@ rds_DescribeDBEngineVersions:
       versions:
         - sdk_version: 3
           github: python/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DescribeDBEngineVersions
@@ -812,9 +811,9 @@ rds_DescribeDBEngineVersions:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -825,24 +824,24 @@ rds_DescribeOrderableDBInstanceOptions:
   title: Describe options for &RDS; DB instances using an &AWS; SDK
   title_abbrev: Describe options for DB instances
   synopsis: describe options for &RDS; DB instances.
-  category:
+  category:  
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.java2.scenario.get_engines.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - RDS.dotnetv3.DescribeOrderableDBInstanceOptions
     Go:
@@ -850,7 +849,7 @@ rds_DescribeOrderableDBInstanceOptions:
         - sdk_version: 2
           github: gov2/rds
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - gov2.rds.DbInstances.struct
                 - gov2.rds.DescribeOrderableDBInstanceOptions
@@ -858,9 +857,9 @@ rds_DescribeOrderableDBInstanceOptions:
       versions:
         - sdk_version: 3
           github: python/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DescribeOrderableDBInstanceOptions
@@ -868,9 +867,9 @@ rds_DescribeOrderableDBInstanceOptions:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
@@ -881,15 +880,15 @@ rds_GenerateRDSAuthToken:
   title: Create an authentication token for IAM authentication to an &RDS; database using an &AWS; SDK
   title_abbrev: Create an authentication token
   synopsis: create an authentication token for IAM authentication.
-  category:
+  category:  
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description: Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rds/RdsUtilities.html">RdsUtilities</ulink> class to generate an authentication token.
+            - description: Use the <ulink url=https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rds/RdsUtilities.html>RdsUtilities</ulink> class to generate an authentication token.
               snippet_tags:
                 - rds.java2.create_token.main
   services:
@@ -899,26 +898,26 @@ rds_Scenario_GetStartedInstances:
   title_abbrev: Get started with DB instances
   synopsis_list:
     - Create a custom DB parameter group and set parameter values.
-    - Create a DB instance that's configured to use the parameter group. The DB instance
-      also contains a database.
+    - Create a DB instance thats configured to use the parameter group. The DB instance also contains a database.
     - Take a snapshot of the instance.
     - Delete the instance and parameter group.
+    - Adding a line
   category: Scenarios
   languages:
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - rds.kotlin.scenario.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
             - description: Run multiple operations.
               snippet_tags:
@@ -927,7 +926,7 @@ rds_Scenario_GetStartedInstances:
       versions:
         - sdk_version: 3
           github: dotnetv3/RDS
-          sdkguide:
+          sdkguide: 
           excerpts:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
@@ -941,6 +940,9 @@ rds_Scenario_GetStartedInstances:
             - description: Wrapper methods used by the scenario for DB snapshot actions.
               snippet_tags:
                 - RDS.dotnetv3.RdsInstanceWrapperSnapshots
+            - description: 
+              snippet_tags:
+                - lkjlk
     Go:
       versions:
         - sdk_version: 2
@@ -949,36 +951,30 @@ rds_Scenario_GetStartedInstances:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - gov2.rds.Scenario_GetStartedInstances
-            - description: Define functions that are called by the scenario to
-                manage &RDS; actions.
+            - description: Define functions that are called by the scenario to manage &RDS; actions.
               snippet_tags:
                 - gov2.rds.DbInstances.complete
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - python.example_code.rds.Scenario_GetStartedInstances
-            - description: Define functions that are called by the scenario to
-                manage &RDS; actions.
+            - description: Define functions that are called by the scenario to manage &RDS; actions.
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_full
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/rds
-          sdkguide:
+          sdkguide:  
           excerpts:
-            - description:
+            - description:  
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.get_started_instances
   services:
-    rds: {CreateDBInstance, CreateDBParameterGroup, CreateDBSnapshot, DeleteDBInstance,
-          DeleteDBParameterGroup, DescribeDBInstances, DescribeDBEngineVersions, DescribeDBParameterGroups,
-          DescribeDBParameters, DescribeDBSnapshots, DescribeOrderableDBInstanceOptions,
-          ModifyDBParameterGroup}
-          
+    rds: {CreateDBInstance, CreateDBParameterGroup, CreateDBSnapshot, DeleteDBInstance, DeleteDBParameterGroup, DescribeDBInstances, DescribeDBEngineVersions, DescribeDBParameterGroups, DescribeDBParameters, DescribeDBSnapshots, DescribeOrderableDBInstanceOptions, ModifyDBParameterGroup}
