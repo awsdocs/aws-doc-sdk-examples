@@ -49,7 +49,7 @@ class IoTTest {
         queryString = queryString + thingName
         ruleName = ruleName + randomNumber
 
-        // Get the values to run these tests from AWS Secrets Manager.
+        // Get the values from AWS Secrets Manager.
         val gson = Gson()
         val json: String = getSecretValues()
         val values = gson.fromJson(json, SecretValues::class.java)
