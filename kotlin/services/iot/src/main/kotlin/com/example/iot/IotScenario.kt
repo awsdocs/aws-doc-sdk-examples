@@ -30,7 +30,7 @@ import java.util.regex.Pattern
 
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
 val TOPIC = "your-iot-topic"
-suspend fun main() {
+suspend fun main(args: Array<String>) {
     val usage = """
                 Usage:
                     <roleARN> <snsAction> 
@@ -41,14 +41,14 @@ suspend fun main() {
                 
     """.trimIndent()
 
-    // if (args.length != 2) {
-    //    System.out.println(usage);
-    //    System.exit(1);
-    // }
+    if (args.size != 2) {
+        System.out.println(usage);
+        System.exit(1);
+    }
 
     var thingName: String
-    val roleARN = "arn:aws:iam::814548047983:role/AssumeRoleSNS"
-    val snsAction = "arn:aws:sns:us-east-1:814548047983:scott1111"
+    val roleARN = args[0]
+    val snsAction = args[1]
     val scanner = Scanner(System.`in`)
 
     println(DASHES)
