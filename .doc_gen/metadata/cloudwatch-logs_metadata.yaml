@@ -315,6 +315,14 @@ cloudwatch-logs_GetQueryResults:
             - description:
               snippet_tags:
                 - javascript.v3.cloudwatch-logs.actions.GetQueryResults
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch_logs.get_query_results
   services:
     cloudwatch-logs: {GetQueryResults}
 cloudwatch-logs_StartQuery:
@@ -331,6 +339,14 @@ cloudwatch-logs_StartQuery:
             - description:
               snippet_tags:
                 - javascript.v3.cloudwatch-logs.actions.StartQuery
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cloudwatch_logs.start_query
   services:
     cloudwatch-logs: {StartQuery}
 cloudwatch-logs_Scenario_BigQuery:
@@ -350,5 +366,16 @@ cloudwatch-logs_Scenario_BigQuery:
             - description: This is a class that splits queries into multiple steps if necessary.
             - snippet_files:
                 - javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/cloud-watch-query.js
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cloudwatch-logs/scenarios/large-query
+          excerpts:
+            - description: This file invokes an example module for managing CloudWatch queries exceeding 10,000 results.
+              snippet_files:
+                - python/example_code/cloudwatch-logs/scenarios/large-query/exec.py
+            - description: This module processes CloudWatch queries exceeding 10,000 results.
+            - snippet_files:
+                - python/example_code/cloudwatch-logs/scenarios/large-query/cloudwatch_query.py
   services:
     cloudwatch-logs: {StartQuery, GetQueryResults}
