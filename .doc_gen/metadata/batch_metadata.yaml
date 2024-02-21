@@ -1,16 +1,36 @@
-# zexi 0.4.0
 batch_DescribeComputeEnvironments:
   title: Describe one or more &BATCH; compute environments using an &AWS; SDK
   title_abbrev: Describe compute environments
   synopsis: describe one or more &BATCH; compute environments.
-  category:
+  synopsis_list:
+    - null
+  category: 
   languages:
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/batch
           excerpts:
-            - description:
+            - description: 
+              snippet_tags:
+                - batch.rust.batch-helloworld
+          sdkguide: 
+  services:
+    batch: {DescribeComputeEnvironments}
+batch_DescribeComputeEnvironments1:
+  title: Describe one or more &BATCH; compute environments using an &AWS; SDK
+  title_abbrev: Describe compute environments
+  synopsis: describe one or more &BATCH; compute environments.
+  synopsis_list:
+    - download all objects in an &S3long; (&S3;) bucket to a local directory.
+  category:  
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/batch
+          excerpts:
+            - description:  
               snippet_tags:
                 - batch.rust.batch-helloworld
   services:

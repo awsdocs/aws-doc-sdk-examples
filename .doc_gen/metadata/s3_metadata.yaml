@@ -101,7 +101,7 @@ s3_CreateBucket:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.create_bucket.main
     Java:
@@ -226,7 +226,7 @@ s3_CopyObject:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.copy_object.main
     Java:
@@ -241,7 +241,7 @@ s3_CopyObject:
             - description: >-
                 Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
                 to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#copy(software.amazon.awssdk.transfer.s3.CopyRequest)">copy an object</ulink> from one bucket to another.
-                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/ObjectCopy.java">complete file</ulink> 
+                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/ObjectCopy.java">complete file</ulink>
                 and <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java">test</ulink>.
               snippet_tags:
                 - s3.tm.java2.objectcopy.import
@@ -340,7 +340,7 @@ s3_DeleteBucketPolicy:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.delete_bucket_policy.main
     Java:
@@ -503,7 +503,7 @@ s3_DeleteObjects:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.delete_objects.main
     Go:
@@ -658,7 +658,7 @@ s3_GetObjectAcl:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.get_acl.main
     Python:
@@ -693,7 +693,7 @@ s3_GetBucketPolicy:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.get_bucket_policy.main
     Java:
@@ -752,7 +752,7 @@ s3_HeadObject:
                 - s3.java2.getobjectcontenttype.main
             - description: Get the restore status of an object.
               snippet_tags:
-                - s3.java2.get.restore.status.main    
+                - s3.java2.get.restore.status.main
     Ruby:
       versions:
         - sdk_version: 3
@@ -802,7 +802,7 @@ s3_GetObject:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.getobjectdata.main
     Java:
@@ -817,7 +817,7 @@ s3_GetObject:
             - description: >-
                 Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
                 to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadFile(software.amazon.awssdk.transfer.s3.DownloadFileRequest)">download an object</ulink> in an S3 bucket to a local file.
-                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadFile.java">complete file</ulink> 
+                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadFile.java">complete file</ulink>
                 and <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java">test</ulink>.
               snippet_tags:
                 - s3.tm.java2.downloadfile.import
@@ -1141,7 +1141,7 @@ s3_ListObjects:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.list_objects.main
     Java:
@@ -1155,7 +1155,7 @@ s3_ListObjects:
                 - s3.java2.list_objects.main
             - description: List objects using pagination.
               snippet_tags:
-                - s3.java2.list_objects.pag.main     
+                - s3.java2.list_objects.pag.main
     PHP:
       versions:
         - sdk_version: 3
@@ -1188,8 +1188,8 @@ s3_ListObjects:
           github: javascriptv3/example_code/s3
           excerpts:
             - description: List all of the objects in your bucket. If there is more than one
-                           object, IsTruncated and NextContinuationToken will be used to iterate
-                           over the full list.
+                object, IsTruncated and NextContinuationToken will be used to iterate
+                over the full list.
               snippet_tags:
                 - s3.JavaScript.buckets.listObjectsV3
     Ruby:
@@ -1295,7 +1295,7 @@ s3_PutObject:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.s3_object_upload.main
     Java:
@@ -1308,9 +1308,9 @@ s3_PutObject:
               snippet_tags:
                 - s3.java2.s3_object_upload.main
             - description: >-
-                Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink> 
+                Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
                 to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadFile(software.amazon.awssdk.transfer.s3.UploadFileRequest)">upload a file</ulink> to a bucket.
-                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadFile.java">complete file</ulink> 
+                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadFile.java">complete file</ulink>
                 and <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java">test</ulink>.
               snippet_tags:
                 - s3.tm.java2.uploadfile.import
@@ -1755,7 +1755,7 @@ s3_PutBucketAcl:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.set_acl.main
     Java:
@@ -2163,7 +2163,7 @@ s3_DownloadBucketToDirectory:
             - description: >-
                 Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
                 to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadDirectory(software.amazon.awssdk.transfer.s3.DownloadDirectoryRequest)">download all S3 objects</ulink> in the same S3 bucket.
-                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java">complete file</ulink> 
+                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java">complete file</ulink>
                 and <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java">test</ulink>.
               snippet_tags:
                 - s3.tm.java2.downloadtodirectory.import
@@ -2185,7 +2185,7 @@ s3_UploadDirectoryToBucket:
             - description: >-
                 Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
                 to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadDirectory(software.amazon.awssdk.transfer.s3.UploadDirectoryRequest)">upload a local directory</ulink>.
-                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadADirectory.java">complete file</ulink> 
+                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadADirectory.java">complete file</ulink>
                 and <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java">test</ulink>.
               snippet_tags:
                 - s3.tm.java2.uploadadirectory.import
@@ -2216,7 +2216,7 @@ s3_Scenario_UsingLargeFiles:
                 - s3.tm.java2.uploadadirectory.main
             - description: Upload a single file.
               snippet_tags:
-                - s3.tm.java2.uploadfile.main     
+                - s3.tm.java2.uploadfile.main
     .NET:
       versions:
         - sdk_version: 3
@@ -2524,7 +2524,7 @@ s3_Scenario_GettingStarted:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.java2.s3_scenario.main
     JavaScript:
@@ -2537,43 +2537,43 @@ s3_Scenario_GettingStarted:
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.imports
             - description: The preceding imports reference some helper utilities. These utilities
-                           are local to the GitHub repository linked at the start of
-                           this section. For your reference, see the following implementations
-                           of those utilities.
+                are local to the GitHub repository linked at the start of
+                this section. For your reference, see the following implementations
+                of those utilities.
               snippet_tags:
                 - javascript.v3.utils.dirnameFromMetaUrl
                 - javascript.v3.utils.prompter
                 - javascript.v3.utils.wrapText
             - description: Objects in S3 are stored in 'buckets'. Let's define a function
-                           for creating a new bucket.
+                for creating a new bucket.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.CreateBucket
             - description: Buckets contain 'objects'. This function uploads the
-                           contents of a directory to your bucket as objects.
+                contents of a directory to your bucket as objects.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.PutObject
             - description: After uploading objects, check to confirm that they were
-                           uploaded correctly. You can use ListObjects for that. You'll be
-                           using the 'Key' property, but there are other useful properties
-                           in the response also.
+                uploaded correctly. You can use ListObjects for that. You'll be
+                using the 'Key' property, but there are other useful properties
+                in the response also.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.ListObjects
             - description: Sometimes you might want to copy an object from one bucket to another.
-                           Use the CopyObject command for that.
+                Use the CopyObject command for that.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.CopyObject
             - description: There's no SDK method for getting multiple objects from a bucket.
-                           Instead, you'll create a list of objects to download and
-                           iterate over them.
+                Instead, you'll create a list of objects to download and
+                iterate over them.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.GetObject
             - description: It's time to clean up your resources. A bucket must be empty
-                           before it can be deleted. These two functions empty and delete the
-                           bucket.
+                before it can be deleted. These two functions empty and delete the
+                bucket.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.clean
             - description: The 'main' function pulls everything together. If you run this
-                           file directly the main function will be called.
+                file directly the main function will be called.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.main
     Kotlin:
@@ -2582,7 +2582,7 @@ s3_Scenario_GettingStarted:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.s3_operations.main
     PHP:
@@ -2672,6 +2672,8 @@ s3_Scenario_GettingStarted:
             - description:
               snippet_tags:
                 - aws-cli.bash-linux.s3.getting_started_scenario
+            - description: The &S3; functions used in this scenario.
+              snippet_tags:
                 - aws-cli.bash-linux.s3.CreateBucket
                 - aws-cli.bash-linux.s3.PutObject
                 - aws-cli.bash-linux.s3.GetObject
@@ -2762,8 +2764,8 @@ s3_Scenario_ListObjectsWeb:
           sdkguide:
           excerpts:
             - description: The following code is the relevant React component that makes calls
-                           to the &AWS; SDK. A runnable version of the application containing
-                           this component can be found at the preceding GitHub link.
+                to the &AWS; SDK. A runnable version of the application containing
+                this component can be found at the preceding GitHub link.
               snippet_tags:
                 - javascript.v3.scenarios.web.ListObjects
   services:
@@ -2834,7 +2836,7 @@ s3_Scenario_MultipartUpload:
                 - s3.java2.performMultiPartUpload.transferManager
             - description: >-
                 Use the <ulink
-                    url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink> 
+                    url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink>
                 or (S3AsyncClient API) to perform a multipart upload.
               snippet_tags:
                 - s3.java2.performMultiPartUpload.s3Client
@@ -2856,7 +2858,7 @@ s3_Scenario_UseChecksums:
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.import
             - description: >-
-                Specify a checksum algorithm for the <code>putObject</code> method when you <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html">build the 
+                Specify a checksum algorithm for the <code>putObject</code> method when you <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html">build the
                 <code>PutObjectRequest</code></ulink>.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.putObject
@@ -2876,7 +2878,7 @@ s3_Scenario_UseChecksums:
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.multiPartTm
             - description: >-
-                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink> 
+                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink>
                       or (S3AsyncClient API) to perform a multipart upload. If you specify
                       an additional checksum, you must specify the algorithm to use on the initiation of the upload.
                       You must also specify the algorithm for each part request and provide the checksum calculated
