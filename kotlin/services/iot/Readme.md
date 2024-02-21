@@ -17,7 +17,7 @@ The credential provider used in all code examples is the default credential prov
 
 ### Get started
 
-- [Hello AWS IoT Core](src/main/kotlin/com/example/iot/HelloIoT.kt) (`ListThings`)
+- [Hello AWS IoT Core](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/HelloIoT.kt) (`ListThings`)
 
 
 ### Single action
@@ -45,7 +45,7 @@ The following examples use the **IotDataPlaneClient** object:
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-* [Perform device management use cases ](src/main/kotlin/com/example/iot/IotScenario.kt) 
+* [Perform device management use cases ](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/iot/src/main/kotlin/com/example/iot/IotScenario.kt) 
 
 ## Running the AWS IoT Kotlin files
 
