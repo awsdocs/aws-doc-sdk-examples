@@ -742,7 +742,7 @@ def manual_cleanup_notice(
   puts "- The Amazon EC2 instance with the ID '#{instance_id}'."
 end
 
-# Full example call:
+# Example usage:
 def run_me
   # Properties for the Amazon SNS topic.
   topic_name = "aws-doc-sdk-examples-topic"

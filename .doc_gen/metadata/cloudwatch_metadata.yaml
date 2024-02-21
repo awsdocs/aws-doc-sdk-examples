@@ -264,6 +264,15 @@ cloudwatch_DescribeAlarms:
             - description:
               snippet_tags:
                 - cwt.abapv1.describe_alarms
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.getAlarmList
   services:
     cloudwatch: {DescribeAlarms}
 cloudwatch_DescribeAlarmsForMetric:
@@ -317,7 +326,7 @@ cloudwatch_DescribeAlarmsForMetric:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.Ruby.getAlarmList
+                - cloudwatch.Ruby.displayMetricInfo
     C++:
       versions:
         - sdk_version: 1
@@ -946,7 +955,7 @@ cloudwatch_PutMetricAlarm:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.Ruby.createAlarm
+                - cloudwatch.Ruby.PutMetricAlarm
     SAP ABAP:
       versions:
         - sdk_version: 1

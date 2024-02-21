@@ -111,10 +111,6 @@ in the `ruby` folder.
 - [SDK for Ruby AWS Glue reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Glue.html)
 
 <!--custom.resources.start-->
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby Amazon Glue Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Glue.html)
-* [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html)
-* [AWS Glue API Reference](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api.html)
 <!--custom.resources.end-->
 
 ---

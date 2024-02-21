@@ -34,7 +34,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [List available Amazon Bedrock foundation models](src/main/java/com/example/bedrock/ListFoundationModels.java#L36) (`ListFoundationModels`)
+- [Get details about an Amazon Bedrock foundation model](src/main/java/com/example/bedrock/sync/GetFoundationModel.java#L56) (`GetFoundationModel`)
+- [List available Amazon Bedrock foundation models](src/main/java/com/example/bedrock/sync/ListFoundationModels.java#L57) (`ListFoundationModels`)
 
 
 <!--custom.examples.start-->

@@ -28,7 +28,7 @@ class ObjectGetWrapper
   end
 end
 
-# Replace bucket name and object key with an existing bucket and object that you own.
+# Example usage:
 def run_demo
   bucket_name = "doc-example-bucket"
   object_key = "my-object.txt"

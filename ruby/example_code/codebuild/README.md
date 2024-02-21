@@ -71,9 +71,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby CodeBuild reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Codebuild.html)
 
 <!--custom.resources.start-->
-
-- [More Ruby CodeBuild code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/cb-examples.html)
-- [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
 <!--custom.resources.end-->
 
 ---

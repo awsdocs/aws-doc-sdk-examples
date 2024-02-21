@@ -166,8 +166,7 @@ rescue StandardError => e
 end
 # snippet-end:[s3.ruby.auth_session_token_request_test.rb]
 
-# Full example call:
-# Replace us-west-2 with the AWS Region you're using for Amazon S3.
+# Example usage:
 def run_me
   user_name = "my-user"
   region = "us-west-2"

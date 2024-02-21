@@ -36,6 +36,7 @@ class BucketWebsiteWrapper
   end
 end
 
+# Example usage:
 def run_demo
   bucket_name = "doc-example-bucket"
   index_document = "index.html"

@@ -160,11 +160,6 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 - [SDK for Ruby DynamoDB reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Dynamodb.html)
 
 <!--custom.resources.start-->
-* [More Ruby DynamoDB code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_dynamodb_code_examples.html)
-* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
-* [SDK for Ruby DynamoDB Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DynamoDB.html)
-* [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-* [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
 <!--custom.resources.end-->
 
 ---

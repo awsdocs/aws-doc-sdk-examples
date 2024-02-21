@@ -132,7 +132,7 @@ glue_GetCrawler:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.get_crawler
+                - cpp.example_code.glue.GetCrawler
     Rust:
       versions:
         - sdk_version: 1
@@ -224,7 +224,7 @@ glue_CreateCrawler:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.create_crawler
+                - cpp.example_code.glue.CreateCrawler
     Rust:
       versions:
         - sdk_version: 1
@@ -316,7 +316,7 @@ glue_StartCrawler:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.start_crawler
+                - cpp.example_code.glue.StartCrawler
     Rust:
       versions:
         - sdk_version: 1
@@ -407,7 +407,7 @@ glue_GetDatabase:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.get_database
+                - cpp.example_code.glue.GetDatabase
     Rust:
       versions:
         - sdk_version: 1
@@ -489,7 +489,7 @@ glue_GetTables:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.get_tables
+                - cpp.example_code.glue.GetTables
     Rust:
       versions:
         - sdk_version: 1
@@ -563,7 +563,7 @@ glue_CreateJob:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.create_job
+                - cpp.example_code.glue.CreateJob
     Rust:
       versions:
         - sdk_version: 1
@@ -638,7 +638,7 @@ glue_StartJobRun:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.start_job_run
+                - cpp.example_code.glue.StartJobRun
     Rust:
       versions:
         - sdk_version: 1
@@ -709,7 +709,7 @@ glue_ListJobs:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.list_jobs
+                - cpp.example_code.glue.ListJobs
     Rust:
       versions:
         - sdk_version: 1
@@ -782,7 +782,7 @@ glue_GetJobRuns:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.get_job_runs
+                - cpp.example_code.glue.GetJobRuns
   services:
     glue: {GetJobRuns}
 glue_GetJobRun:
@@ -847,7 +847,7 @@ glue_GetJobRun:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.get_job_run
+                - cpp.example_code.glue.GetJobRun
     Rust:
       versions:
         - sdk_version: 1
@@ -919,7 +919,7 @@ glue_DeleteJob:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.delete_job
+                - cpp.example_code.glue.DeleteJob
     Rust:
       versions:
         - sdk_version: 1
@@ -1052,7 +1052,7 @@ glue_DeleteDatabase:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.delete_database
+                - cpp.example_code.glue.DeleteDatabase
     Rust:
       versions:
         - sdk_version: 1
@@ -1124,7 +1124,7 @@ glue_DeleteCrawler:
               snippet_tags:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
-                - cpp.example_code.glue.delete_crawler
+                - cpp.example_code.glue.DeleteCrawler
     Rust:
       versions:
         - sdk_version: 1
