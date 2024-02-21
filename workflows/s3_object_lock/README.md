@@ -18,7 +18,7 @@ The workflow scenario setup steps create the buckets and objects needed for the 
 
 This example is implemented in the following languages:
 
-- [.NET](../../dotnetv3/S3/scenarios/ObjectLockScenario/README.md)
+- [.NET](../../dotnetv3/S3/scenarios/S3ObjectLockScenario/README.md)
 
 ## Additional reading
 

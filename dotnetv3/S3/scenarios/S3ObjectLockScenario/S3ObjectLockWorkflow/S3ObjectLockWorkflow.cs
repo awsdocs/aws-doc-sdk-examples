@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging.Debug;
 
 namespace ObjectLockScenario;
 
-public static class ObjectLockWorkflow
+public static class S3ObjectLockWorkflow
 {
     /*
     Before running this .NET code example, set up your development environment, including your credentials.

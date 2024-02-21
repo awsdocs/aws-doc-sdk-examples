@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ObjectLockWorkflow\ObjectLockScenario.csproj" />
+    <ProjectReference Include="..\ObjectLockWorkflow\S3ObjectLockScenario.csproj" />
   </ItemGroup>
 
 	<ItemGroup>

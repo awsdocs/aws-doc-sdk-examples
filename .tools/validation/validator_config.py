@@ -219,7 +219,6 @@ ALLOW_LIST = {
     "imaging/model/GetImageSetMetadataRequest",
     "cd5e746ec203c8c3c61647e0886a8df8c1e78e41",
     "imaging/model/StartDICOMImportJobRequest",
-    "dotnetv3/S3/scenarios/ObjectLockScenario",
 }
 
 

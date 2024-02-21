@@ -18,8 +18,6 @@ For an introduction, see the [README.md](README.md).
 
 - [Architecture](#architecture)
 - [User input](#user-input)
-- [Common resources](#common-resources)
-- [Building the queries](#building-the-queries)
 - [Output](#output)
 - [Metadata](#metadata)
 

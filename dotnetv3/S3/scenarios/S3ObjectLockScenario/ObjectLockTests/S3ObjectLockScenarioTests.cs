@@ -3,15 +3,15 @@
 
 using Amazon.S3;
 using Microsoft.Extensions.Configuration;
-using ObjectLockScenario;
+using S3ObjectLockScenario;
 using Xunit.Extensions.Ordering;
 
-namespace ObjectLockTests;
+namespace S3ObjectLockTests;
 
 /// <summary>
 /// Tests for the ObjectLockScenario example.
 /// </summary>
-public class ObjectLockScenarioTests
+public class S3ObjectLockScenarioTests
 {
     private readonly IConfiguration _configuration;
 
@@ -21,7 +21,7 @@ public class ObjectLockScenarioTests
     /// <summary>
     /// Constructor for the test class.
     /// </summary>
-    public ObjectLockScenarioTests()
+    public S3ObjectLockScenarioTests()
     {
         _configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -36,8 +36,8 @@ public class ObjectLockScenarioTests
             new AmazonS3Client(),
             _configuration);
 
-        ObjectLockWorkflow._s3ActionsWrapper = _s3ActionsWrapper;
-        ObjectLockWorkflow._configuration = _configuration;
+        S3ObjectLockWorkflow._s3ActionsWrapper = _s3ActionsWrapper;
+        S3ObjectLockWorkflow._configuration = _configuration;
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public class ObjectLockScenarioTests
         // Arrange.
 
         // Act.
-        var success = await ObjectLockWorkflow.Setup(false);
+        var success = await S3ObjectLockWorkflow.Setup(false);
 
         // Assert.
         Assert.True(success);
@@ -70,7 +70,7 @@ public class ObjectLockScenarioTests
         // Arrange.
 
         // Act.
-        var objects = await ObjectLockWorkflow.ListBucketsAndObjects();
+        var objects = await S3ObjectLockWorkflow.ListBucketsAndObjects();
 
         // Assert.
         Assert.NotEmpty(objects);
@@ -89,7 +89,7 @@ public class ObjectLockScenarioTests
         // Arrange.
 
         // Act.
-        var success = await ObjectLockWorkflow.Cleanup(false);
+        var success = await S3ObjectLockWorkflow.Cleanup(false);
 
         // Assert.
         Assert.True(success);

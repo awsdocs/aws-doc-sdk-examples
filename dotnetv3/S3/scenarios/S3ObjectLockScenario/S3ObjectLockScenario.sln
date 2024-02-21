@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectLockScenario", "ObjectLockWorkflow\ObjectLockScenario.csproj", "{C993F627-E22A-433E-92ED-94798567650B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S3ObjectLockScenario", "ObjectLockWorkflow\S3ObjectLockScenario.csproj", "{C993F627-E22A-433E-92ED-94798567650B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectLockTests", "ObjectLockTests\ObjectLockTests.csproj", "{2D5B266A-4EC7-4DA6-B61A-7840CECAA8DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S3ObjectLockTests", "ObjectLockTests\S3ObjectLockTests.csproj", "{2D5B266A-4EC7-4DA6-B61A-7840CECAA8DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

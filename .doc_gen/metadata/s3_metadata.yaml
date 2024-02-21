@@ -966,7 +966,7 @@ s3_GetObjectLegalHoldConfiguration:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
           sdkguide:
           excerpts:
             - description:
@@ -983,7 +983,7 @@ s3_GetObjectLockConfiguration:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
           sdkguide:
           excerpts:
             - description:
@@ -1000,7 +1000,7 @@ s3_GetObjectRetention:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
           sdkguide:
           excerpts:
             - description:
@@ -2151,7 +2151,7 @@ s3_PutObjectLegalHold:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
           sdkguide:
           excerpts:
             - description:
@@ -2168,7 +2168,7 @@ s3_PutObjectLockConfiguration:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
           sdkguide:
           excerpts:
             - description:
@@ -2185,7 +2185,7 @@ s3_PutObjectRetention:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
           sdkguide:
           excerpts:
             - description:
@@ -3045,7 +3045,7 @@ s3_Scenario_ObjectLock:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/S3/scenarios/ObjectLockScenario
+          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
           sdkguide:
           excerpts:
             - description: Run an interactive scenario demonstrating &S3; object lock features.
