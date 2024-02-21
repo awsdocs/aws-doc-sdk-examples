@@ -327,7 +327,7 @@ $("#selecttagorfile").on('change', function (){
     if (selectedOption === "Snippet files") {
         console.log('Snippet files selected')
         $(
-            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
             "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\">Add a snippet file</button></p>" +
             "       ").insertBefore("#createYAML");
@@ -342,7 +342,7 @@ $("#selecttagorfile").on('change', function (){
    if (selectedOption === "Snippet tags"){
        console.log('Snippet tags selected')
        $(
-           "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
+           "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
            "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\">Add a snippet tag</button></p>" +
            "       ").insertBefore("#createYAML");
