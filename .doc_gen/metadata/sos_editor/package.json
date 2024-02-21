@@ -1,0 +1,23 @@
+{
+  "name": "sos-editor",
+  "author": "Brian Murray<brmur@amazon.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@types/archiver": "^5.3.1",
+    "archiver": "^5.3.1",
+    "insert-line": "^1.1.0",
+    "js-yaml": "^4.1.0",
+    "ramda": "^0.28.0",
+    "uuid": "^9.0.0",
+    "yaml": "2.0.0-7",
+    "yaml-edit": "^0.1.3",
+    "yamljs": "^0.3.0",
+    "yawn-yaml": "^1.5.0"
+  },
+  "devDependencies": {
+    "fs": "^0.0.1-security",
+    "json-to-pretty-yaml": "^1.2.2",
+    "prettier": "3.1.0"
+  }
+}
