@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import { describe, it, expect } from "vitest";
 
-import { wait } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { wait } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 import { createDatastore } from "../actions/create-datastore.js";
 import { deleteDatastore } from "../actions/delete-datastore.js";

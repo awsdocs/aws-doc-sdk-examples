@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /** snippet-start:[javascript.v3.cognito-idp.scenarios.basic.AdminRespondToAuthChallengeHandler] **/
-import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
+import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { adminRespondToAuthChallenge } from "../../../actions/admin-respond-to-auth-challenge.js";
-import { getFirstEntry } from "@aws-sdk-examples/libs/utils/util-csv.js";
+import { getFirstEntry } from "@aws-doc-sdk-examples/lib/utils/util-csv.js";
 import { FILE_USER_POOLS } from "./constants.js";
 
 const verifyUsername = (username) => {

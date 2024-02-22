@@ -11,7 +11,7 @@
     "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
-    "@aws-sdk-examples/libs": "^1.0.0",
+    "@aws-doc-sdk-examples/lib": "^1.0.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.423.0",
     "@aws-sdk/client-ses": "^3.423.0",
     "@types/qrcode-terminal": "^0.12.0",

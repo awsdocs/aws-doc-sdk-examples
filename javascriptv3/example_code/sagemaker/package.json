@@ -9,7 +9,7 @@
     "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
-    "@aws-sdk-examples/libs": "^1.0.0",
+    "@aws-doc-sdk-examples/lib": "^1.0.0",
     "@aws-sdk/client-iam": "^3.398.0",
     "@aws-sdk/client-lambda": "^3.398.0",
     "@aws-sdk/client-s3": "^3.400.0",

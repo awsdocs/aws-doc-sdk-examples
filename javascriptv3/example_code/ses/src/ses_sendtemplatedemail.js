@@ -18,7 +18,7 @@ import { SendTemplatedEmailCommand } from "@aws-sdk/client-ses";
 import {
   getUniqueName,
   postfix,
-} from "@aws-sdk-examples/libs/utils/util-string.js";
+} from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 import { sesClient } from "./libs/sesClient.js";
 
 /**

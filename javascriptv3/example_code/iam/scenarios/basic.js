@@ -19,7 +19,7 @@ import {
 } from "@aws-sdk/client-iam";
 import { ListBucketsCommand, S3Client } from "@aws-sdk/client-s3";
 import { AssumeRoleCommand, STSClient } from "@aws-sdk/client-sts";
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 // Set the parameters.
 const iamClient = new IAMClient({});

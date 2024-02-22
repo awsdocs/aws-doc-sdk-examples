@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
-import { getTmp, setTmp } from "@aws-sdk-examples/libs/utils/util-fs.js";
+import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { getTmp, setTmp } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
 import { createUserPool } from "../../../actions/create-user-pool.js";
 import { FILE_USER_POOLS, NAME_CLIENT } from "./constants.js";
 import { setUserPoolMfaConfig } from "../../../actions/set-user-pool-mfa-config.js";

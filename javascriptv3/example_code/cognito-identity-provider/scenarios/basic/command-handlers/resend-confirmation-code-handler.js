@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { getFirstEntry } from "@aws-sdk-examples/libs/utils/util-csv.js";
-import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
+import { getFirstEntry } from "@aws-doc-sdk-examples/lib/utils/util-csv.js";
+import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { resendConfirmationCode } from "../../../actions/resend-confirmation-code.js";
 import { FILE_USER_POOLS } from "./constants.js";
 

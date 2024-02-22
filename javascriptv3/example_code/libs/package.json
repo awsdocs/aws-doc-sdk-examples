@@ -1,6 +1,6 @@
 {
-  "name": "@aws-sdk-examples/libs",
-  "version": "1.0.0",
+  "name": "@aws-doc-sdk-examples/lib",
+  "version": "1.0.1",
   "description": "Common library for all JavaScript code examples.",
   "author": "corepyle@amazon.com",
   "license": "Apache-2.0",

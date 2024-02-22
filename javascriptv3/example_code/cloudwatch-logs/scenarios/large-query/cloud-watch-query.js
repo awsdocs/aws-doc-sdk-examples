@@ -4,8 +4,8 @@ import {
   StartQueryCommand,
   GetQueryResultsCommand,
 } from "@aws-sdk/client-cloudwatch-logs";
-import { splitDateRange } from "@aws-sdk-examples/libs/utils/util-date.js";
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { splitDateRange } from "@aws-doc-sdk-examples/lib/utils/util-date.js";
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 class DateOutOfBoundsError extends Error {}
 

@@ -35,8 +35,8 @@ import {
 } from "@aws-sdk/client-ec2";
 import { paginateGetParametersByPath, SSMClient } from "@aws-sdk/client-ssm";
 
-import { wrapText } from "@aws-sdk-examples/libs/utils/util-string.js";
-import { Prompter } from "@aws-sdk-examples/libs/prompter.js";
+import { wrapText } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
+import { Prompter } from "@aws-doc-sdk-examples/lib/prompter.js";
 
 const ec2Client = new EC2Client();
 const ssmClient = new SSMClient();

@@ -1,0 +1,2 @@
+# AWS Doc SDK Examples Library
+This is a library that hosts the common methods used in examples from the [JavaScript (v3) code examples repo](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3).

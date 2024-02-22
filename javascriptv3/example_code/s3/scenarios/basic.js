@@ -18,9 +18,9 @@ import { fileURLToPath } from "url";
 import { readdirSync, readFileSync, writeFileSync } from "fs";
 
 // Local helper utils.
-import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
-import { Prompter } from "@aws-sdk-examples/libs/prompter.js";
-import { wrapText } from "@aws-sdk-examples/libs/utils/util-string.js";
+import { dirnameFromMetaUrl } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
+import { Prompter } from "@aws-doc-sdk-examples/lib/prompter.js";
+import { wrapText } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 
 import {
   S3Client,
