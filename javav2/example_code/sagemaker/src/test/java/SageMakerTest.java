@@ -132,7 +132,7 @@ public class SageMakerTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void ListNotebooks() {
-        assertDoesNotThrow(() -> ListNotebooks.listBooks(sageMakerClient));
+        assertDoesNotThrow(() -> HelloSageMaker.listBooks(sageMakerClient));
         System.out.println("Test 5 passed");
     }
 
