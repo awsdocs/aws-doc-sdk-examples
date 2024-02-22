@@ -1,5 +1,5 @@
 {
-  "name": "@aws-sdk-examples/auto-scaling",
+  "name": "@aws-doc-sdk-examples/auto-scaling",
   "version": "1.0.0",
   "devDependencies": {},
   "scripts": {},

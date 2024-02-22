@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-fsa-translate-text",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-fsa-translate-text",
   "version": "1.0.0",
   "description": "Companion AWS Lambda functions for the Feedback Sentiment Analyzer Example.",
   "main": "index.js",

@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-iam",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-iam",
   "version": "1.0.0",
   "author": "corepyle@amazon.com",
   "license": "Apache-2.0",

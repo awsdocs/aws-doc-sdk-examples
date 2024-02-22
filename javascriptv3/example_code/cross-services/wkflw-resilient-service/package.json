@@ -1,5 +1,5 @@
 {
-  "name": "@aws-sdk-examples/wkflw-resilient-service",
+  "name": "@aws-doc-sdk-examples/wkflw-resilient-service",
   "version": "1.0.0",
   "description": "",
   "type": "module",

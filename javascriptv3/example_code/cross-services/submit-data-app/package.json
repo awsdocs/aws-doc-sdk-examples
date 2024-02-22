@@ -1,5 +1,5 @@
 {
-  "name": "Add data app",
+  "name": "@aws-doc-sdk-examples/submit-data-app",
   "version": "1.0.0",
   "description": "This tutorial demonstrates how to build that enables users to upload items to a DynamoDB table. It also demonstrates how to deployed on an S3 static web host.",
   "main": "index.js",

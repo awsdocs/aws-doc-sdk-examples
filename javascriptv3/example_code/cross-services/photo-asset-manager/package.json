@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-pam",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-pam",
   "version": "1.0.0",
   "description": "Companion Lambda functions for the Photo Asset Manager example.",
   "type": "module",

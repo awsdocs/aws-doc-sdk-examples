@@ -1,5 +1,5 @@
 {
-  "name": "sdk-layer",
+  "name": "@aws-doc-sdk-examples/sdk-layer",
   "version": "1.0.0",
   "description": "Sagemaker client packages.",
   "author": "Corey Pyle <corepyle@amazon.com>",

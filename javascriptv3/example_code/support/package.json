@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-support",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-support",
   "version": "1.0.0",
   "description": "Examples demonstrating how to use the AWS SDK for JavaScript (v3) to interact with AWS Support.",
   "scripts": {

@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-sagemaker",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-sagemaker",
   "version": "1.0.0",
   "description": "",
   "author": "Corey Pyle <corepyle@amazon.com>",

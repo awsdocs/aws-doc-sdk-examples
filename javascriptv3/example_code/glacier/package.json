@@ -1,5 +1,5 @@
 {
-  "name": "aws-sdk-v3-glacier-examples",
+  "name": "@aws-doc-sdk-examples/aws-sdk-v3-glacier-examples",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/glacier.git",
