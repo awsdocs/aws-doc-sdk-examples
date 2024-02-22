@@ -3,9 +3,9 @@
 import { createInterface } from "readline";
 import { stdin as input, stdout as output } from "process";
 
-import { readCommands } from "@aws-sdk-examples/libs/cmd-runner.js";
-import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
-import { startsWith } from "@aws-sdk-examples/libs/utils/util-array.js";
+import { readCommands } from "@aws-doc-sdk-examples/lib/cmd-runner.js";
+import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { startsWith } from "@aws-doc-sdk-examples/lib/utils/util-array.js";
 
 import { initializeHandler } from "./command-handlers/initialize-handler.js";
 import { createFunctionHandler } from "./command-handlers/create-function-handler.js";

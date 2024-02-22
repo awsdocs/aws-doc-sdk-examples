@@ -5,8 +5,8 @@ import { DescribeSubscriptionFiltersCommand } from "@aws-sdk/client-cloudwatch-l
 import { LambdaClient, waitUntilFunctionUpdated } from "@aws-sdk/client-lambda";
 import { describe, it, beforeAll, afterAll, expect } from "vitest";
 
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
-import { setEnv } from "@aws-sdk-examples/libs/utils/util-node.js";
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
+import { setEnv } from "@aws-doc-sdk-examples/lib/utils/util-node.js";
 
 import {
   addPermissionLogsInvokeFunction,

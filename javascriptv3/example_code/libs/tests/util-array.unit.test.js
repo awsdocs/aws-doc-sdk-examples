@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import { describe, test, expect } from "vitest";
 
-import { startsWith } from "@aws-sdk-examples/libs/utils/util-array.js";
+import { startsWith } from "@aws-doc-sdk-examples/lib/utils/util-array.js";
 
 describe("startsWith", () => {
   test.each([

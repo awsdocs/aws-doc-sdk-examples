@@ -41,8 +41,8 @@ import {
   ScenarioAction,
   ScenarioInput,
   ScenarioOutput,
-} from "@aws-sdk-examples/libs/scenario/scenario.js";
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+} from "@aws-doc-sdk-examples/lib/scenario/scenario.js";
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 import { MESSAGES, NAMES, RESOURCES_PATH } from "./constants.js";
 import { findLoadBalancer } from "./shared.js";
@@ -147,7 +147,7 @@ const statusSteps = [
 ];
 
 /**
- * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
+ * @type {import('@aws-doc-sdk-examples/lib/scenario.js').Step[]}
  */
 export const demoSteps = [
   new ScenarioOutput("header", MESSAGES.demoHeader, { header: true }),

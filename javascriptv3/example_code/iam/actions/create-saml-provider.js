@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 import { CreateSAMLProviderCommand, IAMClient } from "@aws-sdk/client-iam";
 import { readFileSync } from "fs";
 import * as path from "path";
-import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
+import { dirnameFromMetaUrl } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
 
 const client = new IAMClient({});
 

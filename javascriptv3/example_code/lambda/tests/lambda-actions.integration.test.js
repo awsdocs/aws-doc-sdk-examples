@@ -10,8 +10,8 @@ import {
   waitUntilRoleExists,
 } from "@aws-sdk/client-iam";
 
-import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 import {
   waitForFunctionActive,
