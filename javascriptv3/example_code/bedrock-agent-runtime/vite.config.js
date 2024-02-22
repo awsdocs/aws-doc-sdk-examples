@@ -4,8 +4,8 @@
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  test: {
-    testTimeout: 50000,
-    threads: false,
-  },
+    test: {
+        testTimeout: 50000,
+        threads: false,
+    },
 });
