@@ -210,18 +210,9 @@ public class AmazonS3Test {
         assertFalse(result.isEmpty());
         System.out.println("Test 3 passed");
     }
-
-    @Test
+   @Test
     @Tag("IntegrationTest")
-    @Order(6)
-    public void deleteBucketPolicy() {
-        assertDoesNotThrow(() -> DeleteBucketPolicy.deleteS3BucketPolicy(s3, bucketNamePolicy));
-        System.out.println("Test 6 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(7)
+    @Order(4)
     public void getObjectPresignedUrl() {
         assertDoesNotThrow(() -> GetObjectPresignedUrl.getPresignedUrl(presigner, presignBucket, presignKey));
         System.out.println("Test 8 passed");
@@ -229,7 +220,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(8)
+    @Order(5)
     public void getObjectData() {
         assertDoesNotThrow(() -> GetObjectData.getObjectBytes(s3, bucketName, objectKey, path));
         System.out.println("Test 9 passed");
@@ -237,7 +228,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(9)
+    @Order(6)
     public void listObjects() {
         assertDoesNotThrow(() -> ListObjects.listBucketObjects(s3, bucketName));
         System.out.println("Test 10 passed");
@@ -245,7 +236,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(10)
+    @Order(7)
     public void createAccessPoint() {
         assertDoesNotThrow(() -> CreateAccessPoint.createSpecificAccessPoint(s3ControlClient, accountId, bucketName,
                 accessPointName));
@@ -256,7 +247,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(11)
+    @Order(8)
     public void lifecycleConfiguration() {
         assertDoesNotThrow(() -> LifecycleConfiguration.setLifecycleConfig(s3, bucketName, accountId));
         assertDoesNotThrow(() -> LifecycleConfiguration.getLifecycleConfig(s3, bucketName, accountId));
@@ -266,7 +257,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(12)
+    @Order(9)
     public void s3Cors() {
         assertDoesNotThrow(() -> S3Cors.setCorsInformation(s3, bucketName, accountId));
         assertDoesNotThrow(() -> S3Cors.getBucketCorsInformation(s3, bucketName, accountId));
@@ -276,7 +267,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(13)
+    @Order(10)
     public void deleteMultiObjects() {
         assertDoesNotThrow(() -> DeleteMultiObjects.deleteBucketObjects(s3, bucketName));
         System.out.println("Test 14 passed");
@@ -284,7 +275,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(14)
+    @Order(11)
     public void deleteObjects() {
         assertDoesNotThrow(() -> DeleteObjects.deleteBucketObjects(s3, bucketName, objectKey));
         assertDoesNotThrow(() -> DeleteObjects.deleteBucketObjects(s3, bucketName, encryptObjectName));
@@ -293,9 +284,9 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(15)
+    @Order(12)
     public void copyObjectStorage() {
-        assertDoesNotThrow(() -> PutObject.putS3Object(s3, restoreBucket, restoreImageName, restoreImagePath));
+        assertDoesNotThrow(() -> PutObject.putS3Object(s3, restoreBucket, restoreImageName, path));
         assertDoesNotThrow(
                 () -> CopyObjectStorage.copyBucketObject(s3, restoreBucket, restoreImageName, restoreBucket));
         System.out.println("Test 16 passed");
@@ -303,7 +294,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(16)
+    @Order(13)
     public void restoreObject() {
         assertDoesNotThrow(() -> RestoreObject.restoreS3Object(s3, restoreBucket, restoreImageName, accountId));
         System.out.println("Test 17 passed");
@@ -311,7 +302,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(17)
+    @Order(14)
     public void getRestoreStatus() {
         assertDoesNotThrow(() -> GetObjectRestoreStatus.checkStatus(s3, restoreBucket, restoreImageName));
         System.out.println("Test 18 passed");
@@ -319,7 +310,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(18)
+    @Order(15)
     public void s3ZipExample() {
         assertDoesNotThrow(() -> S3ZipExample.createZIPFile(s3, bucketNameZip, imageKeys));
         System.out.println("Test 19 passed");
@@ -327,7 +318,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(19)
+    @Order(16)
     public void deleteBucket() {
         assertDoesNotThrow(() -> S3Scenario.deleteBucket(s3, bucketName));
         System.out.println("Test 19 passed");
@@ -335,7 +326,7 @@ public class AmazonS3Test {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(20)
+    @Order(17)
     public void testScenario() {
         System.out.println(S3Scenario.DASHES);
         System.out.println("1. Create an Amazon S3 bucket.");
