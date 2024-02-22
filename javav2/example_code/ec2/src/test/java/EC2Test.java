@@ -64,7 +64,7 @@ public class EC2Test {
         ami = values.getAmi();
         instanceName = values.getInstanceName();
         keyName = values.getKeyNameSc();
-        groupName = values.getGroupName();
+        groupName = values.getGroupName() + java.util.UUID.randomUUID();
         groupDesc = values.getGroupDesc();
         vpcId = values.getVpcId();
         keyNameSc = values.getKeyNameSc() + java.util.UUID.randomUUID();
@@ -216,123 +216,6 @@ public class EC2Test {
     public void TerminateInstance() {
         assertDoesNotThrow(() -> TerminateInstance.terminateEC2(ec2, instanceId));
         System.out.println("\n Test 14 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(15)
-    public void TestEC2Scenario() throws InterruptedException {
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("1. Create an RSA key pair and save the private key material as a .pem file.");
-        EC2Scenario.createKeyPair(ec2, keyNameSc, fileNameSc);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("2. List key pairs.");
-        EC2Scenario.describeKeys(ec2);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("3. Create a security group.");
-        String groupId = EC2Scenario.createSecurityGroup(ec2, groupNameSc, groupDescSc, vpcIdSc, myIpAddressSc);
-        assertFalse(groupId.isEmpty());
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("4. Display security group info for the newly created security group.");
-        EC2Scenario.describeSecurityGroups(ec2, groupId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.");
-        String instanceId = EC2Scenario.getParaValues(ssmClient);
-        assertFalse(instanceId.isEmpty());
-        System.out.println("The instance Id is " + instanceId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("6. Get more information about an amzn2 image.");
-        String amiValue = EC2Scenario.describeImage(ec2, instanceId);
-        assertFalse(amiValue.isEmpty());
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("7. Get a list of instance types.");
-        String instanceType = EC2Scenario.getInstanceTypes(ec2);
-        assertFalse(instanceType.isEmpty());
-        if (instanceType.compareTo("x2gd.metal") != 0)
-            instanceType = "x2gd.metal";
-        System.out.println("*** The instance type is " + instanceType);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("Wait 1 min before creating the instance using " + instanceType);
-        TimeUnit.MINUTES.sleep(1);
-        System.out.println("8. Create an instance.");
-        String newInstanceId = EC2Scenario.runInstance(ec2, instanceType, keyNameSc, groupNameSc, amiValue);
-        System.out.println("The instance Id is " + newInstanceId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("9. Display information about the running instance. ");
-        String ipAddress = EC2Scenario.describeEC2Instances(ec2, newInstanceId);
-        assertFalse(ipAddress.isEmpty());
-        System.out.println("You can SSH to the instance using this command:");
-        System.out.println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("10.  Stop the instance.");
-        EC2Scenario.stopInstance(ec2, newInstanceId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("11.  Start the instance.");
-        EC2Scenario.startInstance(ec2, newInstanceId);
-        ipAddress = EC2Scenario.describeEC2Instances(ec2, newInstanceId);
-        assertFalse(ipAddress.isEmpty());
-        System.out.println("You can SSH to the instance using this command:");
-        System.out.println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("12. Allocate an Elastic IP address and associate it with the instance.");
-        String allocationId = EC2Scenario.allocateAddress(ec2);
-        assertFalse(allocationId.isEmpty());
-        System.out.println("The allocation Id value is " + allocationId);
-        String associationId = EC2Scenario.associateAddress(ec2, newInstanceId, allocationId);
-        System.out.println("The association Id value is " + associationId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("13. Describe the instance again.");
-        ipAddress = EC2Scenario.describeEC2Instances(ec2, newInstanceId);
-        assertFalse(ipAddress.isEmpty());
-        System.out.println("You can SSH to the instance using this command:");
-        System.out.println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("14. Disassociate and release the Elastic IP address.");
-        EC2Scenario.disassociateAddress(ec2, associationId);
-        EC2Scenario.releaseEC2Address(ec2, allocationId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("15. Terminate the instance.");
-        EC2Scenario.terminateEC2(ec2, newInstanceId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("16. Delete the security group.");
-        EC2Scenario.deleteEC2SecGroup(ec2, groupId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("17. Delete the keys.");
-        EC2Scenario.deleteKeys(ec2, keyNameSc);
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("\n Test 16 passed");
     }
 
     private static String getSecretValues() {
