@@ -12,6 +12,8 @@ import software.amazon.awssdk.transfer.s3.model.FileUpload;
 import software.amazon.awssdk.transfer.s3.model.UploadFileRequest;
 import software.amazon.awssdk.transfer.s3.progress.LoggingTransferListener;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -30,7 +32,7 @@ public class UploadFile {
     private static final Logger logger = LoggerFactory.getLogger(UploadFile.class);
     public final String bucketName = "x-" + UUID.randomUUID();
     public final String key = UUID.randomUUID().toString();
-    public String filePath;
+    public URI filePathURI;
 
     public UploadFile() {
         this.setUp();
@@ -38,18 +40,18 @@ public class UploadFile {
 
     public static void main(String[] args) {
         UploadFile upload = new UploadFile();
-        upload.uploadFile(S3ClientFactory.transferManager, upload.bucketName, upload.key, upload.filePath);
+        upload.uploadFile(S3ClientFactory.transferManager, upload.bucketName, upload.key, upload.filePathURI);
         upload.cleanUp();
     }
 
     // snippet-start:[s3.tm.java2.uploadfile.main]
     public String uploadFile(S3TransferManager transferManager, String bucketName,
-            String key, String filePath) {
+                             String key, URI filePathURI) {
         UploadFileRequest uploadFileRequest = UploadFileRequest.builder()
-                .putObjectRequest(b -> b.bucket(bucketName).key(key))
-                .addTransferListener(LoggingTransferListener.create())
-                .source(Paths.get(filePath))
-                .build();
+            .putObjectRequest(b -> b.bucket(bucketName).key(key))
+            .addTransferListener(LoggingTransferListener.create())
+            .source(Paths.get(filePathURI))
+            .build();
 
         FileUpload fileUpload = transferManager.uploadFile(uploadFileRequest);
 
@@ -62,7 +64,12 @@ public class UploadFile {
         S3ClientFactory.s3Client.createBucket(b -> b.bucket(bucketName));
         // get the file system path to the provided file to upload
         URL resource = UploadFile.class.getClassLoader().getResource("image.png");
-        filePath = resource.getPath();
+        try {
+            filePathURI = resource.toURI();
+        } catch (URISyntaxException | NullPointerException e) {
+            logger.error("Error getting file path URI: {}", e.getMessage());
+            System.exit(1);
+        }
     }
 
     public void cleanUp() {

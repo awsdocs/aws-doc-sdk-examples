@@ -7,6 +7,8 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.opensearch.OpenSearchClient;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import com.example.search.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -23,20 +25,10 @@ public class OpenSearchTest {
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
-        try (InputStream input = OpenSearchTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
 
-            // Populate the data members required for all tests
-            prop.load(input);
-            domainName = "testdomain";
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        Random random = new Random();
+        int randomNum = random.nextInt((10000 - 1) + 1) + 1;
+        domainName = "testdomain" + randomNum;
     }
 
     @Test
@@ -58,7 +50,9 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void UpdateDomain() {
+    public void UpdateDomain() throws InterruptedException {
+        System.out.println("Wait 5 mins for resource to become available.");
+        TimeUnit.MINUTES.sleep(5);
         UpdateDomain.updateSpecificDomain(searchClient, domainName);
         System.out.println("Test 3 passed");
     }

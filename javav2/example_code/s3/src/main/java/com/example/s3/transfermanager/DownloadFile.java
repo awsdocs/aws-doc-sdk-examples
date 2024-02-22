@@ -13,6 +13,7 @@ import software.amazon.awssdk.transfer.s3.model.DownloadFileRequest;
 import software.amazon.awssdk.transfer.s3.model.FileDownload;
 import software.amazon.awssdk.transfer.s3.progress.LoggingTransferListener;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -86,10 +87,23 @@ public class DownloadFile {
         S3ClientFactory.s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
         S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
         URL url = DownloadFile.class.getClassLoader().getResource(downloadedFileName);
-        try {
-            Files.delete(Paths.get(url.getPath()));
-        } catch (IOException e) {
-            logger.error(e.getMessage());
+
+        if (url != null) {
+            try {
+                // Convert URL to URI, handling special characters properly
+                String path = new File(url.toURI()).getPath();
+
+                // Delete the file
+                Files.delete(Paths.get(path));
+                System.out.println("File deleted successfully");
+            } catch (URISyntaxException e) {
+                System.err.println("Error converting URL to URI: " + e.getMessage());
+            } catch (Exception e) {
+                System.err.println("Error deleting file: " + e.getMessage());
+            }
+        } else {
+            System.err.println("File not found");
         }
     }
 }
+

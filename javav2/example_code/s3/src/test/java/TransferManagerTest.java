@@ -39,7 +39,7 @@ class TransferManagerTest {
     public void uploadSingleFileWorks(){
         UploadFile upload = new UploadFile();
         String etag = upload.uploadFile(S3ClientFactory.transferManager, upload.bucketName,
-            upload.key, upload.filePath);
+            upload.key, upload.filePathURI);
         Assertions.assertNotNull(etag);
         upload.cleanUp();
     }
