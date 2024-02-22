@@ -1,7 +1,7 @@
 {
-  "name": "bedrock-agent-runtime-examples",
+  "name": "@aws-doc-sdk-examples/bedrock-agent-runtime-examples",
   "version": "1.0.0",
-  "author": "Dinuda Yaggahavita <ydinuda@gmail.com>",
+  "author": "Dinuda Yaggahavita <ydinuda@gmail.com>, Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
