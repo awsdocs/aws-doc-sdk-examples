@@ -954,7 +954,9 @@ bool AwsDoc::Aurora::chooseDBInstanceClass(const Aws::String &engine,
                     outcome.GetResult().GetOrderableDBInstanceOptions();
             for (const Aws::RDS::Model::OrderableDBInstanceOption &option: options) {
                 const Aws::String &instanceClass = option.GetDBInstanceClass();
-                instanceClasses.push_back(instanceClass);
+                if (std::find(instanceClasses.begin(), instanceClasses.end(), instanceClass) == instanceClasses.end()) {
+                    instanceClasses.push_back(instanceClass);
+                }
             }
             marker = outcome.GetResult().GetMarker();
         }
