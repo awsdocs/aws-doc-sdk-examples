@@ -46,9 +46,10 @@ public class PutObject {
     public static void main(String[] args) throws URISyntaxException {
         final String USAGE = """
 
-                To run this example, supply the name of a container, a file location to use, and path in the container\s
+                To run this example, supply the name of a container, a file in an S3 bucket, the S3 bucket, and 
+                and path in the container\s
 
-                Ex: <containerName> <filePath> <completePath>
+                Ex: <containerName> <file> <bucketName> <completePath>
                 """;
 
        // if (args.length < 3) {
@@ -56,10 +57,10 @@ public class PutObject {
        //     System.exit(1);
        // }
 
-        String containerName = "videos2c13782c-f5d4-4805-ac56-80ac16b5e49e" ; //args[0];
-        String file = "Rabbit.mp4" ; //args[1];
-        String bucketName = "buckettestsept" ;
-        String completePath = "folder/Rabbit1.mp4" ; //args[2];
+        String containerName = args[0];
+        String file = args[1];
+        String bucketName = args[2];
+        String completePath = args[3];
 
         Region region = Region.US_EAST_1;
         URI uri = new URI(getEndpoint(containerName));
@@ -67,7 +68,6 @@ public class PutObject {
             .endpointOverride(uri)
             .region(region)
             .build();
-
 
         S3Client s3 = S3Client.builder()
             .region(region)
