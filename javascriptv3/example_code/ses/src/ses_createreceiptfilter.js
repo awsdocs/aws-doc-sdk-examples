@@ -19,7 +19,7 @@ import {
   ReceiptFilterPolicy,
 } from "@aws-sdk/client-ses";
 import { sesClient } from "./libs/sesClient.js";
-import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
+import { getUniqueName } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 
 const createCreateReceiptFilterCommand = ({ policy, ipOrRange, name }) => {
   return new CreateReceiptFilterCommand({

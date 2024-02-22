@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /** snippet-start:[javascript.v3.cognito-idp.scenarios.basic.VerifySoftwareTokenHandler] **/
-import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
+import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { verifySoftwareToken } from "../../../actions/verify-software-token.js";
 
 const validateTotp = (totp) => {

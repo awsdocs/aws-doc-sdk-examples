@@ -1,10 +1,10 @@
 {
-  "name": "example-javascriptv3-medical-imaging",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-medical-imaging",
   "version": "1.0.0",
   "author": "Steven Meyer <meyertst@amazon.com",
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-sdk-examples/libs": "^1.0.0",
+    "@aws-doc-sdk-examples/lib": "^1.0.0",
     "@aws-sdk/client-medical-imaging": "^3.391.0"
   },
   "scripts": {

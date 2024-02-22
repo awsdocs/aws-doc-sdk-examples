@@ -1,5 +1,5 @@
 {
-  "name": "aurora_serverless_app",
+  "name": "@aws-doc-sdk-examples/aurora_serverless_app",
   "version": "1.0.0",
   "description": "A REST API that uses the AWS SDK for JavaScript (v3) to track work items in Amazon Aurora and sends email reports with Amazon Simple Email Service (Amazon SES).",
   "type": "module",

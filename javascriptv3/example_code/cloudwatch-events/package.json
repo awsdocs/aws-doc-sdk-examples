@@ -1,10 +1,10 @@
 {
-  "name": "example-javascriptv3-cloudwatchevents",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-cloudwatchevents",
   "version": "1.0.0",
   "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-sdk-examples/libs": "^1.0.0",
+    "@aws-doc-sdk-examples/lib": "^1.0.0",
     "@aws-sdk/client-cloudwatch-events": "^3.229.0",
     "@aws-sdk/client-cloudwatch-logs": "^3.229.0",
     "@aws-sdk/client-lambda": "^3.229.0"

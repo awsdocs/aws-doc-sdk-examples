@@ -3,7 +3,7 @@
 name: Lint Bash
 
 on:
-  pull_request: # This action does not use the paths option.
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -11,7 +11,12 @@ jobs:
     name: Lint Bash
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout files
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            aws-cli
       - name: Lint Bash
         uses: luizm/action-sh-checker@master
         env:

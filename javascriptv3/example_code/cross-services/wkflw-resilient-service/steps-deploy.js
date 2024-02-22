@@ -47,14 +47,14 @@ import {
   ScenarioOutput,
   ScenarioInput,
   ScenarioAction,
-} from "@aws-sdk-examples/libs/scenario/index.js";
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+} from "@aws-doc-sdk-examples/lib/scenario/index.js";
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 import { MESSAGES, NAMES, RESOURCES_PATH, ROOT } from "./constants.js";
 import { initParamsSteps } from "./steps-reset-params.js";
 
 /**
- * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
+ * @type {import('@aws-doc-sdk-examples/lib/scenario.js').Step[]}
  */
 export const deploySteps = [
   new ScenarioOutput("introduction", MESSAGES.introduction, { header: true }),

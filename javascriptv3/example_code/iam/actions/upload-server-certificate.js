@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 // snippet-start:[javascript.v3.iam.actions.UploadServerCertificate]
 import { UploadServerCertificateCommand, IAMClient } from "@aws-sdk/client-iam";
 import { readFileSync } from "fs";
-import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
+import { dirnameFromMetaUrl } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
 import * as path from "path";
 
 const client = new IAMClient({});
@@ -21,16 +21,16 @@ openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \
 const getCertAndKey = () => {
   try {
     const cert = readFileSync(
-      path.join(dirnameFromMetaUrl(import.meta.url), "./example.crt")
+      path.join(dirnameFromMetaUrl(import.meta.url), "./example.crt"),
     );
     const key = readFileSync(
-      path.join(dirnameFromMetaUrl(import.meta.url), "./example.key")
+      path.join(dirnameFromMetaUrl(import.meta.url), "./example.key"),
     );
     return { cert, key };
   } catch (err) {
     if (err.code === "ENOENT") {
       throw new Error(
-        `Certificate and/or private key not found. ${certMessage}`
+        `Certificate and/or private key not found. ${certMessage}`,
       );
     }
 

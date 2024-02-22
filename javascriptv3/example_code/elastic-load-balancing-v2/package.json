@@ -1,5 +1,5 @@
 {
-  "name": "@aws-sdk-examples/elastic-load-balancing-v2",
+  "name": "@aws-doc-sdk-examples/elastic-load-balancing-v2",
   "version": "1.0.0",
   "type": "module",
   "scripts": {

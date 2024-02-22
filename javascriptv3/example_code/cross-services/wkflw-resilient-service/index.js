@@ -8,7 +8,7 @@
 import {
   Scenario,
   parseScenarioArgs,
-} from "@aws-sdk-examples/libs/scenario/index.js";
+} from "@aws-doc-sdk-examples/lib/scenario/index.js";
 
 /**
  * The workflow steps are split into three stages:

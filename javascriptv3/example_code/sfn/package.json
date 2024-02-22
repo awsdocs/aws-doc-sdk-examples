@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-sfn",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-sfn",
   "version": "1.0.0",
   "author": "Corey Pyle <corepyle@amazon.com>",
   "scripts": {

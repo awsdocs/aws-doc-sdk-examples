@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-wkflw-topicsandqueues",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-wkflw-topicsandqueues",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "dependencies": {
-    "@aws-sdk-examples/libs": "^1.0.0",
+    "@aws-doc-sdk-examples/lib": "^1.0.0",
     "@aws-sdk/client-sns": "^3.379.1",
     "@aws-sdk/client-sqs": "^3.379.1",
     "@inquirer/prompts": "^3.0.1"

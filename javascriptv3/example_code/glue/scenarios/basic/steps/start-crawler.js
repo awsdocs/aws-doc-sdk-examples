@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { wait } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { wait } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 import { log } from "../log.js";
 
 /** snippet-start:[javascript.v3.glue.scenarios.basic.StartCrawlerStep] */

@@ -1,5 +1,5 @@
 {
-  "name": "bedrock-examples",
+  "name": "@aws-doc-sdk-examples/bedrock-examples",
   "version": "1.0.0",
   "author": "Dennis Traub <traubd@amazon.com>",
   "license": "Apache-2.0",

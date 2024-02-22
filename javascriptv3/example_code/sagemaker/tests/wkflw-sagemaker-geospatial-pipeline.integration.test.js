@@ -3,7 +3,7 @@
 
 import { describe, test } from "vitest";
 import { SageMakerPipelinesWkflw } from "../scenarios/wkflw-sagemaker-geospatial-pipeline/SageMakerPipelinesWkflw.js";
-import { Logger } from "@aws-sdk-examples/libs/logger.js";
+import { Logger } from "@aws-doc-sdk-examples/lib/logger.js";
 import { IAMClient } from "@aws-sdk/client-iam";
 import { SageMakerClient } from "@aws-sdk/client-sagemaker";
 import { S3Client } from "@aws-sdk/client-s3";

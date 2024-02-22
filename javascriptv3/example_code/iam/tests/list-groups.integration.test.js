@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import { describe, it, expect, vitest, beforeAll, afterAll } from "vitest";
 import { listGroups } from "../actions/list-groups.js";
-import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
+import { getUniqueName } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 import { createGroup } from "../actions/create-group.js";
 import { deleteGroup } from "../actions/delete-group.js";
 
