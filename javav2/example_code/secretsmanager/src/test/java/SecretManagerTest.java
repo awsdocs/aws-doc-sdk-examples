@@ -76,7 +76,7 @@ public class SecretManagerTest {
 
     @Test
     @Order(1)
-    public void CreateSecret() {
+    public void createSecret() {
         secretARN = CreateSecret.createNewSecret(secretsClient, newSecretName, secretValue);
         assertFalse(secretARN.isEmpty());
         System.out.println("Test 2 passed");
@@ -84,35 +84,35 @@ public class SecretManagerTest {
 
     @Test
     @Order(2)
-    public void DescribeSecret() {
+    public void describeSecret() {
         assertDoesNotThrow(() -> DescribeSecret.describeGivenSecret(secretsClient, secretARN));
         System.out.println("Test 3 passed");
     }
 
     @Test
     @Order(3)
-    public void GetSecretValue() {
+    public void getSecretValue() {
         assertDoesNotThrow(() -> GetSecretValue.getValue(secretsClient, secretARN));
         System.out.println("Test 4 passed");
     }
 
     @Test
     @Order(4)
-    public void UpdateSecret() {
+    public void updateSecret() {
         assertDoesNotThrow(() -> UpdateSecret.updateMySecret(secretsClient, secretARN, modSecretValue));
         System.out.println("Test 5 passed");
     }
 
     @Test
     @Order(5)
-    public void ListSecrets() {
+    public void listSecrets() {
         assertDoesNotThrow(() -> ListSecrets.listAllSecrets(secretsClient));
         System.out.println("Test 6 passed");
     }
 
     @Test
     @Order(6)
-    public void DeleteSecret() {
+    public void deleteSecret() {
         assertDoesNotThrow(() -> DeleteSecret.deleteSpecificSecret(secretsClient, secretARN));
         System.out.println("Test 7 passed");
     }
