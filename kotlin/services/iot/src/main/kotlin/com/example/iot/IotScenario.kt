@@ -229,10 +229,7 @@ suspend fun deleteIoTThing(thingNameVal: String) {
     }
 
     IotClient { region = "us-east-1" }.use { iotClient ->
-        // Delete Thing Response.
         iotClient.deleteThing(deleteThingRequest)
-
-        // Print ARN of the created thing.
         println("Deleted Thing $thingNameVal")
     }
 }
@@ -251,7 +248,7 @@ suspend fun deleteCertificate(certificateArn: String) {
 // snippet-end:[iot.kotlin.delete.cert.main]
 
 private fun extractCertificateId(certificateArn: String): String? {
-    // Example ARN: arn:aws:iot:region:account-id:cert/certificate-id
+    // Example ARN: arn:aws:iot:region:account-id:cert/certificate-id.
     val arnParts = certificateArn.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
     val certificateIdPart = arnParts[arnParts.size - 1]
     return certificateIdPart.substring(certificateIdPart.lastIndexOf("/") + 1)
@@ -278,10 +275,7 @@ suspend fun searchThings(queryStringVal: String?) {
     }
 
     IotClient { region = "us-east-1" }.use { iotClient ->
-        // Perform the search and get the result.
         val searchIndexResponse = iotClient.searchIndex(searchIndexRequest)
-
-        // Process the result.
         if (searchIndexResponse.things?.isEmpty() == true) {
             println("No things found.")
         } else {
@@ -311,25 +305,21 @@ suspend fun listIoTRules() {
 
 // snippet-start:[iot.kotlin.create.rule.main]
 suspend fun createIoTRule(roleARNVal: String?, ruleNameVal: String?, action: String?) {
-    // Set the rule SQL statement.
     val sqlVal = "SELECT * FROM '$TOPIC '"
     val action1 = SnsAction {
         targetArn = action
         roleArn = roleARNVal
     }
 
-    // Create the action.
     val myAction = Action {
         sns = action1
     }
 
-    // Create the topic rule payload.
     val topicRulePayloadVal = TopicRulePayload {
         sql = sqlVal
         actions = listOf(myAction)
     }
 
-    // Create the topic rule request.
     val topicRuleRequest = CreateTopicRuleRequest {
         ruleName = ruleNameVal
         topicRulePayload = topicRulePayloadVal
@@ -394,7 +384,6 @@ private fun getValue(input: String?): String {
 
     // Check if a match is found.
     if (matcher.find()) {
-        // Extract the subdomain from the first capturing group.
         val subdomain = matcher.group(1)
         println("Extracted subdomain: $subdomain")
         return subdomain
@@ -406,14 +395,12 @@ private fun getValue(input: String?): String {
 
 // snippet-start:[iot.kotlin.update.thing.main]
 suspend fun updateThing(thingNameVal: String?) {
-    // Specify the new attribute values.
     val newLocation = "Office"
     val newFirmwareVersion = "v2.0"
     val attMap: MutableMap<String, String> = HashMap()
     attMap["location"] = newLocation
     attMap["firmwareVersion"] = newFirmwareVersion
 
-    // Build the update request
     val attributePayloadVal = AttributePayload {
         attributes = attMap
     }
@@ -438,14 +425,12 @@ suspend fun updateShawdowThing(thingNameVal: String?) {
     val byteStream: ByteStream = ByteStream.fromString(stateDocument)
     val byteArray: ByteArray = byteStream.toByteArray()
 
-    // Update Thing Shadow Request.
     val updateThingShadowRequest = UpdateThingShadowRequest {
         thingName = thingNameVal
         payload = byteArray
     }
 
     IotDataPlaneClient { region = "us-east-1" }.use { iotPlaneClient ->
-        // Update Thing Shadow.
         iotPlaneClient.updateThingShadow(updateThingShadowRequest)
         println("Thing Shadow updated successfully.")
     }
@@ -468,7 +453,6 @@ suspend fun attachCertificateToThing(thingNameVal: String?, certificateArn: Stri
 
 // snippet-start:[iot.kotlin.describe.thing.main]
 suspend fun describeThing(thingNameVal: String) {
-    // Describe the Thing to get more information.
     val thingRequest = DescribeThingRequest {
         thingName = thingNameVal
     }
@@ -486,11 +470,7 @@ suspend fun describeThing(thingNameVal: String) {
 // snippet-start:[iot.kotlin.create.cert.main]
 suspend fun createCertificate(): String? {
     IotClient { region = "us-east-1" }.use { iotClient ->
-        // Create keys and certificate.
         val response = iotClient.createKeysAndCertificate()
-
-        // Extract key, certificate, and certificate ARN.
-        val privateKey = response.keyPair?.privateKey
         val certificatePem = response.certificatePem
         val certificateArn = response.certificateArn
 
