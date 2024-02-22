@@ -1,5 +1,5 @@
 {
-  "name": "lambda-api-gateway-example",
+  "name": "@aws-doc-sdk-examples/lambda-api-gateway-example",
   "version": "1.0.0",
   "description": "Using the AWS SDK for JavaScript V3 to build and deploy Lambda functions on API Gateway.",
   "main": "index.js",

@@ -1,5 +1,5 @@
 {
-  "name": "aws-sdk-v3-iam-examples",
+  "name": "@aws-doc-sdk-examples/aws-sdk-v3-iam-examples",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

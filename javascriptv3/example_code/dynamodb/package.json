@@ -1,5 +1,5 @@
 {
-  "name": "dynamodb-examples",
+  "name": "@aws-doc-sdk-examples/dynamodb-examples",
   "version": "1.0.0",
   "author": "Corey Pyle <corepyle@amazon.com",
   "license": "Apache-2.0",

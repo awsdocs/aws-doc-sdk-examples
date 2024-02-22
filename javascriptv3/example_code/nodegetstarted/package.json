@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-get-started-node",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-get-started-node",
   "version": "1.0.0",
   "description": "This guide shows you how to initialize an NPM package, add a service client to your package, and use the JavaScript SDK to call a service action.",
   "main": "index.js",

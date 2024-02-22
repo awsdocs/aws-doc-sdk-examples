@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-fsa-extract-text",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-fsa-extract-text",
   "version": "1.0.0",
   "description": "Companion AWS Lambda functions for the Feedback Sentiment Analyzer Example.",
   "main": "index.js",

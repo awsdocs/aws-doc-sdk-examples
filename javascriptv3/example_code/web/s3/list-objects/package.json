@@ -1,5 +1,5 @@
 {
-  "name": "list-objects",
+  "name": "@aws-doc-sdk-examples/list-objects",
   "private": true,
   "version": "0.0.0",
   "type": "module",

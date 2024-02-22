@@ -1,5 +1,5 @@
 {
-  "name": "lambda-for-browser-backend",
+  "name": "@aws-doc-sdk-examples/lambda-for-browser-backend",
   "version": "1.0.0",
   "description": "Example demonstrating using AWS Lambda in the browser.",
   "author": "Corey Pyle <corepyle@amazon.com>",

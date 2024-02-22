@@ -1,5 +1,5 @@
 {
-  "name": "aws-sdk-v3-polly-synthesize-to-s3-example",
+  "name": "@aws-doc-sdk-examples/aws-sdk-v3-polly-synthesize-to-s3-example",
   "version": "1.0.0",
   "main": "polly_synthesize_to_s3.js",
   "author": "Brian Murray <brmur@amazon.com>",

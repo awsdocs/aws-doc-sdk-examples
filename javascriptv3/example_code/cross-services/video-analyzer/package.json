@@ -1,5 +1,5 @@
 {
-  "name": "video-analyzer-example",
+  "name": "@aws-doc-sdk-examples/video-analyzer-example",
   "version": "1.0.0",
   "description": "Using the AWS SDK for JavaScript V3 to build an app that analyzes videos for label detection.",
   "main": "index.js",

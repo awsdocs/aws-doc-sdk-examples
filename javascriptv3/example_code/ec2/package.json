@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-ec2",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-ec2",
   "version": "1.0.0",
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>, Corey Pyle<corepyle@amazon.com",
   "license": "Apache 2.0",

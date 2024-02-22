@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-cognito",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-cognito",
   "version": "1.0.0",
   "description": "Code samples for interacting with Cognito via the AWS SDK for JavaScript (v3)",
   "main": "index.js",

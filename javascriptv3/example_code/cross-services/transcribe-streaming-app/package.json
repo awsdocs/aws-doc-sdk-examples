@@ -1,5 +1,5 @@
 {
-  "name": "transcribe-steaming-example",
+  "name": "@aws-doc-sdk-examples/transcribe-steaming-example",
   "version": "1.0.0",
   "description": "Using the AWS SDK for JavaScript V3 to .",
   "main": "index.js",

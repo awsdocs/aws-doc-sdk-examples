@@ -1,5 +1,5 @@
 {
-  "name": "recording_app",
+  "name": "@aws-doc-sdk-examples/recording-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

@@ -1,5 +1,5 @@
 {
-  "name": "ses",
+  "name": "@aws-doc-sdk-examples/ses",
   "version": "1.0.0",
   "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache 2.0",

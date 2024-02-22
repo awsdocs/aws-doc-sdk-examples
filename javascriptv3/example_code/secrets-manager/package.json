@@ -1,5 +1,5 @@
 {
-  "name": "example-javascriptv3-secrets-manager",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-secrets-manager",
   "version": "1.0.0",
   "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0",
