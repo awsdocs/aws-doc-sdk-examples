@@ -1,19 +1,27 @@
 # zexi 0.4.0
-iot-data-plane_GetThingShadow:
-  title: Get the shadow for the specified thing using an &AWS; SDK
-  title_abbrev: Get the shadow
-  synopsis: get the shadow for an &IoT; thing.
-  category:
+iot_Hello:
+  title: Hello &IoT;
+  title_abbrev: Hello &IoT;
+  synopsis: get started using &IoT;.
+  category: Hello
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/iot
+        - sdk_version: 2
+          github: javav2/example_code/iot
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - iot.kotlin.get.shadow.writer.main
+                - iot.java2.hello_iot.main
+  services:
+    iot: {listThings}
+iot_DescribeEndpoint:
+  title: Get information about an endpoint using an &AWS; SDK
+  title_abbrev: Get endpoint information
+  synopsis: get &IoT; endpoint information.
+  category:
+  languages:
     Java:
       versions:
         - sdk_version: 2
@@ -21,24 +29,39 @@ iot-data-plane_GetThingShadow:
           excerpts:
             - description:
               snippet_tags:
-                - iot.java2.get.shadow.writer.main
-  services:
-    iot-data-plane: {GetThingShadow}       
-iot-data-plane_UpdateThingShadow:
-  title: Update the shadow for the specified thing using an &AWS; SDK
-  title_abbrev: Update the shadow
-  synopsis: update the shadow for an &IoT; thing.
-  category:
-  languages:
-    Kotlin:
+                - iot.java2.describe.endpoint.main
+    Rust:
       versions:
         - sdk_version: 1
-          github: kotlin/services/iot
-          sdkguide:
+          github: rustv1/examples/iot
           excerpts:
             - description:
               snippet_tags:
-                - iot.kotlin.update.shadow.thing.main
+                - iot.rust.describe-endpoint
+  services:
+    iot: {DescribeEndpoint}
+iot_ListThings:
+  title: List your &IoT; things using an &AWS; SDK
+  title_abbrev: List your things
+  synopsis: list your &IoT; things.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.rust.list-things
+  services:
+    iot: {ListThings}
+iot_ListCertificates:
+  title: List your &IoT; certificates using an &AWS; SDK
+  title_abbrev: List your certificates
+  synopsis: list your &IoT; certificates.
+  category:
+  languages:
     Java:
       versions:
         - sdk_version: 2
@@ -46,6 +69,183 @@ iot-data-plane_UpdateThingShadow:
           excerpts:
             - description:
               snippet_tags:
-                - iot.java2.update.shadow.thing.main
+                - iot.java2.list.certs.main
   services:
-    iot-data-plane: {UpdateThingShadow}       
+    iot: {ListCertificates}    
+iot_CreateCertificate:
+  title: Create an &IoT; certificate using an &AWS; SDK
+  title_abbrev: Create a certificate
+  synopsis: create an &IoT; certificate.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.create.cert.main
+  services:
+    iot: {CreateKeysAndCertificate} 
+iot_DeleteCertificate:
+  title: Delete an &IoT; certificate using an &AWS; SDK
+  title_abbrev: Delete a certificate
+  synopsis: delete an &IoT; certificate.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.delete.cert.main
+  services:
+    iot: {DeleteCertificate}     
+iot_SearchIndex:
+  title: Query the &IoT; search index using an &AWS; SDK
+  title_abbrev: Query the search index
+  synopsis: query the &IoT; search index.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.search.thing.main
+  services:
+    iot: {SearchIndex} 
+iot_DeleteThing:
+  title: Delete an &IoT; thing using an &AWS; SDK
+  title_abbrev: Delete a thing
+  synopsis: delete an &IoT; thing.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.delete.thing.main
+  services:
+    iot: {DeleteThing} 
+iot_DescribeThing:
+  title: Describe an &IoT; thing using an &AWS; SDK
+  title_abbrev: Describe a thing
+  synopsis: describe an &IoT; thing.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.describe.thing.main
+  services:
+    iot: {DescribeThing}     
+iot_AttachThingPrincipal:
+  title: Attach a certificate to an &IoT; thing using an &AWS; SDK
+  title_abbrev: Attach a certificate
+  synopsis: attach an &IoT; certificate.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.attach.thing.main
+  services:
+    iot: {AttachThingPrincipal}               
+iot_DetachThingPrincipal:
+  title: Detach a certificate from an &IoT; thing using an &AWS; SDK
+  title_abbrev: Detach a certificate
+  synopsis: detach an &IoT; certificate.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.detach.thing.main
+  services:
+    iot: {DetachThingPrincipal}           
+iot_UpdateThing:
+  title: Update an &IoT; thing using an &AWS; SDK
+  title_abbrev: Update a thing
+  synopsis: update an &IoT; thing.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.update.thing.main
+  services:
+    iot: {UpdateThing}       
+iot_CreateRule:
+  title: Create an &IoT; rule using an &AWS; SDK
+  title_abbrev: Create a rule
+  synopsis: create an &IoT; rule.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.create.rule.main
+  services:
+    iot: {CreateTopicRule}   
+iot_CreateThing:
+  title: Create &IoT; things using an &AWS; SDK
+  title_abbrev: Create a thing
+  synopsis: create an &IoT; thing.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.create.thing.main
+  services:
+    iot: {CreateThing}   
+iot_Scenario:
+  title: Working with &IoT; devices, things, and shadows using &IoT; SDK
+  title_abbrev: Working with device management use cases
+  synopsis: working with &IoT; device management use cases using &IoT; SDK
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.scenario.main
+  services:
+    iot: {}
