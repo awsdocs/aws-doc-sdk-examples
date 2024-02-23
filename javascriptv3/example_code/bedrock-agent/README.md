@@ -1,13 +1,13 @@
-# Amazon Bedrock code examples for the SDK for JavaScript (v3)
+# Agents for Amazon Bedrock code examples for the SDK for JavaScript (v3)
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Bedrock.
+Shows how to use the AWS SDK for JavaScript (v3) to work with Agents for Amazon Bedrock.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon Bedrock enables you to build and scale generative AI applications with foundation models._
+_Agents for Amazon Bedrock offer you the ability to build and configure autonomous agents in your application._
 
 ## ⚠ Important
 
@@ -34,15 +34,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Amazon Bedrock](hello.js) (`ListFoundationModels`)
+- [Hello Agents for Amazon Bedrock](hello.js) (`ListAgents`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get details about an Amazon Bedrock foundation model](actions/get-foundation-model.js) (`GetFoundationModel`)
-- [List available Amazon Bedrock foundation models](actions/list-foundation-models.js) (`ListFoundationModels`)
+- [Create an agent](actions/create-agent.js) (`CreateAgent`)
+- [Delete an agent](actions/delete-agent.js) (`DeleteAgent`)
+- [Get information about an agent](actions/get-agent.js) (`GetAgent`)
+- [List the action groups for an agent](actions/list-agent-action-groups.js) (`ListAgentActionGroups`)
+- [List the available agents](actions/list-agents.js) (`ListAgents`)
 
 
 <!--custom.examples.start-->
@@ -70,9 +73,9 @@ node ./scenarios/<fileName>
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon Bedrock
+#### Hello Agents for Amazon Bedrock
 
-This example shows you how to get started using Amazon Bedrock.
+This example shows you how to get started using Agents for Amazon Bedrock.
 
 ```bash
 node ./hello.js
@@ -94,9 +97,9 @@ in the `javascriptv3` folder.
 
 ## Additional resources
 
-- [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
-- [Amazon Bedrock API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
-- [SDK for JavaScript (v3) Amazon Bedrock reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/bedrock)
+- [Agents for Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
+- [Agents for Amazon Bedrock API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html)
+- [SDK for JavaScript (v3) Agents for Amazon Bedrock reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/bedrock-agent)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
