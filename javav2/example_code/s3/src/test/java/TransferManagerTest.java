@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import com.example.s3.transfermanager.DownloadFile;
+import com.example.s3.transfermanager.DownloadSingleFile;
 import com.example.s3.transfermanager.DownloadToDirectory;
 import com.example.s3.transfermanager.ObjectCopy;
 import com.example.s3.transfermanager.S3ClientFactory;
@@ -38,8 +38,7 @@ class TransferManagerTest {
     @Tag("IntegrationTest")
     public void uploadSingleFileWorks(){
         UploadFile upload = new UploadFile();
-        String etag = upload.uploadFile(S3ClientFactory.transferManager, upload.bucketName,
-            upload.key, upload.filePath);
+        String etag = upload.uploadFile(S3ClientFactory.transferManager, upload.bucketName, upload.key, upload.filePathURI);
         Assertions.assertNotNull(etag);
         upload.cleanUp();
     }
@@ -48,7 +47,7 @@ class TransferManagerTest {
     @Order(2)
     @Tag("IntegrationTest")
     public void downloadSingleFileWorks(){
-        DownloadFile download = new DownloadFile();
+        DownloadSingleFile download = new DownloadSingleFile();
         Long fileLength = download.downloadFile(S3ClientFactory.transferManager, download.bucketName, download.key, download.downloadedFileWithPath);
         Assertions.assertNotEquals(0L, fileLength);
         download.cleanUp();
@@ -72,7 +71,6 @@ class TransferManagerTest {
         Integer numFailedUploads = upload.uploadDirectory(S3ClientFactory.transferManager, upload.sourceDirectory, upload.bucketName);
         Assertions.assertNotNull(numFailedUploads, "Bucket download failed to complete.");
         upload.cleanUp();
-
     }
 
     @Test
@@ -91,7 +89,6 @@ class TransferManagerTest {
     public void uploadStreamWorks(){
         String bucketName = "x-" + UUID.randomUUID();
         String key = UUID.randomUUID().toString();
-
         AsyncExampleUtils.createBucket(bucketName);
         try {
             UploadStream example = new UploadStream();
