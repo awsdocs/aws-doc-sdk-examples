@@ -1,27 +1,26 @@
+# zexi 0.4.0
 polly_DescribeVoices:
   title: Get &POL; voices available for synthesis using an &AWS; SDK
   title_abbrev: Get voices available for synthesis
   synopsis: get &POL; voices available for synthesis.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - polly.java2.describe_voice.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/Polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - Polly.dotnetv3.DescribeVoicesExample
     Rust:
@@ -29,7 +28,7 @@ polly_DescribeVoices:
         - sdk_version: 1
           github: rustv1/examples/polly
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - polly.rust.describe-voices
     Python:
@@ -37,7 +36,7 @@ polly_DescribeVoices:
         - sdk_version: 3
           github: python/example_code/polly
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.polly.helper.PollyWrapper
                 - python.example_code.polly.DescribeVoices
@@ -46,7 +45,7 @@ polly_DescribeVoices:
         - sdk_version: 3
           github: ruby/example_code/polly
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - polly.ruby.describeVoices
   services:
@@ -55,26 +54,24 @@ polly_GetLexicon:
   title: Get an &POL; lexicon using an &AWS; SDK
   title_abbrev: Get a lexicon
   synopsis: get an &POL; lexicon.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/Polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - Polly.dotnetv3.GetLexiconExample
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.polly.helper.PollyWrapper
                 - python.example_code.polly.GetLexicon
@@ -84,26 +81,24 @@ polly_ListLexicons:
   title: List &POL; pronunciation lexicons using an &AWS; SDK
   title_abbrev: List pronunciation lexicons
   synopsis: list &POL; pronunciation lexicons.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - polly.java2.list_icons.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/Polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - Polly.dotnetv3.ListLexiconsExample
     Python:
@@ -111,7 +106,7 @@ polly_ListLexicons:
         - sdk_version: 3
           github: python/example_code/polly
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.polly.helper.PollyWrapper
                 - python.example_code.polly.ListLexicons
@@ -120,7 +115,7 @@ polly_ListLexicons:
         - sdk_version: 1
           github: rustv1/examples/polly
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - polly.rust.list-lexicons
     Ruby:
@@ -128,7 +123,7 @@ polly_ListLexicons:
         - sdk_version: 3
           github: ruby/example_code/polly
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - polly.ruby.listLexicons
   services:
@@ -137,26 +132,24 @@ polly_PutLexicon:
   title: Store an &POL; pronunciation lexicon using an &AWS; SDK
   title_abbrev: Store a pronunciation lexicon
   synopsis: store an &POL; pronunciation lexicon.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/Polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - Polly.dotnetv3.PutLexiconExample
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.polly.helper.PollyWrapper
                 - python.example_code.polly.PutLexicon
@@ -165,7 +158,7 @@ polly_PutLexicon:
         - sdk_version: 1
           github: rustv1/examples/polly
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - polly.rust.put-lexicon
   services:
@@ -173,27 +166,25 @@ polly_PutLexicon:
 polly_SynthesizeSpeech:
   title: Synthesize speech from text with &POL; using an &AWS; SDK
   title_abbrev: Synthesize speech from text
-  synopsis: A synopsis
-  synopsis_list:
-    - synthesize speech from text with &POL;.
-  category: 
+  synopsis: synthesize speech from text with &POL;.
+  category:
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - polly.java2.demo.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/Polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - Polly.dotnetv3.SynthesizeSpeechExample
             - description: Synthesize speech from text using speech marks with &POL; using an &AWS; SDK.
@@ -204,17 +195,16 @@ polly_SynthesizeSpeech:
         - sdk_version: 3
           github: python/example_code/polly
           excerpts:
-            - description: lkjlkj
+            - description:
               snippet_tags:
                 - python.example_code.polly.helper.PollyWrapper
                 - python.example_code.polly.Synthesize
-          sdkguide: 
     Ruby:
       versions:
         - sdk_version: 3
           github: ruby/example_code/polly
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - polly.ruby.synthesizeSpeech
     Rust:
@@ -222,7 +212,7 @@ polly_SynthesizeSpeech:
         - sdk_version: 1
           github: rustv1/examples/polly
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - polly.rust.synthesize-speech
   services:
@@ -231,17 +221,15 @@ polly_GetSpeechSynthesisTask:
   title: Get data about an &POL; speech synthesis task using an &AWS; SDK
   title_abbrev: Get data about a speech synthesis task
   synopsis: get data about an existing asynchronous &POL; speech synthesis task.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.polly.helper.PollyWrapper
                 - python.example_code.polly.GetSpeechSynthesisTask
@@ -251,17 +239,15 @@ polly_StartSpeechSynthesisTask:
   title: Start an &POL; speech synthesis task using an &AWS; SDK
   title_abbrev: Start a speech synthesis task
   synopsis: start an asynchronous &POL; speech synthesis task.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.polly.helper.PollyWrapper
                 - python.example_code.polly.StartSpeechSynthesisTask
@@ -271,17 +257,15 @@ polly_DeleteLexicon:
   title: Delete an &POL; lexicon using an &AWS; SDK
   title_abbrev: Delete a lexicon
   synopsis: delete an &POL; lexicon.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/Polly
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - Polly.dotnetv3.DeleteLexiconExample
   services:
@@ -290,8 +274,6 @@ polly_LipSync:
   title: Create a lip-sync application with &POL; using an &AWS; SDK
   title_abbrev: Create a lip-sync application
   synopsis: create a lip-sync application with &POL;.
-  synopsis_list:
-    - null
   category: Scenarios
   languages:
     Python:

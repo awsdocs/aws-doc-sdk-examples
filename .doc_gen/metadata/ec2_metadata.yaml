@@ -2,53 +2,51 @@ ec2_Hello:
   title: Hello &EC2;
   title_abbrev: Hello &EC2;
   synopsis: get started using &EC2;.
-  synopsis_list:
-    - null
   category: Hello
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.HelloEc2
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.describe_security_groups.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.describe_security_groups.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.Hello
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.ec2.scenarios.Hello
     C++:
@@ -61,52 +59,49 @@ ec2_Hello:
                 - cpp.example_code.ec2.hello_ec2.cmake
             - description: Code for the hello_ec2.cpp source file.
               snippet_tags:
-                - cpp.example_code.ec2.hello_ec2.cmake
-          sdkguide: 
+                - cpp.example_code.ec2.hello_ec2
   services:
     ec2: {DescribeSecurityGroups}
 ec2_CreateKeyPair:
   title: Create a security key pair for &EC2; using an &AWS; SDK
   title_abbrev: Create a security key pair
   synopsis: create a security key pair for &EC2;.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.CreateKeyPair
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.create_key_pair.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.create_key_pair.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.CreateKeyPair
@@ -114,18 +109,18 @@ ec2_CreateKeyPair:
       versions:
         - sdk_version: 3
           github: ruby/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.exampleKeyPairs
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.keypairs.createKeyPairV3
     SAP ABAP:
@@ -133,7 +128,7 @@ ec2_CreateKeyPair:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.create_key_pair
     C++:
@@ -141,7 +136,7 @@ ec2_CreateKeyPair:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.create_key_pair.code
   services:
@@ -150,44 +145,42 @@ ec2_DescribeKeyPairs:
   title: List &EC2; security key pairs using an &AWS; SDK
   title_abbrev: List security key pairs
   synopsis: list &EC2; security key pairs.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.DescribeKeyPairs
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.describe_key_pairs.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.describe_key_pairs.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.DescribeKeyPairs
@@ -195,9 +188,9 @@ ec2_DescribeKeyPairs:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.keypairs.describeKeyPairV3
     SAP ABAP:
@@ -205,7 +198,7 @@ ec2_DescribeKeyPairs:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.describe_key_pairs
     C++:
@@ -213,53 +206,52 @@ ec2_DescribeKeyPairs:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.describe_key_pairs.code
   services:
     ec2: {DescribeKeyPairs}
+
 ec2_CreateSecurityGroup:
   title: Create an &EC2; security group using an &AWS; SDK
   title_abbrev: Create a security group
   synopsis: create an &EC2; security group.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.CreateSecurityGroup
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.create_security_group.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.create_security_group.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.CreateSecurityGroup
@@ -267,18 +259,19 @@ ec2_CreateSecurityGroup:
       versions:
         - sdk_version: 3
           github: ruby/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.exampleSecurityGroup
+
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.SecurityGroups.createSecurityGroupV3
     SAP ABAP:
@@ -286,7 +279,7 @@ ec2_CreateSecurityGroup:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.create_security_group
     C++:
@@ -294,7 +287,7 @@ ec2_CreateSecurityGroup:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - cpp.example_code.ec2.create_security_group.client
                 - cpp.example_code.ec2.CreateSecurityGroup
@@ -304,44 +297,42 @@ ec2_RunInstances:
   title: Create and run an &EC2; instance using an &AWS; SDK
   title_abbrev: Create and run an instance
   synopsis: create and run an &EC2; instance.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.RunInstances
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.create_instance.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.create_instance.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.RunInstances
@@ -349,9 +340,9 @@ ec2_RunInstances:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.Instances.create_instancesV3
     SAP ABAP:
@@ -359,16 +350,16 @@ ec2_RunInstances:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.create_instance
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - cpp.example_code.ec2.create_instance.client
                 - cpp.example_code.ec2.RunInstances
@@ -378,44 +369,42 @@ ec2_StartInstances:
   title: Start an &EC2; instance using an &AWS; SDK
   title_abbrev: Start an instance
   synopsis: start an &EC2; instance.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.StartInstances
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.scenario.start_instance.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.scenario.start_instance.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StartInstances
@@ -423,18 +412,18 @@ ec2_StartInstances:
       versions:
         - sdk_version: 3
           github: ruby/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.startInstance
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.Instances.start_stopInstancesV3
     Rust:
@@ -442,7 +431,7 @@ ec2_StartInstances:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.rust.start-instance
     SAP ABAP:
@@ -450,7 +439,7 @@ ec2_StartInstances:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.start_instance
     C++:
@@ -458,7 +447,7 @@ ec2_StartInstances:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.start_instance.code
   services:
@@ -467,44 +456,42 @@ ec2_StopInstances:
   title: Stop an &EC2; instance using an &AWS; SDK
   title_abbrev: Stop an instance
   synopsis: stop an &EC2; instance.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.StopInstances
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.scenario.stop_instance.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.scenario.stop_instance.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StopInstances
@@ -512,18 +499,18 @@ ec2_StopInstances:
       versions:
         - sdk_version: 3
           github: ruby/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.stopInstances
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.StopInstances
     Rust:
@@ -531,7 +518,7 @@ ec2_StopInstances:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.rust.stop-instance
     SAP ABAP:
@@ -539,7 +526,7 @@ ec2_StopInstances:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.stop_instance
     C++:
@@ -547,7 +534,7 @@ ec2_StopInstances:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.stop_instance.code
   services:
@@ -556,44 +543,42 @@ ec2_AllocateAddress:
   title: Allocate an Elastic IP address for &EC2; using an &AWS; SDK
   title_abbrev: Allocate an Elastic IP address
   synopsis: allocate an Elastic IP address for &EC2;.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.AllocateAddress
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.allocate_address.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.allocate_address.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AllocateAddress
@@ -601,18 +586,18 @@ ec2_AllocateAddress:
       versions:
         - sdk_version: 3
           github: ruby/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.allocateElasticIPs
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.Addresses.allocateAddressV3
     SAP ABAP:
@@ -620,7 +605,7 @@ ec2_AllocateAddress:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.allocate_address
     C++:
@@ -628,7 +613,7 @@ ec2_AllocateAddress:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - cpp.example_code.ec2.allocate_address.client
                 - cpp.example_code.ec2.AllocateAddress
@@ -638,44 +623,42 @@ ec2_AssociateAddress:
   title: Associate an Elastic IP address with an &EC2; instance using an &AWS; SDK
   title_abbrev: Associate an Elastic IP address with an instance
   synopsis: associate an Elastic IP address with an &EC2; instance.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.AssociateAddress
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.associate_address.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.associate_address.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AssociateAddress
@@ -683,18 +666,18 @@ ec2_AssociateAddress:
       versions:
         - sdk_version: 3
           github: ruby/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.associateElasticIPs
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.AssociateAddress
     SAP ABAP:
@@ -702,7 +685,7 @@ ec2_AssociateAddress:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.associate_address
     C++:
@@ -710,7 +693,7 @@ ec2_AssociateAddress:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - cpp.example_code.ec2.allocate_address.client
                 - cpp.example_code.ec2.AssociateAddress
@@ -720,44 +703,42 @@ ec2_DisassociateAddress:
   title: Disassociate an Elastic IP address from an &EC2; instance using an &AWS; SDK
   title_abbrev: Disassociate an Elastic IP address from an instance
   synopsis: disassociate an Elastic IP address from an &EC2; instance.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.DisassociateAddress
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.scenario.disassociate_address.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.scenario.disassociate_address.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.DisassociateAddress
@@ -765,9 +746,9 @@ ec2_DisassociateAddress:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.DisassociateAddress
   services:
@@ -776,44 +757,42 @@ ec2_ReleaseAddress:
   title: Release an Elastic IP address using an &AWS; SDK
   title_abbrev: Release an Elastic IP address
   synopsis: release an Elastic IP address.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.ReleaseAddress
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.scenario.release.address.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.release_instance.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.ReleaseAddress
@@ -821,18 +800,18 @@ ec2_ReleaseAddress:
       versions:
         - sdk_version: 3
           github: ruby/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.releaseElasticIPs
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.Addresses.releaseAddressV3
     SAP ABAP:
@@ -840,7 +819,7 @@ ec2_ReleaseAddress:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.release_address
     C++:
@@ -848,7 +827,7 @@ ec2_ReleaseAddress:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.release_address.code
   services:
@@ -857,44 +836,42 @@ ec2_AuthorizeSecurityGroupIngress:
   title: Set inbound rules for an &EC2; security group using an &AWS; SDK
   title_abbrev: Set inbound rules for a security group
   synopsis: set inbound rules for an &EC2; security group.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.AuthorizeSecurityGroupIngress
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.scenario.inbound.rule.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java.scenario_inbound_rule.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.AuthorizeSecurityGroupIngress
@@ -903,7 +880,7 @@ ec2_AuthorizeSecurityGroupIngress:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - cpp.example_code.ec2.allocate_address.client
                 - ec2.cpp.configure_security_group02.code
@@ -912,9 +889,9 @@ ec2_AuthorizeSecurityGroupIngress:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.AuthorizeSecurityGroupIngress
   services:
@@ -923,44 +900,42 @@ ec2_DeleteKeyPair:
   title: Delete an &EC2; security key pair using an &AWS; SDK
   title_abbrev: Delete a security key pair
   synopsis: delete an &EC2; security key pair.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.delete_key_pair.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.DeleteKeyPair
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.delete_key_pair.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.DeleteKeyPair
@@ -968,9 +943,9 @@ ec2_DeleteKeyPair:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.keypairs.deleteKeyPairV3
     SAP ABAP:
@@ -978,7 +953,7 @@ ec2_DeleteKeyPair:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.delete_key_pair
     C++:
@@ -986,7 +961,7 @@ ec2_DeleteKeyPair:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.delete_key_pair.code
   services:
@@ -995,44 +970,42 @@ ec2_DescribeSecurityGroups:
   title: Get data about an &EC2; security group using an &AWS; SDK
   title_abbrev: Get data about a security group
   synopsis: get data about an &EC2; security group.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.DescribeSecurityGroups
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.describe_security_groups.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.scenario.describe_securitygroup.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.DescribeSecurityGroups
@@ -1040,9 +1013,9 @@ ec2_DescribeSecurityGroups:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.SecurityGroups.describeSecurityGroupsV3
     SAP ABAP:
@@ -1050,7 +1023,7 @@ ec2_DescribeSecurityGroups:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.describe_security_groups
     C++:
@@ -1058,7 +1031,7 @@ ec2_DescribeSecurityGroups:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.describe_security_groups.code
   services:
@@ -1067,44 +1040,42 @@ ec2_DeleteSecurityGroup:
   title: Delete an &EC2; security group using an &AWS; SDK
   title_abbrev: Delete a security group
   synopsis: delete an &EC2; security group.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.DeleteSecurityGroup
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.delete_security_group.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.delete_security_group.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.DeleteSecurityGroup
@@ -1112,9 +1083,9 @@ ec2_DeleteSecurityGroup:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.SecurityGroups.deleteSecurityGroupV3
     SAP ABAP:
@@ -1122,7 +1093,7 @@ ec2_DeleteSecurityGroup:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.delete_security_group
     C++:
@@ -1130,7 +1101,7 @@ ec2_DeleteSecurityGroup:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.delete_security_group.code
   services:
@@ -1139,16 +1110,14 @@ ec2_DeleteSnapshot:
   title: Delete the &EBS; snapshot using an &AWS; SDK
   title_abbrev: Delete a snapshot
   synopsis: delete an &EBS; snapshot.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/ebs
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ebs.rust.delete-snapshot
   services:
@@ -1157,9 +1126,7 @@ ec2_DescribeSnapshots:
   title: Describe one or more &EBS; snapshots using an &AWS; SDK
   title_abbrev: Describe snapshots
   synopsis: describe &EBS; snapshots.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Rust:
       versions:
@@ -1169,7 +1136,7 @@ ec2_DescribeSnapshots:
             - description: Shows the state of a snapshot.
               snippet_tags:
                 - ebs.rust.get-snapshot-state
-            - description:  
+            - description:
               snippet_tags:
                 - ebs.rust.list-snapshots
   services:
@@ -1178,44 +1145,42 @@ ec2_TerminateInstances:
   title: Terminate an &EC2; instance using an &AWS; SDK
   title_abbrev: Terminate an instance
   synopsis: terminate an &EC2; instance.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.TerminateInstances
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.terminate_instance.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.terminate_instance
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.TerminateInstances
@@ -1223,9 +1188,9 @@ ec2_TerminateInstances:
       versions:
         - sdk_version: 3
           github: ruby/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.terminateInstances
     C++:
@@ -1233,16 +1198,16 @@ ec2_TerminateInstances:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - cpp.example_code.ec2.TerminateInstances
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v2.ec2.actions.TerminateInstances
   services:
@@ -1251,35 +1216,33 @@ ec2_DescribeInstances:
   title: Describe &EC2; instances using an &AWS; SDK
   title_abbrev: Describe instances
   synopsis: describe &EC2; instances.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.describe_instances.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.scenario.describe_instance.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.DescribeInstances
     Python:
@@ -1287,7 +1250,7 @@ ec2_DescribeInstances:
         - sdk_version: 3
           github: python/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeInstances
@@ -1296,7 +1259,7 @@ ec2_DescribeInstances:
         - sdk_version: 3
           github: ruby/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.getAllInstances
     JavaScript:
@@ -1304,7 +1267,7 @@ ec2_DescribeInstances:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.Instances.describeInstancesV3
     Rust:
@@ -1312,7 +1275,7 @@ ec2_DescribeInstances:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.rust.describe-instances
     SAP ABAP:
@@ -1320,7 +1283,7 @@ ec2_DescribeInstances:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.describe_instances
     C++:
@@ -1328,7 +1291,7 @@ ec2_DescribeInstances:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.describe_instances.code
   services:
@@ -1337,25 +1300,23 @@ ec2_DescribeRegions:
   title: Describes the Regions for your account using an &AWS; SDK
   title_abbrev: Describe Regions
   synopsis: describe &EC2; Regions.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.rust.ec2-helloworld
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.Regions.describeRegionsV3
     SAP ABAP:
@@ -1363,7 +1324,7 @@ ec2_DescribeRegions:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.describe_regions
     Ruby:
@@ -1371,7 +1332,7 @@ ec2_DescribeRegions:
         - sdk_version: 3
           github: ruby/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.regionsAvailabilityZones
     C++:
@@ -1379,7 +1340,7 @@ ec2_DescribeRegions:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - cpp.example_code.ec2.describe_regions.client
                 - cpp.example_code.ec2.DescribeRegions
@@ -1389,16 +1350,14 @@ ec2_DescribeInstanceStatus:
   title: Describes the status of &EC2; instances using an &AWS; SDK
   title_abbrev: Describe instance status
   synopsis: describe the status of &EC2; instances.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.rust.list-all-instance-events
   services:
@@ -1407,25 +1366,23 @@ ec2_MonitorInstances:
   title: Enables monitoring for a running &EC2; instance using an &AWS; SDK
   title_abbrev: Enable monitoring
   synopsis: enable monitoring for a running &EC2; instance.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.rust.monitor-instance
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.Instances.monitorInstancesV3
     SAP ABAP:
@@ -1433,7 +1390,7 @@ ec2_MonitorInstances:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.monitor_instance
     C++:
@@ -1441,7 +1398,7 @@ ec2_MonitorInstances:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.enable_monitor_instance.code
   services:
@@ -1450,25 +1407,23 @@ ec2_UnmonitorInstances:
   title: Disable detailed monitoring for an &EC2; instance using an &AWS; SDK
   title_abbrev: Disable detailed monitoring
   synopsis: disable detailed monitoring on an &EC2; instance.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.disable_monitor_instance.code
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.UnmonitorInstances
   services:
@@ -1477,17 +1432,15 @@ ec2_RebootInstances:
   title: Reboot an &EC2; instance using an &AWS; SDK
   title_abbrev: Reboot an instance
   synopsis: reboot an &EC2; instance.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.RebootInstances
             - description: Replace the profile for an instance, reboot, and restart a web server.
@@ -1498,16 +1451,16 @@ ec2_RebootInstances:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.rust.reboot-instance
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.Instances.rebootInstancesV3
     SAP ABAP:
@@ -1515,7 +1468,7 @@ ec2_RebootInstances:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.reboot_instance
     C++:
@@ -1523,7 +1476,7 @@ ec2_RebootInstances:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.reboot_instance.code
     Python:
@@ -1531,7 +1484,7 @@ ec2_RebootInstances:
         - sdk_version: 3
           github: python/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation
@@ -1541,17 +1494,15 @@ ec2_DescribeImages:
   title: Get data about Amazon Machine Images using an &AWS; SDK
   title_abbrev: Get data about Amazon Machine Images
   synopsis: get data about Amazon Machine Images (AMIs).
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeImages
@@ -1559,9 +1510,9 @@ ec2_DescribeImages:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.DescribeImages
   services:
@@ -1570,44 +1521,42 @@ ec2_DescribeInstanceTypes:
   title: Get data about &EC2; instance types using an &AWS; SDK
   title_abbrev: Get data about instance types
   synopsis: get data about &EC2; instance types.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - EC2.dotnetv3.DescribeInstanceTypes
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.describe_instance_type.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.scenario.describe_instance.type.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeInstanceTypes
@@ -1615,9 +1564,9 @@ ec2_DescribeInstanceTypes:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.DescribeInstanceTypes
   services:
@@ -1626,17 +1575,15 @@ ec2_DescribeAddresses:
   title: Get details about Elastic IP addresses using an &AWS; SDK
   title_abbrev: Get details about Elastic IP addresses
   synopsis: get details about Elastic IP addresses.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.JavaScript.Addresses.describeAddressesV3
     SAP ABAP:
@@ -1644,7 +1591,7 @@ ec2_DescribeAddresses:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.describe_addresses
     C++:
@@ -1652,7 +1599,7 @@ ec2_DescribeAddresses:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.cpp.describe_addresses.code
   services:
@@ -1661,16 +1608,14 @@ ec2_DescribeAvailabilityZones:
   title: Describe the Availability Zones for your account using an &AWS; SDK
   title_abbrev: Describe Availability Zones
   synopsis: describe &EC2; Availability Zones.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/cross-service/ResilientService/AutoScalerActions
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ResilientService.dotnetv3.Ec2.DescribeAvailabilityZones
     SAP ABAP:
@@ -1678,7 +1623,7 @@ ec2_DescribeAvailabilityZones:
         - sdk_version: 1
           github: sap-abap/services/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.abapv1.describe_availability_zones
     C++:
@@ -1686,7 +1631,7 @@ ec2_DescribeAvailabilityZones:
         - sdk_version: 1
           github: cpp/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - cpp.example_code.ec2.describe_regions.client
                 - ec2.cpp.describe_zones.code
@@ -1695,7 +1640,7 @@ ec2_DescribeAvailabilityZones:
         - sdk_version: 3
           github: python/example_code/ec2
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DescribeAvailabilityZones
@@ -1705,17 +1650,15 @@ ec2_CreateTags:
   title: Add tags to &EC2; resources using an &AWS; SDK
   title_abbrev: Add tags to resources
   synopsis: add tags to &EC2; resources.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - cpp.example_code.ec2.create_instance.client
                 - cpp.example_code.ec2.CreateTags
@@ -1725,82 +1668,77 @@ ec2_CreateRouteTable:
   title: Create a route table in Amazon Virtual Private Cloud (Amazon VPC) and associate it with a subnet
   title_abbrev: Create a route table
   synopsis: create route table and associate with &EC2; subnet.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Ruby:
       versions:
         - sdk_version: 3
           github: ruby/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.createRouteTable
   services:
-    ec2: {CreateRouteTable}
+    ec2:
+      {CreateRouteTable}
 ec2_CreateSubnet:
   title: Create and tag a subnet in Amazon Virtual Private Cloud (Amazon VPC)
   title_abbrev: Create a subnet
   synopsis: create an &EC2; subnet.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Ruby:
       versions:
         - sdk_version: 3
           github: ruby/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.createSubnet
   services:
-    ec2: {CreateSubnet}
+    ec2:
+      {CreateSubnet}
 ec2_CreateVpc:
   title: Create a Amazon Virtual Private Cloud (Amazon VPC)
   title_abbrev: Create a Amazon Virtual Private Cloud (Amazon VPC)
   synopsis: create a Amazon Virtual Private Cloud (Amazon VPC).
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     Ruby:
       versions:
         - sdk_version: 3
           github: ruby/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.Ruby.createVpc
   services:
-    ec2: {CreateVpc}
+    ec2:
+      {CreateVpc}
 ec2_DescribeIamInstanceProfileAssociations:
   title: Get data about the instance profile associated with an &EC2; instance using an &AWS; SDK
   title_abbrev: Get data about the instance profile associated with an instance
   synopsis: get data about the instance profile associated with an &EC2; instance.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/cross-service/ResilientService/AutoScalerActions
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ResilientService.dotnetv3.Ec2.GetInstanceProfile
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DescribeIamInstanceProfileAssociations
@@ -1808,9 +1746,9 @@ ec2_DescribeIamInstanceProfileAssociations:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cross-services/wkflw-resilient-service
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.wkflw.resilient.DescribeIamInstanceProfileAssociations
   services:
@@ -1819,25 +1757,24 @@ ec2_ReplaceIamInstanceProfileAssociation:
   title: Replace the instance profile associated with an &EC2; instance using an &AWS; SDK
   title_abbrev: Replace the instance profile associated with an instance
   synopsis: replace the instance profile associated with an &EC2; instance.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/cross-service/ResilientService/AutoScalerActions
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ResilientService.dotnetv3.Ec2.ReplaceInstanceProfile
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description: This example replaces the instance profile of a running instance, reboots the instance, and sends a command to the instance after it starts.
+            - description: This example replaces the instance profile of a running instance,
+                reboots the instance, and sends a command to the instance after it starts.
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation
@@ -1845,9 +1782,9 @@ ec2_ReplaceIamInstanceProfileAssociation:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cross-services/wkflw-resilient-service
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.wkflw.resilient.ReplaceIamInstanceProfileAssociation
   services:
@@ -1856,25 +1793,24 @@ ec2_CreateLaunchTemplate:
   title: Create an &EC2; launch template using an &AWS; SDK
   title_abbrev: Create a launch template
   synopsis: create an &EC2; launch template.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/cross-service/ResilientService/AutoScalerActions
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ResilientService.dotnetv3.ec2.CreateLaunchTemplate
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description: This example creates a launch template that includes an instance profile that grants specific permissions to the instance, and a user data Bash script that runs on the instance after it starts.
+            - description: This example creates a launch template that includes an instance profile
+                that grants specific permissions to the instance, and a user data Bash script that runs on the instance after it starts.
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.CreateLaunchTemplate
@@ -1882,9 +1818,9 @@ ec2_CreateLaunchTemplate:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cross-services/wkflw-resilient-service
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.wkflw.resilient.CreateLaunchTemplate
   services:
@@ -1893,25 +1829,23 @@ ec2_DeleteLaunchTemplate:
   title: Delete an &EC2; launch template using an &AWS; SDK
   title_abbrev: Delete a launch template
   synopsis: delete an &EC2; launch template.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/cross-service/ResilientService/AutoScalerActions
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ResilientService.dotnetv3.Ec2.DeleteLaunchTemplate
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DeleteLaunchTemplate
@@ -1919,9 +1853,9 @@ ec2_DeleteLaunchTemplate:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cross-services/wkflw-resilient-service
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.wkflw.resilient.DeleteLaunchTemplate
   services:
@@ -1930,25 +1864,23 @@ ec2_DescribeVpcs:
   title: Get the default VPC using an &AWS; SDK
   title_abbrev: Get the default VPC
   synopsis: get the default VPC of the current account.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/cross-service/ResilientService/AutoScalerActions
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ResilientService.dotnetv3.Ec2.DescribeVpcs
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DescribeVpcs
@@ -1956,9 +1888,9 @@ ec2_DescribeVpcs:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cross-services/wkflw-resilient-service
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.wkflw.resilient.DescribeVpcs
   services:
@@ -1967,25 +1899,23 @@ ec2_DescribeSubnets:
   title: Get the default subnets for a VPC using an &AWS; SDK
   title_abbrev: Get the default subnets for a VPC
   synopsis: get the default subnets for a VPC.
-  synopsis_list:
-    - null
-  category:  
+  category:
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/cross-service/ResilientService/AutoScalerActions
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ResilientService.dotnetv3.Ec2.DescribeSubnets
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DescribeSubnets
@@ -1993,9 +1923,9 @@ ec2_DescribeSubnets:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cross-services/wkflw-resilient-service
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - javascript.v3.wkflw.resilient.DescribeSubnets
   services:
@@ -2015,7 +1945,7 @@ ec2_Scenario_GetStartedInstances:
       versions:
         - sdk_version: 3
           github: dotnetv3/EC2
-          sdkguide:  
+          sdkguide:
           excerpts:
             - description: Run a scenario at a command prompt.
               snippet_tags:
@@ -2027,25 +1957,25 @@ ec2_Scenario_GetStartedInstances:
       versions:
         - sdk_version: 1
           github: kotlin/services/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.kotlin.scenario.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
-            - description:  
+            - description:
               snippet_tags:
                 - ec2.java2.scenario.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
@@ -2066,10 +1996,13 @@ ec2_Scenario_GetStartedInstances:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/ec2
-          sdkguide:  
+          sdkguide:
           excerpts:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - javascript.v3.ec2.scenarios.basic
   services:
-    ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair, CreateSecurityGroup, DeleteKeyPair, DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes, DescribeInstances, DescribeKeyPairs, DescribeSecurityGroups, DisassociateAddress, ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances, UnmonitorInstances}
+    ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair,
+           CreateSecurityGroup, DeleteKeyPair, DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes,
+           DescribeInstances, DescribeKeyPairs, DescribeSecurityGroups, DisassociateAddress,
+           ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances, UnmonitorInstances}
