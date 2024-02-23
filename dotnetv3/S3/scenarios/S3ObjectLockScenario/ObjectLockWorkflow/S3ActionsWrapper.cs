@@ -287,8 +287,8 @@ public class S3ActionsWrapper
 
         var response = await _amazonS3.GetObjectLockConfigurationAsync(request);
         Console.WriteLine($"\tBucket object lock config for {bucketName} in {bucketName}: " +
-                          $"\nEnabled: {response.ObjectLockConfiguration.ObjectLockEnabled}" +
-                          $"\nRule: {response.ObjectLockConfiguration.Rule.DefaultRetention}");
+                          $"\n\tEnabled: {response.ObjectLockConfiguration.ObjectLockEnabled}" +
+                          $"\n\tRule: {response.ObjectLockConfiguration.Rule?.DefaultRetention}");
 
                           return response.ObjectLockConfiguration;
     }
