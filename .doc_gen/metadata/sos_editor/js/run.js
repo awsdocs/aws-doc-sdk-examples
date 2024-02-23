@@ -28,6 +28,9 @@ function getFiles(dir, files = []) {
     }
     return files
 }
+function removeNull(synopsis_list, value) {
+    return (value === null) ? "" : value;
+}
 
 // Convert yaml to Json
 const create_json = async () => {
@@ -44,13 +47,16 @@ const create_json = async () => {
             ).replaceAll(/{+/g, "'{").replace(/}+/g, "}'")/*.replaceAll('category:','synopsis_list:\n  category:')*/
         );
         wait(3000)
-        console.log("doc", doc)
-        var mydoc = JSON.stringify(doc, null, 2).replaceAll('\"category\":','\"synopsis_list\":\n    \"category\":').replaceAll('    ],\n' +
+      /*  console.log("doc", doc)*/
+        var mydoc = JSON.stringify(doc, null, 2).replaceAll('  synopsis_list:\n' +
+            '    -  ','\'    "synopsis_list": [\\" \\"],\\n\'').replaceAll('\"category\":','\"synopsis_list\":\n    \"category\":').replaceAll('    ],\n' +
             '    "synopsis_list":\n', '    ],\n').replaceAll('    "synopsis_list":\n' +
-            '    "category": ', '    "synopsis_list": [null],\n' +
-            '    "category": ');
+            '    "category": ', '    "synopsis_list": [\"\"],\n' +
+            '    "category": ').replaceAll('    "synopsis_list": [\n' +
+            '      null\n' +
+            '    ],','    "synopsis_list":\" \",');
      /*   if(mydoc.includes("synopsis_list")) {*/
-            console.log("mydoc", mydoc)
+            /*console.log("mydoc", mydoc)*/
             fs.writeFileSync(
                 "../jsonholder/" + serviceStub + "_metadata.json",
                 mydoc,

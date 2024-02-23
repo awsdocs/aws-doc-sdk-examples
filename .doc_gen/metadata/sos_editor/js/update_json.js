@@ -15,7 +15,7 @@ function download1(filename, finalObject2) {
 function download(myObj2, serviceValue) {
     console.log('download')
     const finalObject = JSON.stringify(myObj2);
-    const finalObject1 = finalObject.replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':" "').replaceAll("[[","[").replaceAll("]]","]");
+    const finalObject1 = finalObject.replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':""').replaceAll("[[","[").replaceAll("]]","]");
     const filename = serviceValue + "_metadata.json";
     var f = new File([myObj2], filename, {type: "text/plain"});
     var element = document.createElement('a');
@@ -93,7 +93,6 @@ function update_json() {
     console.log("synopsisValue", synopsisValue)
     var synopsisListValue = document.getElementById('synopsislist').value
     console.log("synopsisListValue", synopsisListValue)
-
     const categoryValue = document.getElementById('category').value
     console.log("categoryValue", categoryValue)
     const languageValue = document.getElementById('languages').value
@@ -620,7 +619,7 @@ function update_json() {
                     }
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -657,7 +656,7 @@ function update_json() {
 
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -703,7 +702,7 @@ function update_json() {
 
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -758,7 +757,7 @@ function update_json() {
 
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -822,7 +821,7 @@ function update_json() {
 
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -894,7 +893,7 @@ function update_json() {
 
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -920,7 +919,7 @@ function update_json() {
                     }
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 var f = new File([myObj], filename, {type: "text/plain"})
                 download1(filename, finalObject1)
@@ -958,7 +957,7 @@ function update_json() {
 
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1003,7 +1002,7 @@ function update_json() {
 
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1057,7 +1056,7 @@ function update_json() {
 
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1119,7 +1118,7 @@ function update_json() {
                     }
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1191,7 +1190,7 @@ function update_json() {
 
                 myObj[blockValue]["languages"][addNewLanguage] = editedJson;
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1226,7 +1225,7 @@ function update_json() {
                     }
                 myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1251,7 +1250,7 @@ function update_json() {
 
                 myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1285,7 +1284,7 @@ function update_json() {
                 myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
 
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1327,7 +1326,7 @@ function update_json() {
                 myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
 
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1377,7 +1376,7 @@ function update_json() {
                 myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
 
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1435,7 +1434,7 @@ function update_json() {
                 myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
 
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1501,7 +1500,7 @@ function update_json() {
                 myObj[blockValue]["languages"][languageValue]["versions"].push(editedJson);
 
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "');
+                const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1772,7 +1771,7 @@ function update_json() {
                 console.log('final object', myObj)
                 console.log('editedJson', editedJson)
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':" "').replaceAll("[[","[").replaceAll("]]","]");
+                const finalObject1 = finalObject.replaceAll(':null', ':""').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':""').replaceAll("[[","[").replaceAll("]]","]");
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -1803,10 +1802,10 @@ function update_json() {
                 myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"].push(editedJson)
                 const finalObject = JSON.stringify(myObj);
                 console.log('finalObject', finalObject)
-                var finalObject1 = finalObject.replaceAll(':null', ':" "').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':" "').replaceAll("[[","[").replaceAll("]]","]").replaceAll('category:','synopsis_list:\n  category:');;
+                var finalObject1 = finalObject.replaceAll(':null', ':""').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':""').replaceAll("[[","[").replaceAll("]]","]").replaceAll('category:','synopsis_list:\n  category:');;
                 /*if(!finalObject1.includes("synopsis_list")) {
                     console.log('it does not');
-                    finalObject1 = finalObject1.replaceAll(':null', ':" "').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':" "').replaceAll("[[", "[").replaceAll("]]", "]").replaceAll('category:','synopsis_list:\n  category:');
+                    finalObject1 = finalObject1.replaceAll(':null', ':""').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':""').replaceAll("[[", "[").replaceAll("]]", "]").replaceAll('category:','synopsis_list:\n  category:');
                 }*/
                 console.log('finalObject1', finalObject1)
                 const filename = serviceValue + "_metadata.json"
@@ -1847,7 +1846,7 @@ function update_json() {
                 myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"].push(editedJson)
                 const finalObject = JSON.stringify(myObj);
                 console.log('finalObject', finalObject)
-                const finalObject1 = finalObject.replaceAll(':null', ':" "').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':" "').replaceAll("[[","[").replaceAll("]]","]");
+                const finalObject1 = finalObject.replaceAll(':null', ':""').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':""').replaceAll("[[","[").replaceAll("]]","]");
                 console.log('finalObject1', finalObject1)
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
@@ -1896,7 +1895,7 @@ function update_json() {
                 myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"].push(editedJson)
                 const finalObject = JSON.stringify(myObj);
                 console.log('finalObject', finalObject)
-                const finalObject1 = finalObject.replaceAll(':null', ':" "').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':" "').replaceAll("[[","[").replaceAll("]]","]");
+                const finalObject1 = finalObject.replaceAll(':null', ':""').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':""').replaceAll("[[","[").replaceAll("]]","]");
                 console.log('finalObject1', finalObject1)
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
@@ -1953,7 +1952,7 @@ function update_json() {
                 myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"] = []
                 myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"].push(editedJson)
                 const finalObject = JSON.stringify(myObj);
-                const finalObject1 = finalObject.replaceAll(':null', ':" "').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':" "').replaceAll("[[","[").replaceAll("]]","]");
+                const finalObject1 = finalObject.replaceAll(':null', ':""').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':""').replaceAll("[[","[").replaceAll("]]","]");
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
                 alert("Please return to the terminal to save your changes.")
@@ -2019,7 +2018,7 @@ function update_json() {
                 myObj[blockValue]["languages"][languageValue]["versions"][myLatestNumber]["excerpts"].push(editedJson)
                 const finalObject = JSON.stringify(myObj);
                 console.log('finalObject', finalObject)
-                const finalObject1 = finalObject.replaceAll(':null', ':" "').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':" "').replaceAll("[[","[").replaceAll("]]","]");
+                const finalObject1 = finalObject.replaceAll(':null', ':""').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':""').replaceAll("[[","[").replaceAll("]]","]");
                 console.log('finalObject1', finalObject1)
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
