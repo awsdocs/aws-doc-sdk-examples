@@ -1,9 +1,37 @@
 # zexi 0.4.0
+bedrock-agent_Hello:
+  title: Hello Agents for &BR;
+  title_abbrev: Hello Agents for &BR;
+  synopsis: get started using Agents for &BR;.
+  category: Hello
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-agent
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/bedrock-agent/hello.js
+  services:
+    bedrock-agent: {
+      ListAgents,
+      GetAgent
+    }
+
 bedrock-agent_CreateAgent:
   title: Create an &BR; agent using an &AWS; SDK
   title_abbrev: Create an agent
   synopsis: create an &BR; agent.
   languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-agent
+          excerpts:
+            - description: Create an agent.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-agent/actions/create-agent.js
     Python:
       versions:
         - sdk_version: 3
@@ -52,6 +80,14 @@ bedrock-agent_DeleteAgent:
   title_abbrev: Delete an agent
   synopsis: delete an &BR; agent.
   languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-agent
+          excerpts:
+            - description: Delete an agent.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-agent/actions/delete-agent.js
     Python:
       versions:
         - sdk_version: 3
@@ -84,6 +120,14 @@ bedrock-agent_GetAgent:
   title_abbrev: Get information about an agent
   synopsis: get information about an &BR; agent.
   languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-agent
+          excerpts:
+            - description: Get an agent.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-agent/actions/get-agent.js
     Python:
       versions:
         - sdk_version: 3
@@ -97,9 +141,17 @@ bedrock-agent_GetAgent:
 
 bedrock-agent_ListAgents:
   title: List the Agents for &BR; belonging to an account using an &AWS; SDK
-  title_abbrev: List the agents
+  title_abbrev: List the available agents
   synopsis: list the Agents for &BR; belonging to an account.
   languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-agent
+          excerpts:
+            - description: List the agents belonging to an account.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-agent/actions/list-agents.js
     Python:
       versions:
         - sdk_version: 3
@@ -116,6 +168,14 @@ bedrock-agent_ListAgentActionGroups:
   title_abbrev: List the action groups for an agent
   synopsis: list the action groups for a &BR; agent.
   languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-agent
+          excerpts:
+            - description: List the action groups for an agent.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-agent/actions/list-agent-action-groups.js
     Python:
       versions:
         - sdk_version: 3
