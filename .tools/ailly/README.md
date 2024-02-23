@@ -27,3 +27,15 @@ python3 .tools/ailly/ailly.py --language [language] --service [service]
 Optionally: `--verbose --npx-check --additional-prompt ...`
 
 If successful, the generated code will be in a `.scouts` folder in the example.
+
+### Under the hood
+
+The ailly.py script coordinates aws-doc-sdk-examples project & folder structure into a command line invocation for [Ailly](https://github.com/davidsouther/ailly). This will use every file in the subfolder as an input to an LLM (default Claude on Bedrock), with a custom prompt and output in `.scouts/[target_language]` of the source service folder.
+
+The prompt has three parts:
+
+1. Several blocks of code found using RAG, as implemented in `plugin.mjs`. Ailly orchestrates the run overall, and `plugin.mjs` handles aws-sdk-code-examples specific RAG details.
+
+2. The source input file
+
+3. A final text prompt: `f"Translate the final block of code from {source} to {target} programming language. {instructions}"`. `{instructions}` is the value from `--additional-prompt` to `ailly.py`.
