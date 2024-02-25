@@ -48,7 +48,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   // The ARN for the agent's execution role, prefixed by `AmazonBedrockExecutionRoleForAgents_`.
   // Follow the ARN format: 'arn:aws:iam::account-id:role/role-name'
   const roleArn =
-    "[arn:aws:iam::123456789012:role/AmazonBedrockExecutionRoleForAgents_yourRoleName]";
+    "[arn:aws:iam::123456789012:role/AmazonBedrockExecutionRoleForAgents_myRoleName]";
 
   // Specify the model for the agent. Change if a different model is preferred.
   const foundationModel = "anthropic.claude-v2";
