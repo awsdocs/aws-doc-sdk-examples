@@ -23,10 +23,6 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ObjectLockWorkflow\S3ObjectLockScenario.csproj" />
-  </ItemGroup>
-
 	<ItemGroup>
 		<Content Include="testsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -35,6 +31,10 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<DependentUpon>testsettings.json</DependentUpon>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\S3ObjectLockWorkflow\S3ObjectLockScenario.csproj" />
 	</ItemGroup>
 
 </Project>
