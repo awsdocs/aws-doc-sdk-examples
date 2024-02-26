@@ -91,7 +91,7 @@ public class DownloadFile {
             } catch (URISyntaxException e) {
                 System.err.println("Error converting URL to URI: " + e.getMessage());
             } catch (Exception e) {
-                System.err.println("Error deleting file: " + e.getMessage());
+                System.err.println("Error deleting file " + e.getMessage());
             }
         } else {
             System.err.println("The file was not found");
