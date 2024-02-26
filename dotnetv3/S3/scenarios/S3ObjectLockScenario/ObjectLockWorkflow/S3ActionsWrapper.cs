@@ -130,7 +130,7 @@ public class S3ActionsWrapper
         }
         catch (AmazonS3Exception ex)
         {
-            Console.WriteLine($"Error modifying retention period: '{ex.Message}'");
+            Console.WriteLine($"\tError modifying retention period: '{ex.Message}'");
             return false;
         }
     }
@@ -184,7 +184,7 @@ public class S3ActionsWrapper
         }
         catch (AmazonS3Exception ex)
         {
-            Console.WriteLine($"Error modifying object lock: '{ex.Message}'");
+            Console.WriteLine($"\tError modifying object lock: '{ex.Message}'");
             return false;
         }
     }
@@ -200,16 +200,23 @@ public class S3ActionsWrapper
     public async Task<ObjectLockRetention> GetObjectRetention(string bucketName,
         string objectKey)
     {
-        var request = new GetObjectRetentionRequest()
+        try
+        {
+            var request = new GetObjectRetentionRequest()
             {
-                BucketName = bucketName,
-                Key = objectKey
+                BucketName = bucketName, Key = objectKey
             };
 
             var response = await _amazonS3.GetObjectRetentionAsync(request);
             Console.WriteLine($"\tObject retention for {objectKey} in {bucketName}: " +
                               $"\n\t{response.Retention.Mode} until {response.Retention.RetainUntilDate:d}.");
             return response.Retention;
+        }
+        catch (AmazonS3Exception ex)
+        {
+            Console.WriteLine($"\tUnable to fetch object lock retention: '{ex.Message}'");
+            return new ObjectLockRetention();
+        }
     }
     // snippet-end:[S3LockWorkflow.dotnetv3.GetObjectRetention]
 
@@ -243,7 +250,7 @@ public class S3ActionsWrapper
         }
         catch (AmazonS3Exception ex)
         {
-            Console.WriteLine($"Error modifying legal hold: '{ex.Message}'");
+            Console.WriteLine($"\tError modifying legal hold: '{ex.Message}'");
             return false;
         }
     }
@@ -259,16 +266,23 @@ public class S3ActionsWrapper
     public async Task<ObjectLockLegalHold> GetObjectLegalHold(string bucketName,
         string objectKey)
     {
-        var request = new GetObjectLegalHoldRequest()
+        try
         {
-            BucketName = bucketName,
-            Key = objectKey
-        };
+            var request = new GetObjectLegalHoldRequest()
+            {
+                BucketName = bucketName, Key = objectKey
+            };
 
-        var response = await _amazonS3.GetObjectLegalHoldAsync(request);
-        Console.WriteLine($"\tObject legal hold for {objectKey} in {bucketName}: " +
-                          $"\n\tStatus: {response.LegalHold.Status}");
-        return response.LegalHold;
+            var response = await _amazonS3.GetObjectLegalHoldAsync(request);
+            Console.WriteLine($"\tObject legal hold for {objectKey} in {bucketName}: " +
+                              $"\n\tStatus: {response.LegalHold.Status}");
+            return response.LegalHold;
+        }
+        catch (AmazonS3Exception ex)
+        {
+            Console.WriteLine($"\tUnable to fetch legal hold: '{ex.Message}'");
+            return new ObjectLockLegalHold();
+        }
     }
     // snippet-end:[S3LockWorkflow.dotnetv3.GetObjectLegalHold]
 
@@ -280,17 +294,25 @@ public class S3ActionsWrapper
     /// <returns>The bucket's object lock configuration details.</returns>
     public async Task<ObjectLockConfiguration> GetBucketObjectLockConfiguration(string bucketName)
     {
-        var request = new GetObjectLockConfigurationRequest()
+        try
         {
-            BucketName = bucketName
-        };
+            var request = new GetObjectLockConfigurationRequest()
+            {
+                BucketName = bucketName
+            };
 
-        var response = await _amazonS3.GetObjectLockConfigurationAsync(request);
-        Console.WriteLine($"\tBucket object lock config for {bucketName} in {bucketName}: " +
-                          $"\n\tEnabled: {response.ObjectLockConfiguration.ObjectLockEnabled}" +
-                          $"\n\tRule: {response.ObjectLockConfiguration.Rule?.DefaultRetention}");
+            var response = await _amazonS3.GetObjectLockConfigurationAsync(request);
+            Console.WriteLine($"\tBucket object lock config for {bucketName} in {bucketName}: " +
+                              $"\n\tEnabled: {response.ObjectLockConfiguration.ObjectLockEnabled}" +
+                              $"\n\tRule: {response.ObjectLockConfiguration.Rule?.DefaultRetention}");
 
-                          return response.ObjectLockConfiguration;
+            return response.ObjectLockConfiguration;
+        }
+        catch (AmazonS3Exception ex)
+        {
+            Console.WriteLine($"\tUnable to fetch object lock config: '{ex.Message}'");
+            return new ObjectLockConfiguration();
+        }
     }
     // snippet-end:[S3LockWorkflow.dotnetv3.GetBucketObjectLockConfiguration]
 
@@ -350,16 +372,25 @@ public class S3ActionsWrapper
     /// </summary>
     /// <param name="bucketName">The Amazon S3 bucket to use.</param>
     /// <param name="objectKey">The key of the object to delete.</param>
+    /// <param name="hasRetention">True if the object has retention settings.</param>
     /// <param name="versionId">Optional versionId.</param>
     /// <returns>True if successful.</returns>
-    public async Task<bool> DeleteObjectFromBucket(string bucketName, string objectKey, string? versionId = null)
+    public async Task<bool> DeleteObjectFromBucket(string bucketName, string objectKey, bool hasRetention, string? versionId = null)
     {
         try
         {
             var request = new DeleteObjectRequest()
             {
-                BucketName = bucketName, Key = objectKey, VersionId = versionId
+                BucketName = bucketName,
+                Key = objectKey,
+                VersionId = versionId,
             };
+            if (hasRetention)
+            {
+                // Set the BypassGovernanceRetention header
+                // if the file has retention settings.
+                request.BypassGovernanceRetention = true;
+            }
 
             await _amazonS3.DeleteObjectAsync(request);
             Console.WriteLine(
@@ -368,7 +399,7 @@ public class S3ActionsWrapper
         }
         catch (AmazonS3Exception ex)
         {
-            Console.WriteLine($"Unable to delete object {objectKey} in bucket {bucketName}: " + ex.Message);
+            Console.WriteLine($"\tUnable to delete object {objectKey} in bucket {bucketName}: " + ex.Message);
             return false;
         }
     }
@@ -389,12 +420,12 @@ public class S3ActionsWrapper
             var request = new DeleteBucketRequest() { BucketName = bucketName, };
 
             var response = await _amazonS3.DeleteBucketAsync(request);
-            Console.WriteLine($"Delete for {bucketName} was {response.HttpStatusCode}.");
+            Console.WriteLine($"\tDelete for {bucketName} complete.");
             return response.HttpStatusCode == HttpStatusCode.OK;
         }
         catch (AmazonS3Exception ex)
         {
-            Console.WriteLine($"Unable to delete bucket {bucketName}: " + ex.Message );
+            Console.WriteLine($"\tUnable to delete bucket {bucketName}: " + ex.Message );
             return false;
         }
 
