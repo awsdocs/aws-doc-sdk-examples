@@ -36,6 +36,76 @@ class BedrockRuntimeWrapper:
 
     # snippet-end:[python.example_code.bedrock-runtime.BedrockRuntimeWrapper.decl]
 
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeMistral7B]
+    def invoke_mistral_7b(self, prompt):
+        """
+        Invokes the Mistral 7B model to run an inference using the input
+        provided in the request body.
+
+        :param prompt: The prompt that you want Mistral to complete.
+        :return: Inference response from the model.
+        """
+
+        try:
+            model_id = "mistral.mistral-7b-instruct-v0"
+
+            body = {
+                "prompt": prompt,
+                "max_tokens": 200,
+                "temperature": 0.5,
+            }
+
+            response = self.bedrock_runtime_client.invoke_model(
+                modelId=model_id,
+                body=json.dumps(body)
+            )
+
+            response_body = json.loads(response["body"].read())
+            completion = response_body["TODO"]
+
+            return completion
+
+        except ClientError:
+            logger.error("Couldn't invoke Mistral 7B")
+            raise
+
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeMistral7B]
+
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeMixtral8x7B]
+    def invoke_mixtral_8x7b(self, prompt):
+        """
+        Invokes the Mixtral 8c7B model to run an inference using the input
+        provided in the request body.
+
+        :param prompt: The prompt that you want Mixtral to complete.
+        :return: Inference response from the model.
+        """
+
+        try:
+            model_id = "mistral.mixtral-8x7b-instruct-v0"
+
+            body = {
+                "prompt": prompt,
+                "max_tokens": 200,
+                "temperature": 0.5,
+            }
+
+            response = self.bedrock_runtime_client.invoke_model(
+                modelId=model_id,
+                body=json.dumps(body)
+            )
+
+            response_body = json.loads(response["body"].read())
+            completion = response_body["TODO"]
+
+            return completion
+
+        except ClientError:
+            logger.error("Couldn't invoke Mixtral 8x7B")
+            raise
+
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeMixtral8x7B]
+
     # snippet-start:[python.example_code.bedrock-runtime.InvokeAnthropicClaude]
     def invoke_claude(self, prompt):
         """
