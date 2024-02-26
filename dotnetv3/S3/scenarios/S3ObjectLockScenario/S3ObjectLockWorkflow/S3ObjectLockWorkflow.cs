@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[S3LockWorkflow.dotnetv3.ObjectLockWorkflow]
+
 using Amazon.S3;
 using Amazon.S3.Model;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Logging.Debug;
 
-namespace ObjectLockScenario;
+namespace S3ObjectLockScenario;
 
 public static class S3ObjectLockWorkflow
 {
@@ -28,9 +29,13 @@ public static class S3ObjectLockWorkflow
 
     public static S3ActionsWrapper _s3ActionsWrapper = null!;
     public static IConfiguration _configuration = null!;
-    private static string _resourcePrefix;
-    private static List<string> bucketNameList = new List<string>();
-    private static List<string> fileNameList = new List<string>();
+    private static string _resourcePrefix = null!;
+    private static string noLockBucketName = null!;
+    private static string lockEnabledBucketName = null!;
+    private static string retentionOnCreationBucketName = null!;
+    private static string retentionAfterCreationBucketName = null!;
+    private static List<string> bucketNames = new List<string>();
+    private static List<string> fileNames = new List<string>();
 
     public static async Task Main(string[] args)
     {
@@ -53,7 +58,7 @@ public static class S3ObjectLockWorkflow
                 true) // Optionally, load local settings.
             .Build();
 
-        _resourcePrefix = _configuration["resourcePrefix"] ?? "dotnet-example";
+        ConfigurationSetup();
 
         ServicesSetup(host);
 
@@ -64,12 +69,10 @@ public static class S3ObjectLockWorkflow
             Console.WriteLine(new string('-', 80));
             await Setup(true);
 
-            Console.WriteLine(new string('-', 80));
             await DemoActionChoices();
-            Console.WriteLine(new string('-', 80));
 
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("Finally, let's clean up.");
+            Console.WriteLine("Cleaning up resources.");
             Console.WriteLine(new string('-', 80));
             await Cleanup(true);
 
@@ -95,6 +98,24 @@ public static class S3ObjectLockWorkflow
         _s3ActionsWrapper = host.Services.GetRequiredService<S3ActionsWrapper>();
     }
 
+    /// <summary>
+    /// Any setup operations needed.
+    /// </summary>
+    public static void ConfigurationSetup()
+    {
+        _resourcePrefix = _configuration["resourcePrefix"] ?? "dotnet-example";
+
+        noLockBucketName = _resourcePrefix + "-no-lock";
+        lockEnabledBucketName = _resourcePrefix + "-lock-enabled";
+        retentionOnCreationBucketName = _resourcePrefix + "-retention-on-creation";
+        retentionAfterCreationBucketName = _resourcePrefix + "-retention-after-creation";
+
+        bucketNames.Add(noLockBucketName);
+        bucketNames.Add(lockEnabledBucketName);
+        bucketNames.Add(retentionOnCreationBucketName);
+        bucketNames.Add(retentionAfterCreationBucketName);
+    }
+
     // <summary>
     /// Deploy necessary resources for the scenario.
     /// </summary>
@@ -111,28 +132,30 @@ public static class S3ObjectLockWorkflow
         if (interactive)
             Console.ReadLine();
 
-        var noLockBucketName = _resourcePrefix + "-no-lock";
-        var lockEnabledBucketName = _resourcePrefix + "-lock-enabled";
-        var retentionOnCreationBucketName = _resourcePrefix + "-retention-on-creation";
-        var retentionAfterCreationBucketName = _resourcePrefix + "-retention-after-creation";
-
-        bucketNameList.Add(noLockBucketName);
-        bucketNameList.Add(lockEnabledBucketName);
-        bucketNameList.Add(retentionOnCreationBucketName);
-        bucketNameList.Add(retentionAfterCreationBucketName);
-
         Console.WriteLine("\nS3 buckets can be created either with or without object lock enabled.");
         await _s3ActionsWrapper.CreateBucketWithLockOptions(noLockBucketName, false);
         await _s3ActionsWrapper.CreateBucketWithLockOptions(lockEnabledBucketName, true);
         await _s3ActionsWrapper.CreateBucketWithLockOptions(retentionAfterCreationBucketName, false);
 
+        Console.WriteLine("Press Enter to continue.");
+        if (interactive)
+            Console.ReadLine();
+
         Console.WriteLine("\nA bucket can also have object locking with a default retention period.");
         await _s3ActionsWrapper.CreateBucketWithLockOptions(retentionOnCreationBucketName, true);
+
+        Console.WriteLine("Press Enter to continue.");
+        if (interactive)
+            Console.ReadLine();
 
         Console.WriteLine("\nObject lock policies can also be added to existing buckets.");
         await _s3ActionsWrapper.EnableObjectLockOnBucket(lockEnabledBucketName);
         await _s3ActionsWrapper.ModifyBucketDefaultRetention(retentionAfterCreationBucketName, true,
             ObjectLockRetentionMode.Governance, DateTime.UtcNow.AddDays(1));
+
+        Console.WriteLine("Press Enter to continue.");
+        if (interactive)
+            Console.ReadLine();
 
         // Upload some files to the buckets.
         Console.WriteLine("\nNow let's add some test files:");
@@ -146,42 +169,60 @@ public static class S3ObjectLockWorkflow
                 "This is a sample file for uploading to a bucket.");
         }
 
-        foreach (var bucketName in bucketNameList)
+        foreach (var bucketName in bucketNames)
         {
             for (int i = 0; i < fileCount; i++)
             {
-                var numberedFileName = Path.GetFileNameWithoutExtension(fileName)+i+Path.GetExtension(fileName);
-                fileNameList.Add(numberedFileName);
+                var numberedFileName = Path.GetFileNameWithoutExtension(fileName) + i + Path.GetExtension(fileName);
+                fileNames.Add(numberedFileName);
                 await _s3ActionsWrapper.UploadFileAsync(bucketName, numberedFileName, fileName);
             }
         }
+        Console.WriteLine("Press Enter to continue.");
+        if (interactive)
+            Console.ReadLine();
 
-        Console.WriteLine("\nNow we will set some object lock policies on individual files:");
-        foreach (var bucketName in bucketNameList)
+        if (!interactive)
+            return true;
+        Console.WriteLine("\nNow we can set some object lock policies on individual files:");
+        foreach (var bucketName in bucketNames)
         {
-            for (int i = 0; i < fileNameList.Count; i++)
+            for (int i = 0; i < fileNames.Count; i++)
             {
                 // No modifications to the objects in the first bucket.
-                if (bucketName != bucketNameList[0])
+                if (bucketName != bucketNames[0])
                 {
-                    var exampleFileName = fileNameList[i];
+                    var exampleFileName = fileNames[i];
                     switch (i)
                     {
                         case 0:
                             {
-                                // Set a legal hold.
-                                await _s3ActionsWrapper.ModifyObjectLegalHold(bucketName,
-                                    exampleFileName,
-                                    true);
+                                var question =
+                                    $"\nWould you like to add a legal hold to {exampleFileName} in {bucketName}?";
+                                if (GetYesNoResponse(question))
+                                {
+                                    // Set a legal hold.
+                                    await _s3ActionsWrapper.ModifyObjectLegalHold(
+                                        bucketName,
+                                        exampleFileName,
+                                        true);
+
+                                }
                                 break;
                             }
                         case 1:
                             {
-                                // Set a Governance mode retention period for 1 day.
-                                await _s3ActionsWrapper.ModifyObjectRetentionPeriod(
-                                    bucketName, exampleFileName,
-                                    ObjectLockRetentionMode.Governance,
-                                    DateTime.UtcNow.AddDays(1));
+                                var question =
+                                    $"\nWould you like to add a 1 day Governance retention period to {exampleFileName} in {bucketName}?" +
+                                    "\nReminder: Only a user with the s3:BypassGovernanceRetention permission will be able to delete this file or its bucket until the retention period has expired.";
+                                if (GetYesNoResponse(question))
+                                {
+                                    // Set a Governance mode retention period for 1 day.
+                                    await _s3ActionsWrapper.ModifyObjectRetentionPeriod(
+                                        bucketName, exampleFileName,
+                                        ObjectLockRetentionMode.Governance,
+                                        DateTime.UtcNow.AddDays(1));
+                                }
                                 break;
                             }
                     }
@@ -195,12 +236,12 @@ public static class S3ObjectLockWorkflow
     // <summary>
     /// List all of the current buckets and objects.
     /// </summary>
+    /// <param name="interactive">True to run as interactive.</param>
     /// <returns>The list of buckets and objects.</returns>
-    public static async Task<List<S3ObjectVersion>> ListBucketsAndObjects()
+    public static async Task<List<S3ObjectVersion>> ListBucketsAndObjects(bool interactive)
     {
-        Console.WriteLine("\nCurrent buckets and objects:\n");
         var allObjects = new List<S3ObjectVersion>();
-        foreach (var bucketName in bucketNameList)
+        foreach (var bucketName in bucketNames)
         {
             var objectsInBucket = await _s3ActionsWrapper.ListBucketObjectsAndVersions(bucketName);
             foreach (var objectKey in objectsInBucket.Versions)
@@ -209,11 +250,16 @@ public static class S3ObjectLockWorkflow
             }
         }
 
-        int i = 0;
-        foreach (var bucketObject in allObjects)
+        if (interactive)
         {
-            i++;
-            Console.WriteLine($"{i}: {bucketObject.Key} Delete marker: {bucketObject.IsDeleteMarker}\n\tBucket: {bucketObject.BucketName}\n\tVersion: {bucketObject.VersionId}");
+            Console.WriteLine("\nCurrent buckets and objects:\n");
+            int i = 0;
+            foreach (var bucketObject in allObjects)
+            {
+                i++;
+                Console.WriteLine(
+                    $"{i}: {bucketObject.Key} \n\tBucket: {bucketObject.BucketName}\n\tVersion: {bucketObject.VersionId}");
+            }
         }
 
         return allObjects;
@@ -228,6 +274,7 @@ public static class S3ObjectLockWorkflow
         var choices = new string[]{
             "List all files in buckets.",
             "Attempt to delete a file.",
+            "Attempt to delete a file with retention period bypass.",
             "Attempt to overwrite a file.",
             "View the object and bucket retention settings for a file.",
             "View the legal hold settings for a file.",
@@ -235,31 +282,40 @@ public static class S3ObjectLockWorkflow
 
         var choice = 0;
         // Keep asking the user until they choose to move on.
-        while (choice != 5)
+        while (choice != 6)
         {
+            Console.WriteLine(new string('-', 80));
             choice = GetChoiceResponse(
                 "\nExplore the S3 locking features by selecting one of the following choices:"
                 , choices);
-
+            Console.WriteLine(new string('-', 80));
             switch (choice)
             {
                 case 0:
                     {
-                        await ListBucketsAndObjects();
+                        await ListBucketsAndObjects(true);
                         break;
                     }
                 case 1:
                     {
-                        Console.WriteLine("Enter the number of the object to delete:");
-                        var allFiles = await ListBucketsAndObjects();
+                        Console.WriteLine("\nEnter the number of the object to delete:");
+                        var allFiles = await ListBucketsAndObjects(true);
                         var fileChoice = GetChoiceResponse(null, allFiles.Select(f => f.Key).ToArray());
-                        await _s3ActionsWrapper.DeleteObjectFromBucket(allFiles[fileChoice].BucketName, allFiles[fileChoice].Key, allFiles[fileChoice].VersionId);
+                        await _s3ActionsWrapper.DeleteObjectFromBucket(allFiles[fileChoice].BucketName, allFiles[fileChoice].Key, false, allFiles[fileChoice].VersionId);
                         break;
                     }
                 case 2:
                     {
-                        var allFiles = await ListBucketsAndObjects();
-                        Console.WriteLine("Enter the number of the object to overwrite:");
+                        Console.WriteLine("\nEnter the number of the object to delete:");
+                        var allFiles = await ListBucketsAndObjects(true);
+                        var fileChoice = GetChoiceResponse(null, allFiles.Select(f => f.Key).ToArray());
+                        await _s3ActionsWrapper.DeleteObjectFromBucket(allFiles[fileChoice].BucketName, allFiles[fileChoice].Key, true, allFiles[fileChoice].VersionId);
+                        break;
+                    }
+                case 3:
+                    {
+                        var allFiles = await ListBucketsAndObjects(true);
+                        Console.WriteLine("\nEnter the number of the object to overwrite:");
                         var fileChoice = GetChoiceResponse(null, allFiles.Select(f => f.Key).ToArray());
                         // Create the file if it does not already exist.
                         if (!File.Exists(allFiles[fileChoice].Key))
@@ -271,26 +327,21 @@ public static class S3ObjectLockWorkflow
                         await _s3ActionsWrapper.UploadFileAsync(allFiles[fileChoice].BucketName, allFiles[fileChoice].Key, allFiles[fileChoice].Key);
                         break;
                     }
-                case 3:
+                case 4:
                     {
-                        var allFiles = await ListBucketsAndObjects();
-                        Console.WriteLine("Enter the number of the object and bucket to view:");
+                        var allFiles = await ListBucketsAndObjects(true);
+                        Console.WriteLine("\nEnter the number of the object and bucket to view:");
                         var fileChoice = GetChoiceResponse(null, allFiles.Select(f => f.Key).ToArray());
                         await _s3ActionsWrapper.GetObjectRetention(allFiles[fileChoice].BucketName, allFiles[fileChoice].Key);
                         await _s3ActionsWrapper.GetBucketObjectLockConfiguration(allFiles[fileChoice].BucketName);
                         break;
                     }
-                case 4:
+                case 5:
                     {
-                        var allFiles = await ListBucketsAndObjects();
-                        Console.WriteLine("Enter the number of the object to view:");
+                        var allFiles = await ListBucketsAndObjects(true);
+                        Console.WriteLine("\nEnter the number of the object to view:");
                         var fileChoice = GetChoiceResponse(null, allFiles.Select(f => f.Key).ToArray());
                         await _s3ActionsWrapper.GetObjectLegalHold(allFiles[fileChoice].BucketName, allFiles[fileChoice].Key);
-                        break;
-                    }
-                default:
-                    {
-                        Console.WriteLine("Ok, let's finish the workflow.");
                         break;
                     }
             }
@@ -310,29 +361,24 @@ public static class S3ObjectLockWorkflow
         if (!interactive || GetYesNoResponse("Do you want to clean up all files and buckets? (y/n) "))
         {
             // Remove all locks and delete all buckets and objects.
-            foreach (var bucketName in bucketNameList)
+            var allFiles = await ListBucketsAndObjects(false);
+            foreach (var fileInfo in allFiles)
             {
-                for (int i = 0; i < fileNameList.Count; i++)
+                // Check for a legal hold.
+                var legalHold = await _s3ActionsWrapper.GetObjectLegalHold(fileInfo.BucketName, fileInfo.Key);
+                if (legalHold?.Status?.Value == ObjectLockLegalHoldStatus.On)
                 {
-                    var exampleFileName = fileNameList[i];
-                    if (bucketName != bucketNameList[0])
-                    {
-                        switch (i)
-                        {
-                            case 0:
-                                {
-                                    await _s3ActionsWrapper.ModifyObjectLegalHold(
-                                        bucketName, exampleFileName,
-                                        false);
-                                    break;
-                                }
-                        }
-                    }
-
-                    await _s3ActionsWrapper.DeleteObjectFromBucket(bucketName,
-                        exampleFileName);
+                    await _s3ActionsWrapper.ModifyObjectLegalHold(fileInfo.BucketName, fileInfo.Key, false);
                 }
 
+                // Check for a retention period.
+                var retention = await _s3ActionsWrapper.GetObjectRetention(fileInfo.BucketName, fileInfo.Key);
+                var hasRetentionPeriod = retention?.Mode == ObjectLockRetentionMode.Governance && retention.RetainUntilDate > DateTime.UtcNow.Date;
+                await _s3ActionsWrapper.DeleteObjectFromBucket(fileInfo.BucketName, fileInfo.Key, hasRetentionPeriod, fileInfo.VersionId);
+            }
+
+            foreach (var bucketName in bucketNames)
+            {
                 await _s3ActionsWrapper.DeleteBucketByName(bucketName);
             }
 
