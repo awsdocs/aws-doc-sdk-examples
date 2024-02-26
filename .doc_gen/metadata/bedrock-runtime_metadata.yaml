@@ -134,6 +134,9 @@ bedrock-runtime_InvokeMistral7B:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
+            - description: Asynchronously invoke the Mistral 7B foundation model to generate text.
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_mistral_7b_async.main
             - description: Invoke the Mistral 7B foundation model to generate text.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_mistral_7b.main
@@ -166,6 +169,9 @@ bedrock-runtime_InvokeMixtral8x7B:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
+            - description: Asynchronously invoke the Mistral 8x7B foundation model to generate text.
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_mixtral_8x7b_async.main
             - description: Invoke the Mixtral 8x7B foundation model to generate text.
               snippet_tags:
                 - bedrock-runtime.java2.invoke_mixtral_8x7b.main
