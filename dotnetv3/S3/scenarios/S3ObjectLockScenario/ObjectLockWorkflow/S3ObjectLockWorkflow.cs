@@ -161,7 +161,7 @@ public static class S3ObjectLockWorkflow
         {
             for (int i = 0; i < fileCount; i++)
             {
-                var numberedFileName = Path.GetFileNameWithoutExtension(fileName)+i+Path.GetExtension(fileName);
+                var numberedFileName = Path.GetFileNameWithoutExtension(fileName) + i + Path.GetExtension(fileName);
                 fileNames.Add(numberedFileName);
                 await _s3ActionsWrapper.UploadFileAsync(bucketName, numberedFileName, fileName);
             }
@@ -192,14 +192,14 @@ public static class S3ObjectLockWorkflow
                                         bucketName,
                                         exampleFileName,
                                         true);
-                                    
+
                                 }
                                 break;
                             }
                         case 1:
                             {
                                 var question =
-                                    $"\nWould you like to add a 1 day Governance retention period to {exampleFileName} in {bucketName}?"+
+                                    $"\nWould you like to add a 1 day Governance retention period to {exampleFileName} in {bucketName}?" +
                                     "\nReminder: Only a user with the s3:BypassGovernanceRetention permission will be able to delete this file or its bucket until the retention period has expired.";
                                 if (GetYesNoResponse(question))
                                 {

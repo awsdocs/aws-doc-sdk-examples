@@ -109,10 +109,10 @@ public class S3ActionsWrapper
     /// <param name="retainUntilDate">The date for retention until.</param>
     /// <returns>True if successful.</returns>
     public async Task<bool> ModifyObjectRetentionPeriod(string bucketName,
-        string objectKey, ObjectLockRetentionMode retention, DateTime retainUntilDate )
+        string objectKey, ObjectLockRetentionMode retention, DateTime retainUntilDate)
     {
         try
-        { 
+        {
             var request = new PutObjectRetentionRequest()
             {
                 BucketName = bucketName,
@@ -204,7 +204,8 @@ public class S3ActionsWrapper
         {
             var request = new GetObjectRetentionRequest()
             {
-                BucketName = bucketName, Key = objectKey
+                BucketName = bucketName,
+                Key = objectKey
             };
 
             var response = await _amazonS3.GetObjectRetentionAsync(request);
@@ -270,7 +271,8 @@ public class S3ActionsWrapper
         {
             var request = new GetObjectLegalHoldRequest()
             {
-                BucketName = bucketName, Key = objectKey
+                BucketName = bucketName,
+                Key = objectKey
             };
 
             var response = await _amazonS3.GetObjectLegalHoldAsync(request);
@@ -425,7 +427,7 @@ public class S3ActionsWrapper
         }
         catch (AmazonS3Exception ex)
         {
-            Console.WriteLine($"\tUnable to delete bucket {bucketName}: " + ex.Message );
+            Console.WriteLine($"\tUnable to delete bucket {bucketName}: " + ex.Message);
             return false;
         }
 

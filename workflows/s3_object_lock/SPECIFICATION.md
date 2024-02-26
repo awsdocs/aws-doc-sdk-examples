@@ -137,7 +137,6 @@ Enter the number of the object to view:
 Example:
 
 ```
-// snippet-start:[S3LockWorkflow.dotnetv3.DeleteObjectFromBucket]
 /// <summary>
 /// Delete an object from a specific bucket.
 /// </summary>
