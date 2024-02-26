@@ -27,6 +27,82 @@ import java.util.List;
  */
 public class InvokeModel {
 
+        // snippet-start:[bedrock-runtime.java2.invoke_mistral_7b.main]
+        /**
+         * Invokes the Mistral 7B model to run an inference based on the provided input.
+         *
+         * @param prompt The prompt for Mistral to complete.
+         * @return The generated response.
+         */
+        public static String invokeMistral7B(String prompt) {
+                BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                        .region(Region.US_EAST_1)
+                        .credentialsProvider(ProfileCredentialsProvider.create())
+                        .build();
+
+                String modelId = "mistral.mistral-7b-instruct-v0";
+
+                String payload = new JSONObject()
+                        .put("prompt", prompt)
+                        .put("max_tokens", 200)
+                        .put("temperature", 0.5)
+                        .toString();
+
+                InvokeModelRequest request = InvokeModelRequest.builder()
+                        .body(SdkBytes.fromUtf8String(payload))
+                        .contentType("application/json")
+                        .accept("application/json")
+                        .modelId(modelId)
+                        .build();
+
+                InvokeModelResponse response = client.invokeModel(request);
+
+                JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+
+                String generatedText = responseBody.getString("TODO");
+
+                return generatedText;
+        }
+        // snippet-end:[bedrock-runtime.java2.invoke_mistral_7b.main]
+
+        /**
+         * Invokes the Mixtral 8x7B model to run an inference based on the provided input.
+         *
+         * @param prompt The prompt for Mixtral to complete.
+         * @return The generated response.
+         */
+        // snippet-start:[bedrock-runtime.java2.invoke_mixtral_8x7b.main]
+        public static String invokeMixtral8x7B(String prompt) {
+                BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                        .region(Region.US_EAST_1)
+                        .credentialsProvider(ProfileCredentialsProvider.create())
+                        .build();
+
+                String modelId = "mistral.mixtral-8x7b-instruct-v0";
+
+                String payload = new JSONObject()
+                        .put("prompt", prompt)
+                        .put("max_tokens", 200)
+                        .put("temperature", 0.5)
+                        .toString();
+
+                InvokeModelRequest request = InvokeModelRequest.builder()
+                        .body(SdkBytes.fromUtf8String(payload))
+                        .contentType("application/json")
+                        .accept("application/json")
+                        .modelId(modelId)
+                        .build();
+
+                InvokeModelResponse response = client.invokeModel(request);
+
+                JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+
+                String generatedText = responseBody.getString("TODO");
+
+                return generatedText;
+        }
+        // snippet-end:[bedrock-runtime.java2.invoke_mixtral_8x7b.main]
+
         // snippet-start:[bedrock-runtime.java2.invoke_claude.main]
         /**
          * Invokes the Anthropic Claude 2 model to run an inference based on the

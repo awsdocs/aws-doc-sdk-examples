@@ -9,6 +9,22 @@ class TextToTextSyncTest extends TestBase {
 
     @Test
     @Tag("IntegrationTest")
+    void InvokeMistral7B() {
+        String completion = InvokeModel.invokeMistral7B("In one sentence, what is a large-language model?");
+        assertNotNullOrEmpty(completion);
+        System.out.println("Test sync invoke Mistral 7B passed.");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    void InvokeMixtral8x7B() {
+        String completion = InvokeModel.invokeMixtral8x7B("In one sentence, what is a large-language model?");
+        assertNotNullOrEmpty(completion);
+        System.out.println("Test sync invoke Mixtral 8x7B passed.");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
     void InvokeClaude() {
         String completion = InvokeModel.invokeClaude("In one sentence, what is a large-language model?");
         assertNotNullOrEmpty(completion);
