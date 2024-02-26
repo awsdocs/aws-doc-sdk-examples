@@ -50,9 +50,18 @@ public class S3ObjectLockScenarioTests
     public async Task TestSetup()
     {
         // Arrange.
+        S3ObjectLockWorkflow.ConfigurationSetup();
 
         // Act.
         var success = await S3ObjectLockWorkflow.Setup(false);
+
+        var finished = false;
+        while (!finished)
+        {
+            // Make sure the buckets are available before moving on.
+            var created = await S3ObjectLockWorkflow.ListBucketsAndObjects(false);
+            finished = created.Count > 0;
+        }
 
         // Assert.
         Assert.True(success);
@@ -68,9 +77,10 @@ public class S3ObjectLockScenarioTests
     public async Task TestObjects()
     {
         // Arrange.
+        S3ObjectLockWorkflow.ConfigurationSetup();
 
         // Act.
-        var objects = await S3ObjectLockWorkflow.ListBucketsAndObjects();
+        var objects = await S3ObjectLockWorkflow.ListBucketsAndObjects(false);
 
         // Assert.
         Assert.NotEmpty(objects);
@@ -87,6 +97,7 @@ public class S3ObjectLockScenarioTests
     public async Task TestCleanup()
     {
         // Arrange.
+        S3ObjectLockWorkflow.ConfigurationSetup();
 
         // Act.
         var success = await S3ObjectLockWorkflow.Cleanup(false);

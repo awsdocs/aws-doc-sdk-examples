@@ -30,6 +30,10 @@ public static class S3ObjectLockWorkflow
     public static S3ActionsWrapper _s3ActionsWrapper = null!;
     public static IConfiguration _configuration = null!;
     private static string _resourcePrefix;
+    private static string noLockBucketName;
+    private static string lockEnabledBucketName;
+    private static string retentionOnCreationBucketName;
+    private static string retentionAfterCreationBucketName;
     private static List<string> bucketNames = new List<string>();
     private static List<string> fileNames = new List<string>();
 
@@ -54,7 +58,7 @@ public static class S3ObjectLockWorkflow
                 true) // Optionally, load local settings.
             .Build();
 
-        _resourcePrefix = _configuration["resourcePrefix"] ?? "dotnet-example";
+        ConfigurationSetup();
 
         ServicesSetup(host);
 
@@ -94,6 +98,24 @@ public static class S3ObjectLockWorkflow
         _s3ActionsWrapper = host.Services.GetRequiredService<S3ActionsWrapper>();
     }
 
+    /// <summary>
+    /// Any setup operations needed.
+    /// </summary>
+    public static void ConfigurationSetup()
+    {
+        _resourcePrefix = _configuration["resourcePrefix"] ?? "dotnet-example";
+
+        noLockBucketName = _resourcePrefix + "-no-lock";
+        lockEnabledBucketName = _resourcePrefix + "-lock-enabled";
+        retentionOnCreationBucketName = _resourcePrefix + "-retention-on-creation";
+        retentionAfterCreationBucketName = _resourcePrefix + "-retention-after-creation";
+
+        bucketNames.Add(noLockBucketName);
+        bucketNames.Add(lockEnabledBucketName);
+        bucketNames.Add(retentionOnCreationBucketName);
+        bucketNames.Add(retentionAfterCreationBucketName);
+    }
+
     // <summary>
     /// Deploy necessary resources for the scenario.
     /// </summary>
@@ -109,16 +131,6 @@ public static class S3ObjectLockWorkflow
         Console.WriteLine("Press Enter when you are ready to start.");
         if (interactive)
             Console.ReadLine();
-
-        var noLockBucketName = _resourcePrefix + "-no-lock";
-        var lockEnabledBucketName = _resourcePrefix + "-lock-enabled";
-        var retentionOnCreationBucketName = _resourcePrefix + "-retention-on-creation";
-        var retentionAfterCreationBucketName = _resourcePrefix + "-retention-after-creation";
-
-        bucketNames.Add(noLockBucketName);
-        bucketNames.Add(lockEnabledBucketName);
-        bucketNames.Add(retentionOnCreationBucketName);
-        bucketNames.Add(retentionAfterCreationBucketName);
 
         Console.WriteLine("\nS3 buckets can be created either with or without object lock enabled.");
         await _s3ActionsWrapper.CreateBucketWithLockOptions(noLockBucketName, false);
@@ -170,6 +182,8 @@ public static class S3ObjectLockWorkflow
         if (interactive)
             Console.ReadLine();
 
+        if (!interactive)
+            return true;
         Console.WriteLine("\nNow we can set some object lock policies on individual files:");
         foreach (var bucketName in bucketNames)
         {
@@ -347,7 +361,6 @@ public static class S3ObjectLockWorkflow
         if (!interactive || GetYesNoResponse("Do you want to clean up all files and buckets? (y/n) "))
         {
             // Remove all locks and delete all buckets and objects.
-            bool hasRetentionPeriod = false;
             var allFiles = await ListBucketsAndObjects(false);
             foreach (var fileInfo in allFiles)
             {
@@ -360,7 +373,7 @@ public static class S3ObjectLockWorkflow
 
                 // Check for a retention period.
                 var retention = await _s3ActionsWrapper.GetObjectRetention(fileInfo.BucketName, fileInfo.Key);
-                hasRetentionPeriod = retention?.Mode == ObjectLockRetentionMode.Governance && retention.RetainUntilDate > DateTime.UtcNow.Date;
+                var hasRetentionPeriod = retention?.Mode == ObjectLockRetentionMode.Governance && retention.RetainUntilDate > DateTime.UtcNow.Date;
                 await _s3ActionsWrapper.DeleteObjectFromBucket(fileInfo.BucketName, fileInfo.Key, hasRetentionPeriod, fileInfo.VersionId);
             }
 
