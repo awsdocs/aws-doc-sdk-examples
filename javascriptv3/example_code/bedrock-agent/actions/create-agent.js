@@ -38,17 +38,22 @@ export const createAgent = async (
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  // Replace the placeholders for agentName and roleArn with a unique name for the new agent and
-  // the Amazon Resource Name (ARN) of an existing execution role that the agent can use.
+  // Replace the placeholders for agentName and accountId, and roleName with a unique name for the new agent,
+  // the id of your AWS account, and the name of an existing execution role that the agent can use inside your account.
   // For foundationModel, specify the desired model. Ensure to remove the brackets '[]' before adding your data.
 
   // A string (max 100 chars) that can include letters, numbers, dashes '-', and underscores '_'.
   const agentName = "[your-bedrock-agent-name]";
 
-  // The ARN for the agent's execution role, prefixed by `AmazonBedrockExecutionRoleForAgents_`.
+  // Your AWS account id.
+  const accountId = "[123456789012]";
+
+  // The name of the agent's execution role. It must be prefixed by `AmazonBedrockExecutionRoleForAgents_`.
+  const roleName = "[AmazonBedrockExecutionRoleForAgents_your-role-name]";
+
+  // The ARN for the agent's execution role.
   // Follow the ARN format: 'arn:aws:iam::account-id:role/role-name'
-  const roleArn =
-    "[arn:aws:iam::123456789012:role/AmazonBedrockExecutionRoleForAgents_myRoleName]";
+  const roleArn = `arn:aws:iam::${accountId}:role/${roleName}`;
 
   // Specify the model for the agent. Change if a different model is preferred.
   const foundationModel = "anthropic.claude-v2";
