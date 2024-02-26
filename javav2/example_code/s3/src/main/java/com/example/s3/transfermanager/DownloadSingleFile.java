@@ -86,7 +86,6 @@ public class DownloadSingleFile {
         URL url = DownloadSingleFile.class.getClassLoader().getResource(downloadedFileName);
         if (url != null) {
             try {
-                // Delete the file
                 Files.delete(Paths.get(url.toURI().getPath()));
                 System.out.println("File deleted successfully");
             } catch (URISyntaxException e) {
