@@ -56,8 +56,7 @@ class BedrockRuntimeWrapper:
             }
 
             response = self.bedrock_runtime_client.invoke_model(
-                modelId=model_id,
-                body=json.dumps(body)
+                modelId=model_id, body=json.dumps(body)
             )
 
             response_body = json.loads(response["body"].read())
@@ -91,8 +90,7 @@ class BedrockRuntimeWrapper:
             }
 
             response = self.bedrock_runtime_client.invoke_model(
-                modelId=model_id,
-                body=json.dumps(body)
+                modelId=model_id, body=json.dumps(body)
             )
 
             response_body = json.loads(response["body"].read())

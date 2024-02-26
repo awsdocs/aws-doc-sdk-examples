@@ -40,6 +40,8 @@ Code excerpts that show you how to call individual service functions.
 - [Text generation with Anthropic Claude 2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L32) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2 with a response stream](src/main/java/com/example/bedrockruntime/InvokeModelWithResponseStream.java#L28) (`InvokeModelWithResponseStream`)
 - [Text generation with Meta Llama 2 Chat](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L157) (`InvokeModel`)
+- [Text generation with Mistral 7B](src/main/java/com/example/bedrockruntime/InvokeModel.java#L30) (`InvokeModel`)
+- [Text generation with Mixtral 8x7B](src/main/java/com/example/bedrockruntime/InvokeModel.java#L74) (`InvokeModel`)
 
 
 <!--custom.examples.start-->

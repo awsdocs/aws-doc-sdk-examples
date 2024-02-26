@@ -27,7 +27,7 @@ export const invokeMistral7B = async (prompt) => {
   const modelId = "mistral.mistral-7b-instruct-v0";
 
   const payload = {
-    prompt: enclosedPrompt,
+    prompt: prompt,
     max_tokens: 500,
     temperature: 0.5,
   };

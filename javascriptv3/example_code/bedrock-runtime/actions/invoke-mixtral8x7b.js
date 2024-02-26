@@ -27,7 +27,7 @@ export const invokeMixtral8x7B = async (prompt) => {
   const modelId = "mistral.mixtral-8x7b-instruct-v0";
 
   const payload = {
-    prompt: enclosedPrompt,
+    prompt: prompt,
     max_tokens: 500,
     temperature: 0.5,
   };

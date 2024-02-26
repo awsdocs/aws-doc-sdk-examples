@@ -34,6 +34,7 @@ def test_invoke_claude(make_stubber, error_code):
             wrapper.invoke_claude(prompt)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
+
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_invoke_mistral_7b(make_stubber, error_code):
     bedrock_runtime = boto3.client(
@@ -53,6 +54,7 @@ def test_invoke_mistral_7b(make_stubber, error_code):
         with pytest.raises(ClientError) as exc_info:
             wrapper.invoke_mistral_7b(prompt)
         assert exc_info.value.response["Error"]["Code"] == error_code
+
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_invoke_mixtral_8x7b(make_stubber, error_code):
