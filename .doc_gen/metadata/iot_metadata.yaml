@@ -5,6 +5,15 @@ iot_Hello:
   synopsis: get started using &IoT;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.hello_iot.main
     Java:
       versions:
         - sdk_version: 2
@@ -22,6 +31,15 @@ iot_DescribeEndpoint:
   synopsis: get &IoT; endpoint information.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.describe.endpoint.main
     Java:
       versions:
         - sdk_version: 2
@@ -62,6 +80,15 @@ iot_ListCertificates:
   synopsis: list your &IoT; certificates.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.list.certs.main
     Java:
       versions:
         - sdk_version: 2
@@ -78,6 +105,15 @@ iot_CreateCertificate:
   synopsis: create an &IoT; certificate.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.create.cert.main
     Java:
       versions:
         - sdk_version: 2
@@ -94,6 +130,15 @@ iot_DeleteCertificate:
   synopsis: delete an &IoT; certificate.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.delete.cert.main
     Java:
       versions:
         - sdk_version: 2
@@ -110,6 +155,15 @@ iot_SearchIndex:
   synopsis: query the &IoT; search index.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.search.thing.main
     Java:
       versions:
         - sdk_version: 2
@@ -126,6 +180,15 @@ iot_DeleteThing:
   synopsis: delete an &IoT; thing.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.delete.thing.main
     Java:
       versions:
         - sdk_version: 2
@@ -142,6 +205,15 @@ iot_DescribeThing:
   synopsis: describe an &IoT; thing.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.describe.thing.main
     Java:
       versions:
         - sdk_version: 2
@@ -158,6 +230,15 @@ iot_AttachThingPrincipal:
   synopsis: attach an &IoT; certificate.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.attach.thing.main
     Java:
       versions:
         - sdk_version: 2
@@ -174,6 +255,15 @@ iot_DetachThingPrincipal:
   synopsis: detach an &IoT; certificate.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.detach.thing.main
     Java:
       versions:
         - sdk_version: 2
@@ -190,6 +280,15 @@ iot_UpdateThing:
   synopsis: update an &IoT; thing.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.update.thing.main
     Java:
       versions:
         - sdk_version: 2
@@ -206,6 +305,15 @@ iot_CreateRule:
   synopsis: create an &IoT; rule.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.create.rule.main
     Java:
       versions:
         - sdk_version: 2
@@ -222,6 +330,15 @@ iot_CreateThing:
   synopsis: create an &IoT; thing.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.create.thing.main
     Java:
       versions:
         - sdk_version: 2
@@ -238,6 +355,15 @@ iot_Scenario:
   synopsis: working with &IoT; device management use cases using &IoT; SDK
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.scenario.main
     Java:
       versions:
         - sdk_version: 2
