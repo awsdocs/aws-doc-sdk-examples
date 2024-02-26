@@ -48,14 +48,11 @@ public class InvokeModel {
                         .put("temperature", 0.5)
                         .toString();
 
-                InvokeModelRequest request = InvokeModelRequest.builder()
-                        .body(SdkBytes.fromUtf8String(payload))
-                        .contentType("application/json")
+                InvokeModelResponse response = client.invokeModel(request -> request
                         .accept("application/json")
-                        .modelId(modelId)
-                        .build();
-
-                InvokeModelResponse response = client.invokeModel(request);
+                        .contentType("application/json")
+                        .body(SdkBytes.fromUtf8String(payload))
+                        .modelId(modelId));
 
                 JSONObject responseBody = new JSONObject(response.body().asUtf8String());
 
@@ -86,14 +83,11 @@ public class InvokeModel {
                         .put("temperature", 0.5)
                         .toString();
 
-                InvokeModelRequest request = InvokeModelRequest.builder()
-                        .body(SdkBytes.fromUtf8String(payload))
-                        .contentType("application/json")
+                InvokeModelResponse response = client.invokeModel(request -> request
                         .accept("application/json")
-                        .modelId(modelId)
-                        .build();
-
-                InvokeModelResponse response = client.invokeModel(request);
+                        .contentType("application/json")
+                        .body(SdkBytes.fromUtf8String(payload))
+                        .modelId(modelId));
 
                 JSONObject responseBody = new JSONObject(response.body().asUtf8String());
 

@@ -29,6 +29,101 @@ import java.util.concurrent.ExecutionException;
  */
 public class InvokeModelAsync {
 
+    // snippet-start:[bedrock-runtime.java2.invoke_mistral_7b_async.main]
+    /**
+     * Asynchronously invokes the Mistral 7B model to run an inference based on the provided input.
+     *
+     * @param prompt The prompt for Mistral to complete.
+     * @return The generated response.
+     */
+    public static String invokeMistral7B(String prompt) {
+        BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
+
+        String modelId = "mistral.mistral-7b-instruct-v0";
+
+        String payload = new JSONObject()
+                .put("prompt", prompt)
+                .put("max_tokens", 200)
+                .put("temperature", 0.5)
+                .toString();
+
+        CompletableFuture<InvokeModelResponse> completableFuture = client.invokeModel(request -> request
+                .accept("application/json")
+                .contentType("application/json")
+                .body(SdkBytes.fromUtf8String(payload))
+                .modelId(modelId))
+        .whenComplete((response, exception) -> {
+            if (exception != null) {
+                System.out.println("Model invocation failed: " + exception);
+            }
+        });
+
+        String generatedText = "";
+        try {
+            JSONObject responseBody = new JSONObject(completableFuture.get().body().asUtf8String());
+            generatedText = responseBody.getString("TODO");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println(e.getMessage());
+        } catch (ExecutionException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return generatedText;
+    }
+    // snippet-end:[bedrock-runtime.java2.invoke_mistral_7b_async.main]
+
+    // snippet-start:[bedrock-runtime.java2.invoke_mixtral_8x7b_async.main]
+    /**
+     * Asynchronously invokes the Mixtral 8x7B model to run an inference based on the provided input.
+     *
+     * @param prompt The prompt for Mixtral to complete.
+     * @return The generated response.
+     */
+    public static String invokeMixtral8x7B(String prompt) {
+        BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
+
+        String modelId = "mistral.mixtral-8x7b-instruct-v0";
+
+        String payload = new JSONObject()
+                .put("prompt", prompt)
+                .put("max_tokens", 200)
+                .put("temperature", 0.5)
+                .toString();
+
+        CompletableFuture<InvokeModelResponse> completableFuture = client.invokeModel(request -> request
+                        .accept("application/json")
+                        .contentType("application/json")
+                        .body(SdkBytes.fromUtf8String(payload))
+                        .modelId(modelId))
+                .whenComplete((response, exception) -> {
+                    if (exception != null) {
+                        System.out.println("Model invocation failed: " + exception);
+                    }
+                });
+
+        String generatedText = "";
+        try {
+            InvokeModelResponse response = completableFuture.get();
+            JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+            generatedText = responseBody.getString("TODO");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println(e.getMessage());
+        } catch (ExecutionException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return generatedText;
+    }
+    // snippet-end:[bedrock-runtime.java2.invoke_mixtral_8x7b_async.main]
+
     // snippet-start:[bedrock-runtime.java2.invoke_claude_async.main]
     /**
      * Asynchronously invokes the Anthropic Claude 2 model to run an inference based

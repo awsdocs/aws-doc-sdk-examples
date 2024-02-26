@@ -10,6 +10,24 @@ class TextToTextAsyncTest extends TestBase {
 
     @Test
     @Tag("IntegrationTest")
+    void InvokeMistral7BAsync() {
+        var prompt = "In one sentence, what is a large-language model?";
+        var generatedText = InvokeModelAsync.invokeMistral7B(prompt);
+        assertNotNullOrEmpty(generatedText);
+        System.out.println("Test async invoke Mistral 7B passed.");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    void InvokeMixtral8x7BAsync() {
+        var prompt = "In one sentence, what is a large-language model?";
+        var generatedText = InvokeModelAsync.invokeMixtral8x7B(prompt);
+        assertNotNullOrEmpty(generatedText);
+        System.out.println("Test async invoke Mixtral 8x7B passed.");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
     void InvokeClaudeAsync() {
         var prompt = "In one sentence, what is a large-language model?";
         var generatedText = InvokeModelAsync.invokeClaude(prompt);
