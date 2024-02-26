@@ -1,5 +1,5 @@
 {
-  "name": "lex-bot-example",
+  "name": "@aws-doc-sdk-examples/lex-bot-example",
   "version": "1.0.0",
   "description": "Using the AWS SDK for JavaScript V3 to create an Amazon Lex chatbot within a web application.",
   "main": "index.js",

@@ -45,7 +45,7 @@ Code excerpts that show you how to call individual service functions.
 - [Delete an agent alias](bedrock_agent_wrapper.py#L140) (`DeleteAgentAlias`)
 - [Get information about an agent](bedrock_agent_wrapper.py#L162) (`GetAgent`)
 - [List the action groups for an agent](bedrock_agent_wrapper.py#L209) (`ListAgentActionGroups`)
-- [List the agents](bedrock_agent_wrapper.py#L186) (`ListAgents`)
+- [List the available agents](bedrock_agent_wrapper.py#L186) (`ListAgents`)
 - [List the knowledge bases associated with an agent](bedrock_agent_wrapper.py#L238) (`ListAgentKnowledgeBases`)
 - [Prepare an agent](bedrock_agent_wrapper.py#L267) (`PrepareAgent`)
 

@@ -1,5 +1,5 @@
 {
-  "name": "wkflw-sagemaker-geospatial-lambda",
+  "name": "@aws-doc-sdk-examples/wkflw-sagemaker-geospatial-lambda",
   "version": "1.0.0",
   "scripts": {
     "build": "rollup -c"

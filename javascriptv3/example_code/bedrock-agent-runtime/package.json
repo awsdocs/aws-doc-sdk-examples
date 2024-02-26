@@ -1,0 +1,17 @@
+{
+  "name": "@aws-doc-sdk-examples/bedrock-agent-runtime-examples",
+  "version": "1.0.0",
+  "author": "Dinuda Yaggahavita <ydinuda@gmail.com>, Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-agent-runtime": "^3.501.0"
+  },
+  "devDependencies": {
+    "vitest": "^1.2.1",
+    "zod": "^3.22.4"
+  }
+}

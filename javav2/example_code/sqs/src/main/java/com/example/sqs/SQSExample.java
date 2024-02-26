@@ -67,13 +67,13 @@ public class SQSExample {
             GetQueueUrlResponse getQueueUrlResponse = sqsClient
                     .getQueueUrl(GetQueueUrlRequest.builder().queueName(queueName).build());
             return getQueueUrlResponse.queueUrl();
+            // snippet-end:[sqs.java2.sqs_example.get_queue]
 
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         return "";
-        // snippet-end:[sqs.java2.sqs_example.get_queue]
     }
 
     public static void listQueues(SqsClient sqsClient) {
@@ -148,8 +148,8 @@ public class SQSExample {
     public static List<Message> receiveMessages(SqsClient sqsClient, String queueUrl) {
 
         System.out.println("\nReceive messages");
+        // snippet-start:[sqs.java2.sqs_example.retrieve_messages]
         try {
-            // snippet-start:[sqs.java2.sqs_example.retrieve_messages]
             ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                     .queueUrl(queueUrl)
                     .maxNumberOfMessages(5)
@@ -186,8 +186,8 @@ public class SQSExample {
 
     public static void deleteMessages(SqsClient sqsClient, String queueUrl, List<Message> messages) {
         System.out.println("\nDelete Messages");
-        // snippet-start:[sqs.java2.sqs_example.delete_message]
 
+        // snippet-start:[sqs.java2.sqs_example.delete_message]
         try {
             for (Message message : messages) {
                 DeleteMessageRequest deleteMessageRequest = DeleteMessageRequest.builder()
@@ -196,12 +196,11 @@ public class SQSExample {
                         .build();
                 sqsClient.deleteMessage(deleteMessageRequest);
             }
-            // snippet-end:[sqs.java2.sqs_example.delete_message]
-
         } catch (SqsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        // snippet-end:[sqs.java2.sqs_example.delete_message]
     }
 }
 // snippet-end:[sqs.java2.sqs_example.main]

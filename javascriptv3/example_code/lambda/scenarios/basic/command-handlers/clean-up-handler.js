@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 import { readdirSync } from "fs";
-import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
+import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import {
   deleteFiles,
   dirnameFromMetaUrl,
-} from "@aws-sdk-examples/libs/utils/util-fs.js";
+} from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
 
 import { detachRolePolicy } from "../../../../iam/actions/detach-role-policy.js";
 import { deleteRole } from "../../../../iam/actions/delete-role.js";

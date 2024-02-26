@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import { ScenarioAction } from "@aws-sdk-examples/libs/scenario/scenario.js";
+import { ScenarioAction } from "@aws-doc-sdk-examples/lib/scenario/scenario.js";
 
 import { PutParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
 import { NAMES } from "./constants.js";

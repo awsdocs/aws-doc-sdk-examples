@@ -35,14 +35,14 @@ import {
   ScenarioOutput,
   ScenarioInput,
   ScenarioAction,
-} from "@aws-sdk-examples/libs/scenario/index.js";
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+} from "@aws-doc-sdk-examples/lib/scenario/index.js";
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 import { MESSAGES, NAMES } from "./constants.js";
 import { findLoadBalancer } from "./shared.js";
 
 /**
- * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
+ * @type {import('@aws-doc-sdk-examples/lib/scenario.js').Step[]}
  */
 export const destroySteps = [
   new ScenarioInput("destroy", MESSAGES.destroy, { type: "confirm" }),

@@ -5,7 +5,7 @@ import { describe, it, expect } from "vitest";
 import { createServiceLinkedRole } from "../actions/create-service-linked-role.js";
 import { getRole } from "../actions/get-role.js";
 import { deleteServiceLinkedRole } from "../actions/delete-service-linked-role.js";
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 import { getServiceLinkedRoleDeletionStatus } from "../actions/get-service-linked-role-deletion-status.js";
 import { DeletionTaskStatusType } from "@aws-sdk/client-iam";
 

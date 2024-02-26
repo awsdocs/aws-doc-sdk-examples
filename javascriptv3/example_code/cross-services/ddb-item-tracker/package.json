@@ -1,5 +1,5 @@
 {
-  "name": "Amazon DynamoDB Item Tracker cross-service example (AWS SDK for JavaScript)",
+  "name": "@aws-doc-sdk-examples/example-cross-item-tracker",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",

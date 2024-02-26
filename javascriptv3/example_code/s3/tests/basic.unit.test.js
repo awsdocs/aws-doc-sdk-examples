@@ -24,7 +24,7 @@ vi.doMock("fs", async () => {
   };
 });
 
-vi.doMock("@aws-sdk-examples/libs/prompter.js", () => {
+vi.doMock("@aws-doc-sdk-examples/lib/prompter.js", () => {
   return {
     Prompter: class MockPrompter {
       input() {

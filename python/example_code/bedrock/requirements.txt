@@ -1,5 +1,5 @@
-boto3==1.33.8
-botocore==1.33.8
+boto3==1.34.39
+botocore==1.34.39
 colorama==0.4.6
 iniconfig==2.0.0
 jmespath==1.0.1
@@ -7,6 +7,6 @@ packaging==23.2
 pluggy==1.3.0
 pytest==7.4.3
 python-dateutil==2.8.2
-s3transfer==0.8.2
+s3transfer==0.10.0
 six==1.16.0
 urllib3==2.0.7

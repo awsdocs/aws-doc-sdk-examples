@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import { describe, beforeAll, afterAll, it, expect } from "vitest";
 
-import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
+import { getUniqueName } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 import { createTemplate, deleteTemplate } from "../src/libs/sesUtils";
 import { run } from "../src/ses_listtemplates";
 

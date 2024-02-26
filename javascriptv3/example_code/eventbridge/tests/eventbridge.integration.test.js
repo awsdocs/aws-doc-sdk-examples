@@ -18,7 +18,7 @@ import {
   SetQueueAttributesCommand,
 } from "@aws-sdk/client-sqs";
 
-import { retry, wait } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { retry, wait } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 import { putEvents } from "../actions/put-events.js";
 import { putRule } from "../actions/put-rule.js";

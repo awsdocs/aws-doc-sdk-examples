@@ -1,5 +1,5 @@
 {
-  "name": "textract",
+  "name": "@aws-doc-sdk-examples/textract",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

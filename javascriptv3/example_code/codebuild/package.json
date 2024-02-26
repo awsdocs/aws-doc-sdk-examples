@@ -1,10 +1,10 @@
 {
-  "name": "example-javascriptv3-codebuild",
+  "name": "@aws-doc-sdk-examples/example-javascriptv3-codebuild",
   "version": "1.0.0",
   "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-sdk-examples/libs": "^1.0.0",
+    "@aws-doc-sdk-examples/lib": "^1.0.0",
     "@aws-sdk/client-codebuild": "^3.391.0"
   },
   "type": "module",

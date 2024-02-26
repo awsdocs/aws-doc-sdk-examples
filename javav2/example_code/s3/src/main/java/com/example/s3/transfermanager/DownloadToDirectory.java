@@ -14,7 +14,10 @@ import software.amazon.awssdk.transfer.s3.model.DirectoryDownload;
 import software.amazon.awssdk.transfer.s3.model.DownloadDirectoryRequest;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,7 +37,7 @@ import java.util.stream.Collectors;
 public class DownloadToDirectory {
     private static final Logger logger = LoggerFactory.getLogger(DownloadToDirectory.class);
     public final String bucketName = "x-" + UUID.randomUUID();
-    public String destinationPath;
+    public URI destinationPathURI;
     private final Set<String> downloadedFileNameSet = new HashSet<>();
     private final String destinationDirName = "downloadDirectory";
 
@@ -45,16 +48,16 @@ public class DownloadToDirectory {
     public static void main(String[] args) {
         DownloadToDirectory download = new DownloadToDirectory();
         Integer numFilesFailedToDownload = download.downloadObjectsToDirectory(S3ClientFactory.transferManager,
-                download.destinationPath, download.bucketName);
+                download.destinationPathURI, download.bucketName);
         logger.info("Number of files that failed to download [{}].", numFilesFailedToDownload);
         download.cleanUp();
     }
 
     // snippet-start:[s3.tm.java2.downloadtodirectory.main]
     public Integer downloadObjectsToDirectory(S3TransferManager transferManager,
-            String destinationPath, String bucketName) {
+            URI destinationPathURI, String bucketName) {
         DirectoryDownload directoryDownload = transferManager.downloadDirectory(DownloadDirectoryRequest.builder()
-                .destination(Paths.get(destinationPath))
+                .destination(Paths.get(destinationPathURI))
                 .bucket(bucketName)
                 .build());
         CompletedDirectoryDownload completedDirectoryDownload = directoryDownload.completionFuture().join();
@@ -77,7 +80,12 @@ public class DownloadToDirectory {
                     .key(fileName),
                     requestBody);
         });
-        destinationPath = DownloadToDirectory.class.getClassLoader().getResource(destinationDirName).getPath();
+        try {
+            destinationPathURI = DownloadToDirectory.class.getClassLoader().getResource(destinationDirName).toURI();
+        } catch (URISyntaxException | NullPointerException e) {
+            logger.error("Exception creating URI [{}]", e.getMessage());
+            System.exit(1);
+        }
     }
 
     public void cleanUp() {
@@ -96,7 +104,9 @@ public class DownloadToDirectory {
         // Delete files downloaded.
         downloadedFileNameSet.stream().forEach(fileName -> {
             try {
-                Files.delete(Paths.get(destinationPath + "/" + fileName));
+                Path basePath = Paths.get(destinationPathURI);
+                Path fullPath = basePath.resolve(fileName);
+                Files.delete(fullPath);
             } catch (IOException e) {
                 logger.error("Exception deleting file [{}]", fileName);
                 throw new RuntimeException(e);

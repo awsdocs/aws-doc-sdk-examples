@@ -3,7 +3,7 @@
 
 import { describe, it, expect, afterAll } from "vitest";
 import { createUserPool } from "../actions/create-user-pool.js";
-import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
+import { getUniqueName } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 import { deleteUserPool } from "../actions/delete-user-pool.js";
 import { createUserPoolClient } from "../actions/create-user-pool-client.js";
 import { listUsers } from "../actions/list-users.js";

@@ -1,5 +1,5 @@
 {
-  "name": "personalize-js-project",
+  "name": "@aws-doc-sdk-examples/personalize-js-project",
   "version": "1.0.0",
   "description": "personalize operations",
   "main": "personalizeClients.js",

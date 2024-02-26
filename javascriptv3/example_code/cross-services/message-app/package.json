@@ -1,5 +1,5 @@
 {
-  "name": "messaging-app-example",
+  "name": "@aws-doc-sdk-examples/messaging-app-example",
   "version": "1.0.0",
   "description": "Using the AWS SDK for JavaScript V3 to build an app that sends and receives messages using Amazon Simple Queue Service (Amazon SQS).",
   "main": "index.js",

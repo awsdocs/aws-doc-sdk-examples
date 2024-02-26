@@ -16,7 +16,7 @@ import {
   DeleteProjectCommand,
   paginateListProjects,
 } from "@aws-sdk/client-codebuild";
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 describe(
   "create-project",

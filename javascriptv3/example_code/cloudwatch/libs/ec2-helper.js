@@ -5,7 +5,7 @@ import {
   RunInstancesCommand,
   TerminateInstancesCommand,
 } from "@aws-sdk/client-ec2";
-import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 const client = new EC2Client({});
 

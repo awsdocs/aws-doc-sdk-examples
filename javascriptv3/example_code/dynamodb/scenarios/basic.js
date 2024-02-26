@@ -32,9 +32,9 @@ import {
 // These modules are local to our GitHub repository. We recommend cloning
 // the project from GitHub if you want to run this example.
 // For more information, see https://github.com/awsdocs/aws-doc-sdk-examples.
-import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
-import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
-import { chunkArray } from "@aws-sdk-examples/libs/utils/util-array.js";
+import { getUniqueName } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
+import { dirnameFromMetaUrl } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
+import { chunkArray } from "@aws-doc-sdk-examples/lib/utils/util-array.js";
 
 const dirname = dirnameFromMetaUrl(import.meta.url);
 const tableName = getUniqueName("Movies");
