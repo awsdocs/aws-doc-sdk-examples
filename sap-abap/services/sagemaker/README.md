@@ -33,17 +33,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a model](zcl_aws1_sgm_actions.clas.abap#L173) (`CreateModel`)
-- [Create an endpoint](zcl_aws1_sgm_actions.clas.abap#L123) (`CreateEndpoint`)
-- [Delete a model](zcl_aws1_sgm_actions.clas.abap#L435) (`DeleteModel`)
-- [Delete an endpoint](zcl_aws1_sgm_actions.clas.abap#L402) (`DeleteEndpoint`)
-- [Describe a training job](zcl_aws1_sgm_actions.clas.abap#L457) (`DescribeTrainingJob`)
-- [List models](zcl_aws1_sgm_actions.clas.abap#L499) (`ListModels`)
-- [List notebook instances](zcl_aws1_sgm_actions.clas.abap#L520) (`ListNotebookInstances`)
-- [List the machine learning algorithms](zcl_aws1_sgm_actions.clas.abap#L478) (`ListAlgorithms`)
-- [List training jobs](zcl_aws1_sgm_actions.clas.abap#L540) (`ListTrainingJobs`)
-- [Start a training job](zcl_aws1_sgm_actions.clas.abap#L204) (`CreateTrainingJob`)
-- [Start a transform job](zcl_aws1_sgm_actions.clas.abap#L337) (`CreateTransformJob`)
+- [Create a model](zcl_aws1_sgm_actions.clas.abap#L175) (`CreateModel`)
+- [Create an endpoint](zcl_aws1_sgm_actions.clas.abap#L125) (`CreateEndpoint`)
+- [Delete a model](zcl_aws1_sgm_actions.clas.abap#L437) (`DeleteModel`)
+- [Delete an endpoint](zcl_aws1_sgm_actions.clas.abap#L404) (`DeleteEndpoint`)
+- [Describe a training job](zcl_aws1_sgm_actions.clas.abap#L459) (`DescribeTrainingJob`)
+- [List models](zcl_aws1_sgm_actions.clas.abap#L501) (`ListModels`)
+- [List notebook instances](zcl_aws1_sgm_actions.clas.abap#L522) (`ListNotebookInstances`)
+- [List the machine learning algorithms](zcl_aws1_sgm_actions.clas.abap#L480) (`ListAlgorithms`)
+- [List training jobs](zcl_aws1_sgm_actions.clas.abap#L542) (`ListTrainingJobs`)
+- [Start a training job](zcl_aws1_sgm_actions.clas.abap#L206) (`CreateTrainingJob`)
+- [Start a transform job](zcl_aws1_sgm_actions.clas.abap#L339) (`CreateTransformJob`)
 
 ### Scenarios
 

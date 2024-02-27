@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](zcl_aws1_lmd_actions.clas.abap#L65) (`CreateFunction`)
-- [Delete a function](zcl_aws1_lmd_actions.clas.abap#L105) (`DeleteFunction`)
-- [Get a function](zcl_aws1_lmd_actions.clas.abap#L130) (`GetFunction`)
-- [Invoke a function](zcl_aws1_lmd_actions.clas.abap#L151) (`Invoke`)
-- [List functions](zcl_aws1_lmd_actions.clas.abap#L193) (`ListFunctions`)
-- [Update function code](zcl_aws1_lmd_actions.clas.abap#L216) (`UpdateFunctionCode`)
-- [Update function configuration](zcl_aws1_lmd_actions.clas.abap#L253) (`UpdateFunctionConfiguration`)
+- [Create a function](zcl_aws1_lmd_actions.clas.abap#L67) (`CreateFunction`)
+- [Delete a function](zcl_aws1_lmd_actions.clas.abap#L107) (`DeleteFunction`)
+- [Get a function](zcl_aws1_lmd_actions.clas.abap#L132) (`GetFunction`)
+- [Invoke a function](zcl_aws1_lmd_actions.clas.abap#L153) (`Invoke`)
+- [List functions](zcl_aws1_lmd_actions.clas.abap#L195) (`ListFunctions`)
+- [Update function code](zcl_aws1_lmd_actions.clas.abap#L218) (`UpdateFunctionCode`)
+- [Update function configuration](zcl_aws1_lmd_actions.clas.abap#L255) (`UpdateFunctionConfiguration`)
 
 ### Scenarios
 

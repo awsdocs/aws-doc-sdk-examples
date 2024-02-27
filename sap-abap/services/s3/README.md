@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](zcl_aws1_s3_actions.clas.abap#L64) (`CopyObject`)
-- [Create a bucket](zcl_aws1_s3_actions.clas.abap#L88) (`CreateBucket`)
-- [Delete an empty bucket](zcl_aws1_s3_actions.clas.abap#L110) (`DeleteBucket`)
-- [Delete an object](zcl_aws1_s3_actions.clas.abap#L131) (`DeleteObject`)
-- [Get an object from a bucket](zcl_aws1_s3_actions.clas.abap#L151) (`GetObject`)
-- [List objects in a bucket](zcl_aws1_s3_actions.clas.abap#L194) (`ListObjectsV2`)
-- [Upload an object to a bucket](zcl_aws1_s3_actions.clas.abap#L214) (`PutObject`)
+- [Copy an object from one bucket to another](zcl_aws1_s3_actions.clas.abap#L66) (`CopyObject`)
+- [Create a bucket](zcl_aws1_s3_actions.clas.abap#L90) (`CreateBucket`)
+- [Delete an empty bucket](zcl_aws1_s3_actions.clas.abap#L112) (`DeleteBucket`)
+- [Delete an object](zcl_aws1_s3_actions.clas.abap#L133) (`DeleteObject`)
+- [Get an object from a bucket](zcl_aws1_s3_actions.clas.abap#L153) (`GetObject`)
+- [List objects in a bucket](zcl_aws1_s3_actions.clas.abap#L196) (`ListObjectsV2`)
+- [Upload an object to a bucket](zcl_aws1_s3_actions.clas.abap#L216) (`PutObject`)
 
 ### Scenarios
 

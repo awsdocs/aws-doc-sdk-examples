@@ -33,12 +33,12 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a metric alarm](zcl_aws1_cwt_actions.clas.abap#L177) (`PutMetricAlarm`)
-- [Delete alarms](zcl_aws1_cwt_actions.clas.abap#L63) (`DeleteAlarms`)
-- [Describe alarms](zcl_aws1_cwt_actions.clas.abap#L84) (`DescribeAlarms`)
-- [Disable alarm actions](zcl_aws1_cwt_actions.clas.abap#L106) (`DisableAlarmActions`)
-- [Enable alarm actions](zcl_aws1_cwt_actions.clas.abap#L130) (`EnableAlarmActions`)
-- [List metrics](zcl_aws1_cwt_actions.clas.abap#L154) (`ListMetrics`)
+- [Create a metric alarm](zcl_aws1_cwt_actions.clas.abap#L179) (`PutMetricAlarm`)
+- [Delete alarms](zcl_aws1_cwt_actions.clas.abap#L65) (`DeleteAlarms`)
+- [Describe alarms](zcl_aws1_cwt_actions.clas.abap#L86) (`DescribeAlarms`)
+- [Disable alarm actions](zcl_aws1_cwt_actions.clas.abap#L108) (`DisableAlarmActions`)
+- [Enable alarm actions](zcl_aws1_cwt_actions.clas.abap#L132) (`EnableAlarmActions`)
+- [List metrics](zcl_aws1_cwt_actions.clas.abap#L156) (`ListMetrics`)
 
 ### Scenarios
 
