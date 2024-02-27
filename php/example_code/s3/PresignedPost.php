@@ -1,9 +1,7 @@
-<?php
+﻿<?php
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[s3.php.presigned_post.complete]
 // snippet-start:[s3.php.presigned_post.import]
