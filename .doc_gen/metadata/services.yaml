@@ -3040,7 +3040,7 @@ trustedadvisor:
   api_ref: trustedadvisor/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Management &amp; Governance'}
-    version: trustedadvisor-2022-09-15
+  version: trustedadvisor-2022-09-15
 verifiedpermissions:
   api_ref: verifiedpermissions/latest/apireference/Welcome.html
   blurb: ''
