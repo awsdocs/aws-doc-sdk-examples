@@ -473,4 +473,6 @@ Amazon S3 Object Locking Workflow is complete.
 | `PutObjectLegalHold`         | s3_metadata.yaml | s3_PutObjectLegalHold   |
 | `PutObjectLockConfiguration` | s3_metadata.yaml | s3_PutObjectLockConfiguration   |
 | `PutObjectRetention`         | s3_metadata.yaml | s3_PutObjectRetention   |
+| `PutObjectLockConfiguration` | s3_metadata.yaml | s3_PutDefaultObjectLockConfiguration  |
 | `S3 Object Lock Scenario`    | s3_metadata.yaml | s3_Scenario_ObjectLock   |
+
