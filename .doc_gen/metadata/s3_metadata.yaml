@@ -2193,6 +2193,23 @@ s3_PutObjectRetention:
                 - S3LockWorkflow.dotnetv3.ModifyObjectRetentionPeriod
   services:
     s3: {PutObjectRetention}
+s3_PutDefaultObjectLockConfiguration:
+  title: Set the default retention period of an &S3; bucket using an &AWS; SDK
+  title_abbrev: Set the default retention period of a bucket
+  synopsis: set the default retention period of an &S3; bucket.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.ModifyBucketDefaultRetention
+  services:
+    s3: {PutObjectLockConfiguration}
 s3_UploadPart:
   title: Upload a single part of a multipart upload using an &AWS; SDK
   title_abbrev: Upload a single part of a multipart upload

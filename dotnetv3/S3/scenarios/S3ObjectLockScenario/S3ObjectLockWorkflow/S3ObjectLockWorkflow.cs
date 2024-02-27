@@ -107,12 +107,10 @@ public static class S3ObjectLockWorkflow
 
         noLockBucketName = _resourcePrefix + "-no-lock";
         lockEnabledBucketName = _resourcePrefix + "-lock-enabled";
-        retentionOnCreationBucketName = _resourcePrefix + "-retention-on-creation";
         retentionAfterCreationBucketName = _resourcePrefix + "-retention-after-creation";
 
         bucketNames.Add(noLockBucketName);
         bucketNames.Add(lockEnabledBucketName);
-        bucketNames.Add(retentionOnCreationBucketName);
         bucketNames.Add(retentionAfterCreationBucketName);
     }
 
@@ -141,8 +139,9 @@ public static class S3ObjectLockWorkflow
         if (interactive)
             Console.ReadLine();
 
-        Console.WriteLine("\nA bucket can also have object locking with a default retention period.");
-        await _s3ActionsWrapper.CreateBucketWithLockOptions(retentionOnCreationBucketName, true);
+        Console.WriteLine("\nA bucket can be configured to use object locking with a default retention period.");
+        await _s3ActionsWrapper.ModifyBucketDefaultRetention(retentionAfterCreationBucketName, true,
+            ObjectLockRetentionMode.Governance, DateTime.UtcNow.AddDays(1));
 
         Console.WriteLine("Press Enter to continue.");
         if (interactive)
@@ -150,9 +149,7 @@ public static class S3ObjectLockWorkflow
 
         Console.WriteLine("\nObject lock policies can also be added to existing buckets.");
         await _s3ActionsWrapper.EnableObjectLockOnBucket(lockEnabledBucketName);
-        await _s3ActionsWrapper.ModifyBucketDefaultRetention(retentionAfterCreationBucketName, true,
-            ObjectLockRetentionMode.Governance, DateTime.UtcNow.AddDays(1));
-
+        
         Console.WriteLine("Press Enter to continue.");
         if (interactive)
             Console.ReadLine();
