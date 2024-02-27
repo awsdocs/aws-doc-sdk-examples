@@ -1,5 +1,5 @@
 # SoS editor    
-**This app is for internal AWS use**.
+**This app is for internal AWS use. It is currently in beta and should not be used for production**.
 
 ## Usage
 1. In the command line at *./sos_editor*,  run *npm install*.
