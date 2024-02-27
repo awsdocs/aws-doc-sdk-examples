@@ -1,3 +1,5 @@
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import HelpPanel from "@cloudscape-design/components/help-panel";
 import Icon from "@cloudscape-design/components/icon";
 

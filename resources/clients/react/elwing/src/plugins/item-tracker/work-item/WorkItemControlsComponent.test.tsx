@@ -1,3 +1,5 @@
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MockWorkItemService } from "./testing/MockWorkItemService";
 import { WorkItemControls } from "./WorkItemListComponent";
