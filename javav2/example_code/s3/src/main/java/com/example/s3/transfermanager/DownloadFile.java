@@ -21,7 +21,7 @@ import java.util.UUID;
 // snippet-end:[s3.tm.java2.downloadfile.import]
 
 /**
- * Before running this Java V2 code example, set up your development
+ * Before running this Java V2 code example, configure your development
  * environment, including your credentials.
  *
  * For more information, see the following documentation topic:
