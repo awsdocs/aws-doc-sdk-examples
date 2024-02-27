@@ -30,21 +30,21 @@ For an introduction, see the [README.md](README.md).
   - One bucket with a default retention period.
 
 Example:
-```S3 buckets can be created either with or without object lock enabled.
-        Creating bucket dotnet-s3-lock-example101-no-lock with object lock False.
-        Creating bucket dotnet-s3-lock-example101-lock-enabled with object lock True.
-        Creating bucket dotnet-s3-lock-example101-retention-after-creation with object lock False.
+```
+S3 buckets can be created either with or without object lock enabled.
+        Creating bucket dotnet-s3-lock-example0-no-lock with object lock False.
+        Creating bucket dotnet-s3-lock-example0-lock-enabled with object lock True.
+        Creating bucket dotnet-s3-lock-example0-retention-after-creation with object lock False.
 Press Enter to continue.
 
 
-A bucket can also have object locking with a default retention period.
-        Creating bucket dotnet-s3-lock-example101-retention-on-creation with object lock True.
+A bucket can be configured to use object locking with a default retention period.
+        Added a default retention to bucket dotnet-s3-lock-example0-retention-after-creation.
 Press Enter to continue.
 
 
 Object lock policies can also be added to existing buckets.
-        Added an object lock policy to bucket dotnet-s3-lock-example101-lock-enabled.
-        Added a default retention to bucket dotnet-s3-lock-example101-retention-after-creation.
+        Added an object lock policy to bucket dotnet-s3-lock-example0-lock-enabled.
 Press Enter to continue.
 
 ```
@@ -57,27 +57,24 @@ Example:
 
 ```
 Now let's add some test files:
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example101-no-lock.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example101-no-lock.
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example101-lock-enabled.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example101-lock-enabled.
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example101-retention-on-creation.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example101-retention-on-creation.
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example101-retention-after-creation.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example101-retention-after-creation.
+        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-no-lock.
+        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-no-lock.
+        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-lock-enabled.
+        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-lock-enabled.
+        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-retention-after-creation.
+        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-retention-after-creation.
 Press Enter to continue.
 
 
 Now we can set some object lock policies on individual files:
 
-Would you like to add a legal hold to dotnet-example-file0.txt in dotnet-s3-lock-example101-lock-enabled?
+Would you like to add a legal hold to dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled?
 y
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-lock-enabled.
+        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled.
 
-Would you like to add a 1 day Governance retention period to dotnet-example-file1.txt in dotnet-s3-lock-example101-lock-enabled?
+Would you like to add a 1 day Governance retention period to dotnet-example-file1.txt in dotnet-s3-lock-example0-lock-enabled?
 Reminder: Only a user with the s3:BypassGovernanceRetention permission will be able to delete this file or its bucket until the retention period has expired.
 y
-        Set retention for dotnet-example-file1.txt in dotnet-s3-lock-example101-lock-enabled until 2/27/2024.
 ```
 
 - Locking Options
@@ -99,31 +96,28 @@ Explore the S3 locking features by selecting one of the following choices:
 
 Current buckets and objects:
 
-1: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-no-lock
+1: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-no-lock
         Version: null
-2: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: AnTrWHG77pY_s4p02vj__uQUhEqTHH3h
-3: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: 3PbveCh7fUvGelDJusIV43v.dxkA6hnJ
-4: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: R6_x7px5f.ED6hyS0JtnMKwtiF3xpr9k
-5: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: Gk_06bqOl73hrTWgs_5o1sMjk6oX0q7_
+2: dotnet-example-file1.txt
+        Bucket: dotnet-s3-lock-example0-no-lock
+        Version: null
+3: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
+4: dotnet-example-file1.txt
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
+5: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
 6: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: Av0mu_zS4PFnGiC2MKPUMSIll2jdi99c
-7: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-after-creation
-        Version: uqVtfPlwdC0DgSo48uLQepHkWbiD3ibX
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: 5aHizC1XBao6nnTyLnbiaOEmKAVSIy6R
 
 Enter the number of the object to view:
-7
-        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-after-creation:
+3
+        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled:
         Status: ON
 --------------------------------------------------------------------------------
 ```
@@ -135,57 +129,6 @@ Enter the number of the object to view:
     - The user should be notified if the delete operation cannot occur.
 
 Example:
-
-```
-/// <summary>
-/// Delete an object from a specific bucket.
-/// </summary>
-/// <param name="bucketName">The Amazon S3 bucket to use.</param>
-/// <param name="objectKey">The key of the object to delete.</param>
-/// <param name="hasRetention">True if the object has retention settings.</param>
-/// <param name="versionId">Optional versionId.</param>
-/// <returns>True if successful.</returns>
-public async Task<bool> DeleteObjectFromBucket(string bucketName, string objectKey, bool hasRetention, string? versionId = null)
-{
-    try
-    {
-        var request = new DeleteObjectRequest()
-        {
-            BucketName = bucketName,
-            Key = objectKey,
-            VersionId = versionId,
-        };
-        if (hasRetention)
-        {
-            // Set the BypassGovernanceRetention header
-            // if the file has retention settings.
-            request.BypassGovernanceRetention = true;
-        }
-
-        await _amazonS3.DeleteObjectAsync(request);
-        Console.WriteLine(
-            $"Deleted {objectKey} in {bucketName}.");
-        return true;
-    }
-    catch (AmazonS3Exception ex)
-    {
-        Console.WriteLine($"\tUnable to delete object {objectKey} in bucket {bucketName}: " + ex.Message);
-        return false;
-    }
-}
-```
-
----
-
-
-## Output
-
-The user should be guided through the 3 main parts of the example:
-1. Setting up buckets and objects.
-2. Explore the behavior of locked objects.
-3. Cleaning up the objects and buckets.
-
-Complete Output:
 
 ```
 --------------------------------------------------------------------------------
@@ -200,63 +143,51 @@ Press Enter when you are ready to start.
 
 
 S3 buckets can be created either with or without object lock enabled.
-        Creating bucket dotnet-s3-lock-example101-no-lock with object lock False.
-        Creating bucket dotnet-s3-lock-example101-lock-enabled with object lock True.
-        Creating bucket dotnet-s3-lock-example101-retention-after-creation with object lock False.
+        Creating bucket dotnet-s3-lock-example0-no-lock with object lock False.
+        Creating bucket dotnet-s3-lock-example0-lock-enabled with object lock True.
+        Creating bucket dotnet-s3-lock-example0-retention-after-creation with object lock False.
 Press Enter to continue.
 
 
-A bucket can also have object locking with a default retention period.
-        Creating bucket dotnet-s3-lock-example101-retention-on-creation with object lock True.
+A bucket can be configured to use object locking with a default retention period.
+        Added a default retention to bucket dotnet-s3-lock-example0-retention-after-creation.
 Press Enter to continue.
 
 
 Object lock policies can also be added to existing buckets.
-        Added an object lock policy to bucket dotnet-s3-lock-example101-lock-enabled.
-        Added a default retention to bucket dotnet-s3-lock-example101-retention-after-creation.
+        Added an object lock policy to bucket dotnet-s3-lock-example0-lock-enabled.
 Press Enter to continue.
 
 
 Now let's add some test files:
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example101-no-lock.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example101-no-lock.
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example101-lock-enabled.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example101-lock-enabled.
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example101-retention-on-creation.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example101-retention-on-creation.
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example101-retention-after-creation.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example101-retention-after-creation.
+        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-no-lock.
+        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-no-lock.
+        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-lock-enabled.
+        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-lock-enabled.
+        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-retention-after-creation.
+        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-retention-after-creation.
 Press Enter to continue.
 
 
 Now we can set some object lock policies on individual files:
 
-Would you like to add a legal hold to dotnet-example-file0.txt in dotnet-s3-lock-example101-lock-enabled?
+Would you like to add a legal hold to dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled?
 y
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-lock-enabled.
+        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled.
 
-Would you like to add a 1 day Governance retention period to dotnet-example-file1.txt in dotnet-s3-lock-example101-lock-enabled?
+Would you like to add a 1 day Governance retention period to dotnet-example-file1.txt in dotnet-s3-lock-example0-lock-enabled?
 Reminder: Only a user with the s3:BypassGovernanceRetention permission will be able to delete this file or its bucket until the retention period has expired.
 y
-        Set retention for dotnet-example-file1.txt in dotnet-s3-lock-example101-lock-enabled until 2/27/2024.
+        Set retention for dotnet-example-file1.txt in dotnet-s3-lock-example0-lock-enabled until 2/28/2024.
 
-Would you like to add a legal hold to dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-on-creation?
+Would you like to add a legal hold to dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation?
 y
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-on-creation.
+        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation.
 
-Would you like to add a 1 day Governance retention period to dotnet-example-file1.txt in dotnet-s3-lock-example101-retention-on-creation?
+Would you like to add a 1 day Governance retention period to dotnet-example-file1.txt in dotnet-s3-lock-example0-retention-after-creation?
 Reminder: Only a user with the s3:BypassGovernanceRetention permission will be able to delete this file or its bucket until the retention period has expired.
 y
-        Set retention for dotnet-example-file1.txt in dotnet-s3-lock-example101-retention-on-creation until 2/27/2024.
-
-Would you like to add a legal hold to dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-after-creation?
-y
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-after-creation.
-
-Would you like to add a 1 day Governance retention period to dotnet-example-file1.txt in dotnet-s3-lock-example101-retention-after-creation?
-Reminder: Only a user with the s3:BypassGovernanceRetention permission will be able to delete this file or its bucket until the retention period has expired.
-y
-        Set retention for dotnet-example-file1.txt in dotnet-s3-lock-example101-retention-after-creation until 2/27/2024.
+        Set retention for dotnet-example-file1.txt in dotnet-s3-lock-example0-retention-after-creation until 2/28/2024.
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -274,29 +205,23 @@ Explore the S3 locking features by selecting one of the following choices:
 Current buckets and objects:
 
 1: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-no-lock
+        Bucket: dotnet-s3-lock-example0-no-lock
         Version: null
 2: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-no-lock
+        Bucket: dotnet-s3-lock-example0-no-lock
         Version: null
 3: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: AnTrWHG77pY_s4p02vj__uQUhEqTHH3h
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
 4: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: 3PbveCh7fUvGelDJusIV43v.dxkA6hnJ
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
 5: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: R6_x7px5f.ED6hyS0JtnMKwtiF3xpr9k
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
 6: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: Av0mu_zS4PFnGiC2MKPUMSIll2jdi99c
-7: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-after-creation
-        Version: uqVtfPlwdC0DgSo48uLQepHkWbiD3ibX
-8: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-after-creation
-        Version: VDO.21OOpn7Op0_GPx6njRX51NdoFYgN
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: 5aHizC1XBao6nnTyLnbiaOEmKAVSIy6R
 --------------------------------------------------------------------------------
 
 Explore the S3 locking features by selecting one of the following choices:
@@ -315,31 +240,25 @@ Enter the number of the object to delete:
 Current buckets and objects:
 
 1: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-no-lock
+        Bucket: dotnet-s3-lock-example0-no-lock
         Version: null
 2: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-no-lock
+        Bucket: dotnet-s3-lock-example0-no-lock
         Version: null
 3: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: AnTrWHG77pY_s4p02vj__uQUhEqTHH3h
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
 4: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: 3PbveCh7fUvGelDJusIV43v.dxkA6hnJ
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
 5: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: R6_x7px5f.ED6hyS0JtnMKwtiF3xpr9k
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
 6: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: Av0mu_zS4PFnGiC2MKPUMSIll2jdi99c
-7: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-after-creation
-        Version: uqVtfPlwdC0DgSo48uLQepHkWbiD3ibX
-8: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-after-creation
-        Version: VDO.21OOpn7Op0_GPx6njRX51NdoFYgN
-1
-Deleted dotnet-example-file0.txt in dotnet-s3-lock-example101-no-lock.
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: 5aHizC1XBao6nnTyLnbiaOEmKAVSIy6R
+6
+        Unable to delete object dotnet-example-file1.txt in bucket dotnet-s3-lock-example0-retention-after-creation: Access Denied
 --------------------------------------------------------------------------------
 
 Explore the S3 locking features by selecting one of the following choices:
@@ -357,29 +276,26 @@ Enter the number of the object to delete:
 
 Current buckets and objects:
 
-1: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-no-lock
+1: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-no-lock
         Version: null
-2: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: AnTrWHG77pY_s4p02vj__uQUhEqTHH3h
-3: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: 3PbveCh7fUvGelDJusIV43v.dxkA6hnJ
-4: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: R6_x7px5f.ED6hyS0JtnMKwtiF3xpr9k
-5: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: Av0mu_zS4PFnGiC2MKPUMSIll2jdi99c
-6: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-after-creation
-        Version: uqVtfPlwdC0DgSo48uLQepHkWbiD3ibX
-7: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-after-creation
-        Version: VDO.21OOpn7Op0_GPx6njRX51NdoFYgN
-7
-Deleted dotnet-example-file1.txt in dotnet-s3-lock-example101-retention-after-creation.
+2: dotnet-example-file1.txt
+        Bucket: dotnet-s3-lock-example0-no-lock
+        Version: null
+3: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
+4: dotnet-example-file1.txt
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
+5: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
+6: dotnet-example-file1.txt
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: 5aHizC1XBao6nnTyLnbiaOEmKAVSIy6R
+6
+Deleted dotnet-example-file1.txt in dotnet-s3-lock-example0-retention-after-creation.
 --------------------------------------------------------------------------------
 
 Explore the S3 locking features by selecting one of the following choices:
@@ -395,28 +311,25 @@ Explore the S3 locking features by selecting one of the following choices:
 
 Current buckets and objects:
 
-1: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-no-lock
+1: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-no-lock
         Version: null
-2: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: AnTrWHG77pY_s4p02vj__uQUhEqTHH3h
-3: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: 3PbveCh7fUvGelDJusIV43v.dxkA6hnJ
-4: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: R6_x7px5f.ED6hyS0JtnMKwtiF3xpr9k
-5: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: Av0mu_zS4PFnGiC2MKPUMSIll2jdi99c
-6: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-after-creation
-        Version: uqVtfPlwdC0DgSo48uLQepHkWbiD3ibX
+2: dotnet-example-file1.txt
+        Bucket: dotnet-s3-lock-example0-no-lock
+        Version: null
+3: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
+4: dotnet-example-file1.txt
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
+5: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
 
 Enter the number of the object to overwrite:
 5
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example101-retention-on-creation.
+        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-retention-after-creation.
 --------------------------------------------------------------------------------
 
 Explore the S3 locking features by selecting one of the following choices:
@@ -432,35 +345,32 @@ Explore the S3 locking features by selecting one of the following choices:
 
 Current buckets and objects:
 
-1: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-no-lock
+1: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-no-lock
         Version: null
-2: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: AnTrWHG77pY_s4p02vj__uQUhEqTHH3h
-3: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: 3PbveCh7fUvGelDJusIV43v.dxkA6hnJ
-4: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: R6_x7px5f.ED6hyS0JtnMKwtiF3xpr9k
-5: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: Gk_06bqOl73hrTWgs_5o1sMjk6oX0q7_
-6: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: Av0mu_zS4PFnGiC2MKPUMSIll2jdi99c
-7: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-after-creation
-        Version: uqVtfPlwdC0DgSo48uLQepHkWbiD3ibX
+2: dotnet-example-file1.txt
+        Bucket: dotnet-s3-lock-example0-no-lock
+        Version: null
+3: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
+4: dotnet-example-file1.txt
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
+5: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: xTlwkuQ_l9uKZoksfHKCHRjNNXLuEqCi
+6: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
 
 Enter the number of the object and bucket to view:
-3
-        Object retention for dotnet-example-file1.txt in dotnet-s3-lock-example101-lock-enabled:
-        GOVERNANCE until 2/27/2024.
-        Bucket object lock config for dotnet-s3-lock-example101-lock-enabled in dotnet-s3-lock-example101-lock-enabled:
+5
+        Object retention for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation:
+        GOVERNANCE until 2/28/2024.
+        Bucket object lock config for dotnet-s3-lock-example0-retention-after-creation in dotnet-s3-lock-example0-retention-after-creation:
         Enabled: Enabled
-        Rule:
+        Rule: Amazon.S3.Model.DefaultRetention
 --------------------------------------------------------------------------------
 
 Explore the S3 locking features by selecting one of the following choices:
@@ -476,31 +386,28 @@ Explore the S3 locking features by selecting one of the following choices:
 
 Current buckets and objects:
 
-1: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-no-lock
+1: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-no-lock
         Version: null
-2: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: AnTrWHG77pY_s4p02vj__uQUhEqTHH3h
-3: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-lock-enabled
-        Version: 3PbveCh7fUvGelDJusIV43v.dxkA6hnJ
-4: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: R6_x7px5f.ED6hyS0JtnMKwtiF3xpr9k
-5: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: Gk_06bqOl73hrTWgs_5o1sMjk6oX0q7_
-6: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example101-retention-on-creation
-        Version: Av0mu_zS4PFnGiC2MKPUMSIll2jdi99c
-7: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example101-retention-after-creation
-        Version: uqVtfPlwdC0DgSo48uLQepHkWbiD3ibX
+2: dotnet-example-file1.txt
+        Bucket: dotnet-s3-lock-example0-no-lock
+        Version: null
+3: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
+4: dotnet-example-file1.txt
+        Bucket: dotnet-s3-lock-example0-lock-enabled
+        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
+5: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: xTlwkuQ_l9uKZoksfHKCHRjNNXLuEqCi
+6: dotnet-example-file0.txt
+        Bucket: dotnet-s3-lock-example0-retention-after-creation
+        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
 
 Enter the number of the object to view:
-7
-        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-after-creation:
+3
+        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled:
         Status: ON
 --------------------------------------------------------------------------------
 
@@ -522,46 +429,36 @@ Do you want to clean up all files and buckets? (y/n)
 y
         Unable to fetch legal hold: 'Bucket is missing Object Lock Configuration'
         Unable to fetch object lock retention: 'Bucket is missing Object Lock Configuration'
-Deleted dotnet-example-file1.txt in dotnet-s3-lock-example101-no-lock.
-        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-lock-enabled:
+Deleted dotnet-example-file0.txt in dotnet-s3-lock-example0-no-lock.
+        Unable to fetch legal hold: 'Bucket is missing Object Lock Configuration'
+        Unable to fetch object lock retention: 'Bucket is missing Object Lock Configuration'
+Deleted dotnet-example-file1.txt in dotnet-s3-lock-example0-no-lock.
+        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled:
         Status: ON
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-lock-enabled.
+        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled.
         Unable to fetch object lock retention: 'The specified object does not have a ObjectLock configuration'
-Deleted dotnet-example-file0.txt in dotnet-s3-lock-example101-lock-enabled.
+Deleted dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled.
         Unable to fetch legal hold: 'The specified object does not have a ObjectLock configuration'
-        Object retention for dotnet-example-file1.txt in dotnet-s3-lock-example101-lock-enabled:
-        GOVERNANCE until 2/27/2024.
-Deleted dotnet-example-file1.txt in dotnet-s3-lock-example101-lock-enabled.
-        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-on-creation:
+        Object retention for dotnet-example-file1.txt in dotnet-s3-lock-example0-lock-enabled:
+        GOVERNANCE until 2/28/2024.
+Deleted dotnet-example-file1.txt in dotnet-s3-lock-example0-lock-enabled.
+        Unable to fetch legal hold: 'The specified object does not have a ObjectLock configuration'
+        Object retention for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation:
+        GOVERNANCE until 2/28/2024.
+Deleted dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation.
+        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation:
         Status: ON
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-on-creation.
-        Unable to fetch object lock retention: 'The specified object does not have a ObjectLock configuration'
-Deleted dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-on-creation.
-        Unable to fetch legal hold: 'The specified object does not have a ObjectLock configuration'
-        Unable to fetch object lock retention: 'The specified object does not have a ObjectLock configuration'
-Deleted dotnet-example-file1.txt in dotnet-s3-lock-example101-retention-on-creation.
-        Unable to fetch legal hold: 'The specified object does not have a ObjectLock configuration'
-        Object retention for dotnet-example-file1.txt in dotnet-s3-lock-example101-retention-on-creation:
-        GOVERNANCE until 2/27/2024.
-Deleted dotnet-example-file1.txt in dotnet-s3-lock-example101-retention-on-creation.
-        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-after-creation:
-        Status: ON
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-after-creation.
-        Object retention for dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-after-creation:
-        GOVERNANCE until 2/27/2024.
-Deleted dotnet-example-file0.txt in dotnet-s3-lock-example101-retention-after-creation.
-        Delete for dotnet-s3-lock-example101-no-lock complete.
-        Delete for dotnet-s3-lock-example101-lock-enabled complete.
-        Delete for dotnet-s3-lock-example101-retention-on-creation complete.
-        Delete for dotnet-s3-lock-example101-retention-after-creation complete.
+        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation.
+        Object retention for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation:
+        GOVERNANCE until 2/28/2024.
+Deleted dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation.
+        Delete for dotnet-s3-lock-example0-no-lock complete.
+        Delete for dotnet-s3-lock-example0-lock-enabled complete.
+        Delete for dotnet-s3-lock-example0-retention-after-creation complete.
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Amazon S3 Object Locking Workflow is complete.
 --------------------------------------------------------------------------------
-
-C:\Work\Repos\Forks\aws-doc-sdk-examples\dotnetv3\S3\scenarios\S3ObjectLockScenario\ObjectLockWorkflow\bin\Debug\net6.0\S3ObjectLockScenario.exe (process 30956) exited with code 0.
-To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
-Press any key to close this window . . .
 ```
 
 ---

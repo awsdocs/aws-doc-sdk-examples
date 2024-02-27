@@ -59,6 +59,7 @@ Code excerpts that show you how to call individual service functions.
 - [List objects in a bucket](S3_Basics/S3Bucket.cs#L171) (`ListObjectsV2`)
 - [Restore an archived copy of an object](RestoreArchivedObjectExample/RestoreArchivedObject.cs#L6) (`RestoreObject`)
 - [Set a new ACL for a bucket](BucketACLExample/BucketACL.cs#L37) (`PutBucketAcl`)
+- [Set the default retention period of a bucket](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L139) (`PutObjectLockConfiguration`)
 - [Set the legal hold configuration of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L224) (`PutObjectLegalHold`)
 - [Set the object lock configuration of an bucket](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L60) (`PutObjectLockConfiguration`)
 - [Set the retention period of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L102) (`PutObjectRetention`)
