@@ -108,7 +108,8 @@ def main():
     logging.info(f"Run complete.\nWrote: {done_list}\nSkipped: {skip_list}")
     if len(failed) > 0:
         failed_list = "\n\t".join(failed)
-        logging.warning(f"READMEs with incorrect formatting:\n\t{failed_list}")
+        logging.error(f"READMEs with incorrect formatting:\n\t{failed_list}")
+        logging.error("Rerun multi.py to update README links and sections.")
     return len(failed)
 
 
