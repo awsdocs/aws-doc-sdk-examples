@@ -288,7 +288,7 @@ const releaseAddress = async (allocationId) => {
 
   try {
     await ec2Client.send(command);
-    console.log(`🧹 Address with allocation ID ${allocationId} released.\n`);
+    console.log(`Address with allocation ID ${allocationId} released.\n`);
   } catch (err) {
     console.log(
       `Failed to release address with allocation id: ${allocationId}.`,
@@ -317,7 +317,7 @@ const terminateInstance = async (instanceId) => {
       { client: ec2Client },
       { InstanceIds: [instanceId] },
     );
-    console.log(`🧹 Instance with ID ${instanceId} terminated.\n`);
+    console.log(`Instance with ID ${instanceId} terminated.\n`);
   } catch (err) {
     console.warn(`Failed to terminate instance ${instanceId}.`, err);
   }
@@ -330,7 +330,7 @@ const deleteSecurityGroup = async (securityGroupId) => {
 
   try {
     await ec2Client.send(command);
-    console.log(`🧹 Security group ${securityGroupId} deleted.\n`);
+    console.log(`Security group ${securityGroupId} deleted.\n`);
   } catch (err) {
     console.warn(`Failed to delete security group ${securityGroupId}.`, err);
   }
@@ -343,7 +343,7 @@ const deleteKeyPair = async (keyPairName) => {
 
   try {
     await ec2Client.send(command);
-    console.log(`🧹 Key pair ${keyPairName} deleted.\n`);
+    console.log(`Key pair ${keyPairName} deleted.\n`);
   } catch (err) {
     console.warn(`Failed to delete key pair ${keyPairName}.`, err);
   }
@@ -352,7 +352,7 @@ const deleteKeyPair = async (keyPairName) => {
 const deleteTemporaryDirectory = () => {
   try {
     rmSync(tmpDirectory, { recursive: true });
-    console.log(`🧹 Temporary directory ${tmpDirectory} deleted.\n`);
+    console.log(`Temporary directory ${tmpDirectory} deleted.\n`);
   } catch (err) {
     console.warn(`Failed to delete temporary directory ${tmpDirectory}.`, err);
   }
