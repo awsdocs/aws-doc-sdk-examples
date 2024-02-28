@@ -6,6 +6,7 @@
 import Foundation
 import AwsCommonRuntimeKit
 import ClientRuntime
+import AWSClientRuntime
 import AWSS3
 
 /// Main entry point.
@@ -24,7 +25,7 @@ struct ErrorHandlingExample {
 
             _ = try await client.listBuckets(input: ListBucketsInput())
             print("Done.")
-        } catch let error as ServiceError {
+        } catch let error as AWSServiceError {
             print("Service error of type \(error.typeName ?? "<unknown>"): \(error.message ?? "<no message>")")
         } catch let error as CommonRunTimeError {
             switch error {
