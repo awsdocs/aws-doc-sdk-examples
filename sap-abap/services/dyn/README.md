@@ -33,16 +33,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](zcl_aws1_dyn_actions.clas.abap#L80) (`CreateTable`)
-- [Delete a table](zcl_aws1_dyn_actions.clas.abap#L146) (`DeleteTable`)
-- [Delete an item from a table](zcl_aws1_dyn_actions.clas.abap#L122) (`DeleteItem`)
-- [Get an item from a table](zcl_aws1_dyn_actions.clas.abap#L194) (`GetItem`)
-- [Get information about a table](zcl_aws1_dyn_actions.clas.abap#L169) (`DescribeTable`)
-- [List tables](zcl_aws1_dyn_actions.clas.abap#L220) (`ListTables`)
-- [Put an item in a table](zcl_aws1_dyn_actions.clas.abap#L244) (`PutItem`)
-- [Query a table](zcl_aws1_dyn_actions.clas.abap#L268) (`Query`)
-- [Scan a table](zcl_aws1_dyn_actions.clas.abap#L306) (`Scan`)
-- [Update an item in a table](zcl_aws1_dyn_actions.clas.abap#L342) (`UpdateItem`)
+- [Create a table](zcl_aws1_dyn_actions.clas.abap#L75) (`CreateTable`)
+- [Delete a table](zcl_aws1_dyn_actions.clas.abap#L141) (`DeleteTable`)
+- [Delete an item from a table](zcl_aws1_dyn_actions.clas.abap#L117) (`DeleteItem`)
+- [Get an item from a table](zcl_aws1_dyn_actions.clas.abap#L189) (`GetItem`)
+- [Get information about a table](zcl_aws1_dyn_actions.clas.abap#L164) (`DescribeTable`)
+- [List tables](zcl_aws1_dyn_actions.clas.abap#L215) (`ListTables`)
+- [Put an item in a table](zcl_aws1_dyn_actions.clas.abap#L239) (`PutItem`)
+- [Query a table](zcl_aws1_dyn_actions.clas.abap#L263) (`Query`)
+- [Scan a table](zcl_aws1_dyn_actions.clas.abap#L301) (`Scan`)
+- [Update an item in a table](zcl_aws1_dyn_actions.clas.abap#L337) (`UpdateItem`)
 
 ### Scenarios
 
