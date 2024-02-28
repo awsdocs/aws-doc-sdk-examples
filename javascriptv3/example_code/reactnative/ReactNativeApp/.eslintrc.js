@@ -2,5 +2,5 @@
 // SPDX-License-Identifier: Apache-2.0
 module.exports = {
   root: true,
-  extends: '@react-native-community',
+  // extends: '@react-native-community',
 };
