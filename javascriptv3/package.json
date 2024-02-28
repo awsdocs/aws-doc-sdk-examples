@@ -62,6 +62,7 @@
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@react-native-community/eslint-config": "^3.2.0",
     "@typescript-eslint/parser": "^6.7.2",
     "@vitest/coverage-c8": "^0.33.0",
     "eslint": "^8.49.0",
