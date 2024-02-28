@@ -15,19 +15,17 @@ struct ErrorHandlingExample {
         await SDKLoggingSystem.initialize(logLevel: .error)
 
         print("Calling ListBuckets using a Region name that doesn't exist. This")
-        print("should result in a DNS resolution error.")
+        print("should result in a DNS resolution error in the underlying Common")
+        print("Runtime (CRT).")
 
         // snippet-start:[errors.swift.service-error]
         do {
             let client = try S3Client(region: "un-real-1")
 
             _ = try await client.listBuckets(input: ListBucketsInput())
-            print("Done")
+            print("Done.")
         } catch let error as ServiceError {
-            print("Service error of type {}: {}",
-                error.typeName ?? "<unknown>",
-                error.message ?? "<no message>"
-            )
+            print("Service error of type \(error.typeName ?? "<unknown>"): \(error.message ?? "<no message>")")
         } catch let error as CommonRunTimeError {
             switch error {
                 case .crtError(let error):
@@ -45,7 +43,7 @@ struct ErrorHandlingExample {
 
         print("\n\n")
         print("Calling GetObject with bucket and key names that likely don't")
-        print("exist. If that's the case, this will result in an HTTP error 403")
+        print("exist. If they don't, this will result in an HTTP error 403")
         print("(Forbidden).")
 
         // snippet-start:[errors.swift.http-error]
@@ -58,9 +56,9 @@ struct ErrorHandlingExample {
             ))
             print("Found a matching bucket but shouldn't have!")
         } catch let error as HTTPError {
-            print("HTTP error; status code: \(error.httpResponse.statusCode.rawValue)")
+            print("HTTP error; status code: \(error.httpResponse.statusCode.rawValue).")
         } catch {
-            dump(error)
+            dump(error, name: "Unexpected error")
         }
         // snippet-end:[errors.swift.http-error]
     }
