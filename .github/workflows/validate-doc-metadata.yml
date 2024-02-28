@@ -16,10 +16,6 @@ jobs:
 
     steps:
       - name: checkout repo content
-        uses: actions/checkout@v3
-        with:
-          path: aws-doc-sdk-examples
+        uses: actions/checkout@v4
       - name: validate metadata
-        uses: awsdocs/aws-doc-sdk-examples-tools@main
-        with:
-          root: "${{ github.workspace }}/aws-doc-sdk-examples"
+        uses: awsdocs/aws-doc-sdk-examples-tools@2024-02-28-A
