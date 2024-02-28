@@ -542,7 +542,7 @@ sns_Publish_WithAttribute:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/workflows/topic_and_queues
+          github: gov2/workflows/topics_and_queues
           excerpts:
             - description:
               snippet_tags:
@@ -690,7 +690,7 @@ sns_CreateTopic:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/workflows/topic_and_queues
+          github: gov2/workflows/topics_and_queues
           excerpts:
             - description:
               snippet_tags:
@@ -791,7 +791,7 @@ sns_DeleteTopic:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/workflows/topic_and_queues
+          github: gov2/workflows/topics_and_queues
           excerpts:
             - description:
               snippet_tags:
@@ -904,7 +904,7 @@ sns_Publish:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/workflows/topic_and_queues
+          github: gov2/workflows/topics_and_queues
           excerpts:
             - description:
               snippet_tags:
@@ -1401,7 +1401,7 @@ sns_Subscribe_Queue:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/workflows/topic_and_queues
+          github: gov2/workflows/topics_and_queues
           excerpts:
             - description:
               snippet_tags:
@@ -1446,7 +1446,7 @@ sns_Subscribe_Filtered:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/workflows/topic_and_queues
+          github: gov2/workflows/topics_and_queues
           excerpts:
             - description:
               snippet_tags:
