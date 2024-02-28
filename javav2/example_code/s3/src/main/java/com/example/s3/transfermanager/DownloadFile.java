@@ -94,7 +94,7 @@ public class DownloadFile {
                 System.err.println("Error deleting file " + e.getMessage());
             }
         } else {
-            System.err.println("The file was not found");
+            System.err.println("The file wasn't found");
         }
     }
 }
