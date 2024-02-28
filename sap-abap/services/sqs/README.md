@@ -33,12 +33,12 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a queue](zcl_aws1_sqs_actions.clas.abap#L68) (`CreateQueue`)
-- [Delete a queue](zcl_aws1_sqs_actions.clas.abap#L87) (`DeleteQueue`)
-- [Get the URL of a queue](zcl_aws1_sqs_actions.clas.abap#L102) (`GetQueueUrl`)
-- [List queues](zcl_aws1_sqs_actions.clas.abap#L119) (`ListQueues`)
-- [Receive messages from a queue](zcl_aws1_sqs_actions.clas.abap#L182) (`ReceiveMessage`)
-- [Send a message to a queue](zcl_aws1_sqs_actions.clas.abap#L200) (`SendMessage`)
+- [Create a queue](zcl_aws1_sqs_actions.clas.abap#L65) (`CreateQueue`)
+- [Delete a queue](zcl_aws1_sqs_actions.clas.abap#L84) (`DeleteQueue`)
+- [Get the URL of a queue](zcl_aws1_sqs_actions.clas.abap#L99) (`GetQueueUrl`)
+- [List queues](zcl_aws1_sqs_actions.clas.abap#L116) (`ListQueues`)
+- [Receive messages from a queue](zcl_aws1_sqs_actions.clas.abap#L179) (`ReceiveMessage`)
+- [Send a message to a queue](zcl_aws1_sqs_actions.clas.abap#L197) (`SendMessage`)
 
 
 <!--custom.examples.start-->

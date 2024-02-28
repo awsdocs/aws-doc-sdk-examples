@@ -1,3 +1,5 @@
+﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 require "aws-sdk-iam"
 require_relative "../manage_server_certificates"
 require "rspec"

@@ -33,11 +33,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Analyze a document](zcl_aws1_tex_actions.clas.abap#L64) (`AnalyzeDocument`)
-- [Detect text in a document](zcl_aws1_tex_actions.clas.abap#L139) (`DetectDocumentText`)
-- [Get data about a document analysis job](zcl_aws1_tex_actions.clas.abap#L200) (`GetDocumentAnalysis`)
-- [Start asynchronous analysis of a document](zcl_aws1_tex_actions.clas.abap#L258) (`StartDocumentAnalysis`)
-- [Start asynchronous text detection](zcl_aws1_tex_actions.clas.abap#L329) (`StartDocumentTextDetection`)
+- [Analyze a document](zcl_aws1_tex_actions.clas.abap#L61) (`AnalyzeDocument`)
+- [Detect text in a document](zcl_aws1_tex_actions.clas.abap#L136) (`DetectDocumentText`)
+- [Get data about a document analysis job](zcl_aws1_tex_actions.clas.abap#L197) (`GetDocumentAnalysis`)
+- [Start asynchronous analysis of a document](zcl_aws1_tex_actions.clas.abap#L255) (`StartDocumentAnalysis`)
+- [Start asynchronous text detection](zcl_aws1_tex_actions.clas.abap#L326) (`StartDocumentTextDetection`)
 
 ### Scenarios
 

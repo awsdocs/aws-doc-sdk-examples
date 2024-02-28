@@ -1,3 +1,5 @@
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { Alert } from "@cloudscape-design/components";
 import AppLayout from "@cloudscape-design/components/app-layout";
 import { useEffect } from "react";

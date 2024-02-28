@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a batch interface job](src/personalize_createBatchInferenceJob.js#L31) (`CreateBatchInferenceJob`)
+- [Create a batch interface job](src/personalize_createBatchInferenceJob.js#L28) (`CreateBatchInferenceJob`)
 - [Create a batch segment job](src/personalize_createBatchSegmentJob.js#L27) (`CreateBatchSegmentJob`)
 - [Create a campaign](src/personalize_createCampaign.js#L22) (`CreateCampaign`)
 - [Create a dataset](src/personalize_createDataset.js#L23) (`CreateDataset`)

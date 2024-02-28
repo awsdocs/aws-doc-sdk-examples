@@ -1,8 +1,5 @@
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" "  Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights
-" "  Reserved.
-" "  SPDX-License-Identifier: MIT-0
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+﻿" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
 
 CLASS ltc_zcl_aws1_sqs_actions DEFINITION DEFERRED.
 CLASS zcl_aws1_sqs_actions DEFINITION LOCAL FRIENDS ltc_zcl_aws1_sqs_actions.

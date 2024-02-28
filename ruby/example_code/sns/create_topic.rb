@@ -1,3 +1,5 @@
+﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 require "aws-sdk-sns" # Use aws-sdk-sns for AWS SDK for Ruby V3.
 
 # snippet-start:[sns.Ruby.createTopic]
