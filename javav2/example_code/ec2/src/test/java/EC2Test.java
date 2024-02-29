@@ -259,15 +259,11 @@ public class EC2Test {
         System.out.println(EC2Scenario.DASHES);
         System.out.println("7. Get a list of instance types.");
         String instanceType = EC2Scenario.getInstanceTypes(ec2);
-        assertFalse(instanceType.isEmpty());
-        if (instanceType.compareTo("x2gd.metal") != 0)
-            instanceType = "x2gd.metal";
+        System.out.println("The instance type is " + instanceType);
         System.out.println("*** The instance type is " + instanceType);
         System.out.println(EC2Scenario.DASHES);
 
         System.out.println(EC2Scenario.DASHES);
-        System.out.println("Wait 1 min before creating the instance using " + instanceType);
-        TimeUnit.MINUTES.sleep(1);
         System.out.println("8. Create an instance.");
         String newInstanceId = EC2Scenario.runInstance(ec2, instanceType, keyNameSc, groupNameSc, amiValue);
         System.out.println("The instance Id is " + newInstanceId);

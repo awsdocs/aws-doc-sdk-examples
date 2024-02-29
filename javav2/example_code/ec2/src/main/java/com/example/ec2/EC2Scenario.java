@@ -40,6 +40,7 @@ import software.amazon.awssdk.services.ec2.model.SecurityGroup;
 import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
+import software.amazon.awssdk.services.ec2.paginators.DescribeInstancesIterable;
 import software.amazon.awssdk.services.ec2.waiters.Ec2Waiter;
 import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathRequest;
@@ -51,6 +52,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 // snippet-start:[ec2.java2.scenario.main]
 /**
@@ -162,6 +164,7 @@ public class EC2Scenario {
         System.out.println(DASHES);
         System.out.println("7. Get a list of instance types.");
         String instanceType = getInstanceTypes(ec2);
+        System.out.println("The instance type is " + instanceType);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -446,10 +449,13 @@ public class EC2Scenario {
                     .imageId(amiId)
                     .build();
 
+            System.out.println("Going to start an EC2 instance using a waiter");
             RunInstancesResponse response = ec2.runInstances(runRequest);
-            String instanceId = response.instances().get(0).instanceId();
-            System.out.println("Successfully started EC2 instance " + instanceId + " based on AMI " + amiId);
-            return instanceId;
+            String instanceIdVal = response.instances().get(0).instanceId();
+            // Use a waiter to wait until the instance is running
+            ec2.waiter().waitUntilInstanceRunning(r -> r.instanceIds(instanceIdVal));
+            System.out.println("Successfully started EC2 instance " + instanceIdVal + " based on AMI " + amiId);
+            return instanceIdVal;
 
         } catch (SsmException e) {
             System.err.println(e.getMessage());
@@ -461,29 +467,23 @@ public class EC2Scenario {
     // snippet-start:[ec2.java2.scenario.describe_instance.type.main]
     // Get a list of instance types.
     public static String getInstanceTypes(Ec2Client ec2) {
-        String instanceType = "";
+        String instanceType;
         try {
-            List<Filter> filters = new ArrayList<>();
-            Filter filter = Filter.builder()
-                    .name("processor-info.supported-architecture")
-                    .values("arm64")
-                    .build();
-
-            filters.add(filter);
             DescribeInstanceTypesRequest typesRequest = DescribeInstanceTypesRequest.builder()
-                    .filters(filters)
-                    .maxResults(10)
-                    .build();
+                .maxResults(10)
+                .build();
 
             DescribeInstanceTypesResponse response = ec2.describeInstanceTypes(typesRequest);
             List<InstanceTypeInfo> instanceTypes = response.instanceTypes();
             for (InstanceTypeInfo type : instanceTypes) {
                 System.out.println("The memory information of this type is " + type.memoryInfo().sizeInMiB());
                 System.out.println("Network information is " + type.networkInfo().toString());
+                System.out.println("Instance type is " + type.instanceType().toString());
                 instanceType = type.instanceType().toString();
+                if (instanceType.compareTo("t2.2xlarge")  == 0){
+                    return instanceType;
+                }
             }
-
-            return instanceType;
 
         } catch (SsmException e) {
             System.err.println(e.getMessage());
