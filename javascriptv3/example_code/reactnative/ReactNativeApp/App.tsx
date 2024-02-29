@@ -1,3 +1,5 @@
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 // snippet-start:[javascript.v3.reactnative.GettingStarted]
 import React, {useCallback, useState} from 'react';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';

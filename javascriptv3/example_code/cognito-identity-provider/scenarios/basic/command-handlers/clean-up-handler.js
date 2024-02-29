@@ -26,7 +26,7 @@ function createUserPoolList(userPoolIds) {
 
 const cleanUpHandler = async () => {
   try {
-    log("Tidying up 🧹");
+    log("Tidying up");
 
     /**
      * @type {string[]}

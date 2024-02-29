@@ -161,7 +161,7 @@ class Renderer:
                     github = ver.get("github")
                     break
             if github is None:
-                logger.warning(
+                logger.info(
                     "GitHub path not specified for cross-service example: %s %s.",
                     self.scanner.lang_name,
                     pre["title_abbrev"],

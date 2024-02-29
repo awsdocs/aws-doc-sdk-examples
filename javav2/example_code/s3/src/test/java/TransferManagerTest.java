@@ -38,8 +38,7 @@ class TransferManagerTest {
     @Tag("IntegrationTest")
     public void uploadSingleFileWorks(){
         UploadFile upload = new UploadFile();
-        String etag = upload.uploadFile(S3ClientFactory.transferManager, upload.bucketName,
-            upload.key, upload.filePath);
+        String etag = upload.uploadFile(S3ClientFactory.transferManager, upload.bucketName, upload.key, upload.filePathURI);
         Assertions.assertNotNull(etag);
         upload.cleanUp();
     }
@@ -72,7 +71,6 @@ class TransferManagerTest {
         Integer numFailedUploads = upload.uploadDirectory(S3ClientFactory.transferManager, upload.sourceDirectory, upload.bucketName);
         Assertions.assertNotNull(numFailedUploads, "Bucket download failed to complete.");
         upload.cleanUp();
-
     }
 
     @Test
@@ -91,7 +89,6 @@ class TransferManagerTest {
     public void uploadStreamWorks(){
         String bucketName = "x-" + UUID.randomUUID();
         String key = UUID.randomUUID().toString();
-
         AsyncExampleUtils.createBucket(bucketName);
         try {
             UploadStream example = new UploadStream();

@@ -1,3 +1,5 @@
+﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.00
 require "aws-sdk-sns"
 require "logger"
 

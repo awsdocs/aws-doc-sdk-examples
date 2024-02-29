@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a stream](zcl_aws1_kns_actions.clas.abap#L65) (`CreateStream`)
-- [Delete a stream](zcl_aws1_kns_actions.clas.abap#L91) (`DeleteStream`)
-- [Describe a stream](zcl_aws1_kns_actions.clas.abap#L114) (`DescribeStream`)
-- [Get data in batches from a stream](zcl_aws1_kns_actions.clas.abap#L140) (`GetRecords`)
-- [List streams](zcl_aws1_kns_actions.clas.abap#L180) (`ListStreams`)
-- [Put data into a stream](zcl_aws1_kns_actions.clas.abap#L203) (`PutRecord`)
-- [Register a consumer](zcl_aws1_kns_actions.clas.abap#L241) (`RegisterStreamConsumer`)
+- [Create a stream](zcl_aws1_kns_actions.clas.abap#L62) (`CreateStream`)
+- [Delete a stream](zcl_aws1_kns_actions.clas.abap#L88) (`DeleteStream`)
+- [Describe a stream](zcl_aws1_kns_actions.clas.abap#L111) (`DescribeStream`)
+- [Get data in batches from a stream](zcl_aws1_kns_actions.clas.abap#L137) (`GetRecords`)
+- [List streams](zcl_aws1_kns_actions.clas.abap#L177) (`ListStreams`)
+- [Put data into a stream](zcl_aws1_kns_actions.clas.abap#L200) (`PutRecord`)
+- [Register a consumer](zcl_aws1_kns_actions.clas.abap#L238) (`RegisterStreamConsumer`)
 
 ### Scenarios
 

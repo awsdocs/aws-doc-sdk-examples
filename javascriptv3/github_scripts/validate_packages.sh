@@ -1,4 +1,6 @@
 #!/bin/bash
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 set -e
 errors_found=false
 packages=$(npm query --prefix javascriptv3 .workspace | jq -r '.[].name')

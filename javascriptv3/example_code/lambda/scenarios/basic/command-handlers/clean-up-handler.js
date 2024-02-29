@@ -57,7 +57,7 @@ const cleanUpHandler = async () => {
   const funcNames = zippedFuncs.map((zip) => zip.split(".zip")[0]);
 
   try {
-    log("Tidying up 🧹");
+    log("Tidying up");
 
     log("Deleting Lambda functions.");
     await cleanUpFunctions(funcNames);
