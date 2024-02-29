@@ -1,11 +1,11 @@
 const fs = require('fs');
 const insertLine = require('insert-line')
 const YAML = require('json-to-pretty-yaml');
-//Mac
-var downloadFolder = "/Users/tkhill/Downloads"
-var destFolder = "..\/..\/"
-const origJson = "..\/jsonholder\/";
-const json = require(downloadFolder +"\/" + process.argv[2] +"_metadata.json");
+
+var downloadFolder = process.env.USERPROFILE + "\\Downloads"
+var destFolder = "..\\metadata\\"
+const origJson = "..\\jsonholder\\";
+const json = require(downloadFolder +"\\" + process.argv[2] +"_metadata.json");
 const yaml = require('js-yaml');
 const Json = JSON.stringify(json, null, 2);
 const fileName =  process.argv[2] +"_metadata.yaml"
@@ -24,7 +24,7 @@ fs.writeFile(destFolder + fileName, data, function(err) {
     console.log("You can now make more changes using the SoS editor.");
   });
   try {
-    fs.unlinkSync(downloadFolder + "\/" + process.argv[2] +"_metadata.json")
+    fs.unlinkSync(downloadFolder + "\\" + process.argv[2] +"_metadata.json")
 
     //file removed
 

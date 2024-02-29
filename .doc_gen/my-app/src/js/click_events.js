@@ -53,20 +53,8 @@ function selectService() {
 $("#selectService").on('click', function () {
     console.log('selectService clicked')
     if (document.getElementById('selecttheservice').value == "") {
-        alert('You must enter the service stub');
+        myAlert('Alert', 'You must enter the service stub'); // call it here
         return
-    }
-    if (document.getElementById('selecttheservices').value == "") {
-        function confirmFun() {
-            let text = "You haven\'t entered any additional services.\n Please confirm you wish to proceed.";
-            if (confirm(text) == true) {
-                selectService();
-            } else {
-                return
-            }
-        }
-
-        confirmFun();
     } else {
         selectService();
     }
@@ -209,7 +197,8 @@ $("#languages").on('change', function () {
     const synopsisValue = document.getElementById('synopsis').value
     const synopsisListValue = document.getElementById('synopsislist').value
     if (titleValue == "" || abbrevTitleValue == "" || synopsisValue == "" && synopsisListValue == "") {
-        alert('You must have a title, abbreviated title, and either a synopsis or synopsis list.')
+        myAlert('alert','You must have a title, abbreviated title, and either a synopsis or synopsis list.')
+
         document.getElementById("languages").selectedIndex = 0;
         return
     }
@@ -327,7 +316,7 @@ $("#selecttagorfile").on('change', function (){
     if (selectedOption === "Snippet files") {
         console.log('Snippet files selected')
         $(
-            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description<i>optional</i></label><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description<i> (optional)</i></label><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
             "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\">Add a snippet file</button></p>" +
             "       ").insertBefore("#createYAML");
@@ -342,7 +331,7 @@ $("#selecttagorfile").on('change', function (){
    if (selectedOption === "Snippet tags"){
        console.log('Snippet tags selected')
        $(
-           "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description<i>optional</i></label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
+           "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description<i>(optional)</i></label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
            "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\">Add a snippet tag</button></p>" +
            "       ").insertBefore("#createYAML");
@@ -366,7 +355,7 @@ $("#addlanguage").on('change', function () {
 $("#subVersion").on('click', function () {
     console.log('why')
     if (document.getElementById('languages').value !== "Not Listed") {
-        alert('Check this version in defined in the ../../sdk.yaml.')
+        myAlert('alert','Check this version in defined in the ../../sdk.yaml.')
         let currentVersions = [];
         var values = $("#sdkVersion>option").map(function () {
             return $(this).val();
@@ -379,7 +368,7 @@ $("#subVersion").on('click', function () {
             console.log('says it does')
             var element = document.getElementById('addSdkVersion');
             element.setAttribute("style", "class:show-when-target");
-            alert('This SDK version already exists. Please select it.')
+            myAlert('alert', 'This SDK version already exists. Please select it.')
             document.getElementById('sdkVersion').disabled = false;
         } else {
             document.getElementById('sdkVersion').disabled = true;
@@ -407,7 +396,7 @@ $("#subVersion").on('click', function () {
         }
     } else {
         document.getElementById('subVersion').disabled = true;
-        alert('Check this version in defined in the ../../sdk.yaml.')
+        myAlert('alert','Check this version in defined in the ../../sdk.yaml.')
         var element = document.getElementById('gitHub');
         element.setAttribute("style", "visibility: visible");
         var element = document.getElementById('sdkGuide');
@@ -526,7 +515,8 @@ function newsnippet(){
             "").insertBefore("#newsnippet");
     }
     if (noOfSnippets === 6) {
-        alert('Maximum of 6 snippets allowed.')
+
+        myAlert('alert', 'Maximum of 6 snippets allowed.');
     }
 };
 function countValues(dropdown){
@@ -540,7 +530,7 @@ function countValues(dropdown){
     const noOfSnippets = document.getElementsByClassName('snippdisc').length;
     console.log('noOfSnippets', noOfSnippets)
     if (noOfSnippets == 0) {
-        alert('There are no snippets to remove')
+            myAlert('alert', 'There are no snippets to remove.');
     } else {
         $("p[id=snippDesc]:last").remove();
         $("p[id=snippet]:last").remove();
@@ -607,7 +597,7 @@ function newsnippetfile(){
               "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 6) {
-        alert('Maximum of 6 snippets allowed.')
+        myAlert('alert', 'Maximum of 6 snippets allowed.')
     }
 };
 /*$("#removesnipfile").on('click', function () {

@@ -12,7 +12,7 @@ const run = async () => {
     try {
         const doc = yaml.load(
             fs.readFileSync(
-                "../../" + serviceStub + "_metadata.yaml",
+                "../../../metadata/" + serviceStub + "_metadata.yaml",
                 "utf8"
             ).replace(/{/,"'{" ).replace(/}/,"}'" )
         );
