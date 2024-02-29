@@ -27,7 +27,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 
 <!--custom.prerequisites.start-->
-> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.prerequisites.end-->
 
 ### Get started
@@ -39,11 +38,12 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 Code excerpts that show you how to call individual service functions.
 
-- [Image generation with Amazon Titan Image Generator G1](actions/invoke_model.go#L178) (`InvokeModel`)
-- [Text generation with AI21 Labs Jurassic-2](actions/invoke_model.go#L78) (`InvokeModel`)
+- [Image generation with Amazon Titan Image Generator G1](actions/invoke_model.go#L191) (`InvokeModel`)
+- [Text generation with AI21 Labs Jurassic-2](actions/invoke_model.go#L83) (`InvokeModel`)
+- [Text generation with Amazon Titan Text G1](actions/invoke_model.go#L261) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2](actions/invoke_model.go#L27) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2 with a response stream](actions/invoke_model_with_response_stream.go#L30) (`InvokeModelWithResponseStream`)
-- [Text generation with Meta Llama 2 Chat](actions/invoke_model.go#L130) (`InvokeModel`)
+- [Text generation with Meta Llama 2 Chat](actions/invoke_model.go#L140) (`InvokeModel`)
 
 ### Scenarios
 
@@ -62,14 +62,6 @@ functions within the same service.
 
 
 <!--custom.instructions.start-->
-#### Region configuration
-By default, examples are set to `us-east-1`. To specify a different region, use the `-region` flag as shown in this example:
-
-```
-go run ./hello -region=eu-central-1
-```
-
-Be aware that not all regions may support Bedrock and its models yet. Verify service availability for your region [here](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/). For available models per region, refer to the [Bedrock dashboard](https://console.aws.amazon.com/bedrock) in the AWS Management Console.
 <!--custom.instructions.end-->
 
 #### Hello Amazon Bedrock
