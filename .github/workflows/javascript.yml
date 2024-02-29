@@ -20,18 +20,18 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v41
         with:
-          files: "javascriptv3/**/*.{js,ts,jsx,tsx}"
+          files: "javascriptv3/**/*.{js,ts,jsx,tsx,json}"
       - name: Setup NodeJS
         if: steps.changed-files.outputs.any_changed == 'true'
         uses: actions/setup-node@v3
         with:
           node-version: "20.x"
-      - name: Install dependencies
-        if: steps.changed-files.outputs.any_changed == 'true'
-        run: npm i --prefix javascriptv3
       - name: Validate package names
         if: steps.changed-files.outputs.any_changed == 'true'
         run: ./javascriptv3/github_scripts/validate_packages.sh
+      - name: Install dependencies
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: npm i --prefix javascriptv3
       - name: Lint added and modified files
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
