@@ -1,5 +1,5 @@
 {
-  "name": "@aws-doc-sdk-examples/glue",
+  "name": "glue",
   "version": "1.0.0",
   "description": "AWS SDK for JavaScript (v3) examples for AWS Glue",
   "type": "module",

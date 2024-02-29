@@ -1,5 +1,5 @@
 {
-  "name": "@aws-doc-sdk-examples/example-javascriptv3-lambda",
+  "name": "@aws-doc-sdk-example/example-javascriptv3-lambda",
   "version": "1.0.0",
   "description": "Code samples for interacting with Lambda via the AWS SDK for JavaScript (v3)",
   "main": "index.js",
