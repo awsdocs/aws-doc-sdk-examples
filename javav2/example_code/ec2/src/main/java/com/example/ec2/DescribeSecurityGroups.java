@@ -27,12 +27,12 @@ public class DescribeSecurityGroups {
         final String usage = "To run this example, supply a group id\n" +
                 "Ex: DescribeSecurityGroups <groupId>\n";
 
-       // if (args.length != 1) {
-       //     System.out.println(usage);
-       //     System.exit(1);
-       // }
+       if (args.length != 1) {
+           System.out.println(usage);
+           System.exit(1);
+       }
 
-        String groupId = "sg-028a6f1c0b65785c3" ; //args[0];
+        String groupId = args[0];
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)

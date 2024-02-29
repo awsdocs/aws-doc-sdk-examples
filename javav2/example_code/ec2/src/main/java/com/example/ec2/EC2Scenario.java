@@ -452,7 +452,6 @@ public class EC2Scenario {
             System.out.println("Going to start an EC2 instance using a waiter");
             RunInstancesResponse response = ec2.runInstances(runRequest);
             String instanceIdVal = response.instances().get(0).instanceId();
-            // Use a waiter to wait until the instance is running
             ec2.waiter().waitUntilInstanceRunning(r -> r.instanceIds(instanceIdVal));
             System.out.println("Successfully started EC2 instance " + instanceIdVal + " based on AMI " + amiId);
             return instanceIdVal;
