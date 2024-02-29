@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<div id="pagebody">
+ <script src="./js/update_json.js"></script>
+  <script src="./js/functions.js"></script>
+  <script src="./js/click_events.js"></script>
+<!--   <div class="split left">
+    <h1>SoS metadata GUI editor</h1>
+    <h3>Prerequisites</h3>
+    <ul>
+      <li><p>Ensure your <i>USERPROFILE</i> is set to 'C:\Users\[username]' </p>
+        <p>To get a list of all environment variables enter the command <i><b>set</b></i>.</p>
+        <p>You can send them to a text file enter the command <i><b>set > filename.txt</b></i>.</p></li>
+      <li>Create your authoring environment per <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAuthoringenvironment">Authoring environment</a>.</li>
+    </ul>
+    <h3>Create/update metadata</h3>
+    <ol>
+      <li><p>Follow steps 1 and 2 of <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAddinganewAPIexample">Adding a new API example</a>.</p>
+        <p>Ensure the metadata file you want to edit is in the <i>/.doc_gen/metadata/sos_editor</i> folder <br>
+          of the <b>AWSDocsSdkExamplesPublic</b> pagckage you're working on.</p>
+        <p>If not, create it. Remember to update the 'services' section of this 'mapping.yaml' file to include the entities for this new service.</p></li>
+      <li>Open the command line and navigate to the <i>/.doc_gen/metadata/sos_editor folder</i>.</li>
+      <li><p>Run <i>node create_json.js [stubname of service metadata to edit].</i></p>
+        <p>For example, <i>node create_json.js sns</i>.</p>
+      <p><b>Note</b>: You are required to run this command only once per session.</p></li>
+      <li><p>Create/edit your metadata using <b>Editor</b></p>
+      <li>Click <b>Create YAML</b> at the bottom of the <b>Editor</b>.</li>
+      <li>In the command line run <i>node update_yaml.js [stubname of service metadata to update].</i></p>
+        <p>For example, <i>node update_yaml.js sns</i>.</p></li>
+      <li>The metadata file is now updated locally. If you want to continue editing metadata, refresh the browser and proceed. <br>
+        Otherwise, validate, build, verify, and submit your changes for review as described in <a href="https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS#HValidatingmetadata">the SoS wiki</a>. </li>
+    </ol>
+  </div>
+</div> -->
+<div>
+<div>
+  <h1>SoS Code Example Metadata GUI editor</h1>
+  <div id="controls">
+  <p>This app enables you to quickly and easily add the required metadata to publish examples to official AWS documentation.</p>
+  <p>To get started:</p>
+  <ol>
+  <li>Complete prerequisites on <a href="https://github.com/brmur/aws-doc-sdk-examples/blob/sos_editor/.doc_gen/metadata/sos_editor/README.md" target="_blank"
+>README</a>.</li>
+  <li>Clone <a href="https://github.com/awsdocs/aws-doc-sdk-examples">aws-doc-sdk-examples GitHub repo</a> locally. <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository">Instructions here.</a></li>
+  <li>Open your CLI tool, and navigate to "./doc_gen/metadata/sos_editor/</li>
+  <li>Enter 'npm install'</li>
+  <li>Enter 'node run.mjs' and follow the instructions.</li>
+  <li>Open this file in your localhost.</li>
+  </ol>
+  </br>
+</div>
+<div style="margin-left:10%; border:1px solid black; max-width:50%; background-color:lightpink; color: black;">
+    <p id ="selectMyService"><label class="thissize">Principal service <i>(mandatory)</i></label><br><i>See ? for list of service stubs</i></br><input type="text" class="thissize" name="blockname" id ="selecttheservice" maxlength="1000"></input></p>
+    <p id ="selectMyServices"><label class="thissize">Additional services <i>(optional)</i></label><br><i>Seperated by commas</i><br><input type="text" class="thissize" name="blocknames" id ="selecttheservices" maxlength="1000"></input></p><button id = "selectService">Submit</button>
+    <p id="selectBlockView" class="show-when-target"><label class="thissize">Select block to edit / create (mandatory)</label><br><i>Select 'Not listed' to create a new block</i></br><select id="selectBlock" class="show-when-target"><option>Choose an operation</option></select></p>
+    <p id ="apiCommands"  class="show-when-target"><label class="thissize">API command used by principal service <i>(optional)</i></label><br><i>Seperated by commas</i></br><textarea type="text" name="text" id ="commands" maxlength="1000"></textarea></p>
+    <p id ="addBlockName" class="show-when-target"><label class="thissize">Block name <i>(mandatory)</i></label><br><i>Suggested format: [main service]_[main api command]</i></br><textarea type="text" class="thissize" name="blockname" id ="blockname" maxlength="1000"></textarea><br><button id = "compBlockBtn">Submit block name</button></p>
+    <p id ="addTitle" class="show-when-target"><label class="thissize">Title <i>(mandatory)</i></label><br><textarea type="text" name="thetitle" id ="thetitle" maxlength="1000"></textarea></p>
+    <p id ="addAbbTitle" class="show-when-target"><label class="thissize">Abbreviated title <i>(mandatory)</i></label><br><textarea type="text" name="addatitle" id ="addatitle" maxlength="1000"></textarea></p>
+    <div id ="addSynopsis" class="show-when-target"><p><label class="thissize">Synopsis <i>(mandatory if 'Synopsis list' not entered)</i></label><br><i>No carriage returns</i></br></p>
+    <p><textarea type="text" name="synopsis" id ="synopsis" maxlength="1000"></textarea></p></div>
+    <div id ="addSynopsisList" class="show-when-target"><p><label class="thissize">Synopsis list <i>(mandatory if 'Synopsis' not entered)</i></br></label><br><i>Start each with caps and on new line</i></br></p>
+    <p><textarea type="text" name="synopsislist" id ="synopsislist" maxlength="1000"></textarea></p></div>
+    <p id ="addCategory" class="show-when-target"><label class="thissize">Category <i>(optional)</i></label><br><textarea type="text" name="category" id ="category" maxlength="1000"></textarea></p>
+    <p id="chooseLangView" class="show-when-target"><label class="thissize">Choose Language <i>(mandatory)</i></label><br><select id="languages" class="show-when-target"><option>Choose language </option></select></p>
+    <p id = "addLanguageView" class="show-when-target"><label class="thissize">Language <i>(mandatory)</i></label><select id="addlanguage" class="show-when-target" ><option>Add a language </option></select></p>
+    <p id="chooseSDKView" class="show-when-target"><select id="sdkVersion" class="show-when-target" ><option>Choose an SDK version (mandatory)</option></select></p>
+    <p id ="addSdkVersion" class="show-when-target"><label class="thissize">Add SDK version <i>(mandatory)</i></label><br><input type="text" class="thissize" name="text" id ="addskdversion" maxlength="1000"></input><button id = "subVersion">Check version</button></p>
+    <p id ="gitHub" class="show-when-target"><label class="thissize">GitHub link <i>(optional)</i></label><br><i>Exclude 'https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/'</i></br><textarea type="text" name="text" id ="githublink" maxlength="1000"></textarea></p>
+    <p id ="sdkGuide" class="show-when-target"><label class="thissize">SDK Guide link <i>(optional)</i> </label><br><i>Exclude 'https://docs.aws.amazon.com/'</i></br><textarea type="text" name="text" id ="sdkguidelink" maxlength="1000"></textarea></p>
+    <p id="selectTagOrFile" class="show-when-target"><label class="thissize">Select how you want to add your snippets <i>(mandatory)</i></label><br><select id="selecttagorfile" class="show-when-target"><option>Choose a snippet type</option></select></p>
+ <!--    <p id ="anotherSnippet" class="show-when-target" class="thissize"><button id = "newsnippet">Add a snippet tag</button></p> --><!-- <p id ="removeSnippet" class="show-when-target" class="thissize"><button id = "removesnip">Remove a snippet tag</button></p>--><!--
+    <p id ="addSnippetFile" class="show-when-target" class="thissize"><button id = "newsnippetfile">Add a snippet file</button></p> --><!-- <p id ="removeSnippetFile" class="show-when-target" class="thissize"><button id = "removesnipfile">Remove a snippet file</button></p>--><!--
+     --><p id ="createYAML"  class="show-when-target"><button id = "yaml" onclick="update_json()">Create YAML</button></p>
+  </div>
+  </div>
+ <script src="./js/update_json.js"></script>
+  <script src="./js/functions.js"></script>
+  <script src="./js/click_events.js"></script>
+</body>
+
+</html>
+
