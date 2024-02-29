@@ -17,8 +17,6 @@ For an introduction, see the [README.md](README.md).
 ### Table of contents
 
 - [Resources and User Input](#resources-and-user-input)
-- [User input](#user-input)
-- [Output](#output)
 - [Metadata](#metadata)
 
 ## Resources and User Input

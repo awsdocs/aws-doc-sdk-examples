@@ -16,10 +16,6 @@ This workflow demonstrates the following steps and tasks:
 4. Delete the objects and buckets.
    1. Remove any object locks and use the BypassGovernanceRetention setting.
 
-### Prerequisites
-
-If you need to, [install or update the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
-
 ### Resources
 
 The workflow scenario steps create the buckets and objects needed for the example. No additional resources are required.
