@@ -1235,7 +1235,7 @@ ec2_DescribeInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.scenario.describe_instance.main
+                - ec2.java2.running_instances.main
     .NET:
       versions:
         - sdk_version: 3
