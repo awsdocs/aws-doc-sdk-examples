@@ -8,7 +8,7 @@ import { execSync } from 'child_process';
 
 var runExe =function(serviceStub){
     console.log("The SoS GUI Editor has opened on your machine. Enter \'" + serviceStub + "\' in the Principle Service field. Please leave this terminal running.");
-    const pathToExe = "../../out/my-app-win32-x64/my-app.exe"
+    const pathToExe = "../../my-app-win32-x64/my-app.exe"
     execSync('start' + pathToExe);
 };
 
