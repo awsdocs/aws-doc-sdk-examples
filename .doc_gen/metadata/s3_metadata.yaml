@@ -238,7 +238,7 @@ s3_CopyObject:
             - description: Copy an object using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - s3.java2.copy_object.main
-            - description: >-
+            - description:
                 Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
                 to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#copy(software.amazon.awssdk.transfer.s3.CopyRequest)">copy an object</ulink> from one bucket to another.
                 View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/ObjectCopy.java">complete file</ulink>
@@ -814,7 +814,7 @@ s3_GetObject:
             - description: Read data as a byte array using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - s3.java2.getobjectdata.main
-            - description: >-
+            - description:
                 Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
                 to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadFile(software.amazon.awssdk.transfer.s3.DownloadFileRequest)">download an object</ulink> in an S3 bucket to a local file.
                 View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadFile.java">complete file</ulink>
@@ -1307,7 +1307,7 @@ s3_PutObject:
             - description: Upload a file to a bucket using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - s3.java2.s3_object_upload.main
-            - description: >-
+            - description:
                 Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
                 to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadFile(software.amazon.awssdk.transfer.s3.UploadFileRequest)">upload a file</ulink> to a bucket.
                 View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadFile.java">complete file</ulink>
@@ -2160,7 +2160,7 @@ s3_DownloadBucketToDirectory:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description: >-
+            - description:
                 Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
                 to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadDirectory(software.amazon.awssdk.transfer.s3.DownloadDirectoryRequest)">download all S3 objects</ulink> in the same S3 bucket.
                 View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java">complete file</ulink>
@@ -2182,7 +2182,7 @@ s3_UploadDirectoryToBucket:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description: >-
+            - description:
                 Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
                 to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadDirectory(software.amazon.awssdk.transfer.s3.UploadDirectoryRequest)">upload a local directory</ulink>.
                 View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadADirectory.java">complete file</ulink>
@@ -2826,7 +2826,7 @@ s3_Scenario_MultipartUpload:
             - description: The code examples use the following imports.
               snippet_tags:
                 - s3.java2.performMultiPartUpload.import
-            - description: >-
+            - description:
                 Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html"
                     type="documentation">S3 Transfer Manager</ulink> on top of the  <ulink
                     url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation">&AWS;
@@ -2834,7 +2834,7 @@ s3_Scenario_MultipartUpload:
                    content exceeds a threshold. The default threshold size is 8 MB.
               snippet_tags:
                 - s3.java2.performMultiPartUpload.transferManager
-            - description: >-
+            - description:
                 Use the <ulink
                     url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink>
                 or (S3AsyncClient API) to perform a multipart upload.
@@ -2857,27 +2857,27 @@ s3_Scenario_UseChecksums:
             - description: The code examples use a subset of the following imports.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.import
-            - description: >-
+            - description:
                 Specify a checksum algorithm for the <code>putObject</code> method when you <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html">build the
                 <code>PutObjectRequest</code></ulink>.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.putObject
-            - description: >-
+            - description:
                 Verify the checksum for the <code>getObject</code> method when you <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/GetObjectRequest.Builder.html">build the GetObjectRequest</ulink>.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.getObject
-            - description: >-
+            - description:
                 Pre-calculate a checksum for the <code>putObject</code> method when you <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html">build the <code>PutObjectRequest</code></ulink>.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.putObjectPreCalc
-            - description: >-
+            - description:
                 Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html" type="documentation">S3 Transfer Manager</ulink>
                 on top of the <ulink url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation" >&AWS; CRT-based S3 client</ulink>
                 to transparently perform a multipart upload when the size of the content exceeds a threshold. The default threshold size is 8 MB.</para>
                 <para>You can specify a checksum algorithm for the SDK to use. By default, the SDK uses the CRC32 algorithm.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.multiPartTm
-            - description: >-
+            - description:
                 Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink>
                       or (S3AsyncClient API) to perform a multipart upload. If you specify
                       an additional checksum, you must specify the algorithm to use on the initiation of the upload.
