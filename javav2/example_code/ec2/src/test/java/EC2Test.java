@@ -198,7 +198,7 @@ public class EC2Test {
     @Tag("IntegrationTest")
     @Order(12)
     public void FindRunningInstances() {
-        assertDoesNotThrow(() -> FindRunningInstances.findRunningEC2Instances(ec2));
+        assertDoesNotThrow(() -> FindRunningInstances.findRunningEC2InstancesUsingPaginator(ec2));
         System.out.println("\n Test 12 passed");
     }
 
