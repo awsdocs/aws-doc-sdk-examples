@@ -272,7 +272,7 @@ type TextGenerationConfig struct {
 	Temperature   float64  `json:"temperature"`
 	TopP          float64  `json:"topP"`
 	MaxTokenCount int      `json:"maxTokenCount"`
-	StopSequences []string `json:"stopSequences"`
+	StopSequences []string `json:"stopSequences,omitempty"`
 }
 
 type TitanTextResponse struct {
