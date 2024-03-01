@@ -3090,4 +3090,4 @@ s3_SelectObjectContent:
                 - s3.java2.async.selectObjectContentMethod.import
                 - s3.java2.async.selectObjectContentMethod.main
   services:
-    s3: { SelectObjectContent }
+    s3: {SelectObjectContent}
