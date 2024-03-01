@@ -10,7 +10,7 @@
 // npx ailly --plugin file://${PWD}/plugin.mjs --engine bedrock \
 //     --root ../../[language]/example/[service] \
 //     --out ../../[language]/example/[service]/scouts/[target language] \
-//     --prompt "Translate to [target language]. [Additional instructions.]"
+//     --prompt "Translate from [source language] to [target language]. [Additional instructions.]"
 //
 // TODO:
 // python3 .tools/ailly/ailly.py --target Rust:1 --source Python:3 --service cloudwatch-logs
@@ -27,17 +27,6 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Ailly } from "@ailly/core";
-
-const LANGUAGES = [
-  "cpp",
-  "dotnetv3",
-  "gov2",
-  "java2",
-  "php",
-  "rust",
-  "python",
-  "javascriptv3",
-];
 
 const SIMILAR = 0.8;
 const SAME = 0.99609375;
@@ -98,9 +87,17 @@ const Best = {
   ],
 };
 
+const LANGUAGES = Object.keys(Best);
+
 class MyRAG extends Ailly.RAG {
   constructor(engine, _path) {
     super(engine, join(fileURLToPath(import.meta.url), "../.vectors"));
+  }
+
+  async clean(c) {
+    // if (c.results?.indexOf('```') > -1) {
+    //   c.results = c.results.substring(c.results.indexOf('```'), c.results.lastIndexOf('```') + 3)
+    // }
   }
 
   async init() {
@@ -127,9 +124,10 @@ class MyRAG extends Ailly.RAG {
     */
   async augment(content) {
     const vector = await this.engine.vector(content.prompt, {});
+    const langs = LANGUAGES.filter(lang => content.system[0].includes(lang));
     const map = (
       await Promise.all(
-        LANGUAGES.map(async (language) => [
+        langs.map(async (language) => [
           ...(Best[language] ?? []),
           ...(
             await this.index.queryItems(vector, PER_LANG, { language })
@@ -148,17 +146,15 @@ class MyRAG extends Ailly.RAG {
     map.sort((a, b) => b.score - a.score);
     const tmpResult = map.slice(0, TOP_N);
 
+    console.log("Found augmentations:");
+    console.log(tmpResult.map(({ score, name }) => `\t${name} (${score})`).join("\n"));
+
     const results = tmpResult.map(async ({ score, name, language }) => ({
       score,
       name,
       language,
       content: await readFile(join(".vectors", name), { encoding: "utf8" }),
     }));
-
-    console.log(
-      "Found augmentations",
-      results.map((m) => m.name)
-    );
 
     content.augment = await Promise.all(results);
   }
