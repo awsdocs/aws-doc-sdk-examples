@@ -38,7 +38,7 @@ def test_invoke_claude(make_stubber, error_code):
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_invoke_mistral_7b(make_stubber, error_code):
     bedrock_runtime = boto3.client(
-        service_name="bedrock-runtime", region_name="us-east-1"
+        service_name="bedrock-runtime", region_name="us-west-2"
     )
     bedrock_runtime_stubber = make_stubber(bedrock_runtime)
     wrapper = BedrockRuntimeWrapper(bedrock_runtime)
@@ -59,7 +59,7 @@ def test_invoke_mistral_7b(make_stubber, error_code):
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_invoke_mixtral_8x7b(make_stubber, error_code):
     bedrock_runtime = boto3.client(
-        service_name="bedrock-runtime", region_name="us-east-1"
+        service_name="bedrock-runtime", region_name="us-west-2"
     )
     bedrock_runtime_stubber = make_stubber(bedrock_runtime)
     wrapper = BedrockRuntimeWrapper(bedrock_runtime)

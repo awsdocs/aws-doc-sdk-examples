@@ -31,7 +31,7 @@ class BedrockRuntimeStubber(ExampleStubber):
 
     def stub_invoke_mistral_7b(self, prompt, error_code=None):
         expected_params = {
-            "modelId": "mistral.mistral-7b-instruct-v0",
+            "modelId": "mistral.mistral-7b-instruct-v0:2",
             "body": json.dumps(
                 {
                     "prompt": prompt,
@@ -42,7 +42,9 @@ class BedrockRuntimeStubber(ExampleStubber):
         }
 
         response = {
-            "body": io.BytesIO("".encode("utf-8")),
+            "body": io.BytesIO(
+                '{ "outputs": [ { "text": "Fake completion" } ] }'.encode("utf-8")
+            ),
             "contentType": "",
         }
 
@@ -52,7 +54,7 @@ class BedrockRuntimeStubber(ExampleStubber):
 
     def stub_invoke_mixtral_8x7b(self, prompt, error_code=None):
         expected_params = {
-            "modelId": "mistral.mixtral-8x7b-instruct-v0",
+            "modelId": "mistral.mixtral-8x7b-instruct-v0:1",
             "body": json.dumps(
                 {
                     "prompt": prompt,
@@ -63,7 +65,9 @@ class BedrockRuntimeStubber(ExampleStubber):
         }
 
         response = {
-            "body": io.BytesIO("".encode("utf-8")),
+            "body": io.BytesIO(
+                '{ "outputs": [ { "text": "Fake completion" } ] }'.encode("utf-8")
+            ),
             "contentType": "",
         }
 
