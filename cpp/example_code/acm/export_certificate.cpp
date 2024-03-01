@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -19,6 +18,7 @@
 #include <aws/core/utils/crypto/Cipher.h>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.ExportCertificate]
 //! Export an AWS Certificate Manager (ACM)  certificate.
 /*!
   \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
@@ -26,26 +26,25 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::ACM::ExportCertificate(const Aws::String& certificateArn,
-                                    const Aws::String& passphrase,
-                                    const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::ACM::exportCertificate(const Aws::String &certificateArn,
+                                    const Aws::String &passphrase,
+                                    const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::ACM::ACMClient acm_client(clientConfiguration);
 
     Aws::ACM::Model::ExportCertificateRequest request;
-    Aws::Utils::CryptoBuffer cryptoBuffer(reinterpret_cast<const unsigned char*>(passphrase.c_str()), passphrase.length());
+    Aws::Utils::CryptoBuffer cryptoBuffer(
+            reinterpret_cast<const unsigned char *>(passphrase.c_str()),
+            passphrase.length());
     request.WithCertificateArn(certificateArn).WithPassphrase(cryptoBuffer);
 
     Aws::ACM::Model::ExportCertificateOutcome outcome =
             acm_client.ExportCertificate(request);
 
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Error: ExportCertificate: " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Success: Information about certificate with ARN '"
                   << certificateArn << "':" << std::endl << std::endl;
 
@@ -61,6 +60,7 @@ bool AwsDoc::ACM::ExportCertificate(const Aws::String& certificateArn,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.acm.ExportCertificate]
 
 /*
 *
@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::ACM::ExportCertificate(certificateArn, passphrase, clientConfig);
+        AwsDoc::ACM::exportCertificate(certificateArn, passphrase, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

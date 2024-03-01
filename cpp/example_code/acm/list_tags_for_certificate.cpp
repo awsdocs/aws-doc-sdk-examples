@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -18,13 +17,15 @@
 #include <aws/acm/model/ListTagsForCertificateRequest.h>
 #include "acm_samples.h"
 
-bool AwsDoc::ACM::ListTagsForCertificate(const Aws::String& certificateArn,
-                                         const Aws::String& region)
-{
-    Aws::Client::ClientConfiguration config;
-    config.region = region;
-
-    Aws::ACM::ACMClient acm_client(config);
+//! List the tags for an AWS Certificate Manager (ACM) certificate.
+/*!
+  \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::ACM::listTagsForCertificate(const Aws::String &certificateArn,
+                                         const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::ACM::ACMClient acm_client(clientConfiguration);
 
     Aws::ACM::Model::ListTagsForCertificateRequest request;
     request.WithCertificateArn(certificateArn);
@@ -32,15 +33,13 @@ bool AwsDoc::ACM::ListTagsForCertificate(const Aws::String& certificateArn,
     Aws::ACM::Model::ListTagsForCertificateOutcome outcome =
             acm_client.ListTagsForCertificate(request);
 
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cout << "Error: ListTagsForCertificate: " <<
                   outcome.GetError().GetMessage() << std::endl;
 
         return false;
     }
-    else
-    {
+    else {
         std::cout << "Success: Information about tags for "
                      "certificate with ARN '"
                   << certificateArn << "':" << std::endl << std::endl;
@@ -50,17 +49,14 @@ bool AwsDoc::ACM::ListTagsForCertificate(const Aws::String& certificateArn,
         Aws::Vector<Aws::ACM::Model::Tag> tags =
                 result.GetTags();
 
-        if (tags.size() > 0)
-        {
-            for (const Aws::ACM::Model::Tag& tag : tags)
-            {
+        if (tags.size() > 0) {
+            for (const Aws::ACM::Model::Tag &tag: tags) {
                 std::cout << "Key:   " << tag.GetKey() << std::endl;
                 std::cout << "Value: " << tag.GetValue()
                           << std::endl << std::endl;
             }
         }
-        else
-        {
+        else {
             std::cout << "No tags found." << std::endl;
         }
 
@@ -72,9 +68,9 @@ bool AwsDoc::ACM::ListTagsForCertificate(const Aws::String& certificateArn,
 *
 *  main function
 *
-*  Usage: 'run_'
+*  Usage: 'run_tags_for_certificate <certificate_arn>'
 *
-*  Prerequisites: .
+*  Prerequisites: A certificate.
 *
 */
 
@@ -82,7 +78,7 @@ bool AwsDoc::ACM::ListTagsForCertificate(const Aws::String& certificateArn,
 
 int main(int argc, char **argv) {
     if (argc != 3) {
-        std::cout << "Usage: run_"
+        std::cout << "Usage: 'run_tags_for_certificate <certificate_arn>'"
                   << std::endl;
         return 1;
     }
@@ -90,10 +86,13 @@ int main(int argc, char **argv) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String certificateArn = argv[1];
+
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
+        AwsDoc::ACM::listTagsForCertificate(certificateArn, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

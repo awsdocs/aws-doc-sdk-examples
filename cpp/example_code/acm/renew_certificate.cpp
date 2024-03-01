@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -18,29 +17,29 @@
 #include <aws/acm/model/RenewCertificateRequest.h>
 #include "acm_samples.h"
 
-bool AwsDoc::ACM::RenewCertificate(const Aws::String& certificateArn,
-                                   const Aws::String& region)
-{
-    Aws::Client::ClientConfiguration config;
-    config.region = region;
-
-    Aws::ACM::ACMClient acm_client(config);
+//! Renew an AWS Certificate Manager (ACM) certificate.
+/*!
+  \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::ACM::renewCertificate(const Aws::String &certificateArn,
+                                   const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::ACM::ACMClient acmClient(clientConfiguration);
 
     Aws::ACM::Model::RenewCertificateRequest request;
     request.SetCertificateArn(certificateArn);
 
     Aws::ACM::Model::RenewCertificateOutcome outcome =
-            acm_client.RenewCertificate(request);
+            acmClient.RenewCertificate(request);
 
-    if (!outcome.IsSuccess())
-    {
-        std::cout << "Error: RenewCertificate: " <<
+    if (!outcome.IsSuccess()) {
+        std::cerr << "Error: RenewCertificate: " <<
                   outcome.GetError().GetMessage() << std::endl;
 
         return false;
     }
-    else
-    {
+    else {
         std::cout << "Success: Renewed certificate with ARN '"
                   << certificateArn << "'." << std::endl;
 
@@ -52,9 +51,9 @@ bool AwsDoc::ACM::RenewCertificate(const Aws::String& certificateArn,
 *
 *  main function
 *
-*  Usage: 'run_'
+*  Usage: 'run_renew_certificate <certificate_arn>'
 *
-*  Prerequisites: .
+*  Prerequisites: A certificate.
 *
 */
 
@@ -62,7 +61,7 @@ bool AwsDoc::ACM::RenewCertificate(const Aws::String& certificateArn,
 
 int main(int argc, char **argv) {
     if (argc != 3) {
-        std::cout << "Usage: run_"
+        std::cout << "Usage: 'run_renew_certificate <certificate_arn>'"
                   << std::endl;
         return 1;
     }
@@ -70,11 +69,14 @@ int main(int argc, char **argv) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String certificateArn = argv[1];
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
+        AwsDoc::ACM::renewCertificate(certificateArn, clientConfig);
     }
+
     Aws::ShutdownAPI(options);
     return 0;
 }

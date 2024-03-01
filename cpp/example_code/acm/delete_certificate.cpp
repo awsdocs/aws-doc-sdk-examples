@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -18,16 +17,16 @@
 #include <aws/acm/model/DeleteCertificateRequest.h>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.DeleteCertificate]
 //! Delete an AWS Certificate Manager (ACM) certificate.
 /*!
   \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::ACM::DeleteCertificate(const Aws::String& certificateArn,
-                                    const Aws::Client::ClientConfiguration &clientConfiguration)
-{
-     Aws::ACM::ACMClient acmClient(clientConfiguration);
+bool AwsDoc::ACM::deleteCertificate(const Aws::String &certificateArn,
+                                    const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::ACM::ACMClient acmClient(clientConfiguration);
 
     Aws::ACM::Model::DeleteCertificateRequest request;
     request.WithCertificateArn(certificateArn);
@@ -35,19 +34,18 @@ bool AwsDoc::ACM::DeleteCertificate(const Aws::String& certificateArn,
     Aws::ACM::Model::DeleteCertificateOutcome outcome =
             acmClient.DeleteCertificate(request);
 
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Error: DeleteCertificate: " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Success: The certificate with the ARN '" <<
                   certificateArn << "' is deleted." << std::endl;
     }
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.acm.DeleteCertificate]
 
 /*
 *
@@ -77,7 +75,7 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::ACM::DeleteCertificate(certificateArn, clientConfig);
+        AwsDoc::ACM::deleteCertificate(certificateArn, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

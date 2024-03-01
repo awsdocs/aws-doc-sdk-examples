@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 
 #pragma once
 #ifndef ACM_EXAMPLES_ACM_SAMPLES_H
@@ -19,7 +18,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool AddTagToCertificate(const Aws::String &certificateArn,
+        bool addTagToCertificate(const Aws::String &certificateArn,
                                  const Aws::String &tagKey,
                                  const Aws::String &tagValue,
                                  const Aws::Client::ClientConfiguration &clientConfiguration);
@@ -31,7 +30,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool DeleteCertificate(const Aws::String &certificateArn,
+        bool deleteCertificate(const Aws::String &certificateArn,
                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Describe an ACM certificate.
@@ -40,7 +39,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool DescribeCertificate(const Aws::String &certificateArn,
+        bool describeCertificate(const Aws::String &certificateArn,
                                  const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Export an ACM certificate.
@@ -50,8 +49,8 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool ExportCertificate(const Aws::String &certificateArn,
-                               const Aws::String& passphrase,
+        bool exportCertificate(const Aws::String &certificateArn,
+                               const Aws::String &passphrase,
                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Get an ACM certificate.
@@ -60,38 +59,94 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool GetCertificate(const Aws::String &certificateArn,
+        bool getCertificate(const Aws::String &certificateArn,
                             const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        bool ImportCertificate(const Aws::String &certificateFile,
+        //! Import an ACM certificate.
+        /*!
+          \param certificateFile: Path to certificate to import.
+          \param privateKeyFile: Path to file containing a private key.
+          \param certificateChainFile: Path to file containing a PEM encoded certificate chain.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool importCertificate(const Aws::String &certificateFile,
                                const Aws::String &privateKeyFile,
                                const Aws::String &certificateChainFile,
                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        bool ListCertificates(const Aws::String &region);
+        //! List the ACM certificates in an account.
+        /*!
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool
+        listCertificates(const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        bool ListTagsForCertificate(const Aws::String &certificateArn,
-                                    const Aws::String &region);
+        //! List the tags for an ACM certificate.
+        /*!
+          \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool listTagsForCertificate(const Aws::String &certificateArn,
+                                    const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        bool RemoveTagFromCertificate(const Aws::String &certificateArn,
+        //! Remove a tag from an ACM certificate.
+        /*!
+          \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
+          \param region: The tag for the key.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool removeTagFromCertificate(const Aws::String &certificateArn,
                                       const Aws::String &tagKey,
-                                      const Aws::String &region);
+                                      const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        bool RenewCertificate(const Aws::String &certificateArn,
-                              const Aws::String &region);
+        //! Renew an ACM certificate.
+        /*!
+          \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool renewCertificate(const Aws::String &certificateArn,
+                              const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        bool RequestCertificate(const Aws::String &domainName,
+        //! Request an ACM certificate.
+        /*!
+          \param domainName: A fully qualified domain name.
+          \param idempotencyToken: Customer chosen string for idempotency.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool requestCertificate(const Aws::String &domainName,
                                 const Aws::String &idempotencyToken,
-                                const Aws::String &region);
+                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        bool ResendValidationEmail(const Aws::String &certificateArn,
+        //! Resend the email that requests domain ownership validation.
+        /*!
+          \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
+          \param domainName: A fully qualified domain name.
+          \param validationDomain: The base validation domain that will act as the suffix
+                                    of the email addresses.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool resendValidationEmail(const Aws::String &certificateArn,
                                    const Aws::String &domainName,
                                    const Aws::String &validationDomain,
-                                   const Aws::String &region);
+                                   const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        bool UpdateCertificateOption(const Aws::String &certificateArn,
-                                     const Aws::String &region,
-                                     const Aws::String &option);
+        //! Update an ACM certificate option.
+        /*!
+          \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
+          \param loggingEnabled: Boolean specifying logging enabled.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool updateCertificateOption(const Aws::String &certificateArn,
+                                     bool loggingEnabled,
+                                     const Aws::Client::ClientConfiguration &clientConfiguration);
     }
 }
 

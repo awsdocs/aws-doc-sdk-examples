@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -18,38 +17,28 @@
 #include <aws/acm/model/UpdateCertificateOptionsRequest.h>
 #include "acm_samples.h"
 
-bool AwsDoc::ACM::UpdateCertificateOption(const Aws::String& certificateArn,
-                                          const Aws::String& region,
-                                          const Aws::String& option)
-{
-    if (option != "logging-enabled" &&
-        option != "logging-disabled")
-    {
-        std::cout << "UpdateCertificateOption error: "
-                     "The option '" << option << "' is not valid. "
-                                                 "You must specify an option "
-                                                 "of 'logging-enabled' or 'logging-disabled'." << std::endl;
-
-        return false;
-    }
-
-    Aws::Client::ClientConfiguration config;
-    config.region = region;
-
-    Aws::ACM::ACMClient acm_client(config);
+//! Update an AWS Certificate Manager (ACM) certificate option.
+/*!
+  \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
+  \param loggingEnabled: Boolean specifying logging enabled.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::ACM::updateCertificateOption(const Aws::String &certificateArn,
+                                          bool loggingEnabled,
+                                          const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::ACM::ACMClient acmClient(clientConfiguration);
 
     Aws::ACM::Model::UpdateCertificateOptionsRequest request;
     request.SetCertificateArn(certificateArn);
 
     Aws::ACM::Model::CertificateOptions options;
 
-    if (option == "logging-enabled")
-    {
+    if (loggingEnabled) {
         options.SetCertificateTransparencyLoggingPreference(
                 Aws::ACM::Model::CertificateTransparencyLoggingPreference::ENABLED);
     }
-    else
-    {
+    else {
         options.SetCertificateTransparencyLoggingPreference(
                 Aws::ACM::Model::CertificateTransparencyLoggingPreference::DISABLED);
     }
@@ -57,19 +46,19 @@ bool AwsDoc::ACM::UpdateCertificateOption(const Aws::String& certificateArn,
     request.SetOptions(options);
 
     Aws::ACM::Model::UpdateCertificateOptionsOutcome outcome =
-            acm_client.UpdateCertificateOptions(request);
+            acmClient.UpdateCertificateOptions(request);
 
-    if (!outcome.IsSuccess())
-    {
-        std::cout << "UpdateCertificateOption error: " <<
+    if (!outcome.IsSuccess()) {
+        std::cerr << "UpdateCertificateOption error: " <<
                   outcome.GetError().GetMessage() << std::endl;
 
         return false;
     }
-    else
-    {
-        std::cout << "Success: The option '" << option << "' has been set for "
-                                                          "the certificate with the ARN '" << certificateArn << "'."
+    else {
+        std::cout << "Success: The option '"
+                  << (loggingEnabled ? "enabled" : "disabled") << "' has been set for "
+                                                                  "the certificate with the ARN '"
+                  << certificateArn << "'."
                   << std::endl;
 
         return true;
@@ -80,28 +69,34 @@ bool AwsDoc::ACM::UpdateCertificateOption(const Aws::String& certificateArn,
 *
 *  main function
 *
-*  Usage: 'run_'
+*  Usage: 'run_update_certificate_option <certificate_arn> <enabled/disabled>'
 *
-*  Prerequisites: .
+*  Prerequisites: A certificate.
 *
 */
 
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc != 3) {
-        std::cout << "Usage: run_"
-                  << std::endl;
+    if (argc != 4) {
+        std::cout
+                << "Usage: 'run_update_certificate_option <certificate_arn> <enabled/disabled>'"
+                << std::endl;
         return 1;
     }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String certificateArn = argv[1];
+        bool loggingEnabled = (std::string(argv[2]) == "enabled");
+
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
+        AwsDoc::ACM::updateCertificateOption(certificateArn, loggingEnabled,
+                                             clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

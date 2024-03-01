@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -18,6 +17,7 @@
 #include <aws/acm/model/AddTagsToCertificateRequest.h>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.AddTagsToCertificate]
 //! Add tags to an AWS Certificate Manager (ACM) certificate.
 /*!
   \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
@@ -27,11 +27,10 @@
   \return bool: Function succeeded.
  */
 
-bool AwsDoc::ACM::AddTagToCertificate(const Aws::String& certificateArn,
-                                      const Aws::String& tagKey,
-                                      const Aws::String& tagValue,
-                                      const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::ACM::addTagToCertificate(const Aws::String &certificateArn,
+                                      const Aws::String &tagKey,
+                                      const Aws::String &tagValue,
+                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::ACM::ACMClient acmClient(clientConfiguration);
 
     Aws::ACM::Model::AddTagsToCertificateRequest request;
@@ -46,13 +45,11 @@ bool AwsDoc::ACM::AddTagToCertificate(const Aws::String& certificateArn,
     Aws::ACM::Model::AddTagsToCertificateOutcome outcome =
             acmClient.AddTagsToCertificate(request);
 
-    if (!outcome.IsSuccess())
-    {
-        std::cerr << "Error: AddTagToCertificate: " <<
+    if (!outcome.IsSuccess()) {
+        std::cerr << "Error: addTagToCertificate: " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Success: Tag with key '" << tagKey <<
                   "' and value '" << tagValue <<
                   "' added to certificate with ARN '" <<
@@ -61,6 +58,7 @@ bool AwsDoc::ACM::AddTagToCertificate(const Aws::String& certificateArn,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.acm.AddTagsToCertificate]
 
 /*
 *
@@ -76,8 +74,9 @@ bool AwsDoc::ACM::AddTagToCertificate(const Aws::String& certificateArn,
 
 int main(int argc, char **argv) {
     if (argc != 4) {
-        std::cout << "Usage: run_add_tags_to_certificate <certificate_arn> <tag_key> <tag_value>"
-                  << std::endl;
+        std::cout
+                << "Usage: run_add_tags_to_certificate <certificate_arn> <tag_key> <tag_value>"
+                << std::endl;
         return 1;
     }
 
@@ -92,7 +91,8 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::ACM::AddTagToCertificate(certificateArn, tagKey, tagValue, clientConfig);
+        AwsDoc::ACM::addTagToCertificate(certificateArn, tagKey, tagValue,
+                                         clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

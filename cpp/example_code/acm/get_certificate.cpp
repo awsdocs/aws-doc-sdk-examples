@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -18,15 +17,15 @@
 #include <aws/acm/model/GetCertificateRequest.h>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.GetCertificate]
 //! Get an AWS Certificate Manager (ACM) certificate.
 /*!
   \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::ACM::GetCertificate(const Aws::String& certificateArn,
-                                 const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::ACM::getCertificate(const Aws::String &certificateArn,
+                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::ACM::ACMClient acmClient(clientConfiguration);
 
     Aws::ACM::Model::GetCertificateRequest request;
@@ -35,13 +34,11 @@ bool AwsDoc::ACM::GetCertificate(const Aws::String& certificateArn,
     Aws::ACM::Model::GetCertificateOutcome outcome =
             acmClient.GetCertificate(request);
 
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Error: GetCertificate: " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Success: Information about certificate with ARN '"
                   << certificateArn << "':" << std::endl << std::endl;
 
@@ -55,6 +52,7 @@ bool AwsDoc::ACM::GetCertificate(const Aws::String& certificateArn,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.acm.GetCertificate]
 
 /*
 *
@@ -84,7 +82,7 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::ACM::GetCertificate(certificateArn, clientConfig);
+        AwsDoc::ACM::getCertificate(certificateArn, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

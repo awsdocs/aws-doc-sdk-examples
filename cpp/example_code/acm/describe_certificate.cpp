@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -18,16 +17,16 @@
 #include <aws/acm/model/DescribeCertificateRequest.h>
 #include "acm_samples.h"
 
-//! Describe an ACM certificate.
+// snippet-start:[cpp.example_code.acm.DescribeCertificate]
+//! Describe an AWS Certificate Manager (ACM) certificate.
 /*!
   \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
-                                      const Aws::Client::ClientConfiguration &clientConfiguration)
-{
-     Aws::ACM::ACMClient acm_client(clientConfiguration);
+bool AwsDoc::ACM::describeCertificate(const Aws::String &certificateArn,
+                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::ACM::ACMClient acm_client(clientConfiguration);
 
     Aws::ACM::Model::DescribeCertificateRequest request;
     request.WithCertificateArn(certificateArn);
@@ -35,13 +34,11 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
     Aws::ACM::Model::DescribeCertificateOutcome outcome =
             acm_client.DescribeCertificate(request);
 
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Error: DescribeCertificate: " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    else
-    {
+    else {
         Aws::ACM::Model::CertificateDetail certificate =
                 outcome.GetResult().GetCertificate();
 
@@ -53,7 +50,8 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
         std::cout << "Authority ARN:       " <<
                   certificate.GetCertificateAuthorityArn() << std::endl;
         std::cout << "Created at (GMT):    " <<
-                  certificate.GetCreatedAt().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
+                  certificate.GetCreatedAt().ToGmtString(
+                          Aws::Utils::DateFormat::ISO_8601)
                   << std::endl;
         std::cout << "Domain name:         " << certificate.GetDomainName()
                   << std::endl;
@@ -61,14 +59,12 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
         Aws::Vector<Aws::ACM::Model::DomainValidation> options =
                 certificate.GetDomainValidationOptions();
 
-        if (!options.empty())
-        {
+        if (!options.empty()) {
             std::cout << std::endl << "Domain validation information: "
                       << std::endl << std::endl;
 
-            for (auto &validation : options)
-            {
-                 std::cout << "  Domain name:              " <<
+            for (auto &validation: options) {
+                std::cout << "  Domain name:              " <<
                           validation.GetDomainName() << std::endl;
 
                 const Aws::ACM::Model::ResourceRecord &record =
@@ -80,8 +76,7 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                 Aws::ACM::Model::RecordType recordType = record.GetType();
                 Aws::String type;
 
-                switch (recordType)
-                {
+                switch (recordType) {
                     case Aws::ACM::Model::RecordType::CNAME:
                         type = "CNAME";
                         break;
@@ -105,14 +100,12 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                 Aws::Vector<Aws::String> emails =
                         validation.GetValidationEmails();
 
-                if (!emails.empty())
-                {
+                if (!emails.empty()) {
                     std::cout << "  Validation emails:" << std::endl <<
                               std::endl;
 
-                    for (auto &email : emails)
-                    {
-                         std::cout << "    " << email << std::endl;
+                    for (auto &email: emails) {
+                        std::cout << "    " << email << std::endl;
                     }
 
                     std::cout << std::endl;
@@ -122,8 +115,7 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                         validation.GetValidationMethod();
                 Aws::String method;
 
-                switch (validationMethod)
-                {
+                switch (validationMethod) {
                     case Aws::ACM::Model::ValidationMethod::DNS:
                         method = "DNS";
                         break;
@@ -144,8 +136,7 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                         validation.GetValidationStatus();
                 Aws::String status;
 
-                switch (domainStatus)
-                {
+                switch (domainStatus) {
                     case Aws::ACM::Model::DomainStatus::FAILED:
                         status = "Failed";
                         break;
@@ -171,19 +162,16 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
         Aws::Vector<Aws::ACM::Model::ExtendedKeyUsage> usages =
                 certificate.GetExtendedKeyUsages();
 
-        if (!usages.empty())
-        {
+        if (!usages.empty()) {
             std::cout << std::endl << "Extended key usages:" <<
                       std::endl << std::endl;
 
-            for (auto &usage : usages)
-            {
+            for (auto &usage: usages) {
                 Aws::ACM::Model::ExtendedKeyUsageName usageName =
                         usage.GetName();
                 Aws::String name;
 
-                switch (usageName)
-                {
+                switch (usageName) {
                     case Aws::ACM::Model::ExtendedKeyUsageName::ANY:
                         name = "Any";
                         break;
@@ -239,8 +227,7 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                 certificate.GetStatus();
         Aws::String status;
 
-        switch (certificateStatus)
-        {
+        switch (certificateStatus) {
             case Aws::ACM::Model::CertificateStatus::EXPIRED:
                 status = "Expired";
                 break;
@@ -272,14 +259,12 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
         std::cout << "Status:              " << status << std::endl;
 
         if (certificate.GetStatus() ==
-            Aws::ACM::Model::CertificateStatus::FAILED)
-        {
+            Aws::ACM::Model::CertificateStatus::FAILED) {
             Aws::ACM::Model::FailureReason failureReason =
                     certificate.GetFailureReason();
             Aws::String reason;
 
-            switch (failureReason)
-            {
+            switch (failureReason) {
                 case Aws::ACM::Model::FailureReason::ADDITIONAL_VERIFICATION_REQUIRED:
                     reason = "Additional verification required";
                     break;
@@ -338,18 +323,17 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
             std::cout << "Failure reason:      " << reason << std::endl;
         }
 
-        if (certificate.GetStatus() == Aws::ACM::Model::CertificateStatus::REVOKED)
-        {
+        if (certificate.GetStatus() == Aws::ACM::Model::CertificateStatus::REVOKED) {
             std::cout << "Revoked at (GMT):    " <<
-                      certificate.GetRevokedAt().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
+                      certificate.GetRevokedAt().ToGmtString(
+                              Aws::Utils::DateFormat::ISO_8601)
                       << std::endl;
 
             Aws::ACM::Model::RevocationReason revocationReason =
                     certificate.GetRevocationReason();
             Aws::String reason;
 
-            switch (revocationReason)
-            {
+            switch (revocationReason) {
                 case Aws::ACM::Model::RevocationReason::AFFILIATION_CHANGED:
                     reason = "Affiliation changed";
                     break;
@@ -390,21 +374,19 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
             std::cout << "Revocation reason:   " << reason << std::endl;
         }
 
-        if (certificate.GetType() == Aws::ACM::Model::CertificateType::IMPORTED)
-        {
+        if (certificate.GetType() == Aws::ACM::Model::CertificateType::IMPORTED) {
             std::cout << "Imported at (GMT):   " <<
-                      certificate.GetImportedAt().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
+                      certificate.GetImportedAt().ToGmtString(
+                              Aws::Utils::DateFormat::ISO_8601)
                       << std::endl;
         }
 
         Aws::Vector<Aws::String> inUseBys = certificate.GetInUseBy();
 
-        if (!inUseBys.empty())
-        {
+        if (!inUseBys.empty()) {
             std::cout << std::endl << "In use by:" << std::endl << std::endl;
 
-            for (auto &in_use_by : inUseBys)
-            {
+            for (auto &in_use_by: inUseBys) {
                 std::cout << "  " << in_use_by << std::endl;
             }
 
@@ -412,10 +394,10 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
         }
 
         if (certificate.GetType() == Aws::ACM::Model::CertificateType::AMAZON_ISSUED &&
-            certificate.GetStatus() == Aws::ACM::Model::CertificateStatus::ISSUED)
-        {
+            certificate.GetStatus() == Aws::ACM::Model::CertificateStatus::ISSUED) {
             std::cout << "Issued at (GMT):     " <<
-                      certificate.GetIssuedAt().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
+                      certificate.GetIssuedAt().ToGmtString(
+                              Aws::Utils::DateFormat::ISO_8601)
                       << std::endl;
         }
 
@@ -426,8 +408,7 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                 certificate.GetKeyAlgorithm();
         Aws::String algorithm;
 
-        switch (keyAlgorithm)
-        {
+        switch (keyAlgorithm) {
             case Aws::ACM::Model::KeyAlgorithm::EC_prime256v1:
                 algorithm = "P-256 (secp256r1, prime256v1)";
                 break;
@@ -455,13 +436,14 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
 
         std::cout << "Key algorithm:       " << algorithm << std::endl;
 
-        if (certificate.GetStatus() == Aws::ACM::Model::CertificateStatus::ISSUED)
-        {
+        if (certificate.GetStatus() == Aws::ACM::Model::CertificateStatus::ISSUED) {
             std::cout << "Not valid after (GMT): " <<
-                      certificate.GetNotAfter().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
+                      certificate.GetNotAfter().ToGmtString(
+                              Aws::Utils::DateFormat::ISO_8601)
                       << std::endl;
             std::cout << "Not valid before (GMT): " <<
-                      certificate.GetNotBefore().ToGmtString(Aws::Utils::DateFormat::ISO_8601)
+                      certificate.GetNotBefore().ToGmtString(
+                              Aws::Utils::DateFormat::ISO_8601)
                       << std::endl;
         }
 
@@ -469,8 +451,7 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
                 certificate.GetOptions().GetCertificateTransparencyLoggingPreference();
         Aws::String preference;
 
-        switch (loggingPreference)
-        {
+        switch (loggingPreference) {
             case Aws::ACM::Model::CertificateTransparencyLoggingPreference::DISABLED:
                 preference = "Disabled";
                 break;
@@ -496,8 +477,7 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
         Aws::ACM::Model::CertificateType certificateType = certificate.GetType();
         Aws::String type;
 
-        switch (certificateType)
-        {
+        switch (certificateType) {
             case Aws::ACM::Model::CertificateType::AMAZON_ISSUED:
                 type = "Amazon issued";
                 break;
@@ -519,13 +499,11 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
         Aws::Vector<Aws::String> altNames =
                 certificate.GetSubjectAlternativeNames();
 
-        if (!altNames.empty())
-        {
+        if (!altNames.empty()) {
             std::cout << std::endl << "Alternative names:" <<
                       std::endl << std::endl;
 
-            for (auto &alt_name : altNames)
-            {
+            for (auto &alt_name: altNames) {
                 std::cout << "  " << alt_name << std::endl;
             }
 
@@ -535,6 +513,7 @@ bool AwsDoc::ACM::DescribeCertificate(const Aws::String& certificateArn,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.acm.DescribeCertificate]
 
 /*
 *
@@ -564,7 +543,7 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::ACM::DescribeCertificate(certificateArn, clientConfig);
+        AwsDoc::ACM::describeCertificate(certificateArn, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

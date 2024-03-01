@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -19,90 +18,78 @@
 #include <fstream>
 #include "acm_samples.h"
 
-static bool FileExists(const char* fileName)
-{
-    std::ifstream ifile;
-    ifile.open(fileName);
-
-    if (ifile)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-// Helper function for Aws::ACM::ACMClient::ImportCertificate.
-bool AwsDoc::ACM::ImportCertificate(const Aws::String& certificateFile,
-                                    const Aws::String& privateKeyFile,
-                                    const Aws::String& certificateChainFile,
-                                    const Aws::Client::ClientConfiguration &clientConfiguration)
-{
-    if (!FileExists(certificateFile.c_str()))
-    {
-        std::cout << "Error: The certificate file '" << certificateFile <<
+//! Import an AWS Certificate Manager (ACM) certificate.
+/*!
+  \param certificateFile: Path to certificate to import.
+  \param privateKeyFile: Path to file containing a private key.
+  \param certificateChainFile: Path to file containing a PEM encoded certificate chain.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::ACM::importCertificate(const Aws::String &certificateFile,
+                                    const Aws::String &privateKeyFile,
+                                    const Aws::String &certificateChainFile,
+                                    const Aws::Client::ClientConfiguration &clientConfiguration) {
+    std::ifstream certificateInStream(certificateFile.c_str());
+    if (!certificateInStream) {
+        std::cerr << "Error: The certificate file '" << certificateFile <<
                   "' does not exist." << std::endl;
 
         return false;
     }
 
-    if (!FileExists(privateKeyFile.c_str()))
-    {
-        std::cout << "Error: The private key file '" << privateKeyFile <<
+    std::ifstream privateKeyInstream(privateKeyFile.c_str());
+    if (!privateKeyInstream) {
+        std::cerr << "Error: The private key file '" << privateKeyFile <<
                   "' does not exist." << std::endl;
 
         return false;
     }
 
-    if (!FileExists(certificateChainFile.c_str()))
-    {
-        std::cout << "Error: The certificate chain file '"
+    std::ifstream certificateChainInStream(certificateChainFile.c_str());
+    if (!certificateChainInStream) {
+        std::cerr << "Error: The certificate chain file '"
                   << certificateChainFile << "' does not exist." << std::endl;
 
         return false;
     }
 
-    std::ifstream cert_ifs(certificateFile.c_str());
-    std::ifstream pk_ifs(privateKeyFile.c_str());
-    std::ifstream cert_chain_ifs(certificateChainFile.c_str());
-
     Aws::String certificate;
-    certificate.assign(std::istreambuf_iterator<char>(cert_ifs),
+    certificate.assign(std::istreambuf_iterator<char>(certificateInStream),
                        std::istreambuf_iterator<char>());
 
     Aws::String privateKey;
-    privateKey.assign(std::istreambuf_iterator<char>(pk_ifs),
+    privateKey.assign(std::istreambuf_iterator<char>(privateKeyInstream),
                       std::istreambuf_iterator<char>());
 
     Aws::String certificateChain;
-    certificateChain.assign(std::istreambuf_iterator<char>(cert_chain_ifs),
+    certificateChain.assign(std::istreambuf_iterator<char>(certificateChainInStream),
                             std::istreambuf_iterator<char>());
 
-    Aws::ACM::ACMClient acm_client(clientConfiguration);
+    Aws::ACM::ACMClient acmClient(clientConfiguration);
 
     Aws::ACM::Model::ImportCertificateRequest request;
 
-    request.WithCertificate(Aws::Utils::ByteBuffer((unsigned char*)
-                                                           certificate.c_str(), certificate.size()))
-            .WithPrivateKey(Aws::Utils::ByteBuffer((unsigned char*)
-                                                           privateKey.c_str(), privateKey.size()))
-            .WithCertificateChain(Aws::Utils::ByteBuffer((unsigned char*)
-                                                                 certificateChain.c_str(), certificateChain.size()));
+    request.WithCertificate(Aws::Utils::ByteBuffer((unsigned char *)
+                                                           certificate.c_str(),
+                                                   certificate.size()))
+            .WithPrivateKey(Aws::Utils::ByteBuffer((unsigned char *)
+                                                           privateKey.c_str(),
+                                                   privateKey.size()))
+            .WithCertificateChain(Aws::Utils::ByteBuffer((unsigned char *)
+                                                                 certificateChain.c_str(),
+                                                         certificateChain.size()));
 
     Aws::ACM::Model::ImportCertificateOutcome outcome =
-            acm_client.ImportCertificate(request);
+            acmClient.ImportCertificate(request);
 
-    if (!outcome.IsSuccess())
-    {
-        std::cout << "Error: ImportCertificate: " <<
+    if (!outcome.IsSuccess()) {
+        std::cerr << "Error: ImportCertificate: " <<
                   outcome.GetError().GetMessage() << std::endl;
 
         return false;
     }
-    else
-    {
+    else {
         std::cout << "Success: Certificate associated with ARN '" <<
                   outcome.GetResult().GetCertificateArn() << "' imported."
                   << std::endl;
@@ -115,28 +102,33 @@ bool AwsDoc::ACM::ImportCertificate(const Aws::String& certificateFile,
 *
 *  main function
 *
-*  Usage: 'run_'
-*
-*  Prerequisites: .
+*  Usage: 'run_import_certificate <certificate_file> <key_file> <chain_file>'
 *
 */
 
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc != 3) {
-        std::cout << "Usage: run_"
-                  << std::endl;
+    if (argc != 4) {
+        std::cout
+                << "Usage: 'run_import_certificate <certificate_file> <key_file> <chain_file>'"
+                << std::endl;
         return 1;
     }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String certificateFile = argv[1];
+        Aws::String privateKeyFile = argv[2];
+        Aws::String certificateChainFile = argv[3];
+
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
+        AwsDoc::ACM::importCertificate(certificateFile, privateKeyFile,
+                                       certificateChainFile, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

@@ -1,7 +1,6 @@
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -18,14 +17,17 @@
 #include <aws/acm/model/RemoveTagsFromCertificateRequest.h>
 #include "acm_samples.h"
 
-bool AwsDoc::ACM::RemoveTagFromCertificate(const Aws::String& certificateArn,
-                                           const Aws::String& tagKey,
-                                           const Aws::String& region)
-{
-    Aws::Client::ClientConfiguration config;
-    config.region = region;
-
-    Aws::ACM::ACMClient acm_client(config);
+//! Remove a tag from an ACM certificate.
+/*!
+  \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
+  \param region: The tag for the key.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::ACM::removeTagFromCertificate(const Aws::String &certificateArn,
+                                           const Aws::String &tagKey,
+                                           const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::ACM::ACMClient acmClient(clientConfiguration);
 
     Aws::Vector<Aws::ACM::Model::Tag> tags;
 
@@ -39,17 +41,15 @@ bool AwsDoc::ACM::RemoveTagFromCertificate(const Aws::String& certificateArn,
             .WithTags(tags);
 
     Aws::ACM::Model::RemoveTagsFromCertificateOutcome outcome =
-            acm_client.RemoveTagsFromCertificate(request);
+            acmClient.RemoveTagsFromCertificate(request);
 
-    if (!outcome.IsSuccess())
-    {
-        std::cout << "Error: RemoveTagFromCertificate: " <<
+    if (!outcome.IsSuccess()) {
+        std::cerr << "Error: RemoveTagFromCertificate: " <<
                   outcome.GetError().GetMessage() << std::endl;
 
         return false;
     }
-    else
-    {
+    else {
         std::cout << "Success: Tag with key '" << tagKey << "' removed from "
                   << "certificate with ARN '" << certificateArn << "'." << std::endl;
 
@@ -61,17 +61,17 @@ bool AwsDoc::ACM::RemoveTagFromCertificate(const Aws::String& certificateArn,
 *
 *  main function
 *
-*  Usage: 'run_'
+*  Usage: 'run_remove_tag_from_certificate <certificate_arn> <tag>'
 *
-*  Prerequisites: .
+*  Prerequisites: A certificate.
 *
 */
 
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc != 3) {
-        std::cout << "Usage: run_"
+    if (argc != 4) {
+        std::cout << "Usage: 'run_remove_tag_from_certificate <certificate_arn> <tag>'"
                   << std::endl;
         return 1;
     }
@@ -79,11 +79,16 @@ int main(int argc, char **argv) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String certificateArn = argv[1];
+        Aws::String tagKey = argv[2];
+
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
+        AwsDoc::ACM::removeTagFromCertificate(certificateArn, tagKey, clientConfig);
     }
+
     Aws::ShutdownAPI(options);
     return 0;
 }
