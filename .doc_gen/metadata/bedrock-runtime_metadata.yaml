@@ -147,7 +147,7 @@ bedrock-runtime_InvokeMistral7B:
           excerpts:
             - description: Invoke the Mistral 7B foundation model to generate text.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/actions/invoke-mistral-7b.js
+                - javascriptv3/example_code/bedrock-runtime/actions/invoke-mistral7b.js
     Python:
       versions:
         - sdk_version: 3
@@ -182,7 +182,7 @@ bedrock-runtime_InvokeMixtral8x7B:
           excerpts:
             - description: Invoke the Mixtral 8x7B foundation model to generate text.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/actions/invoke-mixtral-8x7b.js
+                - javascriptv3/example_code/bedrock-runtime/actions/invoke-mixtral8x7b.js
     Python:
       versions:
         - sdk_version: 3
