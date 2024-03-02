@@ -29,6 +29,52 @@ class BedrockRuntimeStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
+    def stub_invoke_mistral_7b(self, prompt, error_code=None):
+        expected_params = {
+            "modelId": "mistral.mistral-7b-instruct-v0:2",
+            "body": json.dumps(
+                {
+                    "prompt": prompt,
+                    "max_tokens": 200,
+                    "temperature": 0.5,
+                }
+            ),
+        }
+
+        response = {
+            "body": io.BytesIO(
+                '{ "outputs": [ { "text": "Fake completion" } ] }'.encode("utf-8")
+            ),
+            "contentType": "",
+        }
+
+        self._stub_bifurcator(
+            "invoke_model", expected_params, response, error_code=error_code
+        )
+
+    def stub_invoke_mixtral_8x7b(self, prompt, error_code=None):
+        expected_params = {
+            "modelId": "mistral.mixtral-8x7b-instruct-v0:1",
+            "body": json.dumps(
+                {
+                    "prompt": prompt,
+                    "max_tokens": 200,
+                    "temperature": 0.5,
+                }
+            ),
+        }
+
+        response = {
+            "body": io.BytesIO(
+                '{ "outputs": [ { "text": "Fake completion" } ] }'.encode("utf-8")
+            ),
+            "contentType": "",
+        }
+
+        self._stub_bifurcator(
+            "invoke_model", expected_params, response, error_code=error_code
+        )
+
     def stub_invoke_claude(self, prompt, error_code=None):
         expected_params = {
             "modelId": "anthropic.claude-v2",

@@ -17,6 +17,7 @@ import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.IntStream;
 // snippet-end:[bedrock-runtime.java2.invoke_model_async.import]
 
 /**
@@ -28,6 +29,108 @@ import java.util.concurrent.ExecutionException;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class InvokeModelAsync {
+
+    // snippet-start:[bedrock-runtime.java2.invoke_mistral_7b_async.main]
+    /**
+     * Asynchronously invokes the Mistral 7B model to run an inference based on the provided input.
+     *
+     * @param prompt The prompt for Mistral to complete.
+     * @return The generated response.
+     */
+    public static List<String> invokeMistral7B(String prompt) {
+        BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
+                .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
+
+        String modelId = "mistral.mistral-7b-instruct-v0:2";
+
+        String payload = new JSONObject()
+                .put("prompt", prompt)
+                .put("max_tokens", 200)
+                .put("temperature", 0.5)
+                .toString();
+
+        CompletableFuture<InvokeModelResponse> completableFuture = client.invokeModel(request -> request
+                .accept("application/json")
+                .contentType("application/json")
+                .body(SdkBytes.fromUtf8String(payload))
+                .modelId(modelId))
+        .whenComplete((response, exception) -> {
+            if (exception != null) {
+                System.out.println("Model invocation failed: " + exception);
+            }
+        });
+
+        try {
+            InvokeModelResponse response = completableFuture.get();
+            JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+            JSONArray outputs = responseBody.getJSONArray("outputs");
+
+            return IntStream.range(0, outputs.length())
+                    .mapToObj(i -> outputs.getJSONObject(i).getString("text"))
+                    .toList();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println(e.getMessage());
+        } catch (ExecutionException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return List.of();
+    }
+    // snippet-end:[bedrock-runtime.java2.invoke_mistral_7b_async.main]
+
+    // snippet-start:[bedrock-runtime.java2.invoke_mixtral_8x7b_async.main]
+    /**
+     * Asynchronously invokes the Mixtral 8x7B model to run an inference based on the provided input.
+     *
+     * @param prompt The prompt for Mixtral to complete.
+     * @return The generated response.
+     */
+    public static List<String> invokeMixtral8x7B(String prompt) {
+        BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
+                .region(Region.US_WEST_2)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
+
+        String modelId = "mistral.mixtral-8x7b-instruct-v0:1";
+
+        String payload = new JSONObject()
+                .put("prompt", prompt)
+                .put("max_tokens", 200)
+                .put("temperature", 0.5)
+                .toString();
+
+        CompletableFuture<InvokeModelResponse> completableFuture = client.invokeModel(request -> request
+                        .accept("application/json")
+                        .contentType("application/json")
+                        .body(SdkBytes.fromUtf8String(payload))
+                        .modelId(modelId))
+                .whenComplete((response, exception) -> {
+                    if (exception != null) {
+                        System.out.println("Model invocation failed: " + exception);
+                    }
+                });
+
+        try {
+            InvokeModelResponse response = completableFuture.get();
+            JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+            JSONArray outputs = responseBody.getJSONArray("outputs");
+
+            return IntStream.range(0, outputs.length())
+                    .mapToObj(i -> outputs.getJSONObject(i).getString("text"))
+                    .toList();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println(e.getMessage());
+        } catch (ExecutionException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return List.of();
+    }
+    // snippet-end:[bedrock-runtime.java2.invoke_mixtral_8x7b_async.main]
 
     // snippet-start:[bedrock-runtime.java2.invoke_claude_async.main]
     /**

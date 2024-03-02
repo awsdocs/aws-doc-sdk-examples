@@ -149,6 +149,78 @@ class BedrockRuntimeWrapper:
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeMetaLlama2]
 
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeMistral7B]
+    def invoke_mistral_7b(self, prompt):
+        """
+        Invokes the Mistral 7B model to run an inference using the input
+        provided in the request body.
+
+        :param prompt: The prompt that you want Mistral to complete.
+        :return: List of inference responses from the model.
+        """
+
+        try:
+            model_id = "mistral.mistral-7b-instruct-v0:2"
+
+            body = {
+                "prompt": prompt,
+                "max_tokens": 200,
+                "temperature": 0.5,
+            }
+
+            response = self.bedrock_runtime_client.invoke_model(
+                modelId=model_id, body=json.dumps(body)
+            )
+
+            response_body = json.loads(response["body"].read())
+            outputs = response_body.get("outputs")
+
+            completions = [output["text"] for output in outputs]
+
+            return completions
+
+        except ClientError:
+            logger.error("Couldn't invoke Mistral 7B")
+            raise
+
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeMistral7B]
+
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeMixtral8x7B]
+    def invoke_mixtral_8x7b(self, prompt):
+        """
+        Invokes the Mixtral 8c7B model to run an inference using the input
+        provided in the request body.
+
+        :param prompt: The prompt that you want Mixtral to complete.
+        :return: List of inference responses from the model.
+        """
+
+        try:
+            model_id = "mistral.mixtral-8x7b-instruct-v0:1"
+
+            body = {
+                "prompt": prompt,
+                "max_tokens": 200,
+                "temperature": 0.5,
+            }
+
+            response = self.bedrock_runtime_client.invoke_model(
+                modelId=model_id, body=json.dumps(body)
+            )
+
+            response_body = json.loads(response["body"].read())
+            outputs = response_body.get("outputs")
+
+            completions = [output["text"] for output in outputs]
+
+            return completions
+
+        except ClientError:
+            logger.error("Couldn't invoke Mixtral 8x7B")
+            raise
+
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeMixtral8x7B]
+
     # snippet-start:[python.example_code.bedrock-runtime.InvokeStableDiffusion]
     def invoke_stable_diffusion(self, prompt, seed, style_preset=None):
         """
@@ -313,6 +385,16 @@ def invoke(wrapper, model_id, prompt, style_preset=None):
             completion = wrapper.invoke_llama2(prompt)
             print("Completion: " + completion)
 
+        elif model_id == "mistral.mistral-7b-instruct-v0:2":
+            completions = wrapper.invoke_mistral_7b(prompt)
+            for completion in completions:
+                print("Completion: " + completion)
+
+        elif model_id == "mistral.mixtral-8x7b-instruct-v0:1":
+            completions = wrapper.invoke_mixtral_8x7b(prompt)
+            for completion in completions:
+                print("Completion: " + completion)
+
         elif model_id == "stability.stable-diffusion-xl":
             seed = random.randint(0, 4294967295)
             base64_image_data = wrapper.invoke_stable_diffusion(
@@ -359,7 +441,7 @@ def usage_demo():
     print("Welcome to the Amazon Bedrock Runtime demo.")
     print("-" * 88)
 
-    client = boto3.client(service_name="bedrock-runtime", region_name="us-east-1")
+    client = boto3.client(service_name="bedrock-runtime", region_name="us-west-2")
 
     wrapper = BedrockRuntimeWrapper(client)
 
@@ -370,6 +452,10 @@ def usage_demo():
     invoke(wrapper, "ai21.j2-mid-v1", text_generation_prompt)
 
     invoke(wrapper, "meta.llama2-13b-chat-v1", text_generation_prompt)
+
+    invoke(wrapper, "mistral.mistral-7b-instruct-v0:2", text_generation_prompt)
+
+    invoke(wrapper, "mistral.mixtral-8x7b-instruct-v0:1", text_generation_prompt)
 
     asyncio.run(
         invoke_with_response_stream(

@@ -15,6 +15,7 @@ import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelRequest;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
 
 import java.util.List;
+import java.util.stream.IntStream;
 // snippet-end:[bedrock-runtime.java2.invoke_model.import]
 
 /**
@@ -26,6 +27,79 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class InvokeModel {
+
+        // snippet-start:[bedrock-runtime.java2.invoke_mistral_7b.main]
+        /**
+         * Invokes the Mistral 7B model to run an inference based on the provided input.
+         *
+         * @param prompt The prompt for Mistral to complete.
+         * @return The generated responses.
+         */
+        public static List<String> invokeMistral7B(String prompt) {
+                BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                        .region(Region.US_WEST_2)
+                        .credentialsProvider(ProfileCredentialsProvider.create())
+                        .build();
+
+                String modelId = "mistral.mistral-7b-instruct-v0:2";
+
+                String payload = new JSONObject()
+                        .put("prompt", prompt)
+                        .put("max_tokens", 200)
+                        .put("temperature", 0.5)
+                        .toString();
+
+                InvokeModelResponse response = client.invokeModel(request -> request
+                        .accept("application/json")
+                        .contentType("application/json")
+                        .body(SdkBytes.fromUtf8String(payload))
+                        .modelId(modelId));
+
+                JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+                JSONArray outputs = responseBody.getJSONArray("outputs");
+
+                return IntStream.range(0, outputs.length())
+                        .mapToObj(i -> outputs.getJSONObject(i).getString("text"))
+                        .toList();
+
+        }
+        // snippet-end:[bedrock-runtime.java2.invoke_mistral_7b.main]
+
+        /**
+         * Invokes the Mixtral 8x7B model to run an inference based on the provided input.
+         *
+         * @param prompt The prompt for Mixtral to complete.
+         * @return The generated responses.
+         */
+        // snippet-start:[bedrock-runtime.java2.invoke_mixtral_8x7b.main]
+        public static List<String> invokeMixtral8x7B(String prompt) {
+                BedrockRuntimeClient client = BedrockRuntimeClient.builder()
+                        .region(Region.US_WEST_2)
+                        .credentialsProvider(ProfileCredentialsProvider.create())
+                        .build();
+
+                String modelId = "mistral.mixtral-8x7b-instruct-v0:1";
+
+                String payload = new JSONObject()
+                        .put("prompt", prompt)
+                        .put("max_tokens", 200)
+                        .put("temperature", 0.5)
+                        .toString();
+
+                InvokeModelResponse response = client.invokeModel(request -> request
+                        .accept("application/json")
+                        .contentType("application/json")
+                        .body(SdkBytes.fromUtf8String(payload))
+                        .modelId(modelId));
+
+                JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+                JSONArray outputs = responseBody.getJSONArray("outputs");
+
+                return IntStream.range(0, outputs.length())
+                        .mapToObj(i -> outputs.getJSONObject(i).getString("text"))
+                        .toList();
+        }
+        // snippet-end:[bedrock-runtime.java2.invoke_mixtral_8x7b.main]
 
         // snippet-start:[bedrock-runtime.java2.invoke_claude.main]
         /**
