@@ -17,6 +17,7 @@ import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.IntStream;
 // snippet-end:[bedrock-runtime.java2.invoke_model_async.import]
 
 /**
@@ -36,7 +37,7 @@ public class InvokeModelAsync {
      * @param prompt The prompt for Mistral to complete.
      * @return The generated response.
      */
-    public static String invokeMistral7B(String prompt) {
+    public static List<String> invokeMistral7B(String prompt) {
         BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
                 .region(Region.US_WEST_2)
                 .credentialsProvider(ProfileCredentialsProvider.create())
@@ -61,13 +62,14 @@ public class InvokeModelAsync {
             }
         });
 
-        String generatedText = "";
         try {
-            JSONObject responseBody = new JSONObject(completableFuture.get().body().asUtf8String());
-            generatedText = responseBody
-                    .getJSONArray("outputs")
-                    .getJSONObject(0)
-                    .getString("text");
+            InvokeModelResponse response = completableFuture.get();
+            JSONObject responseBody = new JSONObject(response.body().asUtf8String());
+            JSONArray outputs = responseBody.getJSONArray("outputs");
+
+            return IntStream.range(0, outputs.length())
+                    .mapToObj(i -> outputs.getJSONObject(i).getString("text"))
+                    .toList();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.err.println(e.getMessage());
@@ -75,7 +77,7 @@ public class InvokeModelAsync {
             System.err.println(e.getMessage());
         }
 
-        return generatedText;
+        return List.of();
     }
     // snippet-end:[bedrock-runtime.java2.invoke_mistral_7b_async.main]
 
@@ -86,7 +88,7 @@ public class InvokeModelAsync {
      * @param prompt The prompt for Mixtral to complete.
      * @return The generated response.
      */
-    public static String invokeMixtral8x7B(String prompt) {
+    public static List<String> invokeMixtral8x7B(String prompt) {
         BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
                 .region(Region.US_WEST_2)
                 .credentialsProvider(ProfileCredentialsProvider.create())
@@ -111,14 +113,14 @@ public class InvokeModelAsync {
                     }
                 });
 
-        String generatedText = "";
         try {
             InvokeModelResponse response = completableFuture.get();
             JSONObject responseBody = new JSONObject(response.body().asUtf8String());
-            generatedText = responseBody
-                    .getJSONArray("outputs")
-                    .getJSONObject(0)
-                    .getString("text");
+            JSONArray outputs = responseBody.getJSONArray("outputs");
+
+            return IntStream.range(0, outputs.length())
+                    .mapToObj(i -> outputs.getJSONObject(i).getString("text"))
+                    .toList();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.err.println(e.getMessage());
@@ -126,7 +128,7 @@ public class InvokeModelAsync {
             System.err.println(e.getMessage());
         }
 
-        return generatedText;
+        return List.of();
     }
     // snippet-end:[bedrock-runtime.java2.invoke_mixtral_8x7b_async.main]
 

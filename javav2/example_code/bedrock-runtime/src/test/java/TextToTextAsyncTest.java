@@ -5,6 +5,9 @@ import com.example.bedrockruntime.InvokeModelAsync;
 import com.example.bedrockruntime.InvokeModelWithResponseStream;
 import org.junit.jupiter.api.*;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 class TextToTextAsyncTest extends TestBase {
 
@@ -12,8 +15,12 @@ class TextToTextAsyncTest extends TestBase {
     @Tag("IntegrationTest")
     void InvokeMistral7BAsync() {
         var prompt = "In one sentence, what is a large-language model?";
-        var generatedText = InvokeModelAsync.invokeMistral7B(prompt);
-        assertNotNullOrEmpty(generatedText);
+        var completions = InvokeModelAsync.invokeMistral7B(prompt);
+        assertNotNull(completions);
+        assertFalse(completions.isEmpty());
+        String result = completions.get(0);
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
         System.out.println("Test async invoke Mistral 7B passed.");
     }
 
@@ -21,8 +28,12 @@ class TextToTextAsyncTest extends TestBase {
     @Tag("IntegrationTest")
     void InvokeMixtral8x7BAsync() {
         var prompt = "In one sentence, what is a large-language model?";
-        var generatedText = InvokeModelAsync.invokeMixtral8x7B(prompt);
-        assertNotNullOrEmpty(generatedText);
+        var completions = InvokeModelAsync.invokeMixtral8x7B(prompt);
+        assertNotNull(completions);
+        assertFalse(completions.isEmpty());
+        String result = completions.get(0);
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
         System.out.println("Test async invoke Mixtral 8x7B passed.");
     }
 

@@ -2,7 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.bedrockruntime.InvokeModel;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 class TextToTextSyncTest extends TestBase {
@@ -10,16 +15,26 @@ class TextToTextSyncTest extends TestBase {
     @Test
     @Tag("IntegrationTest")
     void InvokeMistral7B() {
-        String completion = InvokeModel.invokeMistral7B("In one sentence, what is a large-language model?");
-        assertNotNullOrEmpty(completion);
+        var prompt = "In one sentence, what is a large-language model?";
+        var completions = InvokeModel.invokeMistral7B(prompt);
+        assertNotNull(completions);
+        assertFalse(completions.isEmpty());
+        var result = completions.get(0);
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
         System.out.println("Test sync invoke Mistral 7B passed.");
     }
 
     @Test
     @Tag("IntegrationTest")
     void InvokeMixtral8x7B() {
-        String completion = InvokeModel.invokeMixtral8x7B("In one sentence, what is a large-language model?");
-        assertNotNullOrEmpty(completion);
+        var prompt = "In one sentence, what is a large-language model?";
+        var completions = InvokeModel.invokeMixtral8x7B(prompt);
+        assertNotNull(completions);
+        assertFalse(completions.isEmpty());
+        var result = completions.get(0);
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
         System.out.println("Test sync invoke Mixtral 8x7B passed.");
     }
 

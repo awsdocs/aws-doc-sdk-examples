@@ -10,8 +10,11 @@ import {
 } from "@aws-sdk/client-bedrock-runtime";
 
 /**
+ * @typedef {Object} Output
+ * @property {string} text
+ *
  * @typedef {Object} ResponseBody
- * @property {String} TODO
+ * @property {Output[]} outputs
  */
 
 /**
@@ -19,12 +22,12 @@ import {
  * provided in the request body.
  *
  * @param {string} prompt - The prompt that you want Mistral to complete.
- * @returns {string} The inference response (completion) from the model.
+ * @returns {string[]} A list of inference responses (completions) from the model.
  */
 export const invokeMistral7B = async (prompt) => {
-  const client = new BedrockRuntimeClient({ region: "us-east-1" });
+  const client = new BedrockRuntimeClient({ region: "us-west-2" });
 
-  const modelId = "mistral.mistral-7b-instruct-v0";
+  const modelId = "mistral.mistral-7b-instruct-v0:2";
 
   const payload = {
     prompt: prompt,
@@ -46,7 +49,7 @@ export const invokeMistral7B = async (prompt) => {
     /** @type {ResponseBody} */
     const responseBody = JSON.parse(decodedResponseBody);
 
-    return responseBody.TODO;
+    return responseBody.outputs.map((output) => output.text);
   } catch (err) {
     if (err instanceof AccessDeniedException) {
       console.error(
@@ -64,8 +67,10 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   console.log("\nModel: Mistral 7B");
   console.log(`Prompt: ${prompt}`);
 
-  const completion = await invokeMistral7B(prompt);
-  console.log("Completion:");
-  console.log(completion);
-  console.log("\n");
+  const completions = await invokeMistral7B(prompt);
+  completions.forEach((completion) => {
+    console.log("Completion:");
+    console.log(completion);
+    console.log("\n");
+  });
 }

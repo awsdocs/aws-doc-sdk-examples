@@ -69,10 +69,14 @@ public class BedrockRuntimeUsageDemo {
                     printResponse(invokeLlama2(prompt));
                     break;
                 case MISTRAL7B:
-                    printResponse(invokeMistral7B(prompt));
+                    for (String response : invokeMistral7B(prompt)) {
+                        printResponse(response);
+                    }
                     break;
                 case MIXTRAL8X7B:
-                    printResponse(invokeMixtral8x7B(prompt));
+                    for (String response : invokeMixtral8x7B(prompt)) {
+                        printResponse(response);
+                    }
                     break;
                 case STABLE_DIFFUSION:
                     createImage(STABLE_DIFFUSION, prompt, random.nextLong() & 0xFFFFFFFFL, stylePreset);
