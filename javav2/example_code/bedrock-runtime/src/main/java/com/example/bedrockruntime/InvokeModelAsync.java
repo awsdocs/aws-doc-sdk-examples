@@ -38,11 +38,11 @@ public class InvokeModelAsync {
      */
     public static String invokeMistral7B(String prompt) {
         BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
-                .region(Region.US_EAST_1)
+                .region(Region.US_WEST_2)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        String modelId = "mistral.mistral-7b-instruct-v0";
+        String modelId = "mistral.mistral-7b-instruct-v0:2";
 
         String payload = new JSONObject()
                 .put("prompt", prompt)
@@ -64,7 +64,10 @@ public class InvokeModelAsync {
         String generatedText = "";
         try {
             JSONObject responseBody = new JSONObject(completableFuture.get().body().asUtf8String());
-            generatedText = responseBody.getString("TODO");
+            generatedText = responseBody
+                    .getJSONArray("outputs")
+                    .getJSONObject(0)
+                    .getString("text");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.err.println(e.getMessage());
@@ -85,11 +88,11 @@ public class InvokeModelAsync {
      */
     public static String invokeMixtral8x7B(String prompt) {
         BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
-                .region(Region.US_EAST_1)
+                .region(Region.US_WEST_2)
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        String modelId = "mistral.mixtral-8x7b-instruct-v0";
+        String modelId = "mistral.mixtral-8x7b-instruct-v0:1";
 
         String payload = new JSONObject()
                 .put("prompt", prompt)
@@ -112,7 +115,10 @@ public class InvokeModelAsync {
         try {
             InvokeModelResponse response = completableFuture.get();
             JSONObject responseBody = new JSONObject(response.body().asUtf8String());
-            generatedText = responseBody.getString("TODO");
+            generatedText = responseBody
+                    .getJSONArray("outputs")
+                    .getJSONObject(0)
+                    .getString("text");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.err.println(e.getMessage());

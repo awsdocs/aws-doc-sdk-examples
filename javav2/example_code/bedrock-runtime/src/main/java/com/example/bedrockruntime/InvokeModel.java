@@ -36,11 +36,11 @@ public class InvokeModel {
          */
         public static String invokeMistral7B(String prompt) {
                 BedrockRuntimeClient client = BedrockRuntimeClient.builder()
-                        .region(Region.US_EAST_1)
+                        .region(Region.US_WEST_2)
                         .credentialsProvider(ProfileCredentialsProvider.create())
                         .build();
 
-                String modelId = "mistral.mistral-7b-instruct-v0";
+                String modelId = "mistral.mistral-7b-instruct-v0:2";
 
                 String payload = new JSONObject()
                         .put("prompt", prompt)
@@ -56,9 +56,10 @@ public class InvokeModel {
 
                 JSONObject responseBody = new JSONObject(response.body().asUtf8String());
 
-                String generatedText = responseBody.getString("TODO");
-
-                return generatedText;
+            return responseBody
+                        .getJSONArray("outputs")
+                        .getJSONObject(0)
+                        .getString("text");
         }
         // snippet-end:[bedrock-runtime.java2.invoke_mistral_7b.main]
 
@@ -71,11 +72,11 @@ public class InvokeModel {
         // snippet-start:[bedrock-runtime.java2.invoke_mixtral_8x7b.main]
         public static String invokeMixtral8x7B(String prompt) {
                 BedrockRuntimeClient client = BedrockRuntimeClient.builder()
-                        .region(Region.US_EAST_1)
+                        .region(Region.US_WEST_2)
                         .credentialsProvider(ProfileCredentialsProvider.create())
                         .build();
 
-                String modelId = "mistral.mixtral-8x7b-instruct-v0";
+                String modelId = "mistral.mixtral-8x7b-instruct-v0:1";
 
                 String payload = new JSONObject()
                         .put("prompt", prompt)
@@ -91,9 +92,10 @@ public class InvokeModel {
 
                 JSONObject responseBody = new JSONObject(response.body().asUtf8String());
 
-                String generatedText = responseBody.getString("TODO");
-
-                return generatedText;
+                return responseBody
+                        .getJSONArray("outputs")
+                        .getJSONObject(0)
+                        .getString("text");
         }
         // snippet-end:[bedrock-runtime.java2.invoke_mixtral_8x7b.main]
 
