@@ -168,3 +168,21 @@ redshift_ModifyCluster:
                 - redshift.javascript.redshift-modify-clustersV3
   services:
     redshift: {ModifyCluster}
+redshift_Scenario:
+  title: Get started with &RS; tables, items, and queries using an AWS SDK
+  title_abbrev: Get started with &RS;
+  synopsis: working with &RS; tables, items, and queries using an AWS SDK.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - redshift.java2.scenario.main
+  services:
+    redshift: {}
+
