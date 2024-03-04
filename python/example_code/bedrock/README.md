@@ -40,7 +40,7 @@ python -m pip install -r requirements.txt
 Code excerpts that show you how to call individual service functions.
 
 - [Get details about an Amazon Bedrock foundation model](bedrock_wrapper.py#L33) (`GetFoundationModel`)
-- [List available Amazon Bedrock foundation models](bedrock_wrapper.py#L51) (`ListFoundationModels`)
+- [List available Amazon Bedrock foundation models](bedrock_wrapper.py#L53) (`ListFoundationModels`)
 
 
 <!--custom.examples.start-->
