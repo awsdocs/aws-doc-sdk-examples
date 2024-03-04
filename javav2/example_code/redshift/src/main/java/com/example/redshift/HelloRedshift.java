@@ -28,7 +28,6 @@ public class HelloRedshift {
     }
 
     public static void listClustersPaginator(RedshiftClient redshiftClient) {
-
         DescribeClustersIterable clustersIterable = redshiftClient.describeClustersPaginator();
         clustersIterable.stream()
             .flatMap(r -> r.clusters().stream())
