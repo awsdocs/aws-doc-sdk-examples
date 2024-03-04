@@ -47,4 +47,18 @@ public class TextToTextAsyncTest
         Assert.NotNull(generatedText);
         Assert.NotEmpty(generatedText);
     }
+
+    /// <summary>
+    /// InvokeTitanTextG1Async result should not be null or empty
+    /// </summary>
+    [Fact]
+    [Order(4)]
+    [Trait("Category", "Integration")]
+    public async Task InvokeTitanTextG1Async_ShouldNotBeNullOrEmpty()
+    {
+        var prompt = "In one sentence, what is a large-language model?";
+        var generatedText = await InvokeModelAsync.InvokeTitanTextG1Async(prompt);
+        Assert.NotNull(generatedText);
+        Assert.NotEmpty(generatedText);
+    }
 }

@@ -74,6 +74,15 @@ bedrock-runtime_InvokeAmazonTitanImageGeneratorForTextGeneration:
             - description: Invoke the Amazon Titan Text G1 foundation model to generate text.
               snippet_files:
                 - javascriptv3/example_code/bedrock-runtime/actions/invoke-titan-text-express-v1.js
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/BedrockRuntime
+          sdkguide:
+          excerpts:
+            - description: Asynchronously invoke the Amazon Titan Text G1 foundation model to generate text.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.TitanTextG1
   services:
     bedrock-runtime: {InvokeModel}
 

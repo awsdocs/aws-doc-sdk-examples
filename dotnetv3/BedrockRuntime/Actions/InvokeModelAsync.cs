@@ -181,5 +181,66 @@ namespace BedrockRuntimeActions
         }
 
         // snippet-end:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.Llama2]
+
+        // snippet-start:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.TitanTextG1]
+
+        /// <summary>
+        /// Asynchronously invokes the Meta Llama 2 Chat model to run an inference based on the provided input.
+        /// </summary>
+        /// <param name="prompt">The prompt that you want Llama 2 to complete.</param>
+        /// <returns>The inference response from the model</returns>
+        /// <remarks>
+        /// The different model providers have individual request and response formats.
+        /// For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
+        ///     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
+        /// </remarks>
+        public static async Task<string> InvokeTitanTextG1Async(string prompt)
+        {
+            string titanTextG1ModelId = "amazon.titan-text-express-v1";
+
+            AmazonBedrockRuntimeClient client = new(RegionEndpoint.USEast1);
+
+            string payload = new JsonObject()
+            {
+                { "inputText", prompt },
+                { "textGenerationConfig", new JsonObject()
+                    {
+                        { "maxTokenCount", 512 },
+                        { "temperature", 0f },
+                        { "topP", 1f }
+                    }
+                }
+            }.ToJsonString();
+
+            string generatedText = "";
+            try
+            {
+                InvokeModelResponse response = await client.InvokeModelAsync(new InvokeModelRequest()
+                {
+                    ModelId = titanTextG1ModelId,
+                    Body = AWSSDKUtils.GenerateMemoryStreamFromString(payload),
+                    ContentType = "application/json",
+                    Accept = "application/json"
+                });
+
+                if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var results = JsonNode.ParseAsync(response.Body).Result?["results"]?.AsArray();
+
+                    return results is null ? "" : string.Join(" ", results.Select(x => x?["outputText"]?.GetValue<string?>()));
+                }
+                else
+                {
+                    Console.WriteLine("InvokeModelAsync failed with status code " + response.HttpStatusCode);
+                }
+            }
+            catch (AmazonBedrockRuntimeException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return generatedText;
+        }
+
+        // snippet-end:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.TitanTextG1]
     }
 }
