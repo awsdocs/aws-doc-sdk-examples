@@ -1,4 +1,3 @@
-// Submit service details.
 function selectService() {
     if (document.getElementById('selecttheservice').value != "") {
         document.getElementById('selectService').disabled = true;
@@ -109,7 +108,7 @@ $("#selectBlock").on('change', function () {
         var element = document.getElementById('addBlockName');
         element.setAttribute("style", "visibility: visible");
         const myService = document.getElementById('selecttheservice').value;
-        theService = myService + "_"
+        var theService = myService + "_"
         document.getElementById('blockname').value = theService;
     } else {
         var element = document.getElementById('addTitle');
@@ -141,8 +140,8 @@ $("#addServiceBtn").on('click', function () {
     var element = document.getElementById('addBlockName');
     element.setAttribute("style", "visibility: visible");
     if (document.getElementById('selecttheservice').value === "Not Listed") {
-        myService = document.getElementById('service').value;
-        theService = myService.slice(0, myService.lastIndexOf('_')) + "_";
+        var myService = document.getElementById('service').value;
+        var theService = myService.slice(0, myService.lastIndexOf('_')) + "_";
         document.getElementById('blockname').value = theService;
     }
 });
@@ -249,7 +248,7 @@ $("#languages").on('change', function () {
                 return $(this).val();
             }).get();
             currentLangs.push(values);
-            mycurrentLangs = currentLangs[0].splice(0, 1);
+            var mycurrentLangs = currentLangs[0].splice(0, 1);
             console.log('currentLangs', currentLangs)
             var allOptions = ["SAP ABAP", "Bash", "C++", "DotNet", "Go", "Kotlin", "Java", "JavaScript", "PHP", "Python", "Ruby", "Rust", "Swift", "Not Listed"];
             var options = $.grep(allOptions, function (value) {

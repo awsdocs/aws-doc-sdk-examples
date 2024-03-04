@@ -1,4 +1,3 @@
-import {fileURLToPath} from "url";
 import * as yaml from "js-yaml";
 import * as fs from "fs";
 import * as YAML from "json-to-pretty-yaml";
@@ -37,7 +36,7 @@ function getFiles(dir, files = []) {
 }
 
 // Convert yaml to Json
-const create_json = async () => {
+export const create_json = async () => {
     // Check if service metadata file exists
     const serviceStub = await promptForText(
         "Please enter the service stub for Principle Service used in the example you're adding/updating metadata for:"
@@ -110,6 +109,7 @@ const create_json = async () => {
         }
     }
 };
+
 
 //Convert edited Json back to YAML
 const updateYAML = async (serviceName) => {
