@@ -33,7 +33,7 @@ function removeNull(synopsis_list, value) {
 }
 
 // Convert yaml to Json
-const create_json = async () => {
+export const create_json = async () => {
     // Check if service metadata file exists
     const serviceStub = await promptForText(
         "Please enter the service stub for Principle Service used in the example you're adding/updating metadata for:"
@@ -66,28 +66,7 @@ const create_json = async () => {
             );
             console.log("Please leave this terminal running, and open the SOS GUI editor and enter \'" + serviceStub + "\' in the Principle Service field.");
             return serviceStub
-       /* }
-        else{
-            var doc = yaml.load(
-                fs.readFileSync(
-                    "../../" + serviceStub + "_metadata.yaml",
-                    "utf8",
-                ).replaceAll(/{+/g, "'{").replace(/}+/g, "}'")/!*.replaceAll('category:','synopsis_list:\n  category:')*!/
-            );
-            wait(3000)
-            console.log("doc", doc)
-            const mydoc = JSON.stringify(doc, null, 2);
-            console.log("mydoc", mydoc)
-            fs.writeFileSync(
-                "../jsonholder/" + serviceStub + "_metadata.json",
-                mydoc,
-                function (err) {
-                    if (err) throw err;
-                }
-            );
-            console.log("Please leave this terminal running, and open the SOS GUI editor and enter \'" + serviceStub + "\' in the Principle Service field.");
-            return serviceStub
-        }*/
+
     } catch (e) {
         console.log(e + "\n" + serviceStub + "_metadata.yaml does not exist in the \/metadata folder.")
 
