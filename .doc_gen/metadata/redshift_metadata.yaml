@@ -171,7 +171,7 @@ redshift_ModifyCluster:
 redshift_Scenario:
   title: Get started with &RS; tables, items, and queries
   title_abbrev: Get started with &RS;
-  synopsis: working with &RS; tables, items, and queries.
+  synopsis: work with &RS; tables, items, and queries.
   category: Scenarios
   languages:
     Java:
