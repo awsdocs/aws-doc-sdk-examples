@@ -424,6 +424,15 @@ bedrock-runtime_InvokeModelWithResponseStream:
             - description: Invoke the Anthropic Claude 2 model and process the response stream.
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeModelWithResponseStream
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/BedrockRuntime
+          sdkguide:
+          excerpts:
+            - description: Asynchronously invoke the Anthropic Claude 2 model and process the response stream.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.ClaudeWithResponseStream
   services:
     bedrock-runtime: {InvokeModelWithResponseStream}
 
