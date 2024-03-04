@@ -35,3 +35,8 @@ This Java program demonstrates how to interact with Amazon Redshift by using the
 Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted in the cloud.
 
 ...
+
+## Metadata
+Action / Scenario | Metadata File | Metadata Key
+--- | --- | ---
+Delete a cluster | redshift_metadata.yaml | redshift.java2.delete_cluster.main
