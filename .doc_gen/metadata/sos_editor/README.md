@@ -22,7 +22,7 @@ This metadata can also be edited manaully. The purpose of this tool is to make t
   <li>In you IDE clone <a href="https://github.com/brmur/aws-doc-sdk-examples">aws-doc-sdk-examples GitHub repo</a>. See <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository">instructions here.</a></li>
   <li>Open your IDEs CLI terminal, and and navigate to "./doc_gen/metadata/sos_editor/js</li>
   <li>Run 'npm install'.</li>
-  <li>Run 'node run.js' and follow the instructions.</li>
+  <li>Run 'node run.mjs' and follow the instructions.</li>
   </ol>
 </div>
 
