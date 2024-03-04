@@ -37,6 +37,15 @@ Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted
 ...
 
 ## Metadata
-Action / Scenario | Metadata File | Metadata Key
---- | --- | ---
-Delete a cluster | redshift_metadata.yaml | redshift.java2.delete_cluster.main
+## Metadata
+
+| action / scenario            | metadata file    | metadata key                      |
+|------------------------------|------------------| --------------------------------- |
+| `GetObjectLegalHold`         | s3_metadata.yaml | s3_GetObjectLegalHoldConfiguration   |
+| `GetObjectLockConfiguration` | s3_metadata.yaml | s3_GetObjectLockConfiguration   |
+| `GetObjectRetention`         | s3_metadata.yaml | s3_GetObjectRetention   |
+| `PutObjectLegalHold`         | s3_metadata.yaml | s3_PutObjectLegalHold   |
+| `PutObjectLockConfiguration` | s3_metadata.yaml | s3_PutObjectLockConfiguration   |
+| `PutObjectRetention`         | s3_metadata.yaml | s3_PutObjectRetention   |
+| `PutObjectLockConfiguration` | s3_metadata.yaml | s3_PutDefaultObjectLockConfiguration  |
+| `S3 Object Lock Scenario`    | s3_metadata.yaml | s3_Scenario_ObjectLock   |
