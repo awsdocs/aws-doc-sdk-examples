@@ -23,7 +23,7 @@ fs.writeFile(destFolder + fileName, data, function(err) {
     console.log("You can now make more changes using the SoS editor.");
   });
   try {
-    fs.unlinkSync(downloadFolder + "\/" + process.argv[2] +"_metadata.json")
+    fs.unlinkSync(downloadFolder + "\\" + process.argv[2] +"_metadata.json")
 
     //file removed
 
