@@ -169,9 +169,9 @@ redshift_ModifyCluster:
   services:
     redshift: {ModifyCluster}
 redshift_Scenario:
-  title: Get started with &RS; tables, items, and queries using an AWS SDK
+  title: Get started with &RS; tables, items, and queries
   title_abbrev: Get started with &RS;
-  synopsis: working with &RS; tables, items, and queries using an AWS SDK.
+  synopsis: working with &RS; tables, items, and queries.
   category: Scenarios
   languages:
     Java:
