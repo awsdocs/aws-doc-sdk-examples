@@ -1,11 +1,11 @@
-const fs = require('fs');
-const insertLine = require('insert-line')
-const YAML = require('json-to-pretty-yaml');
-var downloadFolder = "/Users/tkhill/Downloads"
-var destFolder = "..\/..\/"
-const origJson = "..\/jsonholder\/";
-const json = require(downloadFolder +"\/" + process.argv[2] +"_metadata.json");
-const yaml = require('js-yaml');
+import * as fs from 'fs'
+import * as insertLine from 'insert-line'
+import * as YAML from 'json-to-pretty-yaml'
+var downloadFolder = process.env.USERPROFILE + "\\Downloads"
+import json from 'downloadFolder +"\\" + process.argv[2] +"_metadata.json"';
+var destFolder = "..\\metadata\\"
+const origJson = "..\\jsonholder\\";
+
 const Json = JSON.stringify(json, null, 2);
 const fileName =  process.argv[2] +"_metadata.yaml"
 const data = YAML.stringify(json).replace(/['"]+/g, '').replace(/': ""+/g, ': ').replace(/': "undefined"+/g, ': ' );
