@@ -248,8 +248,8 @@ function myfunction7() {
                     console.log('one excerpt')
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag </label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add an excerpt (snippet_tag)</button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
                     console.log('selectedItem ', selectedItem);
@@ -262,10 +262,10 @@ function myfunction7() {
                 if (noOfExcerpts == 2) {
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add an excrept (snippet_tag) </button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
                     document.getElementById("snippetdescription1").value = selectedItem
@@ -282,12 +282,12 @@ function myfunction7() {
                     console.log('noOfExcerpts ', noOfExcerpts);
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription3\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add an excerpt (snippet_tag)</button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
                     document.getElementById("snippetdescription1").value = selectedItem
@@ -308,14 +308,14 @@ function myfunction7() {
                 if (noOfExcerpts == 4) {
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription3\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription4\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag4\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag4\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add an excerpt (snippet_tag)</button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["snippet_tags"]
                     const snippetString1= selectedItem1.toString().replaceAll(',','\n')
@@ -339,16 +339,16 @@ function myfunction7() {
                 if (noOfExcerpts == 5) {
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription3\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription4\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag4\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag4\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription5\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag5\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag5\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add an excerpt (snippet_tag)</button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["snippet_tags"]
                     const snippetString1= selectedItem1.toString().replaceAll(',','\n')
@@ -377,18 +377,18 @@ function myfunction7() {
                 if (noOfExcerpts == 6) {
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription2\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag2\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription3\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag3\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription4\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag4\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag4\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription5\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag5\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag5\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription6\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag</label><i>(mandatory)</i><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag6\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag6\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\" class=\"thissize\">Add an excerpt (snippet_tag)</button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["snippet_tags"]
                     const snippetString1= selectedItem1.toString().replaceAll(',','\n')
@@ -425,8 +425,8 @@ function myfunction7() {
                     console.log('one excerpt')
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add an excerpt (snippet_file)</button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
                     document.getElementById("snippetfiledescription1").value = selectedItem
@@ -437,10 +437,10 @@ function myfunction7() {
                 if (noOfExcerpts == 2) {
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription2\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add an excerpt (snippet_file)</button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
                     document.getElementById("snippetfiledescription1").value = selectedItem
@@ -456,12 +456,12 @@ function myfunction7() {
                 if (noOfExcerpts == 3) {
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription2\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription3\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile3\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile3\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add an excerpt (snippet_file)</button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
                     document.getElementById("snippetfiledescription1").value = selectedItem
@@ -482,14 +482,14 @@ function myfunction7() {
                 if (noOfExcerpts == 4) {
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription2\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription3\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile3\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile3\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription4\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile4\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile4\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add an excerpt (snippet_file)</button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
                     document.getElementById("snippetfiledescription1").value = selectedItem
@@ -515,16 +515,16 @@ function myfunction7() {
                 if (noOfExcerpts == 5) {
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription2\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription3\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile3\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile3\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription4\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile4\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile4\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription5\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile5\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile5\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add an excerpt (snippet_file)</button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
                     document.getElementById("snippetfiledescription1").value = selectedItem
@@ -555,18 +555,18 @@ function myfunction7() {
                 if (noOfExcerpts == 6) {
                     $(
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription2\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription3\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile3\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile3\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription4\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile4\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile4\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription5\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile5\" maxlength=\"200\"></textarea></p>\n" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile5\" maxlength=\"200\"></textarea></p>\n" +
                         "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription6\" maxlength=\"200\"></textarea></p>\n" +
-                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile6\" maxlength=\"200\"></textarea></p>\n" +
-                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add a snippet file</button></p>" +
+                        "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile6\" maxlength=\"200\"></textarea></p>\n" +
+                        "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\" class=\"thissize\">Add an excerpt (snippet_file)</button></p>" +
                         "       ").insertBefore("#createYAML");
                     const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0]["description"]
                     document.getElementById("snippetfiledescription1").value = selectedItem
