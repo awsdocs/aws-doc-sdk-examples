@@ -1,4 +1,21 @@
 # zexi 0.4.0
+redshift_Hello:
+  title: Hello &RS;
+  title_abbrev: Hello &RS;
+  synopsis: get started using &RS;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - redshift.java2.hello.main
+  services:
+    iot: {describeClusters}
 redshift_CreateCluster:
   title: Create an &RS; cluster using an &AWS; SDK
   title_abbrev: Create a cluster
