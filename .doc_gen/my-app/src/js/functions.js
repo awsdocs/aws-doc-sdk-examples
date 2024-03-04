@@ -214,14 +214,14 @@ function myfunction6() {
         var myObj = JSON.parse(this.responseText);
         console.log('myfirstversion', myObj[searchKey]["languages"][searchLang]["versions"][0]["sdk_version"])
         if (myObj[searchKey]["languages"][searchLang]["versions"][0]["sdk_version"] == ThisSDKversion) {
-            console.log("display something about 2!")
+            console.log("display something about 2")
             const selectedItem = myObj[searchKey]["languages"][searchLang]["versions"][0]["sdkguide"]
             console.log("selectedItem", selectedItem)
             if (selectedItem != undefined) {
                 document.getElementById("sdkguidelink").value = selectedItem
             }
         }
-        else if (myObj[searchKey]["languages"][searchLang]["versions"][1]["sdk_version"] == ThisSDKversion) {
+        if (myObj[searchKey]["languages"][searchLang]["versions"][1]["sdk_version"] == ThisSDKversion) {
             console.log("display something about 1")
             const selectedItem1 = myObj[searchKey]["languages"][searchLang]["versions"][1]["sdkguide"]
             console.log("selectedItem1", selectedItem1)
@@ -404,7 +404,7 @@ function myfunction7() {
                     document.getElementById("snippettag6").value = selectedItem11
                 }
             }
-            else if (myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0].hasOwnProperty('snippet_files')) {
+            if (myObj[searchKey]["languages"][searchLang]["versions"][0]["excerpts"][0].hasOwnProperty('snippet_files')) {
                 if (noOfExcerpts == 1) {
                     console.log('one excerpt')
                     $(

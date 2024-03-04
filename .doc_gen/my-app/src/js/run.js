@@ -4,13 +4,6 @@ import * as fs from "fs";
 import * as YAML from "json-to-pretty-yaml";
 import {promptForText, promptToContinue} from "../libs/utils/util-io.js";
 import {wrapText} from "../libs/utils/util-string.js";
-import { execSync } from 'child_process';
-
-var runExe =function(serviceStub){
-    console.log("The SoS GUI Editor has opened on your machine. Enter \'" + serviceStub + "\' in the Principle Service field. Please leave this terminal running.");
-    const pathToExe = "../../my-app-win32-x64/my-app.exe"
-    execSync('start' + pathToExe);
-};
 
 // Standard waiting function.
 function wait(ms) {
@@ -46,7 +39,7 @@ const create_json = async () => {
     try {
         var doc = yaml.load(
             fs.readFileSync(
-                "../../../metadata/" + serviceStub + "_metadata.yaml",
+                "../../" + serviceStub + "_metadata.yaml",
                 "utf8",
             ).replaceAll(/{+/g, "'{").replace(/}+/g, "}'")
         );
@@ -62,13 +55,13 @@ const create_json = async () => {
                     if (err) throw err;
                 }
             );
-            runExe(serviceStub);
+            console.log("Open the SOS GUI editor (./doc_gen/metadata/sos_editor/index.html) in your local host and enter \'" + serviceStub + "\' in the Principle Service field. Please leave this terminal running.");
             return serviceStub
         }
         else{
             var doc = yaml.load(
                 fs.readFileSync(
-                    "../../../metadata/" + serviceStub + "_metadata.yaml",
+                    "../../" + serviceStub + "_metadata.yaml",
                     "utf8",
                 ).replaceAll(/{+/g, "'{").replace(/}+/g, "}'").replaceAll('category:','synopsis_list:\n  category:')
             );
@@ -83,14 +76,13 @@ const create_json = async () => {
                     if (err) throw err;
                 }
             );
-            runExe(serviceStub);
-
+            console.log("Open the SOS GUI editor (./doc_gen/metadata/sos_editor/index.html) in your local host and enter \'" + serviceStub + "\' in the Principle Service field. Please leave this terminal running.");
             return serviceStub
         }
     } catch (e) {
         console.log(e + "\n" + serviceStub + "_metadata.yaml does not exist in the \/metadata folder.")
 
-        const filesInTheFolder = getFiles('../../metadata/');
+        const filesInTheFolder = getFiles('../../../metadata');
         console.log('Here\'s a list of the existing metadata files\n');
         console.log(filesInTheFolder);
         const answer = await promptForText(
@@ -114,11 +106,11 @@ const create_json = async () => {
 //Convert edited Json back to YAML
 const updateYAML = async (serviceName) => {
     const answer = await promptForText(
-        "You have finished editing the metadata. Enter 'yes' to finalize your changes."
+        "When finished editing the metadata return to this terminal, and enter 'yes' below."
     );
     if (answer === "yes") {
         const downloadFolder = process.env.USERPROFILE + "\\Downloads"
-        const destFolder = "..\\..\\..\\metadata\\"
+        const destFolder = "..\\..\\"
         const origJson = "..\\jsonholder\\";
         const my_json = fs.readFileSync(
             downloadFolder + "\\" + serviceName + "_metadata.json",

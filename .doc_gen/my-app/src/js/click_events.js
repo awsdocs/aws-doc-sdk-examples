@@ -53,8 +53,20 @@ function selectService() {
 $("#selectService").on('click', function () {
     console.log('selectService clicked')
     if (document.getElementById('selecttheservice').value == "") {
-        myAlert('Alert', 'You must enter the service stub'); // call it here
+        alert('You must enter the service stub');
         return
+    }
+    if (document.getElementById('selecttheservices').value == "") {
+        function confirmFun() {
+            let text = "You haven\'t entered any additional services.\n Please confirm you wish to proceed.";
+            if (confirm(text) == true) {
+                selectService();
+            } else {
+                return
+            }
+        }
+
+        confirmFun();
     } else {
         selectService();
     }
@@ -197,8 +209,7 @@ $("#languages").on('change', function () {
     const synopsisValue = document.getElementById('synopsis').value
     const synopsisListValue = document.getElementById('synopsislist').value
     if (titleValue == "" || abbrevTitleValue == "" || synopsisValue == "" && synopsisListValue == "") {
-        myAlert('alert','You must have a title, abbreviated title, and either a synopsis or synopsis list.')
-
+        alert('You must have a title, abbreviated title, and either a synopsis or synopsis list.')
         document.getElementById("languages").selectedIndex = 0;
         return
     }
@@ -355,7 +366,7 @@ $("#addlanguage").on('change', function () {
 $("#subVersion").on('click', function () {
     console.log('why')
     if (document.getElementById('languages').value !== "Not Listed") {
-        myAlert('alert','Check this version in defined in the ../../sdk.yaml.')
+        alert('Check this version in defined in the ../../sdk.yaml.')
         let currentVersions = [];
         var values = $("#sdkVersion>option").map(function () {
             return $(this).val();
@@ -368,7 +379,7 @@ $("#subVersion").on('click', function () {
             console.log('says it does')
             var element = document.getElementById('addSdkVersion');
             element.setAttribute("style", "class:show-when-target");
-            myAlert('alert', 'This SDK version already exists. Please select it.')
+            alert('This SDK version already exists. Please select it.')
             document.getElementById('sdkVersion').disabled = false;
         } else {
             document.getElementById('sdkVersion').disabled = true;
@@ -396,7 +407,7 @@ $("#subVersion").on('click', function () {
         }
     } else {
         document.getElementById('subVersion').disabled = true;
-        myAlert('alert','Check this version in defined in the ../../sdk.yaml.')
+        alert('Check this version in defined in the ../../sdk.yaml.')
         var element = document.getElementById('gitHub');
         element.setAttribute("style", "visibility: visible");
         var element = document.getElementById('sdkGuide');
@@ -515,8 +526,7 @@ function newsnippet(){
             "").insertBefore("#newsnippet");
     }
     if (noOfSnippets === 6) {
-
-        myAlert('alert', 'Maximum of 6 snippets allowed.');
+        alert('Maximum of 6 snippets allowed.')
     }
 };
 function countValues(dropdown){
@@ -530,7 +540,7 @@ function countValues(dropdown){
     const noOfSnippets = document.getElementsByClassName('snippdisc').length;
     console.log('noOfSnippets', noOfSnippets)
     if (noOfSnippets == 0) {
-            myAlert('alert', 'There are no snippets to remove.');
+        alert('There are no snippets to remove')
     } else {
         $("p[id=snippDesc]:last").remove();
         $("p[id=snippet]:last").remove();
@@ -597,7 +607,7 @@ function newsnippetfile(){
               "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 6) {
-        myAlert('alert', 'Maximum of 6 snippets allowed.')
+        alert('Maximum of 6 snippets allowed.')
     }
 };
 /*$("#removesnipfile").on('click', function () {
