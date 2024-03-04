@@ -29,15 +29,140 @@ The program executes the following steps:
 12. If confirmed, deletes the specified Redshift cluster using `redshiftClient.deleteCluster()`.
 
 ## Program execution
-```java
+``` java
+
+--------------------------------------------------------------------------------
 Welcome to the Amazon Redshift example workflow.
 This Java program demonstrates how to interact with Amazon Redshift by using the AWS SDK for Java (v2).
 Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted in the cloud.
 
-...
+The program's primary functionalities includes cluster creation, verification of cluster readiness, database establishment,
+table creation, data population within the table, and execution of SQL statements. Furthermore, it demonstrates
+the process of retrieving data from the Movie table. Upon completion of the program, all AWS resources are cleaned up.
+
+Press Enter to continue...
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Get Amazon Redshift credentials from AWS Secret Manager
+Press Enter to continue...
+--------------------------------------------------------------------------------
+A Redshift cluster refers to the collection of computing resources and storage that work together to process and analyze large volumes of data.
+Enter a cluster id value (default is redshift-cluster-200): 
+
+Created cluster redshift-cluster-200
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Wait until the Redshift cluster ia available.
+Press Enter to continue...
+Waiting for cluster to become available. This may take a few mins.
+Elapsed Time: 00:00 - Waiting for cluster... 
+Elapsed Time: 00:05 - Waiting for cluster... 
+Elapsed Time: 00:11 - Waiting for cluster... 
+Elapsed Time: 00:16 - Waiting for cluster... 
+Elapsed Time: 00:21 - Waiting for cluster... 
+Elapsed Time: 00:27 - Waiting for cluster... 
+Elapsed Time: 00:32 - Waiting for cluster... 
+Elapsed Time: 00:37 - Waiting for cluster... 
+Elapsed Time: 00:43 - Waiting for cluster... 
+Elapsed Time: 00:48 - Waiting for cluster... 
+Elapsed Time: 00:53 - Waiting for cluster... 
+Elapsed Time: 00:59 - Waiting for cluster... 
+Elapsed Time: 01:04 - Waiting for cluster... 
+Elapsed Time: 01:09 - Waiting for cluster... 
+Elapsed Time: 01:15 - Waiting for cluster... 
+Cluster is available! Total Elapsed Time: 01:20
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Create a Redshift database
+Enter a database name (default is dev): 
+
+Database created: dev
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Now you will create a table named Movie.
+Press Enter to continue...
+Table created: Movies
+--------------------------------------------------------------------------------
+Populate the Movies table using the Movies.json file.
+Specify the number of records you would like to add to the Movies Table.
+Please enter a value between 50 and 200.
+Enter a value: 50
+Inserted: Rush (2013)
+Inserted: Prisoners (2013)
+Inserted: The Hunger Games: Catching Fire (2013)
+Inserted: Thor: The Dark World (2013)
+Inserted: This Is the End (2013)
+Inserted: Insidious: Chapter 2 (2013)
+Inserted: World War Z (2013)
+Inserted: X-Men: Days of Future Past (2014)
+Inserted: Transformers: Age of Extinction (2014)
+Inserted: Now You See Me (2013)
+Inserted: Gravity (2013)
+Inserted: We're the Millers (2013)
+Inserted: Riddick (2013)
+Inserted: The Family (2013)
+Inserted: Star Trek Into Darkness (2013)
+Inserted: After Earth (2013)
+Inserted: The Great Gatsby (2013)
+Inserted: Divergent (2014)
+Inserted: We Are What We Are (2013)
+Inserted: Iron Man 3 (2013)
+Inserted: The Amazing Spider-Man 2 (2014)
+Inserted: Curse of Chucky (2013)
+Inserted: The Conjuring (2013)
+Inserted: Oldboy (2013)
+Inserted: Escape Plan (2013)
+Inserted: Elysium (2013)
+Inserted: Cloudy with a Chance of Meatballs 2 (2013)
+Inserted: RoboCop (2014)
+Inserted: Carrie (2013)
+Inserted: The Mortal Instruments: City of Bones (2013)
+Inserted: Captain America: The Winter Soldier (2014)
+Inserted: Need for Speed (2014)
+Inserted: Runner Runner (2013)
+Inserted: I Spit on Your Grave 2 (2013)
+Inserted: Battle of the Year (2013)
+Inserted: Behind the Candelabra (2013)
+Inserted: No se Aceptan Devoluciones (2013)
+Inserted: The Bling Ring (2013)
+Inserted: Furious 6 (2013)
+Inserted: Machete Kills (2013)
+Inserted: 12 Years a Slave (2013)
+Inserted: The World's End (2013)
+Inserted: Pitch Perfect (2012)
+Inserted: Epic (2013)
+Inserted: The Avengers (2012)
+Inserted: Metallica Through the Never (2013)
+Inserted: Oblivion (2013)
+Inserted: Dom Hemingway (2013)
+Inserted: The Hangover Part III (2013)
+Inserted: Despicable Me 2 (2013)
+50 records were added to the Movies table. 
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Query the Movies table by year. Enter a value between 2010-2014.
+Enter a year: 2012
+The identifier of the statement is a2ad4b6a-463e-4fb2-a787-d29d8e2c543b
+...PICKED
+...FINISHED
+The statement is finished!
+The Movie title field is Pitch Perfect
+The Movie title field is The Avengers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Would you like to delete the Amazon Redshift cluster? (y/n)
+y
+You selected to delete redshift-cluster-200
+Press Enter to continue...
+The status is deleting
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+This concludes the Amazon Redshift example workflow.
+--------------------------------------------------------------------------------
+```
 
 ## Metadata
-## Metadata
+
 
 | action / scenario            | metadata file    | metadata key                      |
 |------------------------------|------------------| --------------------------------- |
