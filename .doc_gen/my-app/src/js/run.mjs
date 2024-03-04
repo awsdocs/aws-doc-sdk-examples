@@ -82,7 +82,7 @@ const create_json = async () => {
     } catch (e) {
         console.log(e + "\n" + serviceStub + "_metadata.yaml does not exist in the \/metadata folder.")
 
-        const filesInTheFolder = getFiles('../../../metadata');
+        const filesInTheFolder = getFiles('../../../metadata/');;
         console.log('Here\'s a list of the existing metadata files\n');
         console.log(filesInTheFolder);
         const answer = await promptForText(
@@ -109,11 +109,11 @@ const updateYAML = async (serviceName) => {
         "When finished editing the metadata return to this terminal, and enter 'yes' below."
     );
     if (answer === "yes") {
-        const downloadFolder = process.env.USERPROFILE + "\\Downloads"
-        const destFolder = "..\\..\\"
-        const origJson = "..\\jsonholder\\";
+        const downloadFolder = "/Users/tkhill/Downloads"
+        const destFolder = "..\/..\/..\/metadata\/"
+        const origJson = "..\/jsonholder\/";
         const my_json = fs.readFileSync(
-            downloadFolder + "\\" + serviceName + "_metadata.json",
+            downloadFolder + "\/" + serviceName + "_metadata.json",
             "utf8"
         );
         const json = JSON.parse(my_json);
@@ -132,7 +132,7 @@ const updateYAML = async (serviceName) => {
                 console.log("You can now make more changes using the SoS editor.");
             });
             try {
-                fs.unlinkSync(downloadFolder + "\\" + serviceName + "_metadata.json")
+                fs.unlinkSync(downloadFolder + "\/" + serviceName + "_metadata.json")
 
                 //file removed
 
