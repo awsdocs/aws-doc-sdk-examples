@@ -2,7 +2,7 @@
 redshift_Hello:
   title: Hello &RS;
   title_abbrev: Hello &RS;
-  synopsis: get started using &RS;.
+  synopsis: get started by using &RS;.
   category: Hello
   languages:
     Java:
