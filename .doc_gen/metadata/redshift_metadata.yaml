@@ -15,7 +15,7 @@ redshift_Hello:
               snippet_tags:
                 - redshift.java2.hello.main
   services:
-    iot: {describeClusters}
+    redshift: {describeClusters}
 redshift_CreateCluster:
   title: Create an &RS; cluster using an &AWS; SDK
   title_abbrev: Create a cluster
