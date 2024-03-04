@@ -317,7 +317,7 @@ $("#selecttagorfile").on('change', function (){
         $(
             "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
-            "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\">Add an excerpt</button></p>" +
+            "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\">Add an excerpt (snippet file)</button></p>" +
             "       ").insertBefore("#createYAML");
         /*var element = document.getElementById('addSnippetFile');
         element.setAttribute("style", "visibility: visible");*/
