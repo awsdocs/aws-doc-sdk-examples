@@ -1,7 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -131,7 +130,7 @@ namespace BedrockRuntimeActions
 
                 while ((!cancellationToken.IsCancellationRequested && isStreaming) || (!cancellationToken.IsCancellationRequested && buffer.Reader.Count > 0))
                 {
-                   // pull the completion from the buffer and add it to the IAsyncEnumerable collection
+                    // pull the completion from the buffer and add it to the IAsyncEnumerable collection
                     yield return await buffer.Reader.ReadAsync(cancellationToken);
                 }
                 response.Body.ChunkReceived -= BodyOnChunkReceived;
@@ -152,7 +151,7 @@ namespace BedrockRuntimeActions
                     await buffer.Writer.WriteAsync(streamResponse["completion"]?.GetValue<string>(), cancellationToken);
                 }
             }
-            else if(response is not null)
+            else if (response is not null)
             {
                 Console.WriteLine("InvokeModelAsync failed with status code " + response.HttpStatusCode);
             }
@@ -546,7 +545,7 @@ namespace BedrockRuntimeActions
                 { "seed", seed }
             };
 
-            if(!string.IsNullOrEmpty(stylePreset))
+            if (!string.IsNullOrEmpty(stylePreset))
             {
                 jsonPayload.Add("style_preset", stylePreset);
             }

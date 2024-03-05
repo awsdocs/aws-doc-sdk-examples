@@ -136,4 +136,3 @@ public class TextToTextAsyncTest
         Assert.NotEmpty(generatedImage);
     }
 }
-
