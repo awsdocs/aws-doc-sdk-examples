@@ -19,9 +19,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "@types/archiver": "^5.3.1",
     "archiver": "^5.3.1",
-    "electron-squirrel-startup": "^1.0.0",
     "insert-line": "^1.1.0",
     "js-yaml": "^4.1.0",
     "ramda": "^0.28.0",
@@ -39,7 +39,6 @@
     "@electron-forge/maker-zip": "^7.2.0",
     "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
     "electron": "28.2.3",
-    "electron-packager": "^17.1.2",
     "fs": "^0.0.1-security",
     "json-to-pretty-yaml": "^1.2.2",
     "prettier": "3.1.0"
