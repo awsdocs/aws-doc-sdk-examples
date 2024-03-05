@@ -33,15 +33,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Image generation with Amazon Titan Image Generator G1](Actions/InvokeModelAsync.cs#L451) (`InvokeModel`)
-- [Image generation with Stability.ai Stable Diffusion XL](Actions/InvokeModelAsync.cs#L519) (`InvokeModel`)
-- [Text generation with AI21 Labs Jurassic-2](Actions/InvokeModelAsync.cs#L165) (`InvokeModel`)
-- [Text generation with Amazon Titan Text G1](Actions/InvokeModelAsync.cs#L278) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2](Actions/InvokeModelAsync.cs#L19) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2 with a response stream](Actions/InvokeModelAsync.cs#L77) (`InvokeModelWithResponseStream`)
-- [Text generation with Meta Llama 2 Chat](Actions/InvokeModelAsync.cs#L222) (`InvokeModel`)
-- [Text generation with Mistral 7B](Actions/InvokeModelAsync.cs#L339) (`InvokeModel`)
-- [Text generation with Mixtral 8x7B](Actions/InvokeModelAsync.cs#L395) (`InvokeModel`)
+- [Image generation with Amazon Titan Image Generator G1](Actions/InvokeModelAsync.cs#L450) (`InvokeModel`)
+- [Image generation with Stability.ai Stable Diffusion XL](Actions/InvokeModelAsync.cs#L518) (`InvokeModel`)
+- [Text generation with AI21 Labs Jurassic-2](Actions/InvokeModelAsync.cs#L164) (`InvokeModel`)
+- [Text generation with Amazon Titan Text G1](Actions/InvokeModelAsync.cs#L277) (`InvokeModel`)
+- [Text generation with Anthropic Claude 2](Actions/InvokeModelAsync.cs#L18) (`InvokeModel`)
+- [Text generation with Anthropic Claude 2 with a response stream](Actions/InvokeModelAsync.cs#L76) (`InvokeModelWithResponseStream`)
+- [Text generation with Meta Llama 2 Chat](Actions/InvokeModelAsync.cs#L221) (`InvokeModel`)
+- [Text generation with Mistral 7B](Actions/InvokeModelAsync.cs#L338) (`InvokeModel`)
+- [Text generation with Mixtral 8x7B](Actions/InvokeModelAsync.cs#L394) (`InvokeModel`)
 
 
 <!--custom.examples.start-->
