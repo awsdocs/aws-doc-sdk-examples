@@ -3,7 +3,7 @@
     "title": "Hello &S3;",
     "title_abbrev": "Hello &S3;",
     "synopsis": "get started using &S3;.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Hello",
     "languages": {
       "Java": {
@@ -11,10 +11,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.hello.main"
                 ]
@@ -28,10 +28,10 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.Hello"
                 ]
@@ -47,7 +47,7 @@
             "github": "gov2/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "gov2.s3.Hello"
                 ]
@@ -83,10 +83,10 @@
           {
             "sdk_version": 3,
             "github": "javascriptv3/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "javascript.v3.s3.hello"
                 ]
@@ -100,10 +100,10 @@
           {
             "sdk_version": 3,
             "github": "php/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "php.example_code.s3.basics.helloService"
                 ]
@@ -121,18 +121,18 @@
     "title": "Create an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Create a bucket",
     "synopsis": "create an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.S3_Basics-CreateBucket"
                 ]
@@ -146,10 +146,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.create_bucket.code"
                 ]
@@ -165,7 +165,7 @@
             "github": "gov2/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "gov2.s3.BucketBasics.struct",
                   "gov2.s3.CreateBucket"
@@ -180,10 +180,10 @@
           {
             "sdk_version": 1,
             "github": "kotlin/services/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.kotlin.create_bucket.main"
                 ]
@@ -197,10 +197,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.create_bucket_waiters.main"
                 ]
@@ -273,7 +273,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.ruby.create_bucket_snippet.rb"
                 ]
@@ -289,7 +289,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "rust.example_code.s3.basics.create_bucket"
                 ]
@@ -305,7 +305,7 @@
             "github": "sap-abap/services/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.abapv1.create_bucket"
                 ]
@@ -321,7 +321,7 @@
             "github": "swift/example_code/s3/basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.swift.basics.handler.createbucket"
                 ]
@@ -335,10 +335,10 @@
           {
             "sdk_version": 2,
             "github": "aws-cli/bash-linux/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "aws-cli.bash-linux.s3.iecho",
                   "aws-cli.bash-linux.s3.errecho",
@@ -358,9 +358,8 @@
     "title": "Copy an object from one &S3; bucket to another using an &AWS; SDK",
     "title_abbrev": "Copy an object from one bucket to another",
     "synopsis": "copy an S3 object from one bucket to another.",
-    "synopsis_list": null,
-    "synopsis_list": [""],
-    "category": null,
+    "synopsis_list": "",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
@@ -369,7 +368,7 @@
             "github": "dotnetv3/S3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnet35.CopyObject"
                 ]
@@ -383,10 +382,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.copy_objects.code"
                 ]
@@ -394,14 +393,27 @@
             ]
           },
           {
-            "sdk_version": null,
-            "github": null,
-            "sdkguide": null,
+            "sdk_version": "",
+            "github": "",
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "lkj"
+                ]
+              }
+            ]
+          },
+          {
+            "sdk_version": 3,
+            "github": "",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  ""
                 ]
               }
             ]
@@ -415,7 +427,7 @@
             "github": "gov2/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "gov2.s3.BucketBasics.struct",
                   "gov2.s3.CopyObject.ToBucket"
@@ -430,10 +442,10 @@
           {
             "sdk_version": 1,
             "github": "kotlin/services/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.kotlin.copy_object.main"
                 ]
@@ -447,7 +459,7 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Copy an object using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
@@ -506,7 +518,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.ObjectWrapper",
                   "python.example_code.s3.CopyObject"
@@ -545,7 +557,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "rust.example_code.s3.basics.copy_object"
                 ]
@@ -561,7 +573,7 @@
             "github": "sap-abap/services/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.abapv1.copy_object"
                 ]
@@ -577,7 +589,7 @@
             "github": "swift/example_code/s3/basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.swift.basics.handler.copyfile"
                 ]
@@ -591,10 +603,10 @@
           {
             "sdk_version": 2,
             "github": "aws-cli/bash-linux/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "aws-cli.bash-linux.s3.errecho",
                   "aws-cli.bash-linux.s3.CopyObject"
@@ -613,18 +625,18 @@
     "title": "Delete a policy from an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete a policy from a bucket",
     "synopsis": "delete a policy from an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "C++": {
         "versions": [
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.delete_bucket_policy.code"
                 ]
@@ -638,10 +650,10 @@
           {
             "sdk_version": 1,
             "github": "kotlin/services/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.kotlin.delete_bucket_policy.main"
                 ]
@@ -655,10 +667,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.delete_bucket_policy.main"
                 ]
@@ -674,7 +686,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.DeleteBucketPolicy"
@@ -708,7 +720,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.helper.BucketPolicyWrapper",
                   "ruby.example_code.s3.DeleteBucketPolicy",
@@ -728,16 +740,17 @@
     "title": "Delete an &S3; object using an &AWS; SDK",
     "title_abbrev": "Delete an object",
     "synopsis": "delete an S3 object.",
-    "synopsis_list": null,
-    "synopsis_list": [""],
-    "category": null,
+    "synopsis_list": [
+      ""
+    ],
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Delete an object in a non-versioned S3 bucket.",
@@ -760,10 +773,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.delete_object.code"
                 ]
@@ -771,12 +784,12 @@
             ]
           },
           {
-            "sdk_version": null,
-            "github": null,
-            "sdkguide": null,
+            "sdk_version": "",
+            "github": "",
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   null
                 ]
@@ -790,7 +803,7 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Delete an object.",
@@ -828,7 +841,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.rust.delete-object"
                 ]
@@ -860,7 +873,7 @@
             "github": "sap-abap/services/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.abapv1.delete_object"
                 ]
@@ -876,7 +889,7 @@
             "github": "swift/example_code/s3/basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.swift.basics.handler.deletefile"
                 ]
@@ -890,10 +903,10 @@
           {
             "sdk_version": 2,
             "github": "aws-cli/bash-linux/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "aws-cli.bash-linux.s3.errecho",
                   "aws-cli.bash-linux.s3.DeleteObject"
@@ -912,15 +925,15 @@
     "title": "Delete multiple objects from an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete multiple objects",
     "synopsis": "delete multiple objects from an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Delete all objects in an S3 bucket.",
@@ -949,10 +962,10 @@
           {
             "sdk_version": 1,
             "github": "kotlin/services/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.kotlin.delete_objects.main"
                 ]
@@ -968,7 +981,7 @@
             "github": "gov2/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "gov2.s3.BucketBasics.struct",
                   "gov2.s3.DeleteObjects"
@@ -983,10 +996,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.delete_many_objects.main"
                 ]
@@ -1065,7 +1078,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.DeleteObjects"
                 ]
@@ -1081,7 +1094,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "rust.example_code.s3.basics.delete_objects"
                 ]
@@ -1097,7 +1110,7 @@
             "github": "swift/example_code/s3/DeleteObjects",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.swift.deleteobjects.handler.deleteobjects"
                 ]
@@ -1111,10 +1124,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "cpp.example_code.s3.delete_objects"
                 ]
@@ -1128,10 +1141,10 @@
           {
             "sdk_version": 2,
             "github": "aws-cli/bash-linux/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "aws-cli.bash-linux.s3.errecho",
                   "aws-cli.bash-linux.s3.DeleteObjects"
@@ -1150,18 +1163,18 @@
     "title": "Delete the website configuration from an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete the website configuration from a bucket",
     "synopsis": "delete the website configuration from an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "C++": {
         "versions": [
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.delete_website_config.code"
                 ]
@@ -1175,10 +1188,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.delete_website_configuration.main"
                 ]
@@ -1213,18 +1226,18 @@
     "title": "Get the ACL of an &S3; object using an &AWS; SDK",
     "title_abbrev": "Get the ACL of an object",
     "synopsis": "get the access control list (ACL) of an S3 object.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "C++": {
         "versions": [
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.get_object_acl.code"
                 ]
@@ -1238,10 +1251,10 @@
           {
             "sdk_version": 1,
             "github": "kotlin/services/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.kotlin.get_acl.main"
                 ]
@@ -1257,7 +1270,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.ObjectWrapper",
                   "python.example_code.s3.GetObjectAcl"
@@ -1276,18 +1289,18 @@
     "title": "Get the policy for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get the policy for a bucket",
     "synopsis": "get the policy for an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "C++": {
         "versions": [
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.get_bucket_policy.code"
                 ]
@@ -1301,10 +1314,10 @@
           {
             "sdk_version": 1,
             "github": "kotlin/services/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.kotlin.get_bucket_policy.main"
                 ]
@@ -1318,10 +1331,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.get_bucket_policy.main"
                 ]
@@ -1337,7 +1350,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.GetBucketPolicy"
@@ -1371,7 +1384,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.helper.BucketPolicyWrapper",
                   "ruby.example_code.s3.GetBucketPolicy",
@@ -1391,15 +1404,15 @@
     "title": "Determine the existence and content type of an object in an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Determine the existence and content type of an object",
     "synopsis": "determine the existence and content type of an object in an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Java": {
         "versions": [
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Determine the content type of an object.",
@@ -1424,7 +1437,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.exists"
                 ]
@@ -1442,18 +1455,18 @@
     "title": "Get an object from an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get an object from a bucket",
     "synopsis": "read data from an object in an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.S3_Basics-DownloadObject"
                 ]
@@ -1467,10 +1480,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.get_object.code"
                 ]
@@ -1486,7 +1499,7 @@
             "github": "gov2/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "gov2.s3.BucketBasics.struct",
                   "gov2.s3.GetObject"
@@ -1501,10 +1514,10 @@
           {
             "sdk_version": 1,
             "github": "kotlin/services/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.kotlin.getobjectdata.main"
                 ]
@@ -1518,7 +1531,7 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Read data as a byte array using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
@@ -1585,7 +1598,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.ObjectWrapper",
                   "python.example_code.s3.GetObject"
@@ -1641,7 +1654,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.rust.get_object"
                 ]
@@ -1657,7 +1670,7 @@
             "github": "sap-abap/services/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.abapv1.get_object"
                 ]
@@ -1693,10 +1706,10 @@
           {
             "sdk_version": 2,
             "github": "aws-cli/bash-linux/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "aws-cli.bash-linux.s3.errecho",
                   "aws-cli.bash-linux.s3.GetObject"
@@ -1715,8 +1728,8 @@
     "title": "Get an object from an &S3; bucket using an &AWS; SDK, specifying an If-Modified-Since header",
     "title_abbrev": "Get an object from a bucket if it has been modified",
     "synopsis": "read data from an object in an S3 bucket, but only if that bucket has not been modified since the last retrieval time.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Rust": {
         "versions": [
@@ -1725,7 +1738,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.rust.if-modified-since"
                 ]
@@ -1743,18 +1756,18 @@
     "title": "Get the lifecycle configuration of an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get the lifecycle configuration of a bucket",
     "synopsis": "get the lifecycle configuration of an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.GetLifecycleExample"
                 ]
@@ -1768,10 +1781,10 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.GetBucketLifecycleConfiguration"
@@ -1790,18 +1803,18 @@
     "title": "Enable logging on an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Enable logging",
     "synopsis": "enable logging on an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.ServerAccessLoggingExample"
                 ]
@@ -1819,18 +1832,18 @@
     "title": "Add a lifecycle configuration to an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Add a lifecycle configuration to a bucket",
     "synopsis": "add a lifecycle configuration to an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.PutLifecycleExample"
                 ]
@@ -1844,10 +1857,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.manage_lifecycle.main"
                 ]
@@ -1863,7 +1876,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.PutBucketLifecycleConfiguration"
@@ -1882,18 +1895,18 @@
     "title": "Delete the lifecycle configuration of an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete the lifecycle configuration of a bucket",
     "synopsis": "delete the lifecycle configuration of an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.DeleteLifecycleExample"
                 ]
@@ -1907,10 +1920,10 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.DeleteBucketLifecycleConfiguration"
@@ -1929,18 +1942,18 @@
     "title": "Cancel multipart uploads using an &AWS; SDK",
     "title_abbrev": "Cancel multipart uploads",
     "synopsis": "cancel multipart uploads.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.AbortMPUExample"
                 ]
@@ -1958,8 +1971,8 @@
     "title": "Complete a multipart upload action using an &AWS; SDK",
     "title_abbrev": "Complete a multipart upload",
     "synopsis": "complete a multipart upload action.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Rust": {
         "versions": [
@@ -1968,7 +1981,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "rust.example_code.s3.complete_multipart_upload"
                 ]
@@ -1986,8 +1999,8 @@
     "title": "Create a multipart upload structure using an &AWS; SDK",
     "title_abbrev": "Create a multipart upload",
     "synopsis": "create the structure to build a multipart upload action.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Rust": {
         "versions": [
@@ -1996,7 +2009,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "rust.example_code.s3.create_multipart_upload"
                 ]
@@ -2014,18 +2027,18 @@
     "title": "List in-progress multipart uploads to an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "List in-progress multipart uploads",
     "synopsis": "list in-progress multipart uploads to an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Java": {
         "versions": [
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.list_multi_uploads.main"
                 ]
@@ -2043,18 +2056,18 @@
     "title": "List objects in an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "List objects in a bucket",
     "synopsis": "list objects in an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.S3_Basics-ListBucketContents"
                 ]
@@ -2074,10 +2087,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.list_objects.code"
                 ]
@@ -2093,7 +2106,7 @@
             "github": "gov2/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "gov2.s3.BucketBasics.struct",
                   "gov2.s3.ListObjectsV2"
@@ -2108,10 +2121,10 @@
           {
             "sdk_version": 1,
             "github": "kotlin/services/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.kotlin.list_objects.main"
                 ]
@@ -2125,10 +2138,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.list_objects.main"
                 ]
@@ -2167,7 +2180,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.ObjectWrapper",
                   "python.example_code.s3.ListObjects"
@@ -2184,7 +2197,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "rust.example_code.s3.basics.list_objects"
                 ]
@@ -2216,7 +2229,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.ListObjects"
                 ]
@@ -2232,7 +2245,7 @@
             "github": "sap-abap/services/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.abapv1.list_objects_v2"
                 ]
@@ -2248,7 +2261,7 @@
             "github": "swift/example_code/s3/basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.swift.basics.handler.listbucketfiles"
                 ]
@@ -2262,10 +2275,10 @@
           {
             "sdk_version": 2,
             "github": "aws-cli/bash-linux/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "aws-cli.bash-linux.s3.errecho",
                   "aws-cli.bash-linux.s3.ListObjects"
@@ -2284,18 +2297,18 @@
     "title": "List the version of objects in an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "List object versions in a bucket",
     "synopsis": "list object versions in an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.ListObjectVersionsExample"
                 ]
@@ -2311,7 +2324,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.rust.list-object-versions"
                 ]
@@ -2329,18 +2342,18 @@
     "title": "Upload an object to an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Upload an object to a bucket",
     "synopsis": "upload an object to an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.S3_Basics-UploadFile"
                 ]
@@ -2360,10 +2373,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.put_object.code"
                 ]
@@ -2379,7 +2392,7 @@
             "github": "gov2/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "gov2.s3.BucketBasics.struct",
                   "gov2.s3.PutObject"
@@ -2394,10 +2407,10 @@
           {
             "sdk_version": 1,
             "github": "kotlin/services/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.kotlin.s3_object_upload.main"
                 ]
@@ -2411,7 +2424,7 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Upload a file to a bucket using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
@@ -2472,7 +2485,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.ObjectWrapper",
                   "python.example_code.s3.PutObject"
@@ -2489,7 +2502,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "rust.example_code.s3.basics.put_object"
                 ]
@@ -2550,7 +2563,7 @@
             "github": "sap-abap/services/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.abapv1.put_object"
                 ]
@@ -2586,10 +2599,10 @@
           {
             "sdk_version": 2,
             "github": "aws-cli/bash-linux/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "aws-cli.bash-linux.s3.errecho",
                   "aws-cli.bash-linux.s3.PutObject"
@@ -2608,18 +2621,18 @@
     "title": "Restore an archived copy of an object back into an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Restore an archived copy of an object",
     "synopsis": "restore an archived copy of an object back into an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.RestoreArchivedObjectExample"
                 ]
@@ -2633,10 +2646,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.restore_object.main"
                 ]
@@ -2654,18 +2667,18 @@
     "title": "Delete an empty &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete an empty bucket",
     "synopsis": "delete an empty S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.S3_Basics-DeleteBucket"
                 ]
@@ -2679,10 +2692,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.delete_bucket.code"
                 ]
@@ -2698,7 +2711,7 @@
             "github": "gov2/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "gov2.s3.BucketBasics.struct",
                   "gov2.s3.DeleteBucket"
@@ -2713,10 +2726,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.s3_bucket_ops.delete_bucket"
                 ]
@@ -2749,7 +2762,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.DeleteBucket"
@@ -2783,7 +2796,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.DeleteBucket"
                 ]
@@ -2799,7 +2812,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "rust.example_code.s3.basics.delete_bucket"
                 ]
@@ -2815,7 +2828,7 @@
             "github": "sap-abap/services/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.abapv1.delete_bucket"
                 ]
@@ -2831,7 +2844,7 @@
             "github": "swift/example_code/s3/basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.swift.basics.handler.deletebucket"
                 ]
@@ -2845,10 +2858,10 @@
           {
             "sdk_version": 2,
             "github": "aws-cli/bash-linux/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "aws-cli.bash-linux.s3.errecho",
                   "aws-cli.bash-linux.s3.DeleteBucket"
@@ -2867,18 +2880,18 @@
     "title": "Get CORS rules for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get CORS rules for a bucket",
     "synopsis": "get cross-origin resource sharing (CORS) rules for an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.GetCORS"
                 ]
@@ -2892,10 +2905,10 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.GetBucketCors"
@@ -2929,7 +2942,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.helper.BucketCorsWrapper",
                   "ruby.example_code.s3.GetBucketCors",
@@ -2949,18 +2962,18 @@
     "title": "Add CORS rules to an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Add CORS rules to a bucket",
     "synopsis": "add cross-origin resource sharing (CORS) rules to an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.PutCORS"
                 ]
@@ -2974,10 +2987,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.cors.main"
                 ]
@@ -2993,7 +3006,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.PutBucketCors"
@@ -3027,7 +3040,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.helper.BucketCorsWrapper",
                   "ruby.example_code.s3.PutBucketCors",
@@ -3047,18 +3060,18 @@
     "title": "Delete CORS rules from an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete CORS rules from a bucket",
     "synopsis": "delete CORS rules from an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.DeleteCORS"
                 ]
@@ -3072,10 +3085,10 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.DeleteBucketCors"
@@ -3092,7 +3105,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.helper.BucketCorsWrapper",
                   "ruby.example_code.s3.DeleteBucketCors",
@@ -3112,18 +3125,18 @@
     "title": "Get the ACL of an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get the ACL of a bucket",
     "synopsis": "get the access control list (ACL) of an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.GetBucketACLExample"
                 ]
@@ -3137,10 +3150,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.get_acl.main"
                 ]
@@ -3154,10 +3167,10 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.GetBucketAcl"
@@ -3189,10 +3202,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.get_acl_bucket.code"
                 ]
@@ -3210,18 +3223,18 @@
     "title": "Set a new ACL for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Set a new ACL for a bucket",
     "synopsis": "set a new access control list (ACL) for an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.PutBucketACLExample"
                 ]
@@ -3235,10 +3248,10 @@
           {
             "sdk_version": 1,
             "github": "kotlin/services/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.kotlin.set_acl.main"
                 ]
@@ -3252,10 +3265,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.set_acl.main"
                 ]
@@ -3271,7 +3284,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.PutBucketAcl"
@@ -3303,10 +3316,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.put_bucket_acl.code"
                 ]
@@ -3324,18 +3337,18 @@
     "title": "Add a policy to an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Add a policy to a bucket",
     "synopsis": "add a policy to an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "C++": {
         "versions": [
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.put_bucket_policy02.code",
                   "s3.cpp.put_bucket_policy01.code"
@@ -3350,10 +3363,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.set_bucket_policy.main"
                 ]
@@ -3369,7 +3382,7 @@
             "github": "python/example_code/s3/s3_basics",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.PutBucketPolicy"
@@ -3403,7 +3416,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.helper.BucketPolicyWrapper",
                   "ruby.example_code.s3.PutBucketPolicy",
@@ -3423,18 +3436,18 @@
     "title": "Set the website configuration for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Set the website configuration for a bucket",
     "synopsis": "set the website configuration for an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.PutWebsiteConfigExample"
                 ]
@@ -3448,10 +3461,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.put_website_config.code"
                 ]
@@ -3465,10 +3478,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.set_website_configuration.main"
                 ]
@@ -3501,7 +3514,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.PutBucketWebsite"
                 ]
@@ -3519,18 +3532,18 @@
     "title": "Get the website configuration for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get the website configuration for a bucket",
     "synopsis": "get the website configuration for an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.GetWebsiteConfigExample"
                 ]
@@ -3544,10 +3557,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.get_website_config.code"
                 ]
@@ -3561,7 +3574,7 @@
           {
             "sdk_version": 3,
             "github": "javascriptv3/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Get the website configuration.",
@@ -3582,8 +3595,8 @@
     "title": "Determine the existence of an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Determine the existence of a bucket",
     "synopsis": "determine the existence of an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Go": {
         "versions": [
@@ -3592,7 +3605,7 @@
             "github": "gov2/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "gov2.s3.BucketBasics.struct",
                   "gov2.s3.HeadBucket"
@@ -3607,10 +3620,10 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.HeadBucket"
@@ -3625,10 +3638,10 @@
           {
             "sdk_version": 2,
             "github": "aws-cli/bash-linux/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "aws-cli.bash-linux.s3.HeadBucket"
                 ]
@@ -3646,18 +3659,18 @@
     "title": "List &S3; buckets using an &AWS; SDK",
     "title_abbrev": "List buckets",
     "synopsis": "list S3 buckets.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Java": {
         "versions": [
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.list.buckets.main"
                 ]
@@ -3671,10 +3684,10 @@
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.ListBuckets"
                 ]
@@ -3688,10 +3701,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.list_buckets.code"
                 ]
@@ -3707,7 +3720,7 @@
             "github": "gov2/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "gov2.s3.BucketBasics.struct",
                   "gov2.s3.ListBuckets"
@@ -3722,10 +3735,10 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.BucketWrapper",
                   "python.example_code.s3.ListBuckets"
@@ -3742,7 +3755,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.rust.list-buckets"
                 ]
@@ -3775,7 +3788,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.ListBuckets"
                 ]
@@ -3791,7 +3804,7 @@
             "github": "swift/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.swift.listbuckets.getallbuckets"
                 ]
@@ -3809,18 +3822,18 @@
     "title": "Set the ACL of an &S3; object using an &AWS; SDK",
     "title_abbrev": "Set the ACL of an object",
     "synopsis": "set the access control list (ACL) of an S3 object.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Python": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.helper.ObjectWrapper",
                   "python.example_code.s3.PutObjectAcl"
@@ -3835,10 +3848,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.cpp.put_object_acl.code"
                 ]
@@ -3856,8 +3869,8 @@
     "title": "Upload a single part of a multipart upload using an &AWS; SDK",
     "title_abbrev": "Upload a single part of a multipart upload",
     "synopsis": "upload a single part of a multipart upload.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Rust": {
         "versions": [
@@ -3866,7 +3879,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "rust.example_code.s3.upload_part",
                   "rust.example_code.s3.upload_part.CompletedMultipartUpload"
@@ -3885,18 +3898,18 @@
     "title": "Enable notifications for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Enable notifications",
     "synopsis": "enable notifications for an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.EnableNotificationsExample"
                 ]
@@ -3910,10 +3923,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.s3_enable_notifications.main"
                 ]
@@ -3931,18 +3944,18 @@
     "title": "Enable transfer acceleration for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Enable transfer acceleration",
     "synopsis": "enable transfer acceleration for an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       ".NET": {
         "versions": [
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.TransferAccelerationExample"
                 ]
@@ -3960,15 +3973,15 @@
     "title": "Download all objects in an &S3long; (&S3;) bucket to a local directory",
     "title_abbrev": "Download objects to a local directory",
     "synopsis": "download all objects in an &S3long; (&S3;) bucket to a local directory.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Java": {
         "versions": [
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Use an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\>S3TransferManager</ulink> to <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadDirectory(software.amazon.awssdk.transfer.s3.DownloadDirectoryRequest)\\>download all S3 objects</ulink> in the same S3 bucket. View the <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java\\>complete file</ulink> and <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\>test</ulink>.",
@@ -3990,15 +4003,15 @@
     "title": "Recursively upload a local directory to an &S3long; (&S3;) bucket",
     "title_abbrev": "Upload directory to a bucket",
     "synopsis": "upload a local directory recursively to an &S3long; (&S3;) bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Java": {
         "versions": [
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Use an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\>S3TransferManager</ulink> to <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadDirectory(software.amazon.awssdk.transfer.s3.UploadDirectoryRequest)\\>upload a local directory</ulink>. View the <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadADirectory.java\\>complete file</ulink> and <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\>test</ulink>.",
@@ -4020,7 +4033,7 @@
     "title": "Upload or download large files to and from &S3; using an &AWS; SDK",
     "title_abbrev": "Upload or download large files",
     "synopsis": "upload or download large files to and from &S3;.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "guide_topic": {
       "title": "Uploading an object using multipart upload",
@@ -4032,7 +4045,7 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Call functions that transfer files to and from an S3 bucket using the S3TransferManager.",
@@ -4061,7 +4074,7 @@
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3/",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Call functions that transfer files to and from an S3 bucket using the &S3; TransferUtility.",
@@ -4138,7 +4151,7 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/file_transfer",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Create functions that transfer files using several of the available transfer manager settings. Use a callback class to write callback progress during file transfer.",
@@ -4163,7 +4176,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "rust.example_code.s3.large_files.scenario"
                 ]
@@ -4177,7 +4190,7 @@
           {
             "sdk_version": 3,
             "github": "javascriptv3/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Upload a large file.",
@@ -4204,7 +4217,7 @@
     "title": "Manage versioned &S3; objects in batches with a &LAM; function using an &AWS; SDK",
     "title_abbrev": "Manage versioned objects in batches with a &LAM; function",
     "synopsis": "manage versioned S3 objects in batches with a &LAM; function.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "languages": {
       "Python": {
@@ -4225,7 +4238,7 @@
     "title": "Create a presigned URL for &S3; using an &AWS; SDK",
     "title_abbrev": "Create a presigned URL",
     "synopsis": "create a presigned URL for Amazon S3 and upload an object.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "languages": {
       ".NET": {
@@ -4233,7 +4246,7 @@
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3/",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Generate a presigned URL that can perform an &S3; action for a limited time.",
@@ -4256,7 +4269,7 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Generate a pre-signed URL for an object, then download it (GET request)."
@@ -4339,7 +4352,7 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Generate a presigned URL that can perform an S3 action for a limited time. Use the Requests package to make a request with the URL.",
@@ -4416,7 +4429,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.ruby.upload_object_presigned_url.rb"
                 ]
@@ -4493,7 +4506,7 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_versioning",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Create functions that wrap S3 actions.",
@@ -4523,8 +4536,8 @@
     "title": "Get the Region where the &S3; bucket resides using an &AWS; SDK",
     "title_abbrev": "Get the Region location for a bucket",
     "synopsis": "get the Region location for an S3 bucket.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Rust": {
         "versions": [
@@ -4533,7 +4546,7 @@
             "github": "rustv1/examples/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.rust.list-buckets"
                 ]
@@ -4564,10 +4577,10 @@
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3/S3_Basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.S3_BasicsScenario"
                 ]
@@ -4581,10 +4594,10 @@
           {
             "sdk_version": 2,
             "github": "javav2/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.java2.s3_scenario.main"
                 ]
@@ -4598,7 +4611,7 @@
           {
             "sdk_version": 3,
             "github": "javascriptv3/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "First, import all the necessary modules.",
@@ -4665,10 +4678,10 @@
           {
             "sdk_version": 1,
             "github": "kotlin/services/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.kotlin.s3_operations.main"
                 ]
@@ -4682,10 +4695,10 @@
           {
             "sdk_version": 3,
             "github": "php/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "php.example_code.s3.Scenario_GettingStarted"
                 ]
@@ -4699,10 +4712,10 @@
           {
             "sdk_version": 3,
             "github": "python/example_code/s3/s3_basics",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "python.example_code.s3.Scenario_GettingStarted"
                 ]
@@ -4718,7 +4731,7 @@
             "github": "ruby/example_code/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "ruby.example_code.s3.Scenario_GettingStarted"
                 ]
@@ -4776,10 +4789,10 @@
           {
             "sdk_version": 1,
             "github": "cpp/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "cpp.example_code.s3.Scenario_GettingStarted"
                 ]
@@ -4795,7 +4808,7 @@
             "github": "sap-abap/services/s3",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "s3.abapv1.getting_started_with_s3"
                 ]
@@ -4831,10 +4844,10 @@
           {
             "sdk_version": 2,
             "github": "aws-cli/bash-linux/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "aws-cli.bash-linux.s3.getting_started_scenario"
                 ]
@@ -4864,7 +4877,7 @@
     "title": "Manage access control lists (ACLs) for &S3; buckets using an &AWS; SDK",
     "title_abbrev": "Manage access control lists (ACLs)",
     "synopsis": "manage access control lists (ACLs) for &S3; buckets.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "languages": {
       ".NET": {
@@ -4872,10 +4885,10 @@
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3/ManageACLsExample",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.ManageACLsExample"
                 ]
@@ -4893,7 +4906,7 @@
     "title": "Get started with tags for &S3; objects using an &AWS; SDK",
     "title_abbrev": "Get started with tags",
     "synopsis": "get started with tags for &S3; objects.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "languages": {
       ".NET": {
@@ -4901,10 +4914,10 @@
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3/ObjectTagExample",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.ObjectTagExample"
                 ]
@@ -4922,7 +4935,7 @@
     "title": "Get started with encryption for &S3; objects using an &AWS; SDK",
     "title_abbrev": "Get started with encryption",
     "synopsis": "get started with encryption for &S3; objects.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "languages": {
       ".NET": {
@@ -4930,10 +4943,10 @@
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3/SSEClientEncryptionExample",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.SSEClientEncryptionExample"
                 ]
@@ -4951,7 +4964,7 @@
     "title": "Perform a multipart copy of an &S3; object using an &AWS; SDK",
     "title_abbrev": "Perform a multipart copy",
     "synopsis": "perform a multipart copy of an &S3; object.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "languages": {
       ".NET": {
@@ -4959,10 +4972,10 @@
           {
             "sdk_version": 3,
             "github": "dotnetv3/S3/MPUapiCopyObjExample",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
-                "description": null,
+                "description": "",
                 "snippet_tags": [
                   "S3.dotnetv3.MPUapiCopyObjectExample"
                 ]
@@ -4980,7 +4993,7 @@
     "title": "A web page that lists &S3; objects using an &AWS; SDK",
     "title_abbrev": "Create a web page that lists &S3; objects",
     "synopsis": "list &S3; objects in a web page.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "languages": {
       "JavaScript": {
@@ -4988,7 +5001,7 @@
           {
             "sdk_version": 3,
             "github": "javascriptv3/example_code/web/s3/list-objects",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "The following code is the relevant React component that makes calls to the &AWS; SDK. A runnable version of the application containing this component can be found at the preceding GitHub link.",
@@ -5009,7 +5022,7 @@
     "title": "Parse &S3; URIs using an &AWS; SDK",
     "title_abbrev": "Parse URIs",
     "synopsis": "parse &S3; URIs to extract important components like the bucket name and object key.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "languages": {
       "Java": {
@@ -5017,7 +5030,7 @@
           {
             "sdk_version": 2,
             "github": "java/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Parse an &S3; URI by using the <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Uri.html\\>S3Uri</ulink> class.",
@@ -5039,7 +5052,7 @@
     "title": "Upload a stream of unknown size to an &S3; object using an &AWS; SDK",
     "title_abbrev": "Upload stream of unknown size",
     "synopsis": "upload a stream of unknown size to an &S3; object.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "languages": {
       "Java": {
@@ -5047,7 +5060,7 @@
           {
             "sdk_version": 2,
             "github": "java/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "Use the <ulink url=\\sdk-for-java/latest/developer-guide/crt-based-s3-client.html\\ type=\\documentation\\>&AWS; CRT-based S3 Client</ulink>.",
@@ -5076,7 +5089,7 @@
     "title": "Perform a multipart upload to an &S3; object using an &AWS; SDK",
     "title_abbrev": "Perform a multipart upload",
     "synopsis": "perform a multipart upload to an &S3; object.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "languages": {
       "Java": {
@@ -5084,7 +5097,7 @@
           {
             "sdk_version": 2,
             "github": "java/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "The code examples use the following imports.",
@@ -5117,7 +5130,7 @@
     "title": "Use checksums to work with an &S3; object using an &AWS; SDK",
     "title_abbrev": "Use checksums",
     "synopsis": "use checksums to work with an &S3; object.",
-    "synopsis_list":" ",
+    "synopsis_list": " ",
     "category": "Scenarios",
     "languages": {
       "Java": {
@@ -5125,7 +5138,7 @@
           {
             "sdk_version": 2,
             "github": "java/example_code/s3",
-            "sdkguide": null,
+            "sdkguide": "",
             "excerpts": [
               {
                 "description": "The code examples use a subset of the following imports.",
@@ -5176,8 +5189,8 @@
     "title": "Create an &S3; Multi-Region Access Point using an &AWS; SDK",
     "title_abbrev": "Create a Multi-Region Access Point",
     "synopsis": "create an &S3; Multi-Region Access Point.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Kotlin": {
         "versions": [
@@ -5217,8 +5230,8 @@
     "title": "Get an &S3; object from a Multi-Region Access Point by using an &AWS; SDK",
     "title_abbrev": "Get an object from a Multi-Region Access Point",
     "synopsis": "get an object from a Multi-Region Access Point.",
-    "synopsis_list":" ",
-    "category": null,
+    "synopsis_list": " ",
+    "category": "",
     "languages": {
       "Kotlin": {
         "versions": [
