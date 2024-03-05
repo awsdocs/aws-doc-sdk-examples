@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import com.example.cloudfront.CreateBucketPolicy;
 import com.example.cloudfront.CreateCannedPolicyRequest;
 import com.example.cloudfront.CreateCustomPolicyRequest;
