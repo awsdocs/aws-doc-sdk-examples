@@ -60,7 +60,7 @@ bedrock-runtime_InvokeAmazonTitanImageGeneratorForImageGeneration:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/BedrockRuntime
+          github: dotnetv3/Bedrock-runtime
           sdkguide:
           excerpts:
             - description: Asynchronously invoke the Amazon Titan Image Generator G1 foundation model to generate images.
@@ -86,7 +86,7 @@ bedrock-runtime_InvokeAmazonTitanImageGeneratorForTextGeneration:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/BedrockRuntime
+          github: dotnetv3/Bedrock-runtime
           sdkguide:
           excerpts:
             - description: Asynchronously invoke the Amazon Titan Text G1 foundation model to generate text.
@@ -142,7 +142,7 @@ bedrock-runtime_InvokeStableDiffusionForImageGeneration:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/BedrockRuntime
+          github: dotnetv3/Bedrock-runtime
           sdkguide:
           excerpts:
             - description: Asynchronously invoke Stability.ai Stable Diffusion XL foundation model to generate images.
@@ -186,7 +186,7 @@ bedrock-runtime_InvokeMistral7B:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/BedrockRuntime
+          github: dotnetv3/Bedrock-runtime
           sdkguide:
           excerpts:
             - description: Asynchronously invoke the Mistral 7B foundation model to generate text.
@@ -230,7 +230,7 @@ bedrock-runtime_InvokeMixtral8x7B:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/BedrockRuntime
+          github: dotnetv3/Bedrock-runtime
           sdkguide:
           excerpts:
             - description: Asynchronously invoke the Mixtral 8x7B foundation model to generate text.
@@ -290,7 +290,7 @@ bedrock-runtime_InvokeClaude:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/BedrockRuntime
+          github: dotnetv3/Bedrock-runtime
           sdkguide:
           excerpts:
             - description: Asynchronously invoke the Anthropic Claude 2 foundation model to generate text.
@@ -362,7 +362,7 @@ bedrock-runtime_InvokeJurassic2:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/BedrockRuntime
+          github: dotnetv3/Bedrock-runtime
           excerpts:
             - description: Asynchronously invoke the AI21 Labs Jurassic-2 foundation model.
               snippet_tags:
@@ -422,7 +422,7 @@ bedrock-runtime_InvokeLlama2:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/BedrockRuntime
+          github: dotnetv3/Bedrock-runtime
           excerpts:
             - description: Asynchronously invoke the Meta Llama 2 foundation model to generate text.
               snippet_tags:
@@ -463,7 +463,7 @@ bedrock-runtime_InvokeModelWithResponseStream:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/BedrockRuntime
+          github: dotnetv3/Bedrock-runtime
           sdkguide:
           excerpts:
             - description: Asynchronously invoke the Anthropic Claude 2 model and process the response stream.
