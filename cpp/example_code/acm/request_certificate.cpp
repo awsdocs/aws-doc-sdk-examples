@@ -65,7 +65,7 @@ bool AwsDoc::ACM::requestCertificate(const Aws::String &domainName,
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc != 4) {
+    if (argc != 3) {
         std::cout
                 << "Usage: 'run_request_certificate <domain_name> <idempotency_token>'"
                 << std::endl;

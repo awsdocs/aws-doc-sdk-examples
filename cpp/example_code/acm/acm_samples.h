@@ -18,10 +18,10 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool addTagToCertificate(const Aws::String &certificateArn,
-                                 const Aws::String &tagKey,
-                                 const Aws::String &tagValue,
-                                 const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool addTagsToCertificate(const Aws::String &certificateArn,
+                                  const Aws::String &tagKey,
+                                  const Aws::String &tagValue,
+                                  const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete an ACM certificate.
         /*!
@@ -91,16 +91,17 @@ namespace AwsDoc {
         bool listTagsForCertificate(const Aws::String &certificateArn,
                                     const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Remove a tag from an ACM certificate.
         /*!
           \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
-          \param region: The tag for the key.
+          \param tagKey: The key for the tag.
+          \param tagValue: The value for the tag.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool removeTagFromCertificate(const Aws::String &certificateArn,
-                                      const Aws::String &tagKey,
-                                      const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool removeTagsFromCertificate(const Aws::String &certificateArn,
+                                       const Aws::String &tagKey,
+                                       const Aws::String &tagValue,
+                                       const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Renew an ACM certificate.
         /*!

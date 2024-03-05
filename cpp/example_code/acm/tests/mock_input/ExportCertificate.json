@@ -1,0 +1,5 @@
+{
+  "Certificate": "-----BEGIN CERTIFICATE-----Base64-encodedEND CERTIFICATE-----",
+  "CertificateChain": "-----BEGIN CERTIFICATE-----Base64-encodedEND CERTIFICATE-----\n-----BEGIN CERTIFICATE-----Base64-encodedEND CERTIFICATE-----",
+  "PrivateKey": "-----BEGIN ENCRYPTED PRIVATE KEYBase64-encoded-----END ENCRYPTED PRIVATE KEY-----"
+}

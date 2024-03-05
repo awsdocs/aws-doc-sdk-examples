@@ -49,7 +49,7 @@ Code excerpts that show you how to call individual service functions.
 - [Import certificates](import_certificate.cpp#L21) (`ImportCertificate`)
 - [List certificates](list_certificates.cpp#L20) (`ListCertificates`)
 - [List tags for a certificate](list_tags_for_certificate.cpp#L20) (`ListTagsForCertificate`)
-- [Remove tags from a certificate](remove_tag_from_certificate.cpp#L20) (`RemoveTagsFromCertificate`)
+- [Remove tags from a certificate](remove_tags_from_certificate.cpp#L20) (`RemoveTagsFromCertificate`)
 - [Renew a certificate](renew_certificate.cpp#L20) (`RenewCertificate`)
 - [Request validation of a certificate](request_certificate.cpp#L20) (`RequestCertificate`)
 - [Resend validation email for a certificate](resend_validation_email.cpp#L20) (`ResendValidationEmail`)

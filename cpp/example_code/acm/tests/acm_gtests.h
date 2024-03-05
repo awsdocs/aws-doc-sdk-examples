@@ -35,6 +35,10 @@ namespace AwsDocTest {
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
+        static std::string testCertificateArn() {
+            return "arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012";
+        };
+
     private:
 
         static bool suppressStdOut();

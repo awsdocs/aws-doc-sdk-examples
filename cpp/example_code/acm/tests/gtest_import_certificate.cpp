@@ -15,13 +15,16 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(ACM_GTests, add_tags_to_certificate_3_) {
+    TEST_F(ACM_GTests, import_certificate_3_) {
         MockHTTP mockHttp;
-        bool result = mockHttp.addResponseWithBody(
-                "mock_input/AddTagsToCertificate.json");
+        bool result = mockHttp.addResponseWithBody("mock_input/ImportCertificate.json");
         ASSERT_TRUE(result) << preconditionError() << std::endl;
 
-        result = AwsDoc::ACM::addTagsToCertificate(testCertificateArn(), "key", "value", *s_clientConfig);
+        result = AwsDoc::ACM::importCertificate(
+                std::string(SRC_DIR) + "/mock_input/MockCertificate.pem",
+                std::string(SRC_DIR) + "/mock_input/MockCertificateChain.pem",
+                std::string(SRC_DIR) + "/mock_input/MockPrivateKey.pem",
+                *s_clientConfig);
         ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest

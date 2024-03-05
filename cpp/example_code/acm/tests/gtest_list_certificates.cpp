@@ -15,13 +15,12 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(ACM_GTests, add_tags_to_certificate_3_) {
+    TEST_F(ACM_GTests, list_certificates_3_) {
         MockHTTP mockHttp;
-        bool result = mockHttp.addResponseWithBody(
-                "mock_input/AddTagsToCertificate.json");
+        bool result = mockHttp.addResponseWithBody("mock_input/ListCertificates.json");
         ASSERT_TRUE(result) << preconditionError() << std::endl;
 
-        result = AwsDoc::ACM::addTagsToCertificate(testCertificateArn(), "key", "value", *s_clientConfig);
+        result = AwsDoc::ACM::listCertificates(*s_clientConfig);
         ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest

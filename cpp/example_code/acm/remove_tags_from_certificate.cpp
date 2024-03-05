@@ -21,13 +21,15 @@
 //! Remove a tag from an ACM certificate.
 /*!
   \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
-  \param region: The tag for the key.
+  \param tagKey: The key for the tag.
+  \param tagValue: The value for the tag.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::ACM::removeTagFromCertificate(const Aws::String &certificateArn,
-                                           const Aws::String &tagKey,
-                                           const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::ACM::removeTagsFromCertificate(const Aws::String &certificateArn,
+                                            const Aws::String &tagKey,
+                                            const Aws::String &tagValue,
+                                            const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::ACM::ACMClient acmClient(clientConfiguration);
 
     Aws::Vector<Aws::ACM::Model::Tag> tags;
@@ -63,7 +65,7 @@ bool AwsDoc::ACM::removeTagFromCertificate(const Aws::String &certificateArn,
 *
 *  main function
 *
-*  Usage: 'run_remove_tag_from_certificate <certificate_arn> <tag>'
+*  Usage: 'run_remove_tag_from_certificate <certificate_arn> <tag_key> <tag_value>'
 *
 *  Prerequisites: A certificate.
 *
@@ -73,8 +75,9 @@ bool AwsDoc::ACM::removeTagFromCertificate(const Aws::String &certificateArn,
 
 int main(int argc, char **argv) {
     if (argc != 4) {
-        std::cout << "Usage: 'run_remove_tag_from_certificate <certificate_arn> <tag>'"
-                  << std::endl;
+        std::cout
+                << "Usage: 'run_remove_tag_from_certificate <certificate_arn> <tag_key> <tag_value>'"
+                << std::endl;
         return 1;
     }
 
@@ -83,12 +86,14 @@ int main(int argc, char **argv) {
     {
         Aws::String certificateArn = argv[1];
         Aws::String tagKey = argv[2];
+        Aws::String tagValue = argv[3];
 
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::ACM::removeTagFromCertificate(certificateArn, tagKey, clientConfig);
+        AwsDoc::ACM::removeTagsFromCertificate(certificateArn, tagKey, tagValue,
+                                               clientConfig);
     }
 
     Aws::ShutdownAPI(options);

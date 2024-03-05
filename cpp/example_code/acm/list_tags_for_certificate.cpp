@@ -79,7 +79,7 @@ bool AwsDoc::ACM::listTagsForCertificate(const Aws::String &certificateArn,
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc != 3) {
+    if (argc != 2) {
         std::cout << "Usage: 'run_tags_for_certificate <certificate_arn>'"
                   << std::endl;
         return 1;

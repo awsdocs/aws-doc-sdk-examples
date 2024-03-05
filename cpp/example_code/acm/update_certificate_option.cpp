@@ -80,7 +80,7 @@ bool AwsDoc::ACM::updateCertificateOption(const Aws::String &certificateArn,
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc != 4) {
+    if (argc != 3) {
         std::cout
                 << "Usage: 'run_update_certificate_option <certificate_arn> <enabled/disabled>'"
                 << std::endl;

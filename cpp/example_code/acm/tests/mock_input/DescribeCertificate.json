@@ -1,0 +1,74 @@
+{
+  "Certificate": {
+    "CertificateArn": "arn:aws:acm:us-east-1:111122223333:certificate/12345678-1234-1234-1234-123456789012",
+    "CreatedAt": 1450212224.0,
+    "DomainName": "example.com",
+    "DomainValidationOptions": [
+      {
+        "DomainName": "example.com",
+        "ValidationDomain": "example.com",
+        "ValidationEmails": [
+          "hostmaster@example.com",
+          "admin@example.com",
+          "admin@example.com.whoisprivacyservice.org",
+          "tech@example.com.whoisprivacyservice.org",
+          "owner@example.com.whoisprivacyservice.org",
+          "postmaster@example.com",
+          "webmaster@example.com",
+          "administrator@example.com"
+        ]
+      },
+      {
+        "DomainName": "www.example.com",
+        "ValidationDomain": "www.example.com",
+        "ValidationEmails": [
+          "hostmaster@example.com",
+          "admin@example.com",
+          "admin@example.com.whoisprivacyservice.org",
+          "tech@example.com.whoisprivacyservice.org",
+          "owner@example.com.whoisprivacyservice.org",
+          "postmaster@example.com",
+          "webmaster@example.com",
+          "administrator@example.com"
+        ]
+      }
+    ],
+    "InUseBy": [
+      "arn:aws:cloudfront::111122223333:distribution/E12KXPQHVLSYVC"
+    ],
+    "IssuedAt": 1450212292.0,
+    "Issuer": "Amazon",
+    "KeyAlgorithm": "RSA-2048",
+    "NotAfter": 1484481600.0,
+    "NotBefore": 1450137600.0,
+    "Renewal Elegibility": "ELIGIBLE",
+    "RenewalSummary": {
+      "DomainValidationOptions": [
+        {
+          "DomainName": "www.example.com",
+          "ResourceRecord": {
+            "Name": "example",
+            "Type": "CNAME",
+            "Value": "example"
+          },
+          "ValidationDomain": "www.amazon.com",
+          "ValidationEmails": [
+            "example@amazon.com"
+          ],
+          "ValidationMethod": "DNS",
+          "ValidationStatus": "SUCCESS"
+        }
+      ],
+      "RenewalStatus": "SUCCESS",
+      "UpdatedAt": 1450212224.0
+    },
+    "Serial": "07:71:71:f4:6b:e7:bf:63:87:e6:ad:3c:b2:0f:d0:5b",
+    "SignatureAlgorithm": "SHA256WITHRSA",
+    "Status": "ISSUED",
+    "Subject": "CN=example.com",
+    "SubjectAlternativeNames": [
+      "example.com",
+      "www.example.com"
+    ]
+  }
+}

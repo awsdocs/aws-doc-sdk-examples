@@ -27,10 +27,10 @@
   \return bool: Function succeeded.
  */
 
-bool AwsDoc::ACM::addTagToCertificate(const Aws::String &certificateArn,
-                                      const Aws::String &tagKey,
-                                      const Aws::String &tagValue,
-                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::ACM::addTagsToCertificate(const Aws::String &certificateArn,
+                                       const Aws::String &tagKey,
+                                       const Aws::String &tagValue,
+                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::ACM::ACMClient acmClient(clientConfiguration);
 
     Aws::ACM::Model::AddTagsToCertificateRequest request;
@@ -46,7 +46,7 @@ bool AwsDoc::ACM::addTagToCertificate(const Aws::String &certificateArn,
             acmClient.AddTagsToCertificate(request);
 
     if (!outcome.IsSuccess()) {
-        std::cerr << "Error: addTagToCertificate: " <<
+        std::cerr << "Error: addTagsToCertificate: " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
     else {
@@ -91,8 +91,8 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::ACM::addTagToCertificate(certificateArn, tagKey, tagValue,
-                                         clientConfig);
+        AwsDoc::ACM::addTagsToCertificate(certificateArn, tagKey, tagValue,
+                                          clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
