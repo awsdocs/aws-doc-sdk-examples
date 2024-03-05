@@ -2,20 +2,16 @@ import boto3
 import json
 
 
-def invoke_claude_3_with_text():
-    """
-    Invokes Anthropic Claude 3 on Amazon Bedrock to run an inference using the input
-    provided in the request body.
-
-    Learn more about the available inference parameters and response fields in the Amazon Bedrock User Guide:
-    https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-messages.html
-
-    :return: The inference response object returned by Claude 3.
-    """
-    # snippet-start:[python.example_code.bedrock-runtime.InvokeClaude3WithText.code]
+def invoke_claude_3_with_text(params=None):
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeClaude3WithText.config]
     # Initialize the Amazon Bedrock runtime client
     client = boto3.client(service_name="bedrock-runtime", region_name="us-east-1")
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeClaude3WithText.config]
 
+    if params:
+        client = params["client"] or client
+
+    # snippet-start:[python.example_code.bedrock-runtime.InvokeClaude3WithText.main]
     # Invoke Claude 3 with the text prompt
     model_id = "anthropic.claude-3-sonnet-20240229-v1:0"
     prompt = "Hello, who are you?"
@@ -27,15 +23,7 @@ def invoke_claude_3_with_text():
                 "anthropic_version": "bedrock-2023-05-31",
                 "max_tokens": 1024,
                 "messages": [
-                    {
-                        "role": "user",
-                        "content": [
-                            {
-                                "type": "text",
-                                "text": prompt
-                            }
-                        ]
-                    }
+                    {"role": "user", "content": [{"type": "text", "text": prompt}]}
                 ],
             }
         ),
@@ -46,7 +34,7 @@ def invoke_claude_3_with_text():
     for output in response_body.get("content", []):
         print(output["text"])
 
-    # snippet-end:[python.example_code.bedrock-runtime.InvokeClaude3WithText.code]
+    # snippet-end:[python.example_code.bedrock-runtime.InvokeClaude3WithText.main]
     return response_body
 
 

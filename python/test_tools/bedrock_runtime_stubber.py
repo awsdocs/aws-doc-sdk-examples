@@ -29,6 +29,69 @@ class BedrockRuntimeStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
+    def stub_invoke_claude_3_with_text(self):
+        expected_params = {
+            "modelId": "anthropic.claude-3-sonnet-20240229-v1:0",
+            "body": json.dumps(
+                {
+                    "anthropic_version": "bedrock-2023-05-31",
+                    "max_tokens": 1024,
+                    "messages": [
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "text", "text": "Hello, who are you?"}
+                            ],
+                        }
+                    ],
+                }
+            ),
+        }
+        response = {
+            "body": io.BytesIO(
+                '{ "outputs": [ { "text": "Fake completion" } ] }'.encode("utf-8")
+            ),
+            "contentType": "",
+        }
+        self._stub_bifurcator("invoke_model", expected_params, response)
+
+    def stub_invoke_claude_3_multimodal(self, image_base64):
+        expected_params = {
+            "modelId": "anthropic.claude-3-sonnet-20240229-v1:0",
+            "body": json.dumps(
+                {
+                    "anthropic_version": "bedrock-2023-05-31",
+                    "max_tokens": 2048,
+                    "messages": [
+                        {
+                            "role": "user",
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Tell me a short story about this image.",
+                                },
+                                {
+                                    "type": "image",
+                                    "source": {
+                                        "type": "base64",
+                                        "media_type": "image/png",
+                                        "data": image_base64,
+                                    },
+                                },
+                            ],
+                        }
+                    ],
+                }
+            ),
+        }
+        response = {
+            "body": io.BytesIO(
+                '{ "outputs": [ { "text": "Fake completion" } ] }'.encode("utf-8")
+            ),
+            "contentType": "",
+        }
+        self._stub_bifurcator("invoke_model", expected_params, response)
+
     def stub_invoke_mistral_7b(self, prompt, error_code=None):
         expected_params = {
             "modelId": "mistral.mistral-7b-instruct-v0:2",
