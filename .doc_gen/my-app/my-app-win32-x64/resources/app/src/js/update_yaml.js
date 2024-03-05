@@ -1,7 +1,6 @@
-const fs = require('fs');
+const fs = require('fs')
 const insertLine = require('insert-line')
 const YAML = require('json-to-pretty-yaml');
-
 var downloadFolder = process.env.USERPROFILE + "\\Downloads"
 var destFolder = "..\\metadata\\"
 const origJson = "..\\jsonholder\\";

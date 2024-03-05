@@ -4,6 +4,13 @@ import * as fs from "fs";
 import * as YAML from "json-to-pretty-yaml";
 import {promptForText, promptToContinue} from "../libs/utils/util-io.js";
 import {wrapText} from "../libs/utils/util-string.js";
+import { execSync } from 'child_process';
+
+var runExe =function(serviceStub){
+    console.log("The SoS GUI Editor has opened on your machine. Enter \'" + serviceStub + "\' in the Principle Service field. Please leave this terminal running.");
+    const pathToExe = "../../my-app-win32-x64/my-app.exe"
+    execSync('start' + pathToExe);
+};
 
 // Standard waiting function.
 function wait(ms) {
@@ -28,6 +35,7 @@ function getFiles(dir, files = []) {
     }
     return files
 }
+
 function removeNull(synopsis_list, value) {
     return (value === null) ? "" : value;
 }
@@ -42,12 +50,12 @@ export const create_json = async () => {
     try {
         var doc = yaml.load(
             fs.readFileSync(
-                "../../" + serviceStub + "_metadata.yaml",
+                "../../../metadata/" + serviceStub + "_metadata.yaml",
                 "utf8",
-            ).replaceAll(/{+/g, "'{").replace(/}+/g, "}'")/*.replaceAll('category:','synopsis_list:\n  category:')*/
+            ).replaceAll(/{+/g, "'{").replace(/}+/g,  "}'")/*.replaceAll('category:','synopsis_list:\n  category:')*/
         );
         wait(3000)
-        /*  console.log("doc", doc)*/
+        /*console.log("doc", doc)*/
         var mydoc = JSON.stringify(doc, null, 2).replaceAll('  synopsis_list:\n' +
             '    -  ','\'    "synopsis_list": [\\" \\"],\\n\'').replaceAll('\"category\":','\"synopsis_list\":\n    \"category\":').replaceAll('    ],\n' +
             '    "synopsis_list":\n', '    ],\n').replaceAll('    "synopsis_list":\n' +
@@ -55,8 +63,7 @@ export const create_json = async () => {
             '    "category": ').replaceAll('    "synopsis_list": [\n' +
             '      null\n' +
             '    ],','    "synopsis_list":\" \",');
-        /*   if(mydoc.includes("synopsis_list")) {*/
-        /*console.log("mydoc", mydoc)*/
+
         fs.writeFileSync(
             "../jsonholder/" + serviceStub + "_metadata.json",
             mydoc,
@@ -64,13 +71,13 @@ export const create_json = async () => {
                 if (err) throw err;
             }
         );
-        console.log("Please leave this terminal running, and open the SOS GUI editor and enter \'" + serviceStub + "\' in the Principle Service field.");
-        return serviceStub
+            runExe(serviceStub);
+            return serviceStub
 
     } catch (e) {
         console.log(e + "\n" + serviceStub + "_metadata.yaml does not exist in the \/metadata folder.")
 
-        const filesInTheFolder = getFiles('../../../metadata');
+        const filesInTheFolder = getFiles('../../metadata/');
         console.log('Here\'s a list of the existing metadata files\n');
         console.log(filesInTheFolder);
         const answer = await promptForText(
@@ -98,7 +105,7 @@ const updateYAML = async (serviceName) => {
     );
     if (answer === "yes") {
         const downloadFolder = process.env.USERPROFILE + "\\Downloads"
-        const destFolder = "..\\..\\"
+        const destFolder = "..\\..\\..\\metadata\\"
         const origJson = "..\\jsonholder\\";
         const my_json = fs.readFileSync(
             downloadFolder + "\\" + serviceName + "_metadata.json",
