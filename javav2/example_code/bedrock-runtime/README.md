@@ -36,14 +36,14 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Image generation with Amazon Titan Image Generator G1](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L391) (`InvokeModel`)
-- [Image generation with Stability.ai Stable Diffusion XL](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L321) (`InvokeModel`)
-- [Text generation with AI21 Labs Jurassic-2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L197) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L135) (`InvokeModel`)
+- [Image generation with Amazon Titan Image Generator G1](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L399) (`InvokeModel`)
+- [Image generation with Stability.ai Stable Diffusion XL](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L329) (`InvokeModel`)
+- [Text generation with AI21 Labs Jurassic-2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L205) (`InvokeModel`)
+- [Text generation with Anthropic Claude 2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L143) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2 with a response stream](src/main/java/com/example/bedrockruntime/InvokeModelWithResponseStream.java#L28) (`InvokeModelWithResponseStream`)
-- [Text generation with Meta Llama 2 Chat](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L260) (`InvokeModel`)
+- [Text generation with Meta Llama 2 Chat](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L268) (`InvokeModel`)
 - [Text generation with Mistral 7B](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L33) (`InvokeModel`)
-- [Text generation with Mixtral 8x7B](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L84) (`InvokeModel`)
+- [Text generation with Mixtral 8x7B](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L88) (`InvokeModel`)
 
 
 <!--custom.examples.start-->

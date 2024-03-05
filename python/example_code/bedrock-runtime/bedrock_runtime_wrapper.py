@@ -160,10 +160,14 @@ class BedrockRuntimeWrapper:
         """
 
         try:
+            # Mistral instruct models provide optimal results when
+            # embedding the prompt into the following template:
+            instruction = f"<s>[INST] {prompt} [/INST]"
+
             model_id = "mistral.mistral-7b-instruct-v0:2"
 
             body = {
-                "prompt": prompt,
+                "prompt": instruction,
                 "max_tokens": 200,
                 "temperature": 0.5,
             }
@@ -196,10 +200,14 @@ class BedrockRuntimeWrapper:
         """
 
         try:
+            # Mistral instruct models provide optimal results when
+            # embedding the prompt into the following template:
+            instruction = f"<s>[INST] {prompt} [/INST]"
+
             model_id = "mistral.mixtral-8x7b-instruct-v0:1"
 
             body = {
-                "prompt": prompt,
+                "prompt": instruction,
                 "max_tokens": 200,
                 "temperature": 0.5,
             }

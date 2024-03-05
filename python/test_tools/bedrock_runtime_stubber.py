@@ -34,7 +34,7 @@ class BedrockRuntimeStubber(ExampleStubber):
             "modelId": "mistral.mistral-7b-instruct-v0:2",
             "body": json.dumps(
                 {
-                    "prompt": prompt,
+                    "prompt": f"<s>[INST] {prompt} [/INST]",
                     "max_tokens": 200,
                     "temperature": 0.5,
                 }
@@ -57,7 +57,7 @@ class BedrockRuntimeStubber(ExampleStubber):
             "modelId": "mistral.mixtral-8x7b-instruct-v0:1",
             "body": json.dumps(
                 {
-                    "prompt": prompt,
+                    "prompt": f"<s>[INST] {prompt} [/INST]",
                     "max_tokens": 200,
                     "temperature": 0.5,
                 }
