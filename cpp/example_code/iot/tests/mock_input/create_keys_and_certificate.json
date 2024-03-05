@@ -1,0 +1,7 @@
+{
+  "certificateArn": "arn:aws:iot:test:123456789012:cert/1234567890123456789012345678901234567890123456789012345678901234",
+  "certificateId": "1234567890123456789012345678901234567890123456789012345678901234",
+  "certificatePem": "-----BEGIN CERTIFICATE-----\nabcdef==\n-----END CERTIFICATE-----\n",
+  "keyPair": {
+    "PrivateKey": "-----BEGIN RSA PRIVATE KEY-----\nabcdef90=\n-----END RSA PRIVATE KEY-----\n",
+    "PublicKey": "-----BEGIN PUBLIC KEY-----\nabcdef\n-----END PUBLIC KEY-----\n"

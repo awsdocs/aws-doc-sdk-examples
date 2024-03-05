@@ -1,0 +1,22 @@
+{
+  "nextToken": null,
+  "thingGroups": null,
+  "things": [
+    {
+      "attributes": {
+        "temperature": "10"
+      },
+      "connectivity": {
+        "connected": false,
+        "disconnectReason": null,
+        "timestamp": 0
+      },
+      "deviceDefender": null,
+      "shadow": "{\"reported\":{\"temperature\":25,\"humidity\":50},\"metadata\":{\"reported\":{\"temperature\":{\"timestamp\":1708970198},\"humidity\":{\"timestamp\":1708970198}}},\"hasDelta\":false,\"version\":2}",
+      "thingGroupNames": null,
+      "thingId": "12345678-1234-1234-1234-123456789012",
+      "thingName": "cpp_test_thing",
+      "thingTypeName": null
+    }
+  ]
+}
