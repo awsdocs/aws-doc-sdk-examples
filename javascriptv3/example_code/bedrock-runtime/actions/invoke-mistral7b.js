@@ -29,8 +29,12 @@ export const invokeMistral7B = async (prompt) => {
 
   const modelId = "mistral.mistral-7b-instruct-v0:2";
 
+  // Mistral instruct models provide optimal results when embedding
+  // the prompt into the following template:
+  const instruction = `<s>[INST] ${prompt} [/INST]`;
+
   const payload = {
-    prompt: prompt,
+    prompt: instruction,
     max_tokens: 500,
     temperature: 0.5,
   };

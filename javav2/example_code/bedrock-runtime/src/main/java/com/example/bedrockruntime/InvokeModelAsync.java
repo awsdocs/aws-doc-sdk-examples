@@ -43,10 +43,14 @@ public class InvokeModelAsync {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
+        // Mistral instruct models provide optimal results when
+        // embedding the prompt into the following template:
+        String instruction = "<s>[INST] " + prompt + " [/INST]";
+
         String modelId = "mistral.mistral-7b-instruct-v0:2";
 
         String payload = new JSONObject()
-                .put("prompt", prompt)
+                .put("prompt", instruction)
                 .put("max_tokens", 200)
                 .put("temperature", 0.5)
                 .toString();
@@ -94,10 +98,14 @@ public class InvokeModelAsync {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
+        // Mistral instruct models provide optimal results when
+        // embedding the prompt into the following template:
+        String instruction = "<s>[INST] " + prompt + " [/INST]";
+
         String modelId = "mistral.mixtral-8x7b-instruct-v0:1";
 
         String payload = new JSONObject()
-                .put("prompt", prompt)
+                .put("prompt", instruction)
                 .put("max_tokens", 200)
                 .put("temperature", 0.5)
                 .toString();
