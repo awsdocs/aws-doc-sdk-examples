@@ -26,7 +26,6 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-
 bool AwsDoc::ACM::addTagsToCertificate(const Aws::String &certificateArn,
                                        const Aws::String &tagKey,
                                        const Aws::String &tagValue,

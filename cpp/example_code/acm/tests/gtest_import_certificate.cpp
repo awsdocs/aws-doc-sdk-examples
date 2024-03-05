@@ -22,8 +22,8 @@ namespace AwsDocTest {
 
         result = AwsDoc::ACM::importCertificate(
                 std::string(SRC_DIR) + "/mock_input/MockCertificate.pem",
-                std::string(SRC_DIR) + "/mock_input/MockCertificateChain.pem",
                 std::string(SRC_DIR) + "/mock_input/MockPrivateKey.pem",
+                std::string(SRC_DIR) + "/mock_input/MockCertificateChain.pem",
                 *s_clientConfig);
         ASSERT_TRUE(result);
     }

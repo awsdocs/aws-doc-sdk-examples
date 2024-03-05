@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Set the minimum required version of CMake for this project.
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.13)
 
 set(SERVICE_NAME acm)
 set(SERVICE_COMPONENTS acm)

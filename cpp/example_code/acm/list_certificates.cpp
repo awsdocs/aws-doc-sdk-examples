@@ -18,13 +18,11 @@
 #include "acm_samples.h"
 
 // snippet-start:[cpp.example_code.acm.ListCertificates]
-// snippet-end:[cpp.example_code.acm.ListCertificates]
 //! List the AWS Certificate Manager (ACM) certificates in an account.
 /*!
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-
 bool AwsDoc::ACM::listCertificates(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::ACM::ACMClient acmClient(clientConfiguration);
@@ -64,6 +62,7 @@ bool AwsDoc::ACM::listCertificates(
         return true;
     }
 }
+// snippet-end:[cpp.example_code.acm.ListCertificates]
 
 /*
 *
