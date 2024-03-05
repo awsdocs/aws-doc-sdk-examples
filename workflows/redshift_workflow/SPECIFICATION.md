@@ -15,18 +15,17 @@ User input is also required for this program. The user is asked to input the fol
 
 ## Program Flow
 The program executes the following steps:
-1. Retrieves database credentials from AWS Secrets Manager using a specified secret name.
-2. Prompts the user for a unique cluster ID or use the default value.
-3. Creates a Redshift cluster with the specified or default cluster ID using `redshiftClient.createCluster()`.
-4. Waits until the Redshift cluster is available for use using `redshiftClient.describeClusters`.
-5. Prompts the user for a database name or use the default value.
-6. Creates a Redshift database within the specified cluster using `redshiftDataClient.executeStatement()`.
-7. Creates a table named "Movies" with fields ID, title, and year using `redshiftDataClient.executeStatement()`.
-8. Inserts a specified number of records into the "Movies" table by reading the Movies JSON file. Then it uses `redshiftDataClient.executeStatement()` to insert movie data.
-9. Prompts the user for a movie release year.
-10. Execute a SQL query, using `redshiftDataClient.executeStatement()`, to retrieve movies released in the specified year. Then displays the result set.
-11. Prompts the user for confirmation to delete the Redshift cluster.
-12. If confirmed, deletes the specified Redshift cluster using `redshiftClient.deleteCluster()`.
+1. Prompts the user for a unique cluster ID or use the default value.
+2. Creates a Redshift cluster with the specified or default cluster ID using `redshiftClient.createCluster()`.
+3. Waits until the Redshift cluster is available for use using `redshiftClient.describeClusters`.
+4. Prompts the user for a database name or use the default value.
+5. Creates a Redshift database within the specified cluster using `redshiftDataClient.executeStatement()`.
+6. Creates a table named "Movies" with fields ID, title, and year using `redshiftDataClient.executeStatement()`.
+7. Inserts a specified number of records into the "Movies" table by reading the Movies JSON file. Then it uses `redshiftDataClient.executeStatement()` to insert movie data.
+8. Prompts the user for a movie release year.
+9. Execute a SQL query, using `redshiftDataClient.executeStatement()`, to retrieve movies released in the specified year. Then displays the result set.
+10. Prompts the user for confirmation to delete the Redshift cluster.
+11. If confirmed, deletes the specified Redshift cluster using `redshiftClient.deleteCluster()`.
 
 ## Program execution
 ``` java
