@@ -1,0 +1,61 @@
+{
+  "batch_DescribeComputeEnvironments": {
+    "title": "Describe one or more &BATCH; compute environments using an &AWS; SDK",
+    "title_abbrev": "Describe compute environments",
+    "synopsis": "describe one or more &BATCH; compute environments.",
+    "synopsis_list":" ",
+    "category": null,
+    "languages": {
+      "Rust": {
+        "versions": [
+          {
+            "sdk_version": 1,
+            "github": "rustv1/examples/batch",
+            "excerpts": [
+              {
+                "description": null,
+                "snippet_tags": [
+                  "batch.rust.batch-helloworld"
+                ]
+              }
+            ],
+            "sdkguide": null
+          }
+        ]
+      }
+    },
+    "services": {
+      "batch": "{DescribeComputeEnvironments}"
+    }
+  },
+  "batch_DescribeComputeEnvironments1": {
+    "title": "Describe one or more &BATCH; compute environments using an &AWS; SDK",
+    "title_abbrev": "Describe compute environments",
+    "synopsis": "describe one or more &BATCH; compute environments.",
+    "synopsis_list": [
+      "download all objects in an &S3long; (&S3;) bucket to a local directory."
+    ],
+    "category": null,
+    "languages": {
+      "Rust": {
+        "versions": [
+          {
+            "sdk_version": 1,
+            "github": "rustv1/examples/batch",
+            "excerpts": [
+              {
+                "description": null,
+                "snippet_tags": [
+                  "batch.rust.batch-helloworld"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "services": {
+      "batch": "{DescribeComputeEnvironments}"
+    }
+  }
+}

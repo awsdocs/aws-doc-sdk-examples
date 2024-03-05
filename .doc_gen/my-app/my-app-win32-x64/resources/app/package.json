@@ -1,0 +1,46 @@
+{
+  "name": "my-app",
+  "productName": "my-app",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "Brian Murray",
+    "email": "40031786+brmur@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
+    "@types/archiver": "^5.3.1",
+    "archiver": "^5.3.1",
+    "insert-line": "^1.1.0",
+    "js-yaml": "^4.1.0",
+    "ramda": "^0.28.0",
+    "uuid": "^9.0.0",
+    "yaml": "2.0.0-7",
+    "yaml-edit": "^0.1.3",
+    "yamljs": "^0.3.0",
+    "yawn-yaml": "^1.5.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.2.0",
+    "@electron-forge/maker-deb": "^7.2.0",
+    "@electron-forge/maker-rpm": "^7.2.0",
+    "@electron-forge/maker-squirrel": "^7.2.0",
+    "@electron-forge/maker-zip": "^7.2.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
+    "electron": "28.2.3",
+    "fs": "^0.0.1-security",
+    "json-to-pretty-yaml": "^1.2.2",
+    "prettier": "3.1.0"
+  }
+}

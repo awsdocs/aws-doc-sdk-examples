@@ -1,0 +1,516 @@
+{
+  "polly_DescribeVoices": {
+    "title": "Get &POL; voices available for synthesis using an &AWS; SDK",
+    "title_abbrev": "Get voices available for synthesis",
+    "synopsis": "get &POL; voices available for synthesis.",
+    "synopsis_list": " ",
+    "category": "",
+    "languages": {
+      "Java": {
+        "versions": [
+          {
+            "sdk_version": 2,
+            "github": "javav2/example_code/polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "polly.java2.describe_voice.main"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      ".NET": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "dotnetv3/Polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "Polly.dotnetv3.DescribeVoicesExample"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Rust": {
+        "versions": [
+          {
+            "sdk_version": 1,
+            "github": "rustv1/examples/polly",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "polly.rust.describe-voices"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Python": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "python/example_code/polly",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "python.example_code.polly.helper.PollyWrapper",
+                  "python.example_code.polly.DescribeVoices"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Ruby": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "ruby/example_code/polly",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "polly.ruby.describeVoices"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "services": {
+      "polly": "{DescribeVoices}"
+    }
+  },
+  "polly_GetLexicon": {
+    "title": "Get an &POL; lexicon using an &AWS; SDK",
+    "title_abbrev": "Get a lexicon",
+    "synopsis": "get an &POL; lexicon.",
+    "synopsis_list": " ",
+    "category": "",
+    "languages": {
+      ".NET": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "dotnetv3/Polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "Polly.dotnetv3.GetLexiconExample"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Python": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "python/example_code/polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "python.example_code.polly.helper.PollyWrapper",
+                  "python.example_code.polly.GetLexicon"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "services": {
+      "polly": "{GetLexicon}"
+    }
+  },
+  "polly_ListLexicons": {
+    "title": "List &POL; pronunciation lexicons using an &AWS; SDK",
+    "title_abbrev": "List pronunciation lexicons",
+    "synopsis": "list &POL; pronunciation lexicons.",
+    "synopsis_list": " ",
+    "category": "",
+    "languages": {
+      "Java": {
+        "versions": [
+          {
+            "sdk_version": 2,
+            "github": "javav2/example_code/polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "polly.java2.list_icons.main"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      ".NET": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "dotnetv3/Polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "Polly.dotnetv3.ListLexiconsExample"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Python": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "python/example_code/polly",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "python.example_code.polly.helper.PollyWrapper",
+                  "python.example_code.polly.ListLexicons"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Rust": {
+        "versions": [
+          {
+            "sdk_version": 1,
+            "github": "rustv1/examples/polly",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "polly.rust.list-lexicons"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Ruby": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "ruby/example_code/polly",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "polly.ruby.listLexicons"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "services": {
+      "polly": "{ListLexicons}"
+    }
+  },
+  "polly_PutLexicon": {
+    "title": "Store an &POL; pronunciation lexicon using an &AWS; SDK",
+    "title_abbrev": "Store a pronunciation lexicon",
+    "synopsis": "store an &POL; pronunciation lexicon.",
+    "synopsis_list": " ",
+    "category": "",
+    "languages": {
+      ".NET": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "dotnetv3/Polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "Polly.dotnetv3.PutLexiconExample"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Python": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "python/example_code/polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "python.example_code.polly.helper.PollyWrapper",
+                  "python.example_code.polly.PutLexicon"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Rust": {
+        "versions": [
+          {
+            "sdk_version": 1,
+            "github": "rustv1/examples/polly",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "polly.rust.put-lexicon"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "services": {
+      "polly": "{PutLexicon}"
+    }
+  },
+  "polly_SynthesizeSpeech": {
+    "title": "Synthesize speech from text with &POL; using an &AWS; SDK",
+    "title_abbrev": "Synthesize speech from text",
+    "synopsis": "synthesize speech from text with &POL;.",
+    "synopsis_list": [
+      "synthesize speech from text with &POL;."
+    ],
+    "category": "",
+    "languages": {
+      "Java": {
+        "versions": [
+          {
+            "sdk_version": 2,
+            "github": "javav2/example_code/polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "polly.java2.demo.main"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      ".NET": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "dotnetv3/Polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "Polly.dotnetv3.SynthesizeSpeechExample"
+                ]
+              },
+              {
+                "description": "Synthesize speech from text using speech marks with &POL; using an &AWS; SDK.",
+                "snippet_tags": [
+                  "Polly.dotnetv3.SynthesizeSpeechMarksExample"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Python": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "python/example_code/polly",
+            "excerpts": [
+              {
+                "description": "testdescription",
+                "snippet_tags": [
+                  "python.example_code.polly.helper.PollyWrapper",
+                  "python.example_code.polly.Synthesize"
+                ]
+              }
+            ],
+            "sdkguide": "guidline"
+          }
+        ]
+      },
+      "Ruby": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "ruby/example_code/polly",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "polly.ruby.synthesizeSpeech"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Rust": {
+        "versions": [
+          {
+            "sdk_version": 1,
+            "github": "rustv1/examples/polly",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "polly.rust.synthesize-speech"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "services": {
+      "polly": "{SynthesizeSpeech}"
+    }
+  },
+  "polly_GetSpeechSynthesisTask": {
+    "title": "Get data about an &POL; speech synthesis task using an &AWS; SDK",
+    "title_abbrev": "Get data about a speech synthesis task",
+    "synopsis": "get data about an existing asynchronous &POL; speech synthesis task.",
+    "synopsis_list": " ",
+    "category": "",
+    "languages": {
+      "Python": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "python/example_code/polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "python.example_code.polly.helper.PollyWrapper",
+                  "python.example_code.polly.GetSpeechSynthesisTask"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "services": {
+      "polly": "{GetSpeechSynthesisTask}"
+    }
+  },
+  "polly_StartSpeechSynthesisTask": {
+    "title": "Start an &POL; speech synthesis task using an &AWS; SDK",
+    "title_abbrev": "Start a speech synthesis task",
+    "synopsis": "start an asynchronous &POL; speech synthesis task.",
+    "synopsis_list": " ",
+    "category": "",
+    "languages": {
+      "Python": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "python/example_code/polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "python.example_code.polly.helper.PollyWrapper",
+                  "python.example_code.polly.StartSpeechSynthesisTask"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "services": {
+      "polly": "{StartSpeechSynthesisTask}"
+    }
+  },
+  "polly_DeleteLexicon": {
+    "title": "Delete an &POL; lexicon using an &AWS; SDK",
+    "title_abbrev": "Delete a lexicon",
+    "synopsis": "delete an &POL; lexicon.",
+    "synopsis_list": " ",
+    "category": "",
+    "languages": {
+      ".NET": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "dotnetv3/Polly",
+            "sdkguide": "",
+            "excerpts": [
+              {
+                "description": "",
+                "snippet_tags": [
+                  "Polly.dotnetv3.DeleteLexiconExample"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "services": {
+      "polly": "{DeleteLexicon}"
+    }
+  },
+  "polly_LipSync": {
+    "title": "Create a lip-sync application with &POL; using an &AWS; SDK",
+    "title_abbrev": "Create a lip-sync application",
+    "synopsis": "create a lip-sync application with &POL;.",
+    "synopsis_list": " ",
+    "category": "Scenarios",
+    "languages": {
+      "Python": {
+        "versions": [
+          {
+            "sdk_version": 3,
+            "github": "python/example_code/polly",
+            "block_content": "scenario_PollyLipSync_Python_block.xml"
+          }
+        ]
+      }
+    },
+    "services": {
+      "polly": "{}"
+    }
+  }
+}
