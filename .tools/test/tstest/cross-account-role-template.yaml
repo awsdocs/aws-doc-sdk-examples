@@ -1,0 +1,26 @@
+# cross-account-role-template.yaml
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: IAM Role for Cross-Account Access
+Resources:
+  CrossAccountDeploymentRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: CrossAccountDeploymentRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: arn:aws:iam::CENTRAL_ACCOUNT_ID:root
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: CrossAccountDeploymentPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - "s3:*"
+                Resource: "*"
+
