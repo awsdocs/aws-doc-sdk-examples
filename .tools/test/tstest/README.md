@@ -5,7 +5,7 @@ This is a blank project for CDK development with TypeScript.
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 
-Manually installed: `npm install @aws-cdk/core @aws-cdk/aws-s3 @aws-cdk/aws-iam`
+Manually installed: `npm install @aws-cdk/core @aws-cdk/aws-s3 @aws-cdk/aws-iam js-yaml`
 
 ## Useful commands
 

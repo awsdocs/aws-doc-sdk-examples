@@ -9,7 +9,7 @@ export class S3Stack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props: S3StackProps) {
     super(scope, id, props);
 
-    new s3.Bucket(this, 'CustomBucket', {
+    new s3.Bucket(this, 'custombucket1212312', {
       bucketName: props.customBucketName,
     });
   }
