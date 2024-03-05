@@ -1,5 +1,24 @@
-// Download json file.
-// noinspection JSAnnotator
+function myAlert(title, content, timeout) {
+    console.log('Alertran')
+    var alertContent = `
+    <div class="modal__overlay verdana" id="alertDialog">
+      <div class="modal__window">
+        <div class="modal__titlebar">
+          <span class="modal__title">${title}</span>                        
+          <button class="modal__close">X</button>                    
+        </div>                     
+        <div class="modal__content">${content}</div>
+      </div>
+    </div>`
+    var dialogBox = document.createElement("div");
+    dialogBox.innerHTML = alertContent;
+    document.body.appendChild(dialogBox); // actually append it
+    setTimeout( () =>{
+        document.getElementById('alertDialog').remove()
+    }, timeout);
+
+}
+
 
 function download1(filename, finalObject2) {
     console.log('download1' )
@@ -33,7 +52,7 @@ function update_json() {
     const noOfSnippets = document.getElementsByClassName('snippdisc').length;
     const noOfSnippetFiles = document.getElementsByClassName('snippfiledisc').length;
     if(noOfSnippets == 0 && noOfSnippetFiles == 0){
-        alert('You must enter at least one snippet file or snippet tag.')
+        myAlert('Alert','You must enter at least one snippet file or snippet tag.', 3000)
         return
     }
     // Create variables.
@@ -113,7 +132,7 @@ function update_json() {
         console.log('this snippet tag', snippettag)
 
         if (document.getElementById(snippettag).value == 0) {
-            alert('You have empty snippet tags. This breaks the build.')
+            myAlert('Alert','You have empty snippet tags. This breaks the build.', 3000)
             return
         }
     }
@@ -170,7 +189,7 @@ function update_json() {
 
                     const myObj2 = Object.assign({}, myObj, myObj1);;
                     download(myObj2, serviceValue);
-                     alert("Please return to the terminal to save your changes.")
+                     myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
                 if (noOfSnippetFiles === 2) {
                     console.log('2 snippet file');
@@ -193,7 +212,7 @@ function update_json() {
                     myObj = editedJson;
                     myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetFileInfo);
                     download(myObj, serviceValue);
-                    alert("Please return to the terminal to save your changes.")
+                    myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
                 }
                 if (noOfSnippetFiles === 3) {
                     var snippetfiledescription1 = document.getElementById("snippetfiledescription1").value;
@@ -223,7 +242,7 @@ function update_json() {
                     myObj = editedJson;
                     myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetFileInfo);
                     download(myObj, serviceValue);
-                    alert("Please return to the terminal to save your changes.")
+                    myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
                 }
                 if (noOfSnippetFiles === 4) {
                     var snippetfiledescription1 = document.getElementById("snippetfiledescription1").value;
@@ -261,7 +280,7 @@ function update_json() {
                     myObj = editedJson;
                     myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetFileInfo);
                     download(myObj, serviceValue);
-                    alert("Please return to the terminal to save your changes.")
+                    myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
                 }
                 if (noOfSnippetFiles === 5) {
                     var snippetfiledescription1 = document.getElementById("snippetfiledescription1").value;
@@ -307,7 +326,7 @@ function update_json() {
                     myObj = editedJson;
                     myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetFileInfo);
                     download(myObj, serviceValue);
-                  alert("Please return to the terminal to save your changes.")
+                  myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
                 }
                 if (noOfSnippetFiles === 6) {
                     var snippetfiledescription1 = document.getElementById("snippetfiledescription1").value;
@@ -361,7 +380,7 @@ function update_json() {
                     myObj = editedJson;
                     myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetFileInfo);
                     download(myObj, serviceValue);
-                   alert("Please return to the terminal to save your changes.")
+                   myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
                 }
                 else if (noOfSnippets === 1) {
                 console.log('1 snippet');
@@ -377,7 +396,7 @@ function update_json() {
                 myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetInfo);
                 const myObj2 = Object.assign({}, myObj, myObj1);;
                 download(myObj2, serviceValue);
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
                 else if (noOfSnippets === 2) {
                 var snippetDescValue = document.getElementById('snippetdescription1').value;
@@ -401,7 +420,7 @@ function update_json() {
                 myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetInfo);
                 const myObj2 = Object.assign({}, myObj, myObj1);;
                 download(myObj2, serviceValue);
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
                 else if (noOfSnippets === 3) {
                 console.log('x3 snippet tags')
@@ -433,7 +452,7 @@ function update_json() {
                 myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetInfo);
                 const myObj2 = Object.assign({}, myObj, myObj1);;
                 download(myObj2, serviceValue);
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
                 else if (noOfSnippets === 4) {
                 var snippetDescValue = document.getElementById('snippetdescription1').value;
@@ -472,7 +491,7 @@ function update_json() {
                 myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetInfo);
                 const myObj2 = Object.assign({}, myObj, myObj1);;
                 download(myObj2, serviceValue);
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
                 else if (noOfSnippets === 5) {
                 var snippetDescValue = document.getElementById('snippetdescription1').value;
@@ -519,7 +538,7 @@ function update_json() {
                 myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetInfo);
                 const myObj2 = Object.assign({}, myObj, myObj1);;
                 download(myObj2, serviceValue);
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
                 else if (noOfSnippets === 6) {
                 var snippetDescValue = document.getElementById('snippetdescription1').value;
@@ -574,7 +593,7 @@ function update_json() {
                 myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetInfo);
                 const myObj2 = Object.assign({}, myObj, myObj1);;
                 download(myObj2, serviceValue);
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
         }
         const serviceStub = document.getElementById('selecttheservice').value
@@ -622,7 +641,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippets === 2) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -659,7 +678,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippets === 3) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -705,7 +724,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippets === 4) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -760,7 +779,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippets === 5) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -824,7 +843,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippets === 6) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -896,7 +915,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippetFiles === 1) {
                 const snippetFileDescValue = document.getElementById('snippetfiledescription1').value
@@ -923,7 +942,7 @@ function update_json() {
                 const filename = serviceValue + "_metadata.json"
                 var f = new File([myObj], filename, {type: "text/plain"})
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippetFiles === 2) {
                 const snippetFileDescValue = document.getElementById('snippetfiledescription1').value
@@ -960,7 +979,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippetFiles === 3) {
                 const snippetFileDescValue = document.getElementById('snippetfiledescription1').value
@@ -1005,7 +1024,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippetFiles === 4) {
                 const snippetFileDescValue = document.getElementById('snippetfiledescription1').value
@@ -1059,7 +1078,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippetFiles === 5) {
                 const snippetFileDescValue = document.getElementById('snippetfiledescription1').value
@@ -1121,7 +1140,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippetFiles === 6) {
                 const snippetFileDescValue = document.getElementById('snippetfiledescription1').value
@@ -1193,7 +1212,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
         }
         const serviceStub = document.getElementById('selecttheservice').value
@@ -1228,7 +1247,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippets === 1) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -1253,7 +1272,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippets === 2) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -1287,7 +1306,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippets === 3) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -1329,7 +1348,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippets === 4) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -1379,7 +1398,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippets === 5) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -1437,7 +1456,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
             if (noOfSnippets === 6) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -1503,7 +1522,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""');
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
         }
         const serviceStub = document.getElementById('selecttheservice').value
@@ -1559,7 +1578,7 @@ function update_json() {
                     myObj[blockValue]["languages"][languageValue]["versions"][0]["excerpts"]= [];
                     myObj[blockValue]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetFileInfo);
                     download(myObj, serviceValue);
-                    alert("Please return to the terminal to save your changes.")
+                    myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
                 }
                 if (noOfSnippetFiles === 2) {
                     console.log('2 snippet files');
@@ -1582,7 +1601,7 @@ function update_json() {
                     myObj[blockValue]["languages"][languageValue]["versions"][0]["excerpts"]= [];
                     myObj[blockValue]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetFileInfo);
                     download(myObj, serviceValue);
-                    alert("Please return to the terminal to save your changes.")
+                    myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
                 }
                 if (noOfSnippetFiles === 3) {
                     var snippetfiledescription1 = document.getElementById("snippetfiledescription1").value;
@@ -1612,7 +1631,7 @@ function update_json() {
                     myObj[blockValue]["languages"][languageValue]["versions"][0]["excerpts"]= [];
                     myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetFileInfo);
                     download(myObj, serviceValue);
-                    alert("Please return to the terminal to save your changes.")
+                    myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
                 }
                 if (noOfSnippetFiles === 4) {
                     var snippetfiledescription1 = document.getElementById("snippetfiledescription1").value;
@@ -1650,7 +1669,7 @@ function update_json() {
                     myObj[blockValue]["languages"][languageValue]["versions"][0]["excerpts"]= [];
                     myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetFileInfo);
                     download(myObj, serviceValue);
-                    alert("Please return to the terminal to save your changes.")
+                    myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
                 }
                 if (noOfSnippetFiles === 5) {
                     var snippetfiledescription1 = document.getElementById("snippetfiledescription1").value;
@@ -1696,7 +1715,7 @@ function update_json() {
                     myObj[blockValue]["languages"][languageValue]["versions"][0]["excerpts"]= [];
                     myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetFileInfo);
                     download(myObj, serviceValue);
-                    alert("Please return to the terminal to save your changes.")
+                    myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
                 }
                 if (noOfSnippetFiles === 6) {
                     var snippetfiledescription1 = document.getElementById("snippetfiledescription1").value;
@@ -1750,7 +1769,7 @@ function update_json() {
                     myObj[blockValue]["languages"][languageValue]["versions"][0]["excerpts"]= [];
                     myObj[blockName]["languages"][languageValue]["versions"][0]["excerpts"].push(snippetFileInfo);
                     download(myObj, serviceValue);
-                    alert("Please return to the terminal to save your changes.")
+                    myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
                 }
                 if (noOfSnippets === 1) {
                 console.log('1 snippet, edit existing block')
@@ -1774,7 +1793,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':""').replaceAll("[[","[").replaceAll("]]","]");
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
                 if (noOfSnippets === 2) {
                 console.log('two snippets')
@@ -1810,7 +1829,7 @@ function update_json() {
                 console.log('finalObject1', finalObject1)
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
                 if (noOfSnippets === 3) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -1850,7 +1869,7 @@ function update_json() {
                 console.log('finalObject1', finalObject1)
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
                 if (noOfSnippets === 4) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -1899,7 +1918,7 @@ function update_json() {
                 console.log('finalObject1', finalObject1)
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
                 if (noOfSnippets === 5) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -1955,7 +1974,7 @@ function update_json() {
                 const finalObject1 = finalObject.replaceAll(':null', ':""').replaceAll("\\\"", "").replaceAll('\\n', '\",\"').replaceAll(':null', ':""').replaceAll("[[","[").replaceAll("]]","]");
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
                 if (noOfSnippets === 6) {
                 const snippetDescValue = document.getElementById('snippetdescription1').value
@@ -2022,7 +2041,7 @@ function update_json() {
                 console.log('finalObject1', finalObject1)
                 const filename = serviceValue + "_metadata.json"
                 download1(filename, finalObject1)
-                alert("Please return to the terminal to save your changes.")
+                myAlert('Alert',"Please return to the terminal to save your changes.", 5000)
             }
         }
         const serviceStub = document.getElementById('selecttheservice').value
@@ -2079,7 +2098,7 @@ function create_code_example_tag(tagnumber, codeExampleTitle) {
     console.log('fileextenstion', fileExtension)
     const myFilename = codeExampleTitle;
     download1(myFilename, finalExample);
-    alert(myFilename + " is in your Downloads folder. Please copy it to the appropriate folder.")
+    myAlert('Alert',myFilename + " is in your Downloads folder. Please copy it to the appropriate folder.", 3000)
     const snippettag = serviceValue + ".example_code." + languageValue + "." + codeExampleTitle;
     console.log('snippettag', snippettag)
     document.getElementById("snippettag" +tagnumber).value = snippettag ;
@@ -2131,7 +2150,7 @@ function create_code_example_file(filenumber) {
     console.log('fileextenstion', fileExtension)
     const myFilename = apiCall + fileExtension;
     download1(myFilename, finalExample);
-    alert(myFilename + " is in your Downloads folder. Please copy it to the appropriate folder.")
+    myAlert('Alert',myFilename + " is in your Downloads folder. Please copy it to the appropriate folder.", 3000)
     const snippetfile = serviceValue + ".example_code." + languageValue + "." + apiCall
     console.log('snippetfile1', snippetfile)
     document.getElementById('snippetfile'+ filenumber).value = snippetfile ;
