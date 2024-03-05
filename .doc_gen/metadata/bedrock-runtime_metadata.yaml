@@ -139,6 +139,15 @@ bedrock-runtime_InvokeStableDiffusionForImageGeneration:
             - description: Invoke the Stability.ai Stable Diffusion XL foundation model to generate images using L2 high level client.
               snippet_tags:
                 - bdr.abapv1.invokemodel_l2_stable_diffusion
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/BedrockRuntime
+          sdkguide:
+          excerpts:
+            - description: Asynchronously invoke Stability.ai Stable Diffusion XL foundation model to generate images.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.StableDiffusionXL
   services:
     bedrock-runtime: {InvokeModel}
 
