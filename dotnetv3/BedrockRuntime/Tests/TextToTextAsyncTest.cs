@@ -11,7 +11,6 @@ public class TextToTextAsyncTest
     /// InvokeClaudeAsync result should not be null or empty
     /// </summary>
     [Fact]
-    [Order(1)]
     [Trait("Category", "Integration")]
     public async Task InvokeClaudeAsync_ShouldNotBeNullOrEmpty()
     {
@@ -25,7 +24,6 @@ public class TextToTextAsyncTest
     /// InvokeJurassic2Async result should not be null or empty
     /// </summary>
     [Fact]
-    [Order(2)]
     [Trait("Category", "Integration")]
     public async Task InvokeJurassic2Async_ShouldNotBeNullOrEmpty()
     {
@@ -39,7 +37,6 @@ public class TextToTextAsyncTest
     /// InvokeLlama2Async result should not be null or empty
     /// </summary>
     [Fact]
-    [Order(3)]
     [Trait("Category", "Integration")]
     public async Task InvokeLlama2Async_ShouldNotBeNullOrEmpty()
     {
@@ -53,7 +50,6 @@ public class TextToTextAsyncTest
     /// InvokeTitanTextG1Async result should not be null or empty
     /// </summary>
     [Fact]
-    [Order(4)]
     [Trait("Category", "Integration")]
     public async Task InvokeTitanTextG1Async_ShouldNotBeNullOrEmpty()
     {
@@ -67,7 +63,6 @@ public class TextToTextAsyncTest
     /// InvokeClaudeWithResponseStreamAsync result should not be empty
     /// </summary>
     [Fact]
-    [Order(5)]
     [Trait("Category", "Integration")]
     public async Task InvokeClaudeWithResponseStreamAsync_ShouldNotBeEmpty()
     {
@@ -80,4 +75,39 @@ public class TextToTextAsyncTest
         var generatedText = generatedTextBuilder.ToString();
         Assert.NotEmpty(generatedText);
     }
+
+    /// <summary>
+    /// InvokeMistral7BAsync result should not be empty
+    /// </summary>
+    [Fact]
+    [Trait("Category", "Integration")]
+    public async Task InvokeMistral7BAsync_ShouldNotBeEmpty()
+    {
+        var prompt = "In one sentence, what is a large-language model?";
+        var generatedTextBuilder = new StringBuilder();
+        foreach (var completionChunk in await InvokeModelAsync.InvokeMistral7BAsync(prompt))
+        {
+            generatedTextBuilder.Append(completionChunk);
+        }
+        var generatedText = generatedTextBuilder.ToString();
+        Assert.NotEmpty(generatedText);
+    }
+
+    /// <summary>
+    /// InvokeMixtral8x7BAsync result should not be empty
+    /// </summary>
+    [Fact]
+    [Trait("Category", "Integration")]
+    public async Task InvokeMixtral8x7BAsync_ShouldNotBeEmpty()
+    {
+        var prompt = "In one sentence, what is a large-language model?";
+        var generatedTextBuilder = new StringBuilder();
+        foreach (var completionChunk in await InvokeModelAsync.InvokeMixtral8x7BAsync(prompt))
+        {
+            generatedTextBuilder.Append(completionChunk);
+        }
+        var generatedText = generatedTextBuilder.ToString();
+        Assert.NotEmpty(generatedText);
+    }
 }
+

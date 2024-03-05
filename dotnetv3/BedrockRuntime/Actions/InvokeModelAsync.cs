@@ -278,13 +278,13 @@ namespace BedrockRuntimeActions
         // snippet-start:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.TitanTextG1]
 
         /// <summary>
-        /// Asynchronously invokes the Meta Llama 2 Chat model to run an inference based on the provided input.
+        /// Asynchronously invokes the Amazon Titan Text G1 Express Chat model to run an inference based on the provided input.
         /// </summary>
-        /// <param name="prompt">The prompt that you want Llama 2 to complete.</param>
+        /// <param name="prompt">The prompt that you want Amazon Titan Text G1 Express to complete.</param>
         /// <returns>The inference response from the model</returns>
         /// <remarks>
         /// The different model providers have individual request and response formats.
-        /// For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
+        /// For the format, ranges, and default values for Amazon Titan Text G1 Express Chat, refer to:
         ///     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
         /// </remarks>
         public static async Task<string> InvokeTitanTextG1Async(string prompt)
@@ -335,5 +335,117 @@ namespace BedrockRuntimeActions
         }
 
         // snippet-end:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.TitanTextG1]
+
+        // snippet-start:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.Mistral7B]
+
+        /// <summary>
+        /// Asynchronously invokes the Mistral 7B model to run an inference based on the provided input.
+        /// </summary>
+        /// <param name="prompt">The prompt that you want Mistral 7B to complete.</param>
+        /// <returns>The inference response from the model</returns>
+        /// <remarks>
+        /// The different model providers have individual request and response formats.
+        /// For the format, ranges, and default values for Mistral 7B, refer to:
+        ///     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html
+        /// </remarks>
+        public static async Task<List<string?>> InvokeMistral7BAsync(string prompt)
+        {
+            string mistralModelId = "mistral.mistral-7b-instruct-v0:2";
+
+            AmazonBedrockRuntimeClient client = new(RegionEndpoint.USWest2);
+
+            string payload = new JsonObject()
+            {
+                { "prompt", prompt },
+                { "max_tokens", 200 },
+                { "temperature", 0.5 }
+            }.ToJsonString();
+
+            List<string?>? generatedText = null;
+            try
+            {
+                InvokeModelResponse response = await client.InvokeModelAsync(new InvokeModelRequest()
+                {
+                    ModelId = mistralModelId,
+                    Body = AWSSDKUtils.GenerateMemoryStreamFromString(payload),
+                    ContentType = "application/json",
+                    Accept = "application/json"
+                });
+
+                if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var results = JsonNode.ParseAsync(response.Body).Result?["outputs"]?.AsArray();
+
+                    generatedText = results?.Select(x => x?["text"]?.GetValue<string?>())?.ToList();
+                }
+                else
+                {
+                    Console.WriteLine("InvokeModelAsync failed with status code " + response.HttpStatusCode);
+                }
+            }
+            catch (AmazonBedrockRuntimeException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return generatedText ?? [];
+        }
+
+        // snippet-end:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.Mistral7B]
+
+        // snippet-start:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.Mixtral8x7B]
+
+        /// <summary>
+        /// Asynchronously invokes the Mixtral 8x7B model to run an inference based on the provided input.
+        /// </summary>
+        /// <param name="prompt">The prompt that you want Mixtral 8x7B to complete.</param>
+        /// <returns>The inference response from the model</returns>
+        /// <remarks>
+        /// The different model providers have individual request and response formats.
+        /// For the format, ranges, and default values for Mixtral 8x7B, refer to:
+        ///     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html
+        /// </remarks>
+        public static async Task<List<string?>> InvokeMixtral8x7BAsync(string prompt)
+        {
+            string mixtralModelId = "mistral.mixtral-8x7b-instruct-v0:1";
+
+            AmazonBedrockRuntimeClient client = new(RegionEndpoint.USWest2);
+
+            string payload = new JsonObject()
+            {
+                { "prompt", prompt },
+                { "max_tokens", 200 },
+                { "temperature", 0.5 }
+            }.ToJsonString();
+
+            List<string?>? generatedText = null;
+            try
+            {
+                InvokeModelResponse response = await client.InvokeModelAsync(new InvokeModelRequest()
+                {
+                    ModelId = mixtralModelId,
+                    Body = AWSSDKUtils.GenerateMemoryStreamFromString(payload),
+                    ContentType = "application/json",
+                    Accept = "application/json"
+                });
+
+                if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var results = JsonNode.ParseAsync(response.Body).Result?["outputs"]?.AsArray();
+
+                    generatedText = results?.Select(x => x?["text"]?.GetValue<string?>())?.ToList();
+                }
+                else
+                {
+                    Console.WriteLine("InvokeModelAsync failed with status code " + response.HttpStatusCode);
+                }
+            }
+            catch (AmazonBedrockRuntimeException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return generatedText ?? [];
+        }
+
+        // snippet-end:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.Mixtral8x7B]
     }
 }
