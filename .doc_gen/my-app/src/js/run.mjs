@@ -36,6 +36,10 @@ function getFiles(dir, files = []) {
     return files
 }
 
+function removeNull(synopsis_list, value) {
+    return (value === null) ? "" : value;
+}
+
 // Convert yaml to Json
 export const create_json = async () => {
     // Check if service metadata file exists
@@ -48,45 +52,28 @@ export const create_json = async () => {
             fs.readFileSync(
                 "../../../metadata/" + serviceStub + "_metadata.yaml",
                 "utf8",
-            ).replaceAll(/{+/g, "'{").replace(/}+/g, "}'")
+            ).replaceAll(/{+/g, "'{").replace(/}+/g,  "}'")/*.replaceAll('category:','synopsis_list:\n  category:')*/
         );
         wait(3000)
         /*console.log("doc", doc)*/
-        var mydoc = JSON.stringify(doc, null, 2);
-        if(mydoc.includes("synopsis_list")) {
-            /*console.log("mydoc", mydoc)*/
-            fs.writeFileSync(
-                "../jsonholder/" + serviceStub + "_metadata.json",
-                mydoc,
-                function (err) {
-                    if (err) throw err;
-                }
-            );
-            runExe(serviceStub);
-            return serviceStub
-        }
-        else{
-            var doc = yaml.load(
-                fs.readFileSync(
-                    "../../../metadata/" + serviceStub + "_metadata.yaml",
-                    "utf8",
-                ).replaceAll(/{+/g, "'{").replace(/}+/g, "}'").replaceAll('category:','synopsis_list:\n  category:')
-            );
-            wait(3000)
-            /*console.log("doc", doc)*/
-            const mydoc = JSON.stringify(doc, null, 2);
-            /*console.log("mydoc", mydoc)*/
-            fs.writeFileSync(
-                "../jsonholder/" + serviceStub + "_metadata.json",
-                mydoc,
-                function (err) {
-                    if (err) throw err;
-                }
-            );
-            runExe(serviceStub);
+        var mydoc = JSON.stringify(doc, null, 2).replaceAll('  synopsis_list:\n' +
+            '    -  ','\'    "synopsis_list": [\\" \\"],\\n\'').replaceAll('\"category\":','\"synopsis_list\":\n    \"category\":').replaceAll('    ],\n' +
+            '    "synopsis_list":\n', '    ],\n').replaceAll('    "synopsis_list":\n' +
+            '    "category": ', '    "synopsis_list": [\"\"],\n' +
+            '    "category": ').replaceAll('    "synopsis_list": [\n' +
+            '      null\n' +
+            '    ],','    "synopsis_list":\" \",');
 
+        fs.writeFileSync(
+            "../jsonholder/" + serviceStub + "_metadata.json",
+            mydoc,
+            function (err) {
+                if (err) throw err;
+            }
+        );
+            runExe(serviceStub);
             return serviceStub
-        }
+
     } catch (e) {
         console.log(e + "\n" + serviceStub + "_metadata.yaml does not exist in the \/metadata folder.")
 
@@ -111,11 +98,10 @@ export const create_json = async () => {
     }
 };
 
-
 //Convert edited Json back to YAML
 const updateYAML = async (serviceName) => {
     const answer = await promptForText(
-        "You have finished editing the metadata. Enter 'yes' to finalize your changes."
+        "When finished editing the metadata return to this terminal, and enter 'yes' below."
     );
     if (answer === "yes") {
         const downloadFolder = process.env.USERPROFILE + "\\Downloads"
