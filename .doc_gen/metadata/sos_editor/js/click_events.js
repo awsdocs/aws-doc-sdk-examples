@@ -53,7 +53,7 @@ function selectService() {
 $("#selectService").on('click', function () {
     console.log('selectService clicked')
     if (document.getElementById('selecttheservice').value == "") {
-        alert('You must enter the service stub');
+        myAlert('Alert','You must enter the service stub', 3000);
         return
     }
         selectService();
@@ -197,7 +197,8 @@ $("#languages").on('change', function () {
     const synopsisValue = document.getElementById('synopsis').value
     const synopsisListValue = document.getElementById('synopsislist').value
     if (titleValue == "" || abbrevTitleValue == "" || synopsisValue == "" && synopsisListValue == "") {
-        alert('You must have a title, abbreviated title, and either a synopsis or synopsis list.')
+        myAlert('Alert','You must have a title, abbreviated title, and either a synopsis or synopsis list.',5000)
+
         document.getElementById("languages").selectedIndex = 0;
         return
     }
@@ -359,7 +360,9 @@ $("#subVersion").on('click', function () {
         {
             window.open('https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAppendix:sdks.yaml2Cservices.yaml2Candtemplates', '_blank');
         }
-        myAlert('Continue once the new version is added to the "\../../skds.yaml\" file');
+        console.log('ran')
+        myAlert('Continue once the new version is added to the "\../../skds.yaml\" file',5000);
+
         let currentVersions = [];
         var values = $("#sdkVersion>option").map(function () {
             return $(this).val();
@@ -372,7 +375,7 @@ $("#subVersion").on('click', function () {
             console.log('says it does')
             var element = document.getElementById('addSdkVersion');
             element.setAttribute("style", "class:show-when-target");
-            alert('This SDK version already exists. Please select it.')
+             myAlert('Alert','This SDK version already exists. Please select it.', 3000)
             document.getElementById('sdkVersion').disabled = false;
         } else {
             document.getElementById('sdkVersion').disabled = true;
@@ -405,7 +408,9 @@ $("#subVersion").on('click', function () {
         {
             window.open('https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAppendix:sdks.yaml2Cservices.yaml2Candtemplates', '_blank');
         }
-        myAlert('Continue once the new version is added to the "\../../skds.yaml\" file');
+        console.log('ran')
+ myAlert('Continue once the new version is added to the "\../../skds.yaml\" file',5000);
+
         var element = document.getElementById('gitHub');
         element.setAttribute("style", "visibility: visible");
         var element = document.getElementById('sdkGuide');
@@ -524,7 +529,7 @@ function newsnippet(){
             "").insertBefore("#newsnippet");
     }
     if (noOfSnippets === 6) {
-        alert('Maximum of 6 snippets allowed.')
+        myAlert('Alert','Maximum of 6 snippets allowed.', 3000)
     }
 };
 function countValues(dropdown){
@@ -538,7 +543,7 @@ function countValues(dropdown){
     const noOfSnippets = document.getElementsByClassName('snippdisc').length;
     console.log('noOfSnippets', noOfSnippets)
     if (noOfSnippets == 0) {
-        alert('There are no snippets to remove')
+        myAlert('Alert','There are no snippets to remove')
     } else {
         $("p[id=snippDesc]:last").remove();
         $("p[id=snippet]:last").remove();
@@ -605,7 +610,7 @@ function newsnippetfile(){
               "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 6) {
-        alert('Maximum of 6 snippets allowed.')
+        myAlert('Alert','Maximum of 6 snippets allowed.', 3000)
     }
 };
 /*$("#removesnipfile").on('click', function () {
@@ -613,7 +618,7 @@ function newsnippetfile(){
     const noOfSnippetFiles = document.getElementsByClassName('snippfiledisc').length;
     console.log('noOfSnippets', noOfSnippetFiles)
     if (noOfSnippetFiles == 0) {
-        alert('There are no snippets to remove')
+        myAlert('Alert','There are no snippets to remove')
     } else {
         $("p[id=snippFileDesc]:last").remove();
         $("p[id=snippetFile]:last").remove();
