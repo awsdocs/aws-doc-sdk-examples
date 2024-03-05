@@ -17,6 +17,7 @@
 #include <aws/acm/model/RemoveTagsFromCertificateRequest.h>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.RemoveTagsFromCertificate]
 //! Remove a tag from an ACM certificate.
 /*!
   \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
@@ -56,6 +57,7 @@ bool AwsDoc::ACM::removeTagFromCertificate(const Aws::String &certificateArn,
         return true;
     }
 }
+// snippet-end:[cpp.example_code.acm.RemoveTagsFromCertificate]
 
 /*
 *

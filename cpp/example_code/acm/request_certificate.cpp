@@ -17,6 +17,14 @@
 #include <aws/acm/model/RequestCertificateRequest.h>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.RequestCertificate]
+//! Request an AWS Certificate Manager (ACM) certificate.
+/*!
+  \param domainName: A fully qualified domain name.
+  \param idempotencyToken: Customer chosen string for idempotency.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
 bool AwsDoc::ACM::requestCertificate(const Aws::String &domainName,
                                      const Aws::String &idempotencyToken,
                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
@@ -44,6 +52,7 @@ bool AwsDoc::ACM::requestCertificate(const Aws::String &domainName,
         return true;
     }
 }
+// snippet-end:[cpp.example_code.acm.RequestCertificate]
 
 /*
 *

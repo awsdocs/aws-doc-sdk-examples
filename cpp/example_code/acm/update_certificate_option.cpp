@@ -17,6 +17,7 @@
 #include <aws/acm/model/UpdateCertificateOptionsRequest.h>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.UpdateCertificateOptions]
 //! Update an AWS Certificate Manager (ACM) certificate option.
 /*!
   \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
@@ -64,6 +65,7 @@ bool AwsDoc::ACM::updateCertificateOption(const Aws::String &certificateArn,
         return true;
     }
 }
+// snippet-end:[cpp.example_code.acm.UpdateCertificateOptions]
 
 /*
 *

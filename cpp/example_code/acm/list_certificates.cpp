@@ -17,6 +17,8 @@
 #include <aws/acm/model/ListCertificatesRequest.h>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.ListCertificates]
+// snippet-end:[cpp.example_code.acm.ListCertificates]
 //! List the AWS Certificate Manager (ACM) certificates in an account.
 /*!
   \param clientConfiguration: AWS client configuration.

@@ -17,6 +17,7 @@
 #include <aws/acm/model/ResendValidationEmailRequest.h>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.ResendValidationEmail]
 //! Resend the email that requests domain ownership validation.
 /*!
   \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
@@ -53,6 +54,7 @@ bool AwsDoc::ACM::resendValidationEmail(const Aws::String &certificateArn,
         return true;
     }
 }
+// snippet-end:[cpp.example_code.acm.ResendValidationEmail]
 
 /*
 *

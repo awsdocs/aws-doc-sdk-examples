@@ -23,7 +23,6 @@ namespace AwsDoc {
                                  const Aws::String &tagValue,
                                  const Aws::Client::ClientConfiguration &clientConfiguration);
 
-
         //! Delete an ACM certificate.
         /*!
           \param certificateArn: The Amazon Resource Name (ARN) of a certificate.

@@ -17,6 +17,7 @@
 #include <aws/acm/model/ListTagsForCertificateRequest.h>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.ListTagsForCertificate]
 //! List the tags for an AWS Certificate Manager (ACM) certificate.
 /*!
   \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
@@ -63,6 +64,7 @@ bool AwsDoc::ACM::listTagsForCertificate(const Aws::String &certificateArn,
         return true;
     }
 }
+// snippet-end:[cpp.example_code.acm.ListTagsForCertificate]
 
 /*
 *

@@ -17,6 +17,7 @@
 #include <aws/acm/model/RenewCertificateRequest.h>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.RenewCertificate]
 //! Renew an AWS Certificate Manager (ACM) certificate.
 /*!
   \param certificateArn: The Amazon Resource Name (ARN) of a certificate.
@@ -46,6 +47,7 @@ bool AwsDoc::ACM::renewCertificate(const Aws::String &certificateArn,
         return true;
     }
 }
+// snippet-end:[cpp.example_code.acm.RenewCertificate]
 
 /*
 *

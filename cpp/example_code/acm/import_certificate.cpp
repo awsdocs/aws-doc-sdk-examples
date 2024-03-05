@@ -18,6 +18,7 @@
 #include <fstream>
 #include "acm_samples.h"
 
+// snippet-start:[cpp.example_code.acm.ImportCertificate]
 //! Import an AWS Certificate Manager (ACM) certificate.
 /*!
   \param certificateFile: Path to certificate to import.
@@ -97,6 +98,7 @@ bool AwsDoc::ACM::importCertificate(const Aws::String &certificateFile,
         return true;
     }
 }
+// snippet-end:[cpp.example_code.acm.ImportCertificate]
 
 /*
 *
