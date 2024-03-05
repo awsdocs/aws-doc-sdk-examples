@@ -285,7 +285,7 @@ namespace BedrockRuntimeActions
         /// <remarks>
         /// The different model providers have individual request and response formats.
         /// For the format, ranges, and default values for Amazon Titan Text G1 Express Chat, refer to:
-        ///     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
+        ///     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-text.html
         /// </remarks>
         public static async Task<string> InvokeTitanTextG1Async(string prompt)
         {
@@ -346,7 +346,7 @@ namespace BedrockRuntimeActions
         /// <remarks>
         /// The different model providers have individual request and response formats.
         /// For the format, ranges, and default values for Mistral 7B, refer to:
-        ///     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html
+        ///     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-mistral.html
         /// </remarks>
         public static async Task<List<string?>> InvokeMistral7BAsync(string prompt)
         {
@@ -402,7 +402,7 @@ namespace BedrockRuntimeActions
         /// <remarks>
         /// The different model providers have individual request and response formats.
         /// For the format, ranges, and default values for Mixtral 8x7B, refer to:
-        ///     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html
+        ///     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-mistral.html
         /// </remarks>
         public static async Task<List<string?>> InvokeMixtral8x7BAsync(string prompt)
         {
