@@ -1,5 +1,9 @@
-package com.example.cloudfront;
-
+import com.example.cloudfront.CreateFunction;
+import com.example.cloudfront.DeleteFunction;
+import com.example.cloudfront.DescribeFunction;
+import com.example.cloudfront.GetDistributions;
+import com.example.cloudfront.ListFunctions;
+import com.example.cloudfront.ModifyDistribution;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
