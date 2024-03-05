@@ -52,11 +52,10 @@ function selectService() {
 $("#selectService").on('click', function () {
     console.log('selectService clicked')
     if (document.getElementById('selecttheservice').value == "") {
-        myAlert('Alert', 'You must enter the service stub'); // call it here
+        myAlert('Alert', 'You must enter the service stub', 3000); // call it here
         return
-    } else {
-        selectService();
     }
+        selectService();
 });
 
 // Display controls to receive api commands for each additional service.
@@ -140,8 +139,8 @@ $("#addServiceBtn").on('click', function () {
     var element = document.getElementById('addBlockName');
     element.setAttribute("style", "visibility: visible");
     if (document.getElementById('selecttheservice').value === "Not Listed") {
-        var myService = document.getElementById('service').value;
-        var theService = myService.slice(0, myService.lastIndexOf('_')) + "_";
+    myService = document.getElementById('service').value;
+    theService = myService.slice(0, myService.lastIndexOf('_')) + "_";
         document.getElementById('blockname').value = theService;
     }
 });
@@ -196,7 +195,7 @@ $("#languages").on('change', function () {
     const synopsisValue = document.getElementById('synopsis').value
     const synopsisListValue = document.getElementById('synopsislist').value
     if (titleValue == "" || abbrevTitleValue == "" || synopsisValue == "" && synopsisListValue == "") {
-        myAlert('alert','You must have a title, abbreviated title, and either a synopsis or synopsis list.')
+        myAlert('alert','You must have a title, abbreviated title, and either a synopsis or synopsis list.', 3000)
 
         document.getElementById("languages").selectedIndex = 0;
         return
@@ -248,7 +247,7 @@ $("#languages").on('change', function () {
                 return $(this).val();
             }).get();
             currentLangs.push(values);
-            var mycurrentLangs = currentLangs[0].splice(0, 1);
+            mycurrentLangs = currentLangs[0].splice(0, 1);
             console.log('currentLangs', currentLangs)
             var allOptions = ["SAP ABAP", "Bash", "C++", "DotNet", "Go", "Kotlin", "Java", "JavaScript", "PHP", "Python", "Ruby", "Rust", "Swift", "Not Listed"];
             var options = $.grep(allOptions, function (value) {
@@ -315,32 +314,22 @@ $("#selecttagorfile").on('change', function (){
     if (selectedOption === "Snippet files") {
         console.log('Snippet files selected')
         $(
-            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description<i> (optional)</i></label><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
-            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file<i>(mandatory)</i></label><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription1\" maxlength=\"200\"></textarea></p>\n" +
+            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet file</label><i>(mandatory)</i><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile1\" maxlength=\"200\"></textarea></p>\n" +
             "    <p id=\"addSnippetFile\" ><button id=\"newsnippetfile\" onclick=\"newsnippetfile()\">Add a snippet file</button></p>" +
             "       ").insertBefore("#createYAML");
-        /*var element = document.getElementById('addSnippetFile');
-        element.setAttribute("style", "visibility: visible");*/
-       /* var element = document.getElementById('removeSnippetFile');
-        element.setAttribute("style", "visibility: visible"); */
         var element = document.getElementById('createYAML');
         element.setAttribute("style", "visibility: visible");
-       /*$('#newsnippetfile').click();*/
     }
    if (selectedOption === "Snippet tags"){
        console.log('Snippet tags selected')
        $(
            "<p id =\"snippDesc\" ><label class=\"thissize\">Snippet Description<i>(optional)</i></label><textarea  class=\"snippdisc\" type=\"text\" name=\"text\" id =\"snippetdescription1\" maxlength=\"200\"></textarea></p>\n" +
            "      <p id =\"snippet\" ><label class=\"thissize\">Snippet tag<i>(mandatory)</i></label><textarea class=\"snipptag\" type=\"text\" name=\"text\" id =\"snippettag1\" maxlength=\"200\"></textarea></p>\n" +
-           "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\">Add a snippet tag</button></p>" +
+           "    <p id=\"anotherSnippet\" ><button id=\"newsnippet\" onclick=\"newsnippet()\>Add a snippet tag</button></p>" +
            "       ").insertBefore("#createYAML");
-      /*  var element = document.getElementById('anotherSnippet');
-        element.setAttribute("style", "visibility: visible");*/
-        /*var element = document.getElementById('removeSnippet');
-        element.setAttribute("style", "visibility: visible");*/
         var element = document.getElementById('createYAML');
         element.setAttribute("style", "visibility: visible");
-      /*$('#newsnippet').click();*/
     }
 });
 
@@ -354,8 +343,13 @@ $("#addlanguage").on('change', function () {
 $("#subVersion").on('click', function () {
     console.log('why')
     if (document.getElementById('languages').value !== "Not Listed") {
-        myAlert('alert','Check this version in defined in the ../../sdk.yaml.')
-        let currentVersions = [];
+        if (window.confirm('New versions must be added to the ../../sdks.yaml file.\n' +
+            'Choose  OK to view instructions. '))
+        {
+            window.open('https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAppendix:sdks.yaml2Cservices.yaml2Candtemplates', '_blank');
+        }
+        console.log('ran')
+        myAlert('Continue once the new version is added to the "\../../skds.yaml\" file',5000);        let currentVersions = [];
         var values = $("#sdkVersion>option").map(function () {
             return $(this).val();
         }).get();
@@ -367,7 +361,7 @@ $("#subVersion").on('click', function () {
             console.log('says it does')
             var element = document.getElementById('addSdkVersion');
             element.setAttribute("style", "class:show-when-target");
-            myAlert('alert', 'This SDK version already exists. Please select it.')
+            myAlert('alert', 'This SDK version already exists. Please select it.', 3000)
             document.getElementById('sdkVersion').disabled = false;
         } else {
             document.getElementById('sdkVersion').disabled = true;
@@ -395,8 +389,13 @@ $("#subVersion").on('click', function () {
         }
     } else {
         document.getElementById('subVersion').disabled = true;
-        myAlert('alert','Check this version in defined in the ../../sdk.yaml.')
-        var element = document.getElementById('gitHub');
+        if (window.confirm('New versions must be added to the ../../sdks.yaml file.\n' +
+            'Choose  OK to view instructions. '))
+        {
+            window.open('https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAppendix:sdks.yaml2Cservices.yaml2Candtemplates', '_blank');
+        }
+        console.log('ran')
+        myAlert('Continue once the new version is added to the "\../../skds.yaml\" file',5000);        var element = document.getElementById('gitHub');
         element.setAttribute("style", "visibility: visible");
         var element = document.getElementById('sdkGuide');
         element.setAttribute("style", "visibility: visible");
@@ -457,7 +456,7 @@ function newsnippet(){
     if (noOfSnippets === 0) {
         console.log('0 snippetTags')
         $(
-          "<p id =\"code\"><label class=\"thissize\">Create and download snippet file (optional)</label><br>" +
+          "<p id =\"code\"><label class=\"thissize\">Create and download snippet file <i>(optional)</i></label><br>" +
             "<label class=\"thissize\">Step 1. Enter unique snippet file name</label><br><i>This name is used to format the snippet tag \"//snippet-start:[service].example_code.[language].[snippetName]\", so must be unique in any other snippet tag for the primary service.</i><br><textarea type=\"text\" name=\"text\" id =\"codeExampleTitle\"></textarea><br>"+
             "<label class=\"thissize\">Step 2. Paste snippet below</label><br><textarea type=\"text\" name=\"text\" id =\"codeExample\"></textarea><br>" +
             "<button id = \"createCode\" onclick=\"create_code_example_tag(1, document.getElementById('codeExampleTitle').value)\">Create snippet</button></p>\n" +
@@ -468,7 +467,7 @@ function newsnippet(){
     if (noOfSnippets === 1) {
                console.log('1 snippetTags')
         $(
-          "<p id =\"code\"><label class=\"thissize\">Create and download snippet file (optional)</label><br>" +
+          "<p id =\"code\"><label class=\"thissize\">Create and download snippet file <i>(optional)</i></label><br>" +
             "<label class=\"thissize\">Step 1. Enter unique snippet file name</label><br><i>This name is used to format the snippet tag \"//snippet-start:[service].example_code.[language].[snippetName]\", and must be unique in any other snippet tag for the primary service.</i><br><textarea type=\"text\" name=\"text\" id =\"codeExampleTitle\"></textarea><br>"+
             "<label class=\"thissize\">Step 2. Paste snippet below</label><br><textarea type=\"text\" name=\"text\" id =\"codeExample\"></textarea><br>" +
             "<button id = \"createCode\" onclick=\"create_code_example_tag(2, document.getElementById('codeExampleTitle').value)\">Create snippet</button></p>\n" +
@@ -515,7 +514,7 @@ function newsnippet(){
     }
     if (noOfSnippets === 6) {
 
-        myAlert('alert', 'Maximum of 6 snippets allowed.');
+        myAlert('alert', 'Maximum of 6 snippets allowed.', 3000);
     }
 };
 function countValues(dropdown){
@@ -567,36 +566,36 @@ function newsnippetfile(){
 
     if (noOfSnippetFiles == 1) {
         $(
-            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description (optional)</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription2\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description <i>(optional)</i></label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription2\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippetFile\" ><label class=\"thissize\">Snippet File <i>(mandatory)</i><br><i style=\"font-weight:lighter\">Recommended format is \"[service].example_code.[language].[uniqueSnippetName]\" - unique from the final part of any other snippet tag for the primary service.</i><br></label><br><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
             "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 2) {
         $(
-            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description (optional)</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription3\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description <i>(optional)</i></label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription3\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippetFile\" ><label class=\"thissize\">Snippet File <i>(mandatory)</i><br><i style=\"font-weight:lighter\">Recommended format is \"[service].example_code.[language].[uniqueSnippetName]\" - unique from the final part of any other snippet tag for the primary service.</i><br></label><br><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile3\" maxlength=\"200\"></textarea></p>\n" +
             "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 3) {
         $(
-            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description (optional)</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription4\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description <i>(optional)</i></label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription4\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippetFile\" ><label class=\"thissize\">Snippet File <i>(mandatory)</i><br><i style=\"font-weight:lighter\">Recommended format is \"[service].example_code.[language].[uniqueSnippetName]\" - unique from the final part of any other snippet tag for the primary service.</i><br></label><br><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile4\" maxlength=\"200\"></textarea></p>\n" +
             "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 4) {
         $(
-            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description (optional)</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription5\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description <i>(optional)</i></label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription5\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippetFile\" ><label class=\"thissize\">Snippet File <i>(mandatory)</i><br><i style=\"font-weight:lighter\">Recommended format is \"[service].example_code.[language].[uniqueSnippetName]\" - unique from the final part of any other snippet tag for the primary service.</i><br></label><br><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile5\" maxlength=\"200\"></textarea></p>\n" +
            "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 5) {
         $(
-            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description (optional)</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription6\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description <i>(optional)</i></label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription6\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippetFile\" ><label class=\"thissize\">Snippet File <i>(mandatory)</i><br><i style=\"font-weight:lighter\">Recommended format is \"[service].example_code.[language].[uniqueSnippetName]\" - unique from the final part of any other snippet tag for the primary service.</i><br></label><br><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile6\" maxlength=\"200\"></textarea></p>\n" +
               "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 6) {
-        myAlert('alert', 'Maximum of 6 snippets allowed.')
+        myAlert('alert', 'Maximum of 6 snippets allowed.', 3000)
     }
 };
 /*$("#removesnipfile").on('click', function () {

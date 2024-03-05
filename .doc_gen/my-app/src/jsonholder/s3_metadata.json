@@ -3,6 +3,7 @@
     "title": "Hello &S3;",
     "title_abbrev": "Hello &S3;",
     "synopsis": "get started using &S3;.",
+    "synopsis_list":" ",
     "category": "Hello",
     "languages": {
       "Java": {
@@ -120,6 +121,7 @@
     "title": "Create an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Create a bucket",
     "synopsis": "create an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -356,6 +358,8 @@
     "title": "Copy an object from one &S3; bucket to another using an &AWS; SDK",
     "title_abbrev": "Copy an object from one bucket to another",
     "synopsis": "copy an S3 object from one bucket to another.",
+    "synopsis_list": null,
+    "synopsis_list": [""],
     "category": null,
     "languages": {
       ".NET": {
@@ -385,6 +389,19 @@
                 "description": null,
                 "snippet_tags": [
                   "s3.cpp.copy_objects.code"
+                ]
+              }
+            ]
+          },
+          {
+            "sdk_version": null,
+            "github": null,
+            "sdkguide": null,
+            "excerpts": [
+              {
+                "description": null,
+                "snippet_tags": [
+                  "lkj"
                 ]
               }
             ]
@@ -433,13 +450,13 @@
             "sdkguide": null,
             "excerpts": [
               {
-                "description": "Copy an object using an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client</ulink>.",
+                "description": "Copy an object using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
                 "snippet_tags": [
                   "s3.java2.copy_object.main"
                 ]
               },
               {
-                "description": "Use an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\">S3TransferManager</ulink> to <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#copy(software.amazon.awssdk.transfer.s3.CopyRequest)\">copy an object</ulink> from one bucket to another. View the <ulink url=\"https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/ObjectCopy.java\">complete file</ulink> and <ulink url=\"https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\">test</ulink>.",
+                "description": "Use an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\>S3TransferManager</ulink> to <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#copy(software.amazon.awssdk.transfer.s3.CopyRequest)\\>copy an object</ulink> from one bucket to another. View the <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/ObjectCopy.java\\>complete file</ulink> and <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\>test</ulink>.",
                 "snippet_tags": [
                   "s3.tm.java2.objectcopy.import",
                   "s3.tm.java2.objectcopy.main"
@@ -596,6 +613,7 @@
     "title": "Delete a policy from an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete a policy from a bucket",
     "synopsis": "delete a policy from an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "C++": {
@@ -710,6 +728,8 @@
     "title": "Delete an &S3; object using an &AWS; SDK",
     "title_abbrev": "Delete an object",
     "synopsis": "delete an S3 object.",
+    "synopsis_list": null,
+    "synopsis_list": [""],
     "category": null,
     "languages": {
       ".NET": {
@@ -749,6 +769,19 @@
                 ]
               }
             ]
+          },
+          {
+            "sdk_version": null,
+            "github": null,
+            "sdkguide": null,
+            "excerpts": [
+              {
+                "description": null,
+                "snippet_tags": [
+                  null
+                ]
+              }
+            ]
           }
         ]
       },
@@ -773,7 +806,7 @@
                 ]
               },
               {
-                "description": "Revive a deleted object by removing the object's active delete marker.",
+                "description": "Revive a deleted object by removing the objects active delete marker.",
                 "snippet_tags": [
                   "s3.python.versioning.revive_object"
                 ]
@@ -879,6 +912,7 @@
     "title": "Delete multiple objects from an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete multiple objects",
     "synopsis": "delete multiple objects from an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -1116,6 +1150,7 @@
     "title": "Delete the website configuration from an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete the website configuration from a bucket",
     "synopsis": "delete the website configuration from an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "C++": {
@@ -1178,6 +1213,7 @@
     "title": "Get the ACL of an &S3; object using an &AWS; SDK",
     "title_abbrev": "Get the ACL of an object",
     "synopsis": "get the access control list (ACL) of an S3 object.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "C++": {
@@ -1240,6 +1276,7 @@
     "title": "Get the policy for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get the policy for a bucket",
     "synopsis": "get the policy for an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "C++": {
@@ -1354,6 +1391,7 @@
     "title": "Determine the existence and content type of an object in an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Determine the existence and content type of an object",
     "synopsis": "determine the existence and content type of an object in an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Java": {
@@ -1404,6 +1442,7 @@
     "title": "Get an object from an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get an object from a bucket",
     "synopsis": "read data from an object in an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -1482,38 +1521,38 @@
             "sdkguide": null,
             "excerpts": [
               {
-                "description": "Read data as a byte array using an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client</ulink>.",
+                "description": "Read data as a byte array using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
                 "snippet_tags": [
                   "s3.java2.getobjectdata.main"
                 ]
               },
               {
-                "description": "Use an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\">S3TransferManager</ulink> to <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadFile(software.amazon.awssdk.transfer.s3.DownloadFileRequest)\">download an object</ulink> in an S3 bucket to a local file. View the <ulink url=\"https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadFile.java\">complete file</ulink> and <ulink url=\"https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\">test</ulink>.",
+                "description": "Use an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\>S3TransferManager</ulink> to <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadFile(software.amazon.awssdk.transfer.s3.DownloadFileRequest)\\>download an object</ulink> in an S3 bucket to a local file. View the <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadFile.java\\>complete file</ulink> and <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\>test</ulink>.",
                 "snippet_tags": [
                   "s3.tm.java2.downloadfile.import",
                   "s3.tm.java2.downloadfile.main"
                 ]
               },
               {
-                "description": "Read tags that belong to an object using an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client</ulink>.",
+                "description": "Read tags that belong to an object using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
                 "snippet_tags": [
                   "s3.java2.getobjecttags.main"
                 ]
               },
               {
-                "description": "Get a URL for an object using an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client</ulink>.",
+                "description": "Get a URL for an object using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
                 "snippet_tags": [
                   "s3.java2.getobjecturl.main"
                 ]
               },
               {
-                "description": "Get an object by using the S3Presigner client object using an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client</ulink>.",
+                "description": "Get an object by using the S3Presigner client object using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
                 "snippet_tags": [
                   "presigned.java2.getobjectpresigned.main"
                 ]
               },
               {
-                "description": "Get an object by using a ResponseTransformer object and <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client</ulink>.",
+                "description": "Get an object by using a ResponseTransformer object and <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
                 "snippet_tags": [
                   "s3.java2.getobjectdata.transformer.main"
                 ]
@@ -1676,6 +1715,7 @@
     "title": "Get an object from an &S3; bucket using an &AWS; SDK, specifying an If-Modified-Since header",
     "title_abbrev": "Get an object from a bucket if it has been modified",
     "synopsis": "read data from an object in an S3 bucket, but only if that bucket has not been modified since the last retrieval time.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Rust": {
@@ -1703,6 +1743,7 @@
     "title": "Get the lifecycle configuration of an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get the lifecycle configuration of a bucket",
     "synopsis": "get the lifecycle configuration of an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -1749,6 +1790,7 @@
     "title": "Enable logging on an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Enable logging",
     "synopsis": "enable logging on an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -1777,6 +1819,7 @@
     "title": "Add a lifecycle configuration to an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Add a lifecycle configuration to a bucket",
     "synopsis": "add a lifecycle configuration to an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -1839,6 +1882,7 @@
     "title": "Delete the lifecycle configuration of an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete the lifecycle configuration of a bucket",
     "synopsis": "delete the lifecycle configuration of an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -1885,6 +1929,7 @@
     "title": "Cancel multipart uploads using an &AWS; SDK",
     "title_abbrev": "Cancel multipart uploads",
     "synopsis": "cancel multipart uploads.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -1913,6 +1958,7 @@
     "title": "Complete a multipart upload action using an &AWS; SDK",
     "title_abbrev": "Complete a multipart upload",
     "synopsis": "complete a multipart upload action.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Rust": {
@@ -1940,6 +1986,7 @@
     "title": "Create a multipart upload structure using an &AWS; SDK",
     "title_abbrev": "Create a multipart upload",
     "synopsis": "create the structure to build a multipart upload action.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Rust": {
@@ -1967,6 +2014,7 @@
     "title": "List in-progress multipart uploads to an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "List in-progress multipart uploads",
     "synopsis": "list in-progress multipart uploads to an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Java": {
@@ -1995,6 +2043,7 @@
     "title": "List objects in an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "List objects in a bucket",
     "synopsis": "list objects in an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -2235,6 +2284,7 @@
     "title": "List the version of objects in an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "List object versions in a bucket",
     "synopsis": "list object versions in an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -2279,6 +2329,7 @@
     "title": "Upload an object to an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Upload an object to a bucket",
     "synopsis": "upload an object to an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -2363,32 +2414,32 @@
             "sdkguide": null,
             "excerpts": [
               {
-                "description": "Upload a file to a bucket using an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client</ulink>.",
+                "description": "Upload a file to a bucket using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
                 "snippet_tags": [
                   "s3.java2.s3_object_upload.main"
                 ]
               },
               {
-                "description": "Use an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\">S3TransferManager</ulink> to <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadFile(software.amazon.awssdk.transfer.s3.UploadFileRequest)\">upload a file</ulink> to a bucket. View the <ulink url=\"https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadFile.java\">complete file</ulink> and <ulink url=\"https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\">test</ulink>.",
+                "description": "Use an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\>S3TransferManager</ulink> to <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadFile(software.amazon.awssdk.transfer.s3.UploadFileRequest)\\>upload a file</ulink> to a bucket. View the <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadFile.java\\>complete file</ulink> and <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\>test</ulink>.",
                 "snippet_tags": [
                   "s3.tm.java2.uploadfile.import",
                   "s3.tm.java2.uploadfile.main"
                 ]
               },
               {
-                "description": "Upload an object to a bucket and set tags using an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client</ulink>.",
+                "description": "Upload an object to a bucket and set tags using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
                 "snippet_tags": [
                   "s3.java2.s3_object_manage_tags.main"
                 ]
               },
               {
-                "description": "Upload an object to a bucket and set metadata using an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client</ulink>.",
+                "description": "Upload an object to a bucket and set metadata using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
                 "snippet_tags": [
                   "s3.java2.s3_object_upload.metadata.main"
                 ]
               },
               {
-                "description": "Upload an object to a bucket and set an object retention value using an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client</ulink>.",
+                "description": "Upload an object to a bucket and set an object retention value using an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client</ulink>.",
                 "snippet_tags": [
                   "s3.java2.retention_object.main"
                 ]
@@ -2557,6 +2608,7 @@
     "title": "Restore an archived copy of an object back into an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Restore an archived copy of an object",
     "synopsis": "restore an archived copy of an object back into an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -2602,6 +2654,7 @@
     "title": "Delete an empty &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete an empty bucket",
     "synopsis": "delete an empty S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -2814,6 +2867,7 @@
     "title": "Get CORS rules for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get CORS rules for a bucket",
     "synopsis": "get cross-origin resource sharing (CORS) rules for an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -2895,6 +2949,7 @@
     "title": "Add CORS rules to an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Add CORS rules to a bucket",
     "synopsis": "add cross-origin resource sharing (CORS) rules to an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -2992,6 +3047,7 @@
     "title": "Delete CORS rules from an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Delete CORS rules from a bucket",
     "synopsis": "delete CORS rules from an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -3056,6 +3112,7 @@
     "title": "Get the ACL of an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get the ACL of a bucket",
     "synopsis": "get the access control list (ACL) of an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -3153,6 +3210,7 @@
     "title": "Set a new ACL for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Set a new ACL for a bucket",
     "synopsis": "set a new access control list (ACL) for an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -3266,6 +3324,7 @@
     "title": "Add a policy to an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Add a policy to a bucket",
     "synopsis": "add a policy to an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "C++": {
@@ -3364,6 +3423,7 @@
     "title": "Set the website configuration for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Set the website configuration for a bucket",
     "synopsis": "set the website configuration for an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -3459,6 +3519,7 @@
     "title": "Get the website configuration for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Get the website configuration for a bucket",
     "synopsis": "get the website configuration for an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -3521,6 +3582,7 @@
     "title": "Determine the existence of an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Determine the existence of a bucket",
     "synopsis": "determine the existence of an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Go": {
@@ -3584,6 +3646,7 @@
     "title": "List &S3; buckets using an &AWS; SDK",
     "title_abbrev": "List buckets",
     "synopsis": "list S3 buckets.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Java": {
@@ -3746,6 +3809,7 @@
     "title": "Set the ACL of an &S3; object using an &AWS; SDK",
     "title_abbrev": "Set the ACL of an object",
     "synopsis": "set the access control list (ACL) of an S3 object.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Python": {
@@ -3792,6 +3856,7 @@
     "title": "Upload a single part of a multipart upload using an &AWS; SDK",
     "title_abbrev": "Upload a single part of a multipart upload",
     "synopsis": "upload a single part of a multipart upload.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Rust": {
@@ -3820,6 +3885,7 @@
     "title": "Enable notifications for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Enable notifications",
     "synopsis": "enable notifications for an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -3865,6 +3931,7 @@
     "title": "Enable transfer acceleration for an &S3; bucket using an &AWS; SDK",
     "title_abbrev": "Enable transfer acceleration",
     "synopsis": "enable transfer acceleration for an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       ".NET": {
@@ -3893,6 +3960,7 @@
     "title": "Download all objects in an &S3long; (&S3;) bucket to a local directory",
     "title_abbrev": "Download objects to a local directory",
     "synopsis": "download all objects in an &S3long; (&S3;) bucket to a local directory.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Java": {
@@ -3903,7 +3971,7 @@
             "sdkguide": null,
             "excerpts": [
               {
-                "description": "Use an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\">S3TransferManager</ulink> to <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadDirectory(software.amazon.awssdk.transfer.s3.DownloadDirectoryRequest)\">download all S3 objects</ulink> in the same S3 bucket. View the <ulink url=\"https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java\">complete file</ulink> and <ulink url=\"https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\">test</ulink>.",
+                "description": "Use an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\>S3TransferManager</ulink> to <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadDirectory(software.amazon.awssdk.transfer.s3.DownloadDirectoryRequest)\\>download all S3 objects</ulink> in the same S3 bucket. View the <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java\\>complete file</ulink> and <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\>test</ulink>.",
                 "snippet_tags": [
                   "s3.tm.java2.downloadtodirectory.import",
                   "s3.tm.java2.downloadtodirectory.main"
@@ -3922,6 +3990,7 @@
     "title": "Recursively upload a local directory to an &S3long; (&S3;) bucket",
     "title_abbrev": "Upload directory to a bucket",
     "synopsis": "upload a local directory recursively to an &S3long; (&S3;) bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Java": {
@@ -3932,7 +4001,7 @@
             "sdkguide": null,
             "excerpts": [
               {
-                "description": "Use an <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\">S3TransferManager</ulink> to <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadDirectory(software.amazon.awssdk.transfer.s3.UploadDirectoryRequest)\">upload a local directory</ulink>. View the <ulink url=\"https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadADirectory.java\">complete file</ulink> and <ulink url=\"https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\">test</ulink>.",
+                "description": "Use an <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\>S3TransferManager</ulink> to <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadDirectory(software.amazon.awssdk.transfer.s3.UploadDirectoryRequest)\\>upload a local directory</ulink>. View the <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadADirectory.java\\>complete file</ulink> and <ulink url=\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\>test</ulink>.",
                 "snippet_tags": [
                   "s3.tm.java2.uploadadirectory.import",
                   "s3.tm.java2.uploadadirectory.main"
@@ -3951,6 +4020,7 @@
     "title": "Upload or download large files to and from &S3; using an &AWS; SDK",
     "title_abbrev": "Upload or download large files",
     "synopsis": "upload or download large files to and from &S3;.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "guide_topic": {
       "title": "Uploading an object using multipart upload",
@@ -4134,6 +4204,7 @@
     "title": "Manage versioned &S3; objects in batches with a &LAM; function using an &AWS; SDK",
     "title_abbrev": "Manage versioned objects in batches with a &LAM; function",
     "synopsis": "manage versioned S3 objects in batches with a &LAM; function.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "languages": {
       "Python": {
@@ -4154,6 +4225,7 @@
     "title": "Create a presigned URL for &S3; using an &AWS; SDK",
     "title_abbrev": "Create a presigned URL",
     "synopsis": "create a presigned URL for Amazon S3 and upload an object.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "languages": {
       ".NET": {
@@ -4451,6 +4523,7 @@
     "title": "Get the Region where the &S3; bucket resides using an &AWS; SDK",
     "title_abbrev": "Get the Region location for a bucket",
     "synopsis": "get the Region location for an S3 bucket.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Rust": {
@@ -4542,19 +4615,19 @@
                 ]
               },
               {
-                "description": "Objects in S3 are stored in 'buckets'. Let's define a function for creating a new bucket.",
+                "description": "Objects in S3 are stored in buckets. Lets define a function for creating a new bucket.",
                 "snippet_tags": [
                   "javascript.v3.s3.scenarios.basic.CreateBucket"
                 ]
               },
               {
-                "description": "Buckets contain 'objects'. This function uploads the contents of a directory to your bucket as objects.",
+                "description": "Buckets contain objects. This function uploads the contents of a directory to your bucket as objects.",
                 "snippet_tags": [
                   "javascript.v3.s3.scenarios.basic.PutObject"
                 ]
               },
               {
-                "description": "After uploading objects, check to confirm that they were uploaded correctly. You can use ListObjects for that. You'll be using the 'Key' property, but there are other useful properties in the response also.",
+                "description": "After uploading objects, check to confirm that they were uploaded correctly. You can use ListObjects for that. Youll be using the Key property, but there are other useful properties in the response also.",
                 "snippet_tags": [
                   "javascript.v3.s3.scenarios.basic.ListObjects"
                 ]
@@ -4566,19 +4639,19 @@
                 ]
               },
               {
-                "description": "There's no SDK method for getting multiple objects from a bucket. Instead, you'll create a list of objects to download and iterate over them.",
+                "description": "Theres no SDK method for getting multiple objects from a bucket. Instead, youll create a list of objects to download and iterate over them.",
                 "snippet_tags": [
                   "javascript.v3.s3.scenarios.basic.GetObject"
                 ]
               },
               {
-                "description": "It's time to clean up your resources. A bucket must be empty before it can be deleted. These two functions empty and delete the bucket.",
+                "description": "Its time to clean up your resources. A bucket must be empty before it can be deleted. These two functions empty and delete the bucket.",
                 "snippet_tags": [
                   "javascript.v3.s3.scenarios.basic.clean"
                 ]
               },
               {
-                "description": "The 'main' function pulls everything together. If you run this file directly the main function will be called.",
+                "description": "The main function pulls everything together. If you run this file directly the main function will be called.",
                 "snippet_tags": [
                   "javascript.v3.s3.scenarios.basic.main"
                 ]
@@ -4791,6 +4864,7 @@
     "title": "Manage access control lists (ACLs) for &S3; buckets using an &AWS; SDK",
     "title_abbrev": "Manage access control lists (ACLs)",
     "synopsis": "manage access control lists (ACLs) for &S3; buckets.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "languages": {
       ".NET": {
@@ -4819,6 +4893,7 @@
     "title": "Get started with tags for &S3; objects using an &AWS; SDK",
     "title_abbrev": "Get started with tags",
     "synopsis": "get started with tags for &S3; objects.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "languages": {
       ".NET": {
@@ -4847,6 +4922,7 @@
     "title": "Get started with encryption for &S3; objects using an &AWS; SDK",
     "title_abbrev": "Get started with encryption",
     "synopsis": "get started with encryption for &S3; objects.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "languages": {
       ".NET": {
@@ -4875,6 +4951,7 @@
     "title": "Perform a multipart copy of an &S3; object using an &AWS; SDK",
     "title_abbrev": "Perform a multipart copy",
     "synopsis": "perform a multipart copy of an &S3; object.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "languages": {
       ".NET": {
@@ -4903,6 +4980,7 @@
     "title": "A web page that lists &S3; objects using an &AWS; SDK",
     "title_abbrev": "Create a web page that lists &S3; objects",
     "synopsis": "list &S3; objects in a web page.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "languages": {
       "JavaScript": {
@@ -4931,6 +5009,7 @@
     "title": "Parse &S3; URIs using an &AWS; SDK",
     "title_abbrev": "Parse URIs",
     "synopsis": "parse &S3; URIs to extract important components like the bucket name and object key.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "languages": {
       "Java": {
@@ -4941,7 +5020,7 @@
             "sdkguide": null,
             "excerpts": [
               {
-                "description": "Parse an &S3; URI by using the <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Uri.html\">S3Uri</ulink> class.",
+                "description": "Parse an &S3; URI by using the <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Uri.html\\>S3Uri</ulink> class.",
                 "snippet_tags": [
                   "s3.java2.scenario_uriparsing.import",
                   "s3.java2.scenario_uriparsing.main"
@@ -4960,6 +5039,7 @@
     "title": "Upload a stream of unknown size to an &S3; object using an &AWS; SDK",
     "title_abbrev": "Upload stream of unknown size",
     "synopsis": "upload a stream of unknown size to an &S3; object.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "languages": {
       "Java": {
@@ -4970,14 +5050,14 @@
             "sdkguide": null,
             "excerpts": [
               {
-                "description": "Use the <ulink url=\"sdk-for-java/latest/developer-guide/crt-based-s3-client.html\" type=\"documentation\">&AWS; CRT-based S3 Client</ulink>.",
+                "description": "Use the <ulink url=\\sdk-for-java/latest/developer-guide/crt-based-s3-client.html\\ type=\\documentation\\>&AWS; CRT-based S3 Client</ulink>.",
                 "snippet_tags": [
                   "s3.java2.async_stream.import",
                   "s3.java2.async_stream.main"
                 ]
               },
               {
-                "description": "Use the <ulink url=\"sdk-for-java/latest/developer-guide/transfer-manager.html\" type=\"documentation\">&S3; Transfer Manager</ulink>.",
+                "description": "Use the <ulink url=\\sdk-for-java/latest/developer-guide/transfer-manager.html\\ type=\\documentation\\>&S3; Transfer Manager</ulink>.",
                 "snippet_tags": [
                   "s3.tm.java2.upload_stream.import",
                   "s3.tm.java2.upload_stream.main"
@@ -4996,6 +5076,7 @@
     "title": "Perform a multipart upload to an &S3; object using an &AWS; SDK",
     "title_abbrev": "Perform a multipart upload",
     "synopsis": "perform a multipart upload to an &S3; object.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "languages": {
       "Java": {
@@ -5012,13 +5093,13 @@
                 ]
               },
               {
-                "description": "Use the <ulink url=\"sdk-for-java/latest/developer-guide/transfer-manager.html\" type=\"documentation\">S3 Transfer Manager</ulink> on top of the  <ulink url=\"sdk-for-java/latest/developer-guide/crt-based-s3-client.html\" type=\"documentation\">&AWS; CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the content exceeds a threshold. The default threshold size is 8 MB.",
+                "description": "Use the <ulink url=\\sdk-for-java/latest/developer-guide/transfer-manager.html\\ type=\\documentation\\>S3 Transfer Manager</ulink> on top of the  <ulink url=\\sdk-for-java/latest/developer-guide/crt-based-s3-client.html\\ type=\\documentation\\>&AWS; CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the content exceeds a threshold. The default threshold size is 8 MB.",
                 "snippet_tags": [
                   "s3.java2.performMultiPartUpload.transferManager"
                 ]
               },
               {
-                "description": "Use the <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client API</ulink> or (S3AsyncClient API) to perform a multipart upload.",
+                "description": "Use the <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client API</ulink> or (S3AsyncClient API) to perform a multipart upload.",
                 "snippet_tags": [
                   "s3.java2.performMultiPartUpload.s3Client"
                 ]
@@ -5036,6 +5117,7 @@
     "title": "Use checksums to work with an &S3; object using an &AWS; SDK",
     "title_abbrev": "Use checksums",
     "synopsis": "use checksums to work with an &S3; object.",
+    "synopsis_list":" ",
     "category": "Scenarios",
     "languages": {
       "Java": {
@@ -5052,31 +5134,31 @@
                 ]
               },
               {
-                "description": "Specify a checksum algorithm for the <code>putObject</code> method when you <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html\">build the <code>PutObjectRequest</code></ulink>.",
+                "description": "Specify a checksum algorithm for the <code>putObject</code> method when you <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html\\>build the <code>PutObjectRequest</code></ulink>.",
                 "snippet_tags": [
                   "s3.java2.basicOpsWithChecksums.putObject"
                 ]
               },
               {
-                "description": "Verify the checksum for the <code>getObject</code> method when you <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/GetObjectRequest.Builder.html\">build the GetObjectRequest</ulink>.",
+                "description": "Verify the checksum for the <code>getObject</code> method when you <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/GetObjectRequest.Builder.html\\>build the GetObjectRequest</ulink>.",
                 "snippet_tags": [
                   "s3.java2.basicOpsWithChecksums.getObject"
                 ]
               },
               {
-                "description": "Pre-calculate a checksum for the <code>putObject</code> method when you <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html\">build the <code>PutObjectRequest</code></ulink>.",
+                "description": "Pre-calculate a checksum for the <code>putObject</code> method when you <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html\\>build the <code>PutObjectRequest</code></ulink>.",
                 "snippet_tags": [
                   "s3.java2.basicOpsWithChecksums.putObjectPreCalc"
                 ]
               },
               {
-                "description": "Use the <ulink url=\"sdk-for-java/latest/developer-guide/transfer-manager.html\" type=\"documentation\">S3 Transfer Manager</ulink> on top of the <ulink url=\"sdk-for-java/latest/developer-guide/crt-based-s3-client.html\" type=\"documentation\" >&AWS; CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the content exceeds a threshold. The default threshold size is 8 MB.</para> <para>You can specify a checksum algorithm for the SDK to use. By default, the SDK uses the CRC32 algorithm.",
+                "description": "Use the <ulink url=\\sdk-for-java/latest/developer-guide/transfer-manager.html\\ type=\\documentation\\>S3 Transfer Manager</ulink> on top of the <ulink url=\\sdk-for-java/latest/developer-guide/crt-based-s3-client.html\\ type=\\documentation\\ >&AWS; CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the content exceeds a threshold. The default threshold size is 8 MB.</para> <para>You can specify a checksum algorithm for the SDK to use. By default, the SDK uses the CRC32 algorithm.",
                 "snippet_tags": [
                   "s3.java2.basicOpsWithChecksums.multiPartTm"
                 ]
               },
               {
-                "description": "Use the <ulink url=\"https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\">S3Client API</ulink> or (S3AsyncClient API) to perform a multipart upload. If you specify an additional checksum, you must specify the algorithm to use on the initiation of the upload. You must also specify the algorithm for each part request and provide the checksum calculated for each part after it is uploaded.",
+                "description": "Use the <ulink url=\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\>S3Client API</ulink> or (S3AsyncClient API) to perform a multipart upload. If you specify an additional checksum, you must specify the algorithm to use on the initiation of the upload. You must also specify the algorithm for each part request and provide the checksum calculated for each part after it is uploaded.",
                 "snippet_tags": [
                   "s3.java2.basicOpsWithChecksums.multiPartS3Client"
                 ]
@@ -5094,6 +5176,7 @@
     "title": "Create an &S3; Multi-Region Access Point using an &AWS; SDK",
     "title_abbrev": "Create a Multi-Region Access Point",
     "synopsis": "create an &S3; Multi-Region Access Point.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Kotlin": {
@@ -5134,6 +5217,7 @@
     "title": "Get an &S3; object from a Multi-Region Access Point by using an &AWS; SDK",
     "title_abbrev": "Get an object from a Multi-Region Access Point",
     "synopsis": "get an object from a Multi-Region Access Point.",
+    "synopsis_list":" ",
     "category": null,
     "languages": {
       "Kotlin": {
