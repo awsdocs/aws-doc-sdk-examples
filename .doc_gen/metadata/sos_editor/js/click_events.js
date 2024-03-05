@@ -1,11 +1,3 @@
-import {create_json} from "./run.js";
-
-function createjson(){
-    create_json();
-    console.log('create json)')
-
-}
-
 // Submit service details.
 function selectService() {
     if (document.getElementById('selecttheservice').value != "") {
@@ -64,20 +56,8 @@ $("#selectService").on('click', function () {
         alert('You must enter the service stub');
         return
     }
-    if (document.getElementById('selecttheservices').value == "") {
-        function confirmFun() {
-            let text = "You haven\'t entered any additional services.\n Please confirm you wish to proceed.";
-            if (confirm(text) == true) {
-                selectService();
-            } else {
-                return
-            }
-        }
-
-        confirmFun();
-    } else {
         selectService();
-    }
+
 });
 
 // Display controls to receive api commands for each additional service.
@@ -374,7 +354,12 @@ $("#addlanguage").on('change', function () {
 $("#subVersion").on('click', function () {
     console.log('why')
     if (document.getElementById('languages').value !== "Not Listed") {
-        alert('Check this version in defined in the ../../sdk.yaml.')
+        if (window.confirm('New versions must be added to the ../../sdks.yaml file.\n' +
+            'Choose  OK to view instructions. '))
+        {
+            window.open('https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAppendix:sdks.yaml2Cservices.yaml2Candtemplates', '_blank');
+        }
+        myAlert('Continue once the new version is added to the "\../../skds.yaml\" file');
         let currentVersions = [];
         var values = $("#sdkVersion>option").map(function () {
             return $(this).val();
@@ -415,7 +400,12 @@ $("#subVersion").on('click', function () {
         }
     } else {
         document.getElementById('subVersion').disabled = true;
-        alert('Check this version in defined in the ../../sdk.yaml.')
+        if (window.confirm('New versions must be added to the \"../../sdks.yaml\" file.\n' +
+            'Choose  OK to view instructions. '))
+        {
+            window.open('https://w.amazon.com/bin/view/AWSDocs/CodeExamples/Team/SOS/#HAppendix:sdks.yaml2Cservices.yaml2Candtemplates', '_blank');
+        }
+        myAlert('Continue once the new version is added to the "\../../skds.yaml\" file');
         var element = document.getElementById('gitHub');
         element.setAttribute("style", "visibility: visible");
         var element = document.getElementById('sdkGuide');
