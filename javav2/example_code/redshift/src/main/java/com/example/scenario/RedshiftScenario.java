@@ -4,12 +4,10 @@
 package com.example.scenario;
 
 // snippet-start:[redshift.java2.scenario.main]
-import com.example.redshift.User;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.gson.Gson;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
@@ -56,14 +54,13 @@ import java.util.concurrent.TimeUnit;
  *
  This Java example performs these tasks:
  *
- * 1. Reads an AWS Secret Manager secret to get database credentials.
- * 2. Creates an Amazon Redshift Cluster.
- * 3. Waits for the Cluster to be available.
- * 4. Creates a Redshift database.
- * 5. Creates a Movie table.
- * 6. Populates the Movies table using the Movies.json file.
- * 7. Queries the Movies table by year.
- * 8. Deletes the Amazon Redshift cluster.
+ * 1. Creates an Amazon Redshift Cluster.
+ * 2. Waits for the Cluster to be available.
+ * 3. Creates a Redshift database.
+ * 4. Creates a Movie table.
+ * 5. Populates the Movies table using the Movies.json file.
+ * 6. Queries the Movies table by year.
+ * 7. Deletes the Amazon Redshift cluster.
  */
 
 public class RedshiftScenario {
@@ -72,19 +69,21 @@ public class RedshiftScenario {
         final String usage = """
 
             Usage:
-                <secretName> <jsonFilePath>\s
+                <userName> <userPassword> <jsonFilePath>\s
 
             Where:
-                secretName - The name of the AWS Secrets Manager secret that contains the database credentials
+                userName - The user name to use.
+                userPassword - The corresponding password. 
                 jsonFilePath - The path to the Movies JSON file (you can locate that file in resources/sample_files)
             """;
 
-      //  if (args.length != 2) {
-      //      System.out.println(usage);
-      //      System.exit(1);
-     //   }
+        //  if (args.length != 2) {
+        //      System.out.println(usage);
+        //      System.exit(1);
+        //   }
 
-        String secretName = "redshift/work" ; //args[0];
+        String userName = "awsuser" ; //args[0];
+        String userPassword = "awsPassword10" ; //args[0];
         String jsonFilePath = "C:\\Users\\scmacdon\\Test_Git\\aws-doc-sdk-examples-main\\resources\\sample_files\\Movies.json" ;
         String databaseName ;
         Scanner scanner = new Scanner(System.in);
@@ -117,8 +116,6 @@ public class RedshiftScenario {
         System.out.println("Get Amazon Redshift credentials from AWS Secret Manager");
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
-        Gson gson = new Gson();
-        User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);
 
         System.out.println(DASHES);
         System.out.println("A Redshift cluster refers to the collection of computing resources and storage that work together to process and analyze large volumes of data.");
@@ -127,7 +124,7 @@ public class RedshiftScenario {
 
         // Use a default value if the user input is empty.
         String clusterId = userInput.isEmpty() ? "redshift-cluster-200" : userInput;
-        createCluster(redshiftClient, clusterId, user.getMasterUsername(), user.getMasterUserPassword());
+        createCluster(redshiftClient, clusterId, userName, userPassword);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -183,7 +180,7 @@ public class RedshiftScenario {
         } while (movieYear < 2010 || movieYear > 2014);
 
         String sqlYear = " SELECT * FROM Movies WHERE year = "+movieYear;
-        String id = queryMoviesByYear(redshiftDataClient, databaseName, user.getMasterUsername(), sqlYear, clusterId);
+        String id = queryMoviesByYear(redshiftDataClient, databaseName, userName, sqlYear, clusterId);
         System.out.println("The identifier of the statement is " + id);
         checkStatement(redshiftDataClient, id);
         getResults(redshiftDataClient, id);
@@ -205,7 +202,7 @@ public class RedshiftScenario {
         System.out.println(DASHES);
         System.out.println("This concludes the Amazon Redshift example workflow.");
         System.out.println(DASHES);
-     }
+    }
 
     // snippet-start:[redshift.java2.delete_cluster.main]
     public static void deleteRedshiftCluster(RedshiftClient redshiftClient, String clusterId) {
@@ -331,10 +328,10 @@ public class RedshiftScenario {
 
 
     public static String queryMoviesByYear(RedshiftDataClient redshiftDataClient,
-                                             String database,
-                                             String dbUser,
-                                             String sqlStatement,
-                                             String clusterId) {
+                                           String database,
+                                           String dbUser,
+                                           String sqlStatement,
+                                           String clusterId) {
 
         try {
             ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
@@ -419,7 +416,7 @@ public class RedshiftScenario {
             System.exit(1);
         }
     }
-    // snippet-end:[redshift.java2.describe_cluster.main]
+    // snippet-start:[redshift.java2.describe_cluster.main]
 
     public static void createDatabase(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName) {
         try {
