@@ -109,5 +109,18 @@ public class TextToTextAsyncTest
         var generatedText = generatedTextBuilder.ToString();
         Assert.NotEmpty(generatedText);
     }
+
+    /// <summary>
+    /// InvokeTitanImageGeneratorG1Async result should not be null or empty
+    /// </summary>
+    [Fact]
+    [Trait("Category", "Integration")]
+    public async Task InvokeTitanImageGeneratorG1Async_ShouldNotBeNullOrEmpty()
+    {
+        var prompt = "A sunset over the ocean";
+        var generatedImage = await InvokeModelAsync.InvokeTitanImageGeneratorG1Async(prompt, 0);
+        Assert.NotNull(generatedImage);
+        Assert.NotEmpty(generatedImage);
+    }
 }
 
