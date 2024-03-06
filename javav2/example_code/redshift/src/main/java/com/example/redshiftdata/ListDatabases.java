@@ -11,6 +11,8 @@ import software.amazon.awssdk.services.redshiftdata.model.ListTablesRequest;
 import software.amazon.awssdk.services.redshiftdata.model.ListTablesResponse;
 import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
 import software.amazon.awssdk.services.redshiftdata.model.TableMember;
+import software.amazon.awssdk.services.redshiftdata.paginators.ListDatabasesIterable;
+
 import java.util.List;
 
 /**
@@ -34,21 +36,20 @@ public class ListDatabases {
                     clusterId - The id of the Redshift cluster (for example, redshift-cluster)\s
                 """;
 
-        if (args.length != 3) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+      //  if (args.length != 3) {
+      //      System.out.println(usage);
+      //      System.exit(1);
+      //  }
 
-        String database = args[0];
-        String dbUser = args[1];
-        String clusterId = args[2];
-        Region region = Region.US_WEST_2;
+        String database = "dev" ;// args[0];
+        String dbUser = "awsuser" ; // args[1];
+        String clusterId = "redshift-cluster-wf" ; //args[2];
+        Region region = Region.US_EAST_1;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
                 .region(region)
                 .build();
 
         listAllDatabases(redshiftDataClient, clusterId, dbUser, database);
-        listAllTables(redshiftDataClient, clusterId, dbUser, database);
         redshiftDataClient.close();
     }
 
@@ -61,33 +62,11 @@ public class ListDatabases {
                     .database(database)
                     .build();
 
-            ListDatabasesResponse databasesResponse = redshiftDataClient.listDatabases(databasesRequest);
-            List<String> databases = databasesResponse.databases();
-            for (String dbName : databases) {
-                System.out.println("The database name is : " + dbName);
-            }
-
-        } catch (RedshiftDataException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-
-    public static void listAllTables(RedshiftDataClient redshiftDataClient, String clusterId, String dbUser,
-            String database) {
-
-        try {
-            ListTablesRequest tablesRequest = ListTablesRequest.builder()
-                    .clusterIdentifier(clusterId)
-                    .database(database)
-                    .dbUser(dbUser)
-                    .build();
-
-            ListTablesResponse tablesResponse = redshiftDataClient.listTables(tablesRequest);
-            List<TableMember> tables = tablesResponse.tables();
-            for (TableMember table : tables) {
-                System.out.println("The table name is : " + table.name());
-            }
+            ListDatabasesIterable listDatabasesIterable = redshiftDataClient.listDatabasesPaginator(databasesRequest);
+            listDatabasesIterable.stream()
+                .flatMap(r -> r.databases().stream())
+                .forEach(db -> System.out
+                    .println("The database name is : " + db));
 
         } catch (RedshiftDataException e) {
             System.err.println(e.getMessage());
