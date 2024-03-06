@@ -485,7 +485,7 @@ def usage_demo():
     invoke(wrapper, "amazon.titan-image-generator-v1", image_generation_prompt)
 
 
+# snippet-end:[python.example_code.bedrock-runtime.BedrockRuntimeWrapper.class]
+
 if __name__ == "__main__":
     usage_demo()
-
-# snippet-end:[python.example_code.bedrock-runtime.BedrockRuntimeWrapper.class]
