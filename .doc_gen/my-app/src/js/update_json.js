@@ -597,7 +597,7 @@ function update_json() {
             }
         }
         const serviceStub = document.getElementById('selecttheservice').value
-        const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+        const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
         xmlhttp.open("GET", sourceJson, true);
         xmlhttp.send();
     }
@@ -1216,7 +1216,7 @@ function update_json() {
             }
         }
         const serviceStub = document.getElementById('selecttheservice').value
-        const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+        const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
         xmlhttp.open("GET", sourceJson, true);
         xmlhttp.send();
     }
@@ -1526,7 +1526,7 @@ function update_json() {
             }
         }
         const serviceStub = document.getElementById('selecttheservice').value
-        const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+        const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
         xmlhttp.open("GET", sourceJson, true);
         xmlhttp.send();
         var xmlhttp = new XMLHttpRequest();
@@ -2039,7 +2039,7 @@ function update_json() {
             }
         }
         const serviceStub = document.getElementById('selecttheservice').value
-        const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+        const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
         console.log('sourceJson', sourceJson)
         xmlhttp.open("GET", sourceJson, true);
         xmlhttp.send();

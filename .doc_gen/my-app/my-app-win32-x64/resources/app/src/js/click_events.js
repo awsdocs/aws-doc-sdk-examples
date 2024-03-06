@@ -42,7 +42,7 @@ function selectService() {
 
         }
         const serviceStub = document.getElementById('selecttheservice').value
-        const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+        const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
         xmlhttp.open("GET", sourceJson, true);
         xmlhttp.send();
     }
@@ -456,7 +456,7 @@ function newsnippet(){
     if (noOfSnippets === 0) {
         console.log('0 snippetTags')
         $(
-          "<p id =\"code\"><label class=\"thissize\">Create and download snippet file (optional)</label><br>" +
+          "<p id =\"code\"><label class=\"thissize\">Create and download snippet file <i>(optional)</i></label><br>" +
             "<label class=\"thissize\">Step 1. Enter unique snippet file name</label><br><i>This name is used to format the snippet tag \"//snippet-start:[service].example_code.[language].[snippetName]\", so must be unique in any other snippet tag for the primary service.</i><br><textarea type=\"text\" name=\"text\" id =\"codeExampleTitle\"></textarea><br>"+
             "<label class=\"thissize\">Step 2. Paste snippet below</label><br><textarea type=\"text\" name=\"text\" id =\"codeExample\"></textarea><br>" +
             "<button id = \"createCode\" onclick=\"create_code_example_tag(1, document.getElementById('codeExampleTitle').value)\">Create snippet</button></p>\n" +
@@ -467,7 +467,7 @@ function newsnippet(){
     if (noOfSnippets === 1) {
                console.log('1 snippetTags')
         $(
-          "<p id =\"code\"><label class=\"thissize\">Create and download snippet file (optional)</label><br>" +
+          "<p id =\"code\"><label class=\"thissize\">Create and download snippet file <i>(optional)</i></label><br>" +
             "<label class=\"thissize\">Step 1. Enter unique snippet file name</label><br><i>This name is used to format the snippet tag \"//snippet-start:[service].example_code.[language].[snippetName]\", and must be unique in any other snippet tag for the primary service.</i><br><textarea type=\"text\" name=\"text\" id =\"codeExampleTitle\"></textarea><br>"+
             "<label class=\"thissize\">Step 2. Paste snippet below</label><br><textarea type=\"text\" name=\"text\" id =\"codeExample\"></textarea><br>" +
             "<button id = \"createCode\" onclick=\"create_code_example_tag(2, document.getElementById('codeExampleTitle').value)\">Create snippet</button></p>\n" +
@@ -566,31 +566,31 @@ function newsnippetfile(){
 
     if (noOfSnippetFiles == 1) {
         $(
-            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description (optional)</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription2\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description <i>(optional)</i></label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription2\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippetFile\" ><label class=\"thissize\">Snippet File <i>(mandatory)</i><br><i style=\"font-weight:lighter\">Recommended format is \"[service].example_code.[language].[uniqueSnippetName]\" - unique from the final part of any other snippet tag for the primary service.</i><br></label><br><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile2\" maxlength=\"200\"></textarea></p>\n" +
             "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 2) {
         $(
-            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description (optional)</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription3\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description <i>(optional)</i></label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription3\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippetFile\" ><label class=\"thissize\">Snippet File <i>(mandatory)</i><br><i style=\"font-weight:lighter\">Recommended format is \"[service].example_code.[language].[uniqueSnippetName]\" - unique from the final part of any other snippet tag for the primary service.</i><br></label><br><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile3\" maxlength=\"200\"></textarea></p>\n" +
             "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 3) {
         $(
-            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description (optional)</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription4\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description <i>(optional)</i></label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription4\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippetFile\" ><label class=\"thissize\">Snippet File <i>(mandatory)</i><br><i style=\"font-weight:lighter\">Recommended format is \"[service].example_code.[language].[uniqueSnippetName]\" - unique from the final part of any other snippet tag for the primary service.</i><br></label><br><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile4\" maxlength=\"200\"></textarea></p>\n" +
             "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 4) {
         $(
-            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description (optional)</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription5\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description <i>(optional)</i></label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription5\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippetFile\" ><label class=\"thissize\">Snippet File <i>(mandatory)</i><br><i style=\"font-weight:lighter\">Recommended format is \"[service].example_code.[language].[uniqueSnippetName]\" - unique from the final part of any other snippet tag for the primary service.</i><br></label><br><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile5\" maxlength=\"200\"></textarea></p>\n" +
            "").insertBefore("#addSnippetFile");
     }
     if (noOfSnippetFiles == 5) {
         $(
-            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description (optional)</label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription6\" maxlength=\"200\"></textarea></p>\n" +
+            "<p id =\"snippFileDesc\" ><label class=\"thissize\">  Snippet File Description <i>(optional)</i></label><br><textarea  class=\"snippfiledisc\" type=\"text\" name=\"text\" id =\"snippetfiledescription6\" maxlength=\"200\"></textarea></p>\n" +
             "      <p id =\"snippetFile\" ><label class=\"thissize\">Snippet File <i>(mandatory)</i><br><i style=\"font-weight:lighter\">Recommended format is \"[service].example_code.[language].[uniqueSnippetName]\" - unique from the final part of any other snippet tag for the primary service.</i><br></label><br><textarea class=\"snippfile\" type=\"text\" name=\"text\" id =\"snippetfile6\" maxlength=\"200\"></textarea></p>\n" +
               "").insertBefore("#addSnippetFile");
     }

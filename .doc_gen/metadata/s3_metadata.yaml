@@ -10,18 +10,18 @@ s3_Hello:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.hello.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.Hello
     Go:
@@ -29,7 +29,7 @@ s3_Hello:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - gov2.s3.Hello
     C++:
@@ -47,18 +47,18 @@ s3_Hello:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - javascript.v3.s3.hello
     PHP:
       versions:
         - sdk_version: 3
           github: php/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - php.example_code.s3.basics.helloService
   services:
@@ -69,24 +69,24 @@ s3_CreateBucket:
   synopsis: create an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-CreateBucket
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.create_bucket.code
     Go:
@@ -94,7 +94,7 @@ s3_CreateBucket:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.CreateBucket
@@ -102,18 +102,18 @@ s3_CreateBucket:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.kotlin.create_bucket.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.create_bucket_waiters.main
     JavaScript:
@@ -151,7 +151,7 @@ s3_CreateBucket:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.ruby.create_bucket_snippet.rb
     Rust:
@@ -159,7 +159,7 @@ s3_CreateBucket:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - rust.example_code.s3.basics.create_bucket
     SAP ABAP:
@@ -167,7 +167,7 @@ s3_CreateBucket:
         - sdk_version: 1
           github: sap-abap/services/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.abapv1.create_bucket
     Swift:
@@ -175,16 +175,16 @@ s3_CreateBucket:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.swift.basics.handler.createbucket
     Bash:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - aws-cli.bash-linux.s3.iecho
                 - aws-cli.bash-linux.s3.errecho
@@ -195,7 +195,7 @@ s3_CopyObject:
   title: Copy an object from one &S3; bucket to another using an &AWS; SDK
   title_abbrev: Copy an object from one bucket to another
   synopsis: copy an S3 object from one bucket to another.
-  synopsis_list: 
+  synopsis_list:  
   category: 
   languages:
     .NET:
@@ -203,19 +203,19 @@ s3_CopyObject:
         - sdk_version: 3
           github: dotnetv3/S3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnet35.CopyObject
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.copy_objects.code
-        - sdk_version:  
+        - sdk_version: 
           github: 
           sdkguide: 
           excerpts:
@@ -227,7 +227,7 @@ s3_CopyObject:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.CopyObject.ToBucket
@@ -235,21 +235,21 @@ s3_CopyObject:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.kotlin.copy_object.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description: Copy an object using an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client</ulink>.
+            - description: Copy an object using an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client</ulink>.
               snippet_tags:
                 - s3.java2.copy_object.main
-            - description: Use an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\>S3TransferManager</ulink> to <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#copy(software.amazon.awssdk.transfer.s3.CopyRequest)\>copy an object</ulink> from one bucket to another. View the <ulink url=\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/ObjectCopy.java\>complete file</ulink> and <ulink url=\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\>test</ulink>.
+            - description: Use an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\\\>S3TransferManager</ulink> to <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#copy(software.amazon.awssdk.transfer.s3.CopyRequest)\\\\>copy an object</ulink> from one bucket to another. View the <ulink url=\\\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/ObjectCopy.java\\\\>complete file</ulink> and <ulink url=\\\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\\\>test</ulink>.
               snippet_tags:
                 - s3.tm.java2.objectcopy.import
                 - s3.tm.java2.objectcopy.main
@@ -275,7 +275,7 @@ s3_CopyObject:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.CopyObject
@@ -295,7 +295,7 @@ s3_CopyObject:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - rust.example_code.s3.basics.copy_object
     SAP ABAP:
@@ -303,7 +303,7 @@ s3_CopyObject:
         - sdk_version: 1
           github: sap-abap/services/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.abapv1.copy_object
     Swift:
@@ -311,16 +311,16 @@ s3_CopyObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.swift.basics.handler.copyfile
     Bash:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - aws-cli.bash-linux.s3.errecho
                 - aws-cli.bash-linux.s3.CopyObject
@@ -332,33 +332,33 @@ s3_DeleteBucketPolicy:
   synopsis: delete a policy from an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.delete_bucket_policy.code
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.kotlin.delete_bucket_policy.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.delete_bucket_policy.main
     Python:
@@ -366,7 +366,7 @@ s3_DeleteBucketPolicy:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucketPolicy
@@ -384,7 +384,7 @@ s3_DeleteBucketPolicy:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.helper.BucketPolicyWrapper
                 - ruby.example_code.s3.DeleteBucketPolicy
@@ -395,14 +395,14 @@ s3_DeleteObject:
   title: Delete an &S3; object using an &AWS; SDK
   title_abbrev: Delete an object
   synopsis: delete an S3 object.
-  synopsis_list: 
-  category:  
+  synopsis_list:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Delete an object in a non-versioned S3 bucket.
               snippet_tags:
@@ -414,9 +414,9 @@ s3_DeleteObject:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.delete_object.code
         - sdk_version: 
@@ -425,12 +425,12 @@ s3_DeleteObject:
           excerpts:
             - description: 
               snippet_tags:
-                - 
+                - null
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Delete an object.
               snippet_tags:
@@ -450,7 +450,7 @@ s3_DeleteObject:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.rust.delete-object
     JavaScript:
@@ -466,7 +466,7 @@ s3_DeleteObject:
         - sdk_version: 1
           github: sap-abap/services/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.abapv1.delete_object
     Swift:
@@ -474,16 +474,16 @@ s3_DeleteObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.swift.basics.handler.deletefile
     Bash:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - aws-cli.bash-linux.s3.errecho
                 - aws-cli.bash-linux.s3.DeleteObject
@@ -495,13 +495,13 @@ s3_DeleteObjects:
   synopsis: delete multiple objects from an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Delete all objects in an S3 bucket.
               snippet_tags:
@@ -516,9 +516,9 @@ s3_DeleteObjects:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.kotlin.delete_objects.main
     Go:
@@ -526,7 +526,7 @@ s3_DeleteObjects:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.DeleteObjects
@@ -534,9 +534,9 @@ s3_DeleteObjects:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.delete_many_objects.main
     PHP:
@@ -577,7 +577,7 @@ s3_DeleteObjects:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.DeleteObjects
     Rust:
@@ -585,7 +585,7 @@ s3_DeleteObjects:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - rust.example_code.s3.basics.delete_objects
     Swift:
@@ -593,25 +593,25 @@ s3_DeleteObjects:
         - sdk_version: 1
           github: swift/example_code/s3/DeleteObjects
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.swift.deleteobjects.handler.deleteobjects
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - cpp.example_code.s3.delete_objects
     Bash:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - aws-cli.bash-linux.s3.errecho
                 - aws-cli.bash-linux.s3.DeleteObjects
@@ -623,24 +623,24 @@ s3_DeleteBucketWebsite:
   synopsis: delete the website configuration from an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.delete_website_config.code
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.delete_website_configuration.main
     JavaScript:
@@ -660,24 +660,24 @@ s3_GetObjectAcl:
   synopsis: get the access control list (ACL) of an S3 object.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.get_object_acl.code
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.kotlin.get_acl.main
     Python:
@@ -685,7 +685,7 @@ s3_GetObjectAcl:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.GetObjectAcl
@@ -697,33 +697,33 @@ s3_GetBucketPolicy:
   synopsis: get the policy for an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.get_bucket_policy.code
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.kotlin.get_bucket_policy.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.get_bucket_policy.main
     Python:
@@ -731,7 +731,7 @@ s3_GetBucketPolicy:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketPolicy
@@ -749,7 +749,7 @@ s3_GetBucketPolicy:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.helper.BucketPolicyWrapper
                 - ruby.example_code.s3.GetBucketPolicy
@@ -762,13 +762,13 @@ s3_HeadObject:
   synopsis: determine the existence and content type of an object in an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Determine the content type of an object.
               snippet_tags:
@@ -781,7 +781,7 @@ s3_HeadObject:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.exists
   services:
@@ -792,24 +792,24 @@ s3_GetObject:
   synopsis: read data from an object in an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-DownloadObject
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.get_object.code
     Go:
@@ -817,7 +817,7 @@ s3_GetObject:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.GetObject
@@ -825,34 +825,34 @@ s3_GetObject:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.kotlin.getobjectdata.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description: Read data as a byte array using an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client</ulink>.
+            - description: Read data as a byte array using an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client</ulink>.
               snippet_tags:
                 - s3.java2.getobjectdata.main
-            - description: Use an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\>S3TransferManager</ulink> to <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadFile(software.amazon.awssdk.transfer.s3.DownloadFileRequest)\>download an object</ulink> in an S3 bucket to a local file. View the <ulink url=\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadFile.java\>complete file</ulink> and <ulink url=\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\>test</ulink>.
+            - description: Use an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\\\>S3TransferManager</ulink> to <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadFile(software.amazon.awssdk.transfer.s3.DownloadFileRequest)\\\\>download an object</ulink> in an S3 bucket to a local file. View the <ulink url=\\\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadFile.java\\\\>complete file</ulink> and <ulink url=\\\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\\\>test</ulink>.
               snippet_tags:
                 - s3.tm.java2.downloadfile.import
                 - s3.tm.java2.downloadfile.main
-            - description: Read tags that belong to an object using an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client</ulink>.
+            - description: Read tags that belong to an object using an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client</ulink>.
               snippet_tags:
                 - s3.java2.getobjecttags.main
-            - description: Get a URL for an object using an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client</ulink>.
+            - description: Get a URL for an object using an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client</ulink>.
               snippet_tags:
                 - s3.java2.getobjecturl.main
-            - description: Get an object by using the S3Presigner client object using an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client</ulink>.
+            - description: Get an object by using the S3Presigner client object using an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client</ulink>.
               snippet_tags:
                 - presigned.java2.getobjectpresigned.main
-            - description: Get an object by using a ResponseTransformer object and <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client</ulink>.
+            - description: Get an object by using a ResponseTransformer object and <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client</ulink>.
               snippet_tags:
                 - s3.java2.getobjectdata.transformer.main
     PHP:
@@ -869,7 +869,7 @@ s3_GetObject:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.GetObject
@@ -898,7 +898,7 @@ s3_GetObject:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.rust.get_object
     SAP ABAP:
@@ -906,7 +906,7 @@ s3_GetObject:
         - sdk_version: 1
           github: sap-abap/services/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.abapv1.get_object
     Swift:
@@ -924,9 +924,9 @@ s3_GetObject:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - aws-cli.bash-linux.s3.errecho
                 - aws-cli.bash-linux.s3.GetObject
@@ -938,14 +938,14 @@ s3_GetObject_IfModifiedSince:
   synopsis: read data from an object in an S3 bucket, but only if that bucket has not been modified since the last retrieval time.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.rust.if-modified-since
   services:
@@ -956,24 +956,24 @@ s3_GetBucketLifecycleConfiguration:
   synopsis: get the lifecycle configuration of an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.GetLifecycleExample
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketLifecycleConfiguration
@@ -985,15 +985,15 @@ s3_ServiceAccessLogging:
   synopsis: enable logging on an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.ServerAccessLoggingExample
   services:
@@ -1004,24 +1004,24 @@ s3_PutBucketLifecycleConfiguration:
   synopsis: add a lifecycle configuration to an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.PutLifecycleExample
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.manage_lifecycle.main
     Python:
@@ -1029,7 +1029,7 @@ s3_PutBucketLifecycleConfiguration:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketLifecycleConfiguration
@@ -1041,24 +1041,24 @@ s3_DeleteBucketLifecycle:
   synopsis: delete the lifecycle configuration of an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.DeleteLifecycleExample
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucketLifecycleConfiguration
@@ -1070,15 +1070,15 @@ s3_CancelMultipartUpload:
   synopsis: cancel multipart uploads.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.AbortMPUExample
   services:
@@ -1089,14 +1089,14 @@ s3_CompleteMultipartUpload:
   synopsis: complete a multipart upload action.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - rust.example_code.s3.complete_multipart_upload
   services:
@@ -1107,14 +1107,14 @@ s3_CreateMultipartUpload:
   synopsis: create the structure to build a multipart upload action.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - rust.example_code.s3.create_multipart_upload
   services:
@@ -1125,15 +1125,15 @@ s3_ListMultipartUploads:
   synopsis: list in-progress multipart uploads to an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.list_multi_uploads.main
   services:
@@ -1144,15 +1144,15 @@ s3_ListObjects:
   synopsis: list objects in an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-ListBucketContents
             - description: List objects with a paginator.
@@ -1162,9 +1162,9 @@ s3_ListObjects:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.list_objects.code
     Go:
@@ -1172,7 +1172,7 @@ s3_ListObjects:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.ListObjectsV2
@@ -1180,18 +1180,18 @@ s3_ListObjects:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.kotlin.list_objects.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.list_objects.main
             - description: List objects using pagination.
@@ -1211,7 +1211,7 @@ s3_ListObjects:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.ListObjects
@@ -1220,7 +1220,7 @@ s3_ListObjects:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - rust.example_code.s3.basics.list_objects
     JavaScript:
@@ -1236,7 +1236,7 @@ s3_ListObjects:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.ListObjects
     SAP ABAP:
@@ -1244,7 +1244,7 @@ s3_ListObjects:
         - sdk_version: 1
           github: sap-abap/services/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.abapv1.list_objects_v2
     Swift:
@@ -1252,16 +1252,16 @@ s3_ListObjects:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.swift.basics.handler.listbucketfiles
     Bash:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - aws-cli.bash-linux.s3.errecho
                 - aws-cli.bash-linux.s3.ListObjects
@@ -1273,15 +1273,15 @@ s3_ListObjectVersions:
   synopsis: list object versions in an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.ListObjectVersionsExample
     Rust:
@@ -1289,7 +1289,7 @@ s3_ListObjectVersions:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.rust.list-object-versions
   services:
@@ -1300,15 +1300,15 @@ s3_PutObject:
   synopsis: upload an object to an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-UploadFile
             - description: Upload an object with server-side encryption.
@@ -1318,9 +1318,9 @@ s3_PutObject:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.put_object.code
     Go:
@@ -1328,7 +1328,7 @@ s3_PutObject:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.PutObject
@@ -1336,31 +1336,31 @@ s3_PutObject:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.kotlin.s3_object_upload.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description: Upload a file to a bucket using an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client</ulink>.
+            - description: Upload a file to a bucket using an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client</ulink>.
               snippet_tags:
                 - s3.java2.s3_object_upload.main
-            - description: Use an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\>S3TransferManager</ulink> to <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadFile(software.amazon.awssdk.transfer.s3.UploadFileRequest)\>upload a file</ulink> to a bucket. View the <ulink url=\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadFile.java\>complete file</ulink> and <ulink url=\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\>test</ulink>.
+            - description: Use an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\\\>S3TransferManager</ulink> to <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadFile(software.amazon.awssdk.transfer.s3.UploadFileRequest)\\\\>upload a file</ulink> to a bucket. View the <ulink url=\\\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadFile.java\\\\>complete file</ulink> and <ulink url=\\\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\\\>test</ulink>.
               snippet_tags:
                 - s3.tm.java2.uploadfile.import
                 - s3.tm.java2.uploadfile.main
-            - description: Upload an object to a bucket and set tags using an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client</ulink>.
+            - description: Upload an object to a bucket and set tags using an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client</ulink>.
               snippet_tags:
                 - s3.java2.s3_object_manage_tags.main
-            - description: Upload an object to a bucket and set metadata using an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client</ulink>.
+            - description: Upload an object to a bucket and set metadata using an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client</ulink>.
               snippet_tags:
                 - s3.java2.s3_object_upload.metadata.main
-            - description: Upload an object to a bucket and set an object retention value using an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client</ulink>.
+            - description: Upload an object to a bucket and set an object retention value using an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client</ulink>.
               snippet_tags:
                 - s3.java2.retention_object.main
     PHP:
@@ -1377,7 +1377,7 @@ s3_PutObject:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.PutObject
@@ -1386,7 +1386,7 @@ s3_PutObject:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - rust.example_code.s3.basics.put_object
     JavaScript:
@@ -1417,7 +1417,7 @@ s3_PutObject:
         - sdk_version: 1
           github: sap-abap/services/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.abapv1.put_object
     Swift:
@@ -1435,9 +1435,9 @@ s3_PutObject:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - aws-cli.bash-linux.s3.errecho
                 - aws-cli.bash-linux.s3.PutObject
@@ -1449,24 +1449,24 @@ s3_RestoreObject:
   synopsis: restore an archived copy of an object back into an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.RestoreArchivedObjectExample
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.restore_object.main
   services:
@@ -1477,24 +1477,24 @@ s3_DeleteBucket:
   synopsis: delete an empty S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-DeleteBucket
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.delete_bucket.code
     Go:
@@ -1502,7 +1502,7 @@ s3_DeleteBucket:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.DeleteBucket
@@ -1510,9 +1510,9 @@ s3_DeleteBucket:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.s3_bucket_ops.delete_bucket
     PHP:
@@ -1529,7 +1529,7 @@ s3_DeleteBucket:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucket
@@ -1547,7 +1547,7 @@ s3_DeleteBucket:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.DeleteBucket
     Rust:
@@ -1555,7 +1555,7 @@ s3_DeleteBucket:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - rust.example_code.s3.basics.delete_bucket
     SAP ABAP:
@@ -1563,7 +1563,7 @@ s3_DeleteBucket:
         - sdk_version: 1
           github: sap-abap/services/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.abapv1.delete_bucket
     Swift:
@@ -1571,16 +1571,16 @@ s3_DeleteBucket:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.swift.basics.handler.deletebucket
     Bash:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - aws-cli.bash-linux.s3.errecho
                 - aws-cli.bash-linux.s3.DeleteBucket
@@ -1592,24 +1592,24 @@ s3_GetBucketCors:
   synopsis: get cross-origin resource sharing (CORS) rules for an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.GetCORS
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketCors
@@ -1627,7 +1627,7 @@ s3_GetBucketCors:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.helper.BucketCorsWrapper
                 - ruby.example_code.s3.GetBucketCors
@@ -1640,24 +1640,24 @@ s3_PutBucketCors:
   synopsis: add cross-origin resource sharing (CORS) rules to an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.PutCORS
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.cors.main
     Python:
@@ -1665,7 +1665,7 @@ s3_PutBucketCors:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketCors
@@ -1683,7 +1683,7 @@ s3_PutBucketCors:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.helper.BucketCorsWrapper
                 - ruby.example_code.s3.PutBucketCors
@@ -1696,24 +1696,24 @@ s3_DeleteBucketCors:
   synopsis: delete CORS rules from an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.DeleteCORS
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucketCors
@@ -1722,7 +1722,7 @@ s3_DeleteBucketCors:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.helper.BucketCorsWrapper
                 - ruby.example_code.s3.DeleteBucketCors
@@ -1735,33 +1735,33 @@ s3_GetBucketAcl:
   synopsis: get the access control list (ACL) of an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.GetBucketACLExample
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.get_acl.main
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketAcl
@@ -1778,9 +1778,9 @@ s3_GetBucketAcl:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.get_acl_bucket.code
   services:
@@ -1791,33 +1791,33 @@ s3_PutBucketAcl:
   synopsis: set a new access control list (ACL) for an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.PutBucketACLExample
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.kotlin.set_acl.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.set_acl.main
     Python:
@@ -1825,7 +1825,7 @@ s3_PutBucketAcl:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketAcl
@@ -1842,9 +1842,9 @@ s3_PutBucketAcl:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.put_bucket_acl.code
   services:
@@ -1855,15 +1855,15 @@ s3_PutBucketPolicy:
   synopsis: add a policy to an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.put_bucket_policy02.code
                 - s3.cpp.put_bucket_policy01.code
@@ -1871,9 +1871,9 @@ s3_PutBucketPolicy:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.set_bucket_policy.main
     Python:
@@ -1881,7 +1881,7 @@ s3_PutBucketPolicy:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.PutBucketPolicy
@@ -1899,7 +1899,7 @@ s3_PutBucketPolicy:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.helper.BucketPolicyWrapper
                 - ruby.example_code.s3.PutBucketPolicy
@@ -1912,33 +1912,33 @@ s3_PutBucketWebsite:
   synopsis: set the website configuration for an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.PutWebsiteConfigExample
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.put_website_config.code
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.set_website_configuration.main
     JavaScript:
@@ -1955,7 +1955,7 @@ s3_PutBucketWebsite:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.PutBucketWebsite
   services:
@@ -1966,31 +1966,31 @@ s3_GetBucketWebsite:
   synopsis: get the website configuration for an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.GetWebsiteConfigExample
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.get_website_config.code
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Get the website configuration.
               snippet_tags:
@@ -2003,14 +2003,14 @@ s3_HeadBucket:
   synopsis: determine the existence of an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Go:
       versions:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.HeadBucket
@@ -2018,9 +2018,9 @@ s3_HeadBucket:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.HeadBucket
@@ -2028,9 +2028,9 @@ s3_HeadBucket:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - aws-cli.bash-linux.s3.HeadBucket
   services:
@@ -2041,33 +2041,33 @@ s3_ListBuckets:
   synopsis: list S3 buckets.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.list.buckets.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.ListBuckets
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.list_buckets.code
     Go:
@@ -2075,7 +2075,7 @@ s3_ListBuckets:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.ListBuckets
@@ -2083,9 +2083,9 @@ s3_ListBuckets:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.ListBuckets
@@ -2094,7 +2094,7 @@ s3_ListBuckets:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.rust.list-buckets
     JavaScript:
@@ -2111,7 +2111,7 @@ s3_ListBuckets:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.ListBuckets
     Swift:
@@ -2119,7 +2119,7 @@ s3_ListBuckets:
         - sdk_version: 1
           github: swift/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.swift.listbuckets.getallbuckets
   services:
@@ -2130,15 +2130,15 @@ s3_PutObjectAcl:
   synopsis: set the access control list (ACL) of an S3 object.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.PutObjectAcl
@@ -2146,9 +2146,9 @@ s3_PutObjectAcl:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.cpp.put_object_acl.code
   services:
@@ -2159,14 +2159,14 @@ s3_UploadPart:
   synopsis: upload a single part of a multipart upload.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - rust.example_code.s3.upload_part
                 - rust.example_code.s3.upload_part.CompletedMultipartUpload
@@ -2178,24 +2178,24 @@ s3_PutBucketNotification:
   synopsis: enable notifications for an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.EnableNotificationsExample
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.s3_enable_notifications.main
   services:
@@ -2205,16 +2205,16 @@ s3_TransferAcceleration:
   title_abbrev: Enable transfer acceleration
   synopsis: enable transfer acceleration for an S3 bucket.
   synopsis_list:
-    - 
-  category:  
+    - a list
+  category: 
   languages:
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.TransferAccelerationExample
   services:
@@ -2223,17 +2223,16 @@ s3_DownloadBucketToDirectory:
   title: Download all objects in an &S3long; (&S3;) bucket to a local directory
   title_abbrev: Download objects to a local directory
   synopsis: download all objects in an &S3long; (&S3;) bucket to a local directory.
-  synopsis_list:
-    - 
-  category:  
+  synopsis_list:  
+  category: 
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description: Use an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\>S3TransferManager</ulink> to <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadDirectory(software.amazon.awssdk.transfer.s3.DownloadDirectoryRequest)\>download all S3 objects</ulink> in the same S3 bucket. View the <ulink url=\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java\>complete file</ulink> and <ulink url=\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\>test</ulink>.
+            - description: Use an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\\\>S3TransferManager</ulink> to <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadDirectory(software.amazon.awssdk.transfer.s3.DownloadDirectoryRequest)\\\\>download all S3 objects</ulink> in the same S3 bucket. View the <ulink url=\\\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java\\\\>complete file</ulink> and <ulink url=\\\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\\\>test</ulink>.
               snippet_tags:
                 - s3.tm.java2.downloadtodirectory.import
                 - s3.tm.java2.downloadtodirectory.main
@@ -2245,15 +2244,15 @@ s3_UploadDirectoryToBucket:
   synopsis: upload a local directory recursively to an &S3long; (&S3;) bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description: Use an <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\>S3TransferManager</ulink> to <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadDirectory(software.amazon.awssdk.transfer.s3.UploadDirectoryRequest)\>upload a local directory</ulink>. View the <ulink url=\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadADirectory.java\>complete file</ulink> and <ulink url=\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\>test</ulink>.
+            - description: Use an <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html\\\\>S3TransferManager</ulink> to <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadDirectory(software.amazon.awssdk.transfer.s3.UploadDirectoryRequest)\\\\>upload a local directory</ulink>. View the <ulink url=\\\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadADirectory.java\\\\>complete file</ulink> and <ulink url=\\\\https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java\\\\>test</ulink>.
               snippet_tags:
                 - s3.tm.java2.uploadadirectory.import
                 - s3.tm.java2.uploadadirectory.main
@@ -2274,7 +2273,7 @@ s3_Scenario_UsingLargeFiles:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Call functions that transfer files to and from an S3 bucket using the S3TransferManager.
               snippet_tags:
@@ -2289,7 +2288,7 @@ s3_Scenario_UsingLargeFiles:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3/
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Call functions that transfer files to and from an S3 bucket using the &S3; TransferUtility.
               snippet_tags:
@@ -2329,7 +2328,7 @@ s3_Scenario_UsingLargeFiles:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/file_transfer
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Create functions that transfer files using several of the available transfer manager settings. Use a callback class to write callback progress during file transfer.
               snippet_tags:
@@ -2342,14 +2341,14 @@ s3_Scenario_UsingLargeFiles:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - rust.example_code.s3.large_files.scenario
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Upload a large file.
               snippet_tags:
@@ -2386,7 +2385,7 @@ s3_Scenario_PresignedUrl:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3/
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Generate a presigned URL that can perform an &S3; action for a limited time.
               snippet_tags:
@@ -2398,7 +2397,7 @@ s3_Scenario_PresignedUrl:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Generate a pre-signed URL for an object, then download it (GET request).
             - description: Imports.
@@ -2438,7 +2437,7 @@ s3_Scenario_PresignedUrl:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Generate a presigned URL that can perform an S3 action for a limited time. Use the Requests package to make a request with the URL.
               snippet_tags:
@@ -2478,7 +2477,7 @@ s3_Scenario_PresignedUrl:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.ruby.upload_object_presigned_url.rb
     Kotlin:
@@ -2522,7 +2521,7 @@ s3_Scenario_ObjectVersioningUsage:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_versioning
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: Create functions that wrap S3 actions.
               snippet_tags:
@@ -2541,14 +2540,14 @@ s3_GetBucketLocation:
   synopsis: get the Region location for an S3 bucket.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.rust.list-buckets
   services:
@@ -2568,25 +2567,25 @@ s3_Scenario_GettingStarted:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3/S3_Basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.S3_BasicsScenario
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.java2.s3_scenario.main
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: First, import all the necessary modules.
               snippet_tags:
@@ -2621,27 +2620,27 @@ s3_Scenario_GettingStarted:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.kotlin.s3_operations.main
     PHP:
       versions:
         - sdk_version: 3
           github: php/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - php.example_code.s3.Scenario_GettingStarted
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/s3/s3_basics
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - python.example_code.s3.Scenario_GettingStarted
     Ruby:
@@ -2649,7 +2648,7 @@ s3_Scenario_GettingStarted:
         - sdk_version: 3
           github: ruby/example_code/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - ruby.example_code.s3.Scenario_GettingStarted
     Go:
@@ -2678,9 +2677,9 @@ s3_Scenario_GettingStarted:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - cpp.example_code.s3.Scenario_GettingStarted
     SAP ABAP:
@@ -2688,7 +2687,7 @@ s3_Scenario_GettingStarted:
         - sdk_version: 1
           github: sap-abap/services/s3
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - s3.abapv1.getting_started_with_s3
     Swift:
@@ -2706,9 +2705,9 @@ s3_Scenario_GettingStarted:
       versions:
         - sdk_version: 2
           github: aws-cli/bash-linux/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - aws-cli.bash-linux.s3.getting_started_scenario
             - description: The &S3; functions used in this scenario.
@@ -2734,9 +2733,9 @@ s3_Scenario_ManageACLs:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3/ManageACLsExample
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.ManageACLsExample
   services:
@@ -2753,9 +2752,9 @@ s3_Scenario_Tagging:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3/ObjectTagExample
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.ObjectTagExample
   services:
@@ -2772,9 +2771,9 @@ s3_Encryption:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3/SSEClientEncryptionExample
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.SSEClientEncryptionExample
   services:
@@ -2791,9 +2790,9 @@ s3_MultipartCopy:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3/MPUapiCopyObjExample
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - S3.dotnetv3.MPUapiCopyObjectExample
   services:
@@ -2810,7 +2809,7 @@ s3_Scenario_ListObjectsWeb:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/web/s3/list-objects
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: The following code is the relevant React component that makes calls to the &AWS; SDK. A runnable version of the application containing this component can be found at the preceding GitHub link.
               snippet_tags:
@@ -2829,9 +2828,9 @@ s3_Scenario_URIParsing:
       versions:
         - sdk_version: 2
           github: java/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description: Parse an &S3; URI by using the <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Uri.html\>S3Uri</ulink> class.
+            - description: Parse an &S3; URI by using the <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Uri.html\\\\>S3Uri</ulink> class.
               snippet_tags:
                 - s3.java2.scenario_uriparsing.import
                 - s3.java2.scenario_uriparsing.main
@@ -2849,13 +2848,13 @@ s3_Scenario_UploadStream:
       versions:
         - sdk_version: 2
           github: java/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
-            - description: Use the <ulink url=\sdk-for-java/latest/developer-guide/crt-based-s3-client.html\ type=\documentation\>&AWS; CRT-based S3 Client</ulink>.
+            - description: Use the <ulink url=\\\\sdk-for-java/latest/developer-guide/crt-based-s3-client.html\\\\ type=\\\\documentation\\\\>&AWS; CRT-based S3 Client</ulink>.
               snippet_tags:
                 - s3.java2.async_stream.import
                 - s3.java2.async_stream.main
-            - description: Use the <ulink url=\sdk-for-java/latest/developer-guide/transfer-manager.html\ type=\documentation\>&S3; Transfer Manager</ulink>.
+            - description: Use the <ulink url=\\\\sdk-for-java/latest/developer-guide/transfer-manager.html\\\\ type=\\\\documentation\\\\>&S3; Transfer Manager</ulink>.
               snippet_tags:
                 - s3.tm.java2.upload_stream.import
                 - s3.tm.java2.upload_stream.main
@@ -2873,15 +2872,15 @@ s3_Scenario_MultipartUpload:
       versions:
         - sdk_version: 2
           github: java/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: The code examples use the following imports.
               snippet_tags:
                 - s3.java2.performMultiPartUpload.import
-            - description: Use the <ulink url=\sdk-for-java/latest/developer-guide/transfer-manager.html\ type=\documentation\>S3 Transfer Manager</ulink> on top of the  <ulink url=\sdk-for-java/latest/developer-guide/crt-based-s3-client.html\ type=\documentation\>&AWS; CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the content exceeds a threshold. The default threshold size is 8 MB.
+            - description: Use the <ulink url=\\\\sdk-for-java/latest/developer-guide/transfer-manager.html\\\\ type=\\\\documentation\\\\>S3 Transfer Manager</ulink> on top of the  <ulink url=\\\\sdk-for-java/latest/developer-guide/crt-based-s3-client.html\\\\ type=\\\\documentation\\\\>&AWS; CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the content exceeds a threshold. The default threshold size is 8 MB.
               snippet_tags:
                 - s3.java2.performMultiPartUpload.transferManager
-            - description: Use the <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client API</ulink> or (S3AsyncClient API) to perform a multipart upload.
+            - description: Use the <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client API</ulink> or (S3AsyncClient API) to perform a multipart upload.
               snippet_tags:
                 - s3.java2.performMultiPartUpload.s3Client
   services:
@@ -2898,24 +2897,24 @@ s3_Scenario_UseChecksums:
       versions:
         - sdk_version: 2
           github: java/example_code/s3
-          sdkguide:  
+          sdkguide: 
           excerpts:
             - description: The code examples use a subset of the following imports.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.import
-            - description: Specify a checksum algorithm for the <code>putObject</code> method when you <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html\>build the <code>PutObjectRequest</code></ulink>.
+            - description: Specify a checksum algorithm for the <code>putObject</code> method when you <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html\\\\>build the <code>PutObjectRequest</code></ulink>.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.putObject
-            - description: Verify the checksum for the <code>getObject</code> method when you <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/GetObjectRequest.Builder.html\>build the GetObjectRequest</ulink>.
+            - description: Verify the checksum for the <code>getObject</code> method when you <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/GetObjectRequest.Builder.html\\\\>build the GetObjectRequest</ulink>.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.getObject
-            - description: Pre-calculate a checksum for the <code>putObject</code> method when you <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html\>build the <code>PutObjectRequest</code></ulink>.
+            - description: Pre-calculate a checksum for the <code>putObject</code> method when you <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html\\\\>build the <code>PutObjectRequest</code></ulink>.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.putObjectPreCalc
-            - description: Use the <ulink url=\sdk-for-java/latest/developer-guide/transfer-manager.html\ type=\documentation\>S3 Transfer Manager</ulink> on top of the <ulink url=\sdk-for-java/latest/developer-guide/crt-based-s3-client.html\ type=\documentation\ >&AWS; CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the content exceeds a threshold. The default threshold size is 8 MB.</para> <para>You can specify a checksum algorithm for the SDK to use. By default, the SDK uses the CRC32 algorithm.
+            - description: Use the <ulink url=\\\\sdk-for-java/latest/developer-guide/transfer-manager.html\\\\ type=\\\\documentation\\\\>S3 Transfer Manager</ulink> on top of the <ulink url=\\\\sdk-for-java/latest/developer-guide/crt-based-s3-client.html\\\\ type=\\\\documentation\\\\ >&AWS; CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the content exceeds a threshold. The default threshold size is 8 MB.</para> <para>You can specify a checksum algorithm for the SDK to use. By default, the SDK uses the CRC32 algorithm.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.multiPartTm
-            - description: Use the <ulink url=\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\>S3Client API</ulink> or (S3AsyncClient API) to perform a multipart upload. If you specify an additional checksum, you must specify the algorithm to use on the initiation of the upload. You must also specify the algorithm for each part request and provide the checksum calculated for each part after it is uploaded.
+            - description: Use the <ulink url=\\\\https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html\\\\>S3Client API</ulink> or (S3AsyncClient API) to perform a multipart upload. If you specify an additional checksum, you must specify the algorithm to use on the initiation of the upload. You must also specify the algorithm for each part request and provide the checksum calculated for each part after it is uploaded.
               snippet_tags:
                 - s3.java2.basicOpsWithChecksums.multiPartS3Client
   services:
@@ -2926,7 +2925,7 @@ s3_CreateMultiRegionAccessPoint:
   synopsis: create an &S3; Multi-Region Access Point.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Kotlin:
       versions:
@@ -2951,7 +2950,7 @@ s3_GetObject_MRAP:
   synopsis: get an object from a Multi-Region Access Point.
   synopsis_list:
     - 
-  category:  
+  category: 
   languages:
     Kotlin:
       versions:

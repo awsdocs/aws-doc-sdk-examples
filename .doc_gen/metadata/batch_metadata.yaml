@@ -3,7 +3,7 @@ batch_DescribeComputeEnvironments:
   title_abbrev: Describe compute environments
   synopsis: describe one or more &BATCH; compute environments.
   synopsis_list:
-    - null
+    -  
   category: 
   languages:
     Rust:
@@ -14,6 +14,9 @@ batch_DescribeComputeEnvironments:
             - description: 
               snippet_tags:
                 - batch.rust.batch-helloworld
+            - description: 
+              snippet_tags:
+                - 
           sdkguide: 
   services:
     batch: {DescribeComputeEnvironments}
@@ -23,14 +26,14 @@ batch_DescribeComputeEnvironments1:
   synopsis: describe one or more &BATCH; compute environments.
   synopsis_list:
     - download all objects in an &S3long; (&S3;) bucket to a local directory.
-  category:  
+  category: 
   languages:
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/batch
           excerpts:
-            - description:  
+            - description: 
               snippet_tags:
                 - batch.rust.batch-helloworld
   services:

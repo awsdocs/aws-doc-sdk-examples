@@ -42,7 +42,7 @@ function selectService() {
 
         }
         const serviceStub = document.getElementById('selecttheservice').value
-        const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+        const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
         xmlhttp.open("GET", sourceJson, true);
         xmlhttp.send();
     }

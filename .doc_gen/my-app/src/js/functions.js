@@ -8,7 +8,7 @@ function myfunction() {
         document.getElementById("thetitle").value = selectedItem
     }
     const serviceStub = document.getElementById('selecttheservice').value
-    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
     xmlhttp.open("GET", sourceJson, true);
     xmlhttp.send();
 };
@@ -23,7 +23,7 @@ function myfunction2() {
         document.getElementById("addatitle").value = selectedItem
     }
     const serviceStub = document.getElementById('selecttheservice').value
-    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
     xmlhttp.open("GET", sourceJson, true);
     xmlhttp.send();
 };
@@ -45,7 +45,7 @@ function myfunction36() {
         document.getElementById("commands").innerText = principalCommands.replace('{', '').replace('}', '')
     }
     const serviceStub = document.getElementById('selecttheservice').value
-    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
     xmlhttp.open("GET", sourceJson, true);
     xmlhttp.send();
 };
@@ -91,7 +91,7 @@ function myfunction3() {
     }
 
     const serviceStub = document.getElementById('selecttheservice').value
-    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
     xmlhttp.open("GET", sourceJson, true);
     xmlhttp.send();
 };
@@ -106,7 +106,7 @@ function myfunction34() {
         document.getElementById("synopsislist").value = selectedItem
     }
     const serviceStub = document.getElementById('selecttheservice').value
-    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
     xmlhttp.open("GET", sourceJson, true);
     xmlhttp.send();
 };
@@ -121,7 +121,7 @@ function myfunction35() {
         document.getElementById("category").value = selectedItem
     }
     const serviceStub = document.getElementById('selecttheservice').value
-    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
     xmlhttp.open("GET", sourceJson, true);
     xmlhttp.send();
 };
@@ -163,7 +163,7 @@ function myfunction4() {
         }
     };
     const serviceStub = document.getElementById('selecttheservice').value
-    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
     xmlhttp.open("GET", sourceJson, true);
     xmlhttp.send();
 }
@@ -195,7 +195,7 @@ function myfunction5() {
 
     }
     const serviceStub = document.getElementById('selecttheservice').value
-    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
     xmlhttp.open("GET", sourceJson, true);
     xmlhttp.send();
 
@@ -228,7 +228,7 @@ function myfunction6() {
 
     }
     const serviceStub = document.getElementById('selecttheservice').value
-    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
     xmlhttp.open("GET", sourceJson, true);
     xmlhttp.send();
 
@@ -603,7 +603,7 @@ function myfunction7() {
         }
     }
     const serviceStub = document.getElementById('selecttheservice').value
-    const sourceJson = "./jsonholder/" + serviceStub + "_metadata.json"
+    const sourceJson = "../src/jsonholder/" + serviceStub + "_metadata.json"
     xmlhttp.open("GET", sourceJson, true);
     xmlhttp.send();
 };
