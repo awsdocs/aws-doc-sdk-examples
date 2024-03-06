@@ -421,7 +421,7 @@ public class RedshiftScenario {
             System.exit(1);
         }
     }
-    // snippet-start:[redshift.java2.describe_cluster.main]
+    // snippet-end:[redshift.java2.describe_cluster.main]
 
     // snippet-start:[redshiftdata.java2.create_database.main]
     public static void createDatabase(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName) {
