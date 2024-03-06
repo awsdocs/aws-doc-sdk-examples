@@ -168,6 +168,23 @@ redshift_ModifyCluster:
                 - redshift.javascript.redshift-modify-clustersV3
   services:
     redshift: {ModifyCluster}
+redshift_Query:
+  title: Query an &RS; table using an &AWS; SDK
+  title_abbrev: Query a table
+  synopsis: query a &RS; table.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: avav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Query a table.
+              snippet_tags:
+                - redshiftdata.java2.query.main
+  services:
+    redshift: {Query}
 redshift_Scenario:
   title: Get started with &RS; tables, items, and queries
   title_abbrev: Get started with &RS;
