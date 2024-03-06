@@ -13,7 +13,18 @@ User input is also required for this program. The user is asked to input the fol
 - The year to use to query records from the database.
 - Whether or not to delete the Amazon Redshift cluster.
 
-## Program Flow
+## Hello Redshift
+This program is intended for users not familiar with the Redshift SDK to easily get up an running. The logic is to show use of `redshiftClient.describeClustersPaginator()`
+
+### Program execution
+The following shows the output of the program in the console. 
+
+``` java 
+The database name is : awsdatacatalog
+The database name is : dev
+```
+
+## Scenario Program Flow
 The program executes the following steps:
 1. Prompts the user for a unique cluster ID or use the default value.
 2. Creates a Redshift cluster with the specified or default cluster ID using `redshiftClient.createCluster()`.
@@ -27,7 +38,7 @@ The program executes the following steps:
 10. Prompts the user for confirmation to delete the Redshift cluster.
 11. If confirmed, deletes the specified Redshift cluster using `redshiftClient.deleteCluster()`.
 
-## Program execution
+### Program execution
 The following shows the output of the program in the console. 
 
 ``` java
