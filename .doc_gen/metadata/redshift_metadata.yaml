@@ -168,6 +168,23 @@ redshift_ModifyCluster:
                 - redshift.javascript.redshift-modify-clustersV3
   services:
     redshift: {ModifyCluster}
+redshift_Insert:
+  title: Insert data into an &RS; table using an &AWS; SDK
+  title_abbrev: Insert data into a table
+  synopsis: insert data into an &RS; table.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - redshiftdata.java2.add.record.main
+  services:
+    redshift: {Insert}
 redshift_Query:
   title: Query an &RS; table using an &AWS; SDK
   title_abbrev: Query a table
