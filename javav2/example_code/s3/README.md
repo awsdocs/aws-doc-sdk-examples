@@ -61,6 +61,7 @@ Code excerpts that show you how to call individual service functions.
 - [Set the website configuration for a bucket](src/main/java/com/example/s3/SetWebsiteConfiguration.java#L6) (`PutBucketWebsite`)
 - [Upload an object to a bucket](src/main/java/com/example/s3/PutObject.java#L6) (`PutObject`)
 - [Upload directory to a bucket](src/main/java/com/example/s3/transfermanager/UploadADirectory.java#L6) (`UploadDirectory`)
+- [Use SQL with Amazon S3 Select](src/main/java/com/example/s3/async/SelectObjectContentExample.java#L5) (`SelectObjectContent`)
 
 ### Scenarios
 
@@ -76,6 +77,8 @@ functions within the same service.
 
 
 <!--custom.examples.start-->
+- [Create a presigned URL for download](src/main/java/com/example/s3/GeneratePresignedGetUrlAndRetrieve.java)
+- [Create a presigned URL for upload](src/main/java/com/example/s3/GeneratePresignedUrlAndPutFileWithMetadata.java)
 <!--custom.examples.end-->
 
 ## Run the examples
