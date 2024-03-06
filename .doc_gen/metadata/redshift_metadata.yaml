@@ -177,7 +177,7 @@ redshift_Query:
     Java:
       versions:
         - sdk_version: 2
-          github: avav2/example_code/redshift
+          github: javav2/example_code/redshift
           sdkguide:
           excerpts:
             - description: Query a table.
@@ -185,6 +185,23 @@ redshift_Query:
                 - redshiftdata.java2.query.main
   services:
     redshift: {Query}
+redshift_GetStatementResult:
+  title: Get the &RS; statement result using an &AWS; SDK
+  title_abbrev: Get the statement result
+  synopsis: qet the statement result using the &RS; SDK.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Check the statement result.
+              snippet_tags:
+                - redshiftdata.java2.getresults.main
+  services:
+    redshift: {GetStatementResult}
 redshift_Scenario:
   title: Get started with &RS; tables, items, and queries
   title_abbrev: Get started with &RS;

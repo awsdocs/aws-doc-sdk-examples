@@ -36,14 +36,14 @@ public class ListDatabases {
                     clusterId - The id of the Redshift cluster (for example, redshift-cluster)\s
                 """;
 
-      //  if (args.length != 3) {
-      //      System.out.println(usage);
-      //      System.exit(1);
-      //  }
+       if (args.length != 3) {
+           System.out.println(usage);
+           System.exit(1);
+       }
 
-        String database = "dev" ;// args[0];
-        String dbUser = "awsuser" ; // args[1];
-        String clusterId = "redshift-cluster-wf" ; //args[2];
+        String database = args[0];
+        String dbUser = args[1];
+        String clusterId = args[2];
         Region region = Region.US_EAST_1;
         RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
                 .region(region)
@@ -53,8 +53,7 @@ public class ListDatabases {
         redshiftDataClient.close();
     }
 
-    public static void listAllDatabases(RedshiftDataClient redshiftDataClient, String clusterId, String dbUser,
-            String database) {
+    public static void listAllDatabases(RedshiftDataClient redshiftDataClient, String clusterId, String dbUser, String database) {
         try {
             ListDatabasesRequest databasesRequest = ListDatabasesRequest.builder()
                     .clusterIdentifier(clusterId)
