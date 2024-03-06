@@ -52,7 +52,11 @@ medical-imaging_CreateDatastore:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.CreateDatastore
+            - description: Code to instantiate the wrapper object.
+              snippet_tags:
+                - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     Java:
       versions:
         - sdk_version: 2
