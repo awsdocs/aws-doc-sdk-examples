@@ -95,7 +95,7 @@ redshift_DeleteCluster:
 redshift_DescribeClusters:
   title: Describe an &RS; cluster using an &AWS; SDK
   title_abbrev: Describe your clusters
-  synopsis: describe your &RS; clusters.
+  synopsis: describe an &RS; clusters.
   category:
   languages:
     Kotlin:
