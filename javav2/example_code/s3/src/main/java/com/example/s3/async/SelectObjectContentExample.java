@@ -3,8 +3,11 @@
 package com.example.s3.async;
 
 // snippet-start:[s3.java2.async.selectObjectContentMethod.import]
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.core.async.AsyncRequestBody;
+import software.amazon.awssdk.core.async.BlockingInputStreamAsyncRequestBody;
 import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.CSVInput;
@@ -19,13 +22,13 @@ import software.amazon.awssdk.services.s3.model.JSONType;
 import software.amazon.awssdk.services.s3.model.ObjectIdentifier;
 import software.amazon.awssdk.services.s3.model.OutputSerialization;
 import software.amazon.awssdk.services.s3.model.Progress;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.SelectObjectContentRequest;
 import software.amazon.awssdk.services.s3.model.SelectObjectContentResponseHandler;
 import software.amazon.awssdk.services.s3.model.Stats;
-import software.amazon.awssdk.transfer.s3.S3TransferManager;
 
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -45,8 +48,10 @@ public class SelectObjectContentExample {
     static final Logger logger = LoggerFactory.getLogger(SelectObjectContentExample.class);
     static final String BUCKET_NAME = "select-object-content-" + UUID.randomUUID();
     static final S3AsyncClient s3AsyncClient = S3AsyncClient.create();
-    static String FILE_CSV = "countries.csv";
-    static String FILE_JSON = "countries.json";
+    static String FILE_CSV = "csv";
+    static String FILE_JSON = "json";
+    static String URL_CSV = "https://raw.githubusercontent.com/mledoze/countries/master/dist/countries.csv";
+    static String URL_JSON = "https://raw.githubusercontent.com/mledoze/countries/master/dist/countries.json";
 
     public static void main(String[] args) {
         SelectObjectContentExample selectObjectContentExample = new SelectObjectContentExample();
@@ -66,7 +71,7 @@ public class SelectObjectContentExample {
     EventStreamInfo runSelectObjectContentMethodForJSON() {
         // Set up request parameters.
         final String queryExpression = "select * from s3object[*][*] c where c.area < 350000";
-        final String fileType = "json";
+        final String fileType = FILE_JSON;
 
         InputSerialization inputSerialization = InputSerialization.builder()
                 .json(JSONInput.builder().type(JSONType.DOCUMENT).build())
@@ -183,7 +188,7 @@ public class SelectObjectContentExample {
 // snippet-start:[s3.java2.async.selectObjectContentMethod.csv]
     EventStreamInfo runSelectObjectContentMethodForCSV() {
         final String queryExpression = "select * from s3object c where c.region in ('Asia', 'Americas', 'Africa')";
-        final String fileType = "csv";
+        final String fileType = FILE_CSV;
 
         InputSerialization inputSerialization = InputSerialization.builder()
                 .csv(CSVInput.builder().fileHeaderInfo(FileHeaderInfo.USE).build())
@@ -234,8 +239,8 @@ public class SelectObjectContentExample {
                 }).join();
     }
 
+
     static void setUp() {
-        List<String> files = List.of(FILE_CSV, FILE_JSON);
         s3AsyncClient.createBucket(r -> r
                         .bucket(BUCKET_NAME))
                 .whenComplete((resp, err) -> {
@@ -247,23 +252,21 @@ public class SelectObjectContentExample {
                     s3AsyncClient.waiter().waitUntilBucketExists(r -> r.bucket(BUCKET_NAME).build());
                 }).join();
 
-
-        try (S3TransferManager tm = S3TransferManager.create()) {
+        try (S3AsyncClient asyncClient = S3AsyncClient.crtCreate()) {
+            List<String> urls = List.of(URL_CSV, URL_JSON);
             CompletableFuture.allOf(
-                    files.stream().map(f -> {
-                                try {
-                                    return Paths.get(SelectObjectContentExample.class.getClassLoader().getResource(f).toURI());
-                                } catch (URISyntaxException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            })
-                            .peek(path -> logger.info("Submitting file for upload: {}", path))
-                            .map(p -> tm.uploadFile(b -> b
-                                    .putObjectRequest(rb -> rb
-                                            .bucket(BUCKET_NAME)
-                                            .key(p.getFileName().toString()))
-                                    .source(p)
-                                    .build()).completionFuture()).toList().toArray(new CompletableFuture[]{})
+                    urls.stream().map(url -> {
+                        BlockingInputStreamAsyncRequestBody body =
+                                AsyncRequestBody.forBlockingInputStream(null);
+                        CompletableFuture<PutObjectResponse> responseFuture = asyncClient.putObject(r -> r.bucket(BUCKET_NAME).key(
+                                url.substring(url.lastIndexOf(".") + 1).trim()), body);
+                        try {
+                            body.writeInputStream(new URL(url).openStream());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        return responseFuture;
+                    }).toList().toArray(new CompletableFuture[]{})
             ).join();
         }
     }
