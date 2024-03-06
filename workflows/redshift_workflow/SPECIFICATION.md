@@ -176,16 +176,16 @@ This concludes the Amazon Redshift example workflow.
 ## Metadata
 
 
-| action / scenario            | metadata file              | metadata key                            |
-|------------------------------|----------------------------|---------------------------------------- |
-| `deleteCluster`              | redshift_metadata.yaml     | redshift.java2.delete_cluster.main      |
-| `addrecord`                  | redshiftdata_metadata.yaml | redshiftdata.java2.data_add.record.main |
-| `describeStatement`          | redshiftdata_metadata.yaml | redshiftdata.java2.checkstatement.main  |
-| `modifyClusterd`             | redshift_metadata.yaml     | redshift.java2.mod_cluster.main         |
-| `querymoviesd`               | redshiftdata_metadata.yaml | redshiftdata.java2.mod_cluster.main     |
-| `getStatementResult`         | redshiftdata_metadata.yaml | redshiftdata.java2.getresults.main      |
-| `describeClusters`           | redshift_metadata.yaml     | redshift.java2.describe_cluster.main    |
-| `createDatabase  `           | redshiftdata_metadata.yaml | redshiftdata.java2.create_database.main |
-| `createTable `               | redshiftdata_metadata.yaml | redshiftdata.java2.create_table.main    |
-| `createCluster `             | redshift_metadata.yaml     | redshift.java2.create_cluster.main      |
-| `describeClustersPaginator ` | redshift_metadata.yaml     | redshift.java2.hello.main               |
+| action / scenario            | metadata file                | metadata key                            |
+|------------------------------|------------------------------|---------------------------------------- |
+| `deleteCluster`              | redshift_metadata.yaml       | redshift.java2.delete_cluster.main      |
+| `addrecord`                  | redshift_metadata.yaml       | redshiftdata.java2.data_add.record.main |
+| `describeStatement`          | redshift_metadata.yaml       | redshiftdata.java2.checkstatement.main  |
+| `modifyClusterd`             | redshift_metadata.yaml       | redshift.java2.mod_cluster.main         |
+| `querymoviesd`               | redshift_metadata.yaml       | redshiftdata.java2.mod_cluster.main     |
+| `getStatementResult`         | redshift_metadata.yaml       | redshiftdata.java2.getresults.main      |
+| `describeClusters`           | redshift_metadata.yaml       | redshift.java2.describe_cluster.main    |
+| `createDatabase  `           | redshift_metadata.yaml       | redshiftdata.java2.create_database.main |
+| `createTable `               | redshift_metadata.yaml       | redshiftdata.java2.create_table.main    |
+| `createCluster `             | redshift_metadata.yaml       | redshift.java2.create_cluster.main      |
+| `describeClustersPaginator ` | redshift_metadata.yaml       | redshift.java2.hello.main               |
