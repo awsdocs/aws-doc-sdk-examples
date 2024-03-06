@@ -222,7 +222,7 @@ public class RedshiftScenario {
     }
     // snippet-end:[redshift.java2.delete_cluster.main]
 
-    // snippet-start:[redshift.java2.data_addrecord.main]
+    // snippet-start:[redshiftdata.java2.add.record.main]
     public static void popTable(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName, String fileName, int number) throws IOException {
         JsonParser parser = new JsonFactory().createParser(new File(fileName));
         com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
@@ -278,8 +278,9 @@ public class RedshiftScenario {
         }
         System.out.println(t + " records were added to the Movies table. ");
     }
-    // snippet-end:[redshift.java2.data_addrecord.main]
+    // snippet-end:[redshiftdata.java2.add.record.main]
 
+    // snippet-start:[redshiftdata.java2.checkstatement.main]
     public static void checkStatement(RedshiftDataClient redshiftDataClient, String sqlId) {
         try {
             DescribeStatementRequest statementRequest = DescribeStatementRequest.builder()
@@ -305,10 +306,10 @@ public class RedshiftScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[redshiftdata.java2.checkstatement.main]
 
     // snippet-start:[redshift.java2.mod_cluster.main]
     public static void modifyCluster(RedshiftClient redshiftClient, String clusterId) {
-
         try {
             ModifyClusterRequest modifyClusterRequest = ModifyClusterRequest.builder()
                 .clusterIdentifier(clusterId)
@@ -327,6 +328,7 @@ public class RedshiftScenario {
     // snippet-end:[redshift.java2.mod_cluster.main]
 
 
+    // snippet-start:[redshiftdata.java2.query.main]
     public static String queryMoviesByYear(RedshiftDataClient redshiftDataClient,
                                            String database,
                                            String dbUser,
@@ -350,7 +352,9 @@ public class RedshiftScenario {
         }
         return "";
     }
+    // snippet-end:[redshiftdata.java2.query.main]
 
+    // snippet-start:[redshiftdata.java2.getresults.main]
     public static void getResults(RedshiftDataClient redshiftDataClient, String statementId) {
         try {
             GetStatementResultRequest resultRequest = GetStatementResultRequest.builder()
@@ -370,6 +374,7 @@ public class RedshiftScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[redshiftdata.java2.getresults.main]
 
     // snippet-start:[redshift.java2.describe_cluster.main]
     public static void waitForClusterReady(RedshiftClient redshiftClient, String clusterId) {
@@ -418,6 +423,7 @@ public class RedshiftScenario {
     }
     // snippet-start:[redshift.java2.describe_cluster.main]
 
+    // snippet-start:[redshiftdata.java2.create_database.main]
     public static void createDatabase(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName) {
         try {
             ExecuteStatementRequest createDatabaseRequest = ExecuteStatementRequest.builder()
@@ -434,7 +440,9 @@ public class RedshiftScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[redshiftdata.java2.create_database.main]
 
+    // snippet-start:[redshiftdata.java2.create_table.main]
     public static void createTable(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName) {
         try {
             ExecuteStatementRequest createTableRequest = ExecuteStatementRequest.builder()
@@ -454,6 +462,7 @@ public class RedshiftScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[redshiftdata.java2.create_table.main]
 
     // snippet-start:[redshift.java2.create_cluster.main]
     public static void createCluster(RedshiftClient redshiftClient, String clusterId, String masterUsername,

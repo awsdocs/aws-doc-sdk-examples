@@ -165,13 +165,15 @@ This concludes the Amazon Redshift example workflow.
 ## Metadata
 
 
-| action / scenario            | metadata file    | metadata key                      |
-|------------------------------|------------------| --------------------------------- |
-| `GetObjectLegalHold`         | s3_metadata.yaml | s3_GetObjectLegalHoldConfiguration   |
-| `GetObjectLockConfiguration` | s3_metadata.yaml | s3_GetObjectLockConfiguration   |
-| `GetObjectRetention`         | s3_metadata.yaml | s3_GetObjectRetention   |
-| `PutObjectLegalHold`         | s3_metadata.yaml | s3_PutObjectLegalHold   |
-| `PutObjectLockConfiguration` | s3_metadata.yaml | s3_PutObjectLockConfiguration   |
-| `PutObjectRetention`         | s3_metadata.yaml | s3_PutObjectRetention   |
-| `PutObjectLockConfiguration` | s3_metadata.yaml | s3_PutDefaultObjectLockConfiguration  |
-| `S3 Object Lock Scenario`    | s3_metadata.yaml | s3_Scenario_ObjectLock   |
+| action / scenario            | metadata file              | metadata key                            |
+|------------------------------|----------------------------|---------------------------------------- |
+| `deleteCluster`              | redshift_metadata.yaml     | redshift.java2.delete_cluster.main      |
+| `addrecord`                  | redshiftdata_metadata.yaml | redshiftdata.java2.data_add.record.main |
+| `describeStatement`          | redshiftdata_metadata.yaml | redshiftdata.java2.checkstatement.main  |
+| `modifyClusterd`             | redshift_metadata.yaml     | redshift.java2.mod_cluster.main         |
+| `querymoviesd`               | redshiftdata_metadata.yaml | redshiftdata.java2.mod_cluster.main     |
+| `getStatementResult`         | redshiftdata_metadata.yaml | redshiftdata.java2.getresults.main      |
+| `describeClusters`           | redshift_metadata.yaml     | redshift.java2.describe_cluster.main    |
+| `createDatabase  `           | redshiftdata_metadata.yaml | redshiftdata.java2.create_database.main |
+| `createTable `               | redshiftdata_metadata.yaml | redshiftdata.java2.create_table.main    |
+| `createCluster `             | redshift_metadata.yaml     | redshift.java2.create_cluster.main      |
