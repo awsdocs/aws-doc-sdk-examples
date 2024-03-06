@@ -1435,7 +1435,7 @@ GEM
     pp (0.4.0)
       prettyprint
     prettyprint (0.1.1)
-    rack (2.2.7)
+    rack (2.2.8.1)
     rack-protection (3.0.6)
       rack
     rack-test (2.1.0)

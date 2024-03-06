@@ -28,10 +28,14 @@ import { invokeMistral7B } from "./invoke-mistral7b.js";
 export const invokeMixtral8x7B = async (prompt) => {
   const client = new BedrockRuntimeClient({ region: "us-west-2" });
 
+  // Mistral instruct models provide optimal results when embedding
+  // the prompt into the following template:
+  const instruction = `<s>[INST] ${prompt} [/INST]`;
+
   const modelId = "mistral.mixtral-8x7b-instruct-v0:1";
 
   const payload = {
-    prompt: prompt,
+    prompt: instruction,
     max_tokens: 500,
     temperature: 0.5,
   };

@@ -1,7 +1,7 @@
-﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 require "aws-sdk-sns"
-require "spec_helper"
+require "rspec"
 require_relative "../create_subscription"
 
 RSpec.describe SubscriptionService do
