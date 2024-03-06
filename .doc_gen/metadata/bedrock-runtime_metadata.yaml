@@ -338,7 +338,7 @@ bedrock-runtime_Claude3_Multimodal:
           excerpts:
             - description: Invoke Anthropic Claude 3 with a multimodal prompt to analyze an image.
               snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeClaude3Multimodal
+                - python.example_code.bedrock-runtime.InvokeAnthropicClaude3Multimodal
   services:
     bedrock-runtime: {InvokeModel}
 

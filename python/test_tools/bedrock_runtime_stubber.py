@@ -240,7 +240,9 @@ class BedrockRuntimeStubber(ExampleStubber):
             "invoke_model", expected_params, response, error_code=error_code
         )
 
-    def stub_invoke_claude_3_multimodal(self, prompt, base64_image_data, error_code=None):
+    def stub_invoke_claude_3_multimodal(
+        self, prompt, base64_image_data, error_code=None
+    ):
         expected_params = {
             "modelId": "anthropic.claude-3-sonnet-20240229-v1:0",
             "body": json.dumps(
@@ -252,13 +254,14 @@ class BedrockRuntimeStubber(ExampleStubber):
                             "role": "user",
                             "content": [
                                 {"type": "text", "text": prompt},
-                                {"type": "image", "source":
-                                    {
+                                {
+                                    "type": "image",
+                                    "source": {
                                         "type": "base64",
                                         "media_type": "image/png",
-                                        "data": base64_image_data
-                                    }
-                                 },
+                                        "data": base64_image_data,
+                                    },
+                                },
                             ],
                         }
                     ],

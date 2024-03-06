@@ -134,6 +134,7 @@ class Claude3Wrapper:
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeAnthropicClaude3Multimodal]
 
+
 # snippet-end:[python.example_code.bedrock-runtime.Claude3Wrapper.class]
 
 
@@ -160,7 +161,9 @@ def usage_demo():
     image_path = "resources/images/robot.png"
     with open(image_path, "rb") as image_file:
         image = base64.b64encode(image_file.read()).decode("utf8")
-    print(f"Invoking Claude 3 Sonnet with '{multimodal_text_prompt}' and {image_path} ...")
+    print(
+        f"Invoking Claude 3 Sonnet with '{multimodal_text_prompt}' and {image_path} ..."
+    )
     wrapper.invoke_claude_3_multimodal(multimodal_text_prompt, image)
     print("-" * 88)
 

@@ -43,7 +43,7 @@ Code excerpts that show you how to call individual service functions.
 
 - [Image generation with Amazon Titan Image Generator G1](bedrock_runtime_wrapper.py#L275) (`InvokeModel`)
 - [Image generation with Stability.ai Stable Diffusion XL](bedrock_runtime_wrapper.py#L232) (`InvokeModel`)
-- [Multimodal image analysis with Anthropic Claude 3](None) (`InvokeModel`)
+- [Multimodal image analysis with Anthropic Claude 3](models/anthropic/claude_3.py#L82) (`InvokeModel`)
 - [Text generation with AI21 Labs Jurassic-2](bedrock_runtime_wrapper.py#L79) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2](bedrock_runtime_wrapper.py#L39) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2 with a response stream](bedrock_runtime_wrapper.py#L320) (`InvokeModelWithResponseStream`)
