@@ -46,7 +46,7 @@ struct ErrorHandlingExample {
                 print("   | In a real app, you might ask the user whether to use a different name or")
                 print("   | create the bucket here.")
             default:
-                print("   | Service error of type \(error.typeName ?? "<unknown>"): \(message)")
+                print("   | Service error of type \(error.errorCode ?? "<unknown>"): \(message)")
             }
         } catch {
             print("Some other error occurred.")

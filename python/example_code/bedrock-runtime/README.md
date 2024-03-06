@@ -41,14 +41,14 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Image generation with Amazon Titan Image Generator G1](bedrock_runtime_wrapper.py#L267) (`InvokeModel`)
-- [Image generation with Stability.ai Stable Diffusion XL](bedrock_runtime_wrapper.py#L224) (`InvokeModel`)
+- [Image generation with Amazon Titan Image Generator G1](bedrock_runtime_wrapper.py#L275) (`InvokeModel`)
+- [Image generation with Stability.ai Stable Diffusion XL](bedrock_runtime_wrapper.py#L232) (`InvokeModel`)
 - [Text generation with AI21 Labs Jurassic-2](bedrock_runtime_wrapper.py#L79) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2](bedrock_runtime_wrapper.py#L39) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2 with a response stream](bedrock_runtime_wrapper.py#L312) (`InvokeModelWithResponseStream`)
+- [Text generation with Anthropic Claude 2 with a response stream](bedrock_runtime_wrapper.py#L320) (`InvokeModelWithResponseStream`)
 - [Text generation with Meta Llama 2 Chat](bedrock_runtime_wrapper.py#L115) (`InvokeModel`)
 - [Text generation with Mistral 7B](bedrock_runtime_wrapper.py#L152) (`InvokeModel`)
-- [Text generation with Mixtral 8x7B](bedrock_runtime_wrapper.py#L188) (`InvokeModel`)
+- [Text generation with Mixtral 8x7B](bedrock_runtime_wrapper.py#L192) (`InvokeModel`)
 
 
 <!--custom.examples.start-->
