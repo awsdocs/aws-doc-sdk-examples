@@ -43,7 +43,7 @@ Code excerpts that show you how to call individual service functions.
 
 - [Image generation with Amazon Titan Image Generator G1](bedrock_runtime_wrapper.py#L275) (`InvokeModel`)
 - [Image generation with Stability.ai Stable Diffusion XL](bedrock_runtime_wrapper.py#L232) (`InvokeModel`)
-- [Multimodal image analysis with Anthropic Claude 3](models/anthropic/claude_3.py#L82) (`InvokeModel`)
+- [Multimodal image analysis with Anthropic Claude 3](models/anthropic/claude_3.py#L94) (`InvokeModel`)
 - [Text generation with AI21 Labs Jurassic-2](bedrock_runtime_wrapper.py#L79) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2](bedrock_runtime_wrapper.py#L39) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2 with a response stream](bedrock_runtime_wrapper.py#L320) (`InvokeModelWithResponseStream`)
@@ -62,6 +62,17 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
+The examples are wrapped into two separate scripts, with *claude_3.py* demonstrating the use of Claude 3, and *bedrock_runtime_wrapper.py* demonstrating Claude 2, Titan, Stable Diffusion, Jurassic-2, Llama 2, and both models from Mistral AI.
+
+- To run the demo for Anthropic Claude 3, navigate to the `python/example/code/bedrock-runtime` directory and type:
+  ```commandline
+  python models/anthropic/claude_3.py
+  ```
+
+- To run the demo for the other models, navigate to the `python/example/code/bedrock-runtime` directory and type:
+  ```commandline
+  python bedrock_runtime_wrapper.py
+  ```
 <!--custom.instructions.end-->
 
 

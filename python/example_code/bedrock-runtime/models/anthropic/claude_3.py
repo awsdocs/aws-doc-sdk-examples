@@ -32,6 +32,14 @@ class Claude3Wrapper:
 
     # snippet-start:[python.example_code.bedrock-runtime.InvokeAnthropicClaude3Text]
     def invoke_claude_3_with_text(self, prompt):
+        """
+        Invokes Anthropic Claude 3 Sonnet to run an inference using the input
+        provided in the request body.
+
+        :param prompt: The prompt that you want Claude 3 to complete.
+        :return: Inference response from the model.
+        """
+
         # Initialize the Amazon Bedrock runtime client
         client = self.client or boto3.client(
             service_name="bedrock-runtime", region_name="us-east-1"
@@ -73,14 +81,27 @@ class Claude3Wrapper:
 
             return result
 
-        except ClientError:
-            logger.error("Couldn't invoke Claude 3 Sonnet")
+        except ClientError as err:
+            logger.error(
+                "Couldn't invoke Claude 3 Sonnet. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeAnthropicClaude3Text]
 
     # snippet-start:[python.example_code.bedrock-runtime.InvokeAnthropicClaude3Multimodal]
     def invoke_claude_3_multimodal(self, prompt, base64_image_data):
+        """
+        Invokes Anthropic Claude 3 Sonnet to run a multimodal inference using the input
+        provided in the request body.
+
+        :param prompt:            The prompt that you want Claude 3 to use.
+        :param base64_image_data: The base64-encoded image that you want to add to the request.
+        :return: Inference response from the model.
+        """
+
         # Initialize the Amazon Bedrock runtime client
         client = self.client or boto3.client(
             service_name="bedrock-runtime", region_name="us-east-1"
@@ -111,26 +132,35 @@ class Claude3Wrapper:
                 }
             ],
         }
-        response = client.invoke_model(
-            modelId=model_id,
-            body=json.dumps(request_body),
-        )
 
-        # Process and print the response
-        result = json.loads(response.get("body").read())
-        input_tokens = result["usage"]["input_tokens"]
-        output_tokens = result["usage"]["output_tokens"]
-        output_list = result.get("content", [])
+        try:
+            response = client.invoke_model(
+                modelId=model_id,
+                body=json.dumps(request_body),
+            )
 
-        print("Invocation details:")
-        print(f"- The input length is {input_tokens} tokens.")
-        print(f"- The output length is {output_tokens} tokens.")
+            # Process and print the response
+            result = json.loads(response.get("body").read())
+            input_tokens = result["usage"]["input_tokens"]
+            output_tokens = result["usage"]["output_tokens"]
+            output_list = result.get("content", [])
 
-        print(f"- The model returned {len(output_list)} response(s):")
-        for output in output_list:
-            print(output["text"])
+            print("Invocation details:")
+            print(f"- The input length is {input_tokens} tokens.")
+            print(f"- The output length is {output_tokens} tokens.")
 
-        return result
+            print(f"- The model returned {len(output_list)} response(s):")
+            for output in output_list:
+                print(output["text"])
+
+            return result
+        except ClientError as err:
+            logger.error(
+                "Couldn't invoke Claude 3 Sonnet. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
 
     # snippet-end:[python.example_code.bedrock-runtime.InvokeAnthropicClaude3Multimodal]
 
