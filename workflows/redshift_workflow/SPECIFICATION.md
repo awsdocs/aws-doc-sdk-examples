@@ -177,3 +177,4 @@ This concludes the Amazon Redshift example workflow.
 | `createDatabase  `           | redshiftdata_metadata.yaml | redshiftdata.java2.create_database.main |
 | `createTable `               | redshiftdata_metadata.yaml | redshiftdata.java2.create_table.main    |
 | `createCluster `             | redshift_metadata.yaml     | redshift.java2.create_cluster.main      |
+| `describeClustersPaginator ` | redshift_metadata.yaml     | redshift.java2.hello.main      |
