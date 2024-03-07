@@ -389,7 +389,9 @@ medical-imaging_SearchImageSets:
                 DICOMStudyTime.
               snippet_tags:
                 - python.example_code.medical-imaging.SearchImageSets.use_case2
-            - description: "Use case #3: BETWEEN operator using createdAt. Time studies were previously persisted."
+            - description: >
+               Use case #3: BETWEEN operator using createdAt. Time studies were
+               previously persisted.
               snippet_tags:
                 - python.example_code.medical-imaging.SearchImageSets.use_case3
             - description: >
@@ -409,11 +411,15 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.equalFilter
-            - description: "Use case #2: BETWEEN operator using DICOMStudyDate and DICOMStudyTime."
+            - description: >
+               Use case #2: BETWEEN operator using DICOMStudyDate and
+               DICOMStudyTime.
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter1
-            - description: "Use case #3: BETWEEN operator using createdAt. Time studies were previously persisted."
+            - description: >
+               Use case #3: BETWEEN operator using createdAt. Time studies were
+               previously persisted.
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter2
@@ -429,10 +435,14 @@ medical-imaging_SearchImageSets:
             - description: "Use case #1: EQUAL operator."
               snippet_tags:
                 - medicalimaging.java2.search_imagesets.use_case1
-            - description: "Use case #2: BETWEEN operator using DICOMStudyDate and DICOMStudyTime."
+            - description: >
+               Use case #2: BETWEEN operator using DICOMStudyDate and
+               DICOMStudyTime.
               snippet_tags:
                 - medicalimaging.java2.search_imagesets.use_case2
-            - description: "Use case #3: BETWEEN operator using createdAt. Time studies were previously persisted."
+            - description: >
+               Use case #3: BETWEEN operator using createdAt. Time studies were
+               previously persisted.
               snippet_tags:
                 - medicalimaging.java2.search_imagesets.use_case3
     C++:
@@ -447,10 +457,14 @@ medical-imaging_SearchImageSets:
             - description: "Use case #1: EQUAL operator."
               snippet_tags:
                 - cpp.example_code.medical_imaging.SearchImageSets.use_case1
-            - description: "Use case #2: BETWEEN operator using DICOMStudyDate and DICOMStudyTime."
+            - description: >
+               Use case #2: BETWEEN operator using DICOMStudyDate and
+               DICOMStudyTime.
               snippet_tags:
                 - cpp.example_code.medical_imaging.SearchImageSets.use_case2
-            - description: "Use case #3: BETWEEN operator using createdAt. Time studies were previously persisted."
+            - description: >
+               Use case #3: BETWEEN operator using createdAt. Time studies were
+               previously persisted.
               snippet_tags:
                 - cpp.example_code.medical_imaging.SearchImageSets.use_case3
   services:
