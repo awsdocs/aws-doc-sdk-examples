@@ -128,7 +128,7 @@ public class RedshiftScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("Wait until the Redshift cluster ia available.");
+        System.out.println("Wait until the Redshift cluster is available.");
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
         waitForClusterReady(redshiftClient, clusterId);

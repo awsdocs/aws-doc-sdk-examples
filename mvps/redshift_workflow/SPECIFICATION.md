@@ -169,7 +169,7 @@ Press Enter to continue...
 The status is deleting
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-This concludes the Amazon Redshift example workflow.
+This concludes the Amazon Redshift example scenario.
 --------------------------------------------------------------------------------
 ```
 
