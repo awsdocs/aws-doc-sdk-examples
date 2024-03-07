@@ -64,7 +64,7 @@ public class AmazonRedshiftTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void Hello() {
+    public void helloRedshift() {
         assertDoesNotThrow(() -> HelloRedshift.listClustersPaginator(redshiftClient));
         System.out.println("Test 1 passed");
     }
@@ -72,7 +72,7 @@ public class AmazonRedshiftTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void FindReservedNodeOffer() {
+    public void findReservedNodeOffer() {
         assertDoesNotThrow(() -> FindReservedNodeOffer.listReservedNodes(redshiftClient));
         assertDoesNotThrow(() -> FindReservedNodeOffer.findReservedNodeOffer(redshiftClient));
         System.out.println("Test 5 passed");
@@ -81,7 +81,7 @@ public class AmazonRedshiftTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void ListDatabases() {
+    public void listDatabases() {
         assertDoesNotThrow(() -> ListDatabases.listAllDatabases(redshiftDataClient, clusterId, userName, databaseName));
         System.out.println("Test 5 passed");
     }
