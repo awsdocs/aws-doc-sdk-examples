@@ -219,6 +219,23 @@ redshift_GetStatementResult:
                 - redshiftdata.java2.getresults.main
   services:
     redshift: {GetStatementResult}
+redshift_CreateDatabase:
+  title: Create an &RS; database using an &AWS; SDK
+  title_abbrev: Create a database
+  synopsis: create an &RS; database using an &AWS; SDK.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - redshiftdata.java2.create_database.main
+  services:
+    redshift: {CreateDatabase}    
 redshift_Scenario:
   title: Get started with &RS; tables, items, and queries
   title_abbrev: Get started with &RS;
