@@ -310,6 +310,38 @@ bedrock-runtime_InvokeClaude:
   services:
     bedrock-runtime: {InvokeModel}
 
+bedrock-runtime_Claude3_Text:
+  title: Invoke Anthropic Claude 3 on &BR; to generate text
+  title_abbrev: Text generation with Anthropic Claude 3
+  synopsis: invoke Anthropic Claude 3 on &BR; to generate text.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke Anthropic Claude 3 to generate text.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeAnthropicClaude3Text
+  services:
+    bedrock-runtime: {InvokeModel}
+
+bedrock-runtime_Claude3_Multimodal:
+  title: Invoke Anthropic Claude 3 on &BR; with a multimodal prompt
+  title_abbrev: Multimodal image analysis with Anthropic Claude 3
+  synopsis: invoke Anthropic Claude 3 on &BR; with a multimodal prompt.
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke Anthropic Claude 3 with a multimodal prompt to analyze an image.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeAnthropicClaude3Multimodal
+  services:
+    bedrock-runtime: {InvokeModel}
+
 bedrock-runtime_InvokeJurassic2:
   title: Invoke the AI21 Labs Jurassic-2 model on &BR; for text generation
   title_abbrev: Text generation with AI21 Labs Jurassic-2
