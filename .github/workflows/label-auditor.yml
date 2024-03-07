@@ -19,6 +19,9 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
+        with:
+          sparse-checkout: .github/allowed-labels.yml
+          sparse-checkout-cone-mode: false
       
       # The Audit Labels workflow creates, renames, updates
       # or deletes labels based on a list of allowed labels.
