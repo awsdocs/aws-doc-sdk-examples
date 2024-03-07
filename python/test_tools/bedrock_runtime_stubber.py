@@ -208,3 +208,77 @@ class BedrockRuntimeStubber(ExampleStubber):
         self._stub_bifurcator(
             "invoke_model", expected_params, response, error_code=error_code
         )
+
+    def stub_invoke_claude_3_with_text(self, prompt, error_code=None):
+        expected_params = {
+            "modelId": "anthropic.claude-3-sonnet-20240229-v1:0",
+            "body": json.dumps(
+                {
+                    "anthropic_version": "bedrock-2023-05-31",
+                    "max_tokens": 1024,
+                    "messages": [
+                        {
+                            "role": "user",
+                            "content": [{"type": "text", "text": prompt}],
+                        }
+                    ],
+                }
+            ),
+        }
+        response = {
+            "contentType": "",
+            "body": io.BytesIO(
+                json.dumps(
+                    {
+                        "content": [{"type": "text", "text": "Test response"}],
+                        "usage": {"input_tokens": 0, "output_tokens": 0},
+                    }
+                ).encode("utf-8")
+            ),
+        }
+        self._stub_bifurcator(
+            "invoke_model", expected_params, response, error_code=error_code
+        )
+
+    def stub_invoke_claude_3_multimodal(
+        self, prompt, base64_image_data, error_code=None
+    ):
+        expected_params = {
+            "modelId": "anthropic.claude-3-sonnet-20240229-v1:0",
+            "body": json.dumps(
+                {
+                    "anthropic_version": "bedrock-2023-05-31",
+                    "max_tokens": 2048,
+                    "messages": [
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "text", "text": prompt},
+                                {
+                                    "type": "image",
+                                    "source": {
+                                        "type": "base64",
+                                        "media_type": "image/png",
+                                        "data": base64_image_data,
+                                    },
+                                },
+                            ],
+                        }
+                    ],
+                }
+            ),
+        }
+        response = {
+            "contentType": "",
+            "body": io.BytesIO(
+                json.dumps(
+                    {
+                        "content": [{"type": "text", "text": "Test response"}],
+                        "usage": {"input_tokens": 0, "output_tokens": 0},
+                    }
+                ).encode("utf-8")
+            ),
+        }
+        self._stub_bifurcator(
+            "invoke_model", expected_params, response, error_code=error_code
+        )
