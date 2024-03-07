@@ -54,6 +54,7 @@ functions within the same service.
 
 
 <!--custom.examples.start-->
+> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.examples.end-->
 
 ## Run the examples
@@ -62,6 +63,14 @@ functions within the same service.
 
 
 <!--custom.instructions.start-->
+#### Region configuration
+By default, examples are set to `us-east-1`. To specify a different region, use the `-region` flag as shown in this example:
+
+```
+go run ./hello -region=eu-central-1
+```
+
+Be aware that not all regions may support Bedrock and its models yet. Verify service availability for your region [here](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/). For available models per region, refer to the [Bedrock dashboard](https://console.aws.amazon.com/bedrock) in the AWS Management Console.
 <!--custom.instructions.end-->
 
 #### Hello Amazon Bedrock
