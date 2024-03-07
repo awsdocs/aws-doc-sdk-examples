@@ -36,6 +36,48 @@ def test_invoke_claude(make_stubber, error_code):
 
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
+def test_invoke_mistral_7b(make_stubber, error_code):
+    bedrock_runtime = boto3.client(
+        service_name="bedrock-runtime", region_name="us-west-2"
+    )
+    bedrock_runtime_stubber = make_stubber(bedrock_runtime)
+    wrapper = BedrockRuntimeWrapper(bedrock_runtime)
+
+    prompt = "Hey, how are you?"
+
+    bedrock_runtime_stubber.stub_invoke_mistral_7b(prompt, error_code=error_code)
+
+    if error_code is None:
+        got_completion = wrapper.invoke_mistral_7b(prompt)
+        assert len(got_completion) > 0
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.invoke_mistral_7b(prompt)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "ClientError"])
+def test_invoke_mixtral_8x7b(make_stubber, error_code):
+    bedrock_runtime = boto3.client(
+        service_name="bedrock-runtime", region_name="us-west-2"
+    )
+    bedrock_runtime_stubber = make_stubber(bedrock_runtime)
+    wrapper = BedrockRuntimeWrapper(bedrock_runtime)
+
+    prompt = "Hey, how are you?"
+
+    bedrock_runtime_stubber.stub_invoke_mixtral_8x7b(prompt, error_code=error_code)
+
+    if error_code is None:
+        got_completion = wrapper.invoke_mixtral_8x7b(prompt)
+        assert len(got_completion) > 0
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.invoke_mixtral_8x7b(prompt)
+        assert exc_info.value.response["Error"]["Code"] == error_code
+
+
+@pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_invoke_jurassic2(make_stubber, error_code):
     bedrock_runtime = boto3.client(
         service_name="bedrock-runtime", region_name="us-east-1"

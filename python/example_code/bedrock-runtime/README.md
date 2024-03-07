@@ -32,19 +32,23 @@ python -m pip install -r requirements.txt
 ```
 
 <!--custom.prerequisites.start-->
+
 > ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
+> 
 <!--custom.prerequisites.end-->
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Image generation with Amazon Titan Image Generator G1](bedrock_runtime_wrapper.py#L195) (`InvokeModel`)
-- [Image generation with Stability.ai Stable Diffusion XL](bedrock_runtime_wrapper.py#L152) (`InvokeModel`)
+- [Image generation with Amazon Titan Image Generator G1](bedrock_runtime_wrapper.py#L275) (`InvokeModel`)
+- [Image generation with Stability.ai Stable Diffusion XL](bedrock_runtime_wrapper.py#L232) (`InvokeModel`)
 - [Text generation with AI21 Labs Jurassic-2](bedrock_runtime_wrapper.py#L79) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2](bedrock_runtime_wrapper.py#L39) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2 with a response stream](bedrock_runtime_wrapper.py#L240) (`InvokeModelWithResponseStream`)
+- [Text generation with Anthropic Claude 2 with a response stream](bedrock_runtime_wrapper.py#L320) (`InvokeModelWithResponseStream`)
 - [Text generation with Meta Llama 2 Chat](bedrock_runtime_wrapper.py#L115) (`InvokeModel`)
+- [Text generation with Mistral 7B](bedrock_runtime_wrapper.py#L152) (`InvokeModel`)
+- [Text generation with Mixtral 8x7B](bedrock_runtime_wrapper.py#L192) (`InvokeModel`)
 
 
 <!--custom.examples.start-->
@@ -56,11 +60,6 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
-Run the example by executing the following command inside the `example_code` folder:
-
-```
-python bedrock_runtime_wrapper.py
-```
 <!--custom.instructions.end-->
 
 

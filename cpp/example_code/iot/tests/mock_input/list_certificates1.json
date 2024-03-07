@@ -1,0 +1,19 @@
+{
+  "certificates": [
+    {
+      "certificateArn": "arn:aws:iot:test:123456789012:cert/1234567890123456789012345678901234567890123456789012345678901234",
+      "certificateId": "1234567890123456789012345678901234567890123456789012345678901234",
+      "certificateMode": null,
+      "creationDate": 1.708960442353E9,
+      "status": "INACTIVE"
+    },
+    {
+      "certificateArn": "arn:aws:iot:test:123456789012:cert/1234567890123456789012345678901234567890123456789012345678901234",
+      "certificateId": "1234567890123456789012345678901234567890123456789012345678901234",
+      "certificateMode": null,
+      "creationDate": 1.707322634364E9,
+      "status": "INACTIVE"
+    }
+  ],
+  "nextMarker": "aabbcc"
+}

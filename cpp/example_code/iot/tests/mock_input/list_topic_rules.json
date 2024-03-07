@@ -1,0 +1,12 @@
+{
+  "nextToken": null,
+  "rules": [
+    {
+      "createdAt": 1.708975111E9,
+      "ruleArn": "arn:aws:iot:test:123456789012:rule/cpp_test_rule",
+      "ruleDisabled": false,
+      "ruleName": "cpp_test_rule",
+      "topicPattern": "topic/subtopic"
+    }
+  ]
+}

@@ -27,19 +27,23 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 
 <!--custom.prerequisites.start-->
+
 > ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
+> 
 <!--custom.prerequisites.end-->
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Image generation with Amazon Titan Image Generator G1](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L288) (`InvokeModel`)
-- [Image generation with Stability.ai Stable Diffusion XL](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L218) (`InvokeModel`)
-- [Text generation with AI21 Labs Jurassic-2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L94) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L32) (`InvokeModel`)
+- [Image generation with Amazon Titan Image Generator G1](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L399) (`InvokeModel`)
+- [Image generation with Stability.ai Stable Diffusion XL](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L329) (`InvokeModel`)
+- [Text generation with AI21 Labs Jurassic-2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L205) (`InvokeModel`)
+- [Text generation with Anthropic Claude 2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L143) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2 with a response stream](src/main/java/com/example/bedrockruntime/InvokeModelWithResponseStream.java#L28) (`InvokeModelWithResponseStream`)
-- [Text generation with Meta Llama 2 Chat](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L157) (`InvokeModel`)
+- [Text generation with Meta Llama 2 Chat](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L268) (`InvokeModel`)
+- [Text generation with Mistral 7B](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L33) (`InvokeModel`)
+- [Text generation with Mixtral 8x7B](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L88) (`InvokeModel`)
 
 
 <!--custom.examples.start-->

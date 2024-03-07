@@ -1,0 +1,10 @@
+{
+  "attributes": {},
+  "billingGroupName": null,
+  "defaultClientId": "cpp_test_thing",
+  "thingArn": "arn:aws:iot:test:123456789012:thing/cpp_test_thing",
+  "thingId": "12345678-1234-1234-1234-123456789012",
+  "thingName": "cpp_test_thing",
+  "thingTypeName": null,
+  "version": 1
+}

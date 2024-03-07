@@ -49,13 +49,20 @@ Code excerpts that show you how to call individual service functions.
 - [Get CORS rules for a bucket](s3CORSExample/S3CORS.cs#L125) (`GetBucketCors`)
 - [Get an object from a bucket](S3_Basics/S3Bucket.cs#L85) (`GetObject`)
 - [Get the ACL of a bucket](BucketACLExample/BucketACL.cs#L75) (`GetBucketAcl`)
+- [Get the legal hold configuration of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L259) (`GetObjectLegalHold`)
 - [Get the lifecycle configuration of a bucket](LifecycleExample/Lifecycle.cs#L169) (`GetBucketLifecycleConfiguration`)
+- [Get the object lock configuration of a bucket](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L290) (`GetObjectLockConfiguration`)
+- [Get the retention configuration of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L193) (`GetObjectRetention`)
 - [Get the website configuration for a bucket](WebsiteConfigExample/WebsiteConfig.cs#L72) (`GetBucketWebsite`)
 - [List buckets](ListBucketsExample/ListBuckets.cs#L4) (`ListBuckets`)
 - [List object versions in a bucket](versioned-examples/ListObjectVersionsExample/ListObjectVersions.cs#L6) (`ListObjectVersions`)
 - [List objects in a bucket](S3_Basics/S3Bucket.cs#L171) (`ListObjectsV2`)
 - [Restore an archived copy of an object](RestoreArchivedObjectExample/RestoreArchivedObject.cs#L6) (`RestoreObject`)
 - [Set a new ACL for a bucket](BucketACLExample/BucketACL.cs#L37) (`PutBucketAcl`)
+- [Set the default retention period of a bucket](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L139) (`PutObjectLockConfiguration`)
+- [Set the legal hold configuration of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L224) (`PutObjectLegalHold`)
+- [Set the object lock configuration of an bucket](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L60) (`PutObjectLockConfiguration`)
+- [Set the retention period of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L102) (`PutObjectRetention`)
 - [Set the website configuration for a bucket](WebsiteConfigExample/WebsiteConfig.cs#L57) (`PutBucketWebsite`)
 - [Upload an object to a bucket](S3_Basics/S3Bucket.cs#L43) (`PutObject`)
 
@@ -68,6 +75,7 @@ functions within the same service.
 - [Get started with buckets and objects](S3_Basics/S3_Basics.cs)
 - [Get started with encryption](SSEClientEncryptionExample/SSEClientEncryption.cs)
 - [Get started with tags](ObjectTagExample/ObjectTag.cs)
+- [Lock Amazon S3 objects](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ObjectLockWorkflow.cs)
 - [Manage access control lists (ACLs)](ManageACLsExample/ManageACLs.cs)
 - [Perform a multipart copy](MPUapiCopyObjExample/MPUapiCopyObj.cs)
 - [Upload or download large files](scenarios/TransferUtilityBasics/TransferUtilityBasics/TransferBasics.cs)
@@ -162,6 +170,18 @@ This example shows you how to get started with tags for Amazon S3 objects.
 
 <!--custom.scenarios.s3_Scenario_Tagging.start-->
 <!--custom.scenarios.s3_Scenario_Tagging.end-->
+
+#### Lock Amazon S3 objects
+
+This example shows you how to work with S3 object lock features.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ObjectLock.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ObjectLock.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ObjectLock.start-->
+<!--custom.scenarios.s3_Scenario_ObjectLock.end-->
 
 #### Manage access control lists (ACLs)
 

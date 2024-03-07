@@ -15,7 +15,7 @@ RUN \
 
 # Build only the services needed for example code.
 ENV SERVICES="acm;autoscaling;cloudtrail;codebuild;codecommit;cognito-idp;dynamodb;ec2;elasticache;elasticbeanstalk"
-ENV SERVICES=${SERVICES}";elasticfilesystem;email;events;glacier;glue;guardduty;iam;kinesis;lambda;logs;mediaconvert;medical-imaging;monitoring"
+ENV SERVICES=${SERVICES}";elasticfilesystem;email;events;glacier;glue;guardduty;iam;iot;iot-data;kinesis;lambda;logs;mediaconvert;medical-imaging;monitoring"
 ENV SERVICES=${SERVICES}";monitoring;neptune;rds;rds-data;redshift;rekognition;s3;s3-crt;s3-encryption;secretsmanager;sesv2;sns;sqs"
 ENV SERVICES=${SERVICES}";storagegateway;sts;transfer;transcribe;transcribestreaming"
 

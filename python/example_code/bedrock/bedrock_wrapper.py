@@ -41,9 +41,11 @@ class BedrockWrapper:
         try:
             return self.bedrock_client.get_foundation_model(
                 modelIdentifier=model_identifier
-            )
+            )["modelDetails"]
         except ClientError:
-            logger.error("Couldn't list foundation models.")
+            logger.error(
+                f"Couldn't get foundation models details for {model_identifier}"
+            )
             raise
 
     # snippet-end:[python.example_code.bedrock.GetFoundationModel]
