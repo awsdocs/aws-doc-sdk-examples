@@ -77,14 +77,14 @@ public class RedshiftScenario {
                 jsonFilePath - The path to the Movies JSON file (you can locate that file in resources/sample_files)
             """;
 
-        //  if (args.length != 2) {
-        //      System.out.println(usage);
-        //      System.exit(1);
-        //   }
+        if (args.length != 3) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String userName = "awsuser" ; //args[0];
-        String userPassword = "awsPassword10" ; //args[0];
-        String jsonFilePath = "C:\\Users\\scmacdon\\Test_Git\\aws-doc-sdk-examples-main\\resources\\sample_files\\Movies.json" ;
+        String userName = args[0];
+        String userPassword = args[1];
+        String jsonFilePath = args[2] ;
         String databaseName ;
         Scanner scanner = new Scanner(System.in);
 

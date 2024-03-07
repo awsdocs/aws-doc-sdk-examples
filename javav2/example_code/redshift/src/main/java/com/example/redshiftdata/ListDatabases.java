@@ -28,7 +28,7 @@ public class ListDatabases {
         final String usage = """
 
                 Usage:
-                    ListDatabases <database> <dbUser> <sqlStatement> <clusterId>\s
+                    <database> <dbUser> <clusterId>\s
 
                 Where:
                     database - The name of the database (for example, dev)\s

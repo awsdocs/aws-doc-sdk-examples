@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.redshift.*;
+import com.example.redshiftdata.ListDatabases;
 import com.example.scenario.RedshiftScenario;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
@@ -25,9 +26,15 @@ import java.util.concurrent.TimeUnit;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonRedshiftTest {
     private static RedshiftClient redshiftClient;
+
+    private static RedshiftDataClient redshiftDataClient;
     private static String clusterId = "";
-    private static String secretName = "";
-    private static String eventSourceType = "";
+
+    private static String fileNameSc = "";
+
+    private static String userName = "";
+
+    private static String databaseName = "" ;
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -36,6 +43,11 @@ public class AmazonRedshiftTest {
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
+        redshiftDataClient = RedshiftDataClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
+
+
         Random rand = new Random();
         int randomNum = rand.nextInt((10000 - 1) + 1) + 1;
 
@@ -43,41 +55,23 @@ public class AmazonRedshiftTest {
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        clusterId = values.getClusterId() + randomNum;
-        secretName = values.getSecretName();
-        eventSourceType = values.getEventSourceType();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AmazonRedshiftTest.class.getClassLoader().getResourceAsStream(
-         * "config.properties")) {
-         * Properties prop = new Properties();
-         *
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         *
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * clusterId = prop.getProperty("clusterId")+randomNum;
-         * masterUsername = prop.getProperty("masterUsername");
-         * masterUserPassword = prop.getProperty("masterUserPassword");
-         * eventSourceType = prop.getProperty("eventSourceType");
-         *
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
+        clusterId = values.getClusterId();
+        userName = values.getUserName();
+        fileNameSc = values.getFileName();
+        databaseName = "dev" ;
     }
-
-
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
+    public void Hello() {
+        assertDoesNotThrow(() -> HelloRedshift.listClustersPaginator(redshiftClient));
+        System.out.println("Test 1 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(2)
     public void FindReservedNodeOffer() {
         assertDoesNotThrow(() -> FindReservedNodeOffer.listReservedNodes(redshiftClient));
         assertDoesNotThrow(() -> FindReservedNodeOffer.findReservedNodeOffer(redshiftClient));
@@ -86,26 +80,31 @@ public class AmazonRedshiftTest {
 
     @Test
     @Tag("IntegrationTest")
+    @Order(2)
+    public void ListDatabases() {
+        assertDoesNotThrow(() -> ListDatabases.listAllDatabases(redshiftDataClient, clusterId, userName, databaseName));
+        System.out.println("Test 5 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
     @Order(3)
     public void testScenario() throws InterruptedException, IOException {
-        RedshiftDataClient redshiftDataClient = RedshiftDataClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+        Random random = new Random();
+        int randomNum = random.nextInt((10000 - 1) + 1) + 1;
 
-        String secretName = "redshift/work" ; //args[0];
-        String jsonFilePath = "C:\\Users\\scmacdon\\Test_Git\\aws-doc-sdk-examples-main\\resources\\sample_files\\Movies.json" ;
-        String databaseName = "dev" ;
-        String clusterId = "redshift-cluster-test";
-        Gson gson = new Gson();
-        User user = gson.fromJson(String.valueOf(RedshiftScenario.getSecretValues(secretName)), User.class);
+        String userName = "awsuser";
+        String userPassword = "awsPassword10";
+        String databaseName = "dev";
+        String clusterId = "redshift-cluster"+randomNum;
 
-        RedshiftScenario.createCluster(redshiftClient, clusterId, user.getMasterUsername(), user.getMasterUserPassword());
+        RedshiftScenario.createCluster(redshiftClient, clusterId, userName, userPassword);
         RedshiftScenario.waitForClusterReady(redshiftClient, clusterId);
         RedshiftScenario.createDatabase(redshiftDataClient, clusterId, databaseName);
         RedshiftScenario.createTable(redshiftDataClient, clusterId, databaseName);
-        RedshiftScenario.popTable(redshiftDataClient, clusterId, databaseName, jsonFilePath, 50);
-        String sqlYear = " SELECT * FROM Movies WHERE year = 2012 ;" ;
-        String id = RedshiftScenario.queryMoviesByYear(redshiftDataClient, databaseName, user.getMasterUsername(), sqlYear, clusterId);
+        RedshiftScenario.popTable(redshiftDataClient, clusterId, databaseName, fileNameSc, 50);
+        String sqlYear = "SELECT * FROM Movies WHERE year = 2012 ;" ;
+        String id = RedshiftScenario.queryMoviesByYear(redshiftDataClient, databaseName, userName, sqlYear, clusterId);
         RedshiftScenario.checkStatement(redshiftDataClient, id);
         TimeUnit.SECONDS.sleep(30);
         RedshiftScenario.getResults(redshiftDataClient, id);
@@ -131,19 +130,19 @@ public class AmazonRedshiftTest {
     @DisplayName("A class used to get test values from test/red (an AWS Secrets Manager secret)")
     class SecretValues {
         private String clusterId;
-        private String secretName;
-        private String eventSourceType;
+        private String userName;
+        private String fileName;
 
         public String getClusterId() {
             return clusterId;
         }
 
-        public String getSecretName() {
-            return secretName;
+        public String getUserName() {
+            return userName;
         }
 
-        public String getEventSourceType() {
-            return eventSourceType;
+        public String getFileName() {
+            return fileName;
         }
     }
 }

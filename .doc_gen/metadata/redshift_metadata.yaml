@@ -188,7 +188,7 @@ redshift_Insert:
 redshift_Query:
   title: Query an &RS; table using an &AWS; SDK
   title_abbrev: Query a table
-  synopsis: query a &RS; table.
+  synopsis: query an &RS; table.
   category:
   languages:
     Java:
