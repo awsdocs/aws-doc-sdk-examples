@@ -1,7 +1,7 @@
 # Redshift Scenario Java Specification
 
 ## Overview
-This Java program serves as an example workflow for interacting with Amazon Redshift using the AWS SDK for Java (v2). It demonstrates various tasks such as creating a Redshift cluster, verifying its readiness, establishing a database, creating a table, populating data, executing SQL queries, and finally, cleaning up resources. Its purpose is to demonstrate how to get up and running with Amazon Redshift and the AWS SDK for Java V2.
+This Java program serves as an getting started MVP for interacting with Amazon Redshift using the AWS SDK for Java (v2). It demonstrates various tasks such as creating a Redshift cluster, verifying its readiness, establishing a database, creating a table, populating data, executing SQL queries, and finally, cleaning up resources. Its purpose is to demonstrate how to get up and running with Amazon Redshift and the AWS SDK for Java V2.
 
 ## Resources and User Input
 The only required resource for this Java program is the Movie.json file. This can be located in the `aws-doc-sdk-examples\resources\sample_files` folder.
@@ -44,7 +44,7 @@ The following shows the output of the program in the console.
 ``` java
 
 --------------------------------------------------------------------------------
-Welcome to the Amazon Redshift example workflow.
+Welcome to the Amazon Redshift example Getting Started Scenario.
 This Java program demonstrates how to interact with Amazon Redshift by using the AWS SDK for Java (v2).
 Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted in the cloud.
 
