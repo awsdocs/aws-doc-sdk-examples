@@ -20,8 +20,8 @@ This program is intended for users not familiar with the Redshift SDK to easily 
 The following shows the output of the program in the console. 
 
 ``` java 
-The database name is : awsdatacatalog
-The database name is : dev
+ Cluster identifier: redshift-cluster-1 status = available
+ Cluster identifier: redshift-cluster-wf status = available
 ```
 
 ## Scenario Program Flow
