@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.redshift.*;
-import com.example.redshiftdata.ListDatabases;
 import com.example.scenario.RedshiftScenario;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
@@ -34,6 +33,8 @@ public class AmazonRedshiftTest {
 
     private static String userName = "";
 
+    private static String userPassword = "" ;
+
     private static String databaseName = "" ;
 
     @BeforeAll
@@ -55,8 +56,9 @@ public class AmazonRedshiftTest {
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        clusterId = values.getClusterId();
+        clusterId = values.getClusterId() +randomNum;
         userName = values.getUserName();
+        userPassword = values.getPassword();
         fileNameSc = values.getFileName();
         databaseName = "dev" ;
     }
@@ -80,24 +82,8 @@ public class AmazonRedshiftTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(2)
-    public void listDatabases() {
-        assertDoesNotThrow(() -> ListDatabases.listAllDatabases(redshiftDataClient, clusterId, userName, databaseName));
-        System.out.println("Test 5 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
     @Order(3)
     public void testScenario() throws InterruptedException, IOException {
-        Random random = new Random();
-        int randomNum = random.nextInt((10000 - 1) + 1) + 1;
-
-        String userName = "awsuser";
-        String userPassword = "awsPassword10";
-        String databaseName = "dev";
-        String clusterId = "redshift-cluster"+randomNum;
-
         RedshiftScenario.createCluster(redshiftClient, clusterId, userName, userPassword);
         RedshiftScenario.waitForClusterReady(redshiftClient, clusterId);
         RedshiftScenario.createDatabase(redshiftDataClient, clusterId, databaseName);
@@ -108,6 +94,7 @@ public class AmazonRedshiftTest {
         RedshiftScenario.checkStatement(redshiftDataClient, id);
         TimeUnit.SECONDS.sleep(30);
         RedshiftScenario.getResults(redshiftDataClient, id);
+        RedshiftScenario.listAllDatabases(redshiftDataClient, clusterId, userName, databaseName);
         RedshiftScenario.deleteRedshiftCluster(redshiftClient, clusterId);
     }
 
@@ -131,6 +118,8 @@ public class AmazonRedshiftTest {
     class SecretValues {
         private String clusterId;
         private String userName;
+
+        private String password;
         private String fileName;
 
         public String getClusterId() {
@@ -139,6 +128,10 @@ public class AmazonRedshiftTest {
 
         public String getUserName() {
             return userName;
+        }
+
+        public String getPassword() {
+            return password;
         }
 
         public String getFileName() {

@@ -29,8 +29,10 @@ import software.amazon.awssdk.services.redshiftdata.model.ExecuteStatementRespon
 import software.amazon.awssdk.services.redshiftdata.model.Field;
 import software.amazon.awssdk.services.redshiftdata.model.GetStatementResultRequest;
 import software.amazon.awssdk.services.redshiftdata.model.GetStatementResultResponse;
+import software.amazon.awssdk.services.redshiftdata.model.ListDatabasesRequest;
 import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
 import software.amazon.awssdk.services.redshiftdata.model.SqlParameter;
+import software.amazon.awssdk.services.redshiftdata.paginators.ListDatabasesIterable;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
@@ -54,13 +56,18 @@ import java.util.concurrent.TimeUnit;
  *
  This Java example performs these tasks:
  *
- * 1. Creates an Amazon Redshift Cluster.
- * 2. Waits for the Cluster to be available.
- * 3. Creates a Redshift database.
- * 4. Creates a Movie table.
- * 5. Populates the Movies table using the Movies.json file.
- * 6. Queries the Movies table by year.
- * 7. Deletes the Amazon Redshift cluster.
+ * 1. Prompts the user for a unique cluster ID or use the default value.
+ * 2. Creates a Redshift cluster with the specified or default cluster ID.
+ * 3. Waits until the Redshift cluster is available for use.
+ * 4. Prompts the user for a database name or use the default value.
+ * 5. Creates a Redshift database within the specified cluster.
+ * 6. Creates a table named "Movies" with fields ID, title, and year.
+ * 7. Inserts a specified number of records into the "Movies" table by reading the Movies JSON file.
+ * 8. Prompts the user for a movie release year.
+ * 9. Runs a SQL query to retrieve movies released in the specified year.
+ * 10. Lists all databases using a pagination API call.
+ * 11. Prompts the user for confirmation to delete the Redshift cluster.
+ * 12. If confirmed, deletes the specified Redshift cluster.
  */
 
 public class RedshiftScenario {
@@ -77,14 +84,14 @@ public class RedshiftScenario {
                 jsonFilePath - The path to the Movies JSON file (you can locate that file in resources/sample_files)
             """;
 
-        if (args.length != 3) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+       // if (args.length != 3) {
+       //     System.out.println(usage);
+       //     System.exit(1);
+       // }
 
-        String userName = args[0];
-        String userPassword = args[1];
-        String jsonFilePath = args[2] ;
+        String userName = "awsuser" ; //args[0];
+        String userPassword = "Aws10000" ; // args[1];
+        String jsonFilePath = "../../../resources/sample_files/movies.json" ; //args[2] ;
         String databaseName ;
         Scanner scanner = new Scanner(System.in);
 
@@ -98,24 +105,21 @@ public class RedshiftScenario {
             .build();
 
         System.out.println(DASHES);
-        System.out.println("Welcome to the Amazon Redshift example workflow.");
+        System.out.println("Welcome to the Amazon Redshift example MVP scenario.");
         System.out.println("""
-        This Java program demonstrates how to interact with Amazon Redshift by using the AWS SDK for Java (v2). 
+        This Java program demonstrates how to interact with Amazon Redshift by using the AWS SDK for Java (v2).\s
         Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted in the cloud.
                                                                             
-        The program's primary functionalities includes cluster creation, verification of cluster readiness, database establishment, 
-        table creation, data population within the table, and execution of SQL statements. Furthermore, it demonstrates 
-        the process of retrieving data from the Movie table. Upon completion of the program, all AWS resources are cleaned up.
+        The program's primary functionalities include cluster creation, verification of cluster readiness,\s
+        database establishment, table creation, data population within the table, and execution of SQL statements.
+        Furthermore, it demonstrates the process of querying data from the Movie table.\s
+        
+        Upon completion of the program, all AWS resources are cleaned up.
         """);
 
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
         System.out.println(DASHES);
-
-        System.out.println(DASHES);
-        System.out.println("Get Amazon Redshift credentials from AWS Secret Manager");
-        System.out.print("Press Enter to continue...");
-        scanner.nextLine();
 
         System.out.println(DASHES);
         System.out.println("A Redshift cluster refers to the collection of computing resources and storage that work together to process and analyze large volumes of data.");
@@ -187,6 +191,13 @@ public class RedshiftScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
+        System.out.println("Now you will list your databases.");
+        System.out.print("Press Enter to continue...");
+        scanner.nextLine();
+        listAllDatabases(redshiftDataClient, clusterId, userName, databaseName);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
         System.out.println("Would you like to delete the Amazon Redshift cluster? (y/n)");
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
@@ -200,8 +211,28 @@ public class RedshiftScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("This concludes the Amazon Redshift example workflow.");
+        System.out.println("This concludes the Amazon Redshift example mvp scenario.");
         System.out.println(DASHES);
+    }
+
+    public static void listAllDatabases(RedshiftDataClient redshiftDataClient, String clusterId, String dbUser, String database) {
+        try {
+            ListDatabasesRequest databasesRequest = ListDatabasesRequest.builder()
+                .clusterIdentifier(clusterId)
+                .dbUser(dbUser)
+                .database(database)
+                .build();
+
+            ListDatabasesIterable listDatabasesIterable = redshiftDataClient.listDatabasesPaginator(databasesRequest);
+            listDatabasesIterable.stream()
+                .flatMap(r -> r.databases().stream())
+                .forEach(db -> System.out
+                    .println("The database name is : " + db));
+
+        } catch (RedshiftDataException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
 
     // snippet-start:[redshift.java2.delete_cluster.main]

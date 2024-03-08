@@ -35,8 +35,9 @@ The program executes the following steps:
 7. Inserts a specified number of records into the "Movies" table by reading the Movies JSON file. Then it uses `redshiftDataClient.executeStatement()` to insert movie data.
 8. Prompts the user for a movie release year.
 9. Runs a SQL query, using `redshiftDataClient.executeStatement()`, to retrieve movies released in the specified year. The result set is displayed in the program.
-10. Prompts the user for confirmation to delete the Redshift cluster.
-11. If confirmed, deletes the specified Redshift cluster using `redshiftClient.deleteCluster()`.
+10. Lists all databases using pagination API call. 
+11. Prompts the user for confirmation to delete the Redshift cluster.
+12. If confirmed, deletes the specified Redshift cluster using `redshiftClient.deleteCluster()`.
 
 ### Program execution
 The following shows the output of the program in the console. 
@@ -44,19 +45,18 @@ The following shows the output of the program in the console.
 ``` java
 
 --------------------------------------------------------------------------------
-Welcome to the Amazon Redshift example Getting Started Scenario.
-This Java program demonstrates how to interact with Amazon Redshift by using the AWS SDK for Java (v2).
+Welcome to the Amazon Redshift example MVP scenario.
+This Java program demonstrates how to interact with Amazon Redshift by using the AWS SDK for Java (v2). 
 Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted in the cloud.
 
-The program's primary functionalities includes cluster creation, verification of cluster readiness, database establishment,
-table creation, data population within the table, and execution of SQL statements. Furthermore, it demonstrates
-the process of retrieving data from the Movie table. Upon completion of the program, all AWS resources are cleaned up.
+The program's primary functionalities include cluster creation, verification of cluster readiness, 
+database establishment, table creation, data population within the table, and execution of SQL statements.
+Furthermore, it demonstrates the process of querying data from the Movie table. 
+
+Upon completion of the program, all AWS resources are cleaned up.
 
 Press Enter to continue...
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-Get Amazon Redshift credentials from AWS Secret Manager
-Press Enter to continue...
 --------------------------------------------------------------------------------
 A Redshift cluster refers to the collection of computing resources and storage that work together to process and analyze large volumes of data.
 Enter a cluster id value (default is redshift-cluster-200): 
@@ -64,25 +64,25 @@ Enter a cluster id value (default is redshift-cluster-200):
 Created cluster redshift-cluster-200
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-Wait until the Redshift cluster ia available.
+Wait until the Redshift cluster is available.
 Press Enter to continue...
 Waiting for cluster to become available. This may take a few mins.
 Elapsed Time: 00:00 - Waiting for cluster... 
 Elapsed Time: 00:05 - Waiting for cluster... 
-Elapsed Time: 00:11 - Waiting for cluster... 
+Elapsed Time: 00:10 - Waiting for cluster... 
 Elapsed Time: 00:16 - Waiting for cluster... 
 Elapsed Time: 00:21 - Waiting for cluster... 
-Elapsed Time: 00:27 - Waiting for cluster... 
-Elapsed Time: 00:32 - Waiting for cluster... 
+Elapsed Time: 00:26 - Waiting for cluster... 
+Elapsed Time: 00:31 - Waiting for cluster... 
 Elapsed Time: 00:37 - Waiting for cluster... 
-Elapsed Time: 00:43 - Waiting for cluster... 
-Elapsed Time: 00:48 - Waiting for cluster... 
-Elapsed Time: 00:53 - Waiting for cluster... 
-Elapsed Time: 00:59 - Waiting for cluster... 
-Elapsed Time: 01:04 - Waiting for cluster... 
-Elapsed Time: 01:09 - Waiting for cluster... 
-Elapsed Time: 01:15 - Waiting for cluster... 
-Cluster is available! Total Elapsed Time: 01:20
+Elapsed Time: 00:42 - Waiting for cluster... 
+Elapsed Time: 00:47 - Waiting for cluster... 
+Elapsed Time: 00:52 - Waiting for cluster... 
+Elapsed Time: 00:58 - Waiting for cluster... 
+Elapsed Time: 01:03 - Waiting for cluster... 
+Elapsed Time: 01:08 - Waiting for cluster... 
+Elapsed Time: 01:14 - Waiting for cluster... 
+Cluster is available! Total Elapsed Time: 01:19
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Create a Redshift database
@@ -154,12 +154,18 @@ Inserted: Despicable Me 2 (2013)
 --------------------------------------------------------------------------------
 Query the Movies table by year. Enter a value between 2010-2014.
 Enter a year: 2012
-The identifier of the statement is a2ad4b6a-463e-4fb2-a787-d29d8e2c543b
+The identifier of the statement is cf006da9-48b9-4ff6-8274-83916353e67d
 ...PICKED
 ...FINISHED
 The statement is finished!
 The Movie title field is Pitch Perfect
 The Movie title field is The Avengers
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Now you will list your databases.
+Press Enter to continue...
+The database name is : awsdatacatalog
+The database name is : dev
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Would you like to delete the Amazon Redshift cluster? (y/n)
@@ -169,7 +175,7 @@ Press Enter to continue...
 The status is deleting
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-This concludes the Amazon Redshift example scenario.
+This concludes the Amazon Redshift example mvp scenario.
 --------------------------------------------------------------------------------
 ```
 
