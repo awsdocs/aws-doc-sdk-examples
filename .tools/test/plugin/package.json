@@ -21,7 +21,11 @@
     "typescript": "~5.2.2"
   },
   "dependencies": {
+    "@aws-cdk/aws-batch": "^1.204.0",
+    "@aws-cdk/aws-ecs": "^1.204.0",
+    "@aws-cdk/aws-ecs-patterns": "^1.204.0",
     "@aws-cdk/aws-iam": "^1.204.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.204.0",
     "@aws-cdk/aws-s3": "^1.204.0",
     "@aws-cdk/core": "^1.204.0",
     "aws-cdk-lib": "2.95.1",

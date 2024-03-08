@@ -5,6 +5,7 @@ import * as events from 'aws-cdk-lib/aws-events';
 import * as targets from 'aws-cdk-lib/aws-events-targets';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { SqsEventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as sns from 'aws-cdk-lib/aws-sns';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
@@ -16,7 +17,7 @@ import * as fs from 'fs';
 
 const toolName = process.env.TOOL_NAME ?? 'defaultToolName';
 
-export class ConsumerStack extends cdk.Stack {
+export class PluginStack extends cdk.Stack {
   private awsRegion: string;
   private adminAccountId: string;
 
@@ -24,17 +25,22 @@ export class ConsumerStack extends cdk.Stack {
     super(scope, id, props);
 
     const resourceConfig = this.getYamlConfig('../config/resources.yaml');
+    const acctConfig = this.getYamlConfig("../config/targets.yaml");
     const adminTopicName = resourceConfig['topic_name'];
     const adminBucketName = resourceConfig['bucket_name'];
     this.awsRegion = resourceConfig['aws_region'];
     this.adminAccountId = resourceConfig['admin_acct'];
     const snsTopic = this.initGetTopic(adminTopicName);
     const sqsQueue = new sqs.Queue(this, `BatchJobQueue-${toolName}`);
-    this.initSubscribeSns(sqsQueue, snsTopic);
+    if (acctConfig[`${toolName}`].status === "enabled") {
+      this.initSubscribeSns(sqsQueue, snsTopic);
+    }
     const [jobDefinition, jobQueue] = this.initBatchFargate();
     const batchFunction = this.initBatchLambda(jobQueue, jobDefinition);
     this.initSqsLambdaIntegration(batchFunction, sqsQueue);
-    this.initLogFunction(adminBucketName);
+    if (acctConfig[`${toolName}`].status === "enabled") {
+      this.initLogFunction(adminBucketName);
+    }
   }
 
   private getYamlConfig(filepath: string): any {
@@ -72,32 +78,41 @@ export class ConsumerStack extends cdk.Stack {
     });
 
     const vpc = ec2.Vpc.fromLookup(this, 'Vpc', { isDefault: true });
-
-    const fargateEnvironment = new batch.FargateComputeEnvironment(this, `FargateEnv-${toolName}`, {
-        vpc,
-        spot: true
+    const sg = new ec2.SecurityGroup(this, "sg", {
+            securityGroupName: "batch-sg",
+            vpc
+    });
+    const fargateEnvironment = new batch.CfnComputeEnvironment(this, `FargateEnv-${toolName}`, {
+      type: "MANAGED",
+      computeResources: {
+        type: "FARGATE",
+        subnets: vpc.selectSubnets().subnetIds,
+        securityGroupIds: [sg.securityGroupId],
+        maxvCpus: 1,
+      }
     });
 
-    const containerImage = ecs.ContainerImage.fromRegistry(`public.ecr.aws/b4v4v1s0/${toolName}:latest`);
+    const containerImageUri = `public.ecr.aws/b4v4v1s0/${toolName}:latest`;
 
-    const jobDefinition = new batch.CfnJobDefinition(this, `JobDefinition-${toolName}`, {
-      container: {
-        image: containerImage,
-        executionRole: batchExecutionRole,
-        jobRole: batchExecutionRole,
-        memoryLimitMiB: 2048,
+    const jobDefinition = new batch.CfnJobDefinition(this, 'JobDefn', {
+      type: "container",
+      containerProperties: {
+        image: containerImageUri,
+        memory: 2048,
         vcpus: 1,
-      },
-      platformCapabilities: [batch.PlatformCapabilities.FARGATE],
+        jobRoleArn: batchExecutionRole.roleArn,
+        executionRoleArn: batchExecutionRole.roleArn,
+      }
     });
 
-    const jobQueue = new batch.JobQueue(this, `JobQueue-${toolName}`, {
-      computeEnvironments: [
+    const jobQueue = new batch.CfnJobQueue(this, `JobQueue-${toolName}`, {
+      priority: 0,
+      computeEnvironmentOrder: [
         {
-          computeEnvironment: fargateEnvironment,
-          order: 1,
+          computeEnvironment: fargateEnvironment.ref,
+          order: 0,
         },
-      ],
+      ]
     });
 
     return [jobDefinition, jobQueue];
@@ -107,7 +122,7 @@ export class ConsumerStack extends cdk.Stack {
     snsTopic.addSubscription(new subs.SqsSubscription(sqsQueue, { rawMessageDelivery: true }));
   }
 
-  private initBatchLambda(jobQueue: batch.JobQueue, jobDefinition: batch.JobDefinition): lambda.Function {
+  private initBatchLambda(jobQueue: batch.CfnJobQueue, jobDefinition: batch.CfnJobDefinition): lambda.Function {
     const executionRole = new iam.Role(this, `BatchLambdaExecutionRole-${toolName}`, {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
       managedPolicies: [
@@ -125,8 +140,8 @@ export class ConsumerStack extends cdk.Stack {
       handler: 'submit_job.handler',
       code: lambda.Code.fromAsset('lambda'),
       environment: {
-        JOB_QUEUE: jobQueue.jobQueueArn,
-        JOB_DEFINITION: jobDefinition.jobDefinitionArn,
+        JOB_QUEUE: jobQueue.ref,
+        JOB_DEFINITION: jobDefinition.ref,
         JOB_NAME: `job-${toolName}`,
       },
       role: executionRole,
@@ -135,7 +150,7 @@ export class ConsumerStack extends cdk.Stack {
 
   private initSqsLambdaIntegration(lambdaFunction: lambda.Function, sqsQueue: sqs.Queue): void {
     // Add the SQS queue as an event source for the Lambda function.
-    lambdaFunction.addEventSource(new lambda.SqsEventSource(sqsQueue));
+    lambdaFunction.addEventSource(new SqsEventSource(sqsQueue));
 
     // Grant permissions to allow the function to receive messages from the queue.
     sqsQueue.grantConsumeMessages(lambdaFunction);
@@ -164,11 +179,14 @@ export class ConsumerStack extends cdk.Stack {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     });
 
-    // Execution role for AWS Lambda function to use.
-    const executionRole = new iam.Role(this, 'LogsLambdaExecutionRole', {
+    // Execution role for AWS Lambda function to use
+    // To get logs and ship them to the Admin account.
+    // This role is referenced in the Admin stack configuration.
+    // Modifying it will sever cross-account connection.
+    const executionRole = new iam.Role(this, 'CloudWatchExecutionRole', {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
       description: 'Allows Lambda function to get logs from CloudWatch',
-      roleName: 'LogsLambdaExecutionRole',
+      roleName: 'CloudWatchExecutionRole',
       managedPolicies: [
         iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole'),
       ],
@@ -185,7 +203,7 @@ export class ConsumerStack extends cdk.Stack {
       ],
       resources: [`${bucket.bucketArn}/*`, bucket.bucketArn],
     });
-    statement.addArnPrincipal(`arn:aws:iam::${cdk.Aws.ACCOUNT_ID}:role/LogsLambdaExecutionRole`);
+    statement.addArnPrincipal(`arn:aws:iam::${cdk.Aws.ACCOUNT_ID}:role/CloudWatchExecutionRole`);
     statement.addArnPrincipal(`arn:aws:iam::${cdk.Aws.ACCOUNT_ID}:root`);
     bucket.addToResourcePolicy(statement);
 
@@ -244,4 +262,3 @@ export class ConsumerStack extends cdk.Stack {
     batchRule.addTarget(new targets.LambdaFunction(lambdaFunction));
   }
 }
-

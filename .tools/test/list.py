@@ -1,3 +1,4 @@
+import argparse
 import subprocess
 import os
 import yaml
@@ -17,8 +18,10 @@ def run_shell_command(command, env_vars=None):
     except subprocess.CalledProcessError as e:
         print(f"Error executing command: {e.output.decode()}")
 
-def deploy_resources(account_id, account_name):
+def deploy_resources(account_id, account_name, dir):
     """Deploy resources to the given account"""
+    if dir:
+        os.chdir(dir)
     # Get AWS tokens for the account
     get_tokens_command = f"ada credentials update --account {account_id} --provider isengard --role weathertop-cdk-deployments --once"
     run_shell_command(get_tokens_command)
@@ -35,13 +38,23 @@ def deploy_resources(account_id, account_name):
 
 
 def main():
-    # Load account IDs from YAML file
-    with open('../config/targets.yaml', 'r') as file:
-        accounts = yaml.safe_load(file)
-    
+    parser = argparse.ArgumentParser(description="Admin or plugin flag.")
+    parser.add_argument('--type', type=str, help='Either admin or plugin')
+    args = parser.parse_args()
+
+    if 'admin' in args.type:
+        with open("config/resources.yaml", "r") as file:
+            data = yaml.safe_load(file)
+        accounts = {'admin': {'account_id': f"{data['admin_acct']}", 'status': 'enabled'}}
+    elif 'plugin' in args.type:
+        with open('config/targets.yaml', 'r') as file:
+            accounts = yaml.safe_load(file)
+    else:
+        raise "Invalid parameter"
+
     for account_name, account_info in accounts.items():
         print(f"Reading from account {account_name} with ID {account_info['account_id']}")
-        deploy_resources(account_info['account_id'], account_name)
+        deploy_resources(account_info['account_id'], account_name, args.type)
 
 
 if __name__ == "__main__":
