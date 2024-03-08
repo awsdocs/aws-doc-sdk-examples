@@ -35,9 +35,10 @@ The program executes the following steps:
 7. Inserts a specified number of records into the "Movies" table by reading the Movies JSON file. Then it uses `redshiftDataClient.executeStatement()` to insert movie data.
 8. Prompts the user for a movie release year.
 9. Runs a SQL query, using `redshiftDataClient.executeStatement()`, to retrieve movies released in the specified year. The result set is displayed in the program.
-10. Lists all databases using pagination API call. 
-11. Prompts the user for confirmation to delete the Redshift cluster.
-12. If confirmed, deletes the specified Redshift cluster using `redshiftClient.deleteCluster()`.
+10. Lists all databases using the `redshiftDataClient.listDatabasesPaginator()`.  
+11. Modifies the Redshift cluster using `redshiftClient.modifyCluster()`. 
+12. Prompts the user for confirmation to delete the Redshift cluster.
+13. If confirmed, deletes the specified Redshift cluster using `redshiftClient.deleteCluster()`.
 
 ### Program execution
 The following shows the output of the program in the console. 

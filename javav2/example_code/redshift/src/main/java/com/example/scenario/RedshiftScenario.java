@@ -66,6 +66,7 @@ import java.util.concurrent.TimeUnit;
  * 8. Prompts the user for a movie release year.
  * 9. Runs a SQL query to retrieve movies released in the specified year.
  * 10. Lists all databases using a pagination API call.
+ * 11. Modifies the Redshift cluster.
  * 11. Prompts the user for confirmation to delete the Redshift cluster.
  * 12. If confirmed, deletes the specified Redshift cluster.
  */
@@ -81,17 +82,17 @@ public class RedshiftScenario {
             Where:
                 userName - The user name to use.
                 userPassword - The corresponding password. 
-                jsonFilePath - The path to the Movies JSON file (you can locate that file in resources/sample_files)
+                jsonFilePath - The path to the Movies JSON file (you can locate that file in ../../../resources/sample_files/movies.json)
             """;
 
-       // if (args.length != 3) {
-       //     System.out.println(usage);
-       //     System.exit(1);
-       // }
+        if (args.length != 3) {
+            System.out.println(usage);
+            System.exit(1);
+       }
 
-        String userName = "awsuser" ; //args[0];
-        String userPassword = "Aws10000" ; // args[1];
-        String jsonFilePath = "../../../resources/sample_files/movies.json" ; //args[2] ;
+        String userName = args[0];
+        String userPassword = args[1];
+        String jsonFilePath = args[2] ;
         String databaseName ;
         Scanner scanner = new Scanner(System.in);
 
@@ -105,7 +106,7 @@ public class RedshiftScenario {
             .build();
 
         System.out.println(DASHES);
-        System.out.println("Welcome to the Amazon Redshift example MVP scenario.");
+        System.out.println("Welcome to the Amazon Redshift example scenario.");
         System.out.println("""
         This Java program demonstrates how to interact with Amazon Redshift by using the AWS SDK for Java (v2).\s
         Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted in the cloud.
@@ -151,6 +152,7 @@ public class RedshiftScenario {
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
         createTable(redshiftDataClient, clusterId, databaseName);
+        System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("Populate the Movies table using the Movies.json file.");
@@ -198,11 +200,19 @@ public class RedshiftScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
+        System.out.println("Now you will modify the Redshift cluster.");
+        System.out.print("Press Enter to continue...");
+        scanner.nextLine();
+        modifyCluster(redshiftClient, clusterId);
+        System.out.println(DASHES);
+
+
+        System.out.println(DASHES);
         System.out.println("Would you like to delete the Amazon Redshift cluster? (y/n)");
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
             System.out.println("You selected to delete " +clusterId);
-            System. out.print("Press Enter to continue...");
+            System.out.print("Press Enter to continue...");
             scanner.nextLine();
             deleteRedshiftCluster(redshiftClient, clusterId);
         } else {
@@ -211,7 +221,7 @@ public class RedshiftScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("This concludes the Amazon Redshift example mvp scenario.");
+        System.out.println("This concludes the Amazon Redshift example scenario.");
         System.out.println(DASHES);
     }
 

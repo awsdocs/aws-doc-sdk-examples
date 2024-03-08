@@ -95,6 +95,7 @@ public class AmazonRedshiftTest {
         TimeUnit.SECONDS.sleep(30);
         RedshiftScenario.getResults(redshiftDataClient, id);
         RedshiftScenario.listAllDatabases(redshiftDataClient, clusterId, userName, databaseName);
+        RedshiftScenario.modifyCluster(redshiftClient, clusterId);
         RedshiftScenario.deleteRedshiftCluster(redshiftClient, clusterId);
     }
 
