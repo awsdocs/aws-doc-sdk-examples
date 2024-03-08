@@ -20,7 +20,7 @@ def run_shell_command(command, env_vars=None):
 
 def deploy_resources(account_id, account_name, dir):
     """Deploy resources to the given account"""
-    if dir:
+    if dir not in os.getcwd():
         os.chdir(dir)
     # Get AWS tokens for the account
     get_tokens_command = f"ada credentials update --account {account_id} --provider isengard --role weathertop-cdk-deployments --once"
