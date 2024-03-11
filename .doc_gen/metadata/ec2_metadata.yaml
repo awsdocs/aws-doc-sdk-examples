@@ -30,7 +30,7 @@ ec2_Hello:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.describe_security_groups.main
+                - ec2.java2.scenario.describe_securitygroup.main
     Python:
       versions:
         - sdk_version: 3
@@ -94,7 +94,7 @@ ec2_CreateKeyPair:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.create_key_pair.main
+                - ec2.java2.scenario.create_key_pair.main
     Python:
       versions:
         - sdk_version: 3
@@ -173,7 +173,7 @@ ec2_DescribeKeyPairs:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.describe_key_pairs.main           
+                - ec2.java.scenario_describe_keys.main          
     Python:
       versions:
         - sdk_version: 3
@@ -244,7 +244,7 @@ ec2_CreateSecurityGroup:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.create_security_group.main
+                - ec2.java.scenario_inbound_rule.main
     Python:
       versions:
         - sdk_version: 3
@@ -571,7 +571,7 @@ ec2_AllocateAddress:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.allocate_address.main
+                - ec2.java2.scenario.allocate_address.main
     Python:
       versions:
         - sdk_version: 3

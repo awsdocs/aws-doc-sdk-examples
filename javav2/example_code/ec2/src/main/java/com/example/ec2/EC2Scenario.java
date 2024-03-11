@@ -25,22 +25,19 @@ import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeKeyPairsResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsRequest;
-import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.ec2.model.DisassociateAddressRequest;
 import software.amazon.awssdk.services.ec2.model.DomainType;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
-import software.amazon.awssdk.services.ec2.model.Filter;
 import software.amazon.awssdk.services.ec2.model.InstanceTypeInfo;
 import software.amazon.awssdk.services.ec2.model.IpPermission;
 import software.amazon.awssdk.services.ec2.model.IpRange;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressRequest;
 import software.amazon.awssdk.services.ec2.model.RunInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.RunInstancesResponse;
-import software.amazon.awssdk.services.ec2.model.SecurityGroup;
 import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
-import software.amazon.awssdk.services.ec2.paginators.DescribeInstancesIterable;
+import software.amazon.awssdk.services.ec2.paginators.DescribeSecurityGroupsIterable;
 import software.amazon.awssdk.services.ec2.waiters.Ec2Waiter;
 import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathRequest;
@@ -50,9 +47,7 @@ import software.amazon.awssdk.services.ssm.paginators.GetParametersByPathIterabl
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 // snippet-start:[ec2.java2.scenario.main]
 /**
@@ -235,6 +230,7 @@ public class EC2Scenario {
         ec2.close();
     }
 
+    // snippet-start:[ec2.java2.delete_security_group.main]
     public static void deleteEC2SecGroup(Ec2Client ec2, String groupId) {
         try {
             DeleteSecurityGroupRequest request = DeleteSecurityGroupRequest.builder()
@@ -249,7 +245,9 @@ public class EC2Scenario {
             System.exit(1);
         }
     }
+    // snippet-end:[ec2.java2.delete_security_group.main]
 
+    // snippet-start:[ec2.java2.terminate_instance]
     public static void terminateEC2(Ec2Client ec2, String instanceId) {
         try {
             Ec2Waiter ec2Waiter = Ec2Waiter.builder()
@@ -278,7 +276,9 @@ public class EC2Scenario {
             System.exit(1);
         }
     }
+    // snippet-end:[ec2.java2.terminate_instance]
 
+    // snippet-start:[ec2.java2.delete_key_pair.main]
     public static void deleteKeys(Ec2Client ec2, String keyPair) {
         try {
             DeleteKeyPairRequest request = DeleteKeyPairRequest.builder()
@@ -293,7 +293,9 @@ public class EC2Scenario {
             System.exit(1);
         }
     }
+    // snippet-end:[ec2.java2.delete_key_pair.main]
 
+    // snippet-start:[ec2.java2.release_instance.main]
     public static void releaseEC2Address(Ec2Client ec2, String allocId) {
         try {
             ReleaseAddressRequest request = ReleaseAddressRequest.builder()
@@ -307,6 +309,7 @@ public class EC2Scenario {
             System.exit(1);
         }
     }
+    // snippet-end:[ec2.java2.release_instance.main]
 
     // snippet-start:[ec2.java2.scenario.disassociate_address.main]
     public static void disassociateAddress(Ec2Client ec2, String associationId) {
@@ -344,6 +347,7 @@ public class EC2Scenario {
     }
     // snippet-end:[ec2.java2.associate_address.main]
 
+    // snippet-start:[ec2.java2.scenario.allocate_address.main]
     public static String allocateAddress(Ec2Client ec2) {
         try {
             AllocateAddressRequest allocateRequest = AllocateAddressRequest.builder()
@@ -359,6 +363,7 @@ public class EC2Scenario {
         }
         return "";
     }
+    // snippet-end:[ec2.java2.scenario.allocate_address.main]
 
     // snippet-start:[ec2.java2.scenario.start_instance.main]
     public static void startInstance(Ec2Client ec2, String instanceId) {
@@ -552,14 +557,15 @@ public class EC2Scenario {
     public static void describeSecurityGroups(Ec2Client ec2, String groupId) {
         try {
             DescribeSecurityGroupsRequest request = DescribeSecurityGroupsRequest.builder()
-                    .groupIds(groupId)
-                    .build();
+                .groupIds(groupId)
+                .build();
 
-            DescribeSecurityGroupsResponse response = ec2.describeSecurityGroups(request);
-            for (SecurityGroup group : response.securityGroups()) {
-                System.out
-                        .println("Found Security Group with Id " + group.groupId() + " and group VPC " + group.vpcId());
-            }
+            // Use a paginator.
+            DescribeSecurityGroupsIterable listGroups = ec2.describeSecurityGroupsPaginator(request);
+            listGroups.stream()
+                .flatMap(r -> r.securityGroups().stream())
+                .forEach(group -> System.out
+                    .println(" Group id: " +group.groupId() + " group name = " + group.groupName()));
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -631,6 +637,7 @@ public class EC2Scenario {
     }
     // snippet-end:[ec2.java.scenario_describe_keys.main]
 
+    // snippet-start:[ec2.java2.scenario.create_key_pair.main]
     public static void createKeyPair(Ec2Client ec2, String keyName, String fileName) {
         try {
             CreateKeyPairRequest request = CreateKeyPairRequest.builder()
@@ -649,5 +656,6 @@ public class EC2Scenario {
             System.exit(1);
         }
     }
+    // snippet-end:[ec2.java2.scenario.create_key_pair.main]
 }
 // snippet-end:[ec2.java2.scenario.main]
