@@ -61,13 +61,16 @@ Some of these examples perform *destructive* operations on AWS resources, such a
 To run these examples, set up your development environment. For more information,
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
-## Testing the AWS IoT Java files
+## Testing the Amazon Redshift files
 
 You can test the Java code examples for Amazon Redshift by running a test file named **AmazonRedshiftTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that the Test passed.
 
 	Test 2 passed
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
 
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and might incur charges on your account._
 
@@ -83,14 +86,6 @@ Define these values to successfully run the JUnit tests:
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
-
-### Tests
-
-⚠ Running tests might result in charges to your AWS account.
-
-
-To find instructions for running these tests, see the [README](../../README.md#Tests)
-in the `javav2` folder.
 
 <!--custom.tests.start-->
 <!--custom.tests.end-->
