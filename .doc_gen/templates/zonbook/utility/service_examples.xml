@@ -26,7 +26,6 @@
         <keywordset>
             <keyword>code example</keyword>
             <keyword>&AWS; SDK</keyword>
-            <keyword>{{.Title}}</keyword>
         </keywordset>
     </info>
     <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
