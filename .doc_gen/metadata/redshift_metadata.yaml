@@ -253,4 +253,3 @@ redshift_Scenario:
                 - redshift.java2.scenario.main
   services:
     redshift: {}
-
