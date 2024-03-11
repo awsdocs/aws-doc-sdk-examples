@@ -21,9 +21,12 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.medical-imaging.MedicalImagingWrapper]
 class MedicalImagingWrapper:
     def __init__(self, health_imaging_client):
         self.health_imaging_client = health_imaging_client
+
+    # snippet-end:[python.example_code.medical-imaging.MedicalImagingWrapper]
 
     # snippet-start:[python.example_code.medical-imaging.CreateDatastore]
     def create_datastore(self, name):
@@ -781,7 +784,9 @@ if __name__ == "__main__":
     dest_s3_uri = "s3://medical-imaging-output/job_output/"
     data_access_role_arn = "arn:aws:iam::123456789012:role/ImportJobDataAccessRole"
 
+    # snippet-start:[python.example_code.medical-imaging.MedicalImagingWrapper.instantiation]
     client = boto3.client("medical-imaging")
     medical_imaging_wrapper = MedicalImagingWrapper(client)
+    # snippet-end:[python.example_code.medical-imaging.MedicalImagingWrapper.instantiation]
 
     medical_imaging_wrapper.usage_demo(source_s3_uri, dest_s3_uri, data_access_role_arn)
