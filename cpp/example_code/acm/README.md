@@ -37,6 +37,25 @@ Next, for information on code example structures and how to build and run the ex
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Add tags to a certificate](add_tags_to_certificate.cpp#L20) (`AddTagsToCertificate`)
+- [Delete a certificate](delete_certificate.cpp#L20) (`DeleteCertificate`)
+- [Describe a certificate](describe_certificate.cpp#L20) (`DescribeCertificate`)
+- [Export a certificate](export_certificate.cpp#L21) (`ExportCertificate`)
+- [Get a certificate](get_certificate.cpp#L20) (`GetCertificate`)
+- [Import certificates](import_certificate.cpp#L21) (`ImportCertificate`)
+- [List certificates](list_certificates.cpp#L20) (`ListCertificates`)
+- [List tags for a certificate](list_tags_for_certificate.cpp#L20) (`ListTagsForCertificate`)
+- [Remove tags from a certificate](remove_tags_from_certificate.cpp#L20) (`RemoveTagsFromCertificate`)
+- [Renew a certificate](renew_certificate.cpp#L20) (`RenewCertificate`)
+- [Request validation of a certificate](request_certificate.cpp#L20) (`RequestCertificate`)
+- [Resend validation email for a certificate](resend_validation_email.cpp#L20) (`ResendValidationEmail`)
+- [Update a certificate](update_certificate_option.cpp#L20) (`UpdateCertificateOptions`)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 

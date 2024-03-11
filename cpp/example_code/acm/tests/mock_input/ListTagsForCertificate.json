@@ -1,0 +1,12 @@
+{
+  "Tags": [
+    {
+      "Key": "stack",
+      "Value": "production"
+    },
+    {
+      "Key": "website",
+      "Value": "example.com"
+    }
+  ]
+}
