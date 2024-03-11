@@ -419,15 +419,13 @@ public class RedshiftScenario {
 
     // snippet-start:[redshift.java2.describe_cluster.main]
     public static void waitForClusterReady(RedshiftClient redshiftClient, String clusterId) {
-        Boolean clusterReady = false;
+        boolean clusterReady = false;
         String clusterReadyStr;
         System.out.println("Waiting for cluster to become available. This may take a few mins.");
-
         try {
             DescribeClustersRequest clustersRequest = DescribeClustersRequest.builder()
                 .clusterIdentifier(clusterId)
                 .build();
-
             long startTime = System.currentTimeMillis();
 
             // Loop until the cluster is ready.
@@ -444,7 +442,7 @@ public class RedshiftScenario {
                         long minutes = elapsedSeconds / 60;
                         long seconds = elapsedSeconds % 60;
 
-                        System.out.println(String.format("Elapsed Time: %02d:%02d - Waiting for cluster... ", minutes, seconds));
+                        System.out.printf("Elapsed Time: %02d:%02d - Waiting for cluster... %n", minutes, seconds);
                         TimeUnit.SECONDS.sleep(5);
                     }
                 }

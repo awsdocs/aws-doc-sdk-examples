@@ -8,15 +8,10 @@ package com.example.redshift;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
 import software.amazon.awssdk.services.redshift.model.DescribeEventsRequest;
-import software.amazon.awssdk.services.redshift.model.DescribeEventsResponse;
-import software.amazon.awssdk.services.redshift.model.Event;
-import software.amazon.awssdk.services.redshift.model.RedshiftException;
 import software.amazon.awssdk.services.redshift.model.SourceType;
 import software.amazon.awssdk.services.redshift.paginators.DescribeEventsIterable;
 import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
-
 import java.util.Date;
-import java.util.List;
 // snippet-end:[redshift.java2._events.import]
 
 /**
