@@ -38,7 +38,7 @@ public class AmazonRedshiftTest {
     private static String databaseName = "" ;
 
     @BeforeAll
-    public static void setUp() throws IOException {
+    public static void setUp() {
         redshiftClient = RedshiftClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -48,9 +48,9 @@ public class AmazonRedshiftTest {
             .region(Region.US_EAST_1)
             .build();
 
-
         Random rand = new Random();
         int randomNum = rand.nextInt((10000 - 1) + 1) + 1;
+        databaseName = "dev" ;
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -60,7 +60,29 @@ public class AmazonRedshiftTest {
         userName = values.getUserName();
         userPassword = values.getPassword();
         fileNameSc = values.getFileName();
-        databaseName = "dev" ;
+
+        // Uncomment this code block if you prefer using a config.properties file to
+        // retrieve AWS values required for these tests.
+        /*
+        try (InputStream input = AmazonRedshiftTest.class.getClassLoader().getResourceAsStream("config.properties"))
+        {
+            Properties prop = new Properties();
+            if (input == null) {
+                System.out.println("Sorry, unable to find config.properties");
+                return;
+            }
+
+            // Populate the data members required for all tests.
+            prop.load(input);
+            clusterId =  prop.getProperty("clusterId") +randomNum;
+            userName = prop.getProperty("userName");
+            userPassword = prop.getProperty("userPassword");
+            fileNameSc = prop.getProperty("jsonFilePath");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        */
     }
 
     @Test

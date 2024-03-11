@@ -55,13 +55,34 @@ functions within the same service.
 
 ## Run the examples
 
-### Instructions
+Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon Redshift cluster. 
+**Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
+To run these examples, set up your development environment. For more information,
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
+
+## Testing the AWS IoT Java files
+
+You can test the Java code examples for Amazon Redshift by running a test file named **AmazonRedshiftTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+
+You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that the Test passed.
+
+	Test 2 passed
+
+**WARNING**: _Running these JUnit tests manipulates real Amazon resources and might incur charges on your account._
+
+### Properties file
+Before running the JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a tableId used in the tests. If you do not define all values, the JUnit tests fail.
+
+Define these values to successfully run the JUnit tests:
+
+- **clusterId** - The Id value of an Amazon Redshift cluster.
+- **username**  - The user name to use for these tests.
+- **userPassword** - The corresponding user password. 
+- **jsonFilePath** - The path to the Movies JSON file (you can locate that file in ../../../resources/sample_files/movies.json)
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
-
-
 
 ### Tests
 
@@ -71,15 +92,14 @@ functions within the same service.
 To find instructions for running these tests, see the [README](../../README.md#Tests)
 in the `javav2` folder.
 
-
-
 <!--custom.tests.start-->
 <!--custom.tests.end-->
 
 ## Additional resources
 
 - [Amazon Redshift Management Guide](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html)
-- [Amazon Redshift API Reference](https://docs.aws.amazon.com/redshift/latest/APIReference/Welcome.html)
+- [Interface RedshiftClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshift/RedshiftClient.html)
+- [Interface RedshiftDataClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshiftdata/RedshiftDataClient.html)
 - [SDK for Java 2.x Amazon Redshift reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshift/package-summary.html)
 
 <!--custom.resources.start-->
