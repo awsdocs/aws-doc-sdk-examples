@@ -59,4 +59,3 @@ public class DeleteKeyPair {
         }
     }
 }
-// snippet-end:[ec2.java2.delete_key_pair.main]
