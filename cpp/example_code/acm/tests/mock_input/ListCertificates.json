@@ -1,0 +1,12 @@
+{
+  "CertificateSummaryList": [
+    {
+      "CertificateArn": "arn:aws:acm:region:account:certificate/12345678-1234-1234-1234-123456789012",
+      "DomainName": "www.example.com"
+    },
+    {
+      "CertificateArn": "arn:aws:acm:region:account:certificate/12345678-1234-1234-1234-123456789012",
+      "DomainName": "www.corp.net"
+    }
+  ]
+}
