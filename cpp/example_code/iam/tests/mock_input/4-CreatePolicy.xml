@@ -1,0 +1,19 @@
+<CreatePolicyResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">   <CreatePolicyResult>
+     <Policy>
+       <PermissionsBoundaryUsageCount>0</PermissionsBoundaryUsageCount>
+       <Path>/</Path>
+       <UpdateDate>2024-03-11T14:18:55Z</UpdateDate>
+       <DefaultVersionId>v1</DefaultVersionId>
+       <PolicyId>ANPARZQKN6ARLSIG5ZFTU</PolicyId>
+       <IsAttachable>true</IsAttachable>
+       <PolicyName>iam-demo-policy</PolicyName>
+       <AttachmentCount>0</AttachmentCount>
+       <Arn>arn:aws:iam::1111111222222:policy/iam-demo-policy</Arn>
+       <CreateDate>2024-03-11T14:18:55Z</CreateDate>
+     </Policy>
+   </CreatePolicyResult>
+   <ResponseMetadata>
+     <RequestId>20aa0584-03a3-4578-8729-a59e32d52160</RequestId>
+   </ResponseMetadata>
+ </CreatePolicyResponse>
+ 

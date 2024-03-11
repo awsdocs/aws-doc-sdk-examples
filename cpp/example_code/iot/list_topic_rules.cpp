@@ -78,7 +78,6 @@ bool AwsDoc::IoT::listTopicRules(
 
 int main(int argc, char **argv) {
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
 
     Aws::InitAPI(options);
     {
