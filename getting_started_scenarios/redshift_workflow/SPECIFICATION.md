@@ -14,7 +14,7 @@ User input is also required for this program. The user is asked to input the fol
 - Whether or not to delete the Amazon Redshift cluster.
 
 ## Hello Redshift
-This program is intended for users not familiar with the Redshift SDK to easily get up an running. The logic is to show use of `redshiftClient.describeClustersPaginator()`
+This program is intended for users not familiar with the Redshift SDK to easily get up an running. The logic is to show use of `redshiftClient.describeClustersPaginator()`.
 
 ### Program execution
 The following shows the output of the program in the console. 
