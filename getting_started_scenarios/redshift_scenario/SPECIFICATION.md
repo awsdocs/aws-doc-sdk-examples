@@ -1,12 +1,12 @@
-# Redshift Scenario Java Specification
+# Redshift Scenario Specification
 
 ## Overview
-This Java program serves as an getting started MVP for interacting with Amazon Redshift using the AWS SDK for Java (v2). It demonstrates various tasks such as creating a Redshift cluster, verifying its readiness, establishing a database, creating a table, populating data, executing SQL queries, and finally, cleaning up resources. Its purpose is to demonstrate how to get up and running with Amazon Redshift and the AWS SDK for Java V2.
+This SDK getting started scenario demonstrates how to interact with Amazon Redshift using the AWS SDK. It demonstrates various tasks such as creating a Redshift cluster, verifying its readiness, establishing a database, creating a table, populating a table with data, executing SQL queries, and finally cleaning up resources. Its purpose is to demonstrate how to get up and running with Amazon Redshift and the AWS SDK.
 
 ## Resources and User Input
-The only required resource for this Java program is the Movie.json file. This can be located in the `aws-doc-sdk-examples\resources\sample_files` folder.
+The only required resource for this SDK getting started scenario is the Movie.json file. This can be located in the `aws-doc-sdk-examples\resources\sample_files` folder.
 
-User input is also required for this program. The user is asked to input the following values:
+User input is also required for this SDK getting started scenario. The user is asked to input the following values:
 - A cluster id value.
 - A database name (default is dev if the user does not enter a value).
 - A value between 50 and 200 that represents the number of records to add to the table.
@@ -25,7 +25,7 @@ The following shows the output of the program in the console.
 ```
 
 ## Scenario Program Flow
-The program executes the following steps:
+The SDK getting started scenario executes the following steps:
 1. Prompts the user for a unique cluster ID or use the default value.
 2. Creates a Redshift cluster with the specified or default cluster ID using `redshiftClient.createCluster()`.
 3. Waits until the Redshift cluster is available for use using `redshiftClient.describeClusters`.
@@ -196,3 +196,5 @@ This concludes the Amazon Redshift example mvp scenario.
 | `createCluster `             | redshift_metadata.yaml       | redshift.java2.create_cluster.main      |
 | `describeClustersPaginator ` | redshift_metadata.yaml       | redshift.java2.hello.main               |
 | `scenario`                   | redshift_metadata.yaml       | redshift.java2.scenario.main            |
+
+Note:  The metadata keys in this table are following the Java V2 metadata key format, which is [service].[language].[operation].[main]. When you implement the correspondnig metadata keys in your SDK, be sure to follow your SDK's format. 

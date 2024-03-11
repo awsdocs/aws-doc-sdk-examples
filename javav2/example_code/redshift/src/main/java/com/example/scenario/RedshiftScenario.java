@@ -85,14 +85,14 @@ public class RedshiftScenario {
                 jsonFilePath - The path to the Movies JSON file (you can locate that file in ../../../resources/sample_files/movies.json)
             """;
 
-        if (args.length != 3) {
-            System.out.println(usage);
-            System.exit(1);
-       }
+        //if (args.length != 3) {
+        //    System.out.println(usage);
+        //    System.exit(1);
+        //}
 
-        String userName = args[0];
-        String userPassword = args[1];
-        String jsonFilePath = args[2] ;
+        String userName = "awsuser" ; //args[0];
+        String userPassword = "Awsuser5000" ;// args[1];
+        String jsonFilePath = "../../../resources/sample_files/movies.json" ; //args[2] ;
         String databaseName ;
         Scanner scanner = new Scanner(System.in);
 
@@ -185,8 +185,7 @@ public class RedshiftScenario {
             scanner.nextLine();
         } while (movieYear < 2010 || movieYear > 2014);
 
-        String sqlYear = " SELECT * FROM Movies WHERE year = "+movieYear;
-        String id = queryMoviesByYear(redshiftDataClient, databaseName, userName, sqlYear, clusterId);
+        String id = queryMoviesByYear(redshiftDataClient, databaseName, userName, movieYear, clusterId);
         System.out.println("The identifier of the statement is " + id);
         checkStatement(redshiftDataClient, id);
         getResults(redshiftDataClient, id);
@@ -205,7 +204,6 @@ public class RedshiftScenario {
         scanner.nextLine();
         modifyCluster(redshiftClient, clusterId);
         System.out.println(DASHES);
-
 
         System.out.println(DASHES);
         System.out.println("Would you like to delete the Amazon Redshift cluster? (y/n)");
@@ -335,7 +333,11 @@ public class RedshiftScenario {
                 status = response.statusAsString();
                 System.out.println("..." + status);
 
-                if (status.compareTo("FINISHED") == 0) {
+                if (status.compareTo("FAILED") == 0 ) {
+                    System.out.println("The Query Failed. Ending program");
+                    System.exit(1);
+
+                } else if (status.compareTo("FINISHED") == 0) {
                     break;
                 }
                 TimeUnit.SECONDS.sleep(1);
@@ -373,14 +375,21 @@ public class RedshiftScenario {
     public static String queryMoviesByYear(RedshiftDataClient redshiftDataClient,
                                            String database,
                                            String dbUser,
-                                           String sqlStatement,
+                                           int year,
                                            String clusterId) {
 
         try {
+            String sqlStatement = " SELECT * FROM Movies WHERE year = :year";
+            SqlParameter yearParam= SqlParameter.builder()
+                .name("year")
+                .value(String.valueOf(year))
+                .build();
+
             ExecuteStatementRequest statementRequest = ExecuteStatementRequest.builder()
                 .clusterIdentifier(clusterId)
                 .database(database)
                 .dbUser(dbUser)
+                .parameters(yearParam)
                 .sql(sqlStatement)
                 .build();
 

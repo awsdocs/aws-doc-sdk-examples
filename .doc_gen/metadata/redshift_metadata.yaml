@@ -2,7 +2,7 @@
 redshift_Hello:
   title: Hello &RS;
   title_abbrev: Hello &RS;
-  synopsis: get started by using &RS;.
+  synopsis: get started using &RS;.
   category: Hello
   languages:
     Java:
@@ -252,4 +252,4 @@ redshift_Scenario:
               snippet_tags:
                 - redshift.java2.scenario.main
   services:
-    redshift: {}
+    redshift: {createCluster, describeClusters, executeStatement, describeStatement, modifyCluster, getStatementResult, listDatabasesPaginator}
