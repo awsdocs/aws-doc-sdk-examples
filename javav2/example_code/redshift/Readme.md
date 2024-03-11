@@ -29,14 +29,25 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello AWS Redshift](src/main/java/com/example/redshift/HelloRedshift.java) (`describeClustersPaginator`)
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a cluster](src/main/java/com/example/redshift/CreateAndModifyCluster.java#L91) (`CreateCluster`)
-- [Delete a cluster](src/main/java/com/example/redshift/DeleteCluster.java#L6) (`DeleteCluster`)
-- [Describe your clusters](src/main/java/com/example/redshift/DescribeClusters.java#L6) (`DescribeClusters`)
-- [Modify a cluster](src/main/java/com/example/redshift/CreateAndModifyCluster.java#L150) (`ModifyCluster`)
+- [Create a cluster](src/main/java/com/example/scenario/RedshiftScenario.java) (`CreateCluster`)
+- [Delete a cluster](src/main/java/com/example/scenario/RedshiftScenario.java) (`DeleteCluster`)
+- [Describe your clusters](src/main/java/com/example/scenario/RedshiftScenario.java) (`DescribeClusters`)
+- [Modify a cluster](src/main/java/com/example/scenario/RedshiftScenario.java) (`ModifyCluster`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+* [Get started with Amazon Redshift tables, items, and queries using an AWS SDK](src/main/java/com/example/scenario/RedshiftScenario.java)
 
 
 <!--custom.examples.start-->

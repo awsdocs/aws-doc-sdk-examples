@@ -144,14 +144,14 @@ public class RedshiftScenario {
         System.out.println("Enter a database name (default is dev): ");
         String name = scanner.nextLine();
         databaseName = name.isEmpty() ? "dev" : name;
-        createDatabase(redshiftDataClient, clusterId, databaseName);
+        createDatabase(redshiftDataClient, clusterId, databaseName, userName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("Now you will create a table named Movie.");
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
-        createTable(redshiftDataClient, clusterId, databaseName);
+        createTable(redshiftDataClient, clusterId, databaseName, userName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -168,7 +168,7 @@ public class RedshiftScenario {
             }
             numRecords = scanner.nextInt();
         } while (numRecords < 50 || numRecords > 200);
-        popTable(redshiftDataClient, clusterId, databaseName, jsonFilePath, numRecords);
+        popTable(redshiftDataClient, clusterId, databaseName, userName, jsonFilePath, numRecords);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -264,7 +264,7 @@ public class RedshiftScenario {
     // snippet-end:[redshift.java2.delete_cluster.main]
 
     // snippet-start:[redshiftdata.java2.add.record.main]
-    public static void popTable(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName, String fileName, int number) throws IOException {
+    public static void popTable(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName, String userName, String fileName, int number) throws IOException {
         JsonParser parser = new JsonFactory().createParser(new File(fileName));
         com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
         Iterator<JsonNode> iter = rootNode.iterator();
@@ -305,6 +305,7 @@ public class RedshiftScenario {
                     .clusterIdentifier(clusterId)
                     .sql(sqlStatement)
                     .database(databaseName)
+                    .dbUser(userName)
                     .parameters(parameterList)
                     .build();
 
@@ -367,7 +368,6 @@ public class RedshiftScenario {
         }
     }
     // snippet-end:[redshift.java2.mod_cluster.main]
-
 
     // snippet-start:[redshiftdata.java2.query.main]
     public static String queryMoviesByYear(RedshiftDataClient redshiftDataClient,
@@ -465,11 +465,12 @@ public class RedshiftScenario {
     // snippet-end:[redshift.java2.describe_cluster.main]
 
     // snippet-start:[redshiftdata.java2.create_database.main]
-    public static void createDatabase(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName) {
+    public static void createDatabase(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName, String userName) {
         try {
             ExecuteStatementRequest createDatabaseRequest = ExecuteStatementRequest.builder()
                 .clusterIdentifier(clusterId)
                 .sql("CREATE DATABASE " + databaseName)
+                .dbUser(userName)
                 .database(databaseName)
                 .build();
 
@@ -484,10 +485,11 @@ public class RedshiftScenario {
     // snippet-end:[redshiftdata.java2.create_database.main]
 
     // snippet-start:[redshiftdata.java2.create_table.main]
-    public static void createTable(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName) {
+    public static void createTable(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName, String userName) {
         try {
             ExecuteStatementRequest createTableRequest = ExecuteStatementRequest.builder()
                 .clusterIdentifier(clusterId)
+                .dbUser(userName)
                 .database(databaseName)
                 .sql("CREATE TABLE Movies ("
                     + "id INT PRIMARY KEY, "
