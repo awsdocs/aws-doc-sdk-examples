@@ -39,7 +39,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 Code excerpts that show you how to call individual service functions.
 
 - [Create a cluster](src/main/java/com/example/scenario/RedshiftScenario.java#L499) (`CreateCluster`)
-- [Create a database](None) (`CreateDatabase`)
 - [Delete a cluster](src/main/java/com/example/scenario/RedshiftScenario.java#L248) (`DeleteCluster`)
 - [Describe your clusters](src/main/java/com/example/scenario/RedshiftScenario.java#L431) (`DescribeClusters`)
 - [Get the statement result](src/main/java/com/example/scenario/RedshiftScenario.java#L409) (`GetStatementResult`)
