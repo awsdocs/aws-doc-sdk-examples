@@ -1121,7 +1121,10 @@ medical-imaging_Scenario_TaggingImageSets:
 medical-imaging_Scenario_ImageSetsAndFrames:
   title: Get started with &AHI; image sets and image frames using an &AWS; SDK
   title_abbrev: Get started with image sets and image frames
-  synopsis: import DICOM files and download image frames in &AHI;.<para>The implementation is structured as a workflow command-line application.</para>
+  synopsis: >
+   import DICOM files and download image frames in &AHI;.</para>
+    <para>The implementation is structured as a workflow command-line
+    application.</para><para>
   synopsis_list:
     - Set up resources for a DICOM import.
     - Import DICOM files into a data store.
