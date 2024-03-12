@@ -28,16 +28,16 @@ The following shows the output of the program in the console.
 The SDK getting started scenario executes the following steps:
 1. Prompts the user for a user name and password. 
 2. Prompts the user for a cluster Id value or use the default value.
-2. Creates a Redshift cluster using `redshiftClient.createCluster()`.
-3. Waits until the Redshift cluster is available for use using `redshiftClient.describeClusters`.
-4. Lists all databases using the `redshiftDataClient.listDatabasesPaginator()`.   
-5. Creates a table named "Movies" with fields ID, title, and year using `redshiftDataClient.executeStatement()`.
-6. Inserts a specified number of records into the "Movies" table by reading the Movies JSON file. Then it uses `redshiftDataClient.executeStatement()` to insert movie data.
-7. Prompts the user for a movie release year.
-8. Runs a SQL query, using `redshiftDataClient.executeStatement()`, to retrieve movies released in the specified year. The result set is displayed in the program.
-9. Modifies the Redshift cluster using `redshiftClient.modifyCluster()`. 
-10. Prompts the user for confirmation to delete the Redshift cluster.
-11. If confirmed, deletes the specified Redshift cluster using `redshiftClient.deleteCluster()`.
+3. Creates a Redshift cluster using `redshiftClient.createCluster()`.
+4. Waits until the Redshift cluster is available for use using `redshiftClient.describeClusters`.
+5. Lists all databases using the `redshiftDataClient.listDatabasesPaginator()`.   
+6. Creates a table named "Movies" with fields ID, title, and year using `redshiftDataClient.executeStatement()`.
+7. Inserts a specified number of records into the "Movies" table by reading the Movies JSON file. Then it uses `redshiftDataClient.executeStatement()` to insert movie data.
+8. Prompts the user for a movie release year.
+9. Runs a SQL query, using `redshiftDataClient.executeStatement()`, to retrieve movies released in the specified year. The result set is displayed in the program.
+10. Modifies the Redshift cluster using `redshiftClient.modifyCluster()`. 
+11. Prompts the user for confirmation to delete the Redshift cluster.
+12. If confirmed, deletes the specified Redshift cluster using `redshiftClient.deleteCluster()`.
 
 ### Program execution
 The following shows the output of the program in the console. 
