@@ -11,6 +11,7 @@ import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeVpcsResponse;
 import software.amazon.awssdk.services.ec2.model.Vpc;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+import software.amazon.awssdk.services.ec2.paginators.DescribeVpcsIterable;
 // snippet-end:[ec2.java2.describe_vpc.import]
 
 /**
@@ -53,16 +54,19 @@ public class DescribeVPCs {
                     .vpcIds(vpcId)
                     .build();
 
-            DescribeVpcsResponse response = ec2.describeVpcs(request);
-            for (Vpc vpc : response.vpcs()) {
-                System.out.printf(
+            DescribeVpcsIterable vpcsIterable = ec2.describeVpcsPaginator(request);
+            vpcsIterable.stream()
+                .flatMap(r -> r.vpcs().stream())
+                .forEach(vpc -> System.out
+                    .printf(
                         "Found VPC with id %s, " +
-                                "vpc state %s " +
-                                "and tennancy %s",
+                            "vpc state %s " +
+                            "and tenancy %s%n",
                         vpc.vpcId(),
                         vpc.stateAsString(),
-                        vpc.instanceTenancyAsString());
-            }
+                        vpc.instanceTenancyAsString()
+                    )
+                );
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

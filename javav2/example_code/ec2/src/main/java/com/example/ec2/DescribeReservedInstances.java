@@ -23,48 +23,30 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
  */
 public class DescribeReservedInstances {
     public static void main(String[] args) {
-        final String usage = """
-
-                Usage:
-                   <instanceId>
-
-                Where:
-                   instanceId - An instance id value that you can obtain from the AWS Console.\s
-
-                """;
-
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
-
-        String instanceId = args[0];
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
                 .region(region)
                 .build();
 
-        describeReservedEC2Instances(ec2, instanceId);
+        describeReservedEC2Instances(ec2);
         ec2.close();
     }
 
-    public static void describeReservedEC2Instances(Ec2Client ec2, String instanceID) {
+    public static void describeReservedEC2Instances(Ec2Client ec2) {
         try {
-            DescribeReservedInstancesRequest request = DescribeReservedInstancesRequest.builder()
-                    .reservedInstancesIds(instanceID).build();
-            DescribeReservedInstancesResponse response = ec2.describeReservedInstances(request);
-            for (ReservedInstances instance : response.reservedInstances()) {
+            DescribeReservedInstancesResponse response = ec2.describeReservedInstances();
+            response.reservedInstances().forEach(instance -> {
                 System.out.printf(
-                        "Found a Reserved Instance with id %s, " +
-                                "in AZ %s, " +
-                                "type %s, " +
-                                "state %s " +
-                                "and monitoring state %s",
-                        instance.reservedInstancesId(),
-                        instance.availabilityZone(),
-                        instance.instanceType(),
-                        instance.state().name());
-            }
+                    "Found a Reserved Instance with id %s, " +
+                        "in AZ %s, " +
+                        "type %s, " +
+                        "state %s " +
+                        "and monitoring state %s%n",
+                    instance.reservedInstancesId(),
+                    instance.availabilityZone(),
+                    instance.instanceType(),
+                    instance.state().name());
+            });
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

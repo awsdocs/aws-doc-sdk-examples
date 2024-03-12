@@ -7,11 +7,7 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.running_instances.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
-import software.amazon.awssdk.services.ec2.model.Filter;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
-import software.amazon.awssdk.services.ec2.model.DescribeInstancesResponse;
-import software.amazon.awssdk.services.ec2.model.Reservation;
-import software.amazon.awssdk.services.ec2.model.Instance;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 // snippet-end:[ec2.java2.running_instances.import]
 
@@ -27,44 +23,25 @@ public class FindRunningInstances {
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
-        findRunningEC2Instances(ec2);
+        findRunningEC2InstancesUsingPaginator(ec2);
         ec2.close();
     }
 
-    public static void findRunningEC2Instances(Ec2Client ec2) {
+    public static void findRunningEC2InstancesUsingPaginator(Ec2Client ec2) {
         try {
-            String nextToken;
-            do {
-                Filter filter = Filter.builder()
-                        .name("instance-state-name")
-                        .values("running")
-                        .build();
+            // Create a DescribeInstancesRequest to filter running instances.
+            DescribeInstancesRequest describeInstancesRequest = DescribeInstancesRequest.builder()
+                .filters(f -> f.name("instance-state-name").values("running"))
+                .build();
 
-                DescribeInstancesRequest request = DescribeInstancesRequest.builder()
-                        .filters(filter)
-                        .build();
-
-                DescribeInstancesResponse response = ec2.describeInstances(request);
-                for (Reservation reservation : response.reservations()) {
-                    for (Instance instance : reservation.instances()) {
-                        System.out.printf("Found Reservation with id %s, " +
-                                "AMI %s, " +
-                                "type %s, " +
-                                "state %s " +
-                                "and monitoring state %s",
-                                instance.instanceId(),
-                                instance.imageId(),
-                                instance.instanceType(),
-                                instance.state().name(),
-                                instance.monitoring().state());
-                    }
-                }
-                nextToken = response.nextToken();
-
-            } while (nextToken != null);
+            // Use the describeInstancesPaginator to paginate through the results.
+            ec2.describeInstancesPaginator(describeInstancesRequest).stream()
+                .flatMap(response -> response.reservations().stream())
+                .flatMap(reservation -> reservation.instances().stream())
+                .forEach(instance -> System.out.println("Instance ID: " + instance.instanceId() + ", State: " + instance.state().name()));
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

@@ -11,6 +11,7 @@ import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.ec2.model.SecurityGroup;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+import software.amazon.awssdk.services.ec2.paginators.DescribeSecurityGroupsIterable;
 // snippet-end:[ec2.java2.describe_security_groups.import]
 
 /**
@@ -26,10 +27,10 @@ public class DescribeSecurityGroups {
         final String usage = "To run this example, supply a group id\n" +
                 "Ex: DescribeSecurityGroups <groupId>\n";
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+       if (args.length != 1) {
+           System.out.println(usage);
+           System.exit(1);
+       }
 
         String groupId = args[0];
         Region region = Region.US_EAST_1;
@@ -44,19 +45,15 @@ public class DescribeSecurityGroups {
     public static void describeEC2SecurityGroups(Ec2Client ec2, String groupId) {
         try {
             DescribeSecurityGroupsRequest request = DescribeSecurityGroupsRequest.builder()
-                    .groupIds(groupId)
-                    .build();
+                .groupIds(groupId)
+                .build();
 
-            DescribeSecurityGroupsResponse response = ec2.describeSecurityGroups(request);
-            for (SecurityGroup group : response.securityGroups()) {
-                System.out.printf(
-                        "Found Security Group with id %s, " +
-                                "vpc id %s " +
-                                "and description %s",
-                        group.groupId(),
-                        group.vpcId(),
-                        group.description());
-            }
+            // Use a paginator.
+            DescribeSecurityGroupsIterable listGroups = ec2.describeSecurityGroupsPaginator(request);
+            listGroups.stream()
+                .flatMap(r -> r.securityGroups().stream())
+                .forEach(group -> System.out
+                    .println(" Group id: " +group.groupId() + " group name = " + group.groupName()));
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

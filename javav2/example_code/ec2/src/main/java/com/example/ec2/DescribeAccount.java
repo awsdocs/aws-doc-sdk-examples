@@ -36,7 +36,6 @@ public class DescribeAccount {
             DescribeAccountAttributesResponse accountResults = ec2.describeAccountAttributes();
             accountResults.accountAttributes().forEach(attribute -> {
                 System.out.print("\n The name of the attribute is " + attribute.attributeName());
-
                 attribute.attributeValues().forEach(
                         myValue -> System.out.print("\n The value of the attribute is " + myValue.attributeValue()));
             });

@@ -8,10 +8,10 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.describe_region_and_zones.import]
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeRegionsResponse;
-import software.amazon.awssdk.services.ec2.model.Region;
-import software.amazon.awssdk.services.ec2.model.AvailabilityZone;
-import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesResponse;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+
+
 // snippet-end:[ec2.java2.describe_region_and_zones.import]
 
 /**
@@ -27,8 +27,8 @@ public class DescribeRegionsAndZones {
         // snippet-start:[ec2.java2.describe_region_and_zones.client]
         software.amazon.awssdk.regions.Region region = software.amazon.awssdk.regions.Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
         // snippet-end:[ec2.java2.describe_region_and_zones.client]
 
         describeEC2RegionsAndZones(ec2);
@@ -39,30 +39,27 @@ public class DescribeRegionsAndZones {
         // snippet-start:[ec2.java2.describe_region_and_zones.region]
         try {
             DescribeRegionsResponse regionsResponse = ec2.describeRegions();
-            for (Region region : regionsResponse.regions()) {
+            regionsResponse.regions().forEach(region -> {
                 System.out.printf(
-                        "Found Region %s " +
-                                "with endpoint %s",
-                        region.regionName(),
-                        region.endpoint());
+                    "Found Region %s with endpoint %s%n",
+                    region.regionName(),
+                    region.endpoint());
                 System.out.println();
-                // snippet-end:[ec2.java2.describe_region_and_zones.region]
-            }
+            });
+            // snippet-end:[ec2.java2.describe_region_and_zones.region]
 
             // snippet-start:[ec2.java2.describe_region_and_zones.avail_zone]
             DescribeAvailabilityZonesResponse zonesResponse = ec2.describeAvailabilityZones();
-
-            for (AvailabilityZone zone : zonesResponse.availabilityZones()) {
+            zonesResponse.availabilityZones().forEach(zone -> {
                 System.out.printf(
-                        "Found Availability Zone %s " +
-                                "with status %s " +
-                                "in region %s",
-                        zone.zoneName(),
-                        zone.state(),
-                        zone.regionName());
+                    "Found Availability Zone %s with status %s in region %s%n",
+                    zone.zoneName(),
+                    zone.state(),
+                    zone.regionName()
+                );
                 System.out.println();
-                // snippet-end:[ec2.java2.describe_region_and_zones.avail_zone]
-            }
+            });
+            // snippet-end:[ec2.java2.describe_region_and_zones.avail_zone]
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

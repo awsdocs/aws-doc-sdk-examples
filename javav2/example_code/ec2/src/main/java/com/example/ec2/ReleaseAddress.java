@@ -3,7 +3,6 @@
 
 package com.example.ec2;
 
-// snippet-start:[ec2.java2.release_instance.main]
 // snippet-start:[ec2.java2.release_instance.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
@@ -61,4 +60,4 @@ public class ReleaseAddress {
         }
     }
 }
-// snippet-end:[ec2.java2.release_instance.main]
+
