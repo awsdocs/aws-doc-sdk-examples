@@ -26,8 +26,8 @@ The following shows the output of the program in the console.
 
 ## Scenario Program Flow
 The SDK getting started scenario executes the following steps:
-1. Prompts the for a user name and password. 
-2. Prompts the user for a unique cluster ID or use the default value.
+1. Prompts the user for a user name and password. 
+2. Prompts the user for a cluster Id value or use the default value.
 2. Creates a Redshift cluster using `redshiftClient.createCluster()`.
 3. Waits until the Redshift cluster is available for use using `redshiftClient.describeClusters`.
 4. Lists all databases using the `redshiftDataClient.listDatabasesPaginator()`.   
