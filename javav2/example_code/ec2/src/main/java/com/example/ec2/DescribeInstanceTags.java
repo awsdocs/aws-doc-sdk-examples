@@ -11,6 +11,7 @@ import software.amazon.awssdk.services.ec2.model.Filter;
 import software.amazon.awssdk.services.ec2.model.DescribeTagsResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.DescribeTagsRequest;
+import software.amazon.awssdk.services.ec2.paginators.DescribeTagsIterable;
 // snippet-end:[ec2.java2.describe_tags.import]
 
 /**
@@ -54,11 +55,11 @@ public class DescribeInstanceTags {
                     .values(resourceId)
                     .build();
 
-            DescribeTagsResponse response = ec2.describeTags(DescribeTagsRequest.builder().filters(filter).build());
-            response.tags().forEach(tag -> {
-                System.out.println("Tag key is: " + tag.key());
-                System.out.println("Tag value is: " + tag.value());
-            });
+            DescribeTagsIterable response = ec2.describeTagsPaginator(DescribeTagsRequest.builder().filters(filter).build());
+            response.stream()
+                .flatMap(r -> r.tags().stream())
+                .forEach(tag -> System.out
+                    .println("Tag key is: " + tag.key() + " Tag value is: " + tag.value()));
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

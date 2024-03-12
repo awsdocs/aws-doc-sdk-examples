@@ -49,8 +49,8 @@ public class CreateInstance {
         String amiId = args[1];
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         String instanceId = createEC2Instance(ec2, name, amiId);
         System.out.println("The Amazon EC2 Instance ID is " + instanceId);
@@ -59,28 +59,31 @@ public class CreateInstance {
 
     public static String createEC2Instance(Ec2Client ec2, String name, String amiId) {
         RunInstancesRequest runRequest = RunInstancesRequest.builder()
-                .imageId(amiId)
-                .instanceType(InstanceType.T1_MICRO)
-                .maxCount(1)
-                .minCount(1)
-                .build();
+            .imageId(amiId)
+            .instanceType(InstanceType.T1_MICRO)
+            .maxCount(1)
+            .minCount(1)
+            .build();
 
+        // Use a waiter to wait until the instance is running.
+        System.out.println("Going to start an EC2 instance using a waiter");
         RunInstancesResponse response = ec2.runInstances(runRequest);
-        String instanceId = response.instances().get(0).instanceId();
+        String instanceIdVal = response.instances().get(0).instanceId();
+        ec2.waiter().waitUntilInstanceRunning(r -> r.instanceIds(instanceIdVal));
         Tag tag = Tag.builder()
-                .key("Name")
-                .value(name)
-                .build();
+            .key("Name")
+            .value(name)
+            .build();
 
         CreateTagsRequest tagRequest = CreateTagsRequest.builder()
-                .resources(instanceId)
-                .tags(tag)
-                .build();
+            .resources(instanceIdVal)
+            .tags(tag)
+            .build();
 
         try {
             ec2.createTags(tagRequest);
-            System.out.printf("Successfully started EC2 Instance %s based on AMI %s", instanceId, amiId);
-            return instanceId;
+            System.out.printf("Successfully started EC2 Instance %s based on AMI %s", instanceIdVal, amiId);
+            return instanceIdVal;
 
         } catch (Ec2Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
