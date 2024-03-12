@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
 import software.amazon.awssdk.services.redshift.model.Cluster;
@@ -33,9 +32,6 @@ import software.amazon.awssdk.services.redshiftdata.model.ListDatabasesRequest;
 import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
 import software.amazon.awssdk.services.redshiftdata.model.SqlParameter;
 import software.amazon.awssdk.services.redshiftdata.paginators.ListDatabasesIterable;
-import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
-import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
-import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import com.fasterxml.jackson.core.JsonParser;
 import java.io.File;
 import java.io.IOException;
@@ -57,18 +53,16 @@ import java.util.concurrent.TimeUnit;
  This Java example performs these tasks:
  *
  * 1. Prompts the user for a unique cluster ID or use the default value.
- * 2. Creates a Redshift cluster with the specified or default cluster ID.
+ * 2. Creates a Redshift cluster with the specified or default cluster Id value.
  * 3. Waits until the Redshift cluster is available for use.
- * 4. Prompts the user for a database name or use the default value.
- * 5. Creates a Redshift database within the specified cluster.
- * 6. Creates a table named "Movies" with fields ID, title, and year.
- * 7. Inserts a specified number of records into the "Movies" table by reading the Movies JSON file.
- * 8. Prompts the user for a movie release year.
- * 9. Runs a SQL query to retrieve movies released in the specified year.
- * 10. Lists all databases using a pagination API call.
- * 11. Modifies the Redshift cluster.
- * 11. Prompts the user for confirmation to delete the Redshift cluster.
- * 12. If confirmed, deletes the specified Redshift cluster.
+ * 4. Lists all databases using a pagination API call.
+ * 5. Creates a table named "Movies" with fields ID, title, and year.
+ * 6. Inserts a specified number of records into the "Movies" table by reading the Movies JSON file.
+ * 7. Prompts the user for a movie release year.
+ * 8. Runs a SQL query to retrieve movies released in the specified year.
+ * 9. Modifies the Redshift cluster.
+ * 10. Prompts the user for confirmation to delete the Redshift cluster.
+ * 11. If confirmed, deletes the specified Redshift cluster.
  */
 
 public class RedshiftScenario {
@@ -77,23 +71,21 @@ public class RedshiftScenario {
         final String usage = """
 
             Usage:
-                <userName> <userPassword> <jsonFilePath>\s
+                <jsonFilePath>\s
 
             Where:
-                userName - The user name to use.
-                userPassword - The corresponding password. 
                 jsonFilePath - The path to the Movies JSON file (you can locate that file in ../../../resources/sample_files/movies.json)
             """;
 
-        //if (args.length != 3) {
+        //if (args.length != 1) {
         //    System.out.println(usage);
         //    System.exit(1);
         //}
 
-        String userName = "awsuser" ; //args[0];
-        String userPassword = "Awsuser5000" ;// args[1];
-        String jsonFilePath = "../../../resources/sample_files/movies.json" ; //args[2] ;
-        String databaseName ;
+        String jsonFilePath = "../../../resources/sample_files/movies.json" ; //args[0] ;
+        String userName;
+        String userPassword;
+        String databaseName = "dev" ;
         Scanner scanner = new Scanner(System.in);
 
         Region region = Region.US_EAST_1;
@@ -106,49 +98,66 @@ public class RedshiftScenario {
             .build();
 
         System.out.println(DASHES);
-        System.out.println("Welcome to the Amazon Redshift example scenario.");
+        System.out.println("Welcome to the Amazon Redshift SDK Getting Started scenario.");
         System.out.println("""
         This Java program demonstrates how to interact with Amazon Redshift by using the AWS SDK for Java (v2).\s
         Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted in the cloud.
                                                                             
         The program's primary functionalities include cluster creation, verification of cluster readiness,\s
-        database establishment, table creation, data population within the table, and execution of SQL statements.
+        list databases, table creation, data population within the table, and execution of SQL statements.
         Furthermore, it demonstrates the process of querying data from the Movie table.\s
         
         Upon completion of the program, all AWS resources are cleaned up.
         """);
 
-        System.out.print("Press Enter to continue...");
-        scanner.nextLine();
+        System.out.println("Lets get started...");
+        System.out.println("Please enter your user name (default is awsuser)");
+        String user = scanner.nextLine();
+        userName = user.isEmpty() ? "awsuser" : user;
+        System.out.println(DASHES);
+        System.out.println("Please enter your user password (default is AwsUser1000)");
+        String userpass = scanner.nextLine();
+        userPassword = userpass.isEmpty() ? "AwsUser1000" : userpass;
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("A Redshift cluster refers to the collection of computing resources and storage that work together to process and analyze large volumes of data.");
-        System.out.println("Enter a cluster id value (default is redshift-cluster-200): ");
-        String userInput = scanner.nextLine();
-
-        // Use a default value if the user input is empty.
-        String clusterId = userInput.isEmpty() ? "redshift-cluster-200" : userInput;
+        System.out.println("Enter a cluster id value (default is redshift-cluster-movies): ");
+        String userClusterId = scanner.nextLine();
+        String clusterId = userClusterId.isEmpty() ? "redshift-cluster-movies" : userClusterId;
         createCluster(redshiftClient, clusterId, userName, userPassword);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("Wait until the Redshift cluster is available.");
+        System.out.println("Wait until "+clusterId +" is available.");
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
         waitForClusterReady(redshiftClient, clusterId);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("Create a Redshift database");
-        System.out.println("Enter a database name (default is dev): ");
-        String name = scanner.nextLine();
-        databaseName = name.isEmpty() ? "dev" : name;
-        createDatabase(redshiftDataClient, clusterId, databaseName, userName);
+        String databaseInfo = """
+            When you created $clusteridD, the dev database is created by default and used in this scenario.\s
+            
+            To create a custom database, you need to have a CREATEDB privilege.\s
+            For more information, see the documentation here: https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_DATABASE.html.
+           """.replace("$clusteridD", clusterId);
+
+        System.out.println(databaseInfo);
+        System.out.print("Press Enter to continue...");
+        scanner.nextLine();
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("Now you will create a table named Movie.");
+        System.out.println("List databases in "+clusterId);
+        System.out.print("Press Enter to continue...");
+        scanner.nextLine();
+        listAllDatabases(redshiftDataClient, clusterId, userName, databaseName);
+        System.out.println(DASHES);
+
+
+        System.out.println(DASHES);
+        System.out.println("Now you will create a table named Movies.");
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
         createTable(redshiftDataClient, clusterId, databaseName, userName);
@@ -172,30 +181,23 @@ public class RedshiftScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("Query the Movies table by year. Enter a value between 2010-2014.");
+        System.out.println("Query the Movies table by year. Enter a value between 2012-2014.");
         int movieYear;
         do {
             System.out.print("Enter a year: ");
             while (!scanner.hasNextInt()) {
-                System.out.println("Invalid input. Please enter a valid year between 2010 and 2014.");
+                System.out.println("Invalid input. Please enter a valid year between 2012 and 2014.");
                 System.out.print("Enter a year: ");
                 scanner.next();
             }
             movieYear = scanner.nextInt();
             scanner.nextLine();
-        } while (movieYear < 2010 || movieYear > 2014);
+        } while (movieYear < 2012 || movieYear > 2014);
 
         String id = queryMoviesByYear(redshiftDataClient, databaseName, userName, movieYear, clusterId);
         System.out.println("The identifier of the statement is " + id);
         checkStatement(redshiftDataClient, id);
         getResults(redshiftDataClient, id);
-        System.out.println(DASHES);
-
-        System.out.println(DASHES);
-        System.out.println("Now you will list your databases.");
-        System.out.print("Press Enter to continue...");
-        scanner.nextLine();
-        listAllDatabases(redshiftDataClient, clusterId, userName, databaseName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -219,7 +221,7 @@ public class RedshiftScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("This concludes the Amazon Redshift example scenario.");
+        System.out.println("This concludes the Amazon Redshift SDK Getting Started scenario.");
         System.out.println(DASHES);
     }
 
@@ -471,27 +473,7 @@ public class RedshiftScenario {
     }
     // snippet-end:[redshift.java2.describe_cluster.main]
 
-    // snippet-start:[redshiftdata.java2.create_database.main]
-    public static void createDatabase(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName, String userName) {
-        try {
-            ExecuteStatementRequest createDatabaseRequest = ExecuteStatementRequest.builder()
-                .clusterIdentifier(clusterId)
-                .sql("CREATE DATABASE " + databaseName)
-                .dbUser(userName)
-                .database(databaseName)
-                .build();
-
-            redshiftDataClient.executeStatement(createDatabaseRequest);
-            System.out.println("Database created: " + databaseName);
-
-        } catch (RedshiftDataException e) {
-            System.err.println("Error creating database: " + e.getMessage());
-            System.exit(1);
-        }
-    }
-    // snippet-end:[redshiftdata.java2.create_database.main]
-
-    // snippet-start:[redshiftdata.java2.create_table.main]
+     // snippet-start:[redshiftdata.java2.create_table.main]
     public static void createTable(RedshiftDataClient redshiftDataClient, String clusterId, String databaseName, String userName) {
         try {
             ExecuteStatementRequest createTableRequest = ExecuteStatementRequest.builder()
@@ -522,7 +504,7 @@ public class RedshiftScenario {
                 .clusterIdentifier(clusterId)
                 .masterUsername(masterUsername)
                 .masterUserPassword(masterUserPassword)
-                .nodeType("dc2.large")
+                .nodeType("ra3.4xlarge")
                 .publiclyAccessible(true)
                 .numberOfNodes(2)
                 .build();
@@ -537,23 +519,5 @@ public class RedshiftScenario {
         }
     }
     // snippet-end:[redshift.java2.create_cluster.main]
-
-    private static SecretsManagerClient getSecretClient() {
-        Region region = Region.US_WEST_2;
-        return SecretsManagerClient.builder()
-            .region(region)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
-    }
-
-    public static String getSecretValues(String secretName) {
-        SecretsManagerClient secretClient = getSecretClient();
-        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-            .secretId(secretName)
-            .build();
-
-        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
-        return valueResponse.secretString();
-    }
 }
 // snippet-end:[redshift.java2.scenario.main]

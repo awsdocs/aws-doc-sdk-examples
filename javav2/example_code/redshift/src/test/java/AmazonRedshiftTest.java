@@ -108,11 +108,10 @@ public class AmazonRedshiftTest {
     public void testScenario() throws InterruptedException, IOException {
         RedshiftScenario.createCluster(redshiftClient, clusterId, userName, userPassword);
         RedshiftScenario.waitForClusterReady(redshiftClient, clusterId);
-        RedshiftScenario.createDatabase(redshiftDataClient, clusterId, databaseName, userName);
         RedshiftScenario.createTable(redshiftDataClient, clusterId, databaseName, userName);
         RedshiftScenario.popTable(redshiftDataClient, clusterId, databaseName, userName, fileNameSc, 50);
         String sqlYear = "SELECT * FROM Movies WHERE year = 2012 ;" ;
-        String id = RedshiftScenario.queryMoviesByYear(redshiftDataClient, databaseName, userName, sqlYear, clusterId);
+        String id = RedshiftScenario.queryMoviesByYear(redshiftDataClient, databaseName, userName, Integer.parseInt(sqlYear), clusterId);
         RedshiftScenario.checkStatement(redshiftDataClient, id);
         TimeUnit.SECONDS.sleep(30);
         RedshiftScenario.getResults(redshiftDataClient, id);
