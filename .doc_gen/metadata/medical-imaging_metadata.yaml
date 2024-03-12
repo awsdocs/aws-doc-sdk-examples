@@ -1124,7 +1124,7 @@ medical-imaging_Scenario_ImageSetsAndFrames:
   synopsis: >
    import DICOM files and download image frames in &AHI;.</para>
     <para>The implementation is structured as a workflow command-line
-    application.</para><para>
+    application.
   synopsis_list:
     - Set up resources for a DICOM import.
     - Import DICOM files into a data store.
