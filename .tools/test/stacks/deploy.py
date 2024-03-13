@@ -22,10 +22,10 @@ def run_shell_command(command, env_vars=None):
         print(f"Error executing command: {e.output.decode()}")
 
 
-def deploy_resources(account_id, account_name, dir):
+def deploy_resources(account_id, account_name, dir, lang='typescript'):
     """Deploy resources to the given account"""
     if dir not in os.getcwd():
-        os.chdir(dir)
+        os.chdir(f"{dir}/{lang}")
     # Get AWS tokens for the account
     get_tokens_command = f"ada credentials update --account {account_id} --provider isengard --role weathertop-cdk-deployments --once"
     run_shell_command(get_tokens_command)
@@ -36,17 +36,17 @@ def deploy_resources(account_id, account_name, dir):
     run_shell_command(deploy_command, env_vars={"TOOL_NAME": f"{account_name}"})
     # Be gentle and give CDK ps's a few moments to clear
     # Error you may see if you remove this line:
-    #    Another CLI (PID=56022) is currently synthing to cdk.out.
+    #    Another CLI (PID=12345) is currently synthing to cdk.out.
     #    Invoke the CLI in sequence, or use '--output' to synth into different directories.
     time.sleep(15)
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Admin or plugin flag.")
-    parser.add_argument("--type", type=str, help="Either admin or plugin")
+    parser = argparse.ArgumentParser(description="admin, images, or plugin flag.")
+    parser.add_argument("--type", type=str, help="Either admin, images, or plugin")
     args = parser.parse_args()
 
-    if "admin" in args.type:
+    if "admin" in args.type or "images" in args.type:
         with open("config/resources.yaml", "r") as file:
             data = yaml.safe_load(file)
         accounts = {

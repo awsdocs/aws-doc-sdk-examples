@@ -17,15 +17,11 @@ The following design features make this tool easy to use:
 ## Architecture
 In addition to the source code in this repository, this solution consists of the following CDK stacks:
 
-| Stack                                                | Function                                                          | Purpose                                                                                                                                                    |
-|------------------------------------------------------|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Public Images](public_ecr_repositories)     | Holds versions of language-specialized Docker images.             | Event-based production of ready-to-run Docker images for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html). |
-| [Producer](eventbridge_rule_with_sns_fanout) | Publishes a scheduled message to an Amazon Simple Notification Service (Amazon SNS) topic.                    | Centralized cron-based triggering of integration tests.                                                                                                    |
-| [Consumer](sqs_lambda_to_batch_fargate)      | Consumes a message to trigger integration tests on AWS Batch with AWS Fargate. | Federated integration testing of example code for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html).       |
-
-The following diagram shows the behavior of this GitHub repository and the preceding stacks: 
-
-![weathertop-high-level-architecture.png](architecture_diagrams%2Fpng%2Fweathertop-high-level-architecture.png)
+| Stack            | Function                                                          | Purpose                                                                                                                                                    |
+|------------------|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Images](images) | Holds versions of language-specialized Docker images.             | Event-based production of ready-to-run Docker images for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html). |
+| [Admin](admin)   | Publishes a scheduled message to an Amazon Simple Notification Service (Amazon SNS) topic.                    | Centralized cron-based triggering of integration tests.                                                                                                    |
+| [Plugin](plugin) | Consumes a message to trigger integration tests on AWS Batch with AWS Fargate. | Federated integration testing of example code for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html).       |
 
 ---
 
@@ -34,24 +30,24 @@ On the surface, this solution orchestrates the execution of distributed integrat
 Under the hood, it relies on the source code in this repository and the following CDK stacks.
 
 ### 1. Image production
-Image repositories are managed from an AWS account in which the [Public images stack]() is deployed.
+Image repositories are managed from an AWS account in which the [Public images stack](images) is deployed.
 
 Through a secure integration, a GitHub Workflow [configured in this repository](../../.github/workflows/docker-push.yml) produces Docker images containing pre-built SDK code and publishes them to the [AWS SDK Code Examples Images](https://gallery.ecr.aws/b4v4v1s0) public registry.
 
-See [CDK stack](public_ecr_repositories).
+See [CDK stack](images).
 
 ### 2. Centralized eventing
-Events are emitted from an AWS account in which the [Producer Stack](eventbridge_rule_with_sns_fanout) is deployed.
+Events are emitted from an AWS account in which the [Admin Stack](eventbridge_rule_with_sns_fanout) is deployed.
 
 This stack contains a cron-based Amazon EventBridge rule that writes to a singular SNS topic. 
 Through a cross-account integration, Amazon Simple Queue Service (Amazon SQS) queues in different AWS accounts can subscribe to this topic.
 
-See [CDK stack](eventbridge_rule_with_sns_fanout).
+See [CDK stack](admin).
 
 ### 3. Distributed testing
-Testing is performed in AWS accounts in which the [Consumer Stack](sqs_lambda_to_batch_fargate) is deployed.
+Testing is performed in AWS accounts in which the [Plugin Stack](plugin) is deployed.
 
 This stack contains an AWS Lambda function that submits jobs to AWS Batch. 
 Through a secure integration, this Lambda function is triggered by an SQS queue that's subscribed to a cross-account topic.
 
-See [CDK stack](sqs_lambda_to_batch_fargate).
+See [CDK stack](plugin).
