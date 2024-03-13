@@ -27,7 +27,6 @@ public class S3TestUtils {
             logger.info("[{}] bucket created", bucketName);
         }
     }
-
     public static void lockdownBucket(S3Client s3Client, String bucketName) {
         // account-level, control plane stuff
         S3ControlClient s3ControlClient = S3ControlClient.create();
