@@ -77,12 +77,12 @@ public class RedshiftScenario {
                 jsonFilePath - The path to the Movies JSON file (you can locate that file in ../../../resources/sample_files/movies.json)
             """;
 
-        //if (args.length != 1) {
-        //    System.out.println(usage);
-        //    System.exit(1);
-        //}
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String jsonFilePath = "../../../resources/sample_files/movies.json" ; //args[0] ;
+        String jsonFilePath = args[0] ;
         String userName;
         String userPassword;
         String databaseName = "dev" ;
@@ -154,7 +154,6 @@ public class RedshiftScenario {
         scanner.nextLine();
         listAllDatabases(redshiftDataClient, clusterId, userName, databaseName);
         System.out.println(DASHES);
-
 
         System.out.println(DASHES);
         System.out.println("Now you will create a table named Movies.");
