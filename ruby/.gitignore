@@ -8,7 +8,6 @@
 /spec/examples.txt
 /test/tmp/
 /test/version_tmp/
-/tmp/
 __pycache__
 # Used by dotenv library to load environment variables.
 # .env
