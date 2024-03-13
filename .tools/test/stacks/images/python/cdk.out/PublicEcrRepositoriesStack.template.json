@@ -1,0 +1,287 @@
+{
+ "Resources": {
+  "cpp": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for cpp environment and is recommended for local testing of SDK for cpp example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/cpp/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for cpp environment and is recommended for local testing of SDK for cpp example code.\""
+    },
+    "RepositoryName": "cpp"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/cpp"
+   }
+  },
+  "dotnetv3": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for dotnetv3 environment and is recommended for local testing of SDK for dotnetv3 example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/dotnetv3/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for dotnetv3 environment and is recommended for local testing of SDK for dotnetv3 example code.\""
+    },
+    "RepositoryName": "dotnetv3"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/dotnetv3"
+   }
+  },
+  "gov2": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for gov2 environment and is recommended for local testing of SDK for gov2 example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/gov2/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for gov2 environment and is recommended for local testing of SDK for gov2 example code.\""
+    },
+    "RepositoryName": "gov2"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/gov2"
+   }
+  },
+  "javascriptv3": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for javascriptv3 environment and is recommended for local testing of SDK for javascriptv3 example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for javascriptv3 environment and is recommended for local testing of SDK for javascriptv3 example code.\""
+    },
+    "RepositoryName": "javascriptv3"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/javascriptv3"
+   }
+  },
+  "javav2": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for javav2 environment and is recommended for local testing of SDK for javav2 example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for javav2 environment and is recommended for local testing of SDK for javav2 example code.\""
+    },
+    "RepositoryName": "javav2"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/javav2"
+   }
+  },
+  "kotlin": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for kotlin environment and is recommended for local testing of SDK for kotlin example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for kotlin environment and is recommended for local testing of SDK for kotlin example code.\""
+    },
+    "RepositoryName": "kotlin"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/kotlin"
+   }
+  },
+  "php": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for php environment and is recommended for local testing of SDK for php example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/php/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for php environment and is recommended for local testing of SDK for php example code.\""
+    },
+    "RepositoryName": "php"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/php"
+   }
+  },
+  "python": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for python environment and is recommended for local testing of SDK for python example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/python/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for python environment and is recommended for local testing of SDK for python example code.\""
+    },
+    "RepositoryName": "python"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/python"
+   }
+  },
+  "ruby": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for ruby environment and is recommended for local testing of SDK for ruby example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for ruby environment and is recommended for local testing of SDK for ruby example code.\""
+    },
+    "RepositoryName": "ruby"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/ruby"
+   }
+  },
+  "rustv1": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for rustv1 environment and is recommended for local testing of SDK for rustv1 example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/rustv1/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for rustv1 environment and is recommended for local testing of SDK for rustv1 example code.\""
+    },
+    "RepositoryName": "rustv1"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/rustv1"
+   }
+  },
+  "sapabap": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for sap-abap environment and is recommended for local testing of SDK for sap-abap example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/sap-abap/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for sap-abap environment and is recommended for local testing of SDK for sap-abap example code.\""
+    },
+    "RepositoryName": "sap-abap"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/sap-abap"
+   }
+  },
+  "swift": {
+   "Type": "AWS::ECR::PublicRepository",
+   "Properties": {
+    "RepositoryCatalogData": {
+     "UsageText": "This image provides a pre-built SDK for swift environment and is recommended for local testing of SDK for swift example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/swift/README.md#docker-image-beta.",
+     "OperatingSystems": [
+      "Linux"
+     ],
+     "Architectures": [
+      "x86",
+      "ARM"
+     ],
+     "RepositoryDescription": "This image provides a pre-built for SDK for swift environment and is recommended for local testing of SDK for swift example code.\""
+    },
+    "RepositoryName": "swift"
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/swift"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yXISw5AMBAA0LPYt+O3cAAXaOoAwhgxSiv9RETcncTqJa+CpoAiG84gcTJy4xHuLg5oxFc9oYd2tiqNG6OmwwWOzl/iO03BJY/0CHXFxdm8hrKEOlsDs/TJRt4J9O8L9Rx8AGUAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "PublicEcrRepositoriesStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

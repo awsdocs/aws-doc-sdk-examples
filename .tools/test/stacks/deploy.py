@@ -4,6 +4,7 @@ import os
 import yaml
 import time
 
+
 def run_shell_command(command, env_vars=None):
     """Run a shell command and return its output"""
     # Prepare the environment
@@ -11,12 +12,15 @@ def run_shell_command(command, env_vars=None):
     if env_vars:
         env.update(env_vars)
 
-    print('COMMAND: ' + command)
+    print("COMMAND: " + command)
     try:
-        output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, env=env)
+        output = subprocess.check_output(
+            command, shell=True, stderr=subprocess.STDOUT, env=env
+        )
         print(f"Command output: {output.decode()}")
     except subprocess.CalledProcessError as e:
         print(f"Error executing command: {e.output.decode()}")
+
 
 def deploy_resources(account_id, account_name, dir):
     """Deploy resources to the given account"""
@@ -39,24 +43,27 @@ def deploy_resources(account_id, account_name, dir):
 
 def main():
     parser = argparse.ArgumentParser(description="Admin or plugin flag.")
-    parser.add_argument('--type', type=str, help='Either admin or plugin')
+    parser.add_argument("--type", type=str, help="Either admin or plugin")
     args = parser.parse_args()
 
-    if 'admin' in args.type:
+    if "admin" in args.type:
         with open("config/resources.yaml", "r") as file:
             data = yaml.safe_load(file)
-        accounts = {'admin': {'account_id': f"{data['admin_acct']}", 'status': 'enabled'}}
-    elif 'plugin' in args.type:
-        with open('config/targets.yaml', 'r') as file:
+        accounts = {
+            "admin": {"account_id": f"{data['admin_acct']}", "status": "enabled"}
+        }
+    elif "plugin" in args.type:
+        with open("config/targets.yaml", "r") as file:
             accounts = yaml.safe_load(file)
     else:
         raise "Invalid parameter"
 
     for account_name, account_info in accounts.items():
-        print(f"Reading from account {account_name} with ID {account_info['account_id']}")
-        deploy_resources(account_info['account_id'], account_name, args.type)
+        print(
+            f"Reading from account {account_name} with ID {account_info['account_id']}"
+        )
+        deploy_resources(account_info["account_id"], account_name, args.type)
 
 
 if __name__ == "__main__":
     main()
-

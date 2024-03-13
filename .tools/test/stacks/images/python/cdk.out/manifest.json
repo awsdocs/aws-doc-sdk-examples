@@ -1,0 +1,136 @@
+{
+  "version": "31.0.0",
+  "artifacts": {
+    "PublicEcrRepositoriesStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "PublicEcrRepositoriesStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "PublicEcrRepositoriesStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://808326389482/us-east-1",
+      "properties": {
+        "templateFile": "PublicEcrRepositoriesStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::808326389482:role/cdk-hnb659fds-deploy-role-808326389482-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::808326389482:role/cdk-hnb659fds-cfn-exec-role-808326389482-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-808326389482-us-east-1/b8086f12378aa4b164d2024d5126512e5352b75bd45630919646d9b4fab69a4e.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "PublicEcrRepositoriesStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::808326389482:role/cdk-hnb659fds-lookup-role-808326389482-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "PublicEcrRepositoriesStack.assets"
+      ],
+      "metadata": {
+        "/PublicEcrRepositoriesStack/cpp": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cpp"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/dotnetv3": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "dotnetv3"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/gov2": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "gov2"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/javascriptv3": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "javascriptv3"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/javav2": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "javav2"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/kotlin": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "kotlin"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/php": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "php"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/python": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "python"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/ruby": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ruby"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/rustv1": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "rustv1"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/sap-abap": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "sapabap"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/swift": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swift"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/PublicEcrRepositoriesStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "PublicEcrRepositoriesStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
