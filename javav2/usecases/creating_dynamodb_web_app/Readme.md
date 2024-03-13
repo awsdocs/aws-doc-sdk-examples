@@ -2,11 +2,11 @@
 
 ## Overview
 
-| Heading      | Description |
-| ----------- | ----------- |
-| Description | Discusses how to develop a Spring Boot application that queries Amazon DynamoDB data. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).    |
-| Audience   |  Developer (intermediate)        |
-| Required skills   | Java, Maven, JavaScript  |
+| Heading          | Description                                                                                                                                                                                                                                                                                                                                  |
+|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Description      | Discusses how to develop a Spring Boot 3.x application that queries Amazon DynamoDB data. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/). |
+| Audience         | Developer (intermediate)                                                                                                                                                                                                                                                                                                                     |
+| Required skills  | Java, Maven, JavaScript                                                                                                                                                                                                                                                                                                                      |
 
 ## Purpose
 
@@ -15,7 +15,9 @@ You can develop a dynamic web application that tracks and reports on work items 
 + Amazon DynamoDB
 + Amazon Simple Email Service (Amazon SES). (The SDK for Java (v2) is used to access Amazon SES.)
 
-The application you create is a decoupled React application that uses a Spring REST API to work with Amazon DynamoDB data. That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. The Spring REST API uses the Amazon DynamoDB Java API to perform CRUD operations on the Amazon DynamoDB database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
+The application you create is a decoupled React application that uses a Spring REST API to work with Amazon DynamoDB data. 
+That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. 
+The Spring REST API uses the Amazon DynamoDB Java API to perform CRUD operations on the Amazon DynamoDB database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
 
 ![AWS Tracking Application](images/overview.png)
 
@@ -42,7 +44,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 ### Important
 
 + The AWS services in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
 + Running this code might result in charges to your AWS account. 
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
@@ -132,7 +134,8 @@ Active items are queried from the database and used to dynamically create an Exc
 
 ## Add the POM dependencies to your project
 
-Make sure that your project's pom.xml file looks like the POM file in this Github repository.
+Make sure that your project's pom.xml file looks like the POM file in this Github repository. Notice that dependencies for 
+Spring Boot 3.x are included. 
 
 ## Create the Java classes
 
