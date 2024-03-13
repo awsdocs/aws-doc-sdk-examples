@@ -2,11 +2,11 @@
 
 ## Overview
 
-| Heading      | Description |
-| ----------- | ----------- |
-| Description | Discusses how to develop a Spring Boot application that queries Amazon DynamoDB data. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).    |
-| Audience   |  Developer (intermediate)        |
-| Required skills   | Java, Maven, JavaScript  |
+| Heading          | Description |
+|------------------| ----------- |
+| Description      | Discusses how to develop a Spring Boot application that queries Amazon DynamoDB data. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).    |
+| Audience         |  Developer (intermediate)        |
+| Required skills  | Java, Maven, JavaScript  |
 
 ## Purpose
 
@@ -42,7 +42,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 ### Important
 
 + The AWS services in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
 + Running this code might result in charges to your AWS account. 
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
