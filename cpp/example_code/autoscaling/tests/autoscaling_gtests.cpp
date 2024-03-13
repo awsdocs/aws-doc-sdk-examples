@@ -59,7 +59,6 @@ private:
 };
 
 void AwsDocTest::AutoScaling_GTests::SetUpTestSuite() {
-    s_options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     InitAPI(s_options);
 
     // s_clientConfig must be a pointer because the client config must be initialized

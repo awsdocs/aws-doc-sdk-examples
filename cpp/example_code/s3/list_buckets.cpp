@@ -61,7 +61,6 @@ int main() {
     //An instance of Aws::SDKOptions is passed to the Aws::InitAPI and 
     //Aws::ShutdownAPI methods. The same instance should be sent to both methods.
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
 
     //The AWS SDK for C++ must be initialized by calling Aws::InitAPI.
     InitAPI(options);

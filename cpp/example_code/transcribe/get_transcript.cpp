@@ -28,7 +28,7 @@ static const int BUFFER_SIZE = CHUNK_LENGTH * SAMPLE_RATE / 1000 * 2;
 // snippet-start:[transcribe.cpp.stream_transcription_async.code]
 int main() {
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Trace;
+
     Aws::InitAPI(options);
     {
         //TODO(User): Set to the region of your AWS account.

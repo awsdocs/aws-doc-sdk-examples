@@ -1,0 +1,5 @@
+<DeleteUserResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">   <ResponseMetadata>
+     <RequestId>545004dc-b93c-4174-8b7e-8abd11577996</RequestId>
+   </ResponseMetadata>
+ </DeleteUserResponse>
+ 

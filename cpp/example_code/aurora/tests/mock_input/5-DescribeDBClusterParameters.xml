@@ -2,19 +2,26 @@
     <DescribeDBClusterParametersResult>
         <Parameters>
             <Parameter>
-                <AllowedValues>0,1</AllowedValues>
+                <AllowedValues>1-65535</AllowedValues>
                 <ApplyType>dynamic</ApplyType>
-                <DataType>boolean</DataType>
-                <Description>Enables per-index compression-related statistics in the
-                    INFORMATION_SCHEMA.INNODB_CMP_PER_INDEX table.
-                </Description>
+                <DataType>integer</DataType>
+                <Description>Description text</Description>
                 <ApplyMethod>pending-reboot</ApplyMethod>
-                <Source>engine-default</Source>
-                <ParameterName>innodb_cmp_per_index_enabled</ParameterName>
+                <Source>user</Source>
+                <ParameterName>auto_increment_increment</ParameterName>
                 <IsModifiable>true</IsModifiable>
-                <SupportedEngineModes>
-                    <member>provisioned</member>
-                </SupportedEngineModes>
+                <ParameterValue>3</ParameterValue>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>1-65535</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>Description text</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <Source>user</Source>
+                <ParameterName>auto_decrement_decrement</ParameterName>
+                <IsModifiable>true</IsModifiable>
+                <ParameterValue>3</ParameterValue>
             </Parameter>
         </Parameters>
     </DescribeDBClusterParametersResult>
