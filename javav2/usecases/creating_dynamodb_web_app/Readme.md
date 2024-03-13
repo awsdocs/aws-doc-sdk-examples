@@ -15,7 +15,9 @@ You can develop a dynamic web application that tracks and reports on work items 
 + Amazon DynamoDB
 + Amazon Simple Email Service (Amazon SES). (The SDK for Java (v2) is used to access Amazon SES.)
 
-The application you create is a decoupled React application that uses a Spring REST API to work with Amazon DynamoDB data. That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. The Spring REST API uses the Amazon DynamoDB Java API to perform CRUD operations on the Amazon DynamoDB database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
+The application you create is a decoupled React application that uses a Spring REST API to work with Amazon DynamoDB data. 
+That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. 
+The Spring REST API uses the Amazon DynamoDB Java API to perform CRUD operations on the Amazon DynamoDB database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
 
 ![AWS Tracking Application](images/overview.png)
 
