@@ -134,7 +134,8 @@ Active items are queried from the database and used to dynamically create an Exc
 
 ## Add the POM dependencies to your project
 
-Make sure that your project's pom.xml file looks like the POM file in this Github repository.
+Make sure that your project's pom.xml file looks like the POM file in this Github repository. Notice that dependencies for 
+Spring Boot 3.x are included. 
 
 ## Create the Java classes
 
