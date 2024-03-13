@@ -67,7 +67,6 @@ int main(int argc, char** argv)
     LOCAL_FILE_COPY += "_copy";
 
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Trace; //Turn on logging.
 
     Aws::InitAPI(options);
     {

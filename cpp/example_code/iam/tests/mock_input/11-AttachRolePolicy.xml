@@ -1,0 +1,5 @@
+<AttachRolePolicyResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">   <ResponseMetadata>
+     <RequestId>0c6e3333-33ae-4269-8338-979a8bd0346d</RequestId>
+   </ResponseMetadata>
+ </AttachRolePolicyResponse>
+ 

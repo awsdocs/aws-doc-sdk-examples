@@ -1,0 +1,17 @@
+<AssumeRoleResponse xmlns="https://sts.amazonaws.com/doc/2011-06-15/">
+    <AssumeRoleResult>
+        <AssumedRoleUser>
+            <AssumedRoleId>AAAAAAAAAAA:doc-example-tests-role-session-</AssumedRoleId>
+            <Arn>arn:aws:sts::1111112222222:assumed-role/doc-example-tests-role/doc-example-tests-role-session</Arn>
+        </AssumedRoleUser>
+        <Credentials>
+            <AccessKeyId>AAAAAAAAA</AccessKeyId>
+            <SecretAccessKey>BBBBBBBBB/QF</SecretAccessKey>
+            <SessionToken>IQ/CCCCCCCCCC/tQ==</SessionToken>
+            <Expiration>2040-03-11T20:26:49Z</Expiration>
+        </Credentials>
+    </AssumeRoleResult>
+    <ResponseMetadata>
+        <RequestId>8112f069-93fd-45ae-b9ae-4c9411539635</RequestId>
+    </ResponseMetadata>
+</AssumeRoleResponse>

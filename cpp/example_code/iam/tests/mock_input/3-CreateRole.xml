@@ -1,0 +1,15 @@
+<CreateRoleResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">   <CreateRoleResult>
+     <Role>
+       <Path>/</Path>
+       <AssumeRolePolicyDocument>%7B%22Version%22%3A%222012-10-17%22%2C%22Statement%22%3A%5B%7B%22</AssumeRolePolicyDocument>
+       <RoleId>AROARZQKN6ARBA3MU7HQ4</RoleId>
+       <RoleName>iam-demo-role</RoleName>
+       <Arn>arn:aws:iam::1111111222222:role/iam-demo-role</Arn>
+       <CreateDate>2024-03-11T14:18:55Z</CreateDate>
+     </Role>
+   </CreateRoleResult>
+   <ResponseMetadata>
+     <RequestId>2ebda984-7277-4aac-87bb-7f64853faaeb</RequestId>
+   </ResponseMetadata>
+ </CreateRoleResponse>
+ 

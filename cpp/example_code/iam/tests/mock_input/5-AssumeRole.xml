@@ -1,0 +1,8 @@
+<ErrorResponse xmlns="https://sts.amazonaws.com/doc/2011-06-15/">   <Error>
+     <Type>Sender</Type>
+     <Code>AccessDenied</Code>
+     <Message>User: arn:aws:iam::1111111222222:user/UnitTester is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::1111111222222:role/iam-demo-role</Message>
+   </Error>
+   <RequestId>ba519513-71e5-4f0c-8aa9-1edd264cd084</RequestId>
+ </ErrorResponse>
+ 

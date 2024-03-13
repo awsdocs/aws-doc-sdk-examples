@@ -2,14 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #pragma once
-#ifndef S3_EXAMPLES_S3_GTESTS_H
-#define S3_EXAMPLES_S3_GTESTS_H
+#ifndef STS_EXAMPLES_STS_GTESTS_H
+#define STS_EXAMPLES_STS_GTESTS_H
 
 #include <aws/core/Aws.h>
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/iam/model/Role.h>
 #include <memory>
 #include <gtest/gtest.h>
+#include <aws/testing/mocks/http/MockHttpClient.h>
 
 namespace AwsDocTest {
 
@@ -54,6 +55,24 @@ namespace AwsDocTest {
         static Aws::IAM::Model::Role s_role;
         static Aws::String s_userArn;
     };
+
+
+    class MockHTTP {
+    public:
+        MockHTTP();
+
+        virtual ~MockHTTP();
+
+        bool addResponseWithBody(const std::string &fileName,
+                                 Aws::Http::HttpResponseCode httpResponseCode = Aws::Http::HttpResponseCode::OK);
+
+    private:
+
+        std::shared_ptr<MockHttpClient> mockHttpClient;
+        std::shared_ptr<MockHttpClientFactory> mockHttpClientFactory;
+        std::shared_ptr<Aws::Http::HttpRequest> requestTmp;
+    }; // MockHTTP
+
 } // AwsDocTest
 
-#endif //S3_EXAMPLES_S3_GTESTS_H
+#endif //STS_EXAMPLES_STS_GTESTS_H
