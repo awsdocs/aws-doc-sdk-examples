@@ -82,7 +82,7 @@ public class RedshiftScenario {
             System.exit(1);
         }
 
-        String jsonFilePath = args[0] ;
+        String jsonFilePath = args[0];
         String userName;
         String userPassword;
         String databaseName = "dev" ;
