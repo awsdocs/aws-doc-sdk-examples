@@ -1,70 +1,70 @@
 import * as readline from "readline";
 
-export const selectModel = async (models) => {
+function askAgain(askQuestion, newQuestion) {
+    readline.moveCursor(process.stdout, 0, -1);
+    readline.clearLine(process.stdout, 0);
+    readline.cursorTo(process.stdout, 0);
+    askQuestion(newQuestion);
+}
+
+function createInterface() {
+    return readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+}
+/**
+ * @typedef {Object} FoundationModel
+ * @property {string} modelName - The name of the model
+ */
+
+/**
+ * @param {FoundationModel[]} models - An array of models to choose from
+ * @returns {Promise<FoundationModel>} - A Promise that resolves with the selected model
+ */
+export const selectModel = (models) => {
     return new Promise(resolve => {
-        const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
-        });
+        const rl = createInterface();
 
         const printOptions = () => {
             models.forEach((model, index) => {
                 console.log(`${index + 1}. ${model.modelName}`);
             });
-
         };
 
-        let currentQuestion = "Enter a number: ";
-
-        const askQuestion = (question) => {
+        const askForModel = (question) => {
             rl.question(question, answer => {
+                if (answer === "q") process.exit();
+
                 const selectedIndex = parseInt(answer, 10) - 1;
                 if (selectedIndex >= 0 && selectedIndex < models.length) {
                     rl.close();
                     resolve(models[selectedIndex]);
                 } else {
-                    // Move the cursor up one line
-                    readline.moveCursor(process.stdout, 0, -1);
-                    // Clear the line above
-                    readline.clearLine(process.stdout, 0);
-                    // Move the cursor back to the beginning of the current line
-                    readline.cursorTo(process.stdout, 0);
-                    currentQuestion = "Invalid input. Please enter a valid number: ";
-                    askQuestion(currentQuestion);
+                    askAgain(askForModel, "Invalid input. Please enter a valid number (q to quit): ");
                 }
             });
         };
 
         printOptions();
-        askQuestion(currentQuestion);
+        askForModel("Enter a number (q to quit): ");
     });
 }
 
-export const askForPrompt = async (models) => {
+export const askForPrompt = () => {
     return new Promise(resolve => {
-        const rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
-        });
+        const rl = createInterface();
 
-        let currentQuestion = "Now, enter your prompt: ";
-        const askQuestion = (question) => {
+        const askForPrompt = (question) => {
             rl.question(question, answer => {
                 if (answer.trim() === "") {
-                    // Move the cursor up one line
-                    readline.moveCursor(process.stdout, 0, -1);
-                    // Clear the line above
-                    readline.clearLine(process.stdout, 0);
-                    // Move the cursor back to the beginning of the current line
-                    readline.cursorTo(process.stdout, 0);
-                    currentQuestion = "Invalid input. Please enter a prompt: ";
-                    askQuestion(currentQuestion);
+                    askAgain(askForPrompt, "Invalid input. Please enter a prompt: ");
                 } else {
                     rl.close();
                     resolve(answer);
                 }
             });
         };
-        askQuestion(currentQuestion);
+        askForPrompt("Now, enter your prompt: ");
     });
 }

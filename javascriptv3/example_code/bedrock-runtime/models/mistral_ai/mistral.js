@@ -3,12 +3,12 @@
 
 import { fileURLToPath } from "url";
 
+import {FoundationModels} from "../../foundation_models.js";
+import {defaultProvider} from "@aws-sdk/credential-provider-node";
 import {
     BedrockRuntimeClient,
     InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
-import {FoundationModels} from "../../foundation_models.js";
-import {defaultProvider} from "@aws-sdk/credential-provider-node";
 
 /**
  * @typedef {Object} Output

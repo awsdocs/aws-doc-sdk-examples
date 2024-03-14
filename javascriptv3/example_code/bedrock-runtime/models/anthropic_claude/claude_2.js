@@ -3,12 +3,12 @@
 
 import { fileURLToPath } from "url";
 
+import {FoundationModels} from "../../foundation_models.js";
+import {defaultProvider} from "@aws-sdk/credential-provider-node";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
-import {defaultProvider} from "@aws-sdk/credential-provider-node";
-import {FoundationModels} from "../../foundation_models.js";
 
 /**
  * Invokes Anthropic Claude 2.x using the Messages API.
@@ -27,7 +27,7 @@ export const invokeMessagesApi = async (prompt, modelId) => {
     credentialDefaultProvider: defaultProvider,
   });
 
-  // Use the provided model ID or fallback to Claude Instant v1 if not provided.
+  // Use the provided model ID or fallback to Claude 2.0 if not provided.
   modelId = modelId || "anthropic.claude-v2";
 
   // Prepare the payload for the Messages API request.

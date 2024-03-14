@@ -3,12 +3,12 @@
 
 import { fileURLToPath } from "url";
 
+import {FoundationModels} from "../../foundation_models.js";
+import {defaultProvider} from "@aws-sdk/credential-provider-node";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
-import {defaultProvider} from "@aws-sdk/credential-provider-node";
-import {FoundationModels} from "../../foundation_models.js";
 
 /**
  * @typedef {Object} ResponseBody
@@ -19,7 +19,7 @@ import {FoundationModels} from "../../foundation_models.js";
  * Invokes an Amazon Titan Text generation model.
  *
  * @param {string} prompt - The input text prompt for the model to complete.
- * @param {string} [modelId] - The ID of the model model to use. Defaults to "amazon.titan-text-express-v1".
+ * @param {string} [modelId] - The ID of the model to use. Defaults to "amazon.titan-text-express-v1".
  * @returns {Promise<string[]>} The inference response from the model.
  */
 export const invokeModel = async (prompt, modelId) => {

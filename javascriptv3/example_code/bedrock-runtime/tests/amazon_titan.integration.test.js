@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { describe, it, expect } from "vitest";
+import { describe, it } from "vitest";
 import {FoundationModels} from "../foundation_models.js";
 import {expectToBeANonEmptyString} from "./test_tools.js";
 import {invokeModel} from "../models/amazon_titan/titan_text.js";
