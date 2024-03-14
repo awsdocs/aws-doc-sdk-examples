@@ -5,6 +5,14 @@ cognito-identity-provider_Hello:
   synopsis: get started using &COG;.
   category: Hello
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cognito-identity-provider.hello
     Java:
       versions:
         - sdk_version: 2
@@ -50,6 +58,14 @@ cognito-identity-provider_ListUserPools:
             - description:
               snippet_tags:
                 - Cognito.dotnetv3.ListUserPools
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cognito-identity-provider.hello
     Rust:
       versions:
         - sdk_version: 1
@@ -84,6 +100,15 @@ cognito-identity-provider_SignUp:
             - description:
               snippet_tags:
                 - Cognito.dotnetv3.SignUp
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cognito-identity-provider.CognitoActions.struct
+                - gov2.cognito-identity-provider.SignUp
     Kotlin:
       versions:
         - sdk_version: 1
@@ -686,6 +711,15 @@ cognito-identity-provider_InitiateAuth:
             - description:
               snippet_tags:
                 - Cognito.dotnetv3.InitiateAuth
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cognito-identity-provider.CognitoActions.struct
+                - gov2.cognito-identity-provider.InitiateAuth
     Python:
       versions:
         - sdk_version: 3
@@ -753,6 +787,15 @@ cognito-identity-provider_DeleteUser:
                 - cpp.example_code.cognito.client_configuration
                 - cpp.example_code.cognito.cognito_client
                 - cpp.example_code.cognito.delete_user
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cognito-identity-provider.CognitoActions.struct
+                - gov2.cognito-identity-provider.DeleteUser
   services:
     cognito-identity-provider: {DeleteUser}
 cognito-identity-provider_CreateUserPool:
@@ -789,6 +832,97 @@ cognito-identity-provider_CreateUserPoolClientApp:
                 - cognito.java2.user_pool.create_user_pool_client.main
   services:
     cognito-identity-provider: {CreateUserPoolClient}
+cognito-identity-provider_UpdateUserPool:
+  title: Update an &COG; user pool using an &AWS; SDK
+  title_abbrev: Update a user pool
+  synopsis: update an &COG; user pool.
+  category:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cognito-identity-provider.CognitoActions.struct
+                - gov2.cognito-identity-provider.UpdateUserPool
+  services:
+    cognito-identity-provider: {UpdateUserPool}
+cognito-identity-provider_ForgotPassword:
+  title: Start &COG; forgotten password flow using an &AWS; SDK
+  title_abbrev: Start forgotten password flow
+  synopsis: start &COG; forgotten password flow.
+  category:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cognito-identity-provider.CognitoActions.struct
+                - gov2.cognito-identity-provider.ForgotPassword
+  services:
+    cognito-identity-provider: {ForgotPassword}
+cognito-identity-provider_ConfirmForgotPassword:
+  title: Confirm an &COG; forgotten password using an &AWS; SDK
+  title_abbrev: Confirm a forgotten password
+  synopsis: confirm an &COG; forgotten password.
+  category:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cognito-identity-provider.CognitoActions.struct
+                - gov2.cognito-identity-provider.ConfirmForgotPassword
+  services:
+    cognito-identity-provider: {ConfirmForgotPassword}
+cognito-identity-provider_AdminCreateUser:
+  title: Create an &COG; user with administrator credentials using an &AWS; SDK
+  title_abbrev: Create a user with administrator credentials
+  synopsis: create an &COG; user with administrator credentials.
+  category:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cognito-identity-provider.CognitoActions.struct
+                - gov2.cognito-identity-provider.AdminCreateUser
+  services:
+    cognito-identity-provider: {AdminCreateUser}
+cognito-identity-provider_AdminSetUserPassword:
+  title: Set the password for an &COG; user with administrator credentials using an &AWS; SDK
+  title_abbrev: Set the password for a user with administrator credentials
+  synopsis: set the password for an &COG; user with administrator credentials.
+  category:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cognito-identity-provider.CognitoActions.struct
+                - gov2.cognito-identity-provider.AdminSetUserPassword
+  services:
+    cognito-identity-provider: {AdminSetUserPassword}
+
 cognito-identity-provider_Scenario_SignUpUserWithMfa:
   title: Sign up a user with an &COG; user pool that requires MFA using an &AWS; SDK
   title_abbrev: Sign up a user with a user pool that requires MFA

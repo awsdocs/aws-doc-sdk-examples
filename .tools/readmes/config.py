@@ -37,6 +37,9 @@ language = {
             "base_folder": "gov2",
             "service_folder": 'gov2/{{service["name"]}}',
             "sdk_api_ref": 'https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/{{service["name"]}}',
+            "service_folder_overrides": {
+                "cognito-identity-provider": "gov2/cognito",
+            },
         },
     },
     "Java": {
