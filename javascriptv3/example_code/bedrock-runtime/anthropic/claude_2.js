@@ -52,7 +52,7 @@ export const invokeMessagesApi = async (prompt, modelId) => {
   });
   const apiResponse = await client.send(command);
 
-  /* Decode and return the response(s) */
+  // Decode and return the response(s)
   const decodedResponseBody = new TextDecoder().decode(apiResponse.body);
   const responseBody = JSON.parse(decodedResponseBody);
   return responseBody.content.map((output) => output.text);

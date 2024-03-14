@@ -11,7 +11,8 @@ import {FoundationModels} from "../foundation_models.js";
  * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-messages.html
  *
  * @param {string} prompt - The input text prompt for the model to complete.
- * @param {string} [modelId] - The ID of the Anthropic model to use. Defaults to "anthropic.claude-3-haiku-20240307-v1:0".
+ * @param {string} [modelId] - The ID of the Anthropic model to use.
+ *                             Defaults to "anthropic.claude-3-haiku-20240307-v1:0".
  * @returns {Promise<string[]>} The inference response from the model.
  */
 export const invokeModel = async (prompt, modelId) => {
@@ -46,7 +47,7 @@ export const invokeModel = async (prompt, modelId) => {
     });
     const apiResponse = await client.send(command);
 
-    /* Decode and return the response(s) */
+    // Decode and return the response(s)
     const decodedResponseBody = new TextDecoder().decode(apiResponse.body);
     const responseBody = JSON.parse(decodedResponseBody);
     return responseBody.content.map((output) => output.text);
