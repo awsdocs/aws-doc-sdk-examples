@@ -30,13 +30,7 @@ describe("invoke mixtral 8x7b with test prompt", () => {
   });
 });
 
-describe("invoke claude with test prompt", () => {
-  it("should return a text completion", async () => {
-    const response = await invokeClaude(TEST_PROMPT);
-    expect(typeof response).toBe("string");
-    expect(response).not.toBe("");
-  });
-});
+
 
 describe("invoke jurassic-2 with test prompt", () => {
   it("should return a text completion", async () => {

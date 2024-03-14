@@ -73,8 +73,9 @@ export const invokeTextCompletionsApi = async (prompt, modelId) => {
     modelId = modelId || "anthropic.claude-instant-v1";
 
     // Prepare the payload for the Text Completions API, using the required prompt template.
+    const enclosedPrompt = `Human: ${prompt}\n\nAssistant:`;
     const payload = {
-        prompt: `Human: ${prompt}\n\nAssistant:`,
+        prompt: enclosedPrompt,
         max_tokens_to_sample: 500,
         temperature: 0.5,
         stop_sequences: ["\n\nHuman:"],
