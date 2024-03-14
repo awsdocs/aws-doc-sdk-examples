@@ -4,15 +4,14 @@ import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedroc
 import { defaultProvider } from "@aws-sdk/credential-provider-node";
 
 /**
- * Invokes the Anthropic Claude Instant model using the Messages API.
+ * Invokes Anthropic Claude Instant using the Messages API.
  *
  * To learn more about the Anthropic Messages API, go to:
  * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-messages.html
  *
  * @param {string} prompt - The input text prompt for Claude to complete.
- * @param {string} [modelId] - The ID of the Anthropic model to use.
- *                             Defaults to "anthropic.claude-instant-v1".
- * @returns {Promise<string>} The inference response (completion) from the model.
+ * @param {string} [modelId] - The ID of the Anthropic model to use. Defaults to "anthropic.claude-instant-v1".
+ * @returns {Promise<string>} The inference response from the model.
  */
 export const invokeMessagesApi = async (prompt, modelId) => {
     // Create a new Bedrock Runtime client instance.
@@ -52,15 +51,14 @@ export const invokeMessagesApi = async (prompt, modelId) => {
 };
 
 /**
- * Invokes the Anthropic Claude Instant model using the Text Completions API.
+ * Invokes Anthropic Claude Instant using the Text Completions API.
  *
  * To learn more about the Anthropic Text Completions API, go to:
  * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-text-completion.html
  *
  * @param {string} prompt - The input text prompt for Claude to complete.
- * @param {string} [modelId] - The ID of the Anthropic model to use.
- *                             Defaults to "anthropic.claude-instant-v1".
- * @returns {Promise<string>} The inference response (completion) from the model.
+ * @param {string} [modelId] - The ID of the Anthropic model to use. Defaults to "anthropic.claude-instant-v1".
+ * @returns {Promise<string>} The inference response from the model.
  */
 export const invokeTextCompletionsApi = async (prompt, modelId) => {
     // Create a new Bedrock Runtime client instance.
