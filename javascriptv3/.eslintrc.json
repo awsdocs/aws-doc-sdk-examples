@@ -11,6 +11,7 @@
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
+    "extraFileExtensions": [".json"],
     "project": ["./tsconfig.json"]
   },
   "settings": {
