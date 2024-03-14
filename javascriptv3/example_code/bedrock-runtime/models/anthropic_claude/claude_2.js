@@ -3,12 +3,27 @@
 
 import { fileURLToPath } from "url";
 
-import {FoundationModels} from "../../foundation_models.js";
-import {defaultProvider} from "@aws-sdk/credential-provider-node";
+import { FoundationModels } from "../../foundation_models.js";
+import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
+
+/**
+ * @typedef {Object} ResponseContent
+ * @property {string} text
+ */
+
+/**
+ * @typedef {Object} MessagesResponseBody
+ * @property {ResponseContent[]} content
+ */
+
+/**
+ * @typedef {Object} TextCompletionsResponseBody
+ * @property {completion} text
+ */
 
 /**
  * Invokes Anthropic Claude 2.x using the Messages API.
@@ -37,10 +52,8 @@ export const invokeMessagesApi = async (prompt, modelId) => {
     messages: [
       {
         role: "user",
-        content: [
-          { type: "text", "text": prompt}
-        ]
-      }
+        content: [{ type: "text", text: prompt }],
+      },
     ],
   };
 
@@ -54,8 +67,9 @@ export const invokeMessagesApi = async (prompt, modelId) => {
 
   // Decode and return the response(s)
   const decodedResponseBody = new TextDecoder().decode(apiResponse.body);
+  /** @type {MessagesResponseBody} */
   const responseBody = JSON.parse(decodedResponseBody);
-  return responseBody.content.map(content => content.text);
+  return responseBody.content.map((content) => content.text);
 };
 
 /**
@@ -97,12 +111,15 @@ export const invokeTextCompletionsApi = async (prompt, modelId) => {
 
   // Decode and return the response.
   const decoded = new TextDecoder().decode(apiResponse.body);
-  return JSON.parse(decoded).completion;
+  /** @type {TextCompletionsResponseBody} */
+  const responseBody = JSON.parse(decoded);
+  return responseBody.completion;
 };
 
 // Invoke the function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const prompt = 'Complete the following in one sentence: "Once upon a time..."';
+  const prompt =
+    'Complete the following in one sentence: "Once upon a time..."';
   const modelId = FoundationModels.CLAUDE_2.modelId;
   console.log(`Prompt: ${prompt}`);
   console.log(`Model ID: ${modelId}`);
