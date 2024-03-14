@@ -7,18 +7,16 @@ import {expectToBeANonEmptyString} from "./test_tools.js";
 import {
     invokeMessagesApi as invokeClaudeInstantMessagesApi,
     invokeTextCompletionsApi as invokeClaudeInstantTextCompletionsApi,
-} from "../anthropic/claude_instant_1.js";
+} from "../models/anthropic_claude/claude_instant_1.js";
 import {
     invokeTextCompletionsApi as invokeClaude2TextCompletionsApi,
     invokeMessagesApi as invokeClaude2MessagesApi,
-} from "../anthropic/claude_2.js";
+} from "../models/anthropic_claude/claude_2.js";
 import {
     invokeModel as invokeClaude3,
-} from "../anthropic/claude_3.js";
+} from "../models/anthropic_claude/claude_3.js";
 
 const TEXT_PROMPT = "Hello, this is a test prompt";
-
-
 
 describe("Invoke Anthropic Claude Instant using the Text Completions API", () => {
     it("should return a response", async () => {

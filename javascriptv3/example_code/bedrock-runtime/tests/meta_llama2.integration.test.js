@@ -4,23 +4,23 @@
 import {describe, it} from "vitest";
 import {FoundationModels} from "../foundation_models.js";
 import {expectToBeANonEmptyString} from "./test_tools.js";
-import {invokeModel} from "../models/mistral_ai/mistral.js";
+import {invokeModel} from "../models/meta_llama2/llama2_chat.js";
 
 
 const TEXT_PROMPT = "Hello, this is a test prompt";
 
-describe("Invoke Mistral 7B", () => {
+describe("Invoke Llama2 Chat 13B", () => {
     it("should return a response", async () => {
-        const modelId = FoundationModels.MISTRAL_7B.modelId;
+        const modelId = FoundationModels.LLAMA2_CHAT_13B.modelId;
         const response = await invokeModel(TEXT_PROMPT, modelId);
-        expectToBeANonEmptyString(response[0]);
+        expectToBeANonEmptyString(response);
     })
 });
 
-describe("Invoke Mixtral 8x7B", () => {
+describe("Invoke Llama2 Chat 70B", () => {
     it("should return a response", async () => {
-        const modelId = FoundationModels.MIXTRAL_8X7B.modelId;
+        const modelId = FoundationModels.LLAMA2_CHAT_70B.modelId;
         const response = await invokeModel(TEXT_PROMPT, modelId);
-        expectToBeANonEmptyString(response[0]);
+        expectToBeANonEmptyString(response);
     })
 });

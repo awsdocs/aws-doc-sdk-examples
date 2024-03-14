@@ -4,6 +4,7 @@
 import { fileURLToPath } from "url";
 
 import {
+    AccessDeniedException,
     BedrockRuntimeClient,
     InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
@@ -11,19 +12,16 @@ import {FoundationModels} from "../../foundation_models.js";
 import {defaultProvider} from "@aws-sdk/credential-provider-node";
 
 /**
- * @typedef {Object} Output
- * @property {string} text
- *
  * @typedef {Object} ResponseBody
- * @property {Output[]} outputs
+ * @property {generation} text
  */
 
 /**
- * Invokes a Mistral AI model.
+ * Invokes a Meta Llama 2 Chat model.
  *
  * @param {string} prompt - The input text prompt for the model to complete.
- * @param {string} [modelId] - The ID of the model to use. Defaults to "mistral.mistral-7b-instruct-v0:2".
- * @returns {Promise<string[]>} The inference response from the model.
+ * @param {string} [modelId] - The ID of the model model to use. Defaults to "meta.llama2-13b-chat-v1".
+ * @returns {Promise<string>} The inference response from the model.
  */
 export const invokeModel = async (prompt, modelId) => {
     // Create a new Bedrock Runtime client instance.
@@ -32,18 +30,14 @@ export const invokeModel = async (prompt, modelId) => {
         credentialDefaultProvider: defaultProvider,
     });
 
-    // Use the provided model ID or fallback to Mistral 7B Instruct if not provided.
-    modelId = modelId || "mistral.mistral-7b-instruct-v0:2";
+    // Use the provided model ID or fallback to Llama2 Chat 13B if not provided.
+    modelId = modelId || "meta.llama2-13b-chat-v1";
 
-    // Mistral instruct models provide optimal results when embedding
-    // the prompt into the following template:
-    const instruction = `<s>[INST] ${prompt} [/INST]`;
-
-    // Prepare the payload.
+    // Prepare the payload for the model.
     const payload = {
-        prompt: instruction,
-        max_tokens: 500,
+        prompt,
         temperature: 0.5,
+        max_gen_len: 1000,
     };
 
     // Invoke the model with the payload and wait for the response.
@@ -58,20 +52,20 @@ export const invokeModel = async (prompt, modelId) => {
     const decodedResponseBody = new TextDecoder().decode(apiResponse.body);
     /** @type {ResponseBody} */
     const responseBody = JSON.parse(decodedResponseBody);
-    return responseBody.outputs.map(output => output.text);
+    return responseBody.generation;
 };
 
 // Invoke the function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     const prompt = 'Complete the following in one sentence: "Once upon a time..."';
-    const modelId = FoundationModels.MISTRAL_7B.modelId;
+    const modelId = FoundationModels.LLAMA2_CHAT_13B.modelId;
     console.log(`Prompt: ${prompt}`);
     console.log(`Model ID: ${modelId}`);
 
     try {
         console.log("-".repeat(53));
-        const responses = await invokeModel(prompt, modelId);
-        responses.forEach((response) => console.log(response));
+        const response = await invokeModel(prompt, modelId);
+        console.log(response);
     } catch (err) {
         console.log(err);
     }

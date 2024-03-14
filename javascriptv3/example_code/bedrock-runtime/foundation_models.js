@@ -43,4 +43,12 @@ export const FoundationModels = Object.freeze({
         modelId: "mistral.mixtral-8x7b-instruct-v0:1",
         modelName: "Mixtral 8X7B Instruct",
     },
+    TITAN_TEXT_G1_EXPRESS: {
+        modelId: "amazon.titan-text-express-v1",
+        modelName: "Titan Text G1 - Express",
+    },
+    TITAN_TEXT_G1_LITE: {
+        modelId: "amazon.titan-text-lite-v1",
+        modelName: "Titan Text G1 - Lite",
+    },
 });

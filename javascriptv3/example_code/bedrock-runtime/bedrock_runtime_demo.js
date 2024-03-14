@@ -1,8 +1,11 @@
 import {fileURLToPath} from "url";
 import {askForPrompt, selectModel} from "./tools/user_input.js";
 import {FoundationModels} from "./foundation_models.js";
-import {invokeClaude3} from "./models/anthropic/invoke_claude_3.js";
-import {invokeTextCompletionApi} from "./anthropic/claude_instant.js";
+
+import {
+
+}
+
 
 export const runDemo = async () => {
 
@@ -27,7 +30,7 @@ export const runDemo = async () => {
 
     let response;
     if (model === FoundationModels.CLAUDE_3_HAIKU || model === FoundationModels.CLAUDE_3_SONNET) {
-        response = await invokeClaude3(model.modelId, prompt);
+        response = await (model.modelId, prompt);
     } else if (model === FoundationModels.CLAUDE_INSTANT) {
         response = await invokeTextCompletionApi(prompt);
     }
