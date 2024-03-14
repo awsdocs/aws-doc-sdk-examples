@@ -203,8 +203,8 @@ redshift_Query:
   services:
     redshift: {Query}
 redshift_DescribeStatement:
-  title: Describes an &RS; query statement using an &AWS; SDK
-  title_abbrev: Describes a query statement
+  title: Describe an &RS; query statement using an &AWS; SDK
+  title_abbrev: Describe a query statement
   synopsis: describe an &RS; query statement.
   category:
   languages:
