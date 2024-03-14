@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import {fileURLToPath} from "url";
 import {askForPrompt, selectModel} from "./tools/user_input.js";
 import {FoundationModels} from "./foundation_models.js";
