@@ -148,10 +148,12 @@ This concludes the Amazon Redshift SDK Getting Started scenario.
 
 ```
 
-## Metadata
+## SOS Tags
+
+The following table describes the SOS tags that are used in this SDK Getting Started Scenario.
 
 
-| action / scenario            | metadata file                | metadata key                            |
+| action                       | metadata file                | sos tag                            |
 |------------------------------|------------------------------|---------------------------------------- |
 | `deleteCluster`              | redshift_metadata.yaml       | redshift.java2.delete_cluster.main      |
 | `addrecord`                  | redshift_metadata.yaml       | redshiftdata.java2.data_add.record.main |
@@ -165,4 +167,4 @@ This concludes the Amazon Redshift SDK Getting Started scenario.
 | `describeClustersPaginator ` | redshift_metadata.yaml       | redshift.java2.hello.main               |
 | `scenario`                   | redshift_metadata.yaml       | redshift.java2.scenario.main            |
 
-Note:  The metadata keys in this table are following the Java V2 metadata key format, which is [service].[language].[operation].[main]. When you implement the correspondnig metadata keys in your SDK, be sure to follow your SDK's format. 
+Note:  The sos tags in this table are following the Java V2 format, which is [service].[language].[operation].[main]. When you implement the corresponding sos tags in your SDK, be sure to follow your SDK's format. 
