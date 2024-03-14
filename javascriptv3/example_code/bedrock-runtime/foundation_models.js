@@ -1,9 +1,26 @@
+/**
+ * @typedef {Object} Module
+ * @property {Function} invokeModel
+ * @property {Function} invokeTextCompletionsApi
+ */
+
+/**
+ * @typedef {Object} FoundationModel
+ * @property {string} modelId
+ * @property {string} modelName
+ * @property {function(): Promise<Module>} module
+ * @property {function(module: Module): Function} invoker
+ */
+
+/**
+ * @type {Object.<string, FoundationModel>}
+ */
 export const FoundationModels = Object.freeze({
     CLAUDE_3_HAIKU: {
         modelId: "anthropic.claude-3-haiku-20240307-v1:0",
         modelName: "Anthropic Claude 3 Haiku",
         module: () => import("./models/anthropic_claude/claude_3.js"),
-        invoker: (module) => module.invokeModel,
+        invoker: (module) => /** @type {ModuleExport} */ module.invokeModel,
     },
     CLAUDE_3_SONNET: {
         modelId: "anthropic.claude-3-sonnet-20240229-v1:0",
