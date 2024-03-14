@@ -19,10 +19,10 @@ import {
  */
 
 /**
- * Invokes a Mistral AI model.
+ * Invokes a Mistral 8x7B Instruct model.
  *
  * @param {string} prompt - The input text prompt for the model to complete.
- * @param {string} [modelId] - The ID of the model to use. Defaults to "mistral.mistral-7b-instruct-v0:2".
+ * @param {string} [modelId] - The ID of the model to use. Defaults to "mistral.mixtral-8x7b-instruct-v0:1".
  * @returns {Promise<string[]>} The inference response from the model.
  */
 export const invokeModel = async (prompt, modelId) => {
@@ -32,8 +32,8 @@ export const invokeModel = async (prompt, modelId) => {
         credentialDefaultProvider: defaultProvider,
     });
 
-    // Use the provided model ID or fallback to Mistral 7B Instruct if not provided.
-    modelId = modelId || "mistral.mistral-7b-instruct-v0:2";
+    // Use the provided model ID or fallback to Mistral 8x7B Instruct if not provided.
+    modelId = modelId || "mistral.mixtral-8x7b-instruct-v0:1";
 
     // Mistral instruct models provide optimal results when embedding
     // the prompt into the following template:
@@ -64,7 +64,7 @@ export const invokeModel = async (prompt, modelId) => {
 // Invoke the function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     const prompt = 'Complete the following in one sentence: "Once upon a time..."';
-    const modelId = FoundationModels.MISTRAL_7B.modelId;
+    const modelId = FoundationModels.MIXTRAL_8X7B.modelId;
     console.log(`Prompt: ${prompt}`);
     console.log(`Model ID: ${modelId}`);
 

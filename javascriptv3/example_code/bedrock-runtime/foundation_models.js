@@ -56,13 +56,13 @@ export const FoundationModels = Object.freeze({
     MISTRAL_7B: {
         modelId: "mistral.mistral-7b-instruct-v0:2",
         modelName: "Mistral 7B Instruct",
-        module: () => import("./models/mistral_ai/mistral.js"),
+        module: () => import("./models/mistral_ai/mistral_7b.js"),
         invoker: (module) => module.invokeModel,
     },
     MIXTRAL_8X7B: {
         modelId: "mistral.mixtral-8x7b-instruct-v0:1",
         modelName: "Mixtral 8X7B Instruct",
-        module: () => import("./models/mistral_ai/mistral.js"),
+        module: () => import("./models/mistral_ai/mixtral_8x7b.js"),
         invoker: (module) => module.invokeModel,
     },
     TITAN_TEXT_G1_EXPRESS: {
