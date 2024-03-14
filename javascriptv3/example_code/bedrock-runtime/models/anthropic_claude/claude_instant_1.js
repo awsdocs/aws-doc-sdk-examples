@@ -3,7 +3,6 @@ import { fileURLToPath } from "url";
 import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
 import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import {FoundationModels} from "../foundation_models.js";
-import {invokeModel} from "./claude_3.js";
 
 /**
  * Invokes Anthropic Claude Instant using the Messages API.
@@ -12,7 +11,7 @@ import {invokeModel} from "./claude_3.js";
  * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-messages.html
  *
  * @param {string} prompt - The input text prompt for the model to complete.
- * @param {string} [modelId] - The ID of the Anthropic model to use. Defaults to "anthropic.claude-instant-v1".
+ * @param {string} [modelId] - The ID of the model to use. Defaults to "anthropic.claude-instant-v1".
  * @returns {Promise<string[]>} The inference response from the model.
  */
 export const invokeMessagesApi = async (prompt, modelId) => {
@@ -22,7 +21,7 @@ export const invokeMessagesApi = async (prompt, modelId) => {
         credentialDefaultProvider: defaultProvider,
     });
 
-    // Use the provided model ID or fallback to Claude Instant v1 if not provided.
+    // Use the provided model ID or fallback to Claude Instant 1.0 if not provided.
     modelId = modelId || "anthropic.claude-instant-v1";
 
     // Prepare the payload for the Messages API request.
@@ -50,7 +49,7 @@ export const invokeMessagesApi = async (prompt, modelId) => {
     // Decode and return the response(s)
     const decodedResponseBody = new TextDecoder().decode(apiResponse.body);
     const responseBody = JSON.parse(decodedResponseBody);
-    return responseBody.content.map((output) => output.text);
+    return responseBody.content.map(content => content.text);
 };
 
 /**
@@ -60,7 +59,7 @@ export const invokeMessagesApi = async (prompt, modelId) => {
  * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-text-completion.html
  *
  * @param {string} prompt - The input text prompt for the model to complete.
- * @param {string} [modelId] - The ID of the Anthropic model to use. Defaults to "anthropic.claude-instant-v1".
+ * @param {string} [modelId] - The ID of the model to use. Defaults to "anthropic.claude-instant-v1".
  * @returns {Promise<string>} The inference response from the model.
  */
 export const invokeTextCompletionsApi = async (prompt, modelId) => {
@@ -70,7 +69,7 @@ export const invokeTextCompletionsApi = async (prompt, modelId) => {
         credentialDefaultProvider: defaultProvider,
     });
 
-    // Use the provided model ID or fallback to Claude Instant v1 if not provided.
+    // Use the provided model ID or fallback to Claude Instant 1.0 if not provided.
     modelId = modelId || "anthropic.claude-instant-v1";
 
     // Prepare the payload for the Text Completions API, using the required prompt template.

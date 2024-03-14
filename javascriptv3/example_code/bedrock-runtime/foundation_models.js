@@ -19,6 +19,22 @@ export const FoundationModels = Object.freeze({
         modelId: "anthropic.claude-instant-v1",
         modelName: "Anthropic Claude Instant",
     },
+    JURASSIC2_MID: {
+        modelId: "ai21.j2-mid-v1",
+        modelName: "Jurassic-2 Mid",
+    },
+    JURASSIC2_ULTRA: {
+        modelId: "ai21.j2-ultra-v1",
+        modelName: "Jurassic-2 Ultra",
+    },
+    LLAMA2_CHAT_13B: {
+        modelId: "meta.llama2-13b-chat-v1",
+        modelName: "Llama 2 Chat 13B",
+    },
+    LLAMA2_CHAT_70B: {
+        modelId: "meta.llama2-70b-chat-v1",
+        modelName: "Llama 2 Chat 70B",
+    },
     MISTRAL_7B: {
         modelId: "mistral.mistral-7b-instruct-v0:2",
         modelName: "Mistral 7B Instruct",
