@@ -8,6 +8,7 @@ import {
   InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
 import {defaultProvider} from "@aws-sdk/credential-provider-node";
+import {FoundationModels} from "../foundation_models.js";
 
 /**
  * Invokes Anthropic Claude 2.x using the Messages API.
@@ -15,9 +16,9 @@ import {defaultProvider} from "@aws-sdk/credential-provider-node";
  * To learn more about the Anthropic Messages API, go to:
  * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-messages.html
  *
- * @param {string} prompt - The input text prompt for Claude to complete.
+ * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the Anthropic model to use. Defaults to "anthropic.claude-v2".
- * @returns {Promise<string>} The inference response from the model.
+ * @returns {Promise<string[]>} The inference response from the model.
  */
 export const invokeMessagesApi = async (prompt, modelId) => {
   // Create a new Bedrock Runtime client instance.
@@ -51,9 +52,10 @@ export const invokeMessagesApi = async (prompt, modelId) => {
   });
   const apiResponse = await client.send(command);
 
-  // Decode and print the response.
-  const decoded = new TextDecoder().decode(apiResponse.body);
-  return JSON.parse(decoded).content[0].text;
+  /* Decode and return the response(s) */
+  const decodedResponseBody = new TextDecoder().decode(apiResponse.body);
+  const responseBody = JSON.parse(decodedResponseBody);
+  return responseBody.content.map((output) => output.text);
 };
 
 /**
@@ -62,7 +64,7 @@ export const invokeMessagesApi = async (prompt, modelId) => {
  * To learn more about the Anthropic Text Completions API, go to:
  * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-text-completion.html
  *
- * @param {string} prompt - The input text prompt for Claude to complete.
+ * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the Anthropic model to use. Defaults to "anthropic.claude-v2".
  * @returns {Promise<string>} The inference response from the model.
  */
@@ -93,19 +95,33 @@ export const invokeTextCompletionsApi = async (prompt, modelId) => {
   });
   const apiResponse = await client.send(command);
 
-  // Decode and print the response.
+  // Decode and return the response.
   const decoded = new TextDecoder().decode(apiResponse.body);
   return JSON.parse(decoded).completion;
 };
 
 // Invoke the function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const prompt = 'Complete the following: "Once upon a time..."';
-  console.log("\nModel: Anthropic Claude v2");
+  const prompt = 'Complete the following in one sentence: "Once upon a time..."';
+  const modelId = FoundationModels.CLAUDE_2.modelId;
   console.log(`Prompt: ${prompt}`);
+  console.log(`Model ID: ${modelId}`);
 
-  const completion = await invokeClaude(prompt);
-  console.log("Completion:");
-  console.log(completion);
-  console.log("\n");
+  try {
+    console.log("-".repeat(53));
+    console.log("Using the Messages API:");
+    const responses = await invokeMessagesApi(prompt, modelId);
+    responses.forEach((response) => console.log(response));
+  } catch (err) {
+    console.log(err);
+  }
+
+  try {
+    console.log("-".repeat(53));
+    console.log("Using the Text Completions API:");
+    const response = await invokeTextCompletionsApi(prompt, modelId);
+    console.log(response);
+  } catch (err) {
+    console.log(err);
+  }
 }
