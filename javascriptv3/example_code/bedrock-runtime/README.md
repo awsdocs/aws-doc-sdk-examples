@@ -32,6 +32,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon Bedrock](hello.js) (`InvokeModel`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -71,6 +76,13 @@ node ./scenarios/<fileName>
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Amazon Bedrock
+
+This example shows you how to get started using Amazon Bedrock.
+
+```bash
+node ./hello.js
+```
 
 
 ### Tests
