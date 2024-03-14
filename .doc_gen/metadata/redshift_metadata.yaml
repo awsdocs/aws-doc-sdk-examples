@@ -202,6 +202,23 @@ redshift_Query:
                 - redshiftdata.java2.query.main
   services:
     redshift: {Query}
+redshift_DescribeStatement:
+  title: Describes an &RS; query statement using an &AWS; SDK
+  title_abbrev: Describes a query statement
+  synopsis: describe an &RS; query statement.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - redshiftdata.java2.checkstatement.main
+  services:
+    redshift: {DescribeStatement}    
 redshift_GetStatementResult:
   title: Get the &RS; statement result using an &AWS; SDK
   title_abbrev: Get the statement result
