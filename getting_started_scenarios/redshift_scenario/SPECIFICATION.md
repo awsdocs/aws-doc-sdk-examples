@@ -153,18 +153,17 @@ This concludes the Amazon Redshift SDK Getting Started scenario.
 The following table describes the SOS tags that are used in this SDK Getting Started Scenario.
 
 
-| action                       | metadata file                | sos tag                            |
-|------------------------------|------------------------------|---------------------------------------- |
-| `deleteCluster`              | redshift_metadata.yaml       | redshift.java2.delete_cluster.main      |
-| `addrecord`                  | redshift_metadata.yaml       | redshiftdata.java2.data_add.record.main |
-| `describeStatement`          | redshift_metadata.yaml       | redshiftdata.java2.checkstatement.main  |
-| `modifyCluster `             | redshift_metadata.yaml       | redshift.java2.mod_cluster.main         |
-| `querymoviesd`               | redshift_metadata.yaml       | redshiftdata.java2.mod_cluster.main     |
-| `getStatementResult`         | redshift_metadata.yaml       | redshiftdata.java2.getresults.main      |
-| `describeClusters`           | redshift_metadata.yaml       | redshift.java2.describe_cluster.main    |
-| `createTable `               | redshift_metadata.yaml       | redshiftdata.java2.create_table.main    |
-| `createCluster `             | redshift_metadata.yaml       | redshift.java2.create_cluster.main      |
-| `describeClustersPaginator ` | redshift_metadata.yaml       | redshift.java2.hello.main               |
-| `scenario`                   | redshift_metadata.yaml       | redshift.java2.scenario.main            |
+| action                       | metadata file          | sos tag                                 | metadata key        |
+|------------------------------|------------------------|---------------------------------------- |-------------------------- `deleteCluster`                | redshift_metadata.yaml | redshift.java2.delete_cluster.main      | redshift_DeleteCluster
+| `addrecord`                  | redshift_metadata.yaml | redshiftdata.java2.data_add.record.main | redshift_Insert
+| `describeStatement`          | redshift_metadata.yaml | redshiftdata.java2.checkstatement.main  | redshift_DescribeStatement
+| `modifyCluster `             | redshift_metadata.yaml | redshift.java2.mod_cluster.main         | redshift_ModifyCluster
+| `querymoviesd`               | redshift_metadata.yaml | redshiftdata.java2.query.main           | redshift_Query
+| `getStatementResult`         | redshift_metadata.yaml | redshiftdata.java2.getresults.main      | redshift_GetStatementResult
+| `describeClusters`           | redshift_metadata.yaml | redshift.java2.describe_cluster.main    | redshift_DescribeCluster
+| `createTable `               | redshift_metadata.yaml | redshiftdata.java2.create_table.main    | redshift_CreateTable
+| `createCluster `             | redshift_metadata.yaml | redshift.java2.create_cluster.main      | redshift_CreateCluster
+| `describeClustersPaginator ` | redshift_metadata.yaml | redshift.java2.hello.main               | redshift_Hello
+| `scenario`                   | redshift_metadata.yaml | redshift.java2.scenario.main            | redshift_Scenario
 
 Note:  The sos tags in this table are following the Java V2 format, which is [service].[language].[operation].[main]. When you implement the corresponding sos tags in your SDK, be sure to follow your SDK's format. 
