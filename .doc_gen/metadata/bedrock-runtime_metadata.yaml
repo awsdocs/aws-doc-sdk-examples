@@ -82,7 +82,7 @@ bedrock-runtime_InvokeAmazonTitanImageGeneratorForTextGeneration:
           excerpts:
             - description: Invoke the Amazon Titan Text G1 foundation model to generate text.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/actions/invoke-titan-text-express-v1.js
+                - javascriptv3/example_code/bedrock-runtime/models/amazon_titan/titan_text.js
     .NET:
       versions:
         - sdk_version: 3
@@ -174,7 +174,7 @@ bedrock-runtime_InvokeMistral7B:
           excerpts:
             - description: Invoke the Mistral 7B foundation model to generate text.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/actions/invoke-mistral7b.js
+                - javascriptv3/example_code/bedrock-runtime/models/mistral_ai/mistral.js
     Python:
       versions:
         - sdk_version: 3
@@ -218,7 +218,7 @@ bedrock-runtime_InvokeMixtral8x7B:
           excerpts:
             - description: Invoke the Mixtral 8x7B foundation model to generate text.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/actions/invoke-mixtral8x7b.js
+                - javascriptv3/example_code/bedrock-runtime/models/mistral_ai/mistral.js
     Python:
       versions:
         - sdk_version: 3
@@ -270,7 +270,7 @@ bedrock-runtime_InvokeClaude:
           excerpts:
             - description: Invoke the Anthropic Claude 2 foundation model to generate text.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/actions/invoke-claude.js
+                - javascriptv3/example_code/bedrock-runtime/models/anthropic_claude/claude_2.js
     PHP:
       versions:
         - sdk_version: 3
@@ -323,6 +323,14 @@ bedrock-runtime_Claude3_Text:
             - description: Invoke Anthropic Claude 3 to generate text.
               snippet_tags:
                 - python.example_code.bedrock-runtime.InvokeAnthropicClaude3Text
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke Anthropic Claude 3 to generate text.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-runtime/models/ai21_labs_jurassic2/jurassic2.js
   services:
     bedrock-runtime: {InvokeModel}
 
@@ -374,7 +382,7 @@ bedrock-runtime_InvokeJurassic2:
           excerpts:
             - description: Invoke the AI21 Labs Jurassic-2 foundation model to generate text.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/actions/invoke-jurassic2.js
+                - javascriptv3/example_code/bedrock-runtime/models/ai21_labs_jurassic2/jurassic2.js
     PHP:
       versions:
         - sdk_version: 3
@@ -434,7 +442,7 @@ bedrock-runtime_InvokeLlama2:
           excerpts:
             - description: Invoke the Meta Llama 2 Chat foundation model to generate text.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/actions/invoke-llama2.js
+                - javascriptv3/example_code/bedrock-runtime/models/meta_llama2/llama2_chat.js
     PHP:
       versions:
         - sdk_version: 3

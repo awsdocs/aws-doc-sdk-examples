@@ -36,12 +36,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Text generation with AI21 Labs Jurassic-2](actions/invoke-jurassic2.js) (`InvokeModel`)
-- [Text generation with Amazon Titan Text G1](actions/invoke-titan-text-express-v1.js) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2](actions/invoke-claude.js) (`InvokeModel`)
-- [Text generation with Meta Llama 2 Chat](actions/invoke-llama2.js) (`InvokeModel`)
-- [Text generation with Mistral 7B](actions/invoke-mistral7b.js) (`InvokeModel`)
-- [Text generation with Mixtral 8x7B](actions/invoke-mixtral8x7b.js) (`InvokeModel`)
+- [Text generation with AI21 Labs Jurassic-2](models/ai21_labs_jurassic2/jurassic2.js) (`InvokeModel`)
+- [Text generation with Amazon Titan Text G1](models/amazon_titan/titan_text.js) (`InvokeModel`)
+- [Text generation with Anthropic Claude 2](models/anthropic_claude/claude_2.js) (`InvokeModel`)
+- [Text generation with Anthropic Claude 3](models/ai21_labs_jurassic2/jurassic2.js) (`InvokeModel`)
+- [Text generation with Meta Llama 2 Chat](models/meta_llama2/llama2_chat.js) (`InvokeModel`)
+- [Text generation with Mistral 7B](models/mistral_ai/mistral.js) (`InvokeModel`)
+- [Text generation with Mixtral 8x7B](models/mistral_ai/mistral.js) (`InvokeModel`)
 
 
 <!--custom.examples.start-->
