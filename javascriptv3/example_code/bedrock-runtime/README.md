@@ -40,6 +40,7 @@ Code excerpts that show you how to call individual service functions.
 - [Text generation with Amazon Titan Text G1](models/amazon_titan/titan_text.js) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2](models/anthropic_claude/claude_2.js) (`InvokeModel`)
 - [Text generation with Anthropic Claude 3](models/ai21_labs_jurassic2/jurassic2.js) (`InvokeModel`)
+- [Text generation with Anthropic Claude Instant](models/anthropic_claude/claude_instant_1.js) (`InvokeModel`)
 - [Text generation with Meta Llama 2 Chat](models/meta_llama2/llama2_chat.js) (`InvokeModel`)
 - [Text generation with Mistral 7B](models/mistral_ai/mistral_7b.js) (`InvokeModel`)
 - [Text generation with Mixtral 8x7B](models/mistral_ai/mixtral_8x7b.js) (`InvokeModel`)
