@@ -3,7 +3,7 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
-import { Stack, aws_ecr as ecr, RemovalPolicy } from 'aws-cdk-lib';
+import { Stack, aws_ecr as ecr, RemovalPolicy, aws_iam as iam } from 'aws-cdk-lib';
 import { type Construct } from 'constructs';
 
 class ImageStack extends Stack {
@@ -17,11 +17,19 @@ class ImageStack extends Stack {
 
     const acctConfig = this.loadYamlConfig('../../config/targets.yaml');
     for (const language of Object.keys(acctConfig)) {
-      new ecr.Repository(this, `${language}-examples`, {
-        repositoryName: `${language}`,
-        imageScanOnPush: true,
-        removalPolicy: RemovalPolicy.RETAIN,
-      });
+      if (acctConfig[language].status === "enabled") {
+        const repository = new ecr.Repository(this, `${language}-examples`, {
+          repositoryName: `${language}`,
+          imageScanOnPush: true,
+          removalPolicy: RemovalPolicy.RETAIN,
+        });
+        const accountId = acctConfig[language].account_id;
+        const roleName = `BatchExecutionRole-${language}`;
+        const role = iam.Role.fromRoleArn(this, `${roleName}`, `arn:aws:iam::${accountId}:role/${roleName}`, {
+          mutable: false,
+        });
+        repository.grantPull(role);
+      }
     }
   }
 

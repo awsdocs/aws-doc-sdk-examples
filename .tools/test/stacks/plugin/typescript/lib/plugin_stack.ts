@@ -24,8 +24,8 @@ export class PluginStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const resourceConfig = this.getYamlConfig('../config/resources.yaml');
-    const acctConfig = this.getYamlConfig("../config/targets.yaml");
+    const resourceConfig = this.getYamlConfig('../../config/resources.yaml');
+    const acctConfig = this.getYamlConfig("../../config/targets.yaml");
     const adminTopicName = resourceConfig['topic_name'];
     const adminBucketName = resourceConfig['bucket_name'];
     this.awsRegion = resourceConfig['aws_region'];
@@ -55,6 +55,7 @@ export class PluginStack extends cdk.Stack {
   private initBatchFargate(): [batch.CfnJobDefinition, batch.CfnJobQueue] {
     const batchExecutionRole = new iam.Role(this, `BatchExecutionRole-${toolName}`, {
       assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
+      roleName: `BatchExecutionRole-${toolName}`,
       inlinePolicies: {
         BatchLoggingPolicy: new iam.PolicyDocument({
           statements: [
@@ -68,11 +69,19 @@ export class PluginStack extends cdk.Stack {
               ],
               resources: ['arn:aws:logs:*:*:*'],
             }),
+            // new iam.PolicyStatement({
+            //   effect: iam.Effect.ALLOW,
+            //   actions: [
+            //     'ecr:*',
+            //   ],
+            //   resources: ['arn:aws:*:*:*:*'],
+            // }),
           ],
         }),
       },
       managedPolicies: [
         iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
+        iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonEC2ContainerRegistryReadOnly'),
         iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonECSTaskExecutionRolePolicy'),
       ],
     });
@@ -92,17 +101,29 @@ export class PluginStack extends cdk.Stack {
       }
     });
 
-    const containerImageUri = `public.ecr.aws/b4v4v1s0/${toolName}:latest`;
+    const containerImageUri = `${this.adminAccountId}.dkr.ecr.us-east-1.amazonaws.com/${toolName}:latest`;
 
     const jobDefinition = new batch.CfnJobDefinition(this, 'JobDefn', {
       type: "container",
       containerProperties: {
         image: containerImageUri,
-        memory: 2048,
-        vcpus: 1,
         jobRoleArn: batchExecutionRole.roleArn,
         executionRoleArn: batchExecutionRole.roleArn,
-      }
+        networkConfiguration: {
+          assignPublicIp: 'ENABLED',
+        },
+        resourceRequirements: [
+          {
+            type: "VCPU",
+            value: "0.25"
+          },
+          {
+            type: "MEMORY",
+            value: "512"
+          }
+        ],
+      },
+      platformCapabilities: ['FARGATE'],
     });
 
     const jobQueue = new batch.CfnJobQueue(this, `JobQueue-${toolName}`, {

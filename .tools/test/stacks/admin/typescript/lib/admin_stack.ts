@@ -13,8 +13,8 @@ export class AdminStack extends Stack {
   constructor(scope: Construct, id: string, props?: any) {
     super(scope, id, props);
 
-    const acctConfig = this.getYamlConfig("../config/targets.yaml");
-    const resourceConfig = this.getYamlConfig("../config/resources.yaml");
+    const acctConfig = this.getYamlConfig("../../config/targets.yaml");
+    const resourceConfig = this.getYamlConfig("../../config/resources.yaml");
     const adminTopicName = resourceConfig["topic_name"];
     const adminBucketName = resourceConfig["bucket_name"];
     this.adminAccountId = resourceConfig["admin_acct"];
@@ -122,3 +122,4 @@ export class AdminStack extends Stack {
     }
   }
 }
+
