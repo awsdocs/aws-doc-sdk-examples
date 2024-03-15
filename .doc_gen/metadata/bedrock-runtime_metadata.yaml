@@ -24,6 +24,31 @@ bedrock-runtime_Hello:
   services:
     bedrock-runtime: {InvokeModel}
 
+bedrock-runtime_Scenario_CliTextPlayground:
+  title: An interactive text generation playground for &BR;
+  title_abbrev: Interactive text playground
+  synopsis: "how to prepare and send a prompt to the following large-language models (LLMs) on &BR;:"
+  synopsis_list:
+    - "AI21 Labs: Jurassic2 Mid and Ultra"
+    - "Amazon: Titan Text G1 Lite and Express"
+    - "Anthropic: Claude Instant"
+    - "Anthropic: Claude 2.0 and 2.1"
+    - "Anthropic: Claude 3 Haiku and Sonnet"
+    - "Meta: Llama2 Chat 13B and 70B"
+    - "Mistral AI: Mistral 7B and Mixtral 8c7B"
+  category: Scenarios
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/bedrock-runtime/scenarios/cli_text_playground.js
+  services:
+    bedrock-runtime: {InvokeModel}
+
 bedrock-runtime_InvokeAmazonTitanImageGeneratorForImageGeneration:
   title: Invoke the Amazon Titan Image Generator G1 model on &BR; for image generation
   title_abbrev: Image generation with Amazon Titan Image Generator G1
