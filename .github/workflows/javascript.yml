@@ -17,7 +17,7 @@ jobs:
             .github
             javascriptv3
       - name: Get changed files
-        id: changed-files
+        id: changed-jsv3-files
         uses: tj-actions/changed-files@v41
         with:
           files: "javascriptv3/**/*.{js,ts,jsx,tsx,json}"
@@ -36,4 +36,4 @@ jobs:
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})
-          npm run --prefix javascriptv3 ci-lint -- ${changed_files[@]//javascriptv3\/}
+          ./javascriptv3/github_scripts/lint.sh "${changed_files[@]}"
