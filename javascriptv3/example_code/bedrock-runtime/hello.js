@@ -1,46 +1,79 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
-import { askForPrompt, selectModel } from "./tools/user_input.js";
-import { FoundationModels } from "./foundation_models.js";
-
 /**
- * @typedef {Object} ModelConfig
- * @property {Function} module
- * @property {Function} invoker
- * @property {string} modelId
- * @property {string} modelName
+ * @typedef {Object} Content
+ * @property {string} text
+ *
+ * @typedef {Object} Usage
+ * @property {number} input_tokens
+ * @property {number} oputput_tokens
+ *
+ * @typedef {Object} ResponseBody
+ * @property {Content[]} content
+ * @property {Usage} usage
  */
 
-const invokeModel = async (prompt, /** @type {ModelConfig} */ model) => {
-  try {
-    const modelModule = await model.module();
-    const invoker = model.invoker(modelModule);
-    return await invoker(prompt, model.modelId);
-  } catch (err) {
-    console.error(`Error invoking model ${model.modelId}:`, err);
-    throw err;
-  }
-};
+import { fileURLToPath } from "url";
+import { defaultProvider } from "@aws-sdk/credential-provider-node";
+import {
+  BedrockRuntimeClient,
+  InvokeModelCommand,
+} from "@aws-sdk/client-bedrock-runtime";
 
-const runDemo = async () => {
-  console.log("Welcome to the Amazon Bedrock Runtime client demo!");
+const AWS_REGION = "us-east-1";
 
-  /** @type {ModelConfig} */
-  const model = await selectModel(Object.values(FoundationModels));
-  const prompt = await askForPrompt();
+const MODEL_ID = "anthropic.claude-3-haiku-20240307-v1:0";
+const PROMPT = "Hi. In a short paragraph, explain what you can do.";
 
-  console.log(`Invoking ${model.modelName} with prompt '${prompt}'`);
+const hello = async () => {
+  console.log("=".repeat(35));
+  console.log("Welcome to the Amazon Bedrock demo!");
+  console.log("=".repeat(35));
 
-  const response = await invokeModel(prompt, model);
-  if (Array.isArray(response)) {
-    response.forEach((str) => console.log(str));
+  console.log("Model: Anthropic Claude 3 Haiku");
+  console.log(`Prompt: ${PROMPT}\n`);
+  console.log("Invoking model...\n");
+
+  // Create a new Bedrock Runtime client instance.
+  const client = new BedrockRuntimeClient({
+    credentialDefaultProvider: defaultProvider,
+    region: AWS_REGION,
+  });
+
+  // Prepare the payload for the model.
+  const payload = {
+    anthropic_version: "bedrock-2023-05-31",
+    max_tokens: 1000,
+    messages: [{ role: "user", content: [{ type: "text", text: PROMPT }] }],
+  };
+
+  // Invoke Claude with the payload and wait for the response.
+  const apiResponse = await client.send(
+    new InvokeModelCommand({
+      contentType: "application/json",
+      body: JSON.stringify(payload),
+      modelId: MODEL_ID,
+    }),
+  );
+
+  // Decode and return the response(s)
+  const decodedResponseBody = new TextDecoder().decode(apiResponse.body);
+  /** @type {ResponseBody} */
+  const responseBody = JSON.parse(decodedResponseBody);
+  const responses = responseBody.content;
+
+  if (responses.length === 1) {
+    console.log(`Response: ${responses[0].text}`);
   } else {
-    console.log(response);
+    console.log("Haiku returned multiple responses:");
+    console.log(responses);
   }
+
+  console.log(`\nNumber of input tokens:   ${responseBody.usage.input_tokens}`);
+  console.log(`Number of output tokens: ${responseBody.usage.output_tokens}`);
 };
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  runDemo();
+  await hello();
 }
