@@ -3,7 +3,7 @@
 
 import { fileURLToPath } from "url";
 import {
-  askForChoice,
+  selectNextStep,
   askForPrompt,
   selectModel,
 } from "../tools/user_input.js";
@@ -53,9 +53,9 @@ const runDemo = async () => {
 
       console.log("=".repeat(84));
 
-      const choice = await askForChoice();
-      if (choice === "2") currentModel = null;
-      if (choice === "q") shouldContinue = false;
+      const choice = await selectNextStep(currentModel.modelName);
+      if (!choice) shouldContinue = false;
+      else if (choice === "2") currentModel = null;
     }
   }
 
