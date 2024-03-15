@@ -3,96 +3,99 @@
 
 import * as readline from "readline";
 
-function askAgain(askQuestion, newQuestion) {
-    readline.moveCursor(process.stdout, 0, -1);
-    readline.clearLine(process.stdout, 0);
-    readline.cursorTo(process.stdout, 0);
-    askQuestion(newQuestion);
-}
-
-function createInterface() {
-    return readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-}
 /**
  * @typedef {Object} FoundationModel
  * @property {string} modelName - The name of the model
  */
 
-/**
- * @param {FoundationModel[]} models - An array of models to choose from
- * @returns {Promise<FoundationModel>} - A Promise that resolves with the selected model
- */
-export const selectModel = (models) => {
-    return new Promise(resolve => {
-        const rl = createInterface();
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-        const printOptions = () => {
-            models.forEach((model, index) => {
-                console.log(`${index + 1}. ${model.modelName}`);
-            });
-        };
+const ask = (question, validate, onValid, repeat) => {
+  if (repeat) {
+    // Overwrite previous line
+    readline.moveCursor(process.stdout, 0, -1);
+    readline.clearLine(process.stdout, 0);
+    readline.cursorTo(process.stdout, 0);
+  }
 
-        const askForModel = (question) => {
-            rl.question(question, answer => {
-                if (answer === "q") {
-                    rl.close();
-                    resolve(null);
-                }
-                else {
-                    const selectedIndex = parseInt(answer, 10) - 1;
-                    if (selectedIndex >= 0 && selectedIndex < models.length) {
-                        rl.close();
-                        resolve(models[selectedIndex]);
-                    } else {
-                        askAgain(askForModel, "Invalid input. Please enter a valid number (q to quit): ");
-                    }
-                }
-            });
-        };
+  rl.question(question, (answer) => {
+    if (validate(answer)) {
+      onValid(answer);
+    } else {
+      ask(question, validate, onValid, true);
+    }
+  });
+};
 
-        printOptions();
-        askForModel("Select a model: (q to quit): ");
-    });
+const select = (
+  /** @type {string[]} options */ options,
+  text,
+  validate,
+  onValid,
+) => {
+  // Print the options
+  options.forEach((option, index) => {
+    console.log(`${index + 1}. ${option}`);
+  });
+
+  ask(text, validate, onValid, false);
+};
+
+export const selectModel = (/** @type {FoundationModel[]} */ models) => {
+  return new Promise((resolve) => {
+    const validate = (answer) => {
+      if (answer === "q") return true;
+      else {
+        const selectedIndex = parseInt(answer, 10) - 1;
+        return selectedIndex >= 0 && selectedIndex < models.length;
+      }
+    };
+
+    const onValid = (answer) => {
+      if (answer === "q") {
+        rl.close();
+        resolve(null);
+      } else {
+        resolve(models[parseInt(answer, 10) - 1]);
+      }
+    };
+
+    const text = "Select a model number (q to quit): ";
+    select(
+      models.map((m) => m.modelName),
+      text,
+      validate,
+      onValid,
+    );
+  });
+};
+
+export const selectNextStep = (/** @type {string} */ modelName) => {
+  return new Promise((resolve) => {
+    const options = [`Prompt ${modelName} again`, "Select another model"];
+    const text = "Choose your next step (q to quit): ";
+
+    const validate = (answer) => ["1", "2", "q"].includes(answer);
+    const onValid = (answer) => {
+      if (answer === "q") {
+        rl.close();
+        resolve(null);
+      } else {
+        resolve(answer);
+      }
+    };
+
+    select(options, text, validate, onValid);
+  });
 };
 
 export const askForPrompt = () => {
-    return new Promise(resolve => {
-        const rl = createInterface();
-
-        const askForPrompt = (question) => {
-            rl.question(question, answer => {
-                if (answer.trim() === "") {
-                    askAgain(askForPrompt, "Invalid input. Please enter a prompt: ");
-                } else {
-                    rl.close();
-                    resolve(answer);
-                }
-            });
-        };
-        askForPrompt("Now, enter your prompt: ");
-    });
-};
-
-export const askForChoice = () => {
-    return new Promise((resolve) => {
-        const rl = createInterface();
-
-        const askForChoice = (question) => {
-            rl.question(question, (answer) => {
-                if (["1", "2", "q"].includes(answer)) {
-                    rl.close();
-                    resolve(answer);
-                } else {
-                    askAgain(askForChoice, "Invalid input. Please enter 1, 2, or q: ");
-                }
-            });
-        };
-
-        askForChoice(
-            "Enter 1 for a new prompt to the same model, 2 for a different model, or q to quit: "
-        );
-    });
+  return new Promise((resolve) => {
+    const validate = (/** @type {string} */ answer) => answer.trim() !== "";
+    const onValid = (answer) => resolve(answer);
+    ask("Now, enter your prompt: ", validate, onValid);
+  });
 };
