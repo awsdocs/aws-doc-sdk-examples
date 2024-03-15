@@ -33,6 +33,7 @@ const runDemo = async () => {
   console.log("Welcome to the Amazon Bedrock Runtime client demo!");
 
   let shouldContinue = true;
+  /** @type ModelConfig */
   let currentModel;
 
   while (shouldContinue) {
