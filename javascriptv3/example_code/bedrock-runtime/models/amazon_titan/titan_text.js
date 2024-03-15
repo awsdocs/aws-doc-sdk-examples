@@ -3,8 +3,8 @@
 
 import { fileURLToPath } from "url";
 
-import {FoundationModels} from "../../foundation_models.js";
-import {defaultProvider} from "@aws-sdk/credential-provider-node";
+import { FoundationModels } from "../../tools/foundation_models.js";
+import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
@@ -55,12 +55,13 @@ export const invokeModel = async (prompt, modelId) => {
   const decodedResponseBody = new TextDecoder().decode(apiResponse.body);
   /** @type {ResponseBody} */
   const responseBody = JSON.parse(decodedResponseBody);
-  return responseBody.results.map(result => result.outputText);
+  return responseBody.results.map((result) => result.outputText);
 };
 
 // Invoke the function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const prompt = 'Complete the following in one sentence: "Once upon a time..."';
+  const prompt =
+    'Complete the following in one sentence: "Once upon a time..."';
   const modelId = FoundationModels.TITAN_TEXT_G1_EXPRESS.modelId;
   console.log(`Prompt: ${prompt}`);
   console.log(`Model ID: ${modelId}`);

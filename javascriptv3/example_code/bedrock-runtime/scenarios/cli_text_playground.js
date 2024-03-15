@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { fileURLToPath } from "url";
-import { askForPrompt, selectModel } from "./tools/user_input.js";
-import { FoundationModels } from "./foundation_models.js";
+import { askForPrompt, selectModel } from "../tools/user_input.js";
+import { FoundationModels } from "../tools/foundation_models.js";
 
 /**
  * @typedef {Object} ModelConfig
