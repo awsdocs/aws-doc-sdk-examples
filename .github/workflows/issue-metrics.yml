@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   build:
-    name: issue metrics
+    name: Issue metrics
     runs-on: ubuntu-latest
     steps:
     - name: Get dates for last month
@@ -30,7 +30,6 @@ jobs:
         last_day=$(date -d "$first_day +1 month -1 day" +%Y-%m-%d)
 
         #Set an environment variable with the date range
-        echo "$first_day..$last_day"
         echo "last_month=$first_day..$last_day" >> "$GITHUB_ENV"
 
     - name: Run issue-metrics tool
@@ -42,6 +41,6 @@ jobs:
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v5
       with:
-        title: Monthly issue metrics report
+        title: Monthly issue metrics report  ${{ env.last_month }}
         token: ${{ secrets.GITHUB_TOKEN }}
         content-filepath: ./issue_metrics.md
