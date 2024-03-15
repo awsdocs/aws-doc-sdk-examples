@@ -44,6 +44,6 @@ jobs:
       env:
         date_range: ${{steps.outputs.last_month}}
       with:
-        title: Monthly issue metrics report $date_range
+        title: Monthly issue metrics report ${{steps.outputs.last_month}}
         token: ${{ secrets.GITHUB_TOKEN }}
         content-filepath: ./issue_metrics.md
