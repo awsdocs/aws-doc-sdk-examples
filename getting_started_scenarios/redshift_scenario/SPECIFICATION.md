@@ -165,5 +165,5 @@ The following table describes the metadata used in this SDK Getting Started Scen
 | `createTable `               | redshift_metadata.yaml       | redshift_CreateTable                    |
 | `createCluster `             | redshift_metadata.yaml       | redshift_CreateCluster                  |
 | `describeClustersPaginator ` | redshift_metadata.yaml       | redshift_Hello                          |
-| `scenario`                   | redshift_metadata.yaml       | edshift_Scenario                        |
+| `scenario`                   | redshift_metadata.yaml       | redshift_Scenario                        |
 
