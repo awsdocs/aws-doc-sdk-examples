@@ -20,6 +20,7 @@ const CLAUDE_MODEL_ID = "anthropic.claude-v2"
 const JURASSIC2_MODEL_ID = "ai21.j2-mid-v1"
 const LLAMA2_MODEL_ID = "meta.llama2-13b-chat-v1"
 const TITAN_IMAGE_MODEL_ID = "amazon.titan-image-generator-v1"
+const TITAN_TEXT_EXPRESS_MODEL_ID = "amazon.titan-text-express-v1"
 
 const prompt = "A test prompt"
 
@@ -58,6 +59,12 @@ func CallInvokeModelActions(sdkConfig aws.Config) {
 	}
 	log.Println(titanImageCompletion)
 
+	titanTextCompletion, err := wrapper.InvokeTitanText(prompt)
+	if err != nil {
+		panic(err)
+	}
+	log.Println(titanTextCompletion)
+
 	log.Printf("Thanks for watching!")
 }
 
@@ -74,6 +81,8 @@ func (scenTest *InvokeModelActionsTest) SetupDataAndStubs() []testtools.Stub {
 	stubList = append(stubList, stubInvokeModel(JURASSIC2_MODEL_ID))
 	stubList = append(stubList, stubInvokeModel(LLAMA2_MODEL_ID))
 	stubList = append(stubList, stubInvokeModel(TITAN_IMAGE_MODEL_ID))
+	stubList = append(stubList, stubInvokeModel(TITAN_TEXT_EXPRESS_MODEL_ID))
+
 	return stubList
 }
 
@@ -138,6 +147,23 @@ func stubInvokeModel(modelId string) testtools.Stub {
 		})
 		response, _ = json.Marshal(TitanImageResponse{
 			Images: []string{"FakeBase64String=="},
+		})
+
+	case TITAN_TEXT_EXPRESS_MODEL_ID:
+		request, _ = json.Marshal(TitanTextRequest{
+			InputText: prompt,
+			TextGenerationConfig: TextGenerationConfig{
+				Temperature:   0,
+				TopP:          1,
+				MaxTokenCount: 4096,
+			},
+		})
+		response, _ = json.Marshal(TitanTextResponse{
+			Results: []Result{
+				{
+					OutputText: "A fake response",
+				},
+			},
 		})
 
 	default:

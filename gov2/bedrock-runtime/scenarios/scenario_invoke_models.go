@@ -28,6 +28,7 @@ import (
 // 3. Generate text with Meta Llama 2 Chat
 // 4. Generate text and asynchronously process the response stream with Anthropic Claude 2
 // 5. Generate and image with the Amazon Titan image generation model
+// 6. Generate text with Amazon Titan Text G1 Express model
 type InvokeModelsScenario struct {
 	sdkConfig             aws.Config
 	invokeModelWrapper    actions.InvokeModelWrapper
@@ -93,6 +94,10 @@ func (scenario InvokeModelsScenario) Run() {
 	log.Printf("Invoking Amazon Titan with prompt: %v\n", text2ImagePrompt)
 	scenario.InvokeTitanImage(text2ImagePrompt, seed)
 
+	log.Println(strings.Repeat("-", 77))
+	log.Printf("Invoking Titan Text Express with prompt: %v\n", text2textPrompt)
+	scenario.InvokeTitanText(text2textPrompt)
+
 	log.Println(strings.Repeat("=", 77))
 	log.Println("Thanks for watching!")
 	log.Println(strings.Repeat("=", 77))
@@ -138,6 +143,14 @@ func (scenario InvokeModelsScenario) InvokeTitanImage(prompt string, seed int64)
 	}
 	imagePath := saveImage(base64ImageData, "amazon.titan-image-generator-v1")
 	fmt.Printf("The generated image has been saved to %s\n", imagePath)
+}
+
+func (scenario InvokeModelsScenario) InvokeTitanText(prompt string) {
+	completion, err := scenario.invokeModelWrapper.InvokeTitanText(prompt)
+	if err != nil {
+		panic(err)
+	}
+	log.Printf("\nTitan Text Express    : %v\n\n", strings.TrimSpace(completion))
 }
 
 // snippet-end:[gov2.bedrock-runtime.Scenario_InvokeModels]
