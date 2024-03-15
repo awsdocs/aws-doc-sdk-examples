@@ -37,22 +37,26 @@ export const selectModel = (models) => {
 
         const askForModel = (question) => {
             rl.question(question, answer => {
-                if (answer === "q") process.exit();
-
-                const selectedIndex = parseInt(answer, 10) - 1;
-                if (selectedIndex >= 0 && selectedIndex < models.length) {
+                if (answer === "q") {
                     rl.close();
-                    resolve(models[selectedIndex]);
-                } else {
-                    askAgain(askForModel, "Invalid input. Please enter a valid number (q to quit): ");
+                    resolve(null);
+                }
+                else {
+                    const selectedIndex = parseInt(answer, 10) - 1;
+                    if (selectedIndex >= 0 && selectedIndex < models.length) {
+                        rl.close();
+                        resolve(models[selectedIndex]);
+                    } else {
+                        askAgain(askForModel, "Invalid input. Please enter a valid number (q to quit): ");
+                    }
                 }
             });
         };
 
         printOptions();
-        askForModel("Enter a number (q to quit): ");
+        askForModel("Select a model: (q to quit): ");
     });
-}
+};
 
 export const askForPrompt = () => {
     return new Promise(resolve => {
@@ -70,4 +74,25 @@ export const askForPrompt = () => {
         };
         askForPrompt("Now, enter your prompt: ");
     });
-}
+};
+
+export const askForChoice = () => {
+    return new Promise((resolve) => {
+        const rl = createInterface();
+
+        const askForChoice = (question) => {
+            rl.question(question, (answer) => {
+                if (["1", "2", "q"].includes(answer)) {
+                    rl.close();
+                    resolve(answer);
+                } else {
+                    askAgain(askForChoice, "Invalid input. Please enter 1, 2, or q: ");
+                }
+            });
+        };
+
+        askForChoice(
+            "Enter 1 for a new prompt to the same model, 2 for a different model, or q to quit: "
+        );
+    });
+};
