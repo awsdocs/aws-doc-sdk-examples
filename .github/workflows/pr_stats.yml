@@ -1,7 +1,6 @@
 name: Pull Request Stats
 
 on:
-  workflow_dispatch:
   pull_request:
     types: [opened]
 
@@ -11,3 +10,10 @@ jobs:
     steps:
       - name: Run pull request stats
         uses: flowwer-dev/pull-request-stats@master
+        with:
+          token: ${{ secrets.ADD_A_PERSONAL_ACCESS_TOKEN }}
+          organization: 'piedpiper'
+          period: 7
+          charts: true
+          disableLinks: true
+          sortBy: 'COMMENTS'
