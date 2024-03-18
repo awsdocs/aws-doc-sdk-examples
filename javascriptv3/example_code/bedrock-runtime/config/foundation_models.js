@@ -18,22 +18,19 @@ export const FoundationModels = Object.freeze({
     modelId: "anthropic.claude-v2:1",
     modelName: "Anthropic Claude 2.1",
     module: () => import("../models/anthropic_claude/claude_2.js"),
-    invoker: (/** @type {Function} */ module) =>
-      module.invokeTextCompletionsApi,
+    invoker: (/** @type {Function} */ module) => module.invokeMessagesApi,
   },
   CLAUDE_2: {
     modelId: "anthropic.claude-v2",
     modelName: "Anthropic Claude 2.0",
     module: () => import("../models/anthropic_claude/claude_2.js"),
-    invoker: (/** @type {Function} */ module) =>
-      module.invokeTextCompletionsApi,
+    invoker: (/** @type {Function} */ module) => module.invokeMessagesApi,
   },
   CLAUDE_INSTANT: {
     modelId: "anthropic.claude-instant-v1",
     modelName: "Anthropic Claude Instant",
     module: () => import("../models/anthropic_claude/claude_instant_1.js"),
-    invoker: (/** @type {Function} */ module) =>
-      module.invokeTextCompletionsApi,
+    invoker: (/** @type {Function} */ module) => module.invokeMessagesApi,
   },
   JURASSIC2_MID: {
     modelId: "ai21.j2-mid-v1",

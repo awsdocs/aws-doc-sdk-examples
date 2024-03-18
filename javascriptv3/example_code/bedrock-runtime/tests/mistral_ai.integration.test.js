@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, it } from "vitest";
-import { FoundationModels } from "../tools/foundation_models.js";
+import { FoundationModels } from "../config/foundation_models.js";
 import { expectToBeANonEmptyString } from "./test_tools.js";
 import { invokeModel as invokeMistral } from "../models/mistral_ai/mistral_7b.js";
 import { invokeModel as invokeMixtral } from "../models/mistral_ai/mixtral_8x7b.js";
