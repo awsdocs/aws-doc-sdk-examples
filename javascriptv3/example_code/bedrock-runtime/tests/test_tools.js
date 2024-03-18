@@ -9,7 +9,6 @@ import { expect } from "vitest";
  * @param {string} string - The string to be checked.
  */
 export const expectToBeANonEmptyString = (string) => {
-    expect(string.length).not.toBe(null);
-    expect(typeof string).toBe("string");
-    expect(string).not.toBe("");
-}
+  expect(typeof string).toBe("string");
+  expect(string.length).not.toBe(0);
+};
