@@ -12,18 +12,26 @@ from pathlib import Path
 # AILLY = "@ailly/cli@1.0.1"
 AILLY = "@ailly/cli"
 
+# Throughout this wrapper, `subprocess.run(shell=True)` is used for Windows
+# support in running node, npm, and npx. While this script is already run in a
+# shell, so shell escaping already rather involves being on the other side of
+# the airtight hatchway, care is taken to only write strings defined in this file
+# itself into the subprocess. If a security auditor just ran a SASL and thinks
+# this is a thing that's a problem, please bring a proof of exploit.
 
-def check(cmd: str):
-    run = subprocess.run(cmd, shell=True, capture_output=True)
-    run.check_returncode()
 
-
-# Ensure `npx` is available
 def ensure_npx():
-    check("node --version")
-    check(f"npm install {AILLY}")
-    check(f"npx {AILLY} --help")
-    subprocess.run(["npx", AILLY, "--version"], shell=True)
+    """Ensure `npx` is available in this system."""
+    subprocess.run(
+        ["node", "--version"], shell=True, capture_output=True
+    ).check_returncode()
+    subprocess.run(
+        ["npm", "install", AILLY], shell=True, capture_output=True
+    ).check_returncode()
+    subprocess.run(
+        ["npx", AILLY, "--help"], shell=True, capture_output=True
+    ).check_returncode()
+    subprocess.run(["npx", AILLY, "--version"], shell=True).check_returncode()
 
 
 def prepare_scouts(example: Path):
@@ -43,8 +51,8 @@ def prepare_scouts(example: Path):
 #       --plugin file://${PWD}/plugin.mjs \
 #       --root ../../<example> \
 #       --out ../../<example>/.scouts/[target language] \
-#       --prompt "Translate to [target language]. [Additional instructions]"
-def run_ailly(source: str, example: Path, target: str, instructions: str = ""):
+#       --prompt "Translate to [target language]."
+def run_ailly(source: str, example: Path, target: str):
     base = Path(__file__).parent
     engine = ["--engine", "bedrock"]
     plugin = ["--plugin", (base / "plugin.mjs").as_uri()]
@@ -52,7 +60,7 @@ def run_ailly(source: str, example: Path, target: str, instructions: str = ""):
     out = ["--out", example / ".scouts" / target]
     prompt = [
         "--prompt",
-        f"Translate the final block of code from {source} to {target} programming language. {instructions}",
+        f"Translate the final block of code from {source} to {target} programming language.",
     ]
     logging.info("Converting %s to %s", example, target)
     args = ["npx", AILLY, *engine, *plugin, *root, *out, *prompt, "--isolated", "."]
@@ -73,11 +81,6 @@ def main():
         choices=["cloudwatch-logs", "dynamodb", "s3"],  # scanner.services(),
         default="s3",
         help="The targeted service. Choose from: %(choices)s.",
-    )
-    parser.add_argument(
-        "--additional-prompt",
-        default="",
-        help="Additional instructions to provide for the LLM.",
     )
     parser.add_argument(
         "--verbose",
@@ -116,7 +119,7 @@ def main():
         prepare_scouts(example)
 
     for target in targets:
-        run_ailly(args.language, example, target, instructions=args.additional_prompt)
+        run_ailly(args.language, example, target)
 
 
 if __name__ == "__main__":
