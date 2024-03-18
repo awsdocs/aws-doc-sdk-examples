@@ -109,17 +109,18 @@ export const invokeModelWithResponseStream = async (prompt, modelId) => {
     ],
   };
 
+  // Invoke Claude with the payload and wait for the API to respond.
   const command = new InvokeModelWithResponseStreamCommand({
     contentType: "application/json",
     body: JSON.stringify(payload),
     modelId,
   });
-
   const apiResponse = await client.send(command);
 
   let role;
   let final_message = "";
 
+  // Decode and process the response stream
   for await (const item of apiResponse.body) {
     /** @type Chunk */
     const chunk = JSON.parse(new TextDecoder().decode(item.chunk.bytes));
@@ -134,17 +135,11 @@ export const invokeModelWithResponseStream = async (prompt, modelId) => {
     }
   }
 
-  const final_response = {
+  // Return the final response
+  return {
     role: role,
-    content: [
-      {
-        type: "text",
-        text: final_message,
-      },
-    ],
+    content: [{ type: "text", text: final_message }],
   };
-
-  return final_response;
 };
 
 // Invoke the function if this file was run directly.
