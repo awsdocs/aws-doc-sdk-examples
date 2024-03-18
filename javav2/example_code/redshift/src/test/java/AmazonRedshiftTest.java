@@ -110,7 +110,7 @@ public class AmazonRedshiftTest {
         RedshiftScenario.waitForClusterReady(redshiftClient, clusterId);
         RedshiftScenario.createTable(redshiftDataClient, clusterId, databaseName, userName);
         RedshiftScenario.popTable(redshiftDataClient, clusterId, databaseName, userName, fileNameSc, 50);
-        String sqlYear = "SELECT * FROM Movies WHERE year = 2012 ;" ;
+        String sqlYear = "SELECT * FROM Movies ;" ;
         String id = RedshiftScenario.queryMoviesByYear(redshiftDataClient, databaseName, userName, Integer.parseInt(sqlYear), clusterId);
         RedshiftScenario.checkStatement(redshiftDataClient, id);
         TimeUnit.SECONDS.sleep(30);
