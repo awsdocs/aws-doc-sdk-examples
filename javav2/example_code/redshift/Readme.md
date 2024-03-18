@@ -29,14 +29,29 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon Redshift](src/main/java/com/example/redshift/HelloRedshift.java#L6) (`describeClusters`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a cluster](src/main/java/com/example/redshift/CreateAndModifyCluster.java#L91) (`CreateCluster`)
-- [Delete a cluster](src/main/java/com/example/redshift/DeleteCluster.java#L6) (`DeleteCluster`)
-- [Describe your clusters](src/main/java/com/example/redshift/DescribeClusters.java#L6) (`DescribeClusters`)
-- [Modify a cluster](src/main/java/com/example/redshift/CreateAndModifyCluster.java#L150) (`ModifyCluster`)
+- [Create a cluster](src/main/java/com/example/scenario/RedshiftScenario.java#L499) (`CreateCluster`)
+- [Delete a cluster](src/main/java/com/example/scenario/RedshiftScenario.java#L248) (`DeleteCluster`)
+- [Describe your clusters](src/main/java/com/example/scenario/RedshiftScenario.java#L431) (`DescribeClusters`)
+- [Get the statement result](src/main/java/com/example/scenario/RedshiftScenario.java#L409) (`GetStatementResult`)
+- [Insert data into a table](src/main/java/com/example/scenario/RedshiftScenario.java#L266) (`Insert`)
+- [Modify a cluster](src/main/java/com/example/scenario/RedshiftScenario.java#L357) (`ModifyCluster`)
+- [Query a table](src/main/java/com/example/scenario/RedshiftScenario.java#L376) (`Query`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Get started with Amazon Redshift](src/main/java/com/example/scenario/RedshiftScenario.java)
 
 
 <!--custom.examples.start-->
@@ -50,7 +65,23 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Amazon Redshift
 
+This example shows you how to get started using Amazon Redshift.
+
+
+
+#### Get started with Amazon Redshift
+
+This example shows you how to work with Amazon Redshift tables, items, and queries.
+
+
+<!--custom.scenario_prereqs.redshift_Scenario.start-->
+<!--custom.scenario_prereqs.redshift_Scenario.end-->
+
+
+<!--custom.scenarios.redshift_Scenario.start-->
+<!--custom.scenarios.redshift_Scenario.end-->
 
 ### Tests
 

@@ -8,11 +8,10 @@ package com.example.redshift;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
 import software.amazon.awssdk.services.redshift.model.DescribeEventsRequest;
-import software.amazon.awssdk.services.redshift.model.DescribeEventsResponse;
-import software.amazon.awssdk.services.redshift.model.Event;
-import software.amazon.awssdk.services.redshift.model.RedshiftException;
+import software.amazon.awssdk.services.redshift.model.SourceType;
+import software.amazon.awssdk.services.redshift.paginators.DescribeEventsIterable;
+import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
 import java.util.Date;
-import java.util.List;
 // snippet-end:[redshift.java2._events.import]
 
 /**
@@ -32,7 +31,6 @@ public class ListEvents {
 
                 Where:
                     clusterId - The id of the cluster.\s
-                    eventSourceType - The event type (ie, cluster).\s
                 """;
 
         if (args.length != 2) {
@@ -41,40 +39,38 @@ public class ListEvents {
         }
 
         String clusterId = args[0];
-        String eventSourceType = args[1];
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
                 .region(region)
                 .build();
 
-        listRedShiftEvents(redshiftClient, clusterId, eventSourceType);
+        listRedShiftEvents(redshiftClient, clusterId);
         redshiftClient.close();
     }
 
-    public static void listRedShiftEvents(RedshiftClient redshiftClient, String clusterId, String eventSourceType) {
+    public static void listRedShiftEvents(RedshiftClient redshiftClient, String clusterId) {
         try {
             long oneWeeksAgoMilli = (new Date()).getTime() - (7L * 24L * 60L * 60L * 1000L);
             Date oneWeekAgo = new Date();
             oneWeekAgo.setTime(oneWeeksAgoMilli);
 
             DescribeEventsRequest describeEventsRequest = DescribeEventsRequest.builder()
-                    .sourceIdentifier(clusterId)
-                    .sourceType(eventSourceType)
-                    .startTime(oneWeekAgo.toInstant())
-                    .maxRecords(20)
-                    .build();
+                .sourceIdentifier(clusterId)
+                .sourceType(SourceType.CLUSTER)
+                .startTime(oneWeekAgo.toInstant())
+                .maxRecords(20)
+                .build();
 
-            DescribeEventsResponse eventsResponse = redshiftClient.describeEvents(describeEventsRequest);
-            List<Event> events = eventsResponse.events();
-            for (Event event : events) {
-                System.out.println("Source type: " + event.sourceTypeAsString());
-                System.out.println("Event message: " + event.message());
-            }
+            DescribeEventsIterable eventsResponse = redshiftClient.describeEventsPaginator(describeEventsRequest);
+            eventsResponse.stream()
+                .flatMap(r -> r.events().stream())
+                .forEach(event -> System.out.println("Source type: " + event.sourceTypeAsString() +
+                    " Event message: " + event.message()));
 
-        } catch (RedshiftException e) {
+        } catch (RedshiftDataException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
     }
+    // snippet-end:[redshift.java2._events.main]
 }
-// snippet-end:[redshift.java2._events.main]
