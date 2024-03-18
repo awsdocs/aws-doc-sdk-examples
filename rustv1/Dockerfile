@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG MSRV=1.70.0
+ARG MSRV=1.74.1
 FROM rust:$MSRV
 
 # Update image
