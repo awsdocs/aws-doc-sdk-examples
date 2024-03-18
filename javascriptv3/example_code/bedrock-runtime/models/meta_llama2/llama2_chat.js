@@ -3,7 +3,7 @@
 
 import { fileURLToPath } from "url";
 
-import { FoundationModels } from "../../tools/foundation_models.js";
+import { FoundationModels } from "../../config/foundation_models.js";
 import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import {
   BedrockRuntimeClient,

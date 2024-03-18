@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, it } from "vitest";
-import { FoundationModels } from "../tools/foundation_models.js";
+import { FoundationModels } from "../config/foundation_models.js";
 import { expectToBeANonEmptyString } from "./test_tools.js";
 import { invokeModel } from "../models/ai21_labs_jurassic2/jurassic2.js";
 

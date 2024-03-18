@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, it } from "vitest";
-import { FoundationModels } from "../tools/foundation_models.js";
+import { FoundationModels } from "../config/foundation_models.js";
 import { expectToBeANonEmptyString } from "./test_tools.js";
 import { invokeModel } from "../models/meta_llama2/llama2_chat.js";
 

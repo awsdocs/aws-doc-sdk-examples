@@ -3,11 +3,12 @@
 
 import { fileURLToPath } from "url";
 import {
-  selectNextStep,
-  askForPrompt,
-  selectModel,
-} from "../tools/user_input.js";
-import { FoundationModels } from "../tools/foundation_models.js";
+  Scenario,
+  ScenarioAction,
+  ScenarioInput,
+  ScenarioOutput,
+} from "@aws-doc-sdk-examples/lib/scenario/index.js";
+import { FoundationModels } from "../config/foundation_models.js";
 
 /**
  * @typedef {Object} ModelConfig
@@ -17,55 +18,63 @@ import { FoundationModels } from "../tools/foundation_models.js";
  * @property {string} modelName
  */
 
-const invokeModel = async (prompt, /** @type {ModelConfig} */ model) => {
-  try {
-    const modelModule = await model.module();
-    const invoker = model.invoker(modelModule);
-    return await invoker(prompt, model.modelId);
-  } catch (err) {
-    console.error("Error invoking model", model.modelId, ":", err);
-    throw err;
-  }
-};
+const greeting = new ScenarioOutput(
+  "greeting",
+  "Welcome to the Amazon Bedrock Runtime client demo!",
+  { header: true },
+);
 
-const runDemo = async () => {
-  console.log("=".repeat(50));
-  console.log("Welcome to the Amazon Bedrock Runtime client demo!");
+const selectModel = new ScenarioInput("model", "First, select a model:", {
+  type: "select",
+  choices: Object.values(FoundationModels).map((model) => ({
+    name: model.modelName,
+    value: model,
+  })),
+});
 
-  let shouldContinue = true;
-  /** @type ModelConfig */
-  let currentModel;
+const enterPrompt = new ScenarioInput("prompt", "Now, enter your prompt:", {
+  type: "input",
+});
 
-  while (shouldContinue) {
-    if (!currentModel) {
-      console.log("=".repeat(50));
-      currentModel = await selectModel(Object.values(FoundationModels));
-      shouldContinue = currentModel !== null;
-    }
+const printDetails = new ScenarioOutput(
+  "print details",
+  /**
+   * @param {{ model: ModelConfig, prompt: string }} c
+   */
+  (c) => console.log(`Invoking ${c.model.modelName} with '${c.prompt}'...`),
+  { slow: false },
+);
 
-    if (shouldContinue) {
-      const prompt = await askForPrompt();
-      console.log("-".repeat(84));
-      console.log(`Invoking ${currentModel.modelName} with prompt '${prompt}'`);
+const invokeModel = new ScenarioAction(
+  "invoke model",
+  /**
+   * @param {{ model: ModelConfig, prompt: string, response: string }} c
+   */
+  async (c) => {
+    const modelModule = await c.model.module();
+    const invoker = c.model.invoker(modelModule);
+    c.response = await invoker(c.prompt, c.model.modelId);
+  },
+);
 
-      const response = await invokeModel(prompt, currentModel);
-      if (Array.isArray(response)) response.forEach((str) => console.log(str));
-      else console.log(response);
+const printResponse = new ScenarioOutput(
+  "print response",
+  /**
+   * @param {{ response: string }} c
+   */
+  (c) => c.response,
+  { slow: false },
+);
 
-      console.log("=".repeat(84));
-
-      const choice = await selectNextStep(currentModel.modelName);
-      if (!choice) shouldContinue = false;
-      else if (choice === "2") currentModel = null;
-    }
-  }
-
-  console.log("=".repeat(84));
-  console.log(
-    "Good bye, and thanks for checking out the Amazon Bedrock Runtime client demo!",
-  );
-};
+const scenario = new Scenario("Amazon Bedrock Runtime Demo", [
+  greeting,
+  selectModel,
+  enterPrompt,
+  printDetails,
+  invokeModel,
+  printResponse,
+]);
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  runDemo();
+  scenario.run();
 }
