@@ -1,0 +1,9 @@
+{
+  "name" : "medical-imaging-examples",
+  "version-string" : "1.0.0",
+  "builtin-baseline" : "cd5e746ec203c8c3c61647e0886a8df8c1e78e41",
+  "dependencies" : [ {
+    "name" : "hash-library",
+    "version>=" : "8#2"
+  } ]
+}
