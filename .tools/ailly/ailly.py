@@ -55,9 +55,9 @@ def run_ailly(source: str, example: Path, target: str, instructions: str = ""):
         f"Translate the final block of code from {source} to {target} programming language. {instructions}",
     ]
     logging.info("Converting %s to %s", example, target)
-    args = ["npx", AILLY, *engine, *plugin, *root, *out, *prompt, "--isolated"]
+    args = ["npx", AILLY, *engine, *plugin, *root, *out, *prompt, "--isolated", "."]
     print("cd '" + str(base) + "' ; " + " ".join(f"'{str(arg)}'" for arg in args))
-    subprocess.run(args, cwd=base)
+    subprocess.run(args, cwd=base, shell=True)
 
 
 def main():
@@ -109,7 +109,7 @@ def main():
     example = (
         Path(__file__).parent.parent.parent
         / args.language
-        # / "example_code"
+        / "example_code"
         / args.service
     )
     if args.clean:
