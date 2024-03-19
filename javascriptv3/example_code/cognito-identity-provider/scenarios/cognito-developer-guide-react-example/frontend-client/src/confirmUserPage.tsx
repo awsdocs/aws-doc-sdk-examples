@@ -8,6 +8,7 @@ import { confirmSignUp } from './authService';
 const ConfirmUserPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  // eslint-disable-next-line
   const [email, setEmail] = useState(location.state?.email || '');
   const [confirmationCode, setConfirmationCode] = useState('');
 

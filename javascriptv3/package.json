@@ -28,6 +28,7 @@
     "example_code/codebuild",
     "example_code/codecommit",
     "example_code/cognito-identity-provider",
+    "example_code/cognito-identity-provider/scenarios/cognito-developer-guide-react-example/frontend-client",
     "example_code/cross-services/aurora-serverless-app",
     "example_code/cross-services/feedback-sentiment-analyzer/AnalyzeSentiment",
     "example_code/cross-services/feedback-sentiment-analyzer/ExtractText",
