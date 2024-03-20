@@ -103,7 +103,7 @@ This example shows you how to how to prepare and send a prompt to the following 
 - Anthropic: Claude 2.0 and 2.1
 - Anthropic: Claude 3 Haiku and Sonnet
 - Meta: Llama2 Chat 13B and 70B
-- Mistral AI: Mistral 7B and Mixtral 8c7B
+- Mistral AI: Mistral 7B and Mixtral 8x7B
 
 <!--custom.scenario_prereqs.bedrock-runtime_Scenario_CliTextPlayground.start-->
 ##### Step 1: Install the dependencies:
