@@ -12,7 +12,7 @@ describe("Invoke Jurassic2 Mid", () => {
   it("should return a response", async () => {
     const modelId = FoundationModels.JURASSIC2_MID.modelId;
     const response = await invokeModel(TEXT_PROMPT, modelId);
-    expectToBeANonEmptyString(response[0]);
+    expectToBeANonEmptyString(response);
   });
 });
 
@@ -20,6 +20,6 @@ describe("Invoke Jurassic2 Ultra", () => {
   it("should return a response", async () => {
     const modelId = FoundationModels.JURASSIC2_ULTRA.modelId;
     const response = await invokeModel(TEXT_PROMPT, modelId);
-    expectToBeANonEmptyString(response[0]);
+    expectToBeANonEmptyString(response);
   });
 });

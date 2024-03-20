@@ -50,7 +50,7 @@ export const invokeModel = async (
   const decodedResponseBody = new TextDecoder().decode(apiResponse.body);
   /** @type {ResponseBody} */
   const responseBody = JSON.parse(decodedResponseBody);
-  return responseBody.results.map((result) => result.outputText);
+  return responseBody.results[0].outputText;
 };
 
 // Invoke the function if this file was run directly.
@@ -63,8 +63,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
 
   try {
     console.log("-".repeat(53));
-    const responses = await invokeModel(prompt, modelId);
-    responses.forEach((response) => console.log(response));
+    const response = await invokeModel(prompt, modelId);
+    console.log(response);
   } catch (err) {
     console.log(err);
   }

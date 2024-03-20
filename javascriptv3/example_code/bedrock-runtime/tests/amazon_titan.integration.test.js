@@ -12,7 +12,7 @@ describe("Invoke Titan Text G1 - Express", () => {
   it("should return a response", async () => {
     const modelId = FoundationModels.TITAN_TEXT_G1_EXPRESS.modelId;
     const response = await invokeModel(TEXT_PROMPT, modelId);
-    expectToBeANonEmptyString(response[0]);
+    expectToBeANonEmptyString(response);
   });
 });
 
@@ -20,6 +20,6 @@ describe("Invoke Titan Text G1 - Lite", () => {
   it("should return a response", async () => {
     const modelId = FoundationModels.TITAN_TEXT_G1_LITE.modelId;
     const response = await invokeModel(TEXT_PROMPT, modelId);
-    expectToBeANonEmptyString(response[0]);
+    expectToBeANonEmptyString(response);
   });
 });

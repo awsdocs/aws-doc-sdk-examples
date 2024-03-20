@@ -69,7 +69,7 @@ export const invokeModel = async (
   const decodedResponseBody = new TextDecoder().decode(apiResponse.body);
   /** @type {MessagesResponseBody} */
   const responseBody = JSON.parse(decodedResponseBody);
-  return responseBody.content.map((content) => content.text);
+  return responseBody.content[0].text;
 };
 
 /**
@@ -108,8 +108,7 @@ export const invokeModelWithResponseStream = async (
   });
   const apiResponse = await client.send(command);
 
-  let role;
-  let final_message = "";
+  let completeMessage = "";
 
   // Decode and process the response stream
   for await (const item of apiResponse.body) {
@@ -117,20 +116,15 @@ export const invokeModelWithResponseStream = async (
     const chunk = JSON.parse(new TextDecoder().decode(item.chunk.bytes));
     const chunk_type = chunk.type;
 
-    if (chunk_type === "message_start") {
-      role = chunk.message.role;
-    } else if (chunk_type === "content_block_delta") {
+    if (chunk_type === "content_block_delta") {
       const text = chunk.delta.text;
-      final_message = final_message + text;
+      completeMessage = completeMessage + text;
       process.stdout.write(text);
     }
   }
 
   // Return the final response
-  return {
-    role: role,
-    content: [{ type: "text", text: final_message }],
-  };
+  return completeMessage;
 };
 
 // Invoke the function if this file was run directly.
@@ -142,7 +136,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
 
   try {
     console.log("-".repeat(53));
-    const response = await invokeModelWithResponseStream(prompt, modelId);
+    const response = await invokeModel(prompt, modelId);
     console.log("\n" + "-".repeat(53));
     console.log("Final structured response:");
     console.log(response);

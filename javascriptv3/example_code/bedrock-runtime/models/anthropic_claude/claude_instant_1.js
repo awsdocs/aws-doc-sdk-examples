@@ -31,7 +31,7 @@ import {
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "anthropic.claude-instant-v1".
  */
-export const invokeMessagesApi = async (
+export const invokeModel = async (
   prompt,
   modelId = "anthropic.claude-instant-v1",
 ) => {
@@ -62,7 +62,7 @@ export const invokeMessagesApi = async (
   const decodedResponseBody = new TextDecoder().decode(apiResponse.body);
   /** @type {MessageApiResponse} */
   const responseBody = JSON.parse(decodedResponseBody);
-  return responseBody.content.map((content) => content.text);
+  return responseBody.content[0].text;
 };
 
 /**
@@ -116,8 +116,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
     console.log("-".repeat(53));
     console.log("Using the Messages API:");
-    const responses = await invokeMessagesApi(prompt, modelId);
-    responses.forEach((response) => console.log(response));
+    const response = await invokeModel(prompt, modelId);
+    console.log(response);
   } catch (err) {
     console.log(err);
   }
