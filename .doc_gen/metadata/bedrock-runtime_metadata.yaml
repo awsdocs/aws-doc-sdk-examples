@@ -462,7 +462,7 @@ bedrock-runtime_InvokeLlama2:
   services:
     bedrock-runtime: {InvokeModel}
 
-bedrock-runtime_InvokeModelWithResponseStream:
+bedrock-runtime_InvokeClaude2WithResponseStream:
   title: Invoke the Anthropic Claude 2 model on &BR; for text generation with a response stream
   title_abbrev: Text generation with Anthropic Claude 2 with a response stream
   synopsis: invoke the Anthropic Claude 2 model on &BR; for text generation with a response stream.
@@ -481,9 +481,12 @@ bedrock-runtime_InvokeModelWithResponseStream:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke the Anthropic Claude 2 model and process the response stream.
+            - description: Invoke Anthropic Claude 2 using the Messages API.
               snippet_tags:
-                - bedrock-runtime.java2.invoke_model_with_response_stream.main
+                - bedrock-runtime.java2.invoke_claude2_with_response_stream_messages_api.main
+            - description: Invoke Anthropic Claude 2 using the Text Completions API.
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_claude2_with_response_stream_text_api.main
     Python:
       versions:
         - sdk_version: 3

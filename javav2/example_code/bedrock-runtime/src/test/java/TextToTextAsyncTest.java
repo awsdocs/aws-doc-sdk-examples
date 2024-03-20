@@ -1,9 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import com.example.bedrockruntime.Claude2WithResponseStream;
 import com.example.bedrockruntime.InvokeModelAsync;
-import com.example.bedrockruntime.InvokeModelWithResponseStream;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -66,11 +68,19 @@ class TextToTextAsyncTest extends TestBase {
 
     @Test
     @Tag("IntegrationTest")
-    void InvokeClaudeWithResponseStream() {
+    void InvokeClaude2MessagesApiWithResponseStream() {
         var prompt = "In one sentence, what is a large-language model?";
-        var silent = true;
-        var generatedText = InvokeModelWithResponseStream.invokeClaude(prompt, silent);
-        assertNotNullOrEmpty(generatedText);
-        System.out.println("Test async invoke Claude with response stream passed.");
+        var responseObject = Claude2WithResponseStream.invokeWithMessagesApi(prompt);
+        assertNotNull(responseObject);
+        System.out.println("Test invoke Claude 2 with response stream using the Messages API passed.");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    void InvokeClaude2TextCompletionsApiWithResponseStream() {
+        var prompt = "In one sentence, what is a large-language model?";
+        var responseObject = Claude2WithResponseStream.invokeWithTextCompletionsApi(prompt);
+        assertNotNull(responseObject);
+        System.out.println("Test invoke Claude 2 with response stream using the Messages API passed.");
     }
 }

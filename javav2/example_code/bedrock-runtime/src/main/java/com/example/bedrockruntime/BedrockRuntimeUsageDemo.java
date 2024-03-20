@@ -116,8 +116,7 @@ public class BedrockRuntimeUsageDemo {
         System.out.println("Prompt: " + prompt);
 
         try {
-            var silent = false;
-            InvokeModelWithResponseStream.invokeClaude(prompt, silent);
+            Claude2WithResponseStream.invokeWithMessagesApi(prompt);
         } catch (BedrockRuntimeException e) {
             System.out.println("Couldn't invoke model " + modelId + ": " + e.getMessage());
             throw e;
@@ -161,7 +160,7 @@ public class BedrockRuntimeUsageDemo {
 
             return filePath.toString();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
             System.exit(1);
         }
         return null;
