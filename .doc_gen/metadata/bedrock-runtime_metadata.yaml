@@ -477,7 +477,7 @@ bedrock-runtime_InvokeClaude3WithResponseStream:
               snippet_tags:
                 - bedrock-runtime.java2.invoke_claude2_with_response_stream_messages_api.main
   services:
-    bedrock-runtime: { InvokeModelWithResponseStream }
+    bedrock-runtime: {InvokeModelWithResponseStream}
 
 bedrock-runtime_InvokeClaude2WithResponseStream:
   title: Invoke the Anthropic Claude 2 model on &BR; for text generation with a response stream
