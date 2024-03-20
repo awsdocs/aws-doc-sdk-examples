@@ -4,7 +4,6 @@
 import { fileURLToPath } from "url";
 
 import { FoundationModels } from "../../config/foundation_models.js";
-import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
@@ -23,10 +22,7 @@ import {
  */
 export const invokeModel = async (prompt, modelId) => {
   // Create a new Bedrock Runtime client instance.
-  const client = new BedrockRuntimeClient({
-    region: "us-east-1",
-    credentialDefaultProvider: defaultProvider,
-  });
+  const client = new BedrockRuntimeClient({ region: "us-east-1" });
 
   // Use the provided model ID or fallback to Titan Text G1 - Express if not provided.
   modelId = modelId || "amazon.titan-text-express-v1";
