@@ -25,5 +25,6 @@ sdk-examples-test-utils = { path = "../../test-utils" }
 futures = "0.3.30"
 
 [dev-dependencies]
-aws-smithy-mocks-experimental = "0.1.0"
+# aws-smithy-mocks-experimental = "0.1.0"
+aws-smithy-mocks-experimental = { path = "../../../../smithy-rs/rust-runtime/aws-smithy-mocks-experimental"}
 # aws-smithy-runtime = { version="1", features = ["test-util"] }
