@@ -38,12 +38,12 @@ import {
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "anthropic.claude-3-haiku-20240307-v1:0".
  */
-export const invokeModel = async (prompt, modelId) => {
+export const invokeModel = async (
+  prompt,
+  modelId = "anthropic.claude-3-haiku-20240307-v1:0",
+) => {
   // Create a new Bedrock Runtime client instance.
   const client = new BedrockRuntimeClient({ region: "us-east-1" });
-
-  // Use the provided model ID or fallback to Claude 3 Haiku if not provided.
-  modelId = modelId || "anthropic.claude-3-haiku-20240307-v1:0";
 
   // Prepare the payload for the model.
   const payload = {
@@ -81,12 +81,12 @@ export const invokeModel = async (prompt, modelId) => {
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "anthropic.claude-3-haiku-20240307-v1:0".
  */
-export const invokeModelWithResponseStream = async (prompt, modelId) => {
+export const invokeModelWithResponseStream = async (
+  prompt,
+  modelId = "anthropic.claude-3-haiku-20240307-v1:0",
+) => {
   // Create a new Bedrock Runtime client instance.
   const client = new BedrockRuntimeClient({ region: "us-east-1" });
-
-  // Use the provided model ID or fallback to Claude 3 Haiku if not provided.
-  modelId = modelId || "anthropic.claude-3-haiku-20240307-v1:0";
 
   // Prepare the payload for the model.
   const payload = {

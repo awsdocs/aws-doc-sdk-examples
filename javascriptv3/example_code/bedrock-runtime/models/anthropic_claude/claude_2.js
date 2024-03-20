@@ -33,12 +33,12 @@ import {
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "anthropic.claude-v2".
  */
-export const invokeMessagesApi = async (prompt, modelId) => {
+export const invokeMessagesApi = async (
+  prompt,
+  modelId = "anthropic.claude-v2",
+) => {
   // Create a new Bedrock Runtime client instance.
   const client = new BedrockRuntimeClient({ region: "us-east-1" });
-
-  // Use the provided model ID or fallback to Claude 2.0 if not provided.
-  modelId = modelId || "anthropic.claude-v2";
 
   // Prepare the payload for the Messages API request.
   const payload = {
@@ -76,12 +76,12 @@ export const invokeMessagesApi = async (prompt, modelId) => {
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "anthropic.claude-v2".
  */
-export const invokeTextCompletionsApi = async (prompt, modelId) => {
+export const invokeTextCompletionsApi = async (
+  prompt,
+  modelId = "anthropic.claude-v2",
+) => {
   // Create a new Bedrock Runtime client instance.
   const client = new BedrockRuntimeClient({ region: "us-east-1" });
-
-  // Use the provided model ID or fallback to Claude 2.0 if not provided.
-  modelId = modelId || "anthropic.claude-v2";
 
   // Prepare the payload for the Text Completions API, using the required prompt template.
   const enclosedPrompt = `Human: ${prompt}\n\nAssistant:`;

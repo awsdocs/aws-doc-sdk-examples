@@ -20,12 +20,12 @@ import {
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "amazon.titan-text-express-v1".
  */
-export const invokeModel = async (prompt, modelId) => {
+export const invokeModel = async (
+  prompt,
+  modelId = "amazon.titan-text-express-v1",
+) => {
   // Create a new Bedrock Runtime client instance.
   const client = new BedrockRuntimeClient({ region: "us-east-1" });
-
-  // Use the provided model ID or fallback to Titan Text G1 - Express if not provided.
-  modelId = modelId || "amazon.titan-text-express-v1";
 
   // Prepare the payload for the model.
   const payload = {
