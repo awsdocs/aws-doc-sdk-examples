@@ -85,6 +85,23 @@ const Best = {
       name: "s3.rust.list-buckets.txt",
     },
   ],
+  kotlin: [
+    {
+      score: 0.9,
+      language: "kotlin",
+      name: "comprehend.kotlin.detect_language.main.txt",
+    },
+    {
+      score: 0.9,
+      language: "kotlin",
+      name: "comprehend.kotlin.detect_sentiment.main.txt",
+    },
+    {
+      score: 0.9,
+      language: "kotlin",
+      name: "comprehend.kotlin.detect_syntax.main.txt",
+    },
+  ],
 };
 
 const LANGUAGES = Object.keys(Best);
@@ -123,7 +140,10 @@ class MyRAG extends Ailly.RAG {
     2. From best three per language, take five (TOP_N) total (with at least three languages included)
     */
   async augment(content) {
-    const vector = await this.engine.vector(content.prompt, {});
+    let vector = [];
+    try {
+      vector = await this.engine.vector(content.prompt, {});
+    } catch (e) { }
     const langs = LANGUAGES.filter(lang => content.system[0].includes(lang));
     const map = (
       await Promise.all(
