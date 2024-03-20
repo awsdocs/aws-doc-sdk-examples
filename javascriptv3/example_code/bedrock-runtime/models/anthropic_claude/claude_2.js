@@ -33,7 +33,6 @@ import {
  *
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "anthropic.claude-v2".
- * @returns {Promise<string[]>} The inference response from the model.
  */
 export const invokeMessagesApi = async (prompt, modelId) => {
   // Create a new Bedrock Runtime client instance.
@@ -80,7 +79,6 @@ export const invokeMessagesApi = async (prompt, modelId) => {
  *
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "anthropic.claude-v2".
- * @returns {Promise<string>} The inference response from the model.
  */
 export const invokeTextCompletionsApi = async (prompt, modelId) => {
   // Create a new Bedrock Runtime client instance.
