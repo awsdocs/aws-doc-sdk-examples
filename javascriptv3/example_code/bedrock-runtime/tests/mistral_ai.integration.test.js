@@ -13,7 +13,7 @@ describe("Invoke Mistral 7B", () => {
   it("should return a response", async () => {
     const modelId = FoundationModels.MISTRAL_7B.modelId;
     const response = await invokeMistral(TEXT_PROMPT, modelId);
-    expectToBeANonEmptyString(response[0]);
+    expectToBeANonEmptyString(response);
   });
 });
 
@@ -21,6 +21,6 @@ describe("Invoke Mixtral 8x7B", () => {
   it("should return a response", async () => {
     const modelId = FoundationModels.MIXTRAL_8X7B.modelId;
     const response = await invokeMixtral(TEXT_PROMPT, modelId);
-    expectToBeANonEmptyString(response[0]);
+    expectToBeANonEmptyString(response);
   });
 });
