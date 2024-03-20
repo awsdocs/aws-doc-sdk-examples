@@ -20,7 +20,14 @@ This workflow demonstrates how to use the Amazon Simple Email Service (SES) v2 t
    - Include Unsubscribe links and headers to follow bulk email best practices.
 
 4. **Monitor and Review**
+
    - Review dashboards and metrics in the AWS console for the newsletter campaign.
+
+5. **Clean up**
+
+   - Delete the template.
+   - Delete the contact list.
+   - Optionally delete the sender verified email identity.
 
 ## Prerequisites
 
