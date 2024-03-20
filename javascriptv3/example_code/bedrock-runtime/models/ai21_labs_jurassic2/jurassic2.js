@@ -26,12 +26,9 @@ import {
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "ai21.j2-mid-v1".
  */
-export const invokeModel = async (prompt, modelId) => {
+export const invokeModel = async (prompt, modelId = "ai21.j2-mid-v1") => {
   // Create a new Bedrock Runtime client instance.
   const client = new BedrockRuntimeClient({ region: "us-east-1" });
-
-  // Use the provided model ID or fallback to Jurassic-2 Mid if not provided.
-  modelId = modelId || "ai21.j2-mid-v1";
 
   // Prepare the payload for the model.
   const payload = {

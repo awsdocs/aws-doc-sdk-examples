@@ -23,12 +23,12 @@ import {
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "mistral.mistral-7b-instruct-v0:2".
  */
-export const invokeModel = async (prompt, modelId) => {
+export const invokeModel = async (
+  prompt,
+  modelId = "mistral.mistral-7b-instruct-v0:2",
+) => {
   // Create a new Bedrock Runtime client instance.
   const client = new BedrockRuntimeClient({ region: "us-east-1" });
-
-  // Use the provided model ID or fallback to Mistral 7B Instruct if not provided.
-  modelId = modelId || "mistral.mistral-7b-instruct-v0:2";
 
   // Mistral instruct models provide optimal results when embedding
   // the prompt into the following template:
