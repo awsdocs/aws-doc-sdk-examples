@@ -23,21 +23,19 @@ import java.util.function.Consumer;
  * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-public class Claude2WithResponseStream {
+public class Claude3 {
     public static void main(String[] args) {
         System.out.println("=".repeat(67));
-        System.out.println("Welcome to the Amazon Bedrock Runtime Demo with Anthropic Claude 2.");
+        System.out.println("Welcome to the Amazon Bedrock Runtime Demo with Anthropic Claude 3.");
         System.out.println("=".repeat(67));
 
         var prompt = "Hi, how are you?.";
         System.out.println("Prompt: " + prompt);
 
         System.out.println("-".repeat(67));
-        System.out.println("Using the Messages API...");
-
         System.out.println("Streaming response:");
         try {
-            JSONObject messagesApiResponse = invokeWithMessagesApi(prompt);
+            JSONObject messagesApiResponse = invokeModelWithResponseStream(prompt);
 
             System.out.println("\n" + "-".repeat(67));
             System.out.println("Structured response:");
@@ -46,38 +44,23 @@ public class Claude2WithResponseStream {
         } catch (Exception e) {
             System.out.println("Couldn't invoke model using the Messages API, here's why: " + e.getMessage());
         }
-
-        System.out.println("-".repeat(67));
-        System.out.println("Using the Text Completions API...");
-        System.out.println("Streaming response:");
-        try {
-            String textCompletionsApiResponse = invokeWithTextCompletionsApi(prompt);
-
-            System.out.println("Complete response:");
-            System.out.println(textCompletionsApiResponse);
-        } catch (Exception e) {
-            System.out.println("Couldn't invoke model using the Text Completions API, here's why:");
-            System.out.println(e.getMessage());
-        }
     }
 
-    // snippet-start:[bedrock-runtime.java2.invoke_claude2_with_response_stream_messages_api.main]
+    // snippet-start:[bedrock-runtime.java2.invoke_claude3_with_response_stream.main]
+
     /**
-     * Invokes Anthropic Claude 2 via the Messages API and processes the response stream.
-     * <p>
-     * To learn more about the Anthropic Messages API, go to:
-     * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-messages.html
+     * Invokes Anthropic Claude 3 Haiku and processes the response stream.
      *
-     * @param prompt The prompt for Claude to complete.
-     * @return The prompt for the model to complete.
+     * @param prompt The prompt for the model to complete.
+     * @return A JSON object containing the complete response along with some metadata.
      */
-    public static JSONObject invokeWithMessagesApi(String prompt) {
+    public static JSONObject invokeModelWithResponseStream(String prompt) {
         BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .region(Region.US_EAST_1)
                 .build();
 
-        String modelId = "anthropic.claude-v2";
+        String modelId = "anthropic.claude-3-haiku-20240307-v1:0";
 
         // Prepare the JSON payload for the Messages API request
         var payload = new JSONObject()
@@ -156,59 +139,5 @@ public class Claude2WithResponseStream {
                                 .put("text", completeMessage.get())))
                 .build();
     }
-    // snippet-end:[bedrock-runtime.java2.invoke_claude2_with_response_stream_messages_api.main]
-
-    // snippet-start:[bedrock-runtime.java2.invoke_claude2_with_response_stream_text_api.main]
-
-    /**
-     * Invokes Anthropic Claude 2 via the Text Completions API and processes the response stream.
-     * <p>
-     * To learn more about the Anthropic Text Completions API, go to:
-     * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-text-completion.html
-     *
-     * @param prompt The prompt for the model to complete.
-     * @return The generated response.
-     */
-    public static String invokeWithTextCompletionsApi(String prompt) {
-        BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .region(Region.US_EAST_1)
-                .build();
-
-        String modelId = "anthropic.claude-v2";
-
-        var payload = new JSONObject()
-                .put("prompt", "Human: " + prompt + " Assistant:")
-                .put("temperature", 0.5)
-                .put("max_tokens_to_sample", 1000)
-                .toString();
-
-        var request = InvokeModelWithResponseStreamRequest.builder()
-                .body(SdkBytes.fromUtf8String(payload))
-                .contentType("application/json")
-                .modelId(modelId)
-                .build();
-
-        var finalCompletion = new AtomicReference<>("");
-        var visitor = InvokeModelWithResponseStreamResponseHandler.Visitor.builder()
-                .onChunk(chunk -> {
-                    var json = new JSONObject(chunk.bytes().asUtf8String());
-                    var completion = json.getString("completion");
-                    finalCompletion.set(finalCompletion.get() + completion);
-                    System.out.print(completion);
-                })
-                .build();
-
-        var handler = InvokeModelWithResponseStreamResponseHandler.builder()
-                .onEventStream(stream -> stream.subscribe(event -> event.accept(visitor)))
-                .onComplete(() -> {
-                })
-                .onError(e -> System.out.println("\n\nError: " + e.getMessage()))
-                .build();
-
-        client.invokeModelWithResponseStream(request, handler).join();
-
-        return finalCompletion.get();
-    }
-    // snippet-end:[bedrock-runtime.java2.invoke_claude2_with_response_stream_text_api.main]
+    // snippet-end:[bedrock-runtime.java2.invoke_claude3_with_response_stream.main]
 }

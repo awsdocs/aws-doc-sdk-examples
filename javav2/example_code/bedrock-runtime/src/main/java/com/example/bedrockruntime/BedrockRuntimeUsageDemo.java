@@ -116,7 +116,7 @@ public class BedrockRuntimeUsageDemo {
         System.out.println("Prompt: " + prompt);
 
         try {
-            Claude2WithResponseStream.invokeWithMessagesApi(prompt);
+            Claude2.invokeMessagesApiWithResponseStream(prompt);
         } catch (BedrockRuntimeException e) {
             System.out.println("Couldn't invoke model " + modelId + ": " + e.getMessage());
             throw e;
