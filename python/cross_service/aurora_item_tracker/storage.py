@@ -140,9 +140,9 @@ class Storage:
             {"name": "username", "value": {"stringValue": work_item["username"]}},
         ]
         results = self._run_statement(sql, sql_params=sql_params)
-// Old style, for Serverless v1:
-//        work_item_id = results["generatedFields"][0]["longValue"]
-// New style, for Serverless v2:
+        # Old style, for Serverless v1:
+        #        work_item_id = results["generatedFields"][0]["longValue"]
+        # New style, for Serverless v2:
         work_item_id = results["records"][0][0]["longValue"]
         return work_item_id
 

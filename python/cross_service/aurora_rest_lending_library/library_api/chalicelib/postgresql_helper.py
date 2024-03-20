@@ -85,7 +85,9 @@ def _make_params(values):
                 VALUE_KEYS[type(val)]: (
                     str(val)
                     if isinstance(val, datetime.date)
-                    else val if val is not None else True
+                    else val
+                    if val is not None
+                    else True
                 )
             },
         }
