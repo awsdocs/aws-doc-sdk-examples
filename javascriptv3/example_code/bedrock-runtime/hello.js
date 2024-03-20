@@ -15,7 +15,6 @@
  */
 
 import { fileURLToPath } from "url";
-import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
@@ -36,10 +35,7 @@ const hello = async () => {
   console.log("Invoking model...\n");
 
   // Create a new Bedrock Runtime client instance.
-  const client = new BedrockRuntimeClient({
-    credentialDefaultProvider: defaultProvider,
-    region: AWS_REGION,
-  });
+  const client = new BedrockRuntimeClient({ region: AWS_REGION });
 
   // Prepare the payload for the model.
   const payload = {

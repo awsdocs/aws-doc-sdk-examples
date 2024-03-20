@@ -4,7 +4,6 @@
 import { fileURLToPath } from "url";
 
 import { FoundationModels } from "../../config/foundation_models.js";
-import { defaultProvider } from "@aws-sdk/credential-provider-node";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,
@@ -34,10 +33,7 @@ import {
  */
 export const invokeMessagesApi = async (prompt, modelId) => {
   // Create a new Bedrock Runtime client instance.
-  const client = new BedrockRuntimeClient({
-    region: "us-east-1",
-    credentialDefaultProvider: defaultProvider,
-  });
+  const client = new BedrockRuntimeClient({ region: "us-east-1" });
 
   // Use the provided model ID or fallback to Claude Instant 1.0 if not provided.
   modelId = modelId || "anthropic.claude-instant-v1";
@@ -80,10 +76,7 @@ export const invokeMessagesApi = async (prompt, modelId) => {
  */
 export const invokeTextCompletionsApi = async (prompt, modelId) => {
   // Create a new Bedrock Runtime client instance.
-  const client = new BedrockRuntimeClient({
-    region: "us-east-1",
-    credentialDefaultProvider: defaultProvider,
-  });
+  const client = new BedrockRuntimeClient({ region: "us-east-1" });
 
   // Use the provided model ID or fallback to Claude Instant 1.0 if not provided.
   modelId = modelId || "anthropic.claude-instant-v1";
