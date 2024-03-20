@@ -20,7 +20,6 @@ import {
  *
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "amazon.titan-text-express-v1".
- * @returns {Promise<string[]>} The inference response from the model.
  */
 export const invokeModel = async (prompt, modelId) => {
   // Create a new Bedrock Runtime client instance.

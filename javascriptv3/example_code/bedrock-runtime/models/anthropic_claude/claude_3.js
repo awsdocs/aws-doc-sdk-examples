@@ -38,7 +38,6 @@ import {
  *
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "anthropic.claude-3-haiku-20240307-v1:0".
- * @returns {Promise<string[]>} The inference response from the model.
  */
 export const invokeModel = async (prompt, modelId) => {
   // Create a new Bedrock Runtime client instance.
@@ -85,7 +84,6 @@ export const invokeModel = async (prompt, modelId) => {
  *
  * @param {string} prompt - The input text prompt for the model to complete.
  * @param {string} [modelId] - The ID of the model to use. Defaults to "anthropic.claude-3-haiku-20240307-v1:0".
- * @returns {Promise<Object[]>} The final response from the model.
  */
 export const invokeModelWithResponseStream = async (prompt, modelId) => {
   // Create a new Bedrock Runtime client instance.
