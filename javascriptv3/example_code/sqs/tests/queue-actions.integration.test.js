@@ -60,7 +60,7 @@ describe("queue actions", () => {
 
     await retry({ intervalInMs: 5000, maxRetries: 60 }, async () => {
       const urlsAfterDelete = await listQueues();
-      expect(urlsAfterDelete.length).toBe(0);
+      expect(urlsAfterDelete).not.toContain(QueueUrl);
     });
   });
 });
