@@ -112,14 +112,26 @@ class Storage:
         """
         Adds a work item to the database.
 
+        Note: Wrapping the INSERT statement in a WITH clause and querying the auto-generated
+              ID value is required by a change in the Data API for Aurora Serverless v2.
+              The "generatedFields" fields in the return value for DML statements are all blank.
+              That's why the RETURNING clause is needed to specify the columns to return, and
+              the entire statement is structured as a query so that the returned value can
+              be retrieved from the "records" result set.
+
+              This limitation might not be permanent; the DML statement might be simplified
+              in future.
+
         :param work_item: The work item to add to the database. Because the ID
                           and archive fields are auto-generated,
                           you don't need to specify them when creating a new item.
         :return: The generated ID of the new work item.
         """
         sql = (
+            f"WITH t1 AS ( "
             f"INSERT INTO {self._table_name} (description, guide, status, username) "
-            f" VALUES (:description, :guide, :status, :username)"
+            f" VALUES (:description, :guide, :status, :username) RETURNING iditem "
+            f") SELECT iditem FROM t1"
         )
         sql_params = [
             {"name": "description", "value": {"stringValue": work_item["description"]}},
@@ -128,7 +140,10 @@ class Storage:
             {"name": "username", "value": {"stringValue": work_item["username"]}},
         ]
         results = self._run_statement(sql, sql_params=sql_params)
-        work_item_id = results["generatedFields"][0]["longValue"]
+        # Old style, for Serverless v1:
+        #        work_item_id = results["generatedFields"][0]["longValue"]
+        # New style, for Serverless v2:
+        work_item_id = results["records"][0][0]["longValue"]
         return work_item_id
 
     def archive_work_item(self, iditem):

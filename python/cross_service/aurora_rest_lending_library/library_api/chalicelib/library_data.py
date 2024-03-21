@@ -5,7 +5,7 @@
 Purpose
 
 Shows how to use the Amazon RDS Data Service to interact with an Amazon Aurora
-database.
+PostgreSQL-compatible database.
 
 This file is deployed to AWS Lambda as part of the Chalice deployment.
 """
@@ -15,14 +15,17 @@ import logging
 import os
 import boto3
 from botocore.exceptions import ClientError
-from .mysql_helper import Table, Column, ForeignKey
-from .mysql_helper import (
+from .postgresql_helper import Table, Column, ForeignKey
+from .postgresql_helper import (
     create_table,
     insert,
+    insert_without_batch,
+    insert_returning,
     update,
     query,
     unpack_query_results,
     unpack_insert_results,
+    unpack_insert_results_v2,
     delete,
 )
 
@@ -202,11 +205,14 @@ class Storage:
                 and "Communications link failure" in error.response["Error"]["Message"]
             ):
                 raise DataServiceNotReadyException(
-                    "The Aurora Data Service is not ready, probably because it entered "
-                    "pause mode after five minutes of inactivity. Wait a minute for "
-                    "your cluster to resume and try your request again."
+                    "The Aurora Data Service is not ready."
                 ) from error
             logger.exception("Run statement on %s failed.", self._db_name)
+            raise
+        except Exception as err:
+            logger.exception(
+                f"Error calling execute_statement() with that SQL statement: {str(err)}"
+            )
             raise
         else:
             return result
@@ -248,7 +254,10 @@ class Storage:
     def add_books(self, books):
         """
         Adds a list of books and their authors to the database. The list of authors
-        is first processed to remove duplicates.
+        is first processed to remove duplicates. The data is set up with a foreign
+        key relationship. The author information is added to the Authors table, including
+        an auto-generated author ID. The book information and the corresponding author ID
+        is added to the Books table.
 
         :param books: The list of books and their authors to add to the database.
         :return: The counts of authors and books added to the database.
@@ -260,14 +269,48 @@ class Storage:
             }
             for book in books
         }
-        sql, sql_param_sets = insert(self._tables["Authors"], authors.values())
-        result = self._run_batch_statement(sql, sql_param_sets)
-        author_count = len(result["updateResults"])
-        logger.info("Added %s authors to the database.", author_count)
+
+        # Construct a list of '(FirstName, LastName)' strings to be substituted into
+        # the VALUES clause of the INSERT statement.
+        authors_plain = [
+            """($first$%s$first$, $last$%s$last$)"""
+            % (" ".join(book["author"].split(" ")[:-1]), book["author"].split(" ")[-1])
+            for book in books
+        ]
+        values_clause = ", ".join(authors_plain)
+
+        sql = insert_without_batch(self._tables["Authors"], values_clause)
+
+        #        result = self._run_batch_statement(sql, sql_param_sets)
+        # Format the parameter set into a big string '''("John", "Smith"), ("Jane", "Jones") ...etc...'''
+        # that can be substituted straight into the VALUES clause of the INSERT statement.
+        result = self._run_statement(sql)
+
+        try:
+            author_count = len(result["updateResults"])
+            logger.info(
+                "Added %s authors to the database. Result set included updateResults field.",
+                author_count,
+            )
+        except:
+            pass
+        try:
+            author_count = len(result["records"])
+            logger.info(
+                "Added %s authors to the database. Result set included records field.",
+                author_count,
+            )
+        except:
+            pass
 
         auth_ids = [
-            field["generatedFields"][0]["longValue"]
-            for field in result["updateResults"]
+            # generatedFields is blank in Data API v2. But that might not be a permanent limitation.
+            # So preserve the ability to switch back to it instead of reformatting the INSERT into a
+            # query and getting the generated IDs out of the 'records' fields.
+            #            field["generatedFields"][0]["longValue"]
+            #            for field in result["updateResults"]
+            field[0]["longValue"]
+            for field in result["records"]
         ]
         for auth, auth_id in zip(authors.values(), auth_ids):
             auth["author_id"] = auth_id
@@ -401,9 +444,10 @@ class Storage:
         :return: The ID of the added patron.
         """
         logger.info("Adding patron %s.", patron)
-        sql, sql_param_sets = insert(self._tables["Patrons"], [patron])
+        sql, sql_param_sets = insert_returning(self._tables["Patrons"], [patron])
         results = self._run_statement(sql, sql_params=sql_param_sets[0])
-        return unpack_insert_results(results)
+        new_id = unpack_insert_results_v2(results)
+        return new_id
 
     def delete_patron(self, patron_id):
         """
@@ -413,7 +457,12 @@ class Storage:
         """
         logger.info("Deleting patron %s.", patron_id)
         sql, sql_param_sets = delete(self._tables["Patrons"], [{"PatronID": patron_id}])
-        self._run_statement(sql, sql_params=sql_param_sets[0])
+        try:
+            self._run_statement(sql, sql_params=sql_param_sets[0])
+        except Exception as err:
+            logger.exception(f"Error running SQL statement: {sql}")
+            logger.exception(f"Error details: {str(err)}")
+            raise
 
     def get_borrowed_books(self):
         """
@@ -424,21 +473,54 @@ class Storage:
         :return: The list of currently borrowed books.
         """
         logger.info("Listing all currently borrowed books.")
-        sql, columns, params = query(
-            "Lending",
-            self._tables,
-            [
-                {
-                    "table": "Lending",
-                    "column": "Lent",
-                    "op": ">=",
-                    "value": str(datetime.date.today()),
-                },
-                {"table": "Lending", "column": "Returned", "op": "IS", "value": None},
-            ],
-        )
-        results = self._run_statement(sql, sql_params=params)
-        return unpack_query_results(columns, results)
+        try:
+            sql, columns, params = query(
+                "Lending",
+                self._tables,
+                [
+                    {
+                        "table": "Lending",
+                        "column": "Lent",
+                        "op": ">=",
+                        "value": datetime.date.today(),
+                    },
+                    {
+                        "table": "Lending",
+                        "column": "Returned",
+                        "op": "IS NOT DISTINCT FROM",
+                        "value": None,
+                    },
+                ],
+            )
+        except Exception as err:
+            logger.exception(
+                f"Couldn't call query() to construct the query for the Lending table."
+            )
+            raise
+        try:
+            logger.exception(
+                f"Running this query to get list of currently borrowed books: {sql}"
+            )
+            logger.exception(
+                f"Parameters for query to get list of currently borrowed books: {str(params)}"
+            )
+            results = self._run_statement(sql, sql_params=params)
+        except Exception as err:
+            logger.exception(
+                f"Error running SQL statement for get_borrowed_books(): {str(err)}"
+            )
+            raise
+        try:
+            logger.exception(
+                f"Response from query to get list of currently borrowed books: {str(results)}"
+            )
+            rc = unpack_query_results(columns, results)
+            return rc
+        except Exception as err:
+            logger.exception(
+                f"Error unpacking query result for get_borrowed_books(): {str(err)}"
+            )
+            raise
 
     def borrow_book(self, book_id, patron_id):
         """
@@ -450,7 +532,7 @@ class Storage:
         :return: The ID of the record in the Lending table.
         """
         logger.info("Lending book %s to patron %s.", book_id, patron_id)
-        sql, sql_param_sets = insert(
+        sql, sql_param_sets = insert_returning(
             self._tables["Lending"],
             [
                 {
@@ -462,7 +544,7 @@ class Storage:
             ],
         )
         results = self._run_statement(sql, sql_params=sql_param_sets[0])
-        return unpack_insert_results(results)
+        return unpack_insert_results_v2(results)
 
     def return_book(self, book_id, patron_id):
         """
@@ -484,7 +566,18 @@ class Storage:
                     "op": "=",
                     "value": patron_id,
                 },
-                {"table": "Lending", "column": "Returned", "op": "IS", "value": None},
+                {
+                    "table": "Lending",
+                    "column": "Returned",
+                    "op": "IS NOT DISTINCT FROM",
+                    "value": None,
+                },
             ],
         )
-        self._run_statement(sql, sql_params)
+        try:
+            results = self._run_statement(sql, sql_params)
+        except Exception as err:
+            logger.exception(
+                f"Error running SQL statement for return_book(): {str(err)}"
+            )
+            raise

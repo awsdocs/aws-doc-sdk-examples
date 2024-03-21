@@ -44,9 +44,15 @@ python -m pip install -r requirements.txt
 
 ### Aurora Serverless DB cluster and Secrets Manager secret
 
-This example requires an Aurora Serverless DB cluster that contains a MySQL database. The
-database must be configured to use credentials that are contained in a Secrets Manager
-secret. 
+This example requires an Aurora DB cluster with the Data API feature enabled. As of March 2024,
+the available choices are:
+* Aurora PostgreSQL using Aurora Serverless v2 or provisioned instances in the cluster.
+* Aurora MySQL or Aurora PostgreSQL using a Serverless v1 cluster.
+
+For this example, we assume that the Aurora cluster uses a combination of Aurora PostgreSQL
+and Aurora Serverless v2.
+
+The database must be configured to use credentials that are contained in a Secrets Manager secret. 
 
 Follow the instructions in the 
 [README for the Aurora Serverless application](/resources/cdk/aurora_serverless_app/README.md) 
@@ -71,16 +77,16 @@ CloudFormation setup script:
 credentials, such as `arn:aws:secretsmanager:us-west-2:123456789012:secret:docexampleauroraappsecret8B-xI1R8EXAMPLE-hfDaaj`.
 * **DATABASE** — Replace with the name of the database, such as `auroraappdb`.  
 
-*Tip:* The caret `^` is the line continuation character for a Windows command prompt.
-If you run this command on another platform, replace the caret with the line continuation
+*Tip:* The caret `\` is the line continuation character for a Linux or Mac command prompt.
+If you run this command on another platform, replace the backslash with the line continuation
 character for that platform.
 
 ```
-aws rds-data execute-statement ^
-    --resource-arn "CLUSTER_ARN" ^
-    --database "DATABASE" ^
-    --secret-arn "SECRET_ARN" ^
-    --sql "create table work_items (iditem INT AUTO_INCREMENT PRIMARY KEY, description TEXT, guide VARCHAR(45), status TEXT, username VARCHAR(45), archived BOOL DEFAULT 0);"
+aws rds-data execute-statement \
+    --resource-arn "CLUSTER_ARN" \
+    --database "DATABASE" \
+    --secret-arn "SECRET_ARN" \
+    --sql "create table work_items (iditem SERIAL PRIMARY KEY, description TEXT, guide VARCHAR(45), status TEXT, username VARCHAR(45), archived BOOL DEFAULT false);"
 ```
 
 #### AWS Management Console
@@ -102,6 +108,19 @@ as `auroraappdb`.
 This opens a SQL query console. You can run any SQL queries here that you want. Run the 
 following to create the `work_items` table:
 
+For a PostgreSQL-compatible database:
+```sql
+create table work_items ( 
+  iditem SERIAL PRIMARY KEY, 
+  description TEXT, 
+  guide VARCHAR(45), 
+  status TEXT, 
+  username VARCHAR(45), 
+  archived BOOL DEFAULT false
+);
+
+```
+For a MySQL-compatible database:
 ```sql
 create table work_items ( 
   iditem INT AUTO_INCREMENT PRIMARY KEY, 

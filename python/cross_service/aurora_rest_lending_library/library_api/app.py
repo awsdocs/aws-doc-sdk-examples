@@ -50,7 +50,7 @@ def index():
     """Briefly describes the REST API."""
     return {
         "description": "A simple lending library REST API that runs entirely on "
-        "serverless components."
+        "serverless components: Aurora Serverless v2, API Gateway"
     }
 
 
@@ -131,8 +131,15 @@ def add_patron():
 
     :return: The ID of the added patron.
     """
-    patron_id = get_storage().add_patron(app.current_request.json_body)
-    return {"Patrons.PatronID": patron_id}
+    try:
+        patron_id = get_storage().add_patron(app.current_request.json_body)
+        return {"Patrons.PatronID": patron_id}
+    except Exception as err:
+        logger.exception(
+            f"Got exception in add_patron() inside library_api/app.py: {str(err)}"
+        )
+        logger.exception(f"Returning None instead of patron_id.")
+        return None
 
 
 @app.route("/patrons/{patron_id}", methods=["DELETE"])
@@ -155,7 +162,15 @@ def list_borrowed_books():
 
     :return: The list of currently borrowed books.
     """
-    return {"books": get_storage().get_borrowed_books()}
+    try:
+        json_doc = {"books": get_storage().get_borrowed_books()}
+        return json_doc
+    except Exception as err:
+        logger.exception(
+            f"Exception while calling get_storage().get_borrowed_books(): {str(err)}"
+        )
+        logger.exception(f"Continuing with blank list of borrowed books...")
+        return {"books": []}
 
 
 @app.route("/lending/{book_id}/{patron_id}", methods=["PUT", "DELETE"])

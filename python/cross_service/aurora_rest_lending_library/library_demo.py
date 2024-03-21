@@ -59,6 +59,56 @@ def find_api_url(stack_name):
         return api_url
 
 
+def create_resources(
+    cluster_name,
+    db_name,
+    admin_name,
+    admin_password,
+    rds_client,
+    secret_name,
+    secrets_client,
+):
+    """
+    Creates cluster, database, and secrets resources for the lending library demo.
+
+    :param cluster_name: The name of the Amazon Aurora cluster to create.
+    :param db_name: The name of the database to create in the Aurora cluster.
+    :param admin_name: The username of the database administrator.
+    :param admin_password: The password of the database administrator. This is
+                           passed directly only when the database is created.
+                           In all subsequent calls, an AWS Secrets Manager secret
+                           is used.
+    :param rds_client: The Boto3 RDS client.
+    :param secret_name: The name of the secret that holds the database administrator
+                        credentials.
+    :param secrets_client: The Boto3 Secrets Manager client.
+    :return: The newly created cluster and secret.
+    """
+    cluster = aurora_tools.create_db_cluster(
+        cluster_name, db_name, admin_name, admin_password, rds_client
+    )
+    secret = aurora_tools.create_aurora_secret(
+        secret_name,
+        admin_name,
+        admin_password,
+        cluster["Engine"],
+        cluster["Endpoint"],
+        cluster["Port"],
+        cluster["DBClusterIdentifier"],
+        secrets_client,
+    )
+
+    cluster_available_waiter = aurora_tools.ClusterAvailableWaiter(rds_client)
+    cluster_available_waiter.wait(cluster_name)
+
+    # With Aurora Serverless v2, the cluster might be 'Available' while the
+    # writer instance is still 'Creating'. Wait for the instance to be available too.
+    instance_available_waiter = aurora_tools.DBInstanceAvailableWaiter(rds_client)
+    instance_available_waiter.wait("%s-instance" % cluster_name)
+
+    return cluster, secret
+
+
 def fill_db_tables(books_url, storage):
     """
     Fills the lending library database with example data.
@@ -119,9 +169,27 @@ def do_deploy_rest(stack_name):
     :param stack_name: The name of the AWS CloudFormation stack to deploy.
     """
     s3 = boto3.resource("s3")
-    bucket = s3.create_bucket(Bucket=f"demo-aurora-rest-deploy-{time.time_ns()}")
-    print(f"Creating bucket {bucket.name} to hold deployment package.")
-    bucket.wait_until_exists()
+    try:
+        bucket_name = f"demo-aurora-rest-deploy-{time.time_ns()}"
+        if s3.meta.client.meta.region_name != "us-east-1":
+            bucket = s3.create_bucket(
+                Bucket=bucket_name,
+                CreateBucketConfiguration={
+                    "LocationConstraint": s3.meta.client.meta.region_name
+                },
+            )
+        else:
+            bucket = s3.create_bucket(
+                Bucket=bucket_name,
+            )
+        logger.info(f"Creating bucket {bucket.name} to hold deployment package.")
+        bucket.wait_until_exists()
+    except Exception as err:
+        logger.exception(
+            f"Error creating bucket name {bucket_name} with location constraint {s3.meta.client.meta.region_name}. Stopping."
+        )
+        logger.exception(f"Exception details: {str(err)}")
+        raise
 
     commands = [
         "chalice package --merge-template resources.json out",
@@ -186,19 +254,24 @@ def do_rest_demo(stack_name):
 
     patron = patrons["patrons"][0]
     book = random.choice(books["books"])
-    print(f"Lending _{book['Books.Title']}_ to {patron['Patrons.FirstName']}")
+    print(f"Lending the book '{book['Books.Title']}' to {patron['Patrons.FirstName']}")
     response = requests.put(
         urljoin(lending_url, f"{book['Books.BookID']}/{patron['Patrons.PatronID']}")
     )
-    print(f"Response: {response.status_code}")
-    lending = requests.get(lending_url).json()
-    print("Books currently lent are:")
-    pprint(lending["books"])
-    print(f"Returning _{book['Books.Title']}_.")
+    try:
+        response = requests.get(lending_url)
+        print(f"Response: {response.status_code}")
+        lending = response.json()
+        print("Books currently lent are:")
+        pprint(lending["books"])
+    except Exception as err:
+        logger.exception(f"Error retrieving currently lent books: {err}")
+        raise
+    print(f"Returning '{book['Books.Title']}'.")
     response = requests.delete(
         urljoin(lending_url, f"{book['Books.BookID']}/{patron['Patrons.PatronID']}")
     )
-    print(f"Response: {response.status_code}")
+    logger.info(f"Response: {response.status_code}")
 
 
 def main():
@@ -214,16 +287,20 @@ def main():
     print("Welcome to the Amazon Relational Database Service (Amazon RDS) demo.")
     print("-" * 88)
 
-    if args.action == "populate_database":
+    if args.action == "deploy_database":
+        print("Deploying the serverless database and supporting resources.")
+        do_deploy_database(cluster_name, secret_name)
+        print("Next, run 'python library_demo.py deploy_rest' to deploy the REST API.")
+    elif args.action == "populate_database":
         print("Populating serverless database cluster with data.")
         do_populate_database(config["cluster"], config["db_name"], config["secret"])
-        print("Next, run 'py library_demo.py deploy_rest' to deploy the REST API.")
+        print("Next, run 'python library_demo.py deploy_rest' to deploy the REST API.")
     elif args.action == "deploy_rest":
         print("Deploying the REST API components.")
         api_url = do_deploy_rest(config["cluster"]["cluster_name"])
         print(
             f"Next, send HTTP requests to {api_url} or run "
-            f"'py library_demo.py demo_rest' "
+            f"'python library_demo.py demo_rest' "
             f"to see a demonstration of how to call the REST API by using the "
             f"Requests package."
         )
@@ -235,7 +312,7 @@ def main():
             print(err)
         else:
             print(
-                "Next, give it a try yourself or run cdk destroy "
+                "Next, give it a try yourself or run 'python library_demo.py cleanup' "
                 "to delete all demo resources."
             )
     print("-" * 88)
