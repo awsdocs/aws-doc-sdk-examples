@@ -777,6 +777,70 @@ class MedicalImagingWrapper:
         self.delete_datastore(data_store_id)
         print(f"Data store deleted with id : {data_store_id}")
 
+    def update_image_set_metadata_demo(self):
+        data_store_id = "12345678901234567890123456789012"
+        image_set_id = "12345678901234567890123456789012"
+        version_id = "1"
+        update_type = "insert"  # or "remove-attribute" or "remove_instance"
+        if update_type == "insert":
+            # Insert or update an attribute.
+            # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata.insert_or_update_attributes]
+            attributes = """{
+                    "SchemaVersion": 1.1,
+                    "Study": {
+                        "DICOM": {
+                            "StudyDescription": "CT CHEST"
+                        }
+                    }
+                }"""
+            metadata = {"DICOMUpdates": {"updatableAttributes": attributes}}
+
+            self.update_image_set_metadata(
+                data_store_id, image_set_id, version_id, metadata
+            )
+            # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata.insert_or_update_attributes]
+        elif update_type == "remove-attribute":
+            # Remove an existing attribute.
+            # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata.remove_attributes]
+            # Attribute key and value must match the existing attribute.
+            attributes = """{
+                    "SchemaVersion": 1.1,
+                    "Study": {
+                        "DICOM": {
+                            "StudyDescription": "CT CHEST"
+                        }
+                    }
+                }"""
+            metadata = {"DICOMUpdates": {"removableAttributes": attributes}}
+
+            self.update_image_set_metadata(
+                data_store_id, image_set_id, version_id, metadata
+            )
+            # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata.remove_attributes]
+        elif update_type == "remove_instance":
+            # Remove an existing instance.
+            # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata.remove_instance]
+            attributes = """{
+                    "SchemaVersion": 1.1,
+                    "Study": {
+                        "Series": {
+                            "1.1.1.1.1.1.12345.123456789012.123.12345678901234.1": {
+                                "Instances": {
+                                    "1.1.1.1.1.1.12345.123456789012.123.12345678901234.1": {}
+                                }
+                            }
+                        }
+                    }
+                }"""
+            metadata = {"DICOMUpdates": {"removableAttributes": attributes}}
+
+            self.update_image_set_metadata(
+                data_store_id, image_set_id, version_id, metadata
+            )
+
+            # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata.remove_instance]
+        print(f"Updated with update type {update_type}")
+
 
 if __name__ == "__main__":
     # Replace these values with your own.

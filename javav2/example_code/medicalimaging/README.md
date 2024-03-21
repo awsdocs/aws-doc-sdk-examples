@@ -50,7 +50,7 @@ Code excerpts that show you how to call individual service functions.
 - [List tags for a resource](src/main/java/com/example/medicalimaging/ListTagsForResource.java#L56) (`ListTagsForResource`)
 - [Remove a tag from a resource](src/main/java/com/example/medicalimaging/UntagResource.java#L54) (`UntagResource`)
 - [Search image sets](src/main/java/com/example/medicalimaging/SearchImageSets.java#L130) (`SearchImageSets`)
-- [Update image set metadata](src/main/java/com/example/medicalimaging/UpdateImageSetMetadata.java#L75) (`UpdateImageSetMetadata`)
+- [Update image set metadata](src/main/java/com/example/medicalimaging/UpdateImageSetMetadata.java#L144) (`UpdateImageSetMetadata`)
 
 ### Scenarios
 
