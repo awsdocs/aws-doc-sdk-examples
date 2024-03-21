@@ -34,6 +34,7 @@
 namespace AwsDoc::S3 {
   //  constexpr char TEST_FILE[] = SRC_DIR"/../../../../resources/sample_files/movies.json";
   constexpr char TEST_FILE[] = SRC_DIR"/s3_object_integrity_workflow.cpp";
+    constexpr char MULTI_PART_TEST_FILE[] = SRC_DIR"/s3-userguide.pdf";
     constexpr char TEST_BUCKET_PREFIX[] = "integrity-workflow-";
     constexpr char TEST_KEY_MD5[] = "test_key_md5";
     constexpr size_t MAX_BUCKET_NAME_LENGTH = 63;
@@ -78,7 +79,7 @@ namespace AwsDoc::S3 {
     bool doMultipartUploadAndCheckHash(const Aws::String &bucket,
                                        const Aws::String &key,
                                        AwsDoc::S3::HASH_METHOD hashMethod,
-                                       const std::shared_ptr<Aws::IOStream> &fileStream,
+                                       std::shared_ptr<Aws::IOStream> fileStream,
                                        Aws::String &hashDataResult,
                                        const Aws::S3::S3Client &client);
 
@@ -161,7 +162,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
 
 
     Aws::S3::S3Client client(clientConfiguration);
-
+#if 0
     for (int hashMethod = (int)HASH_METHOD::MD5; hashMethod <= (int)HASH_METHOD::SHA256; ++hashMethod) {
         std::shared_ptr<Aws::IOStream> inputData =
                 Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
@@ -198,18 +199,21 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
             return false;
         }
     }
-#if 0
-    Aws::S3::Model::GetObjectAttributesRequest getObjectAttributesRequest;
-    getObjectAttributesRequest.SetBucket(TEST_BUCKET);
-    getObjectAttributesRequest.SetKey(TEST_KEY_MD5);
-    auto getObjectAttributesOutcome = client.GetObjectAttributes(getObjectAttributesRequest);
-    if (!getObjectAttributesOutcome.IsSuccess()) {
-        std::cerr << "Error getting file " << TEST_FILE << " from bucket "
-                  << TEST_BUCKET << " with key " << TEST_KEY_MD5 << std::endl;
+#endif
+
+    std::shared_ptr<Aws::IOStream> inputData =
+            Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
+                                          MULTI_PART_TEST_FILE,
+                                          std::ios_base::in | std::ios_base::binary);
+
+    if (!inputData->good()) {
+        std::cerr << "Error unable to read file " << TEST_FILE << std::endl;
+        cleanUp(bucketName, clientConfiguration);
         return false;
     }
-    const Aws::S3::Model::GetObjectAttributesResult &result = getObjectAttributesOutcome.GetResult();
-#endif
+
+    Aws::String hashData;
+    AwsDoc::S3::doMultipartUploadAndCheckHash(bucketName, "s3-userguide.pdf", HASH_METHOD::MD5, inputData, hashData, client);
 
 
     return cleanUp(bucketName, clientConfiguration);
@@ -408,7 +412,7 @@ bool AwsDoc::S3::calculateObjectHash(Aws::IOStream &data,
             std::cerr << "Unknown hash method." << std::endl;
             return false;
     }
-    data.seekg(std::ios_base::beg);
+    data.seekg(0, data.beg);
     hash = Aws::Utils::HashingUtils::Base64Encode(dataBuffer);
 
 #if 1 //TODO remove
@@ -453,7 +457,7 @@ bool AwsDoc::S3::putObjectWithHash(const Aws::String &bucket, const Aws::String 
     }
     request.SetBody(body);
     Aws::S3::Model::PutObjectOutcome outcome = client.PutObject(request);
-    body->seekg(std::ios_base::beg);
+    body->seekg(0, body->beg);
     if (outcome.IsSuccess()) {
         std::cout << "Object successfully uploaded." << std::endl;
     }
@@ -574,19 +578,14 @@ bool AwsDoc::S3::downloadObjectAndCheckHash(const Aws::String &bucket,
 bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
                                                const Aws::String &key,
                                                AwsDoc::S3::HASH_METHOD hashMethod,
-                                               const std::shared_ptr<Aws::IOStream> &fileStream,
+                                               std::shared_ptr<Aws::IOStream> fileStream,
                                                Aws::String &hashDataResult,
                                                const Aws::S3::S3Client &client) {
-    // Create a buffer that will upload the object in 3 parts.
-
+    const size_t CHUNK_SIZE = 5 * 1024 * 1024;
     // Get object size.
-    fileStream->seekg(std::ios_base::end);
+    fileStream->seekg(0, fileStream->end);
     size_t objectSize = fileStream->tellg();
-    fileStream->seekg(std::ios_base::beg);
-
-    size_t bufferSize = objectSize / 3;
-    // Round up to a multiple of 32.
-    bufferSize = ((bufferSize + 31) / 32) * 32;
+    fileStream->seekg(0, fileStream->beg);
 
     Aws::S3::Model::CreateMultipartUploadRequest createMultipartUploadRequest;
     createMultipartUploadRequest.SetBucket(bucket);
@@ -603,7 +602,7 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
         return false;
     }
 
-    size_t uploadedBytes;
+    size_t uploadedBytes = 0;
     int partNumber = 1;
     Aws::S3::Model::CompletedMultipartUpload completedMultipartUpload;
     while (uploadedBytes < objectSize){
@@ -615,8 +614,8 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
         uploadPartRequest.SetUploadId(uploadID);
         uploadPartRequest.SetPartNumber(partNumber++);
 
-        std::vector<unsigned char> buffer(bufferSize);
-        size_t bytesToRead = std::min(bufferSize, objectSize - uploadedBytes);
+        std::vector<unsigned char> buffer(CHUNK_SIZE);
+        size_t bytesToRead = std::min(buffer.size(), objectSize - uploadedBytes);
         fileStream->read((char *)buffer.data(), bytesToRead);
         Aws::Utils::Stream::PreallocatedStreamBuf preallocatedStreamBuf(buffer.data(), bytesToRead);
         std::shared_ptr<Aws::IOStream> body =
@@ -634,12 +633,12 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
             completedMultipartUpload.AddParts(completedPart);
         }
         else {
-            std::cerr << "Error uploading part." <<
+            std::cerr << "Error uploading part. " <<
                       uploadPartOutcome.GetError().GetMessage() << std::endl;
             return false;
         }
 
-        uploadedBytes += bufferSize;
+        uploadedBytes += bytesToRead;
     }
 
     Aws::S3::Model::CompleteMultipartUploadRequest completeMultipartUploadRequest;
@@ -652,7 +651,12 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
     if (completeMultipartUploadOutcome.IsSuccess()) {
         std::cout << "Multipart upload completed." << std::endl;
     }
+    else {
+        std::cerr << "Error completing multipart upload." <<
+                  completeMultipartUploadOutcome.GetError().GetMessage() << std::endl;
+        return false;
+    }
 
-    return false;
+    return true;
 }
 
