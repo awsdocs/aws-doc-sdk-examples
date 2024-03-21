@@ -38,7 +38,7 @@ Code excerpts that show you how to call individual service functions.
 - [Text generation with AI21 Labs Jurassic-2](Actions/InvokeModelAsync.cs#L164) (`InvokeModel`)
 - [Text generation with Amazon Titan Text G1](Actions/InvokeModelAsync.cs#L277) (`InvokeModel`)
 - [Text generation with Anthropic Claude 2](Actions/InvokeModelAsync.cs#L18) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2 with a response stream](Actions/InvokeModelAsync.cs#L76) (`InvokeModelWithResponseStream`)
+- [Text generation with Anthropic Claude using a response stream](Actions/InvokeModelAsync.cs#L76) (`InvokeModelWithResponseStream`)
 - [Text generation with Meta Llama 2 Chat](Actions/InvokeModelAsync.cs#L221) (`InvokeModel`)
 - [Text generation with Mistral 7B](Actions/InvokeModelAsync.cs#L338) (`InvokeModel`)
 - [Text generation with Mixtral 8x7B](Actions/InvokeModelAsync.cs#L394) (`InvokeModel`)

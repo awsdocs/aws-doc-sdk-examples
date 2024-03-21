@@ -32,16 +32,30 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon Bedrock](hello.js) (`InvokeModel`)
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Text generation with AI21 Labs Jurassic-2](actions/invoke-jurassic2.js) (`InvokeModel`)
-- [Text generation with Amazon Titan Text G1](actions/invoke-titan-text-express-v1.js) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2](actions/invoke-claude.js) (`InvokeModel`)
-- [Text generation with Meta Llama 2 Chat](actions/invoke-llama2.js) (`InvokeModel`)
-- [Text generation with Mistral 7B](actions/invoke-mistral7b.js) (`InvokeModel`)
-- [Text generation with Mixtral 8x7B](actions/invoke-mixtral8x7b.js) (`InvokeModel`)
+- [Text generation with AI21 Labs Jurassic-2](models/ai21_labs_jurassic2/jurassic2.js) (`InvokeModel`)
+- [Text generation with Amazon Titan Text G1](models/amazon_titan/titan_text.js) (`InvokeModel`)
+- [Text generation with Anthropic Claude 2](models/anthropic_claude/claude_2.js) (`InvokeModel`)
+- [Text generation with Anthropic Claude 3](models/ai21_labs_jurassic2/jurassic2.js) (`InvokeModel`)
+- [Text generation with Anthropic Claude Instant](models/anthropic_claude/claude_instant_1.js) (`InvokeModel`)
+- [Text generation with Anthropic Claude using a response stream](models/anthropic_claude/claude_3.js) (`InvokeModelWithResponseStream`)
+- [Text generation with Meta Llama 2 Chat](models/meta_llama2/llama2_chat.js) (`InvokeModel`)
+- [Text generation with Mistral 7B](models/mistral_ai/mistral_7b.js) (`InvokeModel`)
+- [Text generation with Mixtral 8x7B](models/mistral_ai/mixtral_8x7b.js) (`InvokeModel`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Interactive text playground](scenarios/cli_text_playground.js)
 
 
 <!--custom.examples.start-->
@@ -69,7 +83,47 @@ node ./scenarios/<fileName>
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Amazon Bedrock
 
+This example shows you how to get started using Amazon Bedrock.
+
+```bash
+node ./hello.js
+```
+
+#### Interactive text playground
+
+This example shows you how to how to prepare and send a prompt to the following large-language models (LLMs) on Amazon
+Bedrock:
+
+- AI21 Labs: Jurassic2 Mid and Ultra
+- Amazon: Titan Text G1 Lite and Express
+- Anthropic: Claude Instant
+- Anthropic: Claude 2.0 and 2.1
+- Anthropic: Claude 3 Haiku and Sonnet
+- Meta: Llama2 Chat 13B and 70B
+- Mistral AI: Mistral 7B and Mixtral 8x7B
+
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_CliTextPlayground.start-->
+
+##### Step 1: Install the dependencies:
+
+```bash
+npm install
+```
+
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_CliTextPlayground.end-->
+
+
+<!--custom.scenarios.bedrock-runtime_Scenario_CliTextPlayground.start-->
+
+##### Step 2: Run the interactive text playground
+
+```bash
+node ./scenarios/cli_text_playground.js
+```
+
+<!--custom.scenarios.bedrock-runtime_Scenario_CliTextPlayground.end-->
 
 ### Tests
 
