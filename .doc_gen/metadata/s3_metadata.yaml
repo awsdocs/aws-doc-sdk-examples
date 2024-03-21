@@ -3059,6 +3059,18 @@ s3_Scenario_ObjectLock:
   synopsis: work with S3 object lock features.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/usecases/s3_object_lock_scenario
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &S3; object lock features.
+              snippet_tags:
+                - s3.java2.async_stream.import
+            - description: A wrapper class for S3 functions.
+              snippet_tags:
+                - s3.tm.java2.upload_stream.import
     .NET:
       versions:
         - sdk_version: 3
