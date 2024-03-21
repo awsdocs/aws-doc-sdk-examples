@@ -333,7 +333,6 @@ public class S3ObjectLockWorkflow {
     }
 
     // Enable object lock on an existing bucket.
-
     public static void configurationSetup() {
         String noLockBucketName = bucketName + "-no-lock";
         String lockEnabledBucketName = bucketName + "-lock-enabled";
