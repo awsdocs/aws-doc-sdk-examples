@@ -235,7 +235,7 @@ public class S3LockActions {
     // snippet-end:[S3LockWorkflow.javav2.EnableObjectLockOnBucket.main]
 
     // snippet-start:[S3LockWorkflow.javav2.UploadFile.main]
-    public boolean uploadFile(String bucketName, String objectName, String filePath) {
+    public void uploadFile(String bucketName, String objectName, String filePath) {
         Path file = Paths.get(filePath);
         PutObjectRequest request = PutObjectRequest.builder()
             .bucket(bucketName)
@@ -246,10 +246,8 @@ public class S3LockActions {
         PutObjectResponse response = getClient().putObject(request, file);
         if (response != null) {
             System.out.println("\tSuccessfully uploaded " + objectName + " to " + bucketName + ".");
-            return true;
         } else {
             System.out.println("\tCould not upload " + objectName + " to " + bucketName + ".");
-            return false;
         }
     }
     // snippet-end:[S3LockWorkflow.javav2.UploadFile.main]
@@ -279,7 +277,9 @@ public class S3LockActions {
     }
     // snippet-end:[S3LockWorkflow.javav2.ModifyObjectLegalHold.main]
 
-    public boolean deleteObjectFromBucket(String bucketName, String objectKey, boolean hasRetention, String versionId) {
+    // snippet-start:[S3LockWorkflow.javav2.DeleteObjectFromBucket.main]
+    // Delete an object from a specific bucket.
+    public void deleteObjectFromBucket(String bucketName, String objectKey, boolean hasRetention, String versionId) {
         try {
             DeleteObjectRequest objectRequest;
             if (hasRetention) {
@@ -299,13 +299,12 @@ public class S3LockActions {
 
             getClient().deleteObject(objectRequest)   ;
             System.out.println("The object was successfully deleted");
-            return true;
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-           return false;
         }
     }
+    // snippet-end:[S3LockWorkflow.javav2.DeleteObjectFromBucket.main]
 
     // snippet-start:[S3LockWorkflow.javav2.GetObjectRetention.main]
     // Get the retention period for an S3 object.
