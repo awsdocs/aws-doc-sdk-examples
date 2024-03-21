@@ -3,6 +3,19 @@
 
 package com.example.s3.scenario;
 
+// snippet-start:[S3LockWorkflow.javav2.ObjectLockWorkflow.main]
+import software.amazon.awssdk.services.s3.model.ObjectLockLegalHold;
+import software.amazon.awssdk.services.s3.model.ObjectLockRetention;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+
 /*
  Before running this Java V2 code example, set up your development
  environment, including your credentials.
@@ -17,17 +30,6 @@ package com.example.s3.scenario;
     4. Investigate lock policies by viewing settings or attempting to delete or overwrite objects.
     5. Clean up objects and buckets.
  */
-import software.amazon.awssdk.services.s3.model.ObjectLockLegalHold;
-import software.amazon.awssdk.services.s3.model.ObjectLockRetention;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-
 public class S3ObjectLockWorkflow {
 
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -364,3 +366,4 @@ public class S3ObjectLockWorkflow {
         return choiceNumber - 1;
     }
 }
+// snippet-end:[S3LockWorkflow.javav2.ObjectLockWorkflow.main]
