@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[bedrock-runtime.java2.scenario_multiple_models.main]
 package com.example.bedrockruntime;
 
 import software.amazon.awssdk.services.bedrockruntime.model.BedrockRuntimeException;
@@ -166,3 +167,4 @@ public class BedrockRuntimeUsageDemo {
         return null;
     }
 }
+// snippet-end:[bedrock-runtime.java2.scenario_multiple_models.main]
