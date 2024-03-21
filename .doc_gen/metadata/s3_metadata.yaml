@@ -3067,10 +3067,10 @@ s3_Scenario_ObjectLock:
           excerpts:
             - description: Run an interactive scenario demonstrating &S3; object lock features.
               snippet_tags:
-                - s3.java2.async_stream.import
+                - S3LockWorkflow.javav2.ObjectLockWorkflow.main
             - description: A wrapper class for S3 functions.
               snippet_tags:
-                - s3.tm.java2.upload_stream.import
+                - S3LockWorkflow.javav2.S3ActionsWrapper.main
     .NET:
       versions:
         - sdk_version: 3
