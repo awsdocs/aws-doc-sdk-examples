@@ -113,7 +113,7 @@ s3_CreateBucket:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description:
+            - description: Create a bucket.
               snippet_tags:
                 - s3.java2.create_bucket_waiters.main
             - description: Create a bucket with object lock enabled.
@@ -2185,6 +2185,15 @@ s3_PutObjectRetention:
   synopsis: set the retention period of an S3 object.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.javav2.ModifyObjectRetentionPeriod.main
     .NET:
       versions:
         - sdk_version: 3
