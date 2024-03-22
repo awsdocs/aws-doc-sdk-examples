@@ -6,7 +6,7 @@ This example shows how to use AWS SDKs to work with Amazon Simple Storage Servic
 
 [Amazon S3 Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html) can help prevent Amazon S3 objects from being deleted or overwritten for a fixed amount of time or indefinitely. Object Lock can help meet regulatory requirements or protect against object changes or deletion.
 
-![Object Lock Features](../../../../../../../../../../../workflows/s3_object_lock/resources/Diagram_Amazon-S3-Object-Lock.pngworkflows/s3_object_lock/resources/Diagram_Amazon-S3-Object-Lock.png)
+![Object Lock Features](https://d1.awsstatic.com/AWS%20Cloud%20Storage/Product-Page-Diagram_Amazon-S3-Object-Lock%402x_2024.421458d668331d648dcacd808f916a217853a84d.png)
 
 This workflow demonstrates the following steps and tasks:
 1. Add object lock settings to both new and existing S3 buckets.
