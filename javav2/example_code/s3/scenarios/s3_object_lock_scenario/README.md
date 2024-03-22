@@ -27,7 +27,9 @@ This workflow demonstrates the following steps and tasks:
 
 ### Prerequisites
 
-For general prerequisites, see the [README](../../../README.md) in the `dotnetv3` folder.
+Before running this Java V2 code example, set up your development environment, including your credentials.
+
+For more information, see the following documentation  [Set up the AWS SDK for Java 2.x] (https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html)
 
 ### Resources
 
@@ -37,14 +39,7 @@ This workflow includes an optional step to add a governance mode retention perio
 
 ### Instructions
 
-After the example compiles, you can run it from the command line. To do so, navigate to
-the folder that contains the .sln file and run the following command:
-
-```
-dotnet run
-```
-
-Alternatively, you can run the example from within your IDE.
+After the example compiles, you can run it from within your IDE.
 
 This starts an interactive scenario that walks you through creating, exploring, and deleting S3 buckets and objects with various object lock settings.
 
