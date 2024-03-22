@@ -1,6 +1,8 @@
-package com.example.s3.scenario;
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+package com.example.s3.scenario;
+
 public class S3InfoObject {
 
     private String bucketName;
