@@ -1,0 +1,23 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.loginForm {
+  min-width: 18em
+}
+
+.smallButton {
+  font-size: 0.8em;
+}
+
+.inputText {
+  font-size: 1.3em;
+  width: 100%
+}
+
+button {
+  margin: 0.5em;
+}
