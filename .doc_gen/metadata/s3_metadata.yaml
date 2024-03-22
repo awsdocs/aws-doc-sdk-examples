@@ -110,7 +110,7 @@ s3_CreateBucket:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/s3
+          github: java/usecases/s3_object_lock_scenario
           sdkguide:
           excerpts:
             - description:
