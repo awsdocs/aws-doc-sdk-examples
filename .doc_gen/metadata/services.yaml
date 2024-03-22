@@ -178,6 +178,21 @@ apprunner:
   tags:
     product_categories: {}
   version: '2020-05-15'
+appstream:
+  long: '&AAS2long;'
+  short: '&AAS2;'
+  sort: AppStream
+  expanded:
+    long: Amazon AppStream
+    short: Amazon AppStream
+  blurb: provides secure, reliable, and scalable access to applications and non-persistent desktops from any location.
+  guide:
+    subtitle: Developer Guide
+    url: appstream2/latest/developerguide/what-is-appstream.html
+  api_ref: appstream2/latest/APIReference/Welcome.html
+  tags:
+    product_categories: {'End User Computing'}
+  version: appstream-2016-12-01
 athena:
   api_ref: athena/latest/APIReference/Welcome.html
   blurb: ''
@@ -1299,6 +1314,21 @@ fms:
   tags:
     product_categories: {}
   version: '2018-01-01'
+fsx:
+  api_ref: fsx/latest/APIReference/welcome.html
+  blurb: ''
+  expanded:
+    long: Amazon FSx
+    short: Amazon FSx
+  guide:
+    subtitle: Developer Guide
+    url: fsx/latest/WindowsGuide/what-is.html
+  long: '&FSXlong;'
+  short: '&FSX;'
+  sort: FSx
+  tags:
+    product_categories: {'Storage'}
+  version: 'fsx-2018-03-01'
 gamelift:
   api_ref: gamelift/latest/apireference/Welcome.html
   blurb: ''
@@ -1889,6 +1919,21 @@ lookoutvision:
   tags:
     product_categories: {'Machine Learning &amp; AI'}
   version: lookoutvision-2020-11-20
+machine-learning:
+  api_ref: machine-learning/latest/APIReference/Welcome.html
+  blurb: ''
+  expanded:
+    long: Amazon Machine Learning
+    short: Amazon ML
+  guide:
+    subtitle: Developer Guide
+    url: machine-learning/latest/dg/what-is-amazon-machine-learning.html
+  long: '&MLlong;'
+  short: '&ML;'
+  sort: Machine Learning
+  tags:
+    product_categories: {'Machine Learning'}
+  version: 'machinelearning-2014-12-12'
 macie2:
   api_ref: macie/latest/APIReference/welcome.html
   blurb: ''
