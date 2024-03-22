@@ -116,6 +116,9 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - s3.java2.create_bucket_waiters.main
+            - description: Create a bucket with object lock enabled.
+              snippet_tags:
+                - S3LockWorkflow.javav2.CreateBucketWithLockOptions.main  
     JavaScript:
       versions:
         - sdk_version: 3
