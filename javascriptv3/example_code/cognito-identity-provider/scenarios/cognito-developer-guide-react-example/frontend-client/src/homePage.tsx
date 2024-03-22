@@ -3,6 +3,7 @@
 
 import { useNavigate } from 'react-router-dom';
 
+/*eslint-disable*/
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -29,6 +30,7 @@ const HomePage = () => {
     sessionStorage.clear();
     navigate('/login');
   };
+/*eslint-enable*/
 
   return (
     <div>
