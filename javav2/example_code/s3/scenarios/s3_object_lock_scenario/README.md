@@ -29,7 +29,7 @@ This workflow demonstrates the following steps and tasks:
 
 Before running this Java V2 code example, set up your development environment, including your credentials.
 
-For more information, see the following documentation  [Set up the AWS SDK for Java 2.x] (https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html)
+For more information, see the following documentation [Set up the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html)
 
 ### Resources
 
