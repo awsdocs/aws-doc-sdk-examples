@@ -15,13 +15,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-
 /*
  Before running this Java V2 code example, set up your development
  environment, including your credentials.
 
  For more information, see the following documentation topic:
- https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html
 
  This Java example performs the following tasks:
     1. Create test Amazon Simple Storage Service (S3) buckets with different lock policies.
