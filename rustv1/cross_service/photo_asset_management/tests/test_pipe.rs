@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-use chrono::NaiveDateTime;
+use chrono::DateTime;
 use std::io::Read;
 use streaming_zip::Archive;
 
@@ -14,7 +14,7 @@ async fn main() -> Result<(), anyhow::Error> {
     let mut body = [0u8; READ_SIZE];
     zip_writer.start_new_file(
         "name".into(),
-        NaiveDateTime::from_timestamp_micros(0).unwrap(),
+        DateTime::from_timestamp_micros(0).unwrap().naive_utc(),
         streaming_zip::CompressionMode::Deflate(8),
         false,
     )?;
