@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { describe, test } from "vitest";
+import { afterAll, describe, test } from "vitest";
 import { SageMakerPipelinesWkflw } from "../scenarios/wkflw-sagemaker-geospatial-pipeline/SageMakerPipelinesWkflw.js";
 import { Logger } from "@aws-doc-sdk-examples/lib/logger.js";
 import { IAMClient } from "@aws-sdk/client-iam";
@@ -11,6 +11,15 @@ import { LambdaClient } from "@aws-sdk/client-lambda";
 import { SQSClient } from "@aws-sdk/client-sqs";
 
 describe("SageMaker geospatial pipeline workflow", () => {
+  /** @type {SageMakerPipelinesWkflw | undefined} */
+  let wkflw;
+
+  afterAll(async (ctx) => {
+    if (wkflw && ctx.result?.state === "fail") {
+      await wkflw.cleanUp();
+    }
+  });
+
   test("should execute successfully", async () => {
     const prompter = {
       checkContinue() {
@@ -32,7 +41,7 @@ describe("SageMaker geospatial pipeline workflow", () => {
       SQS: new SQSClient({ region: "us-west-2" }),
     };
 
-    const wkflw = new SageMakerPipelinesWkflw(prompter, logger, clients);
+    wkflw = new SageMakerPipelinesWkflw(prompter, logger, clients);
 
     await wkflw.run();
   });
