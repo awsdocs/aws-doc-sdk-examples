@@ -1,0 +1,12 @@
+Weekly Coupons Newsletter
+
+Check out this week's hot deals and exclusive coupons!
+
+{{#coupons}}
+- {{details}}
+{{/coupons}}
+
+Hurry, these offers won't last long! Visit our website or your nearest store to take advantage of these amazing deals.
+
+Happy shopping!
+The Weekly Coupons Team
