@@ -85,7 +85,7 @@ namespace AwsDoc::S3 {
     bool retrieveObjectHash(const Aws::String &bucket, const Aws::String &key,
                             AwsDoc::S3::HASH_METHOD hashMethod,
                             Aws::String &hashData,
-                            std::vector<Aws::String> &partHashes,
+                            std::vector<Aws::String> *partHashes,
                             const Aws::S3::S3Client &client);
 
     bool downloadObjectAndCheckHash(const Aws::String &bucket,
@@ -99,7 +99,7 @@ namespace AwsDoc::S3 {
                                        AwsDoc::S3::HASH_METHOD hashMethod,
                                        std::shared_ptr<Aws::IOStream> fileStream,
                                        AwsDoc::S3::Hasher &hashDataResult,
-                                       std::vector<Aws::String> partHashes,
+                                       std::vector<Aws::String> &partHashes,
                                        const Aws::S3::S3Client &client);
 
     Aws::String stringForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod);
@@ -258,7 +258,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
         std::vector<Aws::String> retrievedPartHashes;
         if (!retrieveObjectHash(bucketName, key,
                            (HASH_METHOD) hashMethod,
-                           retrievedHash, retrievedPartHashes, client))
+                           retrievedHash, &retrievedPartHashes, client))
         {
             std::cerr << "Exiting because of an error" << std::endl;
             cleanUp(bucketName, clientConfiguration);
@@ -268,12 +268,41 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
         Aws::String hashString;
         if ((HASH_METHOD) hashMethod == HASH_METHOD::MD5) {
             hashString = hashData.getHexHashString();
+            hashString += "-" + std::to_string(partHashes.size());
         }
         else {
             hashString = hashData.getBase64HashString();
         }
 
-        ToDo verify hashes
+        bool allMatch = true;
+        if (hashString != retrievedHash) {
+            std::cerr << "The main hashes do not match" << std::endl;
+            std::cerr << "Local hash- '" << hashString << "'" << std::endl;
+            std::cerr << "Remote hash - '" << retrievedHash << "'" << std::endl;
+            allMatch = false;
+        }
+
+        if ((HASH_METHOD) hashMethod != HASH_METHOD::MD5) {
+            if (partHashes.size() != retrievedPartHashes.size()) {
+                std::cerr << "The number of part hashes do not match" << std::endl;
+                std::cerr << "Local number of hashes- '" << partHashes.size() << "'" << std::endl;
+                std::cerr << "Remote number of hashes - '" << retrievedPartHashes.size() << "'" << std::endl;
+                continue;
+            }
+
+            for (int i = 0; i < partHashes.size(); ++i) {
+                if (partHashes[i] != retrievedPartHashes[i]) {
+                    std::cerr << "The part hashes do not match for part " << i + 1 << "." << std::endl;
+                    std::cerr << "Local hash- '" << partHashes[i] << "'" << std::endl;
+                    std::cerr << "Remote hash - '" << retrievedPartHashes[i] << "'" << std::endl;
+                    allMatch = false;
+                }
+            }
+        }
+
+        if (allMatch) {
+            std::cout << "All the local hashes match the remote hashes." << std::endl;
+        }
     }
 
     return cleanUp(bucketName, clientConfiguration);
@@ -493,11 +522,27 @@ bool AwsDoc::S3::putObjectWithHash(const Aws::String &bucket, const Aws::String 
 bool AwsDoc::S3::retrieveObjectHash(const Aws::String &bucket, const Aws::String &key,
                                     AwsDoc::S3::HASH_METHOD hashMethod,
                                     Aws::String &hashData,
-                                    std::vector<Aws::String> &partHashes,
+                                    std::vector<Aws::String> *partHashes,
                                     const Aws::S3::S3Client &client) {
     Aws::S3::Model::GetObjectAttributesRequest request;
     request.SetBucket(bucket);
     request.SetKey(key);
+
+    Aws::Vector<Aws::S3::Model::ObjectAttributes> attributes;
+    if (hashMethod == AwsDoc::S3::HASH_METHOD::MD5) {
+        attributes.push_back(Aws::S3::Model::ObjectAttributes::ETag);
+    }
+    else {
+        attributes.push_back(Aws::S3::Model::ObjectAttributes::Checksum);
+
+        if (nullptr != partHashes) {
+            attributes.push_back(Aws::S3::Model::ObjectAttributes::ObjectParts);
+            request.SetMaxParts(10);
+        }
+    }
+
+    request.SetObjectAttributes(attributes);
+
     Aws::S3::Model::GetObjectAttributesOutcome outcome = client.GetObjectAttributes(request);
     if (outcome.IsSuccess()) {
         const Aws::S3::Model::GetObjectAttributesResult &result = outcome.GetResult();
@@ -522,29 +567,31 @@ bool AwsDoc::S3::retrieveObjectHash(const Aws::String &bucket, const Aws::String
                 return false;
         }
 
-        const Aws::Vector<Aws::S3::Model::ObjectPart> parts =  result.GetObjectParts().GetParts();
-        for (const Aws::S3::Model::ObjectPart &part: parts) {
-            switch (hashMethod) {
-                case AwsDoc::S3::HASH_METHOD::MD5: // MD5 is not supported.
-                    break;
-                case AwsDoc::S3::HASH_METHOD::SHA1:
-                    partHashes.push_back(part.GetChecksumSHA1());
-                    break;
-                case AwsDoc::S3::HASH_METHOD::SHA256:
-                    partHashes.push_back(part.GetChecksumSHA256());
-                    break;
-                case HASH_METHOD::CRC32:
-                    partHashes.push_back(part.GetChecksumCRC32());
-                    break;
-                case HASH_METHOD::CRC32C:
-                    partHashes.push_back(part.GetChecksumCRC32C());
-                    break;
-                default:
-                    std::cerr << "Unknown hash method." << std::endl;
-                    return false;
+        if (nullptr != partHashes) {
+            const Aws::Vector<Aws::S3::Model::ObjectPart> parts =  result.GetObjectParts().GetParts();
+            for (const Aws::S3::Model::ObjectPart &part: parts) {
+                switch (hashMethod) {
+                    case AwsDoc::S3::HASH_METHOD::MD5: // MD5 is not supported.
+                        break;
+                    case AwsDoc::S3::HASH_METHOD::SHA1:
+                        partHashes->push_back(part.GetChecksumSHA1());
+                        break;
+                    case AwsDoc::S3::HASH_METHOD::SHA256:
+                        partHashes->push_back(part.GetChecksumSHA256());
+                        break;
+                    case HASH_METHOD::CRC32:
+                        partHashes->push_back(part.GetChecksumCRC32());
+                        break;
+                    case HASH_METHOD::CRC32C:
+                        partHashes->push_back(part.GetChecksumCRC32C());
+                        break;
+                    default:
+                        std::cerr << "Unknown hash method." << std::endl;
+                        return false;
+                }
             }
         }
-    }
+       }
     else {
         std::cerr << "Error retrieving object attributes." <<
                   outcome.GetError().GetMessage() << std::endl;
@@ -631,7 +678,7 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
                                                AwsDoc::S3::HASH_METHOD hashMethod,
                                                std::shared_ptr<Aws::IOStream> fileStream,
                                                AwsDoc::S3::Hasher &hashDataResult,
-                                               std::vector<Aws::String> partHashes,
+                                               std::vector<Aws::String> &partHashes,
                                                const Aws::S3::S3Client &client) {
     const size_t CHUNK_SIZE = 5 * 1024 * 1024;
     // Get object size.
@@ -643,6 +690,8 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
     createMultipartUploadRequest.SetBucket(bucket);
     createMultipartUploadRequest.SetKey(key);
     switch (hashMethod) {;
+        case AwsDoc::S3::HASH_METHOD::MD5:
+            break; // Ignore MD5.
         case AwsDoc::S3::HASH_METHOD::SHA1:
             createMultipartUploadRequest.SetChecksumAlgorithm(Aws::S3::Model::ChecksumAlgorithm::SHA1);
             break;
@@ -836,9 +885,9 @@ Aws::String AwsDoc::S3::Hasher::getBase64HashString() {
 
 Aws::String AwsDoc::S3::Hasher::getHexHashString() {
     std::stringstream stringstream;
-    stringstream << std::hex << std::setfill('0') << std::setw(2);
+    stringstream << std::hex << std::setfill('0');
     for (int i = 0; i < m_Hash.GetLength(); ++i) {
-        stringstream << (int) m_Hash[i];
+        stringstream  << std::setw(2) << (int) m_Hash[i];
     }
 
     return stringstream.str();
