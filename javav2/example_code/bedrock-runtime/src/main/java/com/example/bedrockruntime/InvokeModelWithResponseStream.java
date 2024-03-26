@@ -25,6 +25,87 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class InvokeModelWithResponseStream {
 
+    /**
+    // snippet-start:[bedrock-runtime.java2.invoke_model_with_response_stream.main]
+     * Invokes the Anthropic Claude 3 Sonnet model and processes the response stream.
+     *
+     * @param encodeImage
+     * @param silent
+     * @return
+     */
+    public static String invokeClaude3Sonnet(String encodeImage, boolean silent) {
+        BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
+        var finalCompletion = new AtomicReference<>("");
+        JSONArray messagesArray = new JSONArray();
+        JSONObject item = new JSONObject();
+        item.put("role", "user");
+        JSONArray contentArray = new JSONArray();
+        JSONObject source = new JSONObject();
+        source.put("type", "base64");
+        source.put("media_type", "image/jpeg");
+        source.put("data", encodeImage);
+        JSONObject src = new JSONObject();
+        src.put("source", source);
+        src.put("type", "image");
+        contentArray.put(src);
+        JSONObject second = new JSONObject();
+        second.put("type", "text");
+        second.put("text", "What's in this image?");
+        contentArray.put(second);
+        item.put("content", contentArray);
+        messagesArray.put(item);
+        var payload = new JSONObject()
+                .put("anthropic_version", "bedrock-2023-05-31")
+                .put("max_tokens", 2048)
+                .put("temperature", 0)
+                .put("messages", messagesArray).toString();
+        var request = InvokeModelWithResponseStreamRequest.builder()
+                .body(SdkBytes.fromUtf8String(payload))
+                .modelId("anthropic.claude-3-sonnet-20240229-v1:0")
+                .contentType("application/json")
+                .accept("application/json")
+                .build();
+        var visitor = InvokeModelWithResponseStreamResponseHandler.Visitor.builder()
+                .onChunk(chunk -> {
+                    var json = new JSONObject(chunk.bytes().asUtf8String());
+                    Iterator<String> iterator = json.keys();
+                    String key = null;
+                    while (iterator.hasNext()) {
+                        key = iterator.next();
+                        if (key.equals("delta")) {
+                            var inner = new JSONObject(json.getJSONObject("delta").toString());
+                            Iterator<String> iterator1 = inner.keys();
+                            String key1 = "";
+                            while (iterator1.hasNext()) {
+                                key1 = iterator1.next();
+                                if (key1.equals("text")) {
+                                    var completion = inner.get("text");
+                                    finalCompletion.set(finalCompletion.get() + completion);
+                                    if (!silent) {
+                                        System.out.print(completion);
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                })
+                .build();
+
+        var handler = InvokeModelWithResponseStreamResponseHandler.builder()
+                .onEventStream(stream -> stream.subscribe(event -> event.accept(visitor)))
+                .onComplete(() -> {
+                })
+                .onError(e -> System.out.println("\n\nError: " + e.getMessage()))
+                .build();
+        client.invokeModelWithResponseStream(request, handler).join();
+        return finalCompletion.get();
+    }
+
         // snippet-start:[bedrock-runtime.java2.invoke_model_with_response_stream.main]
         /**
          * Invokes the Anthropic Claude 2 model and processes the response stream.
