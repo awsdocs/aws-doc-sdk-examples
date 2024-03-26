@@ -2901,7 +2901,7 @@ s3_Scenario_URIParsing:
     Java:
       versions:
         - sdk_version: 2
-          github: java/example_code/s3
+          github: javav2/example_code/s3
           sdkguide:
           excerpts:
             - description: Parse an &S3; URI by using the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Uri.html">S3Uri</ulink> class.
@@ -2919,7 +2919,7 @@ s3_Scenario_UploadStream:
     Java:
       versions:
         - sdk_version: 2
-          github: java/example_code/s3
+          github: javav2/example_code/s3
           sdkguide:
           excerpts:
             - description: Use the <ulink url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation">&AWS; CRT-based S3 Client</ulink>.
@@ -2942,7 +2942,7 @@ s3_Scenario_MultipartUpload:
     Java:
       versions:
         - sdk_version: 2
-          github: java/example_code/s3
+          github: javav2/example_code/s3
           sdkguide:
           excerpts:
             - description: The code examples use the following imports.
@@ -2973,7 +2973,7 @@ s3_Scenario_UseChecksums:
     Java:
       versions:
         - sdk_version: 2
-          github: java/example_code/s3
+          github: javav2/example_code/s3
           sdkguide:
           excerpts:
             - description: The code examples use a subset of the following imports.
@@ -3082,7 +3082,7 @@ s3_SelectObjectContent:
     Java:
       versions:
         - sdk_version: 2
-          github: java2/example_code/s3
+          github: javav2/example_code/s3
           sdkguide:
           excerpts:
             - description: The following example shows a query using a JSON object. The <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/SelectObjectContentExample.java">complete example</ulink> also shows the use of a CSV object.
