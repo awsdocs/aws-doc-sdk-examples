@@ -1,3 +1,5 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 import os
 
 import boto3
@@ -10,14 +12,16 @@ from utils.timeit import timeit
 class FordGPTv2:
     """
     A class encapsulating the functionality to run a conversational application
-    simulating interactions as Ford Prior, using context from a resume loaded from S3.
+    simulating interactions as Ford Prior, using context from a resume loaded from
+    Amazon Simple Storage Service (Amazon S3).
+
     It leverages the LangChain library for managing conversation flows and the AWS Boto3
-    client for interacting with the Bedrock runtime.
+    client for interacting with the Amazon Bedrock runtime.
     """
 
     def __init__(self):
         """
-        Initializes the conversational app with a custom logger, a Bedrock runtime client,
+        Initializes the conversational app with a custom logger, a Amazon Bedrock runtime client,
         and sets up the LangChain's BedrockChat model for conversation handling.
         """
         self.logger = setup_custom_logger(os.path.basename(__file__))
@@ -31,7 +35,7 @@ class FordGPTv2:
     def run_app(self):
         """
         Starts the conversational application, loading contextual data from a document
-        in S3, and engages in a conversation based on dynamically formatted prompts and
+        in Amazon S3, and engages in a conversation based on dynamically formatted prompts and
         user inputs.
 
         The conversation continues until "bye" is included in a user's reply, integrating
@@ -61,7 +65,7 @@ class FordGPTv2:
                     very direct with a side of snark. Only help if asked; otherwise, be cheeky
                     but truthful.
 
-                    If you are asked a question directly, ask 1 question to gain context,
+                    If you are asked a question directly, ask one question to gain context,
                     then dive in confidently with a local tip for getting into
                     the Richmond tech scene based on your context and knowledge.
 
