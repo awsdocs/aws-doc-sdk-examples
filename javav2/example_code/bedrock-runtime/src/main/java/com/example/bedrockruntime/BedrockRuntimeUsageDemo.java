@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[bedrock-runtime.java2.scenario_multiple_models.main]
 package com.example.bedrockruntime;
 
 import software.amazon.awssdk.services.bedrockruntime.model.BedrockRuntimeException;
@@ -116,8 +117,7 @@ public class BedrockRuntimeUsageDemo {
         System.out.println("Prompt: " + prompt);
 
         try {
-            var silent = false;
-            InvokeModelWithResponseStream.invokeClaude(prompt, silent);
+            Claude2.invokeMessagesApiWithResponseStream(prompt);
         } catch (BedrockRuntimeException e) {
             System.out.println("Couldn't invoke model " + modelId + ": " + e.getMessage());
             throw e;
@@ -161,9 +161,10 @@ public class BedrockRuntimeUsageDemo {
 
             return filePath.toString();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
             System.exit(1);
         }
         return null;
     }
 }
+// snippet-end:[bedrock-runtime.java2.scenario_multiple_models.main]
