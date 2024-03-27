@@ -77,7 +77,6 @@ functions within the same service.
 
 - [Get started with buckets and objects](s3/src/main/java/com/example/s3/S3Scenario.java)
 - [Lock Amazon S3 objects](scenarios/s3_object_lock_scenario/src/main/java/com/example/s3/scenario/S3ObjectLockWorkflow.java)
-- [Parse URIs](s3/src/main/java/com/example/s3/ParseUri.java)
 - [Perform a multipart upload](s3/src/main/java/com/example/s3/PerformMultiPartUpload.java)
 - [Upload or download large files](s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java)
 - [Upload stream of unknown size](s3/src/main/java/com/example/s3/async/PutObjectFromStreamAsync.java)
