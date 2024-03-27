@@ -122,7 +122,7 @@ public class S3ObjectLockWorkflow {
                 }
 
                 case 2 -> {
-                    System.out.println("Enter the number that specifies the object with a retention bypass to delete:");
+                    System.out.println("Enter the number of the object to delete:");
                     List<S3InfoObject> allFiles = s3LockActions.listBucketsAndObjects(bucketNames, true);
                     List<String> fileKeys = allFiles.stream().map(f -> f.getKeyName()).collect(Collectors.toList());
                     String[] fileKeysArray = fileKeys.toArray(new String[0]);
