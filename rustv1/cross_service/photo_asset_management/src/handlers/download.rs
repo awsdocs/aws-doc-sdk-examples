@@ -84,7 +84,7 @@ async fn send_notification(
         .key(destination.1)
         .presigned(
             PresigningConfig::builder()
-                .expires_in(Duration::days(1).to_std()?)
+                .expires_in(Duration::try_days(1).unwrap().to_std()?)
                 .build()?,
         )
         .await?;
