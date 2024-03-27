@@ -1,0 +1,16 @@
+Weekly Coupons Newsletter
+
+Check out this week's hot deals and exclusive coupons!
+
+{{#each coupons}}
+- {{details}}
+{{/each}}
+
+Hurry, these offers won't last long! Visit our website or your nearest store to take advantage of these amazing deals.
+
+Happy shopping!
+The Weekly Coupons Team
+
+---
+
+Unsubscribe: {{amazonSESUnsubscribeUrl}}
