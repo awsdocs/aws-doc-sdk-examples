@@ -114,7 +114,7 @@ public class S3LockActions {
     // snippet-end:[S3LockWorkflow.javav2.GetObjectLegalHold.main]
 
     // snippet-start:[S3LockWorkflow.javav2.CreateBucketWithLockOptions.main]
-    // Create a new Amazon S3 bucket with object lock actions.
+    // Create a new Amazon S3 bucket with object lock options.
     public void createBucketWithLockOptions(boolean enableObjectLock, String bucketName) {
         S3Waiter s3Waiter = getClient().waiter();
         CreateBucketRequest bucketRequest = CreateBucketRequest.builder()
@@ -137,7 +137,7 @@ public class S3LockActions {
     public List<S3InfoObject> listBucketsAndObjects(List<String> bucketNames, Boolean interactive) {
         AtomicInteger counter = new AtomicInteger(0); // Initialize counter.
         return bucketNames.stream()
-            .flatMap(bucketName -> ListBucketObjectsAndVersions(bucketName).versions().stream()
+            .flatMap(bucketName -> listBucketObjectsAndVersions(bucketName).versions().stream()
                 .map(version -> {
                     S3InfoObject s3InfoObject = new S3InfoObject();
                     s3InfoObject.setBucketName(bucketName);
@@ -157,7 +157,7 @@ public class S3LockActions {
     }
     // snippet-end:[S3LockWorkflow.javav2.ListBucketObjectsAndVersions.main]
 
-    public ListObjectVersionsResponse ListBucketObjectsAndVersions(String bucketName)  {
+    public ListObjectVersionsResponse listBucketObjectsAndVersions(String bucketName) {
         ListObjectVersionsRequest versionsRequest = ListObjectVersionsRequest.builder()
             .bucket(bucketName)
             .build();
@@ -207,7 +207,7 @@ public class S3LockActions {
     // Enable object lock on an existing bucket.
     public void enableObjectLockOnBucket(String bucketName) {
         try {
-            VersioningConfiguration versioningConfiguration =  VersioningConfiguration.builder()
+            VersioningConfiguration versioningConfiguration = VersioningConfiguration.builder()
                 .status(BucketVersioningStatus.ENABLED)
                 .build();
 
@@ -297,7 +297,7 @@ public class S3LockActions {
                     .build();
             }
 
-            getClient().deleteObject(objectRequest)   ;
+            getClient().deleteObject(objectRequest) ;
             System.out.println("The object was successfully deleted");
 
         } catch (S3Exception e) {
