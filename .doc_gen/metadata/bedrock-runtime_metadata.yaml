@@ -354,7 +354,7 @@ bedrock-runtime_Claude3_Text:
           excerpts:
             - description: Invoke Anthropic Claude 3 to generate text.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/ai21_labs_jurassic2/jurassic2.js
+                - javascriptv3/example_code/bedrock-runtime/models/anthropic_claude/claude_3.js
   services:
     bedrock-runtime: {InvokeModel}
 

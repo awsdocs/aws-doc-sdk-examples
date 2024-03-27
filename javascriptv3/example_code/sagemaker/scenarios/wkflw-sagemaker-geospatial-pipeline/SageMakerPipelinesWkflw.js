@@ -57,20 +57,24 @@ export class SageMakerPipelinesWkflw {
       console.error(err);
       throw err;
     } finally {
-      // Run all of the clean up functions. If any fail, we log the error and continue.
-      // This ensures all clean up functions are run.
       this.logger.logSeparator();
       const doCleanUp = await this.prompter.confirm({
         message: "Clean up resources?",
       });
       if (doCleanUp) {
-        for (let i = this.cleanUpFunctions.length - 1; i >= 0; i--) {
-          await retry(
-            { intervalInMs: 1000, maxRetries: 60, swallowError: true },
-            this.cleanUpFunctions[i],
-          );
-        }
+        await this.cleanUp();
       }
+    }
+  }
+
+  async cleanUp() {
+    // Run all of the clean up functions. If any fail, we log the error and continue.
+    // This ensures all clean up functions are run.
+    for (let i = this.cleanUpFunctions.length - 1; i >= 0; i--) {
+      await retry(
+        { intervalInMs: 1000, maxRetries: 60, swallowError: true },
+        this.cleanUpFunctions[i],
+      );
     }
   }
 
