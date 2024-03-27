@@ -1,0 +1,15 @@
+{
+    "name": "pixel-data-verification",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "@aws-sdk/client-medical-imaging": "^3.427.0",
+        "crc-32": "^1.2.2"
+    }
+}
