@@ -33,7 +33,7 @@ For more information, see the following documentation [Set up the AWS SDK for Ja
 
 ### Resources
 
-The workflow scenario steps create the buckets and objects needed for the example. No additional resources are required.
+The workflow scenario steps create the required buckets and objects for the example. No additional resources are required.
 
 This workflow includes an optional step to add a governance mode retention period of one day to objects in an S3 bucket. In order to delete these objects, you must have the `s3:BypassGovernanceRetention` permission. If you do not have this permission, you will be unable to delete these objects until the retention period has expired.
 
