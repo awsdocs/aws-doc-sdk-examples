@@ -31,13 +31,12 @@ import java.util.stream.Collectors;
  */
 public class S3ObjectLockWorkflow {
 
-    public static final String DASHES = new String(new char[80]).replace("\0", "-");
+    static String bucketName;
     private static final List<String> bucketNames = new ArrayList<>();
-
     private static final List<String> fileNames = new ArrayList<>();
-
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     static S3LockActions s3LockActions;
-    static String bucketName ;
+
     public static void main(String[] args) {
         // Get the current date and time to ensure bucket name is unique.
         LocalDateTime currentTime = LocalDateTime.now();
@@ -67,7 +66,7 @@ public class S3ObjectLockWorkflow {
         System.out.println("Lets present the user with choices.");
         System.out.println("Press Enter to continue...");
         scanner.nextLine();
-        DemoActionChoices() ;
+        demoActionChoices() ;
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -75,9 +74,9 @@ public class S3ObjectLockWorkflow {
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
             cleanup();
+            System.out.println("Clean up is complete.");
         }
 
-        System.out.println("Clean up is complete.");
         System.out.println("Press Enter to continue...");
         scanner.nextLine();
         System.out.println(DASHES);
@@ -88,7 +87,7 @@ public class S3ObjectLockWorkflow {
     }
 
     // Present the user with the demo action choices.
-    public static void DemoActionChoices() {
+    public static void demoActionChoices() {
         String[] choices = {
             "List all files in buckets.",
             "Attempt to delete a file.",
@@ -100,7 +99,7 @@ public class S3ObjectLockWorkflow {
         };
 
         int choice = 0;
-        while (true)  {
+        while (true) {
             System.out.println(DASHES);
             choice = getChoiceResponse("Explore the S3 locking features by selecting one of the following choices:", choices);
             System.out.println(DASHES);
@@ -116,7 +115,6 @@ public class S3ObjectLockWorkflow {
                     List<String> fileKeys = allFiles.stream().map(f -> f.getKeyName()).collect(Collectors.toList());
                     String[] fileKeysArray = fileKeys.toArray(new String[0]);
                     int fileChoice = getChoiceResponse(null, fileKeysArray);
-                    System.out.println("You selected " + fileChoice);
                     String objectKey = fileKeys.get(fileChoice);
                     String bucketName = allFiles.get(fileChoice).getBucketName();
                     String version = allFiles.get(fileChoice).getVersion();
@@ -124,16 +122,15 @@ public class S3ObjectLockWorkflow {
                 }
 
                 case 2 -> {
-                    System.out.println("Enter the number that specifies a retention period to delete:");
+                    System.out.println("Enter the number that specifies the object with a retention bypass to delete:");
                     List<S3InfoObject> allFiles = s3LockActions.listBucketsAndObjects(bucketNames, true);
                     List<String> fileKeys = allFiles.stream().map(f -> f.getKeyName()).collect(Collectors.toList());
                     String[] fileKeysArray = fileKeys.toArray(new String[0]);
                     int fileChoice = getChoiceResponse(null, fileKeysArray);
-                    System.out.println("You selected " + fileChoice);
                     String objectKey = fileKeys.get(fileChoice);
                     String bucketName = allFiles.get(fileChoice).getBucketName();
                     String version = allFiles.get(fileChoice).getVersion();
-                    s3LockActions.deleteObjectFromBucket(bucketName, objectKey, false, version);
+                    s3LockActions.deleteObjectFromBucket(bucketName, objectKey, true, version);
                 }
 
                 case 3 -> {
@@ -142,11 +139,10 @@ public class S3ObjectLockWorkflow {
                     List<String> fileKeys = allFiles.stream().map(f -> f.getKeyName()).collect(Collectors.toList());
                     String[] fileKeysArray = fileKeys.toArray(new String[0]);
                     int fileChoice = getChoiceResponse(null, fileKeysArray);
-                    System.out.println("You selected " + fileChoice);
                     String objectKey = fileKeys.get(fileChoice);
                     String bucketName = allFiles.get(fileChoice).getBucketName();
 
-                    // Attempt to overwrite the file
+                    // Attempt to overwrite the file.
                     try (BufferedWriter writer = new BufferedWriter(new java.io.FileWriter(objectKey))) {
                         writer.write("This is a modified text.");
 
@@ -162,7 +158,6 @@ public class S3ObjectLockWorkflow {
                     List<String> fileKeys = allFiles.stream().map(f -> f.getKeyName()).collect(Collectors.toList());
                     String[] fileKeysArray = fileKeys.toArray(new String[0]);
                     int fileChoice = getChoiceResponse(null, fileKeysArray);
-                    System.out.println("You selected " + fileChoice);
                     String objectKey = fileKeys.get(fileChoice);
                     String bucketName = allFiles.get(fileChoice).getBucketName();
                     s3LockActions.getObjectRetention(bucketName, objectKey);
@@ -174,7 +169,6 @@ public class S3ObjectLockWorkflow {
                     List<String> fileKeys = allFiles.stream().map(f -> f.getKeyName()).collect(Collectors.toList());
                     String[] fileKeysArray = fileKeys.toArray(new String[0]);
                     int fileChoice = getChoiceResponse(null, fileKeysArray);
-                    System.out.println("You selected " + fileChoice);
                     String objectKey = fileKeys.get(fileChoice);
                     String bucketName = allFiles.get(fileChoice).getBucketName();
                     s3LockActions.getObjectLegalHold(bucketName, objectKey);
@@ -322,7 +316,7 @@ public class S3ObjectLockWorkflow {
         }
     }
 
-    // Get file extension
+    // Get file extension.
     private static String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
         if (dotIndex > 0) {
@@ -331,12 +325,10 @@ public class S3ObjectLockWorkflow {
         return "";
     }
 
-    // Enable object lock on an existing bucket.
     public static void configurationSetup() {
         String noLockBucketName = bucketName + "-no-lock";
         String lockEnabledBucketName = bucketName + "-lock-enabled";
-        String retentionAfterCreationBucketName =  bucketName + "-retention-after-creation";
-
+        String retentionAfterCreationBucketName = bucketName + "-retention-after-creation";
         bucketNames.add(noLockBucketName);
         bucketNames.add(lockEnabledBucketName);
         bucketNames.add(retentionAfterCreationBucketName);
