@@ -11,7 +11,7 @@ from utils.timeit import timeit
 class BedrockAIConverter:
     """
     A class that provides methods for converting between images and text, and generating images from text,
-    using generative AI models hosted on Bedrock.
+    using generative AI models hosted on Amazon Bedrock.
     """
 
     def __init__(self):
@@ -119,7 +119,7 @@ class BedrockAIConverter:
 
             prompt = f"""
                 ######
-                You are a skilled event planner with knack for coming
+                You are a skilled event planner with a knack for coming
                 up with low-cost high tech improvements to event spaces,
                 particularly for tech conferences.
 
@@ -209,7 +209,6 @@ class BedrockAIConverter:
             raise
 
 
-# Uncomment the following lines to use the class
 converter = BedrockAIConverter()
 description = converter.img_to_txt()
 design_idea = converter.txt_to_txt(description)

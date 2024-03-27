@@ -11,7 +11,7 @@ Note: FordGPTv2-3 (step 4-5) require AWS data stores containing certain informat
 ### Usage
 This is reference code that should not be copied directly into production without review.
 
-Running foundation models costs money. This demo presumes you have billing alarms configured and an understanding of Bedrocking pricing.
+Running foundation models costs money. This demo presumes you have billing alarms configured and an understanding of Amazon Bedrock pricing.
 
 ## About FordGPT
 ![fordgpt.jpg](fordgpt.jpg)

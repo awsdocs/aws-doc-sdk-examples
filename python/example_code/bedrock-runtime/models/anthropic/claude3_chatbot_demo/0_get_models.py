@@ -10,7 +10,7 @@ from utils.timeit import timeit
 
 class BedrockModelService:
     """
-    A class to interact with the Bedrock AI service, specifically for operations
+    A class to interact with the Amazon Bedrock service, specifically for operations
     related to foundation models.
     """
 
