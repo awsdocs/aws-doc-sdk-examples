@@ -1,20 +1,20 @@
-# Amazon SES code examples for the SDK for Rust
+# Amazon SES v2 API code examples for the SDK for Rust
 
 ## Overview
 
-Shows how to use the AWS SDK for Rust to work with Amazon Simple Email Service (Amazon SES).
+Shows how to use the AWS SDK for Rust to work with Amazon Simple Email Service v2 API.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon SES is a reliable, scalable, and cost-effective email service._
+_Amazon SES v2 API is a reliable, scalable, and cost-effective email service._
 
 ## ⚠ Important
 
-* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
-* Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+- Running the tests might result in charges to your AWS account.
+- We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 <!--custom.important.start-->
 <!--custom.important.end-->
@@ -25,9 +25,25 @@ _Amazon SES is a reliable, scalable, and cost-effective email service._
 
 For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv1` folder.
 
-
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [Create a contact in a contact list](src/bin/create-contact.rs#L30) (`CreateContact`)
+- [Create a contact list](src/bin/create-contact-list.rs#L26) (`CreateContactList`)
+- [Create an email identity](src/newsletter.rs#L49) (`CreateEmailIdentity`)
+- [Create an email template](src/newsletter.rs#L94) (`CreateEmailTemplate`)
+- [Delete a contact list](src/newsletter.rs#L338) (`DeleteContactList`)
+- [Delete an email identity](src/newsletter.rs#L376) (`DeleteEmailIdentity`)
+- [Delete an email template](src/newsletter.rs#L351) (`DeleteEmailTemplate`)
+- [Get identity information](src/bin/is-email-verified.rs#L26) (`GetEmailIdentity`)
+- [List the contact lists](src/bin/list-contact-lists.rs#L22) (`ListContactLists`)
+- [List the contacts in a contact list](src/bin/list-contacts.rs#L26) (`ListContacts`)
+- [Send a simple email](src/bin/send-email.rs#L39) (`SendEmail`)
+- [Send a templated email](src/newsletter.rs#L255) (`SendEmail`)
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -36,30 +52,27 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 ### Instructions
 
-
 <!--custom.instructions.start-->
+
+To run the Newsletter example, copy the files from workflows/sesv2_weekly_mailer/resources into a new folder, rustv1/examples/ses/resources/newsletter.
+
 <!--custom.instructions.end-->
-
-
 
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
 
-
 To find instructions for running these tests, see the [README](../../README.md#Tests)
 in the `rustv1` folder.
-
-
 
 <!--custom.tests.start-->
 <!--custom.tests.end-->
 
 ## Additional resources
 
-- [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
-- [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
-- [SDK for Rust Amazon SES reference](https://docs.rs/aws-sdk-ses/latest/aws_sdk_ses/)
+- [Amazon SES v2 API Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
+- [Amazon SES v2 API API Reference](https://docs.aws.amazon.com/ses/latest/APIReference-V2/Welcome.html)
+- [SDK for Rust Amazon SES v2 API reference](https://docs.rs/aws-sdk-ses/latest/aws_sdk_ses/)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
