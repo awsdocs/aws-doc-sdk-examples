@@ -8,7 +8,7 @@ import { execSync } from 'child_process';
 
 var runExe =function(serviceStub){
     console.log("The SoS GUI Editor has opened on your machine. Enter \'" + serviceStub + "\' in the Principle Service field. Please leave this terminal running.");
-    const pathToExe = "../../../../../my-app-win32-x64/my-app.exe"
+    const pathToExe = "../../my-app-win32-x64/my-app.exe"
     execSync('start' + pathToExe);
 };
 
@@ -50,7 +50,7 @@ export const create_json = async () => {
     try {
         var doc = yaml.load(
             fs.readFileSync(
-                "../../../../../../metadata/" + serviceStub + "_metadata.yaml",
+                "../../../metadata/" + serviceStub + "_metadata.yaml",
                 "utf8",
             ).replaceAll(/{+/g, "'{").replace(/}+/g,  "}'")/*.replaceAll('category:','synopsis_list:\n  category:')*/
         );
@@ -75,22 +75,21 @@ export const create_json = async () => {
             return serviceStub
 
     } catch (e) {
-        console.log(e + "\n" + serviceStub + "_metadata.yaml does not exist in the \/metadata folder.")
-
-        const filesInTheFolder = getFiles('../../../../../metadata/');
+        console.log("\n" + serviceStub + "_metadata.yaml does not exist in the \/metadata folder.")
+        /*const filesInTheFolder = getFiles('../../../metadata/');
         console.log('Here\'s a list of the existing metadata files\n');
-        console.log(filesInTheFolder);
+        console.log(filesInTheFolder);*/
         const answer = await promptForText(
             "Do you want to create " + serviceStub + "_metadata.yaml? (yes/no)"
         );
         if (answer === "yes") {
-            const my_json = ("# zexi 0.4.0\n").toString();
-            fs.writeFile("../../../../../../../metadata/" + serviceStub + "_metadata.yaml", my_json, function (err) {
+            const my_json = ("\n").toString();
+            fs.writeFile("../../../metadata/" + serviceStub + "_metadata.yaml", my_json, function (err) {
                 if (err) {
                     return console.log("error here", err);
                 }
-                console.log("File created. Enter "/" + serviceStub  + "/" to continue.");
-            });
+
+            })
 
         } else {
             return
