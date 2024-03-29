@@ -187,7 +187,7 @@ bedrock-runtime_InvokeStableDiffusionForImageGeneration:
 bedrock-runtime_InvokeMistral7B:
   title: Invoke the Mistral 7B model on &BR; for text generation
   title_abbrev: Text generation with Mistral 7B
-  synopsis: invoke the Mistral 7B model model on &BR; for text generation.
+  synopsis: invoke the Mistral 7B model on &BR; for text generation.
   languages:
     Java:
       versions:
@@ -231,7 +231,7 @@ bedrock-runtime_InvokeMistral7B:
 bedrock-runtime_InvokeMixtral8x7B:
   title: Invoke the Mixtral 8x7B model on &BR; for text generation
   title_abbrev: Text generation with Mixtral 8x7B
-  synopsis: invoke the Mixtral 8x7B model model on &BR; for text generation.
+  synopsis: invoke the Mixtral 8x7B model on &BR; for text generation.
   languages:
     Java:
       versions:
