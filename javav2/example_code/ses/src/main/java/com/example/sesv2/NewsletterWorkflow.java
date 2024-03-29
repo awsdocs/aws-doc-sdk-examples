@@ -133,8 +133,8 @@ public class NewsletterWorkflow {
     // snippet-start:[sesv2.java2.newsletter.CreateEmailTemplate]
     try {
       // Create an email template named "weekly-coupons"
-      String newsletterHtml = Files.readString(Paths.get("resources/coupon_newsletter/coupon-newsletter.html"));
-      String newsletterText = Files.readString(Paths.get("resources/coupon_newsletter/coupon-newsletter.txt"));
+      String newsletterHtml = loadFile("resources/coupon_newsletter/coupon-newsletter.html");
+      String newsletterText = loadFile("resources/coupon_newsletter/coupon-newsletter.txt");
 
       CreateEmailTemplateRequest templateRequest = CreateEmailTemplateRequest.builder()
           .templateName(TEMPLATE_NAME)
@@ -162,6 +162,14 @@ public class NewsletterWorkflow {
       throw e;
     }
     // snippet-end:[sesv2.java2.newsletter.CreateEmailTemplate]
+  }
+
+  private String loadFile(String path) {
+    try {
+      return Files.readString(Paths.get(path));
+    } catch (IOException ioe) {
+      return "Missing " + path;
+    }
   }
 
   /**

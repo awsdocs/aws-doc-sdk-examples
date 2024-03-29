@@ -92,14 +92,18 @@ impl<'a> SESWorkflow<'a> {
         // snippet-end:[sesv2.rust.create-contact-list]
 
         // snippet-start:[sesv2.rust.create-email-template]
-        let TEMPLATE_HTML: &str = include_str!("../resources/newsletter/coupon-newsletter.html");
-        let TEMPLATE_TEXT: &str = include_str!("../resources/newsletter/coupon-newsletter.txt");
+        let template_html =
+            std::fs::read_to_string("../resources/newsletter/coupon-newsletter.html")
+                .unwrap_or_else(|_| "Missing coupon-newsletter.html".to_string());
+        let template_text =
+            std::fs::read_to_string("../resources/newsletter/coupon-newsletter.txt")
+                .unwrap_or_else(|_| "Missing coupon-newsletter.txt".to_string());
 
         // Create the email template
         let template_content = EmailTemplateContent::builder()
             .subject("Weekly Coupons Newsletter")
-            .html(TEMPLATE_HTML)
-            .text(TEMPLATE_TEXT)
+            .html(template_html)
+            .text(template_text)
             .build();
 
         match self
@@ -176,8 +180,10 @@ impl<'a> SESWorkflow<'a> {
 
             // Send the welcome email
             // snippet-start:[sesv2.rust.send-email.simple]
-            let WELCOME_HTML: &str = include_str!("../resources/newsletter/welcome.html");
-            let WELCOME_TXT: &str = include_str!("../resources/newsletter/welcome.txt");
+            let welcome_html = std::fs::read_to_string("../resources/newsletter/welcome.html")
+                .unwrap_or_else(|_| "Missing welcome.html".to_string());
+            let welcome_txt = std::fs::read_to_string("../resources/newsletter/welcome.txt")
+                .unwrap_or_else(|_| "Missing welcome.txt".to_string());
             let email_content = EmailContent::builder()
                 .simple(
                     Message::builder()
@@ -188,8 +194,8 @@ impl<'a> SESWorkflow<'a> {
                         )
                         .body(
                             Body::builder()
-                                .html(Content::builder().data(WELCOME_HTML).build()?)
-                                .text(Content::builder().data(WELCOME_TXT).build()?)
+                                .html(Content::builder().data(welcome_html).build()?)
+                                .text(Content::builder().data(welcome_txt).build()?)
                                 .build(),
                         )
                         .build(),
@@ -253,12 +259,13 @@ impl<'a> SESWorkflow<'a> {
             let email = email.email_address.unwrap();
 
             // snippet-start:[sesv2.rust.send-email.template]
-            let COUPONS: &str = include_str!("../resources/newsletter/sample_coupons.json");
+            let coupons = std::fs::read_to_string("../resources/newsletter/sample_coupons.json")
+                .unwrap_or_else(|_| r#"{"coupons":[]}"#.to_string());
             let email_content = EmailContent::builder()
                 .template(
                     Template::builder()
                         .template_name(TEMPLATE_NAME)
-                        .template_data(COUPONS)
+                        .template_data(coupons)
                         .build(),
                 )
                 .build();

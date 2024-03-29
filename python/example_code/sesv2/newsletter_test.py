@@ -2,13 +2,13 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import json
-import unittest
 import sys
 from botocore.exceptions import ClientError
 from io import StringIO
+import pytest
 from unittest.mock import patch
 
-from python.example_code.sesv2.newsletter import (
+from newsletter import (
     SESv2Workflow,
     get_subaddress_variants,
     CONTACT_LIST_NAME,
@@ -18,9 +18,9 @@ from python.example_code.sesv2.newsletter import (
 # Run tests with `python -m unittest`
 
 
-class TestSESv2WorkflowPrepareApplication(unittest.TestCase):
-    @patch("main.boto3.client")
-    def setUp(self, mock_client):
+class TestSESv2WorkflowPrepareApplication:
+    @patch("boto3.client")
+    def setup_method(self, method, mock_client):
         self.ses_client = mock_client()
         self.workflow = SESv2Workflow(self.ses_client)
 
@@ -36,7 +36,7 @@ class TestSESv2WorkflowPrepareApplication(unittest.TestCase):
         sys.stdout = sys.__stdout__  # Reset standard output
 
         expected_output = "Email identity 'verified@example.com' created successfully.\nContact list 'weekly-coupons-newsletter' created successfully.\nEmail template 'weekly-coupons' created successfully.\n"
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
     @patch("builtins.input", return_value="verified@example.com")
     def test_prepare_application_error_identity_already_exists(self, mock_input):
@@ -52,7 +52,7 @@ class TestSESv2WorkflowPrepareApplication(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
         expected_output = "Email identity 'verified@example.com' already exists.\nContact list 'weekly-coupons-newsletter' created successfully.\nEmail template 'weekly-coupons' created successfully.\n"
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
     @patch("builtins.input", return_value="invalid@example.com")
     def test_prepare_application_error_identity_not_found(self, mock_input):
@@ -64,12 +64,12 @@ class TestSESv2WorkflowPrepareApplication(unittest.TestCase):
 
         captured_output = StringIO()
         sys.stdout = captured_output
-        with self.assertRaises(ClientError):
+        with pytest.raises(ClientError):
             self.workflow.prepare_application()
         sys.stdout = sys.__stdout__
 
         expected_output = ""
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
     @patch("builtins.input", return_value="verified@example.com")
     def test_prepare_application_error_identity_limit_exceeded(self, mock_input):
@@ -81,12 +81,12 @@ class TestSESv2WorkflowPrepareApplication(unittest.TestCase):
 
         captured_output = StringIO()
         sys.stdout = captured_output
-        with self.assertRaises(ClientError):
+        with pytest.raises(ClientError):
             self.workflow.prepare_application()
         sys.stdout = sys.__stdout__
 
         expected_output = ""
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
     @patch("builtins.input", return_value="verified@example.com")
     def test_prepare_application_error_contact_list_limit_exceeded(self, mock_input):
@@ -98,21 +98,21 @@ class TestSESv2WorkflowPrepareApplication(unittest.TestCase):
 
         captured_output = StringIO()
         sys.stdout = captured_output
-        with self.assertRaises(ClientError):
+        with pytest.raises(ClientError):
             self.workflow.prepare_application()
         sys.stdout = sys.__stdout__
 
         expected_output = (
             "Email identity 'verified@example.com' created successfully.\n"
         )
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
 
-class TestSESv2WorkflowGatherSubscribers(unittest.TestCase):
-    @patch("main.boto3.client")
-    def setUp(self, mock_client):
+class TestSESv2WorkflowGatherSubscribers:
+    @patch("boto3.client")
+    def setup_method(self, method, mock_client):
         self.ses_client = mock_client()
-        self.workflow = SESv2Workflow(self.ses_client, sleep=False)
+        self.workflow = SESv2Workflow(self.ses_client)
         self.workflow.verified_email = "verified@example.com"
 
     # Tests for gather_subscriber_email_addresses
@@ -136,7 +136,7 @@ class TestSESv2WorkflowGatherSubscribers(unittest.TestCase):
             )
             + "\n"
         )
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
     @patch("builtins.input", return_value="user@example.com")
     def test_gather_subscriber_email_addresses_error_contact_exists(self, mock_input):
@@ -157,7 +157,7 @@ class TestSESv2WorkflowGatherSubscribers(unittest.TestCase):
 
         email_variants = get_subaddress_variants("user@example.com", 3)
         expected_output = f"Contact with email '{email_variants[0]}' created successfully.\nWelcome email sent to '{email_variants[0]}'.\nContact with email '{email_variants[1]}' created successfully.\nWelcome email sent to '{email_variants[1]}'.\nContact with email '{email_variants[2]}' already exists. Skipping...\n"
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
     @patch("builtins.input", return_value="user@example.com")
     def test_gather_subscriber_email_addresses_error_send_email_failed(
@@ -175,25 +175,25 @@ class TestSESv2WorkflowGatherSubscribers(unittest.TestCase):
 
         captured_output = StringIO()
         sys.stdout = captured_output
-        with self.assertRaises(ClientError):
+        with pytest.raises(ClientError):
             self.workflow.gather_subscriber_email_addresses()
         sys.stdout = sys.__stdout__
 
         email_variants = get_subaddress_variants("user@example.com", 3)
         expected_output = f"Contact with email '{email_variants[0]}' created successfully.\nWelcome email sent to '{email_variants[0]}'.\nContact with email '{email_variants[1]}' created successfully.\n"
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
 
-class TestSESv2WorkflowSendCouponNewsletter(unittest.TestCase):
-    @patch("main.boto3.client")
-    def setUp(self, mock_client):
+class TestSESv2WorkflowSendCouponNewsletter:
+    @patch("boto3.client")
+    def setup_method(self, method, mock_client):
         self.ses_client = mock_client()
-        self.workflow = SESv2Workflow(self.ses_client, sleep=False)
+        self.workflow = SESv2Workflow(self.ses_client)
         self.workflow.verified_email = "verified@example.com"
 
     # Tests for send_coupon_newsletter
     @patch(
-        "main.load_file_content",
+        "newsletter.load_file_content",
         side_effect=[
             "<html>Template Content</html>",
             "Plain Text Template Content",
@@ -216,7 +216,7 @@ class TestSESv2WorkflowSendCouponNewsletter(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
         expected_output = "Newsletter sent to 'user+1@example.com'.\nNewsletter sent to 'user+2@example.com'.\nNewsletter sent to 'user+3@example.com'.\n"
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
     def test_send_coupon_newsletter_error_contact_list_not_found(self):
         self.ses_client.list_contacts.side_effect = ClientError(
@@ -230,9 +230,12 @@ class TestSESv2WorkflowSendCouponNewsletter(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
         expected_output = f"Contact list '{CONTACT_LIST_NAME}' does not exist.\n"
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
-    @patch("main.load_file_content", return_value=json.dumps(["Coupon 1", "Coupon 2"]))
+    @patch(
+        "newsletter.load_file_content",
+        return_value=json.dumps(["Coupon 1", "Coupon 2"]),
+    )
     def test_send_coupon_newsletter_error_send_email_failed(
         self, mock_load_file_content
     ):
@@ -258,14 +261,14 @@ class TestSESv2WorkflowSendCouponNewsletter(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
         expected_output = "Newsletter sent to 'user1@example.com'.\nError: An error occurred (MessageRejected) when calling the SendEmail operation: Unknown\nNewsletter sent to 'user3@example.com'.\n"
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
 
-class TestSESv2WorkflowCleanUp(unittest.TestCase):
-    @patch("main.boto3.client")
-    def setUp(self, mock_client):
+class TestSESv2WorkflowCleanUp:
+    @patch("boto3.client")
+    def setup_method(self, method, mock_client):
         self.ses_client = mock_client()
-        self.workflow = SESv2Workflow(self.ses_client, sleep=False)
+        self.workflow = SESv2Workflow(self.ses_client)
         self.workflow.verified_email = "verified@example.com"
 
     # Tests for clean_up
@@ -281,7 +284,7 @@ class TestSESv2WorkflowCleanUp(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
         expected_output = f"Contact list '{CONTACT_LIST_NAME}' deleted successfully.\nEmail template '{TEMPLATE_NAME}' deleted successfully.\nSkipping email identity deletion.\n"
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
     @patch("builtins.input", return_value="n")
     def test_clean_up_error_contact_list_not_found(self, mock_input):
@@ -298,7 +301,7 @@ class TestSESv2WorkflowCleanUp(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
         expected_output = f"Contact list '{CONTACT_LIST_NAME}' does not exist.\nEmail template '{TEMPLATE_NAME}' deleted successfully.\nSkipping email identity deletion.\n"
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
     @patch("builtins.input", return_value="n")
     def test_clean_up_error_template_not_found(self, mock_input):
@@ -315,7 +318,7 @@ class TestSESv2WorkflowCleanUp(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
         expected_output = f"Contact list '{CONTACT_LIST_NAME}' deleted successfully.\nEmail template '{TEMPLATE_NAME}' does not exist.\nSkipping email identity deletion.\n"
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output
 
     @patch("builtins.input", return_value="y")
     def test_clean_up_error_identity_not_found(self, mock_input):
@@ -332,4 +335,4 @@ class TestSESv2WorkflowCleanUp(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
         expected_output = f"Contact list '{CONTACT_LIST_NAME}' deleted successfully.\nEmail template '{TEMPLATE_NAME}' deleted successfully.\nEmail identity '{self.workflow.verified_email}' does not exist.\n"
-        self.assertEqual(captured_output.getvalue(), expected_output)
+        assert captured_output.getvalue() == expected_output

@@ -32,9 +32,12 @@ def load_file_content(file_path):
     Returns:
         str: The content of the file.
     """
-    with open(file_path, "r") as file:
-        content = file.read()
-    return content
+    try:
+        with open(file_path, "r") as file:
+            content = file.read()
+        return content
+    except Exception:
+        return f"Missing {file_path}"
 
 
 def print_error(error):
@@ -209,7 +212,7 @@ class SESv2Workflow:
             email_address = contact["EmailAddress"]
             try:
                 # snippet-start:[python.example_code.sesv2.SendEmail.template]
-                send = self.ses_client.send_email(
+                self.ses_client.send_email(
                     FromEmailAddress=self.verified_email,
                     Destination={"ToAddresses": [email_address]},
                     Content={
@@ -222,7 +225,6 @@ class SESv2Workflow:
                 )
                 # snippet-end:[python.example_code.sesv2.SendEmail.template]
                 print(f"Newsletter sent to '{email_address}'.")
-                print("Debug: ", send)
                 if self.sleep:
                     # 1 email per second in sandbox mode, remove in production.
                     sleep(1.1)
@@ -234,12 +236,15 @@ class SESv2Workflow:
         Provides instructions for monitoring sending activity in the AWS console.
         """
         print(
-            "To monitor your sending activity, please visit the SES Homepage in the AWS console:"
+            """
+To monitor your sending activity, please visit the SES Homepage in the AWS console:
+
+https://console.aws.amazon.com/ses/home#/account
+
+From there, you can view various dashboards and metrics related to your newsletter campaign.
+"""
         )
-        print("https://console.aws.amazon.com/ses/home#/account")
-        print(
-            "From there, you can view various dashboards and metrics related to your newsletter campaign."
-        )
+
         input("Press enter to continue.")
 
     def clean_up(self):
