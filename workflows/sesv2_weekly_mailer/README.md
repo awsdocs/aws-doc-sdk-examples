@@ -64,7 +64,9 @@ The workflow covers the following SES v2 API actions:
 
 This example is implemented in the following languages:
 
-- [Python](../../python/example_code/sesv2/scenarios/wkflw-sesv2-mailer/README.md)
+- [Java](../../javav2/example_code/ses/README.md)
+- [Python](../../python/example_code/sesv2/README.md)
+- [Rust](../../rustv1/examples/ses/README.md)
 
 ---
 
