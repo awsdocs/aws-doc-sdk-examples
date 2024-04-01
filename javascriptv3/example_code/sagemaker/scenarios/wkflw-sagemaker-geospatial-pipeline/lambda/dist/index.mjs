@@ -1,6 +1,8 @@
-import {SageMakerClient,SendPipelineExecutionStepFailureCommand,SendPipelineExecutionStepSuccessCommand}from'@aws-sdk/client-sagemaker';import {SageMakerGeospatialClient,ExportVectorEnrichmentJobCommand,GetVectorEnrichmentJobCommand,VectorEnrichmentJobStatus,StartVectorEnrichmentJobCommand}from'@aws-sdk/client-sagemaker-geospatial';// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import { SageMakerClient, SendPipelineExecutionStepFailureCommand, SendPipelineExecutionStepSuccessCommand } from '@aws-sdk/client-sagemaker';
+import { SageMakerGeospatialClient, ExportVectorEnrichmentJobCommand, GetVectorEnrichmentJobCommand, VectorEnrichmentJobStatus, StartVectorEnrichmentJobCommand } from '@aws-sdk/client-sagemaker-geospatial';
 
 /**
  * @typedef { {
@@ -115,4 +117,4 @@ async function startVectorEnrichmentJob(
   const { Arn: vej_arn } = await client.send(command);
 
   return { vej_arn };
-}export{handler};
+} export { handler };
