@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // MainActivity.kt
-package com.example.android-app
+package com.example.androidapp
 
 import io.flutter.embedding.android.FlutterActivity
 
