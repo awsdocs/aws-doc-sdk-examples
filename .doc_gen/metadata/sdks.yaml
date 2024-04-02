@@ -191,7 +191,7 @@ Kotlin:
       api_ref:
         uid: "SdkForKotlinV1"
         name: "&guide-kotlin-api;"
-        link_template: "https://github.com/awslabs/aws-sdk-kotlin#generating-api-documentation"
+        link_template: "https://sdk.amazonaws.com/kotlin/api/latest/index.html"
   guide: "&guide-kotlin-dev;"
 .NET:
   property: csharp
