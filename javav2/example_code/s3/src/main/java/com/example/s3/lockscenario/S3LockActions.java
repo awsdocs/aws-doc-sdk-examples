@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.s3.scenario;
+package com.example.s3.lockscenario;
 
 // snippet-start:[S3LockWorkflow.javav2.S3ActionsWrapper.main]
 import software.amazon.awssdk.regions.Region;
