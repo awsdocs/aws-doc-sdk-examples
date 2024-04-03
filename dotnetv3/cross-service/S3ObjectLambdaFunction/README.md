@@ -195,3 +195,10 @@ Refer to [View the transformed data in your S3 Object Lambda Access Point](https
 
 ![step-17](images/step-17.png)
 
+
+## Clean up
+
+If you transformed your data through S3 Object Lambda only as a learning exercise, delete the AWS resources that you allocated so that you no longer accrue charges.
+
+Refer to [Clean up](https://docs.aws.amazon.com/AmazonS3/latest/userguide/tutorial-s3-object-lambda-uppercase.html#ol-upper-step8)
+
