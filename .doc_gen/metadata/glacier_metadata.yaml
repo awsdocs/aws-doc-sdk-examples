@@ -186,19 +186,32 @@ glacier_InitiateJob_InventoryRetrieval:
           github: javav2/example_code/glacier
           sdkguide:
           excerpts:
-            - description:
+            - description: Retrieve a vault inventory.
               snippet_tags:
                 - glacier.java2.download.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description: Retrieve an archive from a vault. This example uses the ArchiveTransferManager class. For API details see <ulink type="documentation" url="sdkfornet/v3/apidocs/items/Glacier/TArchiveTransferManager">ArchiveTransferManager</ulink>.
+              snippet_tags:
+                - Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Download
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/glacier
           sdkguide:
           excerpts:
-            - description:
+            - description: Retrieve a vault inventory.
               snippet_tags:
                 - python.example_code.glacier.GlacierWrapper
                 - python.example_code.glacier.InitiateJob.InventoryRetrieval
+            - description: Retrieve an archive from a vault.
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.InitiateJob.ArchiveRetrieval
   services:
     glacier: {InitiateJob}
 glacier_ListJobs:
@@ -253,23 +266,6 @@ glacier_DeleteVault:
                 - python.example_code.glacier.DeleteVault
   services:
     glacier: {DeleteVault}
-glacier_InitiateJob_ArchiveRetrieval:
-  title: Retrieve an archive from an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Retrieve an archive from a vault
-  synopsis: retrieve an archive from an &GLlong; vault.
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/glacier
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.glacier.GlacierWrapper
-                - python.example_code.glacier.InitiateJob.ArchiveRetrieval
-  services:
-    glacier: {InitiateJob}
 glacier_DeleteArchive:
   title: Delete an &GLlong; archive using an &AWS; SDK
   title_abbrev: Delete an archive
@@ -493,19 +489,3 @@ glacier_ListTagsForVault:
                 - Glacier.dotnetv3.GlacierActions.ListTagsForVault
   services:
     glacier: {ListTagsForVault}
-glacier_DownloadArchive:
-  title: Download an &GLlong; archive using an &AWS; SDK
-  title_abbrev: Download an archive
-  synopsis: download an &GLlong; archive.
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Glacier
-          sdkguide:
-          excerpts:
-            - description: This example uses the ArchiveTransferManager class. For API details see <ulink type="documentation" url="sdkfornet/v3/apidocs/items/Glacier/TArchiveTransferManager">ArchiveTransferManager</ulink>.
-              snippet_tags:
-                - Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Download
-  services:
-    glacier: {}

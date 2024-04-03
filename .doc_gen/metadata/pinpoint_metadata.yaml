@@ -43,6 +43,12 @@ pinpoint_SendMessages:
             - description: Send an SMS message.
               snippet_tags:
                 - pinpoint.python.pinpoint_send_sms_message_api.complete
+            - description: Send an email message with an existing email template.
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_templated_email_message.complete
+            - description: Send a text message with an existing SMS template.
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_templated_sms_message.complete
     JavaScript:
       versions:
         - sdk_version: 3
@@ -68,26 +74,6 @@ pinpoint_SendMessages:
             - description: Send an SMS message.
               snippet_tags:
                 - pinpoint.javascript.pinpoint_send_sms_message_api.complete
-  services:
-    pinpoint: {SendMessages}
-pinpoint_SendMessages_Templated:
-  title: Send templated email and text messages with &PIN; using an &AWS; SDK
-  title_abbrev: Send templated email and text messages
-  synopsis: send templated email and text messages with &PIN;.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Send an email message with an existing email template.
-              snippet_tags:
-                - pinpoint.python.pinpoint_send_templated_email_message.complete
-            - description: Send a text message with an existing SMS template.
-              snippet_tags:
-                - pinpoint.python.pinpoint_send_templated_sms_message.complete
   services:
     pinpoint: {SendMessages}
 pinpoint_CreateApp:

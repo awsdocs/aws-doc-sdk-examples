@@ -837,23 +837,6 @@ sqs_Scenario_SendReceiveBatch:
         ReceiveMessage,
         DeleteMessageBatch,
       }
-sqs_AuthorizeS3ToSendMessage:
-  title: Authorize an &S3; bucket to send messages to an &SQS; queue
-  title_abbrev: Authorize a bucket to send messages to a queue
-  synopsis: authorize an &S3; bucket to send messages to an &SQS; queue.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/SQS
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - SQS.dotnetv3.AuthorizeS3ToSendMessageExample
-  services:
-    sqs: {SendMessage}
 sqs_GetQueueAttributes:
   title: Get attributes for an &SQS; queue
   title_abbrev: Get attributes for a queue
@@ -945,24 +928,6 @@ sqs_ChangeMessageVisibility:
                 - cpp.example_code.sqs.ChangeMessageVisibility
   services:
     sqs: {ChangeMessageVisibility}
-sqs_EnableLongPollingCreatingQueue:
-  title: Change how long an &SQS; queue waits for a message
-  title_abbrev: Change how long a queue waits for a message
-  synopsis: change how long an &SQS; queue waits for a message to arrive.
-  category:
-  languages:
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - cpp.example_code.sqs.LongPollingAttribute.config
-                - cpp.example_code.sqs.LongPollingAttribute
-  services:
-    sqs: {SetQueueAttributes}
 sqs_SetQueueAttributes:
   title: Set &SQS; queue attributes
   title_abbrev: Set queue attributes
@@ -997,6 +962,14 @@ sqs_SetQueueAttributes:
               snippet_tags:
                 - cpp.example_code.sqs.SetQueueAttributes.config
                 - cpp.example_code.sqs.SetQueueAttributes
+            - description: Configure a dead-letter queue.
+              snippet_tags:
+                - cpp.example_code.sqs.SetDeadLetterQueue.config
+                - cpp.example_code.sqs.SetDeadLetterQueue
+            - description: Configure an &SQS; queue to use long polling.
+              snippet_tags:
+                - cpp.example_code.sqs.LongPollingAttribute.config
+                - cpp.example_code.sqs.LongPollingAttribute
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1009,31 +982,7 @@ sqs_SetQueueAttributes:
             - description: Configure an &SQS; queue to use long polling.
               snippet_tags:
                 - sqs.JavaScript.longPoll.setQueueAttributesV3
-  services:
-    sqs: {SetQueueAttributes}
-sqs_DeadLetterQueue:
-  title: Configure a dead-letter queue in &SQS;
-  title_abbrev: Configure a dead-letter queue
-  synopsis: configure a dead-letter queue in &SQS;.
-  category:
-  languages:
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - cpp.example_code.sqs.SetDeadLetterQueue.config
-                - cpp.example_code.sqs.SetDeadLetterQueue
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sqs
-          sdkguide:
-          excerpts:
-            - description:
+            - description: Configure a dead-letter queue.
               snippet_tags:
                 - sqs.JavaScript.deadLetter.setQueueAttributesV3
   services:

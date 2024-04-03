@@ -921,7 +921,7 @@ s3_GetObject_IfModifiedSince:
   title: Get an object from an &S3; bucket using an &AWS; SDK, specifying an If-Modified-Since header
   title_abbrev: Get an object from a bucket if it has been modified
   synopsis: read data from an object in an S3 bucket, but only if that bucket has not been modified since the last retrieval time.
-  category:
+  category: Scenarios
   languages:
     Rust:
       versions:
@@ -2200,7 +2200,7 @@ s3_PutObjectLegalHold:
     s3: {PutObjectLegalHold}
 s3_PutObjectLockConfiguration:
   title: Set the object lock configuration of an &S3; bucket using an &AWS; SDK
-  title_abbrev: Set the object lock configuration of an bucket
+  title_abbrev: Set the object lock configuration of a bucket
   synopsis: set the object lock configuration of an existing S3 bucket.
   category:
   languages:
@@ -2210,18 +2210,24 @@ s3_PutObjectLockConfiguration:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description:
+            - description: Set the object lock configuration of a bucket.
               snippet_tags:
                 - S3LockWorkflow.javav2.EnableObjectLockOnBucket.main
+            - description: Set the default retention period of a bucket.
+              snippet_tags:
+                - S3LockWorkflow.javav2.ModifyBucketDefaultRetention.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3/scenarios/S3ObjectLockScenario
           sdkguide:
           excerpts:
-            - description:
+            - description: Set the object lock configuration of a bucket.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.EnableObjectLockOnBucket
+            - description: Set the default retention period of a bucket.
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.ModifyBucketDefaultRetention
   services:
     s3: {PutObjectLockConfiguration}
 s3_PutObjectRetention:
@@ -2250,32 +2256,6 @@ s3_PutObjectRetention:
                 - S3LockWorkflow.dotnetv3.ModifyObjectRetentionPeriod
   services:
     s3: {PutObjectRetention}
-s3_PutDefaultObjectLockConfiguration:
-  title: Set the default retention period of an &S3; bucket using an &AWS; SDK
-  title_abbrev: Set the default retention period of a bucket
-  synopsis: set the default retention period of an S3 bucket.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - S3LockWorkflow.javav2.ModifyBucketDefaultRetention.main
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - S3LockWorkflow.dotnetv3.ModifyBucketDefaultRetention
-  services:
-    s3: {PutObjectLockConfiguration}
 s3_UploadPart:
   title: Upload a single part of a multipart upload using an &AWS; SDK
   title_abbrev: Upload a single part of a multipart upload
@@ -3103,7 +3083,7 @@ s3_GetObject_MRAP:
   title: Get an &S3; object from a Multi-Region Access Point by using an &AWS; SDK
   title_abbrev: Get an object from a Multi-Region Access Point
   synopsis: get an object from a Multi-Region Access Point.
-  category:
+  category: Scenarios
   languages:
     Kotlin:
       versions:

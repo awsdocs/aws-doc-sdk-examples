@@ -27,7 +27,7 @@ cognito-identity_ListIdentityPools:
               snippet_tags:
                 - cognito.java2.listidentitypools.main
   services:
-    cognito-identity: {CreateIdentityPool, ListIdentityPools}
+    cognito-identity: {ListIdentityPools}
 cognito-identity_CreateIdentityPool:
   title: Create an &COG; identity pool
   title_abbrev: Create an identity pool
@@ -53,7 +53,7 @@ cognito-identity_CreateIdentityPool:
               snippet_tags:
                 - cognito.java2.create_identity_pool.main
   services:
-    cognito-identity: {CreateIdentityPool, ListIdentityPools}
+    cognito-identity: {CreateIdentityPool}
 cognito-identity_DeleteIdentityPool:
   title: Delete an &COG; identity pool
   title_abbrev: Delete an identity pool
