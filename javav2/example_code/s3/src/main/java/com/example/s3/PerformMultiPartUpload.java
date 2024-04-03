@@ -8,10 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CompletedMultipartUpload;
 import software.amazon.awssdk.services.s3.model.CompletedPart;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.UploadPartRequest;
 import software.amazon.awssdk.services.s3.model.UploadPartResponse;
 import software.amazon.awssdk.services.s3.waiters.S3Waiter;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 // snippet-end:[s3.java2.performMultiPartUpload.import]
 
 // snippet-start:[s3.java2.performMultiPartUpload.full]
@@ -36,11 +39,14 @@ public class PerformMultiPartUpload {
     static final S3Client s3Client = S3Client.create();
     static final String bucketName = "x-" + UUID.randomUUID();
     static final String key = UUID.randomUUID().toString();
+    static final String classPathFilePath = "/multipartUploadFiles/s3-userguide.pdf";
+    static final String filePath = getFullFilePath(classPathFilePath);
     private static final Logger logger = LoggerFactory.getLogger(PerformMultiPartUpload.class);
 
     public static void main(String[] args) {
         PerformMultiPartUpload performMultiPartUpload = new PerformMultiPartUpload();
         performMultiPartUpload.doMultipartUploadWithTransferManager();
+        performMultiPartUpload.doMultipartUploadWithS3AsyncClient();
         performMultiPartUpload.doMultipartUploadWithS3Client();
     }
 
@@ -137,11 +143,43 @@ public class PerformMultiPartUpload {
                 .multipartUpload(CompletedMultipartUpload.builder().parts(completedParts).build()));
     }
     // snippet-end:[s3.java2.performMultiPartUpload.s3Client]
+    // snippet-start:[s3.java2.performMultiPartUpload.s3AsyncClient]
+    public void multipartUploadWithS3AsyncClient(String filePath) {
+
+        CompletableFuture<PutObjectResponse> response;
+        try (S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
+                .multipartEnabled(true)
+                .build()) {
+
+            response = s3AsyncClient.putObject(b -> b
+                            .bucket(bucketName)
+                            .key(key),
+                    Paths.get(filePath));
+        }
+        response.join();
+        logger.info("File uploaded in multiple 8 MiB parts using S3AsyncClient.");
+    }
+
+
+    // snippet-start:[s3.java2.performMultiPartUpload.s3AsyncClient]
+
+
 
     private void doMultipartUploadWithS3Client() {
         createBucket();
         try {
-            multipartUploadWithS3Client(getFullFilePath("/multipartUploadFiles/s3-userguide.pdf"));
+            multipartUploadWithS3Client(filePath);
+        } catch (SdkException e) {
+            logger.error(e.getMessage());
+        } finally {
+            deleteResources();
+        }
+    }
+
+    private void doMultipartUploadWithS3AsyncClient() {
+        createBucket();
+        try {
+            multipartUploadWithS3AsyncClient(filePath);
         } catch (SdkException e) {
             logger.error(e.getMessage());
         } finally {
@@ -152,7 +190,7 @@ public class PerformMultiPartUpload {
     private void doMultipartUploadWithTransferManager() {
         createBucket();
         try {
-            multipartUploadWithTransferManager(getFullFilePath("/multipartUploadFiles/s3-userguide.pdf"));
+            multipartUploadWithTransferManager(filePath);
         } catch (SdkException e) {
             logger.error(e.getMessage());
         } finally {
