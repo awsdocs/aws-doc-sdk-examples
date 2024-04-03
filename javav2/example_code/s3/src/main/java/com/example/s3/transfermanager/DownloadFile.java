@@ -12,6 +12,8 @@ import software.amazon.awssdk.transfer.s3.model.CompletedFileDownload;
 import software.amazon.awssdk.transfer.s3.model.DownloadFileRequest;
 import software.amazon.awssdk.transfer.s3.model.FileDownload;
 import software.amazon.awssdk.transfer.s3.progress.LoggingTransferListener;
+
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -90,7 +92,7 @@ public class DownloadFile {
                 System.out.println("File deleted successfully");
             } catch (URISyntaxException e) {
                 System.err.println("Error converting URL to URI: " + e.getMessage());
-            } catch (Exception e) {
+            } catch (IOException e) {
                 System.err.println("Error deleting file " + e.getMessage());
             }
         } else {
