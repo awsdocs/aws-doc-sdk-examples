@@ -159,7 +159,7 @@ public class PerformMultiPartUpload {
         response.join();
         logger.info("File uploaded in multiple 8 MiB parts using S3AsyncClient.");
     }
-    // snippet-start:[s3.java2.performMultiPartUpload.s3AsyncClient]
+    // snippet-end:[s3.java2.performMultiPartUpload.s3AsyncClient]
 
     private void doMultipartUploadWithS3Client() {
         createBucket();
