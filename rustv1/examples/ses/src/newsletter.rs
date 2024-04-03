@@ -3,6 +3,12 @@
 
 use anyhow::{anyhow, Result};
 use aws_sdk_sesv2::{
+    operation::{
+        create_contact::CreateContactError,
+        create_contact_list::CreateContactListError,
+        create_email_identity::{CreateEmailIdentity, CreateEmailIdentityError},
+        create_email_template::{CreateEmailTemplate, CreateEmailTemplateError},
+    },
     types::{
         Body, Contact, Content, Destination, EmailContent, EmailTemplateContent,
         ListManagementOptions, Message, Template,
@@ -58,16 +64,15 @@ impl<'a> SESWorkflow<'a> {
             .await
         {
             Ok(_) => writeln!(self.stdout, "Email identity created successfully.")?,
-            Err(e) => {
-                if e.as_service_error().unwrap().is_already_exists_exception() {
+            Err(e) => match e.into_service_error() {
+                CreateEmailIdentityError::AlreadyExistsException(_) => {
                     writeln!(
                         self.stdout,
                         "Email identity already exists, skipping creation."
                     )?;
-                } else {
-                    return Err(anyhow!("Error creating email identity: {}", e));
                 }
-            }
+                e => return Err(anyhow!("Error creating email identity: {}", e)),
+            },
         }
         // snippet-end:[sesv2.rust.create-email-identity]
 
@@ -81,16 +86,15 @@ impl<'a> SESWorkflow<'a> {
             .await
         {
             Ok(_) => writeln!(self.stdout, "Contact list created successfully.")?,
-            Err(e) => {
-                if e.as_service_error().unwrap().is_already_exists_exception() {
+            Err(e) => match e.into_service_error() {
+                CreateContactListError::AlreadyExistsException(_) => {
                     writeln!(
                         self.stdout,
                         "Contact list already exists, skipping creation."
                     )?;
-                } else {
-                    return Err(anyhow!("Error creating contact list: {}", e));
                 }
-            }
+                e => return Err(anyhow!("Error creating contact list: {}", e)),
+            },
         }
         // snippet-end:[sesv2.rust.create-contact-list]
 
@@ -118,16 +122,15 @@ impl<'a> SESWorkflow<'a> {
             .await
         {
             Ok(_) => writeln!(self.stdout, "Email template created successfully.")?,
-            Err(e) => {
-                if e.as_service_error().unwrap().is_already_exists_exception() {
+            Err(e) => match e.into_service_error() {
+                CreateEmailTemplateError::AlreadyExistsException(_) => {
                     writeln!(
                         self.stdout,
                         "Email template already exists, skipping creation."
                     )?;
-                } else {
-                    return Err(anyhow!("Error creating email template: {}", e));
                 }
-            }
+                e => return Err(anyhow!("Error creating email template: {}", e)),
+            },
         }
         // snippet-end:[sesv2.rust.create-email-template]
 
@@ -167,17 +170,14 @@ impl<'a> SESWorkflow<'a> {
                 .await
             {
                 Ok(_) => writeln!(self.stdout, "Contact created for {}", email)?,
-                Err(e) => {
-                    if e.as_service_error().unwrap().is_already_exists_exception() {
-                        writeln!(
-                            self.stdout,
-                            "Contact already exists for {}, skipping creation.",
-                            email
-                        )?;
-                    } else {
-                        return Err(anyhow!("Error creating contact for {}: {}", email, e));
-                    }
-                }
+                Err(e) => match e.into_service_error() {
+                    CreateContactError::AlreadyExistsException(_) => writeln!(
+                        self.stdout,
+                        "Contact already exists for {}, skipping creation.",
+                        email
+                    )?,
+                    e => return Err(anyhow!("Error creating contact for {}: {}", email, e)),
+                },
             }
             // snippet-end:[sesv2.rust.create-contact]
 
