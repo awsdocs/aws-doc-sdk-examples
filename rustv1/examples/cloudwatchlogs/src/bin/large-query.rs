@@ -237,7 +237,7 @@ async fn main() -> Result<(), LargeQueryError> {
 mod test {
     use super::*;
     use aws_sdk_cloudwatchlogs::operation::start_query::StartQueryOutput;
-    use aws_smithy_mocks_experimental::{make_client, mock, RuleMode};
+    use aws_smithy_mocks_experimental::{mock, mock_client, RuleMode};
     use chrono::{TimeZone, Utc};
 
     // Test the behavior of the DateRange::split function.
@@ -315,7 +315,7 @@ mod test {
                     .build()
             });
 
-        let client = make_client!(aws_sdk_cloudwatchlogs, &[&start_query, &small_result]);
+        let client = mock_client!(aws_sdk_cloudwatchlogs, &[&start_query, &small_result]);
 
         let query = CloudWatchLongQuery::new(client, "testing".into(), date_range.clone());
         // Act: Invoke the large_query method with this range.
@@ -370,7 +370,7 @@ mod test {
                 .build()
         });
 
-        let client = make_client!(
+        let client = mock_client!(
             aws_sdk_cloudwatchlogs,
             RuleMode::Sequential,
             &[&get_query_results_0, &get_query_results_1]
