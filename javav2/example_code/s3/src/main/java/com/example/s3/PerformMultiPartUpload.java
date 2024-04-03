@@ -4,6 +4,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.performMultiPartUpload.import]
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.exception.SdkException;
@@ -142,28 +143,25 @@ public class PerformMultiPartUpload {
                 .uploadId(uploadId)
                 .multipartUpload(CompletedMultipartUpload.builder().parts(completedParts).build()));
     }
+
     // snippet-end:[s3.java2.performMultiPartUpload.s3Client]
     // snippet-start:[s3.java2.performMultiPartUpload.s3AsyncClient]
     public void multipartUploadWithS3AsyncClient(String filePath) {
 
-        CompletableFuture<PutObjectResponse> response;
-        try (S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
+        // Enable multipart support.
+        S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
                 .multipartEnabled(true)
-                .build()) {
+                .build();
 
-            response = s3AsyncClient.putObject(b -> b
-                            .bucket(bucketName)
-                            .key(key),
-                    Paths.get(filePath));
-        }
+        CompletableFuture<PutObjectResponse> response = s3AsyncClient.putObject(b -> b
+                        .bucket(bucketName)
+                        .key(key),
+                Paths.get(filePath));
+
         response.join();
         logger.info("File uploaded in multiple 8 MiB parts using S3AsyncClient.");
     }
-
-
     // snippet-start:[s3.java2.performMultiPartUpload.s3AsyncClient]
-
-
 
     private void doMultipartUploadWithS3Client() {
         createBucket();
