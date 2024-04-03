@@ -36,6 +36,9 @@ public class NewsletterWorkflow {
   private String verifiedEmail = "";
   private NewsletterScanner scanner;
 
+  // This is a temporary workaround until ListContacts GET body issue is fixed
+  private ArrayList<String> contacts = new ArrayList<>();
+
   public void test_setVerifiedEmail(String verifiedEmail) {
     this.verifiedEmail = verifiedEmail;
   }
@@ -207,6 +210,7 @@ public class NewsletterWorkflow {
             .build();
 
         sesClient.createContact(contactRequest);
+        contacts.add(emailAddress);
 
         System.out.println("Contact created: " + emailAddress);
 
@@ -255,10 +259,19 @@ public class NewsletterWorkflow {
       ListContactsRequest contactListRequest = ListContactsRequest.builder()
           .contactListName(CONTACT_LIST_NAME)
           .build();
-      ListContactsResponse contactListResponse = sesClient.listContacts(contactListRequest);
-      List<String> contactEmails = contactListResponse.contacts().stream()
-          .map(Contact::emailAddress)
-          .toList();
+
+      List<String> contactEmails;
+      try {
+        ListContactsResponse contactListResponse = sesClient.listContacts(contactListRequest);
+
+        contactEmails = contactListResponse.contacts().stream()
+            .map(Contact::emailAddress)
+            .toList();
+      } catch (Exception e) {
+        // TODO: Remove when listContacts's GET body issue is resolved.
+        contactEmails = this.contacts;
+      }
+
       // snippet-end:[sesv2.java2.newsletter.ListContacts]
 
       // Send an email using the "weekly-coupons" template to each contact in the list
