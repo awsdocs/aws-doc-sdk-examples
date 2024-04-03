@@ -4,7 +4,6 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.performMultiPartUpload.import]
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.exception.SdkException;
@@ -147,7 +146,6 @@ public class PerformMultiPartUpload {
     // snippet-end:[s3.java2.performMultiPartUpload.s3Client]
     // snippet-start:[s3.java2.performMultiPartUpload.s3AsyncClient]
     public void multipartUploadWithS3AsyncClient(String filePath) {
-
         // Enable multipart support.
         S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
                 .multipartEnabled(true)
