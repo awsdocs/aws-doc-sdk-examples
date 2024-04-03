@@ -428,9 +428,9 @@ bedrock-runtime_InvokeClaude2WithResponseStream:
   services:
     bedrock-runtime: {InvokeModelWithResponseStream}
 
-bedrock-runtime_InvokeCalude3WithResponseStream:
+bedrock-runtime_InvokeClaude3WithResponseStream:
   title: Invoke Anthropic Claude 3 on &BR; and process the response stream in real-time
-  title_abbrev: "Anthropic Claude 2: Real-time response stream processing"
+  title_abbrev: "Anthropic Claude 3: Real-time response stream processing"
   synopsis: invoke Anthropic Claude 3 on &BR; and process the response stream in real-time.
   category:
   languages:
