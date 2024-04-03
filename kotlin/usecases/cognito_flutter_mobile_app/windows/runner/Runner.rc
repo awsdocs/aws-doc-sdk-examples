@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "android_app" "\0"
+            VALUE "FileDescription", "myapp" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "android_app" "\0"
+            VALUE "InternalName", "myapp" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "android_app.exe" "\0"
-            VALUE "ProductName", "android_app" "\0"
+            VALUE "OriginalFilename", "myapp.exe" "\0"
+            VALUE "ProductName", "myapp" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
