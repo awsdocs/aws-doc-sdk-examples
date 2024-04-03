@@ -18,6 +18,8 @@ import java.io.PrintStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 public class NewsletterWorkflowTest {
@@ -30,10 +32,13 @@ public class NewsletterWorkflowTest {
   @Mock
   private SesV2Client sesClient;
 
+  @Mock
+  private NewsletterScanner scanner;
+
   @Before
   public void openMocks() {
     closeable = MockitoAnnotations.openMocks(this);
-    scenario = new NewsletterWorkflow(sesClient);
+    scenario = new NewsletterWorkflow(sesClient, scanner);
     System.setOut(new PrintStream(outContent));
     System.setErr(new PrintStream(errContent));
     outContent.reset();
@@ -49,7 +54,8 @@ public class NewsletterWorkflowTest {
   @Test
   public void test_prepareApplication_success() throws IOException {
     // Mock the necessary AWS SDK calls and responses
-    String verifiedEmail = "test@example.com";
+    when(scanner.nextLine()).thenReturn("test@example.com");
+
     CreateEmailIdentityResponse emailIdentityResponse = CreateEmailIdentityResponse.builder().build();
     when(sesClient.createEmailIdentity(any(CreateEmailIdentityRequest.class))).thenReturn(emailIdentityResponse);
 
@@ -58,8 +64,6 @@ public class NewsletterWorkflowTest {
 
     CreateEmailTemplateResponse createEmailTemplateResponse = CreateEmailTemplateResponse.builder().build();
     when(sesClient.createEmailTemplate(any(CreateEmailTemplateRequest.class))).thenReturn(createEmailTemplateResponse);
-
-    System.setIn(new ByteArrayInputStream(verifiedEmail.getBytes()));
 
     scenario.prepareApplication();
 
@@ -70,13 +74,12 @@ public class NewsletterWorkflowTest {
   @Test
   public void test_prepareApplication_error_identityAlreadyExists() {
     // Mock the necessary AWS SDK calls and responses
-    String verifiedEmail = "test@example.com";
+    when(scanner.nextLine()).thenReturn("test@example.com");
+
     when(sesClient.createEmailIdentity(any(CreateEmailIdentityRequest.class))).thenThrow(AlreadyExistsException.class);
 
     CreateContactListResponse contactListResponse = CreateContactListResponse.builder().build();
     when(sesClient.createContactList(any(CreateContactListRequest.class))).thenReturn(contactListResponse);
-
-    System.setIn(new ByteArrayInputStream(verifiedEmail.getBytes()));
 
     try {
       scenario.prepareApplication();
@@ -91,10 +94,9 @@ public class NewsletterWorkflowTest {
   @Test
   public void test_prepareApplication_error_identityNotFound() {
     // Mock the necessary AWS SDK calls and responses
-    String verifiedEmail = "test@example.com";
-    when(sesClient.createEmailIdentity(any(CreateEmailIdentityRequest.class))).thenThrow(NotFoundException.class);
+    when(scanner.nextLine()).thenReturn("test@example.com");
 
-    System.setIn(new ByteArrayInputStream(verifiedEmail.getBytes()));
+    when(sesClient.createEmailIdentity(any(CreateEmailIdentityRequest.class))).thenThrow(NotFoundException.class);
 
     try {
       scenario.prepareApplication();
@@ -107,10 +109,9 @@ public class NewsletterWorkflowTest {
   @Test
   public void test_prepareApplication_error_identityLimitExceeded() {
     // Mock the necessary AWS SDK calls and responses
-    String verifiedEmail = "test@example.com";
-    when(sesClient.createEmailIdentity(any(CreateEmailIdentityRequest.class))).thenThrow(LimitExceededException.class);
+    when(scanner.nextLine()).thenReturn("test@example.com");
 
-    System.setIn(new ByteArrayInputStream(verifiedEmail.getBytes()));
+    when(sesClient.createEmailIdentity(any(CreateEmailIdentityRequest.class))).thenThrow(LimitExceededException.class);
 
     try {
       scenario.prepareApplication();
@@ -124,13 +125,12 @@ public class NewsletterWorkflowTest {
   @Test
   public void test_prepareApplication_error_contactListLimitExceeded() {
     // Mock the necessary AWS SDK calls and responses
-    String verifiedEmail = "test@example.com";
+    when(scanner.nextLine()).thenReturn("test@example.com");
+
     CreateEmailIdentityResponse emailIdentityResponse = CreateEmailIdentityResponse.builder().build();
     when(sesClient.createEmailIdentity(any(CreateEmailIdentityRequest.class))).thenReturn(emailIdentityResponse);
 
     when(sesClient.createContactList(any(CreateContactListRequest.class))).thenThrow(LimitExceededException.class);
-
-    System.setIn(new ByteArrayInputStream(verifiedEmail.getBytes()));
 
     try {
       scenario.prepareApplication();
@@ -144,7 +144,8 @@ public class NewsletterWorkflowTest {
   @Test
   public void test_prepareApplication_error_templateAlreadyExists() {
     // Mock the necessary AWS SDK calls and responses
-    String verifiedEmail = "test@example.com";
+    when(scanner.nextLine()).thenReturn("test@example.com");
+
     CreateEmailIdentityResponse emailIdentityResponse = CreateEmailIdentityResponse.builder().build();
     when(sesClient.createEmailIdentity(any(CreateEmailIdentityRequest.class))).thenReturn(emailIdentityResponse);
 
@@ -152,8 +153,6 @@ public class NewsletterWorkflowTest {
     when(sesClient.createContactList(any(CreateContactListRequest.class))).thenReturn(contactListResponse);
 
     when(sesClient.createEmailTemplate(any(CreateEmailTemplateRequest.class))).thenThrow(AlreadyExistsException.class);
-
-    System.setIn(new ByteArrayInputStream(verifiedEmail.getBytes()));
 
     try {
       scenario.prepareApplication();
@@ -167,9 +166,7 @@ public class NewsletterWorkflowTest {
   @Test
   public void test_prepareApplication_error_templateLimitExceeded() {
     // Mock the necessary AWS SDK calls and responses
-    // Mock the necessary AWS SDK calls and responses
-    String verifiedEmail = "test@example.com";
-    System.setIn(new ByteArrayInputStream(verifiedEmail.getBytes()));
+    when(scanner.nextLine()).thenReturn("test@example.com");
 
     CreateEmailIdentityResponse emailIdentityResponse = CreateEmailIdentityResponse.builder().build();
     when(sesClient.createEmailIdentity(any(CreateEmailIdentityRequest.class))).thenReturn(emailIdentityResponse);
@@ -194,21 +191,19 @@ public class NewsletterWorkflowTest {
   @Test
   public void test_gatherSubscriberEmails_success() throws IOException {
     // Mock the necessary AWS SDK calls and responses
-    String baseEmail = "user@example.com";
+    when(scanner.nextLine()).thenReturn("user@example.com");
+
     CreateContactResponse contactResponse = CreateContactResponse.builder().build();
     when(sesClient.createContact(any(CreateContactRequest.class))).thenReturn(contactResponse);
 
     SendEmailResponse welcomeEmailResponse = SendEmailResponse.builder().messageId("message-id").build();
     when(sesClient.sendEmail(any(SendEmailRequest.class))).thenReturn(welcomeEmailResponse);
 
-    System.setIn(new ByteArrayInputStream(baseEmail.getBytes()));
-
     scenario.gatherSubscriberEmails();
 
     String output = outContent.toString();
     for (int i = 1; i <= 3; i++) {
-      String expectedEmail = baseEmail + "+ses-weekly-newsletter-" + i +
-          "@example.com";
+      String expectedEmail = "user+ses-weekly-newsletter-" + i + "@example.com";
       assertThat(output, containsString("Contact created: " + expectedEmail));
       assertThat(output, containsString("Welcome email sent: message-id"));
     }
@@ -217,15 +212,20 @@ public class NewsletterWorkflowTest {
   @Test
   public void test_gatherSubscriberEmails_error_contactAlreadyExists() {
     // Mock the necessary AWS SDK calls and responses
-    String baseEmail = "user@example.com";
+    when(scanner.nextLine()).thenReturn("user@example.com");
+
     when(sesClient.createContact(any(CreateContactRequest.class))).thenThrow(
         AlreadyExistsException.class);
+
+    when(sesClient.createContact(
+        eq(CreateContactRequest.builder().contactListName(NewsletterWorkflow.CONTACT_LIST_NAME)
+            .emailAddress("user+ses-weekly-newsletter-2@example.com").build())))
+        .thenReturn(
+            CreateContactResponse.builder().build());
 
     SendEmailResponse welcomeEmailResponse = SendEmailResponse.builder().messageId("message-id").build();
     when(sesClient.sendEmail(any(SendEmailRequest.class))).thenReturn(
         welcomeEmailResponse);
-
-    System.setIn(new ByteArrayInputStream(baseEmail.getBytes()));
 
     try {
       scenario.gatherSubscriberEmails();
@@ -242,14 +242,14 @@ public class NewsletterWorkflowTest {
   public void test_gatherSubscriberEmails_error_sendEmailFailed() {
     // Mock the necessary AWS SDK calls and responses
     String baseEmail = "user@example.com";
+    when(scanner.nextLine()).thenReturn(baseEmail);
+
     CreateContactResponse contactResponse = CreateContactResponse.builder().build();
     when(sesClient.createContact(any(CreateContactRequest.class))).thenReturn(
         contactResponse);
 
     when(sesClient.sendEmail(any(SendEmailRequest.class))).thenThrow(
         SesV2Exception.class);
-
-    System.setIn(new ByteArrayInputStream(baseEmail.getBytes()));
 
     try {
       scenario.gatherSubscriberEmails();
@@ -413,6 +413,8 @@ public class NewsletterWorkflowTest {
   public void test_cleanUp_success() {
     // Mock the necessary AWS SDK calls and responses
     scenario.test_setVerifiedEmail("test@example.com");
+    when(scanner.nextLine()).thenReturn("y");
+
     DeleteContactListResponse deleteContactListResponse = DeleteContactListResponse.builder().build();
     when(sesClient.deleteContactList(any(DeleteContactListRequest.class))).thenReturn(deleteContactListResponse);
 
@@ -421,8 +423,6 @@ public class NewsletterWorkflowTest {
 
     DeleteEmailIdentityResponse deleteIdentityResponse = DeleteEmailIdentityResponse.builder().build();
     when(sesClient.deleteEmailIdentity(any(DeleteEmailIdentityRequest.class))).thenReturn(deleteIdentityResponse);
-
-    System.setIn(new ByteArrayInputStream("y".getBytes()));
 
     scenario.cleanUp();
 
@@ -444,7 +444,7 @@ public class NewsletterWorkflowTest {
     DeleteEmailIdentityResponse deleteIdentityResponse = DeleteEmailIdentityResponse.builder().build();
     when(sesClient.deleteEmailIdentity(any(DeleteEmailIdentityRequest.class))).thenReturn(deleteIdentityResponse);
 
-    System.setIn(new ByteArrayInputStream("y".getBytes()));
+    when(scanner.nextLine()).thenReturn("y");
 
     try {
       scenario.cleanUp();
@@ -469,7 +469,7 @@ public class NewsletterWorkflowTest {
     DeleteEmailIdentityResponse deleteIdentityResponse = DeleteEmailIdentityResponse.builder().build();
     when(sesClient.deleteEmailIdentity(any(DeleteEmailIdentityRequest.class))).thenReturn(deleteIdentityResponse);
 
-    System.setIn(new ByteArrayInputStream("y".getBytes()));
+    when(scanner.nextLine()).thenReturn("y");
 
     try {
       scenario.cleanUp();
@@ -494,7 +494,7 @@ public class NewsletterWorkflowTest {
 
     when(sesClient.deleteEmailIdentity(any(DeleteEmailIdentityRequest.class))).thenThrow(NotFoundException.class);
 
-    System.setIn(new ByteArrayInputStream("y".getBytes()));
+    when(scanner.nextLine()).thenReturn("y");
 
     try {
       scenario.cleanUp();
@@ -517,7 +517,7 @@ public class NewsletterWorkflowTest {
     DeleteEmailTemplateResponse deleteTemplateResponse = DeleteEmailTemplateResponse.builder().build();
     when(sesClient.deleteEmailTemplate(any(DeleteEmailTemplateRequest.class))).thenReturn(deleteTemplateResponse);
 
-    System.setIn(new ByteArrayInputStream("n".getBytes()));
+    when(scanner.nextLine()).thenReturn("n");
 
     try {
       scenario.cleanUp();

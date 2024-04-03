@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sesv2.SesV2Client;
 import software.amazon.awssdk.services.sesv2.model.*;
 
@@ -20,7 +19,7 @@ import software.amazon.awssdk.services.sesv2.model.*;
  * coupon newsletter to a list of contacts.
  */
 public class NewsletterWorkflow {
-  private static final String CONTACT_LIST_NAME = "weekly-coupons-newsletter";
+  public static final String CONTACT_LIST_NAME = "weekly-coupons-newsletter";
   private static final String TEMPLATE_NAME = "weekly-coupons";
   private static final String INTRO = """
       Welcome to the Amazon SES v2 Coupon Newsletter Workflow!
@@ -35,6 +34,7 @@ public class NewsletterWorkflow {
       """;
   private final SesV2Client sesClient;
   private String verifiedEmail = "";
+  private NewsletterScanner scanner;
 
   public void test_setVerifiedEmail(String verifiedEmail) {
     this.verifiedEmail = verifiedEmail;
@@ -46,8 +46,9 @@ public class NewsletterWorkflow {
    * @param sesClient The SesV2Client instance to be used for interacting with the
    *                  SES v2 service.
    */
-  public NewsletterWorkflow(SesV2Client sesClient) {
+  public NewsletterWorkflow(SesV2Client sesClient, NewsletterScanner scanner) {
     this.sesClient = sesClient;
+    this.scanner = scanner;
   }
 
   /**
@@ -57,11 +58,8 @@ public class NewsletterWorkflow {
    */
   public static void main(String[] args) {
     System.out.println(INTRO);
-    SesV2Client sesClient = SesV2Client.builder()
-        .region(Region.AWS_GLOBAL)
-        .build();
-
-    new NewsletterWorkflow(sesClient).run();
+    SesV2Client sesClient = SesV2Client.builder().build();
+    new NewsletterWorkflow(sesClient, new NewsletterScanner()).run();
   }
 
   /**
@@ -84,9 +82,7 @@ public class NewsletterWorkflow {
   public void prepareApplication() throws IOException {
     // 1. Create an email identity
     System.out.println("Enter the verified email address: ");
-    Scanner scanner = new Scanner(System.in);
-    this.verifiedEmail = scanner.nextLine();
-    scanner.close();
+    verifiedEmail = scanner.nextLine();
 
     // snippet-start:[sesv2.java2.newsletter.CreateEmailIdentity]
     try {
@@ -197,10 +193,8 @@ public class NewsletterWorkflow {
    * subscriber.
    */
   public void gatherSubscriberEmails() throws IOException {
-    Scanner scanner = new Scanner(System.in);
     System.out.print("Enter a base email address for subscribing to the newsletter: ");
     String baseEmail = scanner.nextLine();
-    scanner.close();
 
     for (String emailAddress : createSubscriberSubaddresses(baseEmail)) {
       // "weekly-coupons-newsletter" contact list
@@ -321,9 +315,7 @@ public class NewsletterWorkflow {
         + "https://console.aws.amazon.com/ses/home#/account\n"
         + "For more detailed monitoring, refer to the SES Developer Guide:\n"
         + "https://docs.aws.amazon.com/ses/latest/dg/monitor-sending-activity.html");
-    Scanner scanner = new Scanner(System.in);
     scanner.nextLine();
-    scanner.close();
   }
 
   /**
@@ -369,9 +361,7 @@ public class NewsletterWorkflow {
     // snippet-end:[sesv2.java2.newsletter.DeleteEmailTemplate]
 
     System.out.println("\nDo you want to delete the email identity? (y/n)");
-    Scanner scanner = new Scanner(System.in);
     String input = scanner.nextLine();
-    scanner.close();
 
     if (input.equalsIgnoreCase("y")) {
       // snippet-start:[sesv2.java2.newsletter.DeleteEmailIdentity]
@@ -395,5 +385,21 @@ public class NewsletterWorkflow {
       System.out.println("Skipping email identity deletion.");
     }
     // snippet-end:[sesv2.java2.newsletter.DeleteEmailIdentity]
+  }
+}
+
+class NewsletterScanner {
+  private Scanner scanner;
+
+  NewsletterScanner() {
+    this(new Scanner(System.in));
+  }
+
+  NewsletterScanner(Scanner scanner) {
+    this.scanner = scanner;
+  }
+
+  String nextLine() {
+    return scanner.nextLine();
   }
 }
