@@ -28,6 +28,7 @@ sesv2_CreateContactList:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.CreateContactList
   services:
     sesv2: {CreateContactList}
@@ -60,6 +61,7 @@ sesv2_CreateContact:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.CreateContact
   services:
     sesv2: {CreateContact}
@@ -124,6 +126,7 @@ sesv2_ListContacts:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.ListContacts
   services:
     sesv2: {ListContacts}
@@ -165,6 +168,7 @@ sesv2_SendEmail_Simple:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.SendEmail.simple
   services:
     sesv2: {SendEmail}
@@ -197,6 +201,7 @@ sesv2_SendEmail_Template:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.SendEmail.template
   services:
     sesv2: {SendEmail}
@@ -221,6 +226,7 @@ sesv2_CreateEmailIdentity:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.CreateEmailIdentity
     Rust:
       versions:
@@ -253,6 +259,7 @@ sesv2_CreateEmailTemplate:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.CreateEmailTemplate
     Rust:
       versions:
@@ -286,6 +293,7 @@ sesv2_DeleteContactList:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.DeleteContactList
     Rust:
       versions:
@@ -319,6 +327,7 @@ sesv2_DeleteEmailIdentity:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.DeleteEmailIdentity
     Rust:
       versions:
@@ -352,6 +361,7 @@ sesv2_DeleteEmailTemplate:
           excerpts:
             - description:
               snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.DeleteEmailTemplate
     Rust:
       versions:
@@ -363,3 +373,74 @@ sesv2_DeleteEmailTemplate:
                 - sesv2.rust.delete-email-template
   services:
     sesv2: {DeleteEmailTemplate}
+
+sesv2_NewsletterWorkflow:
+  title: A complete &SESv2; Newsletter workflow using an &AWS; SDK
+  title_abbrev: Newsletter workflow
+  synopsis: "&SESv2; newsletter workflow."
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - sesv2.java2.newsletter.CreateContactList
+                - sesv2.java2.newsletter.CreateContact
+                - sesv2.java2.newsletter.ListContacts
+                - sesv2.java2.newsletter.SendEmail.template
+                - sesv2.java2.newsletter.CreateEmailIdentity
+                - sesv2.java2.newsletter.CreateEmailTemplate
+                - sesv2.java2.newsletter.DeleteContactList
+                - sesv2.java2.newsletter.DeleteEmailIdentity
+                - sesv2.java2.newsletter.DeleteEmailTemplate
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.CreateContactList
+                - python.example_code.sesv2.CreateContact
+                - python.example_code.sesv2.ListContacts
+                - python.example_code.sesv2.SendEmail.simple
+                - python.example_code.sesv2.SendEmail.template
+                - python.example_code.sesv2.CreateEmailIdentity
+                - python.example_code.sesv2.CreateEmailTemplate
+                - python.example_code.sesv2.DeleteContactList
+                - python.example_code.sesv2.DeleteEmailIdentity
+                - python.example_code.sesv2.DeleteEmailTemplate
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ses
+          excerpts:
+            - description:
+              snippet_tags:
+                - sesv2.rust.create-contact-list
+                - sesv2.rust.create-contact
+                - sesv2.rust.list-contacts
+                - sesv2.rust.send-email.template
+                - sesv2.rust.create-email-identity
+                - sesv2.rust.create-email-template
+                - sesv2.rust.delete-contact-list
+                - sesv2.rust.delete-email-identity
+                - sesv2.rust.delete-email-template
+  services:
+    sesv2:
+      {
+        CreateContactList,
+        CreateContact,
+        ListContacts,
+        SendEmail.simple,
+        SendEmail.template,
+        CreateEmailIdentity,
+        CreateEmailTemplate,
+        DeleteContactList,
+        DeleteEmailIdentity,
+        DeleteEmailTemplate,
+      }

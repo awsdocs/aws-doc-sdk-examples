@@ -69,6 +69,7 @@ def get_subaddress_variants(base_email, num_variants):
     return variants
 
 
+# snippet-start:[python.example_code.sesv2.SESv2Workflow.decl]
 class SESv2Workflow:
     """
     A class to manage the SES v2 Coupon Newsletter Workflow.
@@ -77,6 +78,8 @@ class SESv2Workflow:
     def __init__(self, ses_client, sleep=True):
         self.ses_client = ses_client
         self.sleep = sleep
+
+    # snippet-end:[python.example_code.sesv2.SESv2Workflow.decl]
 
     def prepare_application(self):
         """
@@ -295,7 +298,7 @@ From there, you can view various dashboards and metrics related to your newslett
             print("Skipping email identity deletion.")
 
 
-# Main function
+# snippet-start:[python.example_code.sesv2.SESv2Workflow.main]
 def main():
     """
     The main function that orchestrates the execution of the workflow.
@@ -311,6 +314,9 @@ def main():
     except ClientError as e:
         print_error(e)
     workflow.clean_up()
+
+
+# snippet-end:[python.example_code.sesv2.SESv2Workflow.main]
 
 
 if __name__ == "__main__":

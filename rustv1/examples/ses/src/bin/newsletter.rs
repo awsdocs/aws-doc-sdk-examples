@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 use anyhow::{anyhow, Result};
 use aws_sdk_sesv2::Client;
 use ses_code_examples::newsletter::SESWorkflow;
