@@ -38,16 +38,23 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a contact in a contact list](newsletter.py#L152) (`CreateContact`)
-- [Create a contact list](newsletter.py#L102) (`CreateContactList`)
-- [Create an email identity](newsletter.py#L89) (`CreateEmailIdentity`)
-- [Create an email template](newsletter.py#L115) (`CreateEmailTemplate`)
-- [Delete a  contact list](newsletter.py#L255) (`DeleteContactList`)
-- [Delete an email identity](newsletter.py#L283) (`DeleteEmailIdentity`)
-- [Delete an email template](newsletter.py#L268) (`DeleteEmailTemplate`)
-- [List the contacts in a contact list](newsletter.py#L195) (`ListContacts`)
-- [Send a simple email](newsletter.py#L161) (`SendEmail`)
-- [Send a templated email](newsletter.py#L214) (`SendEmail`)
+- [Create a contact in a contact list](newsletter.py#L155) (`CreateContact`)
+- [Create a contact list](newsletter.py#L105) (`CreateContactList`)
+- [Create an email identity](newsletter.py#L92) (`CreateEmailIdentity`)
+- [Create an email template](newsletter.py#L118) (`CreateEmailTemplate`)
+- [Delete a  contact list](newsletter.py#L258) (`DeleteContactList`)
+- [Delete an email identity](newsletter.py#L286) (`DeleteEmailIdentity`)
+- [Delete an email template](newsletter.py#L271) (`DeleteEmailTemplate`)
+- [List the contacts in a contact list](newsletter.py#L198) (`ListContacts`)
+- [Send a simple email](newsletter.py#L164) (`SendEmail`)
+- [Send a templated email](newsletter.py#L217) (`SendEmail`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Newsletter workflow](newsletter.py)
 
 
 <!--custom.examples.start-->
@@ -69,6 +76,24 @@ To run the Newsletter example, copy the files from workflows/sesv2_weekly_mailer
 <!--custom.instructions.end-->
 
 
+
+#### Newsletter workflow
+
+This example shows you how to Amazon SES v2 API newsletter workflow.
+
+
+<!--custom.scenario_prereqs.sesv2_NewsletterWorkflow.start-->
+<!--custom.scenario_prereqs.sesv2_NewsletterWorkflow.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python newsletter.py
+```
+
+
+<!--custom.scenarios.sesv2_NewsletterWorkflow.start-->
+<!--custom.scenarios.sesv2_NewsletterWorkflow.end-->
 
 ### Tests
 

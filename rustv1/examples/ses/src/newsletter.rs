@@ -4,10 +4,9 @@
 use anyhow::{anyhow, Result};
 use aws_sdk_sesv2::{
     operation::{
-        create_contact::CreateContactError,
-        create_contact_list::CreateContactListError,
-        create_email_identity::{CreateEmailIdentity, CreateEmailIdentityError},
-        create_email_template::{CreateEmailTemplate, CreateEmailTemplateError},
+        create_contact::CreateContactError, create_contact_list::CreateContactListError,
+        create_email_identity::CreateEmailIdentityError,
+        create_email_template::CreateEmailTemplateError,
     },
     types::{
         Body, Contact, Content, Destination, EmailContent, EmailTemplateContent,
