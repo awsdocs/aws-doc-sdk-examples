@@ -35,16 +35,16 @@ Code excerpts that show you how to call individual service functions.
 
 - [Create a contact in a contact list](src/bin/create-contact.rs#L30) (`CreateContact`)
 - [Create a contact list](src/bin/create-contact-list.rs#L26) (`CreateContactList`)
-- [Create an email identity](src/newsletter.rs#L58) (`CreateEmailIdentity`)
-- [Create an email template](src/newsletter.rs#L101) (`CreateEmailTemplate`)
-- [Delete a  contact list](src/newsletter.rs#L348) (`DeleteContactList`)
-- [Delete an email identity](src/newsletter.rs#L386) (`DeleteEmailIdentity`)
-- [Delete an email template](src/newsletter.rs#L361) (`DeleteEmailTemplate`)
+- [Create an email identity](src/newsletter.rs#L57) (`CreateEmailIdentity`)
+- [Create an email template](src/newsletter.rs#L100) (`CreateEmailTemplate`)
+- [Delete a  contact list](src/newsletter.rs#L347) (`DeleteContactList`)
+- [Delete an email identity](src/newsletter.rs#L385) (`DeleteEmailIdentity`)
+- [Delete an email template](src/newsletter.rs#L360) (`DeleteEmailTemplate`)
 - [Get identity information](src/bin/is-email-verified.rs#L26) (`GetEmailIdentity`)
 - [List the contact lists](src/bin/list-contact-lists.rs#L22) (`ListContactLists`)
 - [List the contacts in a contact list](src/bin/list-contacts.rs#L26) (`ListContacts`)
 - [Send a simple email](src/bin/send-email.rs#L39) (`SendEmail`)
-- [Send a templated email](src/newsletter.rs#L264) (`SendEmail`)
+- [Send a templated email](src/newsletter.rs#L263) (`SendEmail`)
 
 ### Scenarios
 

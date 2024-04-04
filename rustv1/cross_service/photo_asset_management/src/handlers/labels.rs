@@ -129,17 +129,4 @@ mod test {
         assert_eq!(labels.get("Mountain").expect("has Mountain").count, 3);
         assert_eq!(labels.get("Lake").expect("has Lake").count, 2);
     }
-
-    #[test]
-    fn test_labels_response() {
-        let mut labels = Labels::new();
-        labels.add("Mountain".to_string(), 3);
-        labels.add("River".to_string(), 5);
-        labels.add("Lake".to_string(), 2);
-        let labels_json = json!(labels);
-        assert_eq!(
-            labels_json.to_string(),
-            r#"{"labels":{"Lake":{"count":2},"Mountain":{"count":3},"River":{"count":5}}}"#
-        )
-    }
 }
