@@ -797,9 +797,9 @@ cross_ServerlessPromptChaining:
     bedrock-agent-runtime:
     sfn:
 cross_ServerlessS3DataTransformation:
-  title: Transforming data for your application with S3 Object Lambda
-  title_abbrev: Transforming data with S3 Object Lambda
-  synopsis: transforming data for your application with S3 Object Lambda.
+  title: Transform data for your application with S3 Object Lambda
+  title_abbrev: Transform data with S3 Object Lambda
+  synopsis: transform data for your application with S3 Object Lambda.
   category: Cross-service examples
   languages:
     .NET:
@@ -809,4 +809,5 @@ cross_ServerlessS3DataTransformation:
           block_content: cross_S3ObjectLambdaFunction.xml
   service_main: s3
   services:
+    s3:
     lambda:

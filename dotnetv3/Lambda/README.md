@@ -59,6 +59,7 @@ Sample applications that work across multiple AWS services.
 
 - [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
 - [Create an application to analyze customer feedback](../cross-service/FeedbackSentimentAnalyzer)
+- [Transform data with S3 Object Lambda](../cross-service/S3ObjectLambdaFunction)
 
 
 <!--custom.examples.start-->
