@@ -3,7 +3,7 @@
 
 ## Overview
 
-In this tutorial, you learn how to add custom code to standard S3 GET requests to modify the requested object retrieved from S3 so that the object suit the needs of the requesting client or application. Specifically, you learn how to transform all the text in the original object stored in S3 to uppercase through S3 Object Lambda.
+In this tutorial, you learn how to add custom code to standard S3 GET requests to modify the requested object retrieved from S3 so that the object suits the needs of the requesting client or application. Specifically, you learn how to transform all the text in the original object stored in S3 to uppercase through S3 Object Lambda.
 
 
 ## Prerequisites
@@ -165,7 +165,7 @@ using Amazon.Lambda.S3Events;
 11. Validate Lambda in AWS Console.
 ![step-10](images/step-10.png)
 
-12. Update the Permission, Navigate to the Permission and go to IAM by clicking the Role name Link.
+12. Navigate to the Permission and go to IAM by clicking the Role name Link.
 ![step-11](images/step-11.png)
 
 13. Update the Permission with "AmazonS3ObjectLambdaExecutionRolePolicy".
@@ -177,11 +177,18 @@ using Amazon.Lambda.S3Events;
 Refer to [Create an S3 Object Lambda Access Point](https://docs.aws.amazon.com/AmazonS3/latest/userguide/tutorial-s3-object-lambda-uppercase.html#ol-upper-step6)
 
 
-Create Access Point
+Create Access Point, give it a Name (ex: tutorial-access-point), Choose the Bucket we created earlier and select the Network Origin as Internet.
+
 ![step-13](images/step-13.png)
 
-Create Object Lambda Access Point
+Create Object Lambda Access Point, 
+
+Give it a Name (ex: tutorial-object-lambda-accesspoint), Choose the Access Point we created in the previous step,
+
 ![step-14](images/step-14.png)
+
+For S3 APIs, to retrieve objects from the S3 bucket for Lambda function to process, select GetObject and choose the Lambda we deployed.
+
 ![step-15](images/step-15.png)
 
 And leave the rest as default click "Create Object Lambda Access Point".
@@ -191,7 +198,11 @@ And leave the rest as default click "Create Object Lambda Access Point".
 
 Refer to [View the transformed data in your S3 Object Lambda Access Point](https://docs.aws.amazon.com/AmazonS3/latest/userguide/tutorial-s3-object-lambda-uppercase.html#ol-upper-step6)
 
+Navigate to the Object Lambda Access Point in AWS S3 Console created, 
+
 ![step-16](images/step-16.png)
+
+Open or Download the file, file should have the transaformed content.
 
 ![step-17](images/step-17.png)
 
