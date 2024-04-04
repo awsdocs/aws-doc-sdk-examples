@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+=======
+>>>>>>> 396aeeaf030358db54761aa728aa2471867693b3
 using System.Text;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.S3Events;
