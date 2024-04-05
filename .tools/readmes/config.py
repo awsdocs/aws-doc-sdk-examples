@@ -140,7 +140,10 @@ language = {
             "base_folder": "rustv1",
             "service_folder": 'rustv1/examples/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.rs/aws-sdk-{{service["name"]}}/latest/aws_sdk_{{service["name"]}}/',
-            "service_folder_overrides": {"sesv2": "rustv1/examples/ses"},
+            "service_folder_overrides": {
+                "sesv2": "rustv1/examples/ses",
+                "ses": "rustv1/examples/_NONE_",
+            },
         }
     },
     "SAP ABAP": {
