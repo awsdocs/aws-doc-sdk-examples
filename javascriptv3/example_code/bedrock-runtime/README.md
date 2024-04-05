@@ -36,21 +36,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 - [Hello Amazon Bedrock](hello.js) (`InvokeModel`)
 
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [AI21 Labs Jurassic-2: Text generation](models/ai21_labs_jurassic2/jurassic2.js) (`InvokeModel`)
-- [Amazon Titan: Text generation](models/amazon_titan/titan_text.js) (`InvokeModel`)
-- [Anthropic Claude 2: Real-time response stream processing](models/anthropic_claude/claude_3.js) (`InvokeModelWithResponseStream`)
-- [Anthropic Claude 2: Text generation](models/anthropic_claude/claude_2.js) (`InvokeModel`)
-- [Anthropic Claude 3: Text generation](models/anthropic_claude/claude_3.js) (`InvokeModel`)
-- [Anthropic Claude Instant: Text generation](models/anthropic_claude/claude_instant_1.js) (`InvokeModel`)
-- [Meta Llama 2: Text generation](models/meta_llama2/llama2_chat.js) (`InvokeModel`)
-- [Mistral AI: Text generation with Mistral 7B Instruct](models/mistral_ai/mistral_7b.js) (`InvokeModel`)
-- [Mistral AI: Text generation with Mixtral 8x7B Instruct](models/mistral_ai/mixtral_8x7b.js) (`InvokeModel`)
-
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple

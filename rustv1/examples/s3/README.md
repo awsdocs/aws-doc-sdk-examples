@@ -41,7 +41,6 @@ Code excerpts that show you how to call individual service functions.
 - [Delete an object](src/bin/delete-object.rs#L30) (`DeleteObject`)
 - [Delete multiple objects](src/s3-service-lib.rs#L31) (`DeleteObjects`)
 - [Get an object from a bucket](src/bin/get-object.rs#L20) (`GetObject`)
-- [Get an object from a bucket if it has been modified](src/bin/if-modified-since.rs#L6) (`GetObject`)
 - [Get the Region location for a bucket](src/bin/list-buckets.rs#L26) (`GetBucketLocation`)
 - [List buckets](src/bin/list-buckets.rs#L26) (`ListBuckets`)
 - [List object versions in a bucket](src/bin/list-object-versions.rs#L26) (`ListObjectVersions`)
@@ -55,14 +54,10 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](src/bin/put-object-presigned.rs)
+- [Get an object from a bucket if it has been modified](src/bin/if-modified-since.rs)
 - [Get started with buckets and objects](src/bin/s3-getting-started.rs)
+- [Unit and integration test with an SDK](Cargo.toml)
 - [Upload or download large files](src/bin/s3-multipart-upload.rs)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Unit and integration test with an SDK](../../examples/testing)
 
 
 <!--custom.examples.start-->
@@ -90,6 +85,18 @@ This example shows you how to create a presigned URL for Amazon S3 and upload an
 <!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
 <!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
 
+#### Get an object from a bucket if it has been modified
+
+This example shows you how to read data from an object in an S3 bucket, but only if that bucket has not been modified since the last retrieval time.
+
+
+<!--custom.scenario_prereqs.s3_GetObject_IfModifiedSince.start-->
+<!--custom.scenario_prereqs.s3_GetObject_IfModifiedSince.end-->
+
+
+<!--custom.scenarios.s3_GetObject_IfModifiedSince.start-->
+<!--custom.scenarios.s3_GetObject_IfModifiedSince.end-->
+
 #### Get started with buckets and objects
 
 This example shows you how to do the following:
@@ -106,6 +113,18 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.s3_Scenario_GettingStarted.start-->
 <!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+
+#### Unit and integration test with an SDK
+
+This example shows you how to examples for best-practice techniques when writing unit and integration tests using an AWS SDK.
+
+
+<!--custom.scenario_prereqs.cross_Testing.start-->
+<!--custom.scenario_prereqs.cross_Testing.end-->
+
+
+<!--custom.scenarios.cross_Testing.start-->
+<!--custom.scenarios.cross_Testing.end-->
 
 #### Upload or download large files
 

@@ -29,14 +29,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [Anthropic Claude 2: Text generation](zcl_aws1_bdr_actions.clas.abap#L109) (`InvokeModel`)
-- [Stable Diffusion: Image generation](zcl_aws1_bdr_actions.clas.abap#L179) (`InvokeModel`)
-
-
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 

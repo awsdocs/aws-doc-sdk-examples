@@ -31,21 +31,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 > ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 > 
 <!--custom.prerequisites.end-->
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [AI21 Labs Jurassic-2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L205) (`InvokeModel`)
-- [Amazon Titan: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L399) (`InvokeModel`)
-- [Anthropic Claude 2: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude2.java#L65) (`InvokeModelWithResponseStream`)
-- [Anthropic Claude 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModel.java#L112) (`InvokeModel`)
-- [Anthropic Claude 3: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude3.java#L49) (`InvokeModelWithResponseStream`)
-- [Meta Llama 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L268) (`InvokeModel`)
-- [Mistral AI: Text generation with Mistral 7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L33) (`InvokeModel`)
-- [Mistral AI: Text generation with Mixtral 8x7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L88) (`InvokeModel`)
-- [Stable Diffusion: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L329) (`InvokeModel`)
-
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple

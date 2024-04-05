@@ -43,7 +43,6 @@ Code excerpts that show you how to call individual service functions.
 - [Delete a topic](sns_basics.py#L70) (`DeleteTopic`)
 - [List the subscribers of a topic](sns_basics.py#L116) (`ListSubscriptions`)
 - [List topics](sns_basics.py#L52) (`ListTopics`)
-- [Publish an SMS text message](sns_basics.py#L179) (`Publish`)
 - [Publish to a topic](sns_basics.py#L205) (`Publish`)
 - [Set a filter policy](sns_basics.py#L139) (`SetSubscriptionAttributes`)
 - [Subscribe an email address to a topic](sns_basics.py#L85) (`Subscribe`)

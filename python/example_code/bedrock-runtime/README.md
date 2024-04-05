@@ -37,22 +37,6 @@ python -m pip install -r requirements.txt
 > 
 <!--custom.prerequisites.end-->
 
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [AI21 Labs Jurassic-2: Text generation](bedrock_runtime_wrapper.py#L79) (`InvokeModel`)
-- [Amazon Titan: Image generation](bedrock_runtime_wrapper.py#L275) (`InvokeModel`)
-- [Anthropic Claude 2: Real-time response stream processing](bedrock_runtime_wrapper.py#L320) (`InvokeModelWithResponseStream`)
-- [Anthropic Claude 2: Text generation](bedrock_runtime_wrapper.py#L39) (`InvokeModel`)
-- [Anthropic Claude 3: Multimodal invocation](models/anthropic/claude_3.py#L94) (`InvokeModel`)
-- [Anthropic Claude 3: Text generation](models/anthropic/claude_3.py#L33) (`InvokeModel`)
-- [Meta Llama 2: Text generation](bedrock_runtime_wrapper.py#L115) (`InvokeModel`)
-- [Mistral AI: Text generation with Mistral 7B Instruct](bedrock_runtime_wrapper.py#L152) (`InvokeModel`)
-- [Mistral AI: Text generation with Mixtral 8x7B Instruct](bedrock_runtime_wrapper.py#L192) (`InvokeModel`)
-- [Stable Diffusion: Image generation](bedrock_runtime_wrapper.py#L232) (`InvokeModel`)
-
-
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 

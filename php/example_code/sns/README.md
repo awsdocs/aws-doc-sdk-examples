@@ -43,11 +43,9 @@ Code excerpts that show you how to call individual service functions.
 - [List opted out phone numbers](ListOptOut.php#L10) (`ListPhoneNumbersOptedOut`)
 - [List the subscribers of a topic](ListSubscriptions.php#L10) (`ListSubscriptions`)
 - [List topics](ListTopics.php#L10) (`ListTopics`)
-- [Publish an SMS text message](PublishTextSMS.php#L10) (`Publish`)
 - [Publish to a topic](PublishTopic.php#L10) (`Publish`)
 - [Set the default settings for sending SMS messages](SetSMSAttributes.php#L26) (`SetSMSAttributes`)
 - [Set topic attributes](SetTopicAttributes.php#L10) (`SetTopicAttributes`)
-- [Subscribe an HTTP endpoint to a topic](SubscribeHTTPS.php#L10) (`Subscribe`)
 - [Subscribe an email address to a topic](SubscribeEmail.php#L10) (`Subscribe`)
 
 ### Cross-service examples
