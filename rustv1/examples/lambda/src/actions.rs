@@ -567,7 +567,7 @@ mod test {
         assert_eq!(json!(InvokeArgs::Increment(5)), 5);
         assert_eq!(
             json!(InvokeArgs::Arithmetic(Operation::Plus, 5, 7)).to_string(),
-            r#"{"i":5,"j":7,"op":"plus"}"#.to_string(),
+            r#"{"op":"plus","i":5,"j":7}"#.to_string(),
         );
     }
 }

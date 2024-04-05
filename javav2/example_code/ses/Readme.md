@@ -48,6 +48,13 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
+
+#### SESv2 Newsletter Workflow
+
+Review the usage instructions in [`workflows/sesv2_weekly_mailer/README.md`](../../../workflows/sesv2_weekly_mailer/README.md).
+
+To run the Newsletter example, copy the files from workflows/sesv2_weekly_mailer/resources into a new folder, javav2/example_code/ses/resources/coupon_newsletter.
+
 <!--custom.instructions.end-->
 
 

@@ -22,6 +22,7 @@ This workflow demonstrates how to use the Amazon Simple Email Service (SES) v2 t
 4. **Monitor and Review**
 
    - Review dashboards and metrics in the AWS console for the newsletter campaign.
+   - Because this workflow minimizes the number of email addresses necessary by utilizing subaddresses to show the features of SES Contact Lists, it is likely an email provider will mark the messages as Spam. Check your spam folder to ensure they sent.
 
 5. **Clean up**
 
@@ -34,7 +35,10 @@ This workflow demonstrates how to use the Amazon Simple Email Service (SES) v2 t
 Before running this workflow, ensure you have:
 
 - An AWS account with proper permissions to use Amazon SES v2.
-- A verified email identity (domain or email address) in Amazon SES.
+- (Optional) A verified email identity (domain or email address) in Amazon SES for the Sending address.
+  - This will be created during the workflow if it does not already exist.
+- (Optional, if the account is in the SES Sandbox) A verified destination address.
+  - This will NOT be created during the workflow.
 
 ## AWS Services Used
 
@@ -50,6 +54,9 @@ The workflow covers the following SES v2 API actions:
 - [`CreateContactList`](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_CreateContactList.html)
 - [`CreateEmailIdentity`](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_CreateEmailIdentity.html)
 - [`CreateEmailTemplate`](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_CreateEmailTemplate.html)
+- [`DeleteContactList`](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_DeleteContactList.html)
+- [`DeleteEmailTemplate`](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_DeleteEmailTemplate.html)
+- [`DeleteEmailIdentity`](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_DeleteEmailIdentity.html)
 - [`ListContacts`](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_ListContacts.html)
 - [`SendEmail`](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_SendEmail.html) (with both Simple and Template formats)
 
@@ -57,7 +64,9 @@ The workflow covers the following SES v2 API actions:
 
 This example is implemented in the following languages:
 
-- [Python](../../python/example_code/sesv2/scenarios/wkflw-sesv2-mailer/README.md)
+- [Java](../../javav2/example_code/ses/README.md)
+- [Python](../../python/example_code/sesv2/README.md)
+- [Rust](../../rustv1/examples/ses/README.md)
 
 ---
 

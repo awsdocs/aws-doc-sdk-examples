@@ -44,6 +44,7 @@ language = {
             "service_folder": 'javav2/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/{{service["name"]}}/package-summary.html',
             "service_folder_overrides": {
+                "sesv2": "javav2/example_code/ses",
                 "medical-imaging": "javav2/example_code/medicalimaging",
             },
         },
@@ -139,6 +140,10 @@ language = {
             "base_folder": "rustv1",
             "service_folder": 'rustv1/examples/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.rs/aws-sdk-{{service["name"]}}/latest/aws_sdk_{{service["name"]}}/',
+            "service_folder_overrides": {
+                "sesv2": "rustv1/examples/ses",
+                "ses": "rustv1/examples/_NONE_",
+            },
         }
     },
     "SAP ABAP": {

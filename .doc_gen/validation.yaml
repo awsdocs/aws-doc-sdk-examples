@@ -156,6 +156,7 @@ allow_list:
   - "respondToDevicePasswordVerifierChallenge"
   - "role/AmazonBedrockExecutionRoleForAgents"
   - "role/AmazonSageMakerGeospatialFullAccess"
+  - "rustv1/examples/ses/resources/newsletter"
   - "s3/src/main/java/com/example/s3/ParseUri"
   - "s3_client_side_encryption_sym_master_key"
   - "serial/CORE_THING_NAME/write/dev/serial1"
