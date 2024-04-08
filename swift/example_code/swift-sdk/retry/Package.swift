@@ -1,12 +1,14 @@
-// swift-tools-version: 5.8
+// swift-tools-version: 5.5
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+//
+// The swift-tools-version declares the minimum version of Swift required to
+// build this package.
 
 import PackageDescription
 
 let package = Package(
-    name: "config",
+    name: "retry",
     // Let Xcode know the minimum Apple platforms supported.
     platforms: [
         .macOS(.v11),
@@ -23,11 +25,10 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .executableTarget(
-            name: "config",
+            name: "retry",
             dependencies: [
                 .product(name: "AWSS3", package: "aws-sdk-swift"),
             ],
-            path: "Sources"
-        ),
+            path: "Sources"),
     ]
 )

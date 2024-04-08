@@ -1,33 +1,32 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// An example demonstrating how to configure an Amazon S3 client using the AWS
-// SDK for Swift. The same principle applies to all services.
+// An example demonstrating how to configure retries using the AWS SDK for
+// Swift. This example uses Amazon S3, but the same principle applies to every
+// AWS service.
 
 import Foundation
 import ClientRuntime
 import AWSS3
 
 @main
-struct ConfigExample {
+struct RetryExample {
     static func main() async {
-        // snippet-start:[config.swift.use-custom-configuration]
-        // Create an Amazon S3 client configuration object that specifies the
-        // region as "us-east-1", the adaptive retry mode, and the maximum
-        // number of retries as 5.
-
+        // snippet-start:[retry.swift.setup]
         let config: S3Client.S3ClientConfiguration
 
+        // Create an Amazon S3 client configuration object that specifies the
+        // the adaptive retry mode and the base maximum number of retries as 5.
+
         do {
-            // snippet-start:[config.swift.create-configuration]
+            // snippet-start:[retry.swift.configure]
             config = try await S3Client.S3ClientConfiguration(
-                region: "us-east-1", 
                 retryStrategyOptions: RetryStrategyOptions(
                     maxRetriesBase: 5,
                     rateLimitingMode: .adaptive
                 )
             )
-            // snippet-end:[config.swift.create-configuration]
+            // snippet-end:[retry.swift.configure]
         } catch {
             print("Error: Unable to create configuration")
             dump(error)
@@ -36,10 +35,8 @@ struct ConfigExample {
 
         // Create an Amazon S3 client using the configuration created above.
 
-        // snippet-start:[config.swift.create-client]
         let client = S3Client(config: config)
-        // snippet-end:[config.swift.create-client]
-        // snippet-end:[config.swift.use-custom-configuration]
+        // snippet-end:[retry.swift.setup]
 
         // Use the client to list the user's buckets. Return without any
         // output if no buckets are found.
