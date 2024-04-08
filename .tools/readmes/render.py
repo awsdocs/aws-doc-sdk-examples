@@ -1,6 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+from collections import defaultdict
 import datetime
 import logging
 import os
@@ -151,6 +152,30 @@ class Renderer:
                 post_scenarios.append(scenario)
         return sorted(post_scenarios, key=itemgetter("title_abbrev"))
 
+    def _transform_custom_categories(self):
+        pre_cats = self.scanner.custom_categories()
+        post_cats = defaultdict(list)
+        for pre_id, pre in pre_cats.items():
+            cat = {
+                "id": pre_id,
+                "title_abbrev": pre["title_abbrev"],
+                "synopsis": pre.get("synopsis"),
+                "synopsis_list": pre.get("synopsis_list", []),
+                "file": self.scanner.snippet(
+                    pre, self.sdk_ver, self.lang_config["service_folder"], ""
+                ),
+            }
+            if cat["file"] is None:
+                logger.warning(
+                    "Couldn't find file for scenario: %s.", cat["title_abbrev"]
+                )
+            else:
+                post_cats[pre.get("category")].append(cat)
+        sorted_cats = {}
+        for key in sorted(post_cats.keys()):
+            sorted_cats[key] = sorted(post_cats[key], key=itemgetter("title_abbrev"))
+        return sorted_cats
+
     def _transform_crosses(self):
         pre_crosses, _ = self.scanner.crosses()
         post_crosses = []
@@ -245,6 +270,7 @@ class Renderer:
         hello = self._transform_actions(self.scanner.hello())
         actions = self._transform_actions(self.scanner.actions())
         scenarios = self._transform_scenarios()
+        custom_cats = self._transform_custom_categories()
         crosses = self._transform_crosses()
         self.lang_config["name"] = self.scanner.lang_name
         self.lang_config["sdk_ver"] = self.sdk_ver
@@ -268,6 +294,7 @@ class Renderer:
             hello=hello,
             actions=actions,
             scenarios=scenarios,
+            custom_cats=custom_cats,
             crosses=crosses,
             customs=customs,
             unsupported=unsupported,

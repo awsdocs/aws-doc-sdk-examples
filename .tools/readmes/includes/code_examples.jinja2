@@ -24,6 +24,11 @@ functions within the same service.
 
 {{ macs.list_examples(scenarios) }}
 {% endif %}
+{% for cat, cat_examples in custom_cats.items() %}
+### {{ cat }}
+
+{{ macs.list_examples(cat_examples) }}
+{% endfor %}
 {% if crosses %}
 ### Cross-service examples
 

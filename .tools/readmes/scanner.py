@@ -1,4 +1,4 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+    # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
 import config
@@ -105,6 +105,18 @@ class Scanner:
             ):
                 scenarios[example_name] = example
         return scenarios
+
+    def custom_categories(self):
+        self._load_examples()
+        custom_cats = {}
+        for example_name, example in self.example_meta.items():
+            if (
+                example.get("category", "") and
+                example.get("category", "") not in {config.categories["scenarios"], config.categories["hello"]}
+                and self.lang_name in example["languages"]
+            ):
+                custom_cats[example_name] = example
+        return custom_cats
 
     def crosses(self):
         self._load_cross()
