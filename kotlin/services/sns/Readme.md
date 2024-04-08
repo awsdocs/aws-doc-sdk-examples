@@ -45,11 +45,16 @@ Code excerpts that show you how to call individual service functions.
 - [Get the properties of a topic](src/main/kotlin/com/kotlin/sns/GetTopicAttributes.kt#L39) (`GetTopicAttributes`)
 - [List the subscribers of a topic](src/main/kotlin/com/kotlin/sns/ListSubscriptions.kt#L22) (`ListSubscriptions`)
 - [List topics](src/main/kotlin/com/kotlin/sns/ListTopics.kt#L23) (`ListTopics`)
-- [Publish an SMS text message](src/main/kotlin/com/kotlin/sns/PublishTextSMS.kt#L41) (`Publish`)
 - [Publish to a topic](src/main/kotlin/com/kotlin/sns/PublishTopic.kt#L40) (`Publish`)
 - [Set topic attributes](src/main/kotlin/com/kotlin/sns/SetTopicAttributes.kt#L42) (`SetTopicAttributes`)
-- [Subscribe a Lambda function to a topic](src/main/kotlin/com/kotlin/sns/SubscribeLambda.kt#L40) (`Subscribe`)
 - [Subscribe an email address to a topic](src/main/kotlin/com/kotlin/sns/SubscribeEmail.kt#L41) (`Subscribe`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish an SMS text message](src/main/kotlin/com/kotlin/sns/PublishTextSMS.kt)
 
 
 <!--custom.examples.start-->
@@ -75,6 +80,18 @@ Code excerpts that show you how to call individual service functions.
 This example shows you how to get started using Amazon SNS.
 
 
+
+#### Publish an SMS text message
+
+This example shows you how to publish SMS messages using Amazon SNS.
+
+
+<!--custom.scenario_prereqs.sns_PublishTextSMS.start-->
+<!--custom.scenario_prereqs.sns_PublishTextSMS.end-->
+
+
+<!--custom.scenarios.sns_PublishTextSMS.start-->
+<!--custom.scenarios.sns_PublishTextSMS.end-->
 
 ### Tests
 

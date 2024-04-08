@@ -48,6 +48,13 @@ Code excerpts that show you how to call individual service functions.
 - [Set topic attributes](SetTopicAttributes.php#L10) (`SetTopicAttributes`)
 - [Subscribe an email address to a topic](SubscribeEmail.php#L10) (`Subscribe`)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish an SMS text message](PublishTextSMS.php)
+
 ### Cross-service examples
 
 Sample applications that work across multiple AWS services.
@@ -67,6 +74,18 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.end-->
 
 
+
+#### Publish an SMS text message
+
+This example shows you how to publish SMS messages using Amazon SNS.
+
+
+<!--custom.scenario_prereqs.sns_PublishTextSMS.start-->
+<!--custom.scenario_prereqs.sns_PublishTextSMS.end-->
+
+
+<!--custom.scenarios.sns_PublishTextSMS.start-->
+<!--custom.scenarios.sns_PublishTextSMS.end-->
 
 ### Tests
 

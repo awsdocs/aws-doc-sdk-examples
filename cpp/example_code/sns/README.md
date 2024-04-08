@@ -57,6 +57,13 @@ Code excerpts that show you how to call individual service functions.
 - [Set the default settings for sending SMS messages](set_sms_type.cpp#L21) (`SetSMSAttributes`)
 - [Subscribe an email address to a topic](subscribe_email.cpp#L10) (`Subscribe`)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish an SMS text message](publish_sms.cpp)
+
 ### Cross-service examples
 
 Sample applications that work across multiple AWS services.
@@ -92,6 +99,18 @@ folder.
 This example shows you how to get started using Amazon SNS.
 
 
+
+#### Publish an SMS text message
+
+This example shows you how to publish SMS messages using Amazon SNS.
+
+
+<!--custom.scenario_prereqs.sns_PublishTextSMS.start-->
+<!--custom.scenario_prereqs.sns_PublishTextSMS.end-->
+
+
+<!--custom.scenarios.sns_PublishTextSMS.start-->
+<!--custom.scenarios.sns_PublishTextSMS.end-->
 
 ### Tests
 
