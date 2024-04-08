@@ -40,4 +40,4 @@ The provided code demonstrates the following key features of the AWS SDK for Jav
 3. **Error Handling**: The code includes exception handling for various Redshift-related exceptions.
 4. **User Interaction**: The code prompts the user for input, such as the cluster ID and the number of records to add to the "Movies" table.
 
-Overall, this Java V2 Redshift code example is a valuable resource for developers new to Amazon Redshift and the AWS SDK for Java (v2), as it provides a solid foundation for understanding and building Redshift-powered applications.
+Overall, this Java V2 Redshift code example is a valuable resource for developers new to Amazon Redshift and the AWS SDK for Java (v2). It provides a solid foundation for understanding and building Redshift-powered applications.
