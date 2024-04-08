@@ -1,13 +1,13 @@
-# Amazon SES code examples for the SDK for Java 2.x
+# Amazon SES v2 API code examples for the SDK for Java 2.x
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 2.x to work with Amazon Simple Email Service (Amazon SES).
+Shows how to use the AWS SDK for Java 2.x to work with Amazon Simple Email Service v2 API.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon SES is a reliable, scalable, and cost-effective email service._
+_Amazon SES v2 API is a reliable, scalable, and cost-effective email service._
 
 ## ⚠ Important
 
@@ -33,10 +33,23 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [List email templates](src/main/java/com/example/sesv2/ListTemplates.java#L6) (`ListTemplates`)
-- [List identities](src/main/java/com/example/ses/ListIdentities.java#L6) (`ListIdentities`)
-- [Send email](src/main/java/com/example/ses/SendMessageEmailRequest.java#L6) (`SendEmail`)
-- [Send templated email](src/main/java/com/example/sesv2/SendEmailTemplate.java#L6) (`SendTemplatedEmail`)
+- [Create a contact in a contact list](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L204) (`CreateContact`)
+- [Create a contact list](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L112) (`CreateContactList`)
+- [Create an email identity](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L90) (`CreateEmailIdentity`)
+- [Create an email template](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L132) (`CreateEmailTemplate`)
+- [Delete a  contact list](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L338) (`DeleteContactList`)
+- [Delete an email identity](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L380) (`DeleteEmailIdentity`)
+- [Delete an email template](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L357) (`DeleteEmailTemplate`)
+- [List the contacts in a contact list](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L258) (`ListContacts`)
+- [Send a simple email](src/main/java/com/example/sesv2/SendEmail.java#L6) (`SendEmail`)
+- [Send a templated email](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L278) (`SendEmail`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Newsletter workflow](src/main/java/com/example/sesv2/NewsletterWorkflow.java)
 
 
 <!--custom.examples.start-->
@@ -59,6 +72,18 @@ To run the Newsletter example, copy the files from workflows/sesv2_weekly_mailer
 
 
 
+#### Newsletter workflow
+
+This example shows you how to Amazon SES v2 API newsletter workflow.
+
+
+<!--custom.scenario_prereqs.sesv2_NewsletterWorkflow.start-->
+<!--custom.scenario_prereqs.sesv2_NewsletterWorkflow.end-->
+
+
+<!--custom.scenarios.sesv2_NewsletterWorkflow.start-->
+<!--custom.scenarios.sesv2_NewsletterWorkflow.end-->
+
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
@@ -74,9 +99,9 @@ in the `javav2` folder.
 
 ## Additional resources
 
-- [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
-- [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
-- [SDK for Java 2.x Amazon SES reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ses/package-summary.html)
+- [Amazon SES v2 API Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
+- [Amazon SES v2 API API Reference](https://docs.aws.amazon.com/ses/latest/APIReference-V2/Welcome.html)
+- [SDK for Java 2.x Amazon SES v2 API reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ses/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -1,13 +1,13 @@
-# CloudTrail code examples for the SDK for Kotlin
+# Amazon WorkDocs code examples for the SDK for PHP
 
 ## Overview
 
-Shows how to use the AWS SDK for Kotlin to work with AWS CloudTrail.
+Shows how to use the AWS SDK for PHP to work with Amazon WorkDocs.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_CloudTrail _
+_Amazon WorkDocs _
 
 ## ⚠ Important
 
@@ -23,7 +23,7 @@ _CloudTrail _
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotlin` folder.
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -48,7 +48,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 
 To find instructions for running these tests, see the [README](../../README.md#Tests)
-in the `kotlin` folder.
+in the `php` folder.
 
 
 
@@ -57,9 +57,9 @@ in the `kotlin` folder.
 
 ## Additional resources
 
-- [CloudTrail Developer Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
-- [CloudTrail API Reference](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/Welcome.html)
-- [SDK for Kotlin CloudTrail reference](https://sdk.amazonaws.com/kotlin/api/latest/cloudtrail/index.html)
+- [Amazon WorkDocs Developer Guide](https://docs.aws.amazon.com/workdocs/latest/developerguide/what_is.html)
+- [Amazon WorkDocs API Reference](https://docs.aws.amazon.com/workdocs/latest/APIReference/Welcome.html)
+- [SDK for PHP Amazon WorkDocs reference](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.Workdocs.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

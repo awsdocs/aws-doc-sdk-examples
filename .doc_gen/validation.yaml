@@ -191,6 +191,7 @@ allow_list:
   - "src/main/kotlin/com/kotlin/iam/ListUsers"
   - "src/main/kotlin/com/kotlin/s3/CopyObject"
   - "src/test/java/example/firehose/PutRecord"
+  - "src/main/kotlin/com/example/iot/HelloIoT"
   - "targetTrackingScalingPolicyConfiguration"
   - "upload_files_using_managed_file_uploader"
   - "videoMetaData=celebrityRecognitionResult"

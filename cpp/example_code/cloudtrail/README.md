@@ -1,8 +1,8 @@
-# CloudTrail code examples for the SDK for Kotlin
+# CloudTrail code examples for the SDK for C++
 
 ## Overview
 
-Shows how to use the AWS SDK for Kotlin to work with AWS CloudTrail.
+Shows how to use the AWS SDK for C++ to work with AWS CloudTrail.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -23,7 +23,15 @@ _CloudTrail _
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotlin` folder.
+
+
+Before using the code examples, first complete the installation and setup steps
+for [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
+C++ Developer Guide.
+This section covers how to get and build the SDK, and how to build your own code by using the SDK with a
+sample Hello World-style application.
+
+Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
 
 <!--custom.prerequisites.start-->
@@ -36,6 +44,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Instructions
 
+An executable is built for each source file in this folder. These executables are located in the build folder and have
+"run_" prepended to the source file name, minus the suffix. See the "main" function in the source file for further instructions.
+
+For example, to run the action in the source file "my_action.cpp", execute the following command from within the build folder. The command
+will display any required arguments.
+
+```
+./run_my_action
+```
+
+If the source file is in a different folder, instructions can be found in the README in that
+folder.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
@@ -47,9 +67,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 ⚠ Running tests might result in charges to your AWS account.
 
 
-To find instructions for running these tests, see the [README](../../README.md#Tests)
-in the `kotlin` folder.
 
+```sh
+   cd <BUILD_DIR>
+   cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
+   make
+   ctest
+```
 
 
 <!--custom.tests.start-->
@@ -59,7 +83,7 @@ in the `kotlin` folder.
 
 - [CloudTrail Developer Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
 - [CloudTrail API Reference](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/Welcome.html)
-- [SDK for Kotlin CloudTrail reference](https://sdk.amazonaws.com/kotlin/api/latest/cloudtrail/index.html)
+- [SDK for C++ CloudTrail reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-cloudtrail/html/annotated.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

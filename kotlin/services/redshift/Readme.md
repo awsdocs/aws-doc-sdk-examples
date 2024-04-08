@@ -35,7 +35,7 @@ Code excerpts that show you how to call individual service functions.
 
 - [Create a cluster](src/main/kotlin/com/kotlin/redshift/CreateAndModifyCluster.kt#L56) (`CreateCluster`)
 - [Delete a cluster](src/main/kotlin/com/kotlin/redshift/DeleteCluster.kt#L39) (`DeleteCluster`)
-- [Describe your clusters](src/main/kotlin/com/kotlin/redshift/DescribeClusters.kt#L22) (`DescribeClusters`)
+- [Describe clusters](src/main/kotlin/com/kotlin/redshift/DescribeClusters.kt#L22) (`DescribeClusters`)
 - [Modify a cluster](src/main/kotlin/com/kotlin/redshift/CreateAndModifyCluster.kt#L106) (`ModifyCluster`)
 
 

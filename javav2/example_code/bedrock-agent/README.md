@@ -1,13 +1,13 @@
-# CloudTrail code examples for the SDK for Kotlin
+# Agents for Amazon Bedrock code examples for the SDK for Java 2.x
 
 ## Overview
 
-Shows how to use the AWS SDK for Kotlin to work with AWS CloudTrail.
+Shows how to use the AWS SDK for Java 2.x to work with Agents for Amazon Bedrock.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_CloudTrail _
+_Agents for Amazon Bedrock offer you the ability to build and configure autonomous agents in your application._
 
 ## ⚠ Important
 
@@ -23,7 +23,7 @@ _CloudTrail _
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotlin` folder.
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -48,7 +48,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 
 To find instructions for running these tests, see the [README](../../README.md#Tests)
-in the `kotlin` folder.
+in the `javav2` folder.
 
 
 
@@ -57,9 +57,9 @@ in the `kotlin` folder.
 
 ## Additional resources
 
-- [CloudTrail Developer Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
-- [CloudTrail API Reference](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/Welcome.html)
-- [SDK for Kotlin CloudTrail reference](https://sdk.amazonaws.com/kotlin/api/latest/cloudtrail/index.html)
+- [Agents for Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
+- [Agents for Amazon Bedrock API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html)
+- [SDK for Java 2.x Agents for Amazon Bedrock reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/bedrock-agent/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
