@@ -41,6 +41,14 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/scenario_invoke_models.go)
 
+### Models
+
+- [AI21 Labs Jurassic-2: Text generation](actions/invoke_model.go)
+- [Amazon Titan: Image generation](actions/invoke_model.go)
+- [Anthropic Claude 2: Real-time response stream processing](actions/invoke_model_with_response_stream.go)
+- [Anthropic Claude 2: Text generation](actions/invoke_model.go)
+- [Meta Llama 2: Text generation](actions/invoke_model.go)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->

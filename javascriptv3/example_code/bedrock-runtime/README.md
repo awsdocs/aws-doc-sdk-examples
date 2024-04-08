@@ -43,6 +43,18 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/cli_text_playground.js)
 
+### Models
+
+- [AI21 Labs Jurassic-2: Text generation](models/ai21_labs_jurassic2/jurassic2.js)
+- [Amazon Titan: Text generation](models/amazon_titan/titan_text.js)
+- [Anthropic Claude 2: Real-time response stream processing](models/anthropic_claude/claude_3.js)
+- [Anthropic Claude 2: Text generation](models/anthropic_claude/claude_2.js)
+- [Anthropic Claude 3: Text generation](models/anthropic_claude/claude_3.js)
+- [Anthropic Claude Instant: Text generation](models/anthropic_claude/claude_instant_1.js)
+- [Meta Llama 2: Text generation](models/meta_llama2/llama2_chat.js)
+- [Mistral AI: Text generation with Mistral 7B Instruct](models/mistral_ai/mistral_7b.js)
+- [Mistral AI: Text generation with Mixtral 8x7B Instruct](models/mistral_ai/mixtral_8x7b.js)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->

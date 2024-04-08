@@ -38,6 +38,18 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](src/main/java/com/example/bedrockruntime/BedrockRuntimeUsageDemo.java)
 
+### Models
+
+- [AI21 Labs Jurassic-2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java)
+- [Amazon Titan: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java)
+- [Anthropic Claude 2: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude2.java)
+- [Anthropic Claude 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModel.java)
+- [Anthropic Claude 3: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude3.java)
+- [Meta Llama 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java)
+- [Mistral AI: Text generation with Mistral 7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java)
+- [Mistral AI: Text generation with Mixtral 8x7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java)
+- [Stable Diffusion: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->

@@ -28,6 +28,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
+### Models
+
+- [Anthropic Claude 2: Text generation](zcl_aws1_bdr_actions.clas.abap)
+- [Stable Diffusion: Image generation](zcl_aws1_bdr_actions.clas.abap)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->

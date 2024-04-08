@@ -42,6 +42,14 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](GettingStartedWithBedrockRuntime.php)
 
+### Models
+
+- [AI21 Labs Jurassic-2: Text generation](BedrockRuntimeService.php)
+- [Amazon Titan: Image generation](BedrockRuntimeService.php)
+- [Anthropic Claude 2: Text generation](BedrockRuntimeService.php)
+- [Meta Llama 2: Text generation](BedrockRuntimeService.php)
+- [Stable Diffusion: Image generation](BedrockRuntimeService.php)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->

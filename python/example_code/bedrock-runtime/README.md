@@ -36,6 +36,19 @@ python -m pip install -r requirements.txt
 > ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 > 
 <!--custom.prerequisites.end-->
+### Models
+
+- [AI21 Labs Jurassic-2: Text generation](bedrock_runtime_wrapper.py)
+- [Amazon Titan: Image generation](bedrock_runtime_wrapper.py)
+- [Anthropic Claude 2: Real-time response stream processing](bedrock_runtime_wrapper.py)
+- [Anthropic Claude 2: Text generation](bedrock_runtime_wrapper.py)
+- [Anthropic Claude 3: Multimodal invocation](models/anthropic/claude_3.py)
+- [Anthropic Claude 3: Text generation](models/anthropic/claude_3.py)
+- [Meta Llama 2: Text generation](bedrock_runtime_wrapper.py)
+- [Mistral AI: Text generation with Mistral 7B Instruct](bedrock_runtime_wrapper.py)
+- [Mistral AI: Text generation with Mixtral 8x7B Instruct](bedrock_runtime_wrapper.py)
+- [Stable Diffusion: Image generation](bedrock_runtime_wrapper.py)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->

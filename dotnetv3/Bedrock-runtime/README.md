@@ -28,6 +28,18 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
+### Models
+
+- [AI21 Labs Jurassic-2: Text generation](Actions/InvokeModelAsync.cs)
+- [Amazon Titan: Image generation](Actions/InvokeModelAsync.cs)
+- [Amazon Titan: Text generation](Actions/InvokeModelAsync.cs)
+- [Anthropic Claude 2: Real-time response stream processing](Actions/InvokeModelAsync.cs)
+- [Anthropic Claude 2: Text generation](Actions/InvokeModelAsync.cs)
+- [Meta Llama 2: Text generation](Actions/InvokeModelAsync.cs)
+- [Mistral AI: Text generation with Mistral 7B Instruct](Actions/InvokeModelAsync.cs)
+- [Mistral AI: Text generation with Mixtral 8x7B Instruct](Actions/InvokeModelAsync.cs)
+- [Stable Diffusion: Image generation](Actions/InvokeModelAsync.cs)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
