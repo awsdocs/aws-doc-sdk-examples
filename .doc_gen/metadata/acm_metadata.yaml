@@ -23,6 +23,14 @@ acm_DescribeCertificate:
               snippet_tags:
                 - python.example_code.acm.AcmCertificate
                 - python.example_code.acm.DescribeCertificate
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.DescribeCertificate
   services:
     acm: {DescribeCertificate}
 acm_GetCertificate:
@@ -40,6 +48,14 @@ acm_GetCertificate:
               snippet_tags:
                 - python.example_code.acm.AcmCertificate
                 - python.example_code.acm.GetCertificate
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.GetCertificate
   services:
     acm: {GetCertificate}
 acm_ListCertificates:
@@ -66,6 +82,14 @@ acm_ListCertificates:
               snippet_tags:
                 - python.example_code.acm.AcmCertificate
                 - python.example_code.acm.ListCertificates
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.ListCertificates
   services:
     acm: {ListCertificates}
 acm_ImportCertificate:
@@ -83,6 +107,14 @@ acm_ImportCertificate:
               snippet_tags:
                 - python.example_code.acm.AcmCertificate
                 - python.example_code.acm.ImportCertificate
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.ImportCertificate
   services:
     acm: {ImportCertificate}
 acm_DeleteCertificate:
@@ -100,6 +132,14 @@ acm_DeleteCertificate:
               snippet_tags:
                 - python.example_code.acm.AcmCertificate
                 - python.example_code.acm.DeleteCertificate
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.DeleteCertificate
   services:
     acm: {DeleteCertificate}
 acm_AddTagsToCertificate:
@@ -117,8 +157,32 @@ acm_AddTagsToCertificate:
               snippet_tags:
                 - python.example_code.acm.AcmCertificate
                 - python.example_code.acm.AddTagsToCertificate
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.AddTagsToCertificate
   services:
     acm: {AddTagsToCertificate}
+acm_ExportCertificate:
+  title: Export an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Export a certificate
+  synopsis: Export an &ACM; certificate.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.ExportCertificate
+  services:
+    acm: {ExportCertificate}
 acm_ListTagsForCertificate:
   title: List tags for an &ACM; certificate using an &AWS; SDK
   title_abbrev: List tags for a certificate
@@ -134,6 +198,14 @@ acm_ListTagsForCertificate:
               snippet_tags:
                 - python.example_code.acm.AcmCertificate
                 - python.example_code.acm.ListTagsForCertificate
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.ListTagsForCertificate
   services:
     acm: {ListTagsForCertificate}
 acm_RemoveTagsFromCertificate:
@@ -151,6 +223,14 @@ acm_RemoveTagsFromCertificate:
               snippet_tags:
                 - python.example_code.acm.AcmCertificate
                 - python.example_code.acm.RemoveTagsFromCertificate
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.RemoveTagsFromCertificate
   services:
     acm: {RemoveTagsFromCertificate}
 acm_RequestCertificate:
@@ -168,6 +248,14 @@ acm_RequestCertificate:
               snippet_tags:
                 - python.example_code.acm.AcmCertificate
                 - python.example_code.acm.RequestCertificate
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.RequestCertificate
   services:
     acm: {RequestCertificate}
 acm_ResendValidationEmail:
@@ -185,8 +273,48 @@ acm_ResendValidationEmail:
               snippet_tags:
                 - python.example_code.acm.AcmCertificate
                 - python.example_code.acm.ResendValidationEmail
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.ResendValidationEmail
   services:
     acm: {ResendValidationEmail}
+acm_RenewCertificate:
+  title: Renew an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Renew a certificate
+  synopsis: renew an &ACM; certificate.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.RenewCertificate
+  services:
+    acm: {RenewCertificate}
+acm_UpdateCertificateOptions:
+  title: Update an &ACM; certificate using an &AWS; SDK
+  title_abbrev: Update a certificate
+  synopsis: update an &ACM; certificate.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/acm
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.acm.UpdateCertificateOptions
+  services:
+    acm: {UpdateCertificateOptions}
 acm_Usage_ImportListRemove:
   title: Manage &ACM; certificates using an &AWS; SDK
   title_abbrev: Manage certificates

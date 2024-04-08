@@ -113,9 +113,12 @@ s3_CreateBucket:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description:
+            - description: Create a bucket.
               snippet_tags:
                 - s3.java2.create_bucket_waiters.main
+            - description: Create a bucket with object lock enabled.
+              snippet_tags:
+                - S3LockWorkflow.javav2.CreateBucketWithLockOptions.main  
     JavaScript:
       versions:
         - sdk_version: 3
@@ -963,6 +966,15 @@ s3_GetObjectLegalHoldConfiguration:
   synopsis: get the legal hold configuration of an S3 bucket.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.javav2.GetObjectLegalHold.main
     .NET:
       versions:
         - sdk_version: 3
@@ -980,6 +992,15 @@ s3_GetObjectLockConfiguration:
   synopsis: get the object lock configuration of an S3 bucket.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.javav2.GetBucketObjectLockConfiguration.main
     .NET:
       versions:
         - sdk_version: 3
@@ -997,6 +1018,15 @@ s3_GetObjectRetention:
   synopsis: get the retention configuration of an S3 object.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.javav2.GetObjectRetention.main
     .NET:
       versions:
         - sdk_version: 3
@@ -2148,6 +2178,15 @@ s3_PutObjectLegalHold:
   synopsis: set the legal hold configuration of an S3 object.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.javav2.ModifyObjectLegalHold.main
     .NET:
       versions:
         - sdk_version: 3
@@ -2165,6 +2204,15 @@ s3_PutObjectLockConfiguration:
   synopsis: set the object lock configuration of an existing S3 bucket.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.javav2.EnableObjectLockOnBucket.main
     .NET:
       versions:
         - sdk_version: 3
@@ -2182,6 +2230,15 @@ s3_PutObjectRetention:
   synopsis: set the retention period of an S3 object.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.javav2.ModifyObjectRetentionPeriod.main
     .NET:
       versions:
         - sdk_version: 3
@@ -2199,6 +2256,15 @@ s3_PutDefaultObjectLockConfiguration:
   synopsis: set the default retention period of an S3 bucket.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3LockWorkflow.javav2.ModifyBucketDefaultRetention.main
     .NET:
       versions:
         - sdk_version: 3
@@ -2901,7 +2967,7 @@ s3_Scenario_URIParsing:
     Java:
       versions:
         - sdk_version: 2
-          github: java/example_code/s3
+          github: javav2/example_code/s3
           sdkguide:
           excerpts:
             - description: Parse an &S3; URI by using the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Uri.html">S3Uri</ulink> class.
@@ -2919,7 +2985,7 @@ s3_Scenario_UploadStream:
     Java:
       versions:
         - sdk_version: 2
-          github: java/example_code/s3
+          github: javav2/example_code/s3
           sdkguide:
           excerpts:
             - description: Use the <ulink url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation">&AWS; CRT-based S3 Client</ulink>.
@@ -2942,7 +3008,7 @@ s3_Scenario_MultipartUpload:
     Java:
       versions:
         - sdk_version: 2
-          github: java/example_code/s3
+          github: javav2/example_code/s3
           sdkguide:
           excerpts:
             - description: The code examples use the following imports.
@@ -2973,7 +3039,7 @@ s3_Scenario_UseChecksums:
     Java:
       versions:
         - sdk_version: 2
-          github: java/example_code/s3
+          github: javav2/example_code/s3
           sdkguide:
           excerpts:
             - description: The code examples use a subset of the following imports.
@@ -3059,6 +3125,18 @@ s3_Scenario_ObjectLock:
   synopsis: work with S3 object lock features.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/usecases/s3_object_lock_scenario
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &S3; object lock features.
+              snippet_tags:
+                - S3LockWorkflow.javav2.ObjectLockWorkflow.main
+            - description: A wrapper class for S3 functions.
+              snippet_tags:
+                - S3LockWorkflow.javav2.S3ActionsWrapper.main
     .NET:
       versions:
         - sdk_version: 3
@@ -3082,7 +3160,7 @@ s3_SelectObjectContent:
     Java:
       versions:
         - sdk_version: 2
-          github: java2/example_code/s3
+          github: javav2/example_code/s3
           sdkguide:
           excerpts:
             - description: The following example shows a query using a JSON object. The <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/SelectObjectContentExample.java">complete example</ulink> also shows the use of a CSV object.

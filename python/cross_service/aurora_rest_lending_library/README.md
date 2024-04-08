@@ -7,7 +7,7 @@ Service (Amazon RDS) API and AWS Chalice to create a REST API backed by an
 Amazon Aurora database. The web service is fully serverless and represents
 a simple lending library where patrons can borrow and return books. Learn how to:
 
-* Create and manage a serverless Amazon Aurora database cluster.
+* Create and manage a serverless Amazon Aurora database. This example uses Aurora Serverless v2.
 * Use AWS Secrets Manager to manage database credentials.
 * Implement a data storage layer that uses Amazon RDS Data Service to move data into
 and out of the database.  
@@ -47,29 +47,15 @@ all must be run separately.
 
 ---
 
-### 1. Database deployment
-
-This database setup includes:
-* an Amazon Aurora serverless data cluster
-* an AWS Secrets Manager secret to hold the database user credentials.
-
-This infrastructure is defined in a [setup.ts](resources/cdk/aurora_serverless_app/setup.ts) (see [README.md](resources/cdk/aurora_serverless_app/README.md)).
-
-To execute this CDK stack, run:
-```
-cdk deploy
-```
-The output will show `ClusterArn`, `DbName`, and `SecretArn`. Make sure these values are reflected in the [config for this project](config.yml).
-
----
-
-### 2. Populate database
+    Creates an Amazon Aurora cluster and associated Aurora Serverless v2 database instance.
+    Also creates an AWS Secrets Manager secret to hold the database user credentials.
+    It fills the database with example data pulled from the [Internet Archive's Open Library](https://openlibrary.org). 
     
 Fill the database with example data pulled from the [Internet Archive's Open Library](https://openlibrary.org). 
 
 ```
-python library_demo.py populate_data
-```
+python library_demo.py deploy_database
+``` 
 
 The database is now ready and can be accessed through the 
 [AWS Console Query Editor](https://console.aws.amazon.com/rds/home?#query-editor:) 

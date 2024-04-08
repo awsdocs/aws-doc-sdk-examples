@@ -1,0 +1,16 @@
+<ListAllMyBucketsResult>
+    <Buckets>
+        <Bucket>
+            <CreationDate>2019-12-11T23:32:47+00:00</CreationDate>
+            <String>DOC-EXAMPLE-BUCKET</String>
+        </Bucket>
+        <Bucket>
+            <CreationDate>2019-11-10T23:32:13+00:00</CreationDate>
+            <String>DOC-EXAMPLE-BUCKET2</String>
+        </Bucket>
+    </Buckets>
+    <Owner>
+        <DisplayName>Account+Name</DisplayName>
+        <ID>AIDACKCEVSQ6C2EXAMPLE</ID>
+    </Owner>
+</ListAllMyBucketsResult>

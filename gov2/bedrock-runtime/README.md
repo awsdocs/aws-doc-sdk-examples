@@ -92,20 +92,15 @@ go run ./cmd -h
 
 #### Invoke multiple foundation models on Amazon Bedrock
 
-This example shows you how to invoke multiple foundation models on Amazon Bedrock.
-
-- Generate text with Anthropic Claude.
-- Generate text with AI21 Labs Jurassic-2.
-- Generate text with Meta Llama 2 Chat.
-- Asynchronously process the response stream from Anthropic Claude.
-- Generate an image with the Amazon Titan Image Generator.
-
-<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModelsInclResponseStream.start-->
-<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModelsInclResponseStream.end-->
+This example shows you how to prepare and send a prompt to a variety of large-language models (LLMs) on Amazon Bedrock
 
 
-<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModelsInclResponseStream.start-->
-<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModelsInclResponseStream.end-->
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.start-->
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.end-->
+
+
+<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.start-->
+<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.end-->
 
 ### Tests
 

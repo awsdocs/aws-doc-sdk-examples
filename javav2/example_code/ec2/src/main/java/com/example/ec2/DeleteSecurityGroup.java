@@ -3,7 +3,6 @@
 
 package com.example.ec2;
 
-// snippet-start:[ec2.java2.delete_security_group.main]
 // snippet-start:[ec2.java2.delete_security_group.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
@@ -59,4 +58,4 @@ public class DeleteSecurityGroup {
         }
     }
 }
-// snippet-end:[ec2.java2.delete_security_group.main]
+

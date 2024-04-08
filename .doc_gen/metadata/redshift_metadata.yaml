@@ -1,4 +1,21 @@
 # zexi 0.4.0
+redshift_Hello:
+  title: Hello &RS;
+  title_abbrev: Hello &RS;
+  synopsis: get started using &RS;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - redshift.java2.hello.main
+  services:
+    redshift: {describeClusters}
 redshift_CreateCluster:
   title: Create an &RS; cluster using an &AWS; SDK
   title_abbrev: Create a cluster
@@ -76,9 +93,9 @@ redshift_DeleteCluster:
   services:
     redshift: {DeleteCluster}
 redshift_DescribeClusters:
-  title: Describe an &RS; cluster using an &AWS; SDK
-  title_abbrev: Describe your clusters
-  synopsis: describe your &RS; clusters.
+  title: Describe clusters using an &AWS; SDK
+  title_abbrev: Describe clusters
+  synopsis: describe &RS; clusters.
   category:
   languages:
     Kotlin:
@@ -151,3 +168,105 @@ redshift_ModifyCluster:
                 - redshift.javascript.redshift-modify-clustersV3
   services:
     redshift: {ModifyCluster}
+redshift_Insert:
+  title: Insert data into an &RS; table using an &AWS; SDK
+  title_abbrev: Insert data into a table
+  synopsis: insert data into an &RS; table.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - redshiftdata.java2.add.record.main
+  services:
+    redshift: {Insert}
+redshift_Query:
+  title: Query an &RS; table using an &AWS; SDK
+  title_abbrev: Query a table
+  synopsis: query an &RS; table.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Query a table.
+              snippet_tags:
+                - redshiftdata.java2.query.main
+  services:
+    redshift: {Query}
+redshift_DescribeStatement:
+  title: Describe an &RS; query statement using an &AWS; SDK
+  title_abbrev: Describe a query statement
+  synopsis: describe an &RS; query statement.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - redshiftdata.java2.checkstatement.main
+  services:
+    redshift: {DescribeStatement}    
+redshift_GetStatementResult:
+  title: Get the &RS; statement result using an &AWS; SDK
+  title_abbrev: Get the statement result
+  synopsis: get the statement result.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Check the statement result.
+              snippet_tags:
+                - redshiftdata.java2.getresults.main
+  services:
+    redshift: {GetStatementResult}
+redshift_CreateTable:
+  title: Create an &RS; table using an &AWS; SDK
+  title_abbrev: Create a table 
+  synopsis: create an &RS; table.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - redshiftdata.java2.create_table.main
+  services:
+    redshift: {CreateTable}    
+redshift_Scenario:
+  title: Get started with &RS; tables, items, and queries
+  title_abbrev: Get started with &RS;
+  synopsis: work with &RS; tables, items, and queries.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - redshift.java2.scenario.main
+  services:
+    redshift: {createCluster, describeClusters, executeStatement, describeStatement, modifyCluster, getStatementResult, listDatabasesPaginator}

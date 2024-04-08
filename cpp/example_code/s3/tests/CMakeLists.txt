@@ -122,6 +122,7 @@ target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC
         TESTING_BUILD
+        SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
 target_link_libraries(

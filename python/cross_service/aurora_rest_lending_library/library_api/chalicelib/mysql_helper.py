@@ -80,11 +80,13 @@ def _make_params(values):
         param = {
             "name": f"{key}",
             "value": {
-                VALUE_KEYS[type(val)]: str(val)
-                if isinstance(val, datetime.date)
-                else val
-                if val is not None
-                else True
+                VALUE_KEYS[type(val)]: (
+                    str(val)
+                    if isinstance(val, datetime.date)
+                    else val
+                    if val is not None
+                    else True
+                )
             },
         }
         if isinstance(val, datetime.date):
@@ -264,7 +266,13 @@ def unpack_insert_results(results):
     :param results: The results from the INSERT statement.
     :return: The ID of the inserted row.
     """
-    return results["generatedFields"][0]["longValue"]
+    try:
+        return results["generatedFields"][0]["longValue"]
+    except:
+        print(
+            f"Error trying to unpack generatedFields value from result of INSERT statement: {str(results)}"
+        )
+        raise
 
 
 def delete(table, value_sets):

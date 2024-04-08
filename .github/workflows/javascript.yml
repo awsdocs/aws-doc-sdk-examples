@@ -36,4 +36,4 @@ jobs:
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})
-          npm run --prefix javascriptv3 ci-lint -- ${changed_files[@]//javascriptv3\/}
+          ./javascriptv3/github_scripts/lint.sh "${changed_files[@]}"

@@ -24,7 +24,7 @@ You can use the AWS Cloud Development Kit (AWS CDK) or the AWS Command Line Inte
 To deploy with the AWS CDK, you must install [Node.js](https://nodejs.org) and the 
 [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
-This example was built and tested with AWS CDK 2.25.0.
+This example was built and tested with AWS CDK 2.132.1.
 
 Deploy AWS resources by running the following at a command prompt in the
 `resources/cdk/aurora_serverless_app` folder:
@@ -93,11 +93,11 @@ Replace the `resource-arn` and `secret-arn` values with the values that were out
 when you deployed the resource stack.
 
 ```
-aws rds-data execute-statement ^
-    --resource-arn "arn:aws:rds:us-west-2:0123456789012:cluster:doc-example-aurora-app-docexampleauroraappcluster-1bqmf5EXAMPLE" ^
-    --database "auroraappdb" ^
-    --secret-arn "arn:aws:secretsmanager:us-west-2:0123456789012:secret:docexampleauroraappsecret8B-6N2njEXAMPLE-111222" ^
-    --sql "CREATE TABLE Persons (PersonID int, LastName varchar(255), FirstName varchar(255));"
+aws rds-data execute-statement \
+    --resource-arn "arn:aws:rds:us-west-2:0123456789012:cluster:doc-example-aurora-app-docexampleauroraappcluster-1bqmf5EXAMPLE" \
+    --database "auroraappdb" \
+    --secret-arn "arn:aws:secretsmanager:us-west-2:0123456789012:secret:docexampleauroraappsecret8B-6N2njEXAMPLE-111222" \
+    --sql "CREATE TABLE Persons (PersonID int, LastName varchar(255), FirstName varchar(255))"
 ```
 
 > *Note:* Because Aurora is serverless, your cluster may need to warm up before it can 
@@ -107,13 +107,13 @@ aws rds-data execute-statement ^
 You can insert a row into the `Persons` table by substituting SQL like the following:
 
 ```
-    --sql "INSERT INTO Persons VALUES (1, 'Owusu', 'Efua');"
+    --sql "INSERT INTO Persons VALUES (1, 'Owusu', 'Efua')"
 ```
 
 Or get all data from the `Persons` table:
 
 ```
-    --sql "SELECT * FROM Persons;"
+    --sql "SELECT * FROM Persons"
 ```
 
 ## Destroying resources

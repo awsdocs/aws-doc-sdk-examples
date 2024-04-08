@@ -36,14 +36,22 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Image generation with Amazon Titan Image Generator G1](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L399) (`InvokeModel`)
-- [Image generation with Stability.ai Stable Diffusion XL](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L329) (`InvokeModel`)
-- [Text generation with AI21 Labs Jurassic-2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L205) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L143) (`InvokeModel`)
-- [Text generation with Anthropic Claude 2 with a response stream](src/main/java/com/example/bedrockruntime/InvokeModelWithResponseStream.java#L28) (`InvokeModelWithResponseStream`)
-- [Text generation with Meta Llama 2 Chat](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L268) (`InvokeModel`)
-- [Text generation with Mistral 7B](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L33) (`InvokeModel`)
-- [Text generation with Mixtral 8x7B](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L88) (`InvokeModel`)
+- [AI21 Labs Jurassic-2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L205) (`InvokeModel`)
+- [Amazon Titan: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L399) (`InvokeModel`)
+- [Anthropic Claude 2: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude2.java#L65) (`InvokeModelWithResponseStream`)
+- [Anthropic Claude 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModel.java#L112) (`InvokeModel`)
+- [Anthropic Claude 3: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude3.java#L49) (`InvokeModelWithResponseStream`)
+- [Meta Llama 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L268) (`InvokeModel`)
+- [Mistral AI: Text generation with Mistral 7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L33) (`InvokeModel`)
+- [Mistral AI: Text generation with Mixtral 8x7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L88) (`InvokeModel`)
+- [Stable Diffusion: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L329) (`InvokeModel`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Invoke multiple foundation models on Amazon Bedrock](src/main/java/com/example/bedrockruntime/BedrockRuntimeUsageDemo.java)
 
 
 <!--custom.examples.start-->
@@ -58,6 +66,18 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.end-->
 
 
+
+#### Invoke multiple foundation models on Amazon Bedrock
+
+This example shows you how to prepare and send a prompt to a variety of large-language models (LLMs) on Amazon Bedrock
+
+
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.start-->
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.end-->
+
+
+<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.start-->
+<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.end-->
 
 ### Tests
 

@@ -35,7 +35,7 @@ Code excerpts that show you how to call individual service functions.
 
 - [Create a cluster](src/libs/redshiftClient.js#L15) (`CreateCluster`)
 - [Delete a cluster](src/libs/redshiftClient.js#L15) (`DeleteCluster`)
-- [Describe your clusters](src/libs/redshiftClient.js#L15) (`DescribeClusters`)
+- [Describe clusters](src/libs/redshiftClient.js#L15) (`DescribeClusters`)
 - [Modify a cluster](src/libs/redshiftClient.js#L15) (`ModifyCluster`)
 
 

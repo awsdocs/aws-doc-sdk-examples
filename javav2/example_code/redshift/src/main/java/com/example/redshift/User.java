@@ -7,9 +7,9 @@ public class User {
     private String username;
     private String  password;
 
-    private String masterUsername;
+    private String userName;
 
-    private String masterUserPassword;
+    private String userPassword;
 
     private String host;
 
@@ -27,11 +27,11 @@ public class User {
         return this.host;
     }
 
-    public String getMasterUsername(){
-        return this.masterUsername;
+    public String getUserName(){
+        return this.userName;
     }
 
-    public String getMasterUserPassword(){
-        return this.masterUserPassword;
+    public String getUserPassword(){
+        return this.userPassword;
     }
 }

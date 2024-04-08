@@ -1,0 +1,9 @@
+# brew install poppler
+# brew install tesseract
+unstructured
+boto3
+langchain
+unstructured[pdf]
+langchain-community
+pytz
+anthropic

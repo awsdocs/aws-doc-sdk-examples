@@ -1,0 +1,15 @@
+<GetUserResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">   <GetUserResult>
+     <User>
+       <Path>/</Path>
+       <PasswordLastUsed>2023-04-10T19:34:28Z</PasswordLastUsed>
+       <UserName>UnitTester</UserName>
+       <Arn>arn:aws:iam::1111111222222:user/UnitTester</Arn>
+       <UserId>AIDARZQKN6ARLXIC6YK7J</UserId>
+       <CreateDate>2022-08-10T13:38:30Z</CreateDate>
+     </User>
+   </GetUserResult>
+   <ResponseMetadata>
+     <RequestId>12edbe2c-76a6-416d-9470-4010556b1c59</RequestId>
+   </ResponseMetadata>
+ </GetUserResponse>
+ 

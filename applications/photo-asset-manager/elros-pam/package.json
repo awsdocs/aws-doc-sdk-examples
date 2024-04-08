@@ -11,7 +11,7 @@
   "dependencies": {
     "@cloudscape-design/components": "^3.0.308",
     "@cloudscape-design/global-styles": "^1.0.9",
-    "jose": "^4.14.4",
+    "jose": "^4.15.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zustand": "^4.3.8"
@@ -21,6 +21,6 @@
     "@types/react-dom": "^18.2.4",
     "@vitejs/plugin-react": "^4.0.0",
     "typescript": "^5.1.3",
-    "vite": "^4.5.2"
+    "vite": "^4.5.3"
   }
 }

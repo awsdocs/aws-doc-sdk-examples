@@ -1,0 +1,22 @@
+{
+  "coupons": [
+    {
+      "details": "20% off on all electronics"
+    },
+    {
+      "details": "Buy one, get one free on books"
+    },
+    {
+      "details": "15% off on home appliances"
+    },
+    {
+      "details": "Free shipping on orders over $50"
+    },
+    {
+      "details": "25% off on outdoor gear"
+    },
+    {
+      "details": "10% off on groceries"
+    }
+  ]
+}
