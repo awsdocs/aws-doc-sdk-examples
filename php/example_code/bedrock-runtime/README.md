@@ -42,7 +42,7 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](GettingStartedWithBedrockRuntime.php)
 
-### Models
+### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](BedrockRuntimeService.php#L72)
 - [Amazon Titan: Image generation](BedrockRuntimeService.php#L184)

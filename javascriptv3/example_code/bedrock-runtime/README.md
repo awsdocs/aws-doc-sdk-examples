@@ -43,7 +43,7 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/cli_text_playground.js)
 
-### Models
+### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](models/ai21_labs_jurassic2/jurassic2.js)
 - [Amazon Titan: Text generation](models/amazon_titan/titan_text.js)

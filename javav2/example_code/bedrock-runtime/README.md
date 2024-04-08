@@ -38,7 +38,7 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](src/main/java/com/example/bedrockruntime/BedrockRuntimeUsageDemo.java)
 
-### Models
+### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L205)
 - [Amazon Titan: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L399)

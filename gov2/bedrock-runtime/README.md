@@ -41,7 +41,7 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/scenario_invoke_models.go)
 
-### Models
+### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](actions/invoke_model.go#L78)
 - [Amazon Titan: Image generation](actions/invoke_model.go#L178)

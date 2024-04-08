@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 > ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 > 
 <!--custom.prerequisites.end-->
-### Models
+### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](bedrock_runtime_wrapper.py#L79)
 - [Amazon Titan: Image generation](bedrock_runtime_wrapper.py#L275)

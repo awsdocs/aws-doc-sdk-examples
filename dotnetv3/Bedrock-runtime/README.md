@@ -28,7 +28,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-### Models
+### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](Actions/InvokeModelAsync.cs#L164)
 - [Amazon Titan: Image generation](Actions/InvokeModelAsync.cs#L450)
