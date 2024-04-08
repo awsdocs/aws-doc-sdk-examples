@@ -41,8 +41,7 @@ Code excerpts that show you how to call individual service functions.
 - [Delete an email identity](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L380) (`DeleteEmailIdentity`)
 - [Delete an email template](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L357) (`DeleteEmailTemplate`)
 - [List the contacts in a contact list](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L258) (`ListContacts`)
-- [Send a simple email](src/main/java/com/example/sesv2/SendEmail.java#L6) (`SendEmail`)
-- [Send a templated email](src/main/java/com/example/sesv2/NewsletterWorkflow.java#L278) (`SendEmail`)
+- [Send an email](src/main/java/com/example/sesv2/SendEmail.java#L6) (`SendEmail`)
 
 ### Scenarios
 
