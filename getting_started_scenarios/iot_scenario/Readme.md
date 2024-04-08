@@ -33,7 +33,7 @@ The program interacts with the following AWS IoT service operations:
 13. **Delete Certificate**: Deletes the previously created device certificate.
 14. **Delete IoT Thing**: Deletes the IoT Thing.
 
-The program demonstrates the comprehensive capabilities of the AWS IoT Core service and showcases how to integrate these various operations using the AWS SDK for Java V2."
+The program demonstrates the comprehensive capabilities of the AWS IoT Core service and showcases how to integrate these various operations using the AWS SDK for Java V2.
 
 
 
