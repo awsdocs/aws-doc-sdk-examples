@@ -30,8 +30,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 <!--custom.prerequisites.end-->
 ### Models
 
-- [Anthropic Claude 2: Text generation](zcl_aws1_bdr_actions.clas.abap)
-- [Stable Diffusion: Image generation](zcl_aws1_bdr_actions.clas.abap)
+- [Anthropic Claude 2: Text generation](zcl_aws1_bdr_actions.clas.abap#L109)
+- [Stable Diffusion: Image generation](zcl_aws1_bdr_actions.clas.abap#L179)
 
 
 <!--custom.examples.start-->

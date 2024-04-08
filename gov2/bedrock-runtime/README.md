@@ -43,11 +43,11 @@ functions within the same service.
 
 ### Models
 
-- [AI21 Labs Jurassic-2: Text generation](actions/invoke_model.go)
-- [Amazon Titan: Image generation](actions/invoke_model.go)
-- [Anthropic Claude 2: Real-time response stream processing](actions/invoke_model_with_response_stream.go)
-- [Anthropic Claude 2: Text generation](actions/invoke_model.go)
-- [Meta Llama 2: Text generation](actions/invoke_model.go)
+- [AI21 Labs Jurassic-2: Text generation](actions/invoke_model.go#L78)
+- [Amazon Titan: Image generation](actions/invoke_model.go#L178)
+- [Anthropic Claude 2: Real-time response stream processing](actions/invoke_model_with_response_stream.go#L30)
+- [Anthropic Claude 2: Text generation](actions/invoke_model.go#L27)
+- [Meta Llama 2: Text generation](actions/invoke_model.go#L130)
 
 
 <!--custom.examples.start-->

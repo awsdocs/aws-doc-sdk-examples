@@ -156,13 +156,19 @@ class Renderer:
         pre_cats = self.scanner.custom_categories()
         post_cats = defaultdict(list)
         for pre_id, pre in pre_cats.items():
+            api = ""
+            if len(pre["services"][self.scanner.svc_name]) == 1:
+                try:
+                    api = next(iter(pre["services"][self.scanner.svc_name]))
+                except:
+                    api = ""
             cat = {
                 "id": pre_id,
                 "title_abbrev": pre["title_abbrev"],
                 "synopsis": pre.get("synopsis"),
                 "synopsis_list": pre.get("synopsis_list", []),
                 "file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], ""
+                    pre, self.sdk_ver, self.lang_config["service_folder"], api
                 ),
             }
             if cat["file"] is None:

@@ -30,15 +30,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 <!--custom.prerequisites.end-->
 ### Models
 
-- [AI21 Labs Jurassic-2: Text generation](Actions/InvokeModelAsync.cs)
-- [Amazon Titan: Image generation](Actions/InvokeModelAsync.cs)
-- [Amazon Titan: Text generation](Actions/InvokeModelAsync.cs)
-- [Anthropic Claude 2: Real-time response stream processing](Actions/InvokeModelAsync.cs)
-- [Anthropic Claude 2: Text generation](Actions/InvokeModelAsync.cs)
-- [Meta Llama 2: Text generation](Actions/InvokeModelAsync.cs)
-- [Mistral AI: Text generation with Mistral 7B Instruct](Actions/InvokeModelAsync.cs)
-- [Mistral AI: Text generation with Mixtral 8x7B Instruct](Actions/InvokeModelAsync.cs)
-- [Stable Diffusion: Image generation](Actions/InvokeModelAsync.cs)
+- [AI21 Labs Jurassic-2: Text generation](Actions/InvokeModelAsync.cs#L164)
+- [Amazon Titan: Image generation](Actions/InvokeModelAsync.cs#L450)
+- [Amazon Titan: Text generation](Actions/InvokeModelAsync.cs#L277)
+- [Anthropic Claude 2: Real-time response stream processing](Actions/InvokeModelAsync.cs#L76)
+- [Anthropic Claude 2: Text generation](Actions/InvokeModelAsync.cs#L18)
+- [Meta Llama 2: Text generation](Actions/InvokeModelAsync.cs#L221)
+- [Mistral AI: Text generation with Mistral 7B Instruct](Actions/InvokeModelAsync.cs#L338)
+- [Mistral AI: Text generation with Mixtral 8x7B Instruct](Actions/InvokeModelAsync.cs#L394)
+- [Stable Diffusion: Image generation](Actions/InvokeModelAsync.cs#L518)
 
 
 <!--custom.examples.start-->

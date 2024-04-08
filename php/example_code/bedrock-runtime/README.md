@@ -44,11 +44,11 @@ functions within the same service.
 
 ### Models
 
-- [AI21 Labs Jurassic-2: Text generation](BedrockRuntimeService.php)
-- [Amazon Titan: Image generation](BedrockRuntimeService.php)
-- [Anthropic Claude 2: Text generation](BedrockRuntimeService.php)
-- [Meta Llama 2: Text generation](BedrockRuntimeService.php)
-- [Stable Diffusion: Image generation](BedrockRuntimeService.php)
+- [AI21 Labs Jurassic-2: Text generation](BedrockRuntimeService.php#L72)
+- [Amazon Titan: Image generation](BedrockRuntimeService.php#L184)
+- [Anthropic Claude 2: Text generation](BedrockRuntimeService.php#L33)
+- [Meta Llama 2: Text generation](BedrockRuntimeService.php#L107)
+- [Stable Diffusion: Image generation](BedrockRuntimeService.php#L142)
 
 
 <!--custom.examples.start-->
