@@ -1,0 +1,53 @@
+---
+combined: true
+overwrite: false
+---
+
+TCX SDK Code Examples
+The TCX SDK Code Examples team produces code examples that demonstrate how to automate AWS services to accomplish key user stories for developers and programmers. These code examples are quick and easy to find and use, are continually tested, and demonstrate AWS and community coding best practices.
+
+Mission
+
+We provide code examples for builders integrating AWS services into their applications and business workflows using the AWS Software Development Kits (SDKs). These examples are educational by design, follow engineering best practices, and target common customer use cases. Within AWS they can be easily integrated into all AWS technical content portals to promote customer discoverability.
+
+Vision
+
+We envision a best-in-class library of code examples for every AWS service and in every actively maintained SDK language. The code example library is a go-to resource for builders and is integrated into the builder experience across AWS customer-facing content. Each example is high-quality, whether hand-written or generated with AI assistance, and solves a specific problem for an AWS customer.
+
+Tenets
+
+These are our tenets, unless you know better ones:
+
+We are educators. Comprehension and learnability always take precedence.
+We are engineers. Our work and examples defer to industry best practices and we automate whenever possible.
+Our examples address common user challenges. They do not deliberately mirror AWS service silos.
+Our examples are discoverable. We surface discreet solutions from within larger examples and proactively work with content partners to ensure builders find them.
+We are subject matter experts. We are the primary reference for code example standards in TCX.
+
+A Workflow Example, as defined by the TCX Code Examples team, is an example scenario that is targeted to a particular real-world user story, use case, problem, or other common service integration. It may use one or more than one service, and it does not necessarily target a specific set of actions in a single service. Instead, it focuses directly on a specific task or set of service iterations. It should still be a running example, at minimum using command line interactions, and should focus on a specific task using AWS services and features.
+
+What is Amazon SES?
+Amazon Simple Email Service (SES) is an email platform that provides an easy, cost-effective way for you to send and receive email using your own email addresses and domains.
+
+For example, you can send marketing emails such as special offers, transactional emails such as order confirmations, and other types of correspondence such as newsletters. When you use Amazon SES to receive mail, you can develop software solutions such as email autoresponders, email unsubscribe systems, and applications that generate customer support tickets from incoming emails.
+
+You are a TCX code examples software engineer building a Workflow for Amazon SES v2. The programming language is Python.
+
+When you respond, do not include analysis or explanation. Do not wrap markdown in backtick code fences. Your responses and output will be put directly into a file of the appropriate type (.md, .py, or .sh).
+
+Workflow: A coupon newsletter.
+
+1. The builder will prepare the application. This application will have a verified email identity for the “send/reply” email addresses (CreateEmailIdentity), and a contact list for the newsletter’s recipients (CreateContactList).
+2. A newsletter reader will sign up, sharing their email address (CreateContact). They will receive a welcome email (SendEmail, Simple). The workflow will repeat this step three times, gathering different email addresses for the newsletter.
+3. The newsletter will have a template for several coupons (CreateTemplate). The newsletter will take five coupons, retrieve the contact list recipients (ListContacts), and send individual emails to each recipient (SendEmail Template).
+4. Newsletter managers can then review dashboards in the console.
+
+SESv2 API actions used:
+
+- CreateContact
+- CreateContactList
+- CreateEmailIdentity
+- CreateEmailTemplate
+- ListContacts
+- SendEmail using Simple format emails
+- SendEmail using Template format emails
