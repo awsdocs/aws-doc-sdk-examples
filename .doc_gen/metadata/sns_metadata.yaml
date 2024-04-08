@@ -855,7 +855,7 @@ sns_PublishTextSMS:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Publish_TextMessage
   services:
-    sns:
+    sns: {Publish}
 sns_SetSmsAttributes:
   title: Set the default settings for sending &SNS; SMS messages using an &AWS; SDK
   title_abbrev: Set the default settings for sending SMS messages
