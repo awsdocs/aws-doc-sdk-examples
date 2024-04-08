@@ -107,9 +107,8 @@ pub async fn handler(
 #[cfg(test)]
 mod test {
     use sdk_examples_test_utils::single_shot_client;
-    use serde_json::json;
 
-    use super::{get_labels, Labels};
+    use super::get_labels;
 
     #[tokio::test]
     async fn test_get_labels() {
