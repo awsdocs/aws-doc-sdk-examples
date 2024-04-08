@@ -40,7 +40,6 @@ Code excerpts that show you how to call individual service functions.
 - [Create a dataset export job](src/personalize_createDatasetExportJob.js#L24) (`CreateDatasetExportJob`)
 - [Create a dataset group](src/personalize_createDatasetGroup.js#L21) (`CreateDatasetGroup`)
 - [Create a dataset import job](src/personalize_createDatasetImportJob.js#L23) (`CreateDatasetImportJob`)
-- [Create a domain schema](src/personalize_createDomainSchema.js#L22) (`CreateSchema`)
 - [Create a filter](src/personalize_createFilter.js#L21) (`CreateFilter`)
 - [Create a recommender](src/personalize_createRecommender.js#L22) (`CreateRecommender`)
 - [Create a schema](src/personalize_createSchema.js#L21) (`CreateSchema`)

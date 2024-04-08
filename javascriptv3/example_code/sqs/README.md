@@ -39,7 +39,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 Code excerpts that show you how to call individual service functions.
 
 - [Change message timeout visibility](actions/change-message-visibility.js#L5) (`ChangeMessageVisibility`)
-- [Configure a dead-letter queue](actions/set-attributes-dead-letter.js#L6) (`SetQueueAttributes`)
 - [Create a queue](actions/create-queue.js#L9) (`CreateQueue`)
 - [Delete a batch of messages from a queue](actions/receive-delete-message.js#L6) (`DeleteMessageBatch`)
 - [Delete a message from a queue](actions/receive-delete-message.js#L6) (`DeleteMessage`)

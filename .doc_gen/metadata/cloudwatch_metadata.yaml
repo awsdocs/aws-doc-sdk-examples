@@ -1041,6 +1041,11 @@ cloudwatch_PutMetricData:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.PutMetricData
+            - description: Put a set of data into a &CW; metric.
+              snippet_tags:
+                - python.example_code.cloudwatch.CloudWatchWrapper
+                - python.example_code.cloudwatch.PutMetricData_DataSet
+
     Ruby:
       versions:
         - sdk_version: 3
@@ -1081,24 +1086,6 @@ cloudwatch_PutMetricData:
             - description:
               snippet_tags:
                 - cw.JavaScript.metrics.putMetricData
-  services:
-    cloudwatch: {PutMetricData}
-cloudwatch_PutMetricData_DataSet:
-  title: Put a set of data into a &CW; metric using an &AWS; SDK
-  title_abbrev: Put a set of data into a metric
-  synopsis: put a set of data into an &CWlong; metric.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/cloudwatch
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.cloudwatch.CloudWatchWrapper
-                - python.example_code.cloudwatch.PutMetricData_DataSet
   services:
     cloudwatch: {PutMetricData}
 cloudwatch_GetStartedMetricsDashboardsAlarms:

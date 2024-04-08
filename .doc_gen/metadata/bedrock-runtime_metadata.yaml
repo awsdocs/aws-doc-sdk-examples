@@ -28,7 +28,7 @@ bedrock-runtime_InvokeAmazonTitanImageGeneratorForImageGeneration:
   title: Invoke Amazon Titan Image G1 on &BR; to generate an image
   title_abbrev: "Amazon Titan: Image generation"
   synopsis: invoke Amazon Titan Image G1 on &BR; to generate an image.
-  category:
+  category: Invoke model examples
   languages:
     Java:
       versions:
@@ -81,7 +81,7 @@ bedrock-runtime_InvokeAmazonTitanForTextGeneration:
   title: Invoke Amazon Titan Text G1 on &BR; for text generation
   title_abbrev: "Amazon Titan: Text generation"
   synopsis: invoke Amazon Titan Text G1 on &BR; for text generation.
-  category:
+  category: Invoke model examples
   languages:
     JavaScript:
       versions:
@@ -107,7 +107,7 @@ bedrock-runtime_InvokeStableDiffusionForImageGeneration:
   title: Invoke Stability.ai Stable Diffusion XL  on &BR; to generate an image
   title_abbrev: "Stable Diffusion: Image generation"
   synopsis: invoke Stability.ai Stable Diffusion XL  on &BR; to generate an image.
-  category:
+  category: Invoke model examples
   languages:
     Java:
       versions:
@@ -163,6 +163,7 @@ bedrock-runtime_InvokeMistral7B:
   title: Invoke the Mistral 7B model on &BR; for text generation
   title_abbrev: "Mistral AI: Text generation with Mistral 7B Instruct"
   synopsis: invoke the Mistral 7B model on &BR; for text generation.
+  category: Invoke model examples
   languages:
     Java:
       versions:
@@ -207,6 +208,7 @@ bedrock-runtime_InvokeMixtral8x7B:
   title: Invoke the Mixtral 8x7B model on &BR; for text generation
   title_abbrev: "Mistral AI: Text generation with Mixtral 8x7B Instruct"
   synopsis: invoke the Mixtral 8x7B model on &BR; for text generation.
+  category: Invoke model examples
   languages:
     Java:
       versions:
@@ -251,6 +253,7 @@ bedrock-runtime_InvokeClaudeInstant:
   title: Invoke the Anthropic Claude Instant model on &BR; for text generation
   title_abbrev: "Anthropic Claude Instant: Text generation"
   synopsis: invoke the Anthropic Claude Instant model on &BR; for text generation.
+  category: Invoke model examples
   languages:
     JavaScript:
       versions:
@@ -267,6 +270,7 @@ bedrock-runtime_InvokeClaude2x:
   title: Invoke Anthropic Claude 2.x on &BR; for text generation
   title_abbrev: "Anthropic Claude 2: Text generation"
   synopsis: invoke the Anthropic Claude 2.x on &BR; for text generation.
+  category: Invoke model examples
   languages:
     Go:
       versions:
@@ -338,6 +342,7 @@ bedrock-runtime_Claude3_Text:
   title: Invoke Anthropic Claude 3 on &BR; to generate text
   title_abbrev: "Anthropic Claude 3: Text generation"
   synopsis: invoke Anthropic Claude 3 on &BR; to generate text.
+  category: Invoke model examples
   languages:
     Python:
       versions:
@@ -362,6 +367,7 @@ bedrock-runtime_Claude3_Multimodal:
   title: Invoke Anthropic Claude 3 on &BR; with a multimodal prompt
   title_abbrev: "Anthropic Claude 3: Multimodal invocation"
   synopsis: invoke Anthropic Claude 3 on &BR; with a multimodal prompt.
+  category: Invoke model examples
   languages:
     Python:
       versions:
@@ -378,7 +384,7 @@ bedrock-runtime_InvokeClaude2WithResponseStream:
   title: Invoke Anthropic Claude 2.x on &BR; and process the response stream in real-time
   title_abbrev: "Anthropic Claude 2: Real-time response stream processing"
   synopsis: invoke Anthropic Claude 2.x on &BR; and process the response stream in real-time.
-  category:
+  category: Invoke model examples
   languages:
     Go:
       versions:
@@ -432,7 +438,7 @@ bedrock-runtime_InvokeClaude3WithResponseStream:
   title: Invoke Anthropic Claude 3 on &BR; and process the response stream in real-time
   title_abbrev: "Anthropic Claude 3: Real-time response stream processing"
   synopsis: invoke Anthropic Claude 3 on &BR; and process the response stream in real-time.
-  category:
+  category: Invoke model examples
   languages:
     Java:
       versions:
@@ -449,7 +455,7 @@ bedrock-runtime_InvokeJurassic2:
   title: Invoke the AI21 Labs Jurassic-2 model on &BR; for text generation
   title_abbrev: "AI21 Labs Jurassic-2: Text generation"
   synopsis: invoke the AI21 Labs Jurassic-2 model on &BR; for text generation.
-  category:
+  category: Invoke model examples
   languages:
     Go:
       versions:
@@ -509,7 +515,7 @@ bedrock-runtime_InvokeLlama2:
   title: Invoke the Meta Llama 2 Chat model on &BR; for text generation
   title_abbrev: "Meta Llama 2: Text generation"
   synopsis: invoke the Meta Llama 2 Chat model on &BR; for text generation.
-  category:
+  category: Invoke model examples
   languages:
     Go:
       versions:

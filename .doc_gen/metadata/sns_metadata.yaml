@@ -318,101 +318,6 @@ sns_ListTopics:
                 - sns.abapv1.list_topics
   services:
     sns: {ListTopics}
-sns_Subscribe_App:
-  title: Subscribe a mobile application to an &SNS; topic using an &AWS; SDK
-  title_abbrev: Subscribe a mobile application to a topic
-  synopsis: subscribe a mobile application endpoint so it receives notifications from an &SNS; topic.
-  category:
-  languages:
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.subscribe_app.code
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-managing-topics.html#sns-examples-subscribing-apps
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.subscriptions.subscribeAppV3
-  services:
-    sns: {Subscribe}
-sns_Subscribe_HTTP:
-  title: Subscribe an HTTP endpoint to an &SNS; topic using an &AWS; SDK
-  title_abbrev: Subscribe an HTTP endpoint to a topic
-  synopsis: subscribe an HTTP or HTTPS endpoint so it receives notifications from an &SNS; topic.
-  category:
-  languages:
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.php.subscribe_HTTPS.complete
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.SubscribeHTTPS.main
-  services:
-    sns: {Subscribe}
-sns_Subscribe_Lambda:
-  title: Subscribe a &LAM; function to receive notifications from an &SNS; topic using an &AWS; SDK
-  title_abbrev: Subscribe a &LAM; function to a topic
-  synopsis: subscribe a &LAM; function so it receives notifications from an &SNS; topic.
-  category:
-  languages:
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.subscribe_lamda.code
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.SubscribeLambda.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.SubscribeLambda.main
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide: sdk-for-javascript/v3/developer-guide/sns-examples-subscribing-unubscribing-topics.html#sns-examples-subscribing-lambda
-          excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - sns.JavaScript.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - sns.JavaScript.subscriptions.subscribeLambdaV3
-  services:
-    sns: {Subscribe}
 sns_GetSMSAttributes:
   title: Get the settings for sending &SNS; SMS messages using an &AWS; SDK
   title_abbrev: Get the settings for sending SMS messages
@@ -456,109 +361,6 @@ sns_GetSMSAttributes:
                 - sns.JavaScript.SMS.getSMSAttributesV3
   services:
     sns: {GetSMSAttributes}
-sns_PublishTextSMS:
-  title: Publish an &SNS; SMS text message using an &AWS; SDK
-  title_abbrev: Publish an SMS text message
-  synopsis: publish SMS messages using &SNS;.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/SNS
-          excerpts:
-            - snippet_tags:
-                - SNS.dotnetv3.SNSMessageExample
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - sns.cpp.publish_sms.code
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sns.kotlin.PublishTextSMS.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/sns
-          sdkguide:
-          excerpts:
-            - snippet_tags:
-                - sns.java2.PublishTextSMS.main
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/sns
-          sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#publish-to-a-text-message-sms-message
-          excerpts:
-            - snippet_tags:
-                - sns.php.publish_text_SMS.complete
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.Publish_TextMessage
-  services:
-    sns: {Publish}
-sns_Publish_WithAttribute:
-  title: Publish an &SNS; text message with an attribute using an &AWS; SDK
-  title_abbrev: Publish a message with an attribute
-  synopsis: publish a message with an attribute using &SNS;.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/cross-service/TopicsAndQueues
-          excerpts:
-            - description: Publish a message to a topic with group, duplication, and attribute options.
-              snippet_tags:
-                - TopicsAndQueues.dotnetv3.PublishWithOptions
-            - description: Apply the user's selections to the publish action.
-              snippet_tags:
-                - TopicsAndQueues.dotnetv3.Publish
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/sns
-          excerpts:
-            - snippet_tags:
-                - cpp.example_code.cross-service.topics_and_queues.attribute_declare
-                - cpp.example_code.cross-service.topics_and_queues.config
-                - cpp.example_code.cross-service.topics_and_queues.sns_client
-                - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes
-                - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes2
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/workflows/topics_and_queues
-          excerpts:
-            - description:
-              snippet_tags:
-                - gov2.sns.SnsActions.struct
-                - gov2.sns.Publish
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/cross-services/wkflw-topics-queues
-          sdkguide:
-          excerpts:
-            - description: Publish a message to a topic with group, duplication, and attribute options.
-              snippet_tags:
-                - javascript.v3.wkflw.topicsandqueues.publish-messages
-  services:
-    sns: {Publish}
 sns_ConfirmSubscription:
   title: Confirm an endpoint owner wants to receive &SNS; messages using an &AWS; SDK
   title_abbrev: Confirm an endpoint owner wants to receive messages
@@ -891,7 +693,13 @@ sns_Publish:
             - description: Publish a message to a topic.
               snippet_tags:
                 - SNS.dotnetv3.PublishToSNSTopicExample
-            - description: Publish a message to a topic with an attribute and optional deduplication and group IDs.
+            - description: Publish an SMS text message.
+              snippet_tags:
+                - SNS.dotnetv3.SNSMessageExample
+            - description: Publish a message to a topic with group, duplication, and attribute options.
+              snippet_tags:
+                - TopicsAndQueues.dotnetv3.PublishWithOptions
+            - description: Apply the user's selections to the publish action.
               snippet_tags:
                 - TopicsAndQueues.dotnetv3.Publish
     C++:
@@ -901,6 +709,16 @@ sns_Publish:
           excerpts:
             - snippet_tags:
                 - sns.cpp.publish_to_topic.code
+            - description: Publish an SMS text message.
+            - snippet_tags:
+                - sns.cpp.publish_sms.code
+            - description: Publish a message with an attribute.
+              snippet_tags:
+                - cpp.example_code.cross-service.topics_and_queues.attribute_declare
+                - cpp.example_code.cross-service.topics_and_queues.config
+                - cpp.example_code.cross-service.topics_and_queues.sns_client
+                - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes
+                - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes2
     Go:
       versions:
         - sdk_version: 2
@@ -919,6 +737,9 @@ sns_Publish:
             - description:
               snippet_tags:
                 - sns.kotlin.PublishTopic.main
+            - description: Publish an SMS text message.
+              snippet_tags:
+                - sns.kotlin.PublishTextSMS.main
     Java:
       versions:
         - sdk_version: 2
@@ -927,6 +748,9 @@ sns_Publish:
           excerpts:
             - snippet_tags:
                 - sns.java2.PublishTopic.main
+            - description: Publish an SMS text message.
+            - snippet_tags:
+                - sns.java2.PublishTextSMS.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -939,6 +763,9 @@ sns_Publish:
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - sns.JavaScript.topics.publishMessagesV3
+            - description: Publish a message to a topic with group, duplication, and attribute options.
+              snippet_tags:
+                - javascript.v3.wkflw.topicsandqueues.publish-messages
     PHP:
       versions:
         - sdk_version: 3
@@ -947,6 +774,9 @@ sns_Publish:
           excerpts:
             - snippet_tags:
                 - sns.php.publish_topic.complete
+            - description: Publish an SMS text message.
+            - snippet_tags:
+                - sns.php.publish_text_SMS.complete
     Python:
       versions:
         - sdk_version: 3
@@ -960,6 +790,10 @@ sns_Publish:
               snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Publish_MessageStructure
+            - description: Publish an SMS text message.
+            - snippet_tags:
+                - python.example_code.sns.SnsWrapper
+                - python.example_code.sns.Publish_TextMessage
     Ruby:
       versions:
         - sdk_version: 3
@@ -1127,32 +961,75 @@ sns_Subscribe:
         - sdk_version: 3
           github: dotnetv3/SNS
           excerpts:
-            - snippet_tags:
+            - description: Subscribe an email address to a topic.
+              snippet_tags:
                 - SNS.dotnetv3.TopicSubscribe
+            - description: Subscribe a queue to a topic with optional filters.
+              snippet_tags:
+                - TopicsAndQueues.dotnetv3.Subscribe
     C++:
       versions:
         - sdk_version: 1
           github: cpp/example_code/sns
           excerpts:
-            - snippet_tags:
+            - description: Subscribe an email address to a topic.
+              snippet_tags:
                 - sns.cpp.subscribe_email.code
+            - description: Subscribe a mobile application to a topic.
+              snippet_tags:
+                - sns.cpp.subscribe_app.code
+            - description: Subscribe a &LAM; function to a topic.
+              snippet_tags:
+                - sns.cpp.subscribe_lamda.code
+            - description: Subscribe an SQS queue to a topic.
+              snippet_tags:
+                - cpp.example_code.cross-service.topics_and_queues.config
+                - cpp.example_code.cross-service.topics_and_queues.sns_client
+                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue1
+                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue2
+            - description: Subscribe with a filter to a topic.
+              snippet_tags:
+                - cpp.example_code.cross-service.topics_and_queues.attribute_declare
+                - cpp.example_code.cross-service.topics_and_queues.config
+                - cpp.example_code.cross-service.topics_and_queues.sns_client
+                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter
+                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter2
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/topics_and_queues
+          excerpts:
+            - description: Subscribe a queue to a topic with optional filters.
+              snippet_tags:
+                - gov2.sns.SnsActions.struct
+                - gov2.sns.Subscribe
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/secretsmanager
           sdkguide:
           excerpts:
-            - description:
+            - description: Subscribe an email address to a topic.
               snippet_tags:
                 - sns.kotlin.SubscribeEmail.main
+            - description: Subscribe a &LAM; function to a topic.
+              snippet_tags:
+                - sns.kotlin.SubscribeLambda.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/sns
           sdkguide:
           excerpts:
+            - description: Subscribe an email address to a topic.
             - snippet_tags:
                 - sns.java2.SubscribeEmail.main
+            - description: Subscribe an HTTP endpoint to a topic.
+              snippet_tags:
+                - sns.java2.SubscribeHTTPS.main
+            - description: Subscribe a &LAM; function to a topic.
+              snippet_tags:
+                - sns.java2.SubscribeLambda.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1165,20 +1042,37 @@ sns_Subscribe:
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - sns.JavaScript.subscriptions.subscribeEmailV3
+            - description: Subscribe a mobile application to a topic.
+              snippet_tags:
+                - sns.JavaScript.subscriptions.subscribeAppV3
+            - description: Subscribe a &LAM; function to a topic.
+              snippet_tags:
+                - sns.JavaScript.subscriptions.subscribeLambdaV3
+            - description: Subscribe an SQS queue to a topic.
+              snippet_tags:
+                - javascript.v3.sns.actions.subscribe-queue
+            - description: Subscribe with a filter to a topic.
+              snippet_tags:
+                - javascript.v3.sns.actions.subscribe-queue-filtered
     PHP:
       versions:
         - sdk_version: 3
           github: php/example_code/sns
           sdkguide:
           excerpts:
-            - snippet_tags:
+            - description: Subscribe an email address to a topic.
+              snippet_tags:
                 - sns.php.subscribe_email.complete
+            - description: Subscribe an HTTP endpoint to a topic.
+              snippet_tags:
+                - sns.php.subscribe_HTTPS.complete
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/sns
           excerpts:
-            - snippet_tags:
+            - description: Subscribe an email address to a topic.
+              snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Subscribe
     Ruby:
@@ -1187,14 +1081,16 @@ sns_Subscribe:
           github: ruby/example_code/sns
           sdkguide: sdk-for-ruby/v3/developer-guide/sns-example-create-subscription.html
           excerpts:
-            - snippet_tags:
+            - description: Subscribe an email address to a topic.
+              snippet_tags:
                 - sns.Ruby.createSubscription
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/sns
           excerpts:
-            - snippet_tags:
+            - description: Subscribe an email address to a topic.
+              snippet_tags:
                 - sns.rust.sns-hello-world
     SAP ABAP:
       versions:
@@ -1202,7 +1098,7 @@ sns_Subscribe:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description:
+            - description: Subscribe an email address to a topic.
               snippet_tags:
                 - sns.abapv1.subscribe_email
   services:
@@ -1374,95 +1270,6 @@ sns_SetSubscriptionAttributesRedrivePolicy:
                 - sns.java.redrive_policy
   services:
     sns: {SetSubscriptionAttributesRedrivePolicy}
-sns_Subscribe_Queue:
-  title: Subscribe an &SQS; queue to an &SNS; topic using an &AWS; SDK
-  title_abbrev: Subscribe an SQS queue to a topic
-  synopsis: subscribe an &SQS; queue so it receives notifications from an &SNS; topic.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/cross-service/TopicsAndQueues
-          excerpts:
-            - description: Subscribe a queue to a topic with optional filters.
-              snippet_tags:
-                - TopicsAndQueues.dotnetv3.Subscribe
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/cross-service/topics_and_queues
-          excerpts:
-            - snippet_tags:
-                - cpp.example_code.cross-service.topics_and_queues.config
-                - cpp.example_code.cross-service.topics_and_queues.sns_client
-                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue1
-                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue2
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/workflows/topics_and_queues
-          excerpts:
-            - description:
-              snippet_tags:
-                - gov2.sns.SnsActions.struct
-                - gov2.sns.Subscribe
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - javascript.v3.sns.actions.subscribe-queue
-  services:
-    sns: {Subscribe}
-sns_Subscribe_Filtered:
-  title: Subscribe with a filter to an &SNS; topic using an &AWS; SDK
-  title_abbrev: Subscribe with a filter to a topic
-  synopsis: subscribe with a filter to an &SNS; topic.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/cross-service/TopicsAndQueues
-          excerpts:
-            - description: Subscribe a queue to a topic with optional filters.
-              snippet_tags:
-                - TopicsAndQueues.dotnetv3.Subscribe
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/cross-service/topics_and_queues
-          excerpts:
-            - snippet_tags:
-                - cpp.example_code.cross-service.topics_and_queues.attribute_declare
-                - cpp.example_code.cross-service.topics_and_queues.config
-                - cpp.example_code.cross-service.topics_and_queues.sns_client
-                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter
-                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter2
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/workflows/topics_and_queues
-          excerpts:
-            - description:
-              snippet_tags:
-                - gov2.sns.SnsActions.struct
-                - gov2.sns.Subscribe
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sns
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - javascript.v3.sns.actions.subscribe-queue-filtered
-  services:
-    sns: {Subscribe}
 sns_CreatePlatformEndpoint:
   title: Create a platform endpoint for &SNS; push notifications using an &AWS; SDK
   title_abbrev: Create a platform endpoint for push notifications

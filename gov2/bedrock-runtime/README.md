@@ -34,23 +34,20 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 - [Hello Amazon Bedrock](hello/hello.go#L4) (`InvokeModel`)
 
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [AI21 Labs Jurassic-2: Text generation](actions/invoke_model.go#L78) (`InvokeModel`)
-- [Amazon Titan: Image generation](actions/invoke_model.go#L178) (`InvokeModel`)
-- [Anthropic Claude 2: Real-time response stream processing](actions/invoke_model_with_response_stream.go#L30) (`InvokeModelWithResponseStream`)
-- [Anthropic Claude 2: Text generation](actions/invoke_model.go#L27) (`InvokeModel`)
-- [Meta Llama 2: Text generation](actions/invoke_model.go#L130) (`InvokeModel`)
-
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/scenario_invoke_models.go)
+
+### Invoke model examples
+
+- [AI21 Labs Jurassic-2: Text generation](actions/invoke_model.go#L78)
+- [Amazon Titan: Image generation](actions/invoke_model.go#L178)
+- [Anthropic Claude 2: Real-time response stream processing](actions/invoke_model_with_response_stream.go#L30)
+- [Anthropic Claude 2: Text generation](actions/invoke_model.go#L27)
+- [Meta Llama 2: Text generation](actions/invoke_model.go#L130)
 
 
 <!--custom.examples.start-->

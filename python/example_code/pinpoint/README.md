@@ -39,7 +39,6 @@ python -m pip install -r requirements.txt
 Code excerpts that show you how to call individual service functions.
 
 - [Send email and text messages](pinpoint_send_email_message_api.py#L11) (`SendMessages`)
-- [Send templated email and text messages](pinpoint_send_templated_email_message.py#L11) (`SendMessages`)
 
 
 <!--custom.examples.start-->

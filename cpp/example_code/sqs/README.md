@@ -46,9 +46,7 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Change how long a queue waits for a message](long_polling_on_existing_queue.cpp#L85) (`SetQueueAttributes`)
 - [Change message timeout visibility](change_message_visibility.cpp#L24) (`ChangeMessageVisibility`)
-- [Configure a dead-letter queue](dead_letter_queue.cpp#L121) (`SetQueueAttributes`)
 - [Create a queue](create_queue.cpp#L23) (`CreateQueue`)
 - [Delete a batch of messages from a queue](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L644) (`DeleteMessageBatch`)
 - [Delete a message from a queue](delete_message.cpp#L23) (`DeleteMessage`)

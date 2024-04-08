@@ -42,6 +42,7 @@ Code excerpts that show you how to call individual service functions.
 - [Delete a pipeline](Actions/SageMakerWrapper.cs#L146) (`DeletePipeline`)
 - [Describe a pipeline execution](Actions/SageMakerWrapper.cs#L128) (`DescribePipelineExecution`)
 - [Execute a pipeline](Actions/SageMakerWrapper.cs#L62) (`StartPipelineExecution`)
+- [Update a pipeline](Actions/SageMakerWrapper.cs#L25) (`UpdatePipeline`)
 
 ### Scenarios
 

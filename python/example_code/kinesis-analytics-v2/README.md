@@ -49,6 +49,19 @@ Code excerpts that show you how to call individual service functions.
 - [Stop an application](analytics_application.py#L394) (`StopApplication`)
 - [Update an application](analytics_application.py#L332) (`UpdateApplication`)
 
+### Data generator
+
+- [Generate a stream with a referrer](../kinesis/streams/dg_referrer.py)
+- [Generate a stream with blood pressure anomalies](../kinesis/streams/dg_anomalyex.py)
+- [Generate a stream with data in columns](../kinesis/streams/dg_columnlog.py)
+- [Generate a stream with heart rate anomalies](../kinesis/streams/dg_anomaly.py)
+- [Generate a stream with hotspots](../kinesis/streams/dg_hotspots.py)
+- [Generate a stream with log entries](../kinesis/streams/dg_regexlog.py)
+- [Generate a stream with stagger data](../kinesis/streams/dg_stagger.py)
+- [Generate a stream with stock ticker data](../kinesis/streams/dg_stockticker.py)
+- [Generate a stream with two data types](../kinesis/streams/dg_tworecordtypes.py)
+- [Generate a stream with web log data](../kinesis/streams/dg_weblog.py)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->

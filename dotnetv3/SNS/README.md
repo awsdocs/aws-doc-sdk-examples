@@ -45,12 +45,8 @@ Code excerpts that show you how to call individual service functions.
 - [Get the properties of a topic](GetTopicAttributesExample/GetTopicAttributesExample/GetTopicAttributes.cs#L6) (`GetTopicAttributes`)
 - [List the subscribers of a topic](ListSNSSubscriptionsExample/ListSNSSubscriptionsExample/ListSubscriptions.cs#L6) (`ListSubscriptions`)
 - [List topics](ListSNSTopicsExample/ListSNSTopicsExample/ListSNSTopics.cs#L6) (`ListTopics`)
-- [Publish a message with an attribute](../cross-service/TopicsAndQueues/Scenarios/TopicsAndQueuesScenario/TopicsAndQueues.cs#L334) (`Publish`)
-- [Publish an SMS text message](SNSMessageExample/SNSMessageExample/SNSMessage.cs#L4) (`Publish`)
 - [Publish to a topic](PublishToSNSTopicExample/PublishToSNSTopicExample/PublishToSNSTopic.cs#L6) (`Publish`)
-- [Subscribe an SQS queue to a topic](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L67) (`Subscribe`)
 - [Subscribe an email address to a topic](ManageTopicSubscriptionExample/ManageTopicSubscriptionExample/ManageTopicSubscription.cs#L38) (`Subscribe`)
-- [Subscribe with a filter to a topic](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L67) (`Subscribe`)
 
 ### Cross-service examples
 

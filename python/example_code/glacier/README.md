@@ -48,7 +48,6 @@ Code excerpts that show you how to call individual service functions.
 - [List jobs](glacier_basics.py#L121) (`ListJobs`)
 - [List vaults](glacier_basics.py#L54) (`ListVaults`)
 - [Retrieve a vault inventory](glacier_basics.py#L99) (`InitiateJob`)
-- [Retrieve an archive from a vault](glacier_basics.py#L174) (`InitiateJob`)
 - [Set vault notifications](glacier_basics.py#L266) (`SetVaultNotifications`)
 - [Upload an archive to a vault](glacier_basics.py#L68) (`UploadArchive`)
 
