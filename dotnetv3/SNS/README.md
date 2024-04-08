@@ -48,6 +48,13 @@ Code excerpts that show you how to call individual service functions.
 - [Publish to a topic](PublishToSNSTopicExample/PublishToSNSTopicExample/PublishToSNSTopic.cs#L6) (`Publish`)
 - [Subscribe an email address to a topic](ManageTopicSubscriptionExample/ManageTopicSubscriptionExample/ManageTopicSubscription.cs#L38) (`Subscribe`)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish an SMS text message](SNSMessageExample/SNSMessageExample/SNSMessage.cs)
+
 ### Cross-service examples
 
 Sample applications that work across multiple AWS services.
@@ -89,6 +96,18 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Amazon SNS.
 
 
+
+#### Publish an SMS text message
+
+This example shows you how to publish SMS messages using Amazon SNS.
+
+
+<!--custom.scenario_prereqs.sns_PublishTextSMS.start-->
+<!--custom.scenario_prereqs.sns_PublishTextSMS.end-->
+
+
+<!--custom.scenarios.sns_PublishTextSMS.start-->
+<!--custom.scenarios.sns_PublishTextSMS.end-->
 
 ### Tests
 

@@ -693,9 +693,6 @@ sns_Publish:
             - description: Publish a message to a topic.
               snippet_tags:
                 - SNS.dotnetv3.PublishToSNSTopicExample
-            - description: Publish an SMS text message.
-              snippet_tags:
-                - SNS.dotnetv3.SNSMessageExample
             - description: Publish a message to a topic with group, duplication, and attribute options.
               snippet_tags:
                 - TopicsAndQueues.dotnetv3.PublishWithOptions
@@ -709,9 +706,6 @@ sns_Publish:
           excerpts:
             - snippet_tags:
                 - sns.cpp.publish_to_topic.code
-            - description: Publish an SMS text message.
-            - snippet_tags:
-                - sns.cpp.publish_sms.code
             - description: Publish a message with an attribute.
               snippet_tags:
                 - cpp.example_code.cross-service.topics_and_queues.attribute_declare
@@ -737,9 +731,6 @@ sns_Publish:
             - description:
               snippet_tags:
                 - sns.kotlin.PublishTopic.main
-            - description: Publish an SMS text message.
-              snippet_tags:
-                - sns.kotlin.PublishTextSMS.main
     Java:
       versions:
         - sdk_version: 2
@@ -748,9 +739,6 @@ sns_Publish:
           excerpts:
             - snippet_tags:
                 - sns.java2.PublishTopic.main
-            - description: Publish an SMS text message.
-            - snippet_tags:
-                - sns.java2.PublishTextSMS.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -774,9 +762,6 @@ sns_Publish:
           excerpts:
             - snippet_tags:
                 - sns.php.publish_topic.complete
-            - description: Publish an SMS text message.
-            - snippet_tags:
-                - sns.php.publish_text_SMS.complete
     Python:
       versions:
         - sdk_version: 3
@@ -790,10 +775,6 @@ sns_Publish:
               snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Publish_MessageStructure
-            - description: Publish an SMS text message.
-            - snippet_tags:
-                - python.example_code.sns.SnsWrapper
-                - python.example_code.sns.Publish_TextMessage
     Ruby:
       versions:
         - sdk_version: 3
@@ -818,6 +799,61 @@ sns_Publish:
             - description:
               snippet_tags:
                 - sns.abapv1.publish_to_topic
+  services:
+    sns: {Publish}
+sns_PublishTextSMS:
+  title: Publish an &SNS; SMS text message using an &AWS; SDK
+  title_abbrev: Publish an SMS text message
+  synopsis: publish SMS messages using &SNS;.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SNS
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.SNSMessageExample
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sns
+          excerpts:
+            - snippet_tags:
+                - sns.cpp.publish_sms.code
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sns
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sns.kotlin.PublishTextSMS.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sns
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - sns.java2.PublishTextSMS.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/sns
+          sdkguide: sdk-for-php/v3/developer-guide/sns-examples-sending-sms.html#publish-to-a-text-message-sms-message
+          excerpts:
+            - snippet_tags:
+                - sns.php.publish_text_SMS.complete
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sns
+          excerpts:
+            - snippet_tags:
+                - python.example_code.sns.SnsWrapper
+                - python.example_code.sns.Publish_TextMessage
   services:
     sns: {Publish}
 sns_SetSmsAttributes:

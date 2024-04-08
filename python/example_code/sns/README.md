@@ -53,6 +53,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create and publish to a FIFO topic](sns_fifo_topic.py)
+- [Publish an SMS text message](sns_basics.py)
 
 ### Cross-service examples
 
@@ -96,6 +97,24 @@ python sns_fifo_topic.py
 
 <!--custom.scenarios.sns_PublishFifoTopic.start-->
 <!--custom.scenarios.sns_PublishFifoTopic.end-->
+
+#### Publish an SMS text message
+
+This example shows you how to publish SMS messages using Amazon SNS.
+
+
+<!--custom.scenario_prereqs.sns_PublishTextSMS.start-->
+<!--custom.scenario_prereqs.sns_PublishTextSMS.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python sns_basics.py
+```
+
+
+<!--custom.scenarios.sns_PublishTextSMS.start-->
+<!--custom.scenarios.sns_PublishTextSMS.end-->
 
 ### Tests
 
