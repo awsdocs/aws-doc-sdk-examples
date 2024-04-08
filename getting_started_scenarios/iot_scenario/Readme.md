@@ -1,4 +1,4 @@
-# AWS IoT Program - Comprehensive Getting Started Scenario
+# AWS IoT Getting Started Scenario
 
 ## Introduction
 This Java-based AWS IoT program demonstrates a getting started scenario for interacting with the AWS IoT Core service. The program guides you through a series of steps, including creating an IoT Thing, generating a device certificate, updating the Thing with attributes, and performing various other operations. It utilizes the AWS SDK for Java V2 and showcases the functionality for managing IoT Things, certificates, rules, shadows, and performing searches. Furthermore, this example covers a wide range of functionality for new users of the Java SDK and AWS IoT Core service.

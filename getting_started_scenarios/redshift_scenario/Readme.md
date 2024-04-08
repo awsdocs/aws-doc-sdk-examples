@@ -1,7 +1,10 @@
-# Amazon Redshift Java V2 SDK Example
+# Amazon Redshift Getting Started Scenario
 
-## Overview
-This Java V2 Redshift getting started scenario demonstrates how to interact with Amazon Redshift using the AWS SDK for Java (v2). The program performs the following tasks:
+## Introduction
+This Java V2 Redshift getting started scenario demonstrates how to interact with Amazon Redshift using the AWS SDK for Java (v2). This Java V2 Redshift getting started scenario is a good starting point for new users who want to interact with Amazon Redshift using the AWS SDK for Java (v2). The code provides essential operations, such as cluster management, database and table creation, data population, and SQL querying.
+
+## Service Operations Invoked
+The program performs the following tasks:
 
 1. Creates an Amazon Redshift cluster.
 2. Waits for the cluster to become available.
@@ -11,14 +14,6 @@ This Java V2 Redshift getting started scenario demonstrates how to interact with
 6. Queries the "Movies" table by year.
 7. Deletes the Amazon Redshift cluster.
 
-This Java V2 Redshift getting started scenario is a good starting point for new users who want to interact with Amazon Redshift using the AWS SDK for Java (v2). The code provides essential operations, such as cluster management, database and table creation, data population, and SQL querying.
-
-## Prerequisites
-Before running this example, ensure that you have the following:
-
-1. Java 17 or higher installed on your system.
-2. The AWS SDK for Java (v2) configured in your development environment.
-3. A JSON file with movie data (the example uses the "Movies.json" file).
 
 ## Usage
 1. Clone the repository or download the Java source code file.
