@@ -1,23 +1,71 @@
-# AWS CloudFormation Kotlin code examples
+# CloudFormation code examples for the SDK for Kotlin
 
-This README discusses how to run the Kotlin code examples for AWS CloudFormation.
+## Overview
 
-## Running the AWS CloudFormation Kotlin examples
+Shows how to use the AWS SDK for Kotlin to work with AWS CloudFormation.
 
-**IMPORTANT**
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-The Kotlin code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
+_CloudFormation enables you to create and provision AWS infrastructure deployments predictably and repeatedly._
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a stack. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+## ⚠ Important
 
-You will find these examples: 
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-- **CreateStack** - Demonstrates how to create a stack based on a template.
-- **DeleteStack** - Demonstrates how to delete an existing stack.
-- **DescribeStacks** - Demonstrates how to obtain information about stacks.
-- **GetTemplate** - Demonstrates how to retrieve a template.
+<!--custom.important.start-->
+<!--custom.important.end-->
 
-To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
-see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
+## Code examples
+
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotlin` folder.
 
 
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
+
+## Run the examples
+
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `kotlin` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
+- [CloudFormation API Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/Welcome.html)
+- [SDK for Kotlin CloudFormation reference](https://sdk.amazonaws.com/kotlin/api/latest/cloudformation/index.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

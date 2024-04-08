@@ -31,30 +31,30 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon EC2](src/main/java/com/example/ec2/DescribeSecurityGroups.java#L6) (`DescribeSecurityGroups`)
+- [Hello Amazon EC2](src/main/java/com/example/ec2/EC2Scenario.java#L556) (`DescribeSecurityGroups`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Allocate an Elastic IP address](src/main/java/com/example/ec2/AllocateAddress.java#L6) (`AllocateAddress`)
-- [Associate an Elastic IP address with an instance](src/main/java/com/example/ec2/EC2Scenario.java#L325) (`AssociateAddress`)
-- [Create a security group](src/main/java/com/example/ec2/CreateSecurityGroup.java#L6) (`CreateSecurityGroup`)
-- [Create a security key pair](src/main/java/com/example/ec2/CreateKeyPair.java#L6) (`CreateKeyPair`)
+- [Allocate an Elastic IP address](src/main/java/com/example/ec2/EC2Scenario.java#L350) (`AllocateAddress`)
+- [Associate an Elastic IP address with an instance](src/main/java/com/example/ec2/EC2Scenario.java#L331) (`AssociateAddress`)
+- [Create a security group](src/main/java/com/example/ec2/EC2Scenario.java#L577) (`CreateSecurityGroup`)
+- [Create a security key pair](src/main/java/com/example/ec2/EC2Scenario.java#L640) (`CreateKeyPair`)
 - [Create and run an instance](src/main/java/com/example/ec2/CreateInstance.java#L6) (`RunInstances`)
-- [Delete a security group](src/main/java/com/example/ec2/DeleteSecurityGroup.java#L6) (`DeleteSecurityGroup`)
-- [Delete a security key pair](src/main/java/com/example/ec2/DeleteKeyPair.java#L6) (`DeleteKeyPair`)
-- [Describe instances](src/main/java/com/example/ec2/EC2Scenario.java#L405) (`DescribeInstances`)
-- [Disassociate an Elastic IP address from an instance](src/main/java/com/example/ec2/EC2Scenario.java#L308) (`DisassociateAddress`)
-- [Get data about a security group](src/main/java/com/example/ec2/EC2Scenario.java#L552) (`DescribeSecurityGroups`)
-- [Get data about instance types](src/main/java/com/example/ec2/EC2Scenario.java#L461) (`DescribeInstanceTypes`)
-- [List security key pairs](src/main/java/com/example/ec2/DescribeKeyPairs.java#L6) (`DescribeKeyPairs`)
-- [Release an Elastic IP address](src/main/java/com/example/ec2/ReleaseAddress.java#L6) (`ReleaseAddress`)
-- [Set inbound rules for a security group](src/main/java/com/example/ec2/EC2Scenario.java#L572) (`AuthorizeSecurityGroupIngress`)
-- [Start an instance](src/main/java/com/example/ec2/EC2Scenario.java#L360) (`StartInstances`)
-- [Stop an instance](src/main/java/com/example/ec2/EC2Scenario.java#L383) (`StopInstances`)
-- [Terminate an instance](src/main/java/com/example/ec2/TerminateInstance.java#L6) (`TerminateInstances`)
+- [Delete a security group](src/main/java/com/example/ec2/EC2Scenario.java#L233) (`DeleteSecurityGroup`)
+- [Delete a security key pair](src/main/java/com/example/ec2/EC2Scenario.java#L281) (`DeleteKeyPair`)
+- [Describe instances](src/main/java/com/example/ec2/DescribeInstances.java#L6) (`DescribeInstances`)
+- [Disassociate an Elastic IP address from an instance](src/main/java/com/example/ec2/EC2Scenario.java#L314) (`DisassociateAddress`)
+- [Get data about a security group](src/main/java/com/example/ec2/EC2Scenario.java#L556) (`DescribeSecurityGroups`)
+- [Get data about instance types](src/main/java/com/example/ec2/EC2Scenario.java#L471) (`DescribeInstanceTypes`)
+- [List security key pairs](src/main/java/com/example/ec2/EC2Scenario.java#L623) (`DescribeKeyPairs`)
+- [Release an Elastic IP address](src/main/java/com/example/ec2/EC2Scenario.java#L298) (`ReleaseAddress`)
+- [Set inbound rules for a security group](src/main/java/com/example/ec2/EC2Scenario.java#L577) (`AuthorizeSecurityGroupIngress`)
+- [Start an instance](src/main/java/com/example/ec2/EC2Scenario.java#L368) (`StartInstances`)
+- [Stop an instance](src/main/java/com/example/ec2/EC2Scenario.java#L391) (`StopInstances`)
+- [Terminate an instance](src/main/java/com/example/ec2/EC2Scenario.java#L250) (`TerminateInstances`)
 
 ### Scenarios
 

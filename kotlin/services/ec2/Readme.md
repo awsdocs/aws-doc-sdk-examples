@@ -31,30 +31,30 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello Amazon EC2](src/main/kotlin/com/kotlin/ec2/DescribeSecurityGroups.kt#L40) (`DescribeSecurityGroups`)
+- [Hello Amazon EC2](src/main/kotlin/com/kotlin/ec2/DescribeSecurityGroups.kt#L39) (`DescribeSecurityGroups`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Allocate an Elastic IP address](src/main/kotlin/com/kotlin/ec2/AllocateAddress.kt#L42) (`AllocateAddress`)
+- [Allocate an Elastic IP address](src/main/kotlin/com/kotlin/ec2/AllocateAddress.kt#L41) (`AllocateAddress`)
 - [Associate an Elastic IP address with an instance](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L281) (`AssociateAddress`)
-- [Create a security group](src/main/kotlin/com/kotlin/ec2/CreateSecurityGroup.kt#L46) (`CreateSecurityGroup`)
-- [Create a security key pair](src/main/kotlin/com/kotlin/ec2/CreateKeyPair.kt#L39) (`CreateKeyPair`)
-- [Create and run an instance](src/main/kotlin/com/kotlin/ec2/CreateInstance.kt#L44) (`RunInstances`)
-- [Delete a security group](src/main/kotlin/com/kotlin/ec2/DeleteSecurityGroup.kt#L38) (`DeleteSecurityGroup`)
-- [Delete a security key pair](src/main/kotlin/com/kotlin/ec2/DeleteKeyPair.kt#L39) (`DeleteKeyPair`)
+- [Create a security group](src/main/kotlin/com/kotlin/ec2/CreateSecurityGroup.kt#L45) (`CreateSecurityGroup`)
+- [Create a security key pair](src/main/kotlin/com/kotlin/ec2/CreateKeyPair.kt#L38) (`CreateKeyPair`)
+- [Create and run an instance](src/main/kotlin/com/kotlin/ec2/CreateInstance.kt#L43) (`RunInstances`)
+- [Delete a security group](src/main/kotlin/com/kotlin/ec2/DeleteSecurityGroup.kt#L37) (`DeleteSecurityGroup`)
+- [Delete a security key pair](src/main/kotlin/com/kotlin/ec2/DeleteKeyPair.kt#L38) (`DeleteKeyPair`)
 - [Describe instances](src/main/kotlin/com/kotlin/ec2/DescribeInstances.kt#L23) (`DescribeInstances`)
 - [Disassociate an Elastic IP address from an instance](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L269) (`DisassociateAddress`)
-- [Get data about a security group](src/main/kotlin/com/kotlin/ec2/DescribeSecurityGroups.kt#L40) (`DescribeSecurityGroups`)
+- [Get data about a security group](src/main/kotlin/com/kotlin/ec2/DescribeSecurityGroups.kt#L39) (`DescribeSecurityGroups`)
 - [Get data about instance types](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L383) (`DescribeInstanceTypes`)
 - [List security key pairs](src/main/kotlin/com/kotlin/ec2/DescribeKeyPairs.kt#L23) (`DescribeKeyPairs`)
 - [Release an Elastic IP address](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L256) (`ReleaseAddress`)
 - [Set inbound rules for a security group](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L465) (`AuthorizeSecurityGroupIngress`)
 - [Start an instance](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L305) (`StartInstances`)
 - [Stop an instance](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L322) (`StopInstances`)
-- [Terminate an instance](src/main/kotlin/com/kotlin/ec2/TerminateInstance.kt#L39) (`TerminateInstances`)
+- [Terminate an instance](src/main/kotlin/com/kotlin/ec2/TerminateInstance.kt#L38) (`TerminateInstances`)
 
 ### Scenarios
 
