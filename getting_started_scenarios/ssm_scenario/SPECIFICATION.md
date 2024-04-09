@@ -102,6 +102,10 @@ This concludes the AWS Systems Manager SDK Getting Started scenario.
 --------------------------------------------------------------------------------
 
    ```
+## CDK Usage
+
+This example requires an EC2 instance in order to run the program. A CDK example that stands up an EC2 instance will be part of this solution. 
+
 
 ## SOS Tags
 
