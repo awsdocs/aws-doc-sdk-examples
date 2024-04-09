@@ -25,7 +25,7 @@
 #include <aws/core/utils/UUID.h>
 #include <aws/core/utils/HashingUtils.h>
 #include <aws/core/utils/stream/PreallocatedStreamBuf.h>
-#include <md5.h>
+//#include <md5.h>
 #include <iomanip>
 #include <fstream>
 #include <vector>
@@ -239,7 +239,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
             }
         }
     }
-#if 0
+#if 1
     for (int hashMethod = (int) HASH_METHOD::MD5;
          hashMethod <= (int) HASH_METHOD::SHA256; ++hashMethod) {
         std::shared_ptr<Aws::IOStream> inputData =

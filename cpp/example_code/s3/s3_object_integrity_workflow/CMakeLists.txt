@@ -27,9 +27,6 @@ endif ()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
-find_package(unofficial-hash-library REQUIRED)
-
-
 if (WINDOWS_BUILD)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
 
@@ -55,15 +52,14 @@ target_compile_definitions(${EXAMPLE_EXE}
         SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
-
 target_include_directories(${EXAMPLE_EXE}
         PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/../include"
-        ${Boost_INCLUDE_DIRS}
+        }
 )
 
 target_link_libraries(${EXAMPLE_EXE}
         PRIVATE
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
-        unofficial::hash-library)
+        )
