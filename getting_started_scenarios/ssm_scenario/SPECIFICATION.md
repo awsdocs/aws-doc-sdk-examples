@@ -1,7 +1,7 @@
 #  AWS Systems Manager Engineering Specification
 
 ## Overview
-   This SDK getting started scenario demonstrates how to interact with Amazon Redshift using the AWS SDK. The provided code is a Java application that demonstrates the usage of the AWS Systems Manager (SSM) SDK (version 2) to interact with various AWS SSM features. The application performs the following key functionalities:
+   This SDK getting started scenario demonstrates how to interact with AWS Systems Manager (SSM) using the AWS SDK. The provided code is a Java application that demonstrates the usage of the AWS SSM SDK to interact with various AWS SSM service operations. The application performs the following key functionalities:
    - Creating an SSM maintenance window
    - Modifying the maintenance window schedule
    - Creating an SSM document
