@@ -14,6 +14,14 @@ redshift_Hello:
             - description:
               snippet_tags:
                 - redshift.java2.hello.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.Hello
   services:
     redshift: {describeClusters}
 redshift_CreateCluster:
@@ -52,6 +60,19 @@ redshift_CreateCluster:
             - description: Create the cluster.
               snippet_tags:
                 - redshift.javascript.redshift-create-clusterV3
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper
+                - python.example_code.redshift.CreateCluster
+            - description: >
+                The following code instantiates the RedshiftWrapper object.
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper.instantiation
   services:
     redshift: {CreateCluster}
 redshift_DeleteCluster:
@@ -90,6 +111,19 @@ redshift_DeleteCluster:
             - description: Create the cluster.
               snippet_tags:
                 - redshift.javascript.redshift-delete-clusterV3
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper
+                - python.example_code.redshift.DeleteCluster
+            - description: >
+                The following code instantiates the RedshiftWrapper object.
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper.instantiation
   services:
     redshift: {DeleteCluster}
 redshift_DescribeClusters:
@@ -128,6 +162,19 @@ redshift_DescribeClusters:
             - description: Describe your clusters.
               snippet_tags:
                 - redshift.javascript.redshift-describe-clustersV3
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper
+                - python.example_code.redshift.DescribeClusters
+            - description: >
+                The following code instantiates the RedshiftWrapper object.
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper.instantiation
   services:
     redshift: {DescribeClusters}
 redshift_ModifyCluster:
@@ -166,6 +213,19 @@ redshift_ModifyCluster:
             - description: Modify a cluster.
               snippet_tags:
                 - redshift.javascript.redshift-modify-clustersV3
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper
+                - python.example_code.redshift.ModifyCluster
+            - description: >
+                The following code instantiates the RedshiftWrapper object.
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper.instantiation
   services:
     redshift: {ModifyCluster}
 redshift_Insert:
@@ -214,11 +274,24 @@ redshift_DescribeStatement:
           github: javav2/example_code/redshift
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - redshiftdata.java2.checkstatement.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift_data.RedshiftDataWrapper
+                - python.example_code.redshift_data.DescribeStatement
+            - description: >
+                The following code instantiates the RedshiftDataWrapper object.
+              snippet_tags:
+                - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
   services:
-    redshift: {DescribeStatement}    
+    redshift: {DescribeStatement}
 redshift_GetStatementResult:
   title: Get the &RS; statement result using an &AWS; SDK
   title_abbrev: Get the statement result
@@ -234,11 +307,24 @@ redshift_GetStatementResult:
             - description: Check the statement result.
               snippet_tags:
                 - redshiftdata.java2.getresults.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift_data.RedshiftDataWrapper
+                - python.example_code.redshift_data.GetStatementResult
+            - description: >
+                The following code instantiates the RedshiftDataWrapper object.
+              snippet_tags:
+                - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
   services:
     redshift: {GetStatementResult}
 redshift_CreateTable:
   title: Create an &RS; table using an &AWS; SDK
-  title_abbrev: Create a table 
+  title_abbrev: Create a table
   synopsis: create an &RS; table.
   category:
   languages:
@@ -248,11 +334,27 @@ redshift_CreateTable:
           github: javav2/example_code/redshift
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - redshiftdata.java2.create_table.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.redshift_scenario.create_table
+            - description: Wrapper object calling ExecuteStatement.
+              snippet_tags:
+                - python.example_code.redshift_data.RedshiftDataWrapper
+                - python.example_code.redshift_data.ExecuteStatement
+            - description: >
+                The following code instantiates the RedshiftDataWrapper object.
+              snippet_tags:
+                - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
   services:
-    redshift: {CreateTable}    
+    redshift: {CreateTable}
 redshift_Scenario:
   title: Get started with &RS; tables, items, and queries
   title_abbrev: Get started with &RS;
@@ -268,5 +370,27 @@ redshift_Scenario:
             - description:
               snippet_tags:
                 - redshift.java2.scenario.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.redshift_scenario.RedshiftScenario
+            - description: Main function showing scenario implementation.
+              snippet_tags:
+                - python.example_code.redshift.redshift_scenario.RedshiftScenario.main
+            - description: >
+                The wrapper functions used in the scenario.
+              snippet_tags:
+                - python.example_code.redshift.CreateCluster
+                - python.example_code.redshift.DescribeClusters
+                - python.example_code.redshift_data.ExecuteStatement
+                - python.example_code.redshift_data.DescribeStatement
+                - python.example_code.redshift_data.GetStatementResult
+                - python.example_code.redshift.ModifyCluster
+                - python.example_code.redshift_data.ListDatabases
+                - python.example_code.redshift.DeleteCluster
   services:
     redshift: {createCluster, describeClusters, executeStatement, describeStatement, modifyCluster, getStatementResult, listDatabasesPaginator}
