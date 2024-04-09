@@ -3005,9 +3005,15 @@ s3_Scenario_MultipartUpload:
             - description: >-
                 Use the <ulink
                     url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink> 
-                or (S3AsyncClient API) to perform a multipart upload.
+                to perform a multipart upload.
               snippet_tags:
                 - s3.java2.performMultiPartUpload.s3Client
+            - description: >-
+                Use the <ulink
+                    url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3AsyncClient.html">S3AsyncClient API</ulink> 
+                with multipart support enabled to perform a multipart upload.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.s3AsyncClient
   services:
     s3: {CreateMultipartUpload, UploadPart, CompleteMultipartUpload}
 s3_Scenario_UseChecksums:
