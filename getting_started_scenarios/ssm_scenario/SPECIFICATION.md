@@ -7,7 +7,6 @@
    - The application should allow the user to create an SSM maintenance window with a default name or a user-provided name.
    - The application should allow the user to modify the maintenance window schedule.
    - The application should allow the user to create an SSM document with a default name or a user-provided name.
-   - The application should display a list of available SSM documents.
    - The application should send a command to a specified EC2 instance using the created SSM document and display the time when the command was invoked.
    - The application should allow the user to create an SSM OpsItem with a predefined title, source, category, and severity.
    - The application should allow the user to update and resolve the created OpsItem.
@@ -29,9 +28,7 @@ Document Name: AWSMigration-EnableInspector
 
 ## Scenario Program execution
 The following shows the output of the program in the console. 
-   - The application should provide clear and informative console output to guide the user through the various operations.
-   - The application should handle any exceptions that may occur during the execution of the SSM operations and provide appropriate error messages.
-   - The application should ensure that all required SSM resources (maintenance window, document, OpsItem) are properly created, modified, and deleted.
+ 
 
    ``` java
 
@@ -61,58 +58,6 @@ Create an SSM document that defines the actions that Systems Manager performs on
 Please enter the document name (default is ssmdocument):
 
 The status of the SSM document is Creating
-Now we will list SSM documents. Please hit Enter
-
-Document Name: AWSMigration-ConvertCentOsToRockyLinuxDistribution
-Document Name: AWSMigration-CreateLoadBalanceAutoScaleGroup
-Document Name: AWSMigration-EnableInspector
-Document Name: AWSMigration-LinuxTimeSyncSetting
-Document Name: AWSMigration-ReplaceSuseSubscriptionWithAwsSubscription
-Document Name: AWSMigration-RunSourceServerAction
-Document Name: AWSMigration-ValidateDiskSpace
-Document Name: AWSMigration-ValidateHttpResponse
-Document Name: AWSMigration-ValidateNetworkConnectivity
-Document Name: AWSMigration-VerifyMountedVolumes
-Document Name: AWSMigration-VerifyProcessIsRunning
-Document Name: AWSMigration-VerifySqlAWSSubscription
-Document Name: AWSMigration-VerifyTags
-Document Name: AWSNVMe
-Document Name: AmazonInspector-ManageAWSAgent
-Document Name: AWSKinesisTap
-Document Name: AWSApp2Container-ReplatformApplications
-Document Name: AWSNitroEnclavesWindows
-Document Name: AWSDistroOTel-Collector
-Document Name: AmazonEFSUtils
-Document Name: AWSEC2-ApplicationInsightsCloudwatchAgentInstallAndConfigure
-Document Name: AWSEC2-CheckPerformanceCounterSets
-Document Name: AWSEC2-CloneInstanceAndUpgradeSQLServer
-Document Name: AWSEC2-CloneInstanceAndUpgradeWindows
-Document Name: AWSEC2-CloneInstanceAndUpgradeWindows2019
-Document Name: AWSEC2-ConfigureSTIG
-Document Name: AWSEC2-CreateVssSnapshot
-Document Name: AWSEC2-DetectWorkload
-Document Name: AWSEC2-ManageVssIO
-Document Name: AWSEC2-PatchLoadBalancerInstance
-Document Name: AWSEC2-RunSysprep
-Document Name: AWSEC2-SQLServerDBRestore
-Document Name: AWSEC2-UpdateLaunchAgent
-Document Name: AWSEC2-VssInstallAndSnapshot
-Document Name: AWSSAPTools-DataProvider
-Document Name: AWSResilienceHub-BacktrackRdsSOP_2020-04-01
-Document Name: AWSResilienceHub-BlockSQSDeleteMessageTest_2021-03-09
-Document Name: AWSResilienceHub-BreakEFSSecurityGroupTest_2020-09-21
-Document Name: AWSResilienceHub-BreakLambdaSecurityGroupTest_2020-09-21
-Document Name: AWSResilienceHub-BreakSNSSubscriptionDeliveryToSQSTest_2020-04-01
-Document Name: AWSResilienceHub-BreakSNSSubscriptionRedrivePolicyTest_2020-04-01
-Document Name: AWSResilienceHub-BreakSQSQueuePolicyTest_2020-11-27
-Document Name: AWSResilienceHub-BreakTargetGroupsHealthCheckPortTest_2020-04-01
-Document Name: AWSResilienceHub-ChangeEFSProvisionedThroughputSOP_2020-10-26
-Document Name: AWSResilienceHub-ChangeHttpWsApiGwThrottlingSettingsSOP_2020-10-26
-Document Name: AWSResilienceHub-ChangeLambdaConcurrencyLimitSOP_2020-10-26
-Document Name: AWSResilienceHub-ChangeLambdaExecutionTimeLimitSOP_2020-10-26
-Document Name: AWSResilienceHub-ChangeLambdaMemorySizeSOP_2020-10-26
-Document Name: AWSResilienceHub-ChangeLambdaProvisionedConcurrencySOP_2020-10-26
-Document Name: AWSResilienceHub-ChangeRestApiGwQuotaLimitSOP_2020-10-26
 --------------------------------------------------------------------------------
 Now we are going to run a command on an EC2 instance
 Please hit Enter
