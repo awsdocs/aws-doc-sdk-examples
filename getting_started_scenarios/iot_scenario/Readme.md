@@ -18,20 +18,20 @@ Throughout the workflow, the program provides detailed explanations and prompts 
 ## Service Operations Invoked
 The program interacts with the following AWS IoT service operations:
 
-1. **Create IoT Thing**: Creates a new IoT Thing in the AWS IoT Core service.
-2. **Generate Device Certificate**: Generates a new device certificate and its associated private key.
-3. **Attach Certificate to Thing**: Attaches the generated device certificate to the IoT Thing.
-4. **Update Thing Attributes**: Updates the IoT Thing with new attributes.
-5. **Describe IoT Endpoint**: Retrieves the unique endpoint specific to the user's AWS account.
-6. **List Certificates**: Lists the user's existing IoT certificates.
-7. **Update Thing Shadow**: Updates the digital representation (shadow) of the IoT Thing.
-8. **Get Thing Shadow Payload**: Retrieves the state information of the IoT Thing's shadow in JSON format.
-9. **Create IoT Rule**: Creates a new rule that triggers an SNS action based on a SQL query.
-10. **List IoT Rules**: Lists the user's existing IoT rules.
-11. **Search Things**: Performs a search for IoT Things based on the provided query string.
-12. **Detach Thing Principal**: Detaches the device certificate from the IoT Thing.
-13. **Delete Certificate**: Deletes the previously created device certificate.
-14. **Delete IoT Thing**: Deletes the IoT Thing.
+1. **createThing**: Creates a new IoT Thing in the AWS IoT Core service.
+2. **createKeysAndCertificate**: Generates a new device certificate and its associated private key.
+3. **attachThingPrincipal**: Attaches the generated device certificate to the IoT Thing.
+4. **updateThingShadow**: Updates the IoT Thing with new attributes.
+5. **describeEndpoint**: Retrieves the unique endpoint specific to the user's AWS account.
+6. **listCertificates**: Lists the user's existing IoT certificates.
+7. **updateThingShadow**: Updates the digital representation (shadow) of the IoT Thing.
+8. **getThingShadow**: Retrieves the state information of the IoT Thing's shadow in JSON format.
+9. **createTopicRule**: Creates a new rule that triggers an SNS action based on a SQL query.
+10. **listTopicRules**: Lists the user's existing IoT rules.
+11. **searchIndex**: Performs a search for IoT Things based on the provided query string.
+12. **detachThingPrincipal**: Detaches the device certificate from the IoT Thing.
+13. **deleteCertificate**: Deletes the previously created device certificate.
+14. **deleteThing**: Deletes the IoT Thing.
 
 The program demonstrates the comprehensive capabilities of the AWS IoT Core service and showcases how to integrate these various operations using the AWS SDK for Java V2.
 
