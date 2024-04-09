@@ -3108,7 +3108,7 @@ s3_Scenario_ObjectLock:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2\example_code\s3\src\main\java\com\example\s3\lockscenario
+          github: javav2/example_code/s3/src/main/java/com/example/s3/lockscenario
           sdkguide:
           excerpts:
             - description: Run an interactive scenario demonstrating &S3; object lock features.
