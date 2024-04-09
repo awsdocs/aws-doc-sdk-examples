@@ -1,16 +1,7 @@
 #  AWS Systems Manager Engineering Specification
 
 ## Overview
-   This SDK getting started scenario demonstrates how to interact with AWS Systems Manager (SSM) using the AWS SDK. The provided code is a Java application that demonstrates the usage of the AWS SSM SDK to interact with various AWS SSM service operations. The application performs the following key functionalities:
-   - Creating an SSM maintenance window
-   - Modifying the maintenance window schedule
-   - Creating an SSM document
-   - Listing available SSM documents
-   - Sending a command to an EC2 instance using an SSM document
-   - Displaying the time when the command was invoked
-   - Creating an SSM OpsItem
-   - Updating and resolving the created OpsItem
-   - Deleting the created SSM resources (maintenance window and document)
+   This SDK getting started scenario demonstrates how to interact with AWS Systems Manager (SSM) using the AWS SDK. The provided code is a Java application that demonstrates the usage of the AWS SSM SDK to interact with various AWS SSM service operations.
 
 ## Scenario Program Flow
    - The application should allow the user to create an SSM maintenance window with a default name or a user-provided name.
@@ -27,7 +18,6 @@ The following shows the output of the program in the console.
    - The application should provide clear and informative console output to guide the user through the various operations.
    - The application should handle any exceptions that may occur during the execution of the SSM operations and provide appropriate error messages.
    - The application should ensure that all required SSM resources (maintenance window, document, OpsItem) are properly created, modified, and deleted.
-   - The application should be portable and run on different operating systems, as long as the Java runtime environment is available.
 
    ``` java
 
