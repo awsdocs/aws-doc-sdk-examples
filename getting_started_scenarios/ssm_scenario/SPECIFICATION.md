@@ -13,7 +13,21 @@
    - The application should allow the user to update and resolve the created OpsItem.
    - The application should allow the user to delete the created SSM maintenance window and document.
 
-## Program execution
+## Hello SSM
+This program is intended for users not familiar with the AWS SSM SDK to easily get up an running. The logic is to show use of listDocumentsPaginator().
+
+Program execution
+The following shows the output of the program in the console.
+
+ ``` java
+Document Name: AWSMigration-ConvertCentOsToRockyLinuxDistribution
+Document Name: AWSMigration-CreateLoadBalanceAutoScaleGroup
+Document Name: AWSMigration-EnableInspector
+
+
+ ```
+
+## Scenario Program execution
 The following shows the output of the program in the console. 
    - The application should provide clear and informative console output to guide the user through the various operations.
    - The application should handle any exceptions that may occur during the execution of the SSM operations and provide appropriate error messages.
