@@ -4,7 +4,7 @@
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.13)
 
-set(SERVICE_COMPONENTS s3)
+set(SERVICE_COMPONENTS s3 transfer)
 
 # Set this project's name.
 project("s3_object_integrity_workflow")
