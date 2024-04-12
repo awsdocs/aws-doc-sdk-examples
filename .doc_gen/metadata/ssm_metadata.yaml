@@ -1,4 +1,21 @@
 # zexi 0.4.0
+iot_Hello:
+  title: Hello &SYS;
+  title_abbrev: Hello &SYS;
+  synopsis: get started using &SYS;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.hello.main
+  services:
+    ssm: {listThings}
 ssm_DescribeParameters:
   title: Get information about &SYS; parameters using an &AWS; SDK
   title_abbrev: Get parameters information
@@ -116,4 +133,4 @@ ssm_Scenario:
               snippet_tags:
                 - ssm.java2.scenario.main
   services:
-    redshift: {createOpsItem, createMaintenanceWindow, createDocument, sendCommand, commandInvocations, deleteMaintenanceWindow, updateOpsItem}
+    ssm: {createOpsItem, createMaintenanceWindow, createDocument, sendCommand, commandInvocations, deleteMaintenanceWindow, updateOpsItem}
