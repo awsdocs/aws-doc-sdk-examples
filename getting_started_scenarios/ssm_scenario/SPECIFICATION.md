@@ -4,13 +4,13 @@
    This SDK getting started scenario demonstrates how to interact with AWS Systems Manager (SSM) using the AWS SDK. The provided code is a Java application that demonstrates the usage of the AWS SSM SDK to interact with various AWS SSM service operations.
 
 ## Scenario Program Flow
-   - The application should allow the user to create an SSM maintenance window with a default name or a user-provided name.
-   - The application should allow the user to modify the maintenance window schedule.
-   - The application should allow the user to create an SSM document with a default name or a user-provided name.
-   - The application should send a command to a specified EC2 instance using the created SSM document and display the time when the command was invoked.
-   - The application should allow the user to create an SSM OpsItem with a predefined title, source, category, and severity.
-   - The application should allow the user to update and resolve the created OpsItem.
-   - The application should allow the user to delete the created SSM maintenance window and document.
+   - Creates an SSM maintenance window with a default name or a user-provided name.
+   - Modifies the maintenance window schedule.
+   - Creates an SSM document with a default name or a user-provided name.
+   - Sends a command to a specified EC2 instance using the created SSM document and display the time when the command was invoked.
+   - Creates an SSM OpsItem with a predefined title, source, category, and severity.
+   - Updates and resolve the created OpsItem.
+   - Deletes the created SSM maintenance window and document.
 
 ## Hello SSM
 This program is intended for users not familiar with the AWS SSM SDK to easily get up an running. The logic is to show use of listDocumentsPaginator().
@@ -114,14 +114,14 @@ The following table describes the metadata used in this SDK Getting Started Scen
 
 | action                       | metadata file                | metadata key                            |
 |------------------------------|------------------------------|---------------------------------------- |
-| `deleteCluster`              | redshift_metadata.yaml       | redshift_DeleteCluster                  |
-| `addrecord`                  | redshift_metadata.yaml       | redshift_Insert                         |
-| `describeStatement`          | redshift_metadata.yaml       | redshift_DescribeStatement              |
-| `modifyCluster `             | redshift_metadata.yaml       | redshift_ModifyCluster                  |
-| `querymoviesd`               | redshift_metadata.yaml       | redshift_Query                          |
-| `getStatementResult`         | redshift_metadata.yaml       | redshift_GetStatementResult             |
-| `describeClusters`           | redshift_metadata.yaml       | redshift_DescribeClusters               |
-| `createTable `               | redshift_metadata.yaml       | redshift_CreateTable                    |
-| `createCluster `             | redshift_metadata.yaml       | redshift_CreateCluster                  |
-| `describeClustersPaginator ` | redshift_metadata.yaml       | redshift_Hello                          |
-| `scenario`                   | redshift_metadata.yaml       | redshift_Scenario                        |
+| `createOpsItem`              | ssm_metadata.yaml            | ssm_CreateOpsItem                       |
+| `createMaintenanceWindow`    | ssm_metadata.yaml            | ssm_CreateMainWindow                    |
+| `updateMaintenanceWindow     | ssm_metadata.yaml            | ssm_UpdateMainWindow                    |
+| `createDocument`             | ssm_metadata.yaml            | ssm_CreateDocument                      |
+| `sendCommand `               | ssm_metadata.yaml            | ssm_SendCommand                         |
+| `commandInvocations`         | ssm_metadata.yaml            | ssm_DescribeInvocation                  |
+| `updateOpsItem`              | ssm_metadata.yaml            | ssm_UpdateOpsItem                       |
+| `deleteMaintenanceWindow `   | ssm_metadata.yaml            | ssm_DeleteMainWindow                    |
+| `deleteDocument`             | ssm_metadata.yaml            | ssm_DeleteMainWindow                    |
+| `listDocumentsPaginator `    | ssm_metadata.yaml            | ssm_SSM                                 |
+| `scenario`                   | ssm_metadata.yaml            | ssm_Scenario                            |
