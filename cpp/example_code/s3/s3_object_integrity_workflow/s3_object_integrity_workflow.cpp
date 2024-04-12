@@ -40,13 +40,14 @@ namespace AwsDoc::S3 {
     constexpr char TEST_BUCKET_PREFIX[] = "integrity-workflow-";
     constexpr char TEST_KEY_MD5[] = "test_key_md5";
     constexpr size_t MAX_BUCKET_NAME_LENGTH = 63;
-    const size_t UPLOAD_BUFFER_SIZE = 5 * 1024 * 1024;
+    const size_t BUFFER_SIZE_IN_MEGABYTES = 5;
+    const size_t UPLOAD_BUFFER_SIZE = BUFFER_SIZE_IN_MEGABYTES * 1024 * 1024;
 
-    static bool useCalculatedChecksum = false;
+    static bool gUseCalculatedChecksum = false;
 
     typedef int HASH_METHOD;
 
-    static const HASH_METHOD MD5 = 0;
+    static const HASH_METHOD MD5 = 1;
     static const HASH_METHOD CRC32 = MD5 + 1;
     static const HASH_METHOD CRC32C = CRC32 + 1;
     static const HASH_METHOD SHA1 = CRC32C + 1;
@@ -111,7 +112,8 @@ namespace AwsDoc::S3 {
 
     Aws::String stringForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod);
 
-    Aws::S3::Model::ChecksumAlgorithm getChecksumAlgorithmForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod);
+    Aws::S3::Model::ChecksumAlgorithm
+    getChecksumAlgorithmForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod);
 
     bool cleanUp(const Aws::String &bucket,
                  const Aws::Client::ClientConfiguration &clientConfiguration);
@@ -188,13 +190,66 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
         return false;
     }
 
+    std::cout
+            << "Welcome to the Amazon Simple Storage Service (Amazon S3) object integrity\n";
+    std::cout << "workflow." << std::endl;
+    std::cout
+            << "This workflow demonstrates how Amazon S3 uses checksum values to verify the integrity of data\n";
+    std::cout << "uploaded to Amazon S3 buckets" << std::endl;
+    std::cout
+            << "The AWS SDK for C++ automatically handles checksums. By default the SDK computes an MD5 checksum which\n";
+    std::cout
+            << "is stored as an etag. (Amazon S3 Express One Zone buckets use a different checksum algorithm)"
+            << std::endl;
+    std::cout
+            << "You can specify one of 4 other checksums to use for object integrity verification,\n";
+    std::cout << "CRC32, CRC32C, SHA-1 or SHA-256." << std::endl;
+    std::cout
+            << "For more information, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html."
+            << std::endl;
+
+    std::cout
+            << "This workflow will locally compute checksums for files uploaded to an Amazon S3 bucket,\n";
+    std::cout << "even when the SDK also computes the checksum." << std::endl;
+    std::cout << "This is done to provide demonstration code for how the checksums are calculated."
+              << std::endl;
+
+    std::cout << "Now to begin..." << std::endl;
+
     Aws::S3::S3Client client(clientConfiguration);
-#if 0
-    for (HASH_METHOD hashMethod = MD5; hashMethod <= SHA256; ++hashMethod) {
+    do {
+        std::cout << "Choose from one of the following checksum algorithms."
+                  << std::endl;
+
+        for (HASH_METHOD hashMethod = MD5; hashMethod <= SHA256; ++hashMethod) {
+            std::cout << "  " << hashMethod << " - " << stringForHashMethod(hashMethod)
+                      << std::endl;
+        }
+
+        HASH_METHOD chosenHashMethod = askQuestionForIntRange("Enter an index: ", MD5,
+                                                              SHA256);
+
+
+        gUseCalculatedChecksum = !askYesNoQuestion("Let the SDK calculate the checksum for you? (y/n) ");
+
+        printAsterisksLine();
+
+        std::cout << "The workflow will now upload a file using PutObject." << std::endl;
+        std::cout << "Object integrity will be verified using the " << stringForHashMethod(chosenHashMethod) << " algorithm." << std::endl;
+        if (gUseCalculatedChecksum) {
+            std::cout << "A checksum computed by this workflow will be used for object integrity verification." << std::endl;
+        }
+        else {
+            std::cout << "A checksum computed by the SDK will be used for object integrity verification." << std::endl;
+        }
+
+        askQuestion("Press any key to continue...", alwaysTrueTest);
+
         std::shared_ptr<Aws::IOStream> inputData =
                 Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
                                               TEST_FILE,
-                                              std::ios_base::in | std::ios_base::binary);
+                                              std::ios_base::in |
+                                              std::ios_base::binary);
 
         if (!*inputData) {
             std::cerr << "Error unable to read file " << TEST_FILE << std::endl;
@@ -203,16 +258,15 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
         }
 
         Hasher hasher;
-        std::cout << "Testing the hash " << stringForHashMethod(hashMethod) << std::endl;
-        askQuestion("Press enter to continue...", alwaysTrueTest);
-        if (!hasher.calculateObjectHash(*inputData, hashMethod)) {
+        if (!hasher.calculateObjectHash(*inputData, chosenHashMethod)) {
             std::cerr << "Error calculating hash for file " << TEST_FILE << std::endl;
             cleanUp(bucketName, clientConfiguration);
             return false;
         }
-        Aws::String key = stringForHashMethod(hashMethod);
+        Aws::String key = stringForHashMethod(chosenHashMethod);
         Aws::String localHash = hasher.getBase64HashString();
-        if (!putObjectWithHash(bucketName, key, localHash, hashMethod, inputData, client)) {
+        if (!putObjectWithHash(bucketName, key, localHash, chosenHashMethod, inputData,
+                               client)) {
             std::cerr << "Error putting file " << TEST_FILE << " to bucket "
                       << bucketName << " with key " << key << std::endl;
             cleanUp(bucketName, clientConfiguration);
@@ -221,7 +275,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
 
         Aws::String retrievedHash;
         if (!retrieveObjectHash(bucketName, key,
-                                hashMethod, retrievedHash,
+                                chosenHashMethod, retrievedHash,
                                 nullptr, client)) {
             std::cerr << "Error getting file " << TEST_FILE << " from bucket "
                       << bucketName << " with key " << key << std::endl;
@@ -229,91 +283,105 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
             return false;
         }
 
-        if (hashMethod == MD5) {
+        bool checksumsMatch = true;
+        if (chosenHashMethod == MD5) {
             Aws::String hashAsHex = hasher.getHexHashString();
             if (hashAsHex != retrievedHash) {
                 std::cerr << "Error retrieved etag " << retrievedHash
                           << " does not match " << hashAsHex << std::endl;
+                checksumsMatch = false;
             }
         }
         else {
             if (retrievedHash != localHash) {
                 std::cerr << "Error retrieved hash " << retrievedHash
                           << " does not match " << localHash << std::endl;
+                checksumsMatch = false;
             }
         }
-    }
-#endif
 
-    for (HASH_METHOD hashMethod = MD5;
-         hashMethod <= SHA256; ++hashMethod) {
-        Aws::String key("tr_");
-        key += stringForHashMethod(hashMethod) + "-s3-userguide.pdf";
-        std::cout << "Starting transfer manager upload of with hash method " <<
-                  stringForHashMethod(hashMethod) << std::endl;
-        if (!doTransferManagerUpload(bucketName, key, hashMethod))
-        {
+        std::cout << "The upload was successful.\n ";
+        std::cout << "If the checksums had not matched, the upload would have failed." << std::endl;
+        std::cout << "The checksums calculated by the server have been retrieved using the GetObjectAttributes." << std::endl;
+        std::cout << "The locally calculated checksums have been verified against the retrieved checksums."  << std::endl;
+        if (checksumsMatch) {
+            std::cout << "Everything matches!" << std::endl;
+        }
+        else {
+            std::cout << "The checksums did not match. This should not happen. Something is wrong with the code." << std::endl;
+        }
+        askQuestion("Press any key to continue...", alwaysTrueTest);
+
+        printAsterisksLine();
+
+        std::cout << "Now the workflow will demonstrate object integrity for multi-part uploads." << std::endl;
+        std::cout << "First the transfer manager will be used to upload a large file in parts." << std::endl;
+        std::cout << "The transfer manager is the recommended method for uploading large files." << std::endl;
+        std::cout << "After the transfer manager upload completes, the upload will be repeated using the same low-level\n";
+        std::cout << "APIs used by the transfer manager." << std::endl;
+        std::cout << "The APIs are the multi-part upload APIs. This allows the code to demonstrate how the checksums are calculated." << std::endl;
+        key = "tr_";
+        key += stringForHashMethod(chosenHashMethod) + "-s3-userguide.pdf";
+
+        std::cout << "An object with the key '" << key << ", will be uploaded using a " << BUFFER_SIZE_IN_MEGABYTES << " MB buffer." << std::endl;
+
+        askQuestion("Press any key to continue...", alwaysTrueTest);
+
+        if (!doTransferManagerUpload(bucketName, key, chosenHashMethod)) {
             std::cerr << "Exiting because of an error" << std::endl;
             cleanUp(bucketName, clientConfiguration);
             return false;
         }
 
-        Aws::String retrievedHash;
-        std::vector<Aws::String> retrievedPartHashes;
+
+        std::vector<Aws::String> retrievedTransferManagerPartHashes;
         if (!retrieveObjectHash(bucketName, key,
-                                hashMethod,
-                                retrievedHash, &retrievedPartHashes, client)) {
+                                chosenHashMethod,
+                                retrievedHash, &retrievedTransferManagerPartHashes, client)) {
             std::cerr << "Exiting because of an error" << std::endl;
             cleanUp(bucketName, clientConfiguration);
             return false;
         }
 
-        std::cout << "Retrieved hash " << retrievedHash << std::endl;
-        for (auto retrievedPartHash : retrievedPartHashes){
-            std::cout << "part hash " << retrievedPartHash << std::endl;
-        }
-    }
-#if 1
-    for (HASH_METHOD hashMethod = MD5;
-         hashMethod <= SHA256; ++hashMethod) {
-        std::shared_ptr<Aws::IOStream> inputData =
+
+        std::shared_ptr<Aws::IOStream> largeFileInputData =
                 Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
                                               MULTI_PART_TEST_FILE,
                                               std::ios_base::in |
                                               std::ios_base::binary);
 
-        if (!inputData->good()) {
+        if (!largeFileInputData->good()) {
             std::cerr << "Error unable to read file " << TEST_FILE << std::endl;
             cleanUp(bucketName, clientConfiguration);
             return false;
         }
 
 
-        Aws::String key = stringForHashMethod(hashMethod);
+        key = stringForHashMethod(chosenHashMethod);
         key += "-s3-userguide.pdf";
         std::cout << "Starting multipart upload of with hash method " <<
-                  stringForHashMethod(hashMethod) << std::endl;
+                  stringForHashMethod(chosenHashMethod) << std::endl;
 
         AwsDoc::S3::Hasher hashData;
         std::vector<Aws::String> partHashes;
 
         if (!doMultipartUploadAndCheckHash(bucketName, key,
-                                                  hashMethod, inputData,
-                                                  hashData,
-                                                  partHashes,
-                                                  client)) {
+                                           chosenHashMethod, largeFileInputData,
+                                           hashData,
+                                           partHashes,
+                                           client)) {
             std::cerr << "Exiting because of an error" << std::endl;
             cleanUp(bucketName, clientConfiguration);
             return false;
         }
 
         std::cout << "Finished multipart upload of with hash method " <<
-                  stringForHashMethod(hashMethod) << std::endl;
+                  stringForHashMethod(chosenHashMethod) << std::endl;
 
-        Aws::String retrievedHash;
-        std::vector<Aws::String> retrievedPartHashes;
+        retrievedHash.clear();
+        retrievedPartHashes.clear();
         if (!retrieveObjectHash(bucketName, key,
-                                hashMethod,
+                                chosenHashMethod,
                                 retrievedHash, &retrievedPartHashes, client)) {
             std::cerr << "Exiting because of an error" << std::endl;
             cleanUp(bucketName, clientConfiguration);
@@ -321,12 +389,12 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
         }
 
         std::cout << "Retrieved hash " << retrievedHash << std::endl;
-        for (auto retrievedPartHash : retrievedPartHashes){
+        for (auto retrievedPartHash: retrievedPartHashes) {
             std::cout << "part hash " << retrievedPartHash << std::endl;
         }
 
         Aws::String hashString;
-        if (hashMethod == MD5) {
+        if (chosenHashMethod == MD5) {
             hashString = hashData.getHexHashString();
             hashString += "-" + std::to_string(partHashes.size());
         }
@@ -342,12 +410,13 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
             allMatch = false;
         }
 
-        if (hashMethod != MD5) {
+        if (chosenHashMethod != MD5) {
             if (partHashes.size() != retrievedPartHashes.size()) {
                 std::cerr << "The number of part hashes do not match" << std::endl;
                 std::cerr << "Local number of hashes- '" << partHashes.size() << "'"
                           << std::endl;
-                std::cerr << "Remote number of hashes - '" << retrievedPartHashes.size()
+                std::cerr << "Remote number of hashes - '"
+                          << retrievedPartHashes.size()
                           << "'" << std::endl;
                 continue;
             }
@@ -356,7 +425,8 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
                 if (partHashes[i] != retrievedPartHashes[i]) {
                     std::cerr << "The part hashes do not match for part " << i + 1
                               << "." << std::endl;
-                    std::cerr << "Local hash- '" << partHashes[i] << "'" << std::endl;
+                    std::cerr << "Local hash- '" << partHashes[i] << "'"
+                              << std::endl;
                     std::cerr << "Remote hash - '" << retrievedPartHashes[i] << "'"
                               << std::endl;
                     allMatch = false;
@@ -365,10 +435,11 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
         }
 
         if (allMatch) {
-            std::cout << "All the local hashes match the remote hashes." << std::endl;
+            std::cout << "All the local hashes match the remote hashes."
+                      << std::endl;
         }
-    }
-#endif
+    } while (askYesNoQuestion(
+            "Would you like to repeat with a different checksum algorithm? "));
 
     return cleanUp(bucketName, clientConfiguration);
 }
@@ -551,11 +622,10 @@ bool AwsDoc::S3::putObjectWithHash(const Aws::String &bucket, const Aws::String 
     Aws::S3::Model::PutObjectRequest request;
     request.SetBucket(bucket);
     request.SetKey(key);
-    if (hashMethod !=  MD5)
-    {
+    if (hashMethod != MD5) {
         request.SetChecksumAlgorithm(getChecksumAlgorithmForHashMethod(hashMethod));
     }
-    if (useCalculatedChecksum) {
+    if (gUseCalculatedChecksum) {
         switch (hashMethod) {
             case AwsDoc::S3::MD5:
                 request.SetContentMD5(hashData);
@@ -778,25 +848,8 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
     Aws::S3::Model::CreateMultipartUploadRequest createMultipartUploadRequest;
     createMultipartUploadRequest.SetBucket(bucket);
     createMultipartUploadRequest.SetKey(key);
-    switch (hashMethod) { ;
-        case AwsDoc::S3::MD5:
-            break; // Ignore MD5.
-        case AwsDoc::S3::SHA1:
-            createMultipartUploadRequest.SetChecksumAlgorithm(
-                    Aws::S3::Model::ChecksumAlgorithm::SHA1);
-            break;
-        case AwsDoc::S3::SHA256:
-            createMultipartUploadRequest.SetChecksumAlgorithm(
-                    Aws::S3::Model::ChecksumAlgorithm::SHA256);
-            break;
-        case AwsDoc::S3::CRC32:
-            createMultipartUploadRequest.SetChecksumAlgorithm(
-                    Aws::S3::Model::ChecksumAlgorithm::CRC32);
-            break;
-        case AwsDoc::S3::CRC32C:
-            createMultipartUploadRequest.SetChecksumAlgorithm(
-                    Aws::S3::Model::ChecksumAlgorithm::CRC32C);
-            break;
+    if (hashMethod != MD5) {
+        createMultipartUploadRequest.SetChecksumAlgorithm(getChecksumAlgorithmForHashMethod(hashMethod));
     }
 
     auto createMultipartUploadOutcome = client.CreateMultipartUpload(
@@ -846,33 +899,35 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
         partHashes.push_back(base64HashString);
 
         Aws::S3::Model::CompletedPart completedPart;
-        switch (hashMethod) {
-            case AwsDoc::S3::MD5:
-                uploadPartRequest.SetContentMD5(base64HashString);
+        if (gUseCalculatedChecksum) {
+            switch (hashMethod) {
+                case AwsDoc::S3::MD5:
+                    uploadPartRequest.SetContentMD5(base64HashString);
+                    break;
+                case AwsDoc::S3::SHA1:
+                    uploadPartRequest.SetChecksumSHA1(base64HashString);
+                    completedPart.SetChecksumSHA1(base64HashString);
+                    break;
+                case AwsDoc::S3::SHA256:
+                    uploadPartRequest.SetChecksumSHA256(base64HashString);
+                    completedPart.SetChecksumSHA256(base64HashString);
+                    break;
+                case AwsDoc::S3::CRC32:
+                    uploadPartRequest.SetChecksumCRC32(base64HashString);
+                    completedPart.SetChecksumCRC32(base64HashString);
+                    break;
+                case AwsDoc::S3::CRC32C:
+                    uploadPartRequest.SetChecksumCRC32C(base64HashString);
+                    completedPart.SetChecksumCRC32C(base64HashString);
+                    break;
+                default:
+                    std::cerr << "Unknown hash method." << std::endl;
+                    uploadSucceeded = false;
+                    break;
+            }
+            if (!uploadSucceeded) {
                 break;
-            case AwsDoc::S3::SHA1:
-                uploadPartRequest.SetChecksumSHA1(base64HashString);
-                completedPart.SetChecksumSHA1(base64HashString);
-                break;
-            case AwsDoc::S3::SHA256:
-                uploadPartRequest.SetChecksumSHA256(base64HashString);
-                completedPart.SetChecksumSHA256(base64HashString);
-                break;
-            case AwsDoc::S3::CRC32:
-                uploadPartRequest.SetChecksumCRC32(base64HashString);
-                completedPart.SetChecksumCRC32(base64HashString);
-                break;
-            case AwsDoc::S3::CRC32C:
-                uploadPartRequest.SetChecksumCRC32C(base64HashString);
-                completedPart.SetChecksumCRC32C(base64HashString);
-                break;
-            default:
-                std::cerr << "Unknown hash method." << std::endl;
-                uploadSucceeded = false;
-                break;
-        }
-        if (!uploadSucceeded) {
-            break;
+            }
         }
         Aws::Utils::ByteBuffer hashBuffer = hasher.getByteBufferHash();
 
@@ -938,9 +993,9 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
 Aws::S3::Model::ChecksumAlgorithm
 AwsDoc::S3::getChecksumAlgorithmForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod) {
     Aws::S3::Model::ChecksumAlgorithm result = Aws::S3::Model::ChecksumAlgorithm::NOT_SET;
-    switch (hashMethod){
+    switch (hashMethod) {
         case AwsDoc::S3::MD5:
-             break; // Ignore MD5.
+            break; // Ignore MD5.
         case AwsDoc::S3::SHA1:
             result = Aws::S3::Model::ChecksumAlgorithm::SHA1;
             break;
@@ -966,26 +1021,30 @@ bool
 AwsDoc::S3::doTransferManagerUpload(const Aws::String &bucket, const Aws::String &key,
                                     AwsDoc::S3::HASH_METHOD hashMethod) {
     auto s3_client = Aws::MakeShared<Aws::S3::S3Client>("S3Client");
-    auto executor = Aws::MakeShared<Aws::Utils::Threading::PooledThreadExecutor>("executor", 25);
+    auto executor = Aws::MakeShared<Aws::Utils::Threading::PooledThreadExecutor>(
+            "executor", 25);
     Aws::Transfer::TransferManagerConfiguration transfer_config(executor.get());
     transfer_config.s3Client = s3_client;
     transfer_config.bufferSize = UPLOAD_BUFFER_SIZE;
-    if (hashMethod == MD5)
-    {
+    if (hashMethod == MD5) {
         transfer_config.computeContentMD5 = true;
     }
     else {
-        transfer_config.checksumAlgorithm = getChecksumAlgorithmForHashMethod(hashMethod);
+        transfer_config.checksumAlgorithm = getChecksumAlgorithmForHashMethod(
+                hashMethod);
     }
 
     auto transfer_manager = Aws::Transfer::TransferManager::Create(transfer_config);
 
-    auto uploadHandle = transfer_manager->UploadFile(MULTI_PART_TEST_FILE, bucket, key, "text/plain", Aws::Map<Aws::String, Aws::String>());
+    auto uploadHandle = transfer_manager->UploadFile(MULTI_PART_TEST_FILE, bucket, key,
+                                                     "text/plain",
+                                                     Aws::Map<Aws::String, Aws::String>());
     uploadHandle->WaitUntilFinished();
-    bool success = uploadHandle->GetStatus() == Aws::Transfer::TransferStatus::COMPLETED;
+    bool success =
+            uploadHandle->GetStatus() == Aws::Transfer::TransferStatus::COMPLETED;
     if (!success) {
         auto err = uploadHandle->GetLastError();
-        std::cout << "File upload failed:  "<< err.GetMessage() << std::endl;
+        std::cout << "File upload failed:  " << err.GetMessage() << std::endl;
     }
 
     return success;
