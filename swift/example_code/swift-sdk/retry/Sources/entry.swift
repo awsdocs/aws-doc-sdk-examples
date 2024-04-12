@@ -16,7 +16,7 @@ struct RetryExample {
         let config: S3Client.S3ClientConfiguration
 
         // Create an Amazon S3 client configuration object that specifies the
-        // the adaptive retry mode and the base maximum number of retries as 5.
+        // adaptive retry mode and the base maximum number of retries as 5.
 
         do {
             // snippet-start:[retry.swift.configure]
