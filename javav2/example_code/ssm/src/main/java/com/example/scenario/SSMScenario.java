@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 
 public class SSMScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         String documentName;
@@ -303,7 +302,7 @@ public class SSMScenario {
         ssmClient.deleteDocument(documentRequest);
         System.out.println("The SSM document was successfully deleted");
     }
-    // snippet-start:[ssm.Java2.delete_doc.main]
+    // snippet-end:[ssm.Java2.delete_doc.main]
 
     // snippet-start:[ssm.java2.delete_window.main]
     public static void deleteMaintenanceWindow(SsmClient ssmClient, String winId) {
