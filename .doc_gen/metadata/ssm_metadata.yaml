@@ -100,3 +100,20 @@ ssm_UpdateOpsItem:
                 - ssm.Java2.resolve_ops.main
   services:
     ssm: {UpdateOpsItem}                 
+ssm_Scenario:
+  title: Get started with &AWS; SDK
+  title_abbrev: Get started with &AWS; 
+  synopsis: work with &AWS; maintaince windows, documents, and Opsitems.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.scenario.main
+  services:
+    redshift: {createOpsItem, createMaintenanceWindow, createDocument, sendCommand, commandInvocations, deleteMaintenanceWindow, updateOpsItem}

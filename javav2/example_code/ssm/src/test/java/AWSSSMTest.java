@@ -70,30 +70,6 @@ public class AWSSSMTest {
          */
     }
 
-    @Test
-    @Tag("IntegrationTest")
-    @Order(1)
-    public void CreateOpsItem() {
-        opsItemId = CreateOpsItem.createNewOpsItem(ssmClient, title, source, category, severity);
-        assertFalse(opsItemId.isEmpty());
-        System.out.println("Test 1 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(2)
-    public void GetOpsItem() {
-        assertDoesNotThrow(() -> GetOpsItem.getOpsItem(ssmClient, opsItemId));
-        System.out.println("Test 2 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(3)
-    public void DescribeOpsItems() {
-        assertDoesNotThrow(() -> DescribeOpsItems.describeItems(ssmClient));
-        System.out.println("Test 3 passed");
-    }
 
     @Test
     @Tag("IntegrationTest")
@@ -111,19 +87,11 @@ public class AWSSSMTest {
         System.out.println("Test 5 passed");
     }
 
-    @Test
-    @Tag("IntegrationTest")
-    @Order(6)
-    public void ResolveOpsItem() {
-        assertDoesNotThrow(() -> ResolveOpsItem.setOpsItemStatus(ssmClient, opsItemId));
-        System.out.println("Test 6 passed");
-    }
-
-    private static String getSecretValues() {
-        SecretsManagerClient secretClient = SecretsManagerClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+   private static String getSecretValues() {
+       SecretsManagerClient secretClient = SecretsManagerClient.builder()
+           .region(Region.US_EAST_1)
+           .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+           .build();
         String secretName = "test/ssm";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()

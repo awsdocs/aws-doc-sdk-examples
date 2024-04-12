@@ -123,5 +123,5 @@ The following table describes the metadata used in this SDK Getting Started Scen
 | `updateOpsItem`              | ssm_metadata.yaml            | ssm_UpdateOpsItem                       |
 | `deleteMaintenanceWindow `   | ssm_metadata.yaml            | ssm_DeleteMainWindow                    |
 | `deleteDocument`             | ssm_metadata.yaml            | ssm_DeleteMainWindow                    |
-| `listDocumentsPaginator `    | ssm_metadata.yaml            | ssm_SSM                                 |
+| `describeOpsItems       `    | ssm_metadata.yaml            | ssm_DescribeOpsItems                    |
 | `scenario`                   | ssm_metadata.yaml            | ssm_Scenario                            |

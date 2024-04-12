@@ -12,7 +12,7 @@ The program performs the following tasks:
 4. Sends a command to an EC2 instance using the created SSM document.
 5. Retrieves the time when the specific command was sent to the managed node.
 6. Creates an SSM OpsItem to track and manage an operational issue.
-7. Updates the created OpsItem.
+7. Updates the created OpsItem and gets the status.
 8. Resolves the OpsItem.
 9. Optionally deletes the created SSM resources (maintenance window and document).
 
