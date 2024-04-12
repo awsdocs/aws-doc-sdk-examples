@@ -1,5 +1,5 @@
 # zexi 0.4.0
-iot_Hello:
+ssm_Hello:
   title: Hello &SYS;
   title_abbrev: Hello &SYS;
   synopsis: get started using &SYS;.
