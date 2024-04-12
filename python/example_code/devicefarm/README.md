@@ -38,6 +38,7 @@ python -m pip install -r requirements.txt
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Run browser tests and take screenshots](browser_testing/test_suite.py)
 - [Upload and test device packages](device_testing/run_tests.py)
 
 
@@ -53,6 +54,24 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
+
+#### Run browser tests and take screenshots
+
+This example shows you how to run browser tests with Device Farm and take screenshots.
+
+
+<!--custom.scenario_prereqs.device-farm_Scenario_BrowserTesting.start-->
+<!--custom.scenario_prereqs.device-farm_Scenario_BrowserTesting.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python browser_testing/test_suite.py
+```
+
+
+<!--custom.scenarios.device-farm_Scenario_BrowserTesting.start-->
+<!--custom.scenarios.device-farm_Scenario_BrowserTesting.end-->
 
 #### Upload and test device packages
 
