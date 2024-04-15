@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import { expect, it, vi, describe, beforeEach } from "vitest";
 
 const writeFileMock = vi.fn();

@@ -1177,14 +1177,14 @@ medical-imaging_Scenario_ImageSetsAndFrames:
           excerpts:
             - description:
               snippet_files:
-              - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/index.js
-              - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-1.js
-              - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-2.js
-              - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-3.js
-              - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-4.js
-              - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-5.js
-              - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-6.js
-              - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-7.js
+                - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/index.js
+                - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-1.js
+                - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-2.js
+                - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-3.js
+                - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-4.js
+                - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-5.js
+                - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-6.js
+                - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-7.js
   services:
     medical-imaging:
       {

@@ -1,5 +1,5 @@
 {
-    "name": "pixel-data-verification",
+    "name": "@aws-doc-sdk-examples/pixel-data-verification",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
