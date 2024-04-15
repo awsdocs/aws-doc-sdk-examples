@@ -118,9 +118,9 @@ ssm_UpdateOpsItem:
   services:
     ssm: {UpdateOpsItem}                 
 ssm_Scenario:
-  title: Get started with &AWS; SDK
-  title_abbrev: Get started with &AWS; 
-  synopsis: work with &AWS; maintaince windows, documents, and Opsitems.
+  title: Get started with the &SYS; SDK
+  title_abbrev: Get started with &SYS; 
+  synopsis: work with &SYS; maintaince windows, documents, and Opsitems.
   category: Scenarios
   languages:
     Java:
