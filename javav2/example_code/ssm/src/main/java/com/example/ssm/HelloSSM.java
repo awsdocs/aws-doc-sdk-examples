@@ -23,12 +23,12 @@ public class HelloSSM {
                     awsAccount - Your AWS Account number.
                 """;
 
-       // if (args.length != 1) {
-       //     System.out.println(usage);
-      //      System.exit(1);
-       // }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String awsAccount = "814548047983" ;
+        String awsAccount = args[0] ;
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
             .region(region)

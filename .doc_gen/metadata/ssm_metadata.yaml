@@ -66,10 +66,27 @@ ssm_PutParameter:
                 - ssm.rust.create-parameter
   services:
     ssm: {PutParameter}
+ssm_createDocument:
+  title: Create a document using the &SYS; SDK
+  title_abbrev: Create a document
+  synopsis: create a document.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.create_doc.main
+  services:
+    ssm: {CreateDocument} 
 ssm_CreateOpsItem:
-  title: Create a new OpsItem using an &AWS; SDK
-  title_abbrev: Create a new OpsItem
-  synopsis: create a new OpsItem.
+  title: Create an OpsItem using the &SYS; SDK
+  title_abbrev: Create an OpsItem
+  synopsis: create an OpsItem.
   category:
   languages:
     Java:
@@ -84,7 +101,7 @@ ssm_CreateOpsItem:
   services:
     ssm: {CreateOpsItem} 
 ssm_DescribeOpsItems:
-  title: Describe an OpsItem using an &AWS; SDK
+  title: Describe an OpsItem using a &SYS; SDK
   title_abbrev: Describe an OpsItem
   synopsis: describe an OpsItem.
   category:
@@ -101,8 +118,8 @@ ssm_DescribeOpsItems:
   services:
     ssm: {DescribeOpsItems}
 ssm_UpdateOpsItem:
-  title: Updates an OpsItem using an &AWS; SDK
-  title_abbrev: Updates an OpsItem
+  title: Update an OpsItem using a &SYS; SDK
+  title_abbrev: Update an OpsItem
   synopsis: updates an OpsItem.
   category:
   languages:

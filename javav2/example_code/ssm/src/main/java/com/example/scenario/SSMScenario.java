@@ -250,7 +250,7 @@ public class SSMScenario {
             } else {
                 System.out.println("The SSM document is not active. Status: " + documentStatus);
                 try {
-                    // Add a delay to avoid making too many requests
+                    // Add a delay to avoid making too many requests.
                     Thread.sleep(5000); // Wait for 5 seconds before checking again
                 } catch (InterruptedException e) {
                     e.printStackTrace();
