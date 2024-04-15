@@ -19,6 +19,7 @@ set(BUILD_SHARED_LIBS ON)
 
 find_package(GTest)
 
+
 if(NOT GTest_FOUND)
     include(FetchContent)
     FetchContent_Declare(
@@ -31,6 +32,15 @@ if(NOT GTest_FOUND)
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
     FetchContent_MakeAvailable(googletest)
 endif()
+
+# CURL package is optional to test pre-signed url code.
+find_package(CURL)
+if (NOT CURL_FOUND) 
+    unset(CURL_INCLUDE_DIRS) 
+    unset(CURL_LIBRARIES) 
+    unset(CURL_LIBRARY)
+endif()
+
 
 # Use the MSVC variable to determine if this is a Windows build.
 set(WINDOWS_BUILD ${MSVC})
@@ -86,10 +96,13 @@ if(WINDOWS_BUILD)
             # remove list_buckets_disabling_dns_cache.cpp libs not using curl
         list(FILTER GTEST_SOURCE_FILES EXCLUDE REGEX "/gtest_list_buckets_disabling_dns_cache.cpp$") # Not supported in windows without curl, see file for details
     else()
-        set(CURL_INCLUDE "c:/curl/include") # Update this with correct curl install location.
-        set(CURL_LIB "c:/curl/lib") # Update this with correct  curl install location.
+        if (NOT CURL_FOUND) # find_package did not set these.
+            set(CURL_INCLUDE_DIRS "c:/curl/include") # Update this with correct curl install location.
+            set(CURL_LIBRARIES "c:/curl/lib") # Update this with correct  curl install location.
+        endif()
     endif()
 endif()
+
 enable_testing()
 
 
@@ -115,7 +128,12 @@ target_include_directories(
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
         $<INSTALL_INTERFACE:../include>
-        ${CURL_INCLUDE}
+)
+
+target_include_directories(
+        ${CURRENT_TARGET}
+        SYSTEM PUBLIC
+        ${CURL_INCLUDE_DIRS}
 )
 
 target_compile_definitions(
@@ -125,16 +143,23 @@ target_compile_definitions(
         SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
+if(CURL_FOUND)
+    target_compile_definitions(${CURRENT_TARGET}
+            PUBLIC
+            HAS_CURL=1)
+endif()
+
 target_link_libraries(
         ${CURRENT_TARGET}
         GTest::gtest
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
+        ${CURL_LIBRARIES}
 )
 
 target_link_directories(${CURRENT_TARGET} 
     PUBLIC 
-    ${CURL_LIB})
+    ${CURL_LIBRARIES})
 
 include(GoogleTest)
 gtest_add_tests(
