@@ -66,6 +66,23 @@ ssm_PutParameter:
                 - ssm.rust.create-parameter
   services:
     ssm: {PutParameter}
+ssm_sendCommand:
+  title: Send a command using the &SYS; SDK
+  title_abbrev: Send a command
+  synopsis: send a command.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.Java2.send_command.main
+  services:
+    ssm: {SendCommand} 
 ssm_createDocument:
   title: Create a document using the &SYS; SDK
   title_abbrev: Create a document
