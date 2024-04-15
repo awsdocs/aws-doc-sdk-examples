@@ -66,6 +66,23 @@ ssm_PutParameter:
                 - ssm.rust.create-parameter
   services:
     ssm: {PutParameter}
+ssm_createMaintenanceWindow:
+  title: Create a maintenance window using the &SYS; SDK
+  title_abbrev: Create a maintenance window
+  synopsis: create a maintenance window.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.create_window.main
+  services:
+    ssm: {CreateMaintenanceWindow} 
 ssm_sendCommand:
   title: Send a command using the &SYS; SDK
   title_abbrev: Send a command
@@ -82,7 +99,7 @@ ssm_sendCommand:
               snippet_tags:
                 - ssm.Java2.send_command.main
   services:
-    ssm: {SendCommand} 
+    ssm: {SendCommand}     
 ssm_createDocument:
   title: Create a document using the &SYS; SDK
   title_abbrev: Create a document
