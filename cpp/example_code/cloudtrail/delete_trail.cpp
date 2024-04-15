@@ -2,47 +2,83 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h>
 #include <aws/cloudtrail/CloudTrailClient.h>
 #include <aws/cloudtrail/model/DeleteTrailRequest.h>
 #include <aws/cloudtrail/model/DeleteTrailResult.h>
 #include <iostream>
+#include "cloudtrail_samples.h"
 
 /**
- * Deletes a cloud trail on command line input
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * Purpose
+ *
+ * Demonstrates using the AWS SDK for C++ to list the objects in an S3 bucket.
+ *
  */
 
-int main(int argc, char **argv)
-{
-  if (argc != 2)
-  {
-    std::cout << "Usage: delete_trail <trail_name>";
-    return 1;
-  }
-  Aws::SDKOptions options;
-  Aws::InitAPI(options);
-  {
-    Aws::String trail_name(argv[1]);
+// snippet-start:[cpp.example_code.cloudtrail.DeleteTrail]
+// Routine which demonstrates using the AWS SDK for C++ to delete a cloud trail.
+/*!
+  \param trailName: The name of the trail.
+  \param clientConfig: Aws client configuration.
+  \return bool: Function succeeded.
+*/
+bool AwsDoc::CloudTrail::deleteTrail(const Aws::String trailName,
+                                     const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::CloudTrail::CloudTrailClient trailClient(clientConfig);
 
-    Aws::CloudTrail::CloudTrailClient ct;
+    Aws::CloudTrail::Model::DeleteTrailRequest request;
+    request.SetName(trailName);
 
-    Aws::CloudTrail::Model::DeleteTrailRequest dt_req;
-    dt_req.SetName(trail_name);
-
-    auto dt_out = ct.DeleteTrail(dt_req);
-
-    if (dt_out.IsSuccess())
-    {
-      std::cout << "Successfully deleted cloud trail" << std::endl;
+    auto outcome = trailClient.DeleteTrail(request);
+    if (outcome.IsSuccess()) {
+        std::cout << "Successfully deleted trail " << trailName << std::endl;
+    }
+    else {
+        std::cerr << "Error deleting trail " << trailName << " " <<
+                  outcome.GetError().GetMessage() << std::endl;
     }
 
-    else
-    {
-      std::cout << "Error deleting cloud trail " << dt_out.GetError().GetMessage()
-        << std::endl;
-    }
-  }
-
-  Aws::ShutdownAPI(options);
-  return 0;
+    return outcome.IsSuccess();
 }
+// snippet-end: [cpp.example_code.cloudtrail.DeleteTrail]
+
+/*
+*
+*  main function
+*
+*  Usage: 'run_delete_trail <trail_name>'
+*
+*  Prerequisites: An existing CloudTrail trail.
+*
+*/
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        std::cout << "Usage: 'run_delete_trail <trail_name>'";
+        return 1;
+    }
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+    {
+        Aws::String trailName(argv[1]);
+
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::CloudTrail::deleteTrail(trailName, clientConfig);
+    }
+
+    Aws::ShutdownAPI(options);
+    return 0;
+}
+
+#endif // TESTING_BUILD
