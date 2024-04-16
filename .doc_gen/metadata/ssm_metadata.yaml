@@ -151,6 +151,23 @@ ssm_createDocument:
                 - ssm.java2.create_doc.main
   services:
     ssm: {CreateDocument} 
+ssm_describeOpsItems:
+  title: Describe an &SYS; Opsitem using the SDK
+  title_abbrev: Describe an Opsitem
+  synopsis: describe an Opsitem.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.describe_ops.main
+  services:
+    ssm: {DescribeOpsItems}  
 ssm_deleteMaintenanceWindow:
   title: Delete a maintenance window using the &SYS; SDK
   title_abbrev: Delete a maintenance window

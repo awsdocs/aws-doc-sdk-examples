@@ -24,13 +24,13 @@ import java.util.concurrent.TimeUnit;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html
  *
  * This Java program performs these tasks:
- * 1. Creates an SSM maintenance window with a default name or a user-provided name.
+ * 1. Creates an AWS Systems Manager maintenance window with a default name or a user-provided name.
  * 2. Modifies the maintenance window schedule.
- * 3. Creates an SSM document with a default name or a user-provided name.
- * 4. Sends a command to a specified EC2 instance using the created SSM document and display the time when the command was invoked.
- * 5. Creates an SSM OpsItem with a predefined title, source, category, and severity.
+ * 3. Creates an AWS Systems Manager document with a default name or a user-provided name.
+ * 4. Sends a command to a specified EC2 instance using the created AWS Systems Manager document and display the time when the command was invoked.
+ * 5. Creates an AWS Systems Manager OpsItem with a predefined title, source, category, and severity.
  * 6. Updates and resolve the created OpsItem.
- * 7. Deletes the created SSM maintenance window and document.
+ * 7. Deletes the AWS Systems Manager maintenance window, OpsItem, and document.
  */
 
 public class SSMScenario {
@@ -311,7 +311,7 @@ public class SSMScenario {
     // snippet-end:[ssm.Java2.send_command.main]
 
     // snippet-start:[ssm.Java2.delete_doc.main]
-    // Deletes an AWS SSM document.
+    // Deletes an AWS Systems Manager document.
     public static void deleteDoc(SsmClient ssmClient, String documentName) {
         DeleteDocumentRequest documentRequest = DeleteDocumentRequest.builder()
             .name(documentName)
@@ -442,7 +442,6 @@ public class SSMScenario {
     // snippet-start:[ssm.java2.describe_ops.main]
     public static void describeOpsItems(SsmClient ssmClient, String key) {
         try {
-
             OpsItemFilter filter = OpsItemFilter.builder()
                 .key(OpsItemFilterKey.OPS_ITEM_ID)
                 .values(key)
