@@ -26,7 +26,7 @@ public class SupportWrapper
     /// Get the descriptions of AWS services.
     /// </summary>
     /// <param name="name">Optional language for services.
-    /// Currently "en" (English) and "ja" (Japanese) are supported.</param>
+    /// Currently Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”) are supported.</param>
     /// <returns>The list of AWS service descriptions.</returns>
     public async Task<List<Service>> DescribeServices(string language = "en")
     {
@@ -46,7 +46,7 @@ public class SupportWrapper
     /// Get the descriptions of support severity levels.
     /// </summary>
     /// <param name="name">Optional language for severity levels.
-    /// Currently "en" (English) and "ja" (Japanese) are supported.</param>
+    /// Currently Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”) are supported.</param>
     /// <returns>The list of support severity levels.</returns>
     public async Task<List<SeverityLevel>> DescribeSeverityLevels(string language = "en")
     {
@@ -71,7 +71,7 @@ public class SupportWrapper
     /// <param name="subject">Subject of the new case.</param>
     /// <param name="body">Body text of the new case.</param>
     /// <param name="language">Optional language support for your case.
-    /// Currently "en" (English) and "ja" (Japanese) are supported.</param>
+    /// Currently Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”) are supported.</param>
     /// <param name="attachmentSetId">Optional Id for an attachment set for the new case.</param>
     /// <param name="issueType">Optional issue type for the new case. Options are "customer-service" or "technical".</param>
     /// <returns>The caseId of the new support case.</returns>
@@ -210,7 +210,7 @@ public class SupportWrapper
     /// <param name="afterTime">The optional start date for a filtered search.</param>
     /// <param name="beforeTime">The optional end date for a filtered search.</param>
     /// <param name="language">Optional language support for your case.
-    /// Currently "en" (English) and "ja" (Japanese) are supported.</param>
+    /// Currently Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”) are supported.</param>
     /// <returns>A list of CaseDetails.</returns>
     public async Task<List<CaseDetails>> DescribeCases(List<string> caseIds, string? displayId = null, bool includeCommunication = true,
         bool includeResolvedCases = false, DateTime? afterTime = null, DateTime? beforeTime = null,
