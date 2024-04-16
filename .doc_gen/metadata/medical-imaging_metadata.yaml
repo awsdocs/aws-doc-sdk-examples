@@ -685,6 +685,15 @@ medical-imaging_UpdateImageSetMetadata:
                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
+            - description: "Use case #1: Insert or update an attribute."
+              snippet_tags:
+                - python.example_code.medical-imaging.UpdateImageSetMetadata.insert_or_update_attributes
+            - description: "Use case #2: Remove an attribute."
+              snippet_tags:
+                - python.example_code.medical-imaging.UpdateImageSetMetadata.remove_attributes
+            - description: "Use case #3: Remove an instance."
+              snippet_tags:
+                - python.example_code.medical-imaging.UpdateImageSetMetadata.remove_instance
     JavaScript:
       versions:
         - sdk_version: 3
@@ -694,9 +703,15 @@ medical-imaging_UpdateImageSetMetadata:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3
-            - description: Encode the metadata.
+            - description: "Use case #1: Insert or update an attribute."
               snippet_tags:
-                - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.main
+                - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.insert_or_update_attributes
+            - description: "Use case #2: Remove an attribute."
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_attributes
+            - description: "Use case #3: Remove an instance."
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_instance
     Java:
       versions:
         - sdk_version: 2
@@ -706,6 +721,15 @@ medical-imaging_UpdateImageSetMetadata:
             - description:
               snippet_tags:
                 - medicalimaging.java2.update_image_set_metadata.main
+            - description: "Use case #1: Insert or update an attribute."
+              snippet_tags:
+                - medicalimaging.java2.update_image_set_metadata.insert_or_update_attributes
+            - description: "Use case #2: Remove an attribute."
+              snippet_tags:
+                - medicalimaging.java2.update_image_set_metadata.remove_attributes
+            - description: "Use case #3: Remove an instance."
+              snippet_tags:
+                - medicalimaging.java2.update_image_set_metadata.remove_instance
   services:
     medical-imaging: {UpdateImageSetMetadata}
 medical-imaging_CopyImageSet:
