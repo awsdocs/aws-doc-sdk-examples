@@ -15,6 +15,24 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html
+ *
+ * This Java program performs these tasks:
+ * 1. Creates an SSM maintenance window with a default name or a user-provided name.
+ * 2. Modifies the maintenance window schedule.
+ * 3. Creates an SSM document with a default name or a user-provided name.
+ * 4. Sends a command to a specified EC2 instance using the created SSM document and display the time when the command was invoked.
+ * 5. Creates an SSM OpsItem with a predefined title, source, category, and severity.
+ * 6. Updates and resolve the created OpsItem.
+ * 7. Deletes the created SSM maintenance window and document.
+ */
+
 public class SSMScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
@@ -448,5 +466,22 @@ public class SSMScenario {
         }
     }
     // snippet-end:[ssm.java2.describe_ops.main]
+
+    public static void deleteOpsItem(SsmClient ssmClient, String opsId) {
+
+        try {
+
+            DeleteOpsItemRequest deleteOpsItemRequest = DeleteOpsItemRequest.builder()
+                .opsItemId(opsId)
+                .build();
+
+            ssmClient.deleteOpsItem(deleteOpsItemRequest);
+            System.out.println(opsId +" Opsitem was deleted");
+
+        } catch (SsmException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+    }
 }
 // snippet-end:[ssm.java2.scenario.main]

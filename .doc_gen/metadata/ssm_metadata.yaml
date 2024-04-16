@@ -151,6 +151,40 @@ ssm_createDocument:
                 - ssm.java2.create_doc.main
   services:
     ssm: {CreateDocument} 
+ssm_deleteMaintenanceWindow:
+  title: Delete a maintenance window using the &SYS; SDK
+  title_abbrev: Delete a maintenance window
+  synopsis: delete a maintenance window.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.delete_window.main
+  services:
+    ssm: {DeleteMaintenanceWindow}  
+ssm_deleteDocument:
+  title: Delete a document using the &SYS; SDK
+  title_abbrev: Delete a document
+  synopsis: delete a document.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.Java2.delete_doc.main
+  services:
+    ssm: {DeleteDocument}     
 ssm_CreateOpsItem:
   title: Create an OpsItem using the &SYS; SDK
   title_abbrev: Create an OpsItem
