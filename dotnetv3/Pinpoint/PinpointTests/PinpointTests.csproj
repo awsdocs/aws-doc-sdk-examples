@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SendEmailMessage\SendEmailMessage.csproj" />
-    <ProjectReference Include="..\SendSmsMessage\SendSmsMessage.csproj" />
   </ItemGroup>
 
   <ItemGroup>
