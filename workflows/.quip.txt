@@ -1,0 +1,25 @@
+Task: Develop reference code using the Kinesis Firehose service for PutRecord and PutRecordBatch operations, focusing on production-grade reliability and performance.
+
+Requirements:
+1. Batch Sizing:
+- Address batch limits, pricing, and throughput considerations.
+- Explain the rationale behind these choices in the code comments.
+
+2. Code Features:
+- Implement robust error handling, logging, and pagination.
+- Incorporate exception handling with a retry mechanism featuring exponential back-off with jitter for PutRecord and PutRecordBatch.
+- Ensure PutRecordBatch checks FailedPutCount in responses.
+
+3. Monitoring:
+- If using DirectPut, monitor IncomingBytes and IncomingRecords to assess traffic.
+
+4. Supporting Infrastructure and Documentation:
+- Include a TypeScript CDK script for creating necessary AWS resources.
+- Provide a README.md detailing setup and execution instructions.
+- Develop the sample code in a single executable file for CLI use, demonstrating SDK operations.
+
+# Workflow
+1. Set up the stream using the CDK script.
+2. Demonstrate putting a single record with comprehensive error handling and logging.
+3. Extend to batch record processing.
+4. Include additional scenarios relevant to the main operations.
