@@ -66,6 +66,40 @@ ssm_PutParameter:
                 - ssm.rust.create-parameter
   services:
     ssm: {PutParameter}
+ssm_createOpsItem:
+  title: Create aa opsItem using the &SYS; SDK
+  title_abbrev: Create an opsItem
+  synopsis: create an maintenance window.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.create_ops.main
+  services:
+    ssm: {CreateOpsItem} 
+ssm_updateMaintenanceWindow:
+  title: Update a maintenance window using the &SYS; SDK
+  title_abbrev: Update a maintenance window
+  synopsis: update a maintenance window.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.update_window.main
+  services:
+    ssm: {UpdateMaintenanceWindow} 
 ssm_createMaintenanceWindow:
   title: Create a maintenance window using the &SYS; SDK
   title_abbrev: Create a maintenance window
