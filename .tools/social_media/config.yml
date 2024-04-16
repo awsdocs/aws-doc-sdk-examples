@@ -1,2 +1,0 @@
-response_length: 500
-prompt_template: "You are an AWS engineer with a goal to engage customers on LinkedIn. Write a clever, sardonic, tech-savvy LinkedIn post of no more than {response_length} characters announcing the code described in the following README: {readme}. Do not use any intro; just give me the post."
