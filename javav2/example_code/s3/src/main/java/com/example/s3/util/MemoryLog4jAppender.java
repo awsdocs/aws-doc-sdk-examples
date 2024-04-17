@@ -23,6 +23,7 @@ import java.util.Map;
 public class MemoryLog4jAppender extends AbstractAppender {
 
     private Map<String, String> eventMap = new LinkedHashMap<>();
+    private StringBuilder stringBuilder = new StringBuilder();
 
     protected MemoryLog4jAppender(String name, Filter filter) {
         super(name, filter, null);
@@ -43,9 +44,13 @@ public class MemoryLog4jAppender extends AbstractAppender {
         } else {
             eventMap.put (eventWithParameters.toString(), null);
         }
+        stringBuilder.append(eventWithParameters.getFormattedMessage() + "\n");
     }
 
     public Map<String, String> getEventMap(){
         return this.eventMap;
+    }
+    public String getEventsAsString(){
+        return stringBuilder.toString();
     }
 }

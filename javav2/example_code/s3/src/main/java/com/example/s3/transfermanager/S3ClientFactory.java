@@ -21,10 +21,10 @@ import static software.amazon.awssdk.transfer.s3.SizeConstant.MB;
  */
 
 public class S3ClientFactory {
-    public static final S3TransferManager transferManager = createCustonTm();
+    public static final S3TransferManager transferManager = createCustomTm();
     public static final S3Client s3Client;
 
-    private static S3TransferManager createCustonTm() {
+    private static S3TransferManager createCustomTm() {
         // snippet-start:[s3.tm.java2.s3clientfactory.create_custom_tm]
         S3AsyncClient s3AsyncClient = S3AsyncClient.crtBuilder()
                 .credentialsProvider(DefaultCredentialsProvider.create())

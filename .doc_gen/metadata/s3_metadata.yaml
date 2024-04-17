@@ -2997,7 +2997,7 @@ s3_Scenario_UploadStream:
   services:
     s3: {}
 s3_Scenario_MultipartUpload:
-  title: Perform a multipart upload to an &S3; object using an &AWS; SDK
+  title: Perform a multipart upload of an &S3; object using an &AWS; SDK
   title_abbrev: Perform a multipart upload
   synopsis: perform a multipart upload to an &S3; object.
   category: Scenarios
@@ -3172,3 +3172,23 @@ s3_SelectObjectContent:
                 - s3.java2.async.selectObjectContentMethod.main
   services:
     s3: {SelectObjectContent}
+s3_Scenario_TrackUploadDownload:
+  title: Track an &S3; object upload or download using an &AWS; SDK
+  title_abbrev: Track uploads and downloads
+  synopsis: track an &S3; object upload or download.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Track the progress of a file upload.
+              snippet_tags:
+                - s3.tm.java2.trackuploadfile.main
+            - description: Track the progress of a file download.
+              snippet_tags:
+                - s3.tm.java2.trackdownloadfile.main
+  services:
+    s3: {PutObject, GetObject}
