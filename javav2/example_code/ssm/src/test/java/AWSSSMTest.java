@@ -12,6 +12,9 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueReques
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import software.amazon.awssdk.services.ssm.SsmClient;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * To run these integration tests, you must set the required values
  * in the config.properties file or AWS Secrets Manager.
@@ -22,10 +25,14 @@ public class AWSSSMTest {
     private static SsmClient ssmClient;
     private static String paraName = "";
     private static String title = "";
+
+    private static String instance = "";
     private static String source = "";
     private static String category = "";
     private static String severity = "";
     private static String opsItemId = "";
+
+    private static String account = "";
 
     @BeforeAll
     public static void setUp() {
@@ -40,10 +47,14 @@ public class AWSSSMTest {
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
         paraName = values.getParaName();
+        paraName = values.getParaName();
         title = values.getTitle();
         source = values.getSource();
         category = values.getCategory();
+        account = values.getAccount();
+        instance = values.getInstanceId();
         severity = values.getSeverity();
+
 
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
@@ -70,21 +81,44 @@ public class AWSSSMTest {
          */
     }
 
-
     @Test
     @Tag("IntegrationTest")
-    @Order(4)
-    public void DescribeParameters() {
-        assertDoesNotThrow(() -> DescribeParameters.describeParams(ssmClient));
-        System.out.println("Test 4 passed");
+    @Order(1)
+    public void HelloSSM() {
+        assertDoesNotThrow(() -> HelloSSM.listDocuments(ssmClient, account));
+        System.out.println("Integration Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
-    @Order(5)
+    @Order(2)
     public void GetParameter() {
         assertDoesNotThrow(() -> GetParameter.getParaValue(ssmClient, paraName));
-        System.out.println("Test 5 passed");
+        System.out.println("Integration Test 2 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(3)
+    public void InvokeScenario() throws InterruptedException {
+        String currentDateTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String maintenanceWindowName = "windowmain_" + currentDateTime;
+        String title = "Disk Space Alert" ;
+        String documentName = "doc_" + currentDateTime;
+        String maintenanceWindowId = assertDoesNotThrow(() -> com.example.scenario.SSMScenario.createMaintenanceWindow(ssmClient, maintenanceWindowName));
+        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.updateSSMMaintenanceWindow(ssmClient, maintenanceWindowId, maintenanceWindowName));
+        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.createSSMDoc(ssmClient, documentName));
+        String commandId = assertDoesNotThrow(() ->  com.example.scenario.SSMScenario.sendSSMCommand(ssmClient, documentName, instance));
+
+        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.displayCommands(ssmClient, commandId));
+        String opsItemId = assertDoesNotThrow(() ->com.example.scenario.SSMScenario.createSSMOpsItem(ssmClient, title, source, category, severity));
+        String description = "An update to "+opsItemId ;
+        assertDoesNotThrow(() ->com.example.scenario.SSMScenario.updateOpsItem(ssmClient, opsItemId, title, description));
+        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.describeOpsItems(ssmClient, opsItemId));
+        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.resolveOpsItem(ssmClient, opsItemId));
+        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.deleteDoc(ssmClient, documentName));
+        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.deleteMaintenanceWindow(ssmClient, maintenanceWindowId));
+        System.out.println("Test 3 passed");
     }
 
    private static String getSecretValues() {
@@ -113,6 +147,10 @@ public class AWSSSMTest {
 
         private String title;
 
+        private String account ;
+
+        private String instance ;
+
         public String getParaName() {
             return paraName;
         }
@@ -132,5 +170,14 @@ public class AWSSSMTest {
         public String getTitle() {
             return title;
         }
+
+        public String getAccount() {
+            return account;
+        }
+        public String getInstanceId() {
+            return instance;
+        }
+
+
     }
 }

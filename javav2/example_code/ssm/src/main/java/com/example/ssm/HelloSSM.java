@@ -9,7 +9,6 @@ import software.amazon.awssdk.services.ssm.SsmClient;
 import software.amazon.awssdk.services.ssm.model.DocumentFilter;
 import software.amazon.awssdk.services.ssm.model.ListDocumentsRequest;
 import software.amazon.awssdk.services.ssm.model.ListDocumentsResponse;
-import software.amazon.awssdk.services.ssm.paginators.ListDocumentsIterable;
 
 public class HelloSSM {
 
