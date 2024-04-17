@@ -395,6 +395,12 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - python.example_code.medical-imaging.SearchImageSets.use_case3
             - description: >
+                Use case #4: EQUAL operator on DICOMSeriesInstanceUID and
+                BETWEEN on updatedAt and sort response in ASC order on
+                updatedAt field.
+              snippet_tags:
+                - python.example_code.medical-imaging.SearchImageSets.use_case4
+            - description: >
                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
@@ -423,6 +429,13 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter2
+            - description: >
+                Use case #4: EQUAL operator on DICOMSeriesInstanceUID and
+                BETWEEN on updatedAt and sort response in ASC order on
+                updatedAt field.
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
+                - medical-imaging.JavaScript.resource.searchImageSetV3.sortAndFilter
     Java:
       versions:
         - sdk_version: 2
@@ -445,6 +458,12 @@ medical-imaging_SearchImageSets:
                previously persisted.
               snippet_tags:
                 - medicalimaging.java2.search_imagesets.use_case3
+            - description: >
+                Use case #4: EQUAL operator on DICOMSeriesInstanceUID and
+                BETWEEN on updatedAt and sort response in ASC order on
+                updatedAt field.
+              snippet_tags:
+                - medicalimaging.java2.search_imagesets.use_case4
     C++:
       versions:
         - sdk_version: 1
@@ -467,6 +486,12 @@ medical-imaging_SearchImageSets:
                previously persisted.
               snippet_tags:
                 - cpp.example_code.medical_imaging.SearchImageSets.use_case3
+            - description: >
+                Use case #4: EQUAL operator on DICOMSeriesInstanceUID and
+                BETWEEN on updatedAt and sort response in ASC order on
+                updatedAt field.
+              snippet_tags:
+                - cpp.example_code.medical_imaging.SearchImageSets.use_case4
   services:
     medical-imaging: {SearchImageSets}
 medical-imaging_GetImageSet:

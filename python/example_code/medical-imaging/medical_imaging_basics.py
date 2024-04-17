@@ -554,6 +554,118 @@ class MedicalImagingWrapper:
 
     # snippet-end:[python.example_code.medical-imaging.ListTagsForResource]
 
+    def search_imagesets_demo(self, data_store_id):
+        # Replace these values with your own.
+        patient_id = "123456"
+        series_instance_uid = "1.1.123.123456.1.12.1.1234567890.1234.12345678.123"
+        # Search with EQUAL operator.
+        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case1]
+        search_filter = {
+            "filters": [
+                {"operator": "EQUAL", "values": [{"DICOMPatientId": patient_id}]}
+            ]
+        }
+
+        image_sets = self.search_image_sets(data_store_id, search_filter)
+        print(f"Image sets found with EQUAL operator\n{image_sets}")
+        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case1]
+
+        # Search with BETWEEN operator using DICOMStudyDate and DICOMStudyTime.
+        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case2]
+        search_filter = {
+            "filters": [
+                {
+                    "operator": "BETWEEN",
+                    "values": [
+                        {
+                            "DICOMStudyDateAndTime": {
+                                "DICOMStudyDate": "19900101",
+                                "DICOMStudyTime": "000000",
+                            }
+                        },
+                        {
+                            "DICOMStudyDateAndTime": {
+                                "DICOMStudyDate": "20230101",
+                                "DICOMStudyTime": "000000",
+                            }
+                        },
+                    ],
+                }
+            ]
+        }
+
+        image_sets = self.search_image_sets(data_store_id, search_filter)
+        print(
+            f"Image sets found with BETWEEN operator using DICOMStudyDate and DICOMStudyTime\n{image_sets}"
+        )
+        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case2]
+
+        # Search with BETWEEN operator using createdAt. Time studies were previously persisted.
+        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case3]
+        search_filter = {
+            "filters": [
+                {
+                    "values": [
+                        {
+                            "createdAt": datetime.datetime(
+                                2021, 8, 4, 14, 49, 54, 429000
+                            )
+                        },
+                        {
+                            "createdAt": datetime.datetime.now()
+                            + datetime.timedelta(days=1)
+                        },
+                    ],
+                    "operator": "BETWEEN",
+                }
+            ]
+        }
+
+        recent_image_sets = self.search_image_sets(data_store_id, search_filter)
+        print(
+            f"Image sets found with with BETWEEN operator using createdAt\n{recent_image_sets}"
+        )
+        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case3]
+
+        # Search with EQUAL operator on DICOMSeriesInstanceUID and BETWEEN on updatedAt and sort response in ASC
+        # order on updatedAt field.
+        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case4]
+        search_filter = {
+            "filters": [
+                {
+                    "values": [
+                        {
+                            "updatedAt": datetime.datetime(
+                                2021, 8, 4, 14, 49, 54, 429000
+                            )
+                        },
+                        {
+                            "updatedAt": datetime.datetime.now()
+                            + datetime.timedelta(days=1)
+                        },
+                    ],
+                    "operator": "BETWEEN",
+                },
+                {
+                    "values": [{"DICOMSeriesInstanceUID": series_instance_uid}],
+                    "operator": "EQUAL",
+                },
+            ],
+            "sort": {
+                "sortOrder": "ASC",
+                "sortField": "updatedAt",
+            },
+        }
+
+        image_sets = self.search_image_sets(data_store_id, search_filter)
+        print(
+            "Image sets found with EQUAL operator on DICOMSeriesInstanceUID and BETWEEN on updatedAt and"
+        )
+        print(f"sort response in ASC order on updatedAt field\n{image_sets}")
+        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case4]
+
+        return recent_image_sets
+
     def usage_demo(self, source_s3_uri, dest_s3_uri, data_access_role_arn):
         data_store_name = f"python_usage_demo_data_store_{random.randint(0, 200000)}"
 
@@ -594,67 +706,7 @@ class MedicalImagingWrapper:
         for job in import_jobs:
             print(job)
 
-            # Search with EQUAL operator..
-            # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case1]
-        filter = {
-            "filters": [
-                {"operator": "EQUAL", "values": [{"DICOMPatientId": "3524578"}]}
-            ]
-        }
-
-        image_sets = self.search_image_sets(data_store_id, filter)
-        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case1]
-
-        # Search with BETWEEN operator using DICOMStudyDate and DICOMStudyTime.
-        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case2]
-        filter = {
-            "filters": [
-                {
-                    "operator": "BETWEEN",
-                    "values": [
-                        {
-                            "DICOMStudyDateAndTime": {
-                                "DICOMStudyDate": "19900101",
-                                "DICOMStudyTime": "000000",
-                            }
-                        },
-                        {
-                            "DICOMStudyDateAndTime": {
-                                "DICOMStudyDate": "20230101",
-                                "DICOMStudyTime": "000000",
-                            }
-                        },
-                    ],
-                }
-            ]
-        }
-
-        image_sets = self.search_image_sets(data_store_id, filter)
-        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case2]
-
-        # Search with BETWEEN operator using createdAt. Time studies were previously persisted.
-        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case3]
-        filter = {
-            "filters": [
-                {
-                    "values": [
-                        {
-                            "createdAt": datetime.datetime(
-                                2021, 8, 4, 14, 49, 54, 429000
-                            )
-                        },
-                        {
-                            "createdAt": datetime.datetime.now()
-                            + datetime.timedelta(days=1)
-                        },
-                    ],
-                    "operator": "BETWEEN",
-                }
-            ]
-        }
-
-        image_sets = self.search_image_sets(data_store_id, filter)
-        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case3]
+        image_sets = self.search_imagesets_demo(data_store_id)
 
         image_set_ids = [image_set["imageSetId"] for image_set in image_sets]
         for image_set in image_sets:
