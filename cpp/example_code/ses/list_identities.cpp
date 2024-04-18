@@ -75,44 +75,42 @@ bool AwsDoc::SES::listIdentities(Aws::SES::Model::IdentityType identityType,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char **argv)
-{
-  Aws::SDKOptions options;
+int main(int argc, char **argv) {
+    Aws::SDKOptions options;
     Aws::InitAPI(options);
-  {
-    Aws::SES::SESClient ses;
+    {
+        Aws::SES::Model::IdentityType identityType = Aws::SES::Model::IdentityType::NOT_SET;
 
-    Aws::SES::Model::ListIdentitiesRequest li_req;
+        if (argc == 2) {
+            std::string identityTypeAsString = argv[1];
+            if (identityTypeAsString == "EmailAddress") {
+                identityType = Aws::SES::Model::IdentityType::EmailAddress;
+            }
+            else if (identityTypeAsString == "Domain") {
+                identityType = Aws::SES::Model::IdentityType::Domain;
+            }
+            else {
+                std::cout
+                        << "Invalid identity type. Must be either 'EmailAddress' or 'Domain'"
+                        << std::endl;
+            }
+        }
 
-      Aws::SES::Model::IdentityType identityType = Aws::SES::Model::IdentityType::NOT_SET;
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
 
-    if (argc == 2) {
-        std::string identityTypeAsString = argv[1];
-        if (identityTypeAsString == "EmailAddress") {
-            identityType = Aws::SES::Model::IdentityType::EmailAddress;
-        } else if (identityTypeAsString == "Domain") {
-            identityType = Aws::SES::Model::IdentityType::Domain;
-        } else {
-            std::cout << "Invalid identity type. Must be either 'EmailAddress' or 'Domain'" << std::endl;
+        Aws::Vector<Aws::String> identities;
+        if (AwsDoc::SES::listIdentities(identityType, identities, clientConfig)) {
+            std::cout << identities.size() << " identities retrieved." << std::endl;
+            for (auto &identity: identities) {
+                std::cout << "   " << identity << std::endl;
+            }
         }
     }
 
-      Aws::Client::ClientConfiguration clientConfig;
-      // Optional: Set to the AWS Region (overrides config file).
-      // clientConfig.region = "us-east-1";
-
-      Aws::Vector<Aws::String> identities;
-      if (AwsDoc::SES::listIdentities(identityType, identities, clientConfig))
-      {
-          std::cout << identities.size() << " identities retrieved." << std::endl;
-          for (auto &identity : identities) {
-              std::cout << "   " << identity << std::endl;
-          }
-      }
-  }
-
-  Aws::ShutdownAPI(options);
-  return 0;
+    Aws::ShutdownAPI(options);
+    return 0;
 }
 
 #endif // TESTING_BUILD
