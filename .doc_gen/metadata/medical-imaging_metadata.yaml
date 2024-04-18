@@ -1199,15 +1199,29 @@ medical-imaging_Scenario_ImageSetsAndFrames:
           github: javascriptv3/example_code/medical-imaging
           github_note_at_bottom: true
           excerpts:
-            - description:
+            - description: <noloc>index.js</noloc> - Orchestrate steps.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/index.js
+            - description: <noloc>step-1.js</noloc> - Deploy resources.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-1.js
+            - description: <noloc>step-2.js</noloc> - Copy DICOM files. 
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-2.js
+            - description: <noloc>step-3.js</noloc> - Start import into datastore.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-3.js
+            - description: <noloc>step-4.js</noloc> - Get image set IDs.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-4.js
+            - description: <noloc>step-5.js</noloc> - Get image frame IDs.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-5.js
+            - description: <noloc>step-6.js</noloc> - Verify image frames. The <ulink url="https://github.com/aws-samples/aws-healthimaging-samples/tree/main/pixel-data-verification">&AWS; HealthImaging Pixel Data Verification</ulink> library was used for verification.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-6.js
+            - description: <noloc>step-7.js</noloc> - Destroy resources.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-7.js
   services:
     medical-imaging:
