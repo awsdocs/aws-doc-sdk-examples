@@ -1220,7 +1220,7 @@ medical-imaging_Scenario_ImageSetsAndFrames:
             - description: <noloc>step-6.js</noloc> - Verify image frames. The <ulink url="https://github.com/aws-samples/aws-healthimaging-samples/tree/main/pixel-data-verification">&AWS; HealthImaging Pixel Data Verification</ulink> library was used for verification.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-6.js
-            - description: <noloc>step7-js</noloc> - Destroy resources.
+            - description: <noloc>step-7.js</noloc> - Destroy resources.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-7.js
   services:
