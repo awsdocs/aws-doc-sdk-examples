@@ -202,40 +202,6 @@ ssm_deleteDocument:
                 - ssm.Java2.delete_doc.main
   services:
     ssm: {DeleteDocument}     
-ssm_CreateOpsItem:
-  title: Create an OpsItem using the &SYS; SDK
-  title_abbrev: Create an OpsItem
-  synopsis: create an OpsItem.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/ssm
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ssm.java2.create_ops.main
-  services:
-    ssm: {CreateOpsItem} 
-ssm_DescribeOpsItems:
-  title: Describe an OpsItem using a &SYS; SDK
-  title_abbrev: Describe an OpsItem
-  synopsis: describe an OpsItem.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/ssm
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ssm.java2.describe_ops.main
-  services:
-    ssm: {DescribeOpsItems}
 ssm_UpdateOpsItem:
   title: Update an OpsItem using a &SYS; SDK
   title_abbrev: Update an OpsItem
