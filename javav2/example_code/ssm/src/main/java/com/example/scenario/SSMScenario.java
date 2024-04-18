@@ -85,19 +85,19 @@ public class SSMScenario {
                 severity - The severity of the parameter (default: 2).
         """;
 
-      //  if (args.length != 5) {
-      //      System.out.println(usage);
-      //      System.exit(1);
-      //  }
+        if (args.length != 5) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         Scanner scanner = new Scanner(System.in);
         String documentName;
         String windowName;
-        String instanceId = "i-0149338494ed95f06";
-        String title = "Disk Space Alert" ; //args[0];
-        String source = "EC2";
-        String category = "Performance" ; //args[2];
-        String severity = "2" ; // args[3];
+        String instanceId = args[0];
+        String title = args[1];
+        String source = args[2];
+        String category = args[3];
+        String severity = args[4];
 
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
