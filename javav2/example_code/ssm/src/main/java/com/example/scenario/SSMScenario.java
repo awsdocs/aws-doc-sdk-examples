@@ -178,9 +178,6 @@ public class SSMScenario {
         describeOpsItems(ssmClient, opsItemId);
         System.out.println("Now we will resolve the OpsItem "+opsItemId);
         System.out.println("Please hit Enter");
-
-        System.out.println("Now we will resolve the OpsItem "+opsItemId);
-        System.out.println("Please hit Enter");
         scanner.nextLine();
         resolveOpsItem(ssmClient, opsItemId);
         System.out.println(DASHES);
