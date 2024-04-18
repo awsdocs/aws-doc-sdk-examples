@@ -1199,15 +1199,29 @@ medical-imaging_Scenario_ImageSetsAndFrames:
           github: javascriptv3/example_code/medical-imaging
           github_note_at_bottom: true
           excerpts:
-            - description:
+            - description: index.js - Orchestrate steps.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/index.js
+            - description: step-1.js - Deploy resources.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-1.js
+            - description: step-2.js - Copy DICOM files. 
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-2.js
+            - description: step-3.js - Start import into datastore.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-3.js
+            - description: step-4.js - Get image set IDs.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-4.js
+            - description: step-5.js - Get image frame IDs.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-5.js
+            - description: "step-6.js - Verify image frames. The following library was used for verification: https://github.com/aws-samples/aws-healthimaging-samples/tree/main/pixel-data-verification"
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-6.js
+            - description: step7-js - Destroy resources.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-7.js
   services:
     medical-imaging:
