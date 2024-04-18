@@ -204,15 +204,21 @@ public class SSMScenario {
     // snippet-start:[ssm.java2.describe_command.main]
     // Displays the date and time when the specific command was invoked.
     public static void displayCommands(SsmClient ssmClient, String commandId) {
-        ListCommandInvocationsRequest commandInvocationsRequest = ListCommandInvocationsRequest.builder()
-            .commandId(commandId)
-            .build();
+        try {
+            ListCommandInvocationsRequest commandInvocationsRequest = ListCommandInvocationsRequest.builder()
+                .commandId(commandId)
+                .build();
 
-        ListCommandInvocationsResponse response = ssmClient.listCommandInvocations(commandInvocationsRequest);
-        List<CommandInvocation> commandList = response.commandInvocations();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
-        for (CommandInvocation invocation : commandList) {
-            System.out.println("The time of the command invocation is " + formatter.format(invocation.requestedDateTime()));
+            ListCommandInvocationsResponse response = ssmClient.listCommandInvocations(commandInvocationsRequest);
+            List<CommandInvocation> commandList = response.commandInvocations();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
+            for (CommandInvocation invocation : commandList) {
+                System.out.println("The time of the command invocation is " + formatter.format(invocation.requestedDateTime()));
+            }
+
+        } catch (SsmException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
     // snippet-end:[ssm.java2.describe_command.main]
@@ -364,40 +370,58 @@ public class SSMScenario {
     // snippet-start:[ssm.Java2.delete_doc.main]
     // Deletes an AWS Systems Manager document.
     public static void deleteDoc(SsmClient ssmClient, String documentName) {
-        DeleteDocumentRequest documentRequest = DeleteDocumentRequest.builder()
-            .name(documentName)
-            .build();
+        try {
+            DeleteDocumentRequest documentRequest = DeleteDocumentRequest.builder()
+                .name(documentName)
+                .build();
 
-        ssmClient.deleteDocument(documentRequest);
-        System.out.println("The Systems Manager document was successfully deleted.");
+            ssmClient.deleteDocument(documentRequest);
+            System.out.println("The Systems Manager document was successfully deleted.");
+
+        } catch (SsmException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
     // snippet-end:[ssm.Java2.delete_doc.main]
 
     // snippet-start:[ssm.java2.delete_window.main]
     public static void deleteMaintenanceWindow(SsmClient ssmClient, String winId) {
-        DeleteMaintenanceWindowRequest windowRequest = DeleteMaintenanceWindowRequest.builder()
-            .windowId(winId)
-            .build();
+        try {
+            DeleteMaintenanceWindowRequest windowRequest = DeleteMaintenanceWindowRequest.builder()
+                .windowId(winId)
+                .build();
 
-        ssmClient.deleteMaintenanceWindow(windowRequest);
-        System.out.println("The maintenance window was successfully deleted.");
+            ssmClient.deleteMaintenanceWindow(windowRequest);
+            System.out.println("The maintenance window was successfully deleted.");
+
+        } catch (SsmException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
     // snippet-end:[ssm.java2.delete_window.main]
 
     // snippet-start:[ssm.java2.update_window.main]
     // Update the maintenance window schedule
     public static void updateSSMMaintenanceWindow(SsmClient ssmClient, String id, String name) {
-        UpdateMaintenanceWindowRequest updateRequest = UpdateMaintenanceWindowRequest.builder()
-            .windowId(id)
-            .allowUnassociatedTargets(true)
-            .duration(24)
-            .enabled(true)
-            .name(name)
-            .schedule("cron(0 0 ? * MON *)")
-            .build();
+        try {
+            UpdateMaintenanceWindowRequest updateRequest = UpdateMaintenanceWindowRequest.builder()
+                .windowId(id)
+                .allowUnassociatedTargets(true)
+                .duration(24)
+                .enabled(true)
+                .name(name)
+                .schedule("cron(0 0 ? * MON *)")
+                .build();
 
-        ssmClient.updateMaintenanceWindow(updateRequest);
-        System.out.println("The Systems Manager maintenance window was successfully updated.");
+            ssmClient.updateMaintenanceWindow(updateRequest);
+            System.out.println("The Systems Manager maintenance window was successfully updated.");
+
+        } catch (SsmException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
     // snippet-end:[ssm.java2.update_window.main]
 
