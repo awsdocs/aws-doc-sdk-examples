@@ -64,9 +64,9 @@ import java.util.concurrent.TimeUnit;
  * 1. Creates an AWS Systems Manager maintenance window with a default name or a user-provided name.
  * 2. Modifies the maintenance window schedule.
  * 3. Creates a Systems Manager document with a default name or a user-provided name.
- * 4. Sends a command to a specified EC2 instance using the created Systems Manager document and display the time when the command was invoked.
+ * 4. Sends a command to a specified EC2 instance using the created Systems Manager document and displays the time when the command was invoked.
  * 5. Creates a Systems Manager OpsItem with a predefined title, source, category, and severity.
- * 6. Updates and resolve the created OpsItem.
+ * 6. Updates and resolves the created OpsItem.
  * 7. Deletes the Systems Manager maintenance window, OpsItem, and document.
  */
 
@@ -78,11 +78,11 @@ public class SSMScenario {
               <instanceId> <title> <source> <category> <severity>
       
             Where:
-                instanceId - The ID of the instance (default: i-0149338494ed95f06).
+                instanceId - The Amazon EC2 Linux/UNIX instance Id that AWS Systems Manager uses (ie, i-0149338494ed95f06). 
                 title - The title of the parameter (ie, Disk Space Alert).
-                source - The source of the parameter (default: EC2).
-                category - The category of the parameter (default: Performance).
-                severity - The severity of the parameter (default: 2).
+                source - The source of the parameter (ie, EC2).
+                category - The category of the parameter (ie, Performance).
+                severity - The severity of the parameter (ie, 2).
         """;
 
         if (args.length != 5) {
@@ -107,7 +107,7 @@ public class SSMScenario {
         System.out.println(DASHES);
         System.out.println("""
             Welcome to the AWS Systems Manager SDK Getting Started scenario.
-            This Java program demonstrates how to interact with Systems Manager using the AWS SDK for Java (v2).
+            This program demonstrates how to interact with Systems Manager using the AWS SDK for Java (v2).
             Systems Manager is the operations hub for your AWS applications and resources and a secure end-to-end management solution.
             The program's primary functionalities include creating a maintenance window, creating a document, sending a command to a document,
             listing documents, listing commands, creating an OpsItem, modifying an OpsItem, and deleting Systems Manager resources.
@@ -131,13 +131,13 @@ public class SSMScenario {
         updateSSMMaintenanceWindow(ssmClient, winId, windowName);
         System.out.println(DASHES);
 
-        System.out.println("Create a document that defines the actions that Systems Manager performs on your managed nodes.");
+        System.out.println("Create a document that defines the actions that Systems Manager performs on your EC2 instance.");
         System.out.println("Please enter the document name (default is ssmdocument):");
         String doc = scanner.nextLine();
         documentName = doc.isEmpty() ? "ssmdocument" : doc;
         createSSMDoc(ssmClient, documentName);
 
-        System.out.println("Now we are going to run a command on an EC2 instance");
+        System.out.println("Now we are going to run a command on an EC2 instance that echos 'Hello, world!'");
         System.out.println("Please hit Enter");
         scanner.nextLine();
         String commandId = sendSSMCommand(ssmClient, documentName, instanceId);

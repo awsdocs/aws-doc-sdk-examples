@@ -67,9 +67,9 @@ ssm_PutParameter:
   services:
     ssm: {PutParameter}
 ssm_createOpsItem:
-  title: Create aa opsItem using the &SYS; SDK
+  title: Create an opsItem using the &SYS; SDK
   title_abbrev: Create an opsItem
-  synopsis: create an maintenance window.
+  synopsis: create an opsItem.
   category:
   languages:
     Java:

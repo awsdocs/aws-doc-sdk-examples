@@ -1,7 +1,7 @@
 #  AWS Systems Manager Engineering Specification
 
 ## Overview
-   This SDK getting started scenario demonstrates how to interact with AWS Systems Manager (SSM) using the AWS SDK. The provided code is a Java application that demonstrates the usage of the AWS SSM SDK to interact with various AWS SSM service operations.
+   This SDK getting started scenario demonstrates how to interact with AWS Systems Manager (SSM) using the AWS SDK. The provided code is an AWS application that demonstrates the usage of the AWS SSM SDK to interact with various AWS SSM service operations.
 
 ## Scenario Program Flow
    - Creates an SSM maintenance window with a default name or a user-provided name.
@@ -34,7 +34,7 @@ The following shows the output of the program in the console.
 
 --------------------------------------------------------------------------------
 Welcome to the AWS Systems Manager SDK Getting Started scenario.
-This Java program demonstrates how to interact with AWS Systems Manager using the AWS SDK for Java (v2).
+This Java program demonstrates how to interact with AWS Systems Manager using the AWS SDK.
 AWS Systems Manager is the operations hub for your AWS applications and resources and a secure end-to-end management solution.
 The program's primary functionalities include creating a maintenance window, creating a document, sending a command to a document,
 listing documents, listing commands, creating an OpsItem, modifying an OpsItem, and deleting AWS SSM resources.
@@ -74,7 +74,7 @@ The time of the command invocation is 2024-04-09 14:52:50
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
  Now we will create an SSM OpsItem.
- SSM OpsItem is a feature provided by Amazon's Systems Manager (SSM) service.
+ SSM OpsItem is a feature provided by the Systems Manager service.
  It is a type of operational data item that allows you to manage and track various operational issues,
  events, or tasks within your AWS environment.
 
@@ -102,11 +102,6 @@ This concludes the AWS Systems Manager SDK Getting Started scenario.
 --------------------------------------------------------------------------------
 
    ```
-## CDK Usage
-
-This example requires an EC2 instance in order to run the program. A CDK example that stands up an EC2 instance will be part of this solution. 
-
-
 ## SOS Tags
 
 The following table describes the metadata used in this SDK Getting Started Scenario.
@@ -116,7 +111,7 @@ The following table describes the metadata used in this SDK Getting Started Scen
 |------------------------------|------------------------------|---------------------------------------- |
 | `createOpsItem`              | ssm_metadata.yaml            | ssm_CreateOpsItem                       |
 | `createMaintenanceWindow`    | ssm_metadata.yaml            | ssm_CreateMainWindow                    |
-| `updateMaintenanceWindow     | ssm_metadata.yaml            | ssm_UpdateMainWindow                    |
+| `updateMaintenanceWindow`    | ssm_metadata.yaml            | ssm_UpdateMainWindow                    |
 | `createDocument`             | ssm_metadata.yaml            | ssm_CreateDocument                      |
 | `sendCommand `               | ssm_metadata.yaml            | ssm_SendCommand                         |
 | `commandInvocations`         | ssm_metadata.yaml            | ssm_DescribeInvocation                  |

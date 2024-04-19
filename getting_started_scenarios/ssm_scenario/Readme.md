@@ -1,7 +1,7 @@
 # AWS Systems Management (SSM) Getting Started Scenario
 
 ## Introduction
-This Java V2 AWS Systems Manager (SSM) getting started scenario demonstrates how to interact with the AWS Systems Manager service using the AWS SDK for Java (v2). The scenario covers various operations such as creating a maintenance window, creating an SSM document, sending a command to a managed node, creating an OpsItem, updating an OpsItem, and deleting SSM resources.
+This AWS Systems Manager (SSM) getting started scenario demonstrates how to interact with the AWS Systems Manager service using the AWS SDK. The scenario covers various operations such as creating a maintenance window, creating an SSM document, sending a command to a managed node, creating an OpsItem, updating an OpsItem, and deleting SSM resources.
 
 ## Service Operations Invoked
 The program performs the following tasks:
