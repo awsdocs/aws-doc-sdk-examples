@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 tag="[PRE-COMMIT]"
 
 log() {
@@ -21,11 +23,7 @@ for dir in * ; do
         (cd "$dir" || exit
 
         log "Working from $(pwd)..."
-        ./hook_scripts/pre-commit.sh
-        if [ $? -ne 0] ; then
-          log "$dir's pre-commit hook failed."
-          exit 1
-        fi)
+        ./hook_scripts/pre-commit.sh)
       fi
     fi
   fi
