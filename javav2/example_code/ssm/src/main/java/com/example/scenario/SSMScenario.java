@@ -88,25 +88,25 @@ public class SSMScenario {
       
             Where:
                 instanceId - The Amazon EC2 Linux/UNIX instance Id that AWS Systems Manager uses (ie, i-0149338494ed95f06). 
-                title - The title of the parameter (ie, Disk Space Alert).
-                source - The source of the parameter (ie, EC2).
-                category - The category of the parameter (ie, Performance).
-                severity - The severity of the parameter (ie, 2).
+                title - The title of the parameter (default is Disk Space Alert).
+                source - The source of the parameter (efault is EC2).
+                category - The category of the parameter (efault is Performance).
+                severity - The severity of the parameter (efault is 2).
         """;
 
-      //  if (args.length != 5) {
-      //      System.out.println(usage);
-      //      System.exit(1);
-      //  }
+       if (args.length != 1) {
+           System.out.println(usage);
+           System.exit(1);
+       }
 
         Scanner scanner = new Scanner(System.in);
         String documentName;
         String windowName;
-        String instanceId = "i-0fecb1fdbc2a1ecbd" ; //args[0];
-        String title = "Disk Space Alert" ; //args[1];
-        String source = "EC2" ; // args[2];
-        String category = "Performance" ; // args[3];
-        String severity = "2" ; //args[4];
+        String instanceId = args[0];
+        String title = "Disk Space Alert" ;
+        String source = "EC2" ;
+        String category = "Performance" ;
+        String severity = "2" ;
 
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
