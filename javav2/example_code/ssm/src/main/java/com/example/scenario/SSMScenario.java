@@ -67,7 +67,7 @@ import java.util.concurrent.TimeUnit;
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html.
- * 
+ *
  *
  * This Java program performs these tasks:
  * 1. Creates an AWS Systems Manager maintenance window with a default name or a user-provided name.
