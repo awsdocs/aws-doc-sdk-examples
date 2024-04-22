@@ -348,7 +348,7 @@ class MedicalImagingWrapper:
             )
             with open(file_path_to_write, "wb") as f:
                 for chunk in image_frame["imageFrameBlob"].iter_chunks():
-                        f.write(chunk)
+                    f.write(chunk)
         except ClientError as err:
             logger.error(
                 "Couldn't get image frame. Here's why: %s: %s",
