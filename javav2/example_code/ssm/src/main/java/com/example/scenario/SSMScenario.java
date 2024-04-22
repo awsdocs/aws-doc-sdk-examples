@@ -90,8 +90,8 @@ public class SSMScenario {
                 instanceId - The Amazon EC2 Linux/UNIX instance Id that AWS Systems Manager uses (ie, i-0149338494ed95f06). 
                 title - The title of the parameter (default is Disk Space Alert).
                 source - The source of the parameter (default is EC2).
-                category - The category of the parameter (default is Performance).
-                severity - The severity of the parameter (default is 2).
+                category - The category of the parameter. Valid values are 'Availability', 'Cost', 'Performance', 'Recovery', 'Security' (default is Performance).
+                severity - The severity of the parameter. Severity should be a number from 1 to 4 (default is 2).
         """;
 
        if (args.length != 1) {
