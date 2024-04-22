@@ -60,6 +60,15 @@ import java.util.concurrent.TimeUnit;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html
  *
+ * AWS Systems Manager Agent (SSM Agent) is Amazon software that runs on Amazon Elastic Compute Cloud (Amazon EC2) instances,
+ * edge devices, on-premises servers, and virtual machines (VMs). SSM Agent makes it possible for Systems Manager to
+ * update, manage, and configure these resources.
+ * To successfully run this getting started scenario, the EC2 instance must have an SSM Agent.
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html.
+ * 
+ *
  * This Java program performs these tasks:
  * 1. Creates an AWS Systems Manager maintenance window with a default name or a user-provided name.
  * 2. Modifies the maintenance window schedule.
