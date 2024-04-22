@@ -7,6 +7,7 @@ package main
 import (
 	"flag"
 	"fmt"
+        "log"
 
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatch"
@@ -85,7 +86,7 @@ func main() {
 
 	err := CreateCustomMetric(sess, namespace, metricName, unit, value, dimensionName, dimensionValue)
 	if err != nil {
-		fmt.Println()
+		log.Fatalf("Could not create custom metric: %v", err)
 	}
 }
 

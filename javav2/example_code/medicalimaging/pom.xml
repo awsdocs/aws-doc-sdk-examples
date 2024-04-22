@@ -9,7 +9,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <aws.java.sdk.version>2.20.132</aws.java.sdk.version>
+        <aws.java.sdk.version>2.25.25</aws.java.sdk.version>
     </properties>
     <build>
         <plugins>
