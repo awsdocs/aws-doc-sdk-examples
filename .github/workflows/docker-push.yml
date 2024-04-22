@@ -50,7 +50,7 @@ jobs:
         env:
           REPOSITORY: ruby
         run: |
-          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -65,7 +65,7 @@ jobs:
         env:
           REPOSITORY: python
         run: |
-          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -80,7 +80,7 @@ jobs:
         env:
           REPOSITORY: javascriptv3
         run: |
-          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -95,7 +95,7 @@ jobs:
         env:
           REPOSITORY: rustv1
         run: |
-          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -110,7 +110,7 @@ jobs:
         env:
           REPOSITORY: gov2
         run: |
-          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -125,7 +125,7 @@ jobs:
         env:
           REPOSITORY: cpp
         run: |
-          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -140,7 +140,7 @@ jobs:
         env:
           REPOSITORY: dotnetv3
         run: |
-          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -155,7 +155,7 @@ jobs:
         env:
           REPOSITORY: javav2
         run: |
-          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -170,7 +170,7 @@ jobs:
         env:
           REPOSITORY: kotlin
         run: |
-          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -185,7 +185,7 @@ jobs:
         env:
           REPOSITORY: php
         run: |
-          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -200,7 +200,7 @@ jobs:
         env:
           REPOSITORY: swift
         run: |
-          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
