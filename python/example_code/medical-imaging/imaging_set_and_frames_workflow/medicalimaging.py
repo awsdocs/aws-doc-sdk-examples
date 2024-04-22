@@ -314,7 +314,7 @@ class MedicalImagingWrapper:
     @staticmethod
     def jph_image_to_opj_bitmap(jph_file):
         """
-        Decode the image to a bitmap using a OPENJPEG library.
+        Decode the image to a bitmap using an OPENJPEG library.
         :param jph_file: The file to decode.
         :return: The decoded bitmap as an array.
         """
