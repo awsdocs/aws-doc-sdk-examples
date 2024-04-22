@@ -21,7 +21,8 @@ for dir in * ; do
         (cd "$dir" || exit
 
         log "Working from $(pwd)..."
-        if ! "./hook_scripts/pre-commit.sh" ; then
+        ./hook_scripts/pre-commit.sh
+        if [ $? -ne 0] ; then
           log "$dir's pre-commit hook failed."
           exit 1
         fi)
