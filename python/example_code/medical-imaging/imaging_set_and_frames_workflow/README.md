@@ -44,7 +44,7 @@ This workflow runs as a command-line application prompting for user input.
 
 ![CloudFormation stack diagram](../../../../workflows/healthimaging_image_sets/.images/cfn_stack.png)
 
-2. The user chooses a DICOM study to copy from the [National Cancer Institute Imaging Data Commons (IDC) Collections](https://registry.opendata.aws/nci-imaging-data-commons/)' public S3 bucket.
+2. The user chooses a DICOM study to copy from the [National Cancer Institute Imaging Data Commons (IDC) Collections](https://registry.opendata.aws/nci-imaging-data-commons/) public S3 bucket.
 3. The chosen study is copied to the user's input S3 bucket.
 
 ![DICOM copy diagram](../../../../workflows/healthimaging_image_sets/.images/copy_dicom.png)
