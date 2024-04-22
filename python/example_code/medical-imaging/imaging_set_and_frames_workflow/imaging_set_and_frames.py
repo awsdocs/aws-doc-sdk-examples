@@ -308,7 +308,7 @@ class MedicalImagingWorkflowScenario:
 
         account_id = boto3.client("sts").get_caller_identity()["Account"]
 
-        with open("cfn_template.yaml") as setup_file:
+        with open("../../../../workflows/healthimaging_image_sets/resources/cfn_template.yaml") as setup_file:
             setup_template = setup_file.read()
         print(f"\t\tCreating {stack_name}.")
         stack = self.cf_resource.create_stack(
@@ -335,8 +335,8 @@ class MedicalImagingWorkflowScenario:
         outputs_dictionary = {
             output["OutputKey"]: output["OutputValue"] for output in stack.outputs
         }
-        self.input_bucket_name = outputs_dictionary["InputBucketName"]
-        self.output_bucket_name = outputs_dictionary["OutputBucketName"]
+        self.input_bucket_name = outputs_dictionary["BucketName"]
+        self.output_bucket_name = outputs_dictionary["BucketName"]
         self.role_arn = outputs_dictionary["RoleArn"]
         self.data_store_id = outputs_dictionary["DatastoreID"]
         return stack
