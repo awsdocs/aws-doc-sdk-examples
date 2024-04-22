@@ -318,7 +318,7 @@ class MedicalImagingWrapper:
         :param jph_file: The file to decode.
         :return: The decoded bitmap as an array.
         """
-        # Use format 2 for th JP2 file.
+        # Use format 2 for the JPH file.
         params = openjpeg.utils.get_parameters(jph_file, 2)
         print(f"\n\t\tImage parameters for {jph_file}: \n\t\t{params}")
 
