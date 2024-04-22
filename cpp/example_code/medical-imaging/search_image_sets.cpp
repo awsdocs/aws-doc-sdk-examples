@@ -30,11 +30,10 @@
   \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
   */
-bool AwsDoc::Medical_Imaging::searchImageSets(
-        const Aws::String &dataStoreID,
-        const Aws::MedicalImaging::Model::SearchCriteria &searchCriteria,
-        Aws::Vector<Aws::String> &imageSetResults,
-        const Aws::Client::ClientConfiguration &clientConfig) {
+bool AwsDoc::Medical_Imaging::searchImageSets(const Aws::String &dataStoreID,
+                                              const Aws::MedicalImaging::Model::SearchCriteria &searchCriteria,
+                                              Aws::Vector<Aws::String> &imageSetResults,
+                                              const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::MedicalImaging::MedicalImagingClient client(clientConfig);
     Aws::MedicalImaging::Model::SearchImageSetsRequest request;
     request.SetDatastoreId(dataStoreID);
@@ -71,7 +70,7 @@ bool AwsDoc::Medical_Imaging::searchImageSets(
  *
  * main function
  *
- *  Usage: 'run_search_image_sets <datastore_id> <patient_id>'
+ *  Usage: 'run_search_image_sets <datastore_id> <patient_id> <series_instance_uid>'
  *
  *  Prerequisites: A HealthImaging data store containing image sets to search.
  *
@@ -80,9 +79,9 @@ bool AwsDoc::Medical_Imaging::searchImageSets(
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc != 3) {
+    if (argc != 4) {
         std::cout
-                << "Usage: 'run_search_image_sets <datastore_id> <patient_id>'"
+                << "Usage: 'run_search_image_sets <datastore_id> <patient_id> <series_instance_uid>'"
                 << std::endl;
         return 1;
     }
@@ -91,6 +90,7 @@ int main(int argc, char **argv) {
     {
         Aws::String dataStoreID = argv[1];
         Aws::String patientID = argv[2];
+        Aws::String dicomSeriesInstanceUID = argv[3];
 
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
@@ -104,8 +104,11 @@ int main(int argc, char **argv) {
                 Aws::MedicalImaging::Model::SearchFilter().WithOperator(Aws::MedicalImaging::Model::Operator::EQUAL)
                 .WithValues({Aws::MedicalImaging::Model::SearchByAttributeValue().WithDICOMPatientId(patientID)})
         };
+
         searchCriteriaEqualsPatientID.SetFilters(patientIDSearchFilters);
-        bool result = AwsDoc::Medical_Imaging::searchImageSets(dataStoreID, searchCriteriaEqualsPatientID, imageIDsForPatientID,
+        bool result = AwsDoc::Medical_Imaging::searchImageSets(dataStoreID,
+                                                               searchCriteriaEqualsPatientID,
+                                                               imageIDsForPatientID,
                                                                clientConfig);
         if (result) {
             std::cout << imageIDsForPatientID.size() << " image sets found for the patient with ID '"
@@ -137,8 +140,10 @@ int main(int argc, char **argv) {
         useCase2SearchCriteria.SetFilters({useCase2SearchFilter});
 
         Aws::Vector<Aws::String> usesCase2Results;
-        result = AwsDoc::Medical_Imaging::searchImageSets(dataStoreID, useCase2SearchCriteria, usesCase2Results,
-                                                               clientConfig);
+        result = AwsDoc::Medical_Imaging::searchImageSets(dataStoreID,
+                                                          useCase2SearchCriteria,
+                                                          usesCase2Results,
+                                                          clientConfig);
         if (result) {
             std::cout << usesCase2Results.size() << " image sets found for between 1999/01/01 and present."
                       <<  std::endl;
@@ -165,7 +170,9 @@ int main(int argc, char **argv) {
         useCase3SearchCriteria.SetFilters({useCase3SearchFilter});
 
         Aws::Vector<Aws::String> usesCase3Results;
-        result = AwsDoc::Medical_Imaging::searchImageSets(dataStoreID, useCase3SearchCriteria, usesCase3Results,
+        result = AwsDoc::Medical_Imaging::searchImageSets(dataStoreID,
+                                                          useCase3SearchCriteria,
+                                                          usesCase3Results,
                                                           clientConfig);
         if (result) {
             std::cout << usesCase3Results.size() << " image sets found for created between 2023/11/30 and present."
@@ -175,6 +182,50 @@ int main(int argc, char **argv) {
             }
         }
         //snippet-end:[cpp.example_code.medical_imaging.SearchImageSets.use_case3]
+
+        // Use case #4: EQUAL operator on DICOMSeriesInstanceUID and BETWEEN on updatedAt and sort response
+        // in ASC order on updatedAt field.
+        //snippet-start:[cpp.example_code.medical_imaging.SearchImageSets.use_case4]
+        Aws::MedicalImaging::Model::SearchByAttributeValue useCase4StartDate;
+        useCase4StartDate.SetUpdatedAt(Aws::Utils::DateTime("20231130T000000000Z",Aws::Utils::DateFormat::ISO_8601_BASIC));
+
+        Aws::MedicalImaging::Model::SearchByAttributeValue useCase4EndDate;
+        useCase4EndDate.SetUpdatedAt(Aws::Utils::DateTime(std::chrono::system_clock::now()));
+
+        Aws::MedicalImaging::Model::SearchFilter useCase4SearchFilterBetween;
+        useCase4SearchFilterBetween.SetValues({useCase4StartDate, useCase4EndDate});
+        useCase4SearchFilterBetween.SetOperator(Aws::MedicalImaging::Model::Operator::BETWEEN);
+
+        Aws::MedicalImaging::Model::SearchByAttributeValue seriesInstanceUID;
+        seriesInstanceUID.SetDICOMSeriesInstanceUID(dicomSeriesInstanceUID);
+
+        Aws::MedicalImaging::Model::SearchFilter useCase4SearchFilterEqual;
+        useCase4SearchFilterEqual.SetValues({seriesInstanceUID});
+        useCase4SearchFilterEqual.SetOperator(Aws::MedicalImaging::Model::Operator::EQUAL);
+
+        Aws::MedicalImaging::Model::SearchCriteria useCase4SearchCriteria;
+        useCase4SearchCriteria.SetFilters({useCase4SearchFilterBetween, useCase4SearchFilterEqual});
+
+        Aws::MedicalImaging::Model::Sort useCase4Sort;
+        useCase4Sort.SetSortField(Aws::MedicalImaging::Model::SortField::updatedAt);
+        useCase4Sort.SetSortOrder(Aws::MedicalImaging::Model::SortOrder::ASC);
+
+        useCase4SearchCriteria.SetSort(useCase4Sort);
+
+        Aws::Vector<Aws::String> usesCase4Results;
+        result = AwsDoc::Medical_Imaging::searchImageSets(dataStoreID,
+                                                          useCase4SearchCriteria,
+                                                          usesCase4Results,
+                                                          clientConfig);
+        if (result) {
+            std::cout << usesCase4Results.size() << " image sets found for EQUAL operator "
+            << "on DICOMSeriesInstanceUID and BETWEEN on updatedAt and sort response\n"
+            <<  "in ASC order on updatedAt field." <<  std::endl;
+            for (auto &imageSetResult : usesCase4Results) {
+                std::cout << "  Image set with ID '" << imageSetResult << std::endl;
+            }
+        }
+        //snippet-end:[cpp.example_code.medical_imaging.SearchImageSets.use_case4]
 
     }
     Aws::ShutdownAPI(options);
