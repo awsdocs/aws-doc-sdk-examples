@@ -2,10 +2,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# NOTE: This script may succeed but result in failures in AWS
+# due to architecture differences between your local OS and
+# that of the AWS Batch compute environment.
+
 # Set your AWS region
 AWS_REGION=us-east-1
 
-REGISTRY=public.ecr.aws/b4v4v1s0
+REGISTRY=808326389482.dkr.ecr.us-east-1.amazonaws.com
 
 # Login to ECR registry
 aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin $REGISTRY

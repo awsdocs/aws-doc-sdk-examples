@@ -23,12 +23,6 @@ class ImageStack extends Stack {
           imageScanOnPush: true,
           removalPolicy: RemovalPolicy.RETAIN,
         });
-        const accountId = acctConfig[language].account_id;
-        const roleName = `BatchExecutionRole-${language}`;
-        const role = iam.Role.fromRoleArn(this, `${roleName}`, `arn:aws:iam::${accountId}:role/${roleName}`, {
-          mutable: false,
-        });
-        repository.grantPull(role);
       }
     }
   }

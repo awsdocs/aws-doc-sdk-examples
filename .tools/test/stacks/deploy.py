@@ -35,7 +35,7 @@ def deploy_resources(account_id, account_name, dir, lang='typescript'):
     print(deploy_command)
     run_shell_command(deploy_command, env_vars={"TOOL_NAME": f"{account_name}"})
     # Be gentle and give CDK ps's a few moments to clear
-    # Error you may see if you remove this line:
+    # Error you may see if you remove below line:
     #    Another CLI (PID=12345) is currently synthing to cdk.out.
     #    Invoke the CLI in sequence, or use '--output' to synth into different directories.
     time.sleep(15)
@@ -47,13 +47,13 @@ def main():
     args = parser.parse_args()
 
     if "admin" in args.type or "images" in args.type:
-        with open("config/resources.yaml", "r") as file:
+        with open(".config/resources.yaml", "r") as file:
             data = yaml.safe_load(file)
         accounts = {
             "admin": {"account_id": f"{data['admin_acct']}", "status": "enabled"}
         }
     elif "plugin" in args.type:
-        with open("config/targets.yaml", "r") as file:
+        with open(".config/targets.yaml", "r") as file:
             accounts = yaml.safe_load(file)
     else:
         raise "Invalid parameter"

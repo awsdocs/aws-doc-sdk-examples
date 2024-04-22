@@ -1,15 +1,15 @@
 ![Stability: Stable](https://img.shields.io/badge/stability-Stable-success.svg?style=for-the-badge)
 
-# Admin Stack
+# Plugin Stack
 
-The code in this directory deploys an AWS Cloud Development Kit (AWS CDK) stack that produces events.
+The code in this directory deploys an AWS Cloud Development Kit (AWS CDK) stack that runs Docker images in AWS Batch.
 
 This stack can be deployed in isolation; however, it serves a purpose in this repository's [test automation architecture](../README.md).
 
-Specifically, it deploys a scheduled Amazon EventBridge rule that publishes a message to an Amazon Simple Notification Service (Amazon SNS) topic. Many "consumer" Amazon Simple Queue Service (Amazon SQS) topics are subscribed to the SNS topic.
+Specifically, it consumes images from a Simple Notification Service (SNS) topic, which trigger an AWS Lambda function that starts AWS Batch jobs.
 
 
-![weathertop-high-level.png](../../docs/architecture_diagrams/png/weathertop-high-level-architecture.png)
+![weathertop-comp-2.png](../../docs/architecture_diagrams/png/weathertop-comp-2.png)
 
 ---
 ## System requirements

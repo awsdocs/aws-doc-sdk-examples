@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT-0
 
 import yaml
-from aws_cdk import Aws, CfnOutput, Duration, Size, Stack
+from aws_cdk import Aws, Stack
 from aws_cdk import aws_events as events
 from aws_cdk import aws_events_targets as targets
 from aws_cdk import aws_iam as iam
@@ -14,8 +14,8 @@ from constructs import Construct
 class ProducerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
-        acct_config = self.get_yaml_config("../config/targets.yaml")
-        resource_config = self.get_yaml_config("../config/resources.yaml")
+        acct_config = self.get_yaml_config("../.config/targets.yaml")
+        resource_config = self.get_yaml_config("../.config/resources.yaml")
         admin_topic_name = resource_config["topic_name"]
         admin_bucket_name = resource_config["bucket_name"]
         admin_topic = self.init_get_topic(admin_topic_name)

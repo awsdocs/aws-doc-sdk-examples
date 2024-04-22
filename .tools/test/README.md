@@ -15,13 +15,16 @@ The following design features make this tool easy to use:
 * **All code** - The entire solution is deployable by using the AWS CDK
 
 ## Architecture
-In addition to the source code in this repository, this solution consists of the following CDK stacks:
+This solution consists of the following CDK stacks:
 
 | Stack                   | Function                                                          | Purpose                                                                                                                                                    |
 |-------------------------|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Images](stacks/images) | Holds versions of language-specialized Docker images.             | Event-based production of ready-to-run Docker images for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html). |
 | [Admin](stacks/admin)   | Publishes a scheduled message to an Amazon Simple Notification Service (Amazon SNS) topic.                    | Centralized cron-based triggering of integration tests.                                                                                                    |
 | [Plugin](stacks/plugin) | Consumes a message to trigger integration tests on AWS Batch with AWS Fargate. | Federated integration testing of example code for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html).       |
+
+These stacks depend on the presence of an image within the Elastic Container Registry (ECR) repositories created 
+by the Images stack. See [image-production](#1-image-production).
 
 ---
 
@@ -30,9 +33,9 @@ On the surface, this solution orchestrates the execution of distributed integrat
 Under the hood, it relies on the source code in this repository and the following CDK stacks.
 
 ### 1. Image production
-Image repositories are managed from an AWS account in which the [Public images stack](stacks/images) is deployed.
+Image repositories are managed from an AWS account in which the [images stack](stacks/images) is deployed.
 
-Through a secure integration, a GitHub Workflow [configured in this repository](../../.github/workflows/docker-push.yml) produces Docker images containing pre-built SDK code and publishes them to the [AWS SDK Code Examples Images](https://gallery.ecr.aws/b4v4v1s0) public registry.
+Through a secure integration, a GitHub Workflow configured [such as in this repository](../../.github/workflows/docker-push.yml) produces Docker images containing pre-built SDK code and publishes them to a private registry.
 
 See [CDK stack](stacks/images).
 
@@ -51,3 +54,8 @@ This stack contains an AWS Lambda function that submits jobs to AWS Batch.
 Through a secure integration, this Lambda function is triggered by an SQS queue that's subscribed to a cross-account topic.
 
 See [CDK stack](stacks/plugin).
+
+## Deployment
+There are several options for deploying this stack.
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for more information.

@@ -1,26 +1,19 @@
 ![Stability: Stable](https://img.shields.io/badge/stability-Stable-success.svg?style=for-the-badge)
 
-# Admin Stack
+# Images Stack
 
-The code in this directory deploys an AWS Cloud Development Kit (AWS CDK) stack that produces events.
+The code in this directory deploys an AWS Cloud Development Kit (AWS CDK) stack that hosts Elastic Container Registry (ECR) images in a private repository.
 
 This stack can be deployed in isolation; however, it serves a purpose in this repository's [test automation architecture](../README.md).
 
-Specifically, it deploys a scheduled Amazon EventBridge rule that publishes a message to an Amazon Simple Notification Service (Amazon SNS) topic. Many "consumer" Amazon Simple Queue Service (Amazon SQS) topics are subscribed to the SNS topic.
+![weathertop-comp-1.png](../../docs/architecture_diagrams/png/weathertop-comp-1.png)
 
-
-![weathertop-high-level.png](../../docs/architecture_diagrams/png/weathertop-high-level-architecture.png)
 
 ---
 ## System requirements
 * npm (node.js)
 * python 3.x
 * AWS access key and secret for AWS user with permissions to create the preceding resources
-* Successfully written [system parameters](#storing-system-parameters)
-  
-### Updating configuration data
-
-Before you get started, update [.config/resources.yaml](../.config/resources.yaml) and [.config/targets.yaml](../.config/targets.yaml) to include logical names representing test targets and their corresponding AWS Account ID and enabled status. 
 
 ---
 ## AWS CDK setup and deployment
