@@ -173,9 +173,6 @@ class MedicalImagingWorkflowScenario:
             self.data_store_id, import_job_id
         )
 
-        # image_sets = self.medical_imaging_wrapper.get_image_frames_for_image_set(
-        #    self.data_store_id, import_job_id, output_directory)
-
         print("\t\tThe image sets created by this import job are:")
         for image_set in image_sets:
             print("\t\tImage set:", image_set)
@@ -286,18 +283,9 @@ class MedicalImagingWorkflowScenario:
         objs = list_response["Contents"]
         keys = [obj["Key"] for obj in objs]
 
-        # Copy the objects with multiple threads.
-        threads = []
+        # Copy the objects in the bucket.
         for key in keys:
-            t = Thread(
-                target=self.copy_single_object,
-                args=[key, source_bucket, target_bucket, target_directory],
-            )
-            threads.append(t)
-            t.start()
-
-        for t in threads:
-            t.join()
+            self.copy_single_object(key, source_bucket, target_bucket, target_directory)
 
         print("\t\tDone copying all objects.")
 
@@ -342,7 +330,7 @@ class MedicalImagingWorkflowScenario:
         waiter = self.cf_resource.meta.client.get_waiter("stack_create_complete")
         waiter.wait(StackName=stack.name)
         stack.load()
-        print(f"\tStack status: {stack.stack_status}")
+        print(f"\t\tStack status: {stack.stack_status}")
 
         outputs_dictionary = {
             output["OutputKey"]: output["OutputValue"] for output in stack.outputs

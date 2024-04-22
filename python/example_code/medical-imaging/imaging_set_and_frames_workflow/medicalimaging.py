@@ -292,7 +292,7 @@ class MedicalImagingWrapper:
         """
         total_result = True
         for image_frame in image_frames:
-            image_file_path = f"{out_directory}/image_{image_frame['imageSetId']}.jph"
+            image_file_path = f"{out_directory}/image_{image_frame['imageFrameId']}.jph"
             self.get_pixel_data(
                 image_file_path,
                 data_store_id,
@@ -306,7 +306,7 @@ class MedicalImagingWrapper:
             crc32_calculated = zlib.crc32(image_array)
             image_result = crc32_checksum == crc32_calculated
             print(
-                f"\t\tImage checksum verified for {image_frame['imageSetId']}: {image_result }"
+                f"\t\tImage checksum verified for {image_frame['imageFrameId']}: {image_result }"
             )
             total_result = total_result and image_result
         return total_result
@@ -348,7 +348,6 @@ class MedicalImagingWrapper:
             )
             with open(file_path_to_write, "wb") as f:
                 for chunk in image_frame["imageFrameBlob"].iter_chunks():
-                    if chunk:
                         f.write(chunk)
         except ClientError as err:
             logger.error(
