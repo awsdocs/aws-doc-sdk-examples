@@ -308,7 +308,9 @@ class MedicalImagingWorkflowScenario:
 
         account_id = boto3.client("sts").get_caller_identity()["Account"]
 
-        with open("../../../../workflows/healthimaging_image_sets/resources/cfn_template.yaml") as setup_file:
+        with open(
+            "../../../../workflows/healthimaging_image_sets/resources/cfn_template.yaml"
+        ) as setup_file:
             setup_template = setup_file.read()
         print(f"\t\tCreating {stack_name}.")
         stack = self.cf_resource.create_stack(
