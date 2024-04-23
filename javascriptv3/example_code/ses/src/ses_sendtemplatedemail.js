@@ -60,9 +60,13 @@ const run = async () => {
   );
   try {
     return await sesClient.send(sendReminderEmailCommand);
-  } catch (err) {
-    console.log("Failed to send template email", err);
-    return err;
+  } catch (caught) {
+    if (caught instanceof Error && caught.name === "MessageRejected") {
+      /** @type { import('@aws-sdk/client-ses').MessageRejected} */
+      const messageRejectedError = caught;
+      return messageRejectedError;
+    }
+    throw caught;
   }
 };
 // snippet-end:[ses.JavaScript.email.sendTemplatedEmailV3]
