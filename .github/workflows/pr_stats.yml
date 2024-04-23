@@ -12,7 +12,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           organization: 'awsdocs'
-          period: 30
+          period: 112
           charts: true
           disableLinks: true
           sortBy: 'COMMENTS'
