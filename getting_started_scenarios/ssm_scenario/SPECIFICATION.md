@@ -19,17 +19,16 @@ This program is intended for users not familiar with Systems Manager SDK to easi
 The following shows the output of the program in the console.
 
 ```
+   Document Name: AWSMigration-ConvertCentOsToRockyLinuxDistribution
+   Document Name: AWSMigration-CreateLoadBalanceAutoScaleGroup
+   Document Name: AWSMigration-EnableInspector
 ```
-Document Name: AWSMigration-ConvertCentOsToRockyLinuxDistribution
-Document Name: AWSMigration-CreateLoadBalanceAutoScaleGroup
-Document Name: AWSMigration-EnableInspector
-```
-```
+
 
 ## Scenario Program execution
 The following shows the output of the program in the console. 
 
-```
+
 ```
 --------------------------------------------------------------------------------
 Welcome to the AWS Systems Manager SDK Getting Started scenario.
