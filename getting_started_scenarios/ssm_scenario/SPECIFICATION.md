@@ -18,20 +18,19 @@ This program is intended for users not familiar with Systems Manager SDK to easi
 ### Program execution
 The following shows the output of the program in the console.
 
- ``` java
+```
+```
 Document Name: AWSMigration-ConvertCentOsToRockyLinuxDistribution
 Document Name: AWSMigration-CreateLoadBalanceAutoScaleGroup
 Document Name: AWSMigration-EnableInspector
-
-
- ```
+```
+```
 
 ## Scenario Program execution
 The following shows the output of the program in the console. 
- 
 
-   ``` java
-
+```
+```
 --------------------------------------------------------------------------------
 Welcome to the AWS Systems Manager SDK Getting Started scenario.
 This Java program demonstrates how to interact with AWS Systems Manager using the AWS SDK.
@@ -101,7 +100,9 @@ The AWS Systems Manager resources will not be deleted
 This concludes the AWS Systems Manager SDK Getting Started scenario.
 --------------------------------------------------------------------------------
 
-   ```
+```
+```
+
 ## Metadata
 
 The following table describes the metadata used in this SDK Getting Started Scenario.
