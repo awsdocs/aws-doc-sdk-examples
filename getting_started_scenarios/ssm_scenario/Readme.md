@@ -1,7 +1,7 @@
 # AWS Systems Management Getting Started Scenario
 
 ## Introduction
-This AWS Systems Manager (SSM) getting started scenario demonstrates how to interact with the AWS Systems Manager service using an AWS SDK. The scenario covers various operations such as creating a maintenance window, creating an SSM document, sending a command to a managed node, creating an OpsItem, updating an OpsItem, and deleting SSM resources.
+This AWS Systems Manager getting started scenario demonstrates how to interact with the AWS Systems Manager service using an AWS SDK. The scenario covers various operations such as creating a maintenance window, creating an SSM document, sending a command to a managed node, creating an OpsItem, updating an OpsItem, and deleting SSM resources.
 
 ## Setting up Resources
 AWS Systems Manager Agent is Amazon software that runs on Amazon Elastic Compute Cloud (Amazon EC2) instances, edge devices, on-premises servers, and virtual machines (VMs). A Systems Manager Agent makes it possible for Systems Manager to update, manage, and configure these resources. To successfully run this getting started scenario, the EC2 instance must have a Systems Manager Agent. For more information, see [Working with SSM Agent](https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html).
