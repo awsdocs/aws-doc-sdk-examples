@@ -220,9 +220,9 @@ ssm_UpdateOpsItem:
   services:
     ssm: {UpdateOpsItem}                 
 ssm_Scenario:
-  title: Get started with the &SYS; SDK
+  title: Get started with &SYS; using an &AWS; SDK
   title_abbrev: Get started with &SYS; 
-  synopsis: work with &SYS; maintaince windows, documents, and Opsitems.
+  synopsis: work with &SYS; maintenance windows, documents, and OpsItems.
   category: Scenarios
   languages:
     Java:
@@ -235,4 +235,4 @@ ssm_Scenario:
               snippet_tags:
                 - ssm.java2.scenario.main
   services:
-    ssm: {createOpsItem, createMaintenanceWindow, createDocument, sendCommand, commandInvocations, deleteMaintenanceWindow, updateOpsItem}
+    ssm: {CreateOpsItem, CreateMaintenanceWindow, CreateDocument, SendCommand, CommandInvocations, DeleteMaintenanceWindow, UpdateOpsItem}

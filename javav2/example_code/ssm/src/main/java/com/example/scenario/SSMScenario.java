@@ -60,14 +60,6 @@ import java.util.concurrent.TimeUnit;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html
  *
- * AWS Systems Manager Agent (SSM Agent) is Amazon software that runs on Amazon Elastic Compute Cloud (Amazon EC2) instances,
- * edge devices, on-premises servers, and virtual machines (VMs). SSM Agent makes it possible for Systems Manager to
- * update, manage, and configure these resources.
- * To successfully run this getting started scenario, the EC2 instance must have an SSM Agent.
- * For more information, see the following documentation topic:
- *
- * https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html.
- *
  *
  * This Java program performs these tasks:
  * 1. Creates an AWS Systems Manager maintenance window with a default name or a user-provided name.
@@ -118,7 +110,7 @@ public class SSMScenario {
             Welcome to the AWS Systems Manager SDK Getting Started scenario.
             This program demonstrates how to interact with Systems Manager using the AWS SDK for Java (v2).
             Systems Manager is the operations hub for your AWS applications and resources and a secure end-to-end management solution.
-            The program's primary functionalities include creating a maintenance window, creating a document, sending a command to a document,
+            The program's primary functions include creating a maintenance window, creating a document, sending a command to a document,
             listing documents, listing commands, creating an OpsItem, modifying an OpsItem, and deleting Systems Manager resources.
             Upon completion of the program, all AWS resources are cleaned up.
             Let's get started...
@@ -146,7 +138,7 @@ public class SSMScenario {
         documentName = doc.isEmpty() ? "ssmdocument" : doc;
         createSSMDoc(ssmClient, documentName);
 
-        System.out.println("Now we are going to run a command on an EC2 instance that echos 'Hello, world!'");
+        System.out.println("Now we are going to run a command on an EC2 instance that echoes 'Hello, world!'");
         System.out.println("Please hit Enter");
         scanner.nextLine();
         String commandId = sendSSMCommand(ssmClient, documentName, instanceId);

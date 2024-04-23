@@ -1,21 +1,21 @@
 #  AWS Systems Manager Engineering Specification
 
 ## Overview
-   This SDK getting started scenario demonstrates how to interact with AWS Systems Manager (SSM) using the AWS SDK. The provided code is an AWS application that demonstrates the usage of the AWS SSM SDK to interact with various AWS SSM service operations.
+    This SDK getting started scenario demonstrates how to interact with AWS Systems Manager using an AWS SDK. The provided code is an AWS application that demonstrates the usage of the AWS Systems Manager SDK to interact with various AWS Systems Manager service operations.
 
 ## Scenario Program Flow
-   - Creates an SSM maintenance window with a default name or a user-provided name.
+   - Creates a Systems Manager maintenance window with a default name or a user-provided name.
    - Modifies the maintenance window schedule.
-   - Creates an SSM document with a default name or a user-provided name.
-   - Sends a command to a specified EC2 instance using the created SSM document and display the time when the command was invoked.
-   - Creates an SSM OpsItem with a predefined title, source, category, and severity.
-   - Updates and resolve the created OpsItem.
-   - Deletes the created SSM maintenance window and document.
+   - Creates a Systems Manager document with a default name or a user-provided name.
+   - Sends a command to a specified EC2 instance using the created document and display the time when the command was invoked.
+   - Creates a Systems Manager OpsItem with a predefined title, source, category, and severity.
+   - Updates and resolves the created OpsItem.
+   - Deletes the Systems Manager maintenance window, OpsItem, and document.
 
 ## Hello SSM
-This program is intended for users not familiar with the AWS SSM SDK to easily get up an running. The logic is to show use of listDocumentsPaginator().
+This program is intended for users not familiar with Systems Manager SDK to easily get up an running. The logic is to show use of listDocumentsPaginator().
 
-Program execution
+### Program execution
 The following shows the output of the program in the console.
 
  ``` java
@@ -102,21 +102,20 @@ This concludes the AWS Systems Manager SDK Getting Started scenario.
 --------------------------------------------------------------------------------
 
    ```
-## SOS Tags
+## Metadata
 
 The following table describes the metadata used in this SDK Getting Started Scenario.
 
 
 | action                       | metadata file                | metadata key                            |
 |------------------------------|------------------------------|---------------------------------------- |
-| `createOpsItem`              | ssm_metadata.yaml            | ssm_CreateOpsItem                       |
-| `createMaintenanceWindow`    | ssm_metadata.yaml            | ssm_CreateMainWindow                    |
-| `updateMaintenanceWindow`    | ssm_metadata.yaml            | ssm_UpdateMainWindow                    |
-| `createDocument`             | ssm_metadata.yaml            | ssm_CreateDocument                      |
-| `sendCommand `               | ssm_metadata.yaml            | ssm_SendCommand                         |
-| `commandInvocations`         | ssm_metadata.yaml            | ssm_DescribeInvocation                  |
-| `updateOpsItem`              | ssm_metadata.yaml            | ssm_UpdateOpsItem                       |
-| `deleteMaintenanceWindow `   | ssm_metadata.yaml            | ssm_DeleteMainWindow                    |
-| `deleteDocument`             | ssm_metadata.yaml            | ssm_DeleteMainWindow                    |
-| `describeOpsItems       `    | ssm_metadata.yaml            | ssm_DescribeOpsItems                    |
-| `scenario`                   | ssm_metadata.yaml            | ssm_Scenario                            |
+| `CreateOpsItem`              | ssm_metadata.yaml            | ssm_CreateOpsItem                       |
+| `CreateMaintenanceWindow`    | ssm_metadata.yaml            | ssm_CreateMainWindow                    |
+| `UpdateMaintenanceWindow`    | ssm_metadata.yaml            | ssm_UpdateMainWindow                    |
+| `CreateDocument`             | ssm_metadata.yaml            | ssm_CreateDocument                      |
+| `SendCommand `               | ssm_metadata.yaml            | ssm_SendCommand                         |
+| `CommandInvocations`         | ssm_metadata.yaml            | ssm_DescribeInvocation                  |
+| `UpdateOpsItem`              | ssm_metadata.yaml            | ssm_UpdateOpsItem                       |
+| `DeleteMaintenanceWindow `   | ssm_metadata.yaml            | ssm_DeleteMainWindow                    |
+| `DeleteDocument`             | ssm_metadata.yaml            | ssm_DeleteMainWindow                    |
+| `DescribeOpsItems       `    | ssm_metadata.yaml            | ssm_DescribeOpsItems                    |
