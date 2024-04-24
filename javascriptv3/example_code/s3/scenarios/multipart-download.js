@@ -20,6 +20,9 @@ export const getObjectRange = ({ bucket, key, start, end }) => {
   return s3Client.send(command);
 };
 
+/**
+ * @param {string | undefined} contentRange
+ */
 export const getRangeAndLength = (contentRange) => {
   const [range, length] = contentRange.split("/");
   const [start, end] = range.split("-");
@@ -37,7 +40,7 @@ export const isComplete = ({ end, length }) => end === length - 1;
 // and end of the byte range to be downloaded.
 const downloadInChunks = async ({ bucket, key }) => {
   const writeStream = createWriteStream(
-    fileURLToPath(new URL(`./${key}`, import.meta.url))
+    fileURLToPath(new URL(`./${key}`, import.meta.url)),
   ).on("error", (err) => console.error(err));
 
   let rangeAndLength = { start: -1, end: -1, length: -1 };

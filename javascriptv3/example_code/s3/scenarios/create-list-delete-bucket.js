@@ -11,7 +11,7 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 
-const wait = async (milliseconds) => {
+const wait = (milliseconds) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
