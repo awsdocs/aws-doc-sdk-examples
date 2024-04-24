@@ -113,7 +113,7 @@ public class ParseUri {
         if (element == null) {
             logger.info("{}: {}", s3UriElement, "null");
         } else {
-            logger.info("{}: {}", s3UriElement, element.toString());
+            logger.info("{}: {}", s3UriElement, element);
         }
     }
     // snippet-end:[s3.java2.scenario_uriparsing.main]

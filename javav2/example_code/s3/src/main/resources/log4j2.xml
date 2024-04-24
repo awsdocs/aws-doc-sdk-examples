@@ -1,21 +1,30 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c:%L - %m%n" />
+            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c:%L - %m%n"/>
         </Console>
         <MemoryLog4jAppender name="MemoryLog4jAppender"/>
+        <Console name="AlignedConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n"/>
+        </Console>
     </Appenders>
 
     <Loggers>
         <Root level="WARN">
             <AppenderRef ref="ConsoleAppender"/>
-            <AppenderRef ref="MemoryLog4jAppender"/>
         </Root>
-        <Logger name="software.amazon.awssdk" level="WARN" />
-        <Logger name="software.amazon.awssdk.request" level="INFO" />
-        <Logger name="org.apache.http.wire" level="INFO" />
+        <Logger name="software.amazon.awssdk" level="WARN"/>
+        <Logger name="software.amazon.awssdk.request" level="INFO"/>
+        <Logger name="org.apache.http.wire" level="INFO"/>
         <logger name="TransferManagerTest" level="INFO"/>
-        <logger name="S3TestWatcher" level="INFO" />
-        <logger name="com.example.s3" level="INFO" />
+        <logger name="S3TestWatcher" level="INFO"/>
+        <logger name="com.example.s3" level="INFO"/>
+        <logger name="com.example.s3.ParseUri">
+            <AppenderRef ref="MemoryLog4jAppender"/>
+        </logger>
+        <logger name="software.amazon.awssdk.transfer.s3.progress.LoggingTransferListener" level="INFO" additivity="false">
+            <AppenderRef ref="AlignedConsoleAppender"/>
+            <AppenderRef ref="MemoryLog4jAppender"/>
+        </logger>
     </Loggers>
 </Configuration>
