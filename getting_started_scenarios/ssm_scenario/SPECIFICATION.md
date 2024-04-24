@@ -13,7 +13,7 @@
    - Deletes the Systems Manager maintenance window, OpsItem, and document.
 
 ## Hello SSM
-This program is intended for users not familiar with Systems Manager SDK to easily get up an running. The logic is to show use of listDocumentsPaginator().
+This program is intended for users not familiar with Systems Manager SDK to easily get up and running. The logic is to show use of listDocumentsPaginator().
 
 ### Program execution
 The following shows the output of the program in the console.
