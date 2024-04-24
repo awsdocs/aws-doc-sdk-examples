@@ -27,12 +27,23 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 
 <!--custom.prerequisites.start-->
-> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.prerequisites.end-->
 
 ### Get started
 
 - [Hello Amazon Bedrock](hello/hello.go#L4) (`InvokeModel`)
+
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [AI21 Labs Jurassic-2: Text generation](actions/invoke_model.go#L83) (`InvokeModel`)
+- [Amazon Titan: Image generation](actions/invoke_model.go#L191) (`InvokeModel`)
+- [Amazon Titan: Text generation](actions/invoke_model.go#L261) (`InvokeModel`)
+- [Anthropic Claude 2: Real-time response stream processing](actions/invoke_model_with_response_stream.go#L30) (`InvokeModelWithResponseStream`)
+- [Anthropic Claude 2: Text generation](actions/invoke_model.go#L27) (`InvokeModel`)
+- [Meta Llama 2: Text generation](actions/invoke_model.go#L140) (`InvokeModel`)
 
 ### Scenarios
 
@@ -41,16 +52,9 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/scenario_invoke_models.go)
 
-### Invoke model examples
-
-- [AI21 Labs Jurassic-2: Text generation](actions/invoke_model.go#L78)
-- [Amazon Titan: Image generation](actions/invoke_model.go#L178)
-- [Anthropic Claude 2: Real-time response stream processing](actions/invoke_model_with_response_stream.go#L30)
-- [Anthropic Claude 2: Text generation](actions/invoke_model.go#L27)
-- [Meta Llama 2: Text generation](actions/invoke_model.go#L130)
-
 
 <!--custom.examples.start-->
+> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.examples.end-->
 
 ## Run the examples
