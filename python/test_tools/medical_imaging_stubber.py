@@ -8,6 +8,7 @@ Stub functions that are used by the AWS HealthImaging unit tests.
 from test_tools.example_stubber import ExampleStubber
 import botocore
 import io
+import gzip
 
 
 class MedicalImagingStubber(ExampleStubber):
@@ -183,10 +184,15 @@ class MedicalImagingStubber(ExampleStubber):
     def stub_get_image_set_metadata(self, datastore_id, image_set_id, error_code=None):
         expected_params = {"datastoreId": datastore_id, "imageSetId": image_set_id}
 
-        data_string = b"akdelfaldkflakdflkajs"
-        stream = botocore.response.StreamingBody(
-            io.BytesIO(data_string), len(data_string)
-        )
+        data_string = b'"{data: akdelfaldkflakdflkajs}"'
+
+        gzip_stream = io.BytesIO()
+        with gzip.open(gzip_stream, "wb") as f:
+            f.write(data_string)
+        gzip_stream.seek(0)
+
+        stream = botocore.response.StreamingBody(gzip_stream, 49)
+
         response = {
             "contentType": " text/plain",
             "contentEncoding": "gzip",

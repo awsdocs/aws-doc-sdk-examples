@@ -26,6 +26,15 @@ medical-imaging_Hello:
             - description: Code for the hello_health_imaging.cpp source file.
               snippet_tags:
                 - cpp.example_code.medical-imaging.hello_medical-imaging
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging/imaging_set_and_frames_workflow
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.Hello
   services:
     medical-imaging: {ListDatastores}
 medical-imaging_CreateDatastore:
@@ -1218,6 +1227,43 @@ medical-imaging_Scenario_ImageSetsAndFrames:
               snippet_tags:
                 - cpp.example_code.medical-imaging.image-sets-workflow.clean_up
                 - cpp.example_code.medical-imaging.image-sets-workflow.empty_data_store
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging/imaging_set_and_frames_workflow
+          github_note_at_bottom: true
+          excerpts:
+            - description: Create an &CFN; stack with the necessary resources.
+              snippet_tags:
+                - python.example_code.medical-imaging.workflow.deploy
+            - description: Copy DICOM files to the &S3; import bucket.
+              snippet_tags:
+                - python.example_code.medical-imaging.workflow.copy
+            - description: Import the DICOM files to the &S3; data store.
+              snippet_tags:
+                - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
+                - python.example_code.medical-imaging.workflow.StartDICOMImportJob
+            - description: Get image sets created by the DICOM import job.
+              snippet_tags:
+                - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
+                - python.example_code.medical-imaging.workflow.GetImageSetsForImportJob
+                - python.example_code.medical-imaging.workflow.GetImageSet
+            - description: Get image frame information for image sets.
+              snippet_tags:
+                - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
+                - python.example_code.medical-imaging.workflow.GetImageFrames
+                - python.example_code.medical-imaging.workflow.GetImageSetMetadata
+            - description: Download, decode and verify image frames.
+              snippet_tags:
+                - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
+                - python.example_code.medical-imaging.workflow.GetPixelData
+                - python.example_code.medical-imaging.workflow.downloadAndCheck
+            - description: Clean up resources.
+              snippet_tags:
+                - python.example_code.medical-imaging.workflow.destroy
+                - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
+                - python.example_code.medical-imaging.workflow.SearchImageSets
+                - python.example_code.medical-imaging.workflow.DeleteImageSet
     JavaScript:
       versions:
         - sdk_version: 3
