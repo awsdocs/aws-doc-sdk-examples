@@ -31,7 +31,7 @@
 #include <aws/s3/model/DeleteBucketRequest.h>
 #include <aws/s3/model/DeleteObjectRequest.h>
 #include <aws/s3/model/GetObjectRequest.h>
-#include <aws/s3/model/ListObjectsRequest.h>
+#include <aws/s3/model/ListObjectsV2Request.h>
 #include <aws/s3/model/PutObjectRequest.h>
 #include <aws/s3/model/BucketLocationConstraint.h>
 #include <aws/s3/model/CreateBucketConfiguration.h>
@@ -51,7 +51,8 @@ namespace AwsDoc {
           \param bucketName The S3 bucket's name.
           \param client An S3 client.
         */
-        static bool DeleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &client);
+        static bool
+        DeleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &client);
 
         //! Delete an object in an S3 bucket.
         /*!          \sa DeleteObjectFromBucket()
@@ -60,7 +61,8 @@ namespace AwsDoc {
           \param client An S3 client.
          */
         static bool
-        DeleteObjectFromBucket(const Aws::String &bucketName, const Aws::String &key, Aws::S3::S3Client &client);
+        DeleteObjectFromBucket(const Aws::String &bucketName, const Aws::String &key,
+                               Aws::S3::S3Client &client);
     }
 }
 
@@ -72,7 +74,8 @@ namespace AwsDoc {
   \param saveFilePath Path for saving a downloaded S3 object.
   \param clientConfig Aws client configuration.
  */
-bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, const Aws::String &saveFilePath,
+bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath,
+                                           const Aws::String &saveFilePath,
                                            const Aws::Client::ClientConfiguration &clientConfig) {
 
     Aws::S3::S3Client client(clientConfig);
@@ -120,10 +123,12 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
         std::shared_ptr<Aws::FStream> input_data =
                 Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
                                               uploadFilePath,
-                                              std::ios_base::in | std::ios_base::binary);
+                                              std::ios_base::in |
+                                              std::ios_base::binary);
 
         if (!input_data->is_open()) {
-            std::cerr << "Error: unable to open file, '" << uploadFilePath << "'." << std::endl;
+            std::cerr << "Error: unable to open file, '" << uploadFilePath << "'."
+                      << std::endl;
             AwsDoc::S3::DeleteBucket(bucketName, client);
             return false;
         }
@@ -141,7 +146,8 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
             return false;
         }
         else {
-            std::cout << "Added the object with the key, '" << key << "', to the bucket, '"
+            std::cout << "Added the object with the key, '" << key
+                      << "', to the bucket, '"
                       << bucketName << "'." << std::endl;
         }
     }
@@ -161,14 +167,17 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
                       err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
         }
         else {
-            std::cout << "Downloaded the object with the key, '" << key << "', in the bucket, '"
+            std::cout << "Downloaded the object with the key, '" << key
+                      << "', in the bucket, '"
                       << bucketName << "'." << std::endl;
 
             Aws::IOStream &ioStream = outcome.GetResultWithOwnership().
                     GetBody();
-            Aws::OFStream outStream(saveFilePath, std::ios_base::out | std::ios_base::binary);
+            Aws::OFStream outStream(saveFilePath,
+                                    std::ios_base::out | std::ios_base::binary);
             if (!outStream.is_open()) {
-                std::cout << "Error: unable to open file, '" << saveFilePath << "'." << std::endl;
+                std::cout << "Error: unable to open file, '" << saveFilePath << "'."
+                          << std::endl;
             }
             else {
                 outStream << ioStream.rdbuf();
@@ -193,31 +202,45 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
                       outcome.GetError().GetMessage() << std::endl;
         }
         else {
-            std::cout << "Copied the object with the key, '" << key << "', to the key, '" << copiedToKey
+            std::cout << "Copied the object with the key, '" << key
+                      << "', to the key, '" << copiedToKey
                       << ", in the bucket, '" << bucketName << "'." << std::endl;
         }
     }
 
     // 5. List objects in the bucket.
     {
-        Aws::S3::Model::ListObjectsRequest request;
+        Aws::S3::Model::ListObjectsV2Request request;
         request.WithBucket(bucketName);
 
-        Aws::S3::Model::ListObjectsOutcome outcome = client.ListObjects(request);
+        Aws::String continuationToken;
+        Aws::Vector<Aws::S3::Model::Object> allObjects;
 
-        if (!outcome.IsSuccess()) {
-            std::cerr << "Error: ListObjects: " <<
-                      outcome.GetError().GetMessage() << std::endl;
-        }
-        else {
-            Aws::Vector<Aws::S3::Model::Object> objects =
-                    outcome.GetResult().GetContents();
-
-            std::cout << objects.size() << " objects in the bucket, '" << bucketName << "':" << std::endl;
-
-            for (Aws::S3::Model::Object &object: objects) {
-                std::cout << "     '" << object.GetKey() << "'" << std::endl;
+        do {
+            if (!continuationToken.empty()) {
+                request.SetContinuationToken(continuationToken);
             }
+            Aws::S3::Model::ListObjectsV2Outcome outcome = client.ListObjectsV2(
+                    request);
+
+            if (!outcome.IsSuccess()) {
+                std::cerr << "Error: ListObjects: " <<
+                          outcome.GetError().GetMessage() << std::endl;
+                break;
+            }
+            else {
+                Aws::Vector<Aws::S3::Model::Object> objects =
+                        outcome.GetResult().GetContents();
+                allObjects.insert(allObjects.end(), objects.begin(), objects.end());
+                continuationToken = outcome.GetResult().GetContinuationToken();
+            }
+        } while (!continuationToken.empty());
+
+        std::cout << allObjects.size() << " objects in the bucket, '" << bucketName
+                  << "':" << std::endl;
+
+        for (Aws::S3::Model::Object &object: allObjects) {
+            std::cout << "     '" << object.GetKey() << "'" << std::endl;
         }
     }
 
@@ -230,7 +253,8 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
     return AwsDoc::S3::DeleteBucket(bucketName, client);
 }
 
-bool AwsDoc::S3::DeleteObjectFromBucket(const Aws::String &bucketName, const Aws::String &key,
+bool AwsDoc::S3::DeleteObjectFromBucket(const Aws::String &bucketName,
+                                        const Aws::String &key,
                                         Aws::S3::S3Client &client) {
     Aws::S3::Model::DeleteObjectRequest request;
     request.SetBucket(bucketName);
@@ -244,14 +268,16 @@ bool AwsDoc::S3::DeleteObjectFromBucket(const Aws::String &bucketName, const Aws
                   outcome.GetError().GetMessage() << std::endl;
     }
     else {
-        std::cout << "Deleted the object with the key, '" << key << "', from the bucket, '"
+        std::cout << "Deleted the object with the key, '" << key
+                  << "', from the bucket, '"
                   << bucketName << "'." << std::endl;
     }
 
     return outcome.IsSuccess();
 }
 
-bool AwsDoc::S3::DeleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &client) {
+bool
+AwsDoc::S3::DeleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &client) {
     Aws::S3::Model::DeleteBucketRequest request;
     request.SetBucket(bucketName);
 
@@ -278,7 +304,8 @@ int main(int argc, const char *argv[]) {
         std::cout << "Usage:\n" <<
                   "    <uploadFilePath> <saveFilePath>\n\n" <<
                   "Where:\n" <<
-                  "   uploadFilePath - The path where the file is located (for example, C:/AWS/book2.pdf).\n" <<
+                  "   uploadFilePath - The path where the file is located (for example, C:/AWS/book2.pdf).\n"
+                  <<
                   "   saveFilePath - The path where the file is saved after it's " <<
                   "downloaded (for example, C:/AWS/book2.pdf). " << std::endl;
         return 1;

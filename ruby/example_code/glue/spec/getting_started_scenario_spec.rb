@@ -87,7 +87,9 @@ describe GlueWrapper, integ: true do
 
     it "Creates a job definition that runs an ETL script", integ: true do
       puts "Uploading Python ETL script to S3..."
-      wrapper.upload_job_script(job_script, glue_bucket)
+      script_directory = File.dirname(__FILE__)
+      file_path = File.join(script_directory, job_script)
+      wrapper.upload_job_script(file_path, glue_bucket)
       puts "Creating job definition #{job_name}:\n"
       response = wrapper.create_job(job_name, "Getting started example job.", glue_service_role.arn, "s3://#{glue_bucket.name}/#{job_script}")
       puts JSON.pretty_generate(response).yellow

@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
 import com.example.s3.transfermanager.DownloadFile;
 import com.example.s3.transfermanager.DownloadToDirectory;
 import com.example.s3.transfermanager.ObjectCopy;
@@ -8,6 +9,10 @@ import com.example.s3.transfermanager.UploadADirectory;
 import com.example.s3.transfermanager.UploadFile;
 import com.example.s3.transfermanager.UploadStream;
 import com.example.s3.util.AsyncExampleUtils;
+import com.example.s3.util.MemoryLog4jAppender;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.Configuration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.opentest4j.AssertionFailedError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.exception.SdkException;
@@ -32,11 +38,20 @@ import java.util.UUID;
 class TransferManagerTest {
 
     private static final Logger logger = LoggerFactory.getLogger(TransferManagerTest.class);
+    private static final String LOGGED_STRING_TO_CHECK = "Transfer initiated...";
 
-    @Test
-    @Order(1)
+    @BeforeAll
+    public static void beforeAll() {
+        logger.info("S3TransferManager tests starting ...");
+    }
+
+    @AfterAll
+    public static void afterAll() {
+        logger.info("... S3TransferManager tests finished");
+    }
+
     @Tag("IntegrationTest")
-    public void uploadSingleFileWorks(){
+    public void uploadSingleFileWorks() {
         UploadFile upload = new UploadFile();
         String etag = upload.uploadFile(S3ClientFactory.transferManager, upload.bucketName, upload.key, upload.filePathURI);
         Assertions.assertNotNull(etag);
@@ -44,9 +59,22 @@ class TransferManagerTest {
     }
 
     @Test
-    @Order(2)
     @Tag("IntegrationTest")
-    public void downloadSingleFileWorks(){
+    public void trackUploadFileWorks() {
+        UploadFile upload = new UploadFile();
+        try {
+            upload.trackUploadFile(S3ClientFactory.transferManager, upload.bucketName, upload.key, upload.filePathURI);
+        } catch (SdkException | AssertionFailedError e) {
+            logger.error(e.getMessage());
+        } finally {
+            upload.cleanUp();
+        }
+        Assertions.assertTrue(getLoggedMessages().contains(LOGGED_STRING_TO_CHECK));
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    public void downloadSingleFileWorks() {
         DownloadFile download = new DownloadFile();
         Long fileLength = download.downloadFile(S3ClientFactory.transferManager, download.bucketName, download.key, download.downloadedFileWithPath);
         Assertions.assertNotEquals(0L, fileLength);
@@ -54,9 +82,23 @@ class TransferManagerTest {
     }
 
     @Test
-    @Order(3)
     @Tag("IntegrationTest")
-    public void copyObjectWorks(){
+    public void trackDownloadFileWorks() {
+        DownloadFile download = new DownloadFile();
+        try {
+            download.trackDownloadFile(S3ClientFactory.transferManager, download.bucketName, download.key, download.downloadedFileWithPath);
+        } catch (SdkException e){
+            logger.error(e.getMessage());
+        } finally {
+            download.cleanUp();
+        }
+        Assertions.assertTrue(getLoggedMessages().contains(LOGGED_STRING_TO_CHECK));
+    }
+
+
+    @Test
+    @Tag("IntegrationTest")
+    public void copyObjectWorks() {
         ObjectCopy copy = new ObjectCopy();
         String etag = copy.copyObject(S3ClientFactory.transferManager, copy.bucketName, copy.key, copy.destinationBucket, copy.destinationKey);
         Assertions.assertNotNull(etag);
@@ -64,9 +106,8 @@ class TransferManagerTest {
     }
 
     @Test
-    @Order(4)
     @Tag("IntegrationTest")
-    public void directoryUploadWorks(){
+    public void directoryUploadWorks() {
         UploadADirectory upload = new UploadADirectory();
         Integer numFailedUploads = upload.uploadDirectory(S3ClientFactory.transferManager, upload.sourceDirectory, upload.bucketName);
         Assertions.assertNotNull(numFailedUploads, "Bucket download failed to complete.");
@@ -74,9 +115,8 @@ class TransferManagerTest {
     }
 
     @Test
-    @Order(5)
     @Tag("IntegrationTest")
-    public void directoryDownloadWorks(){
+    public void directoryDownloadWorks() {
         DownloadToDirectory download = new DownloadToDirectory();
         Integer numFilesFailedToDownload = download.downloadObjectsToDirectory(S3ClientFactory.transferManager, download.destinationPathURI, download.bucketName);
         Assertions.assertNotNull(numFilesFailedToDownload, "Bucket download failed to complete.");
@@ -84,9 +124,8 @@ class TransferManagerTest {
     }
 
     @Test
-    @Order(6)
     @Tag("IntegrationTest")
-    public void uploadStreamWorks(){
+    public void uploadStreamWorks() {
         String bucketName = "x-" + UUID.randomUUID();
         String key = UUID.randomUUID().toString();
         AsyncExampleUtils.createBucket(bucketName);
@@ -104,13 +143,10 @@ class TransferManagerTest {
         }
     }
 
-    @BeforeAll
-    public static void beforeAll(){
-        logger.info("S3TransferManager tests starting ...");
-    }
-
-    @AfterAll
-    public static void afterAll(){
-        logger.info("... S3TransferManager tests finished");
+    private String getLoggedMessages() {
+        final LoggerContext context = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(false);
+        final Configuration configuration = context.getConfiguration();
+        final MemoryLog4jAppender memoryLog4jAppender = configuration.getAppender("MemoryLog4jAppender");
+        return memoryLog4jAppender.getEventsAsString();
     }
 }
