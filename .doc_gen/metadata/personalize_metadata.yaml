@@ -178,32 +178,6 @@ personalize_createDatasetImportJob:
                 - personalize.java2.create_dataset_import_job.main
   services:
     personalize: {CreateDatasetImportJob}
-personalize_createDomainSchema:
-  title: Create a domain schema with &PERS; using an &AWS; SDK
-  title_abbrev: Create a domain schema
-  synopsis: create a &PERS; domain schema.
-  category:
-  languages:
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/personalize
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - personalize.JavaScript.createDomainSchemaV3
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/personalize
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - personalize.java2.create_domain_schema.main
-  services:
-    personalize: {CreateSchema}
 personalize_createEventTracker:
   title: Create an event tracker with &PERS; using an &AWS; SDK
   title_abbrev: Create an event tracker
@@ -297,6 +271,9 @@ personalize_createSchema:
             - description:
               snippet_tags:
                 - personalize.JavaScript.createSchemaV3
+            - description: Create a schema with a domain.
+              snippet_tags:
+                - personalize.JavaScript.createDomainSchemaV3
     Java:
       versions:
         - sdk_version: 2
@@ -306,6 +283,9 @@ personalize_createSchema:
             - description:
               snippet_tags:
                 - personalize.java2.create_schema.main
+            - description: Create a schema with a domain.
+              snippet_tags:
+                - personalize.java2.create_domain_schema.main
   services:
     personalize: {CreateSchema}
 personalize_createSolution:

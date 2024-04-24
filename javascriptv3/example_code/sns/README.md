@@ -47,15 +47,10 @@ Code excerpts that show you how to call individual service functions.
 - [Get the settings for sending SMS messages](libs/snsClient.js#L4) (`GetSMSAttributes`)
 - [List the subscribers of a topic](libs/snsClient.js#L4) (`ListSubscriptions`)
 - [List topics](libs/snsClient.js#L4) (`ListTopics`)
-- [Publish a message with an attribute](../cross-services/wkflw-topics-queues/TopicsQueuesWkflw.js#L267) (`Publish`)
 - [Publish to a topic](libs/snsClient.js#L4) (`Publish`)
 - [Set the default settings for sending SMS messages](libs/snsClient.js#L4) (`SetSMSAttributes`)
 - [Set topic attributes](libs/snsClient.js#L4) (`SetTopicAttributes`)
-- [Subscribe a Lambda function to a topic](libs/snsClient.js#L4) (`Subscribe`)
-- [Subscribe a mobile application to a topic](libs/snsClient.js#L4) (`Subscribe`)
-- [Subscribe an SQS queue to a topic](actions/subscribe-queue.js#L6) (`Subscribe`)
 - [Subscribe an email address to a topic](libs/snsClient.js#L4) (`Subscribe`)
-- [Subscribe with a filter to a topic](actions/subscribe-queue-filtered.js#L6) (`Subscribe`)
 
 
 <!--custom.examples.start-->

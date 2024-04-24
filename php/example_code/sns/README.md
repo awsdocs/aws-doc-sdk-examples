@@ -43,12 +43,17 @@ Code excerpts that show you how to call individual service functions.
 - [List opted out phone numbers](ListOptOut.php#L10) (`ListPhoneNumbersOptedOut`)
 - [List the subscribers of a topic](ListSubscriptions.php#L10) (`ListSubscriptions`)
 - [List topics](ListTopics.php#L10) (`ListTopics`)
-- [Publish an SMS text message](PublishTextSMS.php#L10) (`Publish`)
 - [Publish to a topic](PublishTopic.php#L10) (`Publish`)
 - [Set the default settings for sending SMS messages](SetSMSAttributes.php#L26) (`SetSMSAttributes`)
 - [Set topic attributes](SetTopicAttributes.php#L10) (`SetTopicAttributes`)
-- [Subscribe an HTTP endpoint to a topic](SubscribeHTTPS.php#L10) (`Subscribe`)
 - [Subscribe an email address to a topic](SubscribeEmail.php#L10) (`Subscribe`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish an SMS text message](PublishTextSMS.php)
 
 ### Cross-service examples
 
@@ -69,6 +74,18 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.end-->
 
 
+
+#### Publish an SMS text message
+
+This example shows you how to publish SMS messages using Amazon SNS.
+
+
+<!--custom.scenario_prereqs.sns_PublishTextSMS.start-->
+<!--custom.scenario_prereqs.sns_PublishTextSMS.end-->
+
+
+<!--custom.scenarios.sns_PublishTextSMS.start-->
+<!--custom.scenarios.sns_PublishTextSMS.end-->
 
 ### Tests
 

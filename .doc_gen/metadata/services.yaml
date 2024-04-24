@@ -1,3 +1,18 @@
+accessanalyzer:
+  long: '&iam-citadel-long;'
+  short: '&iam-citadel;'
+  sort: IAM Access Analyzer
+  expanded:
+    long: AWS Identity and Access Management Access Analyzer
+    short: IAM Access Analyzer
+  blurb: helps you identify the resources in your organization and accounts, such as Amazon S3 buckets or IAM roles, shared with an external entity.
+  guide:
+    subtitle: User Guide
+    url: IAM/latest/UserGuide/what-is-access-analyzer.html
+  api_ref: access-analyzer/latest/APIReference/Welcome.html
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: accessanalyzer-2019-11-01
 acm:
   long: '&ACMlong; (&ACM;)'
   short: '&ACM;'

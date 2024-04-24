@@ -104,7 +104,7 @@ s3_CreateBucket:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.create_bucket.main
     Java:
@@ -118,7 +118,7 @@ s3_CreateBucket:
                 - s3.java2.create_bucket_waiters.main
             - description: Create a bucket with object lock enabled.
               snippet_tags:
-                - S3LockWorkflow.javav2.CreateBucketWithLockOptions.main  
+                - S3LockWorkflow.javav2.CreateBucketWithLockOptions.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -232,7 +232,7 @@ s3_CopyObject:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.copy_object.main
     Java:
@@ -346,7 +346,7 @@ s3_DeleteBucketPolicy:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.delete_bucket_policy.main
     Java:
@@ -509,7 +509,7 @@ s3_DeleteObjects:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.delete_objects.main
     Go:
@@ -664,7 +664,7 @@ s3_GetObjectAcl:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.get_acl.main
     Python:
@@ -699,7 +699,7 @@ s3_GetBucketPolicy:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.get_bucket_policy.main
     Java:
@@ -758,7 +758,7 @@ s3_HeadObject:
                 - s3.java2.getobjectcontenttype.main
             - description: Get the restore status of an object.
               snippet_tags:
-                - s3.java2.get.restore.status.main    
+                - s3.java2.get.restore.status.main
     Ruby:
       versions:
         - sdk_version: 3
@@ -808,7 +808,7 @@ s3_GetObject:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.getobjectdata.main
     Java:
@@ -921,7 +921,7 @@ s3_GetObject_IfModifiedSince:
   title: Get an object from an &S3; bucket using an &AWS; SDK, specifying an If-Modified-Since header
   title_abbrev: Get an object from a bucket if it has been modified
   synopsis: read data from an object in an S3 bucket, but only if that bucket has not been modified since the last retrieval time.
-  category:
+  category: Scenarios
   languages:
     Rust:
       versions:
@@ -1225,7 +1225,7 @@ s3_ListObjects:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.list_objects.main
     Java:
@@ -1239,7 +1239,7 @@ s3_ListObjects:
                 - s3.java2.list_objects.main
             - description: List objects using pagination.
               snippet_tags:
-                - s3.java2.list_objects.pag.main     
+                - s3.java2.list_objects.pag.main
     PHP:
       versions:
         - sdk_version: 3
@@ -1272,8 +1272,8 @@ s3_ListObjects:
           github: javascriptv3/example_code/s3
           excerpts:
             - description: List all of the objects in your bucket. If there is more than one
-                           object, IsTruncated and NextContinuationToken will be used to iterate
-                           over the full list.
+                object, IsTruncated and NextContinuationToken will be used to iterate
+                over the full list.
               snippet_tags:
                 - s3.JavaScript.buckets.listObjectsV3
     Ruby:
@@ -1379,7 +1379,7 @@ s3_PutObject:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.s3_object_upload.main
     Java:
@@ -1839,7 +1839,7 @@ s3_PutBucketAcl:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.set_acl.main
     Java:
@@ -2200,7 +2200,7 @@ s3_PutObjectLegalHold:
     s3: {PutObjectLegalHold}
 s3_PutObjectLockConfiguration:
   title: Set the object lock configuration of an &S3; bucket using an &AWS; SDK
-  title_abbrev: Set the object lock configuration of an bucket
+  title_abbrev: Set the object lock configuration of a bucket
   synopsis: set the object lock configuration of an existing S3 bucket.
   category:
   languages:
@@ -2210,18 +2210,24 @@ s3_PutObjectLockConfiguration:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description:
+            - description: Set the object lock configuration of a bucket.
               snippet_tags:
                 - S3LockWorkflow.javav2.EnableObjectLockOnBucket.main
+            - description: Set the default retention period of a bucket.
+              snippet_tags:
+                - S3LockWorkflow.javav2.ModifyBucketDefaultRetention.main
     .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/S3/scenarios/S3ObjectLockScenario
           sdkguide:
           excerpts:
-            - description:
+            - description: Set the object lock configuration of a bucket.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.EnableObjectLockOnBucket
+            - description: Set the default retention period of a bucket.
+              snippet_tags:
+                - S3LockWorkflow.dotnetv3.ModifyBucketDefaultRetention
   services:
     s3: {PutObjectLockConfiguration}
 s3_PutObjectRetention:
@@ -2250,32 +2256,6 @@ s3_PutObjectRetention:
                 - S3LockWorkflow.dotnetv3.ModifyObjectRetentionPeriod
   services:
     s3: {PutObjectRetention}
-s3_PutDefaultObjectLockConfiguration:
-  title: Set the default retention period of an &S3; bucket using an &AWS; SDK
-  title_abbrev: Set the default retention period of a bucket
-  synopsis: set the default retention period of an S3 bucket.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - S3LockWorkflow.javav2.ModifyBucketDefaultRetention.main
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - S3LockWorkflow.dotnetv3.ModifyBucketDefaultRetention
-  services:
-    s3: {PutObjectLockConfiguration}
 s3_UploadPart:
   title: Upload a single part of a multipart upload using an &AWS; SDK
   title_abbrev: Upload a single part of a multipart upload
@@ -2404,7 +2384,7 @@ s3_Scenario_UsingLargeFiles:
                 - s3.tm.java2.uploadadirectory.main
             - description: Upload a single file.
               snippet_tags:
-                - s3.tm.java2.uploadfile.main     
+                - s3.tm.java2.uploadfile.main
     .NET:
       versions:
         - sdk_version: 3
@@ -2638,6 +2618,23 @@ s3_Scenario_PresignedUrl:
               snippet_tags:
                 - s3.rust.get-object-presigned
                 - s3.rust.put-object-presigned
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          excerpts:
+            - description: Generate a pre-signed URL to download an object.
+              snippet_tags:
+                - cpp.example_code.s3.presigned.GetObject
+            - description: Download using libcurl.
+              snippet_tags:
+                - cpp.example_code.s3.presigned.GetObjectDownload
+            - description: Generate a pre-signed URL to upload an object.
+              snippet_tags:
+                - cpp.example_code.s3.presigned.PutObject
+            - description: Upload using libcurl.
+              snippet_tags:
+                - cpp.example_code.s3.presigned.PutObjectUpload
   services:
     s3: {}
 s3_Scenario_ObjectVersioningUsage:
@@ -2712,7 +2709,7 @@ s3_Scenario_GettingStarted:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.java2.s3_scenario.main
     JavaScript:
@@ -2725,43 +2722,43 @@ s3_Scenario_GettingStarted:
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.imports
             - description: The preceding imports reference some helper utilities. These utilities
-                           are local to the GitHub repository linked at the start of
-                           this section. For your reference, see the following implementations
-                           of those utilities.
+                are local to the GitHub repository linked at the start of
+                this section. For your reference, see the following implementations
+                of those utilities.
               snippet_tags:
                 - javascript.v3.utils.dirnameFromMetaUrl
                 - javascript.v3.utils.prompter
                 - javascript.v3.utils.wrapText
             - description: Objects in S3 are stored in 'buckets'. Let's define a function
-                           for creating a new bucket.
+                for creating a new bucket.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.CreateBucket
             - description: Buckets contain 'objects'. This function uploads the
-                           contents of a directory to your bucket as objects.
+                contents of a directory to your bucket as objects.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.PutObject
             - description: After uploading objects, check to confirm that they were
-                           uploaded correctly. You can use ListObjects for that. You'll be
-                           using the 'Key' property, but there are other useful properties
-                           in the response also.
+                uploaded correctly. You can use ListObjects for that. You'll be
+                using the 'Key' property, but there are other useful properties
+                in the response also.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.ListObjects
             - description: Sometimes you might want to copy an object from one bucket to another.
-                           Use the CopyObject command for that.
+                Use the CopyObject command for that.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.CopyObject
             - description: There's no SDK method for getting multiple objects from a bucket.
-                           Instead, you'll create a list of objects to download and
-                           iterate over them.
+                Instead, you'll create a list of objects to download and
+                iterate over them.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.GetObject
             - description: It's time to clean up your resources. A bucket must be empty
-                           before it can be deleted. These two functions empty and delete the
-                           bucket.
+                before it can be deleted. These two functions empty and delete the
+                bucket.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.clean
             - description: The 'main' function pulls everything together. If you run this
-                           file directly the main function will be called.
+                file directly the main function will be called.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.main
     Kotlin:
@@ -2770,7 +2767,7 @@ s3_Scenario_GettingStarted:
           github: kotlin/services/s3
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - s3.kotlin.s3_operations.main
     PHP:
@@ -2952,8 +2949,8 @@ s3_Scenario_ListObjectsWeb:
           sdkguide:
           excerpts:
             - description: The following code is the relevant React component that makes calls
-                           to the &AWS; SDK. A runnable version of the application containing
-                           this component can be found at the preceding GitHub link.
+                to the &AWS; SDK. A runnable version of the application containing
+                this component can be found at the preceding GitHub link.
               snippet_tags:
                 - javascript.v3.scenarios.web.ListObjects
   services:
@@ -3025,9 +3022,15 @@ s3_Scenario_MultipartUpload:
             - description: >-
                 Use the <ulink
                     url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink> 
-                or (S3AsyncClient API) to perform a multipart upload.
+                to perform a multipart upload.
               snippet_tags:
                 - s3.java2.performMultiPartUpload.s3Client
+            - description: >-
+                Use the <ulink
+                    url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3AsyncClient.html">S3AsyncClient API</ulink> 
+                with multipart support enabled to perform a multipart upload.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.s3AsyncClient
   services:
     s3: {CreateMultipartUpload, UploadPart, CompleteMultipartUpload}
 s3_Scenario_UseChecksums:
@@ -3103,7 +3106,7 @@ s3_GetObject_MRAP:
   title: Get an &S3; object from a Multi-Region Access Point by using an &AWS; SDK
   title_abbrev: Get an object from a Multi-Region Access Point
   synopsis: get an object from a Multi-Region Access Point.
-  category:
+  category: Scenarios
   languages:
     Kotlin:
       versions:
@@ -3128,7 +3131,7 @@ s3_Scenario_ObjectLock:
     Java:
       versions:
         - sdk_version: 2
-          github: java/usecases/s3_object_lock_scenario
+          github: javav2/example_code/s3/src/main/java/com/example/s3/lockscenario
           sdkguide:
           excerpts:
             - description: Run an interactive scenario demonstrating &S3; object lock features.

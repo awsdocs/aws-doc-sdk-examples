@@ -22,10 +22,10 @@ export class Step {
       console.log(
         `[DEBUG ${new Date().toISOString()}] Handling step: ${
           this.constructor.name
-        }<${this.name}>`,
+        }<${this.name}>`
       );
       console.log(
-        `[DEBUG ${new Date().toISOString()}] State: ${JSON.stringify(state)}`,
+        `[DEBUG ${new Date().toISOString()}] State: ${JSON.stringify(state)}`
       );
     }
   }
@@ -126,7 +126,7 @@ export class ScenarioInput extends Step {
       });
     } else {
       throw new Error(
-        `Error handling ScenarioInput, ${this.options?.type} is not supported.`,
+        `Error handling ScenarioInput, ${this.options?.type} is not supported.`
       );
     }
 
@@ -137,7 +137,7 @@ export class ScenarioInput extends Step {
 export class ScenarioAction extends Step {
   /**
    * @param {string} name
-   * @param {(state: Record<string, any>) => Promise<void>} action
+   * @param {(state: Record<string, any>, options) => Promise<void>} action
    * @param {{ whileConfig: { inputEquals: any, input: ScenarioInput, output: ScenarioOutput }}} [options]
    */
   constructor(name, action, options) {
@@ -153,7 +153,7 @@ export class ScenarioAction extends Step {
   async handle(state, options) {
     const _handle = async () => {
       super.handle(state, options);
-      await this.action(state);
+      await this.action(state, options);
     };
 
     if (!options?.confirmAll && this.options?.whileConfig) {
@@ -181,13 +181,18 @@ export class Scenario {
   state = {};
 
   /**
+   * @type {(ScenarioOutput | ScenarioInput | ScenarioAction | Scenario)[]}
+   */
+  steps = [];
+
+  /**
    * @param {string} name
-   * @param {(ScenarioOutput | ScenarioInput | ScenarioAction)[]} steps
+   * @param {(ScenarioOutput | ScenarioInput | ScenarioAction | null)[]} steps
    * @param {Record<string, any>} initialState
    */
   constructor(name, steps = [], initialState = {}) {
     this.name = name;
-    this.steps = steps;
+    this.steps = steps.filter((s) => !!s);
     this.state = { ...initialState, name };
   }
 
@@ -196,7 +201,11 @@ export class Scenario {
    */
   async run(runConfig) {
     for (const step of this.steps) {
-      await step.handle(this.state, runConfig);
+      if (step instanceof Scenario) {
+        await step.run(runConfig);
+      } else {
+        await step.handle(this.state, runConfig);
+      }
     }
   }
 }

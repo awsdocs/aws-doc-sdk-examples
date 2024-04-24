@@ -12,18 +12,20 @@ import AWSS3
 struct ConfigExample {
     static func main() async {
         // snippet-start:[config.swift.use-custom-configuration]
-        let config: S3Client.S3ClientConfiguration
-
         // Create an Amazon S3 client configuration object that specifies the
         // region as "us-east-1", the adaptive retry mode, and the maximum
         // number of retries as 5.
+
+        let config: S3Client.S3ClientConfiguration
 
         do {
             // snippet-start:[config.swift.create-configuration]
             config = try await S3Client.S3ClientConfiguration(
                 region: "us-east-1", 
-                retryMode: .adaptive,
-                maxAttempts: 5
+                retryStrategyOptions: RetryStrategyOptions(
+                    maxRetriesBase: 5,
+                    rateLimitingMode: .adaptive
+                )
             )
             // snippet-end:[config.swift.create-configuration]
         } catch {
@@ -38,12 +40,6 @@ struct ConfigExample {
         let client = S3Client(config: config)
         // snippet-end:[config.swift.create-client]
         // snippet-end:[config.swift.use-custom-configuration]
-
-        // Ensure debug output is enabled so the HTTP header data is included
-        // in the output. The test can use this information to ensure the
-        // configuration is being used as expected.
-
-        SDKLoggingSystem.initialize(logLevel: .debug)
 
         // Use the client to list the user's buckets. Return without any
         // output if no buckets are found.

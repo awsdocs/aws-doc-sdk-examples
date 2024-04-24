@@ -41,10 +41,8 @@ Code excerpts that show you how to call individual service functions.
 - [Create a topic](../workflows/topics_and_queues/actions/sns_actions.go#L27) (`CreateTopic`)
 - [Delete a topic](../workflows/topics_and_queues/actions/sns_actions.go#L56) (`DeleteTopic`)
 - [List topics](hello/hello.go#L4) (`ListTopics`)
-- [Publish a message with an attribute](../workflows/topics_and_queues/actions/sns_actions.go#L105) (`Publish`)
 - [Publish to a topic](../workflows/topics_and_queues/actions/sns_actions.go#L105) (`Publish`)
-- [Subscribe an SQS queue to a topic](../workflows/topics_and_queues/actions/sns_actions.go#L70) (`Subscribe`)
-- [Subscribe with a filter to a topic](../workflows/topics_and_queues/actions/sns_actions.go#L70) (`Subscribe`)
+- [Subscribe an email address to a topic](../workflows/topics_and_queues/actions/sns_actions.go#L70) (`Subscribe`)
 
 
 <!--custom.examples.start-->

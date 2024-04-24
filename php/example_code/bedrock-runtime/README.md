@@ -35,23 +35,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 > ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.prerequisites.end-->
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [AI21 Labs Jurassic-2: Text generation](BedrockRuntimeService.php#L72) (`InvokeModel`)
-- [Amazon Titan: Image generation](BedrockRuntimeService.php#L184) (`InvokeModel`)
-- [Anthropic Claude 2: Text generation](BedrockRuntimeService.php#L33) (`InvokeModel`)
-- [Meta Llama 2: Text generation](BedrockRuntimeService.php#L107) (`InvokeModel`)
-- [Stable Diffusion: Image generation](BedrockRuntimeService.php#L142) (`InvokeModel`)
-
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](GettingStartedWithBedrockRuntime.php)
+
+### Invoke model examples
+
+- [AI21 Labs Jurassic-2: Text generation](BedrockRuntimeService.php#L72)
+- [Amazon Titan: Image generation](BedrockRuntimeService.php#L184)
+- [Anthropic Claude 2: Text generation](BedrockRuntimeService.php#L33)
+- [Meta Llama 2: Text generation](BedrockRuntimeService.php#L107)
+- [Stable Diffusion: Image generation](BedrockRuntimeService.php#L142)
 
 
 <!--custom.examples.start-->

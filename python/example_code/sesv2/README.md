@@ -46,8 +46,7 @@ Code excerpts that show you how to call individual service functions.
 - [Delete an email identity](newsletter.py#L286) (`DeleteEmailIdentity`)
 - [Delete an email template](newsletter.py#L271) (`DeleteEmailTemplate`)
 - [List the contacts in a contact list](newsletter.py#L198) (`ListContacts`)
-- [Send a simple email](newsletter.py#L164) (`SendEmail`)
-- [Send a templated email](newsletter.py#L217) (`SendEmail`)
+- [Send an email](newsletter.py#L164) (`SendEmail`)
 
 ### Scenarios
 

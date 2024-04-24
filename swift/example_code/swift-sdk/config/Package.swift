@@ -7,11 +7,16 @@ import PackageDescription
 
 let package = Package(
     name: "config",
+    // Let Xcode know the minimum Apple platforms supported.
+    platforms: [
+        .macOS(.v11),
+        .iOS(.v13)
+    ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.24.0"
+            from: "0.36.0"
         ),
     ],
     targets: [

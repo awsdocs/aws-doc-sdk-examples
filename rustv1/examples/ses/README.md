@@ -43,8 +43,7 @@ Code excerpts that show you how to call individual service functions.
 - [Get identity information](src/bin/is-email-verified.rs#L26) (`GetEmailIdentity`)
 - [List the contact lists](src/bin/list-contact-lists.rs#L22) (`ListContactLists`)
 - [List the contacts in a contact list](src/bin/list-contacts.rs#L26) (`ListContacts`)
-- [Send a simple email](src/bin/send-email.rs#L39) (`SendEmail`)
-- [Send a templated email](src/newsletter.rs#L263) (`SendEmail`)
+- [Send an email](src/bin/send-email.rs#L39) (`SendEmail`)
 
 ### Scenarios
 

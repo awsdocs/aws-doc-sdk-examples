@@ -49,15 +49,12 @@ Code excerpts that show you how to call individual service functions.
 - [List opted out phone numbers](src/main/java/com/example/sns/ListOptOut.java#L6) (`ListPhoneNumbersOptedOut`)
 - [List the subscribers of a topic](src/main/java/com/example/sns/ListSubscriptions.java#L6) (`ListSubscriptions`)
 - [List topics](src/main/java/com/example/sns/ListTopics.java#L6) (`ListTopics`)
-- [Publish an SMS text message](src/main/java/com/example/sns/PublishTextSMS.java#L6) (`Publish`)
 - [Publish to a topic](src/main/java/com/example/sns/PublishTopic.java#L6) (`Publish`)
 - [Set a dead-letter queue for a subscription](None) (`SetSubscriptionAttributesRedrivePolicy`)
 - [Set a filter policy](src/main/java/com/example/sns/UseMessageFilterPolicy.java#L6) (`SetSubscriptionAttributes`)
 - [Set the default settings for sending SMS messages](src/main/java/com/example/sns/SetSMSAttributes.java#L6) (`SetSMSAttributes`)
 - [Set topic attributes](src/main/java/com/example/sns/SetTopicAttributes.java#L6) (`SetTopicAttributes`)
-- [Subscribe a Lambda function to a topic](src/main/java/com/example/sns/SubscribeLambda.java#L6) (`Subscribe`)
-- [Subscribe an HTTP endpoint to a topic](src/main/java/com/example/sns/SubscribeHTTPS.java#L6) (`Subscribe`)
-- [Subscribe an email address to a topic](src/main/java/com/example/sns/SubscribeEmail.java#L6) (`Subscribe`)
+- [Subscribe an email address to a topic](None) (`Subscribe`)
 
 ### Scenarios
 
@@ -67,6 +64,7 @@ functions within the same service.
 - [Create a platform endpoint for push notifications](src/main/java/com/example/sns/RegistrationExample.java)
 - [Create and publish to a FIFO topic](src/main/java/com/example/sns/PriceUpdateExample.java)
 - [Publish SMS messages to a topic](src/main/java/com/example/sns/CreateTopic.java)
+- [Publish an SMS text message](src/main/java/com/example/sns/PublishTextSMS.java)
 
 
 <!--custom.examples.start-->
@@ -124,6 +122,18 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.sns_UsageSmsTopic.start-->
 <!--custom.scenarios.sns_UsageSmsTopic.end-->
+
+#### Publish an SMS text message
+
+This example shows you how to publish SMS messages using Amazon SNS.
+
+
+<!--custom.scenario_prereqs.sns_PublishTextSMS.start-->
+<!--custom.scenario_prereqs.sns_PublishTextSMS.end-->
+
+
+<!--custom.scenarios.sns_PublishTextSMS.start-->
+<!--custom.scenarios.sns_PublishTextSMS.end-->
 
 ### Tests
 

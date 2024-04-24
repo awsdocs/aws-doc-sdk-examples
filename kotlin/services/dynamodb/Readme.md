@@ -33,15 +33,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](src/main/kotlin/com/kotlin/dynamodb/CreateTable.kt#L49) (`CreateTable`)
+- [Create a table](src/main/kotlin/com/kotlin/dynamodb/CreateTable.kt#L48) (`CreateTable`)
 - [Delete a table](src/main/kotlin/com/kotlin/dynamodb/DeleteTable.kt#L38) (`DeleteTable`)
 - [Delete an item from a table](src/main/kotlin/com/kotlin/dynamodb/DeleteItem.kt#L43) (`DeleteItem`)
-- [Get an item from a table](src/main/kotlin/com/kotlin/dynamodb/GetItem.kt#L44) (`GetItem`)
-- [List tables](src/main/kotlin/com/kotlin/dynamodb/ListTables.kt#L24) (`ListTables`)
-- [Put an item in a table](src/main/kotlin/com/kotlin/dynamodb/PutItem.kt#L57) (`PutItem`)
-- [Query a table](src/main/kotlin/com/kotlin/dynamodb/QueryTable.kt#L48) (`Query`)
-- [Scan a table](src/main/kotlin/com/kotlin/dynamodb/DynamoDBScanItems.kt#L39) (`Scan`)
-- [Update an item in a table](src/main/kotlin/com/kotlin/dynamodb/UpdateItem.kt#L51) (`UpdateItem`)
+- [Get an item from a table](src/main/kotlin/com/kotlin/dynamodb/GetItem.kt#L43) (`GetItem`)
+- [List tables](src/main/kotlin/com/kotlin/dynamodb/ListTables.kt#L23) (`ListTables`)
+- [Put an item in a table](src/main/kotlin/com/kotlin/dynamodb/PutItem.kt#L56) (`PutItem`)
+- [Query a table](src/main/kotlin/com/kotlin/dynamodb/QueryTable.kt#L47) (`Query`)
+- [Scan a table](src/main/kotlin/com/kotlin/dynamodb/DynamoDBScanItems.kt#L38) (`Scan`)
+- [Update an item in a table](src/main/kotlin/com/kotlin/dynamodb/UpdateItem.kt#L50) (`UpdateItem`)
 
 ### Scenarios
 

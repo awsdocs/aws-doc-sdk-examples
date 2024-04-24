@@ -6,11 +6,13 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/BucketLocationConstraint.h>
+#include <cstdint>
 
 namespace AwsDoc {
     namespace S3 {
         bool
-        CopyObject(const Aws::String &objectKey, const Aws::String &fromBucket, const Aws::String &toBucket,
+        CopyObject(const Aws::String &objectKey, const Aws::String &fromBucket,
+                   const Aws::String &toBucket,
                    const Aws::Client::ClientConfiguration &clientConfig);
 
         bool CreateBucket(const Aws::String &bucketName,
@@ -52,12 +54,24 @@ namespace AwsDoc {
 
         bool ListBuckets(const Aws::Client::ClientConfiguration &clientConfig);
 
-        bool ListBucketDisablingDnsCache(const Aws::Client::ClientConfiguration &clientConfig);
+        bool ListBucketDisablingDnsCache(
+                const Aws::Client::ClientConfiguration &clientConfig);
 
         bool ListObjects(const Aws::String &bucketName,
                          const Aws::Client::ClientConfiguration &clientConfig);
 
-        bool ListObjectsWithAWSGlobalRegion(const Aws::Client::ClientConfiguration &clientConfig);
+        bool ListObjectsWithAWSGlobalRegion(
+                const Aws::Client::ClientConfiguration &clientConfig);
+
+        Aws::String GeneratePreSignedPutObjectURL(const Aws::String &bucketName,
+                                                  const Aws::String &key,
+                                                  uint64_t expirationSeconds,
+                                                  const Aws::Client::ClientConfiguration &clientConfig);
+
+        Aws::String GeneratePreSignedGetObjectURL(const Aws::String &bucketName,
+                                                  const Aws::String &key,
+                                                  uint64_t expirationSeconds,
+                                                  const Aws::Client::ClientConfiguration &clientConfig);
 
         bool PutBucketAcl(const Aws::String &bucketName,
                           const Aws::String &ownerID,
@@ -98,10 +112,12 @@ namespace AwsDoc {
                              const Aws::Client::ClientConfiguration &clientConfig);
 
         bool PutWebsiteConfig(const Aws::String &bucketName,
-                              const Aws::String &indexPage, const Aws::String &errorPage,
+                              const Aws::String &indexPage,
+                              const Aws::String &errorPage,
                               const Aws::Client::ClientConfiguration &clientConfig);
 
-        bool S3_GettingStartedScenario(const Aws::String &uploadFilePath, const Aws::String &saveFilePath,
+        bool S3_GettingStartedScenario(const Aws::String &uploadFilePath,
+                                       const Aws::String &saveFilePath,
                                        const Aws::Client::ClientConfiguration &clientConfig);
 
         bool GetPutBucketAcl(const Aws::String &bucketName,
@@ -117,5 +133,11 @@ namespace AwsDoc {
         extern std::mutex upload_mutex;
 
         extern std::condition_variable upload_variable;
+
+        bool PutStringWithPresignedObjectURL(const Aws::String &presignedURL,
+                                             const Aws::String &data);
+
+        bool GetObjectWithPresignedObjectURL(const Aws::String &presignedURL,
+                                             Aws::String &resultString);
     } // namespace S3
 } // namespace AwsDoc

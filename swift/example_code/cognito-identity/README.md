@@ -35,7 +35,7 @@ Code excerpts that show you how to call individual service functions.
 
 - [Create an identity pool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L92) (`CreateIdentityPool`)
 - [Delete an identity pool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L114) (`DeleteIdentityPool`)
-- [List identity pools](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L25) (`CreateIdentityPool`)
+- [List identity pools](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L25) (`ListIdentityPools`)
 
 
 <!--custom.examples.start-->

@@ -26,7 +26,22 @@ class PerformMultiPartUploadTests {
     void multipartUploadWithTransferManagerTest() {
         PerformMultiPartUpload.createBucket();
         try {
-            performMultiPartUpload.multipartUploadWithTransferManager(PerformMultiPartUpload.getFullFilePath("/multipartUploadFiles/s3-userguide.pdf"));
+            performMultiPartUpload.multipartUploadWithTransferManager(PerformMultiPartUpload.filePath);
+            GetObjectResponse response = s3Client.getObject(b -> b.bucket(bucketName).key(key).partNumber(1)).response();
+            Assertions.assertTrue(response.partsCount() > 1);
+        } catch (SdkException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            PerformMultiPartUpload.deleteResources();
+        }
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    void multipartUploadWithS3AsyncClientTest(){
+        PerformMultiPartUpload.createBucket();
+        try {
+            performMultiPartUpload.multipartUploadWithS3AsyncClient(PerformMultiPartUpload.filePath);
             GetObjectResponse response = s3Client.getObject(b -> b.bucket(bucketName).key(key).partNumber(1)).response();
             Assertions.assertTrue(response.partsCount() > 1);
         } catch (SdkException e) {
@@ -41,7 +56,7 @@ class PerformMultiPartUploadTests {
     void multipartUploadWithS3ClientTest(){
         PerformMultiPartUpload.createBucket();
         try {
-            performMultiPartUpload.multipartUploadWithS3Client(PerformMultiPartUpload.getFullFilePath("/multipartUploadFiles/s3-userguide.pdf"));
+            performMultiPartUpload.multipartUploadWithS3Client(PerformMultiPartUpload.filePath);
             GetObjectResponse response = s3Client.getObject(b -> b.bucket(bucketName).key(key).partNumber(1)).response();
             Assertions.assertTrue(response.partsCount() > 1);
         } catch (SdkException e) {

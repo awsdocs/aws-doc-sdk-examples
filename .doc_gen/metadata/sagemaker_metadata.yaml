@@ -88,7 +88,24 @@ sagemaker_CreatePipeline:
               snippet_tags:
                 - javascript.v3.sagemaker.wkflw.pipeline.create
   services:
-    sagemaker: {CreatePipeline, UpdatePipeline}
+    sagemaker: {CreatePipeline}
+sagemaker_UpdatePipeline:
+  title: Update a pipeline in &SM; using an &AWS; SDK
+  title_abbrev: Update a pipeline
+  synopsis: update a pipeline in &SM;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SageMaker
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SageMaker.dotnetv3.CreatePipeline
+  services:
+    sagemaker: {UpdatePipeline}
 sagemaker_ExecutePipeline:
   title: Execute a pipeline in &SM; using an &AWS; SDK
   title_abbrev: Execute a pipeline
@@ -287,7 +304,7 @@ sagemaker_CreateEndpoint:
               snippet_tags:
                 - sgm.abapv1.create_endpoint
   services:
-    sagemaker: {CreateEndpoint, CreateEndpointConfig}
+    sagemaker: {CreateEndpoint}
 sagemaker_CreateModel:
   title: Create a model in &SM; using an &AWS; SDK
   title_abbrev: Create a model
@@ -351,7 +368,7 @@ sagemaker_DeleteEndpoint:
               snippet_tags:
                 - sgm.abapv1.delete_endpoint
   services:
-    sagemaker: {DeleteEndpoint, DeleteEndpointConfig}
+    sagemaker: {DeleteEndpoint}
 sagemaker_DeleteModel:
   title: Delete a model in &SM; using an &AWS; SDK
   title_abbrev: Delete a model

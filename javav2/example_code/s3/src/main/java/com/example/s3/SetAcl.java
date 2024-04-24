@@ -5,17 +5,17 @@ package com.example.s3;
 
 // snippet-start:[s3.java2.set_acl.main]
 // snippet-start:[s3.java2.set_acl.import]
-import java.util.ArrayList;
-import java.util.List;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.services.s3.model.Permission;
-import software.amazon.awssdk.services.s3.model.Grant;
-import software.amazon.awssdk.services.s3.model.AccessControlPolicy;
-import software.amazon.awssdk.services.s3.model.Type;
-import software.amazon.awssdk.services.s3.model.PutBucketAclRequest;
-import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.AccessControlPolicy;
+import software.amazon.awssdk.services.s3.model.Grant;
+import software.amazon.awssdk.services.s3.model.Permission;
+import software.amazon.awssdk.services.s3.model.PutBucketAclRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.Type;
+
+import java.util.ArrayList;
+import java.util.List;
 // snippet-end:[s3.java2.set_acl.import]
 
 /**

@@ -1,82 +1,117 @@
-# AWS IoT Core code examples for the SDK for Java
+# AWS IoT code examples for the SDK for Java 2.x
 
 ## Overview
-This README discusses how to run and test the AWS SDK for Java (V2) examples for AWS IoT Core.
 
-AWS IoT Core enables secure two-way communication between internet-connected devices and AWS services with device gateway and device SDK capabilities.
+Shows how to use the AWS SDK for Java 2.x to work with AWS IoT.
 
-## ⚠️ Important
-* The SDK for Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_AWS IoT provides secure, bi-directional communication for Internet-connected devices (such as sensors, actuators, embedded devices, wireless devices, and smart appliances) to connect to the AWS Cloud over MQTT, HTTPS, and LoRaWAN._
+
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
 
-The credential provider used in all code examples is the default credential provider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
+
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
 ### Get started
 
-- [Hello AWS IoT Core](src/main/java/com/example/iot/HelloIoT.java) (`ListThings`)
+- [Hello AWS IoT](src/main/java/com/example/iot/HelloIoT.java#L6) (`listThings`)
 
 
-### Single action
+### Single actions
 
-The following examples use the **IotClient** object:
+Code excerpts that show you how to call individual service functions.
 
-- [Attach a certificate to an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`AttachThingPrincipal`)
-- [Create an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateThing`)
-- [Create an AWS IoT certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateKeysAndCertificate`)
-- [Create an AWS IoT rule](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`CreateTopicRule`)
-- [Delete an AWS IoT certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`DeleteCertificate`)
-- [Delete an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`DeleteThing`)
-- [Detach a certificate from an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`DetachThingPrincipal`)
-- [Get information about an endpoint](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`DescribeEndpoint`)
-- [List your AWS IoT certificates](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`ListCertificates`)
-- [Query the AWS IoT search index.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`SearchIndex`)
-- [Update an AWS IoT thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`UpdateThing`)
-
-The following examples use the **IotDataPlaneClient** object:
-
-- [Get the shadow for the specified thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`GetThingShadow`)
-- [Update the shadow for the specified thing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java) (`UpdateThingShadow`)
+- [Attach a certificate](src/main/java/com/example/iot/IotScenario.java#L481) (`AttachThingPrincipal`)
+- [Create a certificate](src/main/java/com/example/iot/IotScenario.java#L458) (`CreateKeysAndCertificate`)
+- [Create a rule](src/main/java/com/example/iot/IotScenario.java#L289) (`CreateTopicRule`)
+- [Create a thing](src/main/java/com/example/iot/IotScenario.java#L541) (`CreateThing`)
+- [Delete a certificate](src/main/java/com/example/iot/IotScenario.java#L439) (`DeleteCertificate`)
+- [Delete a thing](src/main/java/com/example/iot/IotScenario.java#L524) (`DeleteThing`)
+- [Describe a thing](src/main/java/com/example/iot/IotScenario.java#L504) (`DescribeThing`)
+- [Detach a certificate](src/main/java/com/example/iot/IotScenario.java#L421) (`DetachThingPrincipal`)
+- [Get endpoint information](src/main/java/com/example/iot/IotScenario.java#L400) (`DescribeEndpoint`)
+- [List your certificates](src/main/java/com/example/iot/IotScenario.java#L258) (`ListCertificates`)
+- [Query the search index](src/main/java/com/example/iot/IotScenario.java#L577) (`SearchIndex`)
+- [Update a thing](src/main/java/com/example/iot/IotScenario.java#L369) (`UpdateThing`)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-* [Perform device management use cases ](src/main/java/com/example/iot/IotScenario.java) 
-
-## Running the AWS IoT Java files
-
-Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS IoT Thing. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
-
-To run these examples, set up your development environment. For more information, 
-see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
+- [Work with device management use cases](src/main/java/com/example/iot/IotScenario.java)
 
 
- ## Testing the AWS IoT Java files
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-You can test the Java code examples for AWS IoT by running a test file named **IoTTests**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+## Run the examples
 
-You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that the Test passed.
+### Instructions
 
-	Test 2 passed
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and might incur charges on your account._
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
- ### Properties file
-Before running the JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a tableId used in the tests. If you do not define all values, the JUnit tests fail.
+#### Hello AWS IoT
 
-Define these values to successfully run the JUnit tests:
+This example shows you how to get started using AWS IoT.
 
-- **roleARN** - The ARN of an IAM role that has permission to work with AWS IOT.
-- **snsAction**  - An ARN of an SNS topic.
+
+
+#### Work with device management use cases
+
+This example shows you how to work with AWS IoT device management use cases using AWS IoT SDK
+
+
+<!--custom.scenario_prereqs.iot_Scenario.start-->
+<!--custom.scenario_prereqs.iot_Scenario.end-->
+
+
+<!--custom.scenarios.iot_Scenario.start-->
+<!--custom.scenarios.iot_Scenario.end-->
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
 ## Additional resources
-* [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
-* [Developer Guide - AWS IoT Core](https://docs.aws.amazon.com/iot/latest/developerguide/iot-gs.html).
-* [Interface IotClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iot/IotClient.html).
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+- [AWS IoT Developer Guide](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)
+- [AWS IoT API Reference](https://docs.aws.amazon.com/iot/latest/apireference/Welcome.html)
+- [SDK for Java 2.x AWS IoT reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iot/package-summary.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

@@ -38,7 +38,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Authorize a bucket to send messages to a queue](AuthorizeS3ToSendMessageExample/AuthorizeS3ToSendMessageExample/AuthorizeS3ToSendMessage.cs#L11) (`SendMessage`)
 - [Create a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L28) (`CreateQueue`)
 - [Delete a batch of messages from a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L154) (`DeleteMessageBatch`)
 - [Delete a message from a queue](ReceiveDeleteExample/ReceiveDeleteExample/ReceiveDeleteExample.cs#L17) (`DeleteMessage`)

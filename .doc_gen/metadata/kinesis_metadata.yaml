@@ -298,7 +298,7 @@ kinesis_GetRecords:
               snippet_tags:
                 - kns.abapv1.get_records
   services:
-    kinesis: {GetRecords, GetShardIterator}
+    kinesis: {GetRecords}
 kinesis_RegisterConsumer:
   title: Register a consumer to a &AK; stream using an &AWS; SDK
   title_abbrev: Register a consumer

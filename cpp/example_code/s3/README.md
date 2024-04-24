@@ -71,6 +71,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Create a presigned URL](presigned_get_object.cpp)
 - [Get started with buckets and objects](s3_getting_started_scenario.cpp)
 
 ### Cross-service examples
@@ -108,6 +109,18 @@ folder.
 This example shows you how to get started using Amazon S3.
 
 
+
+#### Create a presigned URL
+
+This example shows you how to create a presigned URL for Amazon S3 and upload an object.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.end-->
+
+
+<!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
 
 #### Get started with buckets and objects
 

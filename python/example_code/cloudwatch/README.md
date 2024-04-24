@@ -45,7 +45,6 @@ Code excerpts that show you how to call individual service functions.
 - [Enable alarm actions](cloudwatch_basics.py#L232) (`EnableAlarmActions`)
 - [Get metric statistics](cloudwatch_basics.py#L123) (`GetMetricStatistics`)
 - [List metrics](cloudwatch_basics.py#L37) (`ListMetrics`)
-- [Put a set of data into a metric](cloudwatch_basics.py#L88) (`PutMetricData`)
 - [Put data into a metric](cloudwatch_basics.py#L64) (`PutMetricData`)
 
 ### Scenarios

@@ -53,26 +53,85 @@ export const updateImageSetMetadata = async (datastoreId = "xxxxxxxxxx",
 
 // Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-// snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.main]
-    const updatableAttributes =
-JSON.stringify({
-  "SchemaVersion": 1.1,
-  "Patient": {
-    "DICOM": {
-      "PatientName": "Garcia^Gloria"
+    // Add a new attribute to the image set metadata.
+    const datastoreID = "12345678901234567890123456789012";
+    const imageSetID = "12345678901234567890123456789012";
+    const versionID = "1";
+    const updateType = "insert"; // or "remove-attribute" or "remove_instance".
+    if (updateType == "insert") {
+        // Insert or update an attribute.
+// snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.insert_or_update_attributes]
+        const insertAttributes =
+            JSON.stringify({
+                "SchemaVersion": 1.1,
+                "Study": {
+                    "DICOM": {
+                        "StudyDescription": "CT CHEST"
+                    }
+                }
+            });
+
+        const updateMetadata = {
+            "DICOMUpdates": {
+                "updatableAttributes":
+                    new TextEncoder().encode(insertAttributes)
+            }
+        };
+
+        await updateImageSetMetadata(datastoreID, imageSetID,
+            versionID, updateMetadata);
+// snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.insert_or_update_attributes]
+    } else if (updateType == "remove_attribute") {
+        // Remove an existing attribute.
+// snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_attributes]
+        // Attribute key and value must match the existing attribute.
+        const remove_attribute =
+            JSON.stringify({
+                "SchemaVersion": 1.1,
+                "Study": {
+                    "DICOM": {
+                        "StudyDescription": "CT CHEST"
+                    }
+                }
+            });
+
+        const updateMetadata = {
+            "DICOMUpdates": {
+                "removableAttributes":
+                    new TextEncoder().encode(remove_attribute)
+            }
+        };
+
+        await updateImageSetMetadata(datastoreID, imageSetID,
+            versionID, updateMetadata);
+// snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_attributes]
+    } else if (updateType == "remove_instance") {
+        // Remove an existing instance.
+// snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_instance]
+        const remove_instance =
+            JSON.stringify({
+                "SchemaVersion": 1.1,
+                "Study": {
+                    "Series": {
+                        "1.1.1.1.1.1.12345.123456789012.123.12345678901234.1": {
+                            "Instances": {
+                                "1.1.1.1.1.1.12345.123456789012.123.12345678901234.1": {}
+                            }
+                        }
+                    }
+                }
+            });
+
+        const updateMetadata = {
+            "DICOMUpdates": {
+                "removableAttributes":
+                    new TextEncoder().encode(remove_instance)
+            }
+        };
+
+        await updateImageSetMetadata(datastoreID, imageSetID,
+            versionID, updateMetadata);
+// snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_instance]
     }
-  }
-})
-
-    const updateMetadata = {
-        "DICOMUpdates": {
-            "updatableAttributes":
-                new TextEncoder().encode(updatableAttributes)
-        }
-    };
-
-    await updateImageSetMetadata("12345678901234567890123456789012", "12345678901234567890123456789012",
-        "1", updateMetadata);
-// snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.main]
 }
 

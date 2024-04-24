@@ -62,6 +62,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Get started with image sets and image frames](scenarios/health-image-sets/index.js)
 - [Tagging a data store](scenarios/tagging-datastores.js)
 - [Tagging an image set](scenarios/tagging-imagesets.js)
 
@@ -99,6 +100,27 @@ This example shows you how to get started using HealthImaging.
 node ./hello.js
 ```
 
+
+#### Get started with image sets and image frames
+
+This example shows you how to import DICOM files and download image frames in HealthImaging.</para>
+ <para>The implementation is structured as a workflow command-line
+ application.
+
+
+- Set up resources for a DICOM import.
+- Import DICOM files into a data store.
+- Retrieve the image set IDs for the import job.
+- Retrieve the image frame IDs for the image sets.
+- Download, decode and verify the image frames.
+- Clean up resources.
+
+<!--custom.scenario_prereqs.medical-imaging_Scenario_ImageSetsAndFrames.start-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_ImageSetsAndFrames.end-->
+
+
+<!--custom.scenarios.medical-imaging_Scenario_ImageSetsAndFrames.start-->
+<!--custom.scenarios.medical-imaging_Scenario_ImageSetsAndFrames.end-->
 
 #### Tagging a data store
 

@@ -154,12 +154,12 @@ cloudfront_DeleteDistribution:
                 - cloudfront.java2.deletedistribution.import
                 - cloudfront.java2.deletedistribution.main
   services:
-    cloudfront: {DeleteDistribution, UpdateDistribution}
+    cloudfront: {DeleteDistribution}
 cloudfront_DeleteSigningResources:
   title: Delete &CF; signing resources using &AWS; SDK
   title_abbrev: Delete signing resources
   synopsis: delete resources that are used to gain access to restricted content in an &S3long; (&S3;) bucket.
-  category:
+  category: Scenarios
   languages:
     Java:
       versions:

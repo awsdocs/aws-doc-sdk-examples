@@ -41,10 +41,10 @@ Code excerpts that show you how to call individual service functions.
 - [Add tags](Actions/GlacierWrapper.cs#L33) (`AddTagsToVault`)
 - [Create a vault](Actions/GlacierWrapper.cs#L58) (`CreateVault`)
 - [Describe a vault](Actions/GlacierWrapper.cs#L83) (`DescribeVault`)
-- [Download an archive](Actions/GlacierWrapper.cs)
 - [List jobs](Actions/GlacierWrapper.cs#L164) (`ListJobs`)
 - [List tags](Actions/GlacierWrapper.cs#L188) (`ListTagsForVault`)
 - [List vaults](Actions/GlacierWrapper.cs#L213) (`ListVaults`)
+- [Retrieve a vault inventory](Actions/GlacierWrapper.cs#L112) (`InitiateJob`)
 - [Upload an archive to a vault](Actions/GlacierWrapper.cs#L234) (`UploadArchive`)
 
 

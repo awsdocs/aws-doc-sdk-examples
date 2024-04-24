@@ -1,0 +1,3 @@
+---
+isolated: true
+---

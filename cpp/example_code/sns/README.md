@@ -53,15 +53,16 @@ Code excerpts that show you how to call individual service functions.
 - [Get the settings for sending SMS messages](get_sms_type.cpp#L21) (`GetSMSAttributes`)
 - [List the subscribers of a topic](list_subscriptions.cpp#L21) (`ListSubscriptions`)
 - [List topics](list_topics.cpp#L21) (`ListTopics`)
-- [Publish a message with an attribute](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L52) (`Publish`)
-- [Publish an SMS text message](publish_sms.cpp#L21) (`Publish`)
 - [Publish to a topic](publish_to_topic.cpp#L21) (`Publish`)
 - [Set the default settings for sending SMS messages](set_sms_type.cpp#L21) (`SetSMSAttributes`)
-- [Subscribe a Lambda function to a topic](subscribe_lambda.cpp#L21) (`Subscribe`)
-- [Subscribe a mobile application to a topic](subscribe_app.cpp#L21) (`Subscribe`)
-- [Subscribe an SQS queue to a topic](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L815) (`Subscribe`)
 - [Subscribe an email address to a topic](subscribe_email.cpp#L10) (`Subscribe`)
-- [Subscribe with a filter to a topic](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L52) (`Subscribe`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish an SMS text message](publish_sms.cpp)
 
 ### Cross-service examples
 
@@ -98,6 +99,18 @@ folder.
 This example shows you how to get started using Amazon SNS.
 
 
+
+#### Publish an SMS text message
+
+This example shows you how to publish SMS messages using Amazon SNS.
+
+
+<!--custom.scenario_prereqs.sns_PublishTextSMS.start-->
+<!--custom.scenario_prereqs.sns_PublishTextSMS.end-->
+
+
+<!--custom.scenarios.sns_PublishTextSMS.start-->
+<!--custom.scenarios.sns_PublishTextSMS.end-->
 
 ### Tests
 
