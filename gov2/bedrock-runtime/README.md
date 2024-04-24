@@ -27,7 +27,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 
 <!--custom.prerequisites.start-->
-> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.prerequisites.end-->
 
 ### Get started
@@ -43,14 +42,16 @@ functions within the same service.
 
 ### Invoke model examples
 
-- [AI21 Labs Jurassic-2: Text generation](actions/invoke_model.go#L78)
-- [Amazon Titan: Image generation](actions/invoke_model.go#L178)
+- [AI21 Labs Jurassic-2: Text generation](actions/invoke_model.go#L83)
+- [Amazon Titan: Image generation](actions/invoke_model.go#L191)
+- [Amazon Titan: Text generation](actions/invoke_model.go#L261)
 - [Anthropic Claude 2: Real-time response stream processing](actions/invoke_model_with_response_stream.go#L30)
 - [Anthropic Claude 2: Text generation](actions/invoke_model.go#L27)
-- [Meta Llama 2: Text generation](actions/invoke_model.go#L130)
+- [Meta Llama 2: Text generation](actions/invoke_model.go#L140)
 
 
 <!--custom.examples.start-->
+> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.examples.end-->
 
 ## Run the examples
