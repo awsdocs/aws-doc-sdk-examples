@@ -49,7 +49,7 @@ Code excerpts that show you how to call individual service functions.
 - [List import jobs for a data store](src/main/java/com/example/medicalimaging/ListDicomImportJobs.java#L58) (`ListDICOMImportJobs`)
 - [List tags for a resource](src/main/java/com/example/medicalimaging/ListTagsForResource.java#L56) (`ListTagsForResource`)
 - [Remove a tag from a resource](src/main/java/com/example/medicalimaging/UntagResource.java#L54) (`UntagResource`)
-- [Search image sets](src/main/java/com/example/medicalimaging/SearchImageSets.java#L130) (`SearchImageSets`)
+- [Search image sets](src/main/java/com/example/medicalimaging/SearchImageSets.java#L182) (`SearchImageSets`)
 - [Update image set metadata](src/main/java/com/example/medicalimaging/UpdateImageSetMetadata.java#L144) (`UpdateImageSetMetadata`)
 
 ### Scenarios

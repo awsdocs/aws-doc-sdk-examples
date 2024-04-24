@@ -26,6 +26,15 @@ medical-imaging_Hello:
             - description: Code for the hello_health_imaging.cpp source file.
               snippet_tags:
                 - cpp.example_code.medical-imaging.hello_medical-imaging
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging/imaging_set_and_frames_workflow
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.Hello
   services:
     medical-imaging: {ListDatastores}
 medical-imaging_CreateDatastore:
@@ -395,6 +404,12 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - python.example_code.medical-imaging.SearchImageSets.use_case3
             - description: >
+                Use case #4: EQUAL operator on DICOMSeriesInstanceUID and
+                BETWEEN on updatedAt and sort response in ASC order on
+                updatedAt field.
+              snippet_tags:
+                - python.example_code.medical-imaging.SearchImageSets.use_case4
+            - description: >
                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
@@ -423,6 +438,13 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter2
+            - description: >
+                Use case #4: EQUAL operator on DICOMSeriesInstanceUID and
+                BETWEEN on updatedAt and sort response in ASC order on
+                updatedAt field.
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
+                - medical-imaging.JavaScript.resource.searchImageSetV3.sortAndFilter
     Java:
       versions:
         - sdk_version: 2
@@ -445,6 +467,12 @@ medical-imaging_SearchImageSets:
                previously persisted.
               snippet_tags:
                 - medicalimaging.java2.search_imagesets.use_case3
+            - description: >
+                Use case #4: EQUAL operator on DICOMSeriesInstanceUID and
+                BETWEEN on updatedAt and sort response in ASC order on
+                updatedAt field.
+              snippet_tags:
+                - medicalimaging.java2.search_imagesets.use_case4
     C++:
       versions:
         - sdk_version: 1
@@ -467,6 +495,12 @@ medical-imaging_SearchImageSets:
                previously persisted.
               snippet_tags:
                 - cpp.example_code.medical_imaging.SearchImageSets.use_case3
+            - description: >
+                Use case #4: EQUAL operator on DICOMSeriesInstanceUID and
+                BETWEEN on updatedAt and sort response in ASC order on
+                updatedAt field.
+              snippet_tags:
+                - cpp.example_code.medical_imaging.SearchImageSets.use_case4
   services:
     medical-imaging: {SearchImageSets}
 medical-imaging_GetImageSet:
@@ -1193,21 +1227,72 @@ medical-imaging_Scenario_ImageSetsAndFrames:
               snippet_tags:
                 - cpp.example_code.medical-imaging.image-sets-workflow.clean_up
                 - cpp.example_code.medical-imaging.image-sets-workflow.empty_data_store
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging/imaging_set_and_frames_workflow
+          github_note_at_bottom: true
+          excerpts:
+            - description: Create an &CFN; stack with the necessary resources.
+              snippet_tags:
+                - python.example_code.medical-imaging.workflow.deploy
+            - description: Copy DICOM files to the &S3; import bucket.
+              snippet_tags:
+                - python.example_code.medical-imaging.workflow.copy
+            - description: Import the DICOM files to the &S3; data store.
+              snippet_tags:
+                - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
+                - python.example_code.medical-imaging.workflow.StartDICOMImportJob
+            - description: Get image sets created by the DICOM import job.
+              snippet_tags:
+                - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
+                - python.example_code.medical-imaging.workflow.GetImageSetsForImportJob
+                - python.example_code.medical-imaging.workflow.GetImageSet
+            - description: Get image frame information for image sets.
+              snippet_tags:
+                - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
+                - python.example_code.medical-imaging.workflow.GetImageFrames
+                - python.example_code.medical-imaging.workflow.GetImageSetMetadata
+            - description: Download, decode and verify image frames.
+              snippet_tags:
+                - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
+                - python.example_code.medical-imaging.workflow.GetPixelData
+                - python.example_code.medical-imaging.workflow.downloadAndCheck
+            - description: Clean up resources.
+              snippet_tags:
+                - python.example_code.medical-imaging.workflow.destroy
+                - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
+                - python.example_code.medical-imaging.workflow.SearchImageSets
+                - python.example_code.medical-imaging.workflow.DeleteImageSet
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
           github_note_at_bottom: true
           excerpts:
-            - description:
+            - description: <noloc>index.js</noloc> - Orchestrate steps.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/index.js
+            - description: <noloc>step-1.js</noloc> - Deploy resources.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-1.js
+            - description: <noloc>step-2.js</noloc> - Copy DICOM files. 
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-2.js
+            - description: <noloc>step-3.js</noloc> - Start import into datastore.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-3.js
+            - description: <noloc>step-4.js</noloc> - Get image set IDs.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-4.js
+            - description: <noloc>step-5.js</noloc> - Get image frame IDs.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-5.js
+            - description: <noloc>step-6.js</noloc> - Verify image frames. The <ulink url="https://github.com/aws-samples/aws-healthimaging-samples/tree/main/pixel-data-verification">&AWS; HealthImaging Pixel Data Verification</ulink> library was used for verification.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-6.js
+            - description: <noloc>step-7.js</noloc> - Destroy resources.
+              snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-7.js
   services:
     medical-imaging:

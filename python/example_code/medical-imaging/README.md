@@ -34,6 +34,11 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello HealthImaging](imaging_set_and_frames_workflow/hello.py#L4) (`ListDatastores`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -62,6 +67,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Get started with image sets and image frames](imaging_set_and_frames_workflow/imaging_set_and_frames.py)
 - [Tagging a data store](tagging_data_stores.py)
 - [Tagging an image set](tagging_image_sets.py)
 
@@ -77,7 +83,41 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello HealthImaging
 
+This example shows you how to get started using HealthImaging.
+
+```
+python hello.py
+```
+
+
+#### Get started with image sets and image frames
+
+This example shows you how to import DICOM files and download image frames in HealthImaging.</para>
+ <para>The implementation is structured as a workflow command-line
+ application.
+
+
+- Set up resources for a DICOM import.
+- Import DICOM files into a data store.
+- Retrieve the image set IDs for the import job.
+- Retrieve the image frame IDs for the image sets.
+- Download, decode and verify the image frames.
+- Clean up resources.
+
+<!--custom.scenario_prereqs.medical-imaging_Scenario_ImageSetsAndFrames.start-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_ImageSetsAndFrames.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python imaging_set_and_frames_workflow/imaging_set_and_frames.py
+```
+
+
+<!--custom.scenarios.medical-imaging_Scenario_ImageSetsAndFrames.start-->
+<!--custom.scenarios.medical-imaging_Scenario_ImageSetsAndFrames.end-->
 
 #### Tagging a data store
 
