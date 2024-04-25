@@ -41,14 +41,17 @@ functions within the same service.
 ### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L205)
-- [Amazon Titan: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L399)
+- [Amazon Titan: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L338)
 - [Anthropic Claude 2: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude2.java#L65)
 - [Anthropic Claude 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModel.java#L112)
 - [Anthropic Claude 3: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude3.java#L49)
-- [Meta Llama 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L268)
+- [Meta Llama 2: Text generation](src/main/java/com/example/bedrockruntime/models/meta/llama2/InvokeModelQuickstart.java#L11)
+- [Meta Llama 2: Text generation with response stream](src/main/java/com/example/bedrockruntime/models/meta/llama2/InvokeModelWithResponseStreamQuickstart.java#L12)
+- [Meta Llama 3: Text generation](src/main/java/com/example/bedrockruntime/models/meta/llama3/InvokeModelQuickstart.java#L13)
+- [Meta Llama 3: Text generation with response stream](src/main/java/com/example/bedrockruntime/models/meta/llama3/InvokeModelWithResponseStreamQuickstart.java#L14)
 - [Mistral AI: Text generation with Mistral 7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L33)
 - [Mistral AI: Text generation with Mixtral 8x7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L88)
-- [Stable Diffusion: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L329)
+- [Stable Diffusion: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L268)
 
 
 <!--custom.examples.start-->

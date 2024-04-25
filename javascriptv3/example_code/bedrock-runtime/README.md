@@ -51,7 +51,10 @@ functions within the same service.
 - [Anthropic Claude 2: Text generation](models/anthropic_claude/claude_2.js)
 - [Anthropic Claude 3: Text generation](models/anthropic_claude/claude_3.js)
 - [Anthropic Claude Instant: Text generation](models/anthropic_claude/claude_instant_1.js)
-- [Meta Llama 2: Text generation](models/meta_llama2/llama2_chat.js)
+- [Meta Llama 2: Text generation](models/meta/llama2/invoke_model_quickstart.js#L4)
+- [Meta Llama 2: Text generation with response stream](models/meta/llama2/invoke_model_with_response_stream_quickstart.js#L4)
+- [Meta Llama 3: Text generation](models/meta/llama3/invoke_model_quickstart.js#L4)
+- [Meta Llama 3: Text generation with response stream](models/meta/llama3/invoke_model_with_response_stream_quickstart.js#L4)
 - [Mistral AI: Text generation with Mistral 7B Instruct](models/mistral_ai/mistral_7b.js)
 - [Mistral AI: Text generation with Mixtral 8x7B Instruct](models/mistral_ai/mixtral_8x7b.js)
 
