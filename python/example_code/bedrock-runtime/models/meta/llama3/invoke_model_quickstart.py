@@ -35,10 +35,7 @@ request = {
 }
 
 # Encode and send the request.
-response = client.invoke_model(
-    body=json.dumps(request),
-    modelId=model_id
-)
+response = client.invoke_model(body=json.dumps(request), modelId=model_id)
 
 # Decode the native response body.
 model_response = json.loads(response["body"].read())
