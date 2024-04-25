@@ -6,7 +6,7 @@
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
   "license": "Apache 2.0",
   "dependencies": {
-    "@aws-sdk/client-pinpoint": "^3.186.0"
+    "@aws-sdk/client-pinpoint": "^3.556.0"
   },
   "type": "module"
 }

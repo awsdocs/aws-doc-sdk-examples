@@ -49,6 +49,7 @@
     "example_code/medical-imaging",
     "example_code/medical-imaging/scenarios/health-image-sets/pixel-data-verification",
     "example_code/nodegetstarted",
+    "example_code/pinpoint",
     "example_code/polly",
     "example_code/redshift",
     "example_code/s3",
