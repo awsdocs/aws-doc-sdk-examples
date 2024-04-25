@@ -21,6 +21,7 @@ entities = {
     "&IAM-users;": "IAM users",
     "&kms-key;": "KMS key",
     "&kms-keys;": "KMS keys",
+    "&S3long;": "Amazon Simple Storage Service",
     "&SLN;": "Amazon States Language",
 }
 language = {

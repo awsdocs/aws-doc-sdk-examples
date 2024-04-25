@@ -16,6 +16,7 @@ class Scanner:
     def __init__(self, meta_folder):
         self.meta_folder = meta_folder
         self.lang_name = None
+        self.sdk_ver = None
         self.svc_name = None
         self.sdk_meta = None
         self.svc_meta = None
@@ -27,7 +28,7 @@ class Scanner:
         if field is not None:
             return field
         sdk_file_name = f"{self.meta_folder}/{file_name}"
-        with open(sdk_file_name) as sdk_file:
+        with open(sdk_file_name, encoding="utf-8") as sdk_file:
             meta = yaml.safe_load(sdk_file)
         return meta
 
@@ -45,8 +46,16 @@ class Scanner:
             f"{self.svc_name}_metadata.yaml", self.example_meta
         )
 
-    def set_example(self, language, service):
+    def _contains_language_version(self, example):
+        if self.lang_name in example["languages"]:
+            for version in example["languages"][self.lang_name]["versions"]:
+                if version["sdk_version"] == self.sdk_ver:
+                    return True
+        return False
+
+    def set_example(self, language, sdk_ver, service):
         self.lang_name = language
+        self.sdk_ver = sdk_ver
         self.svc_name = service
         self.example_meta = None
 
@@ -82,7 +91,7 @@ class Scanner:
         for example_name, example in self.example_meta.items():
             if (
                 example.get("category", "") == config.categories["hello"]
-                and self.lang_name in example["languages"]
+                and self._contains_language_version(example)
             ):
                 hello[example_name] = example
         return hello
@@ -91,7 +100,7 @@ class Scanner:
         self._load_examples()
         actions = {}
         for example_name, example in self.example_meta.items():
-            if not example.get("category") and self.lang_name in example["languages"]:
+            if not example.get("category") and self._contains_language_version(example):
                 actions[example_name] = example
         return actions
 
@@ -101,7 +110,7 @@ class Scanner:
         for example_name, example in self.example_meta.items():
             if (
                 example.get("category", "") == config.categories["scenarios"]
-                and self.lang_name in example["languages"]
+                and self._contains_language_version(example)
             ):
                 scenarios[example_name] = example
         return scenarios
@@ -113,7 +122,7 @@ class Scanner:
             if (
                 example.get("category", "") and
                 example.get("category", "") not in {config.categories["scenarios"], config.categories["hello"]}
-                and self.lang_name in example["languages"]
+                and self._contains_language_version(example)
             ):
                 custom_cats[example_name] = example
         return custom_cats
@@ -124,7 +133,7 @@ class Scanner:
         scenarios = {}
         for example_name, example in self.cross_meta.items():
             if (
-                self.lang_name in example["languages"]
+                self._contains_language_version(example)
                 and self.svc_name in example["services"]
             ):
                 if example.get("category", "") == config.categories["scenarios"]:
