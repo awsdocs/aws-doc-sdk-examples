@@ -208,53 +208,6 @@ public class InvokeModel {
         }
         // snippet-end:[bedrock-runtime.java2.invoke_jurassic2.main]
 
-        // snippet-start:[bedrock-runtime.java2.invoke_llama2.main]
-        /**
-         * Invokes the Meta Llama 2 Chat model to run an inference based on the provided
-         * input.
-         *
-         * @param prompt The prompt for Llama 2 to complete.
-         * @return The generated response.
-         */
-        public static String invokeLlama2(String prompt) {
-                /*
-                 * The different model providers have individual request and response formats.
-                 * For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
-                 * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.
-                 * html
-                 */
-
-                String llama2ModelId = "meta.llama2-13b-chat-v1";
-
-                BedrockRuntimeClient client = BedrockRuntimeClient.builder()
-                                .region(Region.US_EAST_1)
-                                .credentialsProvider(ProfileCredentialsProvider.create())
-                                .build();
-
-                String payload = new JSONObject()
-                                .put("prompt", prompt)
-                                .put("max_gen_len", 512)
-                                .put("temperature", 0.5)
-                                .put("top_p", 0.9)
-                                .toString();
-
-                InvokeModelRequest request = InvokeModelRequest.builder()
-                                .body(SdkBytes.fromUtf8String(payload))
-                                .modelId(llama2ModelId)
-                                .contentType("application/json")
-                                .accept("application/json")
-                                .build();
-
-                InvokeModelResponse response = client.invokeModel(request);
-
-                JSONObject responseBody = new JSONObject(response.body().asUtf8String());
-
-                String generatedText = responseBody.getString("generation");
-
-                return generatedText;
-        }
-        // snippet-end:[bedrock-runtime.java2.invoke_llama2.main]
-
         // snippet-start:[bedrock-runtime.java2.invoke_stable_diffusion.main]
         /**
          * Invokes the Stability.ai Stable Diffusion XL model to create an image based

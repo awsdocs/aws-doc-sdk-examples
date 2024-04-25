@@ -27,7 +27,6 @@ public class BedrockRuntimeUsageDemo {
 
     private static final String CLAUDE = "anthropic.claude-v2";
     private static final String JURASSIC2 = "ai21.j2-mid-v1";
-    private static final String LLAMA2 = "meta.llama2-13b-chat-v1";
     private static final String MISTRAL7B = "mistral.mistral-7b-instruct-v0:2";
     private static final String MIXTRAL8X7B = "mistral.mixtral-8x7b-instruct-v0:1";
     private static final String STABLE_DIFFUSION = "stability.stable-diffusion-xl";
@@ -44,7 +43,6 @@ public class BedrockRuntimeUsageDemo {
         String prompt = "In one sentence, what is a large-language model?";
         BedrockRuntimeUsageDemo.invoke(CLAUDE, prompt);
         BedrockRuntimeUsageDemo.invoke(JURASSIC2, prompt);
-        BedrockRuntimeUsageDemo.invoke(LLAMA2, prompt);
         BedrockRuntimeUsageDemo.invoke(MISTRAL7B, prompt);
         BedrockRuntimeUsageDemo.invoke(MIXTRAL8X7B, prompt);
     }
@@ -65,9 +63,6 @@ public class BedrockRuntimeUsageDemo {
                     break;
                 case JURASSIC2:
                     printResponse(invokeJurassic2(prompt));
-                    break;
-                case LLAMA2:
-                    printResponse(invokeLlama2(prompt));
                     break;
                 case MISTRAL7B:
                     for (String response : invokeMistral7B(prompt)) {

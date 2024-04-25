@@ -4,6 +4,8 @@
 package com.example.bedrockruntime;
 
 // snippet-start:[bedrock-runtime.java2.invoke_model_with_response_stream.import]
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
@@ -12,6 +14,7 @@ import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeAsyncClient;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelWithResponseStreamRequest;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelWithResponseStreamResponseHandler;
 
+import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicReference;
 // snippet-end:[bedrock-runtime.java2.invoke_model_with_response_stream.import]
 
