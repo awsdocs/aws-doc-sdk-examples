@@ -1,4 +1,21 @@
 # zexi 0.4.0
+ssm_Hello:
+  title: Hello &SYS;
+  title_abbrev: Hello &SYS;
+  synopsis: get started using &SYS;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.hello.main
+  services:
+    ssm: {listThings}
 ssm_DescribeParameters:
   title: Get information about &SYS; parameters using an &AWS; SDK
   title_abbrev: Get parameters information
@@ -49,10 +66,10 @@ ssm_PutParameter:
                 - ssm.rust.create-parameter
   services:
     ssm: {PutParameter}
-ssm_CreateOpsItem:
-  title: Create a new OpsItem using an &AWS; SDK
-  title_abbrev: Create a new OpsItem
-  synopsis: create a new OpsItem.
+ssm_createOpsItem:
+  title: Create an opsItem using the &SYS; SDK
+  title_abbrev: Create an opsItem
+  synopsis: create an opsItem.
   category:
   languages:
     Java:
@@ -66,10 +83,78 @@ ssm_CreateOpsItem:
                 - ssm.java2.create_ops.main
   services:
     ssm: {CreateOpsItem} 
-ssm_DescribeOpsItems:
-  title: Describe an OpsItem using an &AWS; SDK
-  title_abbrev: Describe an OpsItem
-  synopsis: describe an OpsItem.
+ssm_updateMaintenanceWindow:
+  title: Update a maintenance window using the &SYS; SDK
+  title_abbrev: Update a maintenance window
+  synopsis: update a maintenance window.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.update_window.main
+  services:
+    ssm: {UpdateMaintenanceWindow} 
+ssm_createMaintenanceWindow:
+  title: Create a maintenance window using the &SYS; SDK
+  title_abbrev: Create a maintenance window
+  synopsis: create a maintenance window.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.create_window.main
+  services:
+    ssm: {CreateMaintenanceWindow} 
+ssm_sendCommand:
+  title: Send a command using the &SYS; SDK
+  title_abbrev: Send a command
+  synopsis: send a command.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.Java2.send_command.main
+  services:
+    ssm: {SendCommand}     
+ssm_createDocument:
+  title: Create a document using the &SYS; SDK
+  title_abbrev: Create a document
+  synopsis: create a document.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.create_doc.main
+  services:
+    ssm: {CreateDocument} 
+ssm_describeOpsItems:
+  title: Describe an &SYS; Opsitem using the SDK
+  title_abbrev: Describe an Opsitem
+  synopsis: describe an Opsitem.
   category:
   languages:
     Java:
@@ -82,10 +167,44 @@ ssm_DescribeOpsItems:
               snippet_tags:
                 - ssm.java2.describe_ops.main
   services:
-    ssm: {DescribeOpsItems}
+    ssm: {DescribeOpsItems}  
+ssm_deleteMaintenanceWindow:
+  title: Delete a maintenance window using the &SYS; SDK
+  title_abbrev: Delete a maintenance window
+  synopsis: delete a maintenance window.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.delete_window.main
+  services:
+    ssm: {DeleteMaintenanceWindow}  
+ssm_deleteDocument:
+  title: Delete a document using the &SYS; SDK
+  title_abbrev: Delete a document
+  synopsis: delete a document.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.Java2.delete_doc.main
+  services:
+    ssm: {DeleteDocument}     
 ssm_UpdateOpsItem:
-  title: Updates an OpsItem using an &AWS; SDK
-  title_abbrev: Updates an OpsItem
+  title: Update an OpsItem using a &SYS; SDK
+  title_abbrev: Update an OpsItem
   synopsis: updates an OpsItem.
   category:
   languages:
@@ -100,3 +219,20 @@ ssm_UpdateOpsItem:
                 - ssm.Java2.resolve_ops.main
   services:
     ssm: {UpdateOpsItem}                 
+ssm_Scenario:
+  title: Get started with &SYS; using an &AWS; SDK
+  title_abbrev: Get started with &SYS; 
+  synopsis: work with &SYS; maintenance windows, documents, and OpsItems.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.scenario.main
+  services:
+    ssm: {CreateOpsItem, CreateMaintenanceWindow, CreateDocument, SendCommand, CommandInvocations, DeleteMaintenanceWindow, UpdateOpsItem}

@@ -102,7 +102,7 @@ def build_tests(service="*"):
     return build_cmake_tests(cmake_files, executable_pattern)
 
 
-def run_tests(run_files=[], type1=False, type2=False, type3=False):
+def run_tests(run_files, type1=False, type2=False, type3=False):
     global build_sub_dir
     has_error = False
     filters = []
@@ -126,10 +126,10 @@ def run_tests(run_files=[], type1=False, type2=False, type3=False):
     os.chdir(run_dir)
     for run_file in run_files:
         # Run each filter separately or the no filter case.
-        for filter in filters:
+        for a_filter in filters:
             filter_arg = ""
-            if len(filter) > 0:
-                filter_arg = f"--gtest_filter={filter}"
+            if len(a_filter) > 0:
+                filter_arg = f"--gtest_filter={a_filter}"
             print(f"Calling '{run_file} {filter_arg}'.")
             proc = subprocess.Popen(
                 [run_file, filter_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
@@ -138,11 +138,11 @@ def run_tests(run_files=[], type1=False, type2=False, type3=False):
                 line = line.decode("utf-8")
                 sys.stdout.write(line)
 
-                match = re.search("\[  PASSED  \] (\d+) test", line)
+                match = re.search("\[ {2}PASSED {2}\] (\d+) test", line)
                 if match is not None:
                     passed_tests = passed_tests + int(match.group(1))
                     continue
-                match = re.search("\[  FAILED  \] (\d+) test", line)
+                match = re.search("\[ {2}FAILED {2}\] (\d+) test", line)
                 if match is not None:
                     failed_tests = failed_tests + int(match.group(1))
                     continue
@@ -190,8 +190,8 @@ def test_hello_service(service="*"):
         path_split = os.path.splitext(run_file)
         if (path_split[1] == ".exe") or (path_split[1] == ""):
             print(f"Calling '{run_file}'.")
-            completedProcess = subprocess.run([run_file], stdout=subprocess.DEVNULL)
-            if completedProcess.returncode != 0:
+            completed_process = subprocess.run([run_file], stdout=subprocess.DEVNULL)
+            if completed_process.returncode != 0:
                 print(f"Error with {run_file}")
                 has_error = True
                 failed_count = failed_count + 1
@@ -230,13 +230,13 @@ def main(argv):
             print(" 3. Does not require credentials.")
             print(" s. Test this service (regular expression).")
             sys.exit()
-        elif opt in ("-1"):
+        elif opt in "-1":
             type1 = True
-        elif opt in ("-2"):
+        elif opt in "-2":
             type2 = True
-        elif opt in ("-3"):
+        elif opt in "-3":
             type3 = True
-        elif opt in ("-s"):
+        elif opt in "-s":
             service = arg
 
     start_time = datetime.datetime.now()

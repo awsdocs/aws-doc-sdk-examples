@@ -53,12 +53,4 @@ class TextToTextSyncTest extends TestBase {
         assertNotNullOrEmpty(completion);
         System.out.println("Test sync invoke Jurassic-2 passed.");
     }
-
-    @Test
-    @Tag("IntegrationTest")
-    void InvokeLlama2() {
-        String completion = InvokeModel.invokeLlama2("In one sentence, what is a large-language model?");
-        assertNotNullOrEmpty(completion);
-        System.out.println("Test sync invoke Llama 2 passed.");
-    }
 }

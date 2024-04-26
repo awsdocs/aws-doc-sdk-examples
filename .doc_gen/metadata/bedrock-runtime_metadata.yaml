@@ -100,6 +100,14 @@ bedrock-runtime_InvokeAmazonTitanForTextGeneration:
             - description: Asynchronously invoke the Amazon Titan Text G1 foundation model to generate text.
               snippet_tags:
                 - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.TitanTextG1
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description: Invoke the Amazon Titan Text G1 foundation model to generate text.
+              snippet_tags:
+                - gov2.bedrock-runtime.InvokeTitanText
   services:
     bedrock-runtime: {InvokeModel}
 
@@ -511,10 +519,10 @@ bedrock-runtime_InvokeJurassic2:
   services:
     bedrock-runtime: {InvokeModel}
 
-bedrock-runtime_InvokeLlama2:
-  title: Invoke the Meta Llama 2 Chat model on &BR; for text generation
+bedrock-runtime_Llama2_InvokeLlama:
+  title: Invoke Meta Llama 2 on &BR; using Meta's native request and response payloads
   title_abbrev: "Meta Llama 2: Text generation"
-  synopsis: invoke the Meta Llama 2 Chat model on &BR; for text generation.
+  synopsis: get started sending prompts to Meta Llama 2 and printing the response.
   category: Invoke model examples
   languages:
     Go:
@@ -530,20 +538,17 @@ bedrock-runtime_InvokeLlama2:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
-            - description: Asynchronously invoke the Meta Llama 2 Chat foundation model to generate text.
+            - description: Send your first prompt to Meta Llama 2.
               snippet_tags:
-                - bedrock-runtime.java2.invoke_llama2_async.main
-            - description: Invoke the Meta Llama 2 Chat foundation model to generate text.
-              snippet_tags:
-                - bedrock-runtime.java2.invoke_llama2.main
+                - bedrock-runtime.java2.InvokeModel_Llama2_Quickstart
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke the Meta Llama 2 Chat foundation model to generate text.
-              snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/meta_llama2/llama2_chat.js
+            - description: Send your first prompt to Meta Llama 2.
+              snippet_tags:
+                - javascript.v3.bedrock-runtime.InvokeModel_Llama2_Quickstart
     PHP:
       versions:
         - sdk_version: 3
@@ -557,9 +562,9 @@ bedrock-runtime_InvokeLlama2:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Invoke the Meta Llama 2 Chat foundation model to generate text.
+            - description: Send your first prompt to Meta Llama 2.
               snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeMetaLlama2
+                - python.example_code.bedrock-runtime.InvokeModel_Llama2_Quickstart
     .NET:
       versions:
         - sdk_version: 3
@@ -570,6 +575,106 @@ bedrock-runtime_InvokeLlama2:
                 - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.Llama2
   services:
     bedrock-runtime: {InvokeModel}
+
+bedrock-runtime_Llama2_InvokeModelWithResponseStream:
+  title: Invoke Meta Llama 2 on &BR; using Meta's native request and response payloads with a response stream
+  title_abbrev: "Meta Llama 2: Text generation with response stream"
+  synopsis: get started sending prompts to Meta Llama 2 and printing the response stream in real-time.
+  category: Invoke model examples
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Send your first prompt to Meta Llama 3.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModelWithResponseStream_Llama2_Quickstart
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Send your first prompt to Meta Llama 3.
+              snippet_tags:
+                - javascript.v3.bedrock-runtime.InvokeModelWithResponseStream_Llama2_Quickstart
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send your first prompt to Meta Llama 3.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_Llama2_Quickstart
+  services:
+    bedrock-runtime: {InvokeModelWithResponseStream}
+
+
+bedrock-runtime_Llama3_InvokeLlama:
+  title: Invoke Meta Llama 3 on &BR; using Meta's native request and response payloads
+  title_abbrev: "Meta Llama 3: Text generation"
+  synopsis: get started sending prompts to Meta Llama 3 and printing the response.
+  category: Invoke model examples
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Send your first prompt to Meta Llama 3.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModel_Llama3_Quickstart
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Send your first prompt to Meta Llama 3.
+              snippet_tags:
+                - javascript.v3.bedrock-runtime.InvokeModel_Llama3_Quickstart
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send your first prompt to Meta Llama 3.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModel_Llama3_Quickstart
+  services:
+    bedrock-runtime: {InvokeModel}
+
+bedrock-runtime_Llama3_InvokeModelWithResponseStream:
+  title: Invoke Meta Llama 3 on &BR; using Meta's native request and response payloads with a response stream
+  title_abbrev: "Meta Llama 3: Text generation with response stream"
+  synopsis: get started sending prompts to Meta Llama 3 and printing the response stream in real-time.
+  category: Invoke model examples
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Send your first prompt to Meta Llama 3.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModelWithResponseStream_Llama3_Quickstart
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Send your first prompt to Meta Llama 3.
+              snippet_tags:
+                - javascript.v3.bedrock-runtime.InvokeModelWithResponseStream_Llama3_Quickstart
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send your first prompt to Meta Llama 3.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_Llama3_Quickstart
+  services:
+    bedrock-runtime: {InvokeModelWithResponseStream}
 
 bedrock-runtime_Scenario_InvokeModels:
   title: Invoke various foundation models on &BR;

@@ -39,15 +39,18 @@ python -m pip install -r requirements.txt
 ### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](bedrock_runtime_wrapper.py#L79)
-- [Amazon Titan: Image generation](bedrock_runtime_wrapper.py#L275)
-- [Anthropic Claude 2: Real-time response stream processing](bedrock_runtime_wrapper.py#L320)
+- [Amazon Titan: Image generation](bedrock_runtime_wrapper.py#L238)
+- [Anthropic Claude 2: Real-time response stream processing](bedrock_runtime_wrapper.py#L283)
 - [Anthropic Claude 2: Text generation](bedrock_runtime_wrapper.py#L39)
 - [Anthropic Claude 3: Multimodal invocation](models/anthropic/claude_3.py#L94)
 - [Anthropic Claude 3: Text generation](models/anthropic/claude_3.py#L33)
-- [Meta Llama 2: Text generation](bedrock_runtime_wrapper.py#L115)
-- [Mistral AI: Text generation with Mistral 7B Instruct](bedrock_runtime_wrapper.py#L152)
-- [Mistral AI: Text generation with Mixtral 8x7B Instruct](bedrock_runtime_wrapper.py#L192)
-- [Stable Diffusion: Image generation](bedrock_runtime_wrapper.py#L232)
+- [Meta Llama 2: Text generation](models/meta/llama2/invoke_model_quickstart.py#L4)
+- [Meta Llama 2: Text generation with response stream](models/meta/llama2/invoke_model_with_response_stream_quickstart.py#L4)
+- [Meta Llama 3: Text generation](models/meta/llama3/invoke_model_quickstart.py#L4)
+- [Meta Llama 3: Text generation with response stream](models/meta/llama3/invoke_model_with_response_stream_quickstart.py#L4)
+- [Mistral AI: Text generation with Mistral 7B Instruct](bedrock_runtime_wrapper.py#L115)
+- [Mistral AI: Text generation with Mixtral 8x7B Instruct](bedrock_runtime_wrapper.py#L155)
+- [Stable Diffusion: Image generation](bedrock_runtime_wrapper.py#L195)
 
 
 <!--custom.examples.start-->

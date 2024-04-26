@@ -60,15 +60,6 @@ class TextToTextAsyncTest extends TestBase {
 
     @Test
     @Tag("IntegrationTest")
-    void InvokeLlama2Async() {
-        var prompt = "In one sentence, what is a large-language model?";
-        var generatedText = InvokeModelAsync.invokeLlama2(prompt);
-        assertNotNullOrEmpty(generatedText);
-        System.out.println("Test async invoke Llama 2 passed.");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
     void InvokeClaude3WithResponseStream() {
         var prompt = "In one sentence, what is a large-language model?";
         var responseObject = Claude3.invokeModelWithResponseStream(prompt);

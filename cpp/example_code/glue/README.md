@@ -35,6 +35,7 @@ Next, for information on code example structures and how to build and run the ex
 
 
 <!--custom.prerequisites.start-->
+
 <!--custom.prerequisites.end-->
 
 ### Get started
@@ -47,18 +48,18 @@ Next, for information on code example structures and how to build and run the ex
 Code excerpts that show you how to call individual service functions.
 
 - [Create a crawler](glue_getting_started_scenario.cpp#L181) (`CreateCrawler`)
-- [Create a job definition](glue_getting_started_scenario.cpp#L364) (`CreateJob`)
-- [Delete a crawler](glue_getting_started_scenario.cpp#L674) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](glue_getting_started_scenario.cpp#L654) (`DeleteDatabase`)
-- [Delete a job definition](glue_getting_started_scenario.cpp#L634) (`DeleteJob`)
+- [Create a job definition](glue_getting_started_scenario.cpp#L373) (`CreateJob`)
+- [Delete a crawler](glue_getting_started_scenario.cpp#L720) (`DeleteCrawler`)
+- [Delete a database from the Data Catalog](glue_getting_started_scenario.cpp#L700) (`DeleteDatabase`)
+- [Delete a job definition](glue_getting_started_scenario.cpp#L680) (`DeleteJob`)
 - [Get a crawler](glue_getting_started_scenario.cpp#L210) (`GetCrawler`)
 - [Get a database from the Data Catalog](glue_getting_started_scenario.cpp#L302) (`GetDatabase`)
-- [Get a job run](glue_getting_started_scenario.cpp#L590) (`GetJobRun`)
-- [Get runs of a job](glue_getting_started_scenario.cpp#L555) (`GetJobRuns`)
+- [Get a job run](glue_getting_started_scenario.cpp#L636) (`GetJobRun`)
+- [Get runs of a job](glue_getting_started_scenario.cpp#L589) (`GetJobRuns`)
 - [Get tables from a database](glue_getting_started_scenario.cpp#L327) (`GetTables`)
-- [List job definitions](glue_getting_started_scenario.cpp#L524) (`ListJobs`)
+- [List job definitions](glue_getting_started_scenario.cpp#L547) (`ListJobs`)
 - [Start a crawler](glue_getting_started_scenario.cpp#L235) (`StartCrawler`)
-- [Start a job run](glue_getting_started_scenario.cpp#L394) (`StartJobRun`)
+- [Start a job run](glue_getting_started_scenario.cpp#L403) (`StartJobRun`)
 
 ### Scenarios
 
@@ -107,6 +108,30 @@ This example shows you how to do the following:
 - List information about job runs, view transformed data, and clean up resources.
 
 <!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
+
+You can create the resources needed for the example using the CDK script [resources/cdk/glue_role_bucket](../../../resources/cdk/glue_role_bucket).
+
+Note: The AWS CDK and npm must be installed to use the script.
+
+From the [resources/cdk/glue_role_bucket](../../../resources/cdk/glue_role_bucket) folder, run the commands:
+```bash
+npm install
+cdk deploy
+```
+
+Use the following outputs in the example.
+
+```bash
+doc-example-glue-scenario-stack.BucketName = doc-example-glue-scenario-s-docexampleglue1234567-890abcdef
+doc-example-glue-scenario-stack.RoleName = AWSGlueServiceRole-DocExample
+
+```
+
+The resources can be deleted with the following command:
+```bash
+cdk destroy
+```
+
 <!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 

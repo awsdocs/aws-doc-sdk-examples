@@ -78,6 +78,7 @@ functions within the same service.
 - [Lock Amazon S3 objects](src/main/java/com/example/s3/lockscenario/S3ObjectLockWorkflow.java)
 - [Parse URIs](src/main/java/com/example/s3/ParseUri.java)
 - [Perform a multipart upload](src/main/java/com/example/s3/PerformMultiPartUpload.java)
+- [Track uploads and downloads](src/main/java/com/example/s3/transfermanager/UploadFile.java)
 - [Upload or download large files](src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java)
 - [Upload stream of unknown size](src/main/java/com/example/s3/async/PutObjectFromStreamAsync.java)
 - [Use checksums](src/main/java/com/example/s3/BasicOpsWithChecksums.java)
@@ -154,6 +155,18 @@ This example shows you how to perform a multipart upload to an Amazon S3 object.
 
 <!--custom.scenarios.s3_Scenario_MultipartUpload.start-->
 <!--custom.scenarios.s3_Scenario_MultipartUpload.end-->
+
+#### Track uploads and downloads
+
+This example shows you how to track an Amazon S3 object upload or download.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_TrackUploadDownload.start-->
+<!--custom.scenario_prereqs.s3_Scenario_TrackUploadDownload.end-->
+
+
+<!--custom.scenarios.s3_Scenario_TrackUploadDownload.start-->
+<!--custom.scenarios.s3_Scenario_TrackUploadDownload.end-->
 
 #### Upload or download large files
 

@@ -3,12 +3,12 @@
 
 package com.example.s3.async;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
 import software.amazon.awssdk.services.s3.model.CreateBucketResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
+
 import java.net.URISyntaxException;
 import java.util.concurrent.CompletableFuture;
 

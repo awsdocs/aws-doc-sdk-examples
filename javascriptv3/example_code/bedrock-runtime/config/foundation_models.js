@@ -50,18 +50,6 @@ export const FoundationModels = Object.freeze({
     module: () => import("../models/ai21_labs_jurassic2/jurassic2.js"),
     invoker: (/** @type {Module} */ module) => module.invokeModel,
   },
-  LLAMA2_CHAT_13B: {
-    modelId: "meta.llama2-13b-chat-v1",
-    modelName: "Llama 2 Chat 13B",
-    module: () => import("../models/meta_llama2/llama2_chat.js"),
-    invoker: (/** @type {Module} */ module) => module.invokeModel,
-  },
-  LLAMA2_CHAT_70B: {
-    modelId: "meta.llama2-70b-chat-v1",
-    modelName: "Llama 2 Chat 70B",
-    module: () => import("../models/meta_llama2/llama2_chat.js"),
-    invoker: (/** @type {Module} */ module) => module.invokeModel,
-  },
   MISTRAL_7B: {
     modelId: "mistral.mistral-7b-instruct-v0:2",
     modelName: "Mistral 7B Instruct",

@@ -565,28 +565,39 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
         Aws::AutoScaling::Model::DescribeScalingActivitiesRequest request;
         request.SetAutoScalingGroupName(groupName);
 
-        Aws::AutoScaling::Model::DescribeScalingActivitiesOutcome outcome =
-                autoScalingClient.DescribeScalingActivities(request);
-
-        if (outcome.IsSuccess()) {
-            const Aws::Vector<Aws::AutoScaling::Model::Activity> &activities =
-                    outcome.GetResult().GetActivities();
-            std::cout << "Found " << activities.size() << " activities." << std::endl;
-            std::cout << "Activities are ordered with the most recent first."
-                      << std::endl;
-            for (const Aws::AutoScaling::Model::Activity &activity: activities) {
-                std::cout << activity.GetDescription() << std::endl;
-                std::cout << activity.GetDetails() << std::endl;
+        Aws::Vector<Aws::AutoScaling::Model::Activity> allActivities;
+        Aws::String nextToken; // Used for pagination;
+        do {
+            if (!nextToken.empty()) {
+                request.SetNextToken(nextToken);
             }
-        }
-        else {
-            std::cerr << "Error with AutoScaling::DescribeScalingActivities. "
-                      << outcome.GetError().GetMessage()
-                      << std::endl;
-            // snippet-end:[cpp.example_code.autoscaling.describe_scaling_activities1]
-            cleanupResources(groupName, templateName, autoScalingClient, ec2Client);
-            return false;
-            // snippet-start:[cpp.example_code.autoscaling.describe_scaling_activities2]
+            Aws::AutoScaling::Model::DescribeScalingActivitiesOutcome outcome =
+                    autoScalingClient.DescribeScalingActivities(request);
+
+            if (outcome.IsSuccess()) {
+                const Aws::Vector<Aws::AutoScaling::Model::Activity> &activities =
+                        outcome.GetResult().GetActivities();
+                allActivities.insert(allActivities.end(), activities.begin(), activities.end());
+                nextToken  = outcome.GetResult().GetNextToken();
+            }
+            else {
+                std::cerr << "Error with AutoScaling::DescribeScalingActivities. "
+                          << outcome.GetError().GetMessage()
+                          << std::endl;
+                // snippet-end:[cpp.example_code.autoscaling.describe_scaling_activities1]
+                cleanupResources(groupName, templateName, autoScalingClient, ec2Client);
+                return false;
+                // snippet-start:[cpp.example_code.autoscaling.describe_scaling_activities2]
+            }
+        } while (!nextToken.empty());
+
+        std::cout << "Found " << allActivities.size() << " activities."
+                  << std::endl;
+        std::cout << "Activities are ordered with the most recent first."
+                  << std::endl;
+        for (const Aws::AutoScaling::Model::Activity &activity: allActivities) {
+            std::cout << activity.GetDescription() << std::endl;
+            std::cout << activity.GetDetails() << std::endl;
         }
         // snippet-end:[cpp.example_code.autoscaling.describe_scaling_activities2]
     }

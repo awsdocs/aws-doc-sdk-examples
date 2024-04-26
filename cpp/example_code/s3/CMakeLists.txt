@@ -16,7 +16,6 @@ set(BUILD_SHARED_LIBS ON)
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 11)
 
-
 # Build shared libraries by default.
 set(BUILD_SHARED_LIBS ON)
 
@@ -28,6 +27,16 @@ if(WINDOWS_BUILD)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
 endif()
+
+# CURL package is optional to test pre-signed url code.
+find_package(CURL)
+
+if (NOT CURL_FOUND) 
+    unset(CURL_INCLUDE_DIRS) 
+    unset(CURL_LIBRARIES) 
+    unset(CURL_LIBRARY)
+endif()
+
 
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
@@ -62,10 +71,13 @@ if(WINDOWS_BUILD)
             # Remove list_buckets_disabling_dns_cache.cpp when not using curl library for http.
         list(FILTER AWSDOC_S3_SOURCE EXCLUDE REGEX "/list_buckets_disabling_dns_cache.cpp$") # Not supported in windows without curl, see file for details
     else()
-        set(CURL_INCLUDE "c:/curl/include") # Update this with correct curl install location.
-        set(CURL_LIB "c:/curl/lib") # Update this with correct  curl install location.
+        if (NOT CURL_FOUND) # find_package did not set these.
+            set(CURL_INCLUDE_DIRS "c:/curl/include") # Update this with correct curl install location.
+            set(CURL_LIBRARIES "c:/curl/lib") # Update this with correct  curl install location.
+        endif()
     endif()
 endif()
+
 
 foreach(file ${AWSDOC_S3_SOURCE})
     get_filename_component(EXAMPLE ${file} NAME_WE)
@@ -78,15 +90,23 @@ foreach(file ${AWSDOC_S3_SOURCE})
     target_include_directories(${EXAMPLE_EXE} PUBLIC 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
-        ${CURL_INCLUDE})
-    
+        )
+  
+        
+    target_include_directories(${EXAMPLE_EXE} SYSTEM PUBLIC 
+        ${CURL_INCLUDE_DIRS})
+
     target_link_libraries(${EXAMPLE_EXE} 
         ${AWSSDK_LINK_LIBRARIES} 
-        ${AWSSDK_PLATFORM_DEPS})
+        ${AWSSDK_PLATFORM_DEPS}
+            ${CURL_LIBRARIES})
 
-    target_link_directories(${EXAMPLE_EXE} 
-        PUBLIC 
-        ${CURL_LIB})
+
+    if(CURL_FOUND)
+        target_compile_definitions(${EXAMPLE_EXE}
+        PUBLIC
+        HAS_CURL=1)
+    endif()
 
  endforeach()
 

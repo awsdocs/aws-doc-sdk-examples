@@ -61,6 +61,8 @@ from test_tools.support_stubber import SupportStubber
 from test_tools.textract_stubber import TextractStubber
 from test_tools.transcribe_stubber import TranscribeStubber
 from test_tools.medical_imaging_stubber import MedicalImagingStubber
+from test_tools.redshift_stubber import RedshiftStubber
+from test_tools.redshift_data_stubber import RedshiftDataStubber
 
 
 class StubberFactoryNotImplemented(Exception):
@@ -130,6 +132,8 @@ def stubber_factory(service_name):
         return LambdaStubber
     elif service_name == "lookoutvision":
         return LookoutVisionStubber
+    elif service_name == "medical-imaging":
+        return MedicalImagingStubber
     elif service_name == "organizations":
         return OrganizationsStubber
     elif service_name == "pinpoint":
@@ -144,6 +148,10 @@ def stubber_factory(service_name):
         return RdsStubber
     elif service_name == "rds-data":
         return RdsDataStubber
+    elif service_name == "redshift":
+        return RedshiftStubber
+    elif service_name == "redshift-data":
+        return RedshiftDataStubber
     elif service_name == "rekognition":
         return RekognitionStubber
     elif service_name == "route53":
@@ -172,8 +180,6 @@ def stubber_factory(service_name):
         return TextractStubber
     elif service_name == "transcribe":
         return TranscribeStubber
-    elif service_name == "medical-imaging":
-        return MedicalImagingStubber
     else:
         raise StubberFactoryNotImplemented(
             "If you see this exception, it probably means that you forgot to add "

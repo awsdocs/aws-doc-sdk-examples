@@ -31,11 +31,11 @@ import java.util.stream.Collectors;
  */
 public class S3ObjectLockWorkflow {
 
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     static String bucketName;
+    static S3LockActions s3LockActions;
     private static final List<String> bucketNames = new ArrayList<>();
     private static final List<String> fileNames = new ArrayList<>();
-    public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    static S3LockActions s3LockActions;
 
     public static void main(String[] args) {
         // Get the current date and time to ensure bucket name is unique.

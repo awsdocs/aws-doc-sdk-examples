@@ -9,7 +9,7 @@
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/CreateBucketRequest.h>
 #include <aws/s3/model/HeadBucketRequest.h>
-#include <aws/s3/model/ListObjectsRequest.h>
+#include <aws/s3/model/ListObjectsV2Request.h>
 #include <aws/s3/model/DeleteBucketRequest.h>
 #include <aws/core/utils/UUID.h>
 #include "awsdoc/s3/s3_examples.h"
@@ -51,7 +51,8 @@ static Aws::String CreateOneBucket(const Aws::S3::S3Client &s3Client) {
     Aws::S3::Model::CreateBucketRequest createBucketRequest;
     createBucketRequest.SetBucket(bucketName);
     Aws::S3::Model::CreateBucketConfiguration createBucketConfiguration;
-    createBucketConfiguration.SetLocationConstraint(Aws::S3::Model::BucketLocationConstraint::us_west_2);
+    createBucketConfiguration.SetLocationConstraint(
+            Aws::S3::Model::BucketLocationConstraint::us_west_2);
     createBucketRequest.SetCreateBucketConfiguration(createBucketConfiguration);
     auto createBucketOutcome = s3Client.CreateBucket(createBucketRequest);
 
@@ -71,7 +72,8 @@ static Aws::String CreateOneBucket(const Aws::S3::S3Client &s3Client) {
     while (timeoutCount++ < MAX_TIMEOUT_RETRIES) {
         Aws::S3::Model::HeadBucketRequest headBucketRequest;
         headBucketRequest.SetBucket(bucketName);
-        Aws::S3::Model::HeadBucketOutcome headBucketOutcome = s3Client.HeadBucket(headBucketRequest);
+        Aws::S3::Model::HeadBucketOutcome headBucketOutcome = s3Client.HeadBucket(
+                headBucketRequest);
         if (headBucketOutcome.IsSuccess()) {
             break;
         }
@@ -89,25 +91,42 @@ static Aws::String CreateOneBucket(const Aws::S3::S3Client &s3Client) {
   \param bucketName An S3 bucket name.
 */
 
-static bool ListTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName) {
+static bool
+ListTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName) {
     // An S3 API client set to the aws-global AWS Region should be able to get 
     // access to a bucket in any AWS Region.
-    Aws::S3::Model::ListObjectsRequest listObjectsRequest;
+    Aws::S3::Model::ListObjectsV2Request listObjectsRequest;
     listObjectsRequest.SetBucket(bucketName);
-    auto listObjectOutcome = s3Client.ListObjects(listObjectsRequest);
 
-    if (listObjectOutcome.IsSuccess()) {
-        std::cout << "Success. Number of objects in the bucket named '" <<
-                  bucketName << "' is " <<
-                  listObjectOutcome.GetResult().GetContents().size() << "." <<
-                  std::endl;
-    }
-    else {
-        std::cerr << "Error. Could not count the objects in the bucket: " <<
-                  listObjectOutcome.GetError() << std::endl;
-    }
+    Aws::String continuationToken;  // Used for pagination.
+    Aws::Vector<Aws::S3::Model::Object> objects;
 
-    return listObjectOutcome.IsSuccess();
+    do {
+        if (!continuationToken.empty()) {
+            listObjectsRequest.SetContinuationToken(continuationToken);
+        }
+
+        // List the objects in the bucket.
+        auto listObjectOutcome = s3Client.ListObjectsV2(listObjectsRequest);
+
+        if (listObjectOutcome.IsSuccess()) {
+            auto &contents = listObjectOutcome.GetResult().GetContents();
+
+            objects.insert(objects.end(), contents.begin(), contents.end());
+            continuationToken = listObjectOutcome.GetResult().GetNextContinuationToken();
+        }
+        else {
+            std::cerr << "Error. Could not count the objects in the bucket: " <<
+                      listObjectOutcome.GetError() << std::endl;
+            return false;
+        }
+
+    } while (!continuationToken.empty());
+
+    std::cout << "Success. Found " << objects.size() << " objects in the bucket." <<
+              std::endl;
+
+    return true;
 }
 //! Helper routine to delete a bucket.
 /*!
@@ -141,7 +160,8 @@ bool DeleteABucket(const Aws::S3::S3Client &s3Client, const Aws::String &bucketN
  \param clientConfig Aws client configuration.
 */
 
-bool AwsDoc::S3::ListObjectsWithAWSGlobalRegion(const Aws::Client::ClientConfiguration &clientConfig) {
+bool AwsDoc::S3::ListObjectsWithAWSGlobalRegion(
+        const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::Client::ClientConfiguration config(clientConfig);
     config.region = Aws::Region::AWS_GLOBAL;
 
@@ -173,7 +193,6 @@ bool AwsDoc::S3::ListObjectsWithAWSGlobalRegion(const Aws::Client::ClientConfigu
 
 int main() {
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Trace;
 
     InitAPI(options);
     {
