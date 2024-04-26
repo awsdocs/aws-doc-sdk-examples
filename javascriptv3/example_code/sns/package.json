@@ -1,7 +1,7 @@
 {
   "name": "@aws-doc-sdk-examples/example-javascriptv3-sns",
   "version": "1.0.0",
-  "author": "Corey Pyle <corepyle@amazon.com",
+  "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0",
   "dependencies": {
     "@aws-sdk/client-sns": "^3.370.0"
