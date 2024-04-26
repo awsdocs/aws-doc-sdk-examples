@@ -38,15 +38,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a communication to a case](src/main/kotlin/com/example/support/SupportScenario.kt#L173) (`AddCommunicationToCase`)
-- [Add an attachment to a set](src/main/kotlin/com/example/support/SupportScenario.kt#L192) (`AddAttachmentsToSet`)
-- [Create a case](src/main/kotlin/com/example/support/SupportScenario.kt#L235) (`CreateCase`)
-- [Describe an attachment](src/main/kotlin/com/example/support/SupportScenario.kt#L140) (`DescribeAttachment`)
-- [Describe cases](src/main/kotlin/com/example/support/SupportScenario.kt#L212) (`DescribeCases`)
-- [Describe communications](src/main/kotlin/com/example/support/SupportScenario.kt#L153) (`DescribeCommunications`)
-- [Describe services](src/main/kotlin/com/example/support/SupportScenario.kt#L276) (`DescribeServices`)
-- [Describe severity levels](src/main/kotlin/com/example/support/SupportScenario.kt#L256) (`DescribeSeverityLevels`)
-- [Resolve case](src/main/kotlin/com/example/support/SupportScenario.kt#L128) (`ResolveCase`)
+- [AddAttachmentsToSet](src/main/kotlin/com/example/support/SupportScenario.kt#L192)
+- [AddCommunicationToCase](src/main/kotlin/com/example/support/SupportScenario.kt#L173)
+- [CreateCase](src/main/kotlin/com/example/support/SupportScenario.kt#L235)
+- [DescribeAttachment](src/main/kotlin/com/example/support/SupportScenario.kt#L140)
+- [DescribeCases](src/main/kotlin/com/example/support/SupportScenario.kt#L212)
+- [DescribeCommunications](src/main/kotlin/com/example/support/SupportScenario.kt#L153)
+- [DescribeServices](src/main/kotlin/com/example/support/SupportScenario.kt#L276)
+- [DescribeSeverityLevels](src/main/kotlin/com/example/support/SupportScenario.kt#L256)
+- [ResolveCase](src/main/kotlin/com/example/support/SupportScenario.kt#L128)
 
 ### Scenarios
 

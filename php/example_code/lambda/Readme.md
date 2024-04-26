@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](LambdaService.php#L31) (`CreateFunction`)
-- [Delete a function](LambdaService.php#L108) (`DeleteFunction`)
-- [Get a function](LambdaService.php#L50) (`GetFunction`)
-- [Invoke a function](LambdaService.php#L75) (`Invoke`)
-- [List functions](LambdaService.php#L59) (`ListFunctions`)
-- [Update function code](LambdaService.php#L86) (`UpdateFunctionCode`)
-- [Update function configuration](LambdaService.php#L97) (`UpdateFunctionConfiguration`)
+- [CreateFunction](LambdaService.php#L31)
+- [DeleteFunction](LambdaService.php#L108)
+- [GetFunction](LambdaService.php#L50)
+- [Invoke](LambdaService.php#L75)
+- [ListFunctions](LambdaService.php#L59)
+- [UpdateFunctionCode](LambdaService.php#L86)
+- [UpdateFunctionConfiguration](LambdaService.php#L97)
 
 ### Scenarios
 

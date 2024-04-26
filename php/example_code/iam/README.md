@@ -33,21 +33,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](GettingStartedWithIAM.php#L46) (`AttachRolePolicy`)
-- [Create a policy](GettingStartedWithIAM.php#L46) (`CreatePolicy`)
-- [Create a role](GettingStartedWithIAM.php#L46) (`CreateRole`)
-- [Create a service-linked role](GettingStartedWithIAM.php#L46) (`CreateServiceLinkedRole`)
-- [Create a user](GettingStartedWithIAM.php#L46) (`CreateUser`)
-- [Get a policy](GettingStartedWithIAM.php#L46) (`GetPolicy`)
-- [Get a role](GettingStartedWithIAM.php#L46) (`GetRole`)
-- [Get the account password policy](GettingStartedWithIAM.php#L46) (`GetAccountPasswordPolicy`)
-- [List SAML providers](GettingStartedWithIAM.php#L46) (`ListSAMLProviders`)
-- [List groups](GettingStartedWithIAM.php#L46) (`ListGroups`)
-- [List inline policies for a role](GettingStartedWithIAM.php#L46) (`ListRolePolicies`)
-- [List policies](GettingStartedWithIAM.php#L46) (`ListPolicies`)
-- [List policies attached to a role](GettingStartedWithIAM.php#L46) (`ListAttachedRolePolicies`)
-- [List roles](GettingStartedWithIAM.php#L46) (`ListRoles`)
-- [List users](GettingStartedWithIAM.php#L46) (`ListUsers`)
+- [AttachRolePolicy](GettingStartedWithIAM.php#L46)
+- [CreatePolicy](GettingStartedWithIAM.php#L46)
+- [CreateRole](GettingStartedWithIAM.php#L46)
+- [CreateServiceLinkedRole](GettingStartedWithIAM.php#L46)
+- [CreateUser](GettingStartedWithIAM.php#L46)
+- [GetAccountPasswordPolicy](GettingStartedWithIAM.php#L46)
+- [GetPolicy](GettingStartedWithIAM.php#L46)
+- [GetRole](GettingStartedWithIAM.php#L46)
+- [ListAttachedRolePolicies](GettingStartedWithIAM.php#L46)
+- [ListGroups](GettingStartedWithIAM.php#L46)
+- [ListPolicies](GettingStartedWithIAM.php#L46)
+- [ListRolePolicies](GettingStartedWithIAM.php#L46)
+- [ListRoles](GettingStartedWithIAM.php#L46)
+- [ListSAMLProviders](GettingStartedWithIAM.php#L46)
+- [ListUsers](GettingStartedWithIAM.php#L46)
 
 ### Scenarios
 

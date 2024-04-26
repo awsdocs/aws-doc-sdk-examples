@@ -33,11 +33,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a snapshot of a DB instance](create_snapshot.rb#L4) (`CreateDBSnapshot`)
-- [Describe DB instances](list_instances.rb#L4) (`DescribeDBInstances`)
-- [Describe DB parameter groups](list_parameter_groups.rb#L4) (`DescribeDBParameterGroups`)
-- [Describe parameters in a DB parameter group](list_parameter_groups.rb#L4) (`DescribeDBParameters`)
-- [Describe snapshots of DB instances](list_instance_snapshots.rb#L6) (`DescribeDBSnapshots`)
+- [CreateDBSnapshot](create_snapshot.rb#L4)
+- [DescribeDBInstances](list_instances.rb#L4)
+- [DescribeDBParameterGroups](list_parameter_groups.rb#L4)
+- [DescribeDBParameters](list_parameter_groups.rb#L4)
+- [DescribeDBSnapshots](list_instance_snapshots.rb#L6)
 
 
 <!--custom.examples.start-->

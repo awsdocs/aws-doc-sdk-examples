@@ -38,19 +38,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a parameter](src/main/java/com/example/ssm/PutParameter.java#L6) (`PutParameter`)
-- [Create a document](src/main/java/com/example/scenario/SSMScenario.java#L474) (`CreateDocument`)
-- [Create a maintenance window](src/main/java/com/example/scenario/SSMScenario.java#L428) (`CreateMaintenanceWindow`)
-- [Create an OpsItem](src/main/java/com/example/scenario/SSMScenario.java#L226) (`CreateOpsItem`)
-- [Create an opsItem](src/main/java/com/example/scenario/SSMScenario.java#L226) (`CreateOpsItem`)
-- [Delete a document](src/main/java/com/example/scenario/SSMScenario.java#L370) (`DeleteDocument`)
-- [Delete a maintenance window](src/main/java/com/example/scenario/SSMScenario.java#L388) (`DeleteMaintenanceWindow`)
-- [Describe an OpsItem](src/main/java/com/example/scenario/SSMScenario.java#L516) (`DescribeOpsItems`)
-- [Describe an Opsitem](src/main/java/com/example/scenario/SSMScenario.java#L516) (`DescribeOpsItems`)
-- [Get parameters information](src/main/java/com/example/ssm/GetParameter.java#L6) (`DescribeParameters`)
-- [Send a command](src/main/java/com/example/scenario/SSMScenario.java#L310) (`SendCommand`)
-- [Update a maintenance window](src/main/java/com/example/scenario/SSMScenario.java#L405) (`UpdateMaintenanceWindow`)
-- [Update an OpsItem](src/main/java/com/example/scenario/SSMScenario.java#L274) (`UpdateOpsItem`)
+- [CreateDocument](src/main/java/com/example/scenario/SSMScenario.java#L475)
+- [CreateMaintenanceWindow](src/main/java/com/example/scenario/SSMScenario.java#L429)
+- [CreateOpsItem](src/main/java/com/example/scenario/SSMScenario.java#L227)
+- [DeleteDocument](src/main/java/com/example/scenario/SSMScenario.java#L371)
+- [DeleteMaintenanceWindow](src/main/java/com/example/scenario/SSMScenario.java#L389)
+- [DescribeOpsItems](src/main/java/com/example/scenario/SSMScenario.java#L517)
+- [DescribeParameters](src/main/java/com/example/ssm/GetParameter.java#L6)
+- [PutParameter](src/main/java/com/example/ssm/PutParameter.java#L6)
+- [SendCommand](src/main/java/com/example/scenario/SSMScenario.java#L311)
+- [UpdateMaintenanceWindow](src/main/java/com/example/scenario/SSMScenario.java#L406)
+- [UpdateOpsItem](src/main/java/com/example/scenario/SSMScenario.java#L275)
 
 ### Scenarios
 
@@ -66,13 +64,6 @@ functions within the same service.
 ## Run the examples
 
 ### Instructions
-
-AWS Systems Manager Agent (SSM Agent) is Amazon software that runs on Amazon Elastic Compute Cloud (Amazon EC2) instances,
-edge devices, on-premises servers, and virtual machines (VMs). SSM Agent makes it possible for Systems Manager to
-update, manage, and configure these resources.
-
-To successfully run this getting started scenario, the EC2 instance must have an SSM Agent.
-For more information, see the following documentation topic [Working with SSM Agent](https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html).
 
 
 <!--custom.instructions.start-->
@@ -99,7 +90,7 @@ This example shows you how to get started using Systems Manager.
 
 #### Get started with Systems Manager
 
-This example shows you how to work with Systems Manager maintenance windows, documents, and Opsitems.
+This example shows you how to work with Systems Manager maintenance windows, documents, and OpsItems.
 
 
 <!--custom.scenario_prereqs.ssm_Scenario.start-->

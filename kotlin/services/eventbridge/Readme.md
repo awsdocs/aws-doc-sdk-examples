@@ -38,17 +38,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L544) (`PutTargets`)
-- [Create a rule](src/main/kotlin/com/kotlin/eventbridge/CreateRuleSchedule.kt#L49) (`PutRule`)
-- [Delete a rule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L323) (`DeleteRule`)
-- [Describe a rule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L457) (`DescribeRule`)
-- [Disable a rule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L470) (`DisableRule`)
-- [Enable a rule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L470) (`EnableRule`)
-- [List rule names for a target](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L514) (`ListRuleNamesByTarget`)
-- [List rules](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L612) (`ListRules`)
-- [List targets for a rule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L529) (`ListTargetsByRule`)
-- [Remove targets from a rule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L335) (`RemoveTargets`)
-- [Send events](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L361) (`PutEvents`)
+- [DeleteRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L323)
+- [DescribeRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L457)
+- [DisableRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L470)
+- [EnableRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L470)
+- [ListRuleNamesByTarget](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L514)
+- [ListRules](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L612)
+- [ListTargetsByRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L529)
+- [PutEvents](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L361)
+- [PutRule](src/main/kotlin/com/kotlin/eventbridge/CreateRuleSchedule.kt#L49)
+- [PutTargets](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L544)
+- [RemoveTargets](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L335)
 
 ### Scenarios
 

@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a stream](src/main/java/com/example/kinesis/CreateDataStream.java#L6) (`CreateStream`)
-- [Delete a stream](src/main/java/com/example/kinesis/DeleteDataStream.java#L6) (`DeleteStream`)
-- [Get data in batches from a stream](src/main/java/com/example/kinesis/GetRecords.java#L6) (`GetRecords`)
-- [Put data into a stream](src/main/java/com/example/kinesis/StockTradesWriter.java#L6) (`PutRecord`)
+- [CreateStream](src/main/java/com/example/kinesis/CreateDataStream.java#L6)
+- [DeleteStream](src/main/java/com/example/kinesis/DeleteDataStream.java#L6)
+- [GetRecords](src/main/java/com/example/kinesis/GetRecords.java#L6)
+- [PutRecord](src/main/java/com/example/kinesis/StockTradesWriter.java#L6)
 
 
 <!--custom.examples.start-->

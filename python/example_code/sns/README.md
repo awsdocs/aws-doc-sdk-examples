@@ -38,14 +38,14 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a topic](sns_basics.py#L33) (`CreateTopic`)
-- [Delete a subscription](sns_basics.py#L164) (`Unsubscribe`)
-- [Delete a topic](sns_basics.py#L70) (`DeleteTopic`)
-- [List the subscribers of a topic](sns_basics.py#L116) (`ListSubscriptions`)
-- [List topics](sns_basics.py#L52) (`ListTopics`)
-- [Publish to a topic](sns_basics.py#L205) (`Publish`)
-- [Set a filter policy](sns_basics.py#L139) (`SetSubscriptionAttributes`)
-- [Subscribe an email address to a topic](sns_basics.py#L85) (`Subscribe`)
+- [CreateTopic](sns_basics.py#L33)
+- [DeleteTopic](sns_basics.py#L70)
+- [ListSubscriptions](sns_basics.py#L116)
+- [ListTopics](sns_basics.py#L52)
+- [Publish](sns_basics.py#L205)
+- [SetSubscriptionAttributes](sns_basics.py#L139)
+- [Subscribe](sns_basics.py#L85)
+- [Unsubscribe](sns_basics.py#L164)
 
 ### Scenarios
 

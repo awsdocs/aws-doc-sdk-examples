@@ -38,18 +38,18 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Confirm a user](cognito_idp_actions.py#L131) (`ConfirmSignUp`)
-- [Confirm an MFA device for tracking](cognito_idp_actions.py#L342) (`ConfirmDevice`)
-- [Get a token to associate an MFA application with a user](cognito_idp_actions.py#L241) (`AssociateSoftwareToken`)
-- [Get information about a user](cognito_idp_actions.py#L23) (`AdminGetUser`)
-- [List users](cognito_idp_actions.py#L164) (`ListUsers`)
-- [Resend a confirmation code](cognito_idp_actions.py#L104) (`ResendConfirmationCode`)
-- [Respond to SRP authentication challenges](cognito_idp_actions.py#L408) (`RespondToAuthChallenge`)
-- [Respond to an authentication challenge](cognito_idp_actions.py#L292) (`AdminRespondToAuthChallenge`)
-- [Sign up a user](cognito_idp_actions.py#L56) (`SignUp`)
-- [Start authentication](cognito_idp_actions.py#L407) (`InitiateAuth`)
-- [Start authentication with administrator credentials](cognito_idp_actions.py#L187) (`AdminInitiateAuth`)
-- [Verify an MFA application with a user](cognito_idp_actions.py#L265) (`VerifySoftwareToken`)
+- [AdminGetUser](cognito_idp_actions.py#L23)
+- [AdminInitiateAuth](cognito_idp_actions.py#L187)
+- [AdminRespondToAuthChallenge](cognito_idp_actions.py#L292)
+- [AssociateSoftwareToken](cognito_idp_actions.py#L241)
+- [ConfirmDevice](cognito_idp_actions.py#L342)
+- [ConfirmSignUp](cognito_idp_actions.py#L131)
+- [InitiateAuth](cognito_idp_actions.py#L407)
+- [ListUsers](cognito_idp_actions.py#L164)
+- [ResendConfirmationCode](cognito_idp_actions.py#L104)
+- [RespondToAuthChallenge](cognito_idp_actions.py#L408)
+- [SignUp](cognito_idp_actions.py#L56)
+- [VerifySoftwareToken](cognito_idp_actions.py#L265)
 
 ### Scenarios
 

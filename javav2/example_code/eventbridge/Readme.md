@@ -38,17 +38,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L605) (`PutTargets`)
-- [Create a rule](src/main/java/com/example/eventbridge/CreateRuleSchedule.java#L60) (`PutRule`)
-- [Delete a rule](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L374) (`DeleteRule`)
-- [Describe a rule](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L509) (`DescribeRule`)
-- [Disable a rule](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L526) (`DisableRule`)
-- [Enable a rule](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L526) (`EnableRule`)
-- [List rule names for a target](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L577) (`ListRuleNamesByTarget`)
-- [List rules](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L649) (`ListRules`)
-- [List targets for a rule](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L591) (`ListTargetsByRule`)
-- [Remove targets from a rule](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L385) (`RemoveTargets`)
-- [Send events](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L408) (`PutEvents`)
+- [DeleteRule](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L374)
+- [DescribeRule](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L509)
+- [DisableRule](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L526)
+- [EnableRule](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L526)
+- [ListRuleNamesByTarget](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L577)
+- [ListRules](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L649)
+- [ListTargetsByRule](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L591)
+- [PutEvents](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L408)
+- [PutRule](src/main/java/com/example/eventbridge/CreateRuleSchedule.java#L60)
+- [PutTargets](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L605)
+- [RemoveTargets](src/main/java/com/example/eventbridge/EventbridgeMVP.java#L385)
 
 ### Scenarios
 

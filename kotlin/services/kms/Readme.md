@@ -33,17 +33,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a grant for a key](src/main/kotlin/com/kotlin/kms/CreateGrant.kt#L44) (`CreateGrant`)
-- [Create a key](src/main/kotlin/com/kotlin/kms/CreateCustomerKey.kt#L28) (`CreateKey`)
-- [Create an alias for a key](src/main/kotlin/com/kotlin/kms/CreateAlias.kt#L40) (`CreateAlias`)
-- [Decrypt ciphertext](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L43) (`Decrypt`)
-- [Describe a key](src/main/kotlin/com/kotlin/kms/DescribeKey.kt#L38) (`DescribeKey`)
-- [Disable a key](src/main/kotlin/com/kotlin/kms/DisableCustomerKey.kt#L38) (`DisableKey`)
-- [Enable a key](src/main/kotlin/com/kotlin/kms/EnableCustomerKey.kt#L38) (`EnableKey`)
-- [Encrypt text using a key](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L43) (`Encrypt`)
-- [List aliases for a key](src/main/kotlin/com/kotlin/kms/ListAliases.kt#L23) (`ListAliases`)
-- [List grants for a key](src/main/kotlin/com/kotlin/kms/ListGrants.kt#L37) (`ListGrants`)
-- [List keys](src/main/kotlin/com/kotlin/kms/ListKeys.kt#L22) (`ListKeys`)
+- [CreateAlias](src/main/kotlin/com/kotlin/kms/CreateAlias.kt#L40)
+- [CreateGrant](src/main/kotlin/com/kotlin/kms/CreateGrant.kt#L44)
+- [CreateKey](src/main/kotlin/com/kotlin/kms/CreateCustomerKey.kt#L28)
+- [Decrypt](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L43)
+- [DescribeKey](src/main/kotlin/com/kotlin/kms/DescribeKey.kt#L38)
+- [DisableKey](src/main/kotlin/com/kotlin/kms/DisableCustomerKey.kt#L38)
+- [EnableKey](src/main/kotlin/com/kotlin/kms/EnableCustomerKey.kt#L38)
+- [Encrypt](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L43)
+- [ListAliases](src/main/kotlin/com/kotlin/kms/ListAliases.kt#L23)
+- [ListGrants](src/main/kotlin/com/kotlin/kms/ListGrants.kt#L37)
+- [ListKeys](src/main/kotlin/com/kotlin/kms/ListKeys.kt#L22)
 
 
 <!--custom.examples.start-->

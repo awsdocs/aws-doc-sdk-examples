@@ -33,15 +33,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Delete a snapshot](../ebs/src/bin/delete-snapshot.rs#L26) (`DeleteSnapshot`)
-- [Describe Regions](src/bin/ec2-helloworld.rs#L22) (`DescribeRegions`)
-- [Describe instance status](src/bin/list-all-instance-events.rs#L22) (`DescribeInstanceStatus`)
-- [Describe instances](src/bin/describe-instances.rs#L26) (`DescribeInstances`)
-- [Describe snapshots](../ebs/src/bin/get-snapshot-state.rs#L27) (`DescribeSnapshots`)
-- [Enable monitoring](src/bin/monitor-instance.rs#L26) (`MonitorInstances`)
-- [Reboot an instance](src/bin/reboot-instance.rs#L26) (`RebootInstances`)
-- [Start an instance](src/bin/start-instance.rs#L26) (`StartInstances`)
-- [Stop an instance](src/bin/stop-instance.rs#L26) (`StopInstances`)
+- [DeleteSnapshot](../ebs/src/bin/delete-snapshot.rs#L26)
+- [DescribeInstanceStatus](src/bin/list-all-instance-events.rs#L22)
+- [DescribeInstances](src/bin/describe-instances.rs#L26)
+- [DescribeRegions](src/bin/ec2-helloworld.rs#L22)
+- [DescribeSnapshots](../ebs/src/bin/get-snapshot-state.rs#L27)
+- [MonitorInstances](src/bin/monitor-instance.rs#L26)
+- [RebootInstances](src/bin/reboot-instance.rs#L26)
+- [StartInstances](src/bin/start-instance.rs#L26)
+- [StopInstances](src/bin/stop-instance.rs#L26)
 
 
 <!--custom.examples.start-->

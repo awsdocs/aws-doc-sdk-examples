@@ -38,8 +38,8 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Assume a role](assume_role_mfa.py#L181) (`AssumeRole`)
-- [Get a session token](session_token.py#L117) (`GetSessionToken`)
+- [AssumeRole](assume_role_mfa.py#L181)
+- [GetSessionToken](session_token.py#L117)
 
 ### Scenarios
 

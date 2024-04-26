@@ -46,20 +46,20 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](create_table.cpp#L27) (`CreateTable`)
-- [Delete a table](delete_table.cpp#L23) (`DeleteTable`)
-- [Delete an item from a table](delete_item.cpp#L22) (`DeleteItem`)
-- [Get a batch of items](batch_get_item.cpp#L30) (`BatchGetItem`)
-- [Get an item from a table](get_item.cpp#L24) (`GetItem`)
-- [Get information about a table](describe_table.cpp#L23) (`DescribeTable`)
-- [List tables](list_tables.cpp#L26) (`ListTables`)
-- [Put an item in a table](put_item.cpp#L25) (`PutItem`)
-- [Query a table](query_items.cpp#L22) (`Query`)
-- [Run a PartiQL statement](dynamodb_partiql_single_scenario.cpp#L47) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](dynamodb_partiql_batch_scenario.cpp#L48) (`BatchExecuteStatement`)
-- [Scan a table](scan_table.cpp#L23) (`Scan`)
-- [Update an item in a table](update_item.cpp#L24) (`UpdateItem`)
-- [Write a batch of items](batch_write_item.cpp#L49) (`BatchWriteItem`)
+- [BatchExecuteStatement](dynamodb_partiql_batch_scenario.cpp#L48)
+- [BatchGetItem](batch_get_item.cpp#L30)
+- [BatchWriteItem](batch_write_item.cpp#L49)
+- [CreateTable](create_table.cpp#L27)
+- [DeleteItem](delete_item.cpp#L22)
+- [DeleteTable](delete_table.cpp#L23)
+- [DescribeTable](describe_table.cpp#L23)
+- [ExecuteStatement](dynamodb_partiql_single_scenario.cpp#L47)
+- [GetItem](get_item.cpp#L24)
+- [ListTables](list_tables.cpp#L26)
+- [PutItem](put_item.cpp#L25)
+- [Query](query_items.cpp#L22)
+- [Scan](scan_table.cpp#L23)
+- [UpdateItem](update_item.cpp#L24)
 
 ### Scenarios
 

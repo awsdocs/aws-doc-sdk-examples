@@ -33,18 +33,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](src/main/kotlin/com/kotlin/s3/CopyObject.kt#L45) (`CopyObject`)
-- [Create a Multi-Region Access Point](src/main/kotlin/com/kotlin/s3/MrapExample.kt#L182) (`CreateMultiRegionAccessPoint`)
-- [Create a bucket](src/main/kotlin/com/kotlin/s3/CreateBucket.kt#L36) (`CreateBucket`)
-- [Delete a policy from a bucket](src/main/kotlin/com/kotlin/s3/DeleteBucketPolicy.kt#L38) (`DeleteBucketPolicy`)
-- [Delete multiple objects](src/main/kotlin/com/kotlin/s3/DeleteObjects.kt#L41) (`DeleteObjects`)
-- [Get an object from a Multi-Region Access Point](src/main/kotlin/com/kotlin/s3/MrapExample.kt#L171) (`GetObject`)
-- [Get an object from a bucket](src/main/kotlin/com/kotlin/s3/GetObjectData.kt#L43) (`GetObject`)
-- [Get the ACL of an object](src/main/kotlin/com/kotlin/s3/GetAcl.kt#L39) (`GetObjectAcl`)
-- [Get the policy for a bucket](src/main/kotlin/com/kotlin/s3/GetBucketPolicy.kt#L39) (`GetBucketPolicy`)
-- [List objects in a bucket](src/main/kotlin/com/kotlin/s3/ListObjects.kt#L37) (`ListObjectsV2`)
-- [Set a new ACL for a bucket](src/main/kotlin/com/kotlin/s3/SetAcl.kt#L45) (`PutBucketAcl`)
-- [Upload an object to a bucket](src/main/kotlin/com/kotlin/s3/PutObject.kt#L43) (`PutObject`)
+- [CopyObject](src/main/kotlin/com/kotlin/s3/CopyObject.kt#L45)
+- [CreateBucket](src/main/kotlin/com/kotlin/s3/CreateBucket.kt#L36)
+- [CreateMultiRegionAccessPoint](src/main/kotlin/com/kotlin/s3/MrapExample.kt#L182)
+- [DeleteBucketPolicy](src/main/kotlin/com/kotlin/s3/DeleteBucketPolicy.kt#L38)
+- [DeleteObjects](src/main/kotlin/com/kotlin/s3/DeleteObjects.kt#L41)
+- [GetBucketPolicy](src/main/kotlin/com/kotlin/s3/GetBucketPolicy.kt#L39)
+- [GetObject](src/main/kotlin/com/kotlin/s3/GetObjectData.kt#L43)
+- [GetObjectAcl](src/main/kotlin/com/kotlin/s3/GetAcl.kt#L39)
+- [ListObjectsV2](src/main/kotlin/com/kotlin/s3/ListObjects.kt#L37)
+- [PutBucketAcl](src/main/kotlin/com/kotlin/s3/SetAcl.kt#L45)
+- [PutObject](src/main/kotlin/com/kotlin/s3/PutObject.kt#L43)
 
 ### Scenarios
 
@@ -52,6 +51,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](src/main/kotlin/com/kotlin/s3/PresigningExamples.kt)
+- [Get an object from a Multi-Region Access Point](src/main/kotlin/com/kotlin/s3/MrapExample.kt)
 - [Get started with buckets and objects](src/main/kotlin/com/kotlin/s3/S3Operations.kt)
 
 
@@ -84,6 +84,18 @@ This example shows you how to create a presigned URL for Amazon S3 and upload an
 
 <!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
 <!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
+
+#### Get an object from a Multi-Region Access Point
+
+This example shows you how to get an object from a Multi-Region Access Point.
+
+
+<!--custom.scenario_prereqs.s3_GetObject_MRAP.start-->
+<!--custom.scenario_prereqs.s3_GetObject_MRAP.end-->
+
+
+<!--custom.scenarios.s3_GetObject_MRAP.start-->
+<!--custom.scenarios.s3_GetObject_MRAP.end-->
 
 #### Get started with buckets and objects
 

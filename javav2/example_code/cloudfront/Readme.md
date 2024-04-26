@@ -33,19 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a distribution](src/main/java/com/example/cloudfront/CreateDistribution.java#L6) (`CreateDistribution`)
-- [Create a function](src/main/java/com/example/cloudfront/CreateFunction.java#L6) (`CreateFunction`)
-- [Create a key group](src/main/java/com/example/cloudfront/CreateKeyGroup.java#L6) (`CreateKeyGroup`)
-- [Delete a distribution](src/main/java/com/example/cloudfront/DeleteDistribution.java#L6) (`DeleteDistribution`)
-- [Delete signing resources](src/main/java/com/example/cloudfront/DeleteSigningResources.java#L6) (`DeleteKeyGroup`)
-- [Update a distribution](src/main/java/com/example/cloudfront/ModifyDistribution.java#L6) (`UpdateDistribution`)
-- [Upload a public key](src/main/java/com/example/cloudfront/CreatePublicKey.java#L6) (`CreatePublicKey`)
+- [CreateDistribution](src/main/java/com/example/cloudfront/CreateDistribution.java#L6)
+- [CreateFunction](src/main/java/com/example/cloudfront/CreateFunction.java#L6)
+- [CreateKeyGroup](src/main/java/com/example/cloudfront/CreateKeyGroup.java#L6)
+- [CreatePublicKey](src/main/java/com/example/cloudfront/CreatePublicKey.java#L6)
+- [DeleteDistribution](src/main/java/com/example/cloudfront/DeleteDistribution.java#L6)
+- [UpdateDistribution](src/main/java/com/example/cloudfront/ModifyDistribution.java#L6)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Delete signing resources](src/main/java/com/example/cloudfront/DeleteSigningResources.java)
 - [Sign URLs and cookies](src/main/java/com/example/cloudfront/CreateCannedPolicyRequest.java)
 
 
@@ -61,6 +61,18 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
+
+#### Delete signing resources
+
+This example shows you how to delete resources that are used to gain access to restricted content in an Amazon Simple Storage Service (Amazon S3) bucket.
+
+
+<!--custom.scenario_prereqs.cloudfront_DeleteSigningResources.start-->
+<!--custom.scenario_prereqs.cloudfront_DeleteSigningResources.end-->
+
+
+<!--custom.scenarios.cloudfront_DeleteSigningResources.start-->
+<!--custom.scenarios.cloudfront_DeleteSigningResources.end-->
 
 #### Sign URLs and cookies
 

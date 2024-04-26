@@ -38,15 +38,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L28) (`CreateQueue`)
-- [Delete a batch of messages from a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L154) (`DeleteMessageBatch`)
-- [Delete a message from a queue](ReceiveDeleteExample/ReceiveDeleteExample/ReceiveDeleteExample.cs#L17) (`DeleteMessage`)
-- [Delete a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L182) (`DeleteQueue`)
-- [Get attributes for a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L74) (`GetQueueAttributes`)
-- [Get the URL of a queue](GetQueueUrlExample/GetQueueUrlExample/GetQueueUrl.cs#L10) (`GetQueueUrl`)
-- [Receive messages from a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L132) (`ReceiveMessage`)
-- [Send a message to a queue](CreateSendExample/CreateSendExample/CreateSendExample.cs#L8) (`SendMessage`)
-- [Set queue attributes](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L95) (`SetQueueAttributes`)
+- [CreateQueue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L28)
+- [DeleteMessage](ReceiveDeleteExample/ReceiveDeleteExample/ReceiveDeleteExample.cs#L17)
+- [DeleteMessageBatch](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L154)
+- [DeleteQueue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L182)
+- [GetQueueAttributes](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L74)
+- [GetQueueUrl](GetQueueUrlExample/GetQueueUrlExample/GetQueueUrl.cs#L10)
+- [ReceiveMessage](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L132)
+- [SendMessage](CreateSendExample/CreateSendExample/CreateSendExample.cs#L8)
+- [SetQueueAttributes](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L95)
 
 ### Scenarios
 

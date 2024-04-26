@@ -38,9 +38,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](src/main/java/com/example/lambda/CreateFunction.java#L6) (`CreateFunction`)
-- [Delete a function](src/main/java/com/example/lambda/DeleteFunction.java#L7) (`DeleteFunction`)
-- [Invoke a function](src/main/java/com/example/lambda/LambdaInvoke.java#L7) (`Invoke`)
+- [CreateFunction](src/main/java/com/example/lambda/CreateFunction.java#L6)
+- [DeleteFunction](src/main/java/com/example/lambda/DeleteFunction.java#L7)
+- [Invoke](src/main/java/com/example/lambda/LambdaInvoke.java#L7)
 
 ### Scenarios
 

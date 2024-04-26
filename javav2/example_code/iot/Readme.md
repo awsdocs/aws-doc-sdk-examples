@@ -38,18 +38,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a certificate](src/main/java/com/example/iot/IotScenario.java#L481) (`AttachThingPrincipal`)
-- [Create a certificate](src/main/java/com/example/iot/IotScenario.java#L458) (`CreateKeysAndCertificate`)
-- [Create a rule](src/main/java/com/example/iot/IotScenario.java#L289) (`CreateTopicRule`)
-- [Create a thing](src/main/java/com/example/iot/IotScenario.java#L541) (`CreateThing`)
-- [Delete a certificate](src/main/java/com/example/iot/IotScenario.java#L439) (`DeleteCertificate`)
-- [Delete a thing](src/main/java/com/example/iot/IotScenario.java#L524) (`DeleteThing`)
-- [Describe a thing](src/main/java/com/example/iot/IotScenario.java#L504) (`DescribeThing`)
-- [Detach a certificate](src/main/java/com/example/iot/IotScenario.java#L421) (`DetachThingPrincipal`)
-- [Get endpoint information](src/main/java/com/example/iot/IotScenario.java#L400) (`DescribeEndpoint`)
-- [List your certificates](src/main/java/com/example/iot/IotScenario.java#L258) (`ListCertificates`)
-- [Query the search index](src/main/java/com/example/iot/IotScenario.java#L577) (`SearchIndex`)
-- [Update a thing](src/main/java/com/example/iot/IotScenario.java#L369) (`UpdateThing`)
+- [AttachThingPrincipal](src/main/java/com/example/iot/IotScenario.java#L481)
+- [CreateKeysAndCertificate](src/main/java/com/example/iot/IotScenario.java#L458)
+- [CreateThing](src/main/java/com/example/iot/IotScenario.java#L541)
+- [CreateTopicRule](src/main/java/com/example/iot/IotScenario.java#L289)
+- [DeleteCertificate](src/main/java/com/example/iot/IotScenario.java#L439)
+- [DeleteThing](src/main/java/com/example/iot/IotScenario.java#L524)
+- [DescribeEndpoint](src/main/java/com/example/iot/IotScenario.java#L400)
+- [DescribeThing](src/main/java/com/example/iot/IotScenario.java#L504)
+- [DetachThingPrincipal](src/main/java/com/example/iot/IotScenario.java#L421)
+- [ListCertificates](src/main/java/com/example/iot/IotScenario.java#L258)
+- [SearchIndex](src/main/java/com/example/iot/IotScenario.java#L577)
+- [UpdateThing](src/main/java/com/example/iot/IotScenario.java#L369)
 
 ### Scenarios
 

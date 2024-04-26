@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a domain](src/main/java/com/example/search/CreateDomain.java#L6) (`CreateDomain`)
-- [Delete a domain](src/main/java/com/example/search/DeleteDomain.java#L6) (`DeleteDomain`)
-- [List domains](src/main/java/com/example/search/ListDomainNames.java#L6) (`ListDomainNames`)
-- [Modify a cluster configuration](src/main/java/com/example/search/UpdateDomain.java#L6) (`UpdateDomainConfig`)
+- [CreateDomain](src/main/java/com/example/search/CreateDomain.java#L6)
+- [DeleteDomain](src/main/java/com/example/search/DeleteDomain.java#L6)
+- [ListDomainNames](src/main/java/com/example/search/ListDomainNames.java#L6)
+- [UpdateDomainConfig](src/main/java/com/example/search/UpdateDomain.java#L6)
 
 
 <!--custom.examples.start-->

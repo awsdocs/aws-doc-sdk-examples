@@ -41,7 +41,7 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Assume a role](assume_role.cpp#L37) (`AssumeRole`)
+- [AssumeRole](assume_role.cpp#L37)
 
 
 <!--custom.examples.start-->

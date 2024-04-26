@@ -38,15 +38,15 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a queue](queue_wrapper.py#L23) (`CreateQueue`)
-- [Delete a batch of messages from a queue](message_wrapper.py#L153) (`DeleteMessageBatch`)
-- [Delete a message from a queue](message_wrapper.py#L132) (`DeleteMessage`)
-- [Delete a queue](queue_wrapper.py#L95) (`DeleteQueue`)
-- [Get the URL of a queue](queue_wrapper.py#L50) (`GetQueueUrl`)
-- [List queues](queue_wrapper.py#L71) (`ListQueues`)
-- [Receive messages from a queue](message_wrapper.py#L100) (`ReceiveMessage`)
-- [Send a batch of messages to a queue](message_wrapper.py#L52) (`SendMessageBatch`)
-- [Send a message to a queue](message_wrapper.py#L24) (`SendMessage`)
+- [CreateQueue](queue_wrapper.py#L23)
+- [DeleteMessage](message_wrapper.py#L132)
+- [DeleteMessageBatch](message_wrapper.py#L153)
+- [DeleteQueue](queue_wrapper.py#L95)
+- [GetQueueUrl](queue_wrapper.py#L50)
+- [ListQueues](queue_wrapper.py#L71)
+- [ReceiveMessage](message_wrapper.py#L100)
+- [SendMessage](message_wrapper.py#L24)
+- [SendMessageBatch](message_wrapper.py#L52)
 
 ### Scenarios
 

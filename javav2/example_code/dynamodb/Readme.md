@@ -38,18 +38,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](src/main/java/com/example/dynamodb/CreateTable.java#L6) (`CreateTable`)
-- [Delete a table](src/main/java/com/example/dynamodb/DeleteTable.java#L6) (`DeleteTable`)
-- [Delete an item from a table](src/main/java/com/example/dynamodb/DeleteItem.java#L6) (`DeleteItem`)
-- [Get a batch of items](src/main/java/com/example/dynamodb/BatchReadItems.java#L6) (`BatchGetItem`)
-- [Get an item from a table](src/main/java/com/example/dynamodb/GetItem.java#L6) (`GetItem`)
-- [Get information about a table](src/main/java/com/example/dynamodb/DescribeTable.java#L6) (`DescribeTable`)
-- [List tables](src/main/java/com/example/dynamodb/ListTables.java#L6) (`ListTables`)
-- [Put an item in a table](src/main/java/com/example/dynamodb/PutItem.java#L6) (`PutItem`)
-- [Query a table](src/main/java/com/example/dynamodb/Query.java#L6) (`Query`)
-- [Scan a table](src/main/java/com/example/dynamodb/DynamoDBScanItems.java#L6) (`Scan`)
-- [Update an item in a table](src/main/java/com/example/dynamodb/UpdateItem.java#L6) (`UpdateItem`)
-- [Write a batch of items](src/main/java/com/example/dynamodb/BatchWriteItems.java#L6) (`BatchWriteItem`)
+- [BatchGetItem](src/main/java/com/example/dynamodb/BatchReadItems.java#L6)
+- [BatchWriteItem](src/main/java/com/example/dynamodb/BatchWriteItems.java#L6)
+- [CreateTable](src/main/java/com/example/dynamodb/CreateTable.java#L6)
+- [DeleteItem](src/main/java/com/example/dynamodb/DeleteItem.java#L6)
+- [DeleteTable](src/main/java/com/example/dynamodb/DeleteTable.java#L6)
+- [DescribeTable](src/main/java/com/example/dynamodb/DescribeTable.java#L6)
+- [GetItem](src/main/java/com/example/dynamodb/GetItem.java#L6)
+- [ListTables](src/main/java/com/example/dynamodb/ListTables.java#L6)
+- [PutItem](src/main/java/com/example/dynamodb/PutItem.java#L6)
+- [Query](src/main/java/com/example/dynamodb/Query.java#L6)
+- [Scan](src/main/java/com/example/dynamodb/DynamoDBScanItems.java#L6)
+- [UpdateItem](src/main/java/com/example/dynamodb/UpdateItem.java#L6)
 
 ### Scenarios
 

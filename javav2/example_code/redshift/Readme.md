@@ -38,15 +38,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a cluster](src/main/java/com/example/scenario/RedshiftScenario.java#L498) (`CreateCluster`)
-- [Create a table](src/main/java/com/example/scenario/RedshiftScenario.java#L475) (`CreateTable`)
-- [Delete a cluster](src/main/java/com/example/scenario/RedshiftScenario.java#L247) (`DeleteCluster`)
-- [Describe a query statement](src/main/java/com/example/scenario/RedshiftScenario.java#L324) (`DescribeStatement`)
-- [Describe clusters](src/main/java/com/example/scenario/RedshiftScenario.java#L430) (`DescribeClusters`)
-- [Get the statement result](src/main/java/com/example/scenario/RedshiftScenario.java#L408) (`GetStatementResult`)
-- [Insert data into a table](src/main/java/com/example/scenario/RedshiftScenario.java#L265) (`Insert`)
-- [Modify a cluster](src/main/java/com/example/scenario/RedshiftScenario.java#L356) (`ModifyCluster`)
-- [Query a table](src/main/java/com/example/scenario/RedshiftScenario.java#L375) (`Query`)
+- [CreateCluster](src/main/java/com/example/scenario/RedshiftScenario.java#L498)
+- [CreateTable](src/main/java/com/example/scenario/RedshiftScenario.java#L475)
+- [DeleteCluster](src/main/java/com/example/scenario/RedshiftScenario.java#L247)
+- [DescribeClusters](src/main/java/com/example/scenario/RedshiftScenario.java#L430)
+- [DescribeStatement](src/main/java/com/example/scenario/RedshiftScenario.java#L324)
+- [GetStatementResult](src/main/java/com/example/scenario/RedshiftScenario.java#L408)
+- [Insert](src/main/java/com/example/scenario/RedshiftScenario.java#L265)
+- [ModifyCluster](src/main/java/com/example/scenario/RedshiftScenario.java#L356)
+- [Query](src/main/java/com/example/scenario/RedshiftScenario.java#L375)
 
 ### Scenarios
 

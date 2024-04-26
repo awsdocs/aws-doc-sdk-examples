@@ -38,18 +38,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a certificate](src/main/kotlin/com/example/iot/IotScenario.kt#L456) (`AttachThingPrincipal`)
-- [Create a certificate](../../../javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java#L458) (`CreateKeysAndCertificate`)
-- [Create a rule](src/main/kotlin/com/example/iot/IotScenario.kt#L322) (`CreateTopicRule`)
-- [Create a thing](src/main/kotlin/com/example/iot/IotScenario.kt#L503) (`CreateThing`)
-- [Delete a certificate](src/main/kotlin/com/example/iot/IotScenario.kt#L254) (`DeleteCertificate`)
-- [Delete a thing](src/main/kotlin/com/example/iot/IotScenario.kt#L241) (`DeleteThing`)
-- [Describe a thing](src/main/kotlin/com/example/iot/IotScenario.kt#L470) (`DescribeThing`)
-- [Detach a certificate](src/main/kotlin/com/example/iot/IotScenario.kt#L273) (`DetachThingPrincipal`)
-- [Get endpoint information](src/main/kotlin/com/example/iot/IotScenario.kt#L379) (`DescribeEndpoint`)
-- [List your certificates](src/main/kotlin/com/example/iot/IotScenario.kt#L366) (`ListCertificates`)
-- [Query the search index](src/main/kotlin/com/example/iot/IotScenario.kt#L287) (`SearchIndex`)
-- [Update a thing](src/main/kotlin/com/example/iot/IotScenario.kt#L412) (`UpdateThing`)
+- [AttachThingPrincipal](src/main/kotlin/com/example/iot/IotScenario.kt#L456)
+- [CreateKeysAndCertificate](../../../javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java#L458)
+- [CreateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L503)
+- [CreateTopicRule](src/main/kotlin/com/example/iot/IotScenario.kt#L322)
+- [DeleteCertificate](src/main/kotlin/com/example/iot/IotScenario.kt#L254)
+- [DeleteThing](src/main/kotlin/com/example/iot/IotScenario.kt#L241)
+- [DescribeEndpoint](src/main/kotlin/com/example/iot/IotScenario.kt#L379)
+- [DescribeThing](src/main/kotlin/com/example/iot/IotScenario.kt#L470)
+- [DetachThingPrincipal](src/main/kotlin/com/example/iot/IotScenario.kt#L273)
+- [ListCertificates](src/main/kotlin/com/example/iot/IotScenario.kt#L366)
+- [SearchIndex](src/main/kotlin/com/example/iot/IotScenario.kt#L287)
+- [UpdateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L412)
 
 ### Scenarios
 

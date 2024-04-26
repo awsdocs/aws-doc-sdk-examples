@@ -43,13 +43,13 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a cluster](redshift.py#L39) (`CreateCluster`)
-- [Create a table](redshift_scenario.py#L201) (`CreateTable`)
-- [Delete a cluster](redshift.py#L81) (`DeleteCluster`)
-- [Describe a query statement](redshift_data.py#L94) (`DescribeStatement`)
-- [Describe clusters](redshift.py#L125) (`DescribeClusters`)
-- [Get the statement result](redshift_data.py#L115) (`GetStatementResult`)
-- [Modify a cluster](redshift.py#L102) (`ModifyCluster`)
+- [CreateCluster](redshift.py#L39)
+- [CreateTable](redshift_scenario.py#L201)
+- [DeleteCluster](redshift.py#L81)
+- [DescribeClusters](redshift.py#L125)
+- [DescribeStatement](redshift_data.py#L94)
+- [GetStatementResult](redshift_data.py#L115)
+- [ModifyCluster](redshift.py#L102)
 
 ### Scenarios
 

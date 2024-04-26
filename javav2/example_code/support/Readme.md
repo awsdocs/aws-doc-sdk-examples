@@ -38,15 +38,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a communication to a case](src/main/java/com/example/support/SupportScenario.java#L254) (`AddCommunicationToCase`)
-- [Add an attachment to a set](src/main/java/com/example/support/SupportScenario.java#L276) (`AddAttachmentsToSet`)
-- [Create a case](src/main/java/com/example/support/SupportScenario.java#L332) (`CreateCase`)
-- [Describe an attachment](src/main/java/com/example/support/SupportScenario.java#L207) (`DescribeAttachment`)
-- [Describe cases](src/main/java/com/example/support/SupportScenario.java#L303) (`DescribeCases`)
-- [Describe communications](src/main/java/com/example/support/SupportScenario.java#L224) (`DescribeCommunications`)
-- [Describe services](src/main/java/com/example/support/SupportScenario.java#L383) (`DescribeServices`)
-- [Describe severity levels](src/main/java/com/example/support/SupportScenario.java#L358) (`DescribeSeverityLevels`)
-- [Resolve case](src/main/java/com/example/support/SupportScenario.java#L190) (`ResolveCase`)
+- [AddAttachmentsToSet](src/main/java/com/example/support/SupportScenario.java#L276)
+- [AddCommunicationToCase](src/main/java/com/example/support/SupportScenario.java#L254)
+- [CreateCase](src/main/java/com/example/support/SupportScenario.java#L332)
+- [DescribeAttachment](src/main/java/com/example/support/SupportScenario.java#L207)
+- [DescribeCases](src/main/java/com/example/support/SupportScenario.java#L303)
+- [DescribeCommunications](src/main/java/com/example/support/SupportScenario.java#L224)
+- [DescribeServices](src/main/java/com/example/support/SupportScenario.java#L383)
+- [DescribeSeverityLevels](src/main/java/com/example/support/SupportScenario.java#L358)
+- [ResolveCase](src/main/java/com/example/support/SupportScenario.java#L190)
 
 ### Scenarios
 

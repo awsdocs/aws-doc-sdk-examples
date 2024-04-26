@@ -38,20 +38,20 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](GettingStarted/scenario_getting_started_movies.py#L80) (`CreateTable`)
-- [Delete a table](GettingStarted/scenario_getting_started_movies.py#L343) (`DeleteTable`)
-- [Delete an item from a table](GettingStarted/scenario_getting_started_movies.py#L322) (`DeleteItem`)
-- [Get a batch of items](batching/dynamo_batching.py#L64) (`BatchGetItem`)
-- [Get an item from a table](GettingStarted/scenario_getting_started_movies.py#L203) (`GetItem`)
-- [Get information about a table](GettingStarted/scenario_getting_started_movies.py#L50) (`DescribeTable`)
-- [List tables](GettingStarted/scenario_getting_started_movies.py#L120) (`ListTables`)
-- [Put an item in a table](GettingStarted/scenario_getting_started_movies.py#L173) (`PutItem`)
-- [Query a table](GettingStarted/scenario_getting_started_movies.py#L260) (`Query`)
-- [Run a PartiQL statement](partiql/scenario_partiql_single.py#L43) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](partiql/scenario_partiql_batch.py#L44) (`BatchExecuteStatement`)
-- [Scan a table](GettingStarted/scenario_getting_started_movies.py#L283) (`Scan`)
-- [Update an item in a table](GettingStarted/scenario_getting_started_movies.py#L228) (`UpdateItem`)
-- [Write a batch of items](GettingStarted/scenario_getting_started_movies.py#L144) (`BatchWriteItem`)
+- [BatchExecuteStatement](partiql/scenario_partiql_batch.py#L44)
+- [BatchGetItem](batching/dynamo_batching.py#L64)
+- [BatchWriteItem](GettingStarted/scenario_getting_started_movies.py#L144)
+- [CreateTable](GettingStarted/scenario_getting_started_movies.py#L80)
+- [DeleteItem](GettingStarted/scenario_getting_started_movies.py#L322)
+- [DeleteTable](GettingStarted/scenario_getting_started_movies.py#L343)
+- [DescribeTable](GettingStarted/scenario_getting_started_movies.py#L50)
+- [ExecuteStatement](partiql/scenario_partiql_single.py#L43)
+- [GetItem](GettingStarted/scenario_getting_started_movies.py#L203)
+- [ListTables](GettingStarted/scenario_getting_started_movies.py#L120)
+- [PutItem](GettingStarted/scenario_getting_started_movies.py#L173)
+- [Query](GettingStarted/scenario_getting_started_movies.py#L260)
+- [Scan](GettingStarted/scenario_getting_started_movies.py#L283)
+- [UpdateItem](GettingStarted/scenario_getting_started_movies.py#L228)
 
 ### Scenarios
 

@@ -38,13 +38,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](Actions/LambdaWrapper.cs#L26) (`CreateFunction`)
-- [Delete a function](Actions/LambdaWrapper.cs#L72) (`DeleteFunction`)
-- [Get a function](Actions/LambdaWrapper.cs#L96) (`GetFunction`)
-- [Invoke a function](Actions/LambdaWrapper.cs#L116) (`Invoke`)
-- [List functions](Actions/LambdaWrapper.cs#L143) (`ListFunctions`)
-- [Update function code](Actions/LambdaWrapper.cs#L164) (`UpdateFunctionCode`)
-- [Update function configuration](Actions/LambdaWrapper.cs#L192) (`UpdateFunctionConfiguration`)
+- [CreateFunction](Actions/LambdaWrapper.cs#L26)
+- [DeleteFunction](Actions/LambdaWrapper.cs#L72)
+- [GetFunction](Actions/LambdaWrapper.cs#L96)
+- [Invoke](Actions/LambdaWrapper.cs#L116)
+- [ListFunctions](Actions/LambdaWrapper.cs#L143)
+- [UpdateFunctionCode](Actions/LambdaWrapper.cs#L164)
+- [UpdateFunctionConfiguration](Actions/LambdaWrapper.cs#L192)
 
 ### Scenarios
 

@@ -38,21 +38,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB instance](src/main/java/com/example/rds/CreateDBInstance.java#L6) (`CreateDBInstance`)
-- [Create a DB parameter group](src/main/java/com/example/rds/RDSScenario.java#L554) (`CreateDBParameterGroup`)
-- [Create a snapshot of a DB instance](src/main/java/com/example/rds/RDSScenario.java#L328) (`CreateDBSnapshot`)
-- [Create an authentication token](src/main/java/com/example/rds/GenerateRDSAuthToken.java#L15) (`GenerateRDSAuthToken`)
-- [Delete a DB instance](src/main/java/com/example/rds/DeleteDBInstance.java#L6) (`DeleteDBInstance`)
-- [Delete a DB parameter group](src/main/java/com/example/rds/RDSScenario.java#L224) (`DeleteDBParameterGroup`)
-- [Describe DB instances](src/main/java/com/example/rds/DescribeDBInstances.java#L6) (`DescribeDBInstances`)
-- [Describe DB parameter groups](src/main/java/com/example/rds/RDSScenario.java#L532) (`DescribeDBParameterGroups`)
-- [Describe database engine versions](src/main/java/com/example/rds/RDSScenario.java#L573) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](src/main/java/com/example/rds/RDSScenario.java#L442) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters in a DB parameter group](src/main/java/com/example/rds/RDSScenario.java#L492) (`DescribeDBParameters`)
-- [Modify a DB instance](src/main/java/com/example/rds/ModifyDBInstance.java#L6) (`ModifyDBInstance`)
-- [Reboot a DB instance](src/main/java/com/example/rds/RebootDBInstance.java#L6) (`RebootDBInstance`)
-- [Retrieve attributes](src/main/java/com/example/rds/DescribeAccountAttributes.java#L6) (`DescribeAccountAttributes`)
-- [Update parameters in a DB parameter group](src/main/java/com/example/rds/RDSScenario.java#L465) (`ModifyDBParameterGroup`)
+- [CreateDBInstance](src/main/java/com/example/rds/CreateDBInstance.java#L6)
+- [CreateDBParameterGroup](src/main/java/com/example/rds/RDSScenario.java#L554)
+- [CreateDBSnapshot](src/main/java/com/example/rds/RDSScenario.java#L328)
+- [DeleteDBInstance](src/main/java/com/example/rds/DeleteDBInstance.java#L6)
+- [DeleteDBParameterGroup](src/main/java/com/example/rds/RDSScenario.java#L224)
+- [DescribeAccountAttributes](src/main/java/com/example/rds/DescribeAccountAttributes.java#L6)
+- [DescribeDBEngineVersions](src/main/java/com/example/rds/RDSScenario.java#L573)
+- [DescribeDBInstances](src/main/java/com/example/rds/DescribeDBInstances.java#L6)
+- [DescribeDBParameterGroups](src/main/java/com/example/rds/RDSScenario.java#L532)
+- [DescribeDBParameters](src/main/java/com/example/rds/RDSScenario.java#L492)
+- [DescribeOrderableDBInstanceOptions](src/main/java/com/example/rds/RDSScenario.java#L442)
+- [GenerateRDSAuthToken](src/main/java/com/example/rds/GenerateRDSAuthToken.java#L15)
+- [ModifyDBInstance](src/main/java/com/example/rds/ModifyDBInstance.java#L6)
+- [ModifyDBParameterGroup](src/main/java/com/example/rds/RDSScenario.java#L465)
+- [RebootDBInstance](src/main/java/com/example/rds/RebootDBInstance.java#L6)
 
 ### Scenarios
 

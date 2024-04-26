@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a key](create_key.rb#L10) (`CreateKey`)
-- [Decrypt ciphertext](decrypt_data.rb#L10) (`Decrypt`)
-- [Encrypt text using a key](encrypt_data.rb#L8) (`Encrypt`)
-- [Recencrypt ciphertext from one key to another](re_encrypt_data.rb#L9) (`ReEncrypt`)
+- [CreateKey](create_key.rb#L10)
+- [Decrypt](decrypt_data.rb#L10)
+- [Encrypt](encrypt_data.rb#L8)
+- [ReEncrypt](re_encrypt_data.rb#L9)
 
 
 <!--custom.examples.start-->

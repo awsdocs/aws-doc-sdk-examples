@@ -33,20 +33,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Complete a multipart upload](src/bin/s3-multipart-upload.rs#L136) (`CompleteMultipartUpload`)
-- [Copy an object from one bucket to another](src/s3-service-lib.rs#L99) (`CopyObject`)
-- [Create a bucket](src/s3-service-lib.rs#L156) (`CreateBucket`)
-- [Create a multipart upload](src/bin/s3-multipart-upload.rs#L48) (`CreateMultipartUpload`)
-- [Delete an empty bucket](src/s3-service-lib.rs#L23) (`DeleteBucket`)
-- [Delete an object](src/bin/delete-object.rs#L30) (`DeleteObject`)
-- [Delete multiple objects](src/s3-service-lib.rs#L31) (`DeleteObjects`)
-- [Get an object from a bucket](src/bin/get-object.rs#L20) (`GetObject`)
-- [Get the Region location for a bucket](src/bin/list-buckets.rs#L26) (`GetBucketLocation`)
-- [List buckets](src/bin/list-buckets.rs#L26) (`ListBuckets`)
-- [List object versions in a bucket](src/bin/list-object-versions.rs#L26) (`ListObjectVersions`)
-- [List objects in a bucket](src/s3-service-lib.rs#L73) (`ListObjectsV2`)
-- [Upload a single part of a multipart upload](src/bin/s3-multipart-upload.rs#L112) (`UploadPart`)
-- [Upload an object to a bucket](src/s3-service-lib.rs#L137) (`PutObject`)
+- [CompleteMultipartUpload](src/bin/s3-multipart-upload.rs#L136)
+- [CopyObject](src/s3-service-lib.rs#L99)
+- [CreateBucket](src/s3-service-lib.rs#L156)
+- [CreateMultipartUpload](src/bin/s3-multipart-upload.rs#L48)
+- [DeleteBucket](src/s3-service-lib.rs#L23)
+- [DeleteObject](src/bin/delete-object.rs#L30)
+- [DeleteObjects](src/s3-service-lib.rs#L31)
+- [GetBucketLocation](src/bin/list-buckets.rs#L26)
+- [GetObject](src/bin/get-object.rs#L20)
+- [ListBuckets](src/bin/list-buckets.rs#L26)
+- [ListObjectVersions](src/bin/list-object-versions.rs#L26)
+- [ListObjectsV2](src/s3-service-lib.rs#L73)
+- [PutObject](src/s3-service-lib.rs#L137)
+- [UploadPart](src/bin/s3-multipart-upload.rs#L112)
 
 ### Scenarios
 

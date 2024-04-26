@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a snapshot](src/bin/create-snapshot.rs#L32) (`StartSnapshot`)
-- [Seal and complete a snapshot](src/bin/create-snapshot.rs#L71) (`CompleteSnapshot`)
-- [Write a block of data to a snapshot](src/bin/create-snapshot.rs#L47) (`PutSnapshotBlock`)
+- [CompleteSnapshot](src/bin/create-snapshot.rs#L71)
+- [PutSnapshotBlock](src/bin/create-snapshot.rs#L47)
+- [StartSnapshot](src/bin/create-snapshot.rs#L32)
 
 
 <!--custom.examples.start-->

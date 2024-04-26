@@ -38,16 +38,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L611) (`CreateKeyspace`)
-- [Create a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L505) (`CreateTable`)
-- [Delete a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L230) (`DeleteKeyspace`)
-- [Delete a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L271) (`DeleteTable`)
-- [Get data about a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L593) (`GetKeyspace`)
-- [Get data about a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L469) (`GetTable`)
-- [List keyspaces](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L574) (`ListKeyspaces`)
-- [List tables in a keyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L449) (`ListTables`)
-- [Restore a table to a point in time](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L322) (`RestoreTable`)
-- [Update a table](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L369) (`UpdateTable`)
+- [CreateKeyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L611)
+- [CreateTable](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L505)
+- [DeleteKeyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L230)
+- [DeleteTable](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L271)
+- [GetKeyspace](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L593)
+- [GetTable](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L469)
+- [ListKeyspaces](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L574)
+- [ListTables](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L449)
+- [RestoreTable](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L322)
+- [UpdateTable](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L369)
 
 ### Scenarios
 

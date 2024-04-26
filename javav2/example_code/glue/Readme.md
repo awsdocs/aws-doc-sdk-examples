@@ -38,11 +38,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](src/main/java/com/example/glue/CreateCrawler.java#L6) (`CreateCrawler`)
-- [Get a crawler](src/main/java/com/example/glue/GetCrawler.java#L6) (`GetCrawler`)
-- [Get a database from the Data Catalog](src/main/java/com/example/glue/GetDatabase.java#L6) (`GetDatabase`)
-- [Get tables from a database](src/main/java/com/example/glue/GetTable.java#L6) (`GetTables`)
-- [Start a crawler](src/main/java/com/example/glue/StartCrawler.java#L6) (`StartCrawler`)
+- [CreateCrawler](src/main/java/com/example/glue/CreateCrawler.java#L6)
+- [GetCrawler](src/main/java/com/example/glue/GetCrawler.java#L6)
+- [GetDatabase](src/main/java/com/example/glue/GetDatabase.java#L6)
+- [GetTables](src/main/java/com/example/glue/GetTable.java#L6)
+- [StartCrawler](src/main/java/com/example/glue/StartCrawler.java#L6)
 
 ### Scenarios
 

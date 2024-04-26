@@ -38,13 +38,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](actions/create-function.js#L15) (`CreateFunction`)
-- [Delete a function](actions/delete-function.js#L5) (`DeleteFunction`)
-- [Get a function](actions/get-function.js#L5) (`GetFunction`)
-- [Invoke a function](actions/invoke.js#L5) (`Invoke`)
-- [List functions](actions/list-functions.js#L5) (`ListFunctions`)
-- [Update function code](actions/update-function-code.js#L15) (`UpdateFunctionCode`)
-- [Update function configuration](actions/update-function-configuration.js#L12) (`UpdateFunctionConfiguration`)
+- [CreateFunction](actions/create-function.js#L15)
+- [DeleteFunction](actions/delete-function.js#L5)
+- [GetFunction](actions/get-function.js#L5)
+- [Invoke](actions/invoke.js#L5)
+- [ListFunctions](actions/list-functions.js#L5)
+- [UpdateFunctionCode](actions/update-function-code.js#L15)
+- [UpdateFunctionConfiguration](actions/update-function-configuration.js#L12)
 
 ### Scenarios
 

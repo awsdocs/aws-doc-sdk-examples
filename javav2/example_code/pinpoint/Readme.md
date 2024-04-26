@@ -33,19 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a campaign](src/main/java/com/example/pinpoint/CreateCampaign.java#L6) (`CreateCampaign`)
-- [Create a segment](src/main/java/com/example/pinpoint/CreateSegment.java#L6) (`CreateSegment`)
-- [Create an application](src/main/java/com/example/pinpoint/CreateApp.java#L6) (`CreateApp`)
-- [Delete an application](src/main/java/com/example/pinpoint/DeleteApp.java#L6) (`DeleteApp`)
-- [Delete an endpoint](src/main/java/com/example/pinpoint/DeleteEndpoint.java#L6) (`DeleteEndpoint`)
-- [Export an endpoint](src/main/java/com/example/pinpoint/ExportEndpoints.java#L6) (`CreateExportJob`)
-- [Get endpoints](src/main/java/com/example/pinpoint/LookUpEndpoint.java#L6) (`GetEndpoint`)
-- [Import a segment](src/main/java/com/example/pinpoint/ImportSegment.java#L6) (`CreateImportJob`)
-- [List endpoints](src/main/java/com/example/pinpoint/ListEndpointIds.java#L6) (`GetUserEndpoints`)
-- [List segments](src/main/java/com/example/pinpoint/ListSegments.java#L6) (`GetSegments`)
-- [Send email and text messages](src/main/java/com/example/pinpoint/SendEmailMessage.java#L6) (`SendMessages`)
-- [Update an endpoint](src/main/java/com/example/pinpoint/UpdateEndpoint.java#L6) (`UpdateEndpoint`)
-- [Update channels](src/main/java/com/example/pinpoint/UpdateChannel.java#L6) (`GetSmsChannel`)
+- [CreateApp](src/main/java/com/example/pinpoint/CreateApp.java#L6)
+- [CreateCampaign](src/main/java/com/example/pinpoint/CreateCampaign.java#L6)
+- [CreateExportJob](src/main/java/com/example/pinpoint/ExportEndpoints.java#L6)
+- [CreateImportJob](src/main/java/com/example/pinpoint/ImportSegment.java#L6)
+- [CreateSegment](src/main/java/com/example/pinpoint/CreateSegment.java#L6)
+- [DeleteApp](src/main/java/com/example/pinpoint/DeleteApp.java#L6)
+- [DeleteEndpoint](src/main/java/com/example/pinpoint/DeleteEndpoint.java#L6)
+- [GetEndpoint](src/main/java/com/example/pinpoint/LookUpEndpoint.java#L6)
+- [GetSegments](src/main/java/com/example/pinpoint/ListSegments.java#L6)
+- [GetSmsChannel](src/main/java/com/example/pinpoint/UpdateChannel.java#L6)
+- [GetUserEndpoints](src/main/java/com/example/pinpoint/ListEndpointIds.java#L6)
+- [SendMessages](src/main/java/com/example/pinpoint/SendEmailMessage.java#L6)
+- [UpdateEndpoint](src/main/java/com/example/pinpoint/UpdateEndpoint.java#L6)
 
 
 <!--custom.examples.start-->

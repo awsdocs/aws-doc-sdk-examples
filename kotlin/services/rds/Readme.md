@@ -33,11 +33,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB instance](src/main/kotlin/com/kotlin/rds/CreateDBInstance.kt#L55) (`CreateDBInstance`)
-- [Delete a DB instance](src/main/kotlin/com/kotlin/rds/DeleteDBInstance.kt#L38) (`DeleteDBInstance`)
-- [Describe DB instances](src/main/kotlin/com/kotlin/rds/DescribeDBInstances.kt#L22) (`DescribeDBInstances`)
-- [Modify a DB instance](src/main/kotlin/com/kotlin/rds/ModifyDBInstance.kt#L40) (`ModifyDBInstance`)
-- [Retrieve attributes](src/main/kotlin/com/kotlin/rds/DescribeAccountAttributes.kt#L22) (`DescribeAccountAttributes`)
+- [CreateDBInstance](src/main/kotlin/com/kotlin/rds/CreateDBInstance.kt#L55)
+- [DeleteDBInstance](src/main/kotlin/com/kotlin/rds/DeleteDBInstance.kt#L38)
+- [DescribeAccountAttributes](src/main/kotlin/com/kotlin/rds/DescribeAccountAttributes.kt#L22)
+- [DescribeDBInstances](src/main/kotlin/com/kotlin/rds/DescribeDBInstances.kt#L22)
+- [ModifyDBInstance](src/main/kotlin/com/kotlin/rds/ModifyDBInstance.kt#L40)
 
 ### Scenarios
 

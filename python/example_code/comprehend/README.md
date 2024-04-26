@@ -38,22 +38,22 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a document classifier](comprehend_classifier.py#L43) (`CreateDocumentClassifier`)
-- [Delete a document classifier](comprehend_classifier.py#L134) (`DeleteDocumentClassifier`)
-- [Describe a document classification job](comprehend_classifier.py#L206) (`DescribeDocumentClassificationJob`)
-- [Describe a document classifier](comprehend_classifier.py#L89) (`DescribeDocumentClassifier`)
-- [Describe a topic modeling job](comprehend_topic_modeler.py#L87) (`DescribeTopicsDetectionJob`)
-- [Detect entities in a document](comprehend_detect.py#L53) (`DetectEntities`)
-- [Detect key phrases in a document](comprehend_detect.py#L77) (`DetectKeyPhrases`)
-- [Detect personally identifiable information in a document](comprehend_detect.py#L101) (`DetectPiiEntities`)
-- [Detect syntactical elements of a document](comprehend_detect.py#L148) (`DetectSyntax`)
-- [Detect the dominant language in a document](comprehend_detect.py#L33) (`DetectDominantLanguage`)
-- [Detect the sentiment of a document](comprehend_detect.py#L125) (`DetectSentiment`)
-- [List document classification jobs](comprehend_classifier.py#L228) (`ListDocumentClassificationJobs`)
-- [List document classifiers](comprehend_classifier.py#L113) (`ListDocumentClassifiers`)
-- [List topic modeling jobs](comprehend_topic_modeler.py#L109) (`ListTopicsDetectionJobs`)
-- [Start a document classification job](comprehend_classifier.py#L151) (`StartDocumentClassificationJob`)
-- [Start a topic modeling job](comprehend_topic_modeler.py#L36) (`StartTopicsDetectionJob`)
+- [CreateDocumentClassifier](comprehend_classifier.py#L43)
+- [DeleteDocumentClassifier](comprehend_classifier.py#L134)
+- [DescribeDocumentClassificationJob](comprehend_classifier.py#L206)
+- [DescribeDocumentClassifier](comprehend_classifier.py#L89)
+- [DescribeTopicsDetectionJob](comprehend_topic_modeler.py#L87)
+- [DetectDominantLanguage](comprehend_detect.py#L33)
+- [DetectEntities](comprehend_detect.py#L53)
+- [DetectKeyPhrases](comprehend_detect.py#L77)
+- [DetectPiiEntities](comprehend_detect.py#L101)
+- [DetectSentiment](comprehend_detect.py#L125)
+- [DetectSyntax](comprehend_detect.py#L148)
+- [ListDocumentClassificationJobs](comprehend_classifier.py#L228)
+- [ListDocumentClassifiers](comprehend_classifier.py#L113)
+- [ListTopicsDetectionJobs](comprehend_topic_modeler.py#L109)
+- [StartDocumentClassificationJob](comprehend_classifier.py#L151)
+- [StartTopicsDetectionJob](comprehend_topic_modeler.py#L36)
 
 ### Scenarios
 

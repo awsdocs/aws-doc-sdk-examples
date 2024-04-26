@@ -38,10 +38,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L494) (`CreatePipeline`)
-- [Delete a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L199) (`DeletePipeline`)
-- [Describe a pipeline execution](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L390) (`DescribePipelineExecution`)
-- [Execute a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L411) (`StartPipelineExecution`)
+- [CreatePipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L494)
+- [DeletePipeline](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L199)
+- [DescribePipelineExecution](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L390)
+- [StartPipelineExecution](../../usecases/workflow_sagemaker_pipes/src/main/kotlin/com/example/sage/SagemakerWorkflow.kt#L411)
 
 ### Scenarios
 

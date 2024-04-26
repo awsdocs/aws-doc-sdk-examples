@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a cluster](src/main/java/com/example/ecs/CreateCluster.java#L6) (`CreateCluster`)
-- [Create a service](src/main/java/com/example/ecs/CreateService.java#L6) (`CreateService`)
-- [Delete a service](src/main/java/com/example/ecs/DeleteService.java#L6) (`DeleteService`)
-- [Describe clusters](src/main/java/com/example/ecs/DescribeClusters.java#L6) (`DescribeClusters`)
-- [Describe tasks](src/main/java/com/example/ecs/ListTaskDefinitions.java#L6) (`DescribeTasks`)
-- [List clusters](src/main/java/com/example/ecs/ListClusters.java#L6) (`ListClusters`)
-- [Update a service](src/main/java/com/example/ecs/UpdateService.java#L6) (`UpdateService`)
+- [CreateCluster](src/main/java/com/example/ecs/CreateCluster.java#L6)
+- [CreateService](src/main/java/com/example/ecs/CreateService.java#L6)
+- [DeleteService](src/main/java/com/example/ecs/DeleteService.java#L6)
+- [DescribeClusters](src/main/java/com/example/ecs/DescribeClusters.java#L6)
+- [DescribeTasks](src/main/java/com/example/ecs/ListTaskDefinitions.java#L6)
+- [ListClusters](src/main/java/com/example/ecs/ListClusters.java#L6)
+- [UpdateService](src/main/java/com/example/ecs/UpdateService.java#L6)
 
 
 <!--custom.examples.start-->

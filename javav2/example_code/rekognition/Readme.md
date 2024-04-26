@@ -33,21 +33,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Compare faces in an image against a reference image](src/main/java/com/example/rekognition/CompareFaces.java#L6) (`CompareFaces`)
-- [Create a collection](src/main/java/com/example/rekognition/CreateCollection.java#L6) (`CreateCollection`)
-- [Delete a collection](src/main/java/com/example/rekognition/DeleteCollection.java#L6) (`DeleteCollection`)
-- [Delete faces from a collection](src/main/java/com/example/rekognition/DeleteFacesFromCollection.java#L6) (`DeleteFaces`)
-- [Describe a collection](src/main/java/com/example/rekognition/DescribeCollection.java#L6) (`DescribeCollection`)
-- [Detect faces in an image](src/main/java/com/example/rekognition/DetectFaces.java#L6) (`DetectFaces`)
-- [Detect labels in an image](src/main/java/com/example/rekognition/DetectLabels.java#L6) (`DetectLabels`)
-- [Detect moderation labels in an image](src/main/java/com/example/rekognition/DetectModerationLabels.java#L6) (`DetectModerationLabels`)
-- [Detect text in an image](src/main/java/com/example/rekognition/DetectText.java#L6) (`DetectText`)
-- [Index faces to a collection](src/main/java/com/example/rekognition/AddFacesToCollection.java#L6) (`IndexFaces`)
-- [List collections](src/main/java/com/example/rekognition/ListCollections.java#L6) (`ListCollections`)
-- [List faces in a collection](src/main/java/com/example/rekognition/ListFacesInCollection.java#L6) (`ListFaces`)
-- [Recognize celebrities in an image](src/main/java/com/example/rekognition/RecognizeCelebrities.java#L6) (`RecognizeCelebrities`)
-- [Search for faces in a collection](src/main/java/com/example/rekognition/SearchFaceMatchingImageCollection.java#L6) (`SearchFaces`)
-- [Search for faces in a collection compared to a reference image](src/main/java/com/example/rekognition/SearchFaceMatchingIdCollection.java#L6) (`SearchFacesByImage`)
+- [CompareFaces](src/main/java/com/example/rekognition/CompareFaces.java#L6)
+- [CreateCollection](src/main/java/com/example/rekognition/CreateCollection.java#L6)
+- [DeleteCollection](src/main/java/com/example/rekognition/DeleteCollection.java#L6)
+- [DeleteFaces](src/main/java/com/example/rekognition/DeleteFacesFromCollection.java#L6)
+- [DescribeCollection](src/main/java/com/example/rekognition/DescribeCollection.java#L6)
+- [DetectFaces](src/main/java/com/example/rekognition/DetectFaces.java#L6)
+- [DetectLabels](src/main/java/com/example/rekognition/DetectLabels.java#L6)
+- [DetectModerationLabels](src/main/java/com/example/rekognition/DetectModerationLabels.java#L6)
+- [DetectText](src/main/java/com/example/rekognition/DetectText.java#L6)
+- [IndexFaces](src/main/java/com/example/rekognition/AddFacesToCollection.java#L6)
+- [ListCollections](src/main/java/com/example/rekognition/ListCollections.java#L6)
+- [ListFaces](src/main/java/com/example/rekognition/ListFacesInCollection.java#L6)
+- [RecognizeCelebrities](src/main/java/com/example/rekognition/RecognizeCelebrities.java#L6)
+- [SearchFaces](src/main/java/com/example/rekognition/SearchFaceMatchingImageCollection.java#L6)
+- [SearchFacesByImage](src/main/java/com/example/rekognition/SearchFaceMatchingIdCollection.java#L6)
 
 ### Scenarios
 

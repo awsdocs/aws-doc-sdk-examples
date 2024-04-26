@@ -38,18 +38,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Confirm a user](actions/confirm-sign-up.js#L9) (`ConfirmSignUp`)
-- [Confirm an MFA device for tracking](actions/confirm-device.js#L9) (`ConfirmDevice`)
-- [Get a token to associate an MFA application with a user](actions/associate-software-token.js#L9) (`AssociateSoftwareToken`)
-- [Get information about a user](actions/admin-get-user.js#L9) (`AdminGetUser`)
-- [List users](actions/list-users.js#L9) (`ListUsers`)
-- [Resend a confirmation code](actions/resend-confirmation-code.js#L9) (`ResendConfirmationCode`)
-- [Respond to SRP authentication challenges](actions/respond-to-auth-challenge.js#L10) (`RespondToAuthChallenge`)
-- [Respond to an authentication challenge](actions/admin-respond-to-auth-challenge.js#L10) (`AdminRespondToAuthChallenge`)
-- [Sign up a user](actions/sign-up.js#L9) (`SignUp`)
-- [Start authentication](actions/initiate-auth.js#L10) (`InitiateAuth`)
-- [Start authentication with administrator credentials](actions/admin-initiate-auth.js#L10) (`AdminInitiateAuth`)
-- [Verify an MFA application with a user](actions/verify-software-token.js#L9) (`VerifySoftwareToken`)
+- [AdminGetUser](actions/admin-get-user.js#L9)
+- [AdminInitiateAuth](actions/admin-initiate-auth.js#L10)
+- [AdminRespondToAuthChallenge](actions/admin-respond-to-auth-challenge.js#L10)
+- [AssociateSoftwareToken](actions/associate-software-token.js#L9)
+- [ConfirmDevice](actions/confirm-device.js#L9)
+- [ConfirmSignUp](actions/confirm-sign-up.js#L9)
+- [InitiateAuth](actions/initiate-auth.js#L10)
+- [ListUsers](actions/list-users.js#L9)
+- [ResendConfirmationCode](actions/resend-confirmation-code.js#L9)
+- [RespondToAuthChallenge](actions/respond-to-auth-challenge.js#L10)
+- [SignUp](actions/sign-up.js#L9)
+- [VerifySoftwareToken](actions/verify-software-token.js#L9)
 
 ### Scenarios
 

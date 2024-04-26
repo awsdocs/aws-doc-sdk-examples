@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](src/main/kotlin/com/kotlin/lambda/CreateFunction.kt#L51) (`CreateFunction`)
-- [Delete a function](src/main/kotlin/com/kotlin/lambda/DeleteFunction.kt#L39) (`DeleteFunction`)
-- [Invoke a function](src/main/kotlin/com/kotlin/lambda/LambdaInvoke.kt#L40) (`Invoke`)
+- [CreateFunction](src/main/kotlin/com/kotlin/lambda/CreateFunction.kt#L51)
+- [DeleteFunction](src/main/kotlin/com/kotlin/lambda/DeleteFunction.kt#L39)
+- [Invoke](src/main/kotlin/com/kotlin/lambda/LambdaInvoke.kt#L40)
 
 ### Scenarios
 

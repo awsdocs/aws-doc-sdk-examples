@@ -41,9 +41,9 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a transcoding job](create_job.cpp#L49) (`CreateJob`)
-- [Get a transcoding job](get_job.cpp#L20) (`GetJob`)
-- [List transcoding jobs](list_jobs.cpp#L20) (`ListJobs`)
+- [CreateJob](create_job.cpp#L49)
+- [GetJob](get_job.cpp#L20)
+- [ListJobs](list_jobs.cpp#L20)
 
 
 <!--custom.examples.start-->

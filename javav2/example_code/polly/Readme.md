@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get voices available for synthesis](src/main/java/com/example/polly/DescribeVoicesSample.java#L6) (`DescribeVoices`)
-- [List pronunciation lexicons](src/main/java/com/example/polly/ListLexicons.java#L6) (`ListLexicons`)
-- [Synthesize speech from text](src/main/java/com/example/polly/PollyDemo.java#L6) (`SynthesizeSpeech`)
+- [DescribeVoices](src/main/java/com/example/polly/DescribeVoicesSample.java#L6)
+- [ListLexicons](src/main/java/com/example/polly/ListLexicons.java#L6)
+- [SynthesizeSpeech](src/main/java/com/example/polly/PollyDemo.java#L6)
 
 
 <!--custom.examples.start-->

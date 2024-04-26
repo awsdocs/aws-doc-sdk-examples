@@ -33,19 +33,19 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](actions/table_basics.go#L54) (`CreateTable`)
-- [Delete a table](actions/table_basics.go#L347) (`DeleteTable`)
-- [Delete an item from a table](actions/table_basics.go#L332) (`DeleteItem`)
-- [Get an item from a table](actions/table_basics.go#L221) (`GetItem`)
-- [Get information about a table](actions/table_basics.go#L31) (`DescribeTable`)
-- [List tables](actions/table_basics.go#L99) (`ListTables`)
-- [Put an item in a table](actions/table_basics.go#L121) (`PutItem`)
-- [Query a table](actions/table_basics.go#L243) (`Query`)
-- [Run a PartiQL statement](actions/partiql.go#L30) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](actions/partiql.go#L164) (`BatchExecuteStatement`)
-- [Scan a table](actions/table_basics.go#L285) (`Scan`)
-- [Update an item in a table](actions/table_basics.go#L140) (`UpdateItem`)
-- [Write a batch of items](actions/table_basics.go#L177) (`BatchWriteItem`)
+- [BatchExecuteStatement](actions/partiql.go#L164)
+- [BatchWriteItem](actions/table_basics.go#L177)
+- [CreateTable](actions/table_basics.go#L54)
+- [DeleteItem](actions/table_basics.go#L332)
+- [DeleteTable](actions/table_basics.go#L347)
+- [DescribeTable](actions/table_basics.go#L31)
+- [ExecuteStatement](actions/partiql.go#L30)
+- [GetItem](actions/table_basics.go#L221)
+- [ListTables](actions/table_basics.go#L99)
+- [PutItem](actions/table_basics.go#L121)
+- [Query](actions/table_basics.go#L243)
+- [Scan](actions/table_basics.go#L285)
+- [UpdateItem](actions/table_basics.go#L140)
 
 ### Scenarios
 

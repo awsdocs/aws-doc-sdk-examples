@@ -33,18 +33,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L52) (`CreateTable`)
-- [Delete a table](DynamoDBService.php#L84) (`DeleteTable`)
-- [Delete an item from a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L100) (`DeleteItem`)
-- [Get an item from a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L131) (`GetItem`)
-- [List tables](DynamoDBService.php#L64) (`ListTables`)
-- [Put an item in a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L67) (`PutItem`)
-- [Query a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L158) (`Query`)
-- [Run a PartiQL statement](DynamoDBService.php#L243) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](DynamoDBService.php#L273) (`BatchExecuteStatement`)
-- [Scan a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L178) (`Scan`)
-- [Update an item in a table](dynamodb_basics/GettingStartedWithDynamoDB.php#L136) (`UpdateItem`)
-- [Write a batch of items](DynamoDBService.php#L201) (`BatchWriteItem`)
+- [BatchExecuteStatement](DynamoDBService.php#L273)
+- [BatchWriteItem](DynamoDBService.php#L201)
+- [CreateTable](dynamodb_basics/GettingStartedWithDynamoDB.php#L52)
+- [DeleteItem](dynamodb_basics/GettingStartedWithDynamoDB.php#L100)
+- [DeleteTable](DynamoDBService.php#L84)
+- [ExecuteStatement](DynamoDBService.php#L243)
+- [GetItem](dynamodb_basics/GettingStartedWithDynamoDB.php#L131)
+- [ListTables](DynamoDBService.php#L64)
+- [PutItem](dynamodb_basics/GettingStartedWithDynamoDB.php#L67)
+- [Query](dynamodb_basics/GettingStartedWithDynamoDB.php#L158)
+- [Scan](dynamodb_basics/GettingStartedWithDynamoDB.php#L178)
+- [UpdateItem](dynamodb_basics/GettingStartedWithDynamoDB.php#L136)
 
 ### Scenarios
 

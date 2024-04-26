@@ -38,19 +38,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB cluster](src/aurora_scenario/mod.rs#L352) (`CreateDBCluster`)
-- [Create a DB cluster parameter group](src/aurora_scenario/mod.rs#L203) (`CreateDBClusterParameterGroup`)
-- [Create a DB cluster snapshot](src/aurora_scenario/mod.rs#L352) (`CreateDBClusterSnapshot`)
-- [Create a DB instance in a DB cluster](src/aurora_scenario/mod.rs#L352) (`CreateDBInstance`)
-- [Delete a DB cluster](src/aurora_scenario/mod.rs#L512) (`DeleteDBCluster`)
-- [Delete a DB cluster parameter group](src/aurora_scenario/mod.rs#L512) (`DeleteDBClusterParameterGroup`)
-- [Delete a DB instance](src/aurora_scenario/mod.rs#L512) (`DeleteDBInstance`)
-- [Describe DB clusters](src/aurora_scenario/mod.rs#L352) (`DescribeDBClusters`)
-- [Describe DB instances](src/aurora_scenario/mod.rs#L512) (`DescribeDBInstances`)
-- [Describe database engine versions](src/aurora_scenario/mod.rs#L142) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](src/aurora_scenario/mod.rs#L179) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters from a DB cluster parameter group](src/aurora_scenario/mod.rs#L286) (`DescribeDBClusterParameters`)
-- [Update parameters in a DB cluster parameter group](src/aurora_scenario/mod.rs#L315) (`ModifyDBClusterParameterGroup`)
+- [CreateDBCluster](src/aurora_scenario/mod.rs#L352)
+- [CreateDBClusterParameterGroup](src/aurora_scenario/mod.rs#L203)
+- [CreateDBClusterSnapshot](src/aurora_scenario/mod.rs#L352)
+- [CreateDBInstance](src/aurora_scenario/mod.rs#L352)
+- [DeleteDBCluster](src/aurora_scenario/mod.rs#L512)
+- [DeleteDBClusterParameterGroup](src/aurora_scenario/mod.rs#L512)
+- [DeleteDBInstance](src/aurora_scenario/mod.rs#L512)
+- [DescribeDBClusterParameters](src/aurora_scenario/mod.rs#L286)
+- [DescribeDBClusters](src/aurora_scenario/mod.rs#L352)
+- [DescribeDBEngineVersions](src/aurora_scenario/mod.rs#L142)
+- [DescribeDBInstances](src/aurora_scenario/mod.rs#L512)
+- [DescribeOrderableDBInstanceOptions](src/aurora_scenario/mod.rs#L179)
+- [ModifyDBClusterParameterGroup](src/aurora_scenario/mod.rs#L315)
 
 ### Scenarios
 

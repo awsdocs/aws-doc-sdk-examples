@@ -38,10 +38,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L309) (`CreatePipeline`)
-- [Delete a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L297) (`DeletePipeline`)
-- [Describe a pipeline execution](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L275) (`DescribePipelineExecution`)
-- [Execute a pipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L348) (`StartPipelineExecution`)
+- [CreatePipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L309)
+- [DeletePipeline](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L297)
+- [DescribePipelineExecution](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L275)
+- [StartPipelineExecution](../../usecases/workflow_sagemaker_pipes/src/main/java/com/example/sage/SagemakerWorkflow.java#L348)
 
 ### Scenarios
 
