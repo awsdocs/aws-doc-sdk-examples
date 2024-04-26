@@ -10,9 +10,9 @@
 
 namespace AwsDoc {
     namespace CloudTrail {
-        // Routine which creates a cloud trail.
+        // Routine which creates an AWS CloudTrail trail.
         /*!
-          \param trailName: The name of the trail.
+          \param trailName: The name of the CloudTrail trail.
           \param bucketName: The Amazon S3 bucket designate for publishing logs.
           \param clientConfig: Aws client configuration.
           \return bool: Function succeeded.
@@ -20,23 +20,23 @@ namespace AwsDoc {
         bool createTrail(const Aws::String trailName, const Aws::String bucketName,
                          const Aws::Client::ClientConfiguration &clientConfig);
 
-        // Routine which deletes a cloud trail.
+        // Routine which deletes a CloudTrail trail.
         /*!
-          \param trailName: The name of the trail.
+          \param trailName: The name of the CloudTrail trail.
           \param clientConfig: Aws client configuration.
           \return bool: Function succeeded.
         */
         bool deleteTrail(const Aws::String trailName,
                          const Aws::Client::ClientConfiguration &clientConfig);
 
-        // Routine which describes the cloud trails in an account.
+        // Routine which describes the CloudTrail trails in an account.
         /*!
           \param clientConfig: Aws client configuration.
           \return bool: Function succeeded.
         */
         bool describeTrails(const Aws::Client::ClientConfiguration &clientConfig);
 
-        // Routine which looks up events captured by cloudtrail.
+        // Routine which looks up events captured by CloudTrail.
         /*!
           \param clientConfig: Aws client configuration.
           \return bool: Function succeeded.

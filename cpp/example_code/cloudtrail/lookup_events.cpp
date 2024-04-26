@@ -14,14 +14,14 @@
  *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
  *
- * Purpose
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
- * Demonstrates using the AWS SDK for C++ to list the objects in an S3 bucket.
- *
- */
+ **/
+
 
 // snippet-start:[cpp.example_code.cloudtrail.LookupEvents]
-// Routine which looks up events captured by cloudtrail.
+// Routine which looks up events captured by AWS CloudTrail.
 /*!
   \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
@@ -32,7 +32,7 @@ bool AwsDoc::CloudTrail::lookupEvents(
 
     Aws::String nextToken; // Used for pagination.
     Aws::Vector<Aws::CloudTrail::Model::Event> allEvents;
-    // Build the request (no parameters
+
     Aws::CloudTrail::Model::LookupEventsRequest request;
 
     size_t count = 0;
@@ -53,7 +53,8 @@ bool AwsDoc::CloudTrail::lookupEvents(
             std::cerr << "Error: " << outcome.GetError().GetMessage() << std::endl;
             return false;
         }
-    } while (!nextToken.empty() && count < 50);
+    } while (!nextToken.empty() && count <= 50); // Limit to 50 events.
+
     std::cout << "Found " << allEvents.size() << " event(s)." << std::endl;
 
     for (auto &event: allEvents) {

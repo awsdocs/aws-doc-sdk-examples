@@ -16,16 +16,15 @@
  *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
  *
- * Purpose
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
- * Demonstrates using the AWS SDK for C++ to list the objects in an S3 bucket.
- *
- */
+ **/
 
 // snippet-start:[cpp.example_code.cloudtrail.CreateTrail]
-// Routine which demonstrates using the AWS SDK for C++ to create a  cloud trail.
+// Routine which creates an AWS CloudTrail trail.
 /*!
-  \param trailName: The name of the trail.
+  \param trailName: The name of the CloudTrail trail.
   \param bucketName: The Amazon S3 bucket designate for publishing logs.
   \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.

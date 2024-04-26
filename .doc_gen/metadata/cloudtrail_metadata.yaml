@@ -41,7 +41,7 @@ cloudtrail_CreateTrail:
                 - cpp.example_code.cloudtrail.CreateTrail
   services:
     cloudtrail: {CreateTrail}
-cloudtrail_ListTrailEvents:
+cloudtrail_LookupEvents:
   title: List &CT; trail events using an &AWS; SDK
   title_abbrev: List trail events
   synopsis: list &CTlong; trail events.
@@ -56,6 +56,14 @@ cloudtrail_ListTrailEvents:
             - description:
               snippet_tags:
                 - cloudtrail.Ruby.lookupEvents
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudtrail
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cloudtrail.LookupEvents
   services:
     cloudtrail: {LookupEvents}
 cloudtrail_DeleteTrail:
@@ -99,19 +107,3 @@ cloudtrail_DescribeTrail:
                 - cpp.example_code.cloudtrail.DescribeTrails
   services:
     cloudtrail: {DescribeTrail}
-cloudtrail_LookupEvents:
-  title: Lookup &CT; events using an &AWS; SDK
-  title_abbrev: Lookup events
-  synopsis: lookup &CTlong; events.
-  category:
-  languages:
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/cloudtrail
-          excerpts:
-            - description:
-              snippet_tags:
-                - cpp.example_code.cloudtrail.LookupEvents
-  services:
-    cloudtrail: {LookupEvents}
