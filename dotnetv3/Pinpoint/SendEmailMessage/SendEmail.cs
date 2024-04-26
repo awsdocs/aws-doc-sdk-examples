@@ -91,7 +91,7 @@ public class SendEmailMainClass
                         toAddress,
                         new AddressConfiguration
                         {
-                            ChannelType = "EMAIL"
+                            ChannelType = ChannelType.EMAIL
                         }
                     }
                 },
