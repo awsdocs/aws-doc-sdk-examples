@@ -41,7 +41,7 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create trails](create_trail.cpp#L25) (`CreateTrail`)
+- [Create trails](create_trail.cpp#L24) (`CreateTrail`)
 - [Delete trail](delete_trail.cpp#L24) (`DeleteTrail`)
 - [Describe trails](describe_trails.cpp#L23) (`DescribeTrail`)
 - [List trail events](lookup_events.cpp#L23) (`LookupEvents`)
