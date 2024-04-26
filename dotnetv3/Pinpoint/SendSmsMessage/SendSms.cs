@@ -3,8 +3,6 @@
 
 // snippet-start:[pinpoint.dotnet.pinpoint_send_sms_message_api.complete]
 
-using System.Net;
-using System.Reflection.Metadata.Ecma335;
 using Amazon;
 using Amazon.Pinpoint;
 using Amazon.Pinpoint.Model;
@@ -31,33 +29,40 @@ public class SendSmsMessageMainClass
         // The phone number or short code to send the message from. The phone number
         // or short code that you specify has to be associated with your Amazon Pinpoint
         // account. For best results, specify long codes in E.164 format.
-        string originationNumber = "+12065550199";
+        string originationNumber = configuration["OriginationNumber"]!;
 
         // The recipient's phone number.  For best results, you should specify the
         // phone number in E.164 format.
-        string destinationNumber = "+14255550142";
+        string destinationNumber = configuration["DestinationNumber"]!;
 
         // The Pinpoint project/ application ID to use when you send this message.
         // Make sure that the SMS channel is enabled for the project or application
         // that you choose.
-        string appId = "ce796be37f32f178af652b26eexample";
+        string appId = configuration["AppId"]!;
 
         // The type of SMS message that you want to send. If you plan to send
         // time-sensitive content, specify TRANSACTIONAL. If you plan to send
         // marketing-related content, specify PROMOTIONAL.
-        string messageType = "TRANSACTIONAL";
+        MessageType messageType = MessageType.TRANSACTIONAL;
 
         // The registered keyword associated with the originating short code.
-        string registeredKeyword = "myKeyword";
+        string? registeredKeyword = configuration["RegisteredKeyword"];
 
         // The sender ID to use when sending the message. Support for sender ID
         // varies by country or region. For more information, see
         // https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html
-        string senderId = "mySenderId";
+        string? senderId = configuration["SenderId"];
 
         try
         {
-            await SendSmsMessage(region, appId, toAddress, senderAddress);
+            var response = await SendSmsMessage(region, appId, destinationNumber,
+                originationNumber, registeredKeyword, senderId, messageType);
+            Console.WriteLine($"Message sent to {response.MessageResponse.Result.Count} recipient(s).");
+            foreach (var messageResultValue in
+                     response.MessageResponse.Result.Select(r => r.Value))
+            {
+                Console.WriteLine($"{messageResultValue.MessageId} Status: {messageResultValue.DeliveryStatus}");
+            }
         }
         catch (Exception ex)
         {
@@ -65,8 +70,9 @@ public class SendSmsMessageMainClass
         }
     }
 
-    public static async Task<MessageResponse> SendSmsMessage(
-        string region, string appId, string destinationNumber, string originationNumber)
+    public static async Task<SendMessagesResponse> SendSmsMessage(
+        string region, string appId, string destinationNumber, string originationNumber,
+        string? keyword, string? senderId, MessageType messageType)
     {
 
         // The content of the SMS message.
@@ -75,7 +81,7 @@ public class SendSmsMessageMainClass
 
 
         var client = new AmazonPinpointClient(RegionEndpoint.GetBySystemName(region));
-    
+
         SendMessagesRequest sendRequest = new SendMessagesRequest
         {
             ApplicationId = appId,
@@ -86,7 +92,7 @@ public class SendSmsMessageMainClass
                     {
                         {
                             destinationNumber,
-                            new AddressConfiguration { ChannelType = "SMS" }
+                            new AddressConfiguration { ChannelType = ChannelType.SMS }
                         }
                     },
                 MessageConfiguration = new DirectMessageConfiguration
@@ -94,20 +100,16 @@ public class SendSmsMessageMainClass
                     SMSMessage = new SMSMessage
                     {
                         Body = message,
-                        MessageType = messageType,
+                        MessageType = MessageType.TRANSACTIONAL,
                         OriginationNumber = originationNumber,
                         SenderId = senderId,
-                        Keyword = registeredKeyword
+                        Keyword = keyword
                     }
                 }
             }
         };
-
-            SendMessagesResponse response = await client.SendMessagesAsync(sendRequest);
-            return response;
-
+        SendMessagesResponse response = await client.SendMessagesAsync(sendRequest);
+        return response;
     }
-    
 }
-
 // snippet-end:[pinpoint.dotnet.pinpoint_send_sms_message_api.complete]

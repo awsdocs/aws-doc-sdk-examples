@@ -1,13 +1,13 @@
-# CloudFormation code examples for the SDK for .NET
+# Amazon Pinpoint code examples for the SDK for .NET
 
 ## Overview
 
-Shows how to use the AWS SDK for .NET to work with AWS CloudFormation.
+Shows how to use the AWS SDK for .NET to work with Amazon Pinpoint.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_CloudFormation enables you to create and provision AWS infrastructure deployments predictably and repeatedly._
+_Amazon Pinpoint helps you engage your customers by sending them email, SMS and voice messages, and push notifications._
 
 ## ⚠ Important
 
@@ -29,9 +29,11 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Get started
+### Single actions
 
-- [Hello CloudFormation](Actions/HelloCloudFormation.cs#L4) (`DescribeStackResources`)
+Code excerpts that show you how to call individual service functions.
+
+- [Send email and text messages](SendEmailMessage/SendEmail.cs#L4) (`SendMessages`)
 
 
 <!--custom.examples.start-->
@@ -62,10 +64,6 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello CloudFormation
-
-This example shows you how to get started using CloudFormation.
-
 
 
 ### Tests
@@ -83,9 +81,9 @@ in the `dotnetv3` folder.
 
 ## Additional resources
 
-- [CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
-- [CloudFormation API Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/Welcome.html)
-- [SDK for .NET CloudFormation reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/CloudFormation/NCloudFormation.html)
+- [Amazon Pinpoint Developer Guide](https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html)
+- [Amazon Pinpoint API Reference](https://docs.aws.amazon.com/pinpoint/latest/apireference/welcome.html)
+- [SDK for .NET Amazon Pinpoint reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Pinpoint/NPinpoint.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

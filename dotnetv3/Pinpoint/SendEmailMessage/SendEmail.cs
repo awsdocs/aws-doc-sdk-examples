@@ -72,7 +72,7 @@ public class SendEmailMainClass
                           + "\n  <p>This email was sent using the "
                           + "\n    <a href='https://aws.amazon.com/pinpoint/'>Amazon Pinpoint</a> API "
                           + "\n    using the <a href='https://aws.amazon.com/sdk-for-net/'>AWS SDK for .NET</a>"
-                          +"\n  </p>"
+                          + "\n  </p>"
                           + "\n</body>"
                           + "\n</html>";
 
