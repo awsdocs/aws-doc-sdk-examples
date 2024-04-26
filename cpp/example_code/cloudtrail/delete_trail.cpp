@@ -46,7 +46,7 @@ bool AwsDoc::CloudTrail::deleteTrail(const Aws::String trailName,
 
     return outcome.IsSuccess();
 }
-// snippet-end: [cpp.example_code.cloudtrail.DeleteTrail]
+// snippet-end:[cpp.example_code.cloudtrail.DeleteTrail]
 
 /*
 *

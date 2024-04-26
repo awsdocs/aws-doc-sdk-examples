@@ -46,7 +46,7 @@ bool AwsDoc::CloudTrail::describeTrails(
     }
     return outcome.IsSuccess();
 }
-// snippet-end: [cpp.example_code.cloudtrail.DescribeTrails]
+// snippet-end:[cpp.example_code.cloudtrail.DescribeTrails]
 
 /*
 *
