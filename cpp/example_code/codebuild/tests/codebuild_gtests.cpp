@@ -31,7 +31,10 @@ public:
                                         << R"("RoleArn":"arn:aws:iam::123456789012:role/MockRole",)"
                                         << R"("AccessKeyId":"ABCDEFGHIJK",)"
                                         << R"("SecretAccessKey":"ABCDEFGHIJK",)"
-                                        << R"(Token":"ABCDEFGHIJK==","Expiration":")" << expiration.ToGmtString(Aws::Utils::DateFormat::ISO_8601) << "\""
+                                        << R"(Token":"ABCDEFGHIJK==","Expiration":")"
+                                        << expiration.ToGmtString(
+                                                Aws::Utils::DateFormat::ISO_8601)
+                                        << "\""
                                         << "}";
         this->AddResponseToReturn(goodResponse);
 
@@ -67,7 +70,7 @@ void AwsDocTest::CodeBuild_GTests::SetUpTestSuite() {
 }
 
 void AwsDocTest::CodeBuild_GTests::TearDownTestSuite() {
-     ShutdownAPI(s_options);
+    ShutdownAPI(s_options);
 
 }
 

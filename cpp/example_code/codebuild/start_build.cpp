@@ -28,17 +28,17 @@
  */
 bool AwsDoc::CodeBuild::startBuild(const Aws::String &projectName, const Aws::Client::ClientConfiguration &clientConfiguration)
 {
-  Aws::CodeBuild::CodeBuildClient codebuild(clientConfiguration);
+  Aws::CodeBuild::CodeBuildClient codeBuildClient(clientConfiguration);
 
-  Aws::CodeBuild::Model::StartBuildRequest sb_req;
-  sb_req.SetProjectName(projectName);
+  Aws::CodeBuild::Model::StartBuildRequest startBuildRequest;
+  startBuildRequest.SetProjectName(projectName);
 
-    Aws::CodeBuild::Model::StartBuildOutcome outcome = codebuild.StartBuild(sb_req);
+  Aws::CodeBuild::Model::StartBuildOutcome outcome = codeBuildClient.StartBuild(startBuildRequest);
 
   if (outcome.IsSuccess())
   {
     std::cout << "Successfully started build" << std::endl;
-    std::cout << "Build ID: " << outcome.GetResult(). << std::endl;
+    std::cout << "Build ID: " << outcome.GetResult().GetBuild().GetId() << std::endl;
   }
 
   else
@@ -68,6 +68,7 @@ int main(int argc, char **argv) {
     }
 
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Trace;
     Aws::InitAPI(options);
     {
         Aws::String projectName = argv[1];

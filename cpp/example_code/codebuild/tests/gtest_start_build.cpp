@@ -20,7 +20,7 @@ namespace AwsDocTest {
         bool result = mockHttp.addResponseWithBody("mock_input/StartBuild.json");
         ASSERT_TRUE(result) << preconditionError() << std::endl;
 
-    result = AwsDoc::CodeBuild::startBuild(*s_clientConfig);
-    ASSERT_TRUE(result);
-}
+        result = AwsDoc::CodeBuild::startBuild("test-project", *s_clientConfig);
+        ASSERT_TRUE(result);
+    }
 } // namespace AwsDocTest

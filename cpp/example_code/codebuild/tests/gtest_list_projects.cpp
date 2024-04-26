@@ -15,12 +15,10 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(CodeBuild_GTests, list_projects_3_) {
-        MockHTTP mockHttp;
-        bool result = mockHttp.addResponseWithBody("mock_input/ListProjects.json");
-        ASSERT_TRUE(result) << preconditionError() << std::endl;
+    TEST_F(CodeBuild_GTests, list_projects_2_) {
 
-    result = AwsDoc::CodeBuild::listProjects(*s_clientConfig);
-    ASSERT_TRUE(result);
-}
+        auto result = AwsDoc::CodeBuild::listProjects(
+                Aws::CodeBuild::Model::SortOrderType::ASCENDING, *s_clientConfig);
+        ASSERT_TRUE(result);
+    }
 } // namespace AwsDocTest
