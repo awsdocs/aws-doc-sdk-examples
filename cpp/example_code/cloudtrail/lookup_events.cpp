@@ -2,60 +2,97 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h>
 #include <aws/cloudtrail/CloudTrailClient.h>
 #include <aws/cloudtrail/model/LookupEventsRequest.h>
-#include <aws/cloudtrail/model/LookupEventsResult.h>
 #include <iostream>
+#include "cloudtrail_samples.h"
 
 /**
- * Look up Cloud Trail events based on command line input
- */
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
+
+
+// snippet-start:[cpp.example_code.cloudtrail.LookupEvents]
+// Routine which looks up events captured by AWS CloudTrail.
+/*!
+  \param clientConfig: Aws client configuration.
+  \return bool: Function succeeded.
+*/
+bool AwsDoc::CloudTrail::lookupEvents(
+        const Aws::Client::ClientConfiguration &clientConfig) {
+    Aws::CloudTrail::CloudTrailClient cloudtrail(clientConfig);
+
+    Aws::String nextToken; // Used for pagination.
+    Aws::Vector<Aws::CloudTrail::Model::Event> allEvents;
+
+    Aws::CloudTrail::Model::LookupEventsRequest request;
+
+    size_t count = 0;
+    do {
+        if (!nextToken.empty()) {
+            request.SetNextToken(nextToken);
+        }
+
+        Aws::CloudTrail::Model::LookupEventsOutcome outcome = cloudtrail.LookupEvents(
+                request);
+        if (outcome.IsSuccess()) {
+            const Aws::Vector<Aws::CloudTrail::Model::Event> &events = outcome.GetResult().GetEvents();
+            count += events.size();
+            allEvents.insert(allEvents.end(), events.begin(), events.end());
+            nextToken = outcome.GetResult().GetNextToken();
+        }
+        else {
+            std::cerr << "Error: " << outcome.GetError().GetMessage() << std::endl;
+            return false;
+        }
+    } while (!nextToken.empty() && count <= 50); // Limit to 50 events.
+
+    std::cout << "Found " << allEvents.size() << " event(s)." << std::endl;
+
+    for (auto &event: allEvents) {
+        std::cout << "Event name: " << event.GetEventName() << std::endl;
+        std::cout << "Event source: " << event.GetEventSource() << std::endl;
+        std::cout << "Event id: " << event.GetEventId() << std::endl;
+        std::cout << "Resources: " << std::endl;
+        for (auto &resource: event.GetResources()) {
+            std::cout << "  " << resource.GetResourceName() << std::endl;
+        }
+    }
+
+    return true;
+}
+// snippet-end:[cpp.example_code.cloudtrail.LookupEvents]
+/*
+*
+*  main function
+*
+*  Usage: 'run_lookup_events'
+*
+*/
+
+#ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc != 1) {
-        std::cout << "Usage: lookup_events";
-        return 1;
-    }
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::CloudTrail::CloudTrailClient ct;
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
 
-        Aws::CloudTrail::Model::LookupEventsRequest le_req;
-
-        int event_count = 0;
-        Aws::String nextToken; // Used for pagination.
-        do {
-            if (!nextToken.empty()) {
-                le_req.SetNextToken(nextToken);
-            }
-
-            auto le_out = ct.LookupEvents(le_req);
-
-            if (le_out.IsSuccess()) {
-                std::cout << "Successfully looking up cloudtrail events:";
-                const auto &events = le_out.GetResult().GetEvents();
-
-                for (auto val: events) {
-                    std::cout << " " << val.GetEventName() << std::endl;
-                }
-
-                event_count += events.size();
-
-                nextToken = le_out.GetResult().GetNextToken();
-            }
-
-            else {
-                std::cout << "Error looking up cloudtrail events"
-                          << le_out.GetError().GetMessage()
-                          << std::endl;
-                break;
-            }
-        } while (!nextToken.empty() &&
-                 (event_count < 100));    // Only show first 100 events.
+        AwsDoc::CloudTrail::lookupEvents(clientConfig);
     }
 
     Aws::ShutdownAPI(options);
     return 0;
 }
+
+#endif // TESTING_BUILD
