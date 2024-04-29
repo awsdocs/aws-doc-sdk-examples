@@ -61,6 +61,7 @@
     "example_code/sqs",
     "example_code/sts",
     "example_code/support",
+    "example_code/transcribe",
     "example_code/web/s3/list-objects",
     "example_code/sfn"
   ],
