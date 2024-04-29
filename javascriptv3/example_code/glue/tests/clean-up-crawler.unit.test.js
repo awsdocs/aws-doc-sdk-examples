@@ -22,20 +22,20 @@ describe("clean-up-crawler", () => {
   });
 
   it('should not throw an error if the delete fails with an "EntityNotFoundException"', () => {
-    vi.spyOn(GlueClient.prototype, "send").mockImplementationOnce(async () => {
+    vi.spyOn(GlueClient.prototype, "send").mockImplementationOnce(() => {
       const err = new Error();
       err.name = "EntityNotFoundException";
-      throw err;
+      return Promise.reject(err);
     });
 
     return expect(cleanUpCrawlerStep({})).resolves.toBeTruthy();
   });
 
   it('should throw an error if the delete fails with an error other than "EntityNotFoundException"', () => {
-    vi.spyOn(GlueClient.prototype, "send").mockImplementationOnce(async () => {
+    vi.spyOn(GlueClient.prototype, "send").mockImplementationOnce(() => {
       const err = new Error();
       err.name = "SomeOtherError";
-      throw err;
+      return Promise.reject(err);
     });
 
     return expect(cleanUpCrawlerStep({})).rejects.toBeTruthy();
