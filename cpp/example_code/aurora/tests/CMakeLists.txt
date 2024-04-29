@@ -48,16 +48,17 @@ add_executable(
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if (MSVC AND BUILD_SHARED_LIBS)
-    add_definitions(-DUSE_IMPORT_EXPORT)
+    if (AWSSDK_INSTALL_AS_SHARED_LIBS)
+        # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
+        # and set the proper subdirectory to the executables' location.
 
-    set(CMAKE_BUILD_TYPE Debug) #Explicitly setting CMAKE_BUILD_TYPE is necessary in Windows to copy DLLs.
-
-    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    AWSSDK_CPY_DYN_LIBS(
-            CURRENT_TARGET_AWS_DEPENDENCIES
-            ""
-            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
-    )
+        # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
+        AWSSDK_CPY_DYN_LIBS(
+                CURRENT_TARGET_AWS_DEPENDENCIES
+                ""
+                ${CMAKE_CURRENT_BINARY_DIR} ${BIN_SUB_DIR}
+        )
+    endif ()
 
     add_custom_command(
             TARGET
