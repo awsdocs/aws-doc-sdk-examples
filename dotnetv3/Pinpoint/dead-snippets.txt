@@ -1,0 +1,4 @@
+// snippet-start:[pinpoint.dotnet.pinpoint_send_email_smtp.complete]
+This code example has been superseded by the examples in
+Code examples > Actions and scenarios > Pinpoint
+// snippet-end:[pinpoint.dotnet.pinpoint_send_email_smtp.complete]
