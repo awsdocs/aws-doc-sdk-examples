@@ -18,7 +18,8 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool startBuild(const Aws::String &projectName, const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool startBuild(const Aws::String &projectName,
+                        const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! List the CodeBuild builds.
         /*!
@@ -26,7 +27,8 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-         bool listBuilds(Aws::CodeBuild::Model::SortOrderType sortType, const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool listBuilds(Aws::CodeBuild::Model::SortOrderType sortType,
+                        const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! List the CodeBuild projects.
         /*!
@@ -34,7 +36,8 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool listProjects(Aws::CodeBuild::Model::SortOrderType sortType, const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool listProjects(Aws::CodeBuild::Model::SortOrderType sortType,
+                          const Aws::Client::ClientConfiguration &clientConfiguration);
     } // CodeBuild
 } // AwsDoc
 

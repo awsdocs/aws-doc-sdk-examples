@@ -27,7 +27,8 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::CodeBuild::listProjects(Aws::CodeBuild::Model::SortOrderType sortType, const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::CodeBuild::listProjects(Aws::CodeBuild::Model::SortOrderType sortType,
+                                     const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::CodeBuild::CodeBuildClient codeBuildClient(clientConfiguration);
 
     Aws::CodeBuild::Model::ListProjectsRequest listProjectsRequest;
@@ -41,11 +42,12 @@ bool AwsDoc::CodeBuild::listProjects(Aws::CodeBuild::Model::SortOrderType sortTy
             listProjectsRequest.SetNextToken(nextToken);
         }
 
-        Aws::CodeBuild::Model::ListProjectsOutcome outcome = codeBuildClient.ListProjects(listProjectsRequest);
+        Aws::CodeBuild::Model::ListProjectsOutcome outcome = codeBuildClient.ListProjects(
+                listProjectsRequest);
 
         if (outcome.IsSuccess()) {
             const Aws::Vector<Aws::String> &projects = outcome.GetResult().GetProjects();
-            allProjects.insert(allProjects.end(),  projects.begin(), projects.end());
+            allProjects.insert(allProjects.end(), projects.begin(), projects.end());
             nextToken = outcome.GetResult().GetNextToken();
         }
 
@@ -55,9 +57,9 @@ bool AwsDoc::CodeBuild::listProjects(Aws::CodeBuild::Model::SortOrderType sortTy
         }
 
     } while (!nextToken.empty());
-    
+
     std::cout << allProjects.size() << " project(s) found." << std::endl;
-    for (auto project : allProjects) {
+    for (auto project: allProjects) {
         std::cout << project << std::endl;
     }
 

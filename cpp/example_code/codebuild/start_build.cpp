@@ -26,28 +26,28 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::CodeBuild::startBuild(const Aws::String &projectName, const Aws::Client::ClientConfiguration &clientConfiguration)
-{
-  Aws::CodeBuild::CodeBuildClient codeBuildClient(clientConfiguration);
+bool AwsDoc::CodeBuild::startBuild(const Aws::String &projectName,
+                                   const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::CodeBuild::CodeBuildClient codeBuildClient(clientConfiguration);
 
-  Aws::CodeBuild::Model::StartBuildRequest startBuildRequest;
-  startBuildRequest.SetProjectName(projectName);
+    Aws::CodeBuild::Model::StartBuildRequest startBuildRequest;
+    startBuildRequest.SetProjectName(projectName);
 
-  Aws::CodeBuild::Model::StartBuildOutcome outcome = codeBuildClient.StartBuild(startBuildRequest);
+    Aws::CodeBuild::Model::StartBuildOutcome outcome = codeBuildClient.StartBuild(
+            startBuildRequest);
 
-  if (outcome.IsSuccess())
-  {
-    std::cout << "Successfully started build" << std::endl;
-    std::cout << "Build ID: " << outcome.GetResult().GetBuild().GetId() << std::endl;
-  }
+    if (outcome.IsSuccess()) {
+        std::cout << "Successfully started build" << std::endl;
+        std::cout << "Build ID: " << outcome.GetResult().GetBuild().GetId()
+                  << std::endl;
+    }
 
-  else
-  {
-    std::cerr << "Error starting build" << outcome.GetError().GetMessage()
-              << std::endl;
-  }
+    else {
+        std::cerr << "Error starting build" << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
 
-  return outcome.IsSuccess();
+    return outcome.IsSuccess();
 }
 // snippet-end:[cpp.example_code.codebuild.StartBuild]
 

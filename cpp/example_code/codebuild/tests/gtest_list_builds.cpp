@@ -15,10 +15,11 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(CodeBuild_GTests, list_builds_2_) {
+    TEST_F(CodeBuild_GTests, list_builds_2_
+    ) {
 
-        auto result = AwsDoc::CodeBuild::listBuilds(
-                Aws::CodeBuild::Model::SortOrderType::ASCENDING, *s_clientConfig);
-        ASSERT_TRUE(result);
-    }
+    auto result = AwsDoc::CodeBuild::listBuilds(
+            Aws::CodeBuild::Model::SortOrderType::ASCENDING, *s_clientConfig);
+    ASSERT_TRUE(result);
+}
 } // namespace AwsDocTest

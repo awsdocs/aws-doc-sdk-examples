@@ -37,6 +37,15 @@ Next, for information on code example structures and how to build and run the ex
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [List builds](list_builds.cpp#L25) (`ListBuilds`)
+- [List projects](list_projects.cpp#L23) (`ListProjects`)
+- [Start a build](start_build.cpp#L22) (`StartBuild`)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 

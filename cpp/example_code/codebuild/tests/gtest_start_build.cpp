@@ -15,12 +15,19 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(CodeBuild_GTests, start_build_3_) {
-        MockHTTP mockHttp;
-        bool result = mockHttp.addResponseWithBody("mock_input/StartBuild.json");
-        ASSERT_TRUE(result) << preconditionError() << std::endl;
+    TEST_F(CodeBuild_GTests, start_build_3_
+    ) {
+    MockHTTP mockHttp;
+    bool result = mockHttp.addResponseWithBody("mock_input/StartBuild.json");
+    ASSERT_TRUE(result)
+    <<
 
-        result = AwsDoc::CodeBuild::startBuild("test-project", *s_clientConfig);
-        ASSERT_TRUE(result);
-    }
+    preconditionError()
+
+    <<
+    std::endl;
+
+    result = AwsDoc::CodeBuild::startBuild("test-project", *s_clientConfig);
+    ASSERT_TRUE(result);
+}
 } // namespace AwsDocTest

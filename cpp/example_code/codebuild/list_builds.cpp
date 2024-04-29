@@ -22,15 +22,15 @@
  *
  **/
 
-// snippet-start:[cpp.example_code.codebuild.StartBuild]
+// snippet-start:[cpp.example_code.codebuild.ListBuilds]
 //! List the CodeBuild builds.
 /*!
   \param sortType: 'SortOrderType' type.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::CodeBuild::listBuilds(Aws::CodeBuild::Model::SortOrderType sortType, const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::CodeBuild::listBuilds(Aws::CodeBuild::Model::SortOrderType sortType,
+                                   const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::CodeBuild::CodeBuildClient codeBuildClient(clientConfiguration);
 
     Aws::CodeBuild::Model::ListBuildsRequest listBuildsRequest;
@@ -43,30 +43,34 @@ bool AwsDoc::CodeBuild::listBuilds(Aws::CodeBuild::Model::SortOrderType sortType
             listBuildsRequest.SetNextToken(nextToken);
         }
 
-        Aws::CodeBuild::Model::ListBuildsOutcome listBuildsOutcome = codeBuildClient.ListBuilds(listBuildsRequest);
+        Aws::CodeBuild::Model::ListBuildsOutcome listBuildsOutcome = codeBuildClient.ListBuilds(
+                listBuildsRequest);
 
         if (listBuildsOutcome.IsSuccess()) {
             std::cout << "Information about each build:" << std::endl;
             Aws::CodeBuild::Model::BatchGetBuildsRequest getBuildsRequest;
             getBuildsRequest.SetIds(listBuildsOutcome.GetResult().GetIds());
-            Aws::CodeBuild::Model::BatchGetBuildsOutcome getBuildsOutcome = codeBuildClient.BatchGetBuilds(getBuildsRequest);
+            Aws::CodeBuild::Model::BatchGetBuildsOutcome getBuildsOutcome = codeBuildClient.BatchGetBuilds(
+                    getBuildsRequest);
 
             if (getBuildsOutcome.IsSuccess()) {
-                const Aws::Vector<Aws::CodeBuild::Model::Build>& builds = getBuildsOutcome.GetResult().GetBuilds();
+                const Aws::Vector<Aws::CodeBuild::Model::Build> &builds = getBuildsOutcome.GetResult().GetBuilds();
                 std::cout << builds.size() << " build(s) found." << std::endl;
                 for (auto val: builds) {
                     std::cout << val.GetId() << std::endl;
                 }
             }
             else {
-                std::cout << "Error getting builds" << getBuildsOutcome.GetError().GetMessage() << std::endl;
+                std::cout << "Error getting builds"
+                          << getBuildsOutcome.GetError().GetMessage() << std::endl;
                 return false;
             }
             nextToken = listBuildsOutcome.GetResult().GetNextToken();
         }
 
         else {
-            std::cerr << "Error listing builds" << listBuildsOutcome.GetError().GetMessage()
+            std::cerr << "Error listing builds"
+                      << listBuildsOutcome.GetError().GetMessage()
                       << std::endl;
             return false;
         }
@@ -75,7 +79,7 @@ bool AwsDoc::CodeBuild::listBuilds(Aws::CodeBuild::Model::SortOrderType sortType
 
     return true;
 }
-// snippet-end:[cpp.example_code.codebuild.StartBuild]
+// snippet-end:[cpp.example_code.codebuild.ListBuilds]
 
 /*
  *
