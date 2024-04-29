@@ -7,7 +7,7 @@ Shows how to use the AWS SDK for Ruby to work with AWS CloudTrail.
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_CloudTrail _
+_CloudTrail helps you monitor your AWS deployments in the cloud by getting a history of AWS API calls for your account._
 
 ## ⚠ Important
 

@@ -471,7 +471,7 @@ cloudsearch-domain:
   version: '2013-01-01'
 cloudtrail:
   api_ref: awscloudtrail/latest/APIReference/Welcome.html
-  blurb: ''
+  blurb: helps you monitor your AWS deployments in the cloud by getting a history of AWS API calls for your account.
   expanded:
     long: AWS CloudTrail
     short: CloudTrail
