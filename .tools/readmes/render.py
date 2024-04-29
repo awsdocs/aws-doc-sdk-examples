@@ -300,7 +300,7 @@ class Renderer:
         self.lang_config["readme"] = f"{self._lang_level_double_dots()}README.md"
         unsupported = self.lang_config.get("unsupported", False)
 
-        self.readme_filename = self._case_insensitive_filename(f'{self.lang_config["service_folder"]}/{config.readme}')
+        self.readme_filename = f'{self.lang_config["service_folder"]}/{config.readme}'
         readme_exists = os.path.exists(self.readme_filename)
         customs = (
             self._scrape_customs(self.readme_filename, sdk["short"])
@@ -331,20 +331,10 @@ class Renderer:
                 self.readme_filename,
                 f'{self.lang_config["service_folder"]}/{config.saved_readme}',
             )
+        os.remove(self.readme_filename) #  Do this so that new files are always updated to the correct case (README.md).
         with open(self.readme_filename, "w", encoding="utf-8") as f:
             f.write(self.readme_text)
         print(f"Updated {self.readme_filename}.")
-
-    @staticmethod
-    def _case_insensitive_filename(original_path):
-        actual_path = original_path
-        folder, original_name = os.path.split(original_path)
-        original_lower = original_name.lower()
-        for actual_name in os.listdir(folder):
-            if actual_name != original_name and actual_name.lower() == original_lower:
-                actual_path = f"{folder}/{actual_name}"
-                break
-        return actual_path
 
     def check(self):
         with open(self.readme_filename, "r", encoding="utf-8") as f:
