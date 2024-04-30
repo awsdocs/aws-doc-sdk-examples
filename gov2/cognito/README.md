@@ -38,15 +38,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 Code excerpts that show you how to call individual service functions.
 
-- [Confirm a forgotten password](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L145) (`ConfirmForgotPassword`)
-- [Create a user with administrator credentials](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L183) (`AdminCreateUser`)
-- [Delete a user](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L168) (`DeleteUser`)
-- [List the user pools](hello/hello.go#L4) (`ListUserPools`)
-- [Set the password for a user with administrator credentials](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L208) (`AdminSetUserPassword`)
-- [Sign up a user](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L75) (`SignUp`)
-- [Start authentication](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L103) (`InitiateAuth`)
-- [Start forgotten password flow](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L128) (`ForgotPassword`)
-- [Update a user pool](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L26) (`UpdateUserPool`)
+- [AdminCreateUser](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L183)
+- [AdminSetUserPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L208)
+- [ConfirmForgotPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L145)
+- [DeleteUser](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L168)
+- [ForgotPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L128)
+- [InitiateAuth](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L103)
+- [ListUserPools](hello/hello.go#L4)
+- [SignUp](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L75)
+- [UpdateUserPool](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L26)
 
 ### Scenarios
 
