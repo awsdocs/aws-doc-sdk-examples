@@ -60,6 +60,6 @@ endforeach()
 
 
 if(BUILD_TESTS)
-    add_subdirectory(gtests)
+    add_subdirectory(tests)
 endif()
 

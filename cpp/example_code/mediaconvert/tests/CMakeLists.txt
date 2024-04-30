@@ -51,10 +51,10 @@ add_executable(
 )
 
 if (WINDOWS_BUILD)
-    if (AWSSDK_INSTALL_AS_SHARED_LIBS)
-        # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
-        # and set the proper subdirectory to the executables' location.
+    # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
+    # and set the proper subdirectory to the executables' location.
 
+    if (AWSSDK_INSTALL_AS_SHARED_LIBS)
         # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
         AWSSDK_CPY_DYN_LIBS(
                 CURRENT_TARGET_AWS_DEPENDENCIES
@@ -68,8 +68,8 @@ if (WINDOWS_BUILD)
             ${CURRENT_TARGET}
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}/gtest.dll
-            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${BIN_SUB_DIR}/gtest.dll
+            ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
     )
 endif ()
 
