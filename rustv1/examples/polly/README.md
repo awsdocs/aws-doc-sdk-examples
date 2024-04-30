@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get voices available for synthesis](src/bin/describe-voices.rs#L22) (`DescribeVoices`)
-- [List pronunciation lexicons](src/bin/list-lexicons.rs#L22) (`ListLexicons`)
-- [Store a pronunciation lexicon](src/bin/put-lexicon.rs#L34) (`PutLexicon`)
-- [Synthesize speech from text](src/bin/synthesize-speech.rs#L29) (`SynthesizeSpeech`)
+- [DescribeVoices](src/bin/describe-voices.rs#L22)
+- [ListLexicons](src/bin/list-lexicons.rs#L22)
+- [PutLexicon](src/bin/put-lexicon.rs#L34)
+- [SynthesizeSpeech](src/bin/synthesize-speech.rs#L29)
 
 
 <!--custom.examples.start-->

@@ -38,17 +38,17 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](Actions/EventBridgeWrapper.cs#L347) (`PutTargets`)
-- [Create a rule](Actions/EventBridgeWrapper.cs#L166) (`PutRule`)
-- [Delete a rule](Actions/EventBridgeWrapper.cs#L433) (`DeleteRule`)
-- [Describe a rule](Actions/EventBridgeWrapper.cs#L34) (`DescribeRule`)
-- [Disable a rule](Actions/EventBridgeWrapper.cs#L70) (`DisableRule`)
-- [Enable a rule](Actions/EventBridgeWrapper.cs#L53) (`EnableRule`)
-- [List rule names for a target](Actions/EventBridgeWrapper.cs#L140) (`ListRuleNamesByTarget`)
-- [List rules](Actions/EventBridgeWrapper.cs#L87) (`ListRules`)
-- [List targets for a rule](Actions/EventBridgeWrapper.cs#L114) (`ListTargetsByRule`)
-- [Remove targets from a rule](Actions/EventBridgeWrapper.cs#L391) (`RemoveTargets`)
-- [Send events](Actions/EventBridgeWrapper.cs#L290) (`PutEvents`)
+- [DeleteRule](Actions/EventBridgeWrapper.cs#L433)
+- [DescribeRule](Actions/EventBridgeWrapper.cs#L34)
+- [DisableRule](Actions/EventBridgeWrapper.cs#L70)
+- [EnableRule](Actions/EventBridgeWrapper.cs#L53)
+- [ListRuleNamesByTarget](Actions/EventBridgeWrapper.cs#L140)
+- [ListRules](Actions/EventBridgeWrapper.cs#L87)
+- [ListTargetsByRule](Actions/EventBridgeWrapper.cs#L114)
+- [PutEvents](Actions/EventBridgeWrapper.cs#L290)
+- [PutRule](Actions/EventBridgeWrapper.cs#L166)
+- [PutTargets](Actions/EventBridgeWrapper.cs#L347)
+- [RemoveTargets](Actions/EventBridgeWrapper.cs#L391)
 
 ### Scenarios
 

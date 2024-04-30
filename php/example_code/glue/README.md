@@ -33,20 +33,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](GettingStartedWithGlue.php#L47) (`CreateCrawler`)
-- [Create a job definition](GettingStartedWithGlue.php#L54) (`CreateJob`)
-- [Delete a crawler](GettingStartedWithGlue.php#L180) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](GettingStartedWithGlue.php#L173) (`DeleteDatabase`)
-- [Delete a job definition](GettingStartedWithGlue.php#L159) (`DeleteJob`)
-- [Delete a table from a database](GettingStartedWithGlue.php#L166) (`DeleteTable`)
-- [Get a crawler](GettingStartedWithGlue.php#L69) (`GetCrawler`)
-- [Get a database from the Data Catalog](GettingStartedWithGlue.php#L58) (`GetDatabase`)
-- [Get a job run](GettingStartedWithGlue.php#L107) (`GetJobRun`)
-- [Get runs of a job](GettingStartedWithGlue.php#L107) (`GetJobRuns`)
-- [Get tables from a database](GettingStartedWithGlue.php#L58) (`GetTables`)
-- [List job definitions](GettingStartedWithGlue.php#L151) (`ListJobs`)
-- [Start a crawler](GettingStartedWithGlue.php#L47) (`StartCrawler`)
-- [Start a job run](GettingStartedWithGlue.php#L107) (`StartJobRun`)
+- [CreateCrawler](GettingStartedWithGlue.php#L47)
+- [CreateJob](GettingStartedWithGlue.php#L54)
+- [DeleteCrawler](GettingStartedWithGlue.php#L180)
+- [DeleteDatabase](GettingStartedWithGlue.php#L173)
+- [DeleteJob](GettingStartedWithGlue.php#L159)
+- [DeleteTable](GettingStartedWithGlue.php#L166)
+- [GetCrawler](GettingStartedWithGlue.php#L69)
+- [GetDatabase](GettingStartedWithGlue.php#L58)
+- [GetJobRun](GettingStartedWithGlue.php#L107)
+- [GetJobRuns](GettingStartedWithGlue.php#L107)
+- [GetTables](GettingStartedWithGlue.php#L58)
+- [ListJobs](GettingStartedWithGlue.php#L151)
+- [StartCrawler](GettingStartedWithGlue.php#L47)
+- [StartJobRun](GettingStartedWithGlue.php#L107)
 
 ### Scenarios
 

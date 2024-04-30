@@ -8,7 +8,7 @@ import logging
 import os
 import sys
 from pathlib import Path
-from render import Renderer
+from render import Renderer, MissingMetadataError
 from scanner import Scanner
 
 
@@ -82,7 +82,7 @@ def main():
             for service in args.services:
                 id = f"{language}:{version}:{service}"
                 try:
-                    scanner.set_example(language, service)
+                    scanner.set_example(language, int(version), service)
                     logging.debug("Rendering %s", id)
                     renderer = Renderer(scanner, int(version), args.safe)
 
@@ -99,6 +99,9 @@ def main():
                         written.append(id)
                 except FileNotFoundError:
                     skipped.append(id)
+                except MissingMetadataError as mme:
+                    logging.error(mme)
+                    failed.append(id)
                 except Exception:
                     logging.exception("Exception rendering %s", id)
                     failed.append(id)

@@ -38,16 +38,16 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create an agent](bedrock_agent_wrapper.py#L33) (`CreateAgent`)
-- [Create an agent action group](bedrock_agent_wrapper.py#L62) (`CreateAgentActionGroup`)
-- [Create an agent alias](bedrock_agent_wrapper.py#L97) (`CreateAgentAlias`)
-- [Delete an agent](bedrock_agent_wrapper.py#L119) (`DeleteAgent`)
-- [Delete an agent alias](bedrock_agent_wrapper.py#L140) (`DeleteAgentAlias`)
-- [Get information about an agent](bedrock_agent_wrapper.py#L162) (`GetAgent`)
-- [List the action groups for an agent](bedrock_agent_wrapper.py#L209) (`ListAgentActionGroups`)
-- [List the available agents](bedrock_agent_wrapper.py#L186) (`ListAgents`)
-- [List the knowledge bases associated with an agent](bedrock_agent_wrapper.py#L238) (`ListAgentKnowledgeBases`)
-- [Prepare an agent](bedrock_agent_wrapper.py#L267) (`PrepareAgent`)
+- [CreateAgent](bedrock_agent_wrapper.py#L33)
+- [CreateAgentActionGroup](bedrock_agent_wrapper.py#L62)
+- [CreateAgentAlias](bedrock_agent_wrapper.py#L97)
+- [DeleteAgent](bedrock_agent_wrapper.py#L119)
+- [DeleteAgentAlias](bedrock_agent_wrapper.py#L140)
+- [GetAgent](bedrock_agent_wrapper.py#L162)
+- [ListAgentActionGroups](bedrock_agent_wrapper.py#L209)
+- [ListAgentKnowledgeBases](bedrock_agent_wrapper.py#L238)
+- [ListAgents](bedrock_agent_wrapper.py#L186)
+- [PrepareAgent](bedrock_agent_wrapper.py#L267)
 
 ### Scenarios
 

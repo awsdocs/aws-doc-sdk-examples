@@ -14,7 +14,7 @@ application-autoscaling_RegisterScalableTarget:
               snippet_tags:
                 - appautoscale.java2.enable.main
   services:
-    application-autoscaling: {RegisterScalableTarget}
+    application-auto-scaling: {RegisterScalableTarget}
 application-autoscaling_DeleteScalingPolicy:
   title: Disable a resource that is scaled using an &APP-ASlong; SDK
   title_abbrev: Disables a  resource
@@ -30,7 +30,7 @@ application-autoscaling_DeleteScalingPolicy:
               snippet_tags:
                 - appautoscale.java2.disable.main
   services:
-    application-autoscaling: {DeleteScalingPolicy}   
+    application-auto-scaling: {DeleteScalingPolicy}
 application-autoscaling_DescribeScalingPolicies:
   title: Describe &APP-AS; scaling policies using an &AWS; SDK
   title_abbrev: Describes scaling policies
@@ -47,5 +47,5 @@ application-autoscaling_DescribeScalingPolicies:
               snippet_tags:
                 - applicationautoscaling.rust.describe-scaling-policies
   services:
-    application-autoscaling: {DescribeScalingPolicies}
+    application-auto-scaling: {DescribeScalingPolicies}
  

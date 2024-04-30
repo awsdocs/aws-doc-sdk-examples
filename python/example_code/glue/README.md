@@ -38,20 +38,20 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](glue_wrapper.py#L57) (`CreateCrawler`)
-- [Create a job definition](glue_wrapper.py#L159) (`CreateJob`)
-- [Delete a crawler](glue_wrapper.py#L367) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](glue_wrapper.py#L347) (`DeleteDatabase`)
-- [Delete a job definition](glue_wrapper.py#L305) (`DeleteJob`)
-- [Delete a table from a database](glue_wrapper.py#L326) (`DeleteTable`)
-- [Get a crawler](glue_wrapper.py#L30) (`GetCrawler`)
-- [Get a database from the Data Catalog](glue_wrapper.py#L113) (`GetDatabase`)
-- [Get a job run](glue_wrapper.py#L280) (`GetJobRun`)
-- [Get runs of a job](glue_wrapper.py#L256) (`GetJobRuns`)
-- [Get tables from a database](glue_wrapper.py#L136) (`GetTables`)
-- [List job definitions](glue_wrapper.py#L235) (`ListJobs`)
-- [Start a crawler](glue_wrapper.py#L92) (`StartCrawler`)
-- [Start a job run](glue_wrapper.py#L196) (`StartJobRun`)
+- [CreateCrawler](glue_wrapper.py#L57)
+- [CreateJob](glue_wrapper.py#L159)
+- [DeleteCrawler](glue_wrapper.py#L367)
+- [DeleteDatabase](glue_wrapper.py#L347)
+- [DeleteJob](glue_wrapper.py#L305)
+- [DeleteTable](glue_wrapper.py#L326)
+- [GetCrawler](glue_wrapper.py#L30)
+- [GetDatabase](glue_wrapper.py#L113)
+- [GetJobRun](glue_wrapper.py#L280)
+- [GetJobRuns](glue_wrapper.py#L256)
+- [GetTables](glue_wrapper.py#L136)
+- [ListJobs](glue_wrapper.py#L235)
+- [StartCrawler](glue_wrapper.py#L92)
+- [StartJobRun](glue_wrapper.py#L196)
 
 ### Scenarios
 

@@ -33,19 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](scaffold.rb#L56) (`CreateTable`)
-- [Delete a table](scaffold.rb#L109) (`DeleteTable`)
-- [Delete an item from a table](basics/dynamodb_basics.rb#L127) (`DeleteItem`)
-- [Get an item from a table](basics/dynamodb_basics.rb#L40) (`GetItem`)
-- [Get information about a table](scaffold.rb#L37) (`DescribeTable`)
-- [List tables](scaffold.rb#L20) (`ListTables`)
-- [Put an item in a table](basics/dynamodb_basics.rb#L23) (`PutItem`)
-- [Query a table](basics/dynamodb_basics.rb#L75) (`Query`)
-- [Run a PartiQL statement](partiql/partiql_single.rb#L12) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](partiql/partiql_batch.rb#L12) (`BatchExecuteStatement`)
-- [Scan a table](basics/dynamodb_basics.rb#L94) (`Scan`)
-- [Update an item in a table](basics/dynamodb_basics.rb#L55) (`UpdateItem`)
-- [Write a batch of items](scaffold.rb#L83) (`BatchWriteItem`)
+- [BatchExecuteStatement](partiql/partiql_batch.rb#L12)
+- [BatchWriteItem](scaffold.rb#L83)
+- [CreateTable](scaffold.rb#L56)
+- [DeleteItem](basics/dynamodb_basics.rb#L127)
+- [DeleteTable](scaffold.rb#L109)
+- [DescribeTable](scaffold.rb#L37)
+- [ExecuteStatement](partiql/partiql_single.rb#L12)
+- [GetItem](basics/dynamodb_basics.rb#L40)
+- [ListTables](scaffold.rb#L20)
+- [PutItem](basics/dynamodb_basics.rb#L23)
+- [Query](basics/dynamodb_basics.rb#L75)
+- [Scan](basics/dynamodb_basics.rb#L94)
+- [UpdateItem](basics/dynamodb_basics.rb#L55)
 
 ### Scenarios
 

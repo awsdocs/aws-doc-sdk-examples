@@ -33,7 +33,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Assume a role](AssumeRole/AssumeRoleExample/AssumeRole.cs#L4) (`AssumeRole`)
+- [AssumeRole](AssumeRole/AssumeRoleExample/AssumeRole.cs#L4)
 
 
 <!--custom.examples.start-->

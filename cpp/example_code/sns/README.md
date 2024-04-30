@@ -46,16 +46,16 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a topic](create_topic.cpp#L21) (`CreateTopic`)
-- [Delete a subscription](unsubscribe.cpp#L21) (`Unsubscribe`)
-- [Delete a topic](delete_topic.cpp#L21) (`DeleteTopic`)
-- [Get the properties of a topic](get_topic_attributes.cpp#L22) (`GetTopicAttributes`)
-- [Get the settings for sending SMS messages](get_sms_type.cpp#L21) (`GetSMSAttributes`)
-- [List the subscribers of a topic](list_subscriptions.cpp#L21) (`ListSubscriptions`)
-- [List topics](list_topics.cpp#L21) (`ListTopics`)
-- [Publish to a topic](publish_to_topic.cpp#L21) (`Publish`)
-- [Set the default settings for sending SMS messages](set_sms_type.cpp#L21) (`SetSMSAttributes`)
-- [Subscribe an email address to a topic](subscribe_email.cpp#L10) (`Subscribe`)
+- [CreateTopic](create_topic.cpp#L21)
+- [DeleteTopic](delete_topic.cpp#L21)
+- [GetSMSAttributes](get_sms_type.cpp#L21)
+- [GetTopicAttributes](get_topic_attributes.cpp#L22)
+- [ListSubscriptions](list_subscriptions.cpp#L21)
+- [ListTopics](list_topics.cpp#L21)
+- [Publish](publish_to_topic.cpp#L21)
+- [SetSMSAttributes](set_sms_type.cpp#L21)
+- [Subscribe](subscribe_email.cpp#L10)
+- [Unsubscribe](unsubscribe.cpp#L21)
 
 ### Scenarios
 

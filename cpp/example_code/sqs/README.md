@@ -46,17 +46,17 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Change message timeout visibility](change_message_visibility.cpp#L24) (`ChangeMessageVisibility`)
-- [Create a queue](create_queue.cpp#L23) (`CreateQueue`)
-- [Delete a batch of messages from a queue](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L644) (`DeleteMessageBatch`)
-- [Delete a message from a queue](delete_message.cpp#L23) (`DeleteMessage`)
-- [Delete a queue](delete_queue.cpp#L24) (`DeleteQueue`)
-- [Get attributes for a queue](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L380) (`GetQueueAttributes`)
-- [Get the URL of a queue](get_queue_url.cpp#L23) (`GetQueueUrl`)
-- [List queues](list_queues.cpp#L23) (`ListQueues`)
-- [Receive messages from a queue](receive_message.cpp#L23) (`ReceiveMessage`)
-- [Send a message to a queue](send_message.cpp#L23) (`SendMessage`)
-- [Set queue attributes](set_queue_attributes.cpp#L21) (`SetQueueAttributes`)
+- [ChangeMessageVisibility](change_message_visibility.cpp#L24)
+- [CreateQueue](create_queue.cpp#L23)
+- [DeleteMessage](delete_message.cpp#L23)
+- [DeleteMessageBatch](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L644)
+- [DeleteQueue](delete_queue.cpp#L24)
+- [GetQueueAttributes](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L380)
+- [GetQueueUrl](get_queue_url.cpp#L23)
+- [ListQueues](list_queues.cpp#L23)
+- [ReceiveMessage](receive_message.cpp#L23)
+- [SendMessage](send_message.cpp#L23)
+- [SetQueueAttributes](set_queue_attributes.cpp#L21)
 
 ### Scenarios
 

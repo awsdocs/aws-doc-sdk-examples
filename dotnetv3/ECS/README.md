@@ -38,9 +38,9 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [List clusters](ECSActions/ECSWrapper.cs#L28) (`ListClusters`)
-- [List services in a cluster](ECSActions/ECSWrapper.cs#L68) (`ListServices`)
-- [List tasks in a cluster](ECSActions/ECSWrapper.cs#L102) (`ListTasks`)
+- [ListClusters](ECSActions/ECSWrapper.cs#L28)
+- [ListServices](ECSActions/ECSWrapper.cs#L68)
+- [ListTasks](ECSActions/ECSWrapper.cs#L102)
 
 ### Scenarios
 

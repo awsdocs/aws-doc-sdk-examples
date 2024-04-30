@@ -38,7 +38,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [List available Amazon Bedrock foundation models](Actions/HelloBedrock.cs#L29) (`ListFoundationModels`)
+- [ListFoundationModels](Actions/HelloBedrock.cs#L29)
 
 
 <!--custom.examples.start-->

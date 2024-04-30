@@ -38,7 +38,7 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Invoke an agent](bedrock_agent_runtime_wrapper.py#L33) (`InvokeAgent`)
+- [InvokeAgent](bedrock_agent_runtime_wrapper.py#L33)
 
 
 <!--custom.examples.start-->

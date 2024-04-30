@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](src/scenario/create.rs#L12) (`CreateTable`)
-- [Delete a table](src/scenario/delete.rs#L36) (`DeleteTable`)
-- [Delete an item from a table](src/scenario/delete.rs#L12) (`DeleteItem`)
-- [List tables](src/scenario/list.rs#L7) (`ListTables`)
-- [Put an item in a table](src/scenario/add.rs#L25) (`PutItem`)
-- [Query a table](src/scenario/movies/server.rs#L30) (`Query`)
-- [Scan a table](src/scenario/list.rs#L178) (`Scan`)
+- [CreateTable](src/scenario/create.rs#L12)
+- [DeleteItem](src/scenario/delete.rs#L12)
+- [DeleteTable](src/scenario/delete.rs#L36)
+- [ListTables](src/scenario/list.rs#L7)
+- [PutItem](src/scenario/add.rs#L25)
+- [Query](src/scenario/movies/server.rs#L30)
+- [Scan](src/scenario/list.rs#L178)
 
 ### Scenarios
 

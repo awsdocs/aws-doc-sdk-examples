@@ -33,18 +33,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](dynamodb_operations.sh#L25) (`CreateTable`)
-- [Delete a table](dynamodb_operations.sh#L1006) (`DeleteTable`)
-- [Delete an item from a table](dynamodb_operations.sh#L543) (`DeleteItem`)
-- [Get a batch of items](dynamodb_operations.sh#L910) (`BatchGetItem`)
-- [Get an item from a table](dynamodb_operations.sh#L447) (`GetItem`)
-- [Get information about a table](dynamodb_operations.sh#L191) (`DescribeTable`)
-- [List tables](dynamodb_operations.sh#L977) (`ListTables`)
-- [Put an item in a table](dynamodb_operations.sh#L265) (`PutItem`)
-- [Query a table](dynamodb_operations.sh#L622) (`Query`)
-- [Scan a table](dynamodb_operations.sh#L732) (`Scan`)
-- [Update an item in a table](dynamodb_operations.sh#L346) (`UpdateItem`)
-- [Write a batch of items](dynamodb_operations.sh#L842) (`BatchWriteItem`)
+- [BatchGetItem](dynamodb_operations.sh#L910)
+- [BatchWriteItem](dynamodb_operations.sh#L842)
+- [CreateTable](dynamodb_operations.sh#L25)
+- [DeleteItem](dynamodb_operations.sh#L543)
+- [DeleteTable](dynamodb_operations.sh#L1006)
+- [DescribeTable](dynamodb_operations.sh#L191)
+- [GetItem](dynamodb_operations.sh#L447)
+- [ListTables](dynamodb_operations.sh#L977)
+- [PutItem](dynamodb_operations.sh#L265)
+- [Query](dynamodb_operations.sh#L622)
+- [Scan](dynamodb_operations.sh#L732)
+- [UpdateItem](dynamodb_operations.sh#L346)
 
 ### Scenarios
 

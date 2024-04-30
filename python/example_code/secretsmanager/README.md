@@ -38,8 +38,8 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get a batch of secret values](batch_get_secret_value.py#L17) (`BatchGetSecretValue`)
-- [Get a secret value](get_secret_value.py#L16) (`GetSecretValue`)
+- [BatchGetSecretValue](batch_get_secret_value.py#L17)
+- [GetSecretValue](get_secret_value.py#L16)
 
 ### Cross-service examples
 

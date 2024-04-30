@@ -47,13 +47,13 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a listener for a load balancer](../../cross_service/resilient_service/load_balancer.py#L143) (`CreateListener`)
-- [Create a target group](../../cross_service/resilient_service/load_balancer.py#L67) (`CreateTargetGroup`)
-- [Create an Application Load Balancer](../../cross_service/resilient_service/load_balancer.py#L142) (`CreateLoadBalancer`)
-- [Delete a load balancer](../../cross_service/resilient_service/load_balancer.py#L192) (`DeleteLoadBalancer`)
-- [Delete a target group](../../cross_service/resilient_service/load_balancer.py#L106) (`DeleteTargetGroup`)
-- [Get the endpoint of a load balancer](../../cross_service/resilient_service/load_balancer.py#L46) (`DescribeLoadBalancers`)
-- [Get the health of a target group](../../cross_service/resilient_service/load_balancer.py#L245) (`DescribeTargetHealth`)
+- [CreateListener](../../cross_service/resilient_service/load_balancer.py#L143)
+- [CreateLoadBalancer](../../cross_service/resilient_service/load_balancer.py#L142)
+- [CreateTargetGroup](../../cross_service/resilient_service/load_balancer.py#L67)
+- [DeleteLoadBalancer](../../cross_service/resilient_service/load_balancer.py#L192)
+- [DeleteTargetGroup](../../cross_service/resilient_service/load_balancer.py#L106)
+- [DescribeLoadBalancers](../../cross_service/resilient_service/load_balancer.py#L46)
+- [DescribeTargetHealth](../../cross_service/resilient_service/load_balancer.py#L245)
 
 ### Scenarios
 

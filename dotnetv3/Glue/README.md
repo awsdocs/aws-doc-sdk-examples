@@ -38,20 +38,20 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](Actions/GlueWrapper.cs#L23) (`CreateCrawler`)
-- [Create a job definition](Actions/GlueWrapper.cs#L76) (`CreateJob`)
-- [Delete a crawler](Actions/GlueWrapper.cs#L120) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](Actions/GlueWrapper.cs#L134) (`DeleteDatabase`)
-- [Delete a job definition](Actions/GlueWrapper.cs#L148) (`DeleteJob`)
-- [Delete a table from a database](Actions/GlueWrapper.cs#L162) (`DeleteTable`)
-- [Get a crawler](Actions/GlueWrapper.cs#L176) (`GetCrawler`)
-- [Get a database from the Data Catalog](Actions/GlueWrapper.cs#L218) (`GetDatabase`)
-- [Get a job run](Actions/GlueWrapper.cs#L237) (`GetJobRun`)
-- [Get runs of a job](Actions/GlueWrapper.cs#L252) (`GetJobRuns`)
-- [Get tables from a database](Actions/GlueWrapper.cs#L284) (`GetTables`)
-- [List job definitions](Actions/GlueWrapper.cs#L308) (`ListJobs`)
-- [Start a crawler](Actions/GlueWrapper.cs#L328) (`StartCrawler`)
-- [Start a job run](Actions/GlueWrapper.cs#L348) (`StartJobRun`)
+- [CreateCrawler](Actions/GlueWrapper.cs#L23)
+- [CreateJob](Actions/GlueWrapper.cs#L76)
+- [DeleteCrawler](Actions/GlueWrapper.cs#L120)
+- [DeleteDatabase](Actions/GlueWrapper.cs#L134)
+- [DeleteJob](Actions/GlueWrapper.cs#L148)
+- [DeleteTable](Actions/GlueWrapper.cs#L162)
+- [GetCrawler](Actions/GlueWrapper.cs#L176)
+- [GetDatabase](Actions/GlueWrapper.cs#L218)
+- [GetJobRun](Actions/GlueWrapper.cs#L237)
+- [GetJobRuns](Actions/GlueWrapper.cs#L252)
+- [GetTables](Actions/GlueWrapper.cs#L284)
+- [ListJobs](Actions/GlueWrapper.cs#L308)
+- [StartCrawler](Actions/GlueWrapper.cs#L328)
+- [StartJobRun](Actions/GlueWrapper.cs#L348)
 
 ### Scenarios
 

@@ -38,13 +38,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](actions/functions.go#L47) (`CreateFunction`)
-- [Delete a function](actions/functions.go#L155) (`DeleteFunction`)
-- [Get a function](actions/functions.go#L29) (`GetFunction`)
-- [Invoke a function](actions/functions.go#L169) (`Invoke`)
-- [List functions](actions/functions.go#L134) (`ListFunctions`)
-- [Update function code](actions/functions.go#L90) (`UpdateFunctionCode`)
-- [Update function configuration](actions/functions.go#L118) (`UpdateFunctionConfiguration`)
+- [CreateFunction](actions/functions.go#L47)
+- [DeleteFunction](actions/functions.go#L155)
+- [GetFunction](actions/functions.go#L29)
+- [Invoke](actions/functions.go#L169)
+- [ListFunctions](actions/functions.go#L134)
+- [UpdateFunctionCode](actions/functions.go#L90)
+- [UpdateFunctionConfiguration](actions/functions.go#L118)
 
 ### Scenarios
 

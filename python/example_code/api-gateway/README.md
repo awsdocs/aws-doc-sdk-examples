@@ -38,16 +38,16 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a response from an AWS service integrated with a method](aws_service/aws_service.py#L25) (`PutIntegrationResponse`)
-- [Add an HTTP method to a REST resource](aws_service/aws_service.py#L25) (`PutMethod`)
-- [Add an HTTP response to a REST resource](aws_service/aws_service.py#L25) (`PutMethodResponse`)
-- [Create a REST API](aws_service/aws_service.py#L43) (`CreateRestApi`)
-- [Create a REST resource](aws_service/aws_service.py#L77) (`CreateResource`)
-- [Delete a REST API](aws_service/aws_service.py#L260) (`DeleteRestApi`)
-- [Deploy a REST API](aws_service/aws_service.py#L189) (`CreateDeployment`)
-- [Get REST resources](aws_service/aws_service.py#L25) (`GetResources`)
-- [Integrate a method with an AWS service](aws_service/aws_service.py#L100) (`PutIntegration`)
-- [List REST APIs](aws_service/aws_service.py#L231) (`GetRestApis`)
+- [CreateDeployment](aws_service/aws_service.py#L189)
+- [CreateResource](aws_service/aws_service.py#L77)
+- [CreateRestApi](aws_service/aws_service.py#L43)
+- [DeleteRestApi](aws_service/aws_service.py#L260)
+- [GetResources](aws_service/aws_service.py#L25)
+- [GetRestApis](aws_service/aws_service.py#L231)
+- [PutIntegration](aws_service/aws_service.py#L100)
+- [PutIntegrationResponse](aws_service/aws_service.py#L25)
+- [PutMethod](aws_service/aws_service.py#L25)
+- [PutMethodResponse](aws_service/aws_service.py#L25)
 
 ### Scenarios
 

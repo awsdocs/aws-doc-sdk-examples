@@ -33,15 +33,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](bucket-lifecycle-operations/bucket_operations.sh#L202) (`CopyObject`)
-- [Create a bucket](bucket-lifecycle-operations/bucket_operations.sh#L50) (`CreateBucket`)
-- [Delete an empty bucket](bucket-lifecycle-operations/bucket_operations.sh#L343) (`DeleteBucket`)
-- [Delete an object](bucket-lifecycle-operations/bucket_operations.sh#L272) (`DeleteObject`)
-- [Delete multiple objects](bucket-lifecycle-operations/bucket_operations.sh#L303) (`DeleteObjects`)
-- [Determine the existence of a bucket](bucket-lifecycle-operations/bucket_operations.sh#L20) (`HeadBucket`)
-- [Get an object from a bucket](bucket-lifecycle-operations/bucket_operations.sh#L168) (`GetObject`)
-- [List objects in a bucket](bucket-lifecycle-operations/awsdocs_general.sh#L94) (`ListObjectsV2`)
-- [Upload an object to a bucket](bucket-lifecycle-operations/bucket_operations.sh#L134) (`PutObject`)
+- [CopyObject](bucket-lifecycle-operations/bucket_operations.sh#L202)
+- [CreateBucket](bucket-lifecycle-operations/bucket_operations.sh#L50)
+- [DeleteBucket](bucket-lifecycle-operations/bucket_operations.sh#L343)
+- [DeleteObject](bucket-lifecycle-operations/bucket_operations.sh#L272)
+- [DeleteObjects](bucket-lifecycle-operations/bucket_operations.sh#L303)
+- [GetObject](bucket-lifecycle-operations/bucket_operations.sh#L168)
+- [HeadBucket](bucket-lifecycle-operations/bucket_operations.sh#L20)
+- [ListObjectsV2](bucket-lifecycle-operations/awsdocs_general.sh#L94)
+- [PutObject](bucket-lifecycle-operations/bucket_operations.sh#L134)
 
 ### Scenarios
 

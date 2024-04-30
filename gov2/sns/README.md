@@ -38,11 +38,11 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a topic](../workflows/topics_and_queues/actions/sns_actions.go#L27) (`CreateTopic`)
-- [Delete a topic](../workflows/topics_and_queues/actions/sns_actions.go#L56) (`DeleteTopic`)
-- [List topics](hello/hello.go#L4) (`ListTopics`)
-- [Publish to a topic](../workflows/topics_and_queues/actions/sns_actions.go#L105) (`Publish`)
-- [Subscribe an email address to a topic](../workflows/topics_and_queues/actions/sns_actions.go#L70) (`Subscribe`)
+- [CreateTopic](../workflows/topics_and_queues/actions/sns_actions.go#L27)
+- [DeleteTopic](../workflows/topics_and_queues/actions/sns_actions.go#L56)
+- [ListTopics](hello/hello.go#L4)
+- [Publish](../workflows/topics_and_queues/actions/sns_actions.go#L105)
+- [Subscribe](../workflows/topics_and_queues/actions/sns_actions.go#L70)
 
 
 <!--custom.examples.start-->

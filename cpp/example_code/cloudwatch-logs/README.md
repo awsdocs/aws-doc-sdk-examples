@@ -46,9 +46,9 @@ For more information on attaching policies to IAM user groups,
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a subscription filter](put_subscription_filter.cpp#L16) (`PutSubscriptionFilter`)
-- [Delete a subscription filter](delete_subscription_filter.cpp#L17) (`DeleteSubscriptionFilter`)
-- [Describe existing subscription filters](describe_subscription_filters.cpp#L15) (`DescribeSubscriptionFilters`)
+- [DeleteSubscriptionFilter](delete_subscription_filter.cpp#L17)
+- [DescribeSubscriptionFilters](describe_subscription_filters.cpp#L15)
+- [PutSubscriptionFilter](put_subscription_filter.cpp#L16)
 
 
 <!--custom.examples.start-->

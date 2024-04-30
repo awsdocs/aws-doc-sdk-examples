@@ -44,15 +44,15 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a communication to a case](support_wrapper.py#L179) (`AddCommunicationToCase`)
-- [Add an attachment to a set](support_wrapper.py#L19) (`AddAttachmentsToSet`)
-- [Create a case](support_wrapper.py#L103) (`CreateCase`)
-- [Describe an attachment](support_wrapper.py#L242) (`DescribeAttachment`)
-- [Describe cases](support_wrapper.py#L304) (`DescribeCases`)
-- [Describe communications](support_wrapper.py#L210) (`DescribeCommunications`)
-- [Describe services](support_wrapper.py#L39) (`DescribeServices`)
-- [Describe severity levels](support_wrapper.py#L71) (`DescribeSeverityLevels`)
-- [Resolve case](support_wrapper.py#L274) (`ResolveCase`)
+- [AddAttachmentsToSet](support_wrapper.py#L19)
+- [AddCommunicationToCase](support_wrapper.py#L179)
+- [CreateCase](support_wrapper.py#L103)
+- [DescribeAttachment](support_wrapper.py#L242)
+- [DescribeCases](support_wrapper.py#L304)
+- [DescribeCommunications](support_wrapper.py#L210)
+- [DescribeServices](support_wrapper.py#L39)
+- [DescribeSeverityLevels](support_wrapper.py#L71)
+- [ResolveCase](support_wrapper.py#L274)
 
 ### Scenarios
 

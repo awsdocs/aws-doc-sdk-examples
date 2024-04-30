@@ -38,13 +38,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](GettingStartedWithS3.php#L52) (`CopyObject`)
-- [Create a bucket](GettingStartedWithS3.php#L52) (`CreateBucket`)
-- [Delete an empty bucket](GettingStartedWithS3.php#L52) (`DeleteBucket`)
-- [Delete multiple objects](GettingStartedWithS3.php#L52) (`DeleteObjects`)
-- [Get an object from a bucket](GettingStartedWithS3.php#L52) (`GetObject`)
-- [List objects in a bucket](GettingStartedWithS3.php#L52) (`ListObjectsV2`)
-- [Upload an object to a bucket](GettingStartedWithS3.php#L52) (`PutObject`)
+- [CopyObject](GettingStartedWithS3.php#L52)
+- [CreateBucket](GettingStartedWithS3.php#L52)
+- [DeleteBucket](GettingStartedWithS3.php#L52)
+- [DeleteObjects](GettingStartedWithS3.php#L52)
+- [GetObject](GettingStartedWithS3.php#L52)
+- [ListObjectsV2](GettingStartedWithS3.php#L52)
+- [PutObject](GettingStartedWithS3.php#L52)
 
 ### Scenarios
 

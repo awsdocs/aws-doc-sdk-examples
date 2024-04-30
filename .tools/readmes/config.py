@@ -21,6 +21,7 @@ entities = {
     "&IAM-users;": "IAM users",
     "&kms-key;": "KMS key",
     "&kms-keys;": "KMS keys",
+    "&S3long;": "Amazon Simple Storage Service",
     "&SLN;": "Amazon States Language",
 }
 language = {
@@ -44,7 +45,6 @@ language = {
             "service_folder": 'javav2/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/{{service["name"]}}/package-summary.html',
             "service_folder_overrides": {
-                "sesv2": "javav2/example_code/ses",
                 "medical-imaging": "javav2/example_code/medicalimaging",
             },
         },
