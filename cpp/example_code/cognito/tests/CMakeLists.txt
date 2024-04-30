@@ -51,9 +51,7 @@ add_executable(
         ${CURRENT_TARGET}
 )
 
-# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
-# and building as shared libraries, then dynamically link to those shared libraries.
-if (MSVC AND BUILD_SHARED_LIBS)
+if (WINDOWS_BUILD)
     if (AWSSDK_INSTALL_AS_SHARED_LIBS)
         # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
         # and set the proper subdirectory to the executables' location.

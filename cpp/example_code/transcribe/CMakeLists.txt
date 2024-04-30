@@ -2,42 +2,30 @@
 cmake_minimum_required(VERSION 3.13)
 set(CMAKE_CXX_STANDARD 11)
 project(get_transcript LANGUAGES CXX)
-
-
+set(SERVICE_COMPONENTS transcribe;transcribestreaming)
 
 # Build shared libraries by default.
-if(NOT BUILD_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS ON)
-endif()
+set(BUILD_SHARED_LIBS ON)
 
-list(APPEND CMAKE_PREFIX_PATH "C:\\Program Files (x86)\\aws-cpp-sdk-all\\lib\\cmake")
-#Set the location of where Windows can find the installed libraries of the SDK.
-if(MSVC)
+# Use the MSVC variable to determine if this is a Windows build.
+set(WINDOWS_BUILD ${MSVC})
+
+# Set the location of where Windows can find the installed libraries of the SDK.
+if (WINDOWS_BUILD)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
-endif()
+endif ()
 
+find_package(AWSSDK COMPONENTS ${SERVICE_COMPONENTS})
 
-find_package(AWSSDK COMPONENTS transcribe;transcribestreaming)
-# If the compiler is some version of Microsoft Visual C++,
-# and building as shared libraries, then dynamically link to those shared libraries.
-if(MSVC AND BUILD_SHARED_LIBS)
-    add_definitions(-DUSE_IMPORT_EXPORT)
+if (WINDOWS_BUILD AND AWSSDK_INSTALL_AS_SHARED_LIBS)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    list(APPEND SERVICE_LIST transcribe;transcribestreaming)
-    
-    #For IDEs like Xcode and Visual Studio this line will be ignored because Release/Debug
-    #  is switched internally, but this is only necessary for non-IDE builds.
-    set(CMAKE_BUILD_TYPE Debug) #TODO: Set to your build type
 
-    #TODO:Select and use one of the following lines. Select the line that copies to the same folder where your executables are.
-    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug.
-    #AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR})  #Choose this line for Visual Studio and possibly other IDEs.
+    # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
+    # and set the proper subdirectory to the executables' location.
 
-    message(STATUS ">>CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
-    message(STATUS ">>CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
-    message(STATUS ">>EXECUTABLE_OUTPUT_PATH : ${EXECUTABLE_OUTPUT_PATH}")
-endif()
+    AWSSDK_CPY_DYN_LIBS(SERVICE_COMPONENTS "" ${CMAKE_CURRENT_BINARY_DIR} ${BIN_SUB_DIR})
+endif ()
 
 
 add_executable(${PROJECT_NAME} "get_transcript.cpp" )

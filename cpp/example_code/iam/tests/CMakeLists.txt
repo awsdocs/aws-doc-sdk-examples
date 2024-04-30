@@ -50,8 +50,6 @@ add_executable(
         ${CURRENT_TARGET}
 )
 
-# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
-# and building as shared libraries, then dynamically link to those shared libraries.
 if(WINDOWS_BUILD)
     if (AWSSDK_INSTALL_AS_SHARED_LIBS)
         # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
@@ -74,7 +72,6 @@ if(WINDOWS_BUILD)
                 ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
     )
 endif()
-
 
 # GTEST_SOURCE_FILES can be defined in the command line to limit the files in a build. For example,
 # you can limit files to one action.
