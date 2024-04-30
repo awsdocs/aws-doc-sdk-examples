@@ -1,13 +1,13 @@
-# Lambda code examples for the SDK for Go V2
+# Amazon Cognito Identity Provider code examples for the SDK for Go V2
 
 ## Overview
 
-Shows how to use the AWS SDK for Go V2 to work with AWS Lambda.
+Shows how to use the AWS SDK for Go V2 to work with Amazon Cognito Identity Provider.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Lambda allows you to run code without provisioning or managing servers._
+_Amazon Cognito Identity Provider handles user authentication and authorization for your web and mobile apps._
 
 ## ⚠ Important
 
@@ -31,20 +31,22 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 ### Get started
 
-- [Hello Lambda](hello/hello.go#L4) (`ListFunctions`)
+- [Hello Amazon Cognito](hello/hello.go#L4) (`ListUserPools`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateFunction](actions/functions.go#L47)
-- [DeleteFunction](actions/functions.go#L155)
-- [GetFunction](actions/functions.go#L29)
-- [Invoke](actions/functions.go#L169)
-- [ListFunctions](actions/functions.go#L134)
-- [UpdateFunctionCode](actions/functions.go#L90)
-- [UpdateFunctionConfiguration](actions/functions.go#L118)
+- [AdminCreateUser](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L183)
+- [AdminSetUserPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L208)
+- [ConfirmForgotPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L145)
+- [DeleteUser](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L168)
+- [ForgotPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L128)
+- [InitiateAuth](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L103)
+- [ListUserPools](hello/hello.go#L4)
+- [SignUp](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L75)
+- [UpdateUserPool](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L26)
 
 ### Scenarios
 
@@ -53,7 +55,6 @@ functions within the same service.
 
 - [Automatically confirm known users with a Lambda function](../workflows/user_pools_and_lambda_triggers/workflows/scenario_auto_confirm_trusted_accounts.go)
 - [Automatically migrate known users with a Lambda function](../workflows/user_pools_and_lambda_triggers/workflows/scenario_migrate_user.go)
-- [Get started with functions](scenarios/scenario_get_started_functions.go)
 - [Write custom activity data with a Lambda function after Amazon Cognito user authentication](../workflows/user_pools_and_lambda_triggers/workflows/scenario_activity_log.go)
 
 
@@ -68,9 +69,9 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Lambda
+#### Hello Amazon Cognito
 
-This example shows you how to get started using Lambda.
+This example shows you how to get started using Amazon Cognito.
 
 ```
 go run ./hello
@@ -118,23 +119,6 @@ This example shows you how to automatically migrate known Amazon Cognito users w
 <!--custom.scenarios.cross_CognitoAutoMigrateUser.start-->
 <!--custom.scenarios.cross_CognitoAutoMigrateUser.end-->
 
-#### Get started with functions
-
-This example shows you how to do the following:
-
-- Create an IAM role and Lambda function, then upload handler code.
-- Invoke the function with a single parameter and get results.
-- Update the function code and configure with an environment variable.
-- Invoke the function with new parameters and get results. Display the returned execution log.
-- List the functions for your account, then clean up resources.
-
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
-
-
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
-
 #### Write custom activity data with a Lambda function after Amazon Cognito user authentication
 
 This example shows you how to write custom activity data with a Lambda function after Amazon Cognito user authentication.
@@ -167,9 +151,9 @@ in the `gov2` folder.
 
 ## Additional resources
 
-- [Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
-- [Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
-- [SDK for Go V2 Lambda reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/lambda)
+- [Amazon Cognito Identity Provider Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
+- [Amazon Cognito Identity Provider API Reference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html)
+- [SDK for Go V2 Amazon Cognito Identity Provider reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/cognito-identity-provider)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
