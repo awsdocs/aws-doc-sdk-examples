@@ -38,16 +38,16 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add an input stream to an application](analytics_application.py#L257) (`AddApplicationInput`)
-- [Add an output stream to an application](analytics_application.py#L294) (`AddApplicationOutput`)
-- [Create an application](analytics_application.py#L129) (`CreateApplication`)
-- [Delete an application](analytics_application.py#L158) (`DeleteApplication`)
-- [Describe an application](analytics_application.py#L174) (`DescribeApplication`)
-- [Describe an application snapshot](analytics_application.py#L195) (`DescribeApplicationSnapshot`)
-- [Discover a data format for a stream](analytics_application.py#L226) (`DiscoverInputSchema`)
-- [Start an application](analytics_application.py#L365) (`StartApplication`)
-- [Stop an application](analytics_application.py#L394) (`StopApplication`)
-- [Update an application](analytics_application.py#L332) (`UpdateApplication`)
+- [AddApplicationInput](analytics_application.py#L257)
+- [AddApplicationOutput](analytics_application.py#L294)
+- [CreateApplication](analytics_application.py#L129)
+- [DeleteApplication](analytics_application.py#L158)
+- [DescribeApplication](analytics_application.py#L174)
+- [DescribeApplicationSnapshot](analytics_application.py#L195)
+- [DiscoverInputSchema](analytics_application.py#L226)
+- [StartApplication](analytics_application.py#L365)
+- [StopApplication](analytics_application.py#L394)
+- [UpdateApplication](analytics_application.py#L332)
 
 ### Data generator
 

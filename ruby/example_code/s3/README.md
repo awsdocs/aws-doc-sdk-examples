@@ -33,22 +33,22 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add CORS rules to a bucket](bucket_cors.rb#L34) (`PutBucketCors`)
-- [Add a policy to a bucket](bucket_policy.rb#L36) (`PutBucketPolicy`)
-- [Copy an object from one bucket to another](object_copy.rb#L8) (`CopyObject`)
-- [Create a bucket](bucket_create.rb#L8) (`CreateBucket`)
-- [Delete CORS rules from a bucket](bucket_cors.rb#L60) (`DeleteBucketCors`)
-- [Delete a policy from a bucket](bucket_policy.rb#L48) (`DeleteBucketPolicy`)
-- [Delete an empty bucket](scenario_getting_started.rb#L125) (`DeleteBucket`)
-- [Delete multiple objects](scenario_getting_started.rb#L124) (`DeleteObjects`)
-- [Determine the existence and content type of an object](object_exists.rb#L8) (`HeadObject`)
-- [Get CORS rules for a bucket](bucket_cors.rb#L22) (`GetBucketCors`)
-- [Get an object from a bucket](object_get.rb#L8) (`GetObject`)
-- [Get the policy for a bucket](bucket_policy.rb#L23) (`GetBucketPolicy`)
-- [List buckets](bucket_list.rb#L8) (`ListBuckets`)
-- [List objects in a bucket](bucket_list_objects.rb#L8) (`ListObjectsV2`)
-- [Set the website configuration for a bucket](bucket_put_website.rb#L8) (`PutBucketWebsite`)
-- [Upload an object to a bucket](object_upload_file.rb#L8) (`PutObject`)
+- [CopyObject](object_copy.rb#L8)
+- [CreateBucket](bucket_create.rb#L8)
+- [DeleteBucket](scenario_getting_started.rb#L125)
+- [DeleteBucketCors](bucket_cors.rb#L60)
+- [DeleteBucketPolicy](bucket_policy.rb#L48)
+- [DeleteObjects](scenario_getting_started.rb#L124)
+- [GetBucketCors](bucket_cors.rb#L22)
+- [GetBucketPolicy](bucket_policy.rb#L23)
+- [GetObject](object_get.rb#L8)
+- [HeadObject](object_exists.rb#L8)
+- [ListBuckets](bucket_list.rb#L8)
+- [ListObjectsV2](bucket_list_objects.rb#L8)
+- [PutBucketCors](bucket_cors.rb#L34)
+- [PutBucketPolicy](bucket_policy.rb#L36)
+- [PutBucketWebsite](bucket_put_website.rb#L8)
+- [PutObject](object_upload_file.rb#L8)
 
 ### Scenarios
 

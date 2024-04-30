@@ -38,9 +38,9 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a transcoding job](Scenarios/CreateJob/CreateJob.cs#L24) (`CreateJob`)
-- [Get a transcoding job](Scenarios/CreateJob/CreateJob.cs#L24) (`GetJob`)
-- [List transcoding jobs](Scenarios/CreateJob/CreateJob.cs#L24) (`ListJobs`)
+- [CreateJob](Scenarios/CreateJob/CreateJob.cs#L24)
+- [GetJob](Scenarios/CreateJob/CreateJob.cs#L24)
+- [ListJobs](Scenarios/CreateJob/CreateJob.cs#L24)
 
 
 <!--custom.examples.start-->

@@ -38,11 +38,11 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Analyze a document](textract_wrapper.py#L61) (`AnalyzeDocument`)
-- [Detect text in a document](textract_wrapper.py#L34) (`DetectDocumentText`)
-- [Get data about a document analysis job](textract_wrapper.py#L255) (`GetDocumentAnalysis`)
-- [Start asynchronous analysis of a document](textract_wrapper.py#L207) (`StartDocumentAnalysis`)
-- [Start asynchronous text detection](textract_wrapper.py#L145) (`StartDocumentTextDetection`)
+- [AnalyzeDocument](textract_wrapper.py#L61)
+- [DetectDocumentText](textract_wrapper.py#L34)
+- [GetDocumentAnalysis](textract_wrapper.py#L255)
+- [StartDocumentAnalysis](textract_wrapper.py#L207)
+- [StartDocumentTextDetection](textract_wrapper.py#L145)
 
 ### Cross-service examples
 

@@ -38,14 +38,14 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a listener for a load balancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L463) (`CreateListener`)
-- [Create a target group](../cross-services/wkflw-resilient-service/steps-deploy.js#L402) (`CreateTargetGroup`)
-- [Create an Application Load Balancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L435) (`CreateLoadBalancer`)
-- [Delete a load balancer](../cross-services/wkflw-resilient-service/steps-destroy.js#L293) (`DeleteLoadBalancer`)
-- [Delete a target group](../cross-services/wkflw-resilient-service/steps-destroy.js#L327) (`DeleteTargetGroup`)
-- [Describe target groups](../cross-services/wkflw-resilient-service/steps-demo.js#L77) (`DescribeTargetGroups`)
-- [Get the endpoint of a load balancer](hello.js) (`DescribeLoadBalancers`)
-- [Get the health of a target group](../cross-services/wkflw-resilient-service/steps-demo.js#L86) (`DescribeTargetHealth`)
+- [CreateListener](../cross-services/wkflw-resilient-service/steps-deploy.js#L463)
+- [CreateLoadBalancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L435)
+- [CreateTargetGroup](../cross-services/wkflw-resilient-service/steps-deploy.js#L402)
+- [DeleteLoadBalancer](../cross-services/wkflw-resilient-service/steps-destroy.js#L293)
+- [DeleteTargetGroup](../cross-services/wkflw-resilient-service/steps-destroy.js#L327)
+- [DescribeLoadBalancers](hello.js)
+- [DescribeTargetGroups](../cross-services/wkflw-resilient-service/steps-demo.js#L77)
+- [DescribeTargetHealth](../cross-services/wkflw-resilient-service/steps-demo.js#L86)
 
 ### Scenarios
 

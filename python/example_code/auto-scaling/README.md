@@ -43,17 +43,17 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach an ELB target group to an Auto Scaling group](../../cross_service/resilient_service/auto_scaler.py#L535) (`AttachLoadBalancerTargetGroups`)
-- [Create a group](action_wrapper.py#L30) (`CreateAutoScalingGroup`)
-- [Delete a group](../../cross_service/resilient_service/auto_scaler.py#L562) (`DeleteAutoScalingGroup`)
-- [Disable metrics collection for a group](action_wrapper.py#L271) (`DisableMetricsCollection`)
-- [Enable metrics collection for a group](action_wrapper.py#L248) (`EnableMetricsCollection`)
-- [Get information about groups](action_wrapper.py#L113) (`DescribeAutoScalingGroups`)
-- [Get information about instances](action_wrapper.py#L195) (`DescribeAutoScalingInstances`)
-- [Get information about scaling activities](action_wrapper.py#L220) (`DescribeScalingActivities`)
-- [Set the desired capacity of a group](action_wrapper.py#L169) (`SetDesiredCapacity`)
-- [Terminate an instance in a group](action_wrapper.py#L139) (`TerminateInstanceInAutoScalingGroup`)
-- [Update a group](action_wrapper.py#L67) (`UpdateAutoScalingGroup`)
+- [AttachLoadBalancerTargetGroups](../../cross_service/resilient_service/auto_scaler.py#L535)
+- [CreateAutoScalingGroup](action_wrapper.py#L30)
+- [DeleteAutoScalingGroup](../../cross_service/resilient_service/auto_scaler.py#L562)
+- [DescribeAutoScalingGroups](action_wrapper.py#L113)
+- [DescribeAutoScalingInstances](action_wrapper.py#L195)
+- [DescribeScalingActivities](action_wrapper.py#L220)
+- [DisableMetricsCollection](action_wrapper.py#L271)
+- [EnableMetricsCollection](action_wrapper.py#L248)
+- [SetDesiredCapacity](action_wrapper.py#L169)
+- [TerminateInstanceInAutoScalingGroup](action_wrapper.py#L139)
+- [UpdateAutoScalingGroup](action_wrapper.py#L67)
 
 ### Scenarios
 

@@ -45,15 +45,15 @@ plan, the SubscriptionRequiredException error message appears. For information a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a communication to a case](Actions/SupportWrapper.cs#L146) (`AddCommunicationToCase`)
-- [Add an attachment to a set](Actions/SupportWrapper.cs#L98) (`AddAttachmentsToSet`)
-- [Create a case](Actions/SupportWrapper.cs#L63) (`CreateCase`)
-- [Describe an attachment](Actions/SupportWrapper.cs#L127) (`DescribeAttachment`)
-- [Describe cases](Actions/SupportWrapper.cs#L201) (`DescribeCases`)
-- [Describe communications](Actions/SupportWrapper.cs#L172) (`DescribeCommunications`)
-- [Describe services](Actions/SupportWrapper.cs#L23) (`DescribeServices`)
-- [Describe severity levels](Actions/SupportWrapper.cs#L43) (`DescribeSeverityLevels`)
-- [Resolve case](Actions/SupportWrapper.cs#L241) (`ResolveCase`)
+- [AddAttachmentsToSet](Actions/SupportWrapper.cs#L98)
+- [AddCommunicationToCase](Actions/SupportWrapper.cs#L146)
+- [CreateCase](Actions/SupportWrapper.cs#L63)
+- [DescribeAttachment](Actions/SupportWrapper.cs#L127)
+- [DescribeCases](Actions/SupportWrapper.cs#L201)
+- [DescribeCommunications](Actions/SupportWrapper.cs#L172)
+- [DescribeServices](Actions/SupportWrapper.cs#L23)
+- [DescribeSeverityLevels](Actions/SupportWrapper.cs#L43)
+- [ResolveCase](Actions/SupportWrapper.cs#L241)
 
 ### Scenarios
 

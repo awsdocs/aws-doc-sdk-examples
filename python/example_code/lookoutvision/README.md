@@ -43,19 +43,19 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a dataset](datasets.py#L32) (`CreateDataset`)
-- [Create a model](models.py#L29) (`CreateModel`)
-- [Create a project](projects.py#L31) (`CreateProject`)
-- [Delete a dataset](datasets.py#L201) (`DeleteDataset`)
-- [Delete a model](models.py#L167) (`DeleteModel`)
-- [Delete a project](projects.py#L54) (`DeleteProject`)
-- [Describe a dataset](datasets.py#L227) (`DescribeDataset`)
-- [Describe a model](models.py#L102) (`DescribeModel`)
-- [Detect anomalies in an image with a trained model](inference.py#L23) (`DetectAnomalies`)
-- [List models](models.py#L143) (`ListModels`)
-- [List projects](projects.py#L73) (`ListProjects`)
-- [Start a model](hosting.py#L30) (`StartModel`)
-- [Stop a model](hosting.py#L87) (`StopModel`)
+- [CreateDataset](datasets.py#L32)
+- [CreateModel](models.py#L29)
+- [CreateProject](projects.py#L31)
+- [DeleteDataset](datasets.py#L201)
+- [DeleteModel](models.py#L167)
+- [DeleteProject](projects.py#L54)
+- [DescribeDataset](datasets.py#L227)
+- [DescribeModel](models.py#L102)
+- [DetectAnomalies](inference.py#L23)
+- [ListModels](models.py#L143)
+- [ListProjects](projects.py#L73)
+- [StartModel](hosting.py#L30)
+- [StopModel](hosting.py#L87)
 
 ### Scenarios
 

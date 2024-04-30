@@ -33,7 +33,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Send email and text messages](SendEmailMessage/SendEmail.cs#L4) (`SendMessages`)
+- [SendMessages](SendEmailMessage/SendEmail.cs#L4)
 
 
 <!--custom.examples.start-->

@@ -38,13 +38,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a queue](../workflows/topics_and_queues/actions/sqs_actions.go#L28) (`CreateQueue`)
-- [Delete a batch of messages from a queue](../workflows/topics_and_queues/actions/sqs_actions.go#L148) (`DeleteMessageBatch`)
-- [Delete a queue](../workflows/topics_and_queues/actions/sqs_actions.go#L170) (`DeleteQueue`)
-- [Get attributes for a queue](../workflows/topics_and_queues/actions/sqs_actions.go#L53) (`GetQueueAttributes`)
-- [List queues](hello/hello.go#L4) (`ListQueues`)
-- [Receive messages from a queue](../workflows/topics_and_queues/actions/sqs_actions.go#L128) (`ReceiveMessage`)
-- [Set queue attributes](../workflows/topics_and_queues/actions/sqs_actions.go#L74) (`SetQueueAttributes`)
+- [CreateQueue](../workflows/topics_and_queues/actions/sqs_actions.go#L28)
+- [DeleteMessageBatch](../workflows/topics_and_queues/actions/sqs_actions.go#L148)
+- [DeleteQueue](../workflows/topics_and_queues/actions/sqs_actions.go#L170)
+- [GetQueueAttributes](../workflows/topics_and_queues/actions/sqs_actions.go#L53)
+- [ListQueues](hello/hello.go#L4)
+- [ReceiveMessage](../workflows/topics_and_queues/actions/sqs_actions.go#L128)
+- [SetQueueAttributes](../workflows/topics_and_queues/actions/sqs_actions.go#L74)
 
 ### Scenarios
 

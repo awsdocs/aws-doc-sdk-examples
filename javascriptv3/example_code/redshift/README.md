@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a cluster](src/libs/redshiftClient.js#L15) (`CreateCluster`)
-- [Delete a cluster](src/libs/redshiftClient.js#L15) (`DeleteCluster`)
-- [Describe clusters](src/libs/redshiftClient.js#L15) (`DescribeClusters`)
-- [Modify a cluster](src/libs/redshiftClient.js#L15) (`ModifyCluster`)
+- [CreateCluster](src/libs/redshiftClient.js#L15)
+- [DeleteCluster](src/libs/redshiftClient.js#L15)
+- [DescribeClusters](src/libs/redshiftClient.js#L15)
+- [ModifyCluster](src/libs/redshiftClient.js#L15)
 
 
 <!--custom.examples.start-->

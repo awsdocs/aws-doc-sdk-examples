@@ -38,21 +38,21 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB cluster](actions/clusters.go#L160) (`CreateDBCluster`)
-- [Create a DB cluster parameter group](actions/clusters.go#L47) (`CreateDBClusterParameterGroup`)
-- [Create a DB cluster snapshot](actions/clusters.go#L206) (`CreateDBClusterSnapshot`)
-- [Create a DB instance in a DB cluster](actions/clusters.go#L243) (`CreateDBInstance`)
-- [Delete a DB cluster](actions/clusters.go#L188) (`DeleteDBCluster`)
-- [Delete a DB cluster parameter group](actions/clusters.go#L71) (`DeleteDBClusterParameterGroup`)
-- [Delete a DB instance](actions/clusters.go#L290) (`DeleteDBInstance`)
-- [Describe DB cluster parameter groups](actions/clusters.go#L23) (`DescribeDBClusterParameterGroups`)
-- [Describe DB cluster snapshots](actions/clusters.go#L225) (`DescribeDBClusterSnapshots`)
-- [Describe DB clusters](actions/clusters.go#L136) (`DescribeDBClusters`)
-- [Describe DB instances](actions/clusters.go#L265) (`DescribeDBInstances`)
-- [Describe database engine versions](actions/clusters.go#L309) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](actions/clusters.go#L330) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters from a DB cluster parameter group](actions/clusters.go#L89) (`DescribeDBClusterParameters`)
-- [Update parameters in a DB cluster parameter group](actions/clusters.go#L117) (`ModifyDBClusterParameterGroup`)
+- [CreateDBCluster](actions/clusters.go#L160)
+- [CreateDBClusterParameterGroup](actions/clusters.go#L47)
+- [CreateDBClusterSnapshot](actions/clusters.go#L206)
+- [CreateDBInstance](actions/clusters.go#L243)
+- [DeleteDBCluster](actions/clusters.go#L188)
+- [DeleteDBClusterParameterGroup](actions/clusters.go#L71)
+- [DeleteDBInstance](actions/clusters.go#L290)
+- [DescribeDBClusterParameterGroups](actions/clusters.go#L23)
+- [DescribeDBClusterParameters](actions/clusters.go#L89)
+- [DescribeDBClusterSnapshots](actions/clusters.go#L225)
+- [DescribeDBClusters](actions/clusters.go#L136)
+- [DescribeDBEngineVersions](actions/clusters.go#L309)
+- [DescribeDBInstances](actions/clusters.go#L265)
+- [DescribeOrderableDBInstanceOptions](actions/clusters.go#L330)
+- [ModifyDBClusterParameterGroup](actions/clusters.go#L117)
 
 ### Scenarios
 

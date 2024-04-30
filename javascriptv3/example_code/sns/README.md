@@ -38,19 +38,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Check whether a phone number is opted out](libs/snsClient.js#L4) (`CheckIfPhoneNumberIsOptedOut`)
-- [Confirm an endpoint owner wants to receive messages](libs/snsClient.js#L4) (`ConfirmSubscription`)
-- [Create a topic](libs/snsClient.js#L4) (`CreateTopic`)
-- [Delete a subscription](libs/snsClient.js#L4) (`Unsubscribe`)
-- [Delete a topic](libs/snsClient.js#L4) (`DeleteTopic`)
-- [Get the properties of a topic](libs/snsClient.js#L4) (`GetTopicAttributes`)
-- [Get the settings for sending SMS messages](libs/snsClient.js#L4) (`GetSMSAttributes`)
-- [List the subscribers of a topic](libs/snsClient.js#L4) (`ListSubscriptions`)
-- [List topics](libs/snsClient.js#L4) (`ListTopics`)
-- [Publish to a topic](libs/snsClient.js#L4) (`Publish`)
-- [Set the default settings for sending SMS messages](libs/snsClient.js#L4) (`SetSMSAttributes`)
-- [Set topic attributes](libs/snsClient.js#L4) (`SetTopicAttributes`)
-- [Subscribe an email address to a topic](libs/snsClient.js#L4) (`Subscribe`)
+- [CheckIfPhoneNumberIsOptedOut](libs/snsClient.js#L4)
+- [ConfirmSubscription](libs/snsClient.js#L4)
+- [CreateTopic](libs/snsClient.js#L4)
+- [DeleteTopic](libs/snsClient.js#L4)
+- [GetSMSAttributes](libs/snsClient.js#L4)
+- [GetTopicAttributes](libs/snsClient.js#L4)
+- [ListSubscriptions](libs/snsClient.js#L4)
+- [ListTopics](libs/snsClient.js#L4)
+- [Publish](libs/snsClient.js#L4)
+- [SetSMSAttributes](libs/snsClient.js#L4)
+- [SetTopicAttributes](libs/snsClient.js#L4)
+- [Subscribe](libs/snsClient.js#L4)
+- [Unsubscribe](libs/snsClient.js#L4)
 
 
 <!--custom.examples.start-->

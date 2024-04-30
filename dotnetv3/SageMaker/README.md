@@ -38,11 +38,11 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a pipeline](Actions/SageMakerWrapper.cs#L25) (`CreatePipeline`)
-- [Delete a pipeline](Actions/SageMakerWrapper.cs#L146) (`DeletePipeline`)
-- [Describe a pipeline execution](Actions/SageMakerWrapper.cs#L128) (`DescribePipelineExecution`)
-- [Execute a pipeline](Actions/SageMakerWrapper.cs#L62) (`StartPipelineExecution`)
-- [Update a pipeline](Actions/SageMakerWrapper.cs#L25) (`UpdatePipeline`)
+- [CreatePipeline](Actions/SageMakerWrapper.cs#L25)
+- [DeletePipeline](Actions/SageMakerWrapper.cs#L146)
+- [DescribePipelineExecution](Actions/SageMakerWrapper.cs#L128)
+- [StartPipelineExecution](Actions/SageMakerWrapper.cs#L62)
+- [UpdatePipeline](Actions/SageMakerWrapper.cs#L25)
 
 ### Scenarios
 

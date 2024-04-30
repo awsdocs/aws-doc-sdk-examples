@@ -103,21 +103,6 @@ apigatewayv2:
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
   version: '2018-11-29'
-application-autoscaling:
-  long: '&APP-ASlong;'
-  short: '&APP-AS;'
-  sort: Application Auto Scaling
-  expanded:
-    long: AWS Application Auto Scaling
-    short: Application Auto Scaling
-  blurb: configures auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling.
-  guide:
-    subtitle: User Guide
-    url: autoscaling/application/userguide/what-is-application-auto-scaling.html
-  api_ref: autoscaling/application/APIReference/Welcome.html
-  tags:
-    product_categories: {'Management &amp; Governance'}
-  version: application-autoscaling-2016-02-06
 app-mesh:
   api_ref: app-mesh/latest/APIReference/Welcome.html
   blurb: ''
@@ -150,7 +135,7 @@ appconfig:
   version: '2019-10-09'
 application-auto-scaling:
   api_ref: autoscaling/application/APIReference/Welcome.html
-  blurb: ''
+  blurb: configures auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling.
   expanded:
     long: Application Auto Scaling
     short: Application Auto Scaling
@@ -161,8 +146,8 @@ application-auto-scaling:
   short: '&APP-AS;'
   sort: Application Auto Scaling
   tags:
-    product_categories: {}
-  version: '2016-02-06'
+    product_categories: {'Management &amp; Governance'}
+  version: application-autoscaling-2016-02-06
 application-discovery-service:
   api_ref: application-discovery/latest/APIReference/Welcome.html
   blurb: ''
@@ -486,7 +471,7 @@ cloudsearch-domain:
   version: '2013-01-01'
 cloudtrail:
   api_ref: awscloudtrail/latest/APIReference/Welcome.html
-  blurb: ''
+  blurb: helps you monitor your AWS deployments in the cloud by getting a history of AWS API calls for your account.
   expanded:
     long: AWS CloudTrail
     short: CloudTrail
@@ -3051,22 +3036,6 @@ transcribe:
   guide:
     subtitle: Developer Guide
     url: transcribe/latest/dg/what-is.html
-  api_ref: transcribe/latest/APIReference/Welcome.html
-  tags:
-    product_categories: {'Machine Learning &amp; AI'}
-  version: transcribe-2017-10-26
-transcribe-medical:
-  long: '&TSCMlong;'
-  short: '&TSCM;'
-  sort: Transcribe Medical
-  expanded:
-    long: Amazon Transcribe Medical
-    short: Amazon Transcribe Medical
-  blurb: is an automatic speech recognition (ASR) service designed for medical professionals who want to transcribe
-    medical-related speech, such as physician-dictated notes, drug safety monitoring, telemedicine appointments, or physician-patient conversations.
-  guide:
-    subtitle: Developer Guide
-    url: transcribe/latest/dg/transcribe-medical.html
   api_ref: transcribe/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Machine Learning &amp; AI'}

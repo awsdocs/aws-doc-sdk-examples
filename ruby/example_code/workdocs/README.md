@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Describe root folder contents](workdocs_basics.rb#L36) (`DescribeRootFolders`)
-- [Describe users](workdocs_basics.rb#L12) (`DescribeUsers`)
+- [DescribeRootFolders](workdocs_basics.rb#L36)
+- [DescribeUsers](workdocs_basics.rb#L12)
 
 
 <!--custom.examples.start-->

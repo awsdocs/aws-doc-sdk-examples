@@ -41,11 +41,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create an agent](actions/create-agent.js) (`CreateAgent`)
-- [Delete an agent](actions/delete-agent.js) (`DeleteAgent`)
-- [Get information about an agent](actions/get-agent.js) (`GetAgent`)
-- [List the action groups for an agent](actions/list-agent-action-groups.js) (`ListAgentActionGroups`)
-- [List the available agents](actions/list-agents.js) (`ListAgents`)
+- [CreateAgent](actions/create-agent.js)
+- [DeleteAgent](actions/delete-agent.js)
+- [GetAgent](actions/get-agent.js)
+- [ListAgentActionGroups](actions/list-agent-action-groups.js)
+- [ListAgents](actions/list-agents.js)
 
 
 <!--custom.examples.start-->

@@ -38,18 +38,18 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB instance](actions/instances.go#L175) (`CreateDBInstance`)
-- [Create a DB parameter group](actions/instances.go#L49) (`CreateDBParameterGroup`)
-- [Create a snapshot of a DB instance](actions/instances.go#L138) (`CreateDBSnapshot`)
-- [Delete a DB instance](actions/instances.go#L229) (`DeleteDBInstance`)
-- [Delete a DB parameter group](actions/instances.go#L73) (`DeleteDBParameterGroup`)
-- [Describe DB instances](actions/instances.go#L204) (`DescribeDBInstances`)
-- [Describe DB parameter groups](actions/instances.go#L24) (`DescribeDBParameterGroups`)
-- [Describe database engine versions](actions/instances.go#L248) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](actions/instances.go#L269) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters in a DB parameter group](actions/instances.go#L91) (`DescribeDBParameters`)
-- [Describe snapshots of DB instances](actions/instances.go#L157) (`DescribeDBSnapshots`)
-- [Update parameters in a DB parameter group](actions/instances.go#L119) (`ModifyDBParameterGroup`)
+- [CreateDBInstance](actions/instances.go#L175)
+- [CreateDBParameterGroup](actions/instances.go#L49)
+- [CreateDBSnapshot](actions/instances.go#L138)
+- [DeleteDBInstance](actions/instances.go#L229)
+- [DeleteDBParameterGroup](actions/instances.go#L73)
+- [DescribeDBEngineVersions](actions/instances.go#L248)
+- [DescribeDBInstances](actions/instances.go#L204)
+- [DescribeDBParameterGroups](actions/instances.go#L24)
+- [DescribeDBParameters](actions/instances.go#L91)
+- [DescribeDBSnapshots](actions/instances.go#L157)
+- [DescribeOrderableDBInstanceOptions](actions/instances.go#L269)
+- [ModifyDBParameterGroup](actions/instances.go#L119)
 
 ### Scenarios
 

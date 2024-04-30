@@ -33,13 +33,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Detect entities in a document](DetectEntitiesExample/DetectEntitiesExample/DetectEntities.cs#L6) (`DetectEntities`)
-- [Detect key phrases in a document](DetectKeyPhraseExample/DetectKeyPhraseExample/DetectKeyPhrase.cs#L6) (`DetectKeyPhrases`)
-- [Detect personally identifiable information in a document](DetectingPIIExample/DetectingPIIExample/DetectingPII.cs#L6) (`DetectPiiEntities`)
-- [Detect syntactical elements of a document](DetectingSyntaxExample/DetectingSyntaxExample/DetectingSyntax.cs#L6) (`DetectSyntax`)
-- [Detect the dominant language in a document](DetectDominantLanguageExample/DetectDominantLanguageExample/DetectDominantLanguage.cs#L6) (`DetectDominantLanguage`)
-- [Detect the sentiment of a document](DetectSentimentExample/DetectSentimentExample/DetectSentiment.cs#L6) (`DetectSentiment`)
-- [Start a topic modeling job](TopicModelingExample/TopicModelingExample/TopicModeling.cs#L6) (`StartTopicsDetectionJob`)
+- [DetectDominantLanguage](DetectDominantLanguageExample/DetectDominantLanguageExample/DetectDominantLanguage.cs#L6)
+- [DetectEntities](DetectEntitiesExample/DetectEntitiesExample/DetectEntities.cs#L6)
+- [DetectKeyPhrases](DetectKeyPhraseExample/DetectKeyPhraseExample/DetectKeyPhrase.cs#L6)
+- [DetectPiiEntities](DetectingPIIExample/DetectingPIIExample/DetectingPII.cs#L6)
+- [DetectSentiment](DetectSentimentExample/DetectSentimentExample/DetectSentiment.cs#L6)
+- [DetectSyntax](DetectingSyntaxExample/DetectingSyntaxExample/DetectingSyntax.cs#L6)
+- [StartTopicsDetectionJob](TopicModelingExample/TopicModelingExample/TopicModeling.cs#L6)
 
 ### Cross-service examples
 

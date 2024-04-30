@@ -33,22 +33,22 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Compare faces in an image against a reference image](CompareFacesExample/CompareFaces.cs#L6) (`CompareFaces`)
-- [Create a collection](CreateCollectionExample/CreateCollection.cs#L6) (`CreateCollection`)
-- [Delete a collection](DeleteCollectionExample/DeleteCollection.cs#L6) (`DeleteCollection`)
-- [Delete faces from a collection](DeleteFacesExample/DeleteFaces.cs#L6) (`DeleteFaces`)
-- [Describe a collection](DescribeCollectionExample/DescribeCollection.cs#L6) (`DescribeCollection`)
-- [Detect faces in an image](DetectFacesExample/DetectFaces.cs#L6) (`DetectFaces`)
-- [Detect labels in an image](DetectLabelsExample/DetectLabels.cs#L6) (`DetectLabels`)
-- [Detect moderation labels in an image](DetectModerationLabelsExample/DetectModerationLabels.cs#L6) (`DetectModerationLabels`)
-- [Detect text in an image](DetectTextExample/DetectText.cs#L6) (`DetectText`)
-- [Get information about celebrities](CelebrityInfoExample/CelebrityInfo.cs#L6) (`GetCelebrityInfo`)
-- [Index faces to a collection](AddFacesExample/AddFaces.cs#L6) (`IndexFaces`)
-- [List collections](ListCollectionsExample/ListCollections.cs#L6) (`ListCollections`)
-- [List faces in a collection](ListFacesExample/ListFaces.cs#L6) (`ListFaces`)
-- [Recognize celebrities in an image](CelebritiesInImageExample/CelebritiesInImage.cs#L6) (`RecognizeCelebrities`)
-- [Search for faces in a collection](SearchFacesMatchingIdExample/SearchFacesMatchingId.cs#L6) (`SearchFaces`)
-- [Search for faces in a collection compared to a reference image](SearchFacesMatchingImageExample/SearchFacesMatchingImage.cs#L6) (`SearchFacesByImage`)
+- [CompareFaces](CompareFacesExample/CompareFaces.cs#L6)
+- [CreateCollection](CreateCollectionExample/CreateCollection.cs#L6)
+- [DeleteCollection](DeleteCollectionExample/DeleteCollection.cs#L6)
+- [DeleteFaces](DeleteFacesExample/DeleteFaces.cs#L6)
+- [DescribeCollection](DescribeCollectionExample/DescribeCollection.cs#L6)
+- [DetectFaces](DetectFacesExample/DetectFaces.cs#L6)
+- [DetectLabels](DetectLabelsExample/DetectLabels.cs#L6)
+- [DetectModerationLabels](DetectModerationLabelsExample/DetectModerationLabels.cs#L6)
+- [DetectText](DetectTextExample/DetectText.cs#L6)
+- [GetCelebrityInfo](CelebrityInfoExample/CelebrityInfo.cs#L6)
+- [IndexFaces](AddFacesExample/AddFaces.cs#L6)
+- [ListCollections](ListCollectionsExample/ListCollections.cs#L6)
+- [ListFaces](ListFacesExample/ListFaces.cs#L6)
+- [RecognizeCelebrities](CelebritiesInImageExample/CelebritiesInImage.cs#L6)
+- [SearchFaces](SearchFacesMatchingIdExample/SearchFacesMatchingId.cs#L6)
+- [SearchFacesByImage](SearchFacesMatchingImageExample/SearchFacesMatchingImage.cs#L6)
 
 ### Cross-service examples
 

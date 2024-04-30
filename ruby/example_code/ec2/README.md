@@ -33,19 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Allocate an Elastic IP address](ec2-ruby-example-elastic-ips.rb#L47) (`AllocateAddress`)
-- [Associate an Elastic IP address with an instance](ec2-ruby-example-elastic-ips.rb#L63) (`AssociateAddress`)
-- [Create a Amazon Virtual Private Cloud (Amazon VPC)](ec2-ruby-example-create-vpc.rb#L8) (`CreateVpc`)
-- [Create a route table](ec2-ruby-example-create-route-table.rb#L9) (`CreateRouteTable`)
-- [Create a security group](ec2-ruby-example-security-group.rb#L10) (`CreateSecurityGroup`)
-- [Create a security key pair](ec2-ruby-example-key-pairs.rb#L10) (`CreateKeyPair`)
-- [Create a subnet](ec2-ruby-example-create-subnet.rb#L10) (`CreateSubnet`)
-- [Describe Regions](ec2-ruby-example-regions-availability-zones.rb#L9) (`DescribeRegions`)
-- [Describe instances](ec2-ruby-example-get-all-instance-info.rb#L9) (`DescribeInstances`)
-- [Release an Elastic IP address](ec2-ruby-example-elastic-ips.rb#L136) (`ReleaseAddress`)
-- [Start an instance](ec2-ruby-example-start-instance-i-123abc.rb#L9) (`StartInstances`)
-- [Stop an instance](ec2-ruby-example-stop-instance-i-123abc.rb#L8) (`StopInstances`)
-- [Terminate an instance](ec2-ruby-example-terminate-instance-i-123abc.rb#L12) (`TerminateInstances`)
+- [AllocateAddress](ec2-ruby-example-elastic-ips.rb#L47)
+- [AssociateAddress](ec2-ruby-example-elastic-ips.rb#L63)
+- [CreateKeyPair](ec2-ruby-example-key-pairs.rb#L10)
+- [CreateRouteTable](ec2-ruby-example-create-route-table.rb#L9)
+- [CreateSecurityGroup](ec2-ruby-example-security-group.rb#L10)
+- [CreateSubnet](ec2-ruby-example-create-subnet.rb#L10)
+- [CreateVpc](ec2-ruby-example-create-vpc.rb#L8)
+- [DescribeInstances](ec2-ruby-example-get-all-instance-info.rb#L9)
+- [DescribeRegions](ec2-ruby-example-regions-availability-zones.rb#L9)
+- [ReleaseAddress](ec2-ruby-example-elastic-ips.rb#L136)
+- [StartInstances](ec2-ruby-example-start-instance-i-123abc.rb#L9)
+- [StopInstances](ec2-ruby-example-stop-instance-i-123abc.rb#L8)
+- [TerminateInstances](ec2-ruby-example-terminate-instance-i-123abc.rb#L12)
 
 
 <!--custom.examples.start-->
