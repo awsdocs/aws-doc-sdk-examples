@@ -9,9 +9,9 @@
   "license": "Apache-2.0",
   "type": "module",
   "dependencies": {
+    "@aws-doc-sdk-examples/lib": "^1.0.1",
     "@aws-sdk/client-support": "^3.245.0",
-    "inquirer": "^9.1.4",
-    "libs": "*"
+    "@inquirer/prompts": "^5.0.1"
   },
   "devDependencies": {
     "vitest": "^0.27.0"

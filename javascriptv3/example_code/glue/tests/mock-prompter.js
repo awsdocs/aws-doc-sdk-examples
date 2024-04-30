@@ -4,7 +4,7 @@
 import { vi } from "vitest";
 
 const mockPrompter = (returnValue) => ({
-  prompt: vi.fn(async () => returnValue),
+  prompt: vi.fn(() => Promise.resolve(returnValue)),
 });
 
 export { mockPrompter };

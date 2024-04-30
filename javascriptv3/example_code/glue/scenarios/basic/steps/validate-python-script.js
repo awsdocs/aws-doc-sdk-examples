@@ -3,11 +3,18 @@
 
 import { log } from "../log.js";
 
-const findPythonScript = async (s3ListObjects, bucketName) => {
+/**
+ * @typedef {() => Promise<import('@aws-sdk/client-s3').ListObjectsCommandOutput>} listObjects
+ */
+
+const findPythonScript = async (
+  /** @type {listObjects} */ s3ListObjects,
+  bucketName,
+) => {
   try {
     const { Contents } = await s3ListObjects(bucketName);
     const script = Contents.find(
-      (obj) => obj.Key === process.env.PYTHON_SCRIPT_KEY
+      (obj) => obj.Key === process.env.PYTHON_SCRIPT_KEY,
     );
     return !!script;
   } catch {
@@ -21,7 +28,7 @@ const makeValidatePythonScriptStep =
     log("Checking if ETL python script exists.");
     const scriptExists = await findPythonScript(
       s3ListObjects,
-      process.env.BUCKET_NAME
+      process.env.BUCKET_NAME,
     );
 
     if (scriptExists) {
@@ -29,7 +36,7 @@ const makeValidatePythonScriptStep =
       return { ...context };
     } else {
       throw new Error(
-        "Missing ETL python script. Did you run the setup steps in the readme?"
+        "Missing ETL python script. Did you run the setup steps in the readme?",
       );
     }
   };

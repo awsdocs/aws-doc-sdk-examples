@@ -4,6 +4,9 @@
 import { log } from "../log.js";
 
 /** snippet-start:[javascript.v3.glue.scenarios.basic.GetTablesStep] */
+/**
+ * @param {{ getTables: () => Promise<import('@aws-sdk/client-glue').GetTablesCommandOutput}} config
+ */
 const makeGetTablesStep =
   ({ getTables }) =>
   async (context) => {

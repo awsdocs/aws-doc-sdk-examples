@@ -4,11 +4,7 @@
 import { fileURLToPath } from "url";
 
 // snippet-start:[s3.JavaScript.perms.putBucketAclV3]
-import {
-  PutBucketAclCommand,
-  GetBucketAclCommand,
-  S3Client,
-} from "@aws-sdk/client-s3";
+import { PutBucketAclCommand, S3Client } from "@aws-sdk/client-s3";
 
 const client = new S3Client({});
 
