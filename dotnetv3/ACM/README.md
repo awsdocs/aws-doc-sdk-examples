@@ -33,8 +33,8 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Describe a certificate](DescribeCertificates/DescribeCertificate/DescribeCertificate.cs#L4) (`DescribeCertificate`)
-- [List certificates](ListCertificates/ListCertificates/ListCertificates.cs#L4) (`ListCertificates`)
+- [DescribeCertificate](DescribeCertificates/DescribeCertificate/DescribeCertificate.cs#L4)
+- [ListCertificates](ListCertificates/ListCertificates/ListCertificates.cs#L4)
 
 
 <!--custom.examples.start-->

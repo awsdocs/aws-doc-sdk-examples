@@ -38,12 +38,12 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add steps to a job flow](emr_basics.py#L148) (`AddJobFlowSteps`)
-- [Describe a cluster](emr_basics.py#L105) (`DescribeCluster`)
-- [Describe a step](emr_basics.py#L217) (`DescribeStep`)
-- [List steps for a cluster](emr_basics.py#L193) (`ListSteps`)
-- [Run a job flow](emr_basics.py#L18) (`RunJobFlow`)
-- [Terminate job flows](emr_basics.py#L128) (`TerminateJobFlows`)
+- [AddJobFlowSteps](emr_basics.py#L148)
+- [DescribeCluster](emr_basics.py#L105)
+- [DescribeStep](emr_basics.py#L217)
+- [ListSteps](emr_basics.py#L193)
+- [RunJobFlow](emr_basics.py#L18)
+- [TerminateJobFlows](emr_basics.py#L128)
 
 ### Scenarios
 

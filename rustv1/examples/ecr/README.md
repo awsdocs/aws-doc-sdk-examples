@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [List the image IDs](src/bin/list-images.rs#L26) (`ListImages`)
-- [List your repositories](src/bin/describe-repos.rs#L22) (`DescribeRepositories`)
+- [DescribeRepositories](src/bin/describe-repos.rs#L22)
+- [ListImages](src/bin/list-images.rs#L26)
 
 
 <!--custom.examples.start-->

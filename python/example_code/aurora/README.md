@@ -38,21 +38,21 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB cluster](aurora_wrapper.py#L220) (`CreateDBCluster`)
-- [Create a DB cluster parameter group](aurora_wrapper.py#L68) (`CreateDBClusterParameterGroup`)
-- [Create a DB cluster snapshot](aurora_wrapper.py#L288) (`CreateDBClusterSnapshot`)
-- [Create a DB instance in a DB cluster](aurora_wrapper.py#L341) (`CreateDBInstance`)
-- [Delete a DB cluster](aurora_wrapper.py#L270) (`DeleteDBCluster`)
-- [Delete a DB cluster parameter group](aurora_wrapper.py#L101) (`DeleteDBClusterParameterGroup`)
-- [Delete a DB instance](aurora_wrapper.py#L469) (`DeleteDBInstance`)
-- [Describe DB cluster parameter groups](aurora_wrapper.py#L39) (`DescribeDBClusterParameterGroups`)
-- [Describe DB cluster snapshots](aurora_wrapper.py#L315) (`DescribeDBClusterSnapshots`)
-- [Describe DB clusters](aurora_wrapper.py#L191) (`DescribeDBClusters`)
-- [Describe DB instances](aurora_wrapper.py#L440) (`DescribeDBInstances`)
-- [Describe database engine versions](aurora_wrapper.py#L378) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](aurora_wrapper.py#L409) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters from a DB cluster parameter group](aurora_wrapper.py#L126) (`DescribeDBClusterParameters`)
-- [Update parameters in a DB cluster parameter group](aurora_wrapper.py#L164) (`ModifyDBClusterParameterGroup`)
+- [CreateDBCluster](aurora_wrapper.py#L220)
+- [CreateDBClusterParameterGroup](aurora_wrapper.py#L68)
+- [CreateDBClusterSnapshot](aurora_wrapper.py#L288)
+- [CreateDBInstance](aurora_wrapper.py#L341)
+- [DeleteDBCluster](aurora_wrapper.py#L270)
+- [DeleteDBClusterParameterGroup](aurora_wrapper.py#L101)
+- [DeleteDBInstance](aurora_wrapper.py#L469)
+- [DescribeDBClusterParameterGroups](aurora_wrapper.py#L39)
+- [DescribeDBClusterParameters](aurora_wrapper.py#L126)
+- [DescribeDBClusterSnapshots](aurora_wrapper.py#L315)
+- [DescribeDBClusters](aurora_wrapper.py#L191)
+- [DescribeDBEngineVersions](aurora_wrapper.py#L378)
+- [DescribeDBInstances](aurora_wrapper.py#L440)
+- [DescribeOrderableDBInstanceOptions](aurora_wrapper.py#L409)
+- [ModifyDBClusterParameterGroup](aurora_wrapper.py#L164)
 
 ### Scenarios
 

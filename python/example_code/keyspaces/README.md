@@ -43,16 +43,16 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a keyspace](keyspace.py#L32) (`CreateKeyspace`)
-- [Create a table](keyspace.py#L109) (`CreateTable`)
-- [Delete a keyspace](keyspace.py#L277) (`DeleteKeyspace`)
-- [Delete a table](keyspace.py#L256) (`DeleteTable`)
-- [Get data about a keyspace](keyspace.py#L57) (`GetKeyspace`)
-- [Get data about a table](keyspace.py#L147) (`GetTable`)
-- [List keyspaces](keyspace.py#L86) (`ListKeyspaces`)
-- [List tables in a keyspace](keyspace.py#L177) (`ListTables`)
-- [Restore a table to a point in time](keyspace.py#L224) (`RestoreTable`)
-- [Update a table](keyspace.py#L199) (`UpdateTable`)
+- [CreateKeyspace](keyspace.py#L32)
+- [CreateTable](keyspace.py#L109)
+- [DeleteKeyspace](keyspace.py#L277)
+- [DeleteTable](keyspace.py#L256)
+- [GetKeyspace](keyspace.py#L57)
+- [GetTable](keyspace.py#L147)
+- [ListKeyspaces](keyspace.py#L86)
+- [ListTables](keyspace.py#L177)
+- [RestoreTable](keyspace.py#L224)
+- [UpdateTable](keyspace.py#L199)
 
 ### Scenarios
 

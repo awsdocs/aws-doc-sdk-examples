@@ -46,18 +46,18 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB instance](getting_started_with_db_instances.cpp#L481) (`CreateDBInstance`)
-- [Create a DB parameter group](getting_started_with_db_instances.cpp#L313) (`CreateDBParameterGroup`)
-- [Create a snapshot of a DB instance](getting_started_with_db_instances.cpp#L559) (`CreateDBSnapshot`)
-- [Delete a DB instance](getting_started_with_db_instances.cpp#L873) (`DeleteDBInstance`)
-- [Delete a DB parameter group](getting_started_with_db_instances.cpp#L927) (`DeleteDBParameterGroup`)
-- [Describe DB instances](getting_started_with_db_instances.cpp#L752) (`DescribeDBInstances`)
-- [Describe DB parameter groups](getting_started_with_db_instances.cpp#L275) (`DescribeDBParameterGroups`)
-- [Describe database engine versions](getting_started_with_db_instances.cpp#L698) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](getting_started_with_db_instances.cpp#L792) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters in a DB parameter group](getting_started_with_db_instances.cpp#L639) (`DescribeDBParameters`)
-- [Describe snapshots of DB instances](getting_started_with_db_instances.cpp#L597) (`DescribeDBSnapshots`)
-- [Update parameters in a DB parameter group](getting_started_with_db_instances.cpp#L382) (`ModifyDBParameterGroup`)
+- [CreateDBInstance](getting_started_with_db_instances.cpp#L481)
+- [CreateDBParameterGroup](getting_started_with_db_instances.cpp#L313)
+- [CreateDBSnapshot](getting_started_with_db_instances.cpp#L559)
+- [DeleteDBInstance](getting_started_with_db_instances.cpp#L873)
+- [DeleteDBParameterGroup](getting_started_with_db_instances.cpp#L927)
+- [DescribeDBEngineVersions](getting_started_with_db_instances.cpp#L698)
+- [DescribeDBInstances](getting_started_with_db_instances.cpp#L752)
+- [DescribeDBParameterGroups](getting_started_with_db_instances.cpp#L275)
+- [DescribeDBParameters](getting_started_with_db_instances.cpp#L639)
+- [DescribeDBSnapshots](getting_started_with_db_instances.cpp#L597)
+- [DescribeOrderableDBInstanceOptions](getting_started_with_db_instances.cpp#L792)
+- [ModifyDBParameterGroup](getting_started_with_db_instances.cpp#L382)
 
 ### Scenarios
 

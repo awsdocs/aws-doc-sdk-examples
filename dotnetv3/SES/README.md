@@ -33,16 +33,16 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create an email template](Actions/SESWrapper.cs#L262) (`CreateTemplate`)
-- [Delete an email template](Actions/SESWrapper.cs#L343) (`DeleteTemplate`)
-- [Delete an identity](Actions/SESWrapper.cs#L119) (`DeleteIdentity`)
-- [Get sending limits](Actions/SESWrapper.cs#L212) (`GetSendQuota`)
-- [Get the status of an identity](Actions/SESWrapper.cs#L56) (`GetIdentityVerificationAttributes`)
-- [List email templates](Actions/SESWrapper.cs#L237) (`ListTemplates`)
-- [List identities](Actions/SESWrapper.cs#L27) (`ListIdentities`)
-- [Send email](Actions/SESWrapper.cs#L148) (`SendEmail`)
-- [Send templated email](Actions/SESWrapper.cs#L301) (`SendTemplatedEmail`)
-- [Verify an email identity](Actions/SESWrapper.cs#L87) (`VerifyEmailIdentity`)
+- [CreateTemplate](Actions/SESWrapper.cs#L262)
+- [DeleteIdentity](Actions/SESWrapper.cs#L119)
+- [DeleteTemplate](Actions/SESWrapper.cs#L343)
+- [GetIdentityVerificationAttributes](Actions/SESWrapper.cs#L56)
+- [GetSendQuota](Actions/SESWrapper.cs#L212)
+- [ListIdentities](Actions/SESWrapper.cs#L27)
+- [ListTemplates](Actions/SESWrapper.cs#L237)
+- [SendEmail](Actions/SESWrapper.cs#L148)
+- [SendTemplatedEmail](Actions/SESWrapper.cs#L301)
+- [VerifyEmailIdentity](Actions/SESWrapper.cs#L87)
 
 ### Cross-service examples
 

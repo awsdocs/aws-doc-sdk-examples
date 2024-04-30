@@ -38,15 +38,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Check whether a phone number is opted out](IsPhoneNumOptedOutExample/IsPhoneNumOptedOutExample/IsPhoneNumOptedOut.cs#L6) (`CheckIfPhoneNumberIsOptedOut`)
-- [Create a topic](CreateSNSTopicExample/CreateSNSTopicExample/CreateSNSTopic.cs#L6) (`CreateTopic`)
-- [Delete a subscription](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L137) (`Unsubscribe`)
-- [Delete a topic](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L154) (`DeleteTopic`)
-- [Get the properties of a topic](GetTopicAttributesExample/GetTopicAttributesExample/GetTopicAttributes.cs#L6) (`GetTopicAttributes`)
-- [List the subscribers of a topic](ListSNSSubscriptionsExample/ListSNSSubscriptionsExample/ListSubscriptions.cs#L6) (`ListSubscriptions`)
-- [List topics](ListSNSTopicsExample/ListSNSTopicsExample/ListSNSTopics.cs#L6) (`ListTopics`)
-- [Publish to a topic](PublishToSNSTopicExample/PublishToSNSTopicExample/PublishToSNSTopic.cs#L6) (`Publish`)
-- [Subscribe an email address to a topic](ManageTopicSubscriptionExample/ManageTopicSubscriptionExample/ManageTopicSubscription.cs#L38) (`Subscribe`)
+- [CheckIfPhoneNumberIsOptedOut](IsPhoneNumOptedOutExample/IsPhoneNumOptedOutExample/IsPhoneNumOptedOut.cs#L6)
+- [CreateTopic](CreateSNSTopicExample/CreateSNSTopicExample/CreateSNSTopic.cs#L6)
+- [DeleteTopic](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L154)
+- [GetTopicAttributes](GetTopicAttributesExample/GetTopicAttributesExample/GetTopicAttributes.cs#L6)
+- [ListSubscriptions](ListSNSSubscriptionsExample/ListSNSSubscriptionsExample/ListSubscriptions.cs#L6)
+- [ListTopics](ListSNSTopicsExample/ListSNSTopicsExample/ListSNSTopics.cs#L6)
+- [Publish](PublishToSNSTopicExample/PublishToSNSTopicExample/PublishToSNSTopic.cs#L6)
+- [Subscribe](ManageTopicSubscriptionExample/ManageTopicSubscriptionExample/ManageTopicSubscription.cs#L38)
+- [Unsubscribe](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L137)
 
 ### Scenarios
 

@@ -38,10 +38,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L366) (`CreatePipeline`)
-- [Delete a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L401) (`DeletePipeline`)
-- [Describe a pipeline execution](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L592) (`DescribePipelineExecution`)
-- [Execute a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L507) (`StartPipelineExecution`)
+- [CreatePipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L366)
+- [DeletePipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L401)
+- [DescribePipelineExecution](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L592)
+- [StartPipelineExecution](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L507)
 
 ### Scenarios
 

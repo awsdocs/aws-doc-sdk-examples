@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get voices available for synthesis](polly_describe_voices.rb#L8) (`DescribeVoices`)
-- [List pronunciation lexicons](polly_list_lexicons.rb#L8) (`ListLexicons`)
-- [Synthesize speech from text](polly_synthesize_speech.rb#L8) (`SynthesizeSpeech`)
+- [DescribeVoices](polly_describe_voices.rb#L8)
+- [ListLexicons](polly_list_lexicons.rb#L8)
+- [SynthesizeSpeech](polly_synthesize_speech.rb#L8)
 
 
 <!--custom.examples.start-->

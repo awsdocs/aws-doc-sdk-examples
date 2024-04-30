@@ -38,18 +38,18 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB instance](instance_wrapper.py#L333) (`CreateDBInstance`)
-- [Create a DB parameter group](instance_wrapper.py#L69) (`CreateDBParameterGroup`)
-- [Create a snapshot of a DB instance](instance_wrapper.py#L189) (`CreateDBSnapshot`)
-- [Delete a DB instance](instance_wrapper.py#L389) (`DeleteDBInstance`)
-- [Delete a DB parameter group](instance_wrapper.py#L102) (`DeleteDBParameterGroup`)
-- [Describe DB instances](instance_wrapper.py#L304) (`DescribeDBInstances`)
-- [Describe DB parameter groups](instance_wrapper.py#L40) (`DescribeDBParameterGroups`)
-- [Describe database engine versions](instance_wrapper.py#L242) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](instance_wrapper.py#L273) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters in a DB parameter group](instance_wrapper.py#L125) (`DescribeDBParameters`)
-- [Describe snapshots of DB instances](instance_wrapper.py#L216) (`DescribeDBSnapshots`)
-- [Update parameters in a DB parameter group](instance_wrapper.py#L163) (`ModifyDBParameterGroup`)
+- [CreateDBInstance](instance_wrapper.py#L333)
+- [CreateDBParameterGroup](instance_wrapper.py#L69)
+- [CreateDBSnapshot](instance_wrapper.py#L189)
+- [DeleteDBInstance](instance_wrapper.py#L389)
+- [DeleteDBParameterGroup](instance_wrapper.py#L102)
+- [DescribeDBEngineVersions](instance_wrapper.py#L242)
+- [DescribeDBInstances](instance_wrapper.py#L304)
+- [DescribeDBParameterGroups](instance_wrapper.py#L40)
+- [DescribeDBParameters](instance_wrapper.py#L125)
+- [DescribeDBSnapshots](instance_wrapper.py#L216)
+- [DescribeOrderableDBInstanceOptions](instance_wrapper.py#L273)
+- [ModifyDBParameterGroup](instance_wrapper.py#L163)
 
 ### Scenarios
 

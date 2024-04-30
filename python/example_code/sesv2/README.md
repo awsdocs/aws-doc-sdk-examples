@@ -38,15 +38,15 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a contact in a contact list](newsletter.py#L155) (`CreateContact`)
-- [Create a contact list](newsletter.py#L105) (`CreateContactList`)
-- [Create an email identity](newsletter.py#L92) (`CreateEmailIdentity`)
-- [Create an email template](newsletter.py#L118) (`CreateEmailTemplate`)
-- [Delete a  contact list](newsletter.py#L258) (`DeleteContactList`)
-- [Delete an email identity](newsletter.py#L286) (`DeleteEmailIdentity`)
-- [Delete an email template](newsletter.py#L271) (`DeleteEmailTemplate`)
-- [List the contacts in a contact list](newsletter.py#L198) (`ListContacts`)
-- [Send an email](newsletter.py#L164) (`SendEmail`)
+- [CreateContact](newsletter.py#L155)
+- [CreateContactList](newsletter.py#L105)
+- [CreateEmailIdentity](newsletter.py#L92)
+- [CreateEmailTemplate](newsletter.py#L118)
+- [DeleteContactList](newsletter.py#L258)
+- [DeleteEmailIdentity](newsletter.py#L286)
+- [DeleteEmailTemplate](newsletter.py#L271)
+- [ListContacts](newsletter.py#L198)
+- [SendEmail](newsletter.py#L164)
 
 ### Scenarios
 

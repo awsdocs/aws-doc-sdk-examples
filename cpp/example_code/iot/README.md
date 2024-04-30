@@ -46,20 +46,20 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a certificate](attach_thing_principal.cpp#L22) (`AttachThingPrincipal`)
-- [Create a certificate](create_keys_and_certificate.cpp#L23) (`CreateKeysAndCertificate`)
-- [Create a rule](create_topic_rule.cpp#L22) (`CreateTopicRule`)
-- [Create a thing](create_thing.cpp#L22) (`CreateThing`)
-- [Delete a certificate](delete_certificate.cpp#L22) (`DeleteCertificate`)
-- [Delete a rule](delete_topic_rule.cpp#L22) (`DeleteTopicRule`)
-- [Delete a thing](delete_thing.cpp#L22) (`DeleteThing`)
-- [Describe a thing](describe_thing.cpp#L22) (`DescribeThing`)
-- [Detach a certificate](detach_thing_principal.cpp#L23) (`DetachThingPrincipal`)
-- [Get endpoint information](describe_endpoint.cpp#L22) (`DescribeEndpoint`)
-- [List your certificates](list_certificates.cpp#L23) (`ListCertificates`)
-- [Query the search index](search_index.cpp#L22) (`SearchIndex`)
-- [Update a thing](update_thing.cpp#L23) (`UpdateThing`)
-- [Update the search configuration](update_indexing_configuration.cpp#L22) (`UpdateIndexingConfiguration`)
+- [AttachThingPrincipal](attach_thing_principal.cpp#L22)
+- [CreateKeysAndCertificate](create_keys_and_certificate.cpp#L23)
+- [CreateThing](create_thing.cpp#L22)
+- [CreateTopicRule](create_topic_rule.cpp#L22)
+- [DeleteCertificate](delete_certificate.cpp#L22)
+- [DeleteThing](delete_thing.cpp#L22)
+- [DeleteTopicRule](delete_topic_rule.cpp#L22)
+- [DescribeEndpoint](describe_endpoint.cpp#L22)
+- [DescribeThing](describe_thing.cpp#L22)
+- [DetachThingPrincipal](detach_thing_principal.cpp#L23)
+- [ListCertificates](list_certificates.cpp#L23)
+- [SearchIndex](search_index.cpp#L22)
+- [UpdateIndexingConfiguration](update_indexing_configuration.cpp#L22)
+- [UpdateThing](update_thing.cpp#L23)
 
 ### Scenarios
 

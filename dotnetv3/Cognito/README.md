@@ -43,18 +43,18 @@ the scenario.
 
 Code excerpts that show you how to call individual service functions.
 
-- [Confirm a user](Actions/CognitoWrapper.cs#L213) (`ConfirmSignUp`)
-- [Confirm an MFA device for tracking](Actions/CognitoWrapper.cs#L241) (`ConfirmDevice`)
-- [Get a token to associate an MFA application with a user](Actions/CognitoWrapper.cs#L133) (`AssociateSoftwareToken`)
-- [Get information about a user](Actions/CognitoWrapper.cs#L288) (`AdminGetUser`)
-- [List the user pools](Actions/CognitoWrapper.cs#L25) (`ListUserPools`)
-- [List users](Actions/CognitoWrapper.cs#L46) (`ListUsers`)
-- [Resend a confirmation code](Actions/CognitoWrapper.cs#L264) (`ResendConfirmationCode`)
-- [Respond to an authentication challenge](Actions/CognitoWrapper.cs#L72) (`AdminRespondToAuthChallenge`)
-- [Sign up a user](Actions/CognitoWrapper.cs#L311) (`SignUp`)
-- [Start authentication](Actions/CognitoWrapper.cs#L184) (`InitiateAuth`)
-- [Start authentication with administrator credentials](Actions/CognitoWrapper.cs#L156) (`AdminInitiateAuth`)
-- [Verify an MFA application with a user](Actions/CognitoWrapper.cs#L111) (`VerifySoftwareToken`)
+- [AdminGetUser](Actions/CognitoWrapper.cs#L288)
+- [AdminInitiateAuth](Actions/CognitoWrapper.cs#L156)
+- [AdminRespondToAuthChallenge](Actions/CognitoWrapper.cs#L72)
+- [AssociateSoftwareToken](Actions/CognitoWrapper.cs#L133)
+- [ConfirmDevice](Actions/CognitoWrapper.cs#L241)
+- [ConfirmSignUp](Actions/CognitoWrapper.cs#L213)
+- [InitiateAuth](Actions/CognitoWrapper.cs#L184)
+- [ListUserPools](Actions/CognitoWrapper.cs#L25)
+- [ListUsers](Actions/CognitoWrapper.cs#L46)
+- [ResendConfirmationCode](Actions/CognitoWrapper.cs#L264)
+- [SignUp](Actions/CognitoWrapper.cs#L311)
+- [VerifySoftwareToken](Actions/CognitoWrapper.cs#L111)
 
 ### Scenarios
 

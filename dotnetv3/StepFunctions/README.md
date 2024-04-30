@@ -38,18 +38,18 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a state machine](Actions/StepFunctionsWrapper.cs#L42) (`CreateStateMachine`)
-- [Create an activity](Actions/StepFunctionsWrapper.cs#L28) (`CreateActivity`)
-- [Delete a state machine](Actions/StepFunctionsWrapper.cs#L83) (`DeleteStateMachine`)
-- [Delete an activity](Actions/StepFunctionsWrapper.cs#L68) (`DeleteActivity`)
-- [Describe a state machine](Actions/StepFunctionsWrapper.cs#L114) (`DescribeStateMachine`)
-- [Describe a state machine run](Actions/StepFunctionsWrapper.cs#L99) (`DescribeExecution`)
-- [Get task data for an activity](Actions/StepFunctionsWrapper.cs#L129) (`GetActivityTask`)
-- [List activities](Actions/StepFunctionsWrapper.cs#L147) (`ListActivities`)
-- [List state machine runs](Actions/StepFunctionsWrapper.cs#L175) (`ListExecutions`)
-- [List state machines](Actions/StepFunctionsWrapper.cs#L204) (`ListStateMachines`)
-- [Send a success response to a task](Actions/StepFunctionsWrapper.cs#L225) (`SendTaskSuccess`)
-- [Start a state machine run](Actions/StepFunctionsWrapper.cs#L243) (`StartExecution`)
+- [CreateActivity](Actions/StepFunctionsWrapper.cs#L28)
+- [CreateStateMachine](Actions/StepFunctionsWrapper.cs#L42)
+- [DeleteActivity](Actions/StepFunctionsWrapper.cs#L68)
+- [DeleteStateMachine](Actions/StepFunctionsWrapper.cs#L83)
+- [DescribeExecution](Actions/StepFunctionsWrapper.cs#L99)
+- [DescribeStateMachine](Actions/StepFunctionsWrapper.cs#L114)
+- [GetActivityTask](Actions/StepFunctionsWrapper.cs#L129)
+- [ListActivities](Actions/StepFunctionsWrapper.cs#L147)
+- [ListExecutions](Actions/StepFunctionsWrapper.cs#L175)
+- [ListStateMachines](Actions/StepFunctionsWrapper.cs#L204)
+- [SendTaskSuccess](Actions/StepFunctionsWrapper.cs#L225)
+- [StartExecution](Actions/StepFunctionsWrapper.cs#L243)
 
 ### Scenarios
 

@@ -38,20 +38,20 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L14) (`CreateTable`)
-- [Delete a table](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L391) (`DeleteTable`)
-- [Delete an item from a table](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L262) (`DeleteItem`)
-- [Get a batch of items](low-level-api/LowLevelBatchGet/LowLevelBatchGet.cs#L4) (`BatchGetItem`)
-- [Get an item from a table](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L171) (`GetItem`)
-- [Get information about a table](low-level-api/LowLevelTableExample/LowLevelTableExample.cs#L126) (`DescribeTable`)
-- [List tables](low-level-api/LowLevelTableExample/LowLevelTableExample.cs#L102) (`ListTables`)
-- [Put an item in a table](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L89) (`PutItem`)
-- [Query a table](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L297) (`Query`)
-- [Run a PartiQL statement](scenarios/PartiQL_Basics_Scenario/PartiQL_Basics_Scenario/PartiQLMethods.cs#L163) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](scenarios/PartiQL_Batch_Scenario/PartiQL_Batch_Scenario/PartiQLBatchMethods.cs#L10) (`BatchExecuteStatement`)
-- [Scan a table](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L350) (`Scan`)
-- [Update an item in a table](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L119) (`UpdateItem`)
-- [Write a batch of items](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L202) (`BatchWriteItem`)
+- [BatchExecuteStatement](scenarios/PartiQL_Batch_Scenario/PartiQL_Batch_Scenario/PartiQLBatchMethods.cs#L10)
+- [BatchGetItem](low-level-api/LowLevelBatchGet/LowLevelBatchGet.cs#L4)
+- [BatchWriteItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L202)
+- [CreateTable](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L14)
+- [DeleteItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L262)
+- [DeleteTable](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L391)
+- [DescribeTable](low-level-api/LowLevelTableExample/LowLevelTableExample.cs#L126)
+- [ExecuteStatement](scenarios/PartiQL_Basics_Scenario/PartiQL_Basics_Scenario/PartiQLMethods.cs#L163)
+- [GetItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L171)
+- [ListTables](low-level-api/LowLevelTableExample/LowLevelTableExample.cs#L102)
+- [PutItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L89)
+- [Query](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L297)
+- [Scan](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L350)
+- [UpdateItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L119)
 
 ### Scenarios
 

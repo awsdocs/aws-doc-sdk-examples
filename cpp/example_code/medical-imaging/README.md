@@ -46,12 +46,12 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Delete an image set](delete_image_set.cpp#L23) (`DeleteImageSet`)
-- [Get an image frame](get_image_frame.cpp#L24) (`GetImageFrame`)
-- [Get import job properties](get_dicom_import_job.cpp#L23) (`GetDICOMImportJob`)
-- [Get metadata for an image set](get_image_set_metadata.cpp#L23) (`GetImageSetMetadata`)
-- [Import bulk data into a data store](start_dicom_import_job.cpp#L23) (`StartDICOMImportJob`)
-- [Search image sets](search_image_sets.cpp#L24) (`SearchImageSets`)
+- [DeleteImageSet](delete_image_set.cpp#L23)
+- [GetDICOMImportJob](get_dicom_import_job.cpp#L23)
+- [GetImageFrame](get_image_frame.cpp#L24)
+- [GetImageSetMetadata](get_image_set_metadata.cpp#L23)
+- [SearchImageSets](search_image_sets.cpp#L24)
+- [StartDICOMImportJob](start_dicom_import_job.cpp#L23)
 
 ### Scenarios
 

@@ -38,12 +38,12 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a target](organizations_policies.py#L99) (`AttachPolicy`)
-- [Create a policy](organizations_policies.py#L21) (`CreatePolicy`)
-- [Delete a policy](organizations_policies.py#L144) (`DeletePolicy`)
-- [Describe a policy](organizations_policies.py#L76) (`DescribePolicy`)
-- [Detach a policy from a target](organizations_policies.py#L122) (`DetachPolicy`)
-- [List policies](organizations_policies.py#L53) (`ListPolicies`)
+- [AttachPolicy](organizations_policies.py#L99)
+- [CreatePolicy](organizations_policies.py#L21)
+- [DeletePolicy](organizations_policies.py#L144)
+- [DescribePolicy](organizations_policies.py#L76)
+- [DetachPolicy](organizations_policies.py#L122)
+- [ListPolicies](organizations_policies.py#L53)
 
 
 <!--custom.examples.start-->
