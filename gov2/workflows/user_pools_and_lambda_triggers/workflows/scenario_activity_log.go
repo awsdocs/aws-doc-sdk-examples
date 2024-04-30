@@ -141,14 +141,14 @@ func (runner *ActivityLog) Run(stackName string) {
 	if err != nil {
 		panic(err)
 	}
-	runner.resources.userPoolId = stackOutputs.UserPoolId
-	runner.helper.PopulateUserTable(stackOutputs.TableName)
-	userName, password := runner.AddUserToPool(stackOutputs.UserPoolId, stackOutputs.TableName)
+	runner.resources.userPoolId = stackOutputs["UserPoolId"]
+	runner.helper.PopulateUserTable(stackOutputs["TableName"])
+	userName, password := runner.AddUserToPool(stackOutputs["UserPoolId"], stackOutputs["TableName"])
 
-	runner.AddActivityLogTrigger(stackOutputs.UserPoolId, stackOutputs.ActivityLogFunctionArn)
-	runner.SignInUser(stackOutputs.UserPoolClientId, userName, password)
-	runner.helper.ListRecentLogEvents(stackOutputs.ActivityLogFunction)
-	runner.GetKnownUserLastLogin(stackOutputs.TableName, userName)
+	runner.AddActivityLogTrigger(stackOutputs["UserPoolId"], stackOutputs["ActivityLogFunctionArn"])
+	runner.SignInUser(stackOutputs["UserPoolClientId"], userName, password)
+	runner.helper.ListRecentLogEvents(stackOutputs["ActivityLogFunction"])
+	runner.GetKnownUserLastLogin(stackOutputs["TableName"], userName)
 
 	runner.resources.Cleanup()
 

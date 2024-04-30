@@ -27,6 +27,7 @@ func StubDescribeLogStreams(lambdaName string, streamName string, raiseErr *test
 		Error: raiseErr,
 	}
 }
+
 func StubGetLogEvents(lambdaName string, streamName string, eventCount int32, eventMsgs []string, raiseErr *testtools.StubError) testtools.Stub {
 	outEvents := make([]types.OutputLogEvent, len(eventMsgs))
 	for i, msg := range eventMsgs {

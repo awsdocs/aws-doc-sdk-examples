@@ -121,15 +121,15 @@ func (runner *AutoConfirm) Run(stackName string) {
 	if err != nil {
 		panic(err)
 	}
-	runner.resources.userPoolId = stackOutputs.UserPoolId
-	runner.helper.PopulateUserTable(stackOutputs.TableName)
+	runner.resources.userPoolId = stackOutputs["UserPoolId"]
+	runner.helper.PopulateUserTable(stackOutputs["TableName"])
 
-	runner.AddPreSignUpTrigger(stackOutputs.UserPoolId, stackOutputs.AutoConfirmFunctionArn)
+	runner.AddPreSignUpTrigger(stackOutputs["UserPoolId"], stackOutputs["AutoConfirmFunctionArn"])
 	runner.resources.triggers = append(runner.resources.triggers, actions.PreSignUp)
-	userName, password := runner.SignUpUser(stackOutputs.UserPoolClientId, stackOutputs.TableName)
-	runner.helper.ListRecentLogEvents(stackOutputs.AutoConfirmFunction)
+	userName, password := runner.SignUpUser(stackOutputs["UserPoolClientId"], stackOutputs["TableName"])
+	runner.helper.ListRecentLogEvents(stackOutputs["AutoConfirmFunction"])
 	runner.resources.userAccessTokens = append(runner.resources.userAccessTokens,
-		runner.SignInUser(stackOutputs.UserPoolClientId, userName, password))
+		runner.SignInUser(stackOutputs["UserPoolClientId"], userName, password))
 
 	runner.resources.Cleanup()
 

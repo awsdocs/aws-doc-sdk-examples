@@ -159,14 +159,14 @@ func (runner *MigrateUser) Run(stackName string) {
 	if err != nil {
 		panic(err)
 	}
-	runner.resources.userPoolId = stackOutputs.UserPoolId
+	runner.resources.userPoolId = stackOutputs["UserPoolId"]
 
-	runner.AddMigrateUserTrigger(stackOutputs.UserPoolId, stackOutputs.MigrateUserFunctionArn)
+	runner.AddMigrateUserTrigger(stackOutputs["UserPoolId"], stackOutputs["MigrateUserFunctionArn"])
 	runner.resources.triggers = append(runner.resources.triggers, actions.UserMigration)
-	resetNeeded, user := runner.SignInUser(stackOutputs.TableName, stackOutputs.UserPoolClientId)
+	resetNeeded, user := runner.SignInUser(stackOutputs["TableName"], stackOutputs["UserPoolClientId"])
 	if resetNeeded {
-		runner.helper.ListRecentLogEvents(stackOutputs.MigrateUserFunction)
-		runner.ResetPassword(stackOutputs.UserPoolClientId, user)
+		runner.helper.ListRecentLogEvents(stackOutputs["MigrateUserFunction"])
+		runner.ResetPassword(stackOutputs["UserPoolClientId"], user)
 	}
 
 	runner.resources.Cleanup()

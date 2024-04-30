@@ -13,19 +13,8 @@ import (
 
 // snippet-start:[gov2.cloudformation.CloudFormationActions.complete]
 
-// StackOutputs defines structured data for the outputs from a specific stack.
-type StackOutputs struct {
-	AutoConfirmFunction    string
-	AutoConfirmFunctionArn string
-	MigrateUserFunction    string
-	MigrateUserFunctionArn string
-	ActivityLogFunction    string
-	ActivityLogFunctionArn string
-	UserPoolArn            string
-	UserPoolClientId       string
-	UserPoolId             string
-	TableName              string
-}
+// StackOutputs defines a map of outputs from a specific stack.
+type StackOutputs map[string]string
 
 type CloudFormationActions struct {
 	CfnClient *cloudformation.Client
@@ -41,28 +30,7 @@ func (actor CloudFormationActions) GetOutputs(stackName string) StackOutputs {
 	}
 	stackOutputs := StackOutputs{}
 	for _, out := range output.Stacks[0].Outputs {
-		switch *out.OutputKey {
-		case "AutoConfirmFunction":
-			stackOutputs.AutoConfirmFunction = *out.OutputValue
-		case "AutoConfirmFunctionArn":
-			stackOutputs.AutoConfirmFunctionArn = *out.OutputValue
-		case "MigrateUserFunction":
-			stackOutputs.MigrateUserFunction = *out.OutputValue
-		case "MigrateUserFunctionArn":
-			stackOutputs.MigrateUserFunctionArn = *out.OutputValue
-		case "ActivityLogFunction":
-			stackOutputs.ActivityLogFunction = *out.OutputValue
-		case "ActivityLogFunctionArn":
-			stackOutputs.ActivityLogFunctionArn = *out.OutputValue
-		case "UserPoolArn":
-			stackOutputs.UserPoolArn = *out.OutputValue
-		case "UserPoolClientId":
-			stackOutputs.UserPoolClientId = *out.OutputValue
-		case "UserPoolId":
-			stackOutputs.UserPoolId = *out.OutputValue
-		case "TableName":
-			stackOutputs.TableName = *out.OutputValue
-		}
+		stackOutputs[*out.OutputKey] = *out.OutputValue
 	}
 	return stackOutputs
 }
