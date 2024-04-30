@@ -53,7 +53,7 @@ if (WINDOWS_BUILD)
         AWSSDK_CPY_DYN_LIBS(
                 CURRENT_TARGET_AWS_DEPENDENCIES
                 ""
-                ${CMAKE_CURRENT_BINARY_DIR} ${BIN_SUB_DIR}
+                ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
         )
     endif ()
 
@@ -62,8 +62,8 @@ if (WINDOWS_BUILD)
             ${CURRENT_TARGET}
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR} ${BIN_SUB_DIR}/gtest.dll
-            ${CMAKE_CURRENT_BINARY_DIR} ${BIN_SUB_DIR}
+            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${BIN_SUB_DIR}/gtest.dll
+            ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
     )
 endif ()
 

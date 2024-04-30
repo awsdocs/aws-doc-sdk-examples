@@ -57,7 +57,7 @@ if (WINDOWS_BUILD)
         AWSSDK_CPY_DYN_LIBS(
                 CURRENT_TARGET_AWS_DEPENDENCIES
                 ""
-                ${CMAKE_CURRENT_BINARY_DIR} ${BIN_SUB_DIR}
+                ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
         )
     endif ()
 

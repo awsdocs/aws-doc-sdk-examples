@@ -51,7 +51,7 @@ if (WINDOWS_BUILD AND AWSSDK_INSTALL_AS_SHARED_LIBS)
     # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
     # and set the proper subdirectory to the executables' location.
 
-    AWSSDK_CPY_DYN_LIBS(SERVICE_COMPONENTS "" ${CMAKE_CURRENT_BINARY_DIR} ${BIN_SUB_DIR})
+    AWSSDK_CPY_DYN_LIBS(SERVICE_COMPONENTS "" ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR})
 endif ()
 
 set(EXAMPLE medical_image_sets_and_frames_workflow)
