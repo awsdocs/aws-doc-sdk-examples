@@ -4,22 +4,13 @@
   "description": "personalize operations",
   "main": "personalizeClients.js",
   "scripts": {
-    "test": "jest"
+    "test": "vitest run **/*.unit.test.js"
   },
   "type": "module",
   "author": "Samuel Ashman <seashman@amazon.com>",
-  "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-personalize": "^3.350.0",
     "@aws-sdk/client-personalize-events": "^3.350.0",
-    "@aws-sdk/client-personalize-runtime": "^3.350.0",
-    "fs": "^0.0.1-security"
-  },
-  "devDependencies": {
-    "jest": "^27.5.1"
-  },
-  "compilerOptions": {
-    "resolveJsonModule": true,
-    "esModuleInterop": true
+    "@aws-sdk/client-personalize-runtime": "^3.350.0"
   }
 }

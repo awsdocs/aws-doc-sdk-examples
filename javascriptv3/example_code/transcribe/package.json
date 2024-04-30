@@ -6,7 +6,10 @@
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
   "license": "Apache 2.0",
   "dependencies": {
-    "@aws-sdk/client-transcribe": "^3.32.0"
+    "@aws-sdk/client-transcribe": "^3.556.0"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "vitest": "^1.5.0"
+  }
 }

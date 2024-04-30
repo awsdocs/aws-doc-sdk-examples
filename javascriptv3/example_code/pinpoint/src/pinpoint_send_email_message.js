@@ -84,13 +84,19 @@ const params = {
 
 const run = async () => {
   try {
-    const data = await pinClient.send(new SendMessagesCommand(params));
+    const { MessageResponse } = await pinClient.send(
+      new SendMessagesCommand(params),
+    );
 
-    const {
-      MessageResponse: { Result },
-    } = data;
+    if (!MessageResponse) {
+      throw new Error("No message response.");
+    }
 
-    const recipientResult = Result[toAddress];
+    if (!MessageResponse.Result) {
+      throw new Error("No message result.");
+    }
+
+    const recipientResult = MessageResponse.Result[toAddress];
 
     if (recipientResult.StatusCode !== 200) {
       throw new Error(recipientResult.StatusMessage);

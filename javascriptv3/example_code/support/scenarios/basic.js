@@ -15,20 +15,8 @@ import {
   ResolveCaseCommand,
   SupportClient,
 } from "@aws-sdk/client-support";
-import inquirer from "inquirer";
-
-// Retry an asynchronous function on failure.
-const retry = async ({ intervalInMs = 500, maxRetries = 10 }, fn) => {
-  try {
-    return await fn();
-  } catch (err) {
-    console.log(`Function call failed. Retrying.`);
-    console.error(err.message);
-    if (maxRetries === 0) throw err;
-    await new Promise((resolve) => setTimeout(resolve, intervalInMs));
-    return retry({ intervalInMs, maxRetries: maxRetries - 1 }, fn);
-  }
-};
+import * as inquirer from "@inquirer/prompts";
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 const wrapText = (text, char = "=") => {
   const rule = char.repeat(80);
@@ -46,7 +34,7 @@ export const verifyAccount = async () => {
   } catch (err) {
     if (err.name === "SubscriptionRequiredException") {
       throw new Error(
-        "You must be subscribed to the AWS Support plan to use this feature."
+        "You must be subscribed to the AWS Support plan to use this feature.",
       );
     } else {
       throw err;
@@ -54,12 +42,12 @@ export const verifyAccount = async () => {
   }
 };
 
-// Get the list of available services.
+/**
+ * Select a service from the list returned from DescribeServices.
+ */
 export const getService = async () => {
   const { services } = await client.send(new DescribeServicesCommand({}));
-  const { selectedService } = await inquirer.prompt({
-    name: "selectedService",
-    type: "list",
+  const selectedService = await inquirer.select({
     message:
       "Select a service. Your support case will be created for this service. The list of services is truncated for readability.",
     choices: services.slice(0, 10).map((s) => ({ name: s.name, value: s })),
@@ -67,11 +55,11 @@ export const getService = async () => {
   return selectedService;
 };
 
-// Get the list of available support case categories for a service.
+/**
+ * @param {{ categories: import('@aws-sdk/client-support').Category[]}} service
+ */
 export const getCategory = async (service) => {
-  const { selectedCategory } = await inquirer.prompt({
-    name: "selectedCategory",
-    type: "list",
+  const selectedCategory = await inquirer.select({
     message: "Select a category.",
     choices: service.categories.map((c) => ({ name: c.name, value: c })),
   });
@@ -82,16 +70,22 @@ export const getCategory = async (service) => {
 export const getSeverityLevel = async () => {
   const command = new DescribeSeverityLevelsCommand({});
   const { severityLevels } = await client.send(command);
-  const { selectedSeverityLevel } = await inquirer.prompt({
-    name: "selectedSeverityLevel",
-    type: "list",
+  const selectedSeverityLevel = await inquirer.select({
     message: "Select a severity level.",
     choices: severityLevels.map((s) => ({ name: s.name, value: s })),
   });
   return selectedSeverityLevel;
 };
 
-// Create a new support case and return the caseId.
+/**
+ * Create a new support case
+ * @param {{
+ *  selectedService: import('@aws-sdk/client-support').Service
+ *  selectedCategory: import('@aws-sdk/client-support').Category
+ *  selectedSeverityLevel: import('@aws-sdk/client-support').SeverityLevel
+ * }} selections
+ * @returns
+ */
 export const createCase = async ({
   selectedService,
   selectedCategory,
@@ -121,7 +115,7 @@ export const getTodaysOpenCases = async () => {
 
   if (cases.length === 0) {
     throw new Error(
-      "Unexpected number of cases. Expected more than 0 open cases."
+      "Unexpected number of cases. Expected more than 0 open cases.",
     );
   }
   return cases;
@@ -159,10 +153,12 @@ export const getCommunications = async (caseId) => {
   return communications;
 };
 
-// Get an attachment set.
+/**
+ * @param {import('@aws-sdk/client-support').Communication[]} communications
+ */
 export const getFirstAttachment = (communications) => {
   const firstCommWithAttachment = communications.find(
-    (c) => c.attachmentSet.length > 0
+    (c) => c.attachmentSet.length > 0,
   );
   return firstCommWithAttachment?.attachmentSet[0].attachmentId;
 };
@@ -178,9 +174,7 @@ export const getAttachment = async (attachmentId) => {
 
 // Resolve the case matching the given case ID.
 export const resolveCase = async (caseId) => {
-  const { shouldResolve } = await inquirer.prompt({
-    name: "shouldResolve",
-    type: "confirm",
+  const shouldResolve = await inquirer.confirm({
     message: `Do you want to resolve ${caseId}?`,
   });
 
@@ -195,9 +189,17 @@ export const resolveCase = async (caseId) => {
   return false;
 };
 
-// Find a specific case in the list of provided cases by case ID.
-// If the case is not found, and the results are paginated, continue
-// paging through the results.
+/**
+ * Find a specific case in the list of provided cases by case ID.
+ * If the case is not found, and the results are paginated, continue
+ * paging through the results.
+ * @param {{
+ *   caseId: string,
+ *   cases: import('@aws-sdk/client-support').CaseDetails[]
+ *   nextToken: string
+ * }} options
+ * @returns
+ */
 export const findCase = async ({ caseId, cases, nextToken }) => {
   const foundCase = cases.find((c) => c.caseId === caseId);
 
@@ -210,7 +212,7 @@ export const findCase = async ({ caseId, cases, nextToken }) => {
       new DescribeCasesCommand({
         nextToken,
         includeResolvedCases: true,
-      })
+      }),
     );
     return findCase({
       caseId,
@@ -265,10 +267,10 @@ const main = async () => {
     // Display a list of open support cases created today.
     const todaysOpenCases = await retry(
       { intervalInMs: 1000, maxRetries: 15 },
-      getTodaysOpenCases
+      getTodaysOpenCases,
     );
     console.log(
-      `\nOpen support cases created today: ${todaysOpenCases.length}`
+      `\nOpen support cases created today: ${todaysOpenCases.length}`,
     );
     console.log(todaysOpenCases.map((c) => `${c.caseId}`).join("\n"));
 
@@ -289,9 +291,9 @@ const main = async () => {
       communications
         .map(
           (c) =>
-            `Communication created on ${c.timeCreated}. Has ${c.attachmentSet.length} attachments.`
+            `Communication created on ${c.timeCreated}. Has ${c.attachmentSet.length} attachments.`,
         )
-        .join("\n")
+        .join("\n"),
     );
 
     // Describe the first attachment.
@@ -301,7 +303,7 @@ const main = async () => {
     console.log(
       `Attachment is the file '${
         attachment.fileName
-      }' with data: \n${new TextDecoder().decode(attachment.data)}`
+      }' with data: \n${new TextDecoder().decode(attachment.data)}`,
     );
 
     // Confirm that the support case should be resolved.
@@ -310,11 +312,11 @@ const main = async () => {
       // List the resolved cases and include the one previously created.
       // Resolved cases can take a while to appear.
       console.log(
-        "\nWaiting for case status to be marked as resolved. This can take some time."
+        "\nWaiting for case status to be marked as resolved. This can take some time.",
       );
       const resolvedCases = await retry(
         { intervalInMs: 20000, maxRetries: 15 },
-        () => getTodaysResolvedCases(caseId)
+        () => getTodaysResolvedCases(caseId),
       );
       console.log("Resolved cases:");
       console.log(resolvedCases.map((c) => c.caseId).join("\n"));

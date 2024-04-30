@@ -50,7 +50,8 @@ window.DetectFaces = async (imageData) => {
 };
 
 // Loads selected image and unencodes image bytes for Rekognition DetectFaces API.
-window.ProcessImage = async () => {
+window.ProcessImage = () => {
+  /** @type {HTMLInputElement | null} */
   var control = document.getElementById("fileToUpload");
   var file = control.files[0];
 
@@ -63,14 +64,18 @@ window.ProcessImage = async () => {
       img.src = e.target.result;
       var jpg = true;
       try {
-        image = atob(e.target.result.split("data:image/jpeg;base64,")[1]);
+        /** @type {string} */
+        const result = e.target.result;
+        image = atob(result.split("data:image/jpeg;base64,")[1]);
         console.log("image", image);
       } catch (e) {
         jpg = false;
       }
       if (jpg == false) {
         try {
-          image = atob(e.target.result.split("data:image/png;base64,")[1]);
+          /** @type {string} */
+          const result = e.target.result;
+          image = atob(result.split("data:image/png;base64,")[1]);
         } catch (e) {
           alert("Not an image file Rekognition can process");
           return;
@@ -84,7 +89,7 @@ window.ProcessImage = async () => {
         ua[i] = image.charCodeAt(i);
       }
       // Call Rekognition.
-      DetectFaces(ua);
+      window.DetectFaces(ua);
     };
   })(file);
   reader.readAsDataURL(file);

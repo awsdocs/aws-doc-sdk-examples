@@ -14,21 +14,23 @@ const keys = [
   "JOB_NAME",
 ];
 
-const validateEnv = async (context) => {
-  log("Checking if environment variables exist.");
+const validateEnv = (context) => {
+  return new Promise((resolve, reject) => {
+    log("Checking if environment variables exist.");
 
-  if (!context || !process.env) {
-    throw new Error("Missing context.");
-  }
-
-  keys.forEach((key) => {
-    if (!process.env[key]) {
-      throw new Error(`Missing environment variable. No value for ${key}.`);
+    if (!context || !process.env) {
+      reject(new Error("Missing context."));
     }
-  });
 
-  log("Variables exist.", { type: "success" });
-  return { ...context };
+    keys.forEach((key) => {
+      if (!process.env[key]) {
+        reject(new Error(`Missing environment variable. No value for ${key}.`));
+      }
+    });
+
+    log("Variables exist.", { type: "success" });
+    resolve({ ...context });
+  });
 };
 
 export { validateEnv, keys };
