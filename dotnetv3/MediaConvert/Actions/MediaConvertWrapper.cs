@@ -215,27 +215,10 @@ public class MediaConvertWrapper
 
         #endregion Input
 
-        var jobId = "";
-        try
-        {
-            CreateJobResponse createJobResponse =
-                await _amazonMediaConvert.CreateJobAsync(createJobRequest);
+        CreateJobResponse createJobResponse =
+            await _amazonMediaConvert.CreateJobAsync(createJobRequest);
 
-            jobId = createJobResponse.Job.Id;
-        }
-        catch (BadRequestException bre)
-        {
-            // If the endpoint was bad.
-            if (bre.Message.StartsWith("You must use the customer-"))
-            {
-                // The exception contains the correct endpoint; extract it.
-                var mediaConvertEndpoint = bre.Message.Split('\'')[1];
-                Console.WriteLine(
-                    $"Request failed, please use endpoint {mediaConvertEndpoint}.");
-            }
-            else
-                throw;
-        }
+        var jobId = createJobResponse.Job.Id;
 
         return jobId;
     }
