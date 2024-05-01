@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](actions/put-targets.js#L4) (`PutTargets`)
-- [Create a rule](actions/put-rule.js#L4) (`PutRule`)
-- [Send events](actions/put-events.js#L4) (`PutEvents`)
+- [PutEvents](actions/put-events.js#L4)
+- [PutRule](actions/put-rule.js#L4)
+- [PutTargets](actions/put-targets.js#L4)
 
 
 <!--custom.examples.start-->

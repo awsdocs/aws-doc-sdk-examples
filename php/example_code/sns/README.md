@@ -33,20 +33,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [Check whether a phone number is opted out](CheckOptOut.php#L10) (`CheckIfPhoneNumberIsOptedOut`)
-- [Confirm an endpoint owner wants to receive messages](ConfirmSubscription.php#L10) (`ConfirmSubscription`)
-- [Create a topic](CreateTopic.php#L10) (`CreateTopic`)
-- [Delete a subscription](Unsubscribe.php#L10) (`Unsubscribe`)
-- [Delete a topic](DeleteTopic.php#L10) (`DeleteTopic`)
-- [Get the properties of a topic](GetTopicAttributes.php#L26) (`GetTopicAttributes`)
-- [Get the settings for sending SMS messages](GetSMSAtrributes.php#L10) (`GetSMSAttributes`)
-- [List opted out phone numbers](ListOptOut.php#L10) (`ListPhoneNumbersOptedOut`)
-- [List the subscribers of a topic](ListSubscriptions.php#L10) (`ListSubscriptions`)
-- [List topics](ListTopics.php#L10) (`ListTopics`)
-- [Publish to a topic](PublishTopic.php#L10) (`Publish`)
-- [Set the default settings for sending SMS messages](SetSMSAttributes.php#L26) (`SetSMSAttributes`)
-- [Set topic attributes](SetTopicAttributes.php#L10) (`SetTopicAttributes`)
-- [Subscribe an email address to a topic](SubscribeEmail.php#L10) (`Subscribe`)
+- [CheckIfPhoneNumberIsOptedOut](CheckOptOut.php#L10)
+- [ConfirmSubscription](ConfirmSubscription.php#L10)
+- [CreateTopic](CreateTopic.php#L10)
+- [DeleteTopic](DeleteTopic.php#L10)
+- [GetSMSAttributes](GetSMSAtrributes.php#L10)
+- [GetTopicAttributes](GetTopicAttributes.php#L26)
+- [ListPhoneNumbersOptedOut](ListOptOut.php#L10)
+- [ListSubscriptions](ListSubscriptions.php#L10)
+- [ListTopics](ListTopics.php#L10)
+- [Publish](PublishTopic.php#L10)
+- [SetSMSAttributes](SetSMSAttributes.php#L26)
+- [SetTopicAttributes](SetTopicAttributes.php#L10)
+- [Subscribe](SubscribeEmail.php#L10)
+- [Unsubscribe](Unsubscribe.php#L10)
 
 ### Scenarios
 

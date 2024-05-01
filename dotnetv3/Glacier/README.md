@@ -38,14 +38,14 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add tags](Actions/GlacierWrapper.cs#L33) (`AddTagsToVault`)
-- [Create a vault](Actions/GlacierWrapper.cs#L58) (`CreateVault`)
-- [Describe a vault](Actions/GlacierWrapper.cs#L83) (`DescribeVault`)
-- [List jobs](Actions/GlacierWrapper.cs#L164) (`ListJobs`)
-- [List tags](Actions/GlacierWrapper.cs#L188) (`ListTagsForVault`)
-- [List vaults](Actions/GlacierWrapper.cs#L213) (`ListVaults`)
-- [Retrieve a vault inventory](Actions/GlacierWrapper.cs#L112) (`InitiateJob`)
-- [Upload an archive to a vault](Actions/GlacierWrapper.cs#L234) (`UploadArchive`)
+- [AddTagsToVault](Actions/GlacierWrapper.cs#L33)
+- [CreateVault](Actions/GlacierWrapper.cs#L58)
+- [DescribeVault](Actions/GlacierWrapper.cs#L83)
+- [InitiateJob](Actions/GlacierWrapper.cs#L112)
+- [ListJobs](Actions/GlacierWrapper.cs#L164)
+- [ListTagsForVault](Actions/GlacierWrapper.cs#L188)
+- [ListVaults](Actions/GlacierWrapper.cs#L213)
+- [UploadArchive](Actions/GlacierWrapper.cs#L234)
 
 
 <!--custom.examples.start-->

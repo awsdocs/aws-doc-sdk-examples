@@ -38,16 +38,16 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a keyspace](Actions/KeyspacesWrapper.cs#L23) (`CreateKeyspace`)
-- [Create a table](Actions/KeyspacesWrapper.cs#L39) (`CreateTable`)
-- [Delete a keyspace](Actions/KeyspacesWrapper.cs#L63) (`DeleteKeyspace`)
-- [Delete a table](Actions/KeyspacesWrapper.cs#L78) (`DeleteTable`)
-- [Get data about a keyspace](Actions/KeyspacesWrapper.cs#L94) (`GetKeyspace`)
-- [Get data about a table](Actions/KeyspacesWrapper.cs#L109) (`GetTable`)
-- [List keyspaces](Actions/KeyspacesWrapper.cs#L125) (`ListKeyspaces`)
-- [List tables in a keyspace](Actions/KeyspacesWrapper.cs#L144) (`ListTables`)
-- [Restore a table to a point in time](Actions/KeyspacesWrapper.cs#L163) (`RestoreTable`)
-- [Update a table](Actions/KeyspacesWrapper.cs#L188) (`UpdateTable`)
+- [CreateKeyspace](Actions/KeyspacesWrapper.cs#L23)
+- [CreateTable](Actions/KeyspacesWrapper.cs#L39)
+- [DeleteKeyspace](Actions/KeyspacesWrapper.cs#L63)
+- [DeleteTable](Actions/KeyspacesWrapper.cs#L78)
+- [GetKeyspace](Actions/KeyspacesWrapper.cs#L94)
+- [GetTable](Actions/KeyspacesWrapper.cs#L109)
+- [ListKeyspaces](Actions/KeyspacesWrapper.cs#L125)
+- [ListTables](Actions/KeyspacesWrapper.cs#L144)
+- [RestoreTable](Actions/KeyspacesWrapper.cs#L163)
+- [UpdateTable](Actions/KeyspacesWrapper.cs#L188)
 
 ### Scenarios
 

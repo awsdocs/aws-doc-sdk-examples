@@ -38,13 +38,13 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](lambda_basics.py#L144) (`CreateFunction`)
-- [Delete a function](lambda_basics.py#L185) (`DeleteFunction`)
-- [Get a function](lambda_basics.py#L118) (`GetFunction`)
-- [Invoke a function](lambda_basics.py#L200) (`Invoke`)
-- [List functions](lambda_basics.py#L280) (`ListFunctions`)
-- [Update function code](lambda_basics.py#L226) (`UpdateFunctionCode`)
-- [Update function configuration](lambda_basics.py#L254) (`UpdateFunctionConfiguration`)
+- [CreateFunction](lambda_basics.py#L144)
+- [DeleteFunction](lambda_basics.py#L185)
+- [GetFunction](lambda_basics.py#L118)
+- [Invoke](lambda_basics.py#L200)
+- [ListFunctions](lambda_basics.py#L280)
+- [UpdateFunctionCode](lambda_basics.py#L226)
+- [UpdateFunctionConfiguration](lambda_basics.py#L254)
 
 ### Scenarios
 

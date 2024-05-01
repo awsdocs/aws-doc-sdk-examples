@@ -196,6 +196,8 @@ allow_list:
   - "upload_files_using_managed_file_uploader"
   - "videoMetaData=celebrityRecognitionResult"
   - "https://docs.aws.amazon.com/ivs/latest/userguide//private-channels.html"
+  - "CognitoEventUserPoolsMigrateUserResponse"
+  - "v2/service/cognitoidentityprovider/types"
 sample_files:
   - "README.md"
   - "chat_sfn_state_machine.json"

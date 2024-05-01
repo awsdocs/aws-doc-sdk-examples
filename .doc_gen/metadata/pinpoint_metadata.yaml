@@ -4,6 +4,18 @@ pinpoint_SendMessages:
   synopsis: send email and text messages with &PIN;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Pinpoint
+          sdkguide:
+          excerpts:
+            - description: Send an email message.
+              snippet_tags:
+                - pinpoint.dotnet.pinpoint_send_email_message_api.complete
+            - description: Send an SMS message.
+              snippet_tags:
+                - pinpoint.dotnet.pinpoint_send_sms_message_api.complete
     Kotlin:
       versions:
         - sdk_version: 1

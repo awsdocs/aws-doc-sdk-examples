@@ -22,8 +22,6 @@ node pinpoint_send_sms_message.js
 import { SendMessagesCommand } from "@aws-sdk/client-pinpoint";
 import { pinClient } from "./libs/pinClient.js";
 
-("use strict");
-
 /* The phone number or short code to send the message from. The phone number
  or short code that you specify has to be associated with your Amazon Pinpoint
 account. For best results, specify long codes in E.164 format. */
@@ -81,10 +79,9 @@ var params = {
 const run = async () => {
   try {
     const data = await pinClient.send(new SendMessagesCommand(params));
-    return data; // For unit tests.
     console.log(
       "Message sent! " +
-        data["MessageResponse"]["Result"][destinationNumber]["StatusMessage"]
+        data["MessageResponse"]["Result"][destinationNumber]["StatusMessage"],
     );
   } catch (err) {
     console.log(err);

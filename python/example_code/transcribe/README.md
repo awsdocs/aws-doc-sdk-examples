@@ -38,15 +38,15 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a custom vocabulary](transcribe_basics.py#L191) (`CreateVocabulary`)
-- [Delete a custom vocabulary](transcribe_basics.py#L316) (`DeleteVocabulary`)
-- [Delete a transcription job](transcribe_basics.py#L171) (`DeleteTranscriptionJob`)
-- [Get a custom vocabulary](transcribe_basics.py#L263) (`GetVocabulary`)
-- [Get a transcription job](transcribe_basics.py#L146) (`GetTranscriptionJob`)
-- [List custom vocabularies](transcribe_basics.py#L228) (`ListVocabularies`)
-- [List transcription jobs](transcribe_basics.py#L115) (`ListTranscriptionJobs`)
-- [Start a transcription job](transcribe_basics.py#L67) (`StartTranscriptionJob`)
-- [Update a custom vocabulary](transcribe_basics.py#L285) (`UpdateVocabulary`)
+- [CreateVocabulary](transcribe_basics.py#L191)
+- [DeleteTranscriptionJob](transcribe_basics.py#L171)
+- [DeleteVocabulary](transcribe_basics.py#L316)
+- [GetTranscriptionJob](transcribe_basics.py#L146)
+- [GetVocabulary](transcribe_basics.py#L263)
+- [ListTranscriptionJobs](transcribe_basics.py#L115)
+- [ListVocabularies](transcribe_basics.py#L228)
+- [StartTranscriptionJob](transcribe_basics.py#L67)
+- [UpdateVocabulary](transcribe_basics.py#L285)
 
 ### Scenarios
 

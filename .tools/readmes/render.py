@@ -111,9 +111,9 @@ class Renderer:
             post_svc["guide"]["url"] = self._doc_link(post_svc["guide"]["url"])
         return post_svc
 
-    def _transform_actions(self, pre_actions):
-        post_actions = []
-        for _, pre in pre_actions.items():
+    def _transform_hello(self, pre_hello):
+        post_hello = []
+        for _, pre in pre_hello.items():
             try:
                 api = next(iter(pre["services"][self.scanner.svc_name]))
             except:
@@ -125,6 +125,23 @@ class Renderer:
                     pre, self.sdk_ver, self.lang_config["service_folder"], api
                 ),
                 "api": api,
+            }
+            post_hello.append(action)
+        return sorted(post_hello, key=itemgetter("title_abbrev"))
+
+
+    def _transform_actions(self, pre_actions):
+        post_actions = []
+        for pre_id, pre in pre_actions.items():
+            try:
+                api = next(iter(pre["services"][self.scanner.svc_name]))
+            except:
+                raise MissingMetadataError(f"Action not found for example {pre_id} and service {self.scanner.svc_name}.")
+            action = {
+                "title_abbrev": api,
+                "file": self.scanner.snippet(
+                    pre, self.sdk_ver, self.lang_config["service_folder"], api
+                ),
             }
             post_actions.append(action)
         return sorted(post_actions, key=itemgetter("title_abbrev"))
@@ -273,7 +290,7 @@ class Renderer:
             return None
         sdk = self._transform_sdk()
         svc = self._transform_service()
-        hello = self._transform_actions(self.scanner.hello())
+        hello = self._transform_hello(self.scanner.hello())
         actions = self._transform_actions(self.scanner.actions())
         scenarios = self._transform_scenarios()
         custom_cats = self._transform_custom_categories()
@@ -314,6 +331,7 @@ class Renderer:
                 self.readme_filename,
                 f'{self.lang_config["service_folder"]}/{config.saved_readme}',
             )
+        os.remove(self.readme_filename) #  Do this so that new files are always updated to the correct case (README.md).
         with open(self.readme_filename, "w", encoding="utf-8") as f:
             f.write(self.readme_text)
         print(f"Updated {self.readme_filename}.")

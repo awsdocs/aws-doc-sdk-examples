@@ -40,21 +40,21 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Compare faces in an image against a reference image](rekognition_image_detection.py#L117) (`CompareFaces`)
-- [Create a collection](rekognition_collections.py#L323) (`CreateCollection`)
-- [Delete a collection](rekognition_collections.py#L111) (`DeleteCollection`)
-- [Delete faces from a collection](rekognition_collections.py#L280) (`DeleteFaces`)
-- [Describe a collection](rekognition_collections.py#L84) (`DescribeCollection`)
-- [Detect faces in an image](rekognition_image_detection.py#L96) (`DetectFaces`)
-- [Detect labels in an image](rekognition_image_detection.py#L156) (`DetectLabels`)
-- [Detect moderation labels in an image](rekognition_image_detection.py#L178) (`DetectModerationLabels`)
-- [Detect text in an image](rekognition_image_detection.py#L207) (`DetectText`)
-- [Index faces to a collection](rekognition_collections.py#L126) (`IndexFaces`)
-- [List collections](rekognition_collections.py#L346) (`ListCollections`)
-- [List faces in a collection](rekognition_collections.py#L167) (`ListFaces`)
-- [Recognize celebrities in an image](rekognition_image_detection.py#L226) (`RecognizeCelebrities`)
-- [Search for faces in a collection](rekognition_collections.py#L241) (`SearchFaces`)
-- [Search for faces in a collection compared to a reference image](rekognition_collections.py#L193) (`SearchFacesByImage`)
+- [CompareFaces](rekognition_image_detection.py#L117)
+- [CreateCollection](rekognition_collections.py#L323)
+- [DeleteCollection](rekognition_collections.py#L111)
+- [DeleteFaces](rekognition_collections.py#L280)
+- [DescribeCollection](rekognition_collections.py#L84)
+- [DetectFaces](rekognition_image_detection.py#L96)
+- [DetectLabels](rekognition_image_detection.py#L156)
+- [DetectModerationLabels](rekognition_image_detection.py#L178)
+- [DetectText](rekognition_image_detection.py#L207)
+- [IndexFaces](rekognition_collections.py#L126)
+- [ListCollections](rekognition_collections.py#L346)
+- [ListFaces](rekognition_collections.py#L167)
+- [RecognizeCelebrities](rekognition_image_detection.py#L226)
+- [SearchFaces](rekognition_collections.py#L241)
+- [SearchFacesByImage](rekognition_collections.py#L193)
 
 ### Scenarios
 

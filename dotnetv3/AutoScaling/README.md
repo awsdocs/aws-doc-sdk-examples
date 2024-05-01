@@ -38,17 +38,17 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach an ELB target group to an Auto Scaling group](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L770) (`AttachLoadBalancerTargetGroups`)
-- [Create a group](Actions/AutoScalingWrapper.cs#L28) (`CreateAutoScalingGroup`)
-- [Delete a group](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L573) (`DeleteAutoScalingGroup`)
-- [Disable metrics collection for a group](Actions/AutoScalingWrapper.cs#L202) (`DisableMetricsCollection`)
-- [Enable metrics collection for a group](Actions/AutoScalingWrapper.cs#L223) (`EnableMetricsCollection`)
-- [Get information about groups](Actions/AutoScalingWrapper.cs#L109) (`DescribeAutoScalingGroups`)
-- [Get information about instances](Actions/AutoScalingWrapper.cs#L109) (`DescribeAutoScalingInstances`)
-- [Get information about scaling activities](Actions/AutoScalingWrapper.cs#L86) (`DescribeScalingActivities`)
-- [Set the desired capacity of a group](Actions/AutoScalingWrapper.cs#L249) (`SetDesiredCapacity`)
-- [Terminate an instance in a group](Actions/AutoScalingWrapper.cs#L275) (`TerminateInstanceInAutoScalingGroup`)
-- [Update a group](Actions/AutoScalingWrapper.cs#L306) (`UpdateAutoScalingGroup`)
+- [AttachLoadBalancerTargetGroups](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L770)
+- [CreateAutoScalingGroup](Actions/AutoScalingWrapper.cs#L28)
+- [DeleteAutoScalingGroup](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L573)
+- [DescribeAutoScalingGroups](Actions/AutoScalingWrapper.cs#L109)
+- [DescribeAutoScalingInstances](Actions/AutoScalingWrapper.cs#L109)
+- [DescribeScalingActivities](Actions/AutoScalingWrapper.cs#L86)
+- [DisableMetricsCollection](Actions/AutoScalingWrapper.cs#L202)
+- [EnableMetricsCollection](Actions/AutoScalingWrapper.cs#L223)
+- [SetDesiredCapacity](Actions/AutoScalingWrapper.cs#L249)
+- [TerminateInstanceInAutoScalingGroup](Actions/AutoScalingWrapper.cs#L275)
+- [UpdateAutoScalingGroup](Actions/AutoScalingWrapper.cs#L306)
 
 ### Scenarios
 

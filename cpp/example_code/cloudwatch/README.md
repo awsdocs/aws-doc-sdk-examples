@@ -46,13 +46,13 @@ For more information on attaching policies to IAM user groups,
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a metric alarm](put_metric_alarm.cpp#L18) (`PutMetricAlarm`)
-- [Delete alarms](delete_alarm.cpp#L15) (`DeleteAlarms`)
-- [Describe alarms for a metric](describe_alarms.cpp#L13) (`DescribeAlarmsForMetric`)
-- [Disable alarm actions](disable_alarm_actions.cpp#L18) (`DisableAlarmActions`)
-- [Enable alarm actions](enable_alarm_actions.cpp#L20) (`EnableAlarmActions`)
-- [List metrics](list_metrics.cpp#L18) (`ListMetrics`)
-- [Put data into a metric](put_metric_data.cpp#L14) (`PutMetricData`)
+- [DeleteAlarms](delete_alarm.cpp#L15)
+- [DescribeAlarmsForMetric](describe_alarms.cpp#L13)
+- [DisableAlarmActions](disable_alarm_actions.cpp#L18)
+- [EnableAlarmActions](enable_alarm_actions.cpp#L20)
+- [ListMetrics](list_metrics.cpp#L18)
+- [PutMetricAlarm](put_metric_alarm.cpp#L18)
+- [PutMetricData](put_metric_data.cpp#L14)
 
 
 <!--custom.examples.start-->

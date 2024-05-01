@@ -33,15 +33,18 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a custom vocabulary](Actions/TranscribeWrapper.Vocabularies.cs#L15) (`CreateVocabulary`)
-- [Delete a custom vocabulary](Actions/TranscribeWrapper.Vocabularies.cs#L59) (`DeleteVocabulary`)
-- [Delete a transcription job](Actions/TranscribeWrapper.cs#L99) (`DeleteTranscriptionJob`)
-- [Get a custom vocabulary](Actions/TranscribeWrapper.Vocabularies.cs#L40) (`GetVocabulary`)
-- [Get a transcription job](Actions/TranscribeWrapper.cs#L61) (`GetTranscriptionJob`)
-- [List custom vocabularies](Actions/TranscribeWrapper.Vocabularies.cs#L78) (`ListVocabularies`)
-- [List transcription jobs](Actions/TranscribeWrapper.cs#L80) (`ListTranscriptionJobs`)
-- [Start a transcription job](Actions/TranscribeWrapper.cs#L26) (`StartTranscriptionJob`)
-- [Update a custom vocabulary](Actions/TranscribeWrapper.Vocabularies.cs#L101) (`UpdateVocabulary`)
+- [CreateVocabulary](Actions/TranscribeWrapper.Vocabularies.cs#L15)
+- [DeleteMedicalTranscriptionJob](Actions/TranscribeWrapper.MedicalTranscriptions.cs#L93)
+- [DeleteTranscriptionJob](Actions/TranscribeWrapper.cs#L99)
+- [DeleteVocabulary](Actions/TranscribeWrapper.Vocabularies.cs#L59)
+- [GetTranscriptionJob](Actions/TranscribeWrapper.cs#L61)
+- [GetVocabulary](Actions/TranscribeWrapper.Vocabularies.cs#L40)
+- [ListMedicalTranscriptionJobs](Actions/TranscribeWrapper.MedicalTranscriptions.cs#L73)
+- [ListTranscriptionJobs](Actions/TranscribeWrapper.cs#L80)
+- [ListVocabularies](Actions/TranscribeWrapper.Vocabularies.cs#L78)
+- [StartMedicalTranscriptionJob](Actions/TranscribeWrapper.MedicalTranscriptions.cs#L15)
+- [StartTranscriptionJob](Actions/TranscribeWrapper.cs#L26)
+- [UpdateVocabulary](Actions/TranscribeWrapper.Vocabularies.cs#L101)
 
 
 <!--custom.examples.start-->

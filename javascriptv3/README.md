@@ -53,6 +53,12 @@ You can run tests for a specific service, or for every service in this repositor
 
 If you run tests using the preceding commands, output will be stored in `unit_test.log` or `integration_test.log`. Errors are still logged to the console.
 
+## Linting
+You can run ESLint to statically check for errors.
+
+To run ESLint, use the following command:
+  `npm run ci-lint .`
+
 ## Docker image (Beta)
 
 This example is available in a container image hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded with all JavaScript v3 examples with dependencies pre-resolved. It is used for running tests.

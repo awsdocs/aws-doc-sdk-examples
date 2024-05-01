@@ -21,21 +21,22 @@ node createDatasetGroup.js
 // snippet-start:[personalize.JavaScript.createDatasetGroupV3]
 // Get service clients module and commands using ES6 syntax.
 
-import { CreateDatasetGroupCommand } from
-  "@aws-sdk/client-personalize";
+import { CreateDatasetGroupCommand } from "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
 // Set the dataset group parameters.
-export const createDatasetGroupParam = { 
-  name: 'NAME' /* required */
-}
+export const createDatasetGroupParam = {
+  name: "NAME" /* required */,
+};
 
 export const run = async (createDatasetGroupParam) => {
   try {
-    const response = await personalizeClient.send(new CreateDatasetGroupCommand(createDatasetGroupParam));
+    const response = await personalizeClient.send(
+      new CreateDatasetGroupCommand(createDatasetGroupParam),
+    );
     console.log("Success", response);
     return "Run successfully"; // For unit tests.
   } catch (err) {

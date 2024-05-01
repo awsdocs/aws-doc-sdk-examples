@@ -38,18 +38,18 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB instance](Actions/RDSWrapper.Instances.cs#L100) (`CreateDBInstance`)
-- [Create a DB parameter group](Actions/RDSWrapper.ParameterGroups.cs#L37) (`CreateDBParameterGroup`)
-- [Create a snapshot of a DB instance](Actions/RDSWrapper.Snapshots.cs#L17) (`CreateDBSnapshot`)
-- [Delete a DB instance](Actions/RDSWrapper.Instances.cs#L139) (`DeleteDBInstance`)
-- [Delete a DB parameter group](Actions/RDSWrapper.ParameterGroups.cs#L85) (`DeleteDBParameterGroup`)
-- [Describe DB instances](Actions/RDSWrapper.Instances.cs#L75) (`DescribeDBInstances`)
-- [Describe DB parameter groups](Actions/RDSWrapper.ParameterGroups.cs#L18) (`DescribeDBParameterGroups`)
-- [Describe database engine versions](Actions/RDSWrapper.Instances.cs#L24) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](Actions/RDSWrapper.Instances.cs#L46) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters in a DB parameter group](Actions/RDSWrapper.ParameterGroups.cs#L105) (`DescribeDBParameters`)
-- [Describe snapshots of DB instances](Actions/RDSWrapper.Snapshots.cs#L39) (`DescribeDBSnapshots`)
-- [Update parameters in a DB parameter group](Actions/RDSWrapper.ParameterGroups.cs#L62) (`ModifyDBParameterGroup`)
+- [CreateDBInstance](Actions/RDSWrapper.Instances.cs#L100)
+- [CreateDBParameterGroup](Actions/RDSWrapper.ParameterGroups.cs#L37)
+- [CreateDBSnapshot](Actions/RDSWrapper.Snapshots.cs#L17)
+- [DeleteDBInstance](Actions/RDSWrapper.Instances.cs#L139)
+- [DeleteDBParameterGroup](Actions/RDSWrapper.ParameterGroups.cs#L85)
+- [DescribeDBEngineVersions](Actions/RDSWrapper.Instances.cs#L24)
+- [DescribeDBInstances](Actions/RDSWrapper.Instances.cs#L75)
+- [DescribeDBParameterGroups](Actions/RDSWrapper.ParameterGroups.cs#L18)
+- [DescribeDBParameters](Actions/RDSWrapper.ParameterGroups.cs#L105)
+- [DescribeDBSnapshots](Actions/RDSWrapper.Snapshots.cs#L39)
+- [DescribeOrderableDBInstanceOptions](Actions/RDSWrapper.Instances.cs#L46)
+- [ModifyDBParameterGroup](Actions/RDSWrapper.ParameterGroups.cs#L62)
 
 ### Scenarios
 

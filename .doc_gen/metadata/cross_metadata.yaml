@@ -812,3 +812,140 @@ cross_ServerlessS3DataTransformation:
   services:
     s3:
     lambda:
+cross_CognitoAutoConfirmUser:
+  title: Automatically confirm known &COG; users with a &LAM; function using an &AWS; SDK
+  title_abbrev: Automatically confirm known users with a &LAM; function
+  synopsis: automatically confirm known &COG; users with a &LAM; function.
+  synopsis_list:
+    - Configure a user pool to call a &LAM; function for the <code>PreSignUp</code> trigger.
+    - Sign up a user with &COG;.
+    - The &LAM; function scans a &DDB; table and automatically confirms known users.
+    - Sign in as the new user, then clean up resources.
+  category: Scenarios
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/user_pools_and_lambda_triggers
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - gov2.workflows.PoolsAndTriggers.AutoConfirm
+            - description: Handle the <code>PreSignUp</code> trigger with a &LAM; function.
+              snippet_tags:
+                - gov2.lambda.AutoConfirmHandler
+            - description: Create a struct that performs common tasks.
+              snippet_tags:
+                - gov2.workflows.PoolsAndTriggers.ScenarioHelper
+            - description: Create a struct that wraps &COG; actions.
+              snippet_tags:
+                - gov2.cognito-identity-provider.CognitoActions.complete
+            - description: Create a struct that wraps &DDB; actions.
+              snippet_tags:
+                - gov2.dynamodb.DynamoActions.complete
+            - description: Create a struct that wraps &CWL; actions.
+              snippet_tags:
+                - gov2.cloudwatch-logs.CloudWatchLogsActions.complete
+            - description: Create a struct that wraps &CFN; actions.
+              snippet_tags:
+                - gov2.cloudformation.CloudFormationActions.complete
+            - description: Clean up resources.
+              snippet_tags:
+                - gov2.cognito-identity-provider.Resources.complete
+  services:
+    cognito-identity-provider: {
+      UpdateUserPool, SignUp, InitiateAuth, DeleteUser}
+    lambda: {}
+cross_CognitoAutoMigrateUser:
+  title: Automatically migrate known &COG; users with a &LAM; function using an &AWS; SDK
+  title_abbrev: Automatically migrate known users with a &LAM; function
+  synopsis: automatically migrate known &COG; users with a &LAM; function.
+  synopsis_list:
+    - Configure a user pool to call a &LAM; function for the <code>MigrateUser</code> trigger.
+    - Sign in to &COG; with a username and email that is not in the user pool.
+    - The &LAM; function scans a &DDB; table and automatically migrates known users to the user pool.
+    - Perform the forgot password flow to reset the password for the migrated user.
+    - Sign in as the new user, then clean up resources.
+  category: Scenarios
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/user_pools_and_lambda_triggers
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - gov2.workflows.PoolsAndTriggers.MigrateUser
+            - description: Handle the <code>MigrateUser</code> trigger with a &LAM; function.
+              snippet_tags:
+                - gov2.lambda.MigrateUserHandler
+            - description: Create a struct that performs common tasks.
+              snippet_tags:
+                - gov2.workflows.PoolsAndTriggers.ScenarioHelper
+            - description: Create a struct that wraps &COG; actions.
+              snippet_tags:
+                - gov2.cognito-identity-provider.CognitoActions.complete
+            - description: Create a struct that wraps &DDB; actions.
+              snippet_tags:
+                - gov2.dynamodb.DynamoActions.complete
+            - description: Create a struct that wraps &CWL; actions.
+              snippet_tags:
+                - gov2.cloudwatch-logs.CloudWatchLogsActions.complete
+            - description: Create a struct that wraps &CFN; actions.
+              snippet_tags:
+                - gov2.cloudformation.CloudFormationActions.complete
+            - description: Clean up resources.
+              snippet_tags:
+                - gov2.cognito-identity-provider.Resources.complete
+  services:
+    cognito-identity-provider: {
+      UpdateUserPool, SignUp, InitiateAuth, ForgotPassword, ConfirmForgotPassword, DeleteUser}
+    lambda: {}
+cross_CognitoCustomActivityLog:
+  title: Write custom activity data with a &LAM; function after &COG; user authentication using an &AWS; SDK
+  title_abbrev: Write custom activity data with a &LAM; function after &COG; user authentication
+  synopsis: write custom activity data with a &LAM; function after &COG; user authentication.
+  synopsis_list:
+    - Use administrator functions to add a user to a user pool.
+    - Configure a user pool to call a &LAM; function for the <code>PostAuthentication</code> trigger.
+    - Sign the new user in to &COG;.
+    - The &LAM; function writes custom information to &CWL; and to an &DDB; table.
+    - Get and display custom data from the &DDB; table, then clean up resources.
+  category: Scenarios
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/user_pools_and_lambda_triggers
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - gov2.workflows.PoolsAndTriggers.ActivityLog
+            - description: Handle the <code>PostAuthentication</code> trigger with a &LAM; function.
+              snippet_tags:
+                - gov2.lambda.ActivityLogHandler
+            - description: Create a struct that performs common tasks.
+              snippet_tags:
+                - gov2.workflows.PoolsAndTriggers.ScenarioHelper
+            - description: Create a struct that wraps &COG; actions.
+              snippet_tags:
+                - gov2.cognito-identity-provider.CognitoActions.complete
+            - description: Create a struct that wraps &DDB; actions.
+              snippet_tags:
+                - gov2.dynamodb.DynamoActions.complete
+            - description: Create a struct that wraps &CWL; actions.
+              snippet_tags:
+                - gov2.cloudwatch-logs.CloudWatchLogsActions.complete
+            - description: Create a struct that wraps &CFN; actions.
+              snippet_tags:
+                - gov2.cloudformation.CloudFormationActions.complete
+            - description: Clean up resources.
+              snippet_tags:
+                - gov2.cognito-identity-provider.Resources.complete
+  services:
+    cognito-identity-provider: {
+      UpdateUserPool, InitiateAuth, DeleteUser, AdminCreateUser, AdminSetUserPassword}
+    lambda: {}

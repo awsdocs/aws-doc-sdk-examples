@@ -41,22 +41,22 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a receipt filter](create_receipt_filter.cpp#L24) (`CreateReceiptFilter`)
-- [Create a receipt rule](create_receipt_rule.cpp#L25) (`CreateReceiptRule`)
-- [Create a receipt rule set](create_receipt_rule_set.cpp#L21) (`CreateReceiptRuleSet`)
-- [Create an email template](create_template.cpp#L22) (`CreateTemplate`)
-- [Delete a receipt filter](delete_receipt_filter.cpp#L21) (`DeleteReceiptFilter`)
-- [Delete a receipt rule](delete_receipt_rule.cpp#L21) (`DeleteReceiptRule`)
-- [Delete a rule set](delete_receipt_rule_set.cpp#L21) (`DeleteReceiptRuleSet`)
-- [Delete an email template](delete_template.cpp#L21) (`DeleteTemplate`)
-- [Delete an identity](delete_identity.cpp#L21) (`DeleteIdentity`)
-- [Get an existing email template](get_template.cpp#L22) (`GetTemplate`)
-- [List identities](list_identities.cpp#L21) (`ListIdentities`)
-- [List receipt filters](list_receipt_filters.cpp#L22) (`ListReceiptFilters`)
-- [Send email](send_email.cpp#L26) (`SendEmail`)
-- [Send templated email](send_templated_email.cpp#L23) (`SendTemplatedEmail`)
-- [Update an email template](update_template.cpp#L22) (`UpdateTemplate`)
-- [Verify an email identity](verify_email_identity.cpp#L21) (`VerifyEmailIdentity`)
+- [CreateReceiptFilter](create_receipt_filter.cpp#L24)
+- [CreateReceiptRule](create_receipt_rule.cpp#L25)
+- [CreateReceiptRuleSet](create_receipt_rule_set.cpp#L21)
+- [CreateTemplate](create_template.cpp#L22)
+- [DeleteIdentity](delete_identity.cpp#L21)
+- [DeleteReceiptFilter](delete_receipt_filter.cpp#L21)
+- [DeleteReceiptRule](delete_receipt_rule.cpp#L21)
+- [DeleteReceiptRuleSet](delete_receipt_rule_set.cpp#L21)
+- [DeleteTemplate](delete_template.cpp#L21)
+- [GetTemplate](get_template.cpp#L22)
+- [ListIdentities](list_identities.cpp#L21)
+- [ListReceiptFilters](list_receipt_filters.cpp#L22)
+- [SendEmail](send_email.cpp#L26)
+- [SendTemplatedEmail](send_templated_email.cpp#L23)
+- [UpdateTemplate](update_template.cpp#L22)
+- [VerifyEmailIdentity](verify_email_identity.cpp#L21)
 
 ### Cross-service examples
 

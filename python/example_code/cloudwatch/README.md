@@ -38,14 +38,14 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a metric alarm](cloudwatch_basics.py#L158) (`PutMetricAlarm`)
-- [Delete alarms](cloudwatch_basics.py#L264) (`DeleteAlarms`)
-- [Describe alarms for a metric](cloudwatch_basics.py#L216) (`DescribeAlarmsForMetric`)
-- [Disable alarm actions](cloudwatch_basics.py#L232) (`DisableAlarmActions`)
-- [Enable alarm actions](cloudwatch_basics.py#L232) (`EnableAlarmActions`)
-- [Get metric statistics](cloudwatch_basics.py#L123) (`GetMetricStatistics`)
-- [List metrics](cloudwatch_basics.py#L37) (`ListMetrics`)
-- [Put data into a metric](cloudwatch_basics.py#L64) (`PutMetricData`)
+- [DeleteAlarms](cloudwatch_basics.py#L264)
+- [DescribeAlarmsForMetric](cloudwatch_basics.py#L216)
+- [DisableAlarmActions](cloudwatch_basics.py#L232)
+- [EnableAlarmActions](cloudwatch_basics.py#L232)
+- [GetMetricStatistics](cloudwatch_basics.py#L123)
+- [ListMetrics](cloudwatch_basics.py#L37)
+- [PutMetricAlarm](cloudwatch_basics.py#L158)
+- [PutMetricData](cloudwatch_basics.py#L64)
 
 ### Scenarios
 

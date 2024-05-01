@@ -7,7 +7,7 @@ Shows how to use the AWS SDK for Ruby to work with AWS CloudTrail.
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_CloudTrail _
+_CloudTrail helps you monitor your AWS deployments in the cloud by getting a history of AWS API calls for your account._
 
 ## ⚠ Important
 
@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create trails](create_trail.rb#L8) (`CreateTrail`)
-- [Delete trail](delete_trail.rb#L9) (`DeleteTrail`)
-- [List trail events](lookup_events.rb#L8) (`LookupEvents`)
-- [List trails](describe_trails.rb#L6) (`ListTrails`)
+- [CreateTrail](create_trail.rb#L8)
+- [DeleteTrail](delete_trail.rb#L9)
+- [ListTrails](describe_trails.rb#L6)
+- [LookupEvents](lookup_events.rb#L8)
 
 
 <!--custom.examples.start-->

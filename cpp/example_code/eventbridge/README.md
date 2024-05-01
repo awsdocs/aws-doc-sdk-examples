@@ -41,9 +41,9 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](put_targets.cpp#L15) (`PutTargets`)
-- [Create a rule](put_rule.cpp#L14) (`PutRule`)
-- [Send events](put_events.cpp#L15) (`PutEvents`)
+- [PutEvents](put_events.cpp#L15)
+- [PutRule](put_rule.cpp#L14)
+- [PutTargets](put_targets.cpp#L15)
 
 
 <!--custom.examples.start-->

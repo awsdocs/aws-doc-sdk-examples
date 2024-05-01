@@ -46,21 +46,21 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB cluster](getting_started_with_db_clusters.cpp#L497) (`CreateDBCluster`)
-- [Create a DB cluster parameter group](getting_started_with_db_clusters.cpp#L333) (`CreateDBClusterParameterGroup`)
-- [Create a DB cluster snapshot](getting_started_with_db_clusters.cpp#L661) (`CreateDBClusterSnapshot`)
-- [Create a DB instance in a DB cluster](getting_started_with_db_clusters.cpp#L588) (`CreateDBInstance`)
-- [Delete a DB cluster](getting_started_with_db_clusters.cpp#L1047) (`DeleteDBCluster`)
-- [Delete a DB cluster parameter group](getting_started_with_db_clusters.cpp#L1117) (`DeleteDBClusterParameterGroup`)
-- [Delete a DB instance](getting_started_with_db_clusters.cpp#L1017) (`DeleteDBInstance`)
-- [Describe DB cluster parameter groups](getting_started_with_db_clusters.cpp#L295) (`DescribeDBClusterParameterGroups`)
-- [Describe DB cluster snapshots](getting_started_with_db_clusters.cpp#L701) (`DescribeDBClusterSnapshots`)
-- [Describe DB clusters](getting_started_with_db_clusters.cpp#L746) (`DescribeDBClusters`)
-- [Describe DB instances](getting_started_with_db_clusters.cpp#L896) (`DescribeDBInstances`)
-- [Describe database engine versions](getting_started_with_db_clusters.cpp#L845) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](getting_started_with_db_clusters.cpp#L936) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters from a DB cluster parameter group](getting_started_with_db_clusters.cpp#L786) (`DescribeDBClusterParameters`)
-- [Update parameters in a DB cluster parameter group](getting_started_with_db_clusters.cpp#L402) (`ModifyDBClusterParameterGroup`)
+- [CreateDBCluster](getting_started_with_db_clusters.cpp#L497)
+- [CreateDBClusterParameterGroup](getting_started_with_db_clusters.cpp#L333)
+- [CreateDBClusterSnapshot](getting_started_with_db_clusters.cpp#L661)
+- [CreateDBInstance](getting_started_with_db_clusters.cpp#L588)
+- [DeleteDBCluster](getting_started_with_db_clusters.cpp#L1047)
+- [DeleteDBClusterParameterGroup](getting_started_with_db_clusters.cpp#L1117)
+- [DeleteDBInstance](getting_started_with_db_clusters.cpp#L1017)
+- [DescribeDBClusterParameterGroups](getting_started_with_db_clusters.cpp#L295)
+- [DescribeDBClusterParameters](getting_started_with_db_clusters.cpp#L786)
+- [DescribeDBClusterSnapshots](getting_started_with_db_clusters.cpp#L701)
+- [DescribeDBClusters](getting_started_with_db_clusters.cpp#L746)
+- [DescribeDBEngineVersions](getting_started_with_db_clusters.cpp#L845)
+- [DescribeDBInstances](getting_started_with_db_clusters.cpp#L896)
+- [DescribeOrderableDBInstanceOptions](getting_started_with_db_clusters.cpp#L936)
+- [ModifyDBClusterParameterGroup](getting_started_with_db_clusters.cpp#L402)
 
 ### Scenarios
 

@@ -38,21 +38,21 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB cluster](Actions/AuroraWrapper.cs#L199) (`CreateDBCluster`)
-- [Create a DB cluster parameter group](Actions/AuroraWrapper.cs#L41) (`CreateDBClusterParameterGroup`)
-- [Create a DB cluster snapshot](Actions/AuroraWrapper.cs#L320) (`CreateDBClusterSnapshot`)
-- [Create a DB instance in a DB cluster](Actions/AuroraWrapper.cs#L286) (`CreateDBInstance`)
-- [Delete a DB cluster](Actions/AuroraWrapper.cs#L367) (`DeleteDBCluster`)
-- [Delete a DB cluster parameter group](Actions/AuroraWrapper.cs#L181) (`DeleteDBClusterParameterGroup`)
-- [Delete a DB instance](Actions/AuroraWrapper.cs#L386) (`DeleteDBInstance`)
-- [Describe DB cluster parameter groups](Actions/AuroraWrapper.cs#L98) (`DescribeDBClusterParameterGroups`)
-- [Describe DB cluster snapshots](Actions/AuroraWrapper.cs#L340) (`DescribeDBClusterSnapshots`)
-- [Describe DB clusters](Actions/AuroraWrapper.cs#L259) (`DescribeDBClusters`)
-- [Describe DB instances](Actions/AuroraWrapper.cs#L236) (`DescribeDBInstances`)
-- [Describe database engine versions](Actions/AuroraWrapper.cs#L21) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](Actions/AuroraWrapper.cs#L154) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters from a DB cluster parameter group](Actions/AuroraWrapper.cs#L66) (`DescribeDBClusterParameters`)
-- [Update parameters in a DB cluster parameter group](Actions/AuroraWrapper.cs#L115) (`ModifyDBClusterParameterGroup`)
+- [CreateDBCluster](Actions/AuroraWrapper.cs#L199)
+- [CreateDBClusterParameterGroup](Actions/AuroraWrapper.cs#L41)
+- [CreateDBClusterSnapshot](Actions/AuroraWrapper.cs#L320)
+- [CreateDBInstance](Actions/AuroraWrapper.cs#L286)
+- [DeleteDBCluster](Actions/AuroraWrapper.cs#L367)
+- [DeleteDBClusterParameterGroup](Actions/AuroraWrapper.cs#L181)
+- [DeleteDBInstance](Actions/AuroraWrapper.cs#L386)
+- [DescribeDBClusterParameterGroups](Actions/AuroraWrapper.cs#L98)
+- [DescribeDBClusterParameters](Actions/AuroraWrapper.cs#L66)
+- [DescribeDBClusterSnapshots](Actions/AuroraWrapper.cs#L340)
+- [DescribeDBClusters](Actions/AuroraWrapper.cs#L259)
+- [DescribeDBEngineVersions](Actions/AuroraWrapper.cs#L21)
+- [DescribeDBInstances](Actions/AuroraWrapper.cs#L236)
+- [DescribeOrderableDBInstanceOptions](Actions/AuroraWrapper.cs#L154)
+- [ModifyDBClusterParameterGroup](Actions/AuroraWrapper.cs#L115)
 
 ### Scenarios
 

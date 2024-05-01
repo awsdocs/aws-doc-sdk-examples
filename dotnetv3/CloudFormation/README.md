@@ -31,7 +31,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 ### Get started
 
-- [Hello CloudFormation](../CloudFormation/Actions/HelloCloudFormation.cs#L4) (`DescribeStackResources`)
+- [Hello CloudFormation](Actions/HelloCloudFormation.cs#L4) (`DescribeStackResources`)
 
 
 <!--custom.examples.start-->

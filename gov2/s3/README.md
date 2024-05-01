@@ -38,15 +38,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](actions/bucket_basics.go#L220) (`CopyObject`)
-- [Create a bucket](actions/bucket_basics.go#L81) (`CreateBucket`)
-- [Delete an empty bucket](actions/bucket_basics.go#L278) (`DeleteBucket`)
-- [Delete multiple objects](actions/bucket_basics.go#L256) (`DeleteObjects`)
-- [Determine the existence of a bucket](actions/bucket_basics.go#L51) (`HeadBucket`)
-- [Get an object from a bucket](actions/bucket_basics.go#L149) (`GetObject`)
-- [List buckets](actions/bucket_basics.go#L35) (`ListBuckets`)
-- [List objects in a bucket](actions/bucket_basics.go#L238) (`ListObjectsV2`)
-- [Upload an object to a bucket](actions/bucket_basics.go#L100) (`PutObject`)
+- [CopyObject](actions/bucket_basics.go#L220)
+- [CreateBucket](actions/bucket_basics.go#L81)
+- [DeleteBucket](actions/bucket_basics.go#L278)
+- [DeleteObjects](actions/bucket_basics.go#L256)
+- [GetObject](actions/bucket_basics.go#L149)
+- [HeadBucket](actions/bucket_basics.go#L51)
+- [ListBuckets](actions/bucket_basics.go#L35)
+- [ListObjectsV2](actions/bucket_basics.go#L238)
+- [PutObject](actions/bucket_basics.go#L100)
 
 ### Scenarios
 

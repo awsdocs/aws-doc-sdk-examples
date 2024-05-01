@@ -33,15 +33,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](basics/Sources/ServiceHandler/ServiceHandler.swift#L164) (`CopyObject`)
-- [Create a bucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L41) (`CreateBucket`)
-- [Delete an empty bucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L56) (`DeleteBucket`)
-- [Delete an object](basics/Sources/ServiceHandler/ServiceHandler.swift#L183) (`DeleteObject`)
-- [Delete multiple objects](DeleteObjects/Sources/ServiceHandler/ServiceHandler.swift#L54) (`DeleteObjects`)
-- [Get an object from a bucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L112) (`GetObject`)
-- [List buckets](ListBuckets/Sources/ListBuckets/S3Session.swift#L70) (`ListBuckets`)
-- [List objects in a bucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L204) (`ListObjectsV2`)
-- [Upload an object to a bucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L70) (`PutObject`)
+- [CopyObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L164)
+- [CreateBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L41)
+- [DeleteBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L56)
+- [DeleteObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L183)
+- [DeleteObjects](DeleteObjects/Sources/ServiceHandler/ServiceHandler.swift#L54)
+- [GetObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L112)
+- [ListBuckets](ListBuckets/Sources/ListBuckets/S3Session.swift#L70)
+- [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L204)
+- [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L70)
 
 ### Scenarios
 

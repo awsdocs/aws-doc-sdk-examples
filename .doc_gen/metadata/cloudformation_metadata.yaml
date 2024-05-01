@@ -14,3 +14,20 @@ cloudformation_Hello:
                 - CloudFormation.dotnetv3.CloudFormationActions.HelloCloudFormation
   services:
     cloudformation: {DescribeStackResources}
+cloudformation_DescribeStacks:
+  title: Get outputs from an &CFN; stack using an &AWS; SDK
+  title_abbrev: Get outputs from an stack
+  synopsis: get outputs from an &CFN; stack.
+  category:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/user_pools_and_lambda_triggers
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cloudformation.CloudFormationActions.complete
+  services:
+    cloudformation: {DescribeStacks}

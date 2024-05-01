@@ -38,14 +38,14 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a communication to a case](actions/add-communication-to-case.js#L6) (`AddCommunicationToCase`)
-- [Add an attachment to a set](actions/add-attachments-to-set.js#L6) (`AddAttachmentsToSet`)
-- [Create a case](actions/create-case.js#L6) (`CreateCase`)
-- [Describe an attachment](actions/describe-attachment.js#L6) (`DescribeAttachment`)
-- [Describe cases](actions/describe-cases.js#L6) (`DescribeCases`)
-- [Describe communications](actions/describe-communications.js#L6) (`DescribeCommunications`)
-- [Describe severity levels](actions/describe-severity-levels.js#L6) (`DescribeSeverityLevels`)
-- [Resolve case](actions/resolve-case.js#L6) (`ResolveCase`)
+- [AddAttachmentsToSet](actions/add-attachments-to-set.js#L6)
+- [AddCommunicationToCase](actions/add-communication-to-case.js#L6)
+- [CreateCase](actions/create-case.js#L6)
+- [DescribeAttachment](actions/describe-attachment.js#L6)
+- [DescribeCases](actions/describe-cases.js#L6)
+- [DescribeCommunications](actions/describe-communications.js#L6)
+- [DescribeSeverityLevels](actions/describe-severity-levels.js#L6)
+- [ResolveCase](actions/resolve-case.js#L6)
 
 ### Scenarios
 

@@ -38,18 +38,18 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a vault](glacier_basics.py#L35) (`CreateVault`)
-- [Delete a vault](glacier_basics.py#L157) (`DeleteVault`)
-- [Delete an archive](glacier_basics.py#L196) (`DeleteArchive`)
-- [Delete vault notifications](glacier_basics.py#L330) (`DeleteVaultNotifications`)
-- [Describe a job](glacier_basics.py#L215) (`DescribeJob`)
-- [Get job output](glacier_basics.py#L240) (`GetJobOutput`)
-- [Get vault notification configuration](glacier_basics.py#L305) (`GetVaultNotifications`)
-- [List jobs](glacier_basics.py#L121) (`ListJobs`)
-- [List vaults](glacier_basics.py#L54) (`ListVaults`)
-- [Retrieve a vault inventory](glacier_basics.py#L99) (`InitiateJob`)
-- [Set vault notifications](glacier_basics.py#L266) (`SetVaultNotifications`)
-- [Upload an archive to a vault](glacier_basics.py#L68) (`UploadArchive`)
+- [CreateVault](glacier_basics.py#L35)
+- [DeleteArchive](glacier_basics.py#L196)
+- [DeleteVault](glacier_basics.py#L157)
+- [DeleteVaultNotifications](glacier_basics.py#L330)
+- [DescribeJob](glacier_basics.py#L215)
+- [GetJobOutput](glacier_basics.py#L240)
+- [GetVaultNotifications](glacier_basics.py#L305)
+- [InitiateJob](glacier_basics.py#L99)
+- [ListJobs](glacier_basics.py#L121)
+- [ListVaults](glacier_basics.py#L54)
+- [SetVaultNotifications](glacier_basics.py#L266)
+- [UploadArchive](glacier_basics.py#L68)
 
 ### Scenarios
 

@@ -38,16 +38,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a group](src/bin/create-autoscaling-group.rs#L30) (`CreateAutoScalingGroup`)
-- [Delete a group](src/bin/delete-autoscaling-group.rs#L30) (`DeleteAutoScalingGroup`)
-- [Disable metrics collection for a group](src/scenario.rs#L617) (`DisableMetricsCollection`)
-- [Enable metrics collection for a group](src/scenario.rs#L294) (`EnableMetricsCollection`)
-- [Get information about groups](src/bin/list-autoscaling-groups.rs#L22) (`DescribeAutoScalingGroups`)
-- [Get information about instances](src/scenario.rs#L532) (`DescribeAutoScalingInstances`)
-- [Get information about scaling activities](src/scenario.rs#L399) (`DescribeScalingActivities`)
-- [Set the desired capacity of a group](src/scenario.rs#L595) (`SetDesiredCapacity`)
-- [Terminate an instance in a group](src/scenario.rs#L654) (`TerminateInstanceInAutoScalingGroup`)
-- [Update a group](src/bin/update-autoscaling-group.rs#L30) (`UpdateAutoScalingGroup`)
+- [CreateAutoScalingGroup](src/bin/create-autoscaling-group.rs#L30)
+- [DeleteAutoScalingGroup](src/bin/delete-autoscaling-group.rs#L30)
+- [DescribeAutoScalingGroups](src/bin/list-autoscaling-groups.rs#L22)
+- [DescribeAutoScalingInstances](src/scenario.rs#L532)
+- [DescribeScalingActivities](src/scenario.rs#L399)
+- [DisableMetricsCollection](src/scenario.rs#L617)
+- [EnableMetricsCollection](src/scenario.rs#L294)
+- [SetDesiredCapacity](src/scenario.rs#L595)
+- [TerminateInstanceInAutoScalingGroup](src/scenario.rs#L654)
+- [UpdateAutoScalingGroup](src/bin/update-autoscaling-group.rs#L30)
 
 ### Scenarios
 

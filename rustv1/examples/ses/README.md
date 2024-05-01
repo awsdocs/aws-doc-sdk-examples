@@ -33,17 +33,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a contact in a contact list](src/bin/create-contact.rs#L30) (`CreateContact`)
-- [Create a contact list](src/bin/create-contact-list.rs#L26) (`CreateContactList`)
-- [Create an email identity](src/newsletter.rs#L57) (`CreateEmailIdentity`)
-- [Create an email template](src/newsletter.rs#L100) (`CreateEmailTemplate`)
-- [Delete a  contact list](src/newsletter.rs#L347) (`DeleteContactList`)
-- [Delete an email identity](src/newsletter.rs#L385) (`DeleteEmailIdentity`)
-- [Delete an email template](src/newsletter.rs#L360) (`DeleteEmailTemplate`)
-- [Get identity information](src/bin/is-email-verified.rs#L26) (`GetEmailIdentity`)
-- [List the contact lists](src/bin/list-contact-lists.rs#L22) (`ListContactLists`)
-- [List the contacts in a contact list](src/bin/list-contacts.rs#L26) (`ListContacts`)
-- [Send an email](src/bin/send-email.rs#L39) (`SendEmail`)
+- [CreateContact](src/bin/create-contact.rs#L30)
+- [CreateContactList](src/bin/create-contact-list.rs#L26)
+- [CreateEmailIdentity](src/newsletter.rs#L57)
+- [CreateEmailTemplate](src/newsletter.rs#L100)
+- [DeleteContactList](src/newsletter.rs#L347)
+- [DeleteEmailIdentity](src/newsletter.rs#L385)
+- [DeleteEmailTemplate](src/newsletter.rs#L360)
+- [GetEmailIdentity](src/bin/is-email-verified.rs#L26)
+- [ListContactLists](src/bin/list-contact-lists.rs#L22)
+- [ListContacts](src/bin/list-contacts.rs#L26)
+- [SendEmail](src/bin/send-email.rs#L39)
 
 ### Scenarios
 

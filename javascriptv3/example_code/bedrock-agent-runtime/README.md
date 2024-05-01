@@ -36,7 +36,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Invoke an agent](actions/invoke-agent.js) (`InvokeAgent`)
+- [InvokeAgent](actions/invoke-agent.js)
 
 
 <!--custom.examples.start-->

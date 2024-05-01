@@ -38,16 +38,16 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add tags to a certificate](certificate_basics.py#L168) (`AddTagsToCertificate`)
-- [Delete a certificate](certificate_basics.py#L152) (`DeleteCertificate`)
-- [Describe a certificate](certificate_basics.py#L37) (`DescribeCertificate`)
-- [Get a certificate](certificate_basics.py#L61) (`GetCertificate`)
-- [Import certificates](certificate_basics.py#L128) (`ImportCertificate`)
-- [List certificates](certificate_basics.py#L80) (`ListCertificates`)
-- [List tags for a certificate](certificate_basics.py#L189) (`ListTagsForCertificate`)
-- [Remove tags from a certificate](certificate_basics.py#L211) (`RemoveTagsFromCertificate`)
-- [Request validation of a certificate](certificate_basics.py#L242) (`RequestCertificate`)
-- [Resend validation email for a certificate](certificate_basics.py#L293) (`ResendValidationEmail`)
+- [AddTagsToCertificate](certificate_basics.py#L168)
+- [DeleteCertificate](certificate_basics.py#L152)
+- [DescribeCertificate](certificate_basics.py#L37)
+- [GetCertificate](certificate_basics.py#L61)
+- [ImportCertificate](certificate_basics.py#L128)
+- [ListCertificates](certificate_basics.py#L80)
+- [ListTagsForCertificate](certificate_basics.py#L189)
+- [RemoveTagsFromCertificate](certificate_basics.py#L211)
+- [RequestCertificate](certificate_basics.py#L242)
+- [ResendValidationEmail](certificate_basics.py#L293)
 
 ### Scenarios
 

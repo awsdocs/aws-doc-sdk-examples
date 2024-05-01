@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Change message timeout visibility](message_visibility_timeout.rb#L8) (`ChangeMessageVisibility`)
-- [Create a queue](create_queue.rb#L6) (`CreateQueue`)
-- [Delete a queue](delete_queue.rb#L7) (`DeleteQueue`)
-- [List queues](show_queues.rb#L7) (`ListQueues`)
-- [Receive messages from a queue](receive_messages.rb#L7) (`ReceiveMessage`)
-- [Send a batch of messages to a queue](send_message_batch.rb#L7) (`SendMessageBatch`)
-- [Send a message to a queue](send_message.rb#L7) (`SendMessage`)
+- [ChangeMessageVisibility](message_visibility_timeout.rb#L8)
+- [CreateQueue](create_queue.rb#L6)
+- [DeleteQueue](delete_queue.rb#L7)
+- [ListQueues](show_queues.rb#L7)
+- [ReceiveMessage](receive_messages.rb#L7)
+- [SendMessage](send_message.rb#L7)
+- [SendMessageBatch](send_message_batch.rb#L7)
 
 
 <!--custom.examples.start-->
