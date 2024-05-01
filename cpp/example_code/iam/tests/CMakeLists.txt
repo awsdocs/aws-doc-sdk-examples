@@ -34,7 +34,6 @@ if(NOT GTest_FOUND)
     FetchContent_MakeAvailable(googletest)
 endif()
 
-
 # Use the MSVC variable to determine if this is a Windows build.
 set(WINDOWS_BUILD ${MSVC})
 
@@ -54,15 +53,17 @@ add_executable(
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(WINDOWS_BUILD)
-      # set(BIN_SUB_DIR "/Debug") # if you are building from the command line you may need to uncomment this 
-                                    # and set the proper subdirectory to the executables' location.
+    if (AWSSDK_INSTALL_AS_SHARED_LIBS)
+        # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
+        # and set the proper subdirectory to the executables' location.
 
-    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    AWSSDK_CPY_DYN_LIBS(
-            CURRENT_TARGET_AWS_DEPENDENCIES
-        ""
-        ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
-    )
+        # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
+        AWSSDK_CPY_DYN_LIBS(
+                CURRENT_TARGET_AWS_DEPENDENCIES
+                ""
+                ${CMAKE_CURRENT_BINARY_DIR} ${BIN_SUB_DIR}
+        )
+    endif ()
 
     add_custom_command(
         TARGET
