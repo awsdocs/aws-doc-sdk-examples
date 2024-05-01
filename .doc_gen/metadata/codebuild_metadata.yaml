@@ -16,3 +16,51 @@ codebuild_CreateProject:
                 - javascript.v3.codebuild.actions.CreateProject
   services:
     codebuild: {CreateProject}
+codebuild_ListBuilds:
+  title: List &ACB; builds
+  title_abbrev: List builds
+  synopsis: list &ACB; builds.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/codebuild
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.codebuild.ListBuilds
+  services:
+    codebuild: {ListBuilds}
+codebuild_ListProjects:
+  title: List &ACB; projects
+  title_abbrev: List projects
+  synopsis: list &ACB; projects.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/codebuild
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.codebuild.ListProjects
+  services:
+    codebuild: {ListProjects}
+codebuild_StartBuild:
+  title: Start an &ACB; build
+  title_abbrev: Start a build
+  synopsis: start an &ACB; build.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/codebuild
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.codebuild.StartBuild
+  services:
+    codebuild: {StartBuild}
