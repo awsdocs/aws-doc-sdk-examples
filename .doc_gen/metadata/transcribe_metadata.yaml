@@ -11,7 +11,7 @@ transcribe_StartTranscriptionJob:
           github: javav2/example_code/transcribe
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - transcribe.java-streaming-demo
     .NET:
@@ -327,7 +327,7 @@ transcribe_Scenario_GettingStartedTranscriptionJobs:
             - description: Transcribes streaming audio from your computer's microphone.
               snippet_tags:
                 - transcribe.java-streaming-demo
-    Python:    
+    Python:
       versions:
         - sdk_version: 3
           github: python/example_code/transcribe
@@ -354,8 +354,7 @@ transcribe_Scenario_CustomVocabulary:
           github: python/example_code/transcribe
           sdkguide:
           excerpts:
-            - description: Transcribe an audio file that contains a reading of
-                Jabberwocky by Lewis Carroll. Start by creating
+            - description: Transcribe an audio file that contains a reading of Jabberwocky by Lewis Carroll. Start by creating
                 functions that wrap &TSC; actions.
               snippet_tags:
                 - python.example_code.transcribe.StartTranscriptionJob
@@ -366,14 +365,13 @@ transcribe_Scenario_CustomVocabulary:
                 - python.example_code.transcribe.UpdateVocabulary
                 - python.example_code.transcribe.ListVocabularies
                 - python.example_code.transcribe.DeleteVocabulary
-            - description: Call the wrapper functions to transcribe audio without
-                a custom vocabulary and then with different versions of a custom
-                vocabulary to see improved results.
+            - description: Call the wrapper functions to transcribe audio without a custom vocabulary and then with different
+                versions of a custom vocabulary to see improved results.
               snippet_tags:
                 - python.example_code.transcribe.Scenario_CustomVocabulary
   services:
-    transcribe: {StartTranscriptionJob, GetTranscriptionJob, DeleteTranscriptionJob, CreateVocabulary,
-                 GetVocabulary, UpdateVocabulary, ListVocabularies, DeleteVocabulary}
+    transcribe: {StartTranscriptionJob, GetTranscriptionJob, DeleteTranscriptionJob, CreateVocabulary, GetVocabulary, UpdateVocabulary,
+      ListVocabularies, DeleteVocabulary}
 transcribe_StartMedicalTranscriptionJob:
   title: Start an &TSCM; transcription job using an &AWS; SDK
   title_abbrev: Start a medical transcription job

@@ -691,7 +691,7 @@ glue_ListJobs:
             - description:
               snippet_tags:
                 - ruby.example_code.glue.GlueWrapper.decl
-                - ruby.example_code.glue.ListJobs  
+                - ruby.example_code.glue.ListJobs
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1171,15 +1171,14 @@ glue_Scenario_GetStartedCrawlersJobs:
   title: Get started running &GLU; crawlers and jobs using an &AWS; SDK
   title_abbrev: Get started with crawlers and jobs
   synopsis_list:
-    - Create a crawler that crawls a public &S3; bucket and generates
-      a database of CSV-formatted metadata.
+    - Create a crawler that crawls a public &S3; bucket and generates a database of CSV-formatted metadata.
     - List information about databases and tables in your &GLUDCLong;.
-    - Create a job to extract CSV data from the S3 bucket, transform the data, and
-      load JSON-formatted output into another S3 bucket.
+    - Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another
+      S3 bucket.
     - List information about job runs, view transformed data, and clean up resources.
   category: Scenarios
   guide_topic:
-    title: "Tutorial: Getting started with &GLU; Studio"
+    title: 'Tutorial: Getting started with &GLU; Studio'
     url: glue/latest/ug/tutorial-create-job.html
   languages:
     .NET:
@@ -1188,8 +1187,7 @@ glue_Scenario_GetStartedCrawlersJobs:
           github: dotnetv3/Glue
           sdkguide:
           excerpts:
-            - description: Create a class that wraps &GLU; functions that are
-                used in the scenario.
+            - description: Create a class that wraps &GLU; functions that are used in the scenario.
               snippet_tags:
                 - Glue.dotnetv3.GlueWrapper
             - description: Create a class that runs the scenario.
@@ -1230,16 +1228,13 @@ glue_Scenario_GetStartedCrawlersJobs:
           github: python/example_code/glue
           sdkguide:
           excerpts:
-            - description: Create a class that wraps &GLU; functions used in
-                the scenario.
+            - description: Create a class that wraps &GLU; functions used in the scenario.
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.full
             - description: Create a class that runs the scenario.
               snippet_tags:
                 - python.example_code.glue.Scenario_GetStartedCrawlersJobs
-            - description:
-                Create an ETL script that is used by &GLU; to extract,
-                transform, and load data during job runs.
+            - description: Create an ETL script that is used by &GLU; to extract, transform, and load data during job runs.
               snippet_tags:
                 - python.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script
     Ruby:
@@ -1248,16 +1243,13 @@ glue_Scenario_GetStartedCrawlersJobs:
           github: ruby/example_code/glue
           sdkguide:
           excerpts:
-            - description: Create a class that wraps &GLU; functions used in
-                the scenario.
+            - description: Create a class that wraps &GLU; functions used in the scenario.
               snippet_tags:
                 - ruby.example_code.glue.GlueWrapper.full
             - description: Create a class that runs the scenario.
               snippet_tags:
                 - ruby.example_code.glue.Scenario_GetStartedCrawlersJobs
-            - description:
-                Create an ETL script that is used by &GLU; to extract,
-                transform, and load data during job runs.
+            - description: Create an ETL script that is used by &GLU; to extract, transform, and load data during job runs.
               snippet_tags:
                 - ruby.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script
     JavaScript:
@@ -1266,9 +1258,8 @@ glue_Scenario_GetStartedCrawlersJobs:
           github: javascriptv3/example_code/glue
           sdkguide:
           excerpts:
-            - description:
-                Create and run a crawler that crawls a public &S3long; (&S3;) bucket and generates
-                a metadata database that describes the CSV-formatted data it finds.
+            - description: Create and run a crawler that crawls a public &S3long; (&S3;) bucket and generates a metadata database
+                that describes the CSV-formatted data it finds.
               snippet_tags:
                 - javascript.v3.glue.actions.CreateCrawler
                 - javascript.v3.glue.actions.GetCrawler
@@ -1281,10 +1272,8 @@ glue_Scenario_GetStartedCrawlersJobs:
                 - javascript.v3.glue.actions.GetTables
                 - javascript.v3.glue.scenarios.basic.GetDatabaseStep
                 - javascript.v3.glue.scenarios.basic.GetTablesStep
-            - description:
-                Create and run a job that extracts CSV data from the source &S3; bucket,
-                transforms it by removing and renaming fields, and loads JSON-formatted
-                output into another &S3; bucket.
+            - description: Create and run a job that extracts CSV data from the source &S3; bucket, transforms it by removing
+                and renaming fields, and loads JSON-formatted output into another &S3; bucket.
               snippet_tags:
                 - javascript.v3.glue.actions.CreateJob
                 - javascript.v3.glue.actions.StartJobRun
@@ -1320,9 +1309,8 @@ glue_Scenario_GetStartedCrawlersJobs:
           github: rustv1/examples/glue
           sdkguide:
           excerpts:
-            - description:
-                Create and run a crawler that crawls a public &S3long; (&S3;) bucket and generates
-                a metadata database that describes the CSV-formatted data it finds.
+            - description: Create and run a crawler that crawls a public &S3long; (&S3;) bucket and generates a metadata database
+                that describes the CSV-formatted data it finds.
               snippet_tags:
                 - rust.glue.create_crawler
                 - rust.glue.start_crawler
@@ -1330,10 +1318,8 @@ glue_Scenario_GetStartedCrawlersJobs:
               snippet_tags:
                 - rust.glue.get_database
                 - rust.glue.get_tables
-            - description:
-                Create and run a job that extracts CSV data from the source &S3; bucket,
-                transforms it by removing and renaming fields, and loads JSON-formatted
-                output into another &S3; bucket.
+            - description: Create and run a job that extracts CSV data from the source &S3; bucket, transforms it by removing
+                and renaming fields, and loads JSON-formatted output into another &S3; bucket.
               snippet_tags:
                 - rust.glue.create_job
                 - rust.glue.start_job_run
@@ -1344,22 +1330,5 @@ glue_Scenario_GetStartedCrawlersJobs:
                 - rust.glue.delete_database
                 - rust.glue.delete_crawler
   services:
-    glue:
-      {
-        GetCrawler,
-        CreateCrawler,
-        StartCrawler,
-        GetDatabase,
-        GetDatabases,
-        GetTables,
-        CreateJob,
-        StartJobRun,
-        ListJobs,
-        GetJob,
-        GetJobRuns,
-        GetJobRun,
-        DeleteJob,
-        DeleteTable,
-        DeleteDatabase,
-        DeleteCrawler,
-      }
+    glue: {GetCrawler, CreateCrawler, StartCrawler, GetDatabase, GetDatabases, GetTables, CreateJob, StartJobRun, ListJobs,
+      GetJob, GetJobRuns, GetJobRun, DeleteJob, DeleteTable, DeleteDatabase, DeleteCrawler}

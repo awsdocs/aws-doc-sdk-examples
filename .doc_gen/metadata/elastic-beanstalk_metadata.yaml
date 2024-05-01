@@ -1,5 +1,4 @@
-# zexi 0.4.0
-elastic-beanstalk_ListStacks:
+elastic-beanstalk_ListAvailableSolutionStacks:
   title: List &AEB; stacks using an &AWS; SDK
   title_abbrev: List stacks
   synopsis: list &AEBlong; stacks.
@@ -16,7 +15,7 @@ elastic-beanstalk_ListStacks:
                 - eb.Ruby.listStacks
   services:
     elastic-beanstalk: {ListAvailableSolutionStacks}
-elastic-beanstalk_DescribeApp:
+elastic-beanstalk_DescribeApplications:
   title: Describe an &AEB; app using an &AWS; SDK
   title_abbrev: Describe app
   synopsis: describe an &AEBlong; app.

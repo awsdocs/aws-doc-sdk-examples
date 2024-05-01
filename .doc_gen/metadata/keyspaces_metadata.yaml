@@ -496,10 +496,8 @@ keyspaces_Scenario_GetStartedKeyspaces:
   title: Get started with &KEY; keyspaces and tables using an &AWS; SDK
   title_abbrev: Get started with keyspaces and tables
   synopsis_list:
-    - Create a keyspace and table. The table schema holds movie data and 
-      has point-in-time recovery enabled.
-    - Connect to the keyspace using a secure TLS connection with SigV4 
-      authentication.
+    - Create a keyspace and table. The table schema holds movie data and has point-in-time recovery enabled.
+    - Connect to the keyspace using a secure TLS connection with SigV4 authentication.
     - Query the table. Add, retrieve, and update movie data.
     - Update the table. Add a column to track watched movies.
     - Restore the table to its previous state and clean up resources.
@@ -515,7 +513,7 @@ keyspaces_Scenario_GetStartedKeyspaces:
               snippet_tags:
                 - Keyspaces.dotnetv3.KeyspacesBasicsGlobalUsings
                 - Keyspaces.dotnetv3.KeyspacesScenario
-            - description: 
+            - description:
               snippet_tags:
                 - Keyspaces.dotnetv3.KeyspacesWrapper
             - description:
@@ -551,10 +549,10 @@ keyspaces_Scenario_GetStartedKeyspaces:
             - description: Define a class that wraps keyspace and table actions.
               snippet_tags:
                 - python.example_code.keyspaces.KeyspaceWrapper.class
-            - description: Define a class that creates a TLS connection to a keyspace,
-                authenticates with SigV4, and sends CQL queries to a table in the keyspace.
+            - description: Define a class that creates a TLS connection to a keyspace, authenticates with SigV4, and sends
+                CQL queries to a table in the keyspace.
               snippet_tags:
                 - python.example_code.keyspaces.QueryManager.class
   services:
-    keyspaces: {CreateKeyspace, CreateTable, DeleteKeyspace, DeleteTable, GetKeyspace,
-                GetTable, ListKeyspaces, ListTables, RestoreTable, UpdateTable}
+    keyspaces: {CreateKeyspace, CreateTable, DeleteKeyspace, DeleteTable, GetKeyspace, GetTable, ListKeyspaces, ListTables,
+      RestoreTable, UpdateTable}

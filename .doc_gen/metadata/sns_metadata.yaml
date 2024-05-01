@@ -1,4 +1,3 @@
-# zexi 0.4.0
 sns_Hello:
   title: Hello &SNS;
   title_abbrev: Hello &SNS;
@@ -364,7 +363,8 @@ sns_GetSMSAttributes:
 sns_ConfirmSubscription:
   title: Confirm an endpoint owner wants to receive &SNS; messages using an &AWS; SDK
   title_abbrev: Confirm an endpoint owner wants to receive messages
-  synopsis: confirm the owner of an endpoint wants to receive &SNS; messages by validating the token sent to the endpoint by an earlier Subscribe action.
+  synopsis: confirm the owner of an endpoint wants to receive &SNS; messages by validating the token sent to the endpoint
+    by an earlier Subscribe action.
   category:
   languages:
     PHP:
@@ -856,7 +856,7 @@ sns_PublishTextSMS:
                 - python.example_code.sns.Publish_TextMessage
   services:
     sns: {Publish}
-sns_SetSmsAttributes:
+sns_SetSMSAttributes:
   title: Set the default settings for sending &SNS; SMS messages using an &AWS; SDK
   title_abbrev: Set the default settings for sending SMS messages
   synopsis: set the default settings for sending SMS messages using &SNS;.
@@ -1251,9 +1251,8 @@ sns_PublishFifoTopic:
         - sdk_version: 3
           github: python/example_code/sns
           excerpts:
-            - description:
-                Create an &SNS; FIFO topic, subscribe &SQS; FIFO and standard queues to the topic,
-                and publish a message to the topic.
+            - description: Create an &SNS; FIFO topic, subscribe &SQS; FIFO and standard queues to the topic, and publish
+                a message to the topic.
               snippet_tags:
                 - python.example_code.sns.Scenario_SubscribeFifoTopic
                 - python.example_code.sns.FifoTopicWrapper
@@ -1263,9 +1262,8 @@ sns_PublishFifoTopic:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description:
-                Create a FIFO topic, subscribe an &SQS; FIFO queue to the topic,
-                and publish a message to an &SNS; topic.
+            - description: Create a FIFO topic, subscribe an &SQS; FIFO queue to the topic, and publish a message to an &SNS;
+                topic.
               snippet_tags:
                 - sns.abapv1.publish_message_to_fifo_queue
   services:
@@ -1283,9 +1281,8 @@ sns_PublishLargeMessage:
           github: java/example_code/sns
           sdkguide:
           excerpts:
-            - description:
-                To publish a large message, use the &SNS; Extended Client Library for Java.
-                The message that you send references an &S3; object containing the actual message content.
+            - description: To publish a large message, use the &SNS; Extended Client Library for Java. The message that you
+                send references an &S3; object containing the actual message content.
               snippet_tags:
                 - sns.java.publish_large_file
   services:

@@ -304,8 +304,8 @@ iam_GetAccountSummary:
 iam_GenerateCredentialReport:
   title: Generate a credential report from &IAM; using an &AWS; SDK
   title_abbrev: Generate a credential report
-  synopsis: generate a credential report from &IAM; for the current account.
-    After the report is generated, get it by using the GetCredentialReport action.
+  synopsis: generate a credential report from &IAM; for the current account. After the report is generated, get it by using
+    the GetCredentialReport action.
   category:
   languages:
     Python:
@@ -482,8 +482,7 @@ iam_Scenario_AccountManagement:
     - Get and update the account alias.
     - Generate a report of users and credentials.
     - Get a summary of account usage.
-    - Get details for all users, groups, roles, and policies in your account, including
-      their relationships to each other.
+    - Get details for all users, groups, roles, and policies in your account, including their relationships to each other.
   category: Scenarios
   languages:
     Python:
@@ -502,13 +501,12 @@ iam_Scenario_AccountManagement:
                 - python.example_code.iam.GetCredentialReport
                 - python.example_code.iam.GetAccountSummary
                 - python.example_code.iam.GetAccountAuthorizationDetails
-            - description: Call wrapper functions to change the account alias and
-                to get reports about the account.
+            - description: Call wrapper functions to change the account alias and to get reports about the account.
               snippet_tags:
                 - python.example_code.iam.Scenario_AccountManagement
   services:
-    iam: {ListAccountAliases, CreateAccountAlias, DeleteAccountAlias, GenerateCredentialReport,
-          GetCredentialReport, GetAccountSummary, GetAccountAuthorizationDetails}
+    iam: {ListAccountAliases, CreateAccountAlias, DeleteAccountAlias, GenerateCredentialReport, GetCredentialReport, GetAccountSummary,
+      GetAccountAuthorizationDetails}
 iam_CreateAccessKey:
   title: Create an &IAM; access key using an &AWS; SDK
   title_abbrev: Create an access key
@@ -960,8 +958,7 @@ iam_Scenario_ManageAccessKeys:
                 - python.example_code.iam.GetAccessKeyLastUsed
                 - python.example_code.iam.UpdateAccessKey
                 - python.example_code.iam.DeleteAccessKey
-            - description: Use the wrapper functions to perform access key actions for
-                the current user.
+            - description: Use the wrapper functions to perform access key actions for the current user.
               snippet_tags:
                 - python.example_code.iam.Scenario_ManageAccessKeys
   services:
@@ -1758,13 +1755,12 @@ iam_Scenario_PolicyManagement:
                 - python.example_code.iam.GetPolicyVersion
                 - python.example_code.iam.Scenario_RollbackPolicyVersion
                 - python.example_code.iam.DeletePolicy
-            - description: Use the wrapper functions to create policies, update
-                versions, and get information about them.
+            - description: Use the wrapper functions to create policies, update versions, and get information about them.
               snippet_tags:
                 - python.example_code.iam.Scenario_PolicyManagement
   services:
-    iam: {CreatePolicy, ListPolicies, CreatePolicyVersion, GetPolicyVersion, DeletePolicy,
-          ListPolicyVersions, SetDefaultPolicyVersion, DeletePolicyVersion}
+    iam: {CreatePolicy, ListPolicies, CreatePolicyVersion, GetPolicyVersion, DeletePolicy, ListPolicyVersions, SetDefaultPolicyVersion,
+      DeletePolicyVersion}
 iam_CreateRole:
   title: Create an &IAM; role using an &AWS; SDK
   title_abbrev: Create a role
@@ -2234,8 +2230,7 @@ iam_Scenario_RoleManagement:
                 - python.example_code.iam.AttachRolePolicy_Role
                 - python.example_code.iam.DetachRolePolicy_Role
                 - python.example_code.iam.DeleteRole
-            - description: Use the wrapper functions to create a role, then attach
-                and detach a policy.
+            - description: Use the wrapper functions to create a role, then attach and detach a policy.
               snippet_tags:
                 - python.example_code.iam.Scenario_RoleManagement
   services:
@@ -2927,13 +2922,13 @@ iam_Scenario_UserPolicies:
                 - python.example_code.iam.access_key_wrapper.imports
                 - python.example_code.iam.CreateAccessKey
                 - python.example_code.iam.DeleteAccessKey
-            - description: Use the wrapper functions to create users with differing
-                policies and use their credentials to access an &S3; bucket.
+            - description: Use the wrapper functions to create users with differing policies and use their credentials to
+                access an &S3; bucket.
               snippet_tags:
                 - python.example_code.iam.Scenario_UserPolicies
   services:
-    iam: {CreateUser, UpdateUser, ListUsers, DeleteUser, AttachUserPolicy, DetachUserPolicy,
-          CreatePolicy, DeletePolicy, CreateAccessKey, DeleteAccessKey}
+    iam: {CreateUser, UpdateUser, ListUsers, DeleteUser, AttachUserPolicy, DetachUserPolicy, CreatePolicy, DeletePolicy, CreateAccessKey,
+      DeleteAccessKey}
 iam_ListServerCertificates:
   title: List &IAM; server certificates using an &AWS; SDK
   title_abbrev: List server certificates
@@ -3474,8 +3469,7 @@ iam_CreateInstanceProfile:
           github: python/example_code/iam
           sdkguide:
           excerpts:
-            - description: This example creates a policy, role, and instance profile and
-                links them all together.
+            - description: This example creates a policy, role, and instance profile and links them all together.
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.iam.CreateInstanceProfile
@@ -3510,8 +3504,8 @@ iam_DeleteInstanceProfile:
           github: python/example_code/iam
           sdkguide:
           excerpts:
-            - description: This example removes the role from the instance profile, detaches
-                all policies attached to the role, and deletes all the resources.
+            - description: This example removes the role from the instance profile, detaches all policies attached to the
+                role, and deletes all the resources.
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.iam.DeleteInstanceProfile
@@ -3549,9 +3543,8 @@ iam_Scenario_GroupBasics:
                 - IAM.dotnetv3.IAMCommon.S3Wrapper
                 - IAM.dotnetv3.IAMCommon.UIWrapper
   services:
-    iam: {AddUserToGroup, CreateGroup, CreateUser, CreateAccessKey, CreateRole,
-          CreatePolicy, AttachRolePolicy, PutGroupPolicy, DeleteGroup, DeleteGroupPolicy,
-          DeleteAccessKey, DeleteUser, RemoveUserFromGroup}
+    iam: {AddUserToGroup, CreateGroup, CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy, PutGroupPolicy,
+      DeleteGroup, DeleteGroupPolicy, DeleteAccessKey, DeleteUser, RemoveUserFromGroup}
 iam_Scenario_CreateUserAssumeRole:
   title: Create an &IAM-user; and assume a role with &STS; using an &AWS; SDK
   title_abbrev: Create a user and assume a role
@@ -3600,10 +3593,8 @@ iam_Scenario_CreateUserAssumeRole:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create an &IAM-user; and a role that grants permission
-                to list &S3; buckets. The user has rights only to assume the role.
-                After assuming the role, use temporary credentials to list buckets for
-                the account.
+            - description: Create an &IAM-user; and a role that grants permission to list &S3; buckets. The user has rights
+                only to assume the role. After assuming the role, use temporary credentials to list buckets for the account.
               snippet_tags:
                 - javascript.iam_scenarios.iam_basics
     PHP:
@@ -3621,10 +3612,8 @@ iam_Scenario_CreateUserAssumeRole:
           github: python/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create an &IAM-user; and a role that grants permission
-                to list &S3; buckets. The user has rights only to assume the role.
-                After assuming the role, use temporary credentials to list buckets for
-                the account.
+            - description: Create an &IAM-user; and a role that grants permission to list &S3; buckets. The user has rights
+                only to assume the role. After assuming the role, use temporary credentials to list buckets for the account.
               snippet_tags:
                 - python.example_code.iam.Scenario_CreateUserAssumeRole
     Ruby:
@@ -3633,10 +3622,8 @@ iam_Scenario_CreateUserAssumeRole:
           github: ruby/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create an &IAM-user; and a role that grants permission
-                to list &S3; buckets. The user has rights only to assume the role.
-                After assuming the role, use temporary credentials to list buckets for
-                the account.
+            - description: Create an &IAM-user; and a role that grants permission to list &S3; buckets. The user has rights
+                only to assume the role. After assuming the role, use temporary credentials to list buckets for the account.
               snippet_tags:
                 - ruby.iam.Scenario_CreateUserAssumeRole
     Go:
@@ -3697,9 +3684,8 @@ iam_Scenario_CreateUserAssumeRole:
                 - aws-cli.bash-linux.iam.DeleteAccessKey
                 - aws-cli.bash-linux.iam.DeleteUser
   services:
-    iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy,
-          PutUserPolicy, DeleteUserPolicy, DetachRolePolicy, DeletePolicy, DeleteRole,
-          DeleteAccessKey, DeleteUser}
+    iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy, PutUserPolicy, DeleteUserPolicy, DetachRolePolicy,
+      DeletePolicy, DeleteRole, DeleteAccessKey, DeleteUser}
 iam_Scenario_IamPolicyBuilder:
   title: Work with the &IAM; Policy Builder API using an &AWS; SDK
   title_abbrev: Work with the &IAM; Policy Builder API

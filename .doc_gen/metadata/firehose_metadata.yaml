@@ -1,8 +1,9 @@
 # zexi 0.4.0
 firehose_PutRecordBatch:
-  title: "Write multiple &AKF; records using an &AWS; SDK"
+  title: Write multiple &AKF; records using an &AWS; SDK
   title_abbrev: Write multiple data records
-  synopsis: write multiple data records into a &AKF; delivery stream in a single call, which can achieve higher throughput per producer than when writing single records.
+  synopsis: write multiple data records into a &AKF; delivery stream in a single call, which can achieve higher throughput
+    per producer than when writing single records.
   category:
   languages:
     Rust:

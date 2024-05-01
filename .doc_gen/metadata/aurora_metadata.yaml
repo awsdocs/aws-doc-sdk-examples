@@ -1155,8 +1155,7 @@ aurora_Scenario_GetStartedClusters:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - Aurora.dotnetv3.AuroraClusterScenario
-            - description: Wrapper methods that are called by the scenario to
-                manage &AUR; actions.
+            - description: Wrapper methods that are called by the scenario to manage &AUR; actions.
               snippet_tags:
                 - Aurora.dotnetv3.AuroraWrapper
     Go:
@@ -1167,8 +1166,7 @@ aurora_Scenario_GetStartedClusters:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - gov2.aurora.Scenario_GetStartedClusters
-            - description: Define functions that are called by the scenario to
-                manage &AUR; actions.
+            - description: Define functions that are called by the scenario to manage &AUR; actions.
               snippet_tags:
                 - gov2.aurora.DbClusters.complete
     Kotlin:
@@ -1198,8 +1196,7 @@ aurora_Scenario_GetStartedClusters:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - python.example_code.aurora.Scenario_GetStartedClusters
-            - description: Define functions that are called by the scenario to
-                manage &AUR; actions.
+            - description: Define functions that are called by the scenario to manage &AUR; actions.
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_full
     C++:
@@ -1233,21 +1230,6 @@ aurora_Scenario_GetStartedClusters:
               snippet_files:
                 - rustv1/examples/aurora/Cargo.toml
   services:
-    aurora:
-      {
-        CreateDBCluster,
-        CreateDBClusterParameterGroup,
-        CreateDBClusterSnapshot,
-        CreateDBInstance,
-        DeleteDBCluster,
-        DeleteDBClusterParameterGroup,
-        DeleteDBInstance,
-        DescribeDBClusterParameterGroups,
-        DescribeDBClusterSnapshots,
-        DescribeDBClusters,
-        DescribeDBEngineVersions,
-        DescribeDBInstances,
-        DescribeOrderableDBInstanceOptions,
-        DescribeDBClusterParameters,
-        ModifyDBClusterParameterGroup,
-      }
+    aurora: {CreateDBCluster, CreateDBClusterParameterGroup, CreateDBClusterSnapshot, CreateDBInstance, DeleteDBCluster, DeleteDBClusterParameterGroup,
+      DeleteDBInstance, DescribeDBClusterParameterGroups, DescribeDBClusterSnapshots, DescribeDBClusters, DescribeDBEngineVersions,
+      DescribeDBInstances, DescribeOrderableDBInstanceOptions, DescribeDBClusterParameters, ModifyDBClusterParameterGroup}

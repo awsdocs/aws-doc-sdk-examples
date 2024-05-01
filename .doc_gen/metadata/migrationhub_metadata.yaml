@@ -32,7 +32,7 @@ migration-hub_ListMigrationTasks:
               snippet_tags:
                 - migration.java2.list_migration_tasks.main
   services:
-    migration-hub: {ListMigrationTasks} 
+    migration-hub: {ListMigrationTasks}
 migration-hub_ListCreatedArtifacts:
   title: List created artifacts using the &MHB; SDK
   title_abbrev: List created artifacts

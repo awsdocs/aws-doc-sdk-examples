@@ -1,4 +1,3 @@
-# zexi 0.4.0
 sagemaker_Hello:
   title: Hello &SM;
   title_abbrev: Hello &SM;
@@ -82,9 +81,7 @@ sagemaker_CreatePipeline:
           github: javascriptv3/example_code/sagemaker
           sdkguide:
           excerpts:
-            - description:
-                A function that creates a &SM; pipeline using a locally provided
-                JSON definition.
+            - description: A function that creates a &SM; pipeline using a locally provided JSON definition.
               snippet_tags:
                 - javascript.v3.sagemaker.wkflw.pipeline.create
   services:
@@ -106,7 +103,7 @@ sagemaker_UpdatePipeline:
                 - SageMaker.dotnetv3.CreatePipeline
   services:
     sagemaker: {UpdatePipeline}
-sagemaker_ExecutePipeline:
+sagemaker_StartPipelineExecution:
   title: Execute a pipeline in &SM; using an &AWS; SDK
   title_abbrev: Execute a pipeline
   synopsis: start a pipeline execution in &SM;.
@@ -189,10 +186,8 @@ sagemaker_DeletePipeline:
           github: javascriptv3/example_code/sagemaker
           sdkguide:
           excerpts:
-            - description:
-                The syntax for deleting a &SM; pipeline. This code is part
-                of a larger function. Refer to 'Create a pipeline' or the GitHub repository
-                for more context.
+            - description: The syntax for deleting a &SM; pipeline. This code is part of a larger function. Refer to 'Create
+                a pipeline' or the GitHub repository for more context.
               snippet_tags:
                 - javascript.v3.sagemaker.wkflw.pipeline.delete
   services:
@@ -451,18 +446,8 @@ sagemaker_Scenario_GettingStarted:
               snippet_tags:
                 - sgm.abapv1.getting_started_with_sgm
   services:
-    sagemaker:
-      {
-        CreateTrainingJob,
-        DescribeTrainingJob,
-        CreateModel,
-        CreateEndpointConfig,
-        CreateEndpoint,
-        DescribeEndpoint,
-        DeleteEndpoint,
-        DeleteEndpointConfig,
-        DeleteModel,
-      }
+    sagemaker: {CreateTrainingJob, DescribeTrainingJob, CreateModel, CreateEndpointConfig, CreateEndpoint, DescribeEndpoint,
+      DeleteEndpoint, DeleteEndpointConfig, DeleteModel}
 sagemaker_Scenario_Pipelines:
   title: Get started with &SM; geospatial jobs in a pipeline using an &AWS; SDK
   title_abbrev: Get started with geospatial jobs and pipelines
@@ -516,22 +501,12 @@ sagemaker_Scenario_Pipelines:
           github: javascriptv3/example_code/sagemaker
           sdkguide:
           excerpts:
-            - description:
-                The following file excerpt contains functions that use
-                the &SM; client to manage a pipeline.
+            - description: The following file excerpt contains functions that use the &SM; client to manage a pipeline.
               snippet_tags:
                 - javascript.v3.sagemaker.wkflw.pipeline.library
-            - description: This function is an excerpt from a file that uses the
-                preceding library functions to set up a &SM; pipeline,
-                execute it, and delete all created resources.
+            - description: This function is an excerpt from a file that uses the preceding library functions to set up a &SM;
+                pipeline, execute it, and delete all created resources.
               snippet_tags:
                 - javascript.v3.sagemaker.wkflw.pipeline
   services:
-    sagemaker:
-      {
-        CreatePipeline,
-        UpdatePipeline,
-        StartPipelineExecution,
-        DescribePipelineExecution,
-        DeletePipeline,
-      }
+    sagemaker: {CreatePipeline, UpdatePipeline, StartPipelineExecution, DescribePipelineExecution, DeletePipeline}

@@ -50,7 +50,7 @@ opensearch_DeleteDomain:
               snippet_tags:
                 - opensearch.java2.delete_domain.main
   services:
-    opensearch: {DeleteDomain}    
+    opensearch: {DeleteDomain}
 opensearch_ListDomainNames:
   title: List &ES; domains by using an &AWS; SDK
   title_abbrev: List domains

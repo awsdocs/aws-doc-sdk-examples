@@ -1,4 +1,3 @@
-# zexi 0.4.2
 organizations_CreatePolicy:
   title: Create an &AO; policy using an &AWS; SDK
   title_abbrev: Create a policy
@@ -248,7 +247,7 @@ organizations_ListAccounts:
                 - Organizations.dotnetv3.ListAccountsExample
   services:
     organizations: {ListAccounts}
-organizations_ListOrganizationalUnits:
+organizations_ListOrganizationalUnitsForParent:
   title: List &AO; organizational units using an &AWS; SDK
   title_abbrev: List organizational units
   synopsis: list &AO; organizational units.

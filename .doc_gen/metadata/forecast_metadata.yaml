@@ -32,7 +32,7 @@ forecast_CreateForecast:
               snippet_tags:
                 - forecast.java2.create_forecast.main
   services:
-    forecast: {CreateForecast}    
+    forecast: {CreateForecast}
 forecast_DeleteForecast:
   title: Delete a forecast for the &FORlong; using an &AWS; SDK
   title_abbrev: Delete a forecast
@@ -49,7 +49,7 @@ forecast_DeleteForecast:
               snippet_tags:
                 - forecast.java2.delete_forecast_dataset.main
   services:
-    forecast: {DeleteForecast}        
+    forecast: {DeleteForecast}
 forecast_DeleteDataset:
   title: Delete a data set for the &FORlong; using an &AWS; SDK
   title_abbrev: Delete a data set

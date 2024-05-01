@@ -1,4 +1,3 @@
-# zexi 0.4.0
 iot_Hello:
   title: Hello &IoT;
   title_abbrev: Hello &IoT;
@@ -127,7 +126,7 @@ iot_ListCertificates:
                 - cpp.example_code.iot.ListCertificates
   services:
     iot: {ListCertificates}
-iot_CreateCertificate:
+iot_CreateKeysAndCertificate:
   title: Create an &IoT; certificate using an &AWS; SDK
   title_abbrev: Create a certificate
   synopsis: create an &IoT; certificate.
@@ -407,7 +406,7 @@ iot_UpdateThing:
                 - cpp.example_code.iot.UpdateThing
   services:
     iot: {UpdateThing}
-iot_CreateRule:
+iot_CreateTopicRule:
   title: Create an &IoT; rule using an &AWS; SDK
   title_abbrev: Create a rule
   synopsis: create an &IoT; rule.
@@ -440,7 +439,7 @@ iot_CreateRule:
                 - cpp.example_code.iot.CreateTopicRule
   services:
     iot: {CreateTopicRule}
-iot_DeleteRule:
+iot_DeleteTopicRule:
   title: Delete an &IoT; rule using an &AWS; SDK
   title_abbrev: Delete a rule
   synopsis: delete an &IoT; rule.

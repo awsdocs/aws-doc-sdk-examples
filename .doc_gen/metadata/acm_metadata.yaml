@@ -348,6 +348,5 @@ acm_Usage_ImportListRemove:
               snippet_tags:
                 - python.example_code.acm.Usage_ImportListRemove
   services:
-    acm: {AddTagsToCertificate, DeleteCertificate, DescribeCertificate, GetCertificate,
-          ImportCertificate, ListCertificates, ListTagsForCertificate, RemoveTagsFromCertificate,
-          RequestCertificate, ResendValidationEmail}
+    acm: {AddTagsToCertificate, DeleteCertificate, DescribeCertificate, GetCertificate, ImportCertificate, ListCertificates,
+      ListTagsForCertificate, RemoveTagsFromCertificate, RequestCertificate, ResendValidationEmail}

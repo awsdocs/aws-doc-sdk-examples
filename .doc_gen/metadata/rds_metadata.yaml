@@ -187,7 +187,7 @@ rds_DeleteDBInstance:
               snippet_tags:
                 - php.example_code.rds.deleteDBInstance.complete
   services:
-    rds: {DeleteDBInstance} 
+    rds: {DeleteDBInstance}
 rds_DescribeAccountAttributes:
   title: Retrieve attributes that belongs to an &RDS; account using an &AWS; SDK
   title_abbrev: Retrieve attributes
@@ -213,7 +213,7 @@ rds_DescribeAccountAttributes:
               snippet_tags:
                 - rds.java2.describe_account.main
   services:
-    rds: {DescribeAccountAttributes}     
+    rds: {DescribeAccountAttributes}
 rds_DescribeDBInstances:
   title: Describe &RDS; DB instances using an &AWS; SDK
   title_abbrev: Describe DB instances
@@ -293,7 +293,7 @@ rds_DescribeDBInstances:
               snippet_tags:
                 - php.example_code.rds.describeDBInstances.complete
   services:
-    rds: {DescribeDBInstances}         
+    rds: {DescribeDBInstances}
 rds_ModifyDBInstance:
   title: Modify an &RDS; DB instance using an &AWS; SDK
   title_abbrev: Modify a DB instance
@@ -319,7 +319,7 @@ rds_ModifyDBInstance:
               snippet_tags:
                 - rds.java2.modify_instance.main
   services:
-    rds: {ModifyDBInstance}             
+    rds: {ModifyDBInstance}
 rds_RebootDBInstance:
   title: Reboot an &RDS; DB instance using an &AWS; SDK
   title_abbrev: Reboot a DB instance
@@ -889,7 +889,9 @@ rds_GenerateRDSAuthToken:
           github: javav2/example_code/rds
           sdkguide:
           excerpts:
-            - description: Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rds/RdsUtilities.html">RdsUtilities</ulink> class to generate an authentication token.
+            - description: Use the <ulink 
+                url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rds/RdsUtilities.html">RdsUtilities</ulink>
+                class to generate an authentication token.
               snippet_tags:
                 - rds.java2.create_token.main
   services:
@@ -899,8 +901,7 @@ rds_Scenario_GetStartedInstances:
   title_abbrev: Get started with DB instances
   synopsis_list:
     - Create a custom DB parameter group and set parameter values.
-    - Create a DB instance that's configured to use the parameter group. The DB instance
-      also contains a database.
+    - Create a DB instance that's configured to use the parameter group. The DB instance also contains a database.
     - Take a snapshot of the instance.
     - Delete the instance and parameter group.
   category: Scenarios
@@ -949,8 +950,7 @@ rds_Scenario_GetStartedInstances:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - gov2.rds.Scenario_GetStartedInstances
-            - description: Define functions that are called by the scenario to
-                manage &RDS; actions.
+            - description: Define functions that are called by the scenario to manage &RDS; actions.
               snippet_tags:
                 - gov2.rds.DbInstances.complete
     Python:
@@ -962,8 +962,7 @@ rds_Scenario_GetStartedInstances:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - python.example_code.rds.Scenario_GetStartedInstances
-            - description: Define functions that are called by the scenario to
-                manage &RDS; actions.
+            - description: Define functions that are called by the scenario to manage &RDS; actions.
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_full
     C++:
@@ -977,8 +976,6 @@ rds_Scenario_GetStartedInstances:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.get_started_instances
   services:
-    rds: {CreateDBInstance, CreateDBParameterGroup, CreateDBSnapshot, DeleteDBInstance,
-          DeleteDBParameterGroup, DescribeDBInstances, DescribeDBEngineVersions, DescribeDBParameterGroups,
-          DescribeDBParameters, DescribeDBSnapshots, DescribeOrderableDBInstanceOptions,
-          ModifyDBParameterGroup}
-          
+    rds: {CreateDBInstance, CreateDBParameterGroup, CreateDBSnapshot, DeleteDBInstance, DeleteDBParameterGroup, DescribeDBInstances,
+      DescribeDBEngineVersions, DescribeDBParameterGroups, DescribeDBParameters, DescribeDBSnapshots, DescribeOrderableDBInstanceOptions,
+      ModifyDBParameterGroup}

@@ -11,7 +11,7 @@ kms_CreateKey:
           github: kotlin/services/kms
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - kms.kotlin_create_key.main
     Java:
@@ -71,7 +71,7 @@ kms_Decrypt:
           github: kotlin/services/kms
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - kms.kotlin_encrypt_data.main
     Java:
@@ -122,7 +122,7 @@ kms_Encrypt:
           github: kotlin/services/kms
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - kms.kotlin_encrypt_data.main
     Java:
@@ -164,8 +164,8 @@ kms_Encrypt:
 kms_GenerateDataKey:
   title: Generate a plaintext data key for client-side encryption using an &AWS; SDK
   title_abbrev: Generate a plaintext data key for client-side encryption
-  synopsis: generate a unique symmetric data key for client-side encryption from an
-    &kms-key-long;. The key contains both plaintext and ciphertext versions.
+  synopsis: generate a unique symmetric data key for client-side encryption from an &kms-key-long;. The key contains both
+    plaintext and ciphertext versions.
   category:
   languages:
     Python:
@@ -190,8 +190,7 @@ kms_GenerateDataKey:
 kms_GenerateDataKeyWithoutPlaintext:
   title: Generate an encrypted data key using an &AWS; SDK
   title_abbrev: Generate an encrypted data key
-  synopsis: generate an encrypted data key from an &kms-key-long;. The key contains
-    only a ciphertext version.
+  synopsis: generate an encrypted data key from an &kms-key-long;. The key contains only a ciphertext version.
   category:
   languages:
     Rust:
@@ -232,7 +231,7 @@ kms_ListKeys:
           github: kotlin/services/kms
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - kms.kotlin_list_keys.main
     Java:
@@ -317,7 +316,7 @@ kms_CreateAlias:
           github: kotlin/services/kms
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - kms.kotlin_create_alias.main
     Java:
@@ -361,7 +360,7 @@ kms_CreateGrant:
           github: kotlin/services/kms
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - kms.kotlin_create_grant.main
     Java:
@@ -405,7 +404,7 @@ kms_DescribeKey:
           github: kotlin/services/kms
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - kms.kotlin_describe_key.main
     Java:
@@ -449,7 +448,7 @@ kms_DisableKey:
           github: kotlin/services/kms
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - kms.kotlin_disable_key.main
     Java:
@@ -493,7 +492,7 @@ kms_EnableKey:
           github: kotlin/services/kms
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - kms.kotlin_enable_key.main
     Java:
@@ -555,7 +554,7 @@ kms_ListAliases:
           github: kotlin/services/kms
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - kms.kotlin_list_aliases.main
     Java:
@@ -635,7 +634,7 @@ kms_ListGrants:
           github: kotlin/services/kms
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - kms.kotlin_list_grant.main
     Java:

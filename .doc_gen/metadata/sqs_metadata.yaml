@@ -661,7 +661,8 @@ sqs_ReceiveMessage:
                 - sqs.JavaScript.longPoll.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
+          sdkguide: 
+            sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
           excerpts:
             - description: Receive a message from an  &SQS; queue using long-poll support.
               snippet_tags:
@@ -731,7 +732,8 @@ sqs_DeleteMessage:
                 - sqs.JavaScript.messages.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-receiving
+          sdkguide: 
+            sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-receiving
           excerpts:
             - description: Receive and delete &SQS; messages.
               snippet_tags:
@@ -823,20 +825,11 @@ sqs_Scenario_SendReceiveBatch:
                 - python.example_code.sqs.SendMessageBatch
                 - python.example_code.sqs.ReceiveMessage
                 - python.example_code.sqs.DeleteMessageBatch
-            - description:
-                Use the wrapper functions to send and receive messages
-                in batches.
+            - description: Use the wrapper functions to send and receive messages in batches.
               snippet_tags:
                 - python.example_code.sqs.Scenario_SendReceiveBatch
   services:
-    sqs:
-      {
-        CreateQueue,
-        DeleteQueue,
-        SendMessageBatch,
-        ReceiveMessage,
-        DeleteMessageBatch,
-      }
+    sqs: {CreateQueue, DeleteQueue, SendMessageBatch, ReceiveMessage, DeleteMessageBatch}
 sqs_GetQueueAttributes:
   title: Get attributes for an &SQS; queue
   title_abbrev: Get attributes for a queue
@@ -902,7 +895,8 @@ sqs_ChangeMessageVisibility:
                 - sqs.JavaScript.visibility.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-managing-visibility-timeout.html#sqs-examples-managing-visibility-timeout-setting
+          sdkguide: 
+            sdk-for-javascript/v2/developer-guide/sqs-examples-managing-visibility-timeout.html#sqs-examples-managing-visibility-timeout-setting
           excerpts:
             - description: Receive an &SQS; message and change its timeout visibility.
               snippet_tags:
@@ -1043,19 +1037,10 @@ sqs_Scenario_TopicsAndQueues:
             - description: This is the entry point for this workflow.
               snippet_tags:
                 - javascript.v3.wkflw.topicsandqueues.index
-            - description:
-                The preceding code provides the necessary dependencies and starts the workflow.
-                The next section contains the bulk of the example.
+            - description: The preceding code provides the necessary dependencies and starts the workflow. The next section
+                contains the bulk of the example.
               snippet_tags:
                 - javascript.v3.wkflw.topicsandqueues.wrapper
   services:
     sns: {CreateTopic, Subscribe, Publish, Unsubscribe, DeleteTopic}
-    sqs:
-      {
-        CreateQueue,
-        GetQueueAttributes,
-        SetQueueAttributes,
-        ReceiveMessage,
-        DeleteMessageBatch,
-        DeleteQueue,
-      }
+    sqs: {CreateQueue, GetQueueAttributes, SetQueueAttributes, ReceiveMessage, DeleteMessageBatch, DeleteQueue}

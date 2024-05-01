@@ -23,7 +23,7 @@ rekognition_DescribeCollection:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.describe_collection.main
     Java:
@@ -71,7 +71,7 @@ rekognition_DeleteCollection:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.delete_collection.main
     Java:
@@ -119,7 +119,7 @@ rekognition_IndexFaces:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.add_faces_collection.main
     Java:
@@ -167,7 +167,7 @@ rekognition_ListFaces:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.list_faces_collection.main
     Java:
@@ -293,7 +293,7 @@ rekognition_DeleteFaces:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.delete_faces_collection.main
     Java:
@@ -341,7 +341,7 @@ rekognition_CreateCollection:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.create_collection.main
     Java:
@@ -389,7 +389,7 @@ rekognition_ListCollections:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.list_collections.main
     Java:
@@ -449,8 +449,8 @@ rekognition_Usage_FindFacesInCollection:
                 - python.example_code.rekognition.SearchFaces
                 - python.example_code.rekognition.SearchFacesByImage
                 - python.example_code.rekognition.helper.RekognitionFace
-            - description: Use the wrapper classes to build a collection of faces from a
-                set of images and then search for faces in the collection.
+            - description: Use the wrapper classes to build a collection of faces from a set of images and then search for
+                faces in the collection.
               snippet_tags:
                 - python.example_code.rekognition.Usage_FindFacesInCollection
   services:
@@ -482,7 +482,7 @@ rekognition_DetectFaces:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.detect_faces.main
     Java:
@@ -530,7 +530,7 @@ rekognition_CompareFaces:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.compare_faces.main
     Java:
@@ -581,7 +581,7 @@ rekognition_DetectLabels:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.detect_labels.main
     Java:
@@ -608,8 +608,8 @@ rekognition_DetectLabels:
 rekognition_DetectModerationLabels:
   title: Detect moderation labels in an image with &REK; using an &AWS; SDK
   title_abbrev: Detect moderation labels in an image
-  synopsis: detect moderation labels in an image with &REK;. Moderation labels
-    identify content that may be inappropriate for some audiences.
+  synopsis: detect moderation labels in an image with &REK;. Moderation labels identify content that may be inappropriate
+    for some audiences.
   category:
   guide_topic:
     title: Detecting inappropriate images
@@ -630,7 +630,7 @@ rekognition_DetectModerationLabels:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.detect_mod_labels.main
     Java:
@@ -678,7 +678,7 @@ rekognition_DetectText:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.detect_text.main
     Java:
@@ -726,7 +726,7 @@ rekognition_RecognizeCelebrities:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.recognize_celebs.main
     Java:
@@ -792,9 +792,8 @@ rekognition_Usage_DetectAndDisplayImage:
                 - python.example_code.rekognition.helper.RekognitionLabel
                 - python.example_code.rekognition.helper.RekognitionModerationLabel
                 - python.example_code.rekognition.helper.RekognitionText
-            - description: Use the wrapper classes to detect elements in images and
-                display their bounding boxes. The images used in this example can be
-                found on GitHub along with instructions and more code.
+            - description: Use the wrapper classes to detect elements in images and display their bounding boxes. The images
+                used in this example can be found on GitHub along with instructions and more code.
               snippet_tags:
                 - python.example_code.rekognition.Usage_ImageDetection
   services:
@@ -851,21 +850,20 @@ rekognition_VideoDetection:
                 - rekognition.java2.recognize_video_detect.main
             - description: Detect faces in a video stored in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.recognize_video_detect.main 
+                - rekognition.java2.recognize_video_detect.main
             - description: Detect inappropriate or offensive content in a video stored in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.recognize_video_moderation.main 
+                - rekognition.java2.recognize_video_moderation.main
             - description: Detect technical cue segments and shot detection segments in a video stored in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.recognize_video_segments.main 
+                - rekognition.java2.recognize_video_segments.main
             - description: Detect text in a video stored in a video stored in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.recognize_video_text.main 
+                - rekognition.java2.recognize_video_text.main
             - description: Detect people in a video stored in a video stored in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.recognize_video_person.main     
+                - rekognition.java2.recognize_video_person.main
   services:
-    rekognition: {GetCelebrityRecognition, GetContentModeration, GetLabelDetection, GetPersonTracking,
-                  GetSegmentDetection, GetTextDetection, StartCelebrityRecognition,
-                  StartContentModeration, StartLabelDetection, StartPersonTracking,
-                  StartSegmentDetection, StartTextDetection}
+    rekognition: {GetCelebrityRecognition, GetContentModeration, GetLabelDetection, GetPersonTracking, GetSegmentDetection,
+      GetTextDetection, StartCelebrityRecognition, StartContentModeration, StartLabelDetection, StartPersonTracking, StartSegmentDetection,
+      StartTextDetection}

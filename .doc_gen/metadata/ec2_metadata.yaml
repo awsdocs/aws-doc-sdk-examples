@@ -173,7 +173,7 @@ ec2_DescribeKeyPairs:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java.scenario_describe_keys.main          
+                - ec2.java.scenario_describe_keys.main
     Python:
       versions:
         - sdk_version: 3
@@ -1470,7 +1470,7 @@ ec2_RebootInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.abapv1.reboot_instance  
+                - ec2.abapv1.reboot_instance
     C++:
       versions:
         - sdk_version: 1
@@ -1680,8 +1680,7 @@ ec2_CreateRouteTable:
               snippet_tags:
                 - ec2.Ruby.createRouteTable
   services:
-    ec2:
-      {CreateRouteTable}
+    ec2: {CreateRouteTable}
 ec2_CreateSubnet:
   title: Create and tag a subnet in Amazon Virtual Private Cloud (Amazon VPC)
   title_abbrev: Create a subnet
@@ -1698,8 +1697,7 @@ ec2_CreateSubnet:
               snippet_tags:
                 - ec2.Ruby.createSubnet
   services:
-    ec2:
-      {CreateSubnet}
+    ec2: {CreateSubnet}
 ec2_CreateVpc:
   title: Create a Amazon Virtual Private Cloud (Amazon VPC)
   title_abbrev: Create a Amazon Virtual Private Cloud (Amazon VPC)
@@ -1716,8 +1714,7 @@ ec2_CreateVpc:
               snippet_tags:
                 - ec2.Ruby.createVpc
   services:
-    ec2:
-      {CreateVpc}
+    ec2: {CreateVpc}
 ec2_DescribeIamInstanceProfileAssociations:
   title: Get data about the instance profile associated with an &EC2; instance using an &AWS; SDK
   title_abbrev: Get data about the instance profile associated with an instance
@@ -1773,8 +1770,8 @@ ec2_ReplaceIamInstanceProfileAssociation:
           github: python/example_code/ec2
           sdkguide:
           excerpts:
-            - description: This example replaces the instance profile of a running instance,
-                reboots the instance, and sends a command to the instance after it starts.
+            - description: This example replaces the instance profile of a running instance, reboots the instance, and sends
+                a command to the instance after it starts.
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation
@@ -1809,8 +1806,8 @@ ec2_CreateLaunchTemplate:
           github: python/example_code/ec2
           sdkguide:
           excerpts:
-            - description: This example creates a launch template that includes an instance profile
-                that grants specific permissions to the instance, and a user data Bash script that runs on the instance after it starts.
+            - description: This example creates a launch template that includes an instance profile that grants specific permissions
+                to the instance, and a user data Bash script that runs on the instance after it starts.
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.CreateLaunchTemplate
@@ -2002,7 +1999,6 @@ ec2_Scenario_GetStartedInstances:
               snippet_tags:
                 - javascript.v3.ec2.scenarios.basic
   services:
-    ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair,
-          CreateSecurityGroup, DeleteKeyPair, DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes,
-          DescribeInstances, DescribeKeyPairs, DescribeSecurityGroups, DisassociateAddress,
-          ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances, UnmonitorInstances}
+    ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair, CreateSecurityGroup, DeleteKeyPair,
+      DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes, DescribeInstances, DescribeKeyPairs, DescribeSecurityGroups,
+      DisassociateAddress, ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances, UnmonitorInstances}

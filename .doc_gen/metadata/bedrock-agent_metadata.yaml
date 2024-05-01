@@ -14,10 +14,7 @@ bedrock-agent_Hello:
               snippet_files:
                 - javascriptv3/example_code/bedrock-agent/hello.js
   services:
-    bedrock-agent: {
-      ListAgents,
-      GetAgent
-    }
+    bedrock-agent: {ListAgents, GetAgent}
 
 bedrock-agent_CreateAgent:
   title: Create an &BR; agent using an &AWS; SDK
@@ -240,16 +237,5 @@ bedrock-agent_GettingStartedWithBedrockAgents:
               snippet_tags:
                 - python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents
   services:
-    bedrock-agent:
-      {
-        CreateAgent,
-        CreateAgentActionGroup,
-        CreateAgentAlias,
-        DeleteAgent,
-        DeleteAgentAlias,
-        GetAgent,
-        ListAgentActionGroups,
-        ListAgents,
-        ListAgentKnowledgeBases,
-        PrepareAgent,
-      }
+    bedrock-agent: {CreateAgent, CreateAgentActionGroup, CreateAgentAlias, DeleteAgent, DeleteAgentAlias, GetAgent, ListAgentActionGroups,
+      ListAgents, ListAgentKnowledgeBases, PrepareAgent}

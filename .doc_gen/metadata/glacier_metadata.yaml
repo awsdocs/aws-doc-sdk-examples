@@ -1,4 +1,3 @@
-# zexi 0.4.0
 glacier_Hello:
   title: Hello &GLlong;
   title_abbrev: Hello &GLlong;
@@ -175,7 +174,7 @@ glacier_UploadMultipartPart:
                 - glacier.JavaScript.multipartUpload.initiateMultipartUpload
   services:
     glacier: {UploadMultipartPart}
-glacier_InitiateJob_InventoryRetrieval:
+glacier_InitiateJob:
   title: Retrieve an &GLlong; vault inventory using an &AWS; SDK
   title_abbrev: Retrieve a vault inventory
   synopsis: retrieve an &GLlong; vault inventory.
@@ -195,7 +194,8 @@ glacier_InitiateJob_InventoryRetrieval:
           github: dotnetv3/Glacier
           sdkguide:
           excerpts:
-            - description: Retrieve an archive from a vault. This example uses the ArchiveTransferManager class. For API details see <ulink type="documentation" url="sdkfornet/v3/apidocs/items/Glacier/TArchiveTransferManager">ArchiveTransferManager</ulink>.
+            - description: Retrieve an archive from a vault. This example uses the ArchiveTransferManager class. For API details
+                see <ulink type="documentation" url="sdkfornet/v3/apidocs/items/Glacier/TArchiveTransferManager">ArchiveTransferManager</ulink>.
               snippet_tags:
                 - Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Download
     Python:
@@ -419,9 +419,8 @@ glacier_Usage_UploadNotifyInitiate:
                 - python.example_code.glacier.InitiateJob.ArchiveRetrieval
                 - python.example_code.glacier.ListJobs
                 - python.example_code.glacier.SetVaultNotifications
-            - description: Call functions on the wrapper class to create a vault and
-                upload a file, then configure the vault to publish notifications and
-                initiate a job to retrieve the archive.
+            - description: Call functions on the wrapper class to create a vault and upload a file, then configure the vault
+                to publish notifications and initiate a job to retrieve the archive.
               snippet_tags:
                 - python.example_code.glacier.usage.upload_demo
   services:
@@ -451,8 +450,8 @@ glacier_Usage_RetrieveDelete:
                 - python.example_code.glacier.GetJobOutput
                 - python.example_code.glacier.DeleteArchive
                 - python.example_code.glacier.DeleteVault
-            - description: Call functions on the wrapper class to get archive content
-                from a completed job, then delete the archive.
+            - description: Call functions on the wrapper class to get archive content from a completed job, then delete the
+                archive.
               snippet_tags:
                 - python.example_code.glacier.usage.retrieve_demo
   services:

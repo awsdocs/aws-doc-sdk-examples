@@ -91,8 +91,8 @@ ses_SendRawEmail:
           github: javascriptv3/example_code/ses
           sdkguide:
           excerpts:
-            - description: Use <ulink url="https://nodemailer.com/transports/ses/">nodemailer</ulink> to send an email
-                with an attachment.
+            - description: Use <ulink url="https://nodemailer.com/transports/ses/">nodemailer</ulink> to send an email with
+                an attachment.
               snippet_tags:
                 - javascript.v3.ses.attachment
   services:
@@ -375,8 +375,7 @@ ses_ListIdentities:
 ses_CreateReceiptFilter:
   title: Create an &SES; receipt filter using an &AWS; SDK
   title_abbrev: Create a receipt filter
-  synopsis: create an &SES; receipt filter that blocks incoming mail from an IP
-    address or range of IP addresses.
+  synopsis: create an &SES; receipt filter that blocks incoming mail from an IP address or range of IP addresses.
   category:
   languages:
     Python:
@@ -481,8 +480,7 @@ ses_DeleteReceiptFilter:
 ses_CreateReceiptRuleSet:
   title: Create an &SES; receipt rule set using an &AWS; SDK
   title_abbrev: Create a receipt rule set
-  synopsis: create an &SES; receipt rule set to organize rules applied to incoming
-    emails.
+  synopsis: create an &SES; receipt rule set to organize rules applied to incoming emails.
   category:
   languages:
     Python:
@@ -526,9 +524,8 @@ ses_CreateReceiptRule:
           github: python/example_code/ses
           sdkguide:
           excerpts:
-            - description: Create an &S3; bucket where &SES; can put copies of incoming
-                emails and create a rule that copies incoming email to the bucket for
-                a specific list of recipients.
+            - description: Create an &S3; bucket where &SES; can put copies of incoming emails and create a rule that copies
+                incoming email to the bucket for a specific list of recipients.
               snippet_tags:
                 - python.example_code.ses.SesReceiptHandler
                 - python.example_code.ses.helper.create_bucket_for_copy
@@ -920,15 +917,13 @@ ses_Scenario_SendEmail:
                 - python.example_code.ses.SendEmail
                 - python.example_code.ses.SendTemplatedEmail
   services:
-    ses: {VerifyDomainIdentity, VerifyEmailIdentity, GetIdentityVerificationAttributes, DeleteIdentity,
-          ListIdentities, CreateTemplate, DeleteTemplate, GetTemplate, ListTemplates, UpdateTemplate,
-          SendEmail, SendTemplatedEmail}
+    ses: {VerifyDomainIdentity, VerifyEmailIdentity, GetIdentityVerificationAttributes, DeleteIdentity, ListIdentities, CreateTemplate,
+      DeleteTemplate, GetTemplate, ListTemplates, UpdateTemplate, SendEmail, SendTemplatedEmail}
 ses_Scenario_ReplicateIdentities:
   title: Copy &SES; email and domain identities from one &AWS; Region to another using an &AWS; SDK
   title_abbrev: Copy email and domain identities across Regions
-  synopsis: copy &SES; email and domain identities from one &AWS; Region to another.
-    When domain identities are managed by &R53;, verification records are copied to the
-    domain for the destination Region.
+  synopsis: copy &SES; email and domain identities from one &AWS; Region to another. When domain identities are managed by
+    &R53;, verification records are copied to the domain for the destination Region.
   category: Scenarios
   languages:
     Python:

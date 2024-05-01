@@ -308,7 +308,7 @@ eventbridge_PutRule:
                 - eventbridge.kotlin._create_schedule_rule.main
             - description: Create a rule that triggers when an object is added to an &S3long; bucket.
               snippet_tags:
-                - eventbridge.kotlin._create_rule.main    
+                - eventbridge.kotlin._create_rule.main
     Java:
       versions:
         - sdk_version: 2
@@ -320,7 +320,7 @@ eventbridge_PutRule:
                 - eventbridge.java2._create_schedule_rule.main
             - description: Create a rule that triggers when an object is added to an &S3long; bucket.
               snippet_tags:
-                - eventbridge.java2._create_rule.main     
+                - eventbridge.java2._create_rule.main
     C++:
       versions:
         - sdk_version: 1
@@ -431,7 +431,7 @@ eventbridge_PutTargets:
                 - eventBridge.kotlin.putSnsTarget.main
             - description: Add an input transformer to a target for a rule.
               snippet_tags:
-                - eventbridge.kotlin._put_target.custom.transform.main     
+                - eventbridge.kotlin._put_target.custom.transform.main
     Java:
       versions:
         - sdk_version: 2
@@ -440,10 +440,10 @@ eventbridge_PutTargets:
           excerpts:
             - description: Add an &SNS; topic as a target for a rule.
               snippet_tags:
-                - eventBridge.java.putSnsTarget.main 
+                - eventBridge.java.putSnsTarget.main
             - description: Add an input transformer to a target for a rule.
               snippet_tags:
-                - eventbridge.java2._put_target.custom.transform.main 
+                - eventbridge.java2._put_target.custom.transform.main
     .NET:
       versions:
         - sdk_version: 3
@@ -500,7 +500,7 @@ eventbridge_RemoveTargets:
           excerpts:
             - description:
               snippet_tags:
-                - eventbridge.kotlin.delete.targets.main 
+                - eventbridge.kotlin.delete.targets.main
     Java:
       versions:
         - sdk_version: 2
@@ -539,14 +539,14 @@ eventbridge_Scenario_GettingStarted:
           excerpts:
             - description:
               snippet_tags:
-                - eventbridge.kotlin.mvp.main 
+                - eventbridge.kotlin.mvp.main
     Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - eventbridge.java2.mvp.main
     .NET:
@@ -561,8 +561,8 @@ eventbridge_Scenario_GettingStarted:
               snippet_tags:
                 - EventBridge.dotnetv3.EventBridgeWrapper
   services:
-    eventbridge: {PutRule, ListRules, PutTargets, ListTargetsByRule, ListRuleNamesByTarget,
-                  DisableRule, DescribeRule, EnableRule, PutEvents, DeleteRule}
+    eventbridge: {PutRule, ListRules, PutTargets, ListTargetsByRule, ListRuleNamesByTarget, DisableRule, DescribeRule, EnableRule,
+      PutEvents, DeleteRule}
 eventbridge_Scenario_createAndTriggerARule:
   title: Create and trigger a rule in &EVlong; using an &AWS; SDK
   title_abbrev: Create and trigger a rule
@@ -614,7 +614,8 @@ eventbridge_Scenario_createAndTriggerARule:
             - description: Write an event to a log stream in &CWL;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.writeEvent
-            - description: Restart an &EC2long; (&EC2;) instance and adds information about the related activity to a log stream in &CWL;.
+            - description: Restart an &EC2long; (&EC2;) instance and adds information about the related activity to a log
+                stream in &CWL;.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.restartInstance
             - description: Display information about activity for a rule in &EV;.
@@ -623,7 +624,8 @@ eventbridge_Scenario_createAndTriggerARule:
             - description: Display log information for all of the log streams in a &CWL; log group.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.displayLogInfo
-            - description: Display a reminder to the caller to manually clean up any associated &AWS; resources that they no longer need.
+            - description: Display a reminder to the caller to manually clean up any associated &AWS; resources that they
+                no longer need.
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.displayReminder
   services:

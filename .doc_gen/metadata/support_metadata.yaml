@@ -1,4 +1,3 @@
-# zexi 0.4.0
 support_Hello:
   title: Hello &SUP;
   title_abbrev: Hello &SUP;
@@ -11,7 +10,7 @@ support_Hello:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.hello.main
     Java:
@@ -20,7 +19,7 @@ support_Hello:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.hello.main
     .NET:
@@ -51,7 +50,7 @@ support_Hello:
                 - python.example_code.support.Hello
   services:
     support: {DescribeServices}
-support_AddAttachment:
+support_AddAttachmentsToSet:
   title: Add an &SUP; attachment to a set using an &AWS; SDK
   title_abbrev: Add an attachment to a set
   synopsis: add an &SUP; attachment to an attachment set.
@@ -63,7 +62,7 @@ support_AddAttachment:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.add.attach.main
     Java:
@@ -72,7 +71,7 @@ support_AddAttachment:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.add.attach.main
     .NET:
@@ -104,7 +103,7 @@ support_AddAttachment:
                 - python.example_code.support.AddAttachmentToSet
   services:
     support: {AddAttachmentsToSet}
-support_AddCommunication:
+support_AddCommunicationToCase:
   title: Add an &SUP; communication to a case using an &AWS; SDK
   title_abbrev: Add a communication to a case
   synopsis: add an &SUP; communication with an attachment to a support case.
@@ -116,7 +115,7 @@ support_AddCommunication:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.add.attach.case.main
     Java:
@@ -125,7 +124,7 @@ support_AddCommunication:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.add.attach.case.main
     .NET:
@@ -169,7 +168,7 @@ support_CreateCase:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.create.case.main
     Java:
@@ -178,7 +177,7 @@ support_CreateCase:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.create.case.main
     .NET:
@@ -222,7 +221,7 @@ support_DescribeAttachment:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.des.attachment.main
     Java:
@@ -231,7 +230,7 @@ support_DescribeAttachment:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.des.attachment.main
     .NET:
@@ -275,7 +274,7 @@ support_DescribeCases:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.get.open.cases.main
     Java:
@@ -284,7 +283,7 @@ support_DescribeCases:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.get.open.cases.main
     .NET:
@@ -328,7 +327,7 @@ support_DescribeCommunications:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.list.comms.main
     Java:
@@ -337,7 +336,7 @@ support_DescribeCommunications:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.list.comms.main
     .NET:
@@ -381,7 +380,7 @@ support_DescribeServices:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.display.main
     Java:
@@ -390,7 +389,7 @@ support_DescribeServices:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.display.services.main
     .NET:
@@ -425,7 +424,7 @@ support_DescribeSeverityLevels:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.display.sev.main
     Java:
@@ -434,7 +433,7 @@ support_DescribeSeverityLevels:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.display.sev.main
     .NET:
@@ -451,7 +450,7 @@ support_DescribeSeverityLevels:
         - sdk_version: 3
           github: javascriptv3/example_code/support
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - javascript.v3.support.actions.DescribeSeverityLevels
     Python:
@@ -477,7 +476,7 @@ support_ResolveCase:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.resolve.main
     Java:
@@ -486,7 +485,7 @@ support_ResolveCase:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.resolve.main
     .NET:
@@ -537,7 +536,7 @@ support_Scenario_GetStartedSupportCases:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.scenario.main
     Java:
@@ -583,6 +582,5 @@ support_Scenario_GetStartedSupportCases:
               snippet_tags:
                 - python.example_code.support.SupportWrapper_full
   services:
-    support: {AddAttachmentsToSet, AddCommunicationToCase, CreateCase, DescribeAttachment,
-              DescribeCases, DescribeCommunications, DescribeServices, DescribeSeverityLevels,
-              ResolveCase}
+    support: {AddAttachmentsToSet, AddCommunicationToCase, CreateCase, DescribeAttachment, DescribeCases, DescribeCommunications,
+      DescribeServices, DescribeSeverityLevels, ResolveCase}

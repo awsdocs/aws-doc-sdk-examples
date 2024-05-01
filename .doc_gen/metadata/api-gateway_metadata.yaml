@@ -313,5 +313,5 @@ api-gateway_Usage_CreateDeployRest:
               snippet_tags:
                 - python.example_code.api-gateway.Usage_CreateDeployRest
   services:
-    api-gateway: {CreateDeployment, CreateResource, CreateRestApi, DeleteRestApi, GetResources,
-                  GetRestApis, PutIntegration, PutIntegrationResponse, PutMethod, PutMethodResponse}
+    api-gateway: {CreateDeployment, CreateResource, CreateRestApi, DeleteRestApi, GetResources, GetRestApis, PutIntegration,
+      PutIntegrationResponse, PutMethod, PutMethodResponse}

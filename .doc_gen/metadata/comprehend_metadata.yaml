@@ -163,14 +163,13 @@ comprehend_Usage_ComprehendClassifier:
             - description: Create a class to help run the scenario.
               snippet_tags:
                 - python.example_code.comprehend.helper.ClassifierDemo_class
-            - description: Train a classifier on a set of GitHub issues with known labels,
-                then send a second set of GitHub issues to the classifier so that they can be labeled.
+            - description: Train a classifier on a set of GitHub issues with known labels, then send a second set of GitHub
+                issues to the classifier so that they can be labeled.
               snippet_tags:
                 - python.example_code.comprehend.Scenario_CustomClassifier
   services:
-    comprehend: {CreateDocumentClassifier, DescribeDocumentClassifier,
-                 ListDocumentClassifiers, DeleteDocumentClassifier, StartDocumentClassificationJob,
-                 DescribeDocumentClassificationJob, ListDocumentClassificationJobs}
+    comprehend: {CreateDocumentClassifier, DescribeDocumentClassifier, ListDocumentClassifiers, DeleteDocumentClassifier,
+      StartDocumentClassificationJob, DescribeDocumentClassificationJob, ListDocumentClassificationJobs}
 comprehend_DetectDominantLanguage:
   title: Detect the dominant language in a document with &CMP; using an &AWS; SDK
   title_abbrev: Detect the dominant language in a document
@@ -354,7 +353,7 @@ comprehend_DetectSyntax:
           github: dotnetv3/Comprehend/
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - Comprehend.dotnetv3.DetectingSyntaxExample
     Java:
@@ -404,13 +403,11 @@ comprehend_Usage_DetectApis:
                 - python.example_code.comprehend.DetectPiiEntities
                 - python.example_code.comprehend.DetectSentiment
                 - python.example_code.comprehend.DetectSyntax
-            - description: Call functions on the wrapper class to detect entities,
-                phrases, and more in a document.
+            - description: Call functions on the wrapper class to detect entities, phrases, and more in a document.
               snippet_tags:
                 - python.example_code.comprehend.Usage_DetectApis
   services:
-    comprehend: {DetectDominantLanguage, DetectEntities, DetectKeyPhrases, DetectPiiEntities,
-                 DetectSentiment, DetectSyntax}
+    comprehend: {DetectDominantLanguage, DetectEntities, DetectKeyPhrases, DetectPiiEntities, DetectSentiment, DetectSyntax}
 comprehend_StartTopicsDetectionJob:
   title: Start an &CMP; topic modeling job using an &AWS; SDK
   title_abbrev: Start a topic modeling job
@@ -495,8 +492,7 @@ comprehend_Usage_TopicModeler:
                 - python.example_code.comprehend.StartTopicsDetectionJob
                 - python.example_code.comprehend.DescribeTopicsDetectionJob
                 - python.example_code.comprehend.ListTopicsDetectionJobs
-            - description: Use the wrapper class to run a topic modeling job and get
-                job data.
+            - description: Use the wrapper class to run a topic modeling job and get job data.
               snippet_tags:
                 - python.example_code.comprehend.Scenario_TopicModeler
   services:

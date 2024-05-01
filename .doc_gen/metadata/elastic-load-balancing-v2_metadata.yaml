@@ -302,7 +302,7 @@ elastic-load-balancing-v2_DeleteLoadBalancer:
           excerpts:
             - description:
               snippet_tags:
-                - javascript.v3.wkflw.resilient.DeleteLoadBalancer 
+                - javascript.v3.wkflw.resilient.DeleteLoadBalancer
   services:
     elastic-load-balancing-v2: {DeleteLoadBalancer}
 elastic-load-balancing-v2_DescribeTargetHealth:

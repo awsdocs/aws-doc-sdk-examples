@@ -64,7 +64,7 @@ medical-imaging_CreateDatastore:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.CreateDatastore
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     Java:
@@ -114,7 +114,7 @@ medical-imaging_DeleteDatastore:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.DeleteDatastore
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     Java:
@@ -163,7 +163,7 @@ medical-imaging_ListDatastores:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.ListDatastores
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     Java:
@@ -213,7 +213,7 @@ medical-imaging_GetDatastore:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.GetDatastore
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     Java:
@@ -253,7 +253,7 @@ medical-imaging_StartDICOMImportJob:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.StartDICOMImportJob
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -302,7 +302,7 @@ medical-imaging_GetDICOMImportJob:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.GetDICOMImportJob
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -351,7 +351,7 @@ medical-imaging_ListDICOMImportJobs:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.ListDICOMImportJobs
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -390,7 +390,7 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.SearchImageSets
-            - description: "Use case #1: EQUAL operator."
+            - description: 'Use case #1: EQUAL operator.'
               snippet_tags:
                 - python.example_code.medical-imaging.SearchImageSets.use_case1
             - description: >
@@ -399,8 +399,8 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - python.example_code.medical-imaging.SearchImageSets.use_case2
             - description: >
-               Use case #3: BETWEEN operator using createdAt. Time studies were
-               previously persisted.
+                Use case #3: BETWEEN operator using createdAt. Time studies were
+                previously persisted.
               snippet_tags:
                 - python.example_code.medical-imaging.SearchImageSets.use_case3
             - description: >
@@ -410,7 +410,7 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - python.example_code.medical-imaging.SearchImageSets.use_case4
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -422,19 +422,19 @@ medical-imaging_SearchImageSets:
             - description: The utility function for searching image sets.
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3
-            - description: "Use case #1: EQUAL operator."
+            - description: 'Use case #1: EQUAL operator.'
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.equalFilter
             - description: >
-               Use case #2: BETWEEN operator using DICOMStudyDate and
-               DICOMStudyTime.
+                Use case #2: BETWEEN operator using DICOMStudyDate and
+                DICOMStudyTime.
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter1
             - description: >
-               Use case #3: BETWEEN operator using createdAt. Time studies were
-               previously persisted.
+                Use case #3: BETWEEN operator using createdAt. Time studies were
+                previously persisted.
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter2
@@ -454,17 +454,17 @@ medical-imaging_SearchImageSets:
             - description: The utility function for searching image sets.
               snippet_tags:
                 - medicalimaging.java2.search_imagesets.main
-            - description: "Use case #1: EQUAL operator."
+            - description: 'Use case #1: EQUAL operator.'
               snippet_tags:
                 - medicalimaging.java2.search_imagesets.use_case1
             - description: >
-               Use case #2: BETWEEN operator using DICOMStudyDate and
-               DICOMStudyTime.
+                Use case #2: BETWEEN operator using DICOMStudyDate and
+                DICOMStudyTime.
               snippet_tags:
                 - medicalimaging.java2.search_imagesets.use_case2
             - description: >
-               Use case #3: BETWEEN operator using createdAt. Time studies were
-               previously persisted.
+                Use case #3: BETWEEN operator using createdAt. Time studies were
+                previously persisted.
               snippet_tags:
                 - medicalimaging.java2.search_imagesets.use_case3
             - description: >
@@ -482,17 +482,17 @@ medical-imaging_SearchImageSets:
             - description: The utility function for searching image sets.
               snippet_tags:
                 - cpp.example_code.medical_imaging.SearchImageSets
-            - description: "Use case #1: EQUAL operator."
+            - description: 'Use case #1: EQUAL operator.'
               snippet_tags:
                 - cpp.example_code.medical_imaging.SearchImageSets.use_case1
             - description: >
-               Use case #2: BETWEEN operator using DICOMStudyDate and
-               DICOMStudyTime.
+                Use case #2: BETWEEN operator using DICOMStudyDate and
+                DICOMStudyTime.
               snippet_tags:
                 - cpp.example_code.medical_imaging.SearchImageSets.use_case2
             - description: >
-               Use case #3: BETWEEN operator using createdAt. Time studies were
-               previously persisted.
+                Use case #3: BETWEEN operator using createdAt. Time studies were
+                previously persisted.
               snippet_tags:
                 - cpp.example_code.medical_imaging.SearchImageSets.use_case3
             - description: >
@@ -520,7 +520,7 @@ medical-imaging_GetImageSet:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.GetImageSet
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -566,7 +566,7 @@ medical-imaging_GetImageSetMetadata:
               snippet_tags:
                 - python.example_code.medical-imaging.GetImageSetMetadata.withVersionID
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -627,7 +627,7 @@ medical-imaging_GetImageFrame:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.GetImageFrame
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -676,7 +676,7 @@ medical-imaging_ListImageSetVersions:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.ListImageSetVersions
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -716,16 +716,16 @@ medical-imaging_UpdateImageSetMetadata:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.UpdateImageSetMetadata
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
-            - description: "Use case #1: Insert or update an attribute."
+            - description: 'Use case #1: Insert or update an attribute.'
               snippet_tags:
                 - python.example_code.medical-imaging.UpdateImageSetMetadata.insert_or_update_attributes
-            - description: "Use case #2: Remove an attribute."
+            - description: 'Use case #2: Remove an attribute.'
               snippet_tags:
                 - python.example_code.medical-imaging.UpdateImageSetMetadata.remove_attributes
-            - description: "Use case #3: Remove an instance."
+            - description: 'Use case #3: Remove an instance.'
               snippet_tags:
                 - python.example_code.medical-imaging.UpdateImageSetMetadata.remove_instance
     JavaScript:
@@ -737,13 +737,13 @@ medical-imaging_UpdateImageSetMetadata:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3
-            - description: "Use case #1: Insert or update an attribute."
+            - description: 'Use case #1: Insert or update an attribute.'
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.insert_or_update_attributes
-            - description: "Use case #2: Remove an attribute."
+            - description: 'Use case #2: Remove an attribute.'
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_attributes
-            - description: "Use case #3: Remove an instance."
+            - description: 'Use case #3: Remove an instance.'
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_instance
     Java:
@@ -755,13 +755,13 @@ medical-imaging_UpdateImageSetMetadata:
             - description:
               snippet_tags:
                 - medicalimaging.java2.update_image_set_metadata.main
-            - description: "Use case #1: Insert or update an attribute."
+            - description: 'Use case #1: Insert or update an attribute.'
               snippet_tags:
                 - medicalimaging.java2.update_image_set_metadata.insert_or_update_attributes
-            - description: "Use case #2: Remove an attribute."
+            - description: 'Use case #2: Remove an attribute.'
               snippet_tags:
                 - medicalimaging.java2.update_image_set_metadata.remove_attributes
-            - description: "Use case #3: Remove an instance."
+            - description: 'Use case #3: Remove an instance.'
               snippet_tags:
                 - medicalimaging.java2.update_image_set_metadata.remove_instance
   services:
@@ -792,7 +792,7 @@ medical-imaging_CopyImageSet:
                 - python.example_code.medical-imaging.CopyImageSet2
                 - python.example_code.medical-imaging.CopyImageSet3
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -838,7 +838,7 @@ medical-imaging_DeleteImageSet:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.DeleteImageSet
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -887,7 +887,7 @@ medical-imaging_TagResource:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.TagResource
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -927,7 +927,7 @@ medical-imaging_UntagResource:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.UntagResource
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -967,7 +967,7 @@ medical-imaging_ListTagsForResource:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.ListTagsForResource
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -1027,7 +1027,7 @@ medical-imaging_Scenario_TaggingDataStores:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.UntagResource
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -1120,7 +1120,7 @@ medical-imaging_Scenario_TaggingImageSets:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.UntagResource
             - description: >
-               The following code instantiates the MedicalImagingWrapper object.
+                The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper.instantiation
     JavaScript:
@@ -1180,9 +1180,9 @@ medical-imaging_Scenario_ImageSetsAndFrames:
   title: Get started with &AHI; image sets and image frames using an &AWS; SDK
   title_abbrev: Get started with image sets and image frames
   synopsis: >
-   import DICOM files and download image frames in &AHI;.</para>
-    <para>The implementation is structured as a workflow command-line
-    application.
+    import DICOM files and download image frames in &AHI;.</para>
+     <para>The implementation is structured as a workflow command-line
+     application.
   synopsis_list:
     - Set up resources for a DICOM import.
     - Import DICOM files into a data store.
@@ -1276,7 +1276,7 @@ medical-imaging_Scenario_ImageSetsAndFrames:
             - description: <noloc>step-1.js</noloc> - Deploy resources.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-1.js
-            - description: <noloc>step-2.js</noloc> - Copy DICOM files. 
+            - description: <noloc>step-2.js</noloc> - Copy DICOM files.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-2.js
             - description: <noloc>step-3.js</noloc> - Start import into datastore.
@@ -1288,19 +1288,12 @@ medical-imaging_Scenario_ImageSetsAndFrames:
             - description: <noloc>step-5.js</noloc> - Get image frame IDs.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-5.js
-            - description: <noloc>step-6.js</noloc> - Verify image frames. The <ulink url="https://github.com/aws-samples/aws-healthimaging-samples/tree/main/pixel-data-verification">&AWS; HealthImaging Pixel Data Verification</ulink> library was used for verification.
+            - description: <noloc>step-6.js</noloc> - Verify image frames. The <ulink url="https://github.com/aws-samples/aws-healthimaging-samples/tree/main/pixel-data-verification">&AWS;
+                HealthImaging Pixel Data Verification</ulink> library was used for verification.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-6.js
             - description: <noloc>step-7.js</noloc> - Destroy resources.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/step-7.js
   services:
-    medical-imaging:
-      {
-        StartDICOMImportJob,
-        GetDICOMImportJob,
-        GetImageSetMetadata,
-        GetImageFrame,
-        SearchImageSets,
-        DeleteImageSet
-      }
+    medical-imaging: {StartDICOMImportJob, GetDICOMImportJob, GetImageSetMetadata, GetImageFrame, SearchImageSets, DeleteImageSet}

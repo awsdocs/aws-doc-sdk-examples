@@ -231,8 +231,7 @@ ecs_Scenario_GetClustersServicesAndTasks:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - ECS.dotnetv3.ECSScenario.ECSScenario
-            - description: Wrapper methods that are called by the scenario to
-                manage &ECS; actions.
+            - description: Wrapper methods that are called by the scenario to manage &ECS; actions.
               snippet_tags:
                 - ECS.dotnetv3.ECSActions.ECSWrapper
   services:
