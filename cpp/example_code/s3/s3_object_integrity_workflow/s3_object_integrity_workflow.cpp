@@ -35,6 +35,7 @@
 
 namespace AwsDoc::S3 {
     //  constexpr char TEST_FILE[] = SRC_DIR"/../../../../resources/sample_files/movies.json";
+    constexpr char TEST_FILE_KEY[] = "/CMakeLists.txt";
     constexpr char TEST_FILE[] = SRC_DIR"/CMakeLists.txt";
     constexpr char MULTI_PART_TEST_FILE[] = SRC_DIR"/s3-userguide.pdf";
     constexpr char TEST_BUCKET_PREFIX[] = "integrity-workflow-";
@@ -47,7 +48,8 @@ namespace AwsDoc::S3 {
 
     typedef int HASH_METHOD;
 
-    static const HASH_METHOD MD5 = 1;
+    static const HASH_METHOD DEFAULT = 1;
+    static const HASH_METHOD MD5 = DEFAULT + 1;
     static const HASH_METHOD CRC32 = MD5 + 1;
     static const HASH_METHOD CRC32C = CRC32 + 1;
     static const HASH_METHOD SHA1 = CRC32C + 1;
@@ -218,19 +220,18 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
 
     std::cout << "Now to begin..." << std::endl;
 
-    Aws::S3::S3ClientConfiguration s3ClientConfiguration(clientConfiguration,
-                                                         Aws::Client::AWSAuthV4Signer::PayloadSigningPolicy::RequestDependent);
+    Aws::S3::S3ClientConfiguration s3ClientConfiguration(clientConfiguration);
     std::shared_ptr<Aws::S3::S3Client> client = Aws::MakeShared<Aws::S3::S3Client>("S3Client", s3ClientConfiguration);
     do {
         std::cout << "Choose from one of the following checksum algorithms."
                   << std::endl;
 
-        for (HASH_METHOD hashMethod = MD5; hashMethod <= SHA256; ++hashMethod) {
+        for (HASH_METHOD hashMethod = DEFAULT; hashMethod <= SHA256; ++hashMethod) {
             std::cout << "  " << hashMethod << " - " << stringForHashMethod(hashMethod)
                       << std::endl;
         }
 
-        HASH_METHOD chosenHashMethod = askQuestionForIntRange("Enter an index: ", MD5,
+        HASH_METHOD chosenHashMethod = askQuestionForIntRange("Enter an index: ", DEFAULT,
                                                               SHA256);
 
 
@@ -276,6 +277,8 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
             return false;
         }
         Aws::String key = stringForHashMethod(chosenHashMethod);
+        key += "_";
+        key += TEST_FILE_KEY;
         Aws::String localHash = hasher.getBase64HashString();
         if (!putObjectWithHash(bucketName, key, localHash, chosenHashMethod, inputData,
                                *client)) {
@@ -456,7 +459,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
             allMatch = false;
         }
 
-        if (chosenHashMethod != MD5) {
+        if (chosenHashMethod > MD5) {
             if (partHashes.size() != retrievedPartHashes.size()) {
                 std::cerr << "The number of part hashes do not match" << std::endl;
                 std::cerr << "Local number of hashes- '" << partHashes.size() << "'"
@@ -506,7 +509,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
             allMatch = false;
         }
 
-        if (chosenHashMethod != MD5) {
+        if (chosenHashMethod > MD5) {
             if (retrievedTransferManagerPartHashes.size() !=
                 retrievedPartHashes.size()) {
                 std::cerr << "The number of part hashes do not match" << std::endl;
@@ -538,8 +541,8 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
                     << std::endl;
         }
 
-    } while (askYesNoQuestion(
-            "Would you like to repeat with a different checksum algorithm? "));
+    } while (false); // while (askYesNoQuestion(
+            //"Would you like to repeat with a different checksum algorithm? "));
 
     return cleanUp(bucketName, clientConfiguration);
 }
@@ -722,7 +725,7 @@ bool AwsDoc::S3::putObjectWithHash(const Aws::String &bucket, const Aws::String 
     Aws::S3::Model::PutObjectRequest request;
     request.SetBucket(bucket);
     request.SetKey(key);
-    if (hashMethod != MD5) {
+    if (hashMethod > MD5) {
         request.SetChecksumAlgorithm(getChecksumAlgorithmForHashMethod(hashMethod));
     }
     if (gUseCalculatedChecksum) {
@@ -796,6 +799,9 @@ bool AwsDoc::S3::retrieveObjectHash(const Aws::String &bucket, const Aws::String
         if (outcome.IsSuccess()) {
             const Aws::S3::Model::GetObjectAttributesResult &result = outcome.GetResult();
             switch (hashMethod) {
+                case AwsDoc::S3::DEFAULT:
+                    hashData = "DEFAULT";
+                    break;
                 case AwsDoc::S3::MD5:
                     break;  // MD5 is not supported.
                 case AwsDoc::S3::SHA1:
@@ -830,6 +836,8 @@ bool AwsDoc::S3::retrieveObjectHash(const Aws::String &bucket, const Aws::String
                 const Aws::Vector<Aws::S3::Model::ObjectPart> parts = result.GetObjectParts().GetParts();
                 for (const Aws::S3::Model::ObjectPart &part: parts) {
                     switch (hashMethod) {
+                        case AwsDoc::S3::DEFAULT:
+                            break; // TODO:
                         case AwsDoc::S3::MD5: // MD5 is not supported.
                             break;
                         case AwsDoc::S3::SHA1:
@@ -863,6 +871,8 @@ bool AwsDoc::S3::retrieveObjectHash(const Aws::String &bucket, const Aws::String
 
 Aws::String AwsDoc::S3::stringForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod) {
     switch (hashMethod) {
+        case AwsDoc::S3::DEFAULT:
+            return "Default";
         case AwsDoc::S3::MD5:
             return "MD5";
         case AwsDoc::S3::SHA1:
@@ -903,6 +913,9 @@ bool AwsDoc::S3::downloadObjectAndCheckHash(const Aws::String &bucket,
         }
         Aws::String storedHash;
         switch (hashMethod) {
+            case AwsDoc::S3::DEFAULT:
+
+                break; // TODO:
 
             case AwsDoc::S3::MD5:
                 std::cerr << "MD5 not supported." << std::endl;
@@ -1006,6 +1019,8 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
         Aws::S3::Model::CompletedPart completedPart;
         if (gUseCalculatedChecksum) {
             switch (hashMethod) {
+                case AwsDoc::S3::DEFAULT:
+                    break;  // TODO:
                 case AwsDoc::S3::MD5:
                     uploadPartRequest.SetContentMD5(base64HashString);
                     break;
@@ -1043,6 +1058,8 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
             completedPart.SetETag(uploadPartResult.GetETag());
             completedPart.SetPartNumber(uploadPartRequest.GetPartNumber());
             switch (hashMethod) {
+                case AwsDoc::S3::DEFAULT:
+                    break;  // TODO:
                 case AwsDoc::S3::MD5:
                      break; // Do nothing.
                 case AwsDoc::S3::SHA1:
@@ -1114,6 +1131,8 @@ Aws::S3::Model::ChecksumAlgorithm
 AwsDoc::S3::getChecksumAlgorithmForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod) {
     Aws::S3::Model::ChecksumAlgorithm result = Aws::S3::Model::ChecksumAlgorithm::NOT_SET;
     switch (hashMethod) {
+        case AwsDoc::S3::DEFAULT:
+            break;  // TODO:
         case AwsDoc::S3::MD5:
             break; // Ignore MD5.
         case AwsDoc::S3::SHA1:
@@ -1182,7 +1201,14 @@ bool AwsDoc::S3::Hasher::calculateObjectHash(std::vector<unsigned char> &data,
 
 bool AwsDoc::S3::Hasher::calculateObjectHash(Aws::IOStream &data,
                                              AwsDoc::S3::HASH_METHOD hashMethod) {
+    const std::string DEFAULT_STR = "DEFAULT";
     switch (hashMethod) {
+        case AwsDoc::S3::DEFAULT:
+            m_Hash = Aws::Utils::ByteBuffer(DEFAULT_STR.size());
+            for (size_t i = 0; i < DEFAULT_STR.size(); ++i){
+                m_Hash[i] = DEFAULT_STR[i];
+            }
+            break;  // TODO:
         case AwsDoc::S3::MD5:
             m_Hash = Aws::Utils::HashingUtils::CalculateMD5(data);
             break;
