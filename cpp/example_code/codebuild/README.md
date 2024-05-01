@@ -41,9 +41,9 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [List builds](list_builds.cpp#L25) (`ListBuilds`)
-- [List projects](list_projects.cpp#L23) (`ListProjects`)
-- [Start a build](start_build.cpp#L22) (`StartBuild`)
+- [ListBuilds](list_builds.cpp#L25)
+- [ListProjects](list_projects.cpp#L23)
+- [StartBuild](start_build.cpp#L22)
 
 
 <!--custom.examples.start-->
