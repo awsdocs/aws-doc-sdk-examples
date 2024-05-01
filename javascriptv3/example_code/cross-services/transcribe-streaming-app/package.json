@@ -18,11 +18,9 @@
     "@aws-sdk/client-translate": "^3.310.0",
     "@aws-sdk/credential-provider-cognito-identity": "^3.310.0",
     "buffer": "^6.0.3",
-    "get-user-media-promise": "^1.1.4",
     "microphone-stream": "^6.0.1",
     "process": "^0.11.10",
-    "stream": "0.0.2",
-    "workbox-webpack-plugin": "^6.5.4"
+    "stream": "0.0.2"
   },
   "devDependencies": {
     "webpack": "^5.91.0",
