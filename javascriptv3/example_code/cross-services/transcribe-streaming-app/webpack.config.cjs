@@ -2,13 +2,15 @@ var webpack = require("webpack");
 var path = require("path");
 
 var config = {
-  entry: "./src/index.js",
+  entry: {
+    index: "./src/index.js"
+  },
   mode: "development",
   devtool: "eval-source-map",
   target: "web",
   output: {
-    path: path.resolve(__dirname, "src"),
-    filename: "main.js",
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].bundle.js",
   },
   plugins: [
     new webpack.ProvidePlugin({
