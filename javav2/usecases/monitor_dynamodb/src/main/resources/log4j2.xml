@@ -1,0 +1,16 @@
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c:%L - %m%n" />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="WARN">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+        <Logger name="org.example" level="INFO"/>
+        <Logger name="software.amazon.awssdk.request" level="DEBUG" />
+        <Logger name="software.amazon.awssdk.metrics.publishers.cloudwatch" level="TRACE"/>
+    </Loggers>
+</Configuration>

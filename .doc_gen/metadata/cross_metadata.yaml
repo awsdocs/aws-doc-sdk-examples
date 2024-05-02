@@ -931,3 +931,16 @@ cross_CognitoCustomActivityLog:
   services:
     cognito-identity-provider: {UpdateUserPool, InitiateAuth, DeleteUser, AdminCreateUser, AdminSetUserPassword}
     lambda: {}
+cross_MonitorDynamoDB:
+  title: Monitor performance of &DDBlong; using an &AWS; SDK
+  title_abbrev: Monitor &DDB; performance
+  synopsis: configure an application's use of &DDB; to monitor performance.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_MonitorDynamoDB_Java_block.xml
+  service_main: dynamodb
+  services:
+    dynamodb:
+    cloudwatch:
