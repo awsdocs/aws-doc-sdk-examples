@@ -1,6 +1,6 @@
 system:
   background:
-    api_reference_format: |-
+    api_reference_format: |
       **{ActionName}**
        - Request Parameters (`{ language specific name }`):
           - `datastoreId` (string): The identifier of the data store.
@@ -12,9 +12,8 @@ system:
           - `nextToken` (string, optional): The token for pagination.
       - Errors to handle:
           - etc
-    aws_tcx_learning_levels: |-
+    aws_tcx_learning_levels: |
       Learning levels
-
 
       Use learning levels as a way to help customers filter content and find the right content at the right time.
       * Foundational (100): This content introduces the audience to AWS services or features, with an assumption of zero or minimal AWS knowledge. Authors explain basic use cases, functionality, and benefits, and offer resources to get started.
@@ -33,28 +32,24 @@ system:
       or set of service iterations. It should still be a running example, at minimum
       using command line interactions, and should focus on a specific task using AWS
       services and features.
-    tcx_introductions: "<introduction-guide>\nAn introduction is your first chance\
-      \ to give readers a basic understanding of the content ahead. Your task is to\
-      \ show them how the product or feature works and why they should consider using\
-      \ it.\nThe other important function of the introduction is to present keywords\
-      \ that help browsers find the topic.\nIntroduction writing process:\nA. State\
-      \ the formal name of the product or feature. Use entities to ensure consistency.\n\
-      B. Describe succinctly what it does or how it works.\nC. Give an example showing\
-      \ how to take advantage of the product or feature.\nD. As applicable, tell readers\
-      \ where to find more info, such as tutorials and references.\nHere are some\
-      \ example introductions:\n<introduction-examples>\nExample 1:\nAmazon Elastic\
-      \ Compute Cloud (Amazon EC2) provides resizable computing capacity in the Amazon\
-      \ Web Services (AWS) cloud. Using Amazon EC2 eliminates your need to invest\
-      \ in hardware up front, so you can develop and deploy applications faster. You\
-      \ can use Amazon EC2 to launch as many or as few virtual servers as you need,\
-      \ configure security and networking, and manage storage. With Amazon EC2 you\
-      \ can scale up or down to handle changes in requirements or spikes in popularity,\
-      \ reducing your need to forecast traffic. \nThe next example shows a typical\
-      \ introduction for a feature of a service.\nExample 2:\nAmazon CloudWatch uses\
-      \ Amazon Simple Notification Service (Amazon SNS) to send email. This section\
-      \ shows you how to create and subscribe to an Amazon SNS topic. When you create\
-      \ a CloudWatch alarm, you can add this Amazon SNS topic to send an email notification\
-      \ when the alarm changes state.\n</introduction-examples>\n</introduction-guide>\n"
+    tcx_introductions: |
+      <introduction-guide>
+        An introduction is your first chance to give readers a basic understanding of the content ahead. Your task is to show them how the product or feature works and why they should consider using it.
+        The other important function of the introduction is to present keywords that help browsers find the topic.
+        Introduction writing process:
+        A. State the formal name of the product or feature. Use entities to ensure consistency.
+        B. Describe succinctly what it does or how it works.
+        C. Give an example showing how to take advantage of the product or feature.
+        D. As applicable, tell readers where to find more info, such as tutorials and references.
+        Here are some example introductions:
+        <introduction-examples>
+          Example 1:
+          Amazon Elastic Compute Cloud (Amazon EC2) provides resizable computing capacity in the Amazon Web Services (AWS) cloud. Using Amazon EC2 eliminates your need to invest in hardware up front, so you can develop and deploy applications faster. You can use Amazon EC2 to launch as many or as few virtual servers as you need, configure security and networking, and manage storage. With Amazon EC2 you can scale up or down to handle changes in requirements or spikes in popularity, reducing your need to forecast traffic. 
+          The next example shows a typical introduction for a feature of a service.
+          Example 2:
+          Amazon CloudWatch uses Amazon Simple Notification Service (Amazon SNS) to send email. This section shows you how to create and subscribe to an Amazon SNS topic. When you create a CloudWatch alarm, you can add this Amazon SNS topic to send an email notification when the alarm changes state.
+        </introduction-examples>
+      </introduction-guide>
     tcx_prodedure_guide: |
       <procedure-guide>
       A procedure is a series of numbered steps that a user follows to complete a specific task. Users should be able to scan for and recognize procedures easily. Make procedures recognizable by using the following:
@@ -71,56 +66,30 @@ system:
       * (Optional) Notes
       A procedure section can include one or more procedures.
       </procedure-guide>
-    tcx_technical_writing_style_guide: "<style-guide>\n* Refer to the reader as you\
-      \ (second person) and refer to AWS as we (first person).\n* For procedures or\
-      \ instructions, ensure that action is taken by the reader (\"Now you provision\
-      \ the NAT instance...\") rather than the author (\"We also have to wait for\
-      \ the primary domain controller to...\").\n* In general, use the present tense.\
-      \ Use the future tense only when an event happens later than, not immediately\
-      \ after, the action under discussion.\n* Use simple, plain, everyday language.\n\
-      * Use a tone that is direct and friendly. The overall tone should be informal,\
-      \ informative, and friendly without getting chatty.\n* Avoid excessive words,\
-      \ such as \"please.\" Be courteous but not wordy.\n* Where possible, limit your\
-      \ sentences to 25 words or fewer. Sometimes you can shorten a long sentence\
-      \ by converting it to a bullet list or a table.\n* Keep paragraphs short. Catch\
-      \ people's eye and break text with short, tight paragraphs.\n* Avoid nominalizations.\
-      \ Nominalizations are nouns created from adjectives and verbs. An example of\
-      \ a nominalization is the noun decision, created from the verb decide. Write\
-      \ around nominalizations where possible.\n* Use active voice and strong verbs.\
-      \ Voice shows whether the subject acts (active voice) or is acted on (passive\
-      \ voice). Passive voice is typically, though not always, inferior to active\
-      \ voice.\n* Write a good introductory paragraph. A good introductory paragraph\
-      \ starts a topic in an interesting, informative way. Instead of only repeating\
-      \ the title, it provides information such as why you might want to do this task.\n\
-      * Document the user's task, not the feature. Customers want to know what to\
-      \ do with a feature. Write headings to make clear the task that the feature\
-      \ performs.\n* In a sentence, put the goal first and then the task. To place\
-      \ readers, start how-to sentences by describing the goal to be accomplished\
-      \ first (what or why) and then describe the actions to do it (how).\n* Avoid\
-      \ jargon. Jargon is terminology used by a particular group that's difficult\
-      \ for others to understand. It can confuse readers and convey \"you're not smart\
-      \ enough to get this.\" If necessary, we can define terms, but often jargon\
-      \ is unnecessary. \n* Avoid Latinisms. Latinisms are Latin words or phrases\
-      \ that are found in English, such as \u201Cetc.\u201D and \u201Cper se.\u201D\
-      \ Do not use them. Instead, use more common words and phrases.\n* Use customer-centric\
-      \ language. When your writing involves the customer, write in a way that speaks\
-      \ directly to the customer and their point of view. This approach keeps your\
-      \ writing more direct and avoids muddling important details.\n</style-guide>"
-    tcx_title_guide: "<title-guide>\nAvoid beginning titles with an article, such\
-      \ as a, an, or the.\nUse sentence case. \nKeep titles short. Use 70 characters\
-      \ or less.\nDon't stack headings. Be sure to include explanatory text in between\
-      \ headings.\nAvoid titles that might not easily localize, such as \"Under the\
-      \ hood.\"\nAvoid using parentheses or introducing both versions of an acronym.\
-      \ Use the most easily recognized form in the title, and spell it out or introduce\
-      \ the acronym in the first sentence.\nHere is a list of example titles:\n<title-examples>\n\
-      * Creating an instance store-backed Linux AMI\n* Creating a bucket in Amazon\
-      \ S3\n* Adding an object to a bucket in Amazon S3\n* Viewing an object in Amazon\
-      \ S3\n</title-examples>\n</title-guide>\n"
+    tcx_technical_writing_style_guide: |
+      <style-guide>
+      * Refer to the reader as you (second person) and refer to AWS as we (first person).
+      * For procedures or instructions, ensure that action is taken by the reader ("Now you provision the NAT instance...") rather than the author ("We also have to wait for the primary domain controller to...").
+      * In general, use the present tense. Use the future tense only when an event happens later than, not immediately after, the action under discussion.
+      * Use simple, plain, everyday language.
+      * Use a tone that is direct and friendly. The overall tone should be informal, informative, and friendly without getting chatty.
+      * Avoid excessive words, such as "please." Be courteous but not wordy.
+      * Where possible, limit your sentences to 25 words or fewer. Sometimes you can shorten a long sentence by converting it to a bullet list or a table.
+      * Keep paragraphs short. Catch people's eye and break text with short, tight paragraphs.
+      * Avoid nominalizations. Nominalizations are nouns created from adjectives and verbs. An example of a nominalization is the noun decision, created from the verb decide. Write around nominalizations where possible.
+      * Use active voice and strong verbs. Voice shows whether the subject acts (active voice) or is acted on (passive voice). Passive voice is typically, though not always, inferior to active voice.
+      * Write a good introductory paragraph. A good introductory paragraph starts a topic in an interesting, informative way. Instead of only repeating the title, it provides information such as why you might want to do this task.
+      * Document the user's task, not the feature. Customers want to know what to do with a feature. Write headings to make clear the task that the feature performs.
+      * In a sentence, put the goal first and then the task. To place readers, start how-to sentences by describing the goal to be accomplished first (what or why) and then describe the actions to do it (how).
+      * Avoid jargon. Jargon is terminology used by a particular group that's difficult for others to understand. It can confuse readers and convey "you're not smart enough to get this." If necessary, we can define terms, but often jargon is unnecessary. 
+      * Avoid Latinisms. Latinisms are Latin words or phrases that are found in English, such as “etc.” and “per se.” Do not use them. Instead, use more common words and phrases.
+      * Use customer-centric language. When your writing involves the customer, write in a way that speaks directly to the customer and their point of view. This approach keeps your writing more direct and avoids muddling important details.
+      </style-guide>  
   role:
     master_logician: You are a master logic bot designed to answer complex logic problems.
       Solve this logic puzzle. There are two ducks in front of a duck, two ducks behind
       a duck and a duck in the middle. How many ducks are there?
-    tcx_code_examples_engineers: |-
+    tcx_code_examples_engineers: |
       TCX SDK Code Examples
       The TCX SDK Code Examples team produces code examples that demonstrate how to automate AWS services to accomplish key user stories for developers and programmers. These code examples are quick and easy to find and use, are continually tested, and demonstrate AWS and community coding best practices.
 
@@ -343,7 +312,7 @@ user:
 
 
       </example>
-    zonbook_reference: |-
+    zonbook_reference: |
       <zonbook-reference>
         * code: Formats an inline code example or a name defined by an API (for example, an action, error code, or constant).
         * emphasis: Formats text. The default is italic text, but you can create bold or underlined text. Do not use in place of guilabel, formalpara, or example.
@@ -373,7 +342,7 @@ user:
         * xref: Creates a link to a target in the same guide.
       </zonbook-reference>
   rewrite:
-    rewrite_instructions: |-
+    rewrite_instructions: |
       I'd like you to rewrite it using the following instructions:
       <instructions>
       {{INSTRUCTIONS}}
