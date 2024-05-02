@@ -50,6 +50,7 @@ target_compile_definitions(${EXAMPLE_EXE}
         PRIVATE
         TESTING_BUILD=1
         SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
+        LARGE_FILE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../../../resources/sample_files/"
 )
 
 target_include_directories(${EXAMPLE_EXE}
