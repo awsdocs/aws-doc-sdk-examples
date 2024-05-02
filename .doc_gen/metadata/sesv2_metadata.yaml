@@ -1,8 +1,4 @@
 sesv2_CreateContactList:
-  title: Create an &SESv2; contact list using an &AWS; SDK
-  title_abbrev: Create a contact list
-  synopsis: create an &SESv2; contact list.
-  category:
   languages:
     Rust:
       versions:
@@ -33,10 +29,6 @@ sesv2_CreateContactList:
   services:
     sesv2: {CreateContactList}
 sesv2_CreateContact:
-  title: Create an &SESv2; contact in a contact list using an &AWS; SDK
-  title_abbrev: Create a contact in a contact list
-  synopsis: create an &SESv2; contact in a contact list.
-  category:
   languages:
     Rust:
       versions:
@@ -67,10 +59,6 @@ sesv2_CreateContact:
   services:
     sesv2: {CreateContact}
 sesv2_GetEmailIdentity:
-  title: Get information about an &SESv2; identity using an &AWS; SDK
-  title_abbrev: Get identity information
-  synopsis: get &SESv2; identity information.
-  category:
   languages:
     Rust:
       versions:
@@ -83,10 +71,6 @@ sesv2_GetEmailIdentity:
   services:
     sesv2: {GetEmailIdentity}
 sesv2_ListContactLists:
-  title: List the &SESv2; contact lists using an &AWS; SDK
-  title_abbrev: List the contact lists
-  synopsis: list the &SESv2; contact lists.
-  category:
   languages:
     Rust:
       versions:
@@ -99,10 +83,6 @@ sesv2_ListContactLists:
   services:
     sesv2: {ListContactLists}
 sesv2_ListContacts:
-  title: List the contacts in an &SESv2; contact list using an &AWS; SDK
-  title_abbrev: List the contacts in a contact list
-  synopsis: list the contacts in an &SESv2; contact list.
-  category:
   languages:
     Rust:
       versions:
@@ -133,10 +113,6 @@ sesv2_ListContacts:
   services:
     sesv2: {ListContacts}
 sesv2_SendEmail:
-  title: Send an &SESv2; email using an &AWS; SDK
-  title_abbrev: Send an email
-  synopsis: send an &SESv2; email.
-  category:
   languages:
     Java:
       versions:
@@ -187,10 +163,6 @@ sesv2_SendEmail:
   services:
     sesv2: {SendEmail}
 sesv2_CreateEmailIdentity:
-  title: Create an &SESv2; email identity using an &AWS; SDK
-  title_abbrev: Create an email identity
-  synopsis: create an &SESv2; email identity.
-  category:
   languages:
     Java:
       versions:
@@ -221,9 +193,6 @@ sesv2_CreateEmailIdentity:
   services:
     sesv2: {CreateEmailIdentity}
 sesv2_CreateEmailTemplate:
-  title: Create an &SESv2; email template using an &AWS; SDK
-  title_abbrev: Create an email template
-  synopsis: create an &SESv2; email template.
   languages:
     Java:
       versions:
@@ -254,10 +223,6 @@ sesv2_CreateEmailTemplate:
   services:
     sesv2: {CreateEmailTemplate}
 sesv2_DeleteContactList:
-  title: Delete an &SESv2; contact list using an &AWS; SDK
-  title_abbrev: Delete a  contact list
-  synopsis: delete an &SESv2; contact list.
-  category:
   languages:
     Java:
       versions:
@@ -288,10 +253,6 @@ sesv2_DeleteContactList:
   services:
     sesv2: {DeleteContactList}
 sesv2_DeleteEmailIdentity:
-  title: Delete an &SESv2; email identity using an &AWS; SDK
-  title_abbrev: Delete an email identity
-  synopsis: delete an &SESv2; email identity.
-  category:
   languages:
     Java:
       versions:
@@ -322,10 +283,6 @@ sesv2_DeleteEmailIdentity:
   services:
     sesv2: {DeleteEmailIdentity}
 sesv2_DeleteEmailTemplate:
-  title: Delete an &SESv2; email template using an &AWS; SDK
-  title_abbrev: Delete an email template
-  synopsis: delete an &SESv2; email template.
-  category:
   languages:
     Java:
       versions:

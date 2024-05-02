@@ -1,8 +1,4 @@
 pinpoint_SendMessages:
-  title: Send email and text messages with &PIN; using an &AWS; SDK
-  title_abbrev: Send email and text messages
-  synopsis: send email and text messages with &PIN;.
-  category:
   languages:
     .NET:
       versions:
@@ -89,9 +85,6 @@ pinpoint_SendMessages:
   services:
     pinpoint: {SendMessages}
 pinpoint_CreateApp:
-  title: Create an &PIN; application
-  title_abbrev: Create an application
-  synopsis: create an appliation.
   languages:
     Kotlin:
       versions:
@@ -114,9 +107,6 @@ pinpoint_CreateApp:
   services:
     pinpoint: {CreateApp}
 pinpoint_CreateCampaign:
-  title: Create an &PIN; campaign
-  title_abbrev: Create a campaign
-  synopsis: create a campaign.
   languages:
     Kotlin:
       versions:
@@ -139,9 +129,6 @@ pinpoint_CreateCampaign:
   services:
     pinpoint: {CreateCampaign}
 pinpoint_UpdateEndpoint:
-  title: Update an &PIN; endpoint
-  title_abbrev: Update an endpoint
-  synopsis: update an endpoint.
   languages:
     Java:
       versions:
@@ -155,9 +142,6 @@ pinpoint_UpdateEndpoint:
   services:
     pinpoint: {UpdateEndpoint}
 pinpoint_CreateSegment:
-  title: Create an &PIN; segment
-  title_abbrev: Create a segment
-  synopsis: create a segment.
   languages:
     Kotlin:
       versions:
@@ -180,9 +164,6 @@ pinpoint_CreateSegment:
   services:
     pinpoint: {CreateSegment}
 pinpoint_DeleteApp:
-  title: Delete an &PIN; application
-  title_abbrev: Delete an application
-  synopsis: delete an application.
   languages:
     Kotlin:
       versions:
@@ -205,9 +186,6 @@ pinpoint_DeleteApp:
   services:
     pinpoint: {DeleteApp}
 pinpoint_DeleteEndpoint:
-  title: Delete an &PIN; endpoint
-  title_abbrev: Delete an endpoint
-  synopsis: delete an endpoint.
   languages:
     Kotlin:
       versions:
@@ -230,9 +208,6 @@ pinpoint_DeleteEndpoint:
   services:
     pinpoint: {DeleteEndpoint}
 pinpoint_CreateExportJob:
-  title: Export an &PIN; endpoint
-  title_abbrev: Export an endpoint
-  synopsis: export an endpoint.
   languages:
     Java:
       versions:
@@ -246,9 +221,6 @@ pinpoint_CreateExportJob:
   services:
     pinpoint: {CreateExportJob}
 pinpoint_CreateImportJob:
-  title: Import an &PIN; segment
-  title_abbrev: Import a segment
-  synopsis: import a segment.
   languages:
     Java:
       versions:
@@ -262,9 +234,6 @@ pinpoint_CreateImportJob:
   services:
     pinpoint: {CreateImportJob}
 pinpoint_GetUserEndpoints:
-  title: List &PIN; endpoints that are associated with a specific user ID
-  title_abbrev: List endpoints
-  synopsis: list endpoints.
   languages:
     Java:
       versions:
@@ -278,9 +247,6 @@ pinpoint_GetUserEndpoints:
   services:
     pinpoint: {GetUserEndpoints}
 pinpoint_GetSegments:
-  title: List &PIN; segments in an application
-  title_abbrev: List segments
-  synopsis: list segments.
   languages:
     Kotlin:
       versions:
@@ -303,9 +269,6 @@ pinpoint_GetSegments:
   services:
     pinpoint: {GetSegments}
 pinpoint_GetEndpoint:
-  title: Display information about an existing &PIN; endpoint
-  title_abbrev: Get endpoints
-  synopsis: get endpoints.
   languages:
     Kotlin:
       versions:
@@ -328,9 +291,6 @@ pinpoint_GetEndpoint:
   services:
     pinpoint: {GetEndpoint}
 pinpoint_GetSmsChannel:
-  title: Update an &PIN; channel
-  title_abbrev: Update channels
-  synopsis: update channels.
   languages:
     Java:
       versions:

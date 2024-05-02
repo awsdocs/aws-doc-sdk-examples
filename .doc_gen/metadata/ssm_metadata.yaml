@@ -16,10 +16,6 @@ ssm_Hello:
   services:
     ssm: {listThings}
 ssm_DescribeParameters:
-  title: Get information about &SYS; parameters using an &AWS; SDK
-  title_abbrev: Get parameters information
-  synopsis: get &SYS; parameters information.
-  category:
   languages:
     Java:
       versions:
@@ -41,10 +37,6 @@ ssm_DescribeParameters:
   services:
     ssm: {DescribeParameters}
 ssm_PutParameter:
-  title: Add a &SYS; parameter using an &AWS; SDK
-  title_abbrev: Add a parameter
-  synopsis: add a &SYS; parameter.
-  category:
   languages:
     Java:
       versions:
@@ -66,10 +58,6 @@ ssm_PutParameter:
   services:
     ssm: {PutParameter}
 ssm_CreateOpsItem:
-  title: Create an opsItem using the &SYS; SDK
-  title_abbrev: Create an opsItem
-  synopsis: create an opsItem.
-  category:
   languages:
     Java:
       versions:
@@ -83,10 +71,6 @@ ssm_CreateOpsItem:
   services:
     ssm: {CreateOpsItem}
 ssm_UpdateMaintenanceWindow:
-  title: Update a maintenance window using the &SYS; SDK
-  title_abbrev: Update a maintenance window
-  synopsis: update a maintenance window.
-  category:
   languages:
     Java:
       versions:
@@ -100,10 +84,6 @@ ssm_UpdateMaintenanceWindow:
   services:
     ssm: {UpdateMaintenanceWindow}
 ssm_CreateMaintenanceWindow:
-  title: Create a maintenance window using the &SYS; SDK
-  title_abbrev: Create a maintenance window
-  synopsis: create a maintenance window.
-  category:
   languages:
     Java:
       versions:
@@ -117,10 +97,6 @@ ssm_CreateMaintenanceWindow:
   services:
     ssm: {CreateMaintenanceWindow}
 ssm_SendCommand:
-  title: Send a command using the &SYS; SDK
-  title_abbrev: Send a command
-  synopsis: send a command.
-  category:
   languages:
     Java:
       versions:
@@ -134,10 +110,6 @@ ssm_SendCommand:
   services:
     ssm: {SendCommand}
 ssm_CreateDocument:
-  title: Create a document using the &SYS; SDK
-  title_abbrev: Create a document
-  synopsis: create a document.
-  category:
   languages:
     Java:
       versions:
@@ -151,10 +123,6 @@ ssm_CreateDocument:
   services:
     ssm: {CreateDocument}
 ssm_DescribeOpsItems:
-  title: Describe an &SYS; Opsitem using the SDK
-  title_abbrev: Describe an Opsitem
-  synopsis: describe an Opsitem.
-  category:
   languages:
     Java:
       versions:
@@ -168,10 +136,6 @@ ssm_DescribeOpsItems:
   services:
     ssm: {DescribeOpsItems}
 ssm_DeleteMaintenanceWindow:
-  title: Delete a maintenance window using the &SYS; SDK
-  title_abbrev: Delete a maintenance window
-  synopsis: delete a maintenance window.
-  category:
   languages:
     Java:
       versions:
@@ -185,10 +149,6 @@ ssm_DeleteMaintenanceWindow:
   services:
     ssm: {DeleteMaintenanceWindow}
 ssm_DeleteDocument:
-  title: Delete a document using the &SYS; SDK
-  title_abbrev: Delete a document
-  synopsis: delete a document.
-  category:
   languages:
     Java:
       versions:
@@ -202,10 +162,6 @@ ssm_DeleteDocument:
   services:
     ssm: {DeleteDocument}
 ssm_UpdateOpsItem:
-  title: Update an OpsItem using a &SYS; SDK
-  title_abbrev: Update an OpsItem
-  synopsis: updates an OpsItem.
-  category:
   languages:
     Java:
       versions:

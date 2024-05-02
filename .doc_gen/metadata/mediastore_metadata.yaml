@@ -1,8 +1,4 @@
 mediastore_CreateContainer:
-  title: Create a &EMSlong; container using an &AWS; SDK
-  title_abbrev: Create a container
-  synopsis: create an &EMSlong; container.
-  category:
   languages:
     Java:
       versions:
@@ -15,10 +11,6 @@ mediastore_CreateContainer:
   services:
     mediastore: {CreateContainer}
 mediastore_DeleteContainer:
-  title: Delete a &EMSlong; container using an &AWS; SDK
-  title_abbrev: Delete a container
-  synopsis: delete an &EMSlong; container.
-  category:
   languages:
     Java:
       versions:
@@ -31,10 +23,6 @@ mediastore_DeleteContainer:
   services:
     mediastore: {DeleteContainer}
 mediastore_DeleteObject:
-  title: Delete a &EMSlong; object using an &AWS; SDK
-  title_abbrev: Delete an object
-  synopsis: delete a &EMSlong; object.
-  category:
   languages:
     Java:
       versions:
@@ -47,10 +35,6 @@ mediastore_DeleteObject:
   services:
     mediastore: {DeleteObject}
 mediastore_DescribeContainer:
-  title: Describe a &EMSlong; container using an &AWS; SDK
-  title_abbrev: Describe a container
-  synopsis: describe a &EMSlong; container.
-  category:
   languages:
     Java:
       versions:
@@ -63,10 +47,6 @@ mediastore_DescribeContainer:
   services:
     mediastore: {DescribeContainer}
 mediastore_GetObject:
-  title: Get a &EMSlong; object using an &AWS; SDK
-  title_abbrev: Get an object
-  synopsis: get a &EMSlong; object.
-  category:
   languages:
     Java:
       versions:
@@ -79,10 +59,6 @@ mediastore_GetObject:
   services:
     mediastore: {GetObject}
 mediastore_ListContainers:
-  title: List &EMSlong; containers using an &AWS; SDK
-  title_abbrev: List containers
-  synopsis: list &EMSlong; containers.
-  category:
   languages:
     Java:
       versions:
@@ -95,10 +71,6 @@ mediastore_ListContainers:
   services:
     mediastore: {ListContainers}
 mediastore_PutObject:
-  title: Put a &EMSlong; object into a container using an &AWS; SDK
-  title_abbrev: Put an object into a container
-  synopsis: put an object into a &EMSlong; container.
-  category:
   languages:
     Java:
       versions:

@@ -1,9 +1,5 @@
 # zexi 0.4.0
 kms_CreateKey:
-  title: Create an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Create a key
-  synopsis: create an &kms-key-long;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -60,10 +56,6 @@ kms_CreateKey:
   services:
     kms: {CreateKey}
 kms_Decrypt:
-  title: Decrypt ciphertext with an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Decrypt ciphertext
-  synopsis: decrypt ciphertext that was encrypted by a &kms-key;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -111,10 +103,6 @@ kms_Decrypt:
   services:
     kms: {Decrypt}
 kms_Encrypt:
-  title: Encrypt text using an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Encrypt text using a key
-  synopsis: encrypt text using a &kms-key;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -162,11 +150,6 @@ kms_Encrypt:
   services:
     kms: {Encrypt}
 kms_GenerateDataKey:
-  title: Generate a plaintext data key for client-side encryption using an &AWS; SDK
-  title_abbrev: Generate a plaintext data key for client-side encryption
-  synopsis: generate a unique symmetric data key for client-side encryption from an &kms-key-long;. The key contains both
-    plaintext and ciphertext versions.
-  category:
   languages:
     Python:
       versions:
@@ -188,10 +171,6 @@ kms_GenerateDataKey:
   services:
     kms: {GenerateDataKey}
 kms_GenerateDataKeyWithoutPlaintext:
-  title: Generate an encrypted data key using an &AWS; SDK
-  title_abbrev: Generate an encrypted data key
-  synopsis: generate an encrypted data key from an &kms-key-long;. The key contains only a ciphertext version.
-  category:
   languages:
     Rust:
       versions:
@@ -204,10 +183,6 @@ kms_GenerateDataKeyWithoutPlaintext:
   services:
     kms: {GenerateDataKeyWithoutPlaintext}
 kms_GenerateRandom:
-  title: Generate a random byte string using an &AWS; SDK
-  title_abbrev: Create a random byte string
-  synopsis: create a random byte string that is cryptographically secure using &KMS;.
-  category:
   languages:
     Rust:
       versions:
@@ -220,10 +195,6 @@ kms_GenerateRandom:
   services:
     kms: {GenerateRandom}
 kms_ListKeys:
-  title: List &kms-keys-long; using an &AWS; SDK
-  title_abbrev: List keys
-  synopsis: list &kms-keys;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -272,10 +243,6 @@ kms_ListKeys:
   services:
     kms: {ListKeys}
 kms_ReEncrypt:
-  title: Reencrypt ciphertext from one &kms-key-long; to another using an &AWS; SDK
-  title_abbrev: Recencrypt ciphertext from one key to another
-  synopsis: reencrypt ciphertext from one &kms-key; to another.
-  category:
   languages:
     Python:
       versions:
@@ -305,10 +272,6 @@ kms_ReEncrypt:
   services:
     kms: {ReEncrypt}
 kms_CreateAlias:
-  title: Create an alias for an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Create an alias for a key
-  synopsis: create an alias for a &kms-key; key.
-  category:
   languages:
     Kotlin:
       versions:
@@ -349,10 +312,6 @@ kms_CreateAlias:
   services:
     kms: {CreateAlias}
 kms_CreateGrant:
-  title: Create a grant for an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Create a grant for a key
-  synopsis: create a grant for a &kms-key;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -393,10 +352,6 @@ kms_CreateGrant:
   services:
     kms: {CreateGrant}
 kms_DescribeKey:
-  title: Describe an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Describe a key
-  synopsis: describe a &kms-key;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -437,10 +392,6 @@ kms_DescribeKey:
   services:
     kms: {DescribeKey}
 kms_DisableKey:
-  title: Disable an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Disable a key
-  synopsis: disable a &kms-key;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -481,10 +432,6 @@ kms_DisableKey:
   services:
     kms: {DisableKey}
 kms_EnableKey:
-  title: Enable an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Enable a key
-  synopsis: enable a &kms-key;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -525,10 +472,6 @@ kms_EnableKey:
   services:
     kms: {EnableKey}
 kms_ScheduleKeyDeletion:
-  title: Schedule deletion of an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Schedule deletion of a key
-  synopsis: schedule deletion of a &kms-key;.
-  category:
   languages:
     Python:
       versions:
@@ -543,10 +486,6 @@ kms_ScheduleKeyDeletion:
   services:
     kms: {ScheduleKeyDeletion}
 kms_ListAliases:
-  title: List the aliases defined for an &kms-key-long; using an &AWS; SDK
-  title_abbrev: List aliases for a key
-  synopsis: list aliases for a &kms-key;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -587,10 +526,6 @@ kms_ListAliases:
   services:
     kms: {ListAliases}
 kms_UpdateAlias:
-  title: Update the &kms-key-long; referred to by an alias using an &AWS; SDK
-  title_abbrev: Update the key referred to by an alias
-  synopsis: update the &kms-key; referred to by an alias.
-  category:
   languages:
     Python:
       versions:
@@ -605,10 +540,6 @@ kms_UpdateAlias:
   services:
     kms: {UpdateAlias}
 kms_DeleteAlias:
-  title: Delete an &KMS; alias using an &AWS; SDK
-  title_abbrev: Delete an alias
-  synopsis: delete an &KMS; alias.
-  category:
   languages:
     Python:
       versions:
@@ -623,10 +554,6 @@ kms_DeleteAlias:
   services:
     kms: {DeleteAlias}
 kms_ListGrants:
-  title: List grants for an &kms-key-long; using an &AWS; SDK
-  title_abbrev: List grants for a key
-  synopsis: list grants for a &kms-key;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -667,10 +594,6 @@ kms_ListGrants:
   services:
     kms: {ListGrants}
 kms_RetireGrant:
-  title: Retire a grant for an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Retire a grant for a key
-  synopsis: retire a grant for a &kms-key;.
-  category:
   languages:
     Python:
       versions:
@@ -685,10 +608,6 @@ kms_RetireGrant:
   services:
     kms: {RetireGrant}
 kms_RevokeGrant:
-  title: Revoke a grant for an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Revoke a grant for a key
-  synopsis: revoke a grant for a &kms-key;.
-  category:
   languages:
     Python:
       versions:
@@ -703,10 +622,6 @@ kms_RevokeGrant:
   services:
     kms: {RevokeGrant}
 kms_ListKeyPolicies:
-  title: List policies for an &kms-key-long; using an &AWS; SDK
-  title_abbrev: List policies for a key
-  synopsis: list policies for a &kms-key;.
-  category:
   languages:
     Python:
       versions:
@@ -721,10 +636,6 @@ kms_ListKeyPolicies:
   services:
     kms: {ListKeyPolicies}
 kms_GetKeyPolicy:
-  title: Get a policy for an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Get a policy for a key
-  synopsis: get a policy by name for a &kms-key;.
-  category:
   languages:
     Python:
       versions:
@@ -739,10 +650,6 @@ kms_GetKeyPolicy:
   services:
     kms: {GetKeyPolicy}
 kms_PutKeyPolicy:
-  title: Set the policy for an &kms-key-long; using an &AWS; SDK
-  title_abbrev: Set the policy for a key
-  synopsis: set the policy for a &kms-key;.
-  category:
   languages:
     Python:
       versions:

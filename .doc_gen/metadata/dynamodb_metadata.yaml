@@ -45,10 +45,6 @@ dynamodb_Hello:
   services:
     dynamodb: {ListTables}
 dynamodb_CreateTable:
-  title: Create a &DDB; table using an &AWS; SDK
-  title_abbrev: Create a table
-  synopsis: create a &DDB; table.
-  category:
   languages:
     .NET:
       versions:
@@ -180,10 +176,6 @@ dynamodb_CreateTable:
   services:
     dynamodb: {CreateTable}
 dynamodb_BatchGetItem:
-  title: Get a batch of &DDB; items using an &AWS; SDK
-  title_abbrev: Get a batch of items
-  synopsis: get a batch of &DDB; items.
-  category:
   languages:
     Java:
       versions:
@@ -265,10 +257,6 @@ dynamodb_BatchGetItem:
   services:
     dynamodb: {BatchGetItem}
 dynamodb_DescribeTable:
-  title: Get information about a &DDB; table
-  title_abbrev: Get information about a table
-  synopsis: get information about a &DDB; table.
-  category:
   languages:
     .NET:
       versions:
@@ -364,10 +352,6 @@ dynamodb_DescribeTable:
   services:
     dynamodb: {DescribeTable}
 dynamodb_BatchWriteItem:
-  title: Write a batch of &DDB; items using an &AWS; SDK
-  title_abbrev: Write a batch of items
-  synopsis: write a batch of &DDB; items.
-  category:
   languages:
     .NET:
       versions:
@@ -476,10 +460,6 @@ dynamodb_BatchWriteItem:
   services:
     dynamodb: {BatchWriteItem}
 dynamodb_DeleteTable:
-  title: Delete a &DDB; table using an &AWS; SDK
-  title_abbrev: Delete a table
-  synopsis: delete a &DDB; table.
-  category:
   languages:
     .NET:
       versions:
@@ -608,10 +588,6 @@ dynamodb_DeleteTable:
   services:
     dynamodb: {DeleteTable}
 dynamodb_PutItem:
-  title: Put an item in a &DDB; table using an &AWS; SDK
-  title_abbrev: Put an item in a table
-  synopsis: put an item in a &DDB; table.
-  category:
   languages:
     .NET:
       versions:
@@ -748,10 +724,6 @@ dynamodb_PutItem:
   services:
     dynamodb: {PutItem}
 dynamodb_GetItem:
-  title: Get an item from a &DDB; table using an &AWS; SDK
-  title_abbrev: Get an item from a table
-  synopsis: get an item from a &DDB; table.
-  category:
   languages:
     .NET:
       versions:
@@ -876,10 +848,6 @@ dynamodb_GetItem:
   services:
     dynamodb: {GetItem}
 dynamodb_UpdateItem:
-  title: Update an item in a &DDB; table using an &AWS; SDK
-  title_abbrev: Update an item in a table
-  synopsis: update an item in a &DDB; table.
-  category:
   languages:
     .NET:
       versions:
@@ -1004,10 +972,6 @@ dynamodb_UpdateItem:
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
-  title: Delete an item from a &DDB; table using an &AWS; SDK
-  title_abbrev: Delete an item from a table
-  synopsis: delete an item from a &DDB; table.
-  category:
   languages:
     .NET:
       versions:
@@ -1149,10 +1113,6 @@ dynamodb_DeleteItem:
   services:
     dynamodb: {DeleteItem}
 dynamodb_ListTables:
-  title: List &DDB; tables using an &AWS; SDK
-  title_abbrev: List tables
-  synopsis: list &DDB; tables.
-  category:
   languages:
     .NET:
       versions:
@@ -1284,10 +1244,6 @@ dynamodb_ListTables:
   services:
     dynamodb: {ListTables}
 dynamodb_Query:
-  title: Query a &DDB; table using an &AWS; SDK
-  title_abbrev: Query a table
-  synopsis: query a &DDB; table.
-  category:
   languages:
     .NET:
       versions:
@@ -1426,10 +1382,6 @@ dynamodb_Query:
   services:
     dynamodb: {Query}
 dynamodb_Scan:
-  title: Scan a &DDB; table using an &AWS; SDK
-  title_abbrev: Scan a table
-  synopsis: scan a &DDB; table.
-  category:
   languages:
     .NET:
       versions:
@@ -1560,10 +1512,6 @@ dynamodb_Scan:
   services:
     dynamodb: {Scan}
 dynamodb_ExecuteStatement:
-  title: Run a PartiQL statement on a &DDB; table using an &AWS; SDK
-  title_abbrev: Run a PartiQL statement
-  synopsis: run a PartiQL statement on a &DDB; table.
-  category:
   languages:
     .NET:
       versions:
@@ -1688,10 +1636,6 @@ dynamodb_ExecuteStatement:
   services:
     dynamodb: {ExecuteStatement}
 dynamodb_BatchExecuteStatement:
-  title: Run batches of PartiQL statements on a &DDB; table using an &AWS; SDK
-  title_abbrev: Run batches of PartiQL statements
-  synopsis: run batches of PartiQL statements on a &DDB; table.
-  category:
   languages:
     .NET:
       versions:

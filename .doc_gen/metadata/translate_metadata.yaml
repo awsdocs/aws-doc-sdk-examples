@@ -1,8 +1,4 @@
 translate_StartTextTranslationJob:
-  title: Start an &TSL; translation job using an &AWS; SDK
-  title_abbrev: Start a translation job
-  synopsis: start an &TSL; translation job.
-  category:
   languages:
     .NET:
       versions:
@@ -24,10 +20,6 @@ translate_StartTextTranslationJob:
   services:
     translate: {StartTextTranslationJob}
 translate_DescribeTextTranslationJob:
-  title: Describe an &TSL; translation job using an &AWS; SDK
-  title_abbrev: Describe a translation job
-  synopsis: describe an &TSL; translation job.
-  category:
   languages:
     .NET:
       versions:
@@ -49,10 +41,6 @@ translate_DescribeTextTranslationJob:
   services:
     translate: {DescribeTextTranslationJob}
 translate_ListTextTranslationJobs:
-  title: List the &TSL; translation jobs using an &AWS; SDK
-  title_abbrev: List translation jobs
-  synopsis: list the &TSL; translation jobs.
-  category:
   languages:
     .NET:
       versions:
@@ -74,10 +62,6 @@ translate_ListTextTranslationJobs:
   services:
     translate: {ListTextTranslationJobs}
 translate_StopTextTranslationJob:
-  title: Stop an &TSL; translation job using an &AWS; SDK
-  title_abbrev: Stop a translation job
-  synopsis: stop an &TSL; translation job.
-  category:
   languages:
     .NET:
       versions:
@@ -99,10 +83,6 @@ translate_StopTextTranslationJob:
   services:
     translate: {StopTextTranslationJob}
 translate_TranslateText:
-  title: Translate text with &TSL; using an &AWS; SDK
-  title_abbrev: Translate text
-  synopsis: translate text with &TSL;.
-  category:
   languages:
     .NET:
       versions:

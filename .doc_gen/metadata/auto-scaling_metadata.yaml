@@ -60,10 +60,6 @@ auto-scaling_Hello:
   services:
     auto-scaling: {DescribeAutoScalingGroups}
 auto-scaling_CreateAutoScalingGroup:
-  title: Create an &AS; group using an &AWS; SDK
-  title_abbrev: Create a group
-  synopsis: create an &AS; group.
-  category:
   languages:
     .NET:
       versions:
@@ -128,10 +124,6 @@ auto-scaling_CreateAutoScalingGroup:
   services:
     auto-scaling: {CreateAutoScalingGroup}
 auto-scaling_DeleteAutoScalingGroup:
-  title: Delete an &AS; group using an &AWS; SDK
-  title_abbrev: Delete a group
-  synopsis: delete an &AS; group.
-  category:
   languages:
     .NET:
       versions:
@@ -200,10 +192,6 @@ auto-scaling_DeleteAutoScalingGroup:
   services:
     auto-scaling: {DeleteAutoScalingGroup}
 auto-scaling_DescribeAutoScalingGroups:
-  title: Get information about &AS; groups using an &AWS; SDK
-  title_abbrev: Get information about groups
-  synopsis: get information about &AS; groups.
-  category:
   languages:
     .NET:
       versions:
@@ -267,10 +255,6 @@ auto-scaling_DescribeAutoScalingGroups:
   services:
     auto-scaling: {DescribeAutoScalingGroups}
 auto-scaling_UpdateAutoScalingGroup:
-  title: Update an &AS; group using an &AWS; SDK
-  title_abbrev: Update a group
-  synopsis: update the configuration for an &AS; group.
-  category:
   languages:
     Kotlin:
       versions:
@@ -335,10 +319,6 @@ auto-scaling_UpdateAutoScalingGroup:
   services:
     auto-scaling: {UpdateAutoScalingGroup}
 auto-scaling_TerminateInstanceInAutoScalingGroup:
-  title: Terminate an instance in an &AS; group using an &AWS; SDK
-  title_abbrev: Terminate an instance in a group
-  synopsis: terminate an instance in an &AS; group.
-  category:
   languages:
     Kotlin:
       versions:
@@ -406,10 +386,6 @@ auto-scaling_TerminateInstanceInAutoScalingGroup:
   services:
     auto-scaling: {TerminateInstanceInAutoScalingGroup}
 auto-scaling_SetDesiredCapacity:
-  title: Set the desired capacity of an &AS; group using an &AWS; SDK
-  title_abbrev: Set the desired capacity of a group
-  synopsis: set the desired capacity of an &AS; group.
-  category:
   languages:
     Kotlin:
       versions:
@@ -476,10 +452,6 @@ auto-scaling_SetDesiredCapacity:
   services:
     auto-scaling: {SetDesiredCapacity}
 auto-scaling_DescribeAutoScalingInstances:
-  title: Get information about &AS; instances using an &AWS; SDK
-  title_abbrev: Get information about instances
-  synopsis: get information about &AS; instances.
-  category:
   languages:
     Kotlin:
       versions:
@@ -546,10 +518,6 @@ auto-scaling_DescribeAutoScalingInstances:
   services:
     auto-scaling: {DescribeAutoScalingInstances}
 auto-scaling_DescribeScalingActivities:
-  title: Get information about &AS; activities using an &AWS; SDK
-  title_abbrev: Get information about scaling activities
-  synopsis: get information about &AS; activities.
-  category:
   languages:
     Kotlin:
       versions:
@@ -616,10 +584,6 @@ auto-scaling_DescribeScalingActivities:
   services:
     auto-scaling: {DescribeScalingActivities}
 auto-scaling_EnableMetricsCollection:
-  title: Enable &CW; metrics collection for an &AS; group using an &AWS; SDK
-  title_abbrev: Enable metrics collection for a group
-  synopsis: enable &CW; metrics collection for an &AS; group.
-  category:
   languages:
     Kotlin:
       versions:
@@ -686,10 +650,6 @@ auto-scaling_EnableMetricsCollection:
   services:
     auto-scaling: {EnableMetricsCollection}
 auto-scaling_DisableMetricsCollection:
-  title: Disable &CW; metrics collection for an &AS; group using an &AWS; SDK
-  title_abbrev: Disable metrics collection for a group
-  synopsis: disable &CW; metrics collection for an &AS; group.
-  category:
   languages:
     Kotlin:
       versions:
@@ -756,10 +716,6 @@ auto-scaling_DisableMetricsCollection:
   services:
     auto-scaling: {DisableMetricsCollection}
 auto-scaling_AttachLoadBalancerTargetGroups:
-  title: Attach an ELB target group to an &AS; group using an &AWS; SDK
-  title_abbrev: Attach an ELB target group to an Auto Scaling group
-  synopsis: attach an ELB target group to an &AS; group.
-  category:
   languages:
     .NET:
       versions:

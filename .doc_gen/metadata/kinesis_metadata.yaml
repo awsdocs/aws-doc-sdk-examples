@@ -1,8 +1,4 @@
 kinesis_CreateStream:
-  title: Create a &AK; stream using an &AWS; SDK
-  title_abbrev: Create a stream
-  synopsis: create a &AK; stream.
-  category:
   languages:
     .NET:
       versions:
@@ -51,10 +47,6 @@ kinesis_CreateStream:
   services:
     kinesis: {CreateStream}
 kinesis_DeregisterStreamConsumer:
-  title: Deregister a consumer from a &AK; stream using an &AWS; SDK
-  title_abbrev: Deregister a consumer
-  synopsis: deregister a consumer from a &AK; stream.
-  category:
   languages:
     .NET:
       versions:
@@ -68,10 +60,6 @@ kinesis_DeregisterStreamConsumer:
   services:
     kinesis: {DeregisterStreamConsumer}
 kinesis_DescribeStream:
-  title: Describe a &AK; stream using an &AWS; SDK
-  title_abbrev: Describe a stream
-  synopsis: describe a &AK; stream.
-  category:
   languages:
     Python:
       versions:
@@ -102,10 +90,6 @@ kinesis_DescribeStream:
   services:
     kinesis: {DescribeStream}
 kinesis_ListStreamConsumers:
-  title: List the consumers of a &AK; stream using an &AWS; SDK
-  title_abbrev: List the consumers of a stream
-  synopsis: list the consumers of a &AK; stream.
-  category:
   languages:
     .NET:
       versions:
@@ -119,10 +103,6 @@ kinesis_ListStreamConsumers:
   services:
     kinesis: {ListStreamConsumers}
 kinesis_ListStreams:
-  title: List &AK; streams using an &AWS; SDK
-  title_abbrev: List streams
-  synopsis: list information about one or more &AK; streams.
-  category:
   languages:
     .NET:
       versions:
@@ -152,10 +132,6 @@ kinesis_ListStreams:
   services:
     kinesis: {ListStreams}
 kinesis_ListTagsForStream:
-  title: List the tags associated with a &AK; stream using an &AWS; SDK
-  title_abbrev: List tags
-  synopsis: list the tags associated with a &AK; stream.
-  category:
   languages:
     .NET:
       versions:
@@ -169,10 +145,6 @@ kinesis_ListTagsForStream:
   services:
     kinesis: {ListTagsForStream}
 kinesis_DeleteStream:
-  title: Delete a &AK; stream using an &AWS; SDK
-  title_abbrev: Delete a stream
-  synopsis: delete a &AK; stream.
-  category:
   languages:
     .NET:
       versions:
@@ -221,10 +193,6 @@ kinesis_DeleteStream:
   services:
     kinesis: {DeleteStream}
 kinesis_PutRecord:
-  title: Put data into a &AK; stream using an &AWS; SDK
-  title_abbrev: Put data into a stream
-  synopsis: put data into a &AK; stream.
-  category:
   languages:
     Java:
       versions:
@@ -264,10 +232,6 @@ kinesis_PutRecord:
   services:
     kinesis: {PutRecord}
 kinesis_GetRecords:
-  title: Get data in batches from a &AK; stream using an &AWS; SDK
-  title_abbrev: Get data in batches from a stream
-  synopsis: get data in batches from a &AK; stream.
-  category:
   languages:
     Java:
       versions:
@@ -299,10 +263,6 @@ kinesis_GetRecords:
   services:
     kinesis: {GetRecords}
 kinesis_RegisterStreamConsumer:
-  title: Register a consumer to a &AK; stream using an &AWS; SDK
-  title_abbrev: Register a consumer
-  synopsis: register a consumer to a &AK; stream.
-  category:
   languages:
     .NET:
       versions:
@@ -324,10 +284,6 @@ kinesis_RegisterStreamConsumer:
   services:
     kinesis: {RegisterStreamConsumer}
 kinesis_AddTagsToStream:
-  title: Add tags to a &AK; stream using an &AWS; SDK
-  title_abbrev: Add tags
-  synopsis: add tags to a &AK; stream.
-  category:
   languages:
     .NET:
       versions:

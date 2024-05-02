@@ -1,9 +1,5 @@
 # zexi 0.4.0
 emr_RunJobFlow:
-  title: Run an &EMR; job flow using an &AWS; SDK
-  title_abbrev: Run a job flow
-  synopsis: run an &EMR; job flow.
-  category:
   languages:
     Python:
       versions:
@@ -17,10 +13,6 @@ emr_RunJobFlow:
   services:
     emr: {RunJobFlow}
 emr_DescribeCluster:
-  title: Describe an &EMR; cluster using an &AWS; SDK
-  title_abbrev: Describe a cluster
-  synopsis: describe an &EMR; cluster.
-  category:
   languages:
     Python:
       versions:
@@ -34,10 +26,6 @@ emr_DescribeCluster:
   services:
     emr: {DescribeCluster}
 emr_TerminateJobFlows:
-  title: Terminate &EMR; job flows using an &AWS; SDK
-  title_abbrev: Terminate job flows
-  synopsis: terminate &EMR; job flows.
-  category:
   languages:
     Python:
       versions:
@@ -51,10 +39,6 @@ emr_TerminateJobFlows:
   services:
     emr: {TerminateJobFlows}
 emr_AddJobFlowSteps:
-  title: Add steps to an &EMR; job flow using an &AWS; SDK
-  title_abbrev: Add steps to a job flow
-  synopsis: add steps to an &EMR; job flow.
-  category:
   languages:
     Python:
       versions:
@@ -72,10 +56,6 @@ emr_AddJobFlowSteps:
   services:
     emr: {AddJobFlowSteps}
 emr_ListSteps:
-  title: List steps for an &EMR; cluster using an &AWS; SDK
-  title_abbrev: List steps for a cluster
-  synopsis: list steps for an &EMR; cluster.
-  category:
   languages:
     Python:
       versions:
@@ -89,10 +69,6 @@ emr_ListSteps:
   services:
     emr: {ListSteps}
 emr_DescribeStep:
-  title: Describe a step on an &EMR; cluster using an &AWS; SDK
-  title_abbrev: Describe a step
-  synopsis: describe a step on an &EMR; cluster.
-  category:
   languages:
     Python:
       versions:

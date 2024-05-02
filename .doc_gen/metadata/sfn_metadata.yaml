@@ -43,10 +43,6 @@ sfn_Hello:
   services:
     sfn: {ListStateMachines}
 sfn_CreateStateMachine:
-  title: Create a &SFN; state machine using an &AWS; SDK
-  title_abbrev: Create a state machine
-  synopsis: create a &SFN; state machine.
-  category:
   languages:
     .NET:
       versions:
@@ -88,10 +84,6 @@ sfn_CreateStateMachine:
   services:
     sfn: {CreateStateMachine}
 sfn_DeleteStateMachine:
-  title: Delete a &SFN; state machine using an &AWS; SDK
-  title_abbrev: Delete a state machine
-  synopsis: delete a &SFN; state machine.
-  category:
   languages:
     .NET:
       versions:
@@ -133,10 +125,6 @@ sfn_DeleteStateMachine:
   services:
     sfn: {DeleteStateMachine}
 sfn_ListStateMachines:
-  title: List &SFN; state machines using an &AWS; SDK
-  title_abbrev: List state machines
-  synopsis: list &SFN; state machines.
-  category:
   languages:
     .NET:
       versions:
@@ -178,10 +166,6 @@ sfn_ListStateMachines:
   services:
     sfn: {ListStateMachines}
 sfn_DescribeStateMachine:
-  title: Describe a &SFN; state machine using an &AWS; SDK
-  title_abbrev: Describe a state machine
-  synopsis: describe a &SFN; state machine.
-  category:
   languages:
     Kotlin:
       versions:
@@ -223,10 +207,6 @@ sfn_DescribeStateMachine:
   services:
     sfn: {DescribeStateMachine}
 sfn_StartExecution:
-  title: Start a &SFN; state machine run using an &AWS; SDK
-  title_abbrev: Start a state machine run
-  synopsis: start a &SFN; state machine run.
-  category:
   languages:
     .NET:
       versions:
@@ -277,10 +257,6 @@ sfn_StartExecution:
   services:
     sfn: {StartExecution}
 sfn_ListExecutions:
-  title: List &SFN; state machine runs using an &AWS; SDK
-  title_abbrev: List state machine runs
-  synopsis: list &SFN; state machine runs.
-  category:
   languages:
     .NET:
       versions:
@@ -312,10 +288,6 @@ sfn_ListExecutions:
   services:
     sfn: {ListExecutions}
 sfn_DescribeExecution:
-  title: Describe a &SFN; state machine run using an &AWS; SDK
-  title_abbrev: Describe a state machine run
-  synopsis: describe a &SFN; state machine run.
-  category:
   languages:
     Kotlin:
       versions:
@@ -356,10 +328,6 @@ sfn_DescribeExecution:
   services:
     sfn: {DescribeExecution}
 sfn_CreateActivity:
-  title: Create a &SFN; activity using an &AWS; SDK
-  title_abbrev: Create an activity
-  synopsis: create a &SFN; activity.
-  category:
   languages:
     Kotlin:
       versions:
@@ -401,10 +369,6 @@ sfn_CreateActivity:
   services:
     sfn: {CreateActivity}
 sfn_ListActivities:
-  title: List &SFN; activities using an &AWS; SDK
-  title_abbrev: List activities
-  synopsis: list &SFN; activities.
-  category:
   languages:
     Kotlin:
       versions:
@@ -446,10 +410,6 @@ sfn_ListActivities:
   services:
     sfn: {ListActivities}
 sfn_GetActivityTask:
-  title: Get task data for a &SFN; activity using an &AWS; SDK
-  title_abbrev: Get task data for an activity
-  synopsis: get task data for a &SFN; activity.
-  category:
   languages:
     Kotlin:
       versions:
@@ -491,10 +451,6 @@ sfn_GetActivityTask:
   services:
     sfn: {GetActivityTask}
 sfn_SendTaskSuccess:
-  title: Send a success response to a &SFN; task using an &AWS; SDK
-  title_abbrev: Send a success response to a task
-  synopsis: send a success response to a &SFN; task.
-  category:
   languages:
     Kotlin:
       versions:
@@ -536,10 +492,6 @@ sfn_SendTaskSuccess:
   services:
     sfn: {SendTaskSuccess}
 sfn_DeleteActivity:
-  title: Delete a &SFN; activity using an &AWS; SDK
-  title_abbrev: Delete an activity
-  synopsis: delete a &SFN; activity.
-  category:
   languages:
     Kotlin:
       versions:

@@ -51,10 +51,6 @@ support_Hello:
   services:
     support: {DescribeServices}
 support_AddAttachmentsToSet:
-  title: Add an &SUP; attachment to a set using an &AWS; SDK
-  title_abbrev: Add an attachment to a set
-  synopsis: add an &SUP; attachment to an attachment set.
-  category:
   languages:
     Kotlin:
       versions:
@@ -104,10 +100,6 @@ support_AddAttachmentsToSet:
   services:
     support: {AddAttachmentsToSet}
 support_AddCommunicationToCase:
-  title: Add an &SUP; communication to a case using an &AWS; SDK
-  title_abbrev: Add a communication to a case
-  synopsis: add an &SUP; communication with an attachment to a support case.
-  category:
   languages:
     Kotlin:
       versions:
@@ -157,10 +149,6 @@ support_AddCommunicationToCase:
   services:
     support: {AddCommunicationToCase}
 support_CreateCase:
-  title: Create an &SUP; case using an &AWS; SDK
-  title_abbrev: Create a case
-  synopsis: create a new &SUP; case.
-  category:
   languages:
     Kotlin:
       versions:
@@ -210,10 +198,6 @@ support_CreateCase:
   services:
     support: {CreateCase}
 support_DescribeAttachment:
-  title: Describe an attachment for an &SUP; case using an &AWS; SDK
-  title_abbrev: Describe an attachment
-  synopsis: describe an attachment for an &SUP;  case.
-  category:
   languages:
     Kotlin:
       versions:
@@ -263,10 +247,6 @@ support_DescribeAttachment:
   services:
     support: {DescribeAttachment}
 support_DescribeCases:
-  title: Describe &SUP; cases using an &AWS; SDK
-  title_abbrev: Describe cases
-  synopsis: describe &SUP; cases.
-  category:
   languages:
     Kotlin:
       versions:
@@ -316,10 +296,6 @@ support_DescribeCases:
   services:
     support: {DescribeCases}
 support_DescribeCommunications:
-  title: Describe &SUP; communications for a case using an &AWS; SDK
-  title_abbrev: Describe communications
-  synopsis: describe &SUP; communications for a case.
-  category:
   languages:
     Kotlin:
       versions:
@@ -369,10 +345,6 @@ support_DescribeCommunications:
   services:
     support: {DescribeCommunications}
 support_DescribeServices:
-  title: Describe the available &AWS; services for support cases using an &AWS; SDK
-  title_abbrev: Describe services
-  synopsis: describe the list of &AWS; services.
-  category:
   languages:
     Kotlin:
       versions:
@@ -413,10 +385,6 @@ support_DescribeServices:
   services:
     support: {DescribeServices}
 support_DescribeSeverityLevels:
-  title: Describe &SUP; severity levels using an &AWS; SDK
-  title_abbrev: Describe severity levels
-  synopsis: describe &SUP; severity levels.
-  category:
   languages:
     Kotlin:
       versions:
@@ -465,10 +433,6 @@ support_DescribeSeverityLevels:
   services:
     support: {DescribeSeverityLevels}
 support_ResolveCase:
-  title: Resolve an &SUP; case using an &AWS; SDK
-  title_abbrev: Resolve case
-  synopsis: resolve an &SUP; case.
-  category:
   languages:
     Kotlin:
       versions:

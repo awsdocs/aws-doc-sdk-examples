@@ -1,8 +1,4 @@
 application-auto-scaling_RegisterScalableTarget:
-  title: Register a resource to scale using an &APP-ASlong; SDK
-  title_abbrev: Registers a resource
-  synopsis: register an &APP-AS; resource.
-  category:
   languages:
     Java:
       versions:
@@ -15,10 +11,6 @@ application-auto-scaling_RegisterScalableTarget:
   services:
     application-auto-scaling: {RegisterScalableTarget}
 application-auto-scaling_DeleteScalingPolicy:
-  title: Disable a resource that is scaled using an &APP-ASlong; SDK
-  title_abbrev: Disables a  resource
-  synopsis: disable an &APP-AS; resource.
-  category:
   languages:
     Java:
       versions:
@@ -31,10 +23,6 @@ application-auto-scaling_DeleteScalingPolicy:
   services:
     application-auto-scaling: {DeleteScalingPolicy}
 application-auto-scaling_DescribeScalingPolicies:
-  title: Describe &APP-AS; scaling policies using an &AWS; SDK
-  title_abbrev: Describes scaling policies
-  synopsis: describe &APP-AS; scaling policies for the given service namespace.
-  category:
   languages:
     Rust:
       versions:

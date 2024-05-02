@@ -44,10 +44,6 @@ cognito-identity-provider_Hello:
   services:
     cognito-identity-provider: {ListUserPools}
 cognito-identity-provider_ListUserPools:
-  title: List the &COG; user pools using an &AWS; SDK
-  title_abbrev: List the user pools
-  synopsis: list the &COG; user pools.
-  category:
   languages:
     .NET:
       versions:
@@ -85,10 +81,6 @@ cognito-identity-provider_ListUserPools:
   services:
     cognito-identity-provider: {ListUserPools}
 cognito-identity-provider_SignUp:
-  title: Sign up a user with &COG; using an &AWS; SDK
-  title_abbrev: Sign up a user
-  synopsis: sign up a user with &COG;.
-  category:
   languages:
     .NET:
       versions:
@@ -158,10 +150,6 @@ cognito-identity-provider_SignUp:
   services:
     cognito-identity-provider: {SignUp}
 cognito-identity-provider_AdminGetUser:
-  title: Get information about an &COG; user using an &AWS; SDK
-  title_abbrev: Get information about a user
-  synopsis: get information about an &COG; user.
-  category:
   languages:
     .NET:
       versions:
@@ -222,10 +210,6 @@ cognito-identity-provider_AdminGetUser:
   services:
     cognito-identity-provider: {AdminGetUser}
 cognito-identity-provider_ResendConfirmationCode:
-  title: Resend an &COG; confirmation code using an &AWS; SDK
-  title_abbrev: Resend a confirmation code
-  synopsis: resend an &COG; confirmation code.
-  category:
   languages:
     .NET:
       versions:
@@ -286,10 +270,6 @@ cognito-identity-provider_ResendConfirmationCode:
   services:
     cognito-identity-provider: {ResendConfirmationCode}
 cognito-identity-provider_ConfirmSignUp:
-  title: Confirm an &COG; user using an &AWS; SDK
-  title_abbrev: Confirm a user
-  synopsis: confirm an &COG; user.
-  category:
   languages:
     .NET:
       versions:
@@ -350,10 +330,6 @@ cognito-identity-provider_ConfirmSignUp:
   services:
     cognito-identity-provider: {ConfirmSignUp}
 cognito-identity-provider_ListUsers:
-  title: List &COG; users using an &AWS; SDK
-  title_abbrev: List users
-  synopsis: list &COG; users.
-  category:
   languages:
     .NET:
       versions:
@@ -404,10 +380,6 @@ cognito-identity-provider_ListUsers:
   services:
     cognito-identity-provider: {ListUsers}
 cognito-identity-provider_AdminInitiateAuth:
-  title: Start authentication with &COG; and administrator credentials using an &AWS; SDK
-  title_abbrev: Start authentication with administrator credentials
-  synopsis: start authentication with &COG; and administrator credentials.
-  category:
   languages:
     .NET:
       versions:
@@ -468,10 +440,6 @@ cognito-identity-provider_AdminInitiateAuth:
   services:
     cognito-identity-provider: {AdminInitiateAuth}
 cognito-identity-provider_AssociateSoftwareToken:
-  title: Get a token to associate an MFA application with an &COG; user using an &AWS; SDK
-  title_abbrev: Get a token to associate an MFA application with a user
-  synopsis: get a token to associate an MFA application with an &COG; user.
-  category:
   languages:
     .NET:
       versions:
@@ -532,10 +500,6 @@ cognito-identity-provider_AssociateSoftwareToken:
   services:
     cognito-identity-provider: {AssociateSoftwareToken}
 cognito-identity-provider_VerifySoftwareToken:
-  title: Verify an MFA application with an &COG; user using an &AWS; SDK
-  title_abbrev: Verify an MFA application with a user
-  synopsis: verify an MFA application with an &COG; user.
-  category:
   languages:
     .NET:
       versions:
@@ -596,10 +560,6 @@ cognito-identity-provider_VerifySoftwareToken:
   services:
     cognito-identity-provider: {VerifySoftwareToken}
 cognito-identity-provider_AdminRespondToAuthChallenge:
-  title: Respond to an &COG; authentication challenge using an &AWS; SDK
-  title_abbrev: Respond to an authentication challenge
-  synopsis: respond to an &COG; authentication challenge.
-  category:
   languages:
     .NET:
       versions:
@@ -660,10 +620,6 @@ cognito-identity-provider_AdminRespondToAuthChallenge:
   services:
     cognito-identity-provider: {AdminRespondToAuthChallenge}
 cognito-identity-provider_ConfirmDevice:
-  title: Confirm an MFA device for tracking by &COG; using an &AWS; SDK
-  title_abbrev: Confirm an MFA device for tracking
-  synopsis: confirm an MFA device for tracking by &COG;.
-  category:
   languages:
     .NET:
       versions:
@@ -695,10 +651,6 @@ cognito-identity-provider_ConfirmDevice:
   services:
     cognito-identity-provider: {ConfirmDevice}
 cognito-identity-provider_InitiateAuth:
-  title: Start authentication using an &AWS; SDK
-  title_abbrev: Start authentication
-  synopsis: start authentication with &COG;.
-  category:
   languages:
     .NET:
       versions:
@@ -741,10 +693,6 @@ cognito-identity-provider_InitiateAuth:
   services:
     cognito-identity-provider: {InitiateAuth}
 cognito-identity-provider_RespondToAuthChallenge:
-  title: Respond to &COG; SRP authentication challenges using an &AWS; SDK
-  title_abbrev: Respond to SRP authentication challenges
-  synopsis: respond to &COG; SRP authentication challenges.
-  category:
   languages:
     Python:
       versions:
@@ -769,10 +717,6 @@ cognito-identity-provider_RespondToAuthChallenge:
   services:
     cognito-identity-provider: {RespondToAuthChallenge}
 cognito-identity-provider_DeleteUser:
-  title: Delete an &COG; user using an &AWS; SDK
-  title_abbrev: Delete a user
-  synopsis: delete an &COG; user.
-  category:
   languages:
     C++:
       versions:
@@ -796,10 +740,6 @@ cognito-identity-provider_DeleteUser:
   services:
     cognito-identity-provider: {DeleteUser}
 cognito-identity-provider_CreateUserPool:
-  title: Create an &COG; user pool using an &AWS; SDK
-  title_abbrev: Create a user pool
-  synopsis: create an &COG; user pool.
-  category:
   languages:
     Java:
       versions:
@@ -813,10 +753,6 @@ cognito-identity-provider_CreateUserPool:
   services:
     cognito-identity-provider: {CreateUserPool}
 cognito-identity-provider_CreateUserPoolClient:
-  title: Create an &COG; user pool client app using an &AWS; SDK
-  title_abbrev: Create an app client
-  synopsis: create an &COG; user pool client app.
-  category:
   languages:
     Java:
       versions:
@@ -830,10 +766,6 @@ cognito-identity-provider_CreateUserPoolClient:
   services:
     cognito-identity-provider: {CreateUserPoolClient}
 cognito-identity-provider_UpdateUserPool:
-  title: Update an &COG; user pool using an &AWS; SDK
-  title_abbrev: Update a user pool
-  synopsis: update an &COG; user pool.
-  category:
   languages:
     Go:
       versions:
@@ -848,10 +780,6 @@ cognito-identity-provider_UpdateUserPool:
   services:
     cognito-identity-provider: {UpdateUserPool}
 cognito-identity-provider_ForgotPassword:
-  title: Start &COG; forgotten password flow using an &AWS; SDK
-  title_abbrev: Start forgotten password flow
-  synopsis: start &COG; forgotten password flow.
-  category:
   languages:
     Go:
       versions:
@@ -866,10 +794,6 @@ cognito-identity-provider_ForgotPassword:
   services:
     cognito-identity-provider: {ForgotPassword}
 cognito-identity-provider_ConfirmForgotPassword:
-  title: Confirm an &COG; forgotten password using an &AWS; SDK
-  title_abbrev: Confirm a forgotten password
-  synopsis: confirm an &COG; forgotten password.
-  category:
   languages:
     Go:
       versions:
@@ -884,10 +808,6 @@ cognito-identity-provider_ConfirmForgotPassword:
   services:
     cognito-identity-provider: {ConfirmForgotPassword}
 cognito-identity-provider_AdminCreateUser:
-  title: Create an &COG; user with administrator credentials using an &AWS; SDK
-  title_abbrev: Create a user with administrator credentials
-  synopsis: create an &COG; user with administrator credentials.
-  category:
   languages:
     Go:
       versions:
@@ -902,10 +822,6 @@ cognito-identity-provider_AdminCreateUser:
   services:
     cognito-identity-provider: {AdminCreateUser}
 cognito-identity-provider_AdminSetUserPassword:
-  title: Set the password for an &COG; user with administrator credentials using an &AWS; SDK
-  title_abbrev: Set the password for a user with administrator credentials
-  synopsis: set the password for an &COG; user with administrator credentials.
-  category:
   languages:
     Go:
       versions:

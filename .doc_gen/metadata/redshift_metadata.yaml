@@ -25,10 +25,6 @@ redshift_Hello:
   services:
     redshift: {describeClusters}
 redshift_CreateCluster:
-  title: Create an &RS; cluster using an &AWS; SDK
-  title_abbrev: Create a cluster
-  synopsis: create an &RS; cluster.
-  category:
   languages:
     Kotlin:
       versions:
@@ -76,10 +72,6 @@ redshift_CreateCluster:
   services:
     redshift: {CreateCluster}
 redshift_DeleteCluster:
-  title: Delete an &RS; cluster using an &AWS; SDK
-  title_abbrev: Delete a cluster
-  synopsis: delete an &RS; cluster.
-  category:
   languages:
     Kotlin:
       versions:
@@ -127,10 +119,6 @@ redshift_DeleteCluster:
   services:
     redshift: {DeleteCluster}
 redshift_DescribeClusters:
-  title: Describe clusters using an &AWS; SDK
-  title_abbrev: Describe clusters
-  synopsis: describe &RS; clusters.
-  category:
   languages:
     Kotlin:
       versions:
@@ -178,10 +166,6 @@ redshift_DescribeClusters:
   services:
     redshift: {DescribeClusters}
 redshift_ModifyCluster:
-  title: Modify an &RS; cluster using an &AWS; SDK
-  title_abbrev: Modify a cluster
-  synopsis: modify an &RS; cluster.
-  category:
   languages:
     Kotlin:
       versions:
@@ -229,10 +213,6 @@ redshift_ModifyCluster:
   services:
     redshift: {ModifyCluster}
 redshift_Insert:
-  title: Insert data into an &RS; table using an &AWS; SDK
-  title_abbrev: Insert data into a table
-  synopsis: insert data into an &RS; table.
-  category:
   languages:
     Java:
       versions:
@@ -246,10 +226,6 @@ redshift_Insert:
   services:
     redshift: {Insert}
 redshift_Query:
-  title: Query an &RS; table using an &AWS; SDK
-  title_abbrev: Query a table
-  synopsis: query an &RS; table.
-  category:
   languages:
     Java:
       versions:
@@ -263,10 +239,6 @@ redshift_Query:
   services:
     redshift: {Query}
 redshift_DescribeStatement:
-  title: Describe an &RS; query statement using an &AWS; SDK
-  title_abbrev: Describe a query statement
-  synopsis: describe an &RS; query statement.
-  category:
   languages:
     Java:
       versions:
@@ -293,10 +265,6 @@ redshift_DescribeStatement:
   services:
     redshift: {DescribeStatement}
 redshift_GetStatementResult:
-  title: Get the &RS; statement result using an &AWS; SDK
-  title_abbrev: Get the statement result
-  synopsis: get the statement result.
-  category:
   languages:
     Java:
       versions:
@@ -323,10 +291,6 @@ redshift_GetStatementResult:
   services:
     redshift: {GetStatementResult}
 redshift_CreateTable:
-  title: Create an &RS; table using an &AWS; SDK
-  title_abbrev: Create a table
-  synopsis: create an &RS; table.
-  category:
   languages:
     Java:
       versions:

@@ -16,9 +16,6 @@ glacier_Hello:
   services:
     glacier: {ListVaults}
 glacier_CreateVault:
-  title: Create an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Create a vault
-  synopsis: create an &GLlong; vault.
   languages:
     .NET:
       versions:
@@ -70,9 +67,6 @@ glacier_CreateVault:
   services:
     glacier: {CreateVault}
 glacier_ListVaults:
-  title: List &GLlong; vaults using an &AWS; SDK
-  title_abbrev: List vaults
-  synopsis: list &GLlong; vaults.
   languages:
     .NET:
       versions:
@@ -105,9 +99,6 @@ glacier_ListVaults:
   services:
     glacier: {ListVaults}
 glacier_UploadArchive:
-  title: Upload an archive to an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Upload an archive to a vault
-  synopsis: upload an archive to an &GLlong; vault.
   languages:
     .NET:
       versions:
@@ -159,9 +150,6 @@ glacier_UploadArchive:
   services:
     glacier: {UploadArchive}
 glacier_UploadMultipartPart:
-  title: Create a multipart upload to an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Create a multipart upload
-  synopsis: create a multipart upload to an &GLlong; vault.
   languages:
     JavaScript:
       versions:
@@ -175,9 +163,6 @@ glacier_UploadMultipartPart:
   services:
     glacier: {UploadMultipartPart}
 glacier_InitiateJob:
-  title: Retrieve an &GLlong; vault inventory using an &AWS; SDK
-  title_abbrev: Retrieve a vault inventory
-  synopsis: retrieve an &GLlong; vault inventory.
   languages:
     Java:
       versions:
@@ -215,9 +200,6 @@ glacier_InitiateJob:
   services:
     glacier: {InitiateJob}
 glacier_ListJobs:
-  title: List &GLlong; jobs using an &AWS; SDK
-  title_abbrev: List jobs
-  synopsis: list &GLlong; jobs.
   languages:
     .NET:
       versions:
@@ -241,9 +223,6 @@ glacier_ListJobs:
   services:
     glacier: {ListJobs}
 glacier_DeleteVault:
-  title: Delete an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Delete a vault
-  synopsis: delete an &GLlong; vault.
   languages:
     Java:
       versions:
@@ -267,9 +246,6 @@ glacier_DeleteVault:
   services:
     glacier: {DeleteVault}
 glacier_DeleteArchive:
-  title: Delete an &GLlong; archive using an &AWS; SDK
-  title_abbrev: Delete an archive
-  synopsis: delete an &GLlong; archive.
   languages:
     Java:
       versions:
@@ -293,9 +269,6 @@ glacier_DeleteArchive:
   services:
     glacier: {DeleteArchive}
 glacier_DescribeJob:
-  title: Describe an &GLlong; job using an &AWS; SDK
-  title_abbrev: Describe a job
-  synopsis: describe an &GLlong; job.
   languages:
     Python:
       versions:
@@ -310,9 +283,6 @@ glacier_DescribeJob:
   services:
     glacier: {DescribeJob}
 glacier_DescribeVault:
-  title: Describe an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Describe a vault
-  synopsis: describe an &GLlong; vault.
   languages:
     .NET:
       versions:
@@ -326,9 +296,6 @@ glacier_DescribeVault:
   services:
     glacier: {DescribeVault}
 glacier_GetJobOutput:
-  title: Get &GLlong; job output using an &AWS; SDK
-  title_abbrev: Get job output
-  synopsis: get &GLlong; job output.
   languages:
     Python:
       versions:
@@ -343,9 +310,6 @@ glacier_GetJobOutput:
   services:
     glacier: {GetJobOutput}
 glacier_SetVaultNotifications:
-  title: Set &GLlong; vault notifications using an &AWS; SDK
-  title_abbrev: Set vault notifications
-  synopsis: set &GLlong; vault notifications.
   languages:
     Python:
       versions:
@@ -360,9 +324,6 @@ glacier_SetVaultNotifications:
   services:
     glacier: {SetVaultNotifications}
 glacier_GetVaultNotifications:
-  title: Get &GLlong; vault notification configuration using an &AWS; SDK
-  title_abbrev: Get vault notification configuration
-  synopsis: get &GLlong; vault notification configuration.
   languages:
     Python:
       versions:
@@ -377,9 +338,6 @@ glacier_GetVaultNotifications:
   services:
     glacier: {GetVaultNotifications}
 glacier_DeleteVaultNotifications:
-  title: Delete &GLlong; vault notifications using an &AWS; SDK
-  title_abbrev: Delete vault notifications
-  synopsis: delete &GLlong; vault notifications.
   languages:
     Python:
       versions:
@@ -457,9 +415,6 @@ glacier_Usage_RetrieveDelete:
   services:
     glacier: {DeleteArchive, DeleteVault, GetJobOutput, ListJobs}
 glacier_AddTagsToVault:
-  title: Add tags to an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Add tags
-  synopsis: add tags to an &GLlong; vault.
   languages:
     .NET:
       versions:
@@ -473,9 +428,6 @@ glacier_AddTagsToVault:
   services:
     glacier: {AddTagsToVault}
 glacier_ListTagsForVault:
-  title: List tags for an &GLlong; vault using an &AWS; SDK
-  title_abbrev: List tags
-  synopsis: list tags for an &GLlong; vault.
   languages:
     .NET:
       versions:

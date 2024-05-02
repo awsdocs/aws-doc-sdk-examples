@@ -54,10 +54,6 @@ glue_Hello:
   services:
     glue: {ListJobs}
 glue_GetCrawler:
-  title: Get an &GLU; crawler using an &AWS; SDK
-  title_abbrev: Get a crawler
-  synopsis: get an &GLU; crawler.
-  category:
   languages:
     .NET:
       versions:
@@ -144,10 +140,6 @@ glue_GetCrawler:
   services:
     glue: {GetCrawler}
 glue_CreateCrawler:
-  title: Create an &GLU; crawler using an &AWS; SDK
-  title_abbrev: Create a crawler
-  synopsis: create an &GLU; crawler.
-  category:
   languages:
     .NET:
       versions:
@@ -236,10 +228,6 @@ glue_CreateCrawler:
   services:
     glue: {CreateCrawler}
 glue_StartCrawler:
-  title: Start an &GLU; crawler using an &AWS; SDK
-  title_abbrev: Start a crawler
-  synopsis: start an &GLU; crawler.
-  category:
   languages:
     .NET:
       versions:
@@ -328,10 +316,6 @@ glue_StartCrawler:
   services:
     glue: {StartCrawler}
 glue_GetDatabase:
-  title: Get a database from the &GLUDCLong; using an &AWS; SDK
-  title_abbrev: Get a database from the &GLUDC;
-  synopsis: get a database from the &GLUDCLong;.
-  category:
   languages:
     .NET:
       versions:
@@ -419,10 +403,6 @@ glue_GetDatabase:
   services:
     glue: {GetDatabase}
 glue_GetTables:
-  title: Get tables from a database in the &GLUDCLong; using an &AWS; SDK
-  title_abbrev: Get tables from a database
-  synopsis: get tables from a database in the &GLUDCLong;.
-  category:
   languages:
     .NET:
       versions:
@@ -501,10 +481,6 @@ glue_GetTables:
   services:
     glue: {GetTables}
 glue_CreateJob:
-  title: Create an &GLU; job definition using an &AWS; SDK
-  title_abbrev: Create a job definition
-  synopsis: create an &GLU; job definition.
-  category:
   languages:
     .NET:
       versions:
@@ -575,10 +551,6 @@ glue_CreateJob:
   services:
     glue: {CreateJob}
 glue_StartJobRun:
-  title: Start an &GLU; job run using an &AWS; SDK
-  title_abbrev: Start a job run
-  synopsis: start an &GLU; job run.
-  category:
   languages:
     .NET:
       versions:
@@ -650,10 +622,6 @@ glue_StartJobRun:
   services:
     glue: {StartJobRun}
 glue_ListJobs:
-  title: List &GLU; job definitions using an &AWS; SDK
-  title_abbrev: List job definitions
-  synopsis: list &GLU; job definitions.
-  category:
   languages:
     .NET:
       versions:
@@ -721,10 +689,6 @@ glue_ListJobs:
   services:
     glue: {ListJobs}
 glue_GetJobRuns:
-  title: Get runs of an &GLU; job using an &AWS; SDK
-  title_abbrev: Get runs of a job
-  synopsis: get runs of an &GLU; job.
-  category:
   languages:
     .NET:
       versions:
@@ -786,10 +750,6 @@ glue_GetJobRuns:
   services:
     glue: {GetJobRuns}
 glue_GetJobRun:
-  title: Get an &GLU; job run using an &AWS; SDK
-  title_abbrev: Get a job run
-  synopsis: get an &GLU; job run.
-  category:
   languages:
     .NET:
       versions:
@@ -859,10 +819,6 @@ glue_GetJobRun:
   services:
     glue: {GetJobRun}
 glue_DeleteJob:
-  title: Delete an &GLU; job definition using an &AWS; SDK
-  title_abbrev: Delete a job definition
-  synopsis: delete an &GLU; job definition and all associated runs.
-  category:
   languages:
     .NET:
       versions:
@@ -931,10 +887,6 @@ glue_DeleteJob:
   services:
     glue: {DeleteJob}
 glue_DeleteTable:
-  title: Delete a table from an &GLUDCLong; database using an &AWS; SDK
-  title_abbrev: Delete a table from a database
-  synopsis: delete a table from an &GLUDCLong; database.
-  category:
   languages:
     .NET:
       versions:
@@ -992,10 +944,6 @@ glue_DeleteTable:
   services:
     glue: {DeleteTable}
 glue_DeleteDatabase:
-  title: Delete a database from the &GLUDCLong; using an &AWS; SDK
-  title_abbrev: Delete a database from the &GLUDC;
-  synopsis: delete a database from the &GLUDCLong;.
-  category:
   languages:
     .NET:
       versions:
@@ -1064,10 +1012,6 @@ glue_DeleteDatabase:
   services:
     glue: {DeleteDatabase}
 glue_DeleteCrawler:
-  title: Delete an &GLU; crawler using an &AWS; SDK
-  title_abbrev: Delete a crawler
-  synopsis: delete an &GLU; crawler.
-  category:
   languages:
     .NET:
       versions:
@@ -1136,10 +1080,6 @@ glue_DeleteCrawler:
   services:
     glue: {DeleteCrawler}
 glue_GetDatabases:
-  title: Get database list from the &GLUDCLong; using an &AWS; SDK
-  title_abbrev: Get databases from the &GLUDC;
-  synopsis: get a list of databases from the &GLUDCLong;.
-  category:
   languages:
     JavaScript:
       versions:
@@ -1152,10 +1092,6 @@ glue_GetDatabases:
   services:
     glue: {GetDatabases}
 glue_GetJob:
-  title: Get a job from the &GLUDCLong; using an &AWS; SDK
-  title_abbrev: Get job from the &GLUDC;
-  synopsis: get a job from the &GLUDCLong;.
-  category:
   languages:
     JavaScript:
       versions:

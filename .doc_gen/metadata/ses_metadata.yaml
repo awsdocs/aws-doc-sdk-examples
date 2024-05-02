@@ -1,9 +1,5 @@
 # zexi 0.4.3
 ses_SendEmail:
-  title: Send email with &SES; using an &AWS; SDK
-  title_abbrev: Send email
-  synopsis: send email with &SES;.
-  category:
   languages:
     .NET:
       versions:
@@ -63,10 +59,6 @@ ses_SendEmail:
   services:
     ses: {SendEmail}
 ses_SendBulkTemplatedEmail:
-  title: Send templated email to multiple destinations with &SES; using an &AWS; SDK
-  title_abbrev: Send bulk templated email
-  synopsis: send templated email to multiple destinations with &SES;.
-  category:
   languages:
     JavaScript:
       versions:
@@ -80,10 +72,6 @@ ses_SendBulkTemplatedEmail:
   services:
     ses: {SendBulkTemplatedEmail}
 ses_SendRawEmail:
-  title: Send a raw email with &SES; using an &AWS; SDK
-  title_abbrev: Send raw email
-  synopsis: send a raw email with &SES;.
-  category:
   languages:
     JavaScript:
       versions:
@@ -98,10 +86,6 @@ ses_SendRawEmail:
   services:
     ses: {SendRawEmail}
 ses_SendTemplatedEmail:
-  title: Send templated email with &SES; using an &AWS; SDK
-  title_abbrev: Send templated email
-  synopsis: send templated email with &SES;.
-  category:
   languages:
     .NET:
       versions:
@@ -151,10 +135,6 @@ ses_SendTemplatedEmail:
   services:
     ses: {SendTemplatedEmail}
 ses_VerifyDomainIdentity:
-  title: Verify a domain identity with &SES; using an &AWS; SDK
-  title_abbrev: Verify a domain identity
-  synopsis: verify a domain identity with &SES;.
-  category:
   languages:
     Python:
       versions:
@@ -178,10 +158,6 @@ ses_VerifyDomainIdentity:
   services:
     ses: {VerifyDomainIdentity}
 ses_VerifyEmailIdentity:
-  title: Verify an email identity with &SES;  using an &AWS; SDK
-  title_abbrev: Verify an email identity
-  synopsis: verify an email identity with &SES;.
-  category:
   languages:
     .NET:
       versions:
@@ -231,10 +207,6 @@ ses_VerifyEmailIdentity:
   services:
     ses: {VerifyEmailIdentity}
 ses_GetIdentityVerificationAttributes:
-  title: Get the status of an &SES; identity using an &AWS; SDK
-  title_abbrev: Get the status of an identity
-  synopsis: get the status of an &SES; identity.
-  category:
   languages:
     .NET:
       versions:
@@ -267,10 +239,6 @@ ses_GetIdentityVerificationAttributes:
   services:
     ses: {GetIdentityVerificationAttributes}
 ses_DeleteIdentity:
-  title: Delete an &SES; identity using an &AWS; SDK
-  title_abbrev: Delete an identity
-  synopsis: delete an &SES; identity.
-  category:
   languages:
     .NET:
       versions:
@@ -311,10 +279,6 @@ ses_DeleteIdentity:
   services:
     ses: {DeleteIdentity}
 ses_ListIdentities:
-  title: List &SES; identities using an &AWS; SDK
-  title_abbrev: List identities
-  synopsis: list &SES; identities.
-  category:
   languages:
     .NET:
       versions:
@@ -373,10 +337,6 @@ ses_ListIdentities:
   services:
     ses: {ListIdentities}
 ses_CreateReceiptFilter:
-  title: Create an &SES; receipt filter using an &AWS; SDK
-  title_abbrev: Create a receipt filter
-  synopsis: create an &SES; receipt filter that blocks incoming mail from an IP address or range of IP addresses.
-  category:
   languages:
     Python:
       versions:
@@ -408,10 +368,6 @@ ses_CreateReceiptFilter:
   services:
     ses: {CreateReceiptFilter}
 ses_ListReceiptFilters:
-  title: List &SES; receipt filters using an &AWS; SDK
-  title_abbrev: List receipt filters
-  synopsis: list &SES; receipt filters.
-  category:
   languages:
     Python:
       versions:
@@ -443,10 +399,6 @@ ses_ListReceiptFilters:
   services:
     ses: {ListReceiptFilters}
 ses_DeleteReceiptFilter:
-  title: Delete an &SES; receipt filter using an &AWS; SDK
-  title_abbrev: Delete a receipt filter
-  synopsis: delete an &SES; receipt filter.
-  category:
   languages:
     Python:
       versions:
@@ -478,10 +430,6 @@ ses_DeleteReceiptFilter:
   services:
     ses: {DeleteReceiptFilter}
 ses_CreateReceiptRuleSet:
-  title: Create an &SES; receipt rule set using an &AWS; SDK
-  title_abbrev: Create a receipt rule set
-  synopsis: create an &SES; receipt rule set to organize rules applied to incoming emails.
-  category:
   languages:
     Python:
       versions:
@@ -513,10 +461,6 @@ ses_CreateReceiptRuleSet:
   services:
     ses: {CreateReceiptRuleSet}
 ses_CreateReceiptRule:
-  title: Create an &SES; receipt rule using an &AWS; SDK
-  title_abbrev: Create a receipt rule
-  synopsis: create an &SES; receipt rule.
-  category:
   languages:
     Python:
       versions:
@@ -550,10 +494,6 @@ ses_CreateReceiptRule:
   services:
     ses: {CreateReceiptRule}
 ses_DescribeReceiptRuleSet:
-  title: Describe an &SES; receipt rule set using an &AWS; SDK
-  title_abbrev: Describe a receipt rule set
-  synopsis: describe an &SES; receipt rule set.
-  category:
   languages:
     Python:
       versions:
@@ -568,10 +508,6 @@ ses_DescribeReceiptRuleSet:
   services:
     ses: {DescribeReceiptRuleSet}
 ses_DeleteReceiptRule:
-  title: Delete an &SES; receipt rule using an &AWS; SDK
-  title_abbrev: Delete a receipt rule
-  synopsis: delete an &SES; receipt rule.
-  category:
   languages:
     Python:
       versions:
@@ -603,10 +539,6 @@ ses_DeleteReceiptRule:
   services:
     ses: {DeleteReceiptRule}
 ses_DeleteReceiptRuleSet:
-  title: Delete an &SES; rule set using an &AWS; SDK
-  title_abbrev: Delete a rule set
-  synopsis: delete an &SES; rule set and all of the rules it contains.
-  category:
   languages:
     Python:
       versions:
@@ -638,10 +570,6 @@ ses_DeleteReceiptRuleSet:
   services:
     ses: {DeleteReceiptRuleSet}
 ses_CreateTemplate:
-  title: Create an &SES; email template using an &AWS; SDK
-  title_abbrev: Create an email template
-  synopsis: create an &SES; email template.
-  category:
   languages:
     .NET:
       versions:
@@ -682,10 +610,6 @@ ses_CreateTemplate:
   services:
     ses: {CreateTemplate}
 ses_DeleteTemplate:
-  title: Delete an &SES; email template using an &AWS; SDK
-  title_abbrev: Delete an email template
-  synopsis: delete an &SES; email template.
-  category:
   languages:
     .NET:
       versions:
@@ -726,10 +650,6 @@ ses_DeleteTemplate:
   services:
     ses: {DeleteTemplate}
 ses_GetTemplate:
-  title: Get an existing &SES; email template using an &AWS; SDK
-  title_abbrev: Get an existing email template
-  synopsis: get an existing &SES; email template.
-  category:
   languages:
     Python:
       versions:
@@ -761,10 +681,6 @@ ses_GetTemplate:
   services:
     ses: {GetTemplate}
 ses_ListTemplates:
-  title: List &SES; email templates using an &AWS; SDK
-  title_abbrev: List email templates
-  synopsis: list &SES; email templates.
-  category:
   languages:
     .NET:
       versions:
@@ -806,10 +722,6 @@ ses_ListTemplates:
   services:
     ses: {ListTemplates}
 ses_UpdateTemplate:
-  title: Update an &SES; email template using an &AWS; SDK
-  title_abbrev: Update an email template
-  synopsis: update an &SES; email template.
-  category:
   languages:
     Python:
       versions:
@@ -841,10 +753,6 @@ ses_UpdateTemplate:
   services:
     ses: {UpdateTemplate}
 ses_GetSendQuota:
-  title: Get &SES; sending limits using an &AWS; SDK
-  title_abbrev: Get sending limits
-  synopsis: get &SES; sending limits.
-  category:
   languages:
     .NET:
       versions:

@@ -1,9 +1,5 @@
 # zexi 0.4.0
 iot-data-plane_GetThingShadow:
-  title: Get the shadow for the specified thing using an &AWS; SDK
-  title_abbrev: Get the shadow
-  synopsis: get the shadow for an &IoT; thing.
-  category:
   languages:
     Kotlin:
       versions:
@@ -33,10 +29,6 @@ iot-data-plane_GetThingShadow:
   services:
     iot-data-plane: {GetThingShadow}
 iot-data-plane_UpdateThingShadow:
-  title: Update the shadow for the specified thing using an &AWS; SDK
-  title_abbrev: Update the shadow
-  synopsis: update the shadow for an &IoT; thing.
-  category:
   languages:
     Kotlin:
       versions:

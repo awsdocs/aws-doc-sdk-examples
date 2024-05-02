@@ -63,10 +63,6 @@ ec2_Hello:
   services:
     ec2: {DescribeSecurityGroups}
 ec2_CreateKeyPair:
-  title: Create a security key pair for &EC2; using an &AWS; SDK
-  title_abbrev: Create a security key pair
-  synopsis: create a security key pair for &EC2;.
-  category:
   languages:
     .NET:
       versions:
@@ -142,10 +138,6 @@ ec2_CreateKeyPair:
   services:
     ec2: {CreateKeyPair}
 ec2_DescribeKeyPairs:
-  title: List &EC2; security key pairs using an &AWS; SDK
-  title_abbrev: List security key pairs
-  synopsis: list &EC2; security key pairs.
-  category:
   languages:
     .NET:
       versions:
@@ -213,10 +205,6 @@ ec2_DescribeKeyPairs:
     ec2: {DescribeKeyPairs}
 
 ec2_CreateSecurityGroup:
-  title: Create an &EC2; security group using an &AWS; SDK
-  title_abbrev: Create a security group
-  synopsis: create an &EC2; security group.
-  category:
   languages:
     .NET:
       versions:
@@ -294,10 +282,6 @@ ec2_CreateSecurityGroup:
   services:
     ec2: {CreateSecurityGroup}
 ec2_RunInstances:
-  title: Create and run an &EC2; instance using an &AWS; SDK
-  title_abbrev: Create and run an instance
-  synopsis: create and run an &EC2; instance.
-  category:
   languages:
     .NET:
       versions:
@@ -366,10 +350,6 @@ ec2_RunInstances:
   services:
     ec2: {RunInstances}
 ec2_StartInstances:
-  title: Start an &EC2; instance using an &AWS; SDK
-  title_abbrev: Start an instance
-  synopsis: start an &EC2; instance.
-  category:
   languages:
     .NET:
       versions:
@@ -453,10 +433,6 @@ ec2_StartInstances:
   services:
     ec2: {StartInstances}
 ec2_StopInstances:
-  title: Stop an &EC2; instance using an &AWS; SDK
-  title_abbrev: Stop an instance
-  synopsis: stop an &EC2; instance.
-  category:
   languages:
     .NET:
       versions:
@@ -540,10 +516,6 @@ ec2_StopInstances:
   services:
     ec2: {StopInstances}
 ec2_AllocateAddress:
-  title: Allocate an Elastic IP address for &EC2; using an &AWS; SDK
-  title_abbrev: Allocate an Elastic IP address
-  synopsis: allocate an Elastic IP address for &EC2;.
-  category:
   languages:
     .NET:
       versions:
@@ -620,10 +592,6 @@ ec2_AllocateAddress:
   services:
     ec2: {AllocateAddress}
 ec2_AssociateAddress:
-  title: Associate an Elastic IP address with an &EC2; instance using an &AWS; SDK
-  title_abbrev: Associate an Elastic IP address with an instance
-  synopsis: associate an Elastic IP address with an &EC2; instance.
-  category:
   languages:
     .NET:
       versions:
@@ -700,10 +668,6 @@ ec2_AssociateAddress:
   services:
     ec2: {AssociateAddress}
 ec2_DisassociateAddress:
-  title: Disassociate an Elastic IP address from an &EC2; instance using an &AWS; SDK
-  title_abbrev: Disassociate an Elastic IP address from an instance
-  synopsis: disassociate an Elastic IP address from an &EC2; instance.
-  category:
   languages:
     .NET:
       versions:
@@ -754,10 +718,6 @@ ec2_DisassociateAddress:
   services:
     ec2: {DisassociateAddress}
 ec2_ReleaseAddress:
-  title: Release an Elastic IP address using an &AWS; SDK
-  title_abbrev: Release an Elastic IP address
-  synopsis: release an Elastic IP address.
-  category:
   languages:
     .NET:
       versions:
@@ -833,10 +793,6 @@ ec2_ReleaseAddress:
   services:
     ec2: {ReleaseAddress}
 ec2_AuthorizeSecurityGroupIngress:
-  title: Set inbound rules for an &EC2; security group using an &AWS; SDK
-  title_abbrev: Set inbound rules for a security group
-  synopsis: set inbound rules for an &EC2; security group.
-  category:
   languages:
     .NET:
       versions:
@@ -897,10 +853,6 @@ ec2_AuthorizeSecurityGroupIngress:
   services:
     ec2: {AuthorizeSecurityGroupIngress}
 ec2_DeleteKeyPair:
-  title: Delete an &EC2; security key pair using an &AWS; SDK
-  title_abbrev: Delete a security key pair
-  synopsis: delete an &EC2; security key pair.
-  category:
   languages:
     Kotlin:
       versions:
@@ -967,10 +919,6 @@ ec2_DeleteKeyPair:
   services:
     ec2: {DeleteKeyPair}
 ec2_DescribeSecurityGroups:
-  title: Get data about an &EC2; security group using an &AWS; SDK
-  title_abbrev: Get data about a security group
-  synopsis: get data about an &EC2; security group.
-  category:
   languages:
     .NET:
       versions:
@@ -1037,10 +985,6 @@ ec2_DescribeSecurityGroups:
   services:
     ec2: {DescribeSecurityGroups}
 ec2_DeleteSecurityGroup:
-  title: Delete an &EC2; security group using an &AWS; SDK
-  title_abbrev: Delete a security group
-  synopsis: delete an &EC2; security group.
-  category:
   languages:
     .NET:
       versions:
@@ -1107,10 +1051,6 @@ ec2_DeleteSecurityGroup:
   services:
     ec2: {DeleteSecurityGroup}
 ec2_DeleteSnapshot:
-  title: Delete the &EBS; snapshot using an &AWS; SDK
-  title_abbrev: Delete a snapshot
-  synopsis: delete an &EBS; snapshot.
-  category:
   languages:
     Rust:
       versions:
@@ -1123,10 +1063,6 @@ ec2_DeleteSnapshot:
   services:
     ec2: {DeleteSnapshot}
 ec2_DescribeSnapshots:
-  title: Describe one or more &EBS; snapshots using an &AWS; SDK
-  title_abbrev: Describe snapshots
-  synopsis: describe &EBS; snapshots.
-  category:
   languages:
     Rust:
       versions:
@@ -1142,10 +1078,6 @@ ec2_DescribeSnapshots:
   services:
     ec2: {DescribeSnapshots}
 ec2_TerminateInstances:
-  title: Terminate an &EC2; instance using an &AWS; SDK
-  title_abbrev: Terminate an instance
-  synopsis: terminate an &EC2; instance.
-  category:
   languages:
     .NET:
       versions:
@@ -1213,10 +1145,6 @@ ec2_TerminateInstances:
   services:
     ec2: {TerminateInstances}
 ec2_DescribeInstances:
-  title: Describe &EC2; instances using an &AWS; SDK
-  title_abbrev: Describe instances
-  synopsis: describe &EC2; instances.
-  category:
   languages:
     Kotlin:
       versions:
@@ -1297,10 +1225,6 @@ ec2_DescribeInstances:
   services:
     ec2: {DescribeInstances}
 ec2_DescribeRegions:
-  title: Describes the Regions for your account using an &AWS; SDK
-  title_abbrev: Describe Regions
-  synopsis: describe &EC2; Regions.
-  category:
   languages:
     Rust:
       versions:
@@ -1347,10 +1271,6 @@ ec2_DescribeRegions:
   services:
     ec2: {DescribeRegions}
 ec2_DescribeInstanceStatus:
-  title: Describes the status of &EC2; instances using an &AWS; SDK
-  title_abbrev: Describe instance status
-  synopsis: describe the status of &EC2; instances.
-  category:
   languages:
     Rust:
       versions:
@@ -1363,10 +1283,6 @@ ec2_DescribeInstanceStatus:
   services:
     ec2: {DescribeInstanceStatus}
 ec2_MonitorInstances:
-  title: Enables monitoring for a running &EC2; instance using an &AWS; SDK
-  title_abbrev: Enable monitoring
-  synopsis: enable monitoring for a running &EC2; instance.
-  category:
   languages:
     Rust:
       versions:
@@ -1404,10 +1320,6 @@ ec2_MonitorInstances:
   services:
     ec2: {MonitorInstances}
 ec2_UnmonitorInstances:
-  title: Disable detailed monitoring for an &EC2; instance using an &AWS; SDK
-  title_abbrev: Disable detailed monitoring
-  synopsis: disable detailed monitoring on an &EC2; instance.
-  category:
   languages:
     C++:
       versions:
@@ -1429,10 +1341,6 @@ ec2_UnmonitorInstances:
   services:
     ec2: {UnmonitorInstances}
 ec2_RebootInstances:
-  title: Reboot an &EC2; instance using an &AWS; SDK
-  title_abbrev: Reboot an instance
-  synopsis: reboot an &EC2; instance.
-  category:
   languages:
     .NET:
       versions:
@@ -1491,10 +1399,6 @@ ec2_RebootInstances:
   services:
     ec2: {RebootInstances}
 ec2_DescribeImages:
-  title: Get data about Amazon Machine Images using an &AWS; SDK
-  title_abbrev: Get data about Amazon Machine Images
-  synopsis: get data about Amazon Machine Images (AMIs).
-  category:
   languages:
     Python:
       versions:
@@ -1518,10 +1422,6 @@ ec2_DescribeImages:
   services:
     ec2: {DescribeImages}
 ec2_DescribeInstanceTypes:
-  title: Get data about &EC2; instance types using an &AWS; SDK
-  title_abbrev: Get data about instance types
-  synopsis: get data about &EC2; instance types.
-  category:
   languages:
     .NET:
       versions:
@@ -1572,10 +1472,6 @@ ec2_DescribeInstanceTypes:
   services:
     ec2: {DescribeInstanceTypes}
 ec2_DescribeAddresses:
-  title: Get details about Elastic IP addresses using an &AWS; SDK
-  title_abbrev: Get details about Elastic IP addresses
-  synopsis: get details about Elastic IP addresses.
-  category:
   languages:
     JavaScript:
       versions:
@@ -1605,10 +1501,6 @@ ec2_DescribeAddresses:
   services:
     ec2: {DescribeAddresses}
 ec2_DescribeAvailabilityZones:
-  title: Describe the Availability Zones for your account using an &AWS; SDK
-  title_abbrev: Describe Availability Zones
-  synopsis: describe &EC2; Availability Zones.
-  category:
   languages:
     .NET:
       versions:
@@ -1647,10 +1539,6 @@ ec2_DescribeAvailabilityZones:
   services:
     ec2: {DescribeAvailabilityZones}
 ec2_CreateTags:
-  title: Add tags to &EC2; resources using an &AWS; SDK
-  title_abbrev: Add tags to resources
-  synopsis: add tags to &EC2; resources.
-  category:
   languages:
     C++:
       versions:
@@ -1665,10 +1553,6 @@ ec2_CreateTags:
   services:
     ec2: {CreateTags}
 ec2_CreateRouteTable:
-  title: Create a route table in Amazon Virtual Private Cloud (Amazon VPC) and associate it with a subnet
-  title_abbrev: Create a route table
-  synopsis: create route table and associate with &EC2; subnet.
-  category:
   languages:
     Ruby:
       versions:
@@ -1682,10 +1566,6 @@ ec2_CreateRouteTable:
   services:
     ec2: {CreateRouteTable}
 ec2_CreateSubnet:
-  title: Create and tag a subnet in Amazon Virtual Private Cloud (Amazon VPC)
-  title_abbrev: Create a subnet
-  synopsis: create an &EC2; subnet.
-  category:
   languages:
     Ruby:
       versions:
@@ -1699,10 +1579,6 @@ ec2_CreateSubnet:
   services:
     ec2: {CreateSubnet}
 ec2_CreateVpc:
-  title: Create a Amazon Virtual Private Cloud (Amazon VPC)
-  title_abbrev: Create a Amazon Virtual Private Cloud (Amazon VPC)
-  synopsis: create a Amazon Virtual Private Cloud (Amazon VPC).
-  category:
   languages:
     Ruby:
       versions:
@@ -1716,10 +1592,6 @@ ec2_CreateVpc:
   services:
     ec2: {CreateVpc}
 ec2_DescribeIamInstanceProfileAssociations:
-  title: Get data about the instance profile associated with an &EC2; instance using an &AWS; SDK
-  title_abbrev: Get data about the instance profile associated with an instance
-  synopsis: get data about the instance profile associated with an &EC2; instance.
-  category:
   languages:
     .NET:
       versions:
@@ -1751,10 +1623,6 @@ ec2_DescribeIamInstanceProfileAssociations:
   services:
     ec2: {DescribeIamInstanceProfileAssociations}
 ec2_ReplaceIamInstanceProfileAssociation:
-  title: Replace the instance profile associated with an &EC2; instance using an &AWS; SDK
-  title_abbrev: Replace the instance profile associated with an instance
-  synopsis: replace the instance profile associated with an &EC2; instance.
-  category:
   languages:
     .NET:
       versions:
@@ -1787,10 +1655,6 @@ ec2_ReplaceIamInstanceProfileAssociation:
   services:
     ec2: {ReplaceIamInstanceProfileAssociation}
 ec2_CreateLaunchTemplate:
-  title: Create an &EC2; launch template using an &AWS; SDK
-  title_abbrev: Create a launch template
-  synopsis: create an &EC2; launch template.
-  category:
   languages:
     .NET:
       versions:
@@ -1823,10 +1687,6 @@ ec2_CreateLaunchTemplate:
   services:
     ec2: {CreateLaunchTemplate}
 ec2_DeleteLaunchTemplate:
-  title: Delete an &EC2; launch template using an &AWS; SDK
-  title_abbrev: Delete a launch template
-  synopsis: delete an &EC2; launch template.
-  category:
   languages:
     .NET:
       versions:
@@ -1858,10 +1718,6 @@ ec2_DeleteLaunchTemplate:
   services:
     ec2: {DeleteLaunchTemplate}
 ec2_DescribeVpcs:
-  title: Get the default VPC using an &AWS; SDK
-  title_abbrev: Get the default VPC
-  synopsis: get the default VPC of the current account.
-  category:
   languages:
     .NET:
       versions:
@@ -1893,10 +1749,6 @@ ec2_DescribeVpcs:
   services:
     ec2: {DescribeVpcs}
 ec2_DescribeSubnets:
-  title: Get the default subnets for a VPC using an &AWS; SDK
-  title_abbrev: Get the default subnets for a VPC
-  synopsis: get the default subnets for a VPC.
-  category:
   languages:
     .NET:
       versions:

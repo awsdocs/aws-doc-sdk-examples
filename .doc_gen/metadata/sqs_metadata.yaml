@@ -61,10 +61,6 @@ sqs_Hello:
   services:
     sqs: {ListQueues}
 sqs_CreateQueue:
-  title: Create an &SQS; queue using an &AWS; SDK
-  title_abbrev: Create a queue
-  synopsis: create an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -170,10 +166,6 @@ sqs_CreateQueue:
   services:
     sqs: {CreateQueue}
 sqs_GetQueueUrl:
-  title: Get the URL of an &SQS; queue using an &AWS; SDK
-  title_abbrev: Get the URL of a queue
-  synopsis: get the URL of an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -240,10 +232,6 @@ sqs_GetQueueUrl:
   services:
     sqs: {GetQueueUrl}
 sqs_ListQueues:
-  title: List &SQS; queues using an &AWS; SDK
-  title_abbrev: List queues
-  synopsis: list &SQS; queues.
-  category:
   languages:
     Go:
       versions:
@@ -335,10 +323,6 @@ sqs_ListQueues:
   services:
     sqs: {ListQueues}
 sqs_DeleteQueue:
-  title: Delete an &SQS; queue using an &AWS; SDK
-  title_abbrev: Delete a queue
-  synopsis: delete an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -433,10 +417,6 @@ sqs_DeleteQueue:
   services:
     sqs: {DeleteQueue}
 sqs_SendMessage:
-  title: Send a message to an &SQS; queue using an &AWS; SDK
-  title_abbrev: Send a message to a queue
-  synopsis: send a message to an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -529,10 +509,6 @@ sqs_SendMessage:
   services:
     sqs: {SendMessage}
 sqs_SendMessageBatch:
-  title: Send a batch of messages to an &SQS; queue using an &AWS; SDK
-  title_abbrev: Send a batch of messages to a queue
-  synopsis: send a batch of messages to an &SQS; queue.
-  category:
   languages:
     Java:
       versions:
@@ -564,10 +540,6 @@ sqs_SendMessageBatch:
   services:
     sqs: {SendMessageBatch}
 sqs_ReceiveMessage:
-  title: Receive messages from an &SQS; queue using an &AWS; SDK
-  title_abbrev: Receive messages from a queue
-  synopsis: receive messages from an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -680,10 +652,6 @@ sqs_ReceiveMessage:
   services:
     sqs: {ReceiveMessage}
 sqs_DeleteMessage:
-  title: Delete a message from an &SQS; queue using an &AWS; SDK
-  title_abbrev: Delete a message from a queue
-  synopsis: delete a message from an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -751,10 +719,6 @@ sqs_DeleteMessage:
   services:
     sqs: {DeleteMessage}
 sqs_DeleteMessageBatch:
-  title: Delete a batch of messages from an &SQS; queue using an &AWS; SDK
-  title_abbrev: Delete a batch of messages from a queue
-  synopsis: delete a batch of messages from an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -831,10 +795,6 @@ sqs_Scenario_SendReceiveBatch:
   services:
     sqs: {CreateQueue, DeleteQueue, SendMessageBatch, ReceiveMessage, DeleteMessageBatch}
 sqs_GetQueueAttributes:
-  title: Get attributes for an &SQS; queue
-  title_abbrev: Get attributes for a queue
-  synopsis: get attributes for an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -879,10 +839,6 @@ sqs_GetQueueAttributes:
   services:
     sqs: {GetQueueAttributes}
 sqs_ChangeMessageVisibility:
-  title: Receive an &SQS; message and change its timeout visibility
-  title_abbrev: Change message timeout visibility
-  synopsis: change an &SQS; message timeout visibility.
-  category:
   languages:
     JavaScript:
       versions:
@@ -923,10 +879,6 @@ sqs_ChangeMessageVisibility:
   services:
     sqs: {ChangeMessageVisibility}
 sqs_SetQueueAttributes:
-  title: Set &SQS; queue attributes
-  title_abbrev: Set queue attributes
-  synopsis: set the attributes for an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:

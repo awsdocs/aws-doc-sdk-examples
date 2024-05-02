@@ -1,9 +1,5 @@
 # zexi 0.4.2
 sts_AssumeRole:
-  title: Assume a role with &STS; using an &AWS; SDK
-  title_abbrev: Assume a role
-  synopsis: assume a role with &STS;.
-  category:
   languages:
     .NET:
       versions:
@@ -99,10 +95,6 @@ sts_AssumeRole:
   services:
     sts: {AssumeRole}
 sts_GetSessionToken:
-  title: Get a session token with &STS; using an &AWS; SDK
-  title_abbrev: Get a session token
-  synopsis: get a session token with &STS; and use it to perform a service action that requires an MFA token.
-  category:
   languages:
     Python:
       versions:

@@ -1,9 +1,5 @@
 # zexi 0.4.0
 comprehend_CreateDocumentClassifier:
-  title: Create an &CMP; document classifier using an &AWS; SDK
-  title_abbrev: Create a document classifier
-  synopsis: create an &CMP; document classifier.
-  category:
   languages:
     Java:
       versions:
@@ -27,10 +23,6 @@ comprehend_CreateDocumentClassifier:
   services:
     comprehend: {CreateDocumentClassifier}
 comprehend_DescribeDocumentClassifier:
-  title: Describe an &CMP; document classifier using an &AWS; SDK
-  title_abbrev: Describe a document classifier
-  synopsis: describe an &CMP; document classifier.
-  category:
   languages:
     Python:
       versions:
@@ -45,10 +37,6 @@ comprehend_DescribeDocumentClassifier:
   services:
     comprehend: {DescribeDocumentClassifier}
 comprehend_ListDocumentClassifiers:
-  title: List &CMP; document classifiers using an &AWS; SDK
-  title_abbrev: List document classifiers
-  synopsis: list &CMP; document classifiers.
-  category:
   languages:
     Python:
       versions:
@@ -63,10 +51,6 @@ comprehend_ListDocumentClassifiers:
   services:
     comprehend: {ListDocumentClassifiers}
 comprehend_DeleteDocumentClassifier:
-  title: Delete an &CMP; document classifier using an &AWS; SDK
-  title_abbrev: Delete a document classifier
-  synopsis: delete an &CMP; document classifier.
-  category:
   languages:
     Python:
       versions:
@@ -81,10 +65,6 @@ comprehend_DeleteDocumentClassifier:
   services:
     comprehend: {DeleteDocumentClassifier}
 comprehend_StartDocumentClassificationJob:
-  title: Start an &CMP; document classification job using an &AWS; SDK
-  title_abbrev: Start a document classification job
-  synopsis: start an &CMP; document classification job.
-  category:
   languages:
     Python:
       versions:
@@ -99,10 +79,6 @@ comprehend_StartDocumentClassificationJob:
   services:
     comprehend: {StartDocumentClassificationJob}
 comprehend_DescribeDocumentClassificationJob:
-  title: Describe an &CMP; document classification job using an &AWS; SDK
-  title_abbrev: Describe a document classification job
-  synopsis: describe an &CMP; document classification job.
-  category:
   languages:
     Python:
       versions:
@@ -117,10 +93,6 @@ comprehend_DescribeDocumentClassificationJob:
   services:
     comprehend: {DescribeDocumentClassificationJob}
 comprehend_ListDocumentClassificationJobs:
-  title: List &CMP; document classification jobs using an &AWS; SDK
-  title_abbrev: List document classification jobs
-  synopsis: list &CMP; document classification jobs.
-  category:
   languages:
     Python:
       versions:
@@ -171,10 +143,6 @@ comprehend_Usage_ComprehendClassifier:
     comprehend: {CreateDocumentClassifier, DescribeDocumentClassifier, ListDocumentClassifiers, DeleteDocumentClassifier,
       StartDocumentClassificationJob, DescribeDocumentClassificationJob, ListDocumentClassificationJobs}
 comprehend_DetectDominantLanguage:
-  title: Detect the dominant language in a document with &CMP; using an &AWS; SDK
-  title_abbrev: Detect the dominant language in a document
-  synopsis: detect the dominant language in a document with &CMP;.
-  category:
   languages:
     .NET:
       versions:
@@ -207,10 +175,6 @@ comprehend_DetectDominantLanguage:
   services:
     comprehend: {DetectDominantLanguage}
 comprehend_DetectEntities:
-  title: Detect entities in a document with &CMP; using an &AWS; SDK
-  title_abbrev: Detect entities in a document
-  synopsis: detect entities in a document with &CMP;.
-  category:
   languages:
     .NET:
       versions:
@@ -243,10 +207,6 @@ comprehend_DetectEntities:
   services:
     comprehend: {DetectEntities}
 comprehend_DetectKeyPhrases:
-  title: Detect key phrases in a document with &CMP; using an &AWS; SDK
-  title_abbrev: Detect key phrases in a document
-  synopsis: detect key phrases in a document with &CMP;.
-  category:
   languages:
     .NET:
       versions:
@@ -279,10 +239,6 @@ comprehend_DetectKeyPhrases:
   services:
     comprehend: {DetectKeyPhrases}
 comprehend_DetectPiiEntities:
-  title: Detect personally identifiable information in a document with &CMP; using an &AWS; SDK
-  title_abbrev: Detect personally identifiable information in a document
-  synopsis: detect personally identifiable information (PII) in a document with &CMP;.
-  category:
   languages:
     .NET:
       versions:
@@ -306,10 +262,6 @@ comprehend_DetectPiiEntities:
   services:
     comprehend: {DetectPiiEntities}
 comprehend_DetectSentiment:
-  title: Detect the sentiment of a document with &CMP; using an &AWS; SDK
-  title_abbrev: Detect the sentiment of a document
-  synopsis: detect the sentiment of a document with &CMP;.
-  category:
   languages:
     .NET:
       versions:
@@ -342,10 +294,6 @@ comprehend_DetectSentiment:
   services:
     comprehend: {DetectSentiment}
 comprehend_DetectSyntax:
-  title: Detect syntactial elements of a document with &CMP; using an &AWS; SDK
-  title_abbrev: Detect syntactical elements of a document
-  synopsis: detect syntactial elements of a document with &CMP;.
-  category:
   languages:
     .NET:
       versions:
@@ -409,10 +357,6 @@ comprehend_Usage_DetectApis:
   services:
     comprehend: {DetectDominantLanguage, DetectEntities, DetectKeyPhrases, DetectPiiEntities, DetectSentiment, DetectSyntax}
 comprehend_StartTopicsDetectionJob:
-  title: Start an &CMP; topic modeling job using an &AWS; SDK
-  title_abbrev: Start a topic modeling job
-  synopsis: start an &CMP; topic modeling job.
-  category:
   languages:
     .NET:
       versions:
@@ -436,10 +380,6 @@ comprehend_StartTopicsDetectionJob:
   services:
     comprehend: {StartTopicsDetectionJob}
 comprehend_DescribeTopicsDetectionJob:
-  title: Describe an &CMP; topic modeling job using an &AWS; SDK
-  title_abbrev: Describe a topic modeling job
-  synopsis: describe an &CMP; topic modeling job.
-  category:
   languages:
     Python:
       versions:
@@ -454,10 +394,6 @@ comprehend_DescribeTopicsDetectionJob:
   services:
     comprehend: {DescribeTopicsDetectionJob}
 comprehend_ListTopicsDetectionJobs:
-  title: List &CMP; topic modeling jobs using an &AWS; SDK
-  title_abbrev: List topic modeling jobs
-  synopsis: list &CMP; topic modeling jobs.
-  category:
   languages:
     Python:
       versions:

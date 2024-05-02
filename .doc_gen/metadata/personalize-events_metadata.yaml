@@ -1,8 +1,4 @@
 personalize-events_PutEvents:
-  title: Import real-time interaction event data into &PERSE; using an &AWS; SDK
-  title_abbrev: Import real-time interaction event data
-  synopsis: import real-time interaction event data into &PERSE;.
-  category:
   languages:
     Java:
       versions:
@@ -25,10 +21,6 @@ personalize-events_PutEvents:
   services:
     personalize-events: {PutEvents}
 personalize-events_PutItems:
-  title: Incrementally import items into &PERSE; using an &AWS; SDK
-  title_abbrev: Import items into a dataset
-  synopsis: incrementally import items into an &PERSE; dataset.
-  category:
   languages:
     JavaScript:
       versions:
@@ -42,10 +34,6 @@ personalize-events_PutItems:
   services:
     personalize-events: {PutItems}
 personalize-events_PutUsers:
-  title: Incrementally import users into &PERSE; Events using an &AWS; SDK
-  title_abbrev: Incrementally import a user
-  synopsis: incrementally import a user into &PERSE; Events.
-  category:
   languages:
     Java:
       versions:

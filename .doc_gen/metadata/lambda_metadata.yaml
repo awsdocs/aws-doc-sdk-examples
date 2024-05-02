@@ -54,10 +54,6 @@ lambda_Hello:
   services:
     lambda: {ListFunctions}
 lambda_CreateFunction:
-  title: Create a &LAM; function using an &AWS; SDK
-  title_abbrev: Create a function
-  synopsis: create a &LAM; function.
-  category:
   languages:
     .NET:
       versions:
@@ -163,10 +159,6 @@ lambda_CreateFunction:
   services:
     lambda: {CreateFunction}
 lambda_DeleteFunction:
-  title: Delete a &LAM; function using an &AWS; SDK
-  title_abbrev: Delete a function
-  synopsis: delete a &LAM; function.
-  category:
   languages:
     .NET:
       versions:
@@ -270,10 +262,6 @@ lambda_DeleteFunction:
   services:
     lambda: {DeleteFunction}
 lambda_Invoke:
-  title: Invoke a &LAM; function using an &AWS; SDK
-  title_abbrev: Invoke a function
-  synopsis: invoke a &LAM; function.
-  category:
   languages:
     .NET:
       versions:
@@ -379,10 +367,6 @@ lambda_Invoke:
   services:
     lambda: {Invoke}
 lambda_GetFunction:
-  title: Get a &LAM; function using an &AWS; SDK
-  title_abbrev: Get a function
-  synopsis: get a &LAM; function.
-  category:
   languages:
     .NET:
       versions:
@@ -468,10 +452,6 @@ lambda_GetFunction:
   services:
     lambda: {GetFunction}
 lambda_UpdateFunctionCode:
-  title: Update &LAM; function code using an &AWS; SDK
-  title_abbrev: Update function code
-  synopsis: update &LAM; function code.
-  category:
   languages:
     .NET:
       versions:
@@ -558,10 +538,6 @@ lambda_UpdateFunctionCode:
   services:
     lambda: {UpdateFunctionCode}
 lambda_UpdateFunctionConfiguration:
-  title: Update &LAM; function configuration using an &AWS; SDK
-  title_abbrev: Update function configuration
-  synopsis: update &LAM; function configuration.
-  category:
   languages:
     .NET:
       versions:
@@ -647,10 +623,6 @@ lambda_UpdateFunctionConfiguration:
   services:
     lambda: {UpdateFunctionConfiguration}
 lambda_ListFunctions:
-  title: List &LAM; functions using an &AWS; SDK
-  title_abbrev: List functions
-  synopsis: list &LAM; functions.
-  category:
   languages:
     .NET:
       versions:

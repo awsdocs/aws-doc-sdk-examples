@@ -34,10 +34,6 @@ route-53-domains_Hello:
   services:
     route-53-domains: {ListPrices}
 route-53-domains_CheckDomainAvailability:
-  title: Check the availability of a domain using an &AWS; SDK
-  title_abbrev: Check domain availability
-  synopsis: check the availability of a domain.
-  category:
   languages:
     Kotlin:
       versions:
@@ -69,10 +65,6 @@ route-53-domains_CheckDomainAvailability:
   services:
     route-53-domains: {CheckDomainAvailability}
 route-53-domains_CheckDomainTransferability:
-  title: Check the transferability of a domain using an &AWS; SDK
-  title_abbrev: Check domain transferability
-  synopsis: check the transferability of a domain.
-  category:
   languages:
     Kotlin:
       versions:
@@ -104,10 +96,6 @@ route-53-domains_CheckDomainTransferability:
   services:
     route-53-domains: {CheckDomainTransferability}
 route-53-domains_GetDomainDetail:
-  title: Get &R53DR; domain details using an &AWS; SDK
-  title_abbrev: Get domain details
-  synopsis: get the details for a domain.
-  category:
   languages:
     Kotlin:
       versions:
@@ -139,10 +127,6 @@ route-53-domains_GetDomainDetail:
   services:
     route-53-domains: {GetDomainDetail}
 route-53-domains_GetDomainSuggestions:
-  title: Get &R53DR; domain name suggestions using an &AWS; SDK
-  title_abbrev: Get suggested domain names
-  synopsis: get domain name suggestions.
-  category:
   languages:
     Kotlin:
       versions:
@@ -174,10 +158,6 @@ route-53-domains_GetDomainSuggestions:
   services:
     route-53-domains: {GetDomainSuggestions}
 route-53-domains_GetOperationDetail:
-  title: Get details on a &R53DR; operation using an &AWS; SDK
-  title_abbrev: Get operation details
-  synopsis: get details on an operation.
-  category:
   languages:
     Kotlin:
       versions:
@@ -209,10 +189,6 @@ route-53-domains_GetOperationDetail:
   services:
     route-53-domains: {GetOperationDetail}
 route-53-domains_ListPrices:
-  title: List &R53DR; domain prices using an &AWS; SDK
-  title_abbrev: List domain prices
-  synopsis: list domain prices.
-  category:
   languages:
     Kotlin:
       versions:
@@ -244,10 +220,6 @@ route-53-domains_ListPrices:
   services:
     route-53-domains: {ListPrices}
 route-53-domains_ListDomains:
-  title: List &R53DR; registered domains using an &AWS; SDK
-  title_abbrev: List domains
-  synopsis: list the registered domains.
-  category:
   languages:
     Kotlin:
       versions:
@@ -279,10 +251,6 @@ route-53-domains_ListDomains:
   services:
     route-53-domains: {ListDomains}
 route-53-domains_ListOperations:
-  title: List &R53DR; operations using an &AWS; SDK
-  title_abbrev: List operations
-  synopsis: list operations.
-  category:
   languages:
     Kotlin:
       versions:
@@ -314,10 +282,6 @@ route-53-domains_ListOperations:
   services:
     route-53-domains: {ListOperations}
 route-53-domains_RegisterDomain:
-  title: Register a domain with &R53DR; using an &AWS; SDK
-  title_abbrev: Register a domain
-  synopsis: register a domain.
-  category:
   languages:
     Kotlin:
       versions:
@@ -349,10 +313,6 @@ route-53-domains_RegisterDomain:
   services:
     route-53-domains: {RegisterDomain}
 route-53-domains_ViewBilling:
-  title: View &R53DR; billing records using an &AWS; SDK
-  title_abbrev: View billing
-  synopsis: view billing records.
-  category:
   languages:
     Kotlin:
       versions:

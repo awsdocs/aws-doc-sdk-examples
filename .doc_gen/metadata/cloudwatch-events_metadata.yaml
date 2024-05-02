@@ -1,9 +1,5 @@
 # zexi 0.4.0
 cloudwatch-events_PutRule:
-  title: Create a &CWE; scheduled rule using an &AWS; SDK
-  title_abbrev: Create a scheduled rule
-  synopsis: create an &CWElong; scheduled rule.
-  category:
   languages:
     Java:
       versions:
@@ -36,10 +32,6 @@ cloudwatch-events_PutRule:
   services:
     cloudwatch-events: {PutRule}
 cloudwatch-events_PutEvents:
-  title: Send &CWE; events using an &AWS; SDK
-  title_abbrev: Send events
-  synopsis: send &CWElong; events.
-  category:
   languages:
     Java:
       versions:
@@ -74,10 +66,6 @@ cloudwatch-events_PutEvents:
   services:
     cloudwatch-events: {PutEvents}
 cloudwatch-events_PutTargets:
-  title: Add a target using an &AWS; SDK
-  title_abbrev: Adding a target
-  synopsis: add a target to an &CWElong; event.
-  category:
   languages:
     Java:
       versions:

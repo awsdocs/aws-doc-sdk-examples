@@ -1,9 +1,5 @@
 # zexi 0.4.0
 api-gateway_CreateDeployment:
-  title: Deploy an &ABP; REST API using an &AWS; SDK
-  title_abbrev: Deploy a REST API
-  synopsis: deploy an &ABP; REST API.
-  category:
   languages:
     Java:
       versions:
@@ -28,10 +24,6 @@ api-gateway_CreateDeployment:
   services:
     api-gateway: {CreateDeployment}
 api-gateway_CreateResource:
-  title: Create an &ABP; REST resource using an &AWS; SDK
-  title_abbrev: Create a REST resource
-  synopsis: create an &ABP; REST resource.
-  category:
   languages:
     Python:
       versions:
@@ -46,10 +38,6 @@ api-gateway_CreateResource:
   services:
     api-gateway: {CreateResource}
 api-gateway_CreateRestApi:
-  title: Create an &ABP; REST API using an &AWS; SDK
-  title_abbrev: Create a REST API
-  synopsis: create an &ABP; REST API.
-  category:
   languages:
     Java:
       versions:
@@ -73,10 +61,6 @@ api-gateway_CreateRestApi:
   services:
     api-gateway: {CreateRestApi}
 api-gateway_DeleteDeployment:
-  title: Delete an &ABP; deployment using an &AWS; SDK
-  title_abbrev: Delete a deployment
-  synopsis: delete a deployment.
-  category:
   languages:
     Java:
       versions:
@@ -90,10 +74,6 @@ api-gateway_DeleteDeployment:
   services:
     api-gateway: {DeleteDeployment}
 api-gateway_DeleteRestApi:
-  title: Delete an &ABP; REST API using an &AWS; SDK
-  title_abbrev: Delete a REST API
-  synopsis: delete an &ABP; REST API.
-  category:
   languages:
     Java:
       versions:
@@ -117,10 +97,6 @@ api-gateway_DeleteRestApi:
   services:
     api-gateway: {DeleteRestApi}
 api-gateway_GetBasePathMapping:
-  title: Get the base path mapping for a custom domain name in &ABP;
-  title_abbrev: Get base path mapping
-  synopsis: get an &ABP; base path mapping.
-  category:
   languages:
     PHP:
       versions:
@@ -134,10 +110,6 @@ api-gateway_GetBasePathMapping:
   services:
     api-gateway: {GetBasePathMapping}
 api-gateway_GetResources:
-  title: Get &ABP; REST resources using an &AWS; SDK
-  title_abbrev: Get REST resources
-  synopsis: get &ABP; REST resources.
-  category:
   languages:
     Python:
       versions:
@@ -152,10 +124,6 @@ api-gateway_GetResources:
   services:
     api-gateway: {GetResources}
 api-gateway_GetRestApis:
-  title: List &ABP; REST APIs using an &AWS; SDK
-  title_abbrev: List REST APIs
-  synopsis: list &ABP; REST APIs.
-  category:
   languages:
     Python:
       versions:
@@ -179,10 +147,6 @@ api-gateway_GetRestApis:
   services:
     api-gateway: {GetRestApis}
 api-gateway_ListBasePathMappings:
-  title: List the base path mapping for a custom domain name in &ABP;
-  title_abbrev: List base path mapping
-  synopsis: list an &ABP; base path mapping.
-  category:
   languages:
     PHP:
       versions:
@@ -196,10 +160,6 @@ api-gateway_ListBasePathMappings:
   services:
     api-gateway: {ListBasePathMappings}
 api-gateway_PutIntegration:
-  title: Integrate an &ABP; method with an &AWS; service using an &AWS; SDK
-  title_abbrev: Integrate a method with an &AWS; service
-  synopsis: integrate an &ABP; method with an &AWS; service.
-  category:
   languages:
     Python:
       versions:
@@ -214,10 +174,6 @@ api-gateway_PutIntegration:
   services:
     api-gateway: {PutIntegration}
 api-gateway_PutIntegrationResponse:
-  title: Add a response from an &AWS; service integrated with an &ABP; method using an &AWS; SDK
-  title_abbrev: Add a response from an &AWS; service integrated with a method
-  synopsis: add a response from an &AWS; service integrated with an &ABP; method.
-  category:
   languages:
     Python:
       versions:
@@ -232,10 +188,6 @@ api-gateway_PutIntegrationResponse:
   services:
     api-gateway: {PutIntegrationResponse}
 api-gateway_PutMethod:
-  title: Add an HTTP method to an &ABP; REST resource using an &AWS; SDK
-  title_abbrev: Add an HTTP method to a REST resource
-  synopsis: add an HTTP method to an &ABP; REST resource.
-  category:
   languages:
     Python:
       versions:
@@ -250,10 +202,6 @@ api-gateway_PutMethod:
   services:
     api-gateway: {PutMethod}
 api-gateway_PutMethodResponse:
-  title: Add an HTTP response to an &ABP; REST resource using an &AWS; SDK
-  title_abbrev: Add an HTTP response to a REST resource
-  synopsis: add an HTTP response to an &ABP; REST resource.
-  category:
   languages:
     Python:
       versions:
@@ -268,10 +216,6 @@ api-gateway_PutMethodResponse:
   services:
     api-gateway: {PutMethodResponse}
 api-gateway_UpdateBasePathMapping:
-  title: Update the base path mapping for a custom domain name in &ABP;
-  title_abbrev: Update base path mapping
-  synopsis: update an &ABP; base path mapping.
-  category:
   languages:
     PHP:
       versions:

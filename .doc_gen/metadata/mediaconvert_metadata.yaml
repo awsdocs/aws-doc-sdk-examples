@@ -16,10 +16,6 @@ mediaconvert_Hello:
   services:
     mediaconvert: {DescribeEndpoints}
 mediaconvert_CreateJob:
-  title: Create a &EMC; transcoding job using an &AWS; SDK
-  title_abbrev: Create a transcoding job
-  synopsis: create an &EMClong; transcoding job.
-  category:
   languages:
     .NET:
       versions:
@@ -64,10 +60,6 @@ mediaconvert_CreateJob:
   services:
     mediaconvert: {CreateJob}
 mediaconvert_ListJobs:
-  title: List &EMC; transcoding jobs using an &AWS; SDK
-  title_abbrev: List transcoding jobs
-  synopsis: list &EMClong; transcoding jobs.
-  category:
   languages:
     .NET:
       versions:
@@ -112,10 +104,6 @@ mediaconvert_ListJobs:
   services:
     mediaconvert: {ListJobs}
 mediaconvert_GetJob:
-  title: Get a &EMC; transcoding job using an &AWS; SDK
-  title_abbrev: Get a transcoding job
-  synopsis: get an &EMClong; transcoding job.
-  category:
   languages:
     .NET:
       versions:

@@ -35,10 +35,6 @@ eventbridge_Hello:
   services:
     eventbridge: {ListEventBuses}
 eventbridge_DeleteRule:
-  title: Delete an &EV; rule using an &AWS; SDK
-  title_abbrev: Delete a rule
-  synopsis: delete an &EVlong; rule.
-  category:
   languages:
     .NET:
       versions:
@@ -70,10 +66,6 @@ eventbridge_DeleteRule:
   services:
     eventbridge: {DeleteRule}
 eventbridge_DescribeRule:
-  title: Describe an &EV; rule using an &AWS; SDK
-  title_abbrev: Describe a rule
-  synopsis: describe an &EVlong; rule.
-  category:
   languages:
     Java:
       versions:
@@ -105,10 +97,6 @@ eventbridge_DescribeRule:
   services:
     eventbridge: {DescribeRule}
 eventbridge_DisableRule:
-  title: Disable an &EV; rule using an &AWS; SDK
-  title_abbrev: Disable a rule
-  synopsis: disable an &EVlong; rule.
-  category:
   languages:
     Kotlin:
       versions:
@@ -140,10 +128,6 @@ eventbridge_DisableRule:
   services:
     eventbridge: {DisableRule}
 eventbridge_EnableRule:
-  title: Enable an &EV; rule using an &AWS; SDK
-  title_abbrev: Enable a rule
-  synopsis: enable an &EVlong; rule.
-  category:
   languages:
     Kotlin:
       versions:
@@ -175,10 +159,6 @@ eventbridge_EnableRule:
   services:
     eventbridge: {EnableRule}
 eventbridge_ListRules:
-  title: List &EV; rules using an &AWS; SDK
-  title_abbrev: List rules
-  synopsis: list &EVlong; rules.
-  category:
   languages:
     Kotlin:
       versions:
@@ -210,10 +190,6 @@ eventbridge_ListRules:
   services:
     eventbridge: {ListRules}
 eventbridge_ListRuleNamesByTarget:
-  title: List &EV; rule names for a target using an &AWS; SDK
-  title_abbrev: List rule names for a target
-  synopsis: list &EVlong; rule names for a target.
-  category:
   languages:
     Kotlin:
       versions:
@@ -245,10 +221,6 @@ eventbridge_ListRuleNamesByTarget:
   services:
     eventbridge: {ListRuleNamesByTarget}
 eventbridge_ListTargetsByRule:
-  title: List &EV; targets for a rule using an &AWS; SDK
-  title_abbrev: List targets for a rule
-  synopsis: list &EVlong; targets for a rule.
-  category:
   languages:
     Kotlin:
       versions:
@@ -280,10 +252,6 @@ eventbridge_ListTargetsByRule:
   services:
     eventbridge: {ListTargetsByRule}
 eventbridge_PutRule:
-  title: Create an &EV; rule using an &AWS; SDK
-  title_abbrev: Create a rule
-  synopsis: create an &EVlong; rule.
-  category:
   languages:
     .NET:
       versions:
@@ -352,10 +320,6 @@ eventbridge_PutRule:
   services:
     eventbridge: {PutRule}
 eventbridge_PutEvents:
-  title: Send &EV; events using an &AWS; SDK
-  title_abbrev: Send events
-  synopsis: send &EVlong; events.
-  category:
   languages:
     .NET:
       versions:
@@ -415,10 +379,6 @@ eventbridge_PutEvents:
   services:
     eventbridge: {PutEvents}
 eventbridge_PutTargets:
-  title: Add a target using an &AWS; SDK
-  title_abbrev: Add a target
-  synopsis: add a target to an &EVlong; event.
-  category:
   languages:
     Kotlin:
       versions:
@@ -487,10 +447,6 @@ eventbridge_PutTargets:
   services:
     eventbridge: {PutTargets}
 eventbridge_RemoveTargets:
-  title: Remove &EV; targets from a rule using an &AWS; SDK
-  title_abbrev: Remove targets from a rule
-  synopsis: remove &EVlong; targets from a rule.
-  category:
   languages:
     Kotlin:
       versions:

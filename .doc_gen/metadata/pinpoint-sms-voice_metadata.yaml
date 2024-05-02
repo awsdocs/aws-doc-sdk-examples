@@ -1,8 +1,4 @@
 pinpoint-sms-voice_SendVoiceMessage:
-  title: Send a voice message with &PIN-SMS-Voice-API; using an &AWS; SDK
-  title_abbrev: Send a voice message with &PIN-SMS-Voice-API;
-  synopsis: send a voice message with &PIN-SMS-Voice-API;.
-  category:
   languages:
     Java:
       versions:

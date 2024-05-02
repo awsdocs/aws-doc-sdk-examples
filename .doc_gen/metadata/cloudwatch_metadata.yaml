@@ -34,10 +34,6 @@ cloudwatch_Hello:
   services:
     cloudwatch: {ListMetrics}
 cloudwatch_DeleteAlarms:
-  title: Delete &CW; alarms using an &AWS; SDK
-  title_abbrev: Delete alarms
-  synopsis: delete &CWlong; alarms.
-  category:
   languages:
     Kotlin:
       versions:
@@ -120,10 +116,6 @@ cloudwatch_DeleteAlarms:
   services:
     cloudwatch: {DeleteAlarms}
 cloudwatch_DeleteAnomalyDetector:
-  title: Delete a &CW; anomaly detector using an &AWS; SDK
-  title_abbrev: Delete an anomaly detector
-  synopsis: delete an &CWlong; anomaly detector.
-  category:
   languages:
     Kotlin:
       versions:
@@ -155,10 +147,6 @@ cloudwatch_DeleteAnomalyDetector:
   services:
     cloudwatch: {DeleteAnomalyDetector}
 cloudwatch_DeleteDashboards:
-  title: Delete &CW; dashboards using an &AWS; SDK
-  title_abbrev: Delete dashboards
-  synopsis: delete &CWlong; dashboards.
-  category:
   languages:
     Kotlin:
       versions:
@@ -190,10 +178,6 @@ cloudwatch_DeleteDashboards:
   services:
     cloudwatch: {DeleteDashboards}
 cloudwatch_DescribeAlarmHistory:
-  title: Describe &CW; alarm history using an &AWS; SDK
-  title_abbrev: Describe alarm history
-  synopsis: describe an &CWlong; alarm history.
-  category:
   languages:
     Kotlin:
       versions:
@@ -225,10 +209,6 @@ cloudwatch_DescribeAlarmHistory:
   services:
     cloudwatch: {DescribeAlarmHistory}
 cloudwatch_DescribeAlarms:
-  title: Describe &CW; alarms using an &AWS; SDK
-  title_abbrev: Describe alarms
-  synopsis: describe &CWlong; alarms.
-  category:
   languages:
     Kotlin:
       versions:
@@ -277,10 +257,6 @@ cloudwatch_DescribeAlarms:
   services:
     cloudwatch: {DescribeAlarms}
 cloudwatch_DescribeAlarmsForMetric:
-  title: Describe &CW; alarms for a metric using an &AWS; SDK
-  title_abbrev: Describe alarms for a metric
-  synopsis: describe &CWlong; alarms for a metric.
-  category:
   languages:
     .NET:
       versions:
@@ -364,10 +340,6 @@ cloudwatch_DescribeAlarmsForMetric:
   services:
     cloudwatch: {DescribeAlarmsForMetric}
 cloudwatch_DescribeAnomalyDetectors:
-  title: Describe &CW; anomaly detectors using an &AWS; SDK
-  title_abbrev: Describe anomaly detectors
-  synopsis: describe &CWlong; anomaly detectors.
-  category:
   languages:
     Kotlin:
       versions:
@@ -399,10 +371,6 @@ cloudwatch_DescribeAnomalyDetectors:
   services:
     cloudwatch: {DescribeAnomalyDetectors}
 cloudwatch_DisableAlarmActions:
-  title: Disable &CW; alarm actions using an &AWS; SDK
-  title_abbrev: Disable alarm actions
-  synopsis: disable &CWlong; alarm actions.
-  category:
   languages:
     Kotlin:
       versions:
@@ -494,10 +462,6 @@ cloudwatch_DisableAlarmActions:
   services:
     cloudwatch: {DisableAlarmActions}
 cloudwatch_EnableAlarmActions:
-  title: Enable &CW; alarm actions using an &AWS; SDK
-  title_abbrev: Enable alarm actions
-  synopsis: enable &CWlong; alarm actions.
-  category:
   languages:
     .NET:
       versions:
@@ -580,10 +544,6 @@ cloudwatch_EnableAlarmActions:
   services:
     cloudwatch: {EnableAlarmActions}
 cloudwatch_GetDashboard:
-  title: Get the details of a &CW; dashboard
-  title_abbrev: Get dashboard details
-  synopsis: get &CWlong; dashboard details.
-  category:
   languages:
     .NET:
       versions:
@@ -597,10 +557,6 @@ cloudwatch_GetDashboard:
   services:
     cloudwatch: {GetDashboard}
 cloudwatch_GetMetricData:
-  title: Get values of &CW; metric data
-  title_abbrev: Get metric data
-  synopsis: get &CWlong; metric data.
-  category:
   languages:
     Kotlin:
       versions:
@@ -632,10 +588,6 @@ cloudwatch_GetMetricData:
   services:
     cloudwatch: {GetMetricData}
 cloudwatch_GetMetricStatistics:
-  title: Get &CW; metric statistics using an &AWS; SDK
-  title_abbrev: Get metric statistics
-  synopsis: get &CWlong; metric statistics.
-  category:
   languages:
     Kotlin:
       versions:
@@ -678,10 +630,6 @@ cloudwatch_GetMetricStatistics:
   services:
     cloudwatch: {GetMetricStatistics}
 cloudwatch_GetMetricWidgetImage:
-  title: Get a &CW; metric data image
-  title_abbrev: Get a metric data image
-  synopsis: get an &CWlong; metric data image.
-  category:
   languages:
     Kotlin:
       versions:
@@ -713,10 +661,6 @@ cloudwatch_GetMetricWidgetImage:
   services:
     cloudwatch: {GetMetricWidgetImage}
 cloudwatch_ListDashboards:
-  title: List &CW; dashboards
-  title_abbrev: List dashboards
-  synopsis: list &CWlong; dashboards.
-  category:
   languages:
     Kotlin:
       versions:
@@ -748,11 +692,6 @@ cloudwatch_ListDashboards:
   services:
     cloudwatch: {ListDashboards}
 cloudwatch_ListMetrics:
-  title: List &CW; metrics using an &AWS; SDK
-  title_abbrev: List metrics
-  synopsis: list the metadata for &CWlong; metrics. To get data for a metric, use the GetMetricData or GetMetricStatistics
-    actions.
-  category:
   languages:
     Kotlin:
       versions:
@@ -844,10 +783,6 @@ cloudwatch_ListMetrics:
   services:
     cloudwatch: {ListMetrics}
 cloudwatch_PutAnomalyDetector:
-  title: Create a &CW; anomaly detector
-  title_abbrev: Create an anomaly detector
-  synopsis: create an &CWlong; anomaly detector.
-  category:
   languages:
     Kotlin:
       versions:
@@ -879,10 +814,6 @@ cloudwatch_PutAnomalyDetector:
   services:
     cloudwatch: {PutAnomalyDetector}
 cloudwatch_PutDashboard:
-  title: Create a &CW; dashboard
-  title_abbrev: Create a dashboard
-  synopsis: create an &CWlong; dashboard.
-  category:
   languages:
     Kotlin:
       versions:
@@ -915,11 +846,6 @@ cloudwatch_PutDashboard:
   services:
     cloudwatch: {PutDashboard}
 cloudwatch_PutMetricAlarm:
-  title: Create a &CW; metric alarm using an &AWS; SDK
-  title_abbrev: Create a metric alarm
-  synopsis: create or update an &CWlong; alarm and associate it with the specified metric, metric math expression, anomaly
-    detection model, or Metrics Insights query.
-  category:
   languages:
     Java:
       versions:
@@ -1011,10 +937,6 @@ cloudwatch_PutMetricAlarm:
   services:
     cloudwatch: {PutMetricAlarm}
 cloudwatch_PutMetricData:
-  title: Put data into a &CW; metric using an &AWS; SDK
-  title_abbrev: Put data into a metric
-  synopsis: publish metric data points to &CWlong;.
-  category:
   languages:
     .NET:
       versions:

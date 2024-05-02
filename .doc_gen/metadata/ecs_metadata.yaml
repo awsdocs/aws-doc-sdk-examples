@@ -17,10 +17,6 @@ ecs_Hello:
   services:
     ecs: {ListClusters}
 ecs_CreateCluster:
-  title: Create an &ECS; cluster using an &AWS; SDK
-  title_abbrev: Create a cluster
-  synopsis: create an &ECS; cluster.
-  category:
   languages:
     Rust:
       versions:
@@ -43,10 +39,6 @@ ecs_CreateCluster:
   services:
     ecs: {CreateCluster}
 ecs_DeleteCluster:
-  title: Delete an &ECS; cluster using an &AWS; SDK
-  title_abbrev: Delete a cluster
-  synopsis: delete an &ECS; cluster.
-  category:
   languages:
     Rust:
       versions:
@@ -60,10 +52,6 @@ ecs_DeleteCluster:
   services:
     ecs: {DeleteCluster}
 ecs_DescribeClusters:
-  title: Describe your &ECS; clusters using an &AWS; SDK
-  title_abbrev: Describe clusters
-  synopsis: describe your &ECS; clusters.
-  category:
   languages:
     Rust:
       versions:
@@ -86,10 +74,6 @@ ecs_DescribeClusters:
   services:
     ecs: {DescribeClusters}
 ecs_CreateService:
-  title: Create an &ECS; service using an &AWS; SDK
-  title_abbrev: Create a service
-  synopsis: create an &ECS; service.
-  category:
   languages:
     Java:
       versions:
@@ -103,10 +87,6 @@ ecs_CreateService:
   services:
     ecs: {CreateService}
 ecs_DeleteService:
-  title: Delete an &ECS; service using an &AWS; SDK
-  title_abbrev: Delete a service
-  synopsis: delete an &ECS; service.
-  category:
   languages:
     Java:
       versions:
@@ -120,10 +100,6 @@ ecs_DeleteService:
   services:
     ecs: {DeleteService}
 ecs_ListClusters:
-  title: List your &ECS; clusters using an &AWS; SDK
-  title_abbrev: List clusters
-  synopsis: list your &ECS; clusters.
-  category:
   languages:
     .NET:
       versions:
@@ -146,10 +122,6 @@ ecs_ListClusters:
   services:
     ecs: {ListClusters}
 ecs_DescribeTasks:
-  title: Describe your &ECS; tasks using an &AWS; SDK
-  title_abbrev: Describe tasks
-  synopsis: describe your &ECS; tasks.
-  category:
   languages:
     Java:
       versions:
@@ -163,10 +135,6 @@ ecs_DescribeTasks:
   services:
     ecs: {DescribeTasks}
 ecs_ListServices:
-  title: List your &ECS; services in a cluster using an &AWS; SDK
-  title_abbrev: List services in a cluster
-  synopsis: list your &ECS; services in a cluster.
-  category:
   languages:
     .NET:
       versions:
@@ -180,10 +148,6 @@ ecs_ListServices:
   services:
     ecs: {ListServices}
 ecs_ListTasks:
-  title: List your &ECS; tasks in a cluster using an &AWS; SDK
-  title_abbrev: List tasks in a cluster
-  synopsis: list your &ECS; tasks in a cluster.
-  category:
   languages:
     .NET:
       versions:
@@ -197,10 +161,6 @@ ecs_ListTasks:
   services:
     ecs: {ListTasks}
 ecs_UpdateService:
-  title: Update an &ECS; service using an &AWS; SDK
-  title_abbrev: Update a service
-  synopsis: update an &ECS; service.
-  category:
   languages:
     Java:
       versions:
