@@ -21,6 +21,7 @@
     <para role="topiclist-abbrev">Services</para>
     {{- end}}
     {{- range $service, $svc_examples := $examples.ApiExamples}}
+    {{- if $svc_examples.ServiceEntity.Short}}
     <section id="{{$sdk_prefix}}_{{$svc_examples.ServiceSlug}}_code_examples" role="topic">
         <info>
             <title id="{{$sdk_prefix}}_{{$svc_examples.ServiceSlug}}_code_examples.title">{{$svc_examples.ServiceEntity.Short}} examples using {{$examples.SdkEntity.Short}}</title>
@@ -64,6 +65,7 @@
         {{- end}}
         {{- end}}
     </section>
+    {{- end}}
     {{- end}}
     {{- if $examples.ApiExamples}}
 </section>

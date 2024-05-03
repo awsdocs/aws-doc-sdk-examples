@@ -3109,8 +3109,8 @@ waf:
   guide:
     subtitle: Developer Guide
     url: waf/latest/developerguide/waf-chapter.html
-  long: '&WAFClassic;'
-  short: '&WAFClassic;'
+  long: '&WAFclassic;'
+  short: '&WAFclassic;'
   sort: WAF Classic
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
