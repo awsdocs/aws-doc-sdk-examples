@@ -10,9 +10,6 @@ set(SERVICE_COMPONENTS secretsmanager)
 # Set this project's name.
 project("${SERVICE_NAME}-examples")
 
-# Build shared libraries by default.
-set(BUILD_SHARED_LIBS ON)
-
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 11)
 
