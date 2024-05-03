@@ -2143,7 +2143,11 @@ s3_PutBucketAccelerateConfiguration:
                 - S3.dotnetv3.TransferAccelerationExample
   services:
     s3: {PutBucketAccelerateConfiguration}
-s3_DownloadDirectory:
+s3_DownloadBucketToDirectory:
+  title: Download all objects in an &S3long; (&S3;) bucket to a local directory
+  title_abbrev: Download objects to a local directory
+  synopsis: download all objects in an &S3long; (&S3;) bucket to a local directory.
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -2162,7 +2166,11 @@ s3_DownloadDirectory:
                 - s3.tm.java2.downloadtodirectory.main
   services:
     s3: {DownloadDirectory}
-s3_UploadDirectory:
+s3_UploadDirectoryToBucket:
+  title: Recursively upload a local directory to an &S3long; (&S3;) bucket
+  title_abbrev: Upload directory to a bucket
+  synopsis: upload a local directory recursively to an &S3long; (&S3;) bucket.
+  category: Scenarios
   languages:
     Java:
       versions:
