@@ -1,5 +1,5 @@
-﻿* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-* SPDX-License-Identifier: Apache-2.0
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
 
 CLASS ltc_zcl_aws1_tex_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL HARMLESS.
 
