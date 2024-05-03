@@ -73,7 +73,7 @@ cloudfront_CreateDistribution:
           excerpts:
             - description: >-
                 The following example uses an &S3long; (&S3;) bucket as a content origin.</para>
-                <para>After creating the distribution,  the code creates a <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/waiters/CloudFrontWaiter.html">CloudFrontWaiter</ulink>  to
+                <para>After creating the distribution, the code creates a <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/waiters/CloudFrontWaiter.html">CloudFrontWaiter</ulink>  to
                 wait until the distribution is deployed before returning the distribution.
               snippet_tags:
                 - cloudfront.java2.createdistribution.import
@@ -161,14 +161,14 @@ cloudfront_CloudFrontUtilities:
                 - cloudfront.java2.createcannedpolicyrequest.import
                 - cloudfront.java2.createcannedpolicyrequest.main
             - description: >-
-                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CustomSignerRequest.html">CustomSignerRequest</ulink>  class
+                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CustomSignerRequest.html">CustomSignerRequest</ulink> class
                 to sign URLs or cookies with a <emphasis>custom</emphasis> policy. The <code>activeDate</code> and <code>ipRange</code>
                 are optional methods.
               snippet_tags:
                 - cloudfront.java2.createcustompolicyrequest.import
                 - cloudfront.java2.createcustompolicyrequest.main
             - description: >-
-                The following example demonstrates the use of the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/CloudFrontUtilities.html">CloudFrontUtilities</ulink>  class
+                The following example demonstrates the use of the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/CloudFrontUtilities.html">CloudFrontUtilities</ulink> class
                 to produce signed cookies and URLs. <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudfront/src/main/java/com/example/cloudfront/SigningUtilities.java">View</ulink>
                 this code example on GitHub.
               snippet_tags:
