@@ -15,23 +15,27 @@ import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-id
 import { TranscribeStreamingClient } from "@aws-sdk/client-transcribe-streaming";
 import MicrophoneStream from "microphone-stream";
 import { StartStreamTranscriptionCommand } from "@aws-sdk/client-transcribe-streaming";
-import { Buffer } from "buffer";
 import * as awsID from "./awsID.js";
 
+/** @type {MicrophoneStream} */
+const MicrophoneStreamImpl = MicrophoneStream.default;
+
 const SAMPLE_RATE = 44100;
+/** @type {MicrophoneStream | undefined} */
 let microphoneStream = undefined;
+/** @type {TranscribeStreamingClient | undefined} */
 let transcribeClient = undefined;
 
 export const startRecording = async (language, callback) => {
-    if (!language) {
-      return false;
-    }
-    if (microphoneStream || transcribeClient) {
-      stopRecording();
-    }
-    createTranscribeClient();
-    createMicrophoneStream();
-    await startStreaming(language, callback);
+  if (!language) {
+    return false;
+  }
+  if (microphoneStream || transcribeClient) {
+    stopRecording();
+  }
+  createTranscribeClient();
+  createMicrophoneStream();
+  await startStreaming(language, callback);
 };
 
 export const stopRecording = function () {
@@ -54,17 +58,17 @@ const createTranscribeClient = () => {
       identityPoolId: awsID.IDENTITY_POOL_ID,
     }),
   });
-}
+};
 
 const createMicrophoneStream = async () => {
-  microphoneStream = new MicrophoneStream.default();
+  microphoneStream = new MicrophoneStreamImpl();
   microphoneStream.setStream(
     await window.navigator.mediaDevices.getUserMedia({
       video: false,
       audio: true,
-    })
+    }),
   );
-}
+};
 
 const startStreaming = async (language, callback) => {
   const command = new StartStreamTranscriptionCommand({
@@ -85,10 +89,16 @@ const startStreaming = async (language, callback) => {
       }
     }
   }
-}
+};
 
 const getAudioStream = async function* () {
-  for await (const chunk of microphoneStream) {
+  if (!microphoneStream) {
+    throw new Error(
+      "Cannot get audio stream. microphoneStream is not initialized.",
+    );
+  }
+
+  for await (const chunk of /** @type {[][]} */ (microphoneStream)) {
     if (chunk.length <= SAMPLE_RATE) {
       yield {
         AudioEvent: {
@@ -100,7 +110,8 @@ const getAudioStream = async function* () {
 };
 
 const encodePCMChunk = (chunk) => {
-  const input = MicrophoneStream.default.toRaw(chunk);
+  /** @type {Float32Array} */
+  const input = MicrophoneStreamImpl.toRaw(chunk);
   let offset = 0;
   const buffer = new ArrayBuffer(input.length * 2);
   const view = new DataView(buffer);

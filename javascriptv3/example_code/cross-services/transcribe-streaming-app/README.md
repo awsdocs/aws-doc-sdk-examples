@@ -130,11 +130,9 @@ Create and verify an email address in Amazon SES. For more information, see [Cre
    See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for
    instructions.
 
-2. Run the following commands in sequence in the terminal to install the AWS service client modules and third-party modules listed in the _package.json_:
+2. Run the following commands in sequence in the terminal to install the AWS service client modules and third-party modules listed in the `package.json`:
 
 ```
-npm install node -g
-cd javascriptv3/example_code/cross-services/transcribe-streaming-app
 npm install
 ```
 
@@ -171,15 +169,18 @@ To bundle the JavaScript and Node.js for this example in a single file named mai
 enter the following commands in sequence in the AWS CLI command line:
 
 ```
-cd javascriptv3/example_code/cross-services/transcribe-streaming-app/
 npm run build
 ```
 
-This will create a minified js file called **main.js** in the src folder.
+This will create bundled scripts in the public folder.
 
 ## Run the app
 
-Open the index.html in src in your favorite browser, and follow the onscreen instructions.
+```
+npx http-server public
+```
+
+This will create a local web-server that hosts the content in the public folder. Open the URL displayed in the output of this command.
 
 ## Destroying the resources
 
