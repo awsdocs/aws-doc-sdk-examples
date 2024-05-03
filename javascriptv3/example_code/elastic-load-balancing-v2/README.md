@@ -1,13 +1,13 @@
-# ELB code examples for the SDK for JavaScript (v3)
+# Elastic Load Balancing - Version 2 code examples for the SDK for JavaScript (v3)
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v3) to work with Elastic Load Balancing (ELB).
+Shows how to use the AWS SDK for JavaScript (v3) to work with Elastic Load Balancing - Version 2.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_ELB automatically distributes your incoming traffic across multiple targets, such as EC2 instances, containers, and IP addresses, in one or more Availability Zones._
+_Elastic Load Balancing - Version 2 automatically distributes your incoming traffic across multiple targets, such as EC2 instances, containers, and IP addresses, in one or more Availability Zones._
 
 ## ⚠ Important
 
@@ -122,9 +122,9 @@ in the `javascriptv3` folder.
 
 ## Additional resources
 
-- [ELB User Guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html)
-- [ELB API Reference](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/Welcome.html)
-- [SDK for JavaScript (v3) ELB reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/elastic-load-balancing-v2)
+- [Elastic Load Balancing - Version 2 User Guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/Welcome.html)
+- [Elastic Load Balancing - Version 2 API Reference](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/Welcome.html)
+- [SDK for JavaScript (v3) Elastic Load Balancing - Version 2 reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/elastic-load-balancing-v2)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

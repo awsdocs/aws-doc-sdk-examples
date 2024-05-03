@@ -208,4 +208,4 @@ bedrock-agent_GettingStartedWithBedrockAgents:
                 - python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents
   services:
     bedrock-agent: {CreateAgent, CreateAgentActionGroup, CreateAgentAlias, DeleteAgent, DeleteAgentAlias, GetAgent, ListAgentActionGroups,
-      ListAgents, ListAgentKnowledgeBases, PrepareAgent}
+                    ListAgents, ListAgentKnowledgeBases, PrepareAgent}

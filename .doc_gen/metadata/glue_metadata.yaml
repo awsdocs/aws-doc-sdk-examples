@@ -1267,4 +1267,4 @@ glue_Scenario_GetStartedCrawlersJobs:
                 - rust.glue.delete_crawler
   services:
     glue: {GetCrawler, CreateCrawler, StartCrawler, GetDatabase, GetDatabases, GetTables, CreateJob, StartJobRun, ListJobs,
-      GetJob, GetJobRuns, GetJobRun, DeleteJob, DeleteTable, DeleteDatabase, DeleteCrawler}
+           GetJob, GetJobRuns, GetJobRun, DeleteJob, DeleteTable, DeleteDatabase, DeleteCrawler}

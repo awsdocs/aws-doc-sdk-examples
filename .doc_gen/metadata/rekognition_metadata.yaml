@@ -800,5 +800,5 @@ rekognition_VideoDetection:
                 - rekognition.java2.recognize_video_person.main
   services:
     rekognition: {GetCelebrityRecognition, GetContentModeration, GetLabelDetection, GetPersonTracking, GetSegmentDetection,
-      GetTextDetection, StartCelebrityRecognition, StartContentModeration, StartLabelDetection, StartPersonTracking, StartSegmentDetection,
-      StartTextDetection}
+                  GetTextDetection, StartCelebrityRecognition, StartContentModeration, StartLabelDetection, StartPersonTracking, StartSegmentDetection,
+                  StartTextDetection}

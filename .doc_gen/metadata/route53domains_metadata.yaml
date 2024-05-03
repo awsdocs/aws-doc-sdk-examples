@@ -388,4 +388,4 @@ route-53-domains_Scenario_GetStartedRoute53Domains:
                 - Route53.dotnetv3.Route53Wrapper
   services:
     route-53-domains: {CheckDomainAvailability, CheckDomainTransferability, GetDomainDetail, GetDomainSuggestions, GetOperationDetail,
-      ListPrices, ListDomains, ListOperations, RegisterDomain, ViewBilling}
+                       ListPrices, ListDomains, ListOperations, RegisterDomain, ViewBilling}

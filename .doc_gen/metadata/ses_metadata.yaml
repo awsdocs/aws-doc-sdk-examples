@@ -826,7 +826,7 @@ ses_Scenario_SendEmail:
                 - python.example_code.ses.SendTemplatedEmail
   services:
     ses: {VerifyDomainIdentity, VerifyEmailIdentity, GetIdentityVerificationAttributes, DeleteIdentity, ListIdentities, CreateTemplate,
-      DeleteTemplate, GetTemplate, ListTemplates, UpdateTemplate, SendEmail, SendTemplatedEmail}
+          DeleteTemplate, GetTemplate, ListTemplates, UpdateTemplate, SendEmail, SendTemplatedEmail}
 ses_Scenario_ReplicateIdentities:
   title: Copy &SES; email and domain identities from one &AWS; Region to another using an &AWS; SDK
   title_abbrev: Copy email and domain identities across Regions

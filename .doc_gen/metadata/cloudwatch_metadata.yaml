@@ -1070,8 +1070,8 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
                 - CloudWatch.dotnetv3.CloudWatchWrapper
   services:
     cloudwatch: {ListMetrics, GetMetricStatistics, PutDashboard, PutMetricData, GetMetricData, PutMetricAlarm, DescribeAlarms,
-      DescribeAlarmsForMetric, DescribeAlarmHistory, DeleteAlarms, PutAnomalyDetector, GetMetricWidgetImage, DescribeAnomalyDetectors,
-      DeleteAnomalyDetector, DeleteDashboards}
+                 DescribeAlarmsForMetric, DescribeAlarmHistory, DeleteAlarms, PutAnomalyDetector, GetMetricWidgetImage, DescribeAnomalyDetectors,
+                 DeleteAnomalyDetector, DeleteDashboards}
 cloudwatch_Usage_MetricsAlarms:
   title: Manage &CW; metrics and alarms using an &AWS; SDK
   title_abbrev: Manage metrics and alarms
@@ -1104,7 +1104,7 @@ cloudwatch_Usage_MetricsAlarms:
                 - python.example_code.cloudwatch.Usage_MetricsAlarms
   services:
     cloudwatch: {DeleteAlarms, DescribeAlarmsForMetric, DisableAlarmActions, EnableAlarmActions, GetMetricStatistics, ListMetrics,
-      PutMetricAlarm, PutMetricData}
+                 PutMetricAlarm, PutMetricData}
 cloudwatch_Scenario_GettingStarted:
   title: Get started with &CW; alarms using an &AWS; SDK
   title_abbrev: Get started with alarms

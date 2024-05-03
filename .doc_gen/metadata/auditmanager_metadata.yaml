@@ -16,8 +16,8 @@ auditmanager_Scenario_CreateAssessmentReport:
                 - python.example_code.auditmanager.Scenario_CreateAssessmentReport
   services:
     auditmanager: {AssociateAssessmentReportEvidenceFolder, BatchDisassociateAssessmentReportEvidence, CreateAssessmentReport,
-      DisassociateAssessmentReportEvidenceFolder, GetAssessment, GetAssessmentReportUrl, GetEvidenceFoldersByAssessment, GetEvidenceByEvidenceFolder,
-      ListAssessmentReports}
+                   DisassociateAssessmentReportEvidenceFolder, GetAssessment, GetAssessmentReportUrl, GetEvidenceFoldersByAssessment, GetEvidenceByEvidenceFolder,
+                   ListAssessmentReports}
 auditmanager_Scenario_CustomFrameworkFromConformancePack:
   title: Create an &AM; custom framework from an &CC; conformance pack using an &AWS; SDK
   title_abbrev: Create a custom framework from an &CC; conformance pack

@@ -469,7 +469,7 @@ iam_Scenario_AccountManagement:
                 - python.example_code.iam.Scenario_AccountManagement
   services:
     iam: {ListAccountAliases, CreateAccountAlias, DeleteAccountAlias, GenerateCredentialReport, GetCredentialReport, GetAccountSummary,
-      GetAccountAuthorizationDetails}
+          GetAccountAuthorizationDetails}
 iam_CreateAccessKey:
   languages:
     .NET:
@@ -1663,7 +1663,7 @@ iam_Scenario_PolicyManagement:
                 - python.example_code.iam.Scenario_PolicyManagement
   services:
     iam: {CreatePolicy, ListPolicies, CreatePolicyVersion, GetPolicyVersion, DeletePolicy, ListPolicyVersions, SetDefaultPolicyVersion,
-      DeletePolicyVersion}
+          DeletePolicyVersion}
 iam_CreateRole:
   languages:
     .NET:
@@ -2763,7 +2763,7 @@ iam_Scenario_UserPolicies:
                 - python.example_code.iam.Scenario_UserPolicies
   services:
     iam: {CreateUser, UpdateUser, ListUsers, DeleteUser, AttachUserPolicy, DetachUserPolicy, CreatePolicy, DeletePolicy, CreateAccessKey,
-      DeleteAccessKey}
+          DeleteAccessKey}
 iam_ListServerCertificates:
   languages:
     JavaScript:
@@ -3307,7 +3307,7 @@ iam_Scenario_GroupBasics:
                 - IAM.dotnetv3.IAMCommon.UIWrapper
   services:
     iam: {AddUserToGroup, CreateGroup, CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy, PutGroupPolicy,
-      DeleteGroup, DeleteGroupPolicy, DeleteAccessKey, DeleteUser, RemoveUserFromGroup}
+          DeleteGroup, DeleteGroupPolicy, DeleteAccessKey, DeleteUser, RemoveUserFromGroup}
 iam_Scenario_CreateUserAssumeRole:
   title: Create an &IAM-user; and assume a role with &STS; using an &AWS; SDK
   title_abbrev: Create a user and assume a role
@@ -3448,7 +3448,7 @@ iam_Scenario_CreateUserAssumeRole:
                 - aws-cli.bash-linux.iam.DeleteUser
   services:
     iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy, PutUserPolicy, DeleteUserPolicy, DetachRolePolicy,
-      DeletePolicy, DeleteRole, DeleteAccessKey, DeleteUser}
+          DeletePolicy, DeleteRole, DeleteAccessKey, DeleteUser}
 iam_Scenario_IamPolicyBuilder:
   title: Work with the &IAM; Policy Builder API using an &AWS; SDK
   title_abbrev: Work with the &IAM; Policy Builder API

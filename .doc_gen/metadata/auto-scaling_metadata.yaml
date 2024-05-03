@@ -836,4 +836,4 @@ auto-scaling_Scenario_GroupsAndInstances:
                 - rustv1/examples/auto-scaling/src/scenario.rs
   services:
     auto-scaling: {CreateAutoScalingGroup, DeleteAutoScalingGroup, DisableMetricsCollection, EnableMetricsCollection, DescribeAutoScalingGroups,
-      DescribeAutoScalingInstances, DescribeScalingActivities, SetDesiredCapacity, TerminateInstanceInAutoScalingGroup, UpdateAutoScalingGroup}
+                   DescribeAutoScalingInstances, DescribeScalingActivities, SetDesiredCapacity, TerminateInstanceInAutoScalingGroup, UpdateAutoScalingGroup}

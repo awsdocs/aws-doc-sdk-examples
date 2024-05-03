@@ -383,7 +383,7 @@ sagemaker_Scenario_GettingStarted:
                 - sgm.abapv1.getting_started_with_sgm
   services:
     sagemaker: {CreateTrainingJob, DescribeTrainingJob, CreateModel, CreateEndpointConfig, CreateEndpoint, DescribeEndpoint,
-      DeleteEndpoint, DeleteEndpointConfig, DeleteModel}
+                DeleteEndpoint, DeleteEndpointConfig, DeleteModel}
 sagemaker_Scenario_Pipelines:
   title: Get started with &SM; geospatial jobs in a pipeline using an &AWS; SDK
   title_abbrev: Get started with geospatial jobs and pipelines

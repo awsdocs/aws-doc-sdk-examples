@@ -916,4 +916,4 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
                 - cpp.example_code.getting_started_with_user_pools
   services:
     cognito-identity-provider: {ConfirmSignUp, ConfirmDevice, AssociateSoftwareToken, AdminGetUser, ListUsers, ResendConfirmationCode,
-      RespondToAuthChallenge, AdminRespondToAuthChallenge, SignUp, InitiateAuth, AdminInitiateAuth, VerifySoftwareToken}
+                                RespondToAuthChallenge, AdminRespondToAuthChallenge, SignUp, InitiateAuth, AdminInitiateAuth, VerifySoftwareToken}

@@ -191,4 +191,4 @@ ssm_Scenario:
                 - ssm.java2.scenario.main
   services:
     ssm: {CreateOpsItem, CreateMaintenanceWindow, CreateDocument, SendCommand, CommandInvocations, DeleteMaintenanceWindow,
-      UpdateOpsItem}
+          UpdateOpsItem}

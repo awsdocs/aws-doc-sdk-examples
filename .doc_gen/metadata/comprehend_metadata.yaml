@@ -141,7 +141,7 @@ comprehend_Usage_ComprehendClassifier:
                 - python.example_code.comprehend.Scenario_CustomClassifier
   services:
     comprehend: {CreateDocumentClassifier, DescribeDocumentClassifier, ListDocumentClassifiers, DeleteDocumentClassifier,
-      StartDocumentClassificationJob, DescribeDocumentClassificationJob, ListDocumentClassificationJobs}
+                 StartDocumentClassificationJob, DescribeDocumentClassificationJob, ListDocumentClassificationJobs}
 comprehend_DetectDominantLanguage:
   languages:
     .NET:

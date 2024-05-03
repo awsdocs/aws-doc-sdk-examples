@@ -1171,5 +1171,5 @@ aurora_Scenario_GetStartedClusters:
                 - rustv1/examples/aurora/Cargo.toml
   services:
     aurora: {CreateDBCluster, CreateDBClusterParameterGroup, CreateDBClusterSnapshot, CreateDBInstance, DeleteDBCluster, DeleteDBClusterParameterGroup,
-      DeleteDBInstance, DescribeDBClusterParameterGroups, DescribeDBClusterSnapshots, DescribeDBClusters, DescribeDBEngineVersions,
-      DescribeDBInstances, DescribeOrderableDBInstanceOptions, DescribeDBClusterParameters, ModifyDBClusterParameterGroup}
+             DeleteDBInstance, DescribeDBClusterParameterGroups, DescribeDBClusterSnapshots, DescribeDBClusters, DescribeDBEngineVersions,
+             DescribeDBInstances, DescribeOrderableDBInstanceOptions, DescribeDBClusterParameters, ModifyDBClusterParameterGroup}

@@ -1852,5 +1852,5 @@ ec2_Scenario_GetStartedInstances:
                 - javascript.v3.ec2.scenarios.basic
   services:
     ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair, CreateSecurityGroup, DeleteKeyPair,
-      DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes, DescribeInstances, DescribeKeyPairs, DescribeSecurityGroups,
-      DisassociateAddress, ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances, UnmonitorInstances}
+          DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes, DescribeInstances, DescribeKeyPairs, DescribeSecurityGroups,
+          DisassociateAddress, ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances, UnmonitorInstances}

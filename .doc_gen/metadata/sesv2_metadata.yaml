@@ -371,4 +371,4 @@ sesv2_NewsletterWorkflow:
                 - sesv2.rust.delete-email-template
   services:
     sesv2: {CreateContactList, CreateContact, ListContacts, SendEmail.simple, SendEmail.template, CreateEmailIdentity, CreateEmailTemplate,
-      DeleteContactList, DeleteEmailIdentity, DeleteEmailTemplate}
+            DeleteContactList, DeleteEmailIdentity, DeleteEmailTemplate}

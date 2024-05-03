@@ -518,7 +518,7 @@ eventbridge_Scenario_GettingStarted:
                 - EventBridge.dotnetv3.EventBridgeWrapper
   services:
     eventbridge: {PutRule, ListRules, PutTargets, ListTargetsByRule, ListRuleNamesByTarget, DisableRule, DescribeRule, EnableRule,
-      PutEvents, DeleteRule}
+                  PutEvents, DeleteRule}
 eventbridge_Scenario_createAndTriggerARule:
   title: Create and trigger a rule in &EVlong; using an &AWS; SDK
   title_abbrev: Create and trigger a rule

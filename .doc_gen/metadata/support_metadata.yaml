@@ -547,4 +547,4 @@ support_Scenario_GetStartedSupportCases:
                 - python.example_code.support.SupportWrapper_full
   services:
     support: {AddAttachmentsToSet, AddCommunicationToCase, CreateCase, DescribeAttachment, DescribeCases, DescribeCommunications,
-      DescribeServices, DescribeSeverityLevels, ResolveCase}
+              DescribeServices, DescribeSeverityLevels, ResolveCase}

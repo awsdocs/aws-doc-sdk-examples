@@ -913,5 +913,5 @@ rds_Scenario_GetStartedInstances:
                 - cpp.example_code.rds.get_started_instances
   services:
     rds: {CreateDBInstance, CreateDBParameterGroup, CreateDBSnapshot, DeleteDBInstance, DeleteDBParameterGroup, DescribeDBInstances,
-      DescribeDBEngineVersions, DescribeDBParameterGroups, DescribeDBParameters, DescribeDBSnapshots, DescribeOrderableDBInstanceOptions,
-      ModifyDBParameterGroup}
+          DescribeDBEngineVersions, DescribeDBParameterGroups, DescribeDBParameters, DescribeDBSnapshots, DescribeOrderableDBInstanceOptions,
+          ModifyDBParameterGroup}

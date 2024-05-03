@@ -331,7 +331,7 @@ transcribe_Scenario_CustomVocabulary:
                 - python.example_code.transcribe.Scenario_CustomVocabulary
   services:
     transcribe: {StartTranscriptionJob, GetTranscriptionJob, DeleteTranscriptionJob, CreateVocabulary, GetVocabulary, UpdateVocabulary,
-      ListVocabularies, DeleteVocabulary}
+                 ListVocabularies, DeleteVocabulary}
 transcribe_StartMedicalTranscriptionJob:
   languages:
     .NET:

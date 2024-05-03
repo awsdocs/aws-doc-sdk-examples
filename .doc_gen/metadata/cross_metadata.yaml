@@ -716,11 +716,11 @@ cross_ResilientService:
                 - javascriptv3/example_code/cross-services/wkflw-resilient-service/steps-destroy.js
   services:
     auto-scaling: {CreateAutoScalingGroup, DescribeAutoScalingGroups, TerminateInstanceInAutoScalingGroup, AttachLoadBalancerTargetGroups,
-      DeleteAutoScalingGroup, UpdateAutoScalingGroup}
+                   DeleteAutoScalingGroup, UpdateAutoScalingGroup}
     ec2: {DescribeIamInstanceProfileAssociations, ReplaceIamInstanceProfileAssociation, RebootInstances, CreateLaunchTemplate,
-      DeleteLaunchTemplate, DescribeAvailabilityZones, DescribeInstances, DescribeVpcs, DescribeSubnets}
+          DeleteLaunchTemplate, DescribeAvailabilityZones, DescribeInstances, DescribeVpcs, DescribeSubnets}
     elastic-load-balancing-v2: {DescribeLoadBalancers, CreateTargetGroup, DescribeTargetGroups, DeleteTargetGroup, CreateLoadBalancer,
-      CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
+                                CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
     iam: {CreateInstanceProfile, DeleteInstanceProfile}
 cross_FMPlayground:
   title: Create a sample application that offers playgrounds to interact with &BR; foundation models using an &AWS; SDK

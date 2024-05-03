@@ -591,4 +591,4 @@ sfn_Scenario_GetStartedStateMachines:
                 - python.example_code.sfn.Activity_full
   services:
     sfn: {CreateActivity, CreateStateMachine, DeleteActivity, DeleteStateMachine, DescribeExecution, DescribeStateMachine,
-      GetActivityTask, ListActivities, ListStateMachines, SendTaskSuccess, StartExecution, StopExecution}
+          GetActivityTask, ListActivities, ListStateMachines, SendTaskSuccess, StartExecution, StopExecution}
