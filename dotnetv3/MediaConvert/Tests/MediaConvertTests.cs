@@ -28,13 +28,7 @@ public class MediaConvertTests
                 true) // Optionally load local settings.
             .Build();
 
-        var mediaConvertEndpoint = _configuration["mediaConvertEndpoint"];
-        AmazonMediaConvertConfig mcConfig = new AmazonMediaConvertConfig
-        {
-            ServiceURL = mediaConvertEndpoint,
-        };
-
-        AmazonMediaConvertClient mcClient = new AmazonMediaConvertClient(mcConfig);
+        AmazonMediaConvertClient mcClient = new AmazonMediaConvertClient();
 
         _mediaConvertWrapper = new MediaConvertWrapper(mcClient);
     }
