@@ -74,6 +74,7 @@ functions within the same service.
 
 - [Download objects to a local directory](src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java)
 - [Get started with buckets and objects](src/main/java/com/example/s3/S3Scenario.java)
+- [Get the legal hold configuration of an object](src/main/java/com/example/s3/lockscenario/S3LockActions.java)
 - [Lock Amazon S3 objects](src/main/java/com/example/s3/lockscenario/S3ObjectLockWorkflow.java)
 - [Parse URIs](src/main/java/com/example/s3/ParseUri.java)
 - [Perform a multipart upload](src/main/java/com/example/s3/PerformMultiPartUpload.java)
@@ -131,6 +132,18 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.s3_Scenario_GettingStarted.start-->
 <!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+
+#### Get the legal hold configuration of an object
+
+This example shows you how to get the legal hold configuration of an S3 bucket.
+
+
+<!--custom.scenario_prereqs.s3_GetObjectLegalHoldConfiguration.start-->
+<!--custom.scenario_prereqs.s3_GetObjectLegalHoldConfiguration.end-->
+
+
+<!--custom.scenarios.s3_GetObjectLegalHoldConfiguration.start-->
+<!--custom.scenarios.s3_GetObjectLegalHoldConfiguration.end-->
 
 #### Lock Amazon S3 objects
 
