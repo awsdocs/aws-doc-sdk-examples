@@ -28,16 +28,14 @@ endif ()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
-
 if (WINDOWS_BUILD AND AWSSDK_INSTALL_AS_SHARED_LIBS)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
 
     # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
     # and set the proper subdirectory to the executables' location.
 
-    AWSSDK_CPY_DYN_LIBS(SERVICE_COMPONENTS "" ${CMAKE_CURRENT_BINARY_DIR} ${BIN_SUB_DIR})
+    AWSSDK_CPY_DYN_LIBS(SERVICE_COMPONENTS "" ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR})
 endif ()
-
 
 # AWSDOC_SOURCE can be defined in the command line to limit the files in a build. For example,
 # you can limit files to one action.

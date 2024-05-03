@@ -38,9 +38,9 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateJob](Scenarios/CreateJob/CreateJob.cs#L24)
-- [GetJob](Scenarios/CreateJob/CreateJob.cs#L24)
-- [ListJobs](Scenarios/CreateJob/CreateJob.cs#L24)
+- [CreateJob](Scenarios/CreateJob/CreateJob.cs#L23)
+- [GetJob](Scenarios/CreateJob/CreateJob.cs#L23)
+- [ListJobs](Scenarios/CreateJob/CreateJob.cs#L23)
 
 
 <!--custom.examples.start-->

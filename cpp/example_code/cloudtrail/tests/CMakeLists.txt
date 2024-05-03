@@ -54,23 +54,24 @@ if (WINDOWS_BUILD)
     # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
     # and set the proper subdirectory to the executables' location.
 
-    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    AWSSDK_CPY_DYN_LIBS(
-            CURRENT_TARGET_AWS_DEPENDENCIES
-            ""
-            ${CMAKE_CURRENT_BINARY_DIR} ${BIN_SUB_DIR}
-    )
+    if (AWSSDK_INSTALL_AS_SHARED_LIBS)
+        # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
+        AWSSDK_CPY_DYN_LIBS(
+                CURRENT_TARGET_AWS_DEPENDENCIES
+                ""
+                ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
+        )
+    endif ()
 
     add_custom_command(
             TARGET
             ${CURRENT_TARGET}
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR} ${BIN_SUB_DIR}/gtest.dll
-            ${CMAKE_CURRENT_BINARY_DIR} ${BIN_SUB_DIR}
+            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${BIN_SUB_DIR}/gtest.dll
+            ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
     )
 endif ()
-
 # GTEST_SOURCE_FILES can be defined in the command line to limit the files in a build, for example to one action.
 if (NOT DEFINED GTEST_SOURCE_FILES)
     file(
