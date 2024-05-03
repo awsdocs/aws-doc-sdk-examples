@@ -50,31 +50,28 @@ add_executable(
         ${CURRENT_TARGET}
 )
 
-# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
-# and building as shared libraries, then dynamically link to those shared libraries.
-if(WINDOWS_BUILD)
-    if (AWSSDK_INSTALL_AS_SHARED_LIBS)
-        # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
-        # and set the proper subdirectory to the executables' location.
+if (WINDOWS_BUILD)
+    # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
+    # and set the proper subdirectory to the executables' location.
 
+    if (AWSSDK_INSTALL_AS_SHARED_LIBS)
         # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
         AWSSDK_CPY_DYN_LIBS(
                 CURRENT_TARGET_AWS_DEPENDENCIES
                 ""
-                ${CMAKE_CURRENT_BINARY_DIR} ${BIN_SUB_DIR}
+                ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
         )
     endif ()
 
     add_custom_command(
-        TARGET
-        ${CURRENT_TARGET}
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${BIN_SUB_DIR}/gtest.dll
-                ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
+            TARGET
+            ${CURRENT_TARGET}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${BIN_SUB_DIR}/gtest.dll
+            ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
     )
-endif()
-
+endif ()
 
 # GTEST_SOURCE_FILES can be defined in the command line to limit the files in a build. For example,
 # you can limit files to one action.
