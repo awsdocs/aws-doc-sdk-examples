@@ -6,13 +6,13 @@ var builder = Host.CreateDefaultBuilder(args);
 
 builder.ConfigureServices(services =>
 {
-    // Register the AWS Message Processing Framework for .NET
+    // Register the AWS Message Processing Framework for .NET.
     services.AddAWSMessageBus(builder =>
     {
         // Check for input SQS URL.
         if ((args.Length == 1) && (args[0].Contains("https://sqs.")))
         {
-            // Register you'll poll the following queue
+            // Register you'll poll the following queue.
             builder.AddSQSPoller(args[0]);
         
             // And that messages of type "greetingMessage" should be:
@@ -29,7 +29,7 @@ var host = builder.Build();
 await host.RunAsync();
 
 /// <summary>
-/// This class represents the message contents
+/// This class represents the message contents.
 /// </summary>
 public class GreetingMessage
 {
@@ -38,7 +38,7 @@ public class GreetingMessage
 }
 
 /// <summary>
-/// This handler is invoked each time you receive the message
+/// This handler is invoked each time you receive the message.
 /// </summary>
 public class GreetingMessageHandler : IMessageHandler<GreetingMessage>
 {

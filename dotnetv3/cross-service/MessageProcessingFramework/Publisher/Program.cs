@@ -4,23 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure the AWS Message Processing Framework for .NET
+// Configure the AWS Message Processing Framework for .NET.
 builder.Services.AddAWSMessageBus(builder =>
 {
     // Check for input SQS URL.
     if ((args.Length == 1) && (args[0].Contains("https://sqs.")))
     {
-        // Register that you'll publish messages of type GreetingMessage 
-        // 1. To a specified queue,
-        // 2. using the message identifier "greetingMessage", which will be used
+        // Register that you'll publish messages of type GreetingMessage:
+        // 1. To a specified queue.
+        // 2. Using the message identifier "greetingMessage", which will be used
         //    by handlers to route the message to the appropriate handler.
         builder.AddSQSPublisher<GreetingMessage>(args[0], "greetingMessage");
     }
-    // You can map additional message types to queues or topics here as well
+    // You can map additional message types to queues or topics here as well.
 });
 var app = builder.Build();
 
@@ -34,7 +34,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Create an API Endpoint that receives GreetingMessage objects 
+// Create an API Endpoint that receives GreetingMessage objects
 // from the caller and then sends them as an SQS message.
 app.MapPost("/greeting", async ([FromServices]IMessagePublisher publisher, GreetingMessage message) =>
 {
@@ -43,7 +43,7 @@ app.MapPost("/greeting", async ([FromServices]IMessagePublisher publisher, Greet
         return Results.BadRequest();
     }
 
-    // Publish the message the queue configured above
+    // Publish the message to the queue configured above.
     await publisher.PublishAsync(message);
 
     return Results.Ok();
@@ -54,7 +54,7 @@ app.MapPost("/greeting", async ([FromServices]IMessagePublisher publisher, Greet
 app.Run();
 
 /// <summary>
-/// This class represents the message contents
+/// This class represents the message contents.
 /// </summary>
 public class GreetingMessage
 {
