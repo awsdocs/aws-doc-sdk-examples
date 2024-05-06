@@ -1,5 +1,5 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+//  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//  SPDX-License-Identifier: Apache-2.0
 
 package com.example.bedrockruntime;
 
@@ -23,14 +23,15 @@ import java.util.stream.IntStream;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class InvokeModelAsync {
 
     // snippet-start:[bedrock-runtime.java2.invoke_mistral_7b_async.main]
+
     /**
      * Asynchronously invokes the Mistral 7B model to run an inference based on the provided input.
      *
@@ -56,15 +57,15 @@ public class InvokeModelAsync {
                 .toString();
 
         CompletableFuture<InvokeModelResponse> completableFuture = client.invokeModel(request -> request
-                .accept("application/json")
-                .contentType("application/json")
-                .body(SdkBytes.fromUtf8String(payload))
-                .modelId(modelId))
-        .whenComplete((response, exception) -> {
-            if (exception != null) {
-                System.out.println("Model invocation failed: " + exception);
-            }
-        });
+                        .accept("application/json")
+                        .contentType("application/json")
+                        .body(SdkBytes.fromUtf8String(payload))
+                        .modelId(modelId))
+                .whenComplete((response, exception) -> {
+                    if (exception != null) {
+                        System.out.println("Model invocation failed: " + exception);
+                    }
+                });
 
         try {
             InvokeModelResponse response = completableFuture.get();
@@ -86,6 +87,7 @@ public class InvokeModelAsync {
     // snippet-end:[bedrock-runtime.java2.invoke_mistral_7b_async.main]
 
     // snippet-start:[bedrock-runtime.java2.invoke_mixtral_8x7b_async.main]
+
     /**
      * Asynchronously invokes the Mixtral 8x7B model to run an inference based on the provided input.
      *
@@ -141,6 +143,7 @@ public class InvokeModelAsync {
     // snippet-end:[bedrock-runtime.java2.invoke_mixtral_8x7b_async.main]
 
     // snippet-start:[bedrock-runtime.java2.invoke_claude_async.main]
+
     /**
      * Asynchronously invokes the Anthropic Claude 2 model to run an inference based
      * on the provided input.
@@ -203,6 +206,7 @@ public class InvokeModelAsync {
     // snippet-end:[bedrock-runtime.java2.invoke_claude_async.main]
 
     // snippet-start:[bedrock-runtime.java2.invoke_jurassic-2_async.main]
+
     /**
      * Asynchronously invokes the AI21 Labs Jurassic-2 model to run an inference
      * based on the provided input.
@@ -266,6 +270,7 @@ public class InvokeModelAsync {
     // snippet-end:[bedrock-runtime.java2.invoke_jurassic-2_async.main]
 
     // snippet-start:[bedrock-runtime.java2.invoke_stable_diffusion_async.main]
+
     /**
      * Asynchronously invokes the Stability.ai Stable Diffusion XL model to create
      * an image based on the provided input.
@@ -285,7 +290,7 @@ public class InvokeModelAsync {
          * https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-stability-diffusion.html
          */
 
-        String stableDiffusionModelId = "stability.stable-diffusion-xl";
+        String stableDiffusionModelId = "stability.stable-diffusion-xl-v1";
 
         BedrockRuntimeAsyncClient client = BedrockRuntimeAsyncClient.builder()
                 .region(Region.US_EAST_1)
@@ -336,6 +341,7 @@ public class InvokeModelAsync {
     // snippet-end:[bedrock-runtime.java2.invoke_stable_diffusion_async.main]
 
     // snippet-start:[bedrock-runtime.java2.invoke_titan_image_async.main]
+
     /**
      * Invokes the Amazon Titan image generation model to create an image using the
      * input
