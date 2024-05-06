@@ -29,6 +29,11 @@ class BedrockRuntimeStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
+    def stub_invoke_model(self, expected_params, response, error_code=None):
+        self._stub_bifurcator(
+            "invoke_model", expected_params, response, error_code=error_code
+        )
+
     def stub_invoke_mistral_7b(self, prompt, error_code=None):
         expected_params = {
             "modelId": "mistral.mistral-7b-instruct-v0:2",

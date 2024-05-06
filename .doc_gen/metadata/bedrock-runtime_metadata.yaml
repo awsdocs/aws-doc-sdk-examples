@@ -24,6 +24,51 @@ bedrock-runtime_Hello:
   services:
     bedrock-runtime: {InvokeModel}
 
+# Amazon Titan - Embeddings
+bedrock-runtime_TitanTextEmbeddingsG1_InvokeModel:
+  title: Invoke Amazon Titan Text Embeddings G1 on &BR;
+  title_abbrev: "Amazon Titan Text Embeddings G1"
+  synopsis_list:
+    - Get started creating your first embedding.
+    - Create embeddings and process all response fields.
+  category: Invoke model examples
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Create your first embedding with Amazon Titan Text Embeddings G1.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModel_TitanTextEmbeddingsG1_Quickstart
+            - description: Invoke Amazon Titan Text Embeddings G1 and process all response fields.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModel_TitanTextEmbeddingsG1_AdditionalFields
+  services:
+    bedrock-runtime: {InvokeModel}
+
+bedrock-runtime_TitanTextEmbeddingsV2_InvokeModel:
+  title: Invoke Amazon Titan Text Embeddings V2 on &BR;
+  title_abbrev: "Amazon Titan Text Embeddings V2"
+  synopsis_list:
+    - Get started creating your first embedding.
+    - Create embeddings configuring the number of dimensions and normalization.
+  category: Invoke model examples
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Create your first embedding with Titan Text Embeddings V2.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModel_TitanTextEmbeddingsG1_Quickstart
+            - description: Invoke Titan Text Embeddings V2 configuring the number of dimensions and normalization.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModel_TitanTextEmbeddingsG1_AdditionalFields
+  services:
+    bedrock-runtime: {InvokeModel}
+
 bedrock-runtime_InvokeAmazonTitanImageGeneratorForImageGeneration:
   title: Invoke Amazon Titan Image G1 on &BR; to generate an image
   title_abbrev: 'Amazon Titan: Image generation'

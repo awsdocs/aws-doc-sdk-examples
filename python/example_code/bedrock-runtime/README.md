@@ -39,6 +39,8 @@ python -m pip install -r requirements.txt
 ### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](bedrock_runtime_wrapper.py#L79)
+- [Amazon Titan Text Embeddings G1](models/amazon/titan_embeddings_text/g1_invoke_model_quickstart.py#L4)
+- [Amazon Titan Text Embeddings V2](models/amazon/titan_embeddings_text/g1_invoke_model_quickstart.py#L4)
 - [Amazon Titan: Image generation](bedrock_runtime_wrapper.py#L238)
 - [Anthropic Claude 2: Real-time response stream processing](bedrock_runtime_wrapper.py#L283)
 - [Anthropic Claude 2: Text generation](bedrock_runtime_wrapper.py#L39)
