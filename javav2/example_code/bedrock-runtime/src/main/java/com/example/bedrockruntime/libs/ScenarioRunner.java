@@ -50,7 +50,7 @@ public class ScenarioRunner {
         System.out.println("-".repeat(80));
     }
 
-    public void printFooter() throws IOException {
+    public void printFooter() {
         System.out.println("\n" + "*".repeat(80));
         System.out.println("Thanks for running the Amazon Bedrock demo!");
         System.out.println("=".repeat(80));
