@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 
 public class V2InvokeModelScenarios {
-    // snippet-end:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_AdditionalFields]
+    // snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_AdditionalFields]
 
     /**
      * Invoke Amazon Titan Text Embeddings v2 with additional inference parameters.
