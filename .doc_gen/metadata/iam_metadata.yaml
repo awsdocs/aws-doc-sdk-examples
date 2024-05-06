@@ -64,10 +64,6 @@ iam_Hello:
   services:
     iam: {ListPolicies}
 iam_CreateAccountAlias:
-  title: Create an alias for an &IAM; account using an &AWS; SDK
-  title_abbrev: Create an alias for an account
-  synopsis: create an alias for an &IAM; account.
-  category:
   languages:
     Kotlin:
       versions:
@@ -132,10 +128,6 @@ iam_CreateAccountAlias:
   services:
     iam: {CreateAccountAlias}
 iam_DeleteAccountAlias:
-  title: Delete an &IAM; account alias using an &AWS; SDK
-  title_abbrev: Delete an account alias
-  synopsis: delete an &IAM; account alias.
-  category:
   languages:
     Kotlin:
       versions:
@@ -200,10 +192,6 @@ iam_DeleteAccountAlias:
   services:
     iam: {DeleteAccountAlias}
 iam_ListAccountAliases:
-  title: List &IAM; account aliases using an &AWS; SDK
-  title_abbrev: List account aliases
-  synopsis: list &IAM; account aliases.
-  category:
   languages:
     Kotlin:
       versions:
@@ -268,10 +256,6 @@ iam_ListAccountAliases:
   services:
     iam: {ListAccountAliases}
 iam_GetAccountAuthorizationDetails:
-  title: Get a detailed &IAM; authorization report for your account using an &AWS; SDK
-  title_abbrev: Get a detailed authorization report for your account
-  synopsis: get a detailed &IAM; authorization report for your account.
-  category:
   languages:
     Python:
       versions:
@@ -285,10 +269,6 @@ iam_GetAccountAuthorizationDetails:
   services:
     iam: {GetAccountAuthorizationDetails}
 iam_GetAccountSummary:
-  title: Get a summary of account usage from &IAM; using an &AWS; SDK
-  title_abbrev: Get a summary of account usage
-  synopsis: get a summary of account usage from &IAM;.
-  category:
   languages:
     Python:
       versions:
@@ -302,11 +282,6 @@ iam_GetAccountSummary:
   services:
     iam: {GetAccountSummary}
 iam_GenerateCredentialReport:
-  title: Generate a credential report from &IAM; using an &AWS; SDK
-  title_abbrev: Generate a credential report
-  synopsis: generate a credential report from &IAM; for the current account.
-    After the report is generated, get it by using the GetCredentialReport action.
-  category:
   languages:
     Python:
       versions:
@@ -320,10 +295,6 @@ iam_GenerateCredentialReport:
   services:
     iam: {GenerateCredentialReport}
 iam_GetCredentialReport:
-  title: Get a credential report from &IAM; using an &AWS; SDK
-  title_abbrev: Get a credential report
-  synopsis: get the most recently generated credential report from &IAM;.
-  category:
   languages:
     Python:
       versions:
@@ -337,10 +308,6 @@ iam_GetCredentialReport:
   services:
     iam: {GetCredentialReport}
 iam_GetAccountPasswordPolicy:
-  title: Get the &IAM; account password policy using an &AWS; SDK
-  title_abbrev: Get the account password policy
-  synopsis: get the &IAM; account password policy.
-  category:
   languages:
     .NET:
       versions:
@@ -407,10 +374,6 @@ iam_GetAccountPasswordPolicy:
   services:
     iam: {GetAccountPasswordPolicy}
 iam_ListSAMLProviders:
-  title: List SAML providers for &IAM; using an &AWS; SDK
-  title_abbrev: List SAML providers
-  synopsis: list SAML providers for &IAM;.
-  category:
   languages:
     .NET:
       versions:
@@ -482,8 +445,7 @@ iam_Scenario_AccountManagement:
     - Get and update the account alias.
     - Generate a report of users and credentials.
     - Get a summary of account usage.
-    - Get details for all users, groups, roles, and policies in your account, including
-      their relationships to each other.
+    - Get details for all users, groups, roles, and policies in your account, including their relationships to each other.
   category: Scenarios
   languages:
     Python:
@@ -502,18 +464,13 @@ iam_Scenario_AccountManagement:
                 - python.example_code.iam.GetCredentialReport
                 - python.example_code.iam.GetAccountSummary
                 - python.example_code.iam.GetAccountAuthorizationDetails
-            - description: Call wrapper functions to change the account alias and
-                to get reports about the account.
+            - description: Call wrapper functions to change the account alias and to get reports about the account.
               snippet_tags:
                 - python.example_code.iam.Scenario_AccountManagement
   services:
-    iam: {ListAccountAliases, CreateAccountAlias, DeleteAccountAlias, GenerateCredentialReport,
-          GetCredentialReport, GetAccountSummary, GetAccountAuthorizationDetails}
+    iam: {ListAccountAliases, CreateAccountAlias, DeleteAccountAlias, GenerateCredentialReport, GetCredentialReport, GetAccountSummary,
+          GetAccountAuthorizationDetails}
 iam_CreateAccessKey:
-  title: Create an &IAM; access key using an &AWS; SDK
-  title_abbrev: Create an access key
-  synopsis: create an &IAM; access key. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     .NET:
       versions:
@@ -621,10 +578,6 @@ iam_CreateAccessKey:
   services:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
-  title: Delete an &IAM; access key using an &AWS; SDK
-  title_abbrev: Delete an access key
-  synopsis: delete an &IAM; access key. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     .NET:
       versions:
@@ -733,10 +686,6 @@ iam_DeleteAccessKey:
   services:
     iam: {DeleteAccessKey}
 iam_DeleteRolePolicy:
-  title: Delete an &IAM; role policy using an &AWS; SDK
-  title_abbrev: Delete a role policy
-  synopsis: delete an &IAM; role policy.
-  category:
   languages:
     .NET:
       versions:
@@ -759,10 +708,6 @@ iam_DeleteRolePolicy:
   services:
     iam: {DeleteRolePolicy}
 iam_GetAccessKeyLastUsed:
-  title: Get data about the last use of an &IAM; access key using an &AWS; SDK
-  title_abbrev: Get data about the last use of an access key
-  synopsis: get data about the last use of an &IAM; access key. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     Python:
       versions:
@@ -800,10 +745,6 @@ iam_GetAccessKeyLastUsed:
   services:
     iam: {GetAccessKeyLastUsed}
 iam_ListAccessKeys:
-  title: List a user's &IAM; access keys using an &AWS; SDK
-  title_abbrev: List a user's access keys
-  synopsis: list a user's &IAM; access keys. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     Kotlin:
       versions:
@@ -887,10 +828,6 @@ iam_ListAccessKeys:
   services:
     iam: {ListAccessKeys}
 iam_UpdateAccessKey:
-  title: Update an &IAM; access key using an &AWS; SDK
-  title_abbrev: Update an access key
-  synopsis: update an &IAM; access key. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     Java:
       versions:
@@ -960,17 +897,12 @@ iam_Scenario_ManageAccessKeys:
                 - python.example_code.iam.GetAccessKeyLastUsed
                 - python.example_code.iam.UpdateAccessKey
                 - python.example_code.iam.DeleteAccessKey
-            - description: Use the wrapper functions to perform access key actions for
-                the current user.
+            - description: Use the wrapper functions to perform access key actions for the current user.
               snippet_tags:
                 - python.example_code.iam.Scenario_ManageAccessKeys
   services:
     iam: {ListAccessKeys, CreateAccessKey, GetAccessKeyLastUsed, UpdateAccessKey, DeleteAccessKey}
 iam_CreatePolicy:
-  title: Create an &IAM; policy using an &AWS; SDK
-  title_abbrev: Create a policy
-  synopsis: create an &IAM; policy.
-  category:
   languages:
     .NET:
       versions:
@@ -1089,10 +1021,6 @@ iam_CreatePolicy:
   services:
     iam: {CreatePolicy}
 iam_DeletePolicy:
-  title: Delete an &IAM; policy using an &AWS; SDK
-  title_abbrev: Delete a policy
-  synopsis: delete an &IAM; policy.
-  category:
   languages:
     .NET:
       versions:
@@ -1185,10 +1113,6 @@ iam_DeletePolicy:
   services:
     iam: {DeletePolicy}
 iam_CreatePolicyVersion:
-  title: Create an &IAM; policy version using an &AWS; SDK
-  title_abbrev: Create a policy version
-  synopsis: create an &IAM; policy version.
-  category:
   languages:
     Python:
       versions:
@@ -1202,10 +1126,6 @@ iam_CreatePolicyVersion:
   services:
     iam: {CreatePolicyVersion}
 iam_ListPolicies:
-  title: List &IAM; policies using an &AWS; SDK
-  title_abbrev: List policies
-  synopsis: list &IAM; policies.
-  category:
   languages:
     .NET:
       versions:
@@ -1287,10 +1207,6 @@ iam_ListPolicies:
   services:
     iam: {ListPolicies}
 iam_GetPolicy:
-  title: Get an &IAM; policy using an &AWS; SDK
-  title_abbrev: Get a policy
-  synopsis: get an &IAM; policy.
-  category:
   languages:
     .NET:
       versions:
@@ -1378,10 +1294,6 @@ iam_GetPolicy:
   services:
     iam: {GetPolicy}
 iam_GetPolicyVersion:
-  title: Get an &IAM; policy version using an &AWS; SDK
-  title_abbrev: Get a policy version
-  synopsis: get an &IAM; policy version.
-  category:
   languages:
     Python:
       versions:
@@ -1416,10 +1328,6 @@ iam_Scenario_RollbackPolicyVersion:
   services:
     iam: {ListPolicyVersions, SetDefaultPolicyVersion, DeletePolicyVersion}
 iam_AttachRolePolicy:
-  title: Attach an &IAM; policy to a role using an &AWS; SDK
-  title_abbrev: Attach a policy to a role
-  synopsis: attach an &IAM; policy to a role.
-  category:
   languages:
     .NET:
       versions:
@@ -1542,10 +1450,6 @@ iam_AttachRolePolicy:
   services:
     iam: {AttachRolePolicy}
 iam_ListAttachedRolePolicies:
-  title: List policies attached to an &IAM; role using an &AWS; SDK
-  title_abbrev: List policies attached to a role
-  synopsis: list policies attached to an &IAM; role.
-  category:
   languages:
     .NET:
       versions:
@@ -1619,10 +1523,6 @@ iam_ListAttachedRolePolicies:
   services:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
-  title: Detach an &IAM; policy from a role using an &AWS; SDK
-  title_abbrev: Detach a policy from a role
-  synopsis: detach an &IAM; policy from a role.
-  category:
   languages:
     .NET:
       versions:
@@ -1758,18 +1658,13 @@ iam_Scenario_PolicyManagement:
                 - python.example_code.iam.GetPolicyVersion
                 - python.example_code.iam.Scenario_RollbackPolicyVersion
                 - python.example_code.iam.DeletePolicy
-            - description: Use the wrapper functions to create policies, update
-                versions, and get information about them.
+            - description: Use the wrapper functions to create policies, update versions, and get information about them.
               snippet_tags:
                 - python.example_code.iam.Scenario_PolicyManagement
   services:
-    iam: {CreatePolicy, ListPolicies, CreatePolicyVersion, GetPolicyVersion, DeletePolicy,
-          ListPolicyVersions, SetDefaultPolicyVersion, DeletePolicyVersion}
+    iam: {CreatePolicy, ListPolicies, CreatePolicyVersion, GetPolicyVersion, DeletePolicy, ListPolicyVersions, SetDefaultPolicyVersion,
+          DeletePolicyVersion}
 iam_CreateRole:
-  title: Create an &IAM; role using an &AWS; SDK
-  title_abbrev: Create a role
-  synopsis: create an &IAM; role.
-  category:
   languages:
     .NET:
       versions:
@@ -1870,10 +1765,6 @@ iam_CreateRole:
   services:
     iam: {CreateRole}
 iam_ListRoles:
-  title: List &IAM; roles using an &AWS; SDK
-  title_abbrev: List roles
-  synopsis: list &IAM; roles.
-  category:
   languages:
     .NET:
       versions:
@@ -1946,10 +1837,6 @@ iam_ListRoles:
   services:
     iam: {ListRoles}
 iam_GetRole:
-  title: Get an &IAM; role using an &AWS; SDK
-  title_abbrev: Get a role
-  synopsis: get an &IAM; role.
-  category:
   languages:
     .NET:
       versions:
@@ -2023,10 +1910,6 @@ iam_GetRole:
   services:
     iam: {GetRole}
 iam_DeleteRole:
-  title: Delete an &IAM; role using an &AWS; SDK
-  title_abbrev: Delete a role
-  synopsis: delete an &IAM; role.
-  category:
   languages:
     .NET:
       versions:
@@ -2102,10 +1985,6 @@ iam_DeleteRole:
   services:
     iam: {DeleteRole}
 iam_PutRolePolicy:
-  title: Attach an inline policy to an &IAM; role using an &AWS; SDK
-  title_abbrev: Attach an inline policy to a role
-  synopsis: attach an inline policy to an &IAM; role.
-  category:
   languages:
     .NET:
       versions:
@@ -2135,10 +2014,6 @@ iam_PutRolePolicy:
   services:
     iam: {PutRolePolicy}
 iam_ListRolePolicies:
-  title: List inline policies for an &IAM; role using an &AWS; SDK
-  title_abbrev: List inline policies for a role
-  synopsis: list inline policies for an &IAM; role.
-  category:
   languages:
     .NET:
       versions:
@@ -2234,17 +2109,12 @@ iam_Scenario_RoleManagement:
                 - python.example_code.iam.AttachRolePolicy_Role
                 - python.example_code.iam.DetachRolePolicy_Role
                 - python.example_code.iam.DeleteRole
-            - description: Use the wrapper functions to create a role, then attach
-                and detach a policy.
+            - description: Use the wrapper functions to create a role, then attach and detach a policy.
               snippet_tags:
                 - python.example_code.iam.Scenario_RoleManagement
   services:
     iam: {CreateRole, AttachRolePolicy, DetachRolePolicy, DeleteRole}
 iam_CreateUser:
-  title: Create an &IAM-user; using an &AWS; SDK
-  title_abbrev: Create a user
-  synopsis: create an &IAM-user;. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     .NET:
       versions:
@@ -2364,10 +2234,6 @@ iam_CreateUser:
   services:
     iam: {CreateUser}
 iam_DeleteUser:
-  title: Delete an &IAM-user; using an &AWS; SDK
-  title_abbrev: Delete a user
-  synopsis: delete an &IAM-user;. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     .NET:
       versions:
@@ -2477,10 +2343,6 @@ iam_DeleteUser:
   services:
     iam: {DeleteUser}
 iam_GetUser:
-  title: Get an &IAM-user; using an &AWS; SDK
-  title_abbrev: Get a user
-  synopsis: get an &IAM-user;. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     .NET:
       versions:
@@ -2520,10 +2382,6 @@ iam_GetUser:
   services:
     iam: {GetUser}
 iam_ListUsers:
-  title: List &IAM-users; using an &AWS; SDK
-  title_abbrev: List users
-  synopsis: list &IAM-users;. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     .NET:
       versions:
@@ -2640,10 +2498,6 @@ iam_ListUsers:
   services:
     iam: {ListUsers}
 iam_UpdateUser:
-  title: Update an &IAM-user; using an &AWS; SDK
-  title_abbrev: Update a user
-  synopsis: update an &IAM-user;. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     Kotlin:
       versions:
@@ -2707,10 +2561,6 @@ iam_UpdateUser:
   services:
     iam: {UpdateUser}
 iam_AttachUserPolicy:
-  title: Attach an &IAM; policy to a user using an &AWS; SDK
-  title_abbrev: Attach a policy to a user
-  synopsis: attach an &IAM; policy to a user. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     Python:
       versions:
@@ -2741,10 +2591,6 @@ iam_AttachUserPolicy:
   services:
     iam: {AttachUserPolicy}
 iam_DetachUserPolicy:
-  title: Detach an &IAM; policy from a user using an &AWS; SDK
-  title_abbrev: Detach a policy from a user
-  synopsis: detach an &IAM; policy from a user. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     Python:
       versions:
@@ -2775,10 +2621,6 @@ iam_DetachUserPolicy:
   services:
     iam: {DetachUserPolicy}
 iam_PutGroupPolicy:
-  title: Create an inline &IAM; policy for a group using an &AWS; SDK
-  title_abbrev: Create an inline policy for a group
-  synopsis: create an inline &IAM; policy for a group.
-  category:
   languages:
     .NET:
       versions:
@@ -2791,10 +2633,6 @@ iam_PutGroupPolicy:
   services:
     iam: {PutGroupPolicy}
 iam_PutUserPolicy:
-  title: Create an inline &IAM; policy for a user using an &AWS; SDK
-  title_abbrev: Create an inline policy for a user
-  synopsis: create an inline &IAM; policy for a user. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     Go:
       versions:
@@ -2825,10 +2663,6 @@ iam_PutUserPolicy:
   services:
     iam: {PutUserPolicy}
 iam_ListUserPolicies:
-  title: List inline &IAM; policies for a user using an &AWS; SDK
-  title_abbrev: List inline policies for a user
-  synopsis: list inline &IAM; policies for a user. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     Go:
       versions:
@@ -2842,10 +2676,6 @@ iam_ListUserPolicies:
   services:
     iam: {ListUserPolicies}
 iam_DeleteUserPolicy:
-  title: Delete an inline &IAM; policy from a user using an &AWS; SDK
-  title_abbrev: Delete an inline policy from a user
-  synopsis: delete an inline &IAM; policy from a user. &aws_sec_sdk_use-federation-warning;
-  category:
   languages:
     .NET:
       versions:
@@ -2927,18 +2757,14 @@ iam_Scenario_UserPolicies:
                 - python.example_code.iam.access_key_wrapper.imports
                 - python.example_code.iam.CreateAccessKey
                 - python.example_code.iam.DeleteAccessKey
-            - description: Use the wrapper functions to create users with differing
-                policies and use their credentials to access an &S3; bucket.
+            - description: Use the wrapper functions to create users with differing policies and use their credentials to
+                access an &S3; bucket.
               snippet_tags:
                 - python.example_code.iam.Scenario_UserPolicies
   services:
-    iam: {CreateUser, UpdateUser, ListUsers, DeleteUser, AttachUserPolicy, DetachUserPolicy,
-          CreatePolicy, DeletePolicy, CreateAccessKey, DeleteAccessKey}
+    iam: {CreateUser, UpdateUser, ListUsers, DeleteUser, AttachUserPolicy, DetachUserPolicy, CreatePolicy, DeletePolicy, CreateAccessKey,
+          DeleteAccessKey}
 iam_ListServerCertificates:
-  title: List &IAM; server certificates using an &AWS; SDK
-  title_abbrev: List server certificates
-  synopsis: list &IAM; server certificates.
-  category:
   languages:
     JavaScript:
       versions:
@@ -2975,10 +2801,6 @@ iam_ListServerCertificates:
   services:
     iam: {ListServerCertificates}
 iam_GetServerCertificate:
-  title: Get an &IAM; server certificate using an &AWS; SDK
-  title_abbrev: Get a server certificate
-  synopsis: get an &IAM; server certificate.
-  category:
   languages:
     JavaScript:
       versions:
@@ -3007,10 +2829,6 @@ iam_GetServerCertificate:
   services:
     iam: {GetServerCertificate}
 iam_UpdateServerCertificate:
-  title: Update an &IAM; server certificate using an &AWS; SDK
-  title_abbrev: Update a server certificate
-  synopsis: update an &IAM; server certificate.
-  category:
   languages:
     JavaScript:
       versions:
@@ -3047,10 +2865,6 @@ iam_UpdateServerCertificate:
   services:
     iam: {UpdateServerCertificate}
 iam_GetServiceLinkedRoleDeletionStatus:
-  title: Get an &IAM; service-linked role's deletion status using an &AWS; SDK
-  title_abbrev: Get a service-linked role's deletion status
-  synopsis: get an &IAMlong; (&IAM;) service-linked role's deletion status.
-  category:
   languages:
     JavaScript:
       versions:
@@ -3064,10 +2878,6 @@ iam_GetServiceLinkedRoleDeletionStatus:
   services:
     iam: {GetServiceLinkedRoleDeletionStatus}
 iam_DeleteSAMLProvider:
-  title: Delete an &IAM; SAML provider using an &AWS; SDK
-  title_abbrev: Delete SAML provider
-  synopsis: delete an &IAMlong; (&IAM;) SAML provider.
-  category:
   languages:
     JavaScript:
       versions:
@@ -3081,10 +2891,6 @@ iam_DeleteSAMLProvider:
   services:
     iam: {DeleteSAMLProvider}
 iam_DeleteServerCertificate:
-  title: Delete an &IAM; server certificate using an &AWS; SDK
-  title_abbrev: Delete a server certificate
-  synopsis: delete an &IAM; server certificate.
-  category:
   languages:
     JavaScript:
       versions:
@@ -3121,10 +2927,6 @@ iam_DeleteServerCertificate:
   services:
     iam: {DeleteServerCertificate}
 iam_CreateGroup:
-  title: Create an &IAM; group using an &AWS; SDK
-  title_abbrev: Create a group
-  synopsis: create an &IAM; group.
-  category:
   languages:
     .NET:
       versions:
@@ -3147,10 +2949,6 @@ iam_CreateGroup:
   services:
     iam: {CreateGroup}
 iam_AddUserToGroup:
-  title: Add an &IAM; user to a group using an &AWS; SDK
-  title_abbrev: Add a user to a group
-  synopsis: add a user to an &IAM; group.
-  category:
   languages:
     .NET:
       versions:
@@ -3164,10 +2962,6 @@ iam_AddUserToGroup:
   services:
     iam: {AddUserToGroup}
 iam_RemoveUserFromGroup:
-  title: Remove an &IAM; user from a group using an &AWS; SDK
-  title_abbrev: Remove a user from a group
-  synopsis: remove a user from an &IAM; group.
-  category:
   languages:
     .NET:
       versions:
@@ -3181,10 +2975,6 @@ iam_RemoveUserFromGroup:
   services:
     iam: {RemoveUserFromGroup}
 iam_DeleteGroup:
-  title: Delete an &IAM; group using an &AWS; SDK
-  title_abbrev: Delete a group
-  synopsis: delete an &IAM; group.
-  category:
   languages:
     .NET:
       versions:
@@ -3207,10 +2997,6 @@ iam_DeleteGroup:
   services:
     iam: {DeleteGroup}
 iam_DeleteGroupPolicy:
-  title: Delete an &IAM; group policy using an &AWS; SDK
-  title_abbrev: Delete a group policy
-  synopsis: delete an &IAM; group policy.
-  category:
   languages:
     .NET:
       versions:
@@ -3224,10 +3010,6 @@ iam_DeleteGroupPolicy:
   services:
     iam: {DeleteGroupPolicy}
 iam_ListGroups:
-  title: List &IAM; groups using an &AWS; SDK
-  title_abbrev: List groups
-  synopsis: list &IAM; groups.
-  category:
   languages:
     .NET:
       versions:
@@ -3301,10 +3083,6 @@ iam_ListGroups:
   services:
     iam: {ListGroups}
 iam_CreateSAMLProvider:
-  title: Create an &IAM; SAML provider using an &AWS; SDK
-  title_abbrev: Create a SAML provider
-  synopsis: create an &IAMlong; (&IAM;) SAML provider.
-  category:
   languages:
     JavaScript:
       versions:
@@ -3318,10 +3096,6 @@ iam_CreateSAMLProvider:
   services:
     iam: {CreateSAMLProvider}
 iam_CreateServiceLinkedRole:
-  title: Create an &IAM; service-linked role using an &AWS; SDK
-  title_abbrev: Create a service-linked role
-  synopsis: create an &IAM; service-linked role.
-  category:
   languages:
     .NET:
       versions:
@@ -3395,10 +3169,6 @@ iam_CreateServiceLinkedRole:
   services:
     iam: {CreateServiceLinkedRole}
 iam_DeleteServiceLinkedRole:
-  title: Delete an &IAM; service-linked role using an &AWS; SDK
-  title_abbrev: Delete a service-linked role
-  synopsis: delete an &IAM; service-linked role.
-  category:
   languages:
     Go:
       versions:
@@ -3438,10 +3208,6 @@ iam_DeleteServiceLinkedRole:
   services:
     iam: {DeleteServiceLinkedRole}
 iam_UploadServerCertificate:
-  title: Upload an &IAM; server certificate using an &AWS; SDK
-  title_abbrev: Upload a server certificate
-  synopsis: upload an &IAMlong; (&IAM;) server certificate.
-  category:
   languages:
     JavaScript:
       versions:
@@ -3455,10 +3221,6 @@ iam_UploadServerCertificate:
   services:
     iam: {UploadServerCertificate}
 iam_CreateInstanceProfile:
-  title: Create an &IAM; instance profile using an &AWS; SDK
-  title_abbrev: Create an instance profile
-  synopsis: create an &IAM; instance profile.
-  category:
   languages:
     .NET:
       versions:
@@ -3474,8 +3236,7 @@ iam_CreateInstanceProfile:
           github: python/example_code/iam
           sdkguide:
           excerpts:
-            - description: This example creates a policy, role, and instance profile and
-                links them all together.
+            - description: This example creates a policy, role, and instance profile and links them all together.
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.iam.CreateInstanceProfile
@@ -3491,10 +3252,6 @@ iam_CreateInstanceProfile:
   services:
     iam: {CreateInstanceProfile}
 iam_DeleteInstanceProfile:
-  title: Delete an &IAM; instance profile using an &AWS; SDK
-  title_abbrev: Delete an instance profile
-  synopsis: delete an &IAM; instance profile.
-  category:
   languages:
     .NET:
       versions:
@@ -3510,8 +3267,8 @@ iam_DeleteInstanceProfile:
           github: python/example_code/iam
           sdkguide:
           excerpts:
-            - description: This example removes the role from the instance profile, detaches
-                all policies attached to the role, and deletes all the resources.
+            - description: This example removes the role from the instance profile, detaches all policies attached to the
+                role, and deletes all the resources.
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.iam.DeleteInstanceProfile
@@ -3549,9 +3306,8 @@ iam_Scenario_GroupBasics:
                 - IAM.dotnetv3.IAMCommon.S3Wrapper
                 - IAM.dotnetv3.IAMCommon.UIWrapper
   services:
-    iam: {AddUserToGroup, CreateGroup, CreateUser, CreateAccessKey, CreateRole,
-          CreatePolicy, AttachRolePolicy, PutGroupPolicy, DeleteGroup, DeleteGroupPolicy,
-          DeleteAccessKey, DeleteUser, RemoveUserFromGroup}
+    iam: {AddUserToGroup, CreateGroup, CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy, PutGroupPolicy,
+          DeleteGroup, DeleteGroupPolicy, DeleteAccessKey, DeleteUser, RemoveUserFromGroup}
 iam_Scenario_CreateUserAssumeRole:
   title: Create an &IAM-user; and assume a role with &STS; using an &AWS; SDK
   title_abbrev: Create a user and assume a role
@@ -3600,10 +3356,8 @@ iam_Scenario_CreateUserAssumeRole:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create an &IAM-user; and a role that grants permission
-                to list &S3; buckets. The user has rights only to assume the role.
-                After assuming the role, use temporary credentials to list buckets for
-                the account.
+            - description: Create an &IAM-user; and a role that grants permission to list &S3; buckets. The user has rights
+                only to assume the role. After assuming the role, use temporary credentials to list buckets for the account.
               snippet_tags:
                 - javascript.iam_scenarios.iam_basics
     PHP:
@@ -3621,10 +3375,8 @@ iam_Scenario_CreateUserAssumeRole:
           github: python/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create an &IAM-user; and a role that grants permission
-                to list &S3; buckets. The user has rights only to assume the role.
-                After assuming the role, use temporary credentials to list buckets for
-                the account.
+            - description: Create an &IAM-user; and a role that grants permission to list &S3; buckets. The user has rights
+                only to assume the role. After assuming the role, use temporary credentials to list buckets for the account.
               snippet_tags:
                 - python.example_code.iam.Scenario_CreateUserAssumeRole
     Ruby:
@@ -3633,10 +3385,8 @@ iam_Scenario_CreateUserAssumeRole:
           github: ruby/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create an &IAM-user; and a role that grants permission
-                to list &S3; buckets. The user has rights only to assume the role.
-                After assuming the role, use temporary credentials to list buckets for
-                the account.
+            - description: Create an &IAM-user; and a role that grants permission to list &S3; buckets. The user has rights
+                only to assume the role. After assuming the role, use temporary credentials to list buckets for the account.
               snippet_tags:
                 - ruby.iam.Scenario_CreateUserAssumeRole
     Go:
@@ -3697,9 +3447,8 @@ iam_Scenario_CreateUserAssumeRole:
                 - aws-cli.bash-linux.iam.DeleteAccessKey
                 - aws-cli.bash-linux.iam.DeleteUser
   services:
-    iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy,
-          PutUserPolicy, DeleteUserPolicy, DetachRolePolicy, DeletePolicy, DeleteRole,
-          DeleteAccessKey, DeleteUser}
+    iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy, PutUserPolicy, DeleteUserPolicy, DetachRolePolicy,
+          DeletePolicy, DeleteRole, DeleteAccessKey, DeleteUser}
 iam_Scenario_IamPolicyBuilder:
   title: Work with the &IAM; Policy Builder API using an &AWS; SDK
   title_abbrev: Work with the &IAM; Policy Builder API

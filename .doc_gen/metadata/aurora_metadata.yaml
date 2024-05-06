@@ -53,10 +53,6 @@ aurora_Hello:
   services:
     aurora: {DescribeDBClusters}
 aurora_DescribeDBClusterParameterGroups:
-  title: Describe &AUR; DB cluster parameter groups using an &AWS; SDK
-  title_abbrev: Describe DB cluster parameter groups
-  synopsis: describe &AUR; DB cluster parameter groups.
-  category:
   languages:
     .NET:
       versions:
@@ -119,10 +115,6 @@ aurora_DescribeDBClusterParameterGroups:
   services:
     aurora: {DescribeDBClusterParameterGroups}
 aurora_CreateDBClusterParameterGroup:
-  title: Create an &AUR; DB cluster parameter group using an &AWS; SDK
-  title_abbrev: Create a DB cluster parameter group
-  synopsis: create an &AUR; DB cluster parameter group.
-  category:
   languages:
     .NET:
       versions:
@@ -193,10 +185,6 @@ aurora_CreateDBClusterParameterGroup:
   services:
     aurora: {CreateDBClusterParameterGroup}
 aurora_DeleteDBClusterParameterGroup:
-  title: Delete an &AUR; DB cluster parameter group using an &AWS; SDK
-  title_abbrev: Delete a DB cluster parameter group
-  synopsis: delete an &AUR; DB cluster parameter group.
-  category:
   languages:
     .NET:
       versions:
@@ -267,10 +255,6 @@ aurora_DeleteDBClusterParameterGroup:
   services:
     aurora: {DeleteDBClusterParameterGroup}
 aurora_DescribeDBClusterParameters:
-  title: Describe parameters from an &AUR; DB cluster parameter group using an &AWS; SDK
-  title_abbrev: Describe parameters from a DB cluster parameter group
-  synopsis: describe parameters from an &AUR; DB cluster parameter group.
-  category:
   languages:
     .NET:
       versions:
@@ -341,10 +325,6 @@ aurora_DescribeDBClusterParameters:
   services:
     aurora: {DescribeDBClusterParameters}
 aurora_ModifyDBClusterParameterGroup:
-  title: Update parameters in an &AUR; DB cluster parameter group using an &AWS; SDK
-  title_abbrev: Update parameters in a DB cluster parameter group
-  synopsis: update parameters in an &AUR; DB cluster parameter group.
-  category:
   languages:
     .NET:
       versions:
@@ -415,10 +395,6 @@ aurora_ModifyDBClusterParameterGroup:
   services:
     aurora: {ModifyDBClusterParameterGroup}
 aurora_DescribeDBClusters:
-  title: Describe &AUR; DB clusters using an &AWS; SDK
-  title_abbrev: Describe DB clusters
-  synopsis: describe &AUR; DB clusters.
-  category:
   languages:
     .NET:
       versions:
@@ -489,10 +465,6 @@ aurora_DescribeDBClusters:
   services:
     aurora: {DescribeDBClusters}
 aurora_CreateDBCluster:
-  title: Create an &AUR; DB cluster using an &AWS; SDK
-  title_abbrev: Create a DB cluster
-  synopsis: create an &AUR; DB cluster.
-  category:
   languages:
     .NET:
       versions:
@@ -563,10 +535,6 @@ aurora_CreateDBCluster:
   services:
     aurora: {CreateDBCluster}
 aurora_DeleteDBCluster:
-  title: Delete an &AUR; DB cluster using an &AWS; SDK
-  title_abbrev: Delete a DB cluster
-  synopsis: delete an &AUR; DB cluster.
-  category:
   languages:
     .NET:
       versions:
@@ -637,10 +605,6 @@ aurora_DeleteDBCluster:
   services:
     aurora: {DeleteDBCluster}
 aurora_CreateDBClusterSnapshot:
-  title: Create an &AUR; DB cluster snapshot using an &AWS; SDK
-  title_abbrev: Create a DB cluster snapshot
-  synopsis: create an &AUR; DB cluster snapshot.
-  category:
   languages:
     .NET:
       versions:
@@ -711,10 +675,6 @@ aurora_CreateDBClusterSnapshot:
   services:
     aurora: {CreateDBClusterSnapshot}
 aurora_DescribeDBClusterSnapshots:
-  title: Describe &AUR; DB cluster snapshots using an &AWS; SDK
-  title_abbrev: Describe DB cluster snapshots
-  synopsis: describe &AUR; DB cluster snapshots.
-  category:
   languages:
     .NET:
       versions:
@@ -776,10 +736,6 @@ aurora_DescribeDBClusterSnapshots:
   services:
     aurora: {DescribeDBClusterSnapshots}
 aurora_CreateDBInstance:
-  title: Create a DB instance in an &AUR; DB cluster using an &AWS; SDK
-  title_abbrev: Create a DB instance in a DB cluster
-  synopsis: create a DB instance in an &AUR; DB cluster.
-  category:
   languages:
     .NET:
       versions:
@@ -850,10 +806,6 @@ aurora_CreateDBInstance:
   services:
     aurora: {CreateDBInstance}
 aurora_DescribeDBEngineVersions:
-  title: Describe &AUR; database engine versions using an &AWS; SDK
-  title_abbrev: Describe database engine versions
-  synopsis: describe &AUR; database engine versions.
-  category:
   languages:
     .NET:
       versions:
@@ -924,10 +876,6 @@ aurora_DescribeDBEngineVersions:
   services:
     aurora: {DescribeDBEngineVersions}
 aurora_DescribeOrderableDBInstanceOptions:
-  title: Describe options for &AUR; DB instances using an &AWS; SDK
-  title_abbrev: Describe options for DB instances
-  synopsis: describe options for &AUR; DB instances.
-  category:
   languages:
     .NET:
       versions:
@@ -989,10 +937,6 @@ aurora_DescribeOrderableDBInstanceOptions:
   services:
     aurora: {DescribeOrderableDBInstanceOptions}
 aurora_DescribeDBInstances:
-  title: Describe &AUR; DB instances using an &AWS; SDK
-  title_abbrev: Describe DB instances
-  synopsis: describe &AUR; DB instances.
-  category:
   languages:
     .NET:
       versions:
@@ -1063,10 +1007,6 @@ aurora_DescribeDBInstances:
   services:
     aurora: {DescribeDBInstances}
 aurora_DeleteDBInstance:
-  title: Delete an &AUR; DB instance using an &AWS; SDK
-  title_abbrev: Delete a DB instance
-  synopsis: delete an &AUR; DB instance.
-  category:
   languages:
     .NET:
       versions:
@@ -1155,8 +1095,7 @@ aurora_Scenario_GetStartedClusters:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - Aurora.dotnetv3.AuroraClusterScenario
-            - description: Wrapper methods that are called by the scenario to
-                manage &AUR; actions.
+            - description: Wrapper methods that are called by the scenario to manage &AUR; actions.
               snippet_tags:
                 - Aurora.dotnetv3.AuroraWrapper
     Go:
@@ -1167,8 +1106,7 @@ aurora_Scenario_GetStartedClusters:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - gov2.aurora.Scenario_GetStartedClusters
-            - description: Define functions that are called by the scenario to
-                manage &AUR; actions.
+            - description: Define functions that are called by the scenario to manage &AUR; actions.
               snippet_tags:
                 - gov2.aurora.DbClusters.complete
     Kotlin:
@@ -1198,8 +1136,7 @@ aurora_Scenario_GetStartedClusters:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - python.example_code.aurora.Scenario_GetStartedClusters
-            - description: Define functions that are called by the scenario to
-                manage &AUR; actions.
+            - description: Define functions that are called by the scenario to manage &AUR; actions.
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_full
     C++:
@@ -1233,21 +1170,6 @@ aurora_Scenario_GetStartedClusters:
               snippet_files:
                 - rustv1/examples/aurora/Cargo.toml
   services:
-    aurora:
-      {
-        CreateDBCluster,
-        CreateDBClusterParameterGroup,
-        CreateDBClusterSnapshot,
-        CreateDBInstance,
-        DeleteDBCluster,
-        DeleteDBClusterParameterGroup,
-        DeleteDBInstance,
-        DescribeDBClusterParameterGroups,
-        DescribeDBClusterSnapshots,
-        DescribeDBClusters,
-        DescribeDBEngineVersions,
-        DescribeDBInstances,
-        DescribeOrderableDBInstanceOptions,
-        DescribeDBClusterParameters,
-        ModifyDBClusterParameterGroup,
-      }
+    aurora: {CreateDBCluster, CreateDBClusterParameterGroup, CreateDBClusterSnapshot, CreateDBInstance, DeleteDBCluster, DeleteDBClusterParameterGroup,
+             DeleteDBInstance, DescribeDBClusterParameterGroups, DescribeDBClusterSnapshots, DescribeDBClusters, DescribeDBEngineVersions,
+             DescribeDBInstances, DescribeOrderableDBInstanceOptions, DescribeDBClusterParameters, ModifyDBClusterParameterGroup}

@@ -1,4 +1,3 @@
-# zexi 0.4.0
 sagemaker_Hello:
   title: Hello &SM;
   title_abbrev: Hello &SM;
@@ -44,10 +43,6 @@ sagemaker_Hello:
   services:
     sagemaker: {ListNotebookInstances}
 sagemaker_CreatePipeline:
-  title: Create or update a pipeline in &SM; using an &AWS; SDK
-  title_abbrev: Create a pipeline
-  synopsis: create or update a pipeline in &SM;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -82,18 +77,12 @@ sagemaker_CreatePipeline:
           github: javascriptv3/example_code/sagemaker
           sdkguide:
           excerpts:
-            - description:
-                A function that creates a &SM; pipeline using a locally provided
-                JSON definition.
+            - description: A function that creates a &SM; pipeline using a locally provided JSON definition.
               snippet_tags:
                 - javascript.v3.sagemaker.wkflw.pipeline.create
   services:
     sagemaker: {CreatePipeline}
 sagemaker_UpdatePipeline:
-  title: Update a pipeline in &SM; using an &AWS; SDK
-  title_abbrev: Update a pipeline
-  synopsis: update a pipeline in &SM;.
-  category:
   languages:
     .NET:
       versions:
@@ -106,11 +95,7 @@ sagemaker_UpdatePipeline:
                 - SageMaker.dotnetv3.CreatePipeline
   services:
     sagemaker: {UpdatePipeline}
-sagemaker_ExecutePipeline:
-  title: Execute a pipeline in &SM; using an &AWS; SDK
-  title_abbrev: Execute a pipeline
-  synopsis: start a pipeline execution in &SM;.
-  category:
+sagemaker_StartPipelineExecution:
   languages:
     Kotlin:
       versions:
@@ -151,10 +136,6 @@ sagemaker_ExecutePipeline:
   services:
     sagemaker: {StartPipelineExecution}
 sagemaker_DeletePipeline:
-  title: Delete a pipeline in &SM; using an &AWS; SDK
-  title_abbrev: Delete a pipeline
-  synopsis: delete a pipeline in &SM;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -189,19 +170,13 @@ sagemaker_DeletePipeline:
           github: javascriptv3/example_code/sagemaker
           sdkguide:
           excerpts:
-            - description:
-                The syntax for deleting a &SM; pipeline. This code is part
-                of a larger function. Refer to 'Create a pipeline' or the GitHub repository
-                for more context.
+            - description: The syntax for deleting a &SM; pipeline. This code is part of a larger function. Refer to 'Create
+                a pipeline' or the GitHub repository for more context.
               snippet_tags:
                 - javascript.v3.sagemaker.wkflw.pipeline.delete
   services:
     sagemaker: {DeletePipeline}
 sagemaker_DescribePipelineExecution:
-  title: Describe a pipeline execution in &SM; using an &AWS; SDK
-  title_abbrev: Describe a pipeline execution
-  synopsis: describe a pipeline execution in &SM;.
-  category:
   languages:
     Kotlin:
       versions:
@@ -242,10 +217,6 @@ sagemaker_DescribePipelineExecution:
   services:
     sagemaker: {DescribePipelineExecution}
 sagemaker_ListNotebookInstances:
-  title: List the &SM; notebook instances using an &AWS; SDK
-  title_abbrev: List notebook instances
-  synopsis: list &SM; notebook instances.
-  category:
   languages:
     Rust:
       versions:
@@ -266,10 +237,6 @@ sagemaker_ListNotebookInstances:
   services:
     sagemaker: {ListNotebookInstances}
 sagemaker_ListTrainingJobs:
-  title: List &SM; training jobs using an &AWS; SDK
-  title_abbrev: List training jobs
-  synopsis: list &SM; training jobs.
-  category:
   languages:
     Rust:
       versions:
@@ -290,10 +257,6 @@ sagemaker_ListTrainingJobs:
   services:
     sagemaker: {ListTrainingJobs}
 sagemaker_CreateEndpoint:
-  title: Create a &SM; endpoint using an &AWS; SDK
-  title_abbrev: Create an endpoint
-  synopsis: create a &SM; endpoint.
-  category:
   languages:
     SAP ABAP:
       versions:
@@ -306,10 +269,6 @@ sagemaker_CreateEndpoint:
   services:
     sagemaker: {CreateEndpoint}
 sagemaker_CreateModel:
-  title: Create a model in &SM; using an &AWS; SDK
-  title_abbrev: Create a model
-  synopsis: create a model in &SM;.
-  category:
   languages:
     SAP ABAP:
       versions:
@@ -322,10 +281,6 @@ sagemaker_CreateModel:
   services:
     sagemaker: {CreateModel}
 sagemaker_CreateTrainingJob:
-  title: Create and start a &SM; training job using an &AWS; SDK
-  title_abbrev: Start a training job
-  synopsis: start a &SM; training job.
-  category:
   languages:
     SAP ABAP:
       versions:
@@ -338,10 +293,6 @@ sagemaker_CreateTrainingJob:
   services:
     sagemaker: {CreateTrainingJob}
 sagemaker_CreateTransformJob:
-  title: Create and start a &SM; transform job using an &AWS; SDK
-  title_abbrev: Start a transform job
-  synopsis: start a &SM; transform job.
-  category:
   languages:
     SAP ABAP:
       versions:
@@ -354,10 +305,6 @@ sagemaker_CreateTransformJob:
   services:
     sagemaker: {CreateTransformJob}
 sagemaker_DeleteEndpoint:
-  title: Delete a &SM; endpoint using an &AWS; SDK
-  title_abbrev: Delete an endpoint
-  synopsis: delete a &SM; endpoint.
-  category:
   languages:
     SAP ABAP:
       versions:
@@ -370,10 +317,6 @@ sagemaker_DeleteEndpoint:
   services:
     sagemaker: {DeleteEndpoint}
 sagemaker_DeleteModel:
-  title: Delete a model in &SM; using an &AWS; SDK
-  title_abbrev: Delete a model
-  synopsis: delete a model in &SM;.
-  category:
   languages:
     SAP ABAP:
       versions:
@@ -386,10 +329,6 @@ sagemaker_DeleteModel:
   services:
     sagemaker: {DeleteModel}
 sagemaker_DescribeTrainingJob:
-  title: Describe a &SM; training job using an &AWS; SDK
-  title_abbrev: Describe a training job
-  synopsis: describe a &SM; training job.
-  category:
   languages:
     SAP ABAP:
       versions:
@@ -402,10 +341,6 @@ sagemaker_DescribeTrainingJob:
   services:
     sagemaker: {DescribeTrainingJob}
 sagemaker_ListAlgorithms:
-  title: List the machine learning algorithms using an &AWS; SDK
-  title_abbrev: List the machine learning algorithms
-  synopsis: list &SM; machine learning algorithms.
-  category:
   languages:
     SAP ABAP:
       versions:
@@ -418,10 +353,6 @@ sagemaker_ListAlgorithms:
   services:
     sagemaker: {ListAlgorithms}
 sagemaker_ListModels:
-  title: List models in &SM; using an &AWS; SDK
-  title_abbrev: List models
-  synopsis: list models in &SM;.
-  category:
   languages:
     SAP ABAP:
       versions:
@@ -451,18 +382,8 @@ sagemaker_Scenario_GettingStarted:
               snippet_tags:
                 - sgm.abapv1.getting_started_with_sgm
   services:
-    sagemaker:
-      {
-        CreateTrainingJob,
-        DescribeTrainingJob,
-        CreateModel,
-        CreateEndpointConfig,
-        CreateEndpoint,
-        DescribeEndpoint,
-        DeleteEndpoint,
-        DeleteEndpointConfig,
-        DeleteModel,
-      }
+    sagemaker: {CreateTrainingJob, DescribeTrainingJob, CreateModel, CreateEndpointConfig, CreateEndpoint, DescribeEndpoint,
+                DeleteEndpoint, DeleteEndpointConfig, DeleteModel}
 sagemaker_Scenario_Pipelines:
   title: Get started with &SM; geospatial jobs in a pipeline using an &AWS; SDK
   title_abbrev: Get started with geospatial jobs and pipelines
@@ -516,22 +437,12 @@ sagemaker_Scenario_Pipelines:
           github: javascriptv3/example_code/sagemaker
           sdkguide:
           excerpts:
-            - description:
-                The following file excerpt contains functions that use
-                the &SM; client to manage a pipeline.
+            - description: The following file excerpt contains functions that use the &SM; client to manage a pipeline.
               snippet_tags:
                 - javascript.v3.sagemaker.wkflw.pipeline.library
-            - description: This function is an excerpt from a file that uses the
-                preceding library functions to set up a &SM; pipeline,
-                execute it, and delete all created resources.
+            - description: This function is an excerpt from a file that uses the preceding library functions to set up a &SM;
+                pipeline, execute it, and delete all created resources.
               snippet_tags:
                 - javascript.v3.sagemaker.wkflw.pipeline
   services:
-    sagemaker:
-      {
-        CreatePipeline,
-        UpdatePipeline,
-        StartPipelineExecution,
-        DescribePipelineExecution,
-        DeletePipeline,
-      }
+    sagemaker: {CreatePipeline, UpdatePipeline, StartPipelineExecution, DescribePipelineExecution, DeletePipeline}

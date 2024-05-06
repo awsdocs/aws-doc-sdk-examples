@@ -1,8 +1,4 @@
-mediaconvert_CreateContainer:
-  title: Create a &EMSlong; container using an &AWS; SDK
-  title_abbrev: Create a container
-  synopsis: create an &EMSlong; container.
-  category:
+mediastore_CreateContainer:
   languages:
     Java:
       versions:
@@ -12,13 +8,9 @@ mediaconvert_CreateContainer:
             - description:
               snippet_tags:
                 - mediastore.java2.create_container.main
-  services:  
+  services:
     mediastore: {CreateContainer}
-mediaconvert_DeleteContainer:
-  title: Delete a &EMSlong; container using an &AWS; SDK
-  title_abbrev: Delete a container
-  synopsis: delete an &EMSlong; container.
-  category:
+mediastore_DeleteContainer:
   languages:
     Java:
       versions:
@@ -28,13 +20,9 @@ mediaconvert_DeleteContainer:
             - description:
               snippet_tags:
                 - mediastore.java2.create_container.main
-  services:  
+  services:
     mediastore: {DeleteContainer}
-mediaconvert_DeleteObject:
-  title: Delete a &EMSlong; object using an &AWS; SDK
-  title_abbrev: Delete an object
-  synopsis: delete a &EMSlong; object.
-  category:
+mediastore_DeleteObject:
   languages:
     Java:
       versions:
@@ -44,13 +32,9 @@ mediaconvert_DeleteObject:
             - description:
               snippet_tags:
                 - mediastore.java2.delete_object.main
-  services:  
-    mediastore: {DeleteObject} 
-mediaconvert_DescribeContainer:
-  title: Describe a &EMSlong; container using an &AWS; SDK
-  title_abbrev: Describe a container
-  synopsis: describe a &EMSlong; container.
-  category:
+  services:
+    mediastore: {DeleteObject}
+mediastore_DescribeContainer:
   languages:
     Java:
       versions:
@@ -60,13 +44,9 @@ mediaconvert_DescribeContainer:
             - description:
               snippet_tags:
                 - mediastore.java2.describe_container.main
-  services:  
+  services:
     mediastore: {DescribeContainer}
-mediaconvert_GetObject:
-  title: Get a &EMSlong; object using an &AWS; SDK
-  title_abbrev: Get an object
-  synopsis: get a &EMSlong; object.
-  category:
+mediastore_GetObject:
   languages:
     Java:
       versions:
@@ -76,13 +56,9 @@ mediaconvert_GetObject:
             - description:
               snippet_tags:
                 - mediastore.java2.get_object.main
-  services:  
-    mediastore: {GetObject} 
-mediaconvert_ListContainers:
-  title: List &EMSlong; containers using an &AWS; SDK
-  title_abbrev: List containers
-  synopsis: list &EMSlong; containers.
-  category:
+  services:
+    mediastore: {GetObject}
+mediastore_ListContainers:
   languages:
     Java:
       versions:
@@ -92,13 +68,9 @@ mediaconvert_ListContainers:
             - description:
               snippet_tags:
                 - mediastore.java2.list_containers.main
-  services:  
+  services:
     mediastore: {ListContainers}
-mediaconvert_PutObject:
-  title: Put a &EMSlong; object into a container using an &AWS; SDK
-  title_abbrev: Put an object into a container
-  synopsis: put an object into a &EMSlong; container.
-  category:
+mediastore_PutObject:
   languages:
     Java:
       versions:
@@ -108,5 +80,5 @@ mediaconvert_PutObject:
             - description:
               snippet_tags:
                 - mediastore.java2.put_object.main
-  services:  
+  services:
     mediastore: {PutObject}

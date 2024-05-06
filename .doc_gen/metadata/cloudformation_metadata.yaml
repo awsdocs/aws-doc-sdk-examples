@@ -15,10 +15,6 @@ cloudformation_Hello:
   services:
     cloudformation: {DescribeStackResources}
 cloudformation_DescribeStacks:
-  title: Get outputs from an &CFN; stack using an &AWS; SDK
-  title_abbrev: Get outputs from an stack
-  synopsis: get outputs from an &CFN; stack.
-  category:
   languages:
     Go:
       versions:

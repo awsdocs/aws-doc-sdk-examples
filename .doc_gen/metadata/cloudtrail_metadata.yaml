@@ -1,9 +1,5 @@
 # zexi 0.4.0
 cloudtrail_ListTrails:
-  title: List &CT; trails using an &AWS; SDK
-  title_abbrev: List trails
-  synopsis: list &CTlong; trails.
-  category:
   languages:
     Ruby:
       versions:
@@ -17,10 +13,6 @@ cloudtrail_ListTrails:
   services:
     cloudtrail: {ListTrails}
 cloudtrail_CreateTrail:
-  title: Create a &CT; trail using an &AWS; SDK
-  title_abbrev: Create trails
-  synopsis: create a &CTlong; trail.
-  category:
   languages:
     Ruby:
       versions:
@@ -42,10 +34,6 @@ cloudtrail_CreateTrail:
   services:
     cloudtrail: {CreateTrail}
 cloudtrail_LookupEvents:
-  title: List &CT; trail events using an &AWS; SDK
-  title_abbrev: List trail events
-  synopsis: list &CTlong; trail events.
-  category:
   languages:
     Ruby:
       versions:
@@ -67,10 +55,6 @@ cloudtrail_LookupEvents:
   services:
     cloudtrail: {LookupEvents}
 cloudtrail_DeleteTrail:
-  title: Delete a &CT; trail using an &AWS; SDK
-  title_abbrev: Delete trail
-  synopsis: delete a &CTlong; trail.
-  category:
   languages:
     Ruby:
       versions:
@@ -92,10 +76,6 @@ cloudtrail_DeleteTrail:
   services:
     cloudtrail: {DeleteTrail}
 cloudtrail_DescribeTrail:
-  title: Describe &CT; trails using an &AWS; SDK
-  title_abbrev: Describe trails
-  synopsis: describe &CTlong; trails.
-  category:
   languages:
     C++:
       versions:

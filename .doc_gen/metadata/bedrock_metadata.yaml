@@ -33,9 +33,6 @@ bedrock_Hello:
     bedrock: {ListFoundationModels}
 
 bedrock_GetFoundationModel:
-  title: Get details about an &BRlong; foundation model using an &AWS; SDK
-  title_abbrev: Get details about an &BR; foundation model
-  synopsis: get details about an &BR; foundation model.
   languages:
     Java:
       versions:
@@ -68,10 +65,6 @@ bedrock_GetFoundationModel:
     bedrock: {GetFoundationModel}
 
 bedrock_ListFoundationModels:
-  title: List the available &BRlong; foundation models using an &AWS; SDK
-  title_abbrev: List available &BR; foundation models
-  synopsis: list available &BR; foundation models.
-  category:
   languages:
     Go:
       versions:

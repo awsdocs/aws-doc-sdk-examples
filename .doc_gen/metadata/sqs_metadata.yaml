@@ -61,10 +61,6 @@ sqs_Hello:
   services:
     sqs: {ListQueues}
 sqs_CreateQueue:
-  title: Create an &SQS; queue using an &AWS; SDK
-  title_abbrev: Create a queue
-  synopsis: create an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -170,10 +166,6 @@ sqs_CreateQueue:
   services:
     sqs: {CreateQueue}
 sqs_GetQueueUrl:
-  title: Get the URL of an &SQS; queue using an &AWS; SDK
-  title_abbrev: Get the URL of a queue
-  synopsis: get the URL of an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -240,10 +232,6 @@ sqs_GetQueueUrl:
   services:
     sqs: {GetQueueUrl}
 sqs_ListQueues:
-  title: List &SQS; queues using an &AWS; SDK
-  title_abbrev: List queues
-  synopsis: list &SQS; queues.
-  category:
   languages:
     Go:
       versions:
@@ -335,10 +323,6 @@ sqs_ListQueues:
   services:
     sqs: {ListQueues}
 sqs_DeleteQueue:
-  title: Delete an &SQS; queue using an &AWS; SDK
-  title_abbrev: Delete a queue
-  synopsis: delete an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -433,10 +417,6 @@ sqs_DeleteQueue:
   services:
     sqs: {DeleteQueue}
 sqs_SendMessage:
-  title: Send a message to an &SQS; queue using an &AWS; SDK
-  title_abbrev: Send a message to a queue
-  synopsis: send a message to an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -529,10 +509,6 @@ sqs_SendMessage:
   services:
     sqs: {SendMessage}
 sqs_SendMessageBatch:
-  title: Send a batch of messages to an &SQS; queue using an &AWS; SDK
-  title_abbrev: Send a batch of messages to a queue
-  synopsis: send a batch of messages to an &SQS; queue.
-  category:
   languages:
     Java:
       versions:
@@ -564,10 +540,6 @@ sqs_SendMessageBatch:
   services:
     sqs: {SendMessageBatch}
 sqs_ReceiveMessage:
-  title: Receive messages from an &SQS; queue using an &AWS; SDK
-  title_abbrev: Receive messages from a queue
-  synopsis: receive messages from an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -661,7 +633,8 @@ sqs_ReceiveMessage:
                 - sqs.JavaScript.longPoll.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
+          sdkguide: 
+            sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
           excerpts:
             - description: Receive a message from an  &SQS; queue using long-poll support.
               snippet_tags:
@@ -679,10 +652,6 @@ sqs_ReceiveMessage:
   services:
     sqs: {ReceiveMessage}
 sqs_DeleteMessage:
-  title: Delete a message from an &SQS; queue using an &AWS; SDK
-  title_abbrev: Delete a message from a queue
-  synopsis: delete a message from an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -731,7 +700,8 @@ sqs_DeleteMessage:
                 - sqs.JavaScript.messages.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-receiving
+          sdkguide: 
+            sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-receiving
           excerpts:
             - description: Receive and delete &SQS; messages.
               snippet_tags:
@@ -749,10 +719,6 @@ sqs_DeleteMessage:
   services:
     sqs: {DeleteMessage}
 sqs_DeleteMessageBatch:
-  title: Delete a batch of messages from an &SQS; queue using an &AWS; SDK
-  title_abbrev: Delete a batch of messages from a queue
-  synopsis: delete a batch of messages from an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -823,25 +789,12 @@ sqs_Scenario_SendReceiveBatch:
                 - python.example_code.sqs.SendMessageBatch
                 - python.example_code.sqs.ReceiveMessage
                 - python.example_code.sqs.DeleteMessageBatch
-            - description:
-                Use the wrapper functions to send and receive messages
-                in batches.
+            - description: Use the wrapper functions to send and receive messages in batches.
               snippet_tags:
                 - python.example_code.sqs.Scenario_SendReceiveBatch
   services:
-    sqs:
-      {
-        CreateQueue,
-        DeleteQueue,
-        SendMessageBatch,
-        ReceiveMessage,
-        DeleteMessageBatch,
-      }
+    sqs: {CreateQueue, DeleteQueue, SendMessageBatch, ReceiveMessage, DeleteMessageBatch}
 sqs_GetQueueAttributes:
-  title: Get attributes for an &SQS; queue
-  title_abbrev: Get attributes for a queue
-  synopsis: get attributes for an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -886,10 +839,6 @@ sqs_GetQueueAttributes:
   services:
     sqs: {GetQueueAttributes}
 sqs_ChangeMessageVisibility:
-  title: Receive an &SQS; message and change its timeout visibility
-  title_abbrev: Change message timeout visibility
-  synopsis: change an &SQS; message timeout visibility.
-  category:
   languages:
     JavaScript:
       versions:
@@ -902,7 +851,8 @@ sqs_ChangeMessageVisibility:
                 - sqs.JavaScript.visibility.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-managing-visibility-timeout.html#sqs-examples-managing-visibility-timeout-setting
+          sdkguide: 
+            sdk-for-javascript/v2/developer-guide/sqs-examples-managing-visibility-timeout.html#sqs-examples-managing-visibility-timeout-setting
           excerpts:
             - description: Receive an &SQS; message and change its timeout visibility.
               snippet_tags:
@@ -929,10 +879,6 @@ sqs_ChangeMessageVisibility:
   services:
     sqs: {ChangeMessageVisibility}
 sqs_SetQueueAttributes:
-  title: Set &SQS; queue attributes
-  title_abbrev: Set queue attributes
-  synopsis: set the attributes for an &SQS; queue.
-  category:
   languages:
     .NET:
       versions:
@@ -1043,19 +989,10 @@ sqs_Scenario_TopicsAndQueues:
             - description: This is the entry point for this workflow.
               snippet_tags:
                 - javascript.v3.wkflw.topicsandqueues.index
-            - description:
-                The preceding code provides the necessary dependencies and starts the workflow.
-                The next section contains the bulk of the example.
+            - description: The preceding code provides the necessary dependencies and starts the workflow. The next section
+                contains the bulk of the example.
               snippet_tags:
                 - javascript.v3.wkflw.topicsandqueues.wrapper
   services:
     sns: {CreateTopic, Subscribe, Publish, Unsubscribe, DeleteTopic}
-    sqs:
-      {
-        CreateQueue,
-        GetQueueAttributes,
-        SetQueueAttributes,
-        ReceiveMessage,
-        DeleteMessageBatch,
-        DeleteQueue,
-      }
+    sqs: {CreateQueue, GetQueueAttributes, SetQueueAttributes, ReceiveMessage, DeleteMessageBatch, DeleteQueue}

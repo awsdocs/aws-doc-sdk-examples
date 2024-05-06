@@ -80,7 +80,10 @@
 <!ENTITY TSCM '&TSC; Medical'>
 
 <!--Elastic Load Balancing-->
-<!ENTITY ELBacro 'ELB'>
+<!ENTITY ELBv1long '&ELBlong; - Version 1'>
+<!ENTITY ELBv1 '&ELB; - Version 1'>
+<!ENTITY ELBv2long '&ELBlong; - Version 2'>
+<!ENTITY ELBv2 '&ELB; - Version 2'>
 
 <!--Bedrock Runtime-->
 <!ENTITY BRRUNlong '&BRlong; Runtime'>

@@ -1,9 +1,5 @@
 # zexi 0.4.0
 cognito-identity_ListIdentityPools:
-  title: List &COG; identity pools
-  title_abbrev: List identity pools
-  synopsis: get a list of &COG; identity pools.
-  category:
   languages:
     Swift:
       versions:
@@ -29,10 +25,6 @@ cognito-identity_ListIdentityPools:
   services:
     cognito-identity: {ListIdentityPools}
 cognito-identity_CreateIdentityPool:
-  title: Create an &COG; identity pool
-  title_abbrev: Create an identity pool
-  synopsis: create an &COG; identity pool.
-  category:
   languages:
     Swift:
       versions:
@@ -55,10 +47,6 @@ cognito-identity_CreateIdentityPool:
   services:
     cognito-identity: {CreateIdentityPool}
 cognito-identity_DeleteIdentityPool:
-  title: Delete an &COG; identity pool
-  title_abbrev: Delete an identity pool
-  synopsis: delete an &COG; identity pool.
-  category:
   languages:
     Swift:
       versions:
@@ -81,10 +69,6 @@ cognito-identity_DeleteIdentityPool:
   services:
     cognito-identity: {DeleteIdentityPool}
 cognito-identity_GetCredentialsForIdentity:
-  title: Get credentials for an &COG; identity using an &AWS; SDK
-  title_abbrev: Get credentials for an identity
-  synopsis: get credentials for an &COG; identity.
-  category:
   languages:
     Java:
       versions:

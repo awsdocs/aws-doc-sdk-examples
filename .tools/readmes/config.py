@@ -14,6 +14,7 @@ entities = {
     "&ASH;": "Security Hub",
     "&DAX;": "DynamoDB Accelerator",
     "&EC2long;": "Amazon Elastic Compute Cloud",
+    "&ELB;": "Elastic Load Balancing",
     "&ELBlong;": "Elastic Load Balancing",
     "&GLUDCLong;": "AWS Glue Data Catalog",
     "&GLUDC;": "Data Catalog",

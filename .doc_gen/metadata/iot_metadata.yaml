@@ -1,4 +1,3 @@
-# zexi 0.4.0
 iot_Hello:
   title: Hello &IoT;
   title_abbrev: Hello &IoT;
@@ -38,10 +37,6 @@ iot_Hello:
   services:
     iot: {listThings}
 iot_DescribeEndpoint:
-  title: Get information about an endpoint using an &AWS; SDK
-  title_abbrev: Get endpoint information
-  synopsis: get &IoT; endpoint information.
-  category:
   languages:
     Kotlin:
       versions:
@@ -79,10 +74,6 @@ iot_DescribeEndpoint:
   services:
     iot: {DescribeEndpoint}
 iot_ListThings:
-  title: List your &IoT; things using an &AWS; SDK
-  title_abbrev: List your things
-  synopsis: list your &IoT; things.
-  category:
   languages:
     Rust:
       versions:
@@ -95,10 +86,6 @@ iot_ListThings:
   services:
     iot: {ListThings}
 iot_ListCertificates:
-  title: List your &IoT; certificates using an &AWS; SDK
-  title_abbrev: List your certificates
-  synopsis: list your &IoT; certificates.
-  category:
   languages:
     Kotlin:
       versions:
@@ -127,11 +114,7 @@ iot_ListCertificates:
                 - cpp.example_code.iot.ListCertificates
   services:
     iot: {ListCertificates}
-iot_CreateCertificate:
-  title: Create an &IoT; certificate using an &AWS; SDK
-  title_abbrev: Create a certificate
-  synopsis: create an &IoT; certificate.
-  category:
+iot_CreateKeysAndCertificate:
   languages:
     Kotlin:
       versions:
@@ -161,10 +144,6 @@ iot_CreateCertificate:
   services:
     iot: {CreateKeysAndCertificate}
 iot_DeleteCertificate:
-  title: Delete an &IoT; certificate using an &AWS; SDK
-  title_abbrev: Delete a certificate
-  synopsis: delete an &IoT; certificate.
-  category:
   languages:
     Kotlin:
       versions:
@@ -194,10 +173,6 @@ iot_DeleteCertificate:
   services:
     iot: {DeleteCertificate}
 iot_SearchIndex:
-  title: Query the &IoT; search index using an &AWS; SDK
-  title_abbrev: Query the search index
-  synopsis: query the &IoT; search index.
-  category:
   languages:
     Kotlin:
       versions:
@@ -227,10 +202,6 @@ iot_SearchIndex:
   services:
     iot: {SearchIndex}
 iot_UpdateIndexingConfiguration:
-  title: Update the &IoT; search configuration using an &AWS; SDK
-  title_abbrev: Update the search configuration
-  synopsis: update the &IoT; search configuration.
-  category:
   languages:
     C++:
       versions:
@@ -243,10 +214,6 @@ iot_UpdateIndexingConfiguration:
   services:
     iot: {UpdateIndexingConfiguration}
 iot_DeleteThing:
-  title: Delete an &IoT; thing using an &AWS; SDK
-  title_abbrev: Delete a thing
-  synopsis: delete an &IoT; thing.
-  category:
   languages:
     Kotlin:
       versions:
@@ -276,10 +243,6 @@ iot_DeleteThing:
   services:
     iot: {DeleteThing}
 iot_DescribeThing:
-  title: Describe an &IoT; thing using an &AWS; SDK
-  title_abbrev: Describe a thing
-  synopsis: describe an &IoT; thing.
-  category:
   languages:
     Kotlin:
       versions:
@@ -309,10 +272,6 @@ iot_DescribeThing:
   services:
     iot: {DescribeThing}
 iot_AttachThingPrincipal:
-  title: Attach a certificate to an &IoT; thing using an &AWS; SDK
-  title_abbrev: Attach a certificate
-  synopsis: attach an &IoT; certificate.
-  category:
   languages:
     Kotlin:
       versions:
@@ -342,10 +301,6 @@ iot_AttachThingPrincipal:
   services:
     iot: {AttachThingPrincipal}
 iot_DetachThingPrincipal:
-  title: Detach a certificate from an &IoT; thing using an &AWS; SDK
-  title_abbrev: Detach a certificate
-  synopsis: detach an &IoT; certificate.
-  category:
   languages:
     Kotlin:
       versions:
@@ -375,10 +330,6 @@ iot_DetachThingPrincipal:
   services:
     iot: {DetachThingPrincipal}
 iot_UpdateThing:
-  title: Update an &IoT; thing using an &AWS; SDK
-  title_abbrev: Update a thing
-  synopsis: update an &IoT; thing.
-  category:
   languages:
     Kotlin:
       versions:
@@ -407,11 +358,7 @@ iot_UpdateThing:
                 - cpp.example_code.iot.UpdateThing
   services:
     iot: {UpdateThing}
-iot_CreateRule:
-  title: Create an &IoT; rule using an &AWS; SDK
-  title_abbrev: Create a rule
-  synopsis: create an &IoT; rule.
-  category:
+iot_CreateTopicRule:
   languages:
     Kotlin:
       versions:
@@ -440,11 +387,7 @@ iot_CreateRule:
                 - cpp.example_code.iot.CreateTopicRule
   services:
     iot: {CreateTopicRule}
-iot_DeleteRule:
-  title: Delete an &IoT; rule using an &AWS; SDK
-  title_abbrev: Delete a rule
-  synopsis: delete an &IoT; rule.
-  category:
+iot_DeleteTopicRule:
   languages:
     C++:
       versions:
@@ -457,10 +400,6 @@ iot_DeleteRule:
   services:
     iot: {DeleteTopicRule}
 iot_CreateThing:
-  title: Create &IoT; things using an &AWS; SDK
-  title_abbrev: Create a thing
-  synopsis: create an &IoT; thing.
-  category:
   languages:
     Kotlin:
       versions:

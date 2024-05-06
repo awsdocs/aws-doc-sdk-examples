@@ -1,9 +1,5 @@
 # zexi 0.4.0
 opensearch_CreateDomain:
-  title: Create an &ES; domain by using an &AWS; SDK
-  title_abbrev: Create a domain
-  synopsis: create an &ES; domain.
-  category:
   languages:
     Kotlin:
       versions:
@@ -26,10 +22,6 @@ opensearch_CreateDomain:
   services:
     opensearch: {CreateDomain}
 opensearch_DeleteDomain:
-  title: Delete an &ES; domain by using an &AWS; SDK
-  title_abbrev: Delete a domain
-  synopsis: delete an &ES; domain.
-  category:
   languages:
     Kotlin:
       versions:
@@ -50,12 +42,8 @@ opensearch_DeleteDomain:
               snippet_tags:
                 - opensearch.java2.delete_domain.main
   services:
-    opensearch: {DeleteDomain}    
+    opensearch: {DeleteDomain}
 opensearch_ListDomainNames:
-  title: List &ES; domains by using an &AWS; SDK
-  title_abbrev: List domains
-  synopsis: list &ES; domains.
-  category:
   languages:
     Kotlin:
       versions:
@@ -78,10 +66,6 @@ opensearch_ListDomainNames:
   services:
     opensearch: {ListDomainNames}
 opensearch_UpdateDomainConfig:
-  title: Modify a cluster configuration of the specified &ES; domain by using an &AWS; SDK
-  title_abbrev: Modify a cluster configuration
-  synopsis: modify a cluster configuration of an &ES; domain.
-  category:
   languages:
     Kotlin:
       versions:

@@ -1,9 +1,5 @@
 # zexi 0.4.0
 cloudwatch-events_PutRule:
-  title: Create a &CWE; scheduled rule using an &AWS; SDK
-  title_abbrev: Create a scheduled rule
-  synopsis: create an &CWElong; scheduled rule.
-  category:
   languages:
     Java:
       versions:
@@ -36,10 +32,6 @@ cloudwatch-events_PutRule:
   services:
     cloudwatch-events: {PutRule}
 cloudwatch-events_PutEvents:
-  title: Send &CWE; events using an &AWS; SDK
-  title_abbrev: Send events
-  synopsis: send &CWElong; events.
-  category:
   languages:
     Java:
       versions:
@@ -54,7 +46,8 @@ cloudwatch-events_PutEvents:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cloudwatch-events
-          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
+          sdkguide: 
+            sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
           excerpts:
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
@@ -64,7 +57,8 @@ cloudwatch-events_PutEvents:
                 - javascript.v3.cloudwatchevents.client
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-events
-          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
+          sdkguide: 
+            sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
           excerpts:
             - description:
               snippet_tags:
@@ -72,10 +66,6 @@ cloudwatch-events_PutEvents:
   services:
     cloudwatch-events: {PutEvents}
 cloudwatch-events_PutTargets:
-  title: Add a target using an &AWS; SDK
-  title_abbrev: Adding a target
-  synopsis: add a target to an &CWElong; event.
-  category:
   languages:
     Java:
       versions:

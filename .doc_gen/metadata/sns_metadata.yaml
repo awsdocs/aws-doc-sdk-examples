@@ -1,4 +1,3 @@
-# zexi 0.4.0
 sns_Hello:
   title: Hello &SNS;
   title_abbrev: Hello &SNS;
@@ -60,10 +59,6 @@ sns_Hello:
   services:
     sns: {ListTopics}
 sns_GetTopicAttributes:
-  title: Get the properties of an &SNS; topic using an &AWS; SDK
-  title_abbrev: Get the properties of a topic
-  synopsis: get the properties of an &SNS; topic.
-  category:
   languages:
     .NET:
       versions:
@@ -135,10 +130,6 @@ sns_GetTopicAttributes:
   services:
     sns: {GetTopicAttributes}
 sns_ListSubscriptions:
-  title: List the subscribers of an &SNS; topic using an &AWS; SDK
-  title_abbrev: List the subscribers of a topic
-  synopsis: retrieve the list of subscribers of an &SNS; topic.
-  category:
   languages:
     .NET:
       versions:
@@ -220,10 +211,6 @@ sns_ListSubscriptions:
   services:
     sns: {ListSubscriptions}
 sns_ListTopics:
-  title: List &SNS; topics using an &AWS; SDK
-  title_abbrev: List topics
-  synopsis: list &SNS; topics.
-  category:
   languages:
     .NET:
       versions:
@@ -319,10 +306,6 @@ sns_ListTopics:
   services:
     sns: {ListTopics}
 sns_GetSMSAttributes:
-  title: Get the settings for sending &SNS; SMS messages using an &AWS; SDK
-  title_abbrev: Get the settings for sending SMS messages
-  synopsis: get the settings for sending &SNS; SMS messages.
-  category:
   languages:
     C++:
       versions:
@@ -362,10 +345,6 @@ sns_GetSMSAttributes:
   services:
     sns: {GetSMSAttributes}
 sns_ConfirmSubscription:
-  title: Confirm an endpoint owner wants to receive &SNS; messages using an &AWS; SDK
-  title_abbrev: Confirm an endpoint owner wants to receive messages
-  synopsis: confirm the owner of an endpoint wants to receive &SNS; messages by validating the token sent to the endpoint by an earlier Subscribe action.
-  category:
   languages:
     PHP:
       versions:
@@ -398,10 +377,6 @@ sns_ConfirmSubscription:
   services:
     sns: {ConfirmSubscription}
 sns_CheckIfPhoneNumberIsOptedOut:
-  title: Check whether a phone number is opted out of &SNS; using an &AWS; SDK
-  title_abbrev: Check whether a phone number is opted out
-  synopsis: check whether a phone number is opted out of receiving &SNS; messages.
-  category:
   languages:
     .NET:
       versions:
@@ -442,10 +417,6 @@ sns_CheckIfPhoneNumberIsOptedOut:
   services:
     sns: {CheckIfPhoneNumberIsOptedOut}
 sns_TagResource:
-  title: Add tags to an &SNS; topic using an &AWS; SDK
-  title_abbrev: Add tags to a topic
-  synopsis: add tags to an &SNS; topic.
-  category:
   languages:
     Kotlin:
       versions:
@@ -466,10 +437,6 @@ sns_TagResource:
   services:
     sns: {TagResource}
 sns_CreateTopic:
-  title: Create an &SNS; topic using an &AWS; SDK
-  title_abbrev: Create a topic
-  synopsis: create an &SNS; topic.
-  category:
   languages:
     .NET:
       versions:
@@ -570,10 +537,6 @@ sns_CreateTopic:
   services:
     sns: {CreateTopic}
 sns_DeleteTopic:
-  title: Delete an &SNS; topic using an &AWS; SDK
-  title_abbrev: Delete a topic
-  synopsis: delete an &SNS; topic and all subscriptions to that topic.
-  category:
   languages:
     .NET:
       versions:
@@ -656,10 +619,6 @@ sns_DeleteTopic:
   services:
     sns: {DeleteTopic}
 sns_ListPhoneNumbersOptedOut:
-  title: List phone numbers opted out of &SNS; using an &AWS; SDK
-  title_abbrev: List opted out phone numbers
-  synopsis: list phone numbers that are opted out of receiving &SNS; messages.
-  category:
   languages:
     Java:
       versions:
@@ -680,10 +639,6 @@ sns_ListPhoneNumbersOptedOut:
   services:
     sns: {ListPhoneNumbersOptedOut}
 sns_Publish:
-  title: Publish to an &SNS; topic using an &AWS; SDK
-  title_abbrev: Publish to a topic
-  synopsis: publish messages to an &SNS; topic.
-  category:
   languages:
     .NET:
       versions:
@@ -856,11 +811,7 @@ sns_PublishTextSMS:
                 - python.example_code.sns.Publish_TextMessage
   services:
     sns: {Publish}
-sns_SetSmsAttributes:
-  title: Set the default settings for sending &SNS; SMS messages using an &AWS; SDK
-  title_abbrev: Set the default settings for sending SMS messages
-  synopsis: set the default settings for sending SMS messages using &SNS;.
-  category:
+sns_SetSMSAttributes:
   languages:
     C++:
       versions:
@@ -901,10 +852,6 @@ sns_SetSmsAttributes:
   services:
     sns: {SetSMSAttributes}
 sns_SetSubscriptionAttributes:
-  title: Set an &SNS; filter policy using an &AWS; SDK
-  title_abbrev: Set a filter policy
-  synopsis: set an &SNS; filter policy.
-  category:
   languages:
     Java:
       versions:
@@ -925,10 +872,6 @@ sns_SetSubscriptionAttributes:
   services:
     sns: {SetSubscriptionAttributes}
 sns_SetTopicAttributes:
-  title: Set &SNS; topic attributes using an &AWS; SDK
-  title_abbrev: Set topic attributes
-  synopsis: set &SNS; topic attributes.
-  category:
   languages:
     Kotlin:
       versions:
@@ -987,10 +930,6 @@ sns_SetTopicAttributes:
   services:
     sns: {SetTopicAttributes}
 sns_Subscribe:
-  title: Subscribe an email address to an &SNS; topic using an &AWS; SDK
-  title_abbrev: Subscribe an email address to a topic
-  synopsis: subscribe an email address to an &SNS; topic.
-  category:
   languages:
     .NET:
       versions:
@@ -1140,10 +1079,6 @@ sns_Subscribe:
   services:
     sns: {Subscribe}
 sns_Unsubscribe:
-  title: Delete an &SNS; subscription using an &AWS; SDK
-  title_abbrev: Delete a subscription
-  synopsis: delete an &SNS; subscription.
-  category:
   languages:
     .NET:
       versions:
@@ -1251,9 +1186,8 @@ sns_PublishFifoTopic:
         - sdk_version: 3
           github: python/example_code/sns
           excerpts:
-            - description:
-                Create an &SNS; FIFO topic, subscribe &SQS; FIFO and standard queues to the topic,
-                and publish a message to the topic.
+            - description: Create an &SNS; FIFO topic, subscribe &SQS; FIFO and standard queues to the topic, and publish
+                a message to the topic.
               snippet_tags:
                 - python.example_code.sns.Scenario_SubscribeFifoTopic
                 - python.example_code.sns.FifoTopicWrapper
@@ -1263,9 +1197,8 @@ sns_PublishFifoTopic:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description:
-                Create a FIFO topic, subscribe an &SQS; FIFO queue to the topic,
-                and publish a message to an &SNS; topic.
+            - description: Create a FIFO topic, subscribe an &SQS; FIFO queue to the topic, and publish a message to an &SNS;
+                topic.
               snippet_tags:
                 - sns.abapv1.publish_message_to_fifo_queue
   services:
@@ -1283,18 +1216,13 @@ sns_PublishLargeMessage:
           github: java/example_code/sns
           sdkguide:
           excerpts:
-            - description:
-                To publish a large message, use the &SNS; Extended Client Library for Java.
-                The message that you send references an &S3; object containing the actual message content.
+            - description: To publish a large message, use the &SNS; Extended Client Library for Java. The message that you
+                send references an &S3; object containing the actual message content.
               snippet_tags:
                 - sns.java.publish_large_file
   services:
     sns: {}
 sns_SetSubscriptionAttributesRedrivePolicy:
-  title: Set a dead-letter queue for an &SNS; subscription using an &AWS; SDK
-  title_abbrev: Set a dead-letter queue for a subscription
-  synopsis: set an &SQS; queue as a dead-letter queue for an &SNS; subscription.
-  category:
   languages:
     Java:
       versions:

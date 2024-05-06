@@ -1,9 +1,5 @@
 # zexi 0.4.0
 kinesis-analytics-v2_CreateApplication:
-  title: Create a &AKA; application using an &AWS; SDK
-  title_abbrev: Create an application
-  synopsis: create a &AKA; application.
-  category:
   languages:
     Python:
       versions:
@@ -18,10 +14,6 @@ kinesis-analytics-v2_CreateApplication:
   services:
     kinesis-analytics-v2: {CreateApplication}
 kinesis-analytics-v2_DeleteApplication:
-  title: Delete a &AKA; application using an &AWS; SDK
-  title_abbrev: Delete an application
-  synopsis: delete a &AKA; application.
-  category:
   languages:
     Python:
       versions:
@@ -36,10 +28,6 @@ kinesis-analytics-v2_DeleteApplication:
   services:
     kinesis-analytics-v2: {DeleteApplication}
 kinesis-analytics-v2_DescribeApplication:
-  title: Describe a &AKA; application using an &AWS; SDK
-  title_abbrev: Describe an application
-  synopsis: describe a &AKA; application.
-  category:
   languages:
     Python:
       versions:
@@ -54,10 +42,6 @@ kinesis-analytics-v2_DescribeApplication:
   services:
     kinesis-analytics-v2: {DescribeApplication}
 kinesis-analytics-v2_DescribeApplicationSnapshot:
-  title: Describe a &AKA; application snapshot using an &AWS; SDK
-  title_abbrev: Describe an application snapshot
-  synopsis: describe a &AKA; application snapshot.
-  category:
   languages:
     Python:
       versions:
@@ -72,10 +56,6 @@ kinesis-analytics-v2_DescribeApplicationSnapshot:
   services:
     kinesis-analytics-v2: {DescribeApplicationSnapshot}
 kinesis-analytics-v2_DiscoverInputSchema:
-  title: Discover a data format for a &AKA; stream using an &AWS; SDK
-  title_abbrev: Discover a data format for a stream
-  synopsis: discover a data format for a &AKA; stream.
-  category:
   languages:
     Python:
       versions:
@@ -90,10 +70,6 @@ kinesis-analytics-v2_DiscoverInputSchema:
   services:
     kinesis-analytics-v2: {DiscoverInputSchema}
 kinesis-analytics-v2_AddApplicationInput:
-  title: Add an input stream to a &AKA; application using an &AWS; SDK
-  title_abbrev: Add an input stream to an application
-  synopsis: add an input stream to a &AKA; application.
-  category:
   languages:
     Python:
       versions:
@@ -108,10 +84,6 @@ kinesis-analytics-v2_AddApplicationInput:
   services:
     kinesis-analytics-v2: {AddApplicationInput}
 kinesis-analytics-v2_AddApplicationOutput:
-  title: Add an output stream to a &AKA; application using an &AWS; SDK
-  title_abbrev: Add an output stream to an application
-  synopsis: add an output stream to a &AKA; application.
-  category:
   languages:
     Python:
       versions:
@@ -126,10 +98,6 @@ kinesis-analytics-v2_AddApplicationOutput:
   services:
     kinesis-analytics-v2: {AddApplicationOutput}
 kinesis-analytics-v2_UpdateApplication:
-  title: Update a &AKA; application using an &AWS; SDK
-  title_abbrev: Update an application
-  synopsis: update a &AKA; application.
-  category:
   languages:
     Python:
       versions:
@@ -144,10 +112,6 @@ kinesis-analytics-v2_UpdateApplication:
   services:
     kinesis-analytics-v2: {UpdateApplication}
 kinesis-analytics-v2_StartApplication:
-  title: Start a &AKA; application using an &AWS; SDK
-  title_abbrev: Start an application
-  synopsis: start a &AKA; application.
-  category:
   languages:
     Python:
       versions:
@@ -162,10 +126,6 @@ kinesis-analytics-v2_StartApplication:
   services:
     kinesis-analytics-v2: {StartApplication}
 kinesis-analytics-v2_StopApplication:
-  title: Stop a &AKA; application using an &AWS; SDK
-  title_abbrev: Stop an application
-  synopsis: stop a &AKA; application.
-  category:
   languages:
     Python:
       versions:

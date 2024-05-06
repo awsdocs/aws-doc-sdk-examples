@@ -1,9 +1,5 @@
 # zexi 0.4.3
 transcribe_StartTranscriptionJob:
-  title: Start an &TSC; transcription job using an &AWS; SDK
-  title_abbrev: Start a transcription job
-  synopsis: start an &TSC; transcription job.
-  category:
   languages:
     Java:
       versions:
@@ -11,7 +7,7 @@ transcribe_StartTranscriptionJob:
           github: javav2/example_code/transcribe
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - transcribe.java-streaming-demo
     .NET:
@@ -47,10 +43,6 @@ transcribe_StartTranscriptionJob:
   services:
     transcribe: {StartTranscriptionJob}
 transcribe_ListTranscriptionJobs:
-  title: List &TSC; transcription jobs using an &AWS; SDK
-  title_abbrev: List transcription jobs
-  synopsis: list &TSC; transcription jobs.
-  category:
   languages:
     Java:
       versions:
@@ -94,10 +86,6 @@ transcribe_ListTranscriptionJobs:
   services:
     transcribe: {ListTranscriptionJobs}
 transcribe_GetTranscriptionJob:
-  title: Get an &TSC; transcription job using an &AWS; SDK
-  title_abbrev: Get a transcription job
-  synopsis: get an &TSC; transcription job.
-  category:
   languages:
     .NET:
       versions:
@@ -120,10 +108,6 @@ transcribe_GetTranscriptionJob:
   services:
     transcribe: {GetTranscriptionJob}
 transcribe_DeleteTranscriptionJob:
-  title: Delete an &TSC; transcription job using an &AWS; SDK
-  title_abbrev: Delete a transcription job
-  synopsis: delete an &TSC; transcription job.
-  category:
   languages:
     .NET:
       versions:
@@ -158,10 +142,6 @@ transcribe_DeleteTranscriptionJob:
   services:
     transcribe: {DeleteTranscriptionJob}
 transcribe_CreateVocabulary:
-  title: Create a custom &TSC; vocabulary using an &AWS; SDK
-  title_abbrev: Create a custom vocabulary
-  synopsis: create a custom &TSC; vocabulary.
-  category:
   languages:
     .NET:
       versions:
@@ -184,10 +164,6 @@ transcribe_CreateVocabulary:
   services:
     transcribe: {CreateVocabulary}
 transcribe_ListVocabularies:
-  title: List custom &TSC; vocabularies using an &AWS; SDK
-  title_abbrev: List custom vocabularies
-  synopsis: list custom &TSC; vocabularies.
-  category:
   languages:
     .NET:
       versions:
@@ -210,10 +186,6 @@ transcribe_ListVocabularies:
   services:
     transcribe: {ListVocabularies}
 transcribe_GetVocabulary:
-  title: Get a custom &TSC; vocabulary using an &AWS; SDK
-  title_abbrev: Get a custom vocabulary
-  synopsis: get a custom &TSC; vocabulary.
-  category:
   languages:
     .NET:
       versions:
@@ -236,10 +208,6 @@ transcribe_GetVocabulary:
   services:
     transcribe: {GetVocabulary}
 transcribe_UpdateVocabulary:
-  title: Update a custom &TSC; vocabulary using an &AWS; SDK
-  title_abbrev: Update a custom vocabulary
-  synopsis: update a custom &TSC; vocabulary.
-  category:
   languages:
     .NET:
       versions:
@@ -262,10 +230,6 @@ transcribe_UpdateVocabulary:
   services:
     transcribe: {UpdateVocabulary}
 transcribe_DeleteVocabulary:
-  title: Delete a custom &TSC; vocabulary using an &AWS; SDK
-  title_abbrev: Delete a custom vocabulary
-  synopsis: delete a custom &TSC; vocabulary.
-  category:
   languages:
     .NET:
       versions:
@@ -288,10 +252,6 @@ transcribe_DeleteVocabulary:
   services:
     transcribe: {DeleteVocabulary}
 transcribe_StartStreamTranscriptionAsync:
-  title: Produce real-time transcriptions with &TSC; using an &AWS; SDK
-  title_abbrev: Produce real-time transcriptions
-  synopsis: produce a real-time transcription with &TSC;.
-  category:
   languages:
     C++:
       versions:
@@ -327,7 +287,7 @@ transcribe_Scenario_GettingStartedTranscriptionJobs:
             - description: Transcribes streaming audio from your computer's microphone.
               snippet_tags:
                 - transcribe.java-streaming-demo
-    Python:    
+    Python:
       versions:
         - sdk_version: 3
           github: python/example_code/transcribe
@@ -354,8 +314,7 @@ transcribe_Scenario_CustomVocabulary:
           github: python/example_code/transcribe
           sdkguide:
           excerpts:
-            - description: Transcribe an audio file that contains a reading of
-                Jabberwocky by Lewis Carroll. Start by creating
+            - description: Transcribe an audio file that contains a reading of Jabberwocky by Lewis Carroll. Start by creating
                 functions that wrap &TSC; actions.
               snippet_tags:
                 - python.example_code.transcribe.StartTranscriptionJob
@@ -366,19 +325,14 @@ transcribe_Scenario_CustomVocabulary:
                 - python.example_code.transcribe.UpdateVocabulary
                 - python.example_code.transcribe.ListVocabularies
                 - python.example_code.transcribe.DeleteVocabulary
-            - description: Call the wrapper functions to transcribe audio without
-                a custom vocabulary and then with different versions of a custom
-                vocabulary to see improved results.
+            - description: Call the wrapper functions to transcribe audio without a custom vocabulary and then with different
+                versions of a custom vocabulary to see improved results.
               snippet_tags:
                 - python.example_code.transcribe.Scenario_CustomVocabulary
   services:
-    transcribe: {StartTranscriptionJob, GetTranscriptionJob, DeleteTranscriptionJob, CreateVocabulary,
-                 GetVocabulary, UpdateVocabulary, ListVocabularies, DeleteVocabulary}
+    transcribe: {StartTranscriptionJob, GetTranscriptionJob, DeleteTranscriptionJob, CreateVocabulary, GetVocabulary, UpdateVocabulary,
+                 ListVocabularies, DeleteVocabulary}
 transcribe_StartMedicalTranscriptionJob:
-  title: Start an &TSCM; transcription job using an &AWS; SDK
-  title_abbrev: Start a medical transcription job
-  synopsis: start an &TSCM; transcription job.
-  category:
   languages:
     .NET:
       versions:
@@ -404,10 +358,6 @@ transcribe_StartMedicalTranscriptionJob:
   services:
     transcribe: {StartMedicalTranscriptionJob}
 transcribe_DeleteMedicalTranscriptionJob:
-  title: Delete a &TSCM; transcription job using an &AWS; SDK
-  title_abbrev: Delete a medical transcription job
-  synopsis: delete an &TSCM; transcription job.
-  category:
   languages:
     .NET:
       versions:
@@ -433,10 +383,6 @@ transcribe_DeleteMedicalTranscriptionJob:
   services:
     transcribe: {DeleteMedicalTranscriptionJob}
 transcribe_ListMedicalTranscriptionJobs:
-  title: List &TSCM; transcription jobs using an &AWS; SDK
-  title_abbrev: List medical transcription jobs
-  synopsis: list &TSCM; transcription jobs.
-  category:
   languages:
     .NET:
       versions:

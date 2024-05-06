@@ -14,15 +14,9 @@ bedrock-agent_Hello:
               snippet_files:
                 - javascriptv3/example_code/bedrock-agent/hello.js
   services:
-    bedrock-agent: {
-      ListAgents,
-      GetAgent
-    }
+    bedrock-agent: {ListAgents, GetAgent}
 
 bedrock-agent_CreateAgent:
-  title: Create an &BR; agent using an &AWS; SDK
-  title_abbrev: Create an agent
-  synopsis: create an &BR; agent.
   languages:
     JavaScript:
       versions:
@@ -44,9 +38,6 @@ bedrock-agent_CreateAgent:
     bedrock-agent: {CreateAgent}
 
 bedrock-agent_CreateAgentActionGroup:
-  title: Create an &BR; agent action group using an &AWS; SDK
-  title_abbrev: Create an agent action group
-  synopsis: create an &BR; agent action group.
   languages:
     Python:
       versions:
@@ -60,9 +51,6 @@ bedrock-agent_CreateAgentActionGroup:
     bedrock-agent: {CreateAgentActionGroup}
 
 bedrock-agent_CreateAgentAlias:
-  title: Create an &BR; agent alias using an &AWS; SDK
-  title_abbrev: Create an agent alias
-  synopsis: create an &BR; agent alias.
   languages:
     Python:
       versions:
@@ -76,9 +64,6 @@ bedrock-agent_CreateAgentAlias:
     bedrock-agent: {CreateAgentAlias}
 
 bedrock-agent_DeleteAgent:
-  title: Delete an &BR; agent using an &AWS; SDK
-  title_abbrev: Delete an agent
-  synopsis: delete an &BR; agent.
   languages:
     JavaScript:
       versions:
@@ -100,9 +85,6 @@ bedrock-agent_DeleteAgent:
     bedrock-agent: {DeleteAgent}
 
 bedrock-agent_DeleteAgentAlias:
-  title: Delete an &BR; agent alias using an &AWS; SDK
-  title_abbrev: Delete an agent alias
-  synopsis: delete an &BR; agent alias.
   languages:
     Python:
       versions:
@@ -116,9 +98,6 @@ bedrock-agent_DeleteAgentAlias:
     bedrock-agent: {DeleteAgentAlias}
 
 bedrock-agent_GetAgent:
-  title: Get information about an &BR; agent using an &AWS; SDK
-  title_abbrev: Get information about an agent
-  synopsis: get information about an &BR; agent.
   languages:
     JavaScript:
       versions:
@@ -140,9 +119,6 @@ bedrock-agent_GetAgent:
     bedrock-agent: {GetAgent}
 
 bedrock-agent_ListAgents:
-  title: List the Agents for &BR; belonging to an account using an &AWS; SDK
-  title_abbrev: List the available agents
-  synopsis: list the Agents for &BR; belonging to an account.
   languages:
     JavaScript:
       versions:
@@ -164,9 +140,6 @@ bedrock-agent_ListAgents:
     bedrock-agent: {ListAgents}
 
 bedrock-agent_ListAgentActionGroups:
-  title: List the action groups for a &BR; agent using an &AWS; SDK
-  title_abbrev: List the action groups for an agent
-  synopsis: list the action groups for a &BR; agent.
   languages:
     JavaScript:
       versions:
@@ -188,9 +161,6 @@ bedrock-agent_ListAgentActionGroups:
     bedrock-agent: {ListAgentActionGroups}
 
 bedrock-agent_ListAgentKnowledgeBases:
-  title: List the knowledge bases associated with a &BR; agent using an &AWS; SDK
-  title_abbrev: List the knowledge bases associated with an agent
-  synopsis: list the knowledge bases associated with a &BR; agent.
   languages:
     Python:
       versions:
@@ -204,9 +174,6 @@ bedrock-agent_ListAgentKnowledgeBases:
     bedrock-agent: {ListAgentKnowledgeBases}
 
 bedrock-agent_PrepareAgent:
-  title: Prepare an &BR; agent using an &AWS; SDK
-  title_abbrev: Prepare an agent
-  synopsis: prepare an &BR; agent for internal testing.
   languages:
     Python:
       versions:
@@ -240,16 +207,5 @@ bedrock-agent_GettingStartedWithBedrockAgents:
               snippet_tags:
                 - python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents
   services:
-    bedrock-agent:
-      {
-        CreateAgent,
-        CreateAgentActionGroup,
-        CreateAgentAlias,
-        DeleteAgent,
-        DeleteAgentAlias,
-        GetAgent,
-        ListAgentActionGroups,
-        ListAgents,
-        ListAgentKnowledgeBases,
-        PrepareAgent,
-      }
+    bedrock-agent: {CreateAgent, CreateAgentActionGroup, CreateAgentAlias, DeleteAgent, DeleteAgentAlias, GetAgent, ListAgentActionGroups,
+                    ListAgents, ListAgentKnowledgeBases, PrepareAgent}

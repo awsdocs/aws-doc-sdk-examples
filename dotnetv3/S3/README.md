@@ -74,6 +74,7 @@ functions within the same service.
 - [Get started with buckets and objects](S3_Basics/S3_Basics.cs)
 - [Get started with encryption](SSEClientEncryptionExample/SSEClientEncryption.cs)
 - [Get started with tags](ObjectTagExample/ObjectTag.cs)
+- [Get the legal hold configuration of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs)
 - [Lock Amazon S3 objects](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ObjectLockWorkflow.cs)
 - [Manage access control lists (ACLs)](ManageACLsExample/ManageACLs.cs)
 - [Perform a multipart copy](MPUapiCopyObjExample/MPUapiCopyObj.cs)
@@ -170,6 +171,18 @@ This example shows you how to get started with tags for Amazon S3 objects.
 
 <!--custom.scenarios.s3_Scenario_Tagging.start-->
 <!--custom.scenarios.s3_Scenario_Tagging.end-->
+
+#### Get the legal hold configuration of an object
+
+This example shows you how to get the legal hold configuration of an S3 bucket.
+
+
+<!--custom.scenario_prereqs.s3_GetObjectLegalHoldConfiguration.start-->
+<!--custom.scenario_prereqs.s3_GetObjectLegalHoldConfiguration.end-->
+
+
+<!--custom.scenarios.s3_GetObjectLegalHoldConfiguration.start-->
+<!--custom.scenarios.s3_GetObjectLegalHoldConfiguration.end-->
 
 #### Lock Amazon S3 objects
 

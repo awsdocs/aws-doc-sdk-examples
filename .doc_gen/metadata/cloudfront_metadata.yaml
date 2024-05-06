@@ -1,9 +1,5 @@
 # zexi 0.4.0
 cloudfront_ListDistributions:
-  title: List &CF; distributions using an &AWS; SDK
-  title_abbrev: List distributions
-  synopsis: list &CFlong; distributions.
-  category:
   languages:
     Python:
       versions:
@@ -18,10 +14,6 @@ cloudfront_ListDistributions:
   services:
     cloudfront: {ListDistributions}
 cloudfront_GetDistributionConfig:
-  title: Get &CF; distribution configuration using an &AWS; SDK
-  title_abbrev: Get distribution configuration
-  synopsis: get &CFlong; distribution configuration.
-  category:
   languages:
     Python:
       versions:
@@ -36,10 +28,6 @@ cloudfront_GetDistributionConfig:
   services:
     cloudfront: {GetDistributionConfig}
 cloudfront_CreateFunction:
-  title: Create a &CF; function using an &AWS; SDK
-  title_abbrev: Create a function
-  synopsis: create an &CFlong; function.
-  category:
   languages:
     Java:
       versions:
@@ -53,10 +41,6 @@ cloudfront_CreateFunction:
   services:
     cloudfront: {CreateFunction}
 cloudfront_UpdateDistribution:
-  title: Update a &CF; distribution using an &AWS; SDK
-  title_abbrev: Update a distribution
-  synopsis: update an &CFlong; distribution.
-  category:
   languages:
     Java:
       versions:
@@ -80,10 +64,6 @@ cloudfront_UpdateDistribution:
   services:
     cloudfront: {UpdateDistribution}
 cloudfront_CreateDistribution:
-  title: Create a &CF; distribution using an &AWS; SDK
-  title_abbrev: Create a distribution
-  synopsis: create a &CF; distribution.
-  category:
   languages:
     Java:
       versions:
@@ -93,19 +73,14 @@ cloudfront_CreateDistribution:
           excerpts:
             - description: >-
                 The following example uses an &S3long; (&S3;) bucket as a content origin.</para>
-                <para>After creating the distribution, 
-                the code creates a <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/waiters/CloudFrontWaiter.html">CloudFrontWaiter</ulink> 
-                to wait until the distribution is deployed before returning the distribution.
+                <para>After creating the distribution, the code creates a <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/waiters/CloudFrontWaiter.html">CloudFrontWaiter</ulink>  to
+                wait until the distribution is deployed before returning the distribution.
               snippet_tags:
                 - cloudfront.java2.createdistribution.import
                 - cloudfront.java2.createdistribution.main
   services:
     cloudfront: {CreateDistribution}
 cloudfront_CreateKeyGroup:
-  title: Create key group for &CF; using an &AWS; SDK
-  title_abbrev: Create a key group
-  synopsis: create a key group that you can use with signed URLs and signed cookies.
-  category:
   languages:
     Java:
       versions:
@@ -120,10 +95,6 @@ cloudfront_CreateKeyGroup:
   services:
     cloudfront: {CreateKeyGroup}
 cloudfront_CreatePublicKey:
-  title: Upload a public key to &CF; using an &AWS; SDK
-  title_abbrev: Upload a public key
-  synopsis: upload a public key.
-  category:
   languages:
     Java:
       versions:
@@ -138,10 +109,6 @@ cloudfront_CreatePublicKey:
   services:
     cloudfront: {CreatePublicKey}
 cloudfront_DeleteDistribution:
-  title: Delete a &CF; distribution using &AWS; SDK
-  title_abbrev: Delete a distribution
-  synopsis: delete a CloudFront distribution.
-  category:
   languages:
     Java:
       versions:
@@ -149,7 +116,8 @@ cloudfront_DeleteDistribution:
           github: javav2/example_code/cloudfront
           sdkguide:
           excerpts:
-            - description: The following code example updates a distribution to <emphasis>disabled</emphasis>, uses a waiter that waits for the change to be deployed, then deletes the distribution.
+            - description: The following code example updates a distribution to <emphasis>disabled</emphasis>, uses a waiter
+                that waits for the change to be deployed, then deletes the distribution.
               snippet_tags:
                 - cloudfront.java2.deletedistribution.import
                 - cloudfront.java2.deletedistribution.main
@@ -186,20 +154,22 @@ cloudfront_CloudFrontUtilities:
           sdkguide:
           excerpts:
             - description: >-
-                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CannedSignerRequest.html">CannedSignerRequest</ulink> 
+                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CannedSignerRequest.html">CannedSignerRequest</ulink>
+
                         class to sign URLs or cookies with a <emphasis>canned</emphasis> policy.
               snippet_tags:
                 - cloudfront.java2.createcannedpolicyrequest.import
                 - cloudfront.java2.createcannedpolicyrequest.main
             - description: >-
-                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CustomSignerRequest.html">CustomSignerRequest</ulink> 
-                class to sign URLs or cookies with a <emphasis>custom</emphasis> policy. The <code>activeDate</code> and <code>ipRange</code> are optional methods.
+                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CustomSignerRequest.html">CustomSignerRequest</ulink> class
+                to sign URLs or cookies with a <emphasis>custom</emphasis> policy. The <code>activeDate</code> and <code>ipRange</code>
+                are optional methods.
               snippet_tags:
                 - cloudfront.java2.createcustompolicyrequest.import
                 - cloudfront.java2.createcustompolicyrequest.main
             - description: >-
-                The following example demonstrates the use of the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/CloudFrontUtilities.html">CloudFrontUtilities</ulink> 
-                class to produce signed cookies and URLs. <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudfront/src/main/java/com/example/cloudfront/SigningUtilities.java">View</ulink>
+                The following example demonstrates the use of the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/CloudFrontUtilities.html">CloudFrontUtilities</ulink> class
+                to produce signed cookies and URLs. <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudfront/src/main/java/com/example/cloudfront/SigningUtilities.java">View</ulink>
                 this code example on GitHub.
               snippet_tags:
                 - cloudfront.java2.signingutilities.import

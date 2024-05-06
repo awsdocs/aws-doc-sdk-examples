@@ -26,7 +26,7 @@ bedrock-runtime_Hello:
 
 bedrock-runtime_InvokeAmazonTitanImageGeneratorForImageGeneration:
   title: Invoke Amazon Titan Image G1 on &BR; to generate an image
-  title_abbrev: "Amazon Titan: Image generation"
+  title_abbrev: 'Amazon Titan: Image generation'
   synopsis: invoke Amazon Titan Image G1 on &BR; to generate an image.
   category: Invoke model examples
   languages:
@@ -79,7 +79,7 @@ bedrock-runtime_InvokeAmazonTitanImageGeneratorForImageGeneration:
 
 bedrock-runtime_InvokeAmazonTitanForTextGeneration:
   title: Invoke Amazon Titan Text G1 on &BR; for text generation
-  title_abbrev: "Amazon Titan: Text generation"
+  title_abbrev: 'Amazon Titan: Text generation'
   synopsis: invoke Amazon Titan Text G1 on &BR; for text generation.
   category: Invoke model examples
   languages:
@@ -113,7 +113,7 @@ bedrock-runtime_InvokeAmazonTitanForTextGeneration:
 
 bedrock-runtime_InvokeStableDiffusionForImageGeneration:
   title: Invoke Stability.ai Stable Diffusion XL  on &BR; to generate an image
-  title_abbrev: "Stable Diffusion: Image generation"
+  title_abbrev: 'Stable Diffusion: Image generation'
   synopsis: invoke Stability.ai Stable Diffusion XL  on &BR; to generate an image.
   category: Invoke model examples
   languages:
@@ -152,7 +152,8 @@ bedrock-runtime_InvokeStableDiffusionForImageGeneration:
             - description: Invoke the Stability.ai Stable Diffusion XL foundation model to generate images.
               snippet_tags:
                 - bdr.abapv1.invokemodel_stable_diffusion
-            - description: Invoke the Stability.ai Stable Diffusion XL foundation model to generate images using L2 high level client.
+            - description: Invoke the Stability.ai Stable Diffusion XL foundation model to generate images using L2 high level
+                client.
               snippet_tags:
                 - bdr.abapv1.invokemodel_l2_stable_diffusion
     .NET:
@@ -169,7 +170,7 @@ bedrock-runtime_InvokeStableDiffusionForImageGeneration:
 
 bedrock-runtime_InvokeMistral7B:
   title: Invoke the Mistral 7B model on &BR; for text generation
-  title_abbrev: "Mistral AI: Text generation with Mistral 7B Instruct"
+  title_abbrev: 'Mistral AI: Text generation with Mistral 7B Instruct'
   synopsis: invoke the Mistral 7B model on &BR; for text generation.
   category: Invoke model examples
   languages:
@@ -214,7 +215,7 @@ bedrock-runtime_InvokeMistral7B:
 
 bedrock-runtime_InvokeMixtral8x7B:
   title: Invoke the Mixtral 8x7B model on &BR; for text generation
-  title_abbrev: "Mistral AI: Text generation with Mixtral 8x7B Instruct"
+  title_abbrev: 'Mistral AI: Text generation with Mixtral 8x7B Instruct'
   synopsis: invoke the Mixtral 8x7B model on &BR; for text generation.
   category: Invoke model examples
   languages:
@@ -259,7 +260,7 @@ bedrock-runtime_InvokeMixtral8x7B:
 
 bedrock-runtime_InvokeClaudeInstant:
   title: Invoke the Anthropic Claude Instant model on &BR; for text generation
-  title_abbrev: "Anthropic Claude Instant: Text generation"
+  title_abbrev: 'Anthropic Claude Instant: Text generation'
   synopsis: invoke the Anthropic Claude Instant model on &BR; for text generation.
   category: Invoke model examples
   languages:
@@ -276,7 +277,7 @@ bedrock-runtime_InvokeClaudeInstant:
 
 bedrock-runtime_InvokeClaude2x:
   title: Invoke Anthropic Claude 2.x on &BR; for text generation
-  title_abbrev: "Anthropic Claude 2: Text generation"
+  title_abbrev: 'Anthropic Claude 2: Text generation'
   synopsis: invoke the Anthropic Claude 2.x on &BR; for text generation.
   category: Invoke model examples
   languages:
@@ -337,7 +338,8 @@ bedrock-runtime_InvokeClaude2x:
         - sdk_version: 1
           github: sap-abap/services/bdr
           excerpts:
-            - description: Invoke the Anthropic Claude 2 foundation model to generate text. This example uses features of /US2/CL_JSON which might not be available on some NetWeaver versions.
+            - description: Invoke the Anthropic Claude 2 foundation model to generate text. This example uses features of
+                /US2/CL_JSON which might not be available on some NetWeaver versions.
               snippet_tags:
                 - bdr.abapv1.invokemodel_claude_v2
             - description: Invoke the Anthropic Claude 2 foundation model to generate text using L2 high level client.
@@ -348,7 +350,7 @@ bedrock-runtime_InvokeClaude2x:
 
 bedrock-runtime_Claude3_Text:
   title: Invoke Anthropic Claude 3 on &BR; to generate text
-  title_abbrev: "Anthropic Claude 3: Text generation"
+  title_abbrev: 'Anthropic Claude 3: Text generation'
   synopsis: invoke Anthropic Claude 3 on &BR; to generate text.
   category: Invoke model examples
   languages:
@@ -373,7 +375,7 @@ bedrock-runtime_Claude3_Text:
 
 bedrock-runtime_Claude3_Multimodal:
   title: Invoke Anthropic Claude 3 on &BR; with a multimodal prompt
-  title_abbrev: "Anthropic Claude 3: Multimodal invocation"
+  title_abbrev: 'Anthropic Claude 3: Multimodal invocation'
   synopsis: invoke Anthropic Claude 3 on &BR; with a multimodal prompt.
   category: Invoke model examples
   languages:
@@ -390,7 +392,7 @@ bedrock-runtime_Claude3_Multimodal:
 
 bedrock-runtime_InvokeClaude2WithResponseStream:
   title: Invoke Anthropic Claude 2.x on &BR; and process the response stream in real-time
-  title_abbrev: "Anthropic Claude 2: Real-time response stream processing"
+  title_abbrev: 'Anthropic Claude 2: Real-time response stream processing'
   synopsis: invoke Anthropic Claude 2.x on &BR; and process the response stream in real-time.
   category: Invoke model examples
   languages:
@@ -444,7 +446,7 @@ bedrock-runtime_InvokeClaude2WithResponseStream:
 
 bedrock-runtime_InvokeClaude3WithResponseStream:
   title: Invoke Anthropic Claude 3 on &BR; and process the response stream in real-time
-  title_abbrev: "Anthropic Claude 3: Real-time response stream processing"
+  title_abbrev: 'Anthropic Claude 3: Real-time response stream processing'
   synopsis: invoke Anthropic Claude 3 on &BR; and process the response stream in real-time.
   category: Invoke model examples
   languages:
@@ -461,7 +463,7 @@ bedrock-runtime_InvokeClaude3WithResponseStream:
 
 bedrock-runtime_InvokeJurassic2:
   title: Invoke the AI21 Labs Jurassic-2 model on &BR; for text generation
-  title_abbrev: "AI21 Labs Jurassic-2: Text generation"
+  title_abbrev: 'AI21 Labs Jurassic-2: Text generation'
   synopsis: invoke the AI21 Labs Jurassic-2 model on &BR; for text generation.
   category: Invoke model examples
   languages:
@@ -521,7 +523,7 @@ bedrock-runtime_InvokeJurassic2:
 
 bedrock-runtime_Llama2_InvokeLlama:
   title: Invoke Meta Llama 2 on &BR; using Meta's native request and response payloads
-  title_abbrev: "Meta Llama 2: Text generation"
+  title_abbrev: 'Meta Llama 2: Text generation'
   synopsis: get started sending prompts to Meta Llama 2 and printing the response.
   category: Invoke model examples
   languages:
@@ -578,7 +580,7 @@ bedrock-runtime_Llama2_InvokeLlama:
 
 bedrock-runtime_Llama2_InvokeModelWithResponseStream:
   title: Invoke Meta Llama 2 on &BR; using Meta's native request and response payloads with a response stream
-  title_abbrev: "Meta Llama 2: Text generation with response stream"
+  title_abbrev: 'Meta Llama 2: Text generation with response stream'
   synopsis: get started sending prompts to Meta Llama 2 and printing the response stream in real-time.
   category: Invoke model examples
   languages:
@@ -612,7 +614,7 @@ bedrock-runtime_Llama2_InvokeModelWithResponseStream:
 
 bedrock-runtime_Llama3_InvokeLlama:
   title: Invoke Meta Llama 3 on &BR; using Meta's native request and response payloads
-  title_abbrev: "Meta Llama 3: Text generation"
+  title_abbrev: 'Meta Llama 3: Text generation'
   synopsis: get started sending prompts to Meta Llama 3 and printing the response.
   category: Invoke model examples
   languages:
@@ -645,7 +647,7 @@ bedrock-runtime_Llama3_InvokeLlama:
 
 bedrock-runtime_Llama3_InvokeModelWithResponseStream:
   title: Invoke Meta Llama 3 on &BR; using Meta's native request and response payloads with a response stream
-  title_abbrev: "Meta Llama 3: Text generation with response stream"
+  title_abbrev: 'Meta Llama 3: Text generation with response stream'
   synopsis: get started sending prompts to Meta Llama 3 and printing the response stream in real-time.
   category: Invoke model examples
   languages:

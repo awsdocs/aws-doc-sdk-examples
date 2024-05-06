@@ -1,9 +1,5 @@
 # zexi 0.4.3
 workdocs_DescribeUsers:
-  title: Describe &WD; users using an &AWS; SDK
-  title_abbrev: Describe users
-  synopsis: describe &WD; users.
-  category:
   languages:
     Ruby:
       versions:
@@ -17,10 +13,6 @@ workdocs_DescribeUsers:
   services:
     workdocs: {DescribeUsers}
 workdocs_DescribeRootFolders:
-  title: Describe &WD; root folder contents using an &AWS; SDK
-  title_abbrev: Describe root folder contents
-  synopsis: describe &WD; root folder contents.
-  category:
   languages:
     Ruby:
       versions:

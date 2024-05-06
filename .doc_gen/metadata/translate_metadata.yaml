@@ -1,9 +1,4 @@
-# zexi 0.4.0
-translate_StartTranslationJob:
-  title: Start an &TSL; translation job using an &AWS; SDK
-  title_abbrev: Start a translation job
-  synopsis: start an &TSL; translation job.
-  category:
+translate_StartTextTranslationJob:
   languages:
     .NET:
       versions:
@@ -24,11 +19,7 @@ translate_StartTranslationJob:
                 - xl8.abapv1.start_text_translation_job
   services:
     translate: {StartTextTranslationJob}
-translate_DescribeTranslationJob:
-  title: Describe an &TSL; translation job using an &AWS; SDK
-  title_abbrev: Describe a translation job
-  synopsis: describe an &TSL; translation job.
-  category:
+translate_DescribeTextTranslationJob:
   languages:
     .NET:
       versions:
@@ -49,11 +40,7 @@ translate_DescribeTranslationJob:
                 - xl8.abapv1.describe_text_translation_job
   services:
     translate: {DescribeTextTranslationJob}
-translate_ListTranslationJobs:
-  title: List the &TSL; translation jobs using an &AWS; SDK
-  title_abbrev: List translation jobs
-  synopsis: list the &TSL; translation jobs.
-  category:
+translate_ListTextTranslationJobs:
   languages:
     .NET:
       versions:
@@ -74,11 +61,7 @@ translate_ListTranslationJobs:
                 - xl8.abapv1.list_text_translation_jobs
   services:
     translate: {ListTextTranslationJobs}
-translate_StopTranslationJob:
-  title: Stop an &TSL; translation job using an &AWS; SDK
-  title_abbrev: Stop a translation job
-  synopsis: stop an &TSL; translation job.
-  category:
+translate_StopTextTranslationJob:
   languages:
     .NET:
       versions:
@@ -100,10 +83,6 @@ translate_StopTranslationJob:
   services:
     translate: {StopTextTranslationJob}
 translate_TranslateText:
-  title: Translate text with &TSL; using an &AWS; SDK
-  title_abbrev: Translate text
-  synopsis: translate text with &TSL;.
-  category:
   languages:
     .NET:
       versions:

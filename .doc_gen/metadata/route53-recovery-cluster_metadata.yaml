@@ -1,9 +1,5 @@
 # zexi 0.4.3
 route53-recovery-cluster_GetRoutingControlState:
-  title: Get the state of an &R53ARC; routing control using an &AWS; SDK
-  title_abbrev: Get the state of a routing control
-  synopsis: get the state of an &R53ARC; routing control.
-  category:
   languages:
     Java:
       versions:
@@ -27,10 +23,6 @@ route53-recovery-cluster_GetRoutingControlState:
   services:
     route53-recovery-cluster: {GetRoutingControlState}
 route53-recovery-cluster_UpdateRoutingControlState:
-  title: Update the state of an &R53ARC; routing control using an &AWS; SDK
-  title_abbrev: Update the state of a routing control
-  synopsis: update the state of an &R53ARC; routing control.
-  category:
   languages:
     Java:
       versions:

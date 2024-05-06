@@ -2,9 +2,8 @@
 cross_FSA:
   title: Create an application that analyzes customer feedback and synthesizes audio
   title_abbrev: Create an application to analyze customer feedback
-  synopsis: create an application that analyzes customer comment cards, translates them from
-            their original language, determines their sentiment, and generates an audio file
-            from the translated text.
+  synopsis: create an application that analyzes customer comment cards, translates them from their original language, determines
+    their sentiment, and generates an audio file from the translated text.
   languages:
     .NET:
       versions:
@@ -42,7 +41,7 @@ cross_PAM:
     Kotlin:
       versions:
         - sdk_version: 1
-          block_content: cross_PAM_Kotlin_block.xml    
+          block_content: cross_PAM_Kotlin_block.xml
     .NET:
       versions:
         - sdk_version: 3
@@ -111,9 +110,8 @@ cross_SQSMessageApp:
 cross_RDSDataTracker:
   title: Create an &AUR; Serverless work item tracker
   title_abbrev: Create an &AUR; Serverless work item tracker
-  synopsis:
-    create a web application that tracks work items in an &AURlong; Serverless
-    database and uses &SESlong; (&SES;) to send reports.
+  synopsis: create a web application that tracks work items in an &AURlong; Serverless database and uses &SESlong; (&SES;)
+    to send reports.
   languages:
     .NET:
       versions:
@@ -195,9 +193,7 @@ cross_LexChatbotLanguages:
 cross_DynamoDBDataTracker:
   title: Create a web application to track &DDB; data
   title_abbrev: Create a web application to track &DDB; data
-  synopsis:
-    create a web application that tracks work items in an &DDBlong; table and
-    uses &SESlong; (&SES;) to send reports.
+  synopsis: create a web application that tracks work items in an &DDBlong; table and uses &SESlong; (&SES;) to send reports.
   languages:
     Java:
       versions:
@@ -228,8 +224,8 @@ cross_DynamoDBDataTracker:
 cross_ApiGatewayDataTracker:
   title: Create an &ABP; REST API to track COVID-19 data
   title_abbrev: Create a REST API to track COVID-19 data
-  synopsis: create a REST API that simulates a system to track daily cases of
-    COVID-19 in the United States, using fictional data.
+  synopsis: create a REST API that simulates a system to track daily cases of COVID-19 in the United States, using fictional
+    data.
   languages:
     Python:
       versions:
@@ -260,9 +256,8 @@ cross_ApiGatewayWebsocketChat:
 cross_AuroraRestLendingLibrary:
   title: Create a lending library REST API
   title_abbrev: Create a lending library REST API
-  synopsis:
-    create a lending library where patrons can borrow and return books by using a
-    REST API backed by an &AURlong; database.
+  synopsis: create a lending library where patrons can borrow and return books by using a REST API backed by an &AURlong;
+    database.
   languages:
     Python:
       versions:
@@ -316,8 +311,7 @@ cross_TextractExplorer:
 cross_TextractComprehendDetectEntities:
   title: Detect entities in text extracted from an image using an &AWS; SDK
   title_abbrev: Detect entities in text extracted from an image
-  synopsis: use &CMP; to detect entities in text extracted by &TEXTRACT; from an
-    image that is stored in &S3;.
+  synopsis: use &CMP; to detect entities in text extracted by &TEXTRACT; from an image that is stored in &S3;.
   category:
   languages:
     Python:
@@ -333,9 +327,7 @@ cross_TextractComprehendDetectEntities:
 cross_SubmitDataApp:
   title: Build an application to submit data to a &DDB; table
   title_abbrev: Build an app to submit data to a &DDB; table
-  synopsis:
-    build an application that submits data to an &DDBlong; table and notifies
-    you when a user updates the table.
+  synopsis: build an application that submits data to an &DDBlong; table and notifies you when a user updates the table.
   languages:
     Kotlin:
       versions:
@@ -448,9 +440,7 @@ cross_TranscriptionApp:
 cross_TranscriptionStreamingApp:
   title: Build an &TSC; streaming app
   title_abbrev: Build an &TSC; streaming app
-  synopsis:
-    build an app that records, transcribes, and translates live audio in real-time, and emails
-    the results.
+  synopsis: build an app that records, transcribes, and translates live audio in real-time, and emails the results.
   languages:
     JavaScript:
       versions:
@@ -634,16 +624,15 @@ cross_MessagesTopicsAndQueues:
 cross_ResilientService:
   title: Build and manage a resilient service using an &AWS; SDK
   title_abbrev: Build and manage a resilient service
-  synopsis: create a load-balanced web service that returns book, movie, and song recommendations. 
-    The example shows how the service responds to failures, and how to restructure the service for
-    more resilience when failures occur.
+  synopsis: create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the
+    service responds to failures, and how to restructure the service for more resilience when failures occur.
   synopsis_list:
-    - Use an &ASlong; group to create &EC2long; (&EC2;) instances based on a launch template and
-      to keep the number of instances in a specified range.
+    - Use an &ASlong; group to create &EC2long; (&EC2;) instances based on a launch template and to keep the number of instances
+      in a specified range.
     - Handle and distribute HTTP requests with &ELBlong;.
     - Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.
-    - Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds
-      with recommendations and health checks.
+    - Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and
+      health checks.
     - Simulate a recommendation service with an &DDBlong; table.
     - Control web server response to requests and health checks by updating &SYSlong; parameters.
   category: Scenarios
@@ -726,16 +715,12 @@ cross_ResilientService:
               snippet_files:
                 - javascriptv3/example_code/cross-services/wkflw-resilient-service/steps-destroy.js
   services:
-    auto-scaling: {
-      CreateAutoScalingGroup, DescribeAutoScalingGroups, TerminateInstanceInAutoScalingGroup,
-      AttachLoadBalancerTargetGroups, DeleteAutoScalingGroup, UpdateAutoScalingGroup}
-    ec2: {
-      DescribeIamInstanceProfileAssociations, ReplaceIamInstanceProfileAssociation, RebootInstances,
-      CreateLaunchTemplate, DeleteLaunchTemplate, DescribeAvailabilityZones, DescribeInstances,
-      DescribeVpcs, DescribeSubnets}
-    elastic-load-balancing-v2: {
-      DescribeLoadBalancers, CreateTargetGroup, DescribeTargetGroups, DeleteTargetGroup,
-      CreateLoadBalancer, CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
+    auto-scaling: {CreateAutoScalingGroup, DescribeAutoScalingGroups, TerminateInstanceInAutoScalingGroup, AttachLoadBalancerTargetGroups,
+                   DeleteAutoScalingGroup, UpdateAutoScalingGroup}
+    ec2: {DescribeIamInstanceProfileAssociations, ReplaceIamInstanceProfileAssociation, RebootInstances, CreateLaunchTemplate,
+          DeleteLaunchTemplate, DescribeAvailabilityZones, DescribeInstances, DescribeVpcs, DescribeSubnets}
+    elastic-load-balancing-v2: {DescribeLoadBalancers, CreateTargetGroup, DescribeTargetGroups, DeleteTargetGroup, CreateLoadBalancer,
+                                CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
     iam: {CreateInstanceProfile, DeleteInstanceProfile}
 cross_FMPlayground:
   title: Create a sample application that offers playgrounds to interact with &BR; foundation models using an &AWS; SDK
@@ -854,8 +839,7 @@ cross_CognitoAutoConfirmUser:
               snippet_tags:
                 - gov2.cognito-identity-provider.Resources.complete
   services:
-    cognito-identity-provider: {
-      UpdateUserPool, SignUp, InitiateAuth, DeleteUser}
+    cognito-identity-provider: {UpdateUserPool, SignUp, InitiateAuth, DeleteUser}
     lambda: {}
 cross_CognitoAutoMigrateUser:
   title: Automatically migrate known &COG; users with a &LAM; function using an &AWS; SDK
@@ -900,8 +884,7 @@ cross_CognitoAutoMigrateUser:
               snippet_tags:
                 - gov2.cognito-identity-provider.Resources.complete
   services:
-    cognito-identity-provider: {
-      UpdateUserPool, SignUp, InitiateAuth, ForgotPassword, ConfirmForgotPassword, DeleteUser}
+    cognito-identity-provider: {UpdateUserPool, SignUp, InitiateAuth, ForgotPassword, ConfirmForgotPassword, DeleteUser}
     lambda: {}
 cross_CognitoCustomActivityLog:
   title: Write custom activity data with a &LAM; function after &COG; user authentication using an &AWS; SDK
@@ -946,6 +929,5 @@ cross_CognitoCustomActivityLog:
               snippet_tags:
                 - gov2.cognito-identity-provider.Resources.complete
   services:
-    cognito-identity-provider: {
-      UpdateUserPool, InitiateAuth, DeleteUser, AdminCreateUser, AdminSetUserPassword}
+    cognito-identity-provider: {UpdateUserPool, InitiateAuth, DeleteUser, AdminCreateUser, AdminSetUserPassword}
     lambda: {}

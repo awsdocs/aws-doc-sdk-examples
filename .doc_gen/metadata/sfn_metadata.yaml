@@ -39,14 +39,10 @@ sfn_Hello:
           excerpts:
             - description: Java version of Hello.
               snippet_tags:
-                - stepfunctions.java2.list_machines.main           
+                - stepfunctions.java2.list_machines.main
   services:
     sfn: {ListStateMachines}
 sfn_CreateStateMachine:
-  title: Create a &SFN; state machine using an &AWS; SDK
-  title_abbrev: Create a state machine
-  synopsis: create a &SFN; state machine.
-  category:
   languages:
     .NET:
       versions:
@@ -88,10 +84,6 @@ sfn_CreateStateMachine:
   services:
     sfn: {CreateStateMachine}
 sfn_DeleteStateMachine:
-  title: Delete a &SFN; state machine using an &AWS; SDK
-  title_abbrev: Delete a state machine
-  synopsis: delete a &SFN; state machine.
-  category:
   languages:
     .NET:
       versions:
@@ -133,10 +125,6 @@ sfn_DeleteStateMachine:
   services:
     sfn: {DeleteStateMachine}
 sfn_ListStateMachines:
-  title: List &SFN; state machines using an &AWS; SDK
-  title_abbrev: List state machines
-  synopsis: list &SFN; state machines.
-  category:
   languages:
     .NET:
       versions:
@@ -171,18 +159,13 @@ sfn_ListStateMachines:
           github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
-            - description: Find a state machine by name by searching the list of
-                state machines for the account.
+            - description: Find a state machine by name by searching the list of state machines for the account.
               snippet_tags:
                 - python.example_code.sfn.StateMachine_decl
                 - python.example_code.sfn.ListStateMachines
   services:
     sfn: {ListStateMachines}
 sfn_DescribeStateMachine:
-  title: Describe a &SFN; state machine using an &AWS; SDK
-  title_abbrev: Describe a state machine
-  synopsis: describe a &SFN; state machine.
-  category:
   languages:
     Kotlin:
       versions:
@@ -224,10 +207,6 @@ sfn_DescribeStateMachine:
   services:
     sfn: {DescribeStateMachine}
 sfn_StartExecution:
-  title: Start a &SFN; state machine run using an &AWS; SDK
-  title_abbrev: Start a state machine run
-  synopsis: start a &SFN; state machine run.
-  category:
   languages:
     .NET:
       versions:
@@ -278,10 +257,6 @@ sfn_StartExecution:
   services:
     sfn: {StartExecution}
 sfn_ListExecutions:
-  title: List &SFN; state machine runs using an &AWS; SDK
-  title_abbrev: List state machine runs
-  synopsis: list &SFN; state machine runs.
-  category:
   languages:
     .NET:
       versions:
@@ -313,10 +288,6 @@ sfn_ListExecutions:
   services:
     sfn: {ListExecutions}
 sfn_DescribeExecution:
-  title: Describe a &SFN; state machine run using an &AWS; SDK
-  title_abbrev: Describe a state machine run
-  synopsis: describe a &SFN; state machine run.
-  category:
   languages:
     Kotlin:
       versions:
@@ -357,10 +328,6 @@ sfn_DescribeExecution:
   services:
     sfn: {DescribeExecution}
 sfn_CreateActivity:
-  title: Create a &SFN; activity using an &AWS; SDK
-  title_abbrev: Create an activity
-  synopsis: create a &SFN; activity.
-  category:
   languages:
     Kotlin:
       versions:
@@ -402,10 +369,6 @@ sfn_CreateActivity:
   services:
     sfn: {CreateActivity}
 sfn_ListActivities:
-  title: List &SFN; activities using an &AWS; SDK
-  title_abbrev: List activities
-  synopsis: list &SFN; activities.
-  category:
   languages:
     Kotlin:
       versions:
@@ -447,10 +410,6 @@ sfn_ListActivities:
   services:
     sfn: {ListActivities}
 sfn_GetActivityTask:
-  title: Get task data for a &SFN; activity using an &AWS; SDK
-  title_abbrev: Get task data for an activity
-  synopsis: get task data for a &SFN; activity.
-  category:
   languages:
     Kotlin:
       versions:
@@ -492,10 +451,6 @@ sfn_GetActivityTask:
   services:
     sfn: {GetActivityTask}
 sfn_SendTaskSuccess:
-  title: Send a success response to a &SFN; task using an &AWS; SDK
-  title_abbrev: Send a success response to a task
-  synopsis: send a success response to a &SFN; task.
-  category:
   languages:
     Kotlin:
       versions:
@@ -537,10 +492,6 @@ sfn_SendTaskSuccess:
   services:
     sfn: {SendTaskSuccess}
 sfn_DeleteActivity:
-  title: Delete a &SFN; activity using an &AWS; SDK
-  title_abbrev: Delete an activity
-  synopsis: delete a &SFN; activity.
-  category:
   languages:
     Kotlin:
       versions:
@@ -586,8 +537,7 @@ sfn_Scenario_GetStartedStateMachines:
   title_abbrev: Get started with state machines
   synopsis_list:
     - Create an activity.
-    - Create a state machine from an &SLN; definition that contains the
-      previously created activity as a step.
+    - Create a state machine from an &SLN; definition that contains the previously created activity as a step.
     - Run the state machine and respond to the activity with user input.
     - Get the final status and output after the run completes, then clean up resources.
   category: Scenarios
@@ -600,7 +550,7 @@ sfn_Scenario_GetStartedStateMachines:
           excerpts:
             - description:
               snippet_tags:
-                - stepfunctions.kotlin.scenario.main  
+                - stepfunctions.kotlin.scenario.main
     .NET:
       versions:
         - sdk_version: 3
@@ -623,7 +573,7 @@ sfn_Scenario_GetStartedStateMachines:
           excerpts:
             - description:
               snippet_tags:
-                - stepfunctions.java2.scenario.main  
+                - stepfunctions.java2.scenario.main
     Python:
       versions:
         - sdk_version: 3
@@ -640,6 +590,5 @@ sfn_Scenario_GetStartedStateMachines:
               snippet_tags:
                 - python.example_code.sfn.Activity_full
   services:
-    sfn: {CreateActivity, CreateStateMachine, DeleteActivity, DeleteStateMachine, DescribeExecution,
-          DescribeStateMachine, GetActivityTask, ListActivities, ListStateMachines,
-          SendTaskSuccess, StartExecution, StopExecution}
+    sfn: {CreateActivity, CreateStateMachine, DeleteActivity, DeleteStateMachine, DescribeExecution, DescribeStateMachine,
+          GetActivityTask, ListActivities, ListStateMachines, SendTaskSuccess, StartExecution, StopExecution}

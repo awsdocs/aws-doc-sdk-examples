@@ -1,9 +1,5 @@
 # zexi 0.4.3
 lookoutvision_CreateDataset:
-  title: Create a &LYRA; dataset using an &AWS; SDK
-  title_abbrev: Create a dataset
-  synopsis: create a &LYRA; dataset.
-  category:
   guide_topic:
     title: Creating your dataset
     url: lookout-for-vision/latest/developer-guide/model-create-dataset.html
@@ -42,10 +38,6 @@ lookoutvision_Scenario_CreateManifestFile:
   services:
     lookoutvision: {}
 lookoutvision_DeleteDataset:
-  title: Delete a &LYRA; dataset using an &AWS; SDK
-  title_abbrev: Delete a dataset
-  synopsis: delete a &LYRA; dataset.
-  category:
   guide_topic:
     title: Deleting a dataset
     url: lookout-for-vision/latest/developer-guide/delete-dataset.html
@@ -63,10 +55,6 @@ lookoutvision_DeleteDataset:
   services:
     lookoutvision: {DeleteDataset}
 lookoutvision_DescribeDataset:
-  title: Describe a &LYRA; dataset using an &AWS; SDK
-  title_abbrev: Describe a dataset
-  synopsis: describe a &LYRA; dataset.
-  category:
   guide_topic:
     title: Viewing your dataset
     url: lookout-for-vision/latest/developer-guide/view-datasets.html
@@ -124,10 +112,6 @@ lookoutvision_Scenario_ExportDatasets:
   services:
     lookoutvision: {}
 lookoutvision_StartModel:
-  title: Start a &LYRA; model using an &AWS; SDK
-  title_abbrev: Start a model
-  synopsis: start a &LYRA; model.
-  category:
   guide_topic:
     title: Starting your model
     url: lookout-for-vision/latest/developer-guide/run-start-model.html
@@ -145,10 +129,6 @@ lookoutvision_StartModel:
   services:
     lookoutvision: {StartModel}
 lookoutvision_StopModel:
-  title: Stop a &LYRA; model using an &AWS; SDK
-  title_abbrev: Stop a model
-  synopsis: stop a &LYRA; model.
-  category:
   guide_topic:
     title: Stopping your model
     url: lookout-for-vision/latest/developer-guide/run-stop-model.html
@@ -184,10 +164,6 @@ lookoutvision_Scenario_ListHostedModels:
   services:
     lookoutvision: {}
 lookoutvision_DetectAnomalies:
-  title: Detect anomalies in an image with a trained &LYRA; model using an &AWS; SDK
-  title_abbrev: Detect anomalies in an image with a trained model
-  synopsis: detect anomalies in an image with a trained &LYRA; model.
-  category:
   guide_topic:
     title: Detecting anomalies in an image
     url: lookout-for-vision/latest/developer-guide/inference-detect-anomalies.html
@@ -204,10 +180,6 @@ lookoutvision_DetectAnomalies:
   services:
     lookoutvision: {DetectAnomalies}
 lookoutvision_CreateModel:
-  title: Create a &LYRA; model using an &AWS; SDK
-  title_abbrev: Create a model
-  synopsis: create a &LYRA; model.
-  category:
   guide_topic:
     title: Training your model
     url: lookout-for-vision/latest/developer-guide/model-train.html
@@ -225,13 +197,9 @@ lookoutvision_CreateModel:
   services:
     lookoutvision: {CreateModel}
 lookoutvision_DescribeModel:
-  title: Describe a &LYRA; model using an &AWS; SDK
-  title_abbrev: Describe a model
-  synopsis: describe a &LYRA; model.
   guide_topic:
     title: Viewing your models
     url: lookout-for-vision/latest/developer-guide/view-models.html
-  category:
   languages:
     Python:
       versions:
@@ -246,10 +214,6 @@ lookoutvision_DescribeModel:
   services:
     lookoutvision: {DescribeModel}
 lookoutvision_ListModels:
-  title: List &LYRA; models using an &AWS; SDK
-  title_abbrev: List models
-  synopsis: list &LYRA; models.
-  category:
   guide_topic:
     title: Viewing your models
     url: lookout-for-vision/latest/developer-guide/view-models.html
@@ -267,10 +231,6 @@ lookoutvision_ListModels:
   services:
     lookoutvision: {ListModels}
 lookoutvision_DeleteModel:
-  title: Delete a &LYRA; model using an &AWS; SDK
-  title_abbrev: Delete a model
-  synopsis: delete a &LYRA; model.
-  category:
   guide_topic:
     title: Deleting a model
     url: lookout-for-vision/latest/developer-guide/delete-model.html
@@ -288,10 +248,6 @@ lookoutvision_DeleteModel:
   services:
     lookoutvision: {DeleteModel}
 lookoutvision_CreateProject:
-  title: Create a &LYRA; project using an &AWS; SDK
-  title_abbrev: Create a project
-  synopsis: create a &LYRA; project.
-  category:
   guide_topic:
     title: Creating your project
     url: lookout-for-vision/latest/developer-guide/model-create-project.html
@@ -309,10 +265,6 @@ lookoutvision_CreateProject:
   services:
     lookoutvision: {CreateProject}
 lookoutvision_DeleteProject:
-  title: Delete a &LYRA; project using an &AWS; SDK
-  title_abbrev: Delete a project
-  synopsis: delete a &LYRA; project.
-  category:
   guide_topic:
     title: Deleting a project
     url: lookout-for-vision/latest/developer-guide/delete-project.html
@@ -330,10 +282,6 @@ lookoutvision_DeleteProject:
   services:
     lookoutvision: {DeleteProject}
 lookoutvision_ListProjects:
-  title: List &LYRA; projects using an &AWS; SDK
-  title_abbrev: List projects
-  synopsis: list &LYRA; projects.
-  category:
   guide_topic:
     title: Viewing your projects
     url: lookout-for-vision/latest/developer-guide/view-projects.html
