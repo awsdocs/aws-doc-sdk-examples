@@ -33,6 +33,17 @@ bedrock-runtime_TitanTextEmbeddingsG1_InvokeModel:
     - Create embeddings and process all response fields.
   category: Invoke model examples
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Create your first embedding with Amazon Titan Text Embeddings G1.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsG1_Quickstart
+            - description: Invoke Amazon Titan Text Embeddings G1 and process all response fields.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsG1_AdditionalFields
     Python:
       versions:
         - sdk_version: 3
@@ -55,6 +66,17 @@ bedrock-runtime_TitanTextEmbeddingsV2_InvokeModel:
     - Create embeddings configuring the number of dimensions and normalization.
   category: Invoke model examples
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Create your first embedding with Titan Text Embeddings V2.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_Quickstart
+            - description: Invoke Titan Text Embeddings V2 configuring the number of dimensions and normalization.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_AdditionalFields
     Python:
       versions:
         - sdk_version: 3
