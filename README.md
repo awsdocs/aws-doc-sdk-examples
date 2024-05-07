@@ -67,6 +67,14 @@ Additionally, example code might theoretically modify or delete existing AWS res
 
 This repository thrives on your contributions! ❤️ To get involved, see the [CONTRIBUTING.md](CONTRIBUTING.md). 🙏
 
+## Tributaries
+
+The AWS Documentation includes source code examples from several additional sources. These sources are called tributaries, flowing into the "river" of AWS Documentation.
+
+* [awsdocs/aws-doc-sdk-examples](https://github.com/awsdocs/aws-doc-sdk-examples)
+* [aws-samples/serverless-snippets](https://github.com/aws-samples/serverless-snippets)
+* [aws/aws-tools-for-powershell](https://github.com/aws/aws-tools-for-powershell)
+
 # Copyright and license
 
 All content in this repository, unless otherwise stated, is
