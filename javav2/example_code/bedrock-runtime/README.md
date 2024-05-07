@@ -40,8 +40,10 @@ functions within the same service.
 
 ### Invoke model examples
 
-- [AI21 Labs Jurassic-2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L205)
-- [Amazon Titan: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L338)
+- [AI21 Labs Jurassic-2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L208)
+- [Amazon Titan Text Embeddings G1](src/main/java/com/example/bedrockruntime/models/amazon/embeddings/text/G1InvokeModelQuickstart.java#L11)
+- [Amazon Titan Text Embeddings V2](src/main/java/com/example/bedrockruntime/models/amazon/embeddings/text/V2InvokeModelQuickstart.java#L11)
+- [Amazon Titan: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L343)
 - [Anthropic Claude 2: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude2.java#L65)
 - [Anthropic Claude 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModel.java#L112)
 - [Anthropic Claude 3: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude3.java#L49)
@@ -50,8 +52,8 @@ functions within the same service.
 - [Meta Llama 3: Text generation](src/main/java/com/example/bedrockruntime/models/meta/llama3/InvokeModelQuickstart.java#L13)
 - [Meta Llama 3: Text generation with response stream](src/main/java/com/example/bedrockruntime/models/meta/llama3/InvokeModelWithResponseStreamQuickstart.java#L14)
 - [Mistral AI: Text generation with Mistral 7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L33)
-- [Mistral AI: Text generation with Mixtral 8x7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L88)
-- [Stable Diffusion: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L268)
+- [Mistral AI: Text generation with Mixtral 8x7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L89)
+- [Stable Diffusion: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L272)
 
 
 <!--custom.examples.start-->
