@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import fs from "node:fs/promises";
 import {
   MedicalImagingClient,
   StartDICOMImportJobCommand,
@@ -8,7 +7,6 @@ import {
 } from "@aws-sdk/client-medical-imaging";
 
 import {
-  Scenario,
   ScenarioAction,
   ScenarioOutput,
   ScenarioInput,
@@ -23,18 +21,7 @@ import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
  * }}} State
  */
 
-const loadState = new ScenarioAction("loadState", async (state) => {
-  try {
-    const stateFromDisk = await fs.readFile("step-2-state.json", "utf8");
-    const parsedState = JSON.parse(stateFromDisk);
-    Object.assign(state, parsedState);
-    console.log("");
-  } catch (err) {
-    console.error("Failed to load state from disk:", err);
-  }
-});
-
-const doImport = new ScenarioInput(
+export const doImport = new ScenarioInput(
   "doImport",
   "Do you want to import DICOM images into your datastore?",
   {
@@ -42,7 +29,7 @@ const doImport = new ScenarioInput(
   },
 );
 
-const startDICOMImport = new ScenarioAction(
+export const startDICOMImport = new ScenarioAction(
   "startDICOMImport",
   async (/** @type {State} */ state) => {
     if (!state.doImport) {
@@ -64,7 +51,7 @@ const startDICOMImport = new ScenarioAction(
   },
 );
 
-const waitForImportJobCompletion = new ScenarioAction(
+export const waitForImportJobCompletion = new ScenarioAction(
   "waitForImportJobCompletion",
   async (/** @type {State} */ state) => {
     const medicalImagingClient = new MedicalImagingClient({});
@@ -88,25 +75,8 @@ const waitForImportJobCompletion = new ScenarioAction(
   },
 );
 
-const outputImportJobStatus = new ScenarioOutput(
+export const outputImportJobStatus = new ScenarioOutput(
   "outputImportJobStatus",
   (state) =>
     `DICOM import job completed. Output location: ${state.importJobOutputS3Uri}`,
-);
-
-const saveState = new ScenarioAction("saveState", async (state) => {
-  await fs.writeFile("step-3-state.json", JSON.stringify(state));
-});
-
-export const step3 = new Scenario(
-  "Step 3: Start DICOM Import Job",
-  [
-    loadState,
-    doImport,
-    startDICOMImport,
-    waitForImportJobCompletion,
-    outputImportJobStatus,
-    saveState,
-  ],
-  {},
 );

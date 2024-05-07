@@ -4,21 +4,9 @@
 import { expect, it, vi, describe, beforeEach } from "vitest";
 import { gzip } from "zlib";
 import { promisify } from "util";
-
-const writeFileMock = vi.fn();
-const readFileMock = vi.fn();
-const fsMod = {
-  writeFile: writeFileMock,
-  readFile: readFileMock,
-};
-vi.doMock("node:fs/promises", () => ({
-  default: fsMod,
-  ...fsMod,
-}));
+import { Scenario } from "@aws-doc-sdk-examples/lib/scenario/scenario.js";
 
 const gzipAsync = promisify(gzip);
-
-const stateFilePath = "step-5-state.json";
 
 const medicalImagingClientSendMock = vi.fn();
 vi.doMock("@aws-sdk/client-medical-imaging", async () => {
@@ -31,9 +19,11 @@ vi.doMock("@aws-sdk/client-medical-imaging", async () => {
   };
 });
 
-const { step5 } = await import("../scenarios/health-image-sets/step-5.js");
+const { getImageSetMetadata, outputImageFrameIds } = await import(
+  "../scenarios/health-image-sets/image-frame-steps.js"
+);
 
-describe("step5", () => {
+describe("image-frame-steps", () => {
   const mockState = {
     stackOutputs: {
       BucketName: "input-bucket",
@@ -43,10 +33,14 @@ describe("step5", () => {
     imageSetIds: ["image-set-1", "image-set-2"],
   };
 
+  const imageFrameSteps = new Scenario(
+    "image-frame-steps",
+    [getImageSetMetadata, outputImageFrameIds],
+    mockState,
+  );
+
   beforeEach(() => {
     vi.clearAllMocks();
-
-    readFileMock.mockResolvedValue(JSON.stringify(mockState));
   });
 
   it("should handle the GetImageSetMetadataCommand response correctly", async () => {
@@ -90,15 +84,12 @@ describe("step5", () => {
         },
       });
 
-    await step5.run({ confirmAll: true, verbose: false });
+    await imageFrameSteps.run({ confirmAll: true, verbose: false });
 
-    expect(writeFileMock).toHaveBeenCalledWith(
-      stateFilePath,
-      JSON.stringify({
-        name: step5.name,
-        ...mockState,
-        imageSetMetadata: [mockMetadata, mockMetadata],
-      }),
-    );
+    expect(imageFrameSteps.state).toEqual({
+      name: imageFrameSteps.name,
+      ...mockState,
+      imageSetMetadata: [mockMetadata, mockMetadata],
+    });
   });
 });

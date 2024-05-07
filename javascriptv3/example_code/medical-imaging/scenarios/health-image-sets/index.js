@@ -6,20 +6,90 @@ import {
   Scenario,
 } from "@aws-doc-sdk-examples/lib/scenario/index.js";
 
-import { step1 } from "./step-1.js";
-import { step2 } from "./step-2.js";
-import { step3 } from "./step-3.js";
-import { step4 } from "./step-4.js";
-import { step5 } from "./step-5.js";
-import { step6 } from "./step-6.js";
-import { step7 } from "./step-7.js";
+import { loadState, saveState } from "./state-steps.js";
+
+import {
+  createStack,
+  deployStack,
+  getAccountId,
+  getDatastoreName,
+  getStackName,
+  outputState,
+  waitForStackCreation,
+} from "./deploy-steps.js";
+import {
+  doCopy,
+  selectDataset,
+  copyDataset,
+  outputCopiedObjects,
+} from "./dataset-steps.js";
+import {
+  doImport,
+  outputImportJobStatus,
+  startDICOMImport,
+  waitForImportJobCompletion,
+} from "./import-steps.js";
+import {
+  getManifestFile,
+  outputImageSetIds,
+  parseManifestFile,
+} from "./image-set-steps.js";
+import {
+  getImageSetMetadata,
+  outputImageFrameIds,
+} from "./image-frame-steps.js";
+import { decodeAndVerifyImages, doVerify } from "./verify-steps.js";
+import {
+  confirmCleanup,
+  deleteImageSets,
+  deleteStack,
+} from "./clean-up-steps.js";
 
 const context = {};
 
 const scenarios = {
-  deploy: new Scenario("Deploy Resources", [step1], context),
-  demo: new Scenario("Run Demo", [step2, step3, step4, step5, step6], context),
-  destroy: new Scenario("Clean Up Resources", [step7], context),
+  deploy: new Scenario(
+    "Deploy Resources",
+    [
+      deployStack,
+      getStackName,
+      getDatastoreName,
+      getAccountId,
+      createStack,
+      waitForStackCreation,
+      outputState,
+      saveState,
+    ],
+    context,
+  ),
+  demo: new Scenario(
+    "Run Demo",
+    [
+      loadState,
+      doCopy,
+      selectDataset,
+      copyDataset,
+      outputCopiedObjects,
+      doImport,
+      startDICOMImport,
+      waitForImportJobCompletion,
+      outputImportJobStatus,
+      getManifestFile,
+      parseManifestFile,
+      outputImageSetIds,
+      getImageSetMetadata,
+      outputImageFrameIds,
+      doVerify,
+      decodeAndVerifyImages,
+      saveState,
+    ],
+    context,
+  ),
+  destroy: new Scenario(
+    "Clean Up Resources",
+    [loadState, confirmCleanup, deleteImageSets, deleteStack],
+    context,
+  ),
 };
 
 // Call function if run directly

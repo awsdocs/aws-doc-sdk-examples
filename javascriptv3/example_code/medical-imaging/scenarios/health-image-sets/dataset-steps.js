@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import fs from "node:fs/promises";
 import {
   S3Client,
   CopyObjectCommand,
@@ -8,7 +7,6 @@ import {
 } from "@aws-sdk/client-s3";
 
 import {
-  Scenario,
   ScenarioAction,
   ScenarioInput,
   ScenarioOutput,
@@ -43,18 +41,7 @@ const datasetOptions = [
  * }}} State
  */
 
-const loadState = new ScenarioAction("loadState", async (state) => {
-  try {
-    const stateFromDisk = JSON.parse(
-      await fs.readFile("step-1-state.json", "utf8"),
-    );
-    Object.assign(state, stateFromDisk);
-  } catch (err) {
-    console.error("Failed to load state from disk:", err);
-  }
-});
-
-const selectDataset = new ScenarioInput(
+export const selectDataset = new ScenarioInput(
   "selectDataset",
   (state) => {
     if (!state.doCopy) {
@@ -68,7 +55,7 @@ const selectDataset = new ScenarioInput(
   },
 );
 
-const doCopy = new ScenarioInput(
+export const doCopy = new ScenarioInput(
   "doCopy",
   "Do you want to copy images from the public dataset into your bucket?",
   {
@@ -76,7 +63,7 @@ const doCopy = new ScenarioInput(
   },
 );
 
-const copyDataset = new ScenarioAction(
+export const copyDataset = new ScenarioAction(
   "copyDataset",
   async (/** @type { State } */ state) => {
     const inputBucket = state.stackOutputs.BucketName;
@@ -114,24 +101,7 @@ const copyDataset = new ScenarioAction(
   },
 );
 
-const outputCopiedObjects = new ScenarioOutput(
+export const outputCopiedObjects = new ScenarioOutput(
   "outputCopiedObjects",
   (state) => `${state.copiedObjects} DICOM files were copied.`,
-);
-
-const saveState = new ScenarioAction("saveState", async (state) => {
-  await fs.writeFile("step-2-state.json", JSON.stringify(state));
-});
-
-export const step2 = new Scenario(
-  "Step 2: Copy DICOM Files",
-  [
-    loadState,
-    doCopy,
-    selectDataset,
-    copyDataset,
-    outputCopiedObjects,
-    saveState,
-  ],
-  {},
 );

@@ -27,6 +27,10 @@ vi.doMock("@aws-doc-sdk-examples/lib/scenario/index.js", async () => {
   };
 });
 
+const { Scenario } = await import(
+  "@aws-doc-sdk-examples/lib/scenario/index.js"
+);
+
 const medicalImagingClientSendMock = vi.fn();
 vi.doMock("@aws-sdk/client-medical-imaging", async () => {
   const actual = await vi.importActual("@aws-sdk/client-medical-imaging");
@@ -51,9 +55,11 @@ vi.doMock("@aws-sdk/client-cloudformation", async () => {
   };
 });
 
-const { step7 } = await import("../scenarios/health-image-sets/step-7.js");
+const { confirmCleanup, deleteImageSets, deleteStack } = await import(
+  "../scenarios/health-image-sets/clean-up-steps.js"
+);
 
-describe("step7", () => {
+describe("clean-up-steps", () => {
   const mockState = {
     getStackName: "test-stack",
     stackOutputs: {
@@ -113,6 +119,12 @@ describe("step7", () => {
     ],
   };
 
+  const cleanUpSteps = new Scenario(
+    "clean-up-steps",
+    [confirmCleanup, deleteImageSets, deleteStack],
+    mockState,
+  );
+
   beforeEach(() => {
     vi.clearAllMocks();
 
@@ -131,7 +143,7 @@ describe("step7", () => {
         name: "ConflictException",
       }); // Simulate image set already deleted
 
-    await step7.run({ confirmAll: true, verbose: false });
+    await cleanUpSteps.run({ confirmAll: true, verbose: false });
 
     expect(medicalImagingClientSendMock).toHaveBeenCalledTimes(3);
     expect(medicalImagingClientSendMock).toHaveBeenCalledWith({
@@ -154,7 +166,7 @@ describe("step7", () => {
       state.confirmCleanup = false;
     });
 
-    await step7.run({ confirmAll: true, verbose: false });
+    await cleanUpSteps.run({ confirmAll: true, verbose: false });
 
     expect(medicalImagingClientSendMock).toHaveBeenCalledTimes(0);
     expect(cloudFormationClientSendMock).toHaveBeenCalledTimes(0);

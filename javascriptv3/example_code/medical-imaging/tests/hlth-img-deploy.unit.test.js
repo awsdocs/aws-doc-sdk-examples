@@ -13,8 +13,7 @@ vi.doMock("node:fs/promises", () => ({
   ...fsMod,
 }));
 
-const stateFilePath = "step-1-state.json";
-
+const stateFilePath = "state.json";
 const inputHandler = vi.fn();
 vi.doMock("@aws-doc-sdk-examples/lib/scenario/index.js", async () => {
   const actual = await vi.importActual(
@@ -23,10 +22,23 @@ vi.doMock("@aws-doc-sdk-examples/lib/scenario/index.js", async () => {
   return {
     ...actual,
     ScenarioInput: vi.fn().mockImplementation(() => ({
+      skipWhen(fn) {
+        // eslint-disable-next-line
+        this.skip = fn;
+        return this;
+      },
       handle: inputHandler,
     })),
   };
 });
+
+const { Scenario } = await import(
+  "@aws-doc-sdk-examples/lib/scenario/index.js"
+);
+
+const { saveState } = await import(
+  "../scenarios/health-image-sets/state-steps.js"
+);
 
 const cloudFormationSend = vi.fn();
 const createStackCommand = vi.fn((obj) => obj);
@@ -80,9 +92,27 @@ vi.doMock("@aws-doc-sdk-examples/lib/utils/util-timers.js", () => ({
   retry: retryMock,
 }));
 
-const { step1 } = await import("../scenarios/health-image-sets/step-1.js");
+const {
+  deployStack,
+  getStackName,
+  getDatastoreName,
+  getAccountId,
+  createStack,
+  waitForStackCreation,
+  outputState,
+} = await import("../scenarios/health-image-sets/deploy-steps.js");
 
-describe("step1", () => {
+describe("deploy-steps", () => {
+  const deploySteps = new Scenario("deploy-steps", [
+    deployStack,
+    getStackName,
+    getDatastoreName,
+    getAccountId,
+    createStack,
+    waitForStackCreation,
+    outputState,
+    saveState,
+  ]);
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -92,7 +122,7 @@ describe("step1", () => {
       state.deployStack = false;
     });
 
-    await step1.run({ confirmAll: true, verbose: false });
+    await deploySteps.run({ confirmAll: true, verbose: false });
 
     expect(cloudFormationSend).toHaveBeenCalledTimes(0);
   });
@@ -123,7 +153,7 @@ describe("step1", () => {
 
     readFileMock.mockResolvedValueOnce("");
 
-    await step1.run({ confirmAll: true, verbose: false });
+    await deploySteps.run({ confirmAll: true, verbose: false });
 
     expect(cloudFormationSend).toHaveBeenCalledWith({
       StackName: stackName,
@@ -163,7 +193,7 @@ describe("step1", () => {
         Stacks: [{ StackStatus: "CREATE_COMPLETE", StackName: stackName }],
       });
 
-    await step1.run({ confirmAll: true, verbose: false });
+    await deploySteps.run({ confirmAll: true, verbose: false });
 
     expect(cloudFormationSend).toHaveBeenCalledTimes(3);
     expect(retryMock).toHaveBeenCalledTimes(1);
@@ -206,12 +236,12 @@ describe("step1", () => {
         ],
       });
 
-    await step1.run({ confirmAll: true, verbose: false });
+    await deploySteps.run({ confirmAll: true, verbose: false });
 
     expect(writeFileMock).toHaveBeenCalledWith(
       stateFilePath,
       JSON.stringify({
-        name: step1.name,
+        name: deploySteps.name,
         deployStack: true,
         getStackName: stackName,
         getDatastoreName: datastoreName,

@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import fs from "node:fs/promises";
 import {
   CloudFormationClient,
   DeleteStackCommand,
@@ -11,7 +10,6 @@ import {
 } from "@aws-sdk/client-medical-imaging";
 
 import {
-  Scenario,
   ScenarioAction,
   ScenarioInput,
 } from "@aws-doc-sdk-examples/lib/scenario/index.js";
@@ -76,24 +74,13 @@ import {
 const cfnClient = new CloudFormationClient({});
 const medicalImagingClient = new MedicalImagingClient({});
 
-const loadState = new ScenarioAction("loadState", async (state) => {
-  try {
-    const stateFromDisk = JSON.parse(
-      await fs.readFile("step-5-state.json", "utf8")
-    );
-    Object.assign(state, stateFromDisk);
-  } catch (err) {
-    console.error("Failed to load state from disk:", err);
-  }
-});
-
-const confirmCleanup = new ScenarioInput(
+export const confirmCleanup = new ScenarioInput(
   "confirmCleanup",
   "Do you want to delete the created resources?",
-  { type: "confirm" }
+  { type: "confirm" },
 );
 
-const deleteImageSets = new ScenarioAction(
+export const deleteImageSets = new ScenarioAction(
   "deleteImageSets",
   async (/** @type {State} */ state) => {
     const datastoreId = state.stackOutputs.DatastoreID;
@@ -115,10 +102,13 @@ const deleteImageSets = new ScenarioAction(
         }
       }
     }
-  }
+  },
+  {
+    skipWhen: (/** @type {{}} */ state) => !state.confirmCleanup,
+  },
 );
 
-const deleteStack = new ScenarioAction(
+export const deleteStack = new ScenarioAction(
   "deleteStack",
   async (/** @type {State} */ state) => {
     const stackName = state.getStackName;
@@ -129,20 +119,8 @@ const deleteStack = new ScenarioAction(
 
     await cfnClient.send(command);
     console.log(`Stack ${stackName} deletion initiated`);
-  }
-);
-
-export const step7 = new Scenario(
-  "Step 7: Clean Up Resources",
-  [
-    loadState,
-    confirmCleanup,
-    new ScenarioAction("cleanUp", async (state) => {
-      if (state.confirmCleanup) {
-        await deleteImageSets.handle(state);
-        await deleteStack.handle(state);
-      }
-    }),
-  ],
-  {}
+  },
+  {
+    skipWhen: (/** @type {{}} */ state) => !state.confirmCleanup,
+  },
 );

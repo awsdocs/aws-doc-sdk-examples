@@ -3,8 +3,6 @@
 
 import { expect, it, vi, describe, beforeEach } from "vitest";
 
-const stateFilePath = "step-2-state.json";
-
 const writeFileMock = vi.fn();
 const readFileMock = vi.fn();
 const fsMod = {
@@ -29,6 +27,10 @@ vi.doMock("@aws-doc-sdk-examples/lib/scenario/index.js", async () => {
   };
 });
 
+const { Scenario } = await import(
+  "@aws-doc-sdk-examples/lib/scenario/scenario.js"
+);
+
 const s3Client = vi.fn();
 const listObjectsV2Command = vi.fn();
 const copyObjectCommand = vi.fn();
@@ -43,9 +45,16 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-const { step2 } = await import("../scenarios/health-image-sets/step-2.js");
+const { doCopy, selectDataset, copyDataset, outputCopiedObjects } =
+  await import("../scenarios/health-image-sets/dataset-steps.js");
 
-describe("step2", () => {
+describe("dataset-steps", () => {
+  const datasetSteps = new Scenario("dataset-steps", [
+    doCopy,
+    selectDataset,
+    copyDataset,
+    outputCopiedObjects,
+  ]);
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -74,7 +83,7 @@ describe("step2", () => {
         CopyObjectResult: {},
       }));
 
-    await step2.run({ confirmAll: true, verbose: false });
+    await datasetSteps.run({ confirmAll: true, verbose: false });
 
     expect(s3Client).toHaveBeenCalledTimes(objectKeys.length + 1);
     expect(listObjectsV2Command).toHaveBeenCalledWith({
@@ -87,38 +96,6 @@ describe("step2", () => {
         Bucket: targetBucket,
         CopySource: `/${sourceBucket}/${sourcePrefix}/${key}`,
         Key: `${targetPrefix}${key}`,
-      }),
-    );
-  });
-
-  it("should save the correct output state file", async () => {
-    const sourcePrefix = "0002d261-8a5d-4e63-8e2e-0cbfac87b904";
-    const targetBucket = "my-bucket";
-    const objectKeys = ["a.dcm", "b.dcm", "c.dcm"];
-
-    inputHandler.mockImplementationOnce((/** @type {object} */ state) => {
-      state.selectDataset = sourcePrefix;
-      state.stackOutputs = { BucketName: targetBucket };
-    });
-
-    s3Client
-      .mockResolvedValueOnce({
-        Contents: objectKeys.map((key) => ({ Key: `${sourcePrefix}/${key}` })),
-      })
-      .mockResolvedValueOnce(() => ({
-        CopyObjectResult: {},
-      }));
-
-    await step2.run({ confirmAll: true, verbose: false });
-
-    expect(writeFileMock).toHaveBeenCalledWith(
-      stateFilePath,
-      JSON.stringify({
-        name: step2.name,
-        doCopy: true,
-        selectDataset: sourcePrefix,
-        stackOutputs: { BucketName: targetBucket },
-        copiedObjects: objectKeys.length,
       }),
     );
   });

@@ -1,18 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import { Scenario } from "@aws-doc-sdk-examples/lib/scenario/scenario.js";
 import { expect, it, vi, describe, beforeEach } from "vitest";
-
-const writeFileMock = vi.fn();
-const readFileMock = vi.fn();
-const fsMod = {
-  writeFile: writeFileMock,
-  readFile: readFileMock,
-};
-vi.doMock("node:fs/promises", () => ({
-  default: fsMod,
-  ...fsMod,
-}));
 
 const mockChild = {
   on: vi.fn(),
@@ -26,9 +16,11 @@ vi.doMock("node:child_process", () => {
   };
 });
 
-const { step6 } = await import("../scenarios/health-image-sets/step-6.js");
+const { doVerify, decodeAndVerifyImages } = await import(
+  "../scenarios/health-image-sets/verify-steps.js"
+);
 
-describe("step6", () => {
+describe("verifySteps", () => {
   const mockState = {
     stackOutputs: {
       BucketName: "input-bucket",
@@ -108,10 +100,14 @@ describe("step6", () => {
     ],
   };
 
+  const verifySteps = new Scenario(
+    "verify-steps",
+    [doVerify, decodeAndVerifyImages],
+    mockState,
+  );
+
   beforeEach(() => {
     vi.clearAllMocks();
-
-    readFileMock.mockResolvedValue(JSON.stringify(mockState));
   });
 
   it("should spawn the verification tool with correct arguments", async () => {
@@ -121,7 +117,7 @@ describe("step6", () => {
       }
     });
 
-    await step6.run({ confirmAll: true, verbose: false });
+    await verifySteps.run({ confirmAll: true, verbose: false });
 
     expect(spawn).toHaveBeenCalledTimes(3);
     expect(spawn).toHaveBeenCalledWith(
