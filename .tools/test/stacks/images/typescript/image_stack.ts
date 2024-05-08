@@ -32,7 +32,9 @@ class ImageStack extends Stack {
       const fileContent = fs.readFileSync(filePath, "utf8");
       return parse(fileContent) as Record<string, any>;
     } catch (error) {
-      console.error(`Failed to read or parse YAML file at ${filePath}:`, {error});
+      console.error(`Failed to read or parse YAML file at ${filePath}:`, {
+        error,
+      });
       return {};
     }
   }

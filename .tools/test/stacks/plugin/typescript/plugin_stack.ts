@@ -19,8 +19,8 @@ const toolName = process.env.TOOL_NAME ?? "defaultToolName";
 class PluginStack extends cdk.Stack {
   private awsRegion: string;
   private adminAccountId: string;
-  private batch_memory: string
-  private batch_vcpus: string
+  private batch_memory: string;
+  private batch_vcpus: string;
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
