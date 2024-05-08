@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import { parse } from "yaml";
 import * as fs from "fs";
 import { Stack, StackProps } from "aws-cdk-lib";
