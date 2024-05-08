@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.bedrockruntime.models.amazon.embeddings;
+package com.example.bedrockruntime.models.amazon.titan.embeddings;
 
 import org.json.JSONObject;
 import software.amazon.awssdk.core.SdkBytes;
@@ -10,7 +10,7 @@ import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 
 // snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_Quickstart]
 // Generate and print an embedding with Amazon Titan Text Embeddings V2.
-public class V2InvokeModelQuickstart {
+public class TextEmbeddingsV2Quickstart {
 
     public static void main(String[] args) {
 

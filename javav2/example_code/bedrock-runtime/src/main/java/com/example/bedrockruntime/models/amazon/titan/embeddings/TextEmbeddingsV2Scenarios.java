@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.bedrockruntime.models.amazon.embeddings;
+package com.example.bedrockruntime.models.amazon.titan.embeddings;
 
 import com.example.bedrockruntime.libs.ScenarioRunner;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import java.io.IOException;
  * https://docs.aws.amazon.com/bedrock/latest/userguide/service_code_examples.html
  */
 
-public class V2InvokeModelScenarios {
+public class TextEmbeddingsV2Scenarios {
     // snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_AdditionalFields]
 
     /**
@@ -75,7 +75,7 @@ public class V2InvokeModelScenarios {
 
     private static class Demo {
         private final ScenarioRunner demo = new ScenarioRunner()
-                .addScenario("Create an embedding with custom inference parameters");
+                .add("Create an embedding with custom inference parameters");
 
         void run() throws IOException {
             demo.printHeader();

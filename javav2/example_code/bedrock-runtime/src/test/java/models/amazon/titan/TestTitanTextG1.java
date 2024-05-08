@@ -1,23 +1,23 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package models.titan;
+package models.amazon.titan;
 
-import com.example.bedrockruntime.models.amazon.embeddings.G1InvokeModelQuickstart;
+import com.example.bedrockruntime.models.amazon.titan.embeddings.TextEmbeddingsG1Quickstart;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import static com.example.bedrockruntime.models.amazon.embeddings.G1InvokeModelScenarios.invokeModel;
+import static com.example.bedrockruntime.models.amazon.titan.embeddings.TextEmbeddingsG1Scenarios.invokeModel;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @Tag("IntegrationTest")
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
-public class TestTitanEmbeddingsG1 {
+public class TestTitanTextG1 {
     @Test
     void Quickstart() {
-        assertDoesNotThrow(() -> G1InvokeModelQuickstart.main(null));
+        assertDoesNotThrow(() -> TextEmbeddingsG1Quickstart.main(null));
     }
 
     @Test
