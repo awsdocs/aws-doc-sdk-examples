@@ -3,8 +3,8 @@
 
 
 #pragma once
-#ifndef S3_EXAMPLES_S3_GTESTS_H
-#define S3_EXAMPLES_S3_GTESTS_H
+#ifndef SDK_CUSTOMIZATION_EXAMPLES_SDK_CUSTOMIZATION_GTESTS_H
+#define SDK_CUSTOMIZATION_EXAMPLES_SDK_CUSTOMIZATION_GTESTS_H
 
 #include <aws/core/Aws.h>
 #include <memory>
@@ -36,6 +36,22 @@ namespace AwsDocTest {
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
+        static Aws::String uuidName(const Aws::String &name);
+
+        static bool
+        deleteObjectInBucket(const Aws::String &bucketName, const Aws::String &key);
+
+        static bool
+        putFileInBucket(const Aws::String &bucketName, const Aws::String &key,
+                        const Aws::String &filePath);
+
+        static bool deleteBucket(const Aws::String &bucketName);
+
+        static bool createBucket(const Aws::String &bucketName);
+
+        static Aws::String getTestFilePath();
+
+
     private:
 
         static bool suppressStdOut();
@@ -49,24 +65,6 @@ namespace AwsDocTest {
         std::streambuf *m_savedInBuffer = nullptr;
 
     }; // SdkCustomization_GTests
-
-    class MockHTTP {
-    public:
-        MockHTTP();
-
-        virtual ~MockHTTP();
-
-        bool addResponseWithBody(const std::string &fileName,
-                                 Aws::Http::HttpResponseCode httpResponseCode,
-                                 const std::vector<std::tuple<std::string, std::string>> &headers);
-
-    private:
-
-        std::shared_ptr<MockHttpClient> mockHttpClient;
-        std::shared_ptr<MockHttpClientFactory> mockHttpClientFactory;
-        std::shared_ptr<Aws::Http::HttpRequest> requestTmp;
-    }; // MockHTTP
-
 } // AwsDocTest
 
-#endif //S3_EXAMPLES_S3_GTESTS_H
+#endif //SDK_CUSTOMIZATION_EXAMPLES_SDK_CUSTOMIZATION_GTESTS_H

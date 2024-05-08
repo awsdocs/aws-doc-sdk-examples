@@ -138,11 +138,11 @@ def run_tests(run_files, type1=False, type2=False, type3=False):
                 line = line.decode("utf-8")
                 sys.stdout.write(line)
 
-                match = re.search("\[ {2}PASSED {2}\] (\d+) test", line)
+                match = re.search(r"\[ {2}PASSED {2}\] (\d+) test", line)
                 if match is not None:
                     passed_tests = passed_tests + int(match.group(1))
                     continue
-                match = re.search("\[ {2}FAILED {2}\] (\d+) test", line)
+                match = re.search(r"\[ {2}FAILED {2}\] (\d+) test", line)
                 if match is not None:
                     failed_tests = failed_tests + int(match.group(1))
                     continue
@@ -169,6 +169,10 @@ def test_hello_service(service="*"):
 
     print(os.getcwd())
     cmake_files = glob.glob(f"example_code/{service}/hello_{service}/CMakeLists.txt")
+
+    if len(cmake_files) == 0:
+        print("No hello tests found.")
+        return [0, 0, 0]
 
     (err_code, run_files) = build_cmake_tests(
         cmake_files, ["/hello_*", "/Debug/hello_*.exe"]
@@ -214,9 +218,10 @@ def test_hello_service(service="*"):
 def run_special_case_tests(service):
     cmake_files = []
     executable_pattern = []
-    if "sdk-customization" == service or service == '*':
-        cmake_files.append("cpp/example_code/sdk-customization/CMakeLists.txt")
-        executable_pattern.append("run_override_default_logger*")
+    if "sdk-customization" == service or service == "*":
+        cmake_files.append("example_code/sdk-customization/CMakeLists.txt")
+        executable_pattern.append("/run_override_default_logger")
+        executable_pattern.append("/run_override_default_logger.exe")
 
     if len(cmake_files) == 0:
         print("No special tests found.")
@@ -227,9 +232,7 @@ def run_special_case_tests(service):
 
     print(os.getcwd())
 
-    (err_code, run_files) = build_cmake_tests(
-        cmake_files, executable_pattern
-    )
+    (err_code, run_files) = build_cmake_tests(cmake_files, executable_pattern)
 
     if err_code != 0:
         print("Build special tests failed.")
@@ -318,13 +321,15 @@ def main(argv):
         passed_count = passed_count + hello_passed_count
         failed_count = failed_count + hello_failed_count
 
+    os.chdir(base_dir)
     if err_code == 0:
-        [err_code, hello_passed_count, hello_failed_count] = run_special_case_tests(
-            service=service
-        )
-        passed_count = passed_count + hello_passed_count
-        failed_count = failed_count + hello_failed_count
-
+        [
+            err_code,
+            run_special_case_passed_count,
+            run_special_case_failed_count,
+        ] = run_special_case_tests(service=service)
+        passed_count = passed_count + run_special_case_passed_count
+        failed_count = failed_count + run_special_case_failed_count
 
     if err_code == 0:
         print("-" * 88)
