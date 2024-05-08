@@ -1,14 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package amazontitan;
+package models.titan;
 
-import com.example.bedrockruntime.models.amazon.embeddings.text.G1InvokeModelQuickstart;
+import com.example.bedrockruntime.models.amazon.embeddings.G1InvokeModelQuickstart;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import static com.example.bedrockruntime.models.amazon.embeddings.text.G1InvokeModelScenarios.invokeModel;
+import static com.example.bedrockruntime.models.amazon.embeddings.G1InvokeModelScenarios.invokeModel;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 

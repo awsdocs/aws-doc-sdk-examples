@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.bedrockruntime.models.amazon.embeddings.text;
+package com.example.bedrockruntime.models.amazon.embeddings;
 
 import org.json.JSONObject;
 import software.amazon.awssdk.core.SdkBytes;
