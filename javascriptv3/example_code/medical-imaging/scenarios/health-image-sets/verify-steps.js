@@ -1,10 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import fs from "node:fs/promises";
 import { spawn } from "node:child_process";
 
 import {
-  Scenario,
   ScenarioAction,
   ScenarioInput,
 } from "@aws-doc-sdk-examples/lib/scenario/index.js";
@@ -66,18 +64,7 @@ import {
  * }, imageSetMetadata: ImageSetMetadata[] }} State
  */
 
-const loadState = new ScenarioAction("loadState", async (state) => {
-  try {
-    const stateFromDisk = JSON.parse(
-      await fs.readFile("step-5-state.json", "utf8"),
-    );
-    Object.assign(state, stateFromDisk);
-  } catch (err) {
-    console.error("Failed to load state from disk:", err);
-  }
-});
-
-const doVerify = new ScenarioInput(
+export const doVerify = new ScenarioInput(
   "doVerify",
   "Do you want to verify the imported images?",
   {
@@ -85,7 +72,7 @@ const doVerify = new ScenarioInput(
   },
 );
 
-const decodeAndVerifyImages = new ScenarioAction(
+export const decodeAndVerifyImages = new ScenarioAction(
   "decodeAndVerifyImages",
   async (/** @type {State} */ state) => {
     if (!state.doVerify) {
@@ -133,10 +120,4 @@ const decodeAndVerifyImages = new ScenarioAction(
       }
     }
   },
-);
-
-export const step6 = new Scenario(
-  "Step 6: Download and Verify Image Frames",
-  [loadState, doVerify, decodeAndVerifyImages],
-  {},
 );

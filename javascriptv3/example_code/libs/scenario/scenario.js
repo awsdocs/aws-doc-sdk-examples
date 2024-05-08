@@ -5,20 +5,44 @@ import { Prompter } from "../prompter.js";
 import { Logger } from "../logger.js";
 import { SlowLogger } from "../slow-logger.js";
 
+/**
+ * @typedef {{ confirmAll: boolean, verbose: boolean }} StepHandlerOptions
+ */
+
+/**
+ * @typedef {{} & StepHandlerOptions} RunConfig
+ */
+
+/**
+ * @typedef {{skipWhen: (state: Record<string, any>) => boolean}} StepOptions
+ */
+
+/**
+ * @template O
+ */
 export class Step {
   /**
    * @param {string} name
+   * @param {O} [stepOptions]
    */
-  constructor(name) {
+  constructor(name, stepOptions) {
     this.name = name;
+
+    /**
+     * @type {O & StepOptions}
+     */
+    this.stepOptions = {
+      skipWhen: () => false,
+      ...stepOptions,
+    };
   }
 
   /**
    * @param {Record<string, any>} state,
-   * @param {{ verbose: boolean }} [options]
+   * @param {StepHandlerOptions} [stepHandlerOptions]
    */
-  handle(state, options) {
-    if (options?.verbose) {
+  handle(state, stepHandlerOptions) {
+    if (stepHandlerOptions?.verbose) {
       console.log(
         `[DEBUG ${new Date().toISOString()}] Handling step: ${
           this.constructor.name
@@ -31,26 +55,36 @@ export class Step {
   }
 }
 
+/**
+ * @typedef {{ slow: boolean, header: boolean, preformatted: boolean }} ScenarioOutputOptions
+ */
+
+/**
+ * @extends {Step<ScenarioOutputOptions}
+ */
 export class ScenarioOutput extends Step {
   /**
    * @param {string} name
    * @param {string | (state: Record<string, any>) => string | false} value
-   * @param {{ slow: boolean, header: boolean, preformatted: boolean }} [options]
+   * @param {ScenarioOutputOptions} [scenarioOutputOptions]
    */
-  constructor(name, value, options = { slow: true }) {
-    super(name);
+  constructor(name, value, scenarioOutputOptions = { slow: true }) {
+    super(name, scenarioOutputOptions);
     this.value = value;
-    this.options = options;
     this.slowLogger = new SlowLogger(20);
     this.logger = new Logger();
   }
 
   /**
    * @param {Record<string, any>} state
-   * @param {{ verbose: boolean, confirmAll: boolean }} [options]
+   * @param {StepHandlerOptions} [stepHandlerOptions]
    */
-  async handle(state, options) {
-    super.handle(state, options);
+  async handle(state, stepHandlerOptions) {
+    if (this.stepOptions.skipWhen(state)) {
+      console.log(`Skipping step: ${this.name}`);
+      return;
+    }
+    super.handle(state, stepHandlerOptions);
 
     const output =
       typeof this.value === "function" ? this.value(state) : this.value;
@@ -60,38 +94,51 @@ export class ScenarioOutput extends Step {
     const paddingTop = "\n";
     const paddingBottom = "\n";
     const logger =
-      this.options?.slow && !options?.confirmAll
+      this.stepOptions?.slow && !stepHandlerOptions?.confirmAll
         ? this.slowLogger
         : this.logger;
     const message = paddingTop + output + paddingBottom;
 
-    if (this.options?.header) {
+    if (this.stepOptions?.header) {
       await this.logger.log(this.logger.box(message));
     } else {
-      await logger.log(message, this.options.preformatted);
+      await logger.log(message, this.stepOptions?.preformatted);
     }
   }
 }
 
+/**
+ * @typedef {{
+ *   type: "confirm" | "input" | "multi-select" | "select",
+ *   choices: (string | { name: string, value: string })[] }
+ *   } ScenarioInputOptions
+ */
+
+/**
+ * @extends {Step<ScenarioInputOptions>}
+ */
 export class ScenarioInput extends Step {
   /**
    * @param {string} name
    * @param {string | (c: Record<string, any>) => string | false } prompt
-   * @param {{ type: "confirm" | "input" | "multi-select" | "select", choices: (string | { name: string, value: string })[] }} [options]
+   * @param {ScenarioInputOptions} [scenarioInputOptions]
    */
-  constructor(name, prompt, options) {
-    super(name);
+  constructor(name, prompt, scenarioInputOptions) {
+    super(name, scenarioInputOptions);
     this.prompt = prompt;
-    this.options = options;
     this.prompter = new Prompter();
   }
 
   /**
    * @param {Record<string, any>} state
-   * @param {{ confirmAll: boolean, verbose: boolean }} [options]
+   * @param {StepHandlerOptions} [stepHandlerOptions]
    */
-  async handle(state, options) {
-    super.handle(state, options);
+  async handle(state, stepHandlerOptions) {
+    if (this.stepOptions.skipWhen(state)) {
+      console.log(`Skipping step: ${this.name}`);
+      return;
+    }
+    super.handle(state, stepHandlerOptions);
     const message =
       typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
     if (!message) {
@@ -99,24 +146,25 @@ export class ScenarioInput extends Step {
     }
 
     const choices =
-      this.options?.choices && typeof this.options?.choices[0] === "string"
-        ? this.options?.choices.map((s) => ({ name: s, value: s }))
-        : this.options?.choices;
+      this.stepOptions?.choices &&
+      typeof this.stepOptions?.choices[0] === "string"
+        ? this.stepOptions?.choices.map((s) => ({ name: s, value: s }))
+        : this.stepOptions?.choices;
 
-    if (this.options?.type === "multi-select") {
+    if (this.stepOptions?.type === "multi-select") {
       state[this.name] = await this.prompter.checkbox({
         message,
         choices,
       });
-    } else if (this.options?.type === "select") {
+    } else if (this.stepOptions?.type === "select") {
       state[this.name] = await this.prompter.select({
         message,
         choices,
       });
-    } else if (this.options?.type === "input") {
+    } else if (this.stepOptions?.type === "input") {
       state[this.name] = await this.prompter.input({ message });
-    } else if (this.options?.type === "confirm") {
-      if (options?.confirmAll) {
+    } else if (this.stepOptions?.type === "confirm") {
+      if (stepHandlerOptions?.confirmAll) {
         state[this.name] = true;
         return true;
       }
@@ -126,7 +174,7 @@ export class ScenarioInput extends Step {
       });
     } else {
       throw new Error(
-        `Error handling ScenarioInput, ${this.options?.type} is not supported.`
+        `Error handling ScenarioInput, ${this.stepOptions?.type} is not supported.`,
       );
     }
 
@@ -134,38 +182,52 @@ export class ScenarioInput extends Step {
   }
 }
 
+/**
+ * @typedef {{ whileConfig: { inputEquals: any, input: ScenarioInput, output: ScenarioOutput }}
+ *   } ScenarioActionOptions
+ */
+
+/**
+ * @extends {Step<ScenarioActionOptions>}
+ */
 export class ScenarioAction extends Step {
   /**
    * @param {string} name
    * @param {(state: Record<string, any>, options) => Promise<void>} action
-   * @param {{ whileConfig: { inputEquals: any, input: ScenarioInput, output: ScenarioOutput }}} [options]
+   * @param {ScenarioActionOptions} [scenarioActionOptions]
    */
-  constructor(name, action, options) {
-    super(name);
+  constructor(name, action, scenarioActionOptions) {
+    super(name, scenarioActionOptions);
     this.action = action;
-    this.options = options;
   }
 
   /**
    * @param {Record<string, any>} state
-   * @param {{ verbose: boolean, confirmAll: boolean }} [options]
+   * @param {StepHandlerOptions} [stepHandlerOptions]
    */
-  async handle(state, options) {
+  async handle(state, stepHandlerOptions) {
+    if (this.stepOptions.skipWhen(state)) {
+      console.log(`Skipping step: ${this.name}`);
+      return;
+    }
     const _handle = async () => {
-      super.handle(state, options);
-      await this.action(state, options);
+      super.handle(state, stepHandlerOptions);
+      await this.action(state, stepHandlerOptions);
     };
 
-    if (!options?.confirmAll && this.options?.whileConfig) {
+    if (!stepHandlerOptions?.confirmAll && this.stepOptions?.whileConfig) {
       const whileFn = () =>
-        this.options.whileConfig.input.handle(state, options);
+        this.stepOptions.whileConfig.input.handle(state, stepHandlerOptions);
 
       let actual = await whileFn();
-      let expected = this.options.whileConfig.inputEquals;
+      let expected = this.stepOptions.whileConfig.inputEquals;
 
       while (actual === expected) {
         await _handle();
-        await this.options.whileConfig.output.handle(state, options);
+        await this.stepOptions.whileConfig.output.handle(
+          state,
+          stepHandlerOptions,
+        );
         actual = await whileFn();
       }
     } else {
@@ -183,28 +245,28 @@ export class Scenario {
   /**
    * @type {(ScenarioOutput | ScenarioInput | ScenarioAction | Scenario)[]}
    */
-  steps = [];
+  stepsOrScenarios = [];
 
   /**
    * @param {string} name
-   * @param {(ScenarioOutput | ScenarioInput | ScenarioAction | null)[]} steps
+   * @param {(ScenarioOutput | ScenarioInput | ScenarioAction | null)[]} stepsOrScenarios
    * @param {Record<string, any>} initialState
    */
-  constructor(name, steps = [], initialState = {}) {
+  constructor(name, stepsOrScenarios = [], initialState = {}) {
     this.name = name;
-    this.steps = steps.filter((s) => !!s);
+    this.stepsOrScenarios = stepsOrScenarios.filter((s) => !!s);
     this.state = { ...initialState, name };
   }
 
   /**
-   * @param {{ confirmAll: boolean, verbose: boolean }} runConfig
+   * @param {StepHandlerOptions} stepHandlerOptions
    */
-  async run(runConfig) {
-    for (const step of this.steps) {
-      if (step instanceof Scenario) {
-        await step.run(runConfig);
+  async run(stepHandlerOptions) {
+    for (const stepOrScenario of this.stepsOrScenarios) {
+      if (stepOrScenario instanceof Scenario) {
+        await stepOrScenario.run(stepHandlerOptions);
       } else {
-        await step.handle(this.state, runConfig);
+        await stepOrScenario.handle(this.state, stepHandlerOptions);
       }
     }
   }

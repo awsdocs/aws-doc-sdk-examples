@@ -1,20 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-
 import { expect, it, vi, describe, beforeEach } from "vitest";
-
-const writeFileMock = vi.fn();
-const readFileMock = vi.fn();
-const fsMod = {
-  writeFile: writeFileMock,
-  readFile: readFileMock,
-};
-vi.doMock("node:fs/promises", () => ({
-  default: fsMod,
-  ...fsMod,
-}));
-
-const stateFilePath = "step-4-state.json";
+import { Scenario } from "@aws-doc-sdk-examples/lib/scenario/scenario.js";
 
 const s3ClientSendMock = vi.fn();
 vi.doMock("@aws-sdk/client-s3", async () => {
@@ -27,9 +14,11 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-const { step4 } = await import("../scenarios/health-image-sets/step-4.js");
+const { getManifestFile, parseManifestFile, outputImageSetIds } = await import(
+  "../scenarios/health-image-sets/image-set-steps.js"
+);
 
-describe("step4", () => {
+describe("image-set-steps", () => {
   const mockState = {
     stackOutputs: {
       BucketName: "input-bucket",
@@ -40,10 +29,14 @@ describe("step4", () => {
     importJobOutputS3Uri: "s3://output-bucket/output-prefix/",
   };
 
+  const imageSetSteps = new Scenario(
+    "image-set-steps",
+    [getManifestFile, parseManifestFile, outputImageSetIds],
+    mockState,
+  );
+
   beforeEach(() => {
     vi.clearAllMocks();
-
-    readFileMock.mockResolvedValueOnce(JSON.stringify(mockState));
   });
 
   it("should set imageSetIds correctly after parsing job-output-manifest.json", async () => {
@@ -61,16 +54,13 @@ describe("step4", () => {
       Body: { transformToString: () => JSON.stringify(manifestContent) },
     });
 
-    await step4.run({ confirmAll: true, verbose: false });
+    await imageSetSteps.run({ confirmAll: true, verbose: false });
 
-    expect(writeFileMock).toHaveBeenCalledWith(
-      stateFilePath,
-      JSON.stringify({
-        name: step4.name,
-        ...mockState,
-        manifestContent,
-        imageSetIds: ["image-set-1", "image-set-2", "image-set-3"],
-      }),
-    );
+    expect(imageSetSteps.state).toEqual({
+      name: imageSetSteps.name,
+      ...mockState,
+      manifestContent,
+      imageSetIds: ["image-set-1", "image-set-2", "image-set-3"],
+    });
   });
 });

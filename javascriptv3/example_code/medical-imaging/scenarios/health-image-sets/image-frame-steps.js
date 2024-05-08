@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import fs from "node:fs/promises";
 import {
   MedicalImagingClient,
   GetImageSetMetadataCommand,
@@ -9,7 +8,6 @@ import { gunzip } from "zlib";
 import { promisify } from "util";
 
 import {
-  Scenario,
   ScenarioAction,
   ScenarioOutput,
 } from "@aws-doc-sdk-examples/lib/scenario/index.js";
@@ -73,20 +71,9 @@ const gunzipAsync = promisify(gunzip);
  * }, imageSetIds: string[] }} State
  */
 
-const loadState = new ScenarioAction("loadState", async (state) => {
-  try {
-    const stateFromDisk = JSON.parse(
-      await fs.readFile("step-4-state.json", "utf8")
-    );
-    Object.assign(state, stateFromDisk);
-  } catch (err) {
-    console.error("Failed to load state from disk:", err);
-  }
-});
-
 const medicalImagingClient = new MedicalImagingClient({});
 
-const getImageSetMetadata = new ScenarioAction(
+export const getImageSetMetadata = new ScenarioAction(
   "getImageSetMetadata",
   async (/** @type {State} */ state) => {
     const outputMetadata = [];
@@ -107,10 +94,10 @@ const getImageSetMetadata = new ScenarioAction(
     }
 
     state.imageSetMetadata = outputMetadata;
-  }
+  },
 );
 
-const outputImageFrameIds = new ScenarioOutput(
+export const outputImageFrameIds = new ScenarioOutput(
   "outputImageFrameIds",
   (/** @type {State & { imageSetMetadata: ImageSetMetadata[] }} */ state) => {
     let output = "";
@@ -121,28 +108,18 @@ const outputImageFrameIds = new ScenarioOutput(
       const instances = Object.values(metadata.Study.Series).flatMap(
         (series) => {
           return Object.values(series.Instances);
-        }
+        },
       );
       const imageFrameIds = instances.flatMap((instance) =>
-        instance.ImageFrames.map((frame) => frame.ID)
+        instance.ImageFrames.map((frame) => frame.ID),
       );
 
       output += `Image set ID: ${imageSetId}\nImage frame IDs:\n${imageFrameIds.join(
-        "\n"
+        "\n",
       )}\n\n`;
     }
 
     return output;
   },
-  { slow: false }
-);
-
-const saveState = new ScenarioAction("saveState", async (state) => {
-  await fs.writeFile("step-5-state.json", JSON.stringify(state));
-});
-
-export const step5 = new Scenario(
-  "Step 5: Get Image Frame IDs",
-  [loadState, getImageSetMetadata, outputImageFrameIds, saveState],
-  {}
+  { slow: false },
 );
