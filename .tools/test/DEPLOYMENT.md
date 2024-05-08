@@ -16,7 +16,7 @@ To deploy any stack in this directory, run the [deploy.py](stacks/deploy.py) scr
 python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
 ```
 
-- AWS CLI and CDK installed and configured
+- AWS CLI and CDK installed and configured (NodeJS 18+)
 - Permissions to execute AWS CDK and shell commands (`AdministratorAccess` will work for non-production test environments)
 - Configuration files `resources.yaml` and `targets.yaml`, which exist in the [stacks/.config](stacks/.config) directory within the same directory as the script
 

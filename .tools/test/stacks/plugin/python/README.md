@@ -14,8 +14,8 @@ Specifically, an Amazon Simple Queue Service (Amazon SQS) topic consumes message
 
 ## System requirements
 
-- npm (node.js)
-- python 3.7
+- NodeJS 18+ (check with `node -v`)
+- python 3.11 (check with `python --version`)
 - AWS access key and secret for AWS user with permissions to create the preceding resources
 
 ### Environment variables
