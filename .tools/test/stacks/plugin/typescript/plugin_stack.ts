@@ -14,42 +14,25 @@ import * as sqs from "aws-cdk-lib/aws-sqs";
 import * as batch from "aws-cdk-lib/aws-batch";
 import * as subs from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
-import { parse } from "yaml";
-import * as fs from "fs";
+import { readAccountConfig } from './../../config/types';
+import { readResourceConfig } from './../../config/resources';
+
 
 const toolName = process.env.TOOL_NAME ?? "defaultToolName";
+
 
 class PluginStack extends cdk.Stack {
   private awsRegion: string;
   private adminAccountId: string;
-  private batch_memory: string;
-  private batch_vcpus: string;
+  private batchMemory: string;
+  private batchVcpus: string;
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    interface TargetAccount {
-      account_id: string;
-      status: string;
-      memory: string;
-      vcpus: string;
-    }
+    const acctConfig = readAccountConfig('../../config/targets.yaml');
+    const resourceConfig = readResourceConfig('../../config/resources.yaml');
 
-    interface ResourceConfig {
-      admin_acct: string;
-      topic_name: string;
-      bucket_name: string;
-      aws_region: string;
-    }
-
-    const acctConfig = this.getYamlConfig<Record<string, TargetAccount>>(
-      "../../config/targets.yaml",
-      this.isTargetAccount,
-    );
-    const resourceConfig = this.getYamlConfig<ResourceConfig>(
-      "../../config/resources.yaml",
-      this.isResourceConfig,
-    );
     const adminTopicName = resourceConfig["topic_name"];
     const adminBucketName = resourceConfig["bucket_name"];
     this.awsRegion = resourceConfig["aws_region"];
@@ -58,8 +41,8 @@ class PluginStack extends cdk.Stack {
     const sqsQueue = new sqs.Queue(this, `BatchJobQueue-${toolName}`);
     if (acctConfig[`${toolName}`].status === "enabled") {
       this.initSubscribeSns(sqsQueue, snsTopic);
-      this.batch_memory = acctConfig[`${toolName}`]?.memory ?? 16384;
-      this.batch_vcpus = acctConfig[`${toolName}`]?.vcpus ?? 4;
+      this.batchMemory = acctConfig[`${toolName}`]?.memory ?? '16384';
+      this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? '4';
     }
     const [jobDefinition, jobQueue] = this.initBatchFargate();
     const batchFunction = this.initBatchLambda(jobQueue, jobDefinition);
@@ -69,34 +52,6 @@ class PluginStack extends cdk.Stack {
     }
   }
 
-  private isTargetAccount(acct: any): acct is TargetAccount {
-    return (
-      typeof acct.account_id === "string" && typeof acct.status === "string"
-    );
-  }
-
-  private isResourceConfig(config: any): config is ResourceConfig {
-    return (
-      typeof config.admin_acct === "string" &&
-      typeof config.topic_name === "string" &&
-      typeof config.bucket_name === "string" &&
-      typeof config.aws_region === "string"
-    );
-  }
-
-  private getYamlConfig<T>(
-    filepath: string,
-    validator: (obj: any) => obj is T,
-  ): T {
-    const fileContents = fs.readFileSync(filepath, "utf8");
-    const config = parse(fileContents);
-    if (!validator(config)) {
-      throw new Error(
-        `Configuration at ${filepath} does not match expected format.`,
-      );
-    }
-    return config;
-  }
   private initGetTopic(topicName: string): sns.ITopic {
     const externalSnsTopicArn = `arn:aws:sns:${this.awsRegion}:${this.adminAccountId}:${topicName}`;
     return sns.Topic.fromTopicArn(
@@ -174,11 +129,11 @@ class PluginStack extends cdk.Stack {
         resourceRequirements: [
           {
             type: "VCPU",
-            value: this.batch_vcpus,
+            value: this.batchVcpus,
           },
           {
             type: "MEMORY",
-            value: this.batch_memory,
+            value: this.batchMemory,
           },
         ],
       },

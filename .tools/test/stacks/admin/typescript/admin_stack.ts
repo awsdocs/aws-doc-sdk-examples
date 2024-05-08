@@ -32,11 +32,11 @@ class AdminStack extends Stack {
     }
 
     const acctConfig = this.getYamlConfig<Record<string, TargetAccount>>(
-      "../../config/targets.yaml",
+      "../../.config/targets.yaml",
       this.isTargetAccount,
     );
     const resourceConfig = this.getYamlConfig<ResourceConfig>(
-      "../../config/resources.yaml",
+      "../../.config/resources.yaml",
       this.isResourceConfig,
     );
     const adminTopicName = resourceConfig["topic_name"];
@@ -55,7 +55,8 @@ class AdminStack extends Stack {
 
   private isTargetAccount(acct: any): acct is TargetAccount {
     return (
-      typeof acct.account_id === "string" && typeof acct.status === "string"
+      typeof acct.account_id === "string" &&
+      typeof acct.status === "string"
     );
   }
 
