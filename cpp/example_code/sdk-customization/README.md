@@ -32,7 +32,7 @@ Next, for information on code example structures and how to build and run the ex
 Code excerpts that show you how to customize the behavior of the AWS C++ SDK.
 
 - [Create a custom response stream](custom_response_stream.cpp)
-- [Override the default logger](create_bucket.cpp#L33)
+- [Override the default logger](override_default_logger.cpp)
 
 
 ## Run the examples

@@ -12,7 +12,7 @@ set(CURRENT_TARGET_AWS_DEPENDENCIES s3)
 project("${EXAMPLE_SERVICE_NAME}-examples-gtests")
 
 # Set the C++ standard to use to build this target.
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # Build shared libraries by default.
 set(BUILD_SHARED_LIBS ON)
@@ -51,8 +51,8 @@ add_executable(
 )
 
 if (WINDOWS_BUILD)
-        # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
-        # and set the proper subdirectory to the executables' location.
+    # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
+    # and set the proper subdirectory to the executables' location.
 
     if (AWSSDK_INSTALL_AS_SHARED_LIBS)
         # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
@@ -110,6 +110,7 @@ target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC
         TESTING_BUILD
+        SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
 target_link_libraries(

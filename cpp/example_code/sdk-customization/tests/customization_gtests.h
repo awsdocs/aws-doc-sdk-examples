@@ -9,6 +9,7 @@
 #include <aws/core/Aws.h>
 #include <memory>
 #include <gtest/gtest.h>
+#include <aws/testing/mocks/http/MockHttpClient.h>
 
 namespace AwsDocTest {
 
@@ -16,7 +17,7 @@ namespace AwsDocTest {
         int underflow() override;
     };
 
-    class S3_GTests : public testing::Test {
+    class SdkCustomization_GTests : public testing::Test {
     protected:
 
         void SetUp() override;
@@ -46,7 +47,26 @@ namespace AwsDocTest {
 
         MyStringBuffer m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
-    }; // S3_GTests
+
+    }; // SdkCustomization_GTests
+
+    class MockHTTP {
+    public:
+        MockHTTP();
+
+        virtual ~MockHTTP();
+
+        bool addResponseWithBody(const std::string &fileName,
+                                 Aws::Http::HttpResponseCode httpResponseCode,
+                                 const std::vector<std::tuple<std::string, std::string>> &headers);
+
+    private:
+
+        std::shared_ptr<MockHttpClient> mockHttpClient;
+        std::shared_ptr<MockHttpClientFactory> mockHttpClientFactory;
+        std::shared_ptr<Aws::Http::HttpRequest> requestTmp;
+    }; // MockHTTP
+
 } // AwsDocTest
 
 #endif //S3_EXAMPLES_S3_GTESTS_H

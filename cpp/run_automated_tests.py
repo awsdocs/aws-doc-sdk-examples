@@ -211,6 +211,63 @@ def test_hello_service(service="*"):
         return [0, passed_count, failed_count]
 
 
+def run_special_case_tests(service):
+    cmake_files = []
+    executable_pattern = []
+    if "sdk-customization" == service or service == '*':
+        cmake_files.append("cpp/example_code/sdk-customization/CMakeLists.txt")
+        executable_pattern.append("run_override_default_logger*")
+
+    if len(cmake_files) == 0:
+        print("No special tests found.")
+        return [1, 0, 0]
+
+    print("-" * 88)
+    print(f"Running special tests for {service}.")
+
+    print(os.getcwd())
+
+    (err_code, run_files) = build_cmake_tests(
+        cmake_files, executable_pattern
+    )
+
+    if err_code != 0:
+        print("Build special tests failed.")
+        return [err_code, 0, 0]
+
+    old_dir = os.getcwd()
+    run_dir = os.path.join(build_sub_dir, "special_tests_run")
+    os.makedirs(name=run_dir, exist_ok=True)
+    os.chdir(run_dir)
+
+    passed_count = 0
+    failed_count = 0
+    has_error = False
+    for run_file in run_files:
+        path_split = os.path.splitext(run_file)
+        if (path_split[1] == ".exe") or (path_split[1] == ""):
+            print(f"Calling '{run_file}'.")
+            completed_process = subprocess.run([run_file], stdout=subprocess.DEVNULL)
+            if completed_process.returncode != 0:
+                print(f"Error with {run_file}")
+                has_error = True
+                failed_count = failed_count + 1
+            else:
+                passed_count = passed_count + 1
+
+    print("-" * 88)
+    print(f"{passed_count} tests passed.")
+    print(f"{failed_count} tests failed.")
+    print(f"Total cmake files - {len(cmake_files)}")
+
+    os.chdir(old_dir)
+
+    if has_error:
+        return [1, passed_count, failed_count]
+    else:
+        return [0, passed_count, failed_count]
+
+
 def main(argv):
     type1 = False
     type2 = False
@@ -260,6 +317,14 @@ def main(argv):
         )
         passed_count = passed_count + hello_passed_count
         failed_count = failed_count + hello_failed_count
+
+    if err_code == 0:
+        [err_code, hello_passed_count, hello_failed_count] = run_special_case_tests(
+            service=service
+        )
+        passed_count = passed_count + hello_passed_count
+        failed_count = failed_count + hello_failed_count
+
 
     if err_code == 0:
         print("-" * 88)
