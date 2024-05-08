@@ -58,10 +58,10 @@ class AdminStack extends Stack {
         "SNS:DeleteTopic",
         "SNS:GetTopicAttributes",
         "SNS:ListSubscriptionsByTopic",
-        "SNS:SetTopicAttributes",
-        "SNS:Subscribe",
-        "SNS:RemovePermission",
         "SNS:Publish",
+        "SNS:RemovePermission",
+        "SNS:SetTopicAttributes",
+        "SNS:Subscribe"
       ],
       principals: [new iam.AnyPrincipal()],
       resources: [topic.topicArn],

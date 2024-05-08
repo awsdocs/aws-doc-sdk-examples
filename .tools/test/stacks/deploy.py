@@ -6,7 +6,7 @@ import subprocess
 import os
 import yaml
 import time
-import traceback
+import logging
 import re
 
 
@@ -27,14 +27,13 @@ def run_shell_command(command, env_vars=None):
         env.update(env_vars)
 
     command_str = " ".join(command)
-    print("COMMAND: " + command_str)
+    logging.info("COMMAND: " + command_str)
     try:
         output = subprocess.check_output(command, stderr=subprocess.STDOUT, env=env)
-        print(f"Command output: {output.decode()}")
+        logging.info(f"Command output: {output.decode()}")
     except subprocess.CalledProcessError as e:
-        print(f"Error executing command: {e.output.decode()}")
-        print("Stack Trace:")
-        traceback.print_exc()
+        logging.error(f"Error executing command: {e.output.decode()}")
+        raise
 
 
 def validate_alphanumeric(value, name):
@@ -88,7 +87,7 @@ def deploy_resources(account_id, account_name, dir, lang="typescript"):
 
     # Deploy using CDK
     deploy_command = ["cdk", "deploy", "--require-approval", "never"]
-    print(" ".join(deploy_command))
+    logging.info(" ".join(deploy_command))
     run_shell_command(deploy_command, env_vars={"TOOL_NAME": account_name})
 
     # Delay to avoid CLI conflicts
@@ -112,16 +111,16 @@ def main():
                     }
                 }
         except Exception as e:
-            print(f"Failed to read config data: \n{e}")
+            logging.info(f"Failed to read config data: \n{e}")
     elif args.type in {"plugin"}:
         try:
             with open(".config/targets.yaml", "r") as file:
                 accounts = yaml.safe_load(file)
         except Exception as e:
-            print(f"Failed to read config data: \n{e}")
+            logging.error(f"Failed to read config data: \n{e}")
 
     for account_name, account_info in accounts.items():
-        print(
+        logging.info(
             f"Reading from account {account_name} with ID {account_info['account_id']}"
         )
         deploy_resources(account_info["account_id"], account_name, args.type)
