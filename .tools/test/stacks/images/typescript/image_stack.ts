@@ -16,10 +16,31 @@ class ImageStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const resourceConfig = this.loadYamlConfig("../../.config/resources.yaml");
+    interface TargetAccount {
+      account_id: string;
+      status: string;
+      memory: string;
+      vcpus: string;
+    }
+
+    interface ResourceConfig {
+      admin_acct: string;
+      topic_name: string;
+      bucket_name: string;
+      aws_region: string;
+    }
+
+    const acctConfig = this.getYamlConfig<Record<string, TargetAccount>>(
+      "../../config/targets.yaml",
+      this.isTargetAccount,
+    );
+    const resourceConfig = this.getYamlConfig<ResourceConfig>(
+      "../../config/resources.yaml",
+      this.isResourceConfig,
+    );
+
     this.adminAccountId = resourceConfig.admin_acct;
 
-    const acctConfig = this.loadYamlConfig("../../.config/targets.yaml");
     for (const language of Object.keys(acctConfig)) {
       if (acctConfig[language].status === "enabled") {
         new ecr.Repository(this, `${language}-examples`, {
@@ -31,16 +52,33 @@ class ImageStack extends Stack {
     }
   }
 
-  private loadYamlConfig(filePath: string): Record<string, any> {
-    try {
-      const fileContent = fs.readFileSync(filePath, "utf8");
-      return parse(fileContent) as Record<string, any>;
-    } catch (error) {
-      console.error(`Failed to read or parse YAML file at ${filePath}:`, {
-        error,
-      });
-      return {};
+  private isTargetAccount(acct: any): acct is TargetAccount {
+    return (
+      typeof acct.account_id === "string" && typeof acct.status === "string"
+    );
+  }
+
+  private isResourceConfig(config: any): config is ResourceConfig {
+    return (
+      typeof config.admin_acct === "string" &&
+      typeof config.topic_name === "string" &&
+      typeof config.bucket_name === "string" &&
+      typeof config.aws_region === "string"
+    );
+  }
+
+  private getYamlConfig<T>(
+    filepath: string,
+    validator: (obj: any) => obj is T,
+  ): T {
+    const fileContents = fs.readFileSync(filepath, "utf8");
+    const config = parse(fileContents);
+    if (!validator(config)) {
+      throw new Error(
+        `Configuration at ${filepath} does not match expected format.`,
+      );
     }
+    return config;
   }
 }
 

@@ -17,8 +17,28 @@ class AdminStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const acctConfig = this.getYamlConfig("../../config/targets.yaml");
-    const resourceConfig = this.getYamlConfig("../../config/resources.yaml");
+    interface TargetAccount {
+      account_id: string;
+      status: string;
+      memory: string;
+      vcpus: string;
+    }
+
+    interface ResourceConfig {
+      admin_acct: string;
+      topic_name: string;
+      bucket_name: string;
+      aws_region: string;
+    }
+
+    const acctConfig = this.getYamlConfig<Record<string, TargetAccount>>(
+      "../../config/targets.yaml",
+      this.isTargetAccount,
+    );
+    const resourceConfig = this.getYamlConfig<ResourceConfig>(
+      "../../config/resources.yaml",
+      this.isResourceConfig,
+    );
     const adminTopicName = resourceConfig["topic_name"];
     const adminBucketName = resourceConfig["bucket_name"];
     this.adminAccountId = resourceConfig["admin_acct"];
@@ -33,9 +53,33 @@ class AdminStack extends Stack {
     this.initRule(adminTopic);
   }
 
-  private getYamlConfig(filepath: string): Record<string, any> {
+  private isTargetAccount(acct: any): acct is TargetAccount {
+    return (
+      typeof acct.account_id === "string" && typeof acct.status === "string"
+    );
+  }
+
+  private isResourceConfig(config: any): config is ResourceConfig {
+    return (
+      typeof config.admin_acct === "string" &&
+      typeof config.topic_name === "string" &&
+      typeof config.bucket_name === "string" &&
+      typeof config.aws_region === "string"
+    );
+  }
+
+  private getYamlConfig<T>(
+    filepath: string,
+    validator: (obj: any) => obj is T,
+  ): T {
     const fileContents = fs.readFileSync(filepath, "utf8");
-    return parse(fileContents) as Record<string, any>;
+    const config = parse(fileContents);
+    if (!validator(config)) {
+      throw new Error(
+        `Configuration at ${filepath} does not match expected format.`,
+      );
+    }
+    return config;
   }
 
   private initGetTopic(topicName: string): sns.Topic {
@@ -61,7 +105,7 @@ class AdminStack extends Stack {
         "SNS:Publish",
         "SNS:RemovePermission",
         "SNS:SetTopicAttributes",
-        "SNS:Subscribe"
+        "SNS:Subscribe",
       ],
       principals: [new iam.AnyPrincipal()],
       resources: [topic.topicArn],
