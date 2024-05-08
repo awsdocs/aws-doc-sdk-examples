@@ -13,10 +13,11 @@ Specifically, a GitHub action workflow builds and publishes Docker images into t
 ---
 
 ## System requirements
-* npm (node.js)
-* python 3.x
-* AWS access key and secret for AWS user with permissions to create the preceding resources
-  
+
+- npm (node.js)
+- python 3.x
+- AWS access key and secret for AWS user with permissions to create the preceding resources
+
 ---
 
 ## AWS CDK setup and deployment
@@ -24,7 +25,7 @@ Specifically, a GitHub action workflow builds and publishes Docker images into t
 First, install the AWS CDK:
 
 ```
-sudo npm install -g aws-cdk
+npm install -g aws-cdk
 ```
 
 You can check the toolkit version with this command:
@@ -50,7 +51,9 @@ Install the required dependencies:
 ```
 pip install -r requirements.txt
 ```
+
 ---
+
 ## Stack deployment
 
 At this point you can now synthesize the AWS CloudFormation template for this code.
@@ -81,11 +84,12 @@ deactivate
 
 # Useful commands
 
- * `cdk ls`          List all stacks in the app
- * `cdk synth`       Emit the synthesized CloudFormation template
- * `cdk deploy`      Deploy this stack to your default AWS account/Region
- * `cdk diff`        Compare deployed stack with current state
- * `cdk docs`        Open CDK documentation
+- `cdk ls` List all stacks in the app
+- `cdk synth` Emit the synthesized CloudFormation template
+- `cdk deploy` Deploy this stack to your default AWS account/Region
+- `cdk diff` Compare deployed stack with current state
+- `cdk docs` Open CDK documentation
 
 ---
+
 This code has been tested and verified to run with AWS CDK 2.70.0 (build c13a0f1).

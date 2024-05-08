@@ -8,27 +8,29 @@ This stack can be deployed in isolation; however, it serves a purpose in this re
 
 Specifically, it consumes images from a Simple Notification Service (SNS) topic, which trigger an AWS Lambda function that starts AWS Batch jobs.
 
-
 ![weathertop-comp-2.png](../../docs/architecture_diagrams/png/weathertop-comp-2.png)
 
 ---
+
 ## System requirements
-* npm (node.js)
-* python 3.x
-* AWS access key and secret for AWS user with permissions to create the preceding resources
-* Successfully written [system parameters](#storing-system-parameters)
-  
+
+- npm (node.js)
+- python 3.x
+- AWS access key and secret for AWS user with permissions to create the preceding resources
+- Successfully written [system parameters](#storing-system-parameters)
+
 ### Updating configuration data
 
-Before you get started, update [.config/resources.yaml](../.config/resources.yaml) and [.config/targets.yaml](../.config/targets.yaml) to include logical names representing test targets and their corresponding AWS Account ID and enabled status. 
+Before you get started, update [.config/resources.yaml](../.config/resources.yaml) and [.config/targets.yaml](../.config/targets.yaml) to include logical names representing test targets and their corresponding AWS Account ID and enabled status.
 
 ---
+
 ## AWS CDK setup and deployment
 
 First, install the AWS CDK:
 
 ```
-sudo npm install -g aws-cdk
+npm install -g aws-cdk
 ```
 
 You can check the toolkit version with this command:
@@ -61,8 +63,8 @@ At this point you can now synthesize the AWS CloudFormation template for this co
 cdk synth
 ```
 
-If everything looks good, go ahead and deploy.  This step will actually make
-changes to your AWS cloud environment.  
+If everything looks good, go ahead and deploy. This step will actually make
+changes to your AWS cloud environment.
 
 ```
 cdk bootstrap
@@ -83,11 +85,18 @@ deactivate
 
 # Useful commands
 
- * `cdk ls`          List all stacks in the app
- * `cdk synth`       Emit the synthesized CloudFormation template
- * `cdk deploy`      Deploy this stack to your default AWS account/Region
- * `cdk diff`        Dompare deployed stack with current state
- * `cdk docs`        Open CDK documentation
+- `cdk ls` List all stacks in the app
+- `cdk synth` Emit the synthesized CloudFormation template
+- `cdk deploy` Deploy this stack to your default AWS account/Region
+- `cdk diff` Dompare deployed stack with current state
+- `cdk docs` Open CDK documentation
 
 ---
+
 This code has been tested and verified to run with AWS CDK 2.70.0 (build c13a0f1).
+
+# Additional scripts
+
+This directory contains a [cleanup.py](cleanup.py) script which deletes all jobs that are queued in AWS Batch.
+
+It is used in rare instances where a queue misconfiguration causes a backup of yet-to-be-run jobs.

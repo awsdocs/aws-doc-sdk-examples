@@ -1,6 +1,8 @@
 cpp:
   account_id: "770244195820"
   status: "enabled"
+  vcpu: "4"
+  memory: "16384"
 dotnetv3:
   account_id: "441997275833"
   status: "enabled"

@@ -28,14 +28,14 @@ def handler(event, context):
     logger.debug(f"INCOMING EVENT: {event}")
 
     # Catch all non-triggering of events
-    if "Batch Job State Change" not in event["detail-type"]:
+    if event["detail-type"] not in {"Batch Job State Change"}:
         logger.info(f"Non-triggering Batch event: {event['detail-type']}")
         return
-    if "TIMED_OUT" in event["detail"]["status"]:
+    if event["detail"]["status"] in {"TIMED_OUT"}:
         raise Exception(
             "Job timed out. Contact application owner or increase time out threshold"
         )
-    if event["detail"]["status"] not in ["FAILED", "SUCCEEDED"]:
+    if event["detail"]["status"] not in {"FAILED", "SUCCEEDED"}:
         logger.info(f"Non-triggering Batch status: STATUS: {event['detail']['status']}")
         return
 
@@ -53,7 +53,7 @@ def get_and_put_logs(job_detail, bucket):
     """
     Puts logs to a cross-account S3 bucket
     :param bucket: Target bucket
-    :param job_detail: Contains job_id and job_status
+    :param job_detail: Contains job_id and job_status. See https://docs.aws.amazon.com/batch/latest/APIReference/API_JobDetail.html.
     """
     job_id = job_detail["jobId"]
     job_status = job_detail["status"]

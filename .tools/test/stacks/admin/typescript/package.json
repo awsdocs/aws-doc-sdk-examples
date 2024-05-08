@@ -1,9 +1,6 @@
 {
   "name": "tstest",
   "version": "0.1.0",
-  "bin": {
-    "tstest": "bin/tstest.js"
-  },
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",

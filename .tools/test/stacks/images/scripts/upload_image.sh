@@ -6,10 +6,11 @@
 # due to architecture differences between your local OS and
 # that of the AWS Batch compute environment.
 
-# Set your AWS region
-AWS_REGION=us-east-1
+# NOTE: Be sure to set the following environment variables
+# export REGISTRY_ACCOUNT=808326389482
+# export AWS_REGION=us-east-1
 
-REGISTRY=808326389482.dkr.ecr.us-east-1.amazonaws.com
+REGISTRY={ADMIN_ACCOUNT}.dkr.ecr.{AWS_REGION}.amazonaws.com
 
 # Login to ECR registry
 aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin $REGISTRY

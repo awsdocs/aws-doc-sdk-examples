@@ -8,20 +8,22 @@ This stack can be deployed in isolation; however, it serves a purpose in this re
 
 ![weathertop-comp-1.png](../../docs/architecture_diagrams/png/weathertop-comp-1.png)
 
-
 ---
+
 ## System requirements
-* npm (node.js)
-* python 3.x
-* AWS access key and secret for AWS user with permissions to create the preceding resources
+
+- npm (node.js)
+- python 3.x
+- AWS access key and secret for AWS user with permissions to create the preceding resources
 
 ---
+
 ## AWS CDK setup and deployment
 
 First, install the AWS CDK:
 
 ```
-sudo npm install -g aws-cdk
+npm install -g aws-cdk
 ```
 
 You can check the toolkit version with this command:
@@ -54,8 +56,8 @@ At this point you can now synthesize the AWS CloudFormation template for this co
 cdk synth
 ```
 
-If everything looks good, go ahead and deploy.  This step will actually make
-changes to your AWS cloud environment.  
+If everything looks good, go ahead and deploy. This step will actually make
+changes to your AWS cloud environment.
 
 ```
 cdk bootstrap
@@ -76,11 +78,12 @@ deactivate
 
 # Useful commands
 
- * `cdk ls`          List all stacks in the app
- * `cdk synth`       Emit the synthesized CloudFormation template
- * `cdk deploy`      Deploy this stack to your default AWS account/Region
- * `cdk diff`        Dompare deployed stack with current state
- * `cdk docs`        Open CDK documentation
+- `cdk ls` List all stacks in the app
+- `cdk synth` Emit the synthesized CloudFormation template
+- `cdk deploy` Deploy this stack to your default AWS account/Region
+- `cdk diff` Dompare deployed stack with current state
+- `cdk docs` Open CDK documentation
 
 ---
+
 This code has been tested and verified to run with AWS CDK 2.70.0 (build c13a0f1).
