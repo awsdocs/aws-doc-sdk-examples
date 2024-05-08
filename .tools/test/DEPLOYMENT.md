@@ -62,7 +62,7 @@ To request an alternate configuration for your own repository or use case, pleas
 User will:
 
 1. Set Python virtualenv within [plugin directory](plugin/admin).
-1. `export LANGAUGE_NAME=python`.
+1. `export LANGUAGE_NAME=python`.
 1. Get AWS account tokens for plugin account.
 1. `cdk bootstrap` and `cdk deploy`.
 
