@@ -13,6 +13,6 @@
   },
   "type": "module",
   "devDependencies": {
-    "vitest": "^0.34.5"
+    "vitest": "^1.6.0"
   }
 }

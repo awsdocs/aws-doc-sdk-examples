@@ -8,5 +8,8 @@
     "dependencies": {
         "@aws-sdk/client-medical-imaging": "^3.427.0",
         "crc-32": "^1.2.2"
+    },
+    "devDependencies": {
+        "vitest": "^1.6.0"
     }
 }

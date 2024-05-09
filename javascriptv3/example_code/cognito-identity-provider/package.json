@@ -21,6 +21,6 @@
     "qrcode-terminal": "^0.12.0"
   },
   "devDependencies": {
-    "vitest": "^0.26.2"
+    "vitest": "^1.6.0"
   }
 }

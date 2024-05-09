@@ -9,5 +9,8 @@
   "scripts": {
     "integration-test": "vitest run **/*.integration.test.js"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
 }

@@ -13,7 +13,8 @@
   },
   "devDependencies": {
     "@types/node": "^14.0.23",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "vitest": "^1.6.0"
   },
   "type": "module"
 }
