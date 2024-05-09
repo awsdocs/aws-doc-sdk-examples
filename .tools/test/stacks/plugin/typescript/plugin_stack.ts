@@ -14,12 +14,10 @@ import * as sqs from "aws-cdk-lib/aws-sqs";
 import * as batch from "aws-cdk-lib/aws-batch";
 import * as subs from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
-import { readAccountConfig } from './../../config/types';
-import { readResourceConfig } from './../../config/resources';
-
+import { readAccountConfig } from "../../config/types";
+import { readResourceConfig } from "../../config/resources";
 
 const toolName = process.env.TOOL_NAME ?? "defaultToolName";
-
 
 class PluginStack extends cdk.Stack {
   private awsRegion: string;
@@ -30,8 +28,8 @@ class PluginStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const acctConfig = readAccountConfig('../../config/targets.yaml');
-    const resourceConfig = readResourceConfig('../../config/resources.yaml');
+    const acctConfig = readAccountConfig("../../config/targets.yaml");
+    const resourceConfig = readResourceConfig("../../config/resources.yaml");
 
     const adminTopicName = resourceConfig["topic_name"];
     const adminBucketName = resourceConfig["bucket_name"];
@@ -41,8 +39,8 @@ class PluginStack extends cdk.Stack {
     const sqsQueue = new sqs.Queue(this, `BatchJobQueue-${toolName}`);
     if (acctConfig[`${toolName}`].status === "enabled") {
       this.initSubscribeSns(sqsQueue, snsTopic);
-      this.batchMemory = acctConfig[`${toolName}`]?.memory ?? '16384';
-      this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? '4';
+      this.batchMemory = acctConfig[`${toolName}`]?.memory ?? "16384";
+      this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? "4";
     }
     const [jobDefinition, jobQueue] = this.initBatchFargate();
     const batchFunction = this.initBatchLambda(jobQueue, jobDefinition);
