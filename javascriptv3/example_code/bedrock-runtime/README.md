@@ -46,7 +46,7 @@ functions within the same service.
 ### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](models/ai21_labs_jurassic2/jurassic2.js)
-- [Amazon Titan: Text generation](models/amazon_titan/titan_text.js)
+- [Amazon Titan Text G1](models/amazon_titan/titan_text.js)
 - [Anthropic Claude 2: Real-time response stream processing](models/anthropic_claude/claude_3.js)
 - [Anthropic Claude 2: Text generation](models/anthropic_claude/claude_2.js)
 - [Anthropic Claude 3: Text generation](models/anthropic_claude/claude_3.js)

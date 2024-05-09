@@ -61,5 +61,10 @@
             <artifactId>commons-io</artifactId>
             <version>2.15.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>75.1</version>
+        </dependency>
     </dependencies>
 </project>

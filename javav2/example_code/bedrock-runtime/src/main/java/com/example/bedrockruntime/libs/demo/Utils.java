@@ -1,22 +1,21 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.bedrockruntime.libs;
+package com.example.bedrockruntime.libs.demo;
 
+import com.example.bedrockruntime.libs.demo.scenarios.Scenario;
+import com.ibm.icu.text.RuleBasedNumberFormat;
+import com.ibm.icu.util.ULocale;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Locale;
 
-public class ScenarioRunner {
-    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    private final List<String> scenarios = new ArrayList<>();
-
-    public void printHeader() {
+public class Utils {
+    public static void printHeader(List<Scenario> scenarios) {
         System.out.println("*" .repeat(80));
         System.out.println("*" + " " .repeat(78) + "*");
         System.out.println("*  Welcome to the Amazon Bedrock demo!" + " " .repeat(41) + "*");
@@ -25,36 +24,31 @@ public class ScenarioRunner {
         System.out.println("*  This demo showcases the following scenarios:" + " " .repeat(32) + "*");
         System.out.println("*" + " " .repeat(78) + "*");
 
-        AtomicInteger number = new AtomicInteger(1);
         scenarios.forEach(scenario -> {
-            int blanks = 73 - scenario.length() - number.toString().length();
-
-            System.out.println("*  " + number + ". " + scenario + "." + " " .repeat(blanks) + "*");
-            number.set(number.get() + 1);
+            int number = scenarios.indexOf(scenario) + 1;
+            int blanks = 72 - scenario.getTitle().length() - String.valueOf(number).length();
+            System.out.printf("*  %d. %s.%s *%n", number, scenario.getTitle(), " " .repeat(blanks));
         });
 
         System.out.println("*" + " " .repeat(78) + "*");
         System.out.println("*" .repeat(80));
     }
 
-    public void printScenarioHeader(String title) {
+    public static void printScenarioHeader(String title) {
         System.out.println("=" .repeat(80));
         System.out.println(title);
         System.out.println("=" .repeat(80));
     }
 
-    public void printCurrentResponse(JSONObject response) throws IOException {
-        printCurrentResponse(response.toString(2));
-    }
-
-    public void printCurrentResponse(String text) throws IOException {
+    public static void printResponse(JSONObject response) throws IOException {
         System.out.println("-" .repeat(80));
         promptUser("Press Enter to see the detailed response...");
-        System.out.println(text);
+
+        System.out.println(response.toString(2));
         System.out.println("-" .repeat(80));
     }
 
-    public void printFooter() {
+    public static void printFooter() {
         System.out.println("\n" + "*" .repeat(80));
         System.out.println("Thanks for running the Amazon Bedrock demo!");
         System.out.println("=" .repeat(80));
@@ -63,13 +57,13 @@ public class ScenarioRunner {
         System.out.println("*" .repeat(80));
     }
 
-    public void promptUser(String text) throws IOException {
-        System.out.printf("\n%s%n", text);
-        this.reader.readLine();
+    public static void promptUser(String text) throws IOException {
+        System.out.printf("%n%s%n", text);
+        new BufferedReader(new InputStreamReader(System.in)).readLine();
     }
 
-    public ScenarioRunner add(String title) {
-        this.scenarios.add(title);
-        return this;
+    public static String getOrdinalFor(int number) {
+        var nf = new RuleBasedNumberFormat(ULocale.forLocale(Locale.ENGLISH), RuleBasedNumberFormat.ORDINAL);
+        return nf.format(number);
     }
 }

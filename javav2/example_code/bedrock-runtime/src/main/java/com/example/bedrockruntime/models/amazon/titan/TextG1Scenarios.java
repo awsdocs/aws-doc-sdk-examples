@@ -1,12 +1,18 @@
-package com.example.bedrockruntime.models.amazon.titan.text;
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-import com.example.bedrockruntime.libs.ScenarioRunner;
+package com.example.bedrockruntime.models.amazon.titan;
+
+import com.example.bedrockruntime.libs.demo.DemoRunner;
+import com.example.bedrockruntime.libs.demo.scenarios.SystemPromptScenario;
+import com.example.bedrockruntime.libs.demo.scenarios.TitanConversationScenario;
 import org.json.JSONObject;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * This program demonstrates how to use InvokeModel with Amazon Titan Text models on Amazon Bedrock,
@@ -16,7 +22,7 @@ import java.io.IOException;
  * https://docs.aws.amazon.com/bedrock/latest/userguide/service_code_examples.html
  */
 
-public class InvokeModelScenarios {
+public class TextG1Scenarios {
     // snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextG1_SingleMessage]
 
     /**
@@ -27,7 +33,7 @@ public class InvokeModelScenarios {
      * @param systemPrompt - A system prompt to provide additional context and instructions.
      * @return The {@link JSONObject} representing the model's response.
      */
-    public static JSONObject invokeWithText(String userPrompt, String systemPrompt) {
+    public static JSONObject invokeWithSystemPrompt(String userPrompt, String systemPrompt) {
 
         // Create a Bedrock Runtime client in the AWS Region of your choice.
         var client = BedrockRuntimeClient.builder()
@@ -108,12 +114,14 @@ public class InvokeModelScenarios {
          *     Bot: """
          */
         conversation = conversation + """
-                User: %s
+                %nUser: %s
                 Bot: 
                 """.formatted(prompt);
 
         // Format the request payload using the model's native structure.
         var nativeRequest = new JSONObject().put("inputText", conversation);
+
+        System.out.println(nativeRequest.toString(4));
 
         // Encode and send the request.
         var response = client.invokeModel(request -> {
@@ -133,77 +141,11 @@ public class InvokeModelScenarios {
     }
     // snippet-end:[bedrock-runtime.java2.InvokeModel_TitanTextG1_Conversation]
 
+
     public static void main(String[] args) throws IOException {
-        new Demo().run();
-    }
-
-    private static class Demo {
-        private final String FIRST_SCENARIO_TITLE = "How to add a system prompt and additional parameters";
-        private final String SECOND_SCENARIO_TITLE = "How to use a conversation history to simulate a chat";
-
-        private final ScenarioRunner scenario;
-
-        Demo() {
-            scenario = new ScenarioRunner();
-            scenario.add(FIRST_SCENARIO_TITLE);
-            scenario.add(SECOND_SCENARIO_TITLE);
-        }
-
-        void run() throws IOException {
-            scenario.printHeader();
-
-            scenario.promptUser("Press Enter to start the first scenario...");
-
-            var firstPrompt = "Write a haiku about a sunset.";
-            JSONObject firstResponse = runTextScenario(firstPrompt);
-
-            scenario.printCurrentResponse(firstResponse);
-
-            scenario.promptUser("Press Enter to start the next scenario...");
-
-            var conversation = createConversationalTurn(firstPrompt, firstResponse);
-
-            var secondPrompt = "Take the role of a poetry expert and explain the Haiku above.";
-            var secondResponse = runConversationScenario(secondPrompt, conversation);
-            scenario.printCurrentResponse(secondResponse);
-
-            scenario.printFooter();
-        }
-
-        private String createConversationalTurn(String userPrompt, JSONObject modelResponse) {
-            var responseText = modelResponse
-                    .getJSONArray("results")
-                    .getJSONObject(0)
-                    .getString("outputText");
-
-            return """
-                    User: %s
-                    Bot: %s
-                    """.formatted(userPrompt, responseText);
-        }
-
-        private JSONObject runTextScenario(String userPrompt) {
-            scenario.printScenarioHeader("Scenario 1 - %s:" .formatted(FIRST_SCENARIO_TITLE));
-
-            var systemPrompt = "All your responses must contain the word 'developer'.";
-
-            System.out.printf("%nUser prompt:   '%s'%n", userPrompt);
-            System.out.printf("System prompt: '%s'%n%n", systemPrompt);
-
-            System.out.printf("Waiting for the response...%n");
-            return invokeWithText(userPrompt, systemPrompt);
-        }
-
-        private JSONObject runConversationScenario(String prompt, String conversation) {
-            scenario.printScenarioHeader("Scenario 2 - %s:" .formatted(SECOND_SCENARIO_TITLE));
-
-            System.out.printf("%nNext prompt: '%s'%n", prompt);
-            System.out.println("Conversation history:");
-            System.out.println(conversation);
-
-            System.out.printf("%nWaiting for the response...%n");
-
-            return invokeWithConversation(prompt, conversation);
-        }
+        new DemoRunner(List.of(
+                new SystemPromptScenario(TextG1Scenarios::invokeWithSystemPrompt),
+                new TitanConversationScenario(TextG1Scenarios::invokeWithConversation)
+        )).run();
     }
 }

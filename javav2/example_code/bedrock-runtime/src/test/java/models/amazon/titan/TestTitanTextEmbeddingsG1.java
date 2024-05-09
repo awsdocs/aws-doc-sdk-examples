@@ -3,12 +3,12 @@
 
 package models.amazon.titan;
 
-import com.example.bedrockruntime.models.amazon.titan.embeddings.TextEmbeddingsG1Quickstart;
+import com.example.bedrockruntime.models.amazon.titan.TextEmbeddingsG1Quickstart;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import static com.example.bedrockruntime.models.amazon.titan.embeddings.TextEmbeddingsG1Scenarios.invokeModel;
+import static com.example.bedrockruntime.models.amazon.titan.TextEmbeddingsG1Scenarios.invokeModel;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 

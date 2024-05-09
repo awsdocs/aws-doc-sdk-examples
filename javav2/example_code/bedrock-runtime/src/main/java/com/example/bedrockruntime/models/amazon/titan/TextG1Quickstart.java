@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.bedrockruntime.models.amazon.titan.text;
+package com.example.bedrockruntime.models.amazon.titan;
 
 import org.json.JSONObject;
 import software.amazon.awssdk.core.SdkBytes;
@@ -10,7 +10,7 @@ import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 
 // snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextG1_Quickstart]
 // Send a prompt to Amazon Titan Text and print the response.
-public class InvokeModelQuickstart {
+public class TextG1Quickstart {
 
     public static void main(String[] args) {
 

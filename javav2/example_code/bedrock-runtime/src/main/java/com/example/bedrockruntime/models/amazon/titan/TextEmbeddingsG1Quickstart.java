@@ -1,16 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.bedrockruntime.models.amazon.titan.embeddings;
+package com.example.bedrockruntime.models.amazon.titan;
 
 import org.json.JSONObject;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 
-// snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_Quickstart]
-// Generate and print an embedding with Amazon Titan Text Embeddings V2.
-public class TextEmbeddingsV2Quickstart {
+// snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsG1_Quickstart]
+// Generate and print an embedding with Amazon Titan Text Embeddings G1.
+public class TextEmbeddingsG1Quickstart {
 
     public static void main(String[] args) {
 
@@ -19,8 +19,8 @@ public class TextEmbeddingsV2Quickstart {
                 .region(Region.US_WEST_2)
                 .build();
 
-        // Set the model ID, e.g., Titan Text Embeddings V2.
-        var modelId = "amazon.titan-embed-text-v2:0";
+        // Set the model ID, e.g., Titan Text Embeddings G1.
+        var modelId = "amazon.titan-embed-text-v1";
 
         // The text to convert into an embedding.
         var inputText = "Please recommend books with a theme similar to the movie 'Inception'.";
@@ -41,4 +41,4 @@ public class TextEmbeddingsV2Quickstart {
         System.out.println(embedding);
     }
 }
-// snippet-end:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_Quickstart]
+// snippet-end:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsG1_Quickstart]

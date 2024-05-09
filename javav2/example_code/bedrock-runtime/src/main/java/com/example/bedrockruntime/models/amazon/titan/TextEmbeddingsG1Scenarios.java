@@ -1,15 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.bedrockruntime.models.amazon.titan.embeddings;
+package com.example.bedrockruntime.models.amazon.titan;
 
-import com.example.bedrockruntime.libs.ScenarioRunner;
+import com.example.bedrockruntime.libs.demo.DemoRunner;
+import com.example.bedrockruntime.libs.demo.scenarios.SystemPromptScenario;
 import org.json.JSONObject;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * This program demonstrates how to use InvokeModel with Amazon Titan Text Embeddings G1 on Amazon Bedrock.
@@ -61,28 +63,8 @@ public class TextEmbeddingsG1Scenarios {
     // snippet-end:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsG1_AdditionalFields]
 
     public static void main(String[] args) throws IOException {
-        new Demo().run();
-    }
-
-    private static class Demo {
-        private final ScenarioRunner demo = new ScenarioRunner()
-                .add("Create an embedding with custom inference parameters");
-
-        void run() throws IOException {
-            demo.printHeader();
-
-            var inputText = "Please recommend books with a theme similar to the movie 'Inception'.";
-            var response = runTextScenario(inputText);
-            demo.printCurrentResponse(response);
-
-            demo.printFooter();
-        }
-
-        private JSONObject runTextScenario(String inputText) {
-            demo.printScenarioHeader("Scenario - Create an embedding with custom inference parameters:");
-            System.out.printf("%nInput text: '%s'%n", inputText);
-            System.out.printf("Waiting for the response...%n");
-            return invokeModel(inputText);
-        }
+        new DemoRunner(List.of(
+                new SystemPromptScenario(TextG1Scenarios::invokeWithSystemPrompt)
+        )).run();
     }
 }
