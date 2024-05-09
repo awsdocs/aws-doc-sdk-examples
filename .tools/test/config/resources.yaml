@@ -1,4 +1,0 @@
-topic_name: "aws-weathertop-central-sns-fanout-topic"
-bucket_name: "aws-weathertop-central-log-bucket"
-admin_acct: "808326389482"
-aws_region: "us-east-1"

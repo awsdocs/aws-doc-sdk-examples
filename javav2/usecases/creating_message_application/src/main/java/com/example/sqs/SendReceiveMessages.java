@@ -117,7 +117,7 @@ public class SendReceiveMessages {
             // We will get the language code for the incoming message.
             ComprehendClient comClient = getComClient();
 
-            // Specify the Langauge code of the incoming message.
+            // Specify the Language code of the incoming message.
             String lanCode = "";
             DetectDominantLanguageRequest request = DetectDominantLanguageRequest.builder()
                     .text(msg.getBody())

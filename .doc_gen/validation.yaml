@@ -195,6 +195,7 @@ allow_list:
   - "targetTrackingScalingPolicyConfiguration"
   - "upload_files_using_managed_file_uploader"
   - "videoMetaData=celebrityRecognitionResult"
+  - "/PublicEcrRepositoriesStack/javascriptv3"
   - "https://docs.aws.amazon.com/ivs/latest/userguide//private-channels.html"
   - "CognitoEventUserPoolsMigrateUserResponse"
   - "v2/service/cognitoidentityprovider/types"
