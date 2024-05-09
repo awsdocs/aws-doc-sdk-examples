@@ -1,5 +1,5 @@
 {
-  "name": "tstest",
+  "name": "image_stack",
   "version": "0.1.0",
   "scripts": {
     "build": "tsc",

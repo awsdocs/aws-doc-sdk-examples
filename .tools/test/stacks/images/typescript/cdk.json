@@ -5,8 +5,6 @@
     "exclude": [
       "README.md",
       "cdk*.json",
-      "**/*.d.ts",
-      "**/*.js",
       "tsconfig.json",
       "package*.json",
       "yarn.lock",
