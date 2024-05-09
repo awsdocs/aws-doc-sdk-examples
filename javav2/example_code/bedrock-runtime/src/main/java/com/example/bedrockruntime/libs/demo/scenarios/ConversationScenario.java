@@ -12,6 +12,7 @@ import java.util.function.BiFunction;
 import static com.example.bedrockruntime.libs.demo.Utils.printResponse;
 
 public abstract class ConversationScenario extends Scenario {
+
     public ConversationScenario(BiFunction<String, String, JSONObject> action) {
         super(action, "How to use a conversation history to simulate a chat");
     }
@@ -20,13 +21,17 @@ public abstract class ConversationScenario extends Scenario {
 
     protected void runWith(String conversation) throws IOException {
         var userPrompt = "Take the role of a poetry expert and explain the Haiku above.";
-        System.out.printf("User prompt:   '%s'%n", userPrompt);
+        System.out.printf("User prompt: \"%s\"%n", userPrompt);
         System.out.println("Conversation history:");
         System.out.println(conversation + "\n");
 
         System.out.println(WAITING_FOR_RESPONSE);
 
-        JSONObject response = action.apply(userPrompt, conversation);
-        printResponse(response);
+        if (action instanceof BiFunction<?, ?, ?>) {
+            JSONObject response = ((BiFunction<String, String, JSONObject>) action).apply(userPrompt, conversation);
+            printResponse(response);
+        } else {
+            throw new IllegalArgumentException("Error: The action is of an invalid type.");
+        }
     }
 }

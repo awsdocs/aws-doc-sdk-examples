@@ -4,7 +4,7 @@
 package com.example.bedrockruntime.models.amazon.titan;
 
 import com.example.bedrockruntime.libs.demo.DemoRunner;
-import com.example.bedrockruntime.libs.demo.scenarios.SystemPromptScenario;
+import com.example.bedrockruntime.libs.demo.scenarios.TextEmbeddingScenario;
 import org.json.JSONObject;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
@@ -73,7 +73,7 @@ public class TextEmbeddingsV2Scenarios {
 
     public static void main(String[] args) throws IOException {
         new DemoRunner(List.of(
-                new SystemPromptScenario(TextG1Scenarios::invokeWithSystemPrompt)
+                new TextEmbeddingScenario(TextEmbeddingsV2Scenarios::invokeModel)
         )).run();
     }
 }

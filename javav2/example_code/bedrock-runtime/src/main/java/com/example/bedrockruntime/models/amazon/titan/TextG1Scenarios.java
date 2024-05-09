@@ -121,8 +121,6 @@ public class TextG1Scenarios {
         // Format the request payload using the model's native structure.
         var nativeRequest = new JSONObject().put("inputText", conversation);
 
-        System.out.println(nativeRequest.toString(4));
-
         // Encode and send the request.
         var response = client.invokeModel(request -> {
             request.body(SdkBytes.fromUtf8String(nativeRequest.toString()));

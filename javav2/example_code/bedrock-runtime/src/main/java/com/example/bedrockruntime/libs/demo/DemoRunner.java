@@ -13,7 +13,7 @@ import static com.example.bedrockruntime.libs.demo.Utils.*;
 
 public class DemoRunner {
     public static final String PRESS_ENTER_TO_START_SCENARIO = "Press Enter to start the scenario...";
-    public static final String PRESS_ENTER_TO_START_SCENARIO_WITH_ORDINAL = "Press [Enter] to start the %s scenario...";
+    public static final String PRESS_ENTER_TO_START_SCENARIO_WITH_ORDINAL = "Press Enter to start the %s scenario...";
 
     private final List<Scenario> scenarios;
     private final String promptTemplate;
@@ -23,8 +23,8 @@ public class DemoRunner {
 
     public DemoRunner(List<Scenario> scenarios) {
         this.scenarios = scenarios;
-        this.titleTemplate = scenarios.size() == 1 ? "Scenario %s: %s" : "Scenario: %2$s";
-        this.promptTemplate = scenarios.size() == 1 ? PRESS_ENTER_TO_START_SCENARIO_WITH_ORDINAL : PRESS_ENTER_TO_START_SCENARIO;
+        this.titleTemplate = scenarios.size() != 1 ? "Scenario %s: %s" : "Scenario: %2$s";
+        this.promptTemplate = scenarios.size() != 1 ? PRESS_ENTER_TO_START_SCENARIO_WITH_ORDINAL : PRESS_ENTER_TO_START_SCENARIO;
     }
 
     public void run() throws IOException {

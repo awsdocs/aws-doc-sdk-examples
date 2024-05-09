@@ -24,15 +24,18 @@ public class SystemPromptScenario extends Scenario {
         userPrompt = "Write a haiku about a sunset.";
         var systemPrompt = "Your response must contain the word 'developer'.";
 
-        System.out.printf("User prompt:   '%s'%n", userPrompt);
-        System.out.printf("System prompt: '%s'%n%n", systemPrompt);
+        System.out.printf("User prompt:   \"%s\"%n", userPrompt);
+        System.out.printf("System prompt: \"%s\"%n%n", systemPrompt);
 
         System.out.println(WAITING_FOR_RESPONSE);
 
-        response = action.apply(userPrompt, systemPrompt);
+        if (action instanceof BiFunction<?, ?, ?>) {
+            response = ((BiFunction<String, String, JSONObject>) action).apply(userPrompt, systemPrompt);
+        } else {
+            throw new IllegalArgumentException("Error: The action is of an invalid type.");
+        }
 
         printResponse(response);
-
         update(demoState);
     }
 
