@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import * as fs from "fs";
 import { parse } from "yaml";
 
@@ -25,7 +28,7 @@ export function readAccountConfig(filePath: string): AccountConfigs {
 
     return data;
   } catch (error) {
-    console.error("Failed to read or parse the YAML file:", error);
+    console.error("Failed to read or parse the YAML file:", { error });
     throw error;
   }
 }

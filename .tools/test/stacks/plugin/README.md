@@ -21,7 +21,7 @@ Specifically, it consumes images from a Simple Notification Service (SNS) topic,
 
 ### Updating configuration data
 
-Before you get started, update [.config/resources.yaml](../.config/resources.yaml) and [.config/targets.yaml](../.config/targets.yaml) to include logical names representing test targets and their corresponding AWS Account ID and enabled status.
+Before you get started, update [config/resources.yaml](../config/resources.yaml) and [config/targets.yaml](../config/targets.yaml) to include logical names representing test targets and their corresponding AWS Account ID and enabled status.
 
 ---
 

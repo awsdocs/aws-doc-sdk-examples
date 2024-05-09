@@ -26,7 +26,7 @@ tool_name = os.environ["TOOL_NAME"]
 class ConsumerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
-        resource_config = self.get_yaml_config("../.config/resources.yaml")
+        resource_config = self.get_yaml_config("../config/resources.yaml")
         admin_topic_name = resource_config["topic_name"]
         admin_bucket_name = resource_config["bucket_name"]
         self.aws_region = resource_config["aws_region"]
