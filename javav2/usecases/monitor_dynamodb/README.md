@@ -12,9 +12,9 @@
 In an application that uses DynamoDB, it can be important to understand and monitor DynamoDB’s contributions to
 the application's performance. This tutorial discusses the following ways to monitor performance.
 * Configure client-side performance metrics.
-* View metrics from DynamoDB and from the SDK.
+* View metrics from DynamoDB and from the SDK in Amazon CloudWatch.
 * Set up alarms on those metrics.
-* Set up Cloudwatch Contributor Insights to dive into specific issues with usage patterns. 
+* Set up CloudWatch contributor insights for DynamoDB to dive into specific issues with usage patterns. 
  
 This tutorial does not cover general best-practices for DynamoDB. For information on best practices see [Best practices for designing
 and architecting with DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html).
