@@ -85,6 +85,7 @@ func (inRange InFloatRange) IsValid(answer string) bool {
 type IQuestioner interface {
 	Ask(question string, validators ...IAnswerValidator) string
 	AskBool(question string, expected string) bool
+	AskBoolWithDefault(question string, expected string, defaultValue string) bool
 	AskInt(question string, validators ...IAnswerValidator) int
 	AskFloat64(question string, validators ...IAnswerValidator) float64
 	AskChoice(question string, choices []string) int
@@ -131,10 +132,18 @@ func (questioner Questioner) Ask(question string, validators ...IAnswerValidator
 }
 
 // AskBool asks a question with an expected answer. If the expected answer is given,
-// it returns true; otherwise, it returns false.
+// it returns true; otherwise, it returns false unless the answer is empty, in which
+// case it will ask again.
 func (questioner Questioner) AskBool(question string, expected string) bool {
 	answer := questioner.Ask(question, NotEmpty{})
 	return strings.ToLower(answer) == expected
+}
+
+// AskBoolWithDefault asks a question with an expected answer. If the expected answer is given,
+// it returns true; otherwise, it returns false.
+func (questioner Questioner) AskBoolWithDefault(question string, expected string, defaultValue string) bool {
+	answer := questioner.Ask(question)
+	return strings.ToLower(answer) == expected || (answer == "" && strings.ToLower(expected) == strings.ToLower(defaultValue))
 }
 
 // AskInt asks a question and converts the answer to an int. If the answer cannot be

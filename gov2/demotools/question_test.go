@@ -50,6 +50,64 @@ func TestQuestioner_AskFalse(t *testing.T) {
 	}
 }
 
+func AskBoolWithDefault_ByArguments(t *testing.T, expected string, defaultValue string, entry string, success bool) {
+	questioner := Questioner{reader: bufio.NewReader(mockReader{data: []byte(entry + "\n")})}
+	actual := questioner.AskBoolWithDefault("Bool?", expected, defaultValue)
+	if actual != success {
+		t.Errorf("Expected %v, got %v\n", success, actual)
+	}
+}
+
+func TestQuestioner_AskBoolWithDefault_yY_Blank(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "y", "Y", "", true)
+}
+
+func TestQuestioner_AskBoolWithDefault_yN_Blank(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "y", "N", "", false)
+}
+func TestQuestioner_AskBoolWithDefault_nY_Blank(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "n", "Y", "", false)
+}
+func TestQuestioner_AskBoolWithDefault_nN_Blank(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "n", "N", "", true)
+}
+
+func TestQuestioner_AskBoolWithDefault_yY_y(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "y", "Y", "y", true)
+}
+func TestQuestioner_AskBoolWithDefault_yN_y(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "y", "N", "y", true)
+}
+func TestQuestioner_AskBoolWithDefault_nY_y(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "n", "Y", "y", false)
+}
+func TestQuestioner_AskBoolWithDefault_nN_y(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "n", "N", "y", false)
+}
+
+func TestQuestioner_AskBoolWithDefault_yY_n(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "y", "Y", "n", false)
+}
+func TestQuestioner_AskBoolWithDefault_yN_n(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "y", "N", "n", false)
+}
+func TestQuestioner_AskBoolWithDefault_nY_n(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "n", "Y", "n", true)
+}
+func TestQuestioner_AskBoolWithDefault_nN_n(t *testing.T) {
+	AskBoolWithDefault_ByArguments(t, "n", "N", "n", true)
+}
+
+func TestQuestioner_AskBoolWithDefaultWithoutMatch(t *testing.T) {
+	expected := "y"
+	defaultValue := "N"
+	questioner := Questioner{reader: bufio.NewReader(mockReader{data: []byte("\n")})}
+	actual := questioner.AskBoolWithDefault("Bool?", expected, defaultValue)
+	if actual {
+		t.Errorf("Expected false, got %v\n", actual)
+	}
+}
+
 func TestQuestioner_AskChoice(t *testing.T) {
 	expected := 2
 	questioner := Questioner{reader: bufio.NewReader(mockReader{data: []byte(strconv.Itoa(expected) + "\n")})}
