@@ -2,6 +2,8 @@ name: RuboCop Linting
 
 on:
   pull_request:
+    paths:
+      - '**/*.rb'
   workflow_dispatch:
 
 jobs:
