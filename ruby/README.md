@@ -66,7 +66,7 @@ To invoke Rubocop yourself, first install it with `gem install rubocop`.
 Next, run:
 
 ```bash
-rubocop --config .github/linters/.ruby-lint.yml path/to/python/file_or_directory
+rubocop --config .github/linters/.ruby-lint.yml path/to/ruby/file_or_directory
 ```
 
 To lint all Ruby files in the current directory and its subdirectories, run:

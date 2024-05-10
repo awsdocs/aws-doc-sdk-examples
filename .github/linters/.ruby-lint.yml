@@ -2,10 +2,6 @@
 #######################
 # Rubocop Config file #
 #######################
-
-#inherit_gem:
-#  rubocop-github:
-#    - config/default.yml
 Metrics/MethodLength:
   Max: 25
 Metrics/AbcSize:
