@@ -23,4 +23,4 @@ jobs:
           gem install rubocop
 
       - name: Run RuboCop
-        run: rubocop --config ../linters/.ruby-lint.yml .
+        run: rubocop --config .github/linters/.ruby-lint.yml .
