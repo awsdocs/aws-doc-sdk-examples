@@ -1,4 +1,4 @@
-name: Python Linting
+name: Lint Python
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   black:
-    name: Black Formatting
+    name: Flake8 Linting & Black Formatting
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +26,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install black flake8
+          pip install black pylint
 
-      - name: Run Black
+      - name: Run Black & Pylint
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})
           black "${changed_files[@]}"
-          flake8 "${changed_files[@]}"
+          pylint --rcfile .github/linters/.python-lint "${changed_files[@]}"
