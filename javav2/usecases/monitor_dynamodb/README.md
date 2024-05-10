@@ -60,7 +60,7 @@ As a first step, create an IntelliJ project.
 5. Select **Create**.
 
 > [!NOTE]
-> As an alternative to building the project, you can copy the code from [in this project](https://github.com/awsdocs/aws-doc-sdk-examples/aws-doc-sdk-examples/tree/ddb_metric/javav2/usecases/monitor_dynamodb)
+> As an alternative to building the project, you can copy the code from [in this project](https://github.com/awsdocs/aws-doc-sdk-examples/aws-doc-sdk-examples/tree/main/javav2/usecases/monitor_dynamodb)
 > or [clone the repository](https://github.com/awsdocs/aws-doc-sdk-examples).
 
 ### Add the SDK dependencies to your Maven pom.xml file
