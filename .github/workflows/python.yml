@@ -26,14 +26,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install black
+          pip install black flake8
 
       - name: Run Black
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})
-          black "${changed_files[@]}"    
-
-      - name: Run Black
-        run:
-          black .
+          black "${changed_files[@]}"
+          flake8 "${changed_files[@]}"
