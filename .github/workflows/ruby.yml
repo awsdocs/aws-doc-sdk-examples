@@ -1,4 +1,4 @@
-name: RuboCop Linting
+name: Ruby Linting
 
 on:
   pull_request:

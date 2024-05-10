@@ -1,12 +1,39 @@
-name: Lint Python
+name: Ruby Linting
+
 on:
   pull_request:
   workflow_dispatch:
-permissions:
-  contents: read
+
 jobs:
-  lint:
+  black:
+    name: Black Formatting
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: psf/black@stable
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: "**.py"
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          pip install black
+
+      - name: Run Black
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          changed_files=(${{steps.changed-files.outputs.all_changed_files}})
+          black "${changed_files[@]}"    
+
+      - name: Run Black
+        run:
+          black .
