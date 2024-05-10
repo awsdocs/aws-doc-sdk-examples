@@ -1,4 +1,4 @@
-name: Ruby Linting
+name: Python Linting
 
 on:
   pull_request:
