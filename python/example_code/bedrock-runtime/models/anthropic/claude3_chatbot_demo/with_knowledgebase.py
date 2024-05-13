@@ -1,6 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 import os
+import boto3
 import yaml
 import argparse
 from langchain_community.chat_models import BedrockChat
@@ -26,14 +27,16 @@ class Claude3WithKnowledgeBase:
         the BedrockChat model for interaction with a large language model, and identifiers for
         knowledge base and document retrieval.
         """
-        self.logger = setup_custom_logger(os.path.basename(__file__))
-        self.knowledge_base_id = knowledge_base_id
-        self.llm = BedrockChat(
-            model_id="anthropic.claude-3-sonnet-20240229-v1:0",
-            region_name="us-east-1",
-        )
         with open("config.yaml", "r") as file:
             self.data = yaml.safe_load(file)
+        self.logger = setup_custom_logger(os.path.basename(__file__))
+        self.boto3_bedrock = boto3.client(service_name="bedrock-runtime")
+        self.llm = BedrockChat(
+            model_id=self.data["model"],
+            client=self.boto3_bedrock,
+        )
+        self.knowledge_base_id = knowledge_base_id
+
 
     @timeit
     def get_kb_answer(self, prompt, qa):
@@ -93,19 +96,15 @@ class Claude3WithKnowledgeBase:
                 reply = input("\nYou: ")
         except Exception as e:
             self.logger.error(f"Application failed to run: {e}")
+            raise
 
 
-# Setting up argparse to accept command line argument for knowledge_base_id
-parser = argparse.ArgumentParser(
-    description="Run Claude3WithKnowledgeBase with a specified knowledge base ID."
-)
-parser.add_argument(
-    "--knowledge_base_id",
-    type=str,
-    required=True,
-    help="The ID of the knowledge base to use.",
-)
-args = parser.parse_args()
+if __name__ == "__main__":
+    # Argument parsing setup
+    parser = argparse.ArgumentParser(description='Run Claude3WithKnowledgeBase with a specified knowledge base ID.')
+    parser.add_argument('--knowledge_base_id', type=str, required=True, help='The ID of the knowledge base to use.')
+    args = parser.parse_args()
 
-app = Claude3WithKnowledgeBase(knowledge_base_id=args.knowledge_base_id)
-app.run_app()
+    # Create an instance of the app with the provided knowledge base ID and run it
+    app = Claude3WithKnowledgeBase(knowledge_base_id=args.knowledge_base_id)
+    app.run_app()

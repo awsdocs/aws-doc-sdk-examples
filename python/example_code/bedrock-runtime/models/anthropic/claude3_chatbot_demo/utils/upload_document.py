@@ -33,11 +33,9 @@ def create_bucket(bucket_prefix, s3_client):
     Returns:
     str: The name of the created bucket.
     """
-    current_region = s3_client.meta.region_name
     bucket_name = create_bucket_name(bucket_prefix)
-    create_bucket_config = {"LocationConstraint": current_region}
     s3_client.create_bucket(
-        Bucket=bucket_name, CreateBucketConfiguration=create_bucket_config
+        Bucket=bucket_name
     )
     print("Bucket created:", bucket_name)
     return bucket_name
@@ -71,11 +69,20 @@ def write_bucket_name_to_yaml(bucket_name, file_path="../config.yaml"):
     Returns:
     None: Outputs to the console the path to the YAML file where the bucket name was written.
     """
-    with open(file_path, "w") as file:
-        yaml.dump(
-            {"bucket_name": bucket_name, "file_name": "einstein_resume.pdf"}, file
-        )
-    print("Bucket name written to YAML file:", file_path)
+    new_values = {"bucket_name": bucket_name, "file_name": "einstein_resume.pdf"}
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            existing_data = yaml.safe_load(file)
+            if existing_data is None:
+                existing_data = {}
+            existing_data.update(new_values)
+        with open(file_path, "w") as file:
+            yaml.dump(existing_data, file)
+        print("Values updated and written to YAML file:", file_path)
+    else:
+        with open(file_path, "w") as file:
+            yaml.dump(new_values, file)
+        print("New YAML file created with values:", file_path)
 
 
 def main():

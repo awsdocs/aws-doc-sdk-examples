@@ -25,14 +25,14 @@ class Claude3WithDocumentRAG:
         Initializes the conversational app with a custom logger, an Amazon Bedrock runtime client,
         and sets up the LangChain's BedrockChat model for conversation handling.
         """
+        with open("config.yaml", "r") as file:
+            self.data = yaml.safe_load(file)
         self.logger = setup_custom_logger(os.path.basename(__file__))
         self.boto3_bedrock = boto3.client(service_name="bedrock-runtime")
         self.llm = BedrockChat(
-            model_id="anthropic.claude-3-sonnet-20240229-v1:0",
+            model_id=self.data["model"],
             client=self.boto3_bedrock,
         )
-        with open("config.yaml", "r") as file:
-            self.data = yaml.safe_load(file)
 
     @timeit
     def run_app(self):
@@ -60,6 +60,7 @@ class Claude3WithDocumentRAG:
                 input_variables=["document", "input_text"],
                 template="""
                     Take into account the following document: {document}
+                    {input_text}
                 """,
             )
 
@@ -75,7 +76,7 @@ class Claude3WithDocumentRAG:
             initial_prediction = conversation.predict(input=prompt)
             self.logger.warning(initial_prediction)
 
-            self.reply_with_document(template, "User:", conversation, document)
+            self.reply_with_document(template, "User: ", conversation, document)
         except Exception as e:
             self.logger.error(f"Application failed to run: {e}")
             raise
@@ -95,9 +96,10 @@ class Claude3WithDocumentRAG:
         while "bye" not in reply.lower():
             try:
                 prompt = template.format(document=document, input_text=reply)
+                breakpoint()
                 prediction = conversation.predict(input=prompt)
                 self.logger.warning(prediction)
-                reply = input("You:")
+                reply = input("User: ")
             except Exception as e:
                 self.logger.error(f"Error during conversation: {e}")
                 break

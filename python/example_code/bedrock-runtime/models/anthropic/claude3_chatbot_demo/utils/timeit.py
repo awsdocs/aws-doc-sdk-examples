@@ -10,7 +10,6 @@ from utils.custom_logging import setup_custom_logger
 
 logger = setup_custom_logger(os.path.basename(__file__))
 
-
 def timeit(f):
     def wrapper(*args, **kwargs):
         start_time = time.time()
