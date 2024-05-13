@@ -29,7 +29,8 @@ use Aws\MediaConvert\MediaConvertClient;
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
     'region' => 'us-east-2',
-    'profile' => 'default'
+    'profile' => 'default',
+    'endpoint' => 'ACCOUNT_ENDPOINT'
 ]);
 // snippet-end:[mediaconvert.php.create_job_with_preset.region]
 // snippet-start:[mediaconvert.php.create_job_with_preset.jobsettings]
