@@ -31,8 +31,8 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 ### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](Actions/InvokeModelAsync.cs#L164)
+- [Amazon Titan Text G1](Actions/InvokeModelAsync.cs#L277)
 - [Amazon Titan: Image generation](Actions/InvokeModelAsync.cs#L450)
-- [Amazon Titan: Text generation](Actions/InvokeModelAsync.cs#L277)
 - [Anthropic Claude 2: Real-time response stream processing](Actions/InvokeModelAsync.cs#L76)
 - [Anthropic Claude 2: Text generation](Actions/InvokeModelAsync.cs#L18)
 - [Meta Llama 2: Text generation](Actions/InvokeModelAsync.cs#L221)

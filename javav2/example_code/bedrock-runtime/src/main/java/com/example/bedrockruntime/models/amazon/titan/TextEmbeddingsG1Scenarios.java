@@ -1,15 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.bedrockruntime.models.amazon.embeddings.text;
+package com.example.bedrockruntime.models.amazon.titan;
 
-import com.example.bedrockruntime.libs.ScenarioRunner;
+import com.example.bedrockruntime.libs.demo.DemoRunner;
+import com.example.bedrockruntime.libs.demo.scenarios.TextEmbeddingScenario;
 import org.json.JSONObject;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * This program demonstrates how to use InvokeModel with Amazon Titan Text Embeddings G1 on Amazon Bedrock.
@@ -18,7 +20,7 @@ import java.io.IOException;
  * https://docs.aws.amazon.com/bedrock/latest/userguide/service_code_examples.html
  */
 
-public class G1InvokeModelScenarios {
+public class TextEmbeddingsG1Scenarios {
     // snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsG1_AdditionalFields]
 
     /**
@@ -61,28 +63,8 @@ public class G1InvokeModelScenarios {
     // snippet-end:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsG1_AdditionalFields]
 
     public static void main(String[] args) throws IOException {
-        new Demo().run();
-    }
-
-    private static class Demo {
-        private final ScenarioRunner demo = new ScenarioRunner()
-                .addScenario("Create an embedding with custom inference parameters");
-
-        void run() throws IOException {
-            demo.printHeader();
-
-            var inputText = "Please recommend books with a theme similar to the movie 'Inception'.";
-            var response = runTextScenario(inputText);
-            demo.printCurrentResponse(response);
-
-            demo.printFooter();
-        }
-
-        private JSONObject runTextScenario(String inputText) {
-            demo.printScenarioHeader("Scenario - Create an embedding with custom inference parameters:");
-            System.out.printf("%nInput text: '%s'%n", inputText);
-            System.out.printf("Waiting for the response...%n");
-            return invokeModel(inputText);
-        }
+        new DemoRunner(List.of(
+                new TextEmbeddingScenario(TextEmbeddingsG1Scenarios::invokeModel)
+        )).run();
     }
 }

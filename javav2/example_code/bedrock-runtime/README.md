@@ -41,8 +41,9 @@ functions within the same service.
 ### Invoke model examples
 
 - [AI21 Labs Jurassic-2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L208)
-- [Amazon Titan Text Embeddings G1](src/main/java/com/example/bedrockruntime/models/amazon/embeddings/text/G1InvokeModelQuickstart.java#L11)
-- [Amazon Titan Text Embeddings V2](src/main/java/com/example/bedrockruntime/models/amazon/embeddings/text/V2InvokeModelQuickstart.java#L11)
+- [Amazon Titan Text Embeddings G1](src/main/java/com/example/bedrockruntime/models/amazon/titan/TextEmbeddingsG1Quickstart.java#L11)
+- [Amazon Titan Text Embeddings V2](src/main/java/com/example/bedrockruntime/models/amazon/titan/TextEmbeddingsV2Quickstart.java#L11)
+- [Amazon Titan Text G1](src/main/java/com/example/bedrockruntime/models/amazon/titan/TextG1Quickstart.java#L11)
 - [Amazon Titan: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L343)
 - [Anthropic Claude 2: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude2.java#L65)
 - [Anthropic Claude 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModel.java#L112)
