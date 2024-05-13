@@ -34,9 +34,7 @@ def create_bucket(bucket_prefix, s3_client):
     str: The name of the created bucket.
     """
     bucket_name = create_bucket_name(bucket_prefix)
-    s3_client.create_bucket(
-        Bucket=bucket_name
-    )
+    s3_client.create_bucket(Bucket=bucket_name)
     print("Bucket created:", bucket_name)
     return bucket_name
 

@@ -37,7 +37,6 @@ class Claude3WithKnowledgeBase:
         )
         self.knowledge_base_id = knowledge_base_id
 
-
     @timeit
     def get_kb_answer(self, prompt, qa):
         """
@@ -101,8 +100,15 @@ class Claude3WithKnowledgeBase:
 
 if __name__ == "__main__":
     # Argument parsing setup
-    parser = argparse.ArgumentParser(description='Run Claude3WithKnowledgeBase with a specified knowledge base ID.')
-    parser.add_argument('--knowledge_base_id', type=str, required=True, help='The ID of the knowledge base to use.')
+    parser = argparse.ArgumentParser(
+        description="Run Claude3WithKnowledgeBase with a specified knowledge base ID."
+    )
+    parser.add_argument(
+        "--knowledge_base_id",
+        type=str,
+        required=True,
+        help="The ID of the knowledge base to use.",
+    )
     args = parser.parse_args()
 
     # Create an instance of the app with the provided knowledge base ID and run it
