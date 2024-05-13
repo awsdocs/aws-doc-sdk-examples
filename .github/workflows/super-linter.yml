@@ -17,8 +17,6 @@ jobs:
           sparse-checkout: |
             .github
             php
-            python
-            ruby
             kotlin
       - name: Lint Code Base
         uses: github/super-linter@v4
@@ -27,7 +25,4 @@ jobs:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_PHP_PHPCS: true
-          VALIDATE_PYTHON: true
-          VALIDATE_PYTHON_BLACK: true
-          VALIDATE_RUBY: true
           VALIDATE_KOTLIN: true
