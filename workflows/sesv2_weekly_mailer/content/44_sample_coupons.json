@@ -1,0 +1,33 @@
+---
+prompt: |
+  Generate a sample_coupons.json file for the SendEmail call.
+
+  The JSON format for the Coupon should be an object with one key, `coupons`,
+  which is an array of items. Each coupon entry in the array should have one
+  key, `details`, with the details of the coupon.
+---
+
+```json
+{
+  "coupons": [
+    {
+      "details": "20% off on all electronics"
+    },
+    {
+      "details": "Buy one, get one free on books"
+    },
+    {
+      "details": "15% off on home appliances"
+    },
+    {
+      "details": "Free shipping on orders over $50"
+    },
+    {
+      "details": "25% off on outdoor gear"
+    },
+    {
+      "details": "10% off on groceries"
+    }
+  ]
+}
+```
