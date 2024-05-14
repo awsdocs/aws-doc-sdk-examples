@@ -1,3 +1,5 @@
+
+
 # SES v2 Coupon Newsletter Workflow Specification
 
 Use the Amazon Simple Email Service (SES) v2 API to manage a subscription list for a weekly newsletter.
