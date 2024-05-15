@@ -1,5 +1,13 @@
 sesv2_CreateContactList:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.CreateContactList
     Rust:
       versions:
         - sdk_version: 1
@@ -30,6 +38,14 @@ sesv2_CreateContactList:
     sesv2: {CreateContactList}
 sesv2_CreateContact:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.CreateContact
     Rust:
       versions:
         - sdk_version: 1
@@ -84,6 +100,14 @@ sesv2_ListContactLists:
     sesv2: {ListContactLists}
 sesv2_ListContacts:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.ListContacts
     Rust:
       versions:
         - sdk_version: 1
@@ -114,6 +138,14 @@ sesv2_ListContacts:
     sesv2: {ListContacts}
 sesv2_SendEmail:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.SendEmail
     Java:
       versions:
         - sdk_version: 2
@@ -164,6 +196,14 @@ sesv2_SendEmail:
     sesv2: {SendEmail}
 sesv2_CreateEmailIdentity:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.CreateEmailIdentity
     Java:
       versions:
         - sdk_version: 2
@@ -194,6 +234,14 @@ sesv2_CreateEmailIdentity:
     sesv2: {CreateEmailIdentity}
 sesv2_CreateEmailTemplate:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.CreateEmailTemplate
     Java:
       versions:
         - sdk_version: 2
@@ -224,6 +272,14 @@ sesv2_CreateEmailTemplate:
     sesv2: {CreateEmailTemplate}
 sesv2_DeleteContactList:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteContactList
     Java:
       versions:
         - sdk_version: 2
@@ -254,6 +310,14 @@ sesv2_DeleteContactList:
     sesv2: {DeleteContactList}
 sesv2_DeleteEmailIdentity:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteEmailIdentity
     Java:
       versions:
         - sdk_version: 2
@@ -284,6 +348,14 @@ sesv2_DeleteEmailIdentity:
     sesv2: {DeleteEmailIdentity}
 sesv2_DeleteEmailTemplate:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteEmailTemplate
     Java:
       versions:
         - sdk_version: 2
@@ -318,6 +390,17 @@ sesv2_NewsletterWorkflow:
   synopsis: '&SESv2; newsletter workflow.'
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description: Run the workflow.
+              snippet_tags:
+                - SESWorkflow.dotnetv3.NewsletterWorkflow
+            - description: Wrapper for service operations.
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper
     Java:
       versions:
         - sdk_version: 2
