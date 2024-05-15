@@ -1,3 +1,7 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: Apache-2.0
+
+// snippet-start:[SQS.dotnetv3.MPFTutorial.Publisher]
 using AWS.Messaging;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,7 +40,7 @@ app.UseHttpsRedirection();
 
 // Create an API Endpoint that receives GreetingMessage objects
 // from the caller and then sends them as an SQS message.
-app.MapPost("/greeting", async ([FromServices]IMessagePublisher publisher, GreetingMessage message) =>
+app.MapPost("/greeting", async ([FromServices] IMessagePublisher publisher, GreetingMessage message) =>
 {
     if (message.SenderName == null || message.Greeting == null)
     {
@@ -61,3 +65,4 @@ public class GreetingMessage
     public string? SenderName { get; set; }
     public string? Greeting { get; set; }
 }
+// snippet-end:[SQS.dotnetv3.MPFTutorial.Publisher]

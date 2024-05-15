@@ -1,4 +1,8 @@
-﻿using AWS.Messaging;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: Apache-2.0
+
+// snippet-start:[SQS.dotnetv3.MPFTutorial.Handler]
+using AWS.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -14,7 +18,7 @@ builder.ConfigureServices(services =>
         {
             // Register you'll poll the following queue.
             builder.AddSQSPoller(args[0]);
-        
+
             // And that messages of type "greetingMessage" should be:
             // 1. Deserialized as GreetingMessage objects.
             // 2. Which are then passed to GreetingMessageHandler.
@@ -48,3 +52,4 @@ public class GreetingMessageHandler : IMessageHandler<GreetingMessage>
         return Task.FromResult(MessageProcessStatus.Success());
     }
 }
+// snippet-end:[SQS.dotnetv3.MPFTutorial.Handler]
