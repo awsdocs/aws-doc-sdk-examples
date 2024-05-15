@@ -38,7 +38,7 @@
  * TODO: Check why MD5 is not working for TransferManager and MultiPart comparisons.
  */
 namespace AwsDoc::S3 {
-     constexpr char TEST_FILE_KEY[] = "/CMakeLists.txt";
+     constexpr char TEST_FILE_KEY[] = "CMakeLists.txt";
     constexpr char TEST_FILE[] = SRC_DIR"/CMakeLists.txt";
     constexpr char MULTI_PART_TEST_FILE[] = LARGE_FILE_DIR"/s3-userguide.pdf";
     constexpr char TEST_BUCKET_PREFIX[] = "integrity-workflow-";
@@ -126,6 +126,8 @@ namespace AwsDoc::S3 {
     bool cleanUp(const Aws::String &bucket,
                  const Aws::Client::ClientConfiguration &clientConfiguration);
 
+    void introductoryExplanations(const Aws::String &bucketName);
+
     //! Test routine passed as argument to askQuestion routine.
     /*!
      \param string: A string to test.
@@ -193,37 +195,12 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
 
     bucketName.resize(std::min(bucketName.size(), MAX_BUCKET_NAME_LENGTH));
 
+    introductoryExplanations(bucketName);
+
     if (!AwsDoc::S3::CreateBucket(bucketName, clientConfiguration)) {
         std::cerr << "Workflow exiting because bucket creation failed." << std::endl;
         return false;
     }
-
-    std::cout
-            << "Welcome to the Amazon Simple Storage Service (Amazon S3) object integrity\n";
-    std::cout << "workflow." << std::endl;
-    std::cout
-            << "This workflow demonstrates how Amazon S3 uses checksum values to verify the integrity of data\n";
-    std::cout << "uploaded to Amazon S3 buckets" << std::endl;
-    std::cout
-            << "The AWS SDK for C++ automatically handles checksums. By default the SDK computes an MD5 checksum which\n";
-    std::cout
-            << "is stored as an etag. (Amazon S3 Express One Zone buckets use a different checksum algorithm)"
-            << std::endl;
-    std::cout
-            << "You can specify one of 4 other checksums to use for object integrity verification,\n";
-    std::cout << "CRC32, CRC32C, SHA-1 or SHA-256." << std::endl;
-    std::cout
-            << "For more information, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html."
-            << std::endl;
-
-    std::cout
-            << "This workflow will locally compute checksums for files uploaded to an Amazon S3 bucket,\n";
-    std::cout << "even when the SDK also computes the checksum." << std::endl;
-    std::cout
-            << "This is done to provide demonstration code for how the checksums are calculated."
-            << std::endl;
-
-    std::cout << "Now to begin..." << std::endl;
 
     Aws::S3::S3ClientConfiguration s3ClientConfiguration(clientConfiguration);
     std::shared_ptr<Aws::S3::S3Client> client = Aws::MakeShared<Aws::S3::S3Client>("S3Client", s3ClientConfiguration);
@@ -490,7 +467,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
         if (multipartUploadHashMethod == DEFAULT) {
             multipartUploadHashMethod = MD5;
 
-            std::cout << "The default checksum algorithm for PutObject is "
+            std::cout << "The default checksum algorithm for multipart upload is "
                       << stringForHashMethod(putObjectHashMethod)
                       << std::endl;
         }
@@ -590,7 +567,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
  *
  * main function
 *
- *  Usage: 'run_medical_image_sets_and_frames_workflow'
+ *  Usage: 'run_s3_object_integrity_workflow'
  *
 */
 int main(int argc, char **argv) {
@@ -1191,6 +1168,40 @@ bool AwsDoc::S3::calculatePartHashesForFile(AwsDoc::S3::HASH_METHOD hashMethod,
     }
 
     return hashDataResult.calculateObjectHash(totalHashBuffer, hashMethod);
+}
+
+void AwsDoc::S3::introductoryExplanations(const Aws::String &bucketName) {
+
+    std::cout
+            << "Welcome to the Amazon Simple Storage Service (Amazon S3) object integrity\n";
+    std::cout << "workflow." << std::endl;
+    std::cout
+            << "This workflow demonstrates how Amazon S3 uses checksum values to verify the integrity of data\n";
+    std::cout << "uploaded to Amazon S3 buckets" << std::endl;
+    std::cout
+            << "The AWS SDK for C++ automatically handles checksums. You can specify the checksum algorithm.\n";
+    std::cout
+            << "If you do not specify a checksum, the SDK uses the default checksum algorithm.\n"
+            << "The default checksum algorithm for PutObject and MultiPart upload is an MD5 hash.\n"
+            << "The default checksum algorithm for the TransferManager uploads is a CRC32 checksum."
+            << std::endl;
+    std::cout
+            << "You can specify one of 4 other checksums to use for object integrity verification,\n";
+    std::cout << "CRC32, CRC32C, SHA-1 or SHA-256." << std::endl;
+    std::cout
+            << "For more information, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html."
+            << std::endl;
+
+    std::cout
+            << "This workflow will locally compute checksums for files uploaded to an Amazon S3 bucket,\n";
+    std::cout << "even when the SDK also computes the checksum." << std::endl;
+    std::cout
+            << "This is done to provide demonstration code for how the checksums are calculated."
+            << std::endl;
+    std::cout << "A bucket named '" << "' will be created for the object uploads." << std::endl;
+
+    std::cout << "Now to begin..." << std::endl;
+
 }
 
 bool AwsDoc::S3::Hasher::calculateObjectHash(std::vector<unsigned char> &data,
