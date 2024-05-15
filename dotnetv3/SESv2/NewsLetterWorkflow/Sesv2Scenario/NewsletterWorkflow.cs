@@ -137,22 +137,15 @@ public static class NewsletterWorkflow
         // Prompt the user for a verified email address.
         while (!IsEmail(_verifiedEmail))
         {
-            Console.Write("Enter a verified email address: ");
+            Console.Write("Enter a verified email address or an email to verify: ");
             _verifiedEmail = Console.ReadLine();
         }
 
         try
         {
-            // Create an email identity (email address or domain) and start the verification process.
-            var createEmailIdentityResponse = await _sesv2Wrapper.CreateEmailIdentityAsync(_verifiedEmail);
-            if (createEmailIdentityResponse.IdentityType == IdentityType.DOMAIN)
-            {
-                Console.WriteLine($"Domain identity {_verifiedEmail} created. Complete the verification process by adding the provided DKIM tokens to your DNS records.");
-            }
-            else
-            {
-                Console.WriteLine($"Email identity {_verifiedEmail} created. Check your email and follow the verification link.");
-            }
+            // Create an email identity and start the verification process.
+            await _sesv2Wrapper.CreateEmailIdentityAsync(_verifiedEmail);
+            Console.WriteLine($"Identity {_verifiedEmail} created.");
         }
         catch (AlreadyExistsException)
         {
