@@ -599,7 +599,6 @@ public class KMSScenario {
     }
     // snippet-end:[kms.java2_create_grant.main]
 
-
     // snippet-start:[kms.java2._key_rotation.main]
     public static void enableKeyRotation(KmsClient kmsClient, String keyId) {
         try {
